@@ -1,0 +1,1627 @@
+<h2>🧩 Kodowanie Znaków: ASCII i Matrix</h2>
+<p>Wiesz już, jak procesor liczy, jak radzi sobie z minusami i jak operuje w różnych systemach liczbowych. Ale komputer wyświetla litery, emoji i filmy. Jak to możliwe? Odpowiedź brzmi: <strong>Mapowanie</strong> – każdy znak to po prostu <strong>liczba</strong> przypisana do symbolu.</p>
+<hr>
+<h3>🚪 Brama Konwersji: Oct i Hex</h3>
+<p>Zanim pójdziemy dalej, sprawdźmy Twoje umiejętności szybkiego przełączania się między systemami. Rozwiąż te dwa zamki, aby odblokować lekcję o znakach.</p>
+<data-gate>
+  <data-number-system target="16, 47, 9, 19" base="8" digits="3">
+    > [!NOTE]
+    > To jest system ósemkowy. Aby uzyskać $16_{10}$, musisz wpisać $20_8$ ($2 \cdot 8 = 16$).
+  </data-number-system>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-number-system target="23, 13, 10, 25" base="16" digits="2">
+    > [!NOTE]
+    > To jest system szesnastkowy. Podpowiedź: $2 \cdot 16 = 32$. Ile brakuje do $47$? Brakuje $15$. A $15$ w Hex to... ?
+  </data-number-system>
+</data-gate>
+
+<hr>
+<h3>📜 Tablica ASCII</h3>
+<p>Informatycy po prostu umówili się, że konkretna liczba oznacza konkretny znak. Ten standard nazywa się <strong>ASCII</strong> (American Standard Code for Information Interchange). Podstawowa tablica ma 7 bitów (128 znaków), ale my używamy wersji 8&#8209;bitowej (1 Bajt = 256 znaków).</p>
+<h4>Znaki sterujące (0-31)</h4>
+<p>Pierwsze 32 pozycje to <strong>niewidoczne znaki sterujące</strong> - sygnały dla maszyn, nie dla ludzi:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Dec</th>
+<th align="center">Hex</th>
+<th align="left">Nazwa</th>
+<th align="left">Co robi?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center"><code>00</code></td>
+<td align="left"><code>NUL</code></td>
+<td align="left">Pusty bajt – koniec tekstu w C/C++</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center"><code>09</code></td>
+<td align="left"><code>TAB</code></td>
+<td align="left">Tabulacja (wcięcie)</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center"><code>0A</code></td>
+<td align="left"><code>LF</code></td>
+<td align="left">Nowa linia (Linux/Mac)</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="center"><code>0D</code></td>
+<td align="left"><code>CR</code></td>
+<td align="left">Powrót karetki (Windows: CR+LF)</td>
+</tr>
+<tr>
+<td align="center">27</td>
+<td align="center"><code>1B</code></td>
+<td align="left"><code>ESC</code></td>
+<td align="left">Escape – kolory w terminalu</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dlaczego Windows używa dwóch znaków na nową linię (<code>\r\n</code> = CR+LF), a Linux jednego (<code>\n</code> = LF)? To spadek po maszynach do pisania – &quot;Carriage Return&quot; cofał głowicę, &quot;Line Feed&quot; przesuwał papier.</p>
+
+</div>
+</div><h4>Znaki drukowalne (32-126)</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Zakres</th>
+<th align="center">Dec</th>
+<th align="center">Hex</th>
+<th align="left">Znaki</th>
+<th align="left">Wzorzec</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Spacja</td>
+<td align="center">32</td>
+<td align="center"><code>20</code></td>
+<td align="left"><code> </code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Cyfry</td>
+<td align="center">48&#8209;57</td>
+<td align="center"><code>30</code>-<code>39</code></td>
+<td align="left"><code>0</code>-<code>9</code></td>
+<td align="left">Wartość = Dec $-\text{ }48$</td>
+</tr>
+<tr>
+<td align="left">Wielkie litery</td>
+<td align="center">65&#8209;90</td>
+<td align="center"><code>41</code>-<code>5A</code></td>
+<td align="left"><code>A</code>-<code>Z</code></td>
+<td align="left">26 liter po kolei</td>
+</tr>
+<tr>
+<td align="left">Małe litery</td>
+<td align="center">97&#8209;122</td>
+<td align="center"><code>61</code>-<code>7A</code></td>
+<td align="left"><code>a</code>-<code>z</code></td>
+<td align="left">26 liter po kolei</td>
+</tr>
+<tr>
+<td align="left">Znaki specjalne</td>
+<td align="center">reszta</td>
+<td align="center">reszta</td>
+<td align="left"><code>!</code>, <code>@</code>, <code>#</code>, <code>+</code>, <code>=</code>...</td>
+<td align="left">Interpunkcja i operatory</td>
+</tr>
+</tbody></table>
+<p><strong>Pełna tabela najważniejszych znaków:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Znak</th>
+<th align="center">Dec</th>
+<th align="center">Bin</th>
+<th align="center">Hex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Spacja</td>
+<td align="center">32</td>
+<td align="center"><code>0010 0000</code></td>
+<td align="center"><code>20</code></td>
+</tr>
+<tr>
+<td align="center"><code>0</code></td>
+<td align="center">48</td>
+<td align="center"><code>0011 0000</code></td>
+<td align="center"><code>30</code></td>
+</tr>
+<tr>
+<td align="center"><code>9</code></td>
+<td align="center">57</td>
+<td align="center"><code>0011 1001</code></td>
+<td align="center"><code>39</code></td>
+</tr>
+<tr>
+<td align="center"><strong>A</strong></td>
+<td align="center">65</td>
+<td align="center"><code>0100 0001</code></td>
+<td align="center"><code>41</code></td>
+</tr>
+<tr>
+<td align="center"><strong>B</strong></td>
+<td align="center">66</td>
+<td align="center"><code>0100 0010</code></td>
+<td align="center"><code>42</code></td>
+</tr>
+<tr>
+<td align="center"><strong>Z</strong></td>
+<td align="center">90</td>
+<td align="center"><code>0101 1010</code></td>
+<td align="center"><code>5A</code></td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">97</td>
+<td align="center"><code>0110 0001</code></td>
+<td align="center"><code>61</code></td>
+</tr>
+<tr>
+<td align="center"><strong>b</strong></td>
+<td align="center">98</td>
+<td align="center"><code>0110 0010</code></td>
+<td align="center"><code>62</code></td>
+</tr>
+<tr>
+<td align="center"><strong>z</strong></td>
+<td align="center">122</td>
+<td align="center"><code>0111 1010</code></td>
+<td align="center"><code>7A</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🕵️ Wzorce Bitowe: Ukryte Reguły</h3>
+<p>Tablica ASCII nie jest losowa - kryje w sobie eleganckie wzorce bitowe:</p>
+<h4>Bit 5: Wielka vs Mała litera</h4>
+<p>Zauważ, że wielkie <strong>A</strong> ($65$) i małe <strong>a</strong> ($97$) różnią się dokładnie o <strong>$32$</strong>. A $32 = 2^5$, czyli <strong>jeden bit</strong>:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Litera</th>
+<th align="center">Dec</th>
+<th align="center">Bin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>A</strong></td>
+<td align="center">65</td>
+<td align="center"><code>0</code><strong><code>1</code></strong><code>00 0001</code></td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">97</td>
+<td align="center"><code>0</code><strong><code>1</code></strong><code>10 0001</code></td>
+</tr>
+</tbody></table>
+<p><strong>Bit nr 5</strong> (licząc od $0$ z prawej) działa jak <strong>przełącznik wielkości</strong>:</p>
+<ul>
+<li>Bit 5 = <code>0</code> - wielka litera</li>
+<li>Bit 5 = <code>1</code> - mała litera</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To nie przypadek! Projektanci ASCII celowo tak ułożyli tablicę, aby zamiana wielkości litery wymagała zmiany <strong>jednego bita</strong>. Procesor robi to jedną instrukcją XOR.</p>
+
+</div>
+</div><h4>Cyfry: Zamaskowane wartości</h4>
+<p>Cyfra <code>0</code> ma kod $48$ (<code>0011 0000</code>), a <code>9</code> ma $57$ (<code>0011 1001</code>). Aby uzyskać wartość liczbową cyfry, wystarczy <strong>zamaskować górne 4 bity</strong> (ustawić na <code>0000</code>):</p>
+<table>
+<thead>
+<tr>
+<th align="center">Znak</th>
+<th align="center">Bin</th>
+<th align="center">Dolne 4 bity</th>
+<th align="center">Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0011</code> <strong><code>0000</code></strong></td>
+<td align="center"><code>0000</code></td>
+<td align="center">$0$</td>
+</tr>
+<tr>
+<td align="center"><code>5</code></td>
+<td align="center"><code>0011</code> <strong><code>0101</code></strong></td>
+<td align="center"><code>0101</code></td>
+<td align="center">$5$</td>
+</tr>
+<tr>
+<td align="center"><code>9</code></td>
+<td align="center"><code>0011</code> <strong><code>1001</code></strong></td>
+<td align="center"><code>1001</code></td>
+<td align="center">$9$</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🕶️ Czytanie Matrixa</h3>
+<p>Kiedy patrzysz na kod binarny lub szesnastkowy, Twój mózg może zacząć widzieć ukryte słowa. Spróbuj:</p>
+<data-gate>
+  <data-quiz>
+    <question>
+Otrzymałeś od serwera ciąg bajtów w systemie szesnastkowym: `42 41 42 41`. Korzystając z powyższej tabelki ASCII, jakie słowo wyświetli komputer?
+    </question>
+    <options>
+      <option correct>BABA</option>
+      <option>ABBA</option>
+      <option>AAAA</option>
+    </options>
+    <div data-hint="error">
+      Spójrz na tabelkę: `41` (Hex) to 'A', a `42` (Hex) to 'B'. Teraz po prostu przeczytaj te cztery bajty po kolei.
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question>
+Bajt `0100 1000` w ASCII to litera 'H'. Jaki bajt reprezentuje małe 'h'?
+    </question>
+    <options>
+      <option correct>`0110 1000`</option>
+      <option>`0100 1001`</option>
+      <option>`1100 1000`</option>
+    </options>
+    <div data-hint="error">
+      Przypomnij sobie regułę bitu $5$: aby zamienić wielką literę na małą, ustaw bit $5$ (szósty od prawej) na $1$. `0100 1000` → `0110 1000`.
+    </div>
+    <div data-hint="success">
+      Brawo! Zmiana jednego bita - to właśnie elegancja projektowania ASCII. 🎯
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3>🗣️ Profesjonalny żargon: Prefixy</h3>
+<p>Na koniec nauczymy się, jak profesjonaliści zapisują systemy w kodzie, aby się nie pomylić. Zamiast pisać &quot;10 w systemie szesnastkowym&quot;, używamy <strong>Przedrostków (Prefixów)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">System</th>
+<th align="center">Prefix</th>
+<th align="left">Przykład</th>
+<th align="center">Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Binarny</td>
+<td align="center"><code>0b</code></td>
+<td align="left"><code>0b10</code></td>
+<td align="center">$2$</td>
+</tr>
+<tr>
+<td align="left">ósemkowy</td>
+<td align="center"><code>0o</code></td>
+<td align="left"><code>0o10</code></td>
+<td align="center">$8$</td>
+</tr>
+<tr>
+<td align="left">Szesnastkowy</td>
+<td align="center"><code>0x</code></td>
+<td align="left"><code>0x10</code></td>
+<td align="center">$16$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zapamiętaj <code>0x</code>. To najczęstszy zapis w programowaniu, oznaczający system szesnastkowy.</p>
+
+</div>
+</div><hr>
+<h3>🌐 Co dalej? Unicode i UTF-8</h3>
+<p>ASCII obsługuje tylko <strong>128 znaków</strong> - wystarczy dla angielskiego, ale co z polskimi <code>ą, ć, ę</code>? Japońskimi kanji? Emoji 🚀?</p>
+<p>Standard <strong>Unicode</strong> przypisał numery <strong>ponad 150 000 znakom</strong> ze wszystkich języków świata. A <strong>UTF&#8209;8</strong> to sprytny sposób ich kodowania:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Zakres znaków</th>
+<th align="center">Bajty</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ASCII (0&#8209;127)</td>
+<td align="center">1 bajt</td>
+<td align="left"><code>A</code> = <code>0x41</code></td>
+</tr>
+<tr>
+<td align="left">Polskie znaki</td>
+<td align="center">2 bajty</td>
+<td align="left"><code>ą</code> = <code>0xC4 0x85</code></td>
+</tr>
+<tr>
+<td align="left">Emoji</td>
+<td align="center">4 bajty</td>
+<td align="left">🎮 = <code>0xF0 0x9F 0x8E 0xAE</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>UTF&#8209;8 jest <strong>wstecznie kompatybilny</strong> z ASCII - każdy plik ASCII jest jednocześnie poprawnym plikiem UTF&#8209;8. To dlatego UTF&#8209;8 zdominował internet (ponad 98% stron).</p>
+
+</div>
+</div><h3>📋 Pełne Tabele Kodowania (Ściąga)</h3>
+<details>
+<summary><b>Rozwiń: Zestawienie Podstawowe ASCII (0-127)</b></summary>
+Poniżej znajdziesz pocięte dla czytelności bloki całkowitych, oficjalnych znaków natywnych komputerów przyporządkowanych od wartości 0 do 127.
+
+<details>
+<summary>Znaki Sterujące (0 - 31)</summary>
+Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowaniem druku.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th>Skrót</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>00</td>
+<td>NUL</td>
+<td>Znak pusty (Null)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>01</td>
+<td>SOH</td>
+<td>Początek nagłówka</td>
+</tr>
+<tr>
+<td>2</td>
+<td>02</td>
+<td>STX</td>
+<td>Początek tekstu</td>
+</tr>
+<tr>
+<td>3</td>
+<td>03</td>
+<td>ETX</td>
+<td>Koniec tekstu</td>
+</tr>
+<tr>
+<td>4</td>
+<td>04</td>
+<td>EOT</td>
+<td>Koniec transmisji</td>
+</tr>
+<tr>
+<td>5</td>
+<td>05</td>
+<td>ENQ</td>
+<td>Zapytanie</td>
+</tr>
+<tr>
+<td>6</td>
+<td>06</td>
+<td>ACK</td>
+<td>Potwierdzenie</td>
+</tr>
+<tr>
+<td>7</td>
+<td>07</td>
+<td>BEL</td>
+<td>Dzwonek (Sygnał dźwiękowy)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>08</td>
+<td>BS</td>
+<td>Backspace (Cofnięcie)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>09</td>
+<td>HT</td>
+<td>Tabulacja pozioma</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0A</td>
+<td>LF</td>
+<td>Znak nowej linii (Line Feed)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>0B</td>
+<td>VT</td>
+<td>Tabulacja pionowa</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0C</td>
+<td>FF</td>
+<td>Nowa strona (Form Feed)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>0D</td>
+<td>CR</td>
+<td>Powrót karetki (Carriage Return)</td>
+</tr>
+<tr>
+<td>14</td>
+<td>0E</td>
+<td>SO</td>
+<td>Przesunięcie wyjścia (Shift Out)</td>
+</tr>
+<tr>
+<td>15</td>
+<td>0F</td>
+<td>SI</td>
+<td>Przesunięcie wejścia (Shift In)</td>
+</tr>
+<tr>
+<td>16</td>
+<td>10</td>
+<td>DLE</td>
+<td>Ucieczka łącza danych (Data Link Escape)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>11</td>
+<td>DC1</td>
+<td>Sterowanie urządzeniem 1 (XON)</td>
+</tr>
+<tr>
+<td>18</td>
+<td>12</td>
+<td>DC2</td>
+<td>Sterowanie urządzeniem 2</td>
+</tr>
+<tr>
+<td>19</td>
+<td>13</td>
+<td>DC3</td>
+<td>Sterowanie urządzeniem 3 (XOFF)</td>
+</tr>
+<tr>
+<td>20</td>
+<td>14</td>
+<td>DC4</td>
+<td>Sterowanie urządzeniem 4</td>
+</tr>
+<tr>
+<td>21</td>
+<td>15</td>
+<td>NAK</td>
+<td>Negatywne potwierdzenie</td>
+</tr>
+<tr>
+<td>22</td>
+<td>16</td>
+<td>SYN</td>
+<td>Oczekiwanie synchroniczne</td>
+</tr>
+<tr>
+<td>23</td>
+<td>17</td>
+<td>ETB</td>
+<td>Koniec bloku transmisji</td>
+</tr>
+<tr>
+<td>24</td>
+<td>18</td>
+<td>CAN</td>
+<td>Anuluj</td>
+</tr>
+<tr>
+<td>25</td>
+<td>19</td>
+<td>EM</td>
+<td>Koniec nośnika</td>
+</tr>
+<tr>
+<td>26</td>
+<td>1A</td>
+<td>SUB</td>
+<td>Zastąpienie</td>
+</tr>
+<tr>
+<td>27</td>
+<td>1B</td>
+<td>ESC</td>
+<td>Escape (Ucieczka)</td>
+</tr>
+<tr>
+<td>28</td>
+<td>1C</td>
+<td>FS</td>
+<td>Separator pliku</td>
+</tr>
+<tr>
+<td>29</td>
+<td>1D</td>
+<td>GS</td>
+<td>Separator grupy</td>
+</tr>
+<tr>
+<td>30</td>
+<td>1E</td>
+<td>RS</td>
+<td>Separator rekordu</td>
+</tr>
+<tr>
+<td>31</td>
+<td>1F</td>
+<td>US</td>
+<td>Separator jednostki</td>
+</tr>
+<tr>
+<td>127</td>
+<td>7F</td>
+<td>DEL</td>
+<td>Usuń (Delete)</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Znaki Specjalne i Interpunkcja</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>20</td>
+<td align="center"></td>
+<td>Spacja</td>
+</tr>
+<tr>
+<td>33</td>
+<td>21</td>
+<td align="center">!</td>
+<td>Wykrzyknik</td>
+</tr>
+<tr>
+<td>34</td>
+<td>22</td>
+<td align="center">&quot;</td>
+<td>Cudzysłów</td>
+</tr>
+<tr>
+<td>35</td>
+<td>23</td>
+<td align="center">#</td>
+<td>Hashtag (Krzyżyk)</td>
+</tr>
+<tr>
+<td>36</td>
+<td>24</td>
+<td align="center">$</td>
+<td>Znak dolara</td>
+</tr>
+<tr>
+<td>37</td>
+<td>25</td>
+<td align="center">%</td>
+<td>Znak procentu</td>
+</tr>
+<tr>
+<td>38</td>
+<td>26</td>
+<td align="center">&amp;</td>
+<td>Ampersand (And)</td>
+</tr>
+<tr>
+<td>39</td>
+<td>27</td>
+<td align="center">&#39;</td>
+<td>Apostrof</td>
+</tr>
+<tr>
+<td>40</td>
+<td>28</td>
+<td align="center">(</td>
+<td>Nawias okrągły otwierający</td>
+</tr>
+<tr>
+<td>41</td>
+<td>29</td>
+<td align="center">)</td>
+<td>Nawias okrągły zamykający</td>
+</tr>
+<tr>
+<td>42</td>
+<td>2A</td>
+<td align="center">*</td>
+<td>Gwiazdka</td>
+</tr>
+<tr>
+<td>43</td>
+<td>2B</td>
+<td align="center">+</td>
+<td>Znak plus</td>
+</tr>
+<tr>
+<td>44</td>
+<td>2C</td>
+<td align="center">,</td>
+<td>Przecinek</td>
+</tr>
+<tr>
+<td>45</td>
+<td>2D</td>
+<td align="center">-</td>
+<td>Łącznik (Minus)</td>
+</tr>
+<tr>
+<td>46</td>
+<td>2E</td>
+<td align="center">.</td>
+<td>Kropka</td>
+</tr>
+<tr>
+<td>47</td>
+<td>2F</td>
+<td align="center">/</td>
+<td>Ukośnik (Slash)</td>
+</tr>
+<tr>
+<td>58</td>
+<td>3A</td>
+<td align="center">:</td>
+<td>Dwukropek</td>
+</tr>
+<tr>
+<td>59</td>
+<td>3B</td>
+<td align="center">;</td>
+<td>Średnik</td>
+</tr>
+<tr>
+<td>60</td>
+<td>3C</td>
+<td align="center">&lt;</td>
+<td>Znak mniejszości</td>
+</tr>
+<tr>
+<td>61</td>
+<td>3D</td>
+<td align="center">=</td>
+<td>Znak równości</td>
+</tr>
+<tr>
+<td>62</td>
+<td>3E</td>
+<td align="center">&gt;</td>
+<td>Znak większości</td>
+</tr>
+<tr>
+<td>63</td>
+<td>3F</td>
+<td align="center">?</td>
+<td>Znak zapytania</td>
+</tr>
+<tr>
+<td>64</td>
+<td>40</td>
+<td align="center">@</td>
+<td>Małpa (At)</td>
+</tr>
+<tr>
+<td>91</td>
+<td>5B</td>
+<td align="center">[</td>
+<td>Nawias kwadratowy otwierający</td>
+</tr>
+<tr>
+<td>92</td>
+<td>5C</td>
+<td align="center">\</td>
+<td>Ukośnik odwrotny (Backslash)</td>
+</tr>
+<tr>
+<td>93</td>
+<td>5D</td>
+<td align="center">]</td>
+<td>Nawias kwadratowy zamykający</td>
+</tr>
+<tr>
+<td>94</td>
+<td>5E</td>
+<td align="center">^</td>
+<td>Daszek (Potęga)</td>
+</tr>
+<tr>
+<td>95</td>
+<td>5F</td>
+<td align="center">_</td>
+<td>Podkreślenie</td>
+</tr>
+<tr>
+<td>96</td>
+<td>60</td>
+<td align="center">`</td>
+<td>Akcent słaby (Backtick)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>7B</td>
+<td align="center">{</td>
+<td>Nawias klamrowy otwierający</td>
+</tr>
+<tr>
+<td>124</td>
+<td>7C</td>
+<td align="center">|</td>
+<td>Pionowa kreska (Pipe)</td>
+</tr>
+<tr>
+<td>125</td>
+<td>7D</td>
+<td align="center">}</td>
+<td>Nawias klamrowy zamykający</td>
+</tr>
+<tr>
+<td>126</td>
+<td>7E</td>
+<td align="center">~</td>
+<td>Tylda</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Cyfry (48 - 57)</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>48</td>
+<td>30</td>
+<td align="center">0</td>
+<td>Cyfra Zero</td>
+</tr>
+<tr>
+<td>49</td>
+<td>31</td>
+<td align="center">1</td>
+<td>Cyfra Jeden</td>
+</tr>
+<tr>
+<td>50</td>
+<td>32</td>
+<td align="center">2</td>
+<td>Cyfra Dwa</td>
+</tr>
+<tr>
+<td>51</td>
+<td>33</td>
+<td align="center">3</td>
+<td>Cyfra Trzy</td>
+</tr>
+<tr>
+<td>52</td>
+<td>34</td>
+<td align="center">4</td>
+<td>Cyfra Cztery</td>
+</tr>
+<tr>
+<td>53</td>
+<td>35</td>
+<td align="center">5</td>
+<td>Cyfra Pięć</td>
+</tr>
+<tr>
+<td>54</td>
+<td>36</td>
+<td align="center">6</td>
+<td>Cyfra Sześć</td>
+</tr>
+<tr>
+<td>55</td>
+<td>37</td>
+<td align="center">7</td>
+<td>Cyfra Siedem</td>
+</tr>
+<tr>
+<td>56</td>
+<td>38</td>
+<td align="center">8</td>
+<td>Cyfra Osiem</td>
+</tr>
+<tr>
+<td>57</td>
+<td>39</td>
+<td align="center">9</td>
+<td>Cyfra Dziewięć</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Litery Wielkie (65 - 90)</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>65</td>
+<td>41</td>
+<td align="center">A</td>
+<td>Wielka litera A</td>
+</tr>
+<tr>
+<td>66</td>
+<td>42</td>
+<td align="center">B</td>
+<td>Wielka litera B</td>
+</tr>
+<tr>
+<td>67</td>
+<td>43</td>
+<td align="center">C</td>
+<td>Wielka litera C</td>
+</tr>
+<tr>
+<td>68</td>
+<td>44</td>
+<td align="center">D</td>
+<td>Wielka litera D</td>
+</tr>
+<tr>
+<td>69</td>
+<td>45</td>
+<td align="center">E</td>
+<td>Wielka litera E</td>
+</tr>
+<tr>
+<td>70</td>
+<td>46</td>
+<td align="center">F</td>
+<td>Wielka litera F</td>
+</tr>
+<tr>
+<td>71</td>
+<td>47</td>
+<td align="center">G</td>
+<td>Wielka litera G</td>
+</tr>
+<tr>
+<td>72</td>
+<td>48</td>
+<td align="center">H</td>
+<td>Wielka litera H</td>
+</tr>
+<tr>
+<td>73</td>
+<td>49</td>
+<td align="center">I</td>
+<td>Wielka litera I</td>
+</tr>
+<tr>
+<td>74</td>
+<td>4A</td>
+<td align="center">J</td>
+<td>Wielka litera J</td>
+</tr>
+<tr>
+<td>75</td>
+<td>4B</td>
+<td align="center">K</td>
+<td>Wielka litera K</td>
+</tr>
+<tr>
+<td>76</td>
+<td>4C</td>
+<td align="center">L</td>
+<td>Wielka litera L</td>
+</tr>
+<tr>
+<td>77</td>
+<td>4D</td>
+<td align="center">M</td>
+<td>Wielka litera M</td>
+</tr>
+<tr>
+<td>78</td>
+<td>4E</td>
+<td align="center">N</td>
+<td>Wielka litera N</td>
+</tr>
+<tr>
+<td>79</td>
+<td>4F</td>
+<td align="center">O</td>
+<td>Wielka litera O</td>
+</tr>
+<tr>
+<td>80</td>
+<td>50</td>
+<td align="center">P</td>
+<td>Wielka litera P</td>
+</tr>
+<tr>
+<td>81</td>
+<td>51</td>
+<td align="center">Q</td>
+<td>Wielka litera Q</td>
+</tr>
+<tr>
+<td>82</td>
+<td>52</td>
+<td align="center">R</td>
+<td>Wielka litera R</td>
+</tr>
+<tr>
+<td>83</td>
+<td>53</td>
+<td align="center">S</td>
+<td>Wielka litera S</td>
+</tr>
+<tr>
+<td>84</td>
+<td>54</td>
+<td align="center">T</td>
+<td>Wielka litera T</td>
+</tr>
+<tr>
+<td>85</td>
+<td>55</td>
+<td align="center">U</td>
+<td>Wielka litera U</td>
+</tr>
+<tr>
+<td>86</td>
+<td>56</td>
+<td align="center">V</td>
+<td>Wielka litera V</td>
+</tr>
+<tr>
+<td>87</td>
+<td>57</td>
+<td align="center">W</td>
+<td>Wielka litera W</td>
+</tr>
+<tr>
+<td>88</td>
+<td>58</td>
+<td align="center">X</td>
+<td>Wielka litera X</td>
+</tr>
+<tr>
+<td>89</td>
+<td>59</td>
+<td align="center">Y</td>
+<td>Wielka litera Y</td>
+</tr>
+<tr>
+<td>90</td>
+<td>5A</td>
+<td align="center">Z</td>
+<td>Wielka litera Z</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Litery Małe (97 - 122)</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>97</td>
+<td>61</td>
+<td align="center">a</td>
+<td>Mała litera a</td>
+</tr>
+<tr>
+<td>98</td>
+<td>62</td>
+<td align="center">b</td>
+<td>Mała litera b</td>
+</tr>
+<tr>
+<td>99</td>
+<td>63</td>
+<td align="center">c</td>
+<td>Mała litera c</td>
+</tr>
+<tr>
+<td>100</td>
+<td>64</td>
+<td align="center">d</td>
+<td>Mała litera d</td>
+</tr>
+<tr>
+<td>101</td>
+<td>65</td>
+<td align="center">e</td>
+<td>Mała litera e</td>
+</tr>
+<tr>
+<td>102</td>
+<td>66</td>
+<td align="center">f</td>
+<td>Mała litera f</td>
+</tr>
+<tr>
+<td>103</td>
+<td>67</td>
+<td align="center">g</td>
+<td>Mała litera g</td>
+</tr>
+<tr>
+<td>104</td>
+<td>68</td>
+<td align="center">h</td>
+<td>Mała litera h</td>
+</tr>
+<tr>
+<td>105</td>
+<td>69</td>
+<td align="center">i</td>
+<td>Mała litera i</td>
+</tr>
+<tr>
+<td>106</td>
+<td>6A</td>
+<td align="center">j</td>
+<td>Mała litera j</td>
+</tr>
+<tr>
+<td>107</td>
+<td>6B</td>
+<td align="center">k</td>
+<td>Mała litera k</td>
+</tr>
+<tr>
+<td>108</td>
+<td>6C</td>
+<td align="center">l</td>
+<td>Mała litera l</td>
+</tr>
+<tr>
+<td>109</td>
+<td>6D</td>
+<td align="center">m</td>
+<td>Mała litera m</td>
+</tr>
+<tr>
+<td>110</td>
+<td>6E</td>
+<td align="center">n</td>
+<td>Mała litera n</td>
+</tr>
+<tr>
+<td>111</td>
+<td>6F</td>
+<td align="center">o</td>
+<td>Mała litera o</td>
+</tr>
+<tr>
+<td>112</td>
+<td>70</td>
+<td align="center">p</td>
+<td>Mała litera p</td>
+</tr>
+<tr>
+<td>113</td>
+<td>71</td>
+<td align="center">q</td>
+<td>Mała litera q</td>
+</tr>
+<tr>
+<td>114</td>
+<td>72</td>
+<td align="center">r</td>
+<td>Mała litera r</td>
+</tr>
+<tr>
+<td>115</td>
+<td>73</td>
+<td align="center">s</td>
+<td>Mała litera s</td>
+</tr>
+<tr>
+<td>116</td>
+<td>74</td>
+<td align="center">t</td>
+<td>Mała litera t</td>
+</tr>
+<tr>
+<td>117</td>
+<td>75</td>
+<td align="center">u</td>
+<td>Mała litera u</td>
+</tr>
+<tr>
+<td>118</td>
+<td>76</td>
+<td align="center">v</td>
+<td>Mała litera v</td>
+</tr>
+<tr>
+<td>119</td>
+<td>77</td>
+<td align="center">w</td>
+<td>Mała litera w</td>
+</tr>
+<tr>
+<td>120</td>
+<td>78</td>
+<td align="center">x</td>
+<td>Mała litera x</td>
+</tr>
+<tr>
+<td>121</td>
+<td>79</td>
+<td align="center">y</td>
+<td>Mała litera y</td>
+</tr>
+<tr>
+<td>122</td>
+<td>7A</td>
+<td align="center">z</td>
+<td>Mała litera z</td>
+</tr>
+</tbody></table>
+</details>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Polskie (Windows-1250)</b></summary>
+Zestawienie tzw. polskich ogonków rozszerzenia tabeli ASCII. 
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>165</td>
+<td>A5</td>
+<td align="center">Ą</td>
+<td>Wielka litera A z ogonkiem</td>
+</tr>
+<tr>
+<td>185</td>
+<td>B9</td>
+<td align="center">ą</td>
+<td>Mała litera a z ogonkiem</td>
+</tr>
+<tr>
+<td>198</td>
+<td>C6</td>
+<td align="center">Ć</td>
+<td>Wielka litera C z kreską (akcentem ostrym)</td>
+</tr>
+<tr>
+<td>230</td>
+<td>E6</td>
+<td align="center">ć</td>
+<td>Mała litera c z kreską</td>
+</tr>
+<tr>
+<td>202</td>
+<td>CA</td>
+<td align="center">Ę</td>
+<td>Wielka litera E z ogonkiem</td>
+</tr>
+<tr>
+<td>234</td>
+<td>EA</td>
+<td align="center">ę</td>
+<td>Mała litera e z ogonkiem</td>
+</tr>
+<tr>
+<td>163</td>
+<td>A3</td>
+<td align="center">Ł</td>
+<td>Wielka litera L z przekreśleniem</td>
+</tr>
+<tr>
+<td>179</td>
+<td>B3</td>
+<td align="center">ł</td>
+<td>Mała litera l z przekreśleniem</td>
+</tr>
+<tr>
+<td>209</td>
+<td>D1</td>
+<td align="center">Ń</td>
+<td>Wielka litera N z kreską</td>
+</tr>
+<tr>
+<td>241</td>
+<td>F1</td>
+<td align="center">ń</td>
+<td>Mała litera n z kreską</td>
+</tr>
+<tr>
+<td>211</td>
+<td>D3</td>
+<td align="center">Ó</td>
+<td>Wielka litera O z kreską</td>
+</tr>
+<tr>
+<td>243</td>
+<td>F3</td>
+<td align="center">ó</td>
+<td>Mała litera o z kreską</td>
+</tr>
+<tr>
+<td>140</td>
+<td>8C</td>
+<td align="center">Ś</td>
+<td>Wielka litera S z kreską</td>
+</tr>
+<tr>
+<td>156</td>
+<td>9C</td>
+<td align="center">ś</td>
+<td>Mała litera s z kreską</td>
+</tr>
+<tr>
+<td>143</td>
+<td>8F</td>
+<td align="center">Ź</td>
+<td>Wielka litera Z z kreską</td>
+</tr>
+<tr>
+<td>159</td>
+<td>9F</td>
+<td align="center">ź</td>
+<td>Mała litera z z kreską</td>
+</tr>
+<tr>
+<td>175</td>
+<td>AF</td>
+<td align="center">Ż</td>
+<td>Wielka litera Z z kropką</td>
+</tr>
+<tr>
+<td>191</td>
+<td>BF</td>
+<td align="center">ż</td>
+<td>Mała litera z z kropką</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Niemieckie (Iso / UTF-8)</b></summary>
+Umlauty (przegłosy) i specjalna ligatura używane w języku niemieckim.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>196</td>
+<td>C4</td>
+<td align="center">Ä</td>
+<td>Wielkie A z umlautem (przegłosem)</td>
+</tr>
+<tr>
+<td>228</td>
+<td>E4</td>
+<td align="center">ä</td>
+<td>Małe a z umlautem</td>
+</tr>
+<tr>
+<td>214</td>
+<td>D6</td>
+<td align="center">Ö</td>
+<td>Wielkie O z umlautem</td>
+</tr>
+<tr>
+<td>246</td>
+<td>F6</td>
+<td align="center">ö</td>
+<td>Małe o z umlautem</td>
+</tr>
+<tr>
+<td>220</td>
+<td>DC</td>
+<td align="center">Ü</td>
+<td>Wielkie U z umlautem</td>
+</tr>
+<tr>
+<td>252</td>
+<td>FC</td>
+<td align="center">ü</td>
+<td>Małe u z umlautem</td>
+</tr>
+<tr>
+<td>223</td>
+<td>DF</td>
+<td align="center">ß</td>
+<td>Mała litera Eszett (ostre S)</td>
+</tr>
+<tr>
+<td>7838</td>
+<td>1E9E</td>
+<td align="center">ẞ</td>
+<td>Wielka litera Eszett (dodana w normie znacznie później)</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Hiszpańskie (Iso / UTF-8)</b></summary>
+Znaki akcentowane oraz odwrócona interpunkcja specyficzne dla j. Hiszpańskiego.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>193</td>
+<td>C1</td>
+<td align="center">Á</td>
+<td>Wielka litera A z akcentem</td>
+</tr>
+<tr>
+<td>225</td>
+<td>E1</td>
+<td align="center">á</td>
+<td>Mała litera a z akcentem</td>
+</tr>
+<tr>
+<td>201</td>
+<td>C9</td>
+<td align="center">É</td>
+<td>Wielka litera E z akcentem</td>
+</tr>
+<tr>
+<td>233</td>
+<td>E9</td>
+<td align="center">é</td>
+<td>Mała litera e z akcentem</td>
+</tr>
+<tr>
+<td>205</td>
+<td>CD</td>
+<td align="center">Í</td>
+<td>Wielka litera I z akcentem</td>
+</tr>
+<tr>
+<td>237</td>
+<td>ED</td>
+<td align="center">í</td>
+<td>Mała litera i z akcentem</td>
+</tr>
+<tr>
+<td>211</td>
+<td>D3</td>
+<td align="center">Ó</td>
+<td>Wielka litera O z akcentem</td>
+</tr>
+<tr>
+<td>243</td>
+<td>F3</td>
+<td align="center">ó</td>
+<td>Mała litera o z akcentem</td>
+</tr>
+<tr>
+<td>218</td>
+<td>DA</td>
+<td align="center">Ú</td>
+<td>Wielka litera U z akcentem</td>
+</tr>
+<tr>
+<td>250</td>
+<td>FA</td>
+<td align="center">ú</td>
+<td>Mała litera u z akcentem</td>
+</tr>
+<tr>
+<td>209</td>
+<td>D1</td>
+<td align="center">Ñ</td>
+<td>Wielka litera N z tyldą</td>
+</tr>
+<tr>
+<td>241</td>
+<td>F1</td>
+<td align="center">ñ</td>
+<td>Mała litera n z tyldą</td>
+</tr>
+<tr>
+<td>161</td>
+<td>A1</td>
+<td align="center">¡</td>
+<td>Odwrócony wykrzyknik</td>
+</tr>
+<tr>
+<td>191</td>
+<td>BF</td>
+<td align="center">¿</td>
+<td>Odwrócony znak zapytania</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Japońskie Hiragana / Kanji (Unicode UTF-8)</b></summary>
+Skromny wycinek znaków japońskich jako ciekawostka udowadniająca ogromną rozpiętość standardu UTF-8, używanego by móc pokazać każdy alfabet świata na Twoim ekranie używając wielobajtowego zapisu.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis (Romaji)</th>
+<th>Typ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12354</td>
+<td>3042</td>
+<td align="center">あ</td>
+<td>Litera <em>A</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12356</td>
+<td>3044</td>
+<td align="center">い</td>
+<td>Litera <em>I</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12358</td>
+<td>3046</td>
+<td align="center">う</td>
+<td>Litera <em>U</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12360</td>
+<td>3048</td>
+<td align="center">え</td>
+<td>Litera <em>E</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12362</td>
+<td>304A</td>
+<td align="center">お</td>
+<td>Litera <em>O</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12363</td>
+<td>304B</td>
+<td align="center">か</td>
+<td>Znak <em>Ka</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12365</td>
+<td>304D</td>
+<td align="center">き</td>
+<td>Znak <em>Ki</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12367</td>
+<td>304F</td>
+<td align="center">く</td>
+<td>Znak <em>Ku</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>26085</td>
+<td>65E5</td>
+<td align="center">日</td>
+<td><em>Dzień / Słońce</em> (Nichi)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>26412</td>
+<td>672C</td>
+<td align="center">本</td>
+<td><em>Książka / Korzeń</em> (Hon)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>20154</td>
+<td>4EBA</td>
+<td align="center">人</td>
+<td><em>Człowiek</em> (Hito)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>26408</td>
+<td>6728</td>
+<td align="center">木</td>
+<td><em>Drzewo</em> (Ki)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>35211</td>
+<td>898B</td>
+<td align="center">見</td>
+<td><em>Widzieć</em> (Mi)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>27700</td>
+<td>6C34</td>
+<td align="center">水</td>
+<td><em>Woda</em> (Mizu)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>28779</td>
+<td>706B</td>
+<td align="center">火</td>
+<td><em>Ogień</em> (Hi)</td>
+<td>Kanji</td>
+</tr>
+</tbody></table>
+</details>
+
+<p><data-ascii-converter></data-ascii-converter></p>

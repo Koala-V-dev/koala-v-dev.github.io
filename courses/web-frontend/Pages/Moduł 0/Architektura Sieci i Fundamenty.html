@@ -1,0 +1,266 @@
+<h1>Architektura Sieci i Fundamenty Środowiska Pracy</h1>
+<p>Praca we frontendzie wymaga poznania specyfiki środowiska uruchomieniowego. Aplikacje webowe w wielu obszarach zastępują tradycyjne oprogramowanie desktopowe. Zanim napiszesz pierwszy znacznik, musisz zrozumieć architekturę środowiska działania kodu.</p>
+<p>Twoim głównym środowiskiem uruchomieniowym jest <span class="color-green">przeglądarka internetowa</span>. <strong>To ona odbiera dane z serwera, interpretuje je i renderuje piksele na ekranie użytkownika</strong>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🌐 Trzy Warstwy Przepływu Informacji</h2>
+<p>Zrozumienie sieci wymaga spojrzenia na nią z perspektywy inżyniera. Internet dzieli się na warstwy różniące się dostępnością oraz sposobem indeksowania danych.</p>
+<h3>🔍 1. Surface Web (Widzialna sieć)</h3>
+<p>To publicznie dostępna warstwa sieci. Zalicza się do niej każda strona, którą mogą znaleźć i zaindeksować automatyczne roboty wyszukiwarek (np. Googlebot).<br>Do tej warstwy należą:</p>
+<ul>
+<li>Publiczne portale informacyjne i blogi.</li>
+<li>Otwarte profile w mediach społecznościowych.</li>
+<li>Ogólnodostępne oferty sklepów internetowych.</li>
+</ul>
+<p>Surface Web stanowi zaledwie kilka procent danych w internecie.</p>
+<p>Zarówno Surface Web, jak i Deep Web składają się na <span class="color-blue">clearnet</span>. To po prostu zwykły, standardowy internet, z którego korzystasz na co dzień bez specjalnych programów szyfrujących.</p>
+<h3>🔒 2. Deep Web (Głęboka sieć)</h3>
+<p>To zasoby sieciowe <strong>niedostępne dla robotów indeksujących</strong>. Dostęp do nich wymaga autoryzacji. W tej warstwie dane przesyła się standardowymi protokołami, lecz nie są one publicznie widoczne.<br>Do Deep Webu zaliczamy:</p>
+<ul>
+<li>Skrzynki e‑mail oraz panele bankowości internetowej.</li>
+<li>Medyczne systemy informatyczne i bazy danych pacjentów.</li>
+<li>Wewnętrzne systemy zarządzania treścią (<abbr title="Content Management System">CMS</abbr>).</li>
+<li>Prywatne repozytoria kodu, konta społecznościowe i konta dostępowe do usług online np.: Netflix.</li>
+</ul>
+<p>W kontekście architektury sieci, warto rozróżnić pojęcia:</p>
+<ul>
+<li><span class="color-green">Inter</span><span class="color-blue">net</span>: Ogólnodostępna sieć łącząca Surface Web i autoryzowane portale.</li>
+<li><span class="color-green">Intra</span><span class="color-blue">net</span>: Prywatna sieć wewnątrz jednej organizacji, całkowicie zamknięta dla osób z zewnątrz.</li>
+<li><span class="color-green">Extra</span><span class="color-blue">net</span>: Wydzielona część sieci prywatnej udostępniona zewnętrznym partnerom lub klientom.</li>
+</ul>
+<p>Dla programistów frontendu Deep Web to główne środowisko pracy. Tworząc aplikacje biznesowe typu <span class="color-green">SaaS</span> (<span class="color-blue">Software as a Service</span>), projektuje się interfejsy obsługujące właśnie te zabezpieczone zasoby.</p>
+<h3>🛡️ 3. Dark Web (Ciemna sieć)</h3>
+<p>To wydzielona i celowo zaszyfrowana część internetu. <strong>Dostęp do niej wymaga specjalnego oprogramowania</strong> (np. przeglądarki <span class="color-gold"><abbr title="The Onion Router">Tor</abbr></span>). Komunikacja opiera się na trasowaniu cebulowym, które szyfruje dane i przesyła je przez losowe węzły w celu ukrycia tożsamości użytkowników.</p>
+<p>Projekt ten powstał w latach $90.$ w amerykańskim laboratorium <span class="color-gold">U.S. Naval Research Laboratory</span> do zabezpieczania komunikacji wojskowej i wywiadowczej. Aby system działał skutecznie, musiał być otwarty dla każdego. Duża liczba zwykłych użytkowników tworzy tak zwany <span class="color-blue">„szum informacyjny”</span>, w którym ukrywają się pakiety rządowe.</p>
+<p>Całkowita anonimowość przyciąga jednak przestępczość. W Dark Webie działają czarne rynki oferujące broń, nielegalne substancje i zabronione treści. Można tam znaleźć zlecenia dla cyberprzestępców (tzw. „czarnych kapeluszy”) czy płatnych zabójców. Z szyfrowanych kanałów korzystają kartele, mafie oraz grupy zajmujące się handlem ludźmi i organami.</p>
+<p>Jednocześnie ta sama technologia stanowi ważne narzędzie w walce o wolność słowa, prawo do prywatności i demokrację. Do pozytywnych zastosowań należą:</p>
+<ul>
+<li><span class="color-green">Bypass cenzury</span>: Podczas protestów w Iranie w <time datetime="2022">2022</time> roku obywatele omijali blokady dzięki mostkom Tor i technologii <span class="color-gold">Snowflake</span> maskującej ruch użytkownika jako zwykłe połączenie wideo.</li>
+<li><span class="color-green">Dostęp do informacji</span>: Aby dotrzeć do odbiorców w zablokowanych regionach (np. w Chinach czy Rosji), oficjalne lustrzane strony <code>.onion</code> uruchomiły m.in. <span class="color-blue">BBC</span> (w <time datetime="2019">2019</time> roku) oraz <span class="color-blue">The New York Times</span> (w <time datetime="2017">2017</time> roku).</li>
+<li><span class="color-green">Bezpieczeństwo sygnalistów</span>: Redakcje śledcze (np. <span class="color-blue">The Guardian</span>, <span class="color-blue">The Washington Post</span>) wdrożyły system <span class="color-gold">SecureDrop</span> działający w sieci Tor. Umożliwia on bezpieczne zgłaszanie korupcji i nadużyć.</li>
+<li><span class="color-green">Ochrona przed inwigilacją</span>: Aktywiści Amnesty International używają bezpiecznego systemu operacyjnego <span class="color-green">Tails <abbr title="Operating System">OS</abbr></span> (w pełni kierującego ruch przez Tor) do dokumentowania zbrodni wojennych bez ryzyka namierzenia ich lokalizacji.</li>
+<li><span class="color-green">Omijanie blokad społecznościowych</span>: Facebook uruchomił oficjalną wersję <code>.onion</code> w <time datetime="2014">2014</time> roku. Pomaga ona utrzymać kontakt z bliskimi mieszkańcom krajów blokujących media społecznościowe (np. Chin czy Iranu).</li>
+<li><span class="color-green">Bezpieczna poczta</span>: Dostawca szyfrowanej poczty Proton (dawniej ProtonMail) wdrożył wersję <code>.onion</code> w <time datetime="2017">2017</time> roku. Chroni to korespondencję opozycji przed przejęciem przez lokalne służby bezpieczeństwa.</li>
+<li><span class="color-green">Prywatne wyszukiwanie</span>: Wyszukiwarka DuckDuckGo posiada oficjalny adres w sieci Tor. Umożliwia to wyszukiwanie haseł bez profilowania reklamowego i gromadzenia historii zapytań.</li>
+<li><span class="color-green">Niezależne finansowanie</span>: Organizacje pozarządowe i charytatywne w państwach autorytarnych używają płatności kryptowalutowych przez sieć Tor, gdy rządy blokują ich tradycyjne konta bankowe.</li>
+<li><span class="color-green">Dostęp do edukacji</span>: Cyfrowa biblioteka <span class="color-gold">Sci‑Hub</span> działa zarówno w zwykłym internecie, jak i w sieci Tor. Jej mirror <code>.onion</code> zapewnia stabilny i trudny do zablokowania dostęp do publikacji naukowych w krajach z cenzurą lub blokadami <abbr title="Domain Name System">DNS</abbr>. Projekt wyrósł z idei, że wiedza naukowa, tworzona przez badaczy i finansowana ze środków publicznych, nie powinna być traktowana jak luksusowy towar dostępny wyłącznie dla instytucji, które stać na kosztowne subskrypcje.</li>
+</ul>
+<details>
+<summary>Przykład wykorzystania Sci-Huba</summary>
+
+<p>Wyszukując prace i artykuły naukowe np. przez Google Scholar możesz natrafić na <span class="color-red">paywall</span>: strona posiadająca dokument zażąda od ciebie jednorazowej opłaty albo wymusi wykupienie drogiej subskrypcji.</p>
+<p>Przykładowo ten artykuł o wypalaniu normal map kosztuje <span itemprop="price" content="37.37">37,37 €</span><span itemprop="priceCurrency" content="EUR"></span> w ramach miesięcznej subskrypcji:<br><a href="https://link.springer.com/article/10.1007/s11042-018-6207-y">A measure‑driven method for normal mapping and normal map design of 3D models</a></p>
+<p>Jeżeli potrzebujesz poznać jego treść, kopiujesz link URL strony i wklejasz go w wyszukiwarkę <span class="color-blue">Sci‑Hub</span>, która załaduje i wyświetli go bez opłat.</p>
+</details>
+
+<data-gate>
+  <data-quiz>
+    <question><p>Do której warstwy sieci zaliczamy Twoją skrzynkę e‑mail oraz konto bankowe?</p>
+</question>
+    <options>
+      <option><p>Surface Web, ponieważ korzystamy z nich za pomocą zwykłej przeglądarki bez specjalnego szyfrowania.</p>
+</option>
+      <option correct=""><p>Deep Web, ponieważ dostęp do nich wymaga logowania (autoryzacji) i nie są one widoczne dla wyszukiwarek.</p>
+</option>
+      <option><p>Dark Web, ponieważ dane te są ukryte przed światem zewnętrznym i chronione hasłem.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Nie do końca. Spróbuj jeszcze raz! Pamiętaj, że kluczowy jest sposób dostępu i indeksowania.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! Zwykłe logowanie to domena Deep Webu, a nie Dark Webu. 🚀</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔓 Walka o Wolny Dostęp do Wiedzy</h2>
+<p>Współczesna nauka stoi na paradoksie: badacze tworzą publikacje za publiczne pieniądze, nie otrzymują wynagrodzenia za ich wydanie, a mimo to dostęp do wyników ich pracy jest sprzedawany przez komercyjnych wydawców za setki euro miesięcznie. Dla wielu studentów, nauczycieli, lekarzy czy młodych naukowców jest to bariera nie do pokonania.</p>
+<p>Ten system od lat krytykują osoby, które stały się symbolami walki o wolny dostęp do wiedzy:</p>
+<ul>
+<li><span class="color-green">Aaron Swartz</span>: aktywista, który uważał, że <span class="color-blue">„wiedza to dziedzictwo ludzkości”</span>. Jego sprzeciw wobec paywalli doprowadził do procesu, który zniszczył mu życie. W styczniu <time datetime="2013-01">2013</time> roku <span class="color-red">popełnił samobójstwo</span> pod presją wieloletniego postępowania i groźby absurdalnie wysokiej kary. Stał się symbolem tego, jak brutalnie potrafi działać system broniący komercyjnych interesów.</li>
+<li><span class="color-green">Alexandra Elbakyan</span>: twórczyni Sci‑Huba, która otwarcie sprzeciwiła się modelowi sprzedaży wiedzy. Jej projekt jest blokowany w wielu krajach, a ona sama jest ścigana prawnie przez największe wydawnictwa naukowe.</li>
+<li><span class="color-green">Cory Doctorow</span>: pisarz i działacz, który od lat walczy z nadużyciami praw autorskich i z praktykami ograniczającymi dostęp do kultury i nauki.</li>
+<li><span class="color-green">Lawrence Lessig</span>: prawnik, który stworzył licencje <span class="color-gold">Creative Commons</span> i poświęcił życie walce o wolność informacji.</li>
+</ul>
+<p>Ci ludzie nie walczyli o „piractwo”. <strong>Walczyli o to, by wiedza, jako fundament rozwoju cywilizacyjnego, była dostępna dla wszystkich</strong>, a nie tylko dla tych, których stać na zapłacenie za dostęp.</p>
+<blockquote>
+<p>Bo geniusze rodzą się wszędzie: w bogatych krajach i w biednych, w wielkich miastach i w małych miejscowościach, w rodzinach zamożnych i w takich, które ledwo wiążą koniec z końcem. Odbierając im dostęp do wiedzy, ryzykujemy, że utracimy ludzi, którzy mogliby przeskoczyć aktualny konsensus naukowy i popchnąć cywilizację naprzód.</p>
+<p>Dlatego alternatywne kanały, takie jak sieć Tor, są wykorzystywane nie po to, by ukrywać nielegalne treści, lecz po to, by chronić dostęp do wiedzy tam, gdzie jest ona blokowana, cenzurowana lub sprzedawana jak luksusowy produkt.</p>
+<p>Bo jeśli pozwolimy, by wiedza stała się towarem, to zgodzimy się na świat, w którym przyszłość zależy od zasobności portfela, a nie od potencjału ludzkiego umysłu.</p>
+<p>A cywilizacja, która odbiera ludziom możliwość uczenia się, sama odbiera sobie szansę na jutro.</p>
+<p>A internet nie powstał po to, by sprzedawać reklamy. Powstał po to, by uwolnić wiedzę. </p>
+<p>A każdy znacznik, którego Ty się nauczysz, i każda reguła dostępności, którą Ty wdrożysz, jest cegłą w budowaniu świata, w którym wiedza jest otwarta dla każdego. Świata, w którym dostęp do informacji nie zależy od sprawności fizycznej, ograniczeń zdrowotnych ani barier technicznych.</p>
+</blockquote>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📄 Architektura Płaskiego Tekstu</h2>
+<p>Choć sam internet powstał jako wojskowy projekt <abbr title="Advanced Research Projects Agency Network">ARPANET</abbr>, to sieć <span class="color-blue">World Wide Web</span> (WWW), stworzona przez <span class="color-green">Tima Berners‑Lee</span> w <abbr title="Europejska Organizacja Badań Jądrowych">CERN</abbr>, od samego początku opierała się na idei otwartej wymiany wiedzy. Twórcy WWW zdecydowali, że strony nie będą skompilowanymi aplikacjami (jak pliki <code>.exe</code>), lecz otwartym tekstem. </p>
+<p>Dzięki temu każdy użytkownik na świecie może kliknąć prawym przyciskiem myszy na dowolną stronę, wybrać <kbd class="win-menu-btn">Wyświetl źródło strony</kbd> i sprawdzić, jak została zbudowana. Kod nie jest ukryty, lecz w pełni jawny i dostępny dla każdego.</p>
+<p>Zasada jest prosta: wpisujesz adres strony w przeglądarce, wysyła ona żądanie do serwera (zazwyczaj przez bezpieczny protokół <abbr title="Hypertext Transfer Protocol Secure"><code>HTTPS</code></abbr>). W odpowiedzi serwer nie przesyła jednak gotowej, skompilowanej aplikacji w pliku binarnym. Zamiast tego otrzymujesz zwykłe pliki tekstowe z kodem <abbr title="HyperText Markup Language">HTML</abbr>, <abbr title="Cascading Style Sheets">CSS</abbr> i <abbr title="JavaScript">JS</abbr>.</p>
+<p>Dzięki temu internet może działać dziś na tych trzech filarach:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Filar</th>
+<th align="left">Cel i znaczenie</th>
+<th align="left">Rola płaskiego tekstu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Uniwersalność</span> (Cross‑platform)</td>
+<td align="left">Strona musi działać na każdym urządzeniu (Windows, Linux, macOS, Android, iOS).</td>
+<td align="left">Serwer wysyła surowy tekst, a lokalna przeglądarka sama analizuje kod i rysuje interfejs dopasowany do ekranu urządzenia.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wyszukiwarki</span> (Skuteczność <abbr title="Search Engine Optimization">SEO</abbr>)</td>
+<td align="left">Roboty indeksujące (np. Googlebot) muszą analizować treść strony, aby pozycjonować ją w wynikach wyszukiwania.</td>
+<td align="left">Boty nie mają oczu ani zasobów na renderowanie grafiki. Skanują strukturę tagów tekstowych (np. <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>) i na tej podstawie oceniają zawartość.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Dostępność</span> (Standard <abbr title="Web Content Accessibility Guidelines">WCAG</abbr>)</td>
+<td align="left">Osoby z niepełnosprawnościami wzroku lub ruchu muszą mieć pełny dostęp do treści i funkcji stron.</td>
+<td align="left">Oprogramowanie asystujące (np. czytniki ekranu) parsuje tagi tekstowe, przekazując strukturę do syntezatora mowy lub monitora brajlowskiego.</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Parsowanie</span> (analiza składniowa) to ogólny proces w programowaniu. Polega na pobraniu surowych danych (najczęściej tekstu) i przetłumaczeniu ich na format zrozumiały dla komputera.</p>
+<ul>
+<li>Stosowany powszechnie do zamiany tekstu <code>"123"</code> na liczbę <code>123</code> lub formatu <abbr title="JavaScript Object Notation"><code>JSON</code></abbr> na obiekt lub tablicę asocjacyjną.</li>
+<li>W kontekście przeglądarek <span class="color-green">parser</span> to moduł, który analizuje kod <code>HTML</code> i <code>CSS</code>, aby zbudować z niego logiczną mapę obiektów strony.</li>
+</ul>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏛️ Ewolucja Semantyki: Od Nauki do Interfejsów</h2>
+<p>Ten logiczny układ i dostępność, które dziś uważamy za standard, nie powstały jednak od razu. Przejście od prostych dokumentów do zaawansowanych interaktywnych stron wymagało lat ewolucji.</p>
+<p>Język <code>HTML</code> (<span class="color-blue">HyperText Markup Language</span>) powstał w szwajcarskim ośrodku badawczym CERN. Jego twórca, <span class="color-gold">Tim Berners‑Lee</span>, zaprojektował go do formatowania raportów naukowych i łączenia ich odnośnikami. Gdy siecią zainteresował się komercyjny biznes, <code>HTML</code> musiał zacząć obsługiwać grafikę i skomplikowane układy. Ta ewolucja przeszła przez trzy główne ery, które podsumowuje poniższa tabela:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Era</th>
+<th align="left">Główne założenia techniczne</th>
+<th align="left">Wpływ na działanie stron</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Era chaosu</span> (<abbr title="Hypertext Markup Language version 4"><code>HTML4</code></abbr>)</td>
+<td align="left">Układ oparty o tabele <code>&lt;table&gt;</code>, brak standardów <code>CSS</code> (brak <code>Flexbox</code> i <code>Grid</code>), tolerowanie błędów składniowych.</td>
+<td align="left">Powolne ładowanie stron, duże obciążenie procesorów, brak spójności w wyświetlaniu między przeglądarkami.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Era restrykcji</span> (<abbr title="Extensible Hypertext Markup Language"><code>XHTML</code></abbr>)</td>
+<td align="left">Ścisłe zasady <abbr title="eXtensible Markup Language"><code>XML</code></abbr> (wymóg zamykania wszystkich tagów, np. <code>&lt;br /&gt;</code>), brak tolerancji dla błędów.</td>
+<td align="left">Każdy drobny błąd składniowy (np. brak cudzysłowu) całkowicie blokował wyświetlanie strony (krytyczne straty w e‑commerce).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Złoty środek</span> (<abbr title="Hypertext Markup Language version 5"><code>HTML5</code></abbr>)</td>
+<td align="left">Tolerancyjny parser (błędy nie blokują stron), wprowadzenie tagów semantycznych (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;footer&gt;</code>).</td>
+<td align="left">Lepsze pozycjonowanie (<code>SEO</code>), wysoka dostępność cyfrowa (<code>WCAG</code>) i brak blokowania stron przy drobnych pomyłkach.</td>
+</tr>
+</tbody></table>
+<details>
+<summary>Historyczne wersje HTML</summary>
+
+<ul>
+<li>HTML 1.0 (<time datetime="1991">1991</time>) - Pierwsza wersja HTML, bardzo prosta i podstawowa.</li>
+<li>HTML 2.0 (<time datetime="1995">1995</time>) - Wprowadzenie formularzy i tabel.</li>
+<li>HTML 3.2 (<time datetime="1997">1997</time>) - Dodanie wsparcia dla skryptów i stylów.</li>
+<li>HTML 4.01 (<time datetime="1999">1999</time>) - Wprowadzenie ramek, arkuszy stylów i skryptów.</li>
+<li>XHTML (<time datetime="2000">2000</time>) - Bardziej rygorystyczna wersja HTML oparta na XML.</li>
+<li>HTML5 (<time datetime="2014">2014</time>) - Obecny standard z nowymi elementami semantycznymi, wsparciem dla multimediów i aplikacji webowych.</li>
+</ul>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Trójpodział Władzy: Silniki Renderujące</h2>
+<p>Kod <code>HTML</code> i <code>CSS</code>, niezależnie od tego, jak pięknie i semantycznie go napiszemy, jest dla komputera tylko zbiorem znaków. <strong>Aby ten tekst zamienił się w interaktywny obraz na ekranie, przeglądarka potrzebuje silnika renderującego</strong> (<span class="color-blue">Rendering Engine</span>), czyli wewnętrznego serca każdego programu do przeglądania sieci.</p>
+<p>Przeglądarki różnią się dodatkami i wyglądem, ale pod maską korzystają z jednego z trzech wiodących silników renderujących:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Silnik renderujący</th>
+<th align="left">Główne przeglądarki</th>
+<th align="left">Charakterystyka i wyzwania dla programisty</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Blink</span> (Chromium)</td>
+<td align="left">Google Chrome, Edge, Opera, Brave, Vivaldi</td>
+<td align="left">Rozwijany przez Google, dominuje na rynku i narzuca standardy.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Gecko</span> (Mozilla)</td>
+<td align="left">Firefox, Tor Browser</td>
+<td align="left">Otwarty kod chroniący przed monopolem. Stanowi bazę dla projektów stawiających na pełną prywatność (np. <code>Tor Browser</code>).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">WebKit</span> (Apple)</td>
+<td align="left">Safari (macOS, iOS)</td>
+<td align="left">Napędza ekosystem Apple. Na iOS każda przeglądarka musi go używać. Wolniej wdraża nowości.</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green"><code>Manifest V3</code></span> to kontrowersyjny zestaw reguł dla rozszerzeń, który firma Google wprowadziła bezpośrednio do silnika <span class="color-blue">Chromium</span>. Ponieważ bazuje na nim ogromna liczba współczesnych przeglądarek, zmiany te dotkną większość użytkowników sieci. Jedyną przeglądarką opartą na tym silniku, w której negatywne skutki zmian (np. ograniczenie blokowania reklam) odczujemy najmniej, jest <span class="color-blue">Brave</span>, ponieważ jego twórcy i tak mocno modyfikują kod silnika.</p>
+<p>Twórcy najpopularniejszych przeglądarek współpracują w ramach organizacji W3C (<span class="color-blue">World Wide Web Consortium</span>):</p>
+<ul>
+<li>Google</li>
+<li>Meta</li>
+<li>Apple</li>
+<li>Microsoft</li>
+<li>Mozilla</li>
+<li>(pełna lista członków jest na stronie <a href="https://www.w3.org/Consortium/Member/List">W3C</a>)</li>
+</ul>
+<p>Mimo wspólnych działań przyszłość technologiczna standardu rozszerzeń stała się polem bitwy. Najważniejszymi oponentami wobec radykalnych ograniczeń Google są Mozilla (twórcy <span class="color-blue">Firefoxa</span>) oraz <span class="color-blue">DuckDuckGo</span>. Ich zdaniem <strong><span class="color-red"><code>Manifest V3</code> w obecnej formie to krok wstecz</span></strong>. Ogranicza on możliwości deweloperów, utrudnia skuteczną ochronę prywatności użytkowników oraz drastycznie osłabia działanie zaawansowanych blokerów reklam i skryptów śledzących.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zanim wdrożysz na stronie nowoczesne rozwiązanie (np. zaawansowaną transformację <code>CSS</code> 3D), sprawdź stan jego wsparcia na portalu <span class="color-gold">Can I Use</span> (<a href="https://caniuse.com/">https://caniuse.com/</a>). Wpisanie nazwy technologii wyświetli czytelną tabelę kompatybilności dla każdego silnika.</p>
+
+</div>
+</div><hr>
+<data-gate>
+  <data-connection-matcher title="Połącz silnik renderujący z przeglądarką, w której jest domyślnie używany:">
+    <div class="cmw-item" data-left="Blink" data-right="Google Chrome, Edge, Opera, Brave"></div>
+    <div class="cmw-item" data-left="Gecko" data-right="Firefox, Tor Browser"></div>
+    <div class="cmw-item" data-left="WebKit" data-right="Safari"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖥️ Środowisko pracy i konfiguracja: Visual Studio Code</h2>
+<p>Plik <code>HTML</code> to w rzeczywistości zwykły dokument tekstowy. Teoretycznie mógłbyś napisać cały portal w systemowym Notatniku. W praktyce jednak praca bez profesjonalnego edytora szybko doprowadziłaby do błędów. Brak automatycznych ułatwień sprawia, że zgubienie jednego cudzysłowu może rozsypać układ całej strony, a znalezienie usterki w jednolitym czarnym tekście zajmuje godziny.</p>
+<p>Najpopularniejszym edytorem w branży jest darmowy, otwartoźródłowy program <span class="color-green">Visual Studio Code (<a href="https://code.visualstudio.com/download">VS Code</a>)</span> od firmy Microsoft. Zainstaluj go na swoim komputerze, aby przygotować środowisko do nauki.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/VSCode-dla-wszystkich-platform.webp" alt="Przedstawienie możliwych formatów i platform dla VS Code" width="1122" height="743" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Warto w instalatorze zaznaczyć wszystkie opcje:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/VSCode-instalator.webp" alt="Przedstawienie opcji instalacji VS Code" width="697" height="571" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Dzięki temu będziemy mogli uruchomić program z dowolnego miejsca w terminalu wpisując komendę <code>code</code> lub wybierając z menu kontekstowego <kbd class="win-menu-btn">Open with Code</kbd>. Kliknięcie prawym przyciskiem myszy na plik lub folder otworzy podręczne menu, gdzie znajdziesz bezpośrednią opcję uruchomienia edytora w tej lokalizacji.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/VSCode-w-menu-kontekstowym-windows11.webp" alt="Przedstawienie menu kontekstowego VS Code" width="1151" height="786" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Jedyne co na tym etapie warto jeszcze zrobić, to zainstalować dodatek <code>Live Preview</code> od firmy Microsoft i zmienić ustawienie aktualizacji podglądu z automatycznego na aktualizację po zapisie pliku. Dzięki temu zyskujesz podwójnie: możesz w czasie rzeczywistym widzieć wprowadzane zmiany bez konieczności przeskakiwania między oknem edytora a przeglądarką, a samo ustawienie eliminuje paniczne odświeżanie strony i wyrabia nawyk regularnego zapisu pliku skrótem <span style="text-wrap: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/VSCode-Live-Preview-Microsoft-settings.webp" alt="Przedstawienie dodatku Live Preview" width="968" height="1131" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green"><abbr title="World Wide Web">WWW</abbr> powstało w <abbr title="Europejska Organizacja Badań Jądrowych">CERN</abbr></span>: Choć infrastruktura internetowa ma korzenie wojskowe (<abbr title="Advanced Research Projects Agency Network">ARPANET</abbr>), to sieć WWW stworzono do otwartej wymiany wiedzy naukowej w postaci płaskiego tekstu.</li>
+<li><span class="color-green">Płaski tekst to fundament</span>: Trzy filary sieci (uniwersalność, roboty <abbr title="Search Engine Optimization">SEO</abbr> oraz dostępność <abbr title="Web Content Accessibility Guidelines">WCAG</abbr>) opierają się na jawnym, ustrukturyzowanym kodzie <code>HTML</code>.</li>
+<li><span class="color-green"><abbr title="Hypertext Markup Language version 5"><code>HTML5</code></abbr> stawia na semantykę</span>: Zastąpienie bezpłciowych bloków <code>&lt;div&gt;</code> tagami semantycznymi (jak <code>&lt;header&gt;</code> czy <code>&lt;nav&gt;</code>) to klucz do pozycjonowania stron i walki z wykluczeniem cyfrowym.</li>
+<li><span class="color-green">Przeglądarki różnią się silnikami</span>: <code>Blink</code>, <code>Gecko</code> i <code>WebKit</code> decydują o tym, jak kod zamienia się w piksele. Zawsze weryfikuj ich kompatybilność na portalu <code>Can I Use</code>.</li>
+<li><span class="color-green"><code>VS Code</code> to Twoje narzędzie pracy</span>: Automatyczne formatowanie, kolorowanie składni oraz <code>Live Preview</code> chronią Cię przed błędami i drastycznie przyspieszają naukę.</li>
+</ul>
+<hr>
+<p>Masz już gotowy edytor, znasz techniczne tło internetu i rozumiesz stojącą za nim filozofię. Jeśli zrodził się w Tobie duch wojownika semantyki, czas przekuć tę świadomość w praktykę i ruszyć do prawdziwego kodowania! W następnej lekcji stworzysz swój pierwszy, poprawny semantycznie plik <code>HTML</code>!</p>
+</section>

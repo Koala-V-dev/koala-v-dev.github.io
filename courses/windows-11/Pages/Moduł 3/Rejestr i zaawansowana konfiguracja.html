@@ -1,0 +1,345 @@
+<h2>Rejestr i zaawansowana konfiguracja</h2>
+<p><strong>Rejestr Windows</strong> (<em>Windows Registry</em>) to hierarchiczna baza danych, która przechowuje <strong>całą konfigurację systemu operacyjnego</strong>: ustawienia sprzętu, preferencje użytkowników, konfigurację programów, polityki zabezpieczeń i tysiące innych parametrów. Jeśli coś w Windowsie możesz „ustawić" – gdzieś w rejestrze leży wartość, która to kontroluje.</p>
+<p>Na Helpdesku rejestr pojawia się, gdy standardowe narzędzia GUI nie wystarczają: <em>„Chcę wymusić tapetę firmową na wszystkich komputerach"</em>, <em>„Muszę wyłączyć automatyczną aktualizację sterowników"</em> lub <em>„Po wirusie system zachowuje się dziwnie, mimo czyszczenia"</em>.</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><strong>Rejestr to serce Windowsa.</strong> Jedna błędna zmiana może uniemożliwić uruchomienie systemu, zablokować logowanie lub uszkodzić programy. Zawsze rób kopię zapasową przed edycją!</p>
+
+</div>
+</div><hr>
+<h3>🗂️ Edytor Rejestru (`regedit`)</h3>
+<p><kbd class="Win"></kbd> + <kbd>R</kbd> → <code>regedit</code></p>
+<p>Okno wygląda jak Eksplorator plików – drzewo folderów po lewej, wartości po prawej. Ale zamiast plików i folderów masz <strong>klucze</strong> i <strong>wartości</strong>.</p>
+<h4>Terminologia:</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Pojęcie</th>
+<th align="left">Odpowiednik w systemie plików</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Klucz</strong> (<em>Key</em>)</td>
+<td align="left">Folder</td>
+<td align="left">Kontener grupujący wartości</td>
+</tr>
+<tr>
+<td align="left"><strong>Podklucz</strong> (<em>Subkey</em>)</td>
+<td align="left">Podfolder</td>
+<td align="left">Klucz wewnątrz klucza</td>
+</tr>
+<tr>
+<td align="left"><strong>Wartość</strong> (<em>Value</em>)</td>
+<td align="left">Plik</td>
+<td align="left">Konkretne ustawienie (nazwa + dane)</td>
+</tr>
+<tr>
+<td align="left"><strong>Gałąź</strong> (<em>Hive</em>)</td>
+<td align="left">Dysk (C:, D:)</td>
+<td align="left">Główna kategoria rejestru (HKLM, HKCU itd.)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🌳 Pięć głównych gałęzi</h3>
+<data-tabs>
+  <tabs>
+    <item>HKEY_LOCAL_MACHINE</item>
+    <item>HKEY_CURRENT_USER</item>
+    <item>Pozostałe gałęzie</item>
+  </tabs>
+  <div><h4>HKEY_LOCAL_MACHINE (HKLM)</h4>
+<p><strong>Konfiguracja całego komputera</strong> – obowiązuje wszystkich użytkowników.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Podklucz</th>
+<th align="left">Co zawiera</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>HARDWARE</code></td>
+<td align="left">Wykryte urządzenia (generowany dynamicznie, nie edytuj)</td>
+</tr>
+<tr>
+<td align="left"><code>SAM</code></td>
+<td align="left">Baza kont użytkowników i haseł (zaszyfrowana, niedostępna bezpośrednio)</td>
+</tr>
+<tr>
+<td align="left"><code>SECURITY</code></td>
+<td align="left">Polityki zabezpieczeń (zaszyfrowana)</td>
+</tr>
+<tr>
+<td align="left"><code>SOFTWARE</code></td>
+<td align="left">Konfiguracja zainstalowanych programów i samego Windowsa</td>
+</tr>
+<tr>
+<td align="left"><code>SYSTEM</code></td>
+<td align="left">Ustawienia sterowników, usług, konfiguracja rozruchu</td>
+</tr>
+</tbody></table>
+<p><strong>Najczęściej odwiedzane ścieżki na Helpdesku:</strong></p>
+<ul>
+<li><p><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code> – programy uruchamiane <strong>przy starcie systemu</strong> dla wszystkich użytkowników</p>
+</li>
+<li><p><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code> – lista zainstalowanych programów</p>
+</li>
+<li><p><code>HKLM\SYSTEM\CurrentControlSet\Services</code> – konfiguracja usług systemowych</p>
+</li></ul></div>
+<div><h4>HKEY_CURRENT_USER (HKCU)</h4>
+<p><strong>Konfiguracja aktualnie zalogowanego użytkownika.</strong> Zmiana tutaj wpłynie tylko na Twoje konto.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Podklucz</th>
+<th align="left">Co zawiera</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>SOFTWARE</code></td>
+<td align="left">Preferencje programów <strong>dla tego użytkownika</strong></td>
+</tr>
+<tr>
+<td align="left"><code>Control Panel</code></td>
+<td align="left">Ustawienia pulpitu, tapety, czcionek, kolorów</td>
+</tr>
+<tr>
+<td align="left"><code>Environment</code></td>
+<td align="left">Zmienne środowiskowe użytkownika (np. <code>PATH</code>)</td>
+</tr>
+</tbody></table>
+<p><strong>Najczęściej odwiedzane:</strong></p>
+<ul>
+<li><code>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code> – autostart <strong>tylko dla tego użytkownika</strong></li>
+<li><code>HKCU\Control Panel\Desktop</code> – ustawienia tapety, screensavera</li>
+<li><code>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer</code> – konfiguracja Eksploratora</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><code>HKCU</code> to w rzeczywistości „skrót" do <code>HKEY_USERS\&lt;SID_użytkownika&gt;</code>. Każdy profil użytkownika ma swoją kopię, zapisaną w pliku <code>NTUSER.DAT</code> w katalogu profilu (<code>C:\Users\&lt;nazwa&gt;\NTUSER.DAT</code>).</p>
+
+</div>
+</div></div>
+  <div><h4>Pozostałe gałęzie</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Gałąź</th>
+<th align="left">Rola</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>HKEY_USERS (HKU)</strong></td>
+<td align="left">Konfiguracja <strong>wszystkich</strong> załadowanych profili użytkowników (w tym domyślnego)</td>
+</tr>
+<tr>
+<td align="left"><strong>HKEY_CLASSES_ROOT (HKCR)</strong></td>
+<td align="left">Powiązania plików z programami (np. <code>.docx</code> → Word). Połączenie HKLM i HKCU.</td>
+</tr>
+<tr>
+<td align="left"><strong>HKEY_CURRENT_CONFIG (HKCC)</strong></td>
+<td align="left">Aktualny profil sprzętowy. Rzadko edytowany bezpośrednio.</td>
+</tr>
+</tbody></table>
+<p>Na Helpdesku te trzy gałęzie potrzebujesz znacznie rzadziej. <code>HKCR</code> przydaje się, gdy po odinstalowaniu programu pliki wciąż otwierają się w nim (stare powiązanie).</p></div>
+</data-tabs>
+
+<hr>
+<h3>📝 Typy wartości w rejestrze</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Typ</th>
+<th align="left">Nazwa techniczna</th>
+<th align="left">Co przechowuje</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Ciąg znaków</strong></td>
+<td align="left"><code>REG_SZ</code></td>
+<td align="left">Tekst</td>
+<td align="left">Ścieżka do programu: <code>C:\Program Files\app.exe</code></td>
+</tr>
+<tr>
+<td align="left"><strong>DWORD (32‑bit)</strong></td>
+<td align="left"><code>REG_DWORD</code></td>
+<td align="left">Liczba całkowita (0–4 miliardów)</td>
+<td align="left">Flaga włącz/wyłącz: <code>0</code> lub <code>1</code></td>
+</tr>
+<tr>
+<td align="left"><strong>QWORD (64‑bit)</strong></td>
+<td align="left"><code>REG_QWORD</code></td>
+<td align="left">Duża liczba</td>
+<td align="left">Rozmiary, znaczniki czasu</td>
+</tr>
+<tr>
+<td align="left"><strong>Wartość wielociągowa</strong></td>
+<td align="left"><code>REG_MULTI_SZ</code></td>
+<td align="left">Lista tekstów</td>
+<td align="left">Lista sterowników do załadowania</td>
+</tr>
+<tr>
+<td align="left"><strong>Wartość rozwijalna</strong></td>
+<td align="left"><code>REG_EXPAND_SZ</code></td>
+<td align="left">Tekst ze zmiennymi środowiskowymi</td>
+<td align="left"><code>%SystemRoot%\system32\cmd.exe</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Dane binarne</strong></td>
+<td align="left"><code>REG_BINARY</code></td>
+<td align="left">Surowe bajty</td>
+<td align="left">Certyfikaty, klucze szyfrowania</td>
+</tr>
+</tbody></table>
+<p><strong>Na Helpdesku</strong> prawie zawsze edytujesz <code>REG_SZ</code> (ścieżki, nazwy) lub <code>REG_DWORD</code> (flagi $0$/$1$, limity liczbowe).</p>
+<hr>
+<h3>🛡️ Kopia zapasowa rejestru</h3>
+<p><strong>Przed jakąkolwiek zmianą</strong> – eksportuj klucz, który zamierzasz edytować:</p>
+<ol>
+<li>W <code>regedit</code> nawiguj do klucza, który chcesz zmienić</li>
+<li>PPM na klucz → <strong>Eksportuj</strong> → zapisz jako plik <code>.reg</code></li>
+<li>Jeśli coś pójdzie nie tak – dwuklik na plik <code>.reg</code> przywróci oryginalne wartości</li>
+</ol>
+<p><strong>Eksport całego rejestru:</strong></p>
+<ul>
+<li><code>Plik</code> → <code>Eksportuj</code> → Zakres eksportu: <strong>Wszystko</strong> → Zapisz</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Eksport całego rejestru generuje plik o rozmiarze <strong>setek megabajtów</strong>. W praktyce eksportuj tylko gałąź, w której pracujesz – to szybsze i łatwiejsze do przywrócenia.</p>
+
+</div>
+</div><hr>
+<h3>⌨️ Rejestr z linii poleceń (`reg`)</h3>
+<pre><code>reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+                                        ← pokaż autostart systemowy
+
+reg add HKCU\SOFTWARE\Test /v MojaWartość /t REG_SZ /d "Hello" /f
+                                        ← dodaj wartość (bez pytania)
+
+reg delete HKCU\SOFTWARE\Test /v MojaWartość /f
+                                        ← usuń wartość
+
+reg export HKLM\SOFTWARE\Test C:\backup-klucza.reg
+                                        ← eksportuj klucz do pliku
+
+reg import C:\backup-klucza.reg         ← importuj z pliku (przywróć)
+</code></pre>
+<hr>
+<h3>🔧 Praktyczne zastosowania na Helpdesku</h3>
+<data-tabs>
+  <tabs>
+    <item>Autostart – co się uruchamia?</item>
+    <item>Przydatne modyfikacje</item>
+  </tabs>
+  <div><h4>Wpisy autostartu – ulubione miejsce malware</h4>
+<p>Programy uruchamiające się przy starcie Windowsa zapisują swoje ścieżki w rejestrze. <strong>To samo robi malware.</strong></p>
+<p><strong>Lokalizacje autostartu:</strong></p>
+<ul>
+<li><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code> – dla wszystkich użytkowników</li>
+<li><code>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code> – dla aktualnego użytkownika</li>
+<li><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce</code> – jednorazowe uruchomienie (usuwa się po wykonaniu)</li>
+</ul>
+<p><strong>Diagnostyka:</strong> Jeśli klient zgłasza <em>„coś dziwnego uruchamia się przy starcie"</em> – sprawdź te klucze. Porównaj ścieżki <code>.exe</code> z tym, co powinno tam być. Podejrzane wpisy (losowe nazwy, nietypowe lokalizacje) mogą wskazywać na malware.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Szybsza alternatywa: <strong>Menedżer zadań</strong> → zakładka <strong>Uruchamianie</strong> pokazuje to samo w wygodnym GUI. Ale rejestr daje pełen obraz, w tym wpisy RunOnce i te ukryte przed Menedżerem.</p>
+
+</div>
+</div></div>
+  <div><h4>Przydatne modyfikacje rejestru</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Cel</th>
+<th align="left">Ścieżka</th>
+<th align="left">Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Wyłącz automatyczne restarty po BSOD</td>
+<td align="left"><code>HKLM\SYSTEM\CurrentControlSet\Control\CrashControl</code></td>
+<td align="left"><code>AutoReboot</code> = <code>0</code> (DWORD)</td>
+</tr>
+<tr>
+<td align="left">Pokaż rozszerzenia plików (systemowo)</td>
+<td align="left"><code>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced</code></td>
+<td align="left"><code>HideFileExt</code> = <code>0</code> (DWORD)</td>
+</tr>
+<tr>
+<td align="left">Wyłącz Cortanę</td>
+<td align="left"><code>HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search</code></td>
+<td align="left"><code>AllowCortana</code> = <code>0</code> (DWORD)</td>
+</tr>
+<tr>
+<td align="left">Wyłącz ekran blokady</td>
+<td align="left"><code>HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization</code></td>
+<td align="left"><code>NoLockScreen</code> = <code>1</code> (DWORD)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Modyfikacje w <code>HKLM\SOFTWARE\Policies</code> są odpowiednikiem zasad grupy (Group Policy). Działają jak nadrzędne reguły, które zwykły użytkownik nie może nadpisać przez GUI. Używaj świadomie.</p>
+
+</div>
+</div></div>
+</data-tabs>
+
+<hr>
+<h3>🕵️ Scenariusze Helpdesku</h3>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Po odinstalowaniu programu pliki .pdf nadal próbują się w nim otwierać." data-right="Stare powiązanie pliku w HKCR – wyczyść wpis lub ustaw nowe skojarzenie w Ustawienia → Aplikacje domyślne."></div>
+    <div class="cmw-item" data-left="Komputer restartuje się natychmiast po BSOD – nie zdążysz przeczytać kodu błędu." data-right="Wyłącz automatyczny restart: HKLM\...\CrashControl → AutoReboot = 0."></div>
+    <div class="cmw-item" data-left="Podejrzane programy uruchamiają się przy starcie Windowsa mimo usunięcia ich z Menedżera zadań." data-right="Sprawdź klucze Run i RunOnce w rejestrze (HKLM i HKCU) – malware może tam trzymać ukryty wpis."></div>
+    <div class="cmw-item" data-left="Po edycji rejestru system nie chce się uruchomić." data-right="Uruchom z WinRE, otwórz CMD i przywróć kopię: reg import backup.reg, lub użyj Przywracania systemu."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Kolega edytował rejestr Windows, by „przyspieszyć system" według poradnika z internetu. Po restarcie ekran jest czarny i system nie ładuje pulpitu. Co robisz jako technik?</p>
+</question>
+    <options>
+      <item><p>Formaturze dysk C: i reinstalacja systemu – rejestr jest nie do naprawienia po uszkodzeniu.</p>
+</item>
+      <item correct=""><p>Uruchom system w trybie awaryjnym (Shift + Restart → Rozwiąż problemy → Opcje zaawansowane → Ustawienia uruchamiania). Stamtąd otwórz regedit i przywróć kopię rejestru. Jeśli brak kopii – użyj Przywracania systemu.</p>
+</item>
+      <item><p>Poczekaj 30 minut – Windows automatycznie wykryje uszkodzenie rejestru i przywróci kopię zapasową.</p>
+</item>
+      <item><p>Podłącz dysk do innego komputera i ręcznie edytuj plik rejestru w Notatniku.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Windows nie przywraca rejestru automatycznie (zrezygnowano z tego w nowszych wersjach). Pliki rejestru to binarny format, nie tekst – Notatnik ich nie otworzy sensownie. A reinstalacja to ostateczność, nie pierwsza reakcja.</p>
+</div>
+    <div data-hint="success"><p>Idealnie! Tryb awaryjny ładuje minimalny zestaw sterowników i usług – często wystarczy to do odzyskania dostępu do regedit i przywrócenia zmian. Jeśli nie masz kopii .reg – Przywracanie systemu (Restore Point) cofnie rejestr do stanu sprzed modyfikacji, o ile punkt przywracania istnieje.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Złota zasada technika:</strong> W rejestrze obowiązuje ta sama zasada co przy operacjach na partycjach: <strong>zawsze rób kopię zapasową zanim cokolwiek ruszysz</strong>. Eksport klucza trwa $2$ sekundy i może oszczędzić godziny naprawy.</p>
+
+</div>
+</div>

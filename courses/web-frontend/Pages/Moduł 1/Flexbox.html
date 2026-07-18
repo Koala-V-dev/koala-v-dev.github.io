@@ -1,0 +1,108 @@
+<h1>Flexbox</h1>
+<p>Box model mówi, ile miejsca zajmuje element. Kaskada mówi, która reguła wygrywa.</p>
+<p>Teraz potrzebujesz narzędzia do układania elementów w jednym kierunku: w rzędzie albo w kolumnie.</p>
+<p>Do tego służy Flexbox.</p>
+<p>Najważniejsza zasada tej lekcji brzmi: <strong><span class="color-green">Flexbox jest najlepszy wtedy, gdy układasz elementy w jednej osi</span></strong>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧱 Kontener i elementy</h2>
+<p>Flexbox zaczyna się od kontenera.</p>
+<pre><code class="language-css">.nav-list {
+    display: flex;
+}
+</code></pre>
+<p>Bezpośrednie dzieci tego kontenera stają się elementami flex.</p>
+<pre><code class="language-html">&lt;ul class="nav-list"&gt;
+    &lt;li&gt;&lt;a href="index.html"&gt;Start&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="artykuly.html"&gt;Artykuły&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>Pamiętaj: Flexbox działa na bezpośrednie dzieci kontenera, nie na wszystkie elementy głęboko w środku.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>↔️ Kierunek osi</h2>
+<p>Domyślnie Flexbox układa elementy w rzędzie.</p>
+<pre><code class="language-css">.nav-list {
+    display: flex;
+    flex-direction: row;
+}
+</code></pre>
+<p>Możesz zmienić kierunek na kolumnę:</p>
+<pre><code class="language-css">.nav-list {
+    display: flex;
+    flex-direction: column;
+}
+</code></pre>
+<p>Główna oś zależy od <code>flex-direction</code>.</p>
+<p>To ważne, bo <code>justify-content</code> działa wzdłuż osi głównej, a <code>align-items</code> wzdłuż osi poprzecznej.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Rozkład i wyrównanie</h2>
+<pre><code class="language-css">.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+</code></pre>
+<p><code>justify-content</code> rozkłada elementy wzdłuż głównej osi.</p>
+<p>Popularne wartości:</p>
+<ul>
+<li><code>flex-start</code>,</li>
+<li><code>center</code>,</li>
+<li><code>flex-end</code>,</li>
+<li><code>space-between</code>,</li>
+<li><code>space-around</code>,</li>
+<li><code>space-evenly</code>.</li>
+</ul>
+<p><code>align-items</code> wyrównuje elementy na osi poprzecznej.</p>
+<p>Popularne wartości:</p>
+<ul>
+<li><code>stretch</code>,</li>
+<li><code>flex-start</code>,</li>
+<li><code>center</code>,</li>
+<li><code>flex-end</code>,</li>
+<li><code>baseline</code>.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧵 Zawijanie</h2>
+<p>Domyślnie Flexbox próbuje zmieścić elementy w jednym rzędzie.</p>
+<pre><code class="language-css">.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+</code></pre>
+<p><code>flex-wrap: wrap</code> pozwala elementom przejść do kolejnego wiersza.</p>
+<p><code>gap</code> ustawia odstęp między elementami bez ręcznego kombinowania z marginesami.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ Wzrost i kurczenie</h2>
+<p>Element flex może rosnąć i kurczyć się.</p>
+<pre><code class="language-css">.card {
+    flex: 1 1 250px;
+}
+</code></pre>
+<p>To skrót od:</p>
+<ul>
+<li><code>flex-grow</code>: czy element może rosnąć,</li>
+<li><code>flex-shrink</code>: czy może się kurczyć,</li>
+<li><code>flex-basis</code>: bazowy rozmiar.</li>
+</ul>
+<p>W przykładzie karta ma bazowo <code>250px</code>, może rosnąć i może się kurczyć.</p>
+<hr>
+<data-gate>
+  <data-connection-matcher title="Połącz właściwość Flexbox z jej rolą:">
+    <div class="cmw-item" data-left="display: flex" data-right="Włącza układ flex na kontenerze"></div>
+    <div class="cmw-item" data-left="flex-direction" data-right="Ustala kierunek głównej osi"></div>
+    <div class="cmw-item" data-left="justify-content" data-right="Rozkłada elementy na osi głównej"></div>
+    <div class="cmw-item" data-left="align-items" data-right="Wyrównuje elementy na osi poprzecznej"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Flexbox działa na kontenerze</span>: <code>display: flex</code> wpływa na jego bezpośrednie dzieci.</li>
+<li><span class="color-green">To układ jednej osi</span>: Najlepszy do pasków, menu, narzędzi, kart w rzędzie i prostych kolumn.</li>
+<li><span class="color-green"><code>justify-content</code> i <code>align-items</code> zależą od osi</span>: Najpierw ustal kierunek, potem wyrównuj.</li>
+<li><span class="color-green"><code>gap</code> jest lepszy niż ręczne marginesy między dziećmi</span>: Daje czytelny odstęp w układzie.</li>
+<li><span class="color-green"><code>flex</code> kontroluje elastyczność</span>: Element może rosnąć, kurczyć się i mieć rozmiar bazowy.</li>
+</ul>
+</section>

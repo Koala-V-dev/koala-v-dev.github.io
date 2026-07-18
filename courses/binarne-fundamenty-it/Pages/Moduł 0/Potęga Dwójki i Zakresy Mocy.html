@@ -1,0 +1,223 @@
+<h2>Potęga Dwójki i Zakresy Mocy</h2>
+<p>Dlaczego Twój smartfon ma $128$ GB pamięci, a nie równe $100$ GB? Dlaczego stare gry miały $256$ kolorów? Wszystko w informatyce kręci się wokół <strong>Potęgi Dwójki</strong>. To nie jest estetyczny wybór – to wynika z fizyki prądu.</p>
+<h3>⚡ Gloryfikacja Dwójki</h3>
+<p>Każdy dołożony bit (przełącznik) <strong>podwaja</strong> ilość kombinacji, które możesz zapisać. To jest wykładniczy wzrost mocy.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bity</th>
+<th align="center">Ilość możliwości (od $0$ do ... Wzór $2^n$)</th>
+<th align="left">Gdzie używany?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>1</code></td>
+<td align="center">$0$ - $1$</td>
+<td align="left">Wybór wartości logicznej (Boolean - wartość boolowska): <br> TAK / NIE (Prawda / Fałsz)</td>
+</tr>
+<tr>
+<td align="left"><code>3</code></td>
+<td align="center">$0$ - $7$</td>
+<td align="left">Uprawnienia plików w systemach GNU/Linux</td>
+</tr>
+<tr>
+<td align="left"><code>4</code></td>
+<td align="center">$0$ - $15$</td>
+<td align="left">Jedna cyfra systemu HEX - zapis adresów MAC i kolorów</td>
+</tr>
+<tr>
+<td align="left"><code>8</code></td>
+<td align="center">$0$ - $255$</td>
+<td align="left"><strong>Standardowy BAJT</strong> (kolory <span style="color: red">R</span>, <span style="color: green">G</span>, <span style="color: blue">B</span>)</td>
+</tr>
+<tr>
+<td align="left"><code>10</code></td>
+<td align="center">$0$ - $1023$</td>
+<td align="left">Podstawa KILO&#8209;bajta</td>
+</tr>
+</tbody></table>
+<h3>📐 Tablica Mocy (Musisz to znać)</h3>
+<p>Inżynier IT widząc liczbę $512$, nie myśli o niej jako o &quot;pięciuset dwunastu&quot;. Widzi w niej $2^9$.</p>
+<h4>🦸 <em>Tabela mocy:</em></h4>
+<table>
+<thead>
+<tr>
+<th align="left">Wynik potęgowania</th>
+<th align="center">$2048$</th>
+<th align="center">$1024$</th>
+<th align="center">$512$</th>
+<th align="center">$256$</th>
+<th align="center">$128$</th>
+<th align="center">$64$</th>
+<th align="center">$32$</th>
+<th align="center">$16$</th>
+<th align="center">$8$</th>
+<th align="center">$4$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Potega dwójki</td>
+<td align="center">$2^{11}$</td>
+<td align="center">$2^{10}$</td>
+<td align="center">$2^{9}$</td>
+<td align="center">$2^{8}$</td>
+<td align="center">$2^{7}$</td>
+<td align="center">$2^{6}$</td>
+<td align="center">$2^{5}$</td>
+<td align="center">$2^{4}$</td>
+<td align="center">$2^{3}$</td>
+<td align="center">$2^{2}$</td>
+<td align="center">$2^{1}$</td>
+<td align="center">$2^{0}$</td>
+</tr>
+</tbody></table>
+<h3>🧠 Zależność 2ⁿ - 1</h3>
+<p>Zauważyłeś, że maksymalna liczba, jaką możesz zapisać, jest zawsze o $1$ mniejsza niż kolejna potęga?<br>Jeśli masz 3 bity, możesz zapisać $2^3 = 8$ kombinacji. Ale ponieważ zaczynamy od zera, Twoją największą liczbą jest <strong>7</strong> (<code>111</code> w binarnym).  </p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question>
+Masz system 10-bitowy. Jaka jest NAJWIĘKSZA liczba dziesiętna, którą możesz w nim zapisać? <br>
+    </question>
+    <options>
+      <option correct>1023</option>
+      <option>1024</option>
+      <option>1000</option>
+      <option>511</option>
+    </options>
+
+<div data-hint="error">
+  Podpowiedź: wykorzystaj tabelę mocy i zasadę $2^n-1$. Pamiętaj że liczymy od zera, a nie od jeden.
+</div>
+  </data-quiz>
+</data-gate>
+
+<h3>🕹️ Praktyka: Budowanie Zakresów</h3>
+<p>Spróbuj poczuć te wagi. Ustaw bit na $1$ tam, gdzie jest to potrzebne, aby uzyskać wynik dziesiętny.</p>
+<p>Zbuduj liczbę <strong>85</strong> (używając wag: $64, 32, 16, 8, 4, 2, 1$):</p>
+<data-gate>
+  <data-number-system target="85" base="2" digits="7">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>$64 + 16 + 4 + 1 = 85$. W binarnym to <code>0101 0101</code>. Czy widzisz ten rytmiczny wzór?</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<p>A teraz wyzwanie: Zbuduj <strong>$255$</strong>. Co zauważyłeś?</p>
+<data-gate>
+  <data-number-system target="255" base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Wszystkie przełączniki <strong>ON</strong>! To jest limit dla $8$ bitów ($1$ Bajta). Kolejna liczba ($256$) wymagałaby już $9$. bitów!</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+
+<h2>Wyzwanie 6 bram</h2>
+<hr>
+<blockquote>
+<p>Super! 💪😎<br>To teraz samemu pokonaj kolejne $6$ bram:</p>
+</blockquote>
+<hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pierwsza brama padła zostało jeszcze pięć! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Druga brama padła zostały jeszcze cztery! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Trzecia brama padła zostały jeszcze trzy! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Czwarta brama padła zostały jeszcze dwie! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Piąta brama padła została jeszcze jedna! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ostatnia brama padła! Odblokowałeś kolejną lekcję. 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<p>PS. Jak odświeżysz stronę to te 6 bram może wylosować inne liczby. Powodzenia! 🦾🐨</p>
+<hr>

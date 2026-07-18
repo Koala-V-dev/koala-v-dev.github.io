@@ -1,0 +1,216 @@
+<h2>Warstwy, Mieszanie i Maski</h2>
+<p>Współczesna grafika cyfrowa opiera się na architekturze rozłącznych <strong>Warstw</strong>. Pozwalają one na budowanie złożonych kompozycji w sposób <strong>niedestrukcyjny (non‑destructive)</strong> – każdą zmianę można cofnąć, ukryć lub zmodyfikować bez bezpowrotnej utraty oryginalnych pikseli.</p>
+<hr>
+<p>Warstwy to fundament pracy. Poniżej znajduje się infografika pokazująca, jak wygląda stos warstw w praktyce. Zwróć uwagę na panel w prawym dolnym rogu – nawet prosta grafika może składać się z kilkunastu warstw, grup oraz warstw tekstowych.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/prezentacja_warstw_emotka.webp" alt="Prezentacja warstw obrazu zaskoczonej emotki" width="1647" height="962" class="lazy-image" loading="lazy" decoding="async">
+
+<h4>Panel Warstw: Przyciski Akcji</h4>
+<p>Zrozumienie interfejsu panelu warstw to pierwszy krok do sprawnej pracy:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/pasek_akcji_okna_warstw.webp" alt="Pasek przycisków akcji okna warstw" width="346" height="30" class="lazy-image" loading="lazy" decoding="async">
+
+<ul>
+<li><strong>Nowa warstwa</strong>: Otwiera okno ustawień (rozmiar, nazwa). Kluczowa opcja to <code>Wypełnienie</code> – decydujesz, czy ma być przezroczysta, biała, czy w kolorze z przybornika.</li>
+<li><strong>Grupa warstw</strong>: Pozwala porządkować stos. Przeciągnięcie warstw do grupy ułatwia ich jednoczesne ukrywanie lub przesuwanie (z klawiszem <code>Shift</code>).</li>
+<li><strong>Przemieszczanie</strong>: Strzałki góra/dół zmieniają hierarchię widoczności w stosie.</li>
+<li><strong>Duplikacja</strong>: Tworzy identyczną kopię zaznaczonej warstwy lub grupy.</li>
+<li><strong>Połącz w dół / Spłaszcz</strong>: Scala wybraną warstwę z tą poniżej, zamieniając je w jedną matrycę pikseli.</li>
+<li><strong>Maska warstwy</strong>: Dodaje maskę, którą omówimy w dalszej części lekcji.</li>
+<li><strong>Usuwanie</strong>: Kasuje zaznaczone warstwy lub grupy.</li>
+</ul>
+<hr>
+<h3>🗂️ Hierarchia Stosu i Logika RGBA</h3>
+<p>Obraz budowany jest "od dołu do góry" (Bottom to Top). Każda kolejna warstwa w menedżerze leży fizycznie <strong>nad</strong> poprzednią i domyślnie ją zasłania.</p>
+<h4>Kanał Alfa (Alpha)</h4>
+<p>To serce cyfrowej przezroczystości. Tradycyjny kolor opisujemy jako <strong>RGB</strong> (Red, Green, Blue). W grafice cyfrowej dodajemy czwarty parametr: <strong>A (Alpha)</strong>.</p>
+<ul>
+<li><strong>Zapis techniczny</strong>: <ul>
+<li><strong>RGBA</strong>: <code>rgba(255, 0, 0, 0.5)</code> – czerwony kolor o $50%$ przezroczystości.</li>
+<li><strong>HEX</strong>: <code>#FF000080</code> – ostatnie dwie cyfry (<code>80</code>) definiują poziom Alfy w systemie szesnastkowym.</li>
+</ul>
+</li>
+<li><strong>Wartości</strong>: Zazwyczaj jest to 8‑bitowa informacja ($0$-$255$):<ul>
+<li>$0$ to całkowita przezroczystość (dziura).</li>
+<li>$255$ to pełne krycie (lita ściana).</li>
+</ul>
+</li>
+</ul>
+<data-gate>
+<data-quiz>
+<question><p>Masz warstwę "Słońce" (żółtą) nad warstwą "Tło" (czerwoną). Chcesz, aby żółte słońce było w połowie przezroczyste, pozwalając czerwieni przebijać spod spodu. Jaką wartość Kanału Alfa ($0$-$255$) musisz ustawić?</p>
+</question>
+<options>
+<option><p>$255$</p>
+</option>
+<option correct=""><p>$128$ (matematyczny środek zakresu).</p>
+</option>
+<option><p>$0$</p>
+</option>
+</options>
+<div data-hint="error"><p>Pamiętaj: $255$ to lity kolor, $0$ to całkowita przezroczystość. Szukamy wartości pośredniej.</p>
+</div>
+<div data-hint="success"><p>Brawo! $128$ oznacza krycie na poziomie około $50%$.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🧮 Tryby Mieszania (Blending Modes)</h3>
+<p>Tryby mieszania to instrukcje matematyczne wykonywane na wartościach RGB pikseli. Mówią systemowi: „Weź kolor warstwy aktywnej i wykonaj działanie na kolorach warstw leżących <strong>pod nią</strong>”. </p>
+<p>W GIMP 3.0 znajdziesz aż <strong>39 trybów</strong>, podzielonych na grupy logiczne. Nie musisz znać wszystkich na pamięć, ale musisz rozumieć, jak działają główne kategorie.</p>
+<hr>
+<h4>1. Grupa Normalna (Zarządzanie Pikselami)</h4>
+<p>Kontrolują sposób wyświetlania pikseli bez zaawansowanej filtracji kolorów.</p>
+<ul>
+<li><strong>Zwykły (Normal)</strong>: Standardowe nakładanie. Górna warstwa zasłania dolną zgodnie z wartością Alfy.</li>
+<li><strong>Przenikanie (Dissolve)</strong>: Zamiast przezroczystości tworzy „ziarno” – losowo rozrzuca piksele, co daje efekt piasku lub mrowienia.</li>
+<li><strong>Łączenie (Merge) / Dzielenie (Split)</strong>: Zaawansowane tryby techniczne do pracy z warstwowymi teksturami.</li>
+</ul>
+<details>
+<summary>➕ Inne w tej grupie (np. Behind, Color Erase)</summary>
+
+<ul>
+<li><strong>Behind</strong>: Malowanie tylko pod spodem istniejących pikseli.</li>
+<li><strong>Usuwanie koloru (Color Erase)</strong>: Traktuje wybrany kolor jako przezroczystość.</li>
+<li><strong>Gumka (Erase)</strong>: Wykorzystuje Alfę warstwy do wycinania „dziur” w tym, co pod spodem.</li></ul></details>
+
+<hr>
+<h4>2. Grupa Przyciemniająca (Cienie)</h4>
+<p>Neutralnym kolorem dla tej grupy jest <strong>BIAŁY</strong> (wartości 255 nie zmieniają obrazu).</p>
+<ul>
+<li><strong>Mnożenie (Multiply)</strong>: <strong>Król trybów</strong>. Mnoży wartości pikseli, co zawsze daje ciemniejszy wynik. Idealny do nakładania szkiców na kolor lub dodawania głębokich cieni.</li>
+<li><strong>Wypalanie (Burn)</strong>: Zwiększa kontrast ciemnych obszarów, „przypalając” kolory spodu.</li>
+</ul>
+<details>
+<summary>🌑 Pozostałe (np. Tylko ciemniejsze, Liniowe przyciemnianie)</summary>
+
+<ul>
+<li><strong>Tylko ciemniejsze (Darken Only)</strong>: Porównuje piksele i zostawia ten o niższej wartości.</li>
+<li><strong>Tylko ciemniejsze lumy</strong>: Podobne, ale bazuje na luminancji (jasności postrzeganej).</li>
+<li><strong>Liniowe przyciemnianie (Linear Burn)</strong>: Bardziej agresywne przyciemnianie niż Mnożenie.</li></ul></details>
+
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/multiply_demo.webp" alt="Demonstracja trybu Mnożenie: szkic nałożony na tło" width="640" height="640" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+<h4>3. Grupa Rozjaśniająca (Światła)</h4>
+<p>Neutralnym kolorem dla tej grupy jest <strong>CZARNY</strong> (wartości 0 nie zmieniają obrazu).</p>
+<ul>
+<li><strong>Przesiewanie (Screen)</strong>: Odwrotność Mnożenia. Rozjaśnia obraz, „kasując” ciemne elementy. Idealny do flar, iskier, dymu na czarnym tle.</li>
+<li><strong>Rozjaśnianie (Dodge)</strong>: Rozświetla barwy bazowe, tworząc intensywne efekty świetlne.</li>
+</ul>
+<details>
+<summary>☀️ Pozostałe (np. Suma, Tylko jaśniejsze)</summary>
+
+<ul>
+<li><strong>Tylko jaśniejsze (Lighten Only)</strong>: Porównuje piksele i zostawia jaśniejszy.</li>
+<li><strong>Tylko jaśniejsze lumy</strong>: Działa na podstawie luminancji.</li>
+<li><strong>Suma (Addition)</strong>: Czyste dodawanie wartości RGB. Bardzo agresywne rozjaśnianie.</li></ul></details>
+
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/screen_demo.webp" alt="Demonstracja trybu Przesiewanie: flara na ciemnym tle" width="640" height="640" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+<h4>4. Grupa Kontrastowa (Tekstury i Detale)</h4>
+<p>Neutralnym kolorem jest <strong>ŚREDNIA SZAROŚĆ</strong> (128, 128, 128).</p>
+<ul>
+<li><strong>Pokrywanie (Overlay)</strong>: Mnoży ciemne i przesiewa jasne piksele. Świetny do nakładania tekstur (np. drewna czy płótna) na lity kolor.</li>
+<li><strong>Miękkie światło (Soft Light)</strong>: Łagodniejsza wersja, działa jak skierowanie kolorowego reflektora na scenę.</li>
+<li><strong>Twarde światło (Hard Light)</strong>: Agresywne, daje efekt ostrego oświetlenia.</li>
+</ul>
+<details>
+<summary>🎭 Pozostałe (np. Żywe światło, Światło liniowe, Twarda mieszanka)</summary>
+
+<ul>
+<li><strong>Żywe światło (Vivid Light)</strong>: Ekstremalny kontrast.</li>
+<li><strong>Światło punktowe (Pin Light)</strong>: Porównuje barwy i „przerzuca” je do skrajnych wartości.</li>
+<li><strong>Twarda mieszanka (Hard Mix)</strong>: Redukuje obraz do 8 podstawowych kolorów (czerwień, zieleń, niebieski, cyjan, magenta, żółty, czarny, biały).</li></ul></details>
+
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/overlay_demo.webp" alt="Demonstracja trybu Pokrywanie: nakładanie tekstury drewna" width="640" height="640" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+<h4>5. Grupa Inwersji i Różnicy (Techniczne)</h4>
+<p>Służą do porównywania obrazów i efektów psychodelicznych.</p>
+<ul>
+<li><strong>Różnica (Difference)</strong>: Odejmuje kolory. Jeśli dwie warstwy są identyczne, wynik to czysty czarny. Narzędzie mistrzów do precyzyjnego wyrównywania zdjęć!</li>
+<li><strong>Wykluczenie (Exclusion)</strong>: Podobne do różnicy, ale z mniejszym kontrastem.</li>
+</ul>
+<details>
+<summary>🔄 Pozostałe (np. Odejmowanie, Wydobycie ziarna, Dzielenie)</summary>
+
+<ul>
+<li><strong>Odejmowanie (Subtract)</strong>: Czysta matematyka – odejmuje RGB góry od spodu.</li>
+<li><strong>Dzielenie (Divide)</strong>: Rozjaśnia obraz poprzez dzielenie wartości (często używane do usuwania zabarwienia zdjęć).</li>
+<li><strong>Wydobycie ziarna (Grain Extract) / Połączenie ziarna (Grain Merge)</strong>: Klasyczne tryby do pracy z teksturami i retuszem „Frequency Separation”.</li></ul></details>
+
+<hr>
+<h4>6. Grupy Składników (HSL i LCh)</h4>
+<p>Najbardziej nowoczesne tryby. Pozwalają zmieniać np. tylko kolor, nie dotykając jasności zdjęcia.</p>
+<ul>
+<li><strong>Kolor LCh / HSL</strong>: Najpopularniejszy sposób na kolorowanie czarno‑białych zdjęć. Zachowuje cienie i światła oryginału, nanosząc na nie nową barwę.</li>
+<li><strong>Pasywny (Pass Through)</strong>: Tryb specjalny dla <strong>Grup Warstw</strong>. Pozwala warstwom wewnątrz grupy „widzieć” i mieszać się z warstwami na zewnątrz.</li>
+</ul>
+<details>
+<summary>🎨 Wszystkie tryby LCh/HSV (np. Odcień, Nasycenie, Jasność)</summary>
+
+<ul>
+<li><strong>Barwa (Hue)</strong>: Podmienia tylko barwę.</li>
+<li><strong>Nasycenie (Saturation)</strong>: Zmienia intensywność koloru.</li>
+<li><strong>Jasność (LCh) / Wartość (HSV)</strong>: Zmienia wyłącznie jasność, ignorując kolor.</li>
+<li><strong>Luminancja</strong>: Najbardziej precyzyjny tryb operujący na jasności percepcyjnej.</li></ul></details>
+
+<hr>
+<data-gate>
+<data-quiz>
+<question><p>Masz zdjęcie płomieni na czarnym tle. Chcesz je nałożyć na nocny krajobraz tak, aby czarne tło "wybuchu" zniknęło, a płomienie oświetliły scenę. Którego trybu użyjesz?</p>
+</question>
+<options>
+<option><p>Mnożenie (Multiply).</p>
+</option>
+<option correct=""><p>Przesiewanie (Screen).</p>
+</option>
+<option><p>Nakładka (Overlay).</p>
+</option>
+</options>
+<div data-hint="error"><p>Potrzebujesz trybu z grupy rozjaśniającej, dla którego czarny kolor ($0$) jest neutralny.</p>
+</div>
+<div data-hint="success"><p>Dokładnie! Przesiewanie "kasuje" czerń i zostawia tylko jasne elementy.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🎭 Maski Warstw</h3>
+<p>Praca z <strong>Gumką (Eraser)</strong> jest destrukcyjna – raz usunięte piksele są trudne do odzyskania. <strong>Maski Warstwy</strong> to nowoczesny, bezpieczny sposób na ukrywanie fragmentów obrazu.</p>
+<p>Maska to dodatkowa, czarno‑biała powłoka przypięta do Twojej warstwy. Działa jak "mapa widoczności":</p>
+<ul>
+<li><strong>Malujesz na masce na BIAŁO</strong>: Piksel jest w pełni widoczny ($100%$ krycia).</li>
+<li><strong>Malujesz na masce na CZARNO</strong>: Piksel staje się przezroczysty ($0%$ krycia).</li>
+<li><strong>Malujesz na SZARO</strong>: Uzyskujesz półprzezroczystość.</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Największa zaleta masek: Jeśli usuniesz za dużo tła i "odetniesz" postać, nie musisz cofać całej pracy. Po prostu zmień kolor pędzla na biały i zamaluj ten fragment na masce. Oryginalne zdjęcie "odrośnie" w tym miejscu, ponieważ pod maską wciąż tam jest!</p>
+
+</div>
+</div><data-gate>
+<data-quiz>
+<question><p>Ukrywasz tło zdjęcia przy pomocy maski. Przez pomyłkę zamalowałeś fragment, który powinien zostać widoczny. Jak go przywrócić w sposób niedestrukcyjny?</p>
+</question>
+<options>
+<option><p>Użyć Ctrl+Z (Cofnij) aż do skutku.</p>
+</option>
+<option correct=""><p>Zmienić kolor pędzla na Biały i zamalować ten fragment na masce.</p>
+</option>
+<option><p>Użyć Gumki na warstwie obrazu.</p>
+</option>
+</options>
+<div data-hint="error"><p>Maska to mapa. Czarny kolor chowa. Jaki kolor odsłania to, co ukryte?</p>
+</div>
+<div data-hint="success"><p>Perfekcyjnie! To fundament profesjonalnego retuszu i fotomontażu.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<p>Lekcja o warstwach to kamień milowy w Twojej edukacji. Rozumiesz już hierarchię, matematykę mieszania i potęgę niedestrukcyjnych masek. W następnej części zajmiemy się selekcją – nauczymy się, jak precyzyjnie wybierać obszary, na których chcemy pracować. 🎨🧤</p>

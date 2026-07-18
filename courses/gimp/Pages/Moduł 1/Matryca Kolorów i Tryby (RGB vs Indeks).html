@@ -1,0 +1,199 @@
+<h2>Matryca Kolorów i Tryby (RGB vs Indeks)</h2>
+<p>Zrozumienie jak system kalkuluje kolor to fundament obróbki rastrowej. Ekran nie "widzi" barwy, widzi ciąg zer i jedynek (pamiętasz kurs Binarne Fundamenty IT? 😉) przypisanych do zestawu współrzędnych pikseli $(X,Y)$ na matrycy.<br>Brak tej wiedzy skutkuje klasycznym problemem amatorów: "dlaczego mój zielony pędzel nagle maluje na szaro?".<br>Ty ją poznasz 😎.</p>
+<hr>
+<h3>🎨 Przestrzenie Barw (Profile Kolorystyczne)</h3>
+<p>Programy graficzne definiują barwy w zamkniętych matematycznych ramach (przestrzeniach).</p>
+<ul>
+<li><strong>RGB (Red, Green, Blue)</strong>: Tryb ekranowy (addytywny). Monitor fizycznie emituje światło, więc kolory dodają się do bieli. Masz pełną kontrolę nad napięciem subpikseli. Jest to natywny obszar projektowania Web i wideo.</li>
+<li><strong>CMYK (Cyan, Magenta, Yellow, Key/Black)</strong>: Tryb drukarski (subtraktywny). Papier absorbuje światło. Zmieszanie wszystkich farb daje "brudny" pigment. CMYK ma <strong>drastycznie węższy gamut (paletę)</strong> w porównaniu do RGB.  <div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+GIMP natywnie pracuje w RGB. Symulacja CMYK odbywa się przez profile kolorów, a profesjonalne przygotowanie do druku często wymaga wtyczek lub zewnętrznych programów.
+</div>
+</div></li>
+</ul>
+<p>Oto praktyczne wyzwanie, które pokaże Ci tę różnicę "na żywo". Twoim zadaniem jest dopasowanie kolorów w dwóch różnych systemach.</p>
+<data-gate>
+
+<p><data-color-gamut></data-color-gamut></p>
+</data-gate>
+
+<ul>
+<li><strong>Tryb Indeksowany (Indexed)</strong>: Format narzucający twardy limit barw (najczęściej max 256). Skonstruowany we wczesnych latach internetu (m.in. dla formatu <code>.gif</code>) w celu agresywnego zbijania wagi pliku. Paleta jest zablokowana w tzw. "Color Map".</li>
+</ul>
+<p>Gimp pozwala na pracę w trzech trybach: <code>RGB</code>, <code>Odcienie szarości</code> i <code>Indeksowany...</code>.<br>Poniżej masz obraz z menu GIMP‑a, gdzie możesz zmienić tryb pracy oraz okno konwersji domyślnego RGB dla nowego projektu w tryb indeksowany.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/tryby_kolorów.webp" alt="Tryby Kolorów" width="911" height="735" class="lazy-image" loading="lazy" decoding="async">
+
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zablokowany pędzel:</strong> Jeśli pobierzesz grafikę sprzętowo zapisaną jako obraz Indeksowany i spróbujesz użyć pędzla o jaskrawo pomarańczowym odcieniu, ślad na płótnie przyjmie barwę brązową lub szarą. Twój odcień po prostu nie istnieje w narzuconej matrycy pliku. Obejście wymaga siłowego przełączenia architektury dokumentu: <em><code>Obraz</code> -&gt; <code>Tryb</code></em>.</p>
+
+</div>
+</div><h3>💻 Głębia Bitowa (Bit Depth) i Banding</h3>
+<p>Głębia definiuje ilość bitów przeznaczonych na zapis informacji tonalnej pojedynczego kanału (R, G lub B) wewnątrz jednego piksela. Im wyższa wartość bitowa, tym subtelniejsze przejścia można zapisać w pamięci systemowej, kosztem radykalnego obciążenia pamięci RAM.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Głębia na Kanał</th>
+<th align="left">Rozróżniana Paleta Barw</th>
+<th align="left">Zastosowanie i Koszt Obliczeniowy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>8‑bit Integer</strong></td>
+<td align="left">$16.7$ Milionów Barw ($2^8 = 256$ odcieni na R/G/B) 🙂</td>
+<td align="left">Standard rynkowy (.jpg, .png). Minimalne narzuty CPU/RAM. Podatny na urywanie jasności.</td>
+</tr>
+<tr>
+<td align="left"><strong>16‑bit Integer</strong></td>
+<td align="left">$281$ Bilionów Barw ($2^{16} = 65\text{ }536$ odcieni na RGB) 😮</td>
+<td align="left">Standard fotomontaży i fotografii wysokiej jakości. Likwiduje problem pasmowania (bandingu).</td>
+</tr>
+<tr>
+<td align="left"><strong>32‑bit Float</strong></td>
+<td align="left">Nieskończoność (brak sztywnych limitów) 🤯</td>
+<td align="left">Ekstremalne środowisko HDR (High Dynamic Range). Potężny narzut przeliczeniowy.</td>
+</tr>
+</tbody></table>
+<p><strong>Zjawisko Bandingu (Pasmowania):</strong><br>Gdy generujesz bardzo płynny, ciemny gradient, a pracujesz w trybie $8$-bit, fizycznie brakuje Ci dostępnych odcieni. System nie ma "szufladki" na kolor pomiędzy odcieniem $120$ a $121$, więc tworzy twardy przeskok.<br>Banding bardzo łatwo wytworzyć stosując przezroczystość i wymuszając mieszanie kolorów w trybie $8$-bit natrafisz na wartości z zbyt dużym przeskokiem. Dokładnie tak jak na obrazku poniżej.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/banding.webp" alt="Banding przedstawiony na gradiencie radialnym odcieni szarości" width="936" height="890" class="lazy-image" loading="lazy" decoding="async">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli podczas pracy widzisz "pasy" na gradientach, w GIMPie przejdź do: <code>Obraz -&gt; Precyzja</code> i podbij wartość z <code>8-bit</code> do <code>16-bit integer</code>. Otworzy to bufor pozwalający na utrwalenie detali przejść, pod warunkiem zasobnego stanowiska komputerowego.</p>
+
+</div>
+</div><hr>
+<h3>🧰 Zarządzanie w Przyborniku (Toolbox)</h3>
+<p>Twoje "podręczne" centrum koloru znajduje się w Przyborniku. Zwróć uwagę na układ ikon:</p>
+<ul>
+<li><strong>Kolor Pierwszoplanowy i Drugoplanowy</strong>: To dwa nakładające się kwadraty. Ten w <strong>lewym górnym rogu</strong> (FG - <em>Foreground</em>) to Twój aktualny kolor pędzla. Ten w <strong>prawym dolnym rogu</strong> (BG - <em>Background</em>) służy m.in. do wypełnień i gradientów.</li>
+<li><strong>Zamiana Kolorów (Ikona strzałki)</strong>: Pozwala błyskawicznie zamienić miejscami barwę FG i BG. Najczęściej używane przy szybkim poprawianiu błędów maską.</li>
+<li><strong>Reset (Małe czarno‑białe kwadraciki)</strong>: Znajdują się pod głównymi polami. Ich kliknięcie natychmiast przywraca domyślną konfigurację: <em>Czarna</em> barwa FG i <em>Biała</em> barwa BG.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/zmiana_aktywnego_koloru.webp" alt="Interfejs zarządzania kolorem w Przyborniku oraz główne okno edycji" width="862" height="527" class="lazy-image" loading="lazy" decoding="async">
+
+<h3>🎨 Okno "Zmiana aktywnego koloru"</h3>
+<p>Gdy otworzysz główne okno edycji (zaznaczone na niebiesko powyżej), otrzymujesz dostęp do precyzyjnych narzędzi sterowania sygnałem:</p>
+<ol>
+<li><strong>Zapis HTML (HEX)</strong>: Pole edycyjne na samym dole. To Twój most komunikacyjny z deweloperem – tutaj wklejasz precyzyjne kody barw, które muszą się zgadzać co do bita w gotowym produkcie. Sprytny algorytm GIMPa pozwala na wklejenie kodu zarówno jako <code>FF5500</code>, jak i <code>#FF5500</code>. Jeśli dodasz hashtag, program sam go usunie przy zatwierdzaniu.</li>
+<li><strong>Probówka Systemowa (Ikona monitora)</strong>: Znajduje się <strong>bezpośrednio po prawej stronie pola HEX</strong>. Pozwala pobrać kolor z <strong>dowolnego miejsca na Twoim ekranie</strong> – nawet spoza okna GIMPa (np. kolor z ikonki innego programu lub strony WwW).</li>
+<li><strong>Skale i Rozdzielczość</strong>:<ul>
+<li><strong>0‑100</strong>: Skala procentowa (bezwzględna moc sygnału).</li>
+<li><strong>0‑255</strong>: Skala 8‑bitowa. Dla dewelopera jest kluczowa, bo odpowiada fizycznemu zapisowi jednego bajta na kanał barwny w pamięci RAM.</li>
+</ul>
+</li>
+<li><strong>Systemy Selekcji (HSV i LCh)</strong>:<ul>
+<li><strong>HSV</strong> (Barwa, Nasycenie, Jasność) – model najprostszy w obsłudze.</li>
+<li><strong>LCh</strong> (Jasność, Chroma, Barwa) – model oparty na percepcji oka.<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<strong>Różowe/puste fragmenty w LCh:</strong> Jeśli w tej zakładce zobaczysz jaskrawo różowe obszary, oznacza to, że dany kolor jest <em><strong>poza gamutem Twojego monitora</strong></em>. Matematycznie on istnieje i <em>ludzkie oko mogłoby go zobaczyć</em> (np. w naturze, przy bardzo silnym świetle lub neonach), ale Twoja matryca nie jest w stanie wygenerować fizycznie tak "soczystej" lub jasnej barwy. LCh to model oparty na percepcji, więc pokazuje "pełną prawdę" o wzroku, obnażając przy tym słabość sprzętu.
+</div>
+</div></li>
+</ul>
+</li>
+<li><strong>Radio Input i Pionowy Suwak</strong>: Kropki obok liter (R,G,B,H,S,V) decydują o tym, który parametr sterujesz za pomocą <strong>pionowej, wąskiej belki</strong> (tuż obok głównego kwadratu wyboru). Jeśli wybierzesz <code>H</code> (Hue), na pasku wybierasz "kolor tęczy", a w kwadracie jego nasycenie i jasność.</li>
+<li><strong>Historia Kolorów</strong>: Pasek na samym dole przechowuje <strong><em>maksymalnie $12$ ostatnio zapisanych barw</em></strong>. Musisz ręcznie kliknąć przycisk <strong><code>+</code></strong> <em>(Dodaj bieżący kolor do historii)</em>. Dodanie $13$-stego koloru spowoduje usunięcie najstarszego wpisu z końca kolejki.</li>
+</ol>
+<hr>
+<data-gate>
+<data-quiz>
+<question><p>Masz zadanie stworzyć grafikę na tło strony WwW. Programista prosi Cię o kolor "Głęboki błękit" i podaje kod <code>#0000FF</code>. Jakie barwy będą emitować subpiksele Twojego monitora?</p>
+</question>
+<options>
+<option><p>Wszystkie subpiksele (R, G, B) będą świecić z mniejszą mocą, aby uzyskać ciemny odcień.</p>
+</option>
+<option correct=""><p>Tylko subpiksel niebieski (B) będzie świecił z pełną mocą (FF), a czerwony (R) i zielony (G) pozostaną całkowicie wygaszone (00).</p>
+</option>
+<option><p>To kod dla drukarki, więc subpiksele w ogóle nie biorą udziału w generowaniu tego koloru.</p>
+</option>
+</options>
+<div data-hint="error"><p>Spójrz na strukturę kodu HEX: #RRGGBB. Jakie wartości stoją na pozycjach odpowiadających za kolory Red i Green, a jaka na pozycji Blue?</p>
+</div>
+<div data-hint="success"><p>Perfekcyjnie! Pamiętasz system szesnastkowy z poprzedniego kursu – FF to maksymalne wysterowanie, a 00 to brak sygnału. To jest właśnie "czysty niebieski".</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<h3>📑 Pozostałe Metody Wyboru (Zakładki)</h3>
+<p>GIMP oferuje alternatywne interfejsy ukryte pod zakładkami na górze okna:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/zakładki_zmiany_aktywnego_koloru.webp" alt="Dodatkowe zakładki zmiany aktywnego koloru" width="2360" height="501" class="lazy-image" loading="lazy" decoding="async">
+
+<ul>
+<li><strong>Zakładka CMYK</strong>: Numeryczna symulacja ilości pigmentów farbiarskich (C, M, Y, K). Służy do szacowania "zużycia tuszu" przed drukiem.</li>
+<li><strong>Zakładka Akwarele (Watercolors)</strong>: Interfejs dla artystów. Wyobraź sobie, że masz czysty pędzel i kliknięciem nabierasz odrobinę barwy z palety, która miesza się z aktualną bazą. Dłuższe przytrzymanie "pobiera" więcej koloru. Uważaj – łatwo tu przedobrzyć i skończyć z "czarną breją"!</li>
+<li><strong>Zakładka Kółko/Trójkąt (Wheels)</strong>: Wizualna reprezentacja przestrzeni barwnej. Na zewnętrznym pierścieniu wybierasz barwę, a wewnątrz trójkąta jej parametry.</li>
+<li><strong>Zakładka Paleta</strong>: Daje szybki dostęp do zapisanych zestawów barw (swatches). Jest kluczowa przy pracy w <strong>trybie indeksowanym</strong>, gdzie musisz trzymać się sztywno określonej listy barw.</li>
+</ul>
+<hr>
+<data-gate>
+<data-quiz>
+<question><p>Pracujesz nad makietą aplikacji, korzystając ze standardowej 8‑bitowej przestrzeni roboczej. Po wyrenderowaniu gładkiego, ciemnego tła z cieniem pojawiają się wyraźne okręgi twardych odcięć między tonacjami (tzw. banding). Jak zniwelować to zjawisko z poziomu architektury projektu?</p>
+</question>
+<options>
+<option><p>Nałożenie delikatnego filtru rozmycia (Gaussian Blur) na wadliwy obszar wymusi nadpisanie interpolacji pikselowej i wygładzenie krawędzi tonalnych.</p>
+</option>
+<option correct=""><p>Zmiana precyzji obrazu (Image Precision) z 8‑bitów na 16‑bitów (lub wyżej), co znacząco poszerzy dostępny bufor przejść tonalnych do milionów zmiennych zamiast 256.</p>
+</option>
+<option><p>Przekonwentowanie przestrzeni roboczej z RGB do trybu CMYK pozwala uruchomić dodatkowy algorytm czarnego kanału mieszającego tony cieni.</p>
+</option>
+</options>
+<div data-hint="error"><p>Pomyśl o problemie jak o braku odpowiedniej rozdzielczości barwnej. Potrzebujesz więcej "szufladek" w pamięci by poukładać wartości barw skali pośredniej z twardego odcięcia pędzla.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🧪 Modele Mieszania Barw: Addytywny vs Subtraktywny</h3>
+<p>W grafice komputerowej poruszamy się między światłem (ekran) a pigmentem (druk). Sprawdź na poniższym symulatorze, jak drastycznie różnią się te dwa światy:</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Kolor nie jest "stałą" cechą przedmiotu – to Twoja <strong>biologiczna interpretacja fal światła</strong>. Światło o różnych długościach i częstotliwościach wpada do oka, gdzie jest wyłapywane przez <strong>trzy rodzaje czopków</strong> (L, M, S – reagujące na czerwień, zieleń i błękit). Twój mózg miksuje te trzy sygnały, tworząc miliony barw. </p>
+<p>System RGB (monitor) bezpośrednio oszukuje te trzy receptory, świecąc im prosto... he he, w "oczy".<br>Farby (druk) działają inaczej: farba pochłania część fal, a to, co widzisz, to "resztki" odbite od pigmentu.</p>
+<ul>
+<li><strong>Model Addytywny (RGB)</strong>: To mieszanie "światła". Gdy dodajesz kolejne kolory, obraz staje się jaśniejszy. Suma wszystkich daje czystą biel. To domena Twojego monitora.</li>
+<li><strong>Model Subtraktywny (CMY)</strong>: To mieszanie "farby". Każdy kolejny pigment "zabiera" (odejmuje) światło odbite od kartki. Suma wszystkich daje ciemną, niemal czarną plamę. To domena druku.</li>
+</ul>
+
+</div>
+</div><p><data-color-mixing mode="additive"></data-color-mixing></p>
+<h3>🎡 Koło Barw i Harmonia Pro</h3>
+<p>Piękno projektu często wynika z matematyki ukrytej w Kole Barw. GIMP pozwala Ci wybierać kolory w różnych systemach, ale to Ty musisz zdecydować, które z nich będą do siebie pasować. </p>
+<p>Skorzystaj z poniższego <strong>zaawansowanego generatora</strong>, aby przetestować klasyczne <strong>schematy harmoniczne</strong> z uwzględnieniem nasycenia i jasności. W przeciwieństwie do prostych kół, ten widget generuje pełną, <strong>12‑elementową paletę</strong> (odcienie, tony i tinty) dla każdego schematu:</p>
+<ul>
+<li>Monochromatyczne (<em>Monochromatic</em>): Pojedynczy kolor.</li>
+<li>Dopełniające (<em>Complementary</em>): Dwa kolory przeciwległe.</li>
+<li>Pokrewne (<em>Analogous</em>): Trzy kolory leżące obok siebie.</li>
+<li>Triada (<em>Triad</em>): Trzy kolory a między nimi są po trzy kolory odstępu.</li>
+<li>Rozszczepione (<em>Split</em>): Jeden kolor i dwa po jego przeciwnej stronie.</li>
+<li>Tetrada (<em>Tetradic</em>): Cztery kolory (dwie pary przeciwległe).</li>
+</ul>
+<p><data-color-harmony></data-color-harmony></p>
+<ul>
+<li><strong>Manipulacja HSV</strong>: Zmieniając nasycenie (S) i jasność (V) koloru dominującego, wpływasz na całą grupę barw, zachowując ich matematyczną relację.</li>
+<li><strong>Warianty Tonalne</strong>: Dla każdego schematu (np. Triady) system automatycznie dobiera jaśniejsze i ciemniejsze warianty, tworząc gotowy warsztat pracy projektanta.</li>
+<li><strong>Tryb Monochromatyczny</strong>: Idealny do budowania głębi przy użyciu jednego koloru. Generuje paletę 12 profesjonalnych odcieni wybranej barwy.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pokrewne kolory z ustawieniem <code>S: 45%</code> | <code>V: 66%</code> da ci paletę idealnie stonowaną kolorystykę stosowaną w paletkach do makijażu.</p>
+
+</div>
+</div><hr>

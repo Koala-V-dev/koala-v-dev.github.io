@@ -1,0 +1,242 @@
+<h2>Modyfikacja jądra: Rejestr i Harmonogram Zadań</h2>
+<p>Jako zaawansowany inżynier wsparcia natrafisz w końcu na granicę graficznego interfejsu Ustawień. Pojawi się wirus, który usuwa się z Menedżera Zadań, ale system wciąż startuje wolno. Albo na stanowisku serwerowym skrypt musi uruchomić się przed jakimkolwiek logowaniem pracownika.</p>
+<p>Aby rozwiązać takie zgłoszenia, musisz pojąć fizyczną strukturę najważniejszej bazy danych ekosystemu Microsoftu – <strong>Rejestru Windows</strong> – oraz zapanować nad twardym <strong>Harmonogramem Zadań</strong>.</p>
+<hr>
+<h3>🗂️ Inżynieria Rejestru (`regedit`)</h3>
+<p>Gdzie tak naprawdę system Windows przechowuje wszystkie kliknięte opcje? Nie są to chaotyczne pliki <code>.ini</code> rozsiane po dysku. Rejestr to scentralizowana, hierarchiczna baza danych jądra.</p>
+<p>Otwórz wiersz poleceń Uruchom: <kbd class="Win"></kbd> + <kbd>R</kbd> → <code>regedit</code>.</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><strong>Rejestr nie posiada przycisku „Zapisz".</strong> Edytor wykonuje twarde transakcje zapisu w locie, w czasie rzeczywistym. Usunięcie złego klucza w gałęzi SYSTEM błyskawicznie uszkodzi system operacyjny bez możliwości ponownego uruchomienia. Przed modyfikacją jakiejkolwiek kluczowej gałęzi zawsze klikaj PPM → <strong>Eksportuj</strong>, aby stworzyć ratunkowy plik <code>.reg</code>.</p>
+
+</div>
+</div><h4>Architektura gałęzi i plików fizycznych</h4>
+<p>Większość administratorów myśli, że Rejestr to po prostu okienko drzewa folderów. W rzeczywistości każda z gałęzi (Hives) to ukryty fizyczny plik na dysku, który system montuje do jądra podczas uruchamiania maszyny.</p>
+<data-tabs>
+  <tabs>
+    <item>HKLM (Local Machine)</item>
+    <item>HKCU (Current User)</item>
+    <item>Edycja offline (ratunkowa)</item>
+    <item>Power User: Registry Preview</item>
+  </tabs>
+  <div><h4>HKLM (Local Machine)</h4>
+<p><strong>Konfiguracja maszyny.</strong> Dotyczy sprzętu, sterowników (<code>hal.dll</code>), wszystkich zabezpieczeń i polis grupowych GPO. Zmiany tutaj uderzają w absolutnie każdego użytkownika, który kiedykolwiek usiądzie do tego komputera.</p>
+<p><em>Gdzie to leży na dysku?</em><br>Pliki bez rozszerzenia <code>SYSTEM</code> oraz <code>SOFTWARE</code> w chronionym folderze:<br><code>C:\Windows\System32\config</code></p>
+<p><em>Najważniejsze lokalizacje dla Helpdesku:</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Ścieżka</th>
+<th align="left">Zawartość</th>
+<th align="left">Zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code></td>
+<td align="left">Autostart systemowy</td>
+<td align="left">Wirusy bardzo często dopisują się tutaj z wartością <code>REG_SZ</code> prowadzącą do ukrytego pliku</td>
+</tr>
+<tr>
+<td align="left"><code>HKLM\SYSTEM\CurrentControlSet\Services</code></td>
+<td align="left">Wszystkie zarejestrowane usługi</td>
+<td align="left">Sprawdzasz typ startu, ścieżkę do pliku wykonywalnego, zależności</td>
+</tr>
+<tr>
+<td align="left"><code>HKLM\SOFTWARE\Policies\Microsoft</code></td>
+<td align="left">Polisy GPO</td>
+<td align="left">Widać tu wszystkie aktywne nakazy <code>gpedit.msc</code> i <code>secpol.msc</code></td>
+</tr>
+<tr>
+<td align="left"><code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion</code></td>
+<td align="left">Metadane systemu</td>
+<td align="left">Numer buildu, wersja, data instalacji</td>
+</tr>
+</tbody></table></div>
+  <div><h4>HKCU (Current User)</h4>
+<p><strong>Konfiguracja środowiska.</strong> Opcje spersonalizowane: tapeta, układ paska Start, konfiguracja widoku schowka.  </p>
+<p>HKCU jest <strong>dynamicznym punktem montowania</strong>.</p>
+<p><em>Gdzie to leży na dysku?</em><br>Kiedy uruchamiasz stację, Windows nie ma załadowanego HKCU. System wyświetla ekran blokady czekając na login. Gdy wpiszesz hasło, jądro lokalizuje na dysku folder użytkownika (np. <code>C:\Users\Jan\</code>) i wstrzykuje w pamięć ukryty plik <code>NTUSER.DAT</code>. Z perspektywy architektury bazy danych, <code>HKEY_CURRENT_USER</code> to wirtualne odwzorowanie zawartości twojego pliku <code>NTUSER.DAT</code>.</p>
+<p><em>Kluczowe lokalizacje:</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Ścieżka</th>
+<th align="left">Zawartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code></td>
+<td align="left">Autostart per‑użytkownik (bez uprawnień admin)</td>
+</tr>
+<tr>
+<td align="left"><code>HKCU\Control Panel\Desktop</code></td>
+<td align="left">Tapeta, wygaszacz, DPI</td>
+</tr>
+<tr>
+<td align="left"><code>HKCU\SOFTWARE\Policies\Microsoft</code></td>
+<td align="left">Polisy GPO nałożone na konkretny profil</td>
+</tr>
+</tbody></table></div>
+  <div><h4>Hardcore Helpdesk: Offline Registry Editing</h4>
+<p>Stacja pracownicza nie włącza się z powodu Blue Screena wywołanego przez wadliwy zapis Rejestru podczas instalacji programu (Bootloop). Jak naprawić Rejestr, skoro Windows nie wstaje?</p>
+<ol>
+<li>Uruchamiasz system z PenDrive'a instalacyjnego Windows 11 lub z partycji naprawczej (WinRE).</li>
+<li>Wywołujesz konsolę Wiersza Poleceń (<kbd>Shift</kbd> + <kbd>F10</kbd>).</li>
+<li>Wpisujesz polecenie <code>regedit</code>, uruchamiając edytor z jądra czystego WinRE.</li>
+<li>Klikasz <em>Plik → Załaduj Gałąź (Load Hive)</em>, nawigujesz po dysku padniętego komputera do folderu <code>C:\Windows\System32\config</code>, a następnie otwierasz zepsuty fizyczny plik <code>SYSTEM</code>.</li>
+</ol>
+<p>Masz dostęp do rejestru martwego komputera – możesz usunąć wirusa z autostartu albo cofnąć błędną modyfikację klucza usługi, omijając brakującą powłokę Eksploratora.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeżeli po załadowaniu Hive system naprawczy wywali konflikt nazw (klucz już istnieje), załaduj plik z tymczasową nazwą (np. <code>OFFLINE_SYSTEM</code>). Po zakończeniu edycji wejdź w <em>Plik → Rozładuj Gałąź (Unload Hive)</em>, żeby zapisać zmiany z powrotem do pliku na dysku.</p>
+
+</div>
+</div></div>
+  <div><h4>🧰 Power User: Zanim zepsujesz (Registry Preview)</h4>
+<p>Pobierasz z internetu gotowy skrypt w pliku <code>.reg</code> (np. obiecujący odblokowanie "ukrytych funkcji" systemu). Dwukrotne kliknięcie od razu go egzekwuje – natychmiastowo i nieodwracalnie wtłacza dziesiątki modyfikacji do jądra. Brak przycisku cofnij.</p>
+<p>Żeby nie grać w rosyjską ruletkę, power userzy z pakietem <strong>PowerToys</strong> używają modułu <strong>Registry Preview</strong> (Podgląd Rejestru).</p>
+<ol>
+<li>Klikasz na plik <code>.reg</code> prawym przyciskiem myszy i wybierasz <code>Podgląd</code>.</li>
+<li>Otwiera się bezpieczne środowisko testowe.</li>
+<li>Po lewej widzisz surowy kod pliku, a po prawej – czytelne, graficzne drzewo rejestru pokazujące dokładnie <em>które</em> ścieżki i klucze zostaną stworzone, usunięte lub podmienione.</li>
+<li>Możesz na żywo wyedytować niebezpieczne wartości w edytorze tekstowym i sprawdzić, jak zmieni się drzewo po prawej – zanim w ogóle dotkniesz fizycznego Rejestru. To ostateczna tarcza przed złośliwymi "optymalizatorami".</li>
+</ol></div>
+</data-tabs>
+
+<hr>
+<h3>🕐 Automatyzacja jądra (`taskschd.msc`)</h3>
+<p>Zarządzanie twardym rozruchem skryptów to niekończąca się pułapka nowicjuszy. Jeśli postawisz stację serwerową i chcesz, żeby weryfikowała backup raz w nocy – nie używaj zewnętrznych aplikacji, bo zostaną zabite wylogowaniem. Używamy zintegrowanej przystawki podsystemu: Harmonogramu Zadań.</p>
+<p>Wywołanie narzędzia z uprawnieniami administracyjnymi: <kbd class="Win"></kbd> + <kbd>R</kbd> → <code>taskschd.msc</code>.</p>
+<h4>Dekonstrukcja zadania</h4>
+<p>Każde zdarzenie wymaga podania dwóch argumentów:</p>
+<ol>
+<li><strong>Wyzwalacz (Trigger):</strong> Odpowiada na pytanie „KIEDY?".</li>
+<li><strong>Akcja (Action):</strong> Odpowiada na pytanie „CO ROBIMY?".</li>
+</ol>
+<p>Ale to niewystarczające. Między nimi jest jeszcze jeden, pomijany przez większość – <strong>Kontekst Uprawnień</strong>.</p>
+<h5>Krucjata o kontekst uprawnień</h5>
+<p>Klikasz „Utwórz Zadanie", wskazujesz skrypt z backupem <code>.bat</code> w Akcjach, a w Wyzwalaczu podajesz codziennie godzinę 02:00 w nocy. Skrypt działa, gdy go wywołujesz w biurze. Idziesz do domu, stacja zamyka sesję.</p>
+<p>Rano wracasz. Zadanie rzuca błędem w Logach Harmonogramu i pokazuje <em>Kod błędu: Brak Zalogowanego Użytkownika</em>.</p>
+<p>Dlaczego? Odpowiedź leży w małym przełączniku w zakładce „Ogólne". Gdy domyślnie tworzysz zadanie, zaznaczona jest opcja <strong>„Uruchom tylko wtedy, gdy użytkownik jest zalogowany"</strong>. Jądro podłącza się pod Ring 3, by uruchomić skrypt jako Ty. Kiedy ekran blokady zaparkował środowisko – nie ma gdzie wywołać skryptu, więc usługa zamyka się ze zgłoszeniem niepowodzenia.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Przy ważnych zdarzeniach (wirtualizacja, nocne testy obciążeniowe, backup), w pierwszej zakładce Zadania („Ogólne") zawsze zaznaczaj <strong>„Uruchamiaj niezależnie od tego, czy użytkownik jest zalogowany"</strong> oraz <strong>„Uruchom z najwyższymi uprawnieniami"</strong>.<br>System poprosi o podanie hasła profilu administracyjnego. Od tej chwili Harmonogram uruchomi instrukcję prosto z procesu demona warstwy jądra – bez uruchamiania komponentów UI. Działa na zablokowanym profilu zawsze.</p>
+
+</div>
+</div><blockquote>
+<p>System poprosi o podanie hasła profilu administracyjnego. Od tej chwili Harmonogram uruchomi instrukcję prosto z procesu demona warstwy jądra – bez uruchamiania komponentów UI. Działa na zablokowanym profilu zawsze.</p>
+</blockquote>
+<hr>
+<h3>🧰 Power User: Kontrola snu maszyny (Awake)</h3>
+<p>Harmonogram Zadań jest idealny do automatyzacji, ale co w sytuacji, gdy ręcznie puszczasz kompilację kodu lub kompresję 500 GB paczki danych i idziesz do domu? Jeżeli narzucona przez firmę polisa GPO zmusza komputer do hibernacji po 15 minutach (a ty nie możesz tego wyklikać w panelu zasilania), twój proces umrze.</p>
+<p>Zamiast używać prowizorycznych skryptów "poruszających myszką", używamy narzędzia <strong>PowerToys Awake</strong>.</p>
+<p>Ta malutka ikonka filiżanki w zasobniku systemowym pozwala jednym kliknięciem narzucić własny stan ("Utrzymuj w aktywności") do określonej godziny. Awake działa jak sprzętowy bloker – komunikuje się bezpośrednio z usługą zasilania w jądrze i odrzuca żądania uśpienia płynące od systemu czy polis GPO, chroniąc Twoją wielogodzinną pracę przed przerwaniem.</p>
+<hr>
+<h3>⚙️ Inżynieria zdarzeń na żywo (Event Trigger)</h3>
+<p>Ekosystem Windows pozwala na wymianę danych między podsystemami opisywanymi w poprzednich lekcjach.</p>
+<p>Skoro w lekcji diagnostycznej ustaliliśmy, że „Event ID 41" (w <code>eventvwr.msc</code>) oznacza brak prądu – czy da się włączyć skrypt z ostrzeżeniem dla biura od razu w trakcie takiego skoku napięcia?</p>
+<p>Tak, i to prosto z Harmonogramu:</p>
+<ol>
+<li>W <code>taskschd.msc</code>, w zakładce Wyzwalacze, jako początek warunku z rozwijalnej listy wybierasz wartość: <strong>Przy Zdarzeniu</strong>.</li>
+<li>Harmonogram prosi o trzy dane z logów:<ul>
+<li><strong>Dziennik:</strong> np. <code>System</code></li>
+<li><strong>Źródło:</strong> np. <code>Kernel-Power</code></li>
+<li><strong>Identyfikator zdarzenia:</strong> np. <code>41</code></li>
+</ul>
+</li>
+<li>Jako Akcję wywołujesz skrypt PowerShella.</li>
+<li>Zapisujesz zadanie z parametrami „najwyższe uprawnienia, niezależnie od logowania".</li>
+<li>Efekt: Maszyna z wyciągniętą baterią CMOS sama wykryje błąd podsystemu zasilania, zatrybuje log diagnostyczny, wywoła akcję z Harmonogramu i wyrzuci ostrzeżenie w sieci firmowej – zanim ktokolwiek zdąży zareagować.</li>
+</ol>
+<hr>
+<h3>🧪 Laboratorium: Autostart i nocny backup</h3>
+<p>Stwórzmy dwa praktyczne zadania w Harmonogramie – jedno pokazujące typowy problem z kontekstem, drugie jego prawidłowe rozwiązanie.</p>
+<h4>Zadanie 1: Skrypt raportujący o rozruchu systemu</h4>
+<ol>
+<li>Stwórz plik <code>C:\Scripts\startup_log.ps1</code>:</li>
+</ol>
+<pre><code class="language-powershell">$timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+Add-Content -Path "C:\Scripts\boot_log.txt" -Value "System uruchomiony: $timestamp"
+</code></pre>
+<ol start="2">
+<li><p>W <code>taskschd.msc</code> utwórz nowe zadanie:</p>
+<ul>
+<li>Wyzwalacz: <strong>Przy uruchomieniu</strong></li>
+<li>Akcja: <strong>Uruchom program</strong> → <code>powershell.exe</code> → Argumenty: <code>-ExecutionPolicy Bypass -File "C:\Scripts\startup_log.ps1"</code></li>
+<li>Ogólne: <strong>Uruchamiaj niezależnie od tego, czy użytkownik jest zalogowany</strong> + <strong>Najwyższe uprawnienia</strong></li>
+</ul>
+</li>
+<li><p>Zrestartuj maszynę i sprawdź, czy w <code>C:\Scripts\boot_log.txt</code> pojawił się wpis.</p>
+</li>
+</ol>
+<h4>Zadanie 2: Alert przy Event ID 41</h4>
+<ol>
+<li>Stwórz plik <code>C:\Scripts\power_alert.ps1</code>:</li>
+</ol>
+<pre><code class="language-powershell">$msg = "UWAGA: Zarejestrowano nieoczekiwane wyłączenie zasilania! $(Get-Date)"
+[System.Windows.Forms.MessageBox]::Show($msg, "Kernel-Power Alert")
+</code></pre>
+<ol start="2">
+<li>W <code>taskschd.msc</code> utwórz nowe zadanie:<ul>
+<li>Wyzwalacz: <strong>Przy Zdarzeniu</strong> → Dziennik: <code>System</code>, Źródło: <code>Kernel-Power</code>, ID: <code>41</code></li>
+<li>Akcja: <strong>Uruchom program</strong> → <code>powershell.exe</code> z powyższym skryptem</li>
+<li>Ogólne: <strong>Uruchamiaj niezależnie od zalogowania</strong> + <strong>Najwyższe uprawnienia</strong></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3>🕵️ Rejestr i automatyzacja: Symptom → Rozwiązanie</h3>
+<data-gate>
+  <data-connection-matcher title="Diagnostyka rejestru i zadań">
+    <div class="cmw-item" data-left="System po starcie wyrzuca komunikat błędu z podejrzaną ścieżką do pliku .exe. Chcesz zidentyfikować skąd ten program się uruchamia." data-right="Sprawdź HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run oraz HKCU odpowiedni klucz Run. To standardowe lokalizacje autostartów – wirusy często tam siedzą."></div>
+    <div class="cmw-item" data-left="Stacja nie startuje z powodu Blue Screena po instalacji sterownika. Windows w ogóle nie wchodzi do pulpitu." data-right="Uruchom z pendrive WinRE (Shift+F10), wywołaj regedit, załaduj Gałąź (Load Hive) z pliku SYSTEM z C:\Windows\System32\config i usuń klucz wadliwego sterownika."></div>
+    <div class="cmw-item" data-left="Skrypt backupu ustawiony w Harmonogramie Zadań działa podczas twojej sesji, ale w niedzielę nocą (gdy stacja jest zablokowana) nie odpala się i wyrzuca błąd 'Brak zalogowanego użytkownika'." data-right="W zakładce Ogólne zadania zmień opcję na 'Uruchamiaj niezależnie od tego, czy użytkownik jest zalogowany' i zaznacz 'Uruchom z najwyższymi uprawnieniami'. Podaj hasło administratora."></div>
+    <div class="cmw-item" data-left="Chcesz żeby komputer automatycznie wysyłał e-mail alertowy za każdym razem, gdy system Windows wykryje nieoczekiwane zamknięcie (Event ID 6008)." data-right="W taskschd.msc utwórz zadanie z Wyzwalaczem 'Przy Zdarzeniu' (Dziennik: System, Źródło: EventLog, ID: 6008). Jako Akcję uruchom skrypt PowerShell wywołujący Send-MailMessage."></div>
+    <div class="cmw-item" data-left="Znalazłeś w sieci plik .reg odblokowujący stare menu kontekstowe, ale boisz się, czy nie zawiera wirusów." data-right="Otwórz go przez PowerToys Registry Preview. Zobaczysz w formie graficznego drzewa, dokładnie do jakich gałęzi rejestru chce się dopisać, omijając wykonanie kodu."></div>
+    <div class="cmw-item" data-left="Uruchamiasz 5-godzinną analizę logów o 15:55, a sztywna polityka GPO zmusza komputery do hibernacji o 16:15 bez możliwości zmiany w Ustawieniach." data-right="Włącz PowerToys Awake na tryb 'Utrzymuj do końca pracy'. Program przechwyci i unieważni systemowe zapytania o usypianie, utrzymując włączony procesor przez resztę nocy."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3>🧠 Sprawdź swoją wiedzę (INF.02)</h3>
+<data-gate>
+  <data-quiz>
+    <question><p>Uczeń ustawił Harmonogram Zadań tak, aby plik wsadowy <code>.bat</code> zgrywał całą bazę MySQL do chmury co niedzielę o 15:00. Użytkownik wylogowuje się z lokalnej stacji Windows Pro w każdy piątek o 17:00 i wraca do biura w poniedziałek. Skrypt nigdy nie odpala się w niedzielę. Co uniemożliwia wywołanie procedury?</p>
+</question>
+    <options>
+      <item><p>Wywołano skrypt <code>.bat</code> zamiast pliku PowerShell – tylko <code>.ps1</code> nadaje się do kompilacji przez zablokowane jądro w trybie hibernacji.</p>
+</item>
+      <item correct=""><p>Uczeń zapomniał zmienić kontekst wykonania w zakładce Ogólne. Należało zaznaczyć 'Uruchamiaj niezależnie od tego, czy użytkownik jest zalogowany' wraz z 'Najwyższe uprawnienia', by oddać kod pod kontrolę jądra bez aktywnego środowiska Windows.</p>
+</item>
+      <item><p>W Windows 11 Pro usunięto klasyczny Harmonogram Zadań pod kątem bezpieczeństwa, wymuszając konfigurację przez twardą modyfikację rejestru w kluczach <code>HKLM\SOFTWARE\Microsoft\Schedule\</code>.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Kontekst bezpieczeństwa w Windows jest świętością. Czy okienko MS‑DOS może samo otworzyć się na pulpicie użytkownika, gdy pracownik ten nie podał jeszcze hasła do maszyny?</p>
+</div>
+    <div data-hint="success"><p>Rozwiązanie na poziomie SysAdmina! Jeśli skrypt działa podczas zalogowania, a po zamknięciu stacji wywala błąd – problemem jest zawsze brak zezwolenia w zakładce „Ogólne". Przełączenie na „niezależnie od zalogowania" wstrzykuje do rejestru poświadczenia administratora jako token uruchomienia, omijając powłokę graficzną.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li><strong>Rejestr to fizyczne pliki:</strong> Zmiany użytkownika ładują się z ukrytego pliku <code>NTUSER.DAT</code>, a zachowanie maszyny z pliku <code>SYSTEM</code> w <code>System32\config</code>. Możesz edytować Rejestr padniętego Windowsa offline, ładując Hive z dysku przez WinRE. 💾</li>
+<li><strong>Eksportuj przed edycją &amp; Podglądaj:</strong> Z Rejestrem nie ma miękkiej gry. Robisz <code>PPM → Eksportuj</code> zanim dotkniesz czegokolwiek. A cudze skrypty <code>.reg</code> wpuszczasz dopiero po prześwietleniu ich logicznego drzewa w <strong>Registry Preview</strong>. ⚠️</li>
+<li><strong>Kontekst autoryzacji zadań:</strong> Skrypty nocne i działające w tle wymagają w zakładce Ogólne opcji „Niezależnie od zalogowania”. Bez wstrzyknięcia do jądra tokena z hasłem, wylogowana maszyna bezlitośnie utnie twój task. 🔐</li>
+<li><strong>Event Trigger (Reakcja łańcuchowa):</strong> Harmonogram Zadań może pełnić rolę systemu powiadomień na żywo. Wyłapuje Event ID z dziennika (<code>eventvwr.msc</code>) w ułamku sekundy i automatycznie odpala procedurę zaradczą (np. wysyła ostrzeżenie o spadku zasilania). ⚡</li>
+<li><strong>Pokonaj limity z Awake:</strong> Kiedy narzucone z góry polityki bezpieczeństwa odcinają prąd w Twojej stacji szybciej niż twój kompilator mieli dane – <strong>PowerToys Awake</strong> omija ten limit trzymając sztuczne tętno systemu. ☕</li>
+<li><strong>HKLM vs HKCU:</strong> Zrozumienie różnicy między plikiem <code>SYSTEM</code> montowanym dla całej fizycznej maszyny, a <code>NTUSER.DAT</code> wstrzykiwanym w profil użytkownika, to twoje absolutne być albo nie być podczas inżynierskiego czyszczenia infekcji z Autostartu. 🎯</li>
+</ul>
+<hr>
+<p>To tyle. Przeszedłeś twardą drogę od klikania po Menedżerze Zadań aż po wstrzykiwanie skryptów do demona systemowego, chirurgiczne omijanie polityk GPO narzędziami PowerToys i ratowanie zawieszonego jądra z płytki wiersza poleceń WinRE.</p>
+<p>Jeśli zrozumiałeś relacje między NTFS, UAC, Kontenerami SVCHOST i logami EventViewer – nie jesteś już zwykłym "informatykiem po podstawówce". Masz w rękach architektoniczny fundament inżyniera systemów Windows. Gratulacje! 🎉</p>

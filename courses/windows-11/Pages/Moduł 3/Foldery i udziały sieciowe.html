@@ -1,0 +1,816 @@
+<h1>Foldery i udziały sieciowe</h1>
+<p>Typowe zgłoszenie na Helpdesk: <span class="color-blue">„Koleżanka wrzuciła raport do folderu Księgowość. Ja go widzę, ale jak próbuję otworzyć, system wywala <span class="color-red">Odmowę dostępu</span>. Przecież mam uprawnienia do tego folderu!”</span> 😒. </p>
+<p>Udziały sieciowe to istny koszmar dla początkujących administratorów, którzy naiwnie myślą, że kliknięcie <kbd class="win-menu-btn">Udostępnij</kbd> rozwiązuje cały problem. Pobieranie cudzego pliku przez sieć LAN przypomina wchodzenie do bazy wojskowej. Żądanie otwarcia dokumentu musi najpierw pokonać strażnika na bramie głównej (Uprawnienia udziału sieciowego <span class="color-blue">SMB</span>), a chwilę później musi posiadać klucz do sejfu leżącego fizycznie na dysku (Zabezpieczenia lokalne <span class="color-green">NTFS</span>). Jeżeli nie rozumiesz różnicy między tymi dwiema barierami, diagnoza blokad plików szybko zamieni się w klikanie uprawnień na oślep.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>⚙️ Architektura Transferu (Stos TCP/IP vs USB)</h2>
+<p>Dlaczego kopiowanie gigabajtów danych przez sieć LAN mocniej obciąża procesor serwera (Ring 0) niż przerzucenie tego samego pliku na pendrive wpięty w port USB 3.0? Odpowiedź leży w przebiegu żądań wejścia/wyjścia (I/O). </p>
+<p>Zanim system zdecyduje dokąd wysłać plik, musi zweryfikować uprawnienia. Aplikacja (np. Eksplorator Plików) zgłasza żądanie zapisu lub odczytu do systemu plików <span class="color-green">NTFS</span> na dysku <code>C:\</code>. Jeżeli tablica ACL odrzuci prośbę, operacja zatrzymuje się na komunikacie <span class="color-red">Odmowy Dostępu</span>. </p>
+<p>Gdy <span class="color-green">NTFS</span> wyrazi zgodę, żądanie wpada do centralnego <span class="color-gold">Menedżera we/wy</span> (<code>I/O Manager</code>) wewnątrz jądra, który analizuje żądany kierunek i rozdziela ruch na transfer lokalny (USB) lub zdalny (Sieć LAN).</p>
+<figure>
+<img aria-describedby="diagram-diagram-przeplywu-io-in" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/diagram-transferu-danych-przez-usb-lub-lan.webp" alt="Diagram przepływu I/O (Input/Output) dla sieci lokalnej LAN i pamięci masowej USB" width="634" height="950" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-diagram-przeplywu-io-in">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Architektura weryfikacji i strumieniowania I/O. Algorytm stosu TCP/IP sprawdza, czy paczki <span class="color-blue">SMB</span> trafiają bez przekłamań bitów. Generuje to duży narzut na zasoby, jasno pokazując dlaczego obsługa ruchu sieciowego wymaga dedykowanej mocy obliczeniowej w porównaniu do sprzętowego kontrolera USB.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Aplikacja (np. Eksplorator Plików)</span>: Zgłasza żądanie zapisu lub odczytu pliku do systemu operacyjnego.</li>
+<li><span class="color-green">Weryfikacja Praw ACL (Wolumin <span class="color-green">NTFS</span>)</span>: Zapytanie trafia do systemu plików, który sprawdza tablicę kontroli dostępu. Brak uprawnień kończy się natychmiastową <span class="color-red">odmową</span>.</li>
+<li><span class="color-gold">Menedżer we/wy Jądra (<code>I/O Manager</code>)</span>: Po weryfikacji przejmuje strumień danych i decyduje o trasie przesyłu w zależności od docelowego nośnika.</li>
+<li><span class="color-green">Rozgałęzienie (Rodzaj transmisji)</span>:<ul>
+<li><span class="color-blue">Transfer lokalny</span>: Pamięć flash pod USB odbiera fizyczny zrzut ładunku wprost ze sterownika magistrali. To bezpośrednia ścieżka sprzętowa.</li>
+<li><span class="color-blue">Transfer zdalny</span>: Ruch sieciowy jest kierowany do analizy.  <ul>
+<li><span class="color-green">Sterownik Serwera</span> (<code>srv2.sys</code>): Przechwytuje transfer zdalny i tnie plik na paczki zrozumiałe dla protokołu udostępniania <span class="color-blue">SMB</span>.</li>
+<li><span class="color-green">Stos TCP/IP</span>: Każdą paczkę <span class="color-blue">SMB</span> obudowuje w numery sekwencyjne i wylicza matematyczne sumy kontrolne dbające o brak błędów transmisji.</li>
+<li><span class="color-green">Sterownik karty sieciowej NDIS</span>: Tłumaczy gotowe pakiety logiczne na sygnał przesyłany bezpośrednio do sprzętu.</li>
+<li><span class="color-green">Przesył przez Sieć LAN</span>: Sygnał opuszcza komputer fizycznym kablem miedzianym Ethernet lub jako fale radiowe Wi‑Fi.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Diagram przepływu I/O (Input/Output) dla sieci lokalnej LAN i pamięci masowej USB",
+  "description": "Architektura weryfikacji i strumieniowania I/O. Algorytm stosu TCP/IP sprawdza, czy paczki *SMB* trafiają bez przekłamań bitów. Generuje to duży narzut na zasoby, jasno pokazując dlaczego obsługa ruchu sieciowego wymaga dedykowanej mocy obliczeniowej w porównaniu do sprzętowego kontrolera USB.",
+  "keywords": "ruch sieciowy, Diagram, przepływu, InputOutput, sieci, lokalnej, pamięci"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dlaczego komponenty lokalne komunikują się przez TCP/IP?</span><br>Często nawet w obrębie jednego serwera (np. między wirtualnymi maszynami a storage'em hosta) ruch odbywa się po adresie pętli zwrotnej <code>localhost</code> (127.0.0.1). Wynika to z niezawodności samej architektury TCP. Protokół ten sprzętowo gwarantuje integralność strumienia: samodzielnie weryfikuje sumy kontrolne, pilnuje kolejności pakietów i zarządza retransmisją. Inżynierowie implementujący protokoły (np. iSCSI czy <span class="color-blue">SMB</span>) polegają na gotowym, przetestowanym w jądrze stosie TCP/IP, zamiast od zera pisać własne mechanizmy weryfikacji błędów dla komunikacji międzyprocesowej.</p>
+
+</div>
+</div><hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego ruch sieciowy mocniej obciąża procesor w porównaniu do kopiowania na pendrive USB?</p>
+</question>
+    <options>
+      <item correct=""><p>Wymaga przejścia przez stos TCP/IP, który musi stale fragmentować paczki i wyliczać matematyczne sumy kontrolne.</p>
+</item>
+      <item><p>Kabel miedziany LAN wymusza na architekturze ciągłe i sztuczne obniżanie taktowania procesora, by zrównać prędkości.</p>
+</item>
+      <item><p>Menedżer we/wy systematycznie odrzuca pierwszą próbę połączenia, co zmusza jądro do dublowania każdej operacji I/O.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Pamiętaj, że przesył sieciowy, w przeciwieństwie do USB, nie posiada bezpośredniej ścieżki sprzętowej. Jądro systemu musi więc na bieżąco weryfikować poprawność pakietów i zabezpieczać je przed utratą po drodze!</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Stos <code>TCP/IP</code> natywnie weryfikuje poprawność bitów, dodając potężny narzut obliczeniowy, podczas gdy USB to czysta, sprzętowa autostrada przesyłowa.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔏 Koncepcja Podwójnego Zamka (SMB vs NTFS)</h2>
+<p>System Windows traktuje dostęp zdalny do pliku jak próbę odczytania tajnych akt w wojskowym archiwum. Żeby zmodyfikować plik w sieci, zapytanie od stacji‑klienta musi pomyślnie minąć dwa niezależne systemy autoryzacji. </p>
+<figure>
+<img aria-describedby="diagram-diagram-podwojnego-zamka" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/diagram-dwukrokowy-do-rozpoczecia-transmisji-smb-przez-sieć-lan.webp" alt="Diagram podwójnego zamka w Windows" width="691" height="636" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-diagram-podwojnego-zamka">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Logika Podwójnego Zamka w środowisku Windows. Klient wbijający po porcie TCP 445 jest weryfikowany w dwóch niezależnych bramach decyzyjnych. Odrzucenie pakietu na jakimkolwiek z tych etapów skutkuje <span class="color-red">Odmową Dostępu</span>, uniemożliwiając operacje na fizycznym dysku.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Klient z sieci LAN:</span> Zgłasza żądanie dostępu wysyłając pakiety na port TCP 445 (domyślny port usługi udostępniania plików i drukarek).</li>
+<li><span class="color-blue">Zamek nr 1 (Uprawnienia Udziału SMB</span>): Pierwszy romb decyzyjny. Serwer weryfikuje tzw. <span class="color-blue">Share Permissions</span> (miękką siatkę uprawnień sieciowych: Odczyt, Zmiana, Pełna kontrola).<ul>
+<li><span class="color-red">Odmowa</span>: Użytkownik od razu otrzymuje komunikat <span class="color-red">Odmowa Dostępu</span>, a sesja zostaje odrzucona bez sprawdzania uprawnień katalogów i plików.</li>
+<li><span class="color-green">Zgoda</span>: Żądanie jest przepuszczane głębiej do jądra.</li>
+</ul>
+</li>
+<li><span class="color-blue">Zamek nr 2 (Weryfikacja Praw ACL</span> <span class="color-green">NTFS</span>): Drugi romb decyzyjny. Żądanie zderza się z uprawnieniami zapisanymi w strukturze dysku (tzw. <span class="color-green">NTFS</span> Permissions). Tutaj weryfikowana jest lista ACL.<ul>
+<li><span class="color-red">Odmowa</span>: Nawet przy pełnej zgodzie na pierwszej bramie <span class="color-blue">SMB</span>, brak uprawnień lokalnych dla poświadczonego użytkownika zwraca komunikat <span class="color-red">Odmowa Dostępu</span> do zasobu.</li>
+<li><span class="color-green">Zgoda</span>: Pozytywna weryfikacja w obu punktach zezwala na wykonanie docelowej operacji I/O na dysku twardym serwera.</li>
+</ul>
+</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Diagram podwójnego zamka w Windows",
+  "description": "Logika Podwójnego Zamka w środowisku Windows. Klient wbijający po porcie TCP 445 jest weryfikowany w dwóch niezależnych bramach decyzyjnych. Odrzucenie pakietu na jakimkolwiek z tych etapów skutkuje **_Odmową Dostępu_**, uniemożliwiając operacje na fizycznym dysku.",
+  "keywords": "port, decyzja sieciowa, Diagram, podwójnego, zamka, Windows"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+
+<p>Gdy obydwa systemy praw wchodzą w konflikt np. Udział sieciowy daje <span class="color-blue">Pełną kontrolę</span>, ale ACL na dysku daje tylko <span class="color-blue">Odczyt</span>, jądro wylicza <span class="color-blue">„Uprawnienia Efektywne”</span> opierając się na regule: <span class="color-green">Najbardziej restrykcyjna polityka zawsze wygrywa.</span></p>
+<hr>
+<h3>Zamek nr 1: Udostępnianie (Brama SMB)</h3>
+<p>Uprawnienia Udziału to płytki mechanizm oparty na trzech prostych przełącznikach: <span class="color-blue">Odczyt</span>, <span class="color-blue">Zmiana</span>, <span class="color-blue">Pełna kontrola</span>. </p>
+<p>Protokół <span class="color-blue">SMB</span> (Server Message Block), przez który realizowany jest ten dostęp, na przestrzeni lat przeszedł drastyczną ewolucję. Największym problemem jest niezrozumienie różnic między jego generacjami, co często kończy się tworzeniem krytycznych luk w infrastrukturze. Pierwotna wersja z lat $90$. (<span class="color-gold">SMB$\text{v}1$</span>) zawierała wadę architektoniczną pozwalającą na zdalne wykonanie kodu na prawach jądra. To właśnie przez nią kryptowirus <a href="https://cert.pl/posts/2017/05/wannacry-ransomware/">WannaCry</a> zainfekował setki tysięcy maszyn na całym świecie. Z tego powodu w Windows 11 domyślnie ją wyłączono, a poważnym błędem jest ręczne doinstalowywanie przestarzałych komponentów systemu (np. przez funkcje opcjonalne). Takie działanie niepotrzebnie zwiększa powierzchnię ataku na urządzenie. Zamiast obniżać poziom zabezpieczeń, należy wymuszać nowsze protokoły i standardy.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Wersja protokołu</th>
+<th align="left">Status w Windows 11</th>
+<th align="left">Szyfrowanie danych w locie</th>
+<th align="left">Główne cechy i zmiany</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-gold">SMB$\text{v}1$</span></td>
+<td align="left"><span class="color-red">Wyłączony</span></td>
+<td align="left">❌ Brak</td>
+<td align="left">Przestarzały, skrajnie podatny na ataki sieciowe (<span class="color-red">RCE</span> - <span class="color-blue">Remote Code Execution</span>).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">SMB$\text{v}2$</span></td>
+<td align="left"><span class="color-blue">Obsługiwany</span></td>
+<td align="left">❌ Brak (tylko podpisywanie transakcji)</td>
+<td align="left">Zwiększona wydajność, drastycznie mniejszy narzut pakietów.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">SMB$\text{v}3$</span></td>
+<td align="left"><span class="color-green">Wymuszany</span></td>
+<td align="left">✅ Tak (AES)</td>
+<td align="left">Natywna kryptografia transmisji danych (<span class="color-blue">Encryption in Transit</span>) i wysoka skalowalność.</td>
+</tr>
+</tbody></table>
+<p>Cały ten ruch wejściowy nasłuchuje na jednym dedykowanym porcie <span class="color-green">TCP 445</span>. Jeśli zajrzysz do Zapory Windows, zauważysz jednak, że reguła otwierająca ten port nazywa się „Udostępnianie plików i drukarek”. Nie jest to błąd interfejsu ani pomyłka tłumacza. Jądro sieciowe w systemie Windows optymalizuje komunikację na tyle sprytnie, że przechwytuje surowe instrukcje wydruku (komunikacja RPC) i hermetyzuje je właśnie w pakiety protokołu <span class="color-blue">SMB</span>. Oznacza to wprost, że zablokowanie lub błędna konfiguracja portu 445 na serwerze nie tylko odetnie użytkowników od ich udziałów, ale również całkowicie sparaliżuje wszystkie firmowe drukarki sieciowe.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Hermetyzacja</span>: Proces opakowywania jednych danych w drugich. By docelowy proces miał dostęp tylko do części danych, które w poprawnej strukturze sam odtworzy w swoim procesie. Np.: obraz <code>.png</code> wysłany do drukarki jest przez sterownik kompresowany do formatu <code>.spl</code>, który jest zapisywany w buforze na dysku. Dopiero gdy sterownik drukarki odczyta poprawną strukturę pliku <code>.spl</code>, odtworzy go, a następnie za pomocą algorytmu dekompresji <span class="color-green"><code>Render_Bitmap()</code></span> przetworzy go do języka maszynowego i wygeneruje rozkazy dla głowicy termicznej. Przy tym procesie mogą ulec zmianie zakresy kolorów (gamut) z <span class="color-box"><span class="R">R</span><span class="G">G</span><span class="B">B</span></span> do <span class="color-box"><span class="C">C</span><span class="M">M</span><span class="Y">Y</span><span class="K">K</span></span>.</p>
+
+</div>
+</div><hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Co się stanie, gdy udział SMB pozwala pracownikowi na „Pełną kontrolę”, ale zakładka NTFS pliku dopuszcza jedynie „Odczyt”?</p>
+</question>
+    <options>
+      <item correct=""><p>Prawa zderzą się, a system wyliczy Uprawnienia Efektywne przyjmując bezwzględnie, że najbardziej restrykcyjna blokada zawsze wygrywa.</p>
+</item>
+      <item><p>Priorytet uzyska nowszy protokół sieciowy SMB, w pełni ignorując starsze i słabsze restrykcje przypisane do lokalnej tablicy dysku.</p>
+</item>
+      <item><p>System Windows zawiesi protokół komunikacji, oczekując aż Administrator ręcznie zrówna wartości z obu miejsc w jeden ciąg dostępu.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się nad metaforą budynku: czy posiadanie pełnego dostępu do bramy wjazdowej pozwoli Ci otworzyć sejf w piwnicy, do którego nie masz klucza?</p>
+</div>
+    <div data-hint="success"><p>Dokładnie tak! Dlatego administratorzy korporacyjni często otwierają udział <span class="color-blue">SMB</span> na "Wszyscy", by sterować bezpieczeństwem wyłącznie z poziomu twardej tablicy ACL w systemie plików <span class="color-green">NTFS</span>.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3>Zamek nr 2: Uprawnienia NTFS (Drzwi Jądra)</h3>
+<p><span class="color-green">NTFS</span> (New Technology File System) w przeciwieństwie do udziałów sieciowych funkcjonuje na warstwie fizycznej. Prawa wyznaczone w <span class="color-green">NTFS</span> to tablice kontroli dostępu (ACL), które są przechowywane w metadanych systemu plików.</p>
+<p>Gdy użytkownik wchodzi we Właściwości pliku na zakładkę <span class="color-blue"><code>Zabezpieczenia</code></span>, widzi uprawnienia podstawowe:</p>
+<ul>
+<li>Pełna kontrola</li>
+<li>Modyfikacja</li>
+<li>Odczyt i wykonywanie</li>
+<li>Wyświetlenie zawartości folderu</li>
+<li>Odczyt</li>
+<li>Zapis</li>
+</ul>
+<p>To jednak tylko uproszczona maska. Administratorzy klikają zawsze w opcję <kbd class="link-os-windows">Pokaż uprawnienia zaawansowane</kbd>. Pod spodem kryje się silnik $14$ instrukcji, które dają precyzyjną władzę nad pojedynczymi akcjami.</p>
+<p>Poniższy schemat dowodzi dlaczego prawa sieciowe to tylko „pierwsze drzwi”, a właściwa autoryzacja musi nastąpić w rdzeniu <span class="color-green">NTFS</span>:</p>
+<figure>
+<img aria-describedby="diagram-diagram-zaleynocci-warstw" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/zalerzność-praw-smb-do-grup-uprawnien-NTFS.webp" alt="Diagram zależności warstw uprawnień" width="591" height="511" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-diagram-zaleynocci-warstw">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Schemat przepuszczania żądań przez warstwę <span class="color-blue">SMB</span> do zaawansowanych akcji <span class="color-green">NTFS</span>. Zależności pokazują, jak wąskie uprawnienie sieciowe potrafi całkowicie wyciąć dostęp do głębokich funkcji, nawet jeśli użytkownik posiada pełną władzę na fizycznym dysku serwera.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Odczyt</span> (<span class="color-blue">SMB</span>): Udziela zgody tylko i wyłącznie na realizację żądań z zielonej grupy <code>👀 Przeglądanie i Nawigacja</code>. Operacje zapisu/modyfikacji odbiją się z komunikatem <span class="color-red">Odmowy Dostępu</span> w warstwie sieci.</li>
+<li><span class="color-green">Zmiana</span> (<span class="color-blue">SMB</span>): Rozszerza dostęp. Strzałki pokazują, że status ten przepuszcza żądania do niebieskiej grupy <code>✏️ Tworzenie i Edycja</code> oraz czerwonej <code>🔥 Niszczenie Danych</code>.</li>
+<li><span class="color-green">Pełna kontrola</span> (<span class="color-blue">SMB</span>): Najwyższy status sieciowy, który jako jedyny doprowadza strzałkę "Odblokowuje" do fioletowej grupy <code>👑 Zarządzanie ACL / Administrator</code>.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Diagram zależności warstw uprawnień",
+  "description": "Schemat przepuszczania żądań przez warstwę *SMB* do zaawansowanych akcji **NTFS**. Zależności pokazują, jak wąskie uprawnienie sieciowe potrafi całkowicie wyciąć dostęp do głębokich funkcji, nawet jeśli użytkownik posiada pełną władzę na fizycznym dysku serwera.",
+  "keywords": "Diagram, zależności, warstw, uprawnień"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<p>Mechanizm <span class="color-blue">SMB</span> z diagramu działa jak <span class="color-green">wąskie gardło</span>. Nawet jeśli pracownik w <span class="color-green">NTFS</span> ma przypisane fioletowe prawo <code>Zarządzania ACL</code>, a w udziale sieciowym otrzyma jedynie „Zmiana”, to nigdy nie edytuje zabezpieczeń przez LAN. Jego żądania zostaną ucięte na bramie <span class="color-blue">SMB</span>, całkowicie ignorując lokalne możliwości jego konta.</p>
+<data-tabs>
+  <tabs>
+    <item>👀 Przeglądanie i Nawigacja</item>
+    <item>✏️ Tworzenie i Edycja</item>
+    <item>🔥 Niszczenie Danych</item>
+    <item>👑 Zarządzanie ACL / Administrator</item>
+  </tabs>
+  <div><h3>Przeglądanie i Nawigacja (Odczyt)</h3>
+<p>Włączenie tej grupy pozwala na eksplorację dysku i czytanie plików, blokując jednocześnie możliwość jakiejkolwiek zmiany na serwerze.</p>
+<ul>
+<li><span class="color-green">Przechodzenie przez folder / Wykonanie pliku</span>: Odpowiada za nawigację po strukturze katalogów, ale jego drugą, cichą funkcją jest prawo alokacji pliku binarnego (<code>.exe</code>) do pamięci RAM komputera. Nawet po udostępnieniu pracownikowi programu w sieci, brak tej flagi wyrzuci błąd przy dwukrotnym kliknięciu w plik wykonywalny.</li>
+<li><span class="color-green">Wyświetlanie zawartości folderu / Odczyt danych</span>: Prawo do wylistowania zawartości katalogu oraz rzeczywistego odczytu bitów, by móc w ogóle otworzyć plik np. w Notatniku.</li>
+<li><span class="color-green">Odczyt atrybutów</span>: Zezwala na sprawdzanie metadanych pliku (czy jest np. <span class="color-blue"><code>Ukryty</code></span> lub <span class="color-blue"><code>Tylko do odczytu</code></span>).</li>
+<li><span class="color-green">Odczyt atrybutów rozszerzonych</span>: Pozwala na inspekcję danych <span class="color-green">ADS</span> (<span class="color-blue">Alternate Data Streams</span>).</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Alokacja</span>: odnosi się do pliku lub fragmentu kodu. System pierw zastrzega fragment komórki pamięci RAM lub sektora na dysku twardym, a następnie przenosi tam zapis binarny.</p>
+<p><span class="color-green">ADS</span> (<span class="color-blue">Alternate Data Streams</span>): to ukryte strumienie danych, które mogą być dodawane do plików. Pozwalają one na przechowywanie dodatkowych informacji o pliku, takich jak metadane, komentarze, a nawet kod wykonywalny. ADS są często wykorzystywane w złośliwym oprogramowaniu do ukrywania szkodliwych danych.</p>
+<p><span class="color-green">Metadata</span>: to dane, które opisują inne dane. Przykładowo lokalizacja i urządzenie z którego zrobiono zdjęcie to metadane tej fotografii.</p>
+
+</div>
+</div></div>
+  <div><h3>Tworzenie i Edycja (Zapis)</h3>
+<p>Zestaw uprawnień do wprowadzania nowych danych, celowo pozbawiony jakichkolwiek funkcji usuwania.</p>
+<ul>
+<li><span class="color-green">Tworzenie plików / Zapis danych</span>: Umożliwia lokowanie nowych plików na dysku, zakazując jednocześnie modyfikacji plików stworzonych wcześniej. To mechanizm dla folderów wrzutowych (tzw. Drop‑Box) – pracownik wrzuca raport, ale nie ma fizycznej możliwości sabotażu pliku wrzuconego przez kogoś innego.</li>
+<li><span class="color-green">Tworzenie folderów / Dołączanie danych</span>: Prawo do zakładania nowych podkatalogów.<br>Względem samych plików pozwala na dopisywanie bajtów wyłącznie na samym końcu pliku (idealne dla środowisk produkcyjnych trzymających logi w plikach <code>.txt</code>).</li>
+<li><span class="color-green">Zapis atrybutów</span>: Pozwala modyfikować flagi systemowe.</li>
+<li><span class="color-green">Zapis atrybutów rozszerzonych</span>: Zgoda na edycję ADS.</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-blue">Dołączanie danych</span>: to proces dodawania treści do istniejącego pliku. Wykonuje się go poprzez strumień danych najczęściej przy użyciu konsoli:</p>
+<p><span class="color-gold">CMD</span></p>
+<pre><code class="language-cmd">echo "Tekst do dopisania." &gt;&gt; nazwa_pliku.txt
+</code></pre>
+<p><span class="color-gold">PowerShell</span></p>
+<pre><code class="language-powershell">Add-Content -Path "nazwa_pliku.txt" -Value "Dodatkowa treść."
+</code></pre>
+
+</div>
+</div><p><span class="color-green">Podstawowe atrybuty plików (Flagi)</span><br>Są to w większości proste, jednobitowe przełączniki informujące system operacyjny, jak ma traktować dany obiekt.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Flaga</th>
+<th align="left">Pełna nazwa</th>
+<th align="left">Działanie w systemie Windows</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span class="color-green">R</span></td>
+<td align="left"><span class="color-blue">Read‑only</span> (Tylko do odczytu)</td>
+<td align="left">Blokuje możliwość bezpośredniego nadpisania lub edycji pliku.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">H</span></td>
+<td align="left"><span class="color-blue">Hidden</span> (Ukryty)</td>
+<td align="left">Plik nie jest domyślnie wyświetlany w Eksploratorze Windows.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">S</span></td>
+<td align="left"><span class="color-blue">System</span> (Systemowy)</td>
+<td align="left">Krytyczny plik jądra; posiada podwójną warstwę ukrywania w interfejsie.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">A</span></td>
+<td align="left"><span class="color-blue">Archive</span> (Archiwalny)</td>
+<td align="left">Flaga ustawiana przy każdej edycji, informująca oprogramowanie do backupu, że plik uległ zmianie.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">C</span></td>
+<td align="left"><span class="color-blue">Compressed</span> (Skompresowany)</td>
+<td align="left">Plik jest w locie kompresowany przez sterownik <span class="color-green">NTFS</span> w celu oszczędności miejsca.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">E</span></td>
+<td align="left"><span class="color-blue">Encrypted</span> (Szyfrowany)</td>
+<td align="left">Zabezpieczony sprzętowo kluczem użytkownika przy pomocy protokołu EFS.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">I</span></td>
+<td align="left"><span class="color-blue">Not Indexed</span> (Nieindeksowany)</td>
+<td align="left">Wymusza ignorowanie pliku przez usługę szybkiego wyszukiwania (Windows Search).</td>
+</tr>
+</tbody></table>
+<p><span class="color-green">Atrybuty rozszerzone i Strumienie Danych</span><br>Zwykłe atrybuty (powyżej) to tylko stany "Włączony/Wyłączony". System <span class="color-green">NTFS</span> pozwala na znacznie więcej, oferując tzw. ukryte metadane:</p>
+<ul>
+<li><p><span class="color-green">Atrybuty Rozszerzone (EA - Extended Attributes)</span>: Struktury typu <span class="color-blue">klucz‑wartość</span> dodawane do plików (limitowane do max 64 KB). Obecnie to relikt przeszłości, zachowany dla kompatybilności z dawnymi systemami np. OS/2 czy portami POSIX. Z punktu widzenia współczesnego administratora są praktycznie martwe.</p>
+</li>
+<li><p><span class="color-green">Alternatywne Strumienie Danych (ADS - Alternate Data Streams)</span>: Rozwiązanie stosowane natywnie do dziś. To mechanizm pozwalający „dokleić” do pliku ukryte kontenery z danymi o dowolnym rozmiarze. Główny plik to strumień nienazwany (<code>$DATA</code>), ale możemy dodać strumień poboczny. Z systemu ADS powszechnie korzystają przeglądarki internetowe – po ściągnięciu pliku z sieci dołączają do niego ukryty strumień poboczny <span class="color-blue">Zone.Identifier</span> (tzw. Mark of the Web), dzięki czemu system wie, że dany <code>.exe</code> pochodzi z zewnątrz i wymaga ostrzeżenia SmartScreen przed jego uruchomieniem.</p>
+</li></ul></div>
+<div><h3>Niszczenie Danych (Usuwanie)</h3>
+<p>Zbiór uprawnień, które w podstawowym oknie zabezpieczeń ukryto pod ogólnym pojęciem "Modyfikacja". Brak tych uprawnień chroni zasoby przed przypadkowym skasowaniem.</p>
+<ul>
+<li><span class="color-green">Usuwanie podfolderów i plików</span>: Działa jak wyburzanie budynku w całości. Pozwala na usunięcie całego katalogu nadrzędnego wraz ze wszystkim, co znajduje się w środku (usuwanie kaskadowe).</li>
+<li><span class="color-green">Usuwanie</span>: Zezwala na skasowanie pojedynczego pliku lub pustego folderu. Technicznie jest to prawo do usunięcia powiązanego rekordu ze struktury MFT.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-gold">Typowy scenariusz inżynierski</span>: Dział finansowy ma prawa zapisu, ale przy próbie nadpisania istniejącego arkusza kalkulacyjnego dostają błąd. Analiza wykazuje brak flagi <span class="color-blue">Usuwanie</span>.  </p>
+
+</div>
+</div><p>Nowoczesne aplikacje biurowe podczas kliknięcia opcji Zapisz rzadko nadpisują plik na żywo; zamiast tego tworzą nowy plik obok, po czym usuwają oryginał. Jeśli odetniesz prawo kasowania, mechanizm biurowy legnie w gruzach.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">MFT</span> (<span class="color-blue">Master File Table</span>) – to główna tablica systemu plików <span class="color-green">NTFS</span> zawierająca informacje o wszystkich plikach i katalogach na dysku. Każdy plik i katalog ma swój wpis w MFT, który zawiera informacje o jego atrybutach, lokalizacji danych na dysku oraz uprawnieniach dostępu. Decyduje które sektory można nadpisać nowymi danymi.</p>
+
+</div>
+</div></div>
+  <div><h3>Zarządzanie i Odzyskiwanie (Zarządzanie ACL)</h3>
+<p>Zestaw praw, który daje bezpośrednią kontrolę nad mechanizmami bezpieczeństwa Active Directory i systemu plików.</p>
+<ul>
+<li><p><span class="color-green">Odczyt uprawnień</span>: Pozwala wejść w zakładkę Zabezpieczenia i zobaczyć całą listę użytkowników przypisanych do pliku.</p>
+</li>
+<li><p><span class="color-green">Zmiana uprawnień</span>: Prawo do modyfikowania tablicy ACL. Mając tę flagę, deweloper może samodzielnie udostępnić podkatalog koledze bez otwierania nowego zgłoszenia dla działu Helpdesku IT.</p>
+</li>
+<li><p><span class="color-green">Przejęcie na własność</span>: (<span class="color-blue">Take Ownership</span>): Wbudowane prawo ratunkowe, dedykowane lokalnym grupom Administratorów. Jeśli ktoś usunie wszystkie grupy z listy Zabezpieczeń, wliczając w to administratora serwera, dostęp zostanie zablokowany. W takiej sytuacji używa się wymuszonego Przejęcia Własności. Jądro systemowe weryfikuje konto i nadpisuje właściciela z pominięciem blokady, pozwalając wyczyścić starą tablicę uprawnień.</p>
+</li></ul></div>
+
+</data-tabs>
+
+<h4>Dziedziczenie i optymalizacja zarządzania</h4>
+<p>W strukturach serwerowych uprawnień nie konfiguruje się ręcznie plik po pliku. Najważniejszym systemem pracy jest tu <span class="color-green">Dziedziczenie</span> (<span class="color-blue">Inheritance</span>). Opiera się na ustawieniu odpowiednich list ACL na najwyższym folderze (np. <code>D:\Zasoby_HR</code>). Nałożone tak filtry kaskadowo obejmują wszystkie obiekty, które zostaną wrzucone do środka.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kaskadowość</span> to mechanizm, w którym cecha, ustawienie lub działanie zastosowane na poziomie nadrzędnym automatycznie wpływa na elementy podrzędne.<br>Kluczowe w tym procesie jest istnienie hierarchii (drzewo, graf, struktura zależności), wtedy właściwość przechodzi dalej, co nazywamy <span class="color-blue">propagacją</span>.</p>
+
+</div>
+</div><p>Administratorzy w prosty sposób wykorzystują to do ukrywania zawartości przed osobami niepowołanymi. Skonfigurowanie dziedziczenia w taki sposób, aby na liście znajdowała się wyłącznie grupa <span class="color-blue">Uwierzytelnieni użytkownicy</span> (Authenticated Users) fizycznie blokuje dostęp gościom. Co więcej, jeśli z gałęzi usuniemy wbudowaną grupę <span class="color-green">Wszyscy (Everyone)</span>, anonimowe próby wejścia na dany udział sieciowy zakończą się tym, że serwer,  po prostu nie wylistuje przed użytkownikiem nawet nazwy ukrytego katalogu.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Praktyka Enterprise: Otwieranie <span class="color-blue">SMB</span>, uszczelnianie <span class="color-green">NTFS</span></p>
+<p>Podwójne układanie uprawnień (trochę na udziałach <span class="color-blue">SMB</span>, a trochę na dysku <span class="color-green">NTFS</span>) wywołuje ogromny chaos, więc stosuje się prostszą metodę:</p>
+<ul>
+<li><span class="color-green">Krok 1 (Brama sieciowa):</span> Otwórz udział <span class="color-blue">SMB</span> na oścież. Nadaj grupie <span class="color-blue">Wszyscy</span> status <span class="color-blue">Pełna kontrola</span>.</li>
+<li><span class="color-green">Krok 2 (Ochrona dysku):</span> Resztę zabezpieczeń ustaw bezpośrednio w uprawnieniach <span class="color-green">NTFS</span>.</li>
+</ul>
+<p>Prawa na dysku są niezawodne, precyzyjne i łatwe do audytu. Nawet jeśli udział sieciowy wpuszcza wszystkich, to system i tak zablokuje każdego, kto nie ma twardego uprawnienia na samym pliku.</p>
+
+</div>
+</div><data-gate>
+  <data-connection-matcher title="Zarządzanie Udziałami i Prawami ACL">
+    <div class="cmw-item" data-left="Aplikacja bazodanowa nagle wyłącza się, raportując błąd podczas próby nadpisania kopii zapasowej na dysku sieciowym dla nocnego backupu." data-right="Odebrano pracownikowi z uprawnień NTFS twardą flagę 'Usuwanie'. Aplikacja nie może usunąć pliku temp przed zapisem, więc w obawie przed skasowaniem danych przerywa cały proces."></div>
+    <div class="cmw-item" data-left="Pracownik księgowości ma prawo 'Zmiany' w sieci SMB, ale przy próbie wklejenia nowego raportu do folderu dostaje Odmowę Dostępu." data-right="Ktoś wyciął mu z tablicy kontroli dostępu grupę 'Tworzenie plików / Zapis danych', mimo pozostawienia otwartej bramy sieciowej."></div>
+    <div class="cmw-item" data-left="Zlecono Ci utworzenie katalogu wrzutowego (tzw. Drop-Box). Każdy ma móc złożyć dokument zaliczeniowy, ale nie może edytować ani kasować prac kolegów." data-right="Ograniczasz prawo do grupy zapisu (Tworzenie plików) i rygorystycznie wycinasz z zabezpieczeń lokalnych flagę 'Usuwanie'."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕵️ Dlaczego woluminy (dyski) to ukryte udziały?</h2>
+<p>Wyobraź sobie, że w firmie jest $200$ komputerów i na każdym musisz pilnie zaktualizować program. Bieganie od biurka do biurka z pendrive'em nie ma sensu. Administratorzy muszą mieć zdalny, pełny dostęp do dysków pracowników, by móc działać w tle.</p>
+<p>Z tego powodu system Windows natywnie uruchamia usługę Serwera (<code>LanmanServer</code>), która bierze całe fizyczne dyski (np. dysk <code>C:</code>) oraz krytyczne foldery systemowe i wystawia je do sieci jako <span class="color-green">Ukryte Udziały Administracyjne</span>.</p>
+<p>Zasada działania jest prosta: dodanie znaku dolara <code>$</code> na końcu nazwy udziału (np. <code>Raporty$</code>) sprawia, że folder całkowicie znika z Otoczenia Sieciowego. Nikt go nie wyklika, bo po prostu go nie widać.</p>
+<p>Windows rzutuje w sieć swoje najważniejsze zasoby:</p>
+<ul>
+<li><code>C$</code> – Pełen, ukryty dostęp do całego dysku systemowego <code>C:\</code> i adekwatnie inne woluminy np <code>D:\</code> → <code>D$</code>.</li>
+<li><code>ADMIN$</code> – Bezpośrednie dojście do głównego folderu <code>C:\Windows</code>.</li>
+<li><code>IPC$</code> – Niewidzialny kanał do komunikacji między procesami (Inter‑Process Communication). Nie przerzuca się nim plików, służy maszynom do przekazywania poświadczeń i wewnętrznych instrukcji sieciowych.</li>
+</ul>
+<p><span class="color-green">Jak z tego skorzystać w praktyce?</span><br>Siedząc przy swoim stanowisku, wpisujesz w oknie Eksploratora surową ścieżkę: <code>\\IP_Komputera_Obok\C$</code>.<br>System od razu wyrzuci okienko logowania. Do środka nie wbijesz ot tak – Windows wpuści Cię pod warunkiem, że podasz poprawne hasło na konto lokalnego Administratora tamtej maszyny. Gdy zdasz ten test, uzyskasz dostęp do pełnego podglądu cudzego dysku <code>C:\</code> na swoim własnym ekranie.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛑 Koniec udostępniania SMB w domu (Środowisko Workgroup)</h2>
+<p>Przez lata <span class="color-blue">SMB</span> (<span class="color-blue">Server Message Block</span>) ciągnęło wymianę plików w domowych sieciach. W Windows 11 Microsoft uciął ten temat. Udostępnianie folderów teraz działa sensownie tylko i wyłącznie w domenach <span class="color-gold">Active Directory</span>.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<ul>
+<li><span class="color-gold">Active Directory (AD)</span> – scentralizowana usługa katalogowa firmy Microsoft. Zamiast kont lokalnych na każdym PC, logujesz się kontem z domeny, a za autoryzację odpowiada centralny serwer (Kontroler Domeny).</li>
+<li><span class="color-gold">Kerberos</span> – główny protokół uwierzytelniania w AD. Używa biletów (<span class="color-blue">Tickets</span>) wydawanych przez zaufany serwer <span class="color-green">KDC</span> (<span class="color-blue">Key Distribution Center</span>).</li>
+</ul>
+
+</div>
+</div><p>Ta decyzja Microsoftu wywołała ogromne poruszenie w internecie i wylew poradników jak to naprawić. Problem w tym, że wiele z nich proponuje włączenie  <span class="color-gold">SMB$\text{v}1$</span> lub włączenie przez rejestr <span class="color-blue">local KDC</span>, który nie działa w pełni poprawnie i blokuje połączenie zwracając fałszywy komunikat o niepoprawności wpisanego hasła (<span class="color-red">Błąd Systemu 86</span>). Wcześniejsza implementacja udostępniania folderów w sieci LAN opierała się o dziurawy <span class="color-green">NTLM</span> (<span class="color-blue">NT LAN Manager</span>) stosowany od czasów Windows 2.0. Teraz pakiety <span class="color-blue">SMB</span> muszą być podpisywane poświadczeniami cyfrowymi co poza domeną AD się nie dzieje.</p>
+<p>Szkoda nerwów na naprawianie tego. 😒</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Poufność danych a metody transmisji sieciowej</h2>
+<p>Zanim wybierzesz narzędzie, musisz zrozumieć aspekt bezpieczeństwa. Pliki między urządzeniami można przesyłać na wiele sposobów.</p>
+<hr>
+<h3>🔐 Triada CIA – Podstawa cyberbezpieczeństwa</h3>
+<p>Triada CIA to model opisujący trzy kluczowe właściwości bezpieczeństwa informacji:</p>
+<ul>
+<li><span class="color-green">Poufność</span> (<span class="color-blue">Confidentiality</span>) – dane nie mogą zostać odczytane przez osoby nieuprawnione.  </li>
+<li><span class="color-green">Integralność</span> (<span class="color-blue">Integrity</span>) – dane nie mogą zostać zmienione w sposób nieautoryzowany.  </li>
+<li><span class="color-green">Dostępność</span> (<span class="color-blue">Availability</span>) – dane muszą być dostępne dla osób uprawnionych.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/triada-CIA.webp" alt="Triada CIA" width="1024" height="1024" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+<h3>🌐 Geografia i logika zakresów sieci</h3>
+<table>
+<thead>
+<tr>
+<th>Poziom</th>
+<th>Nazwa</th>
+<th>Zakres</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🧠 <span class="color-green">PAN</span></td>
+<td>Personal Area Network</td>
+<td>Osobisty</td>
+<td>Bluetooth, hotspot telefonu</td>
+</tr>
+<tr>
+<td>🏠 <span class="color-green">LAN</span></td>
+<td>Local Area Network</td>
+<td>Lokalny</td>
+<td>Sieć domowa, szkolna</td>
+</tr>
+<tr>
+<td>🏫 <span class="color-green">CAN</span></td>
+<td>Campus Area Network</td>
+<td>Kampusowy</td>
+<td>Sieć uczelni, szkoły, firmy</td>
+</tr>
+<tr>
+<td>🏙️ <span class="color-green">MAN</span></td>
+<td>Metropolitan Area Network</td>
+<td>Miejski</td>
+<td>Sieć operatora w obrębie miasta</td>
+</tr>
+<tr>
+<td>🌍 <span class="color-green">WAN</span></td>
+<td>Wide Area Network</td>
+<td>Rozległy</td>
+<td>Sieć krajowa, Internet</td>
+</tr>
+<tr>
+<td>🪐 <span class="color-green">GAN</span></td>
+<td>Global Area Network</td>
+<td>Globalny</td>
+<td>Połączenie wielu sieci WAN</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🧩 Warstwa logiczna – jak urządzenia komunikują się ze sobą</h3>
+<p>To nie są protokoły — to <span class="color-green">modele komunikacji</span> i <span class="color-green">logiczne konstrukcje sieciowe</span>.</p>
+<table>
+<thead>
+<tr>
+<th>Nazwa</th>
+<th>Co oznacza</th>
+<th>Zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green">P2P (Peer‑to‑Peer)</span></td>
+<td>Połączenie bezpośrednie między urządzeniami</td>
+<td>LocalSend, Wi‑Fi Direct, Torrent</td>
+</tr>
+<tr>
+<td><span class="color-green">Client–Server</span></td>
+<td>Urządzenie łączy się z serwerem</td>
+<td>SMB, FTP, HTTP</td>
+</tr>
+<tr>
+<td><span class="color-green">VPN</span></td>
+<td>Tunelowanie ruchu</td>
+<td>Zdalny dostęp, prywatność</td>
+</tr>
+<tr>
+<td><span class="color-green">VLAN</span></td>
+<td>Podział sieci logicznej</td>
+<td>Segmentacja sieci</td>
+</tr>
+<tr>
+<td><span class="color-green">WLAN</span></td>
+<td>Sieć LAN po Wi‑Fi</td>
+<td>Dom, szkoła, firma</td>
+</tr>
+<tr>
+<td><span class="color-green">SAN</span></td>
+<td>Sieć pamięci masowych</td>
+<td>Infrastrukturalne klastry wielu serwerów</td>
+</tr>
+<tr>
+<td><span class="color-green">DLNA</span></td>
+<td>Streaming multimediów</td>
+<td>Telewizory, konsole</td>
+</tr>
+<tr>
+<td><span class="color-green">VoIP</span></td>
+<td>Głos po IP</td>
+<td>Teams, Skype</td>
+</tr>
+<tr>
+<td><span class="color-green">QoS</span></td>
+<td>Priorytety ruchu</td>
+<td>Gry multiplayer, VoIP, wideokonferencje</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🔐 Warstwa bezpieczeństwa – E2E vs E2EE</h3>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Co szyfruje</th>
+<th>Kto widzi treść</th>
+<th>Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><b>E2E (transport encryption)</b></td>
+<td>Szyfruje transmisję</td>
+<td><span class="color-red">Serwer widzi treść</span> 👀</td>
+<td>HTTPS, MS Teams</td>
+</tr>
+<tr>
+<td><b>E2EE (end‑to‑end encryption)</b></td>
+<td>Szyfruje treść + klucze</td>
+<td><span class="color-blue">Serwer nie widzi treści</span> 🤫</td>
+<td>Signal, WhatsApp</td>
+</tr>
+<tr>
+<td><b>Brak szyfrowania</b></td>
+<td>Nic</td>
+<td><span class="color-red">Każdy podsłuchujący</span> 🕵️‍♂️</td>
+<td>FTP, HTTP</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>📡 Protokoły do transferu plików</h3>
+<table>
+<thead>
+<tr>
+<th>Protokół</th>
+<th>Port</th>
+<th>Architektura</th>
+<th>Zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-gold">SMB</span></td>
+<td><code>445</code></td>
+<td><span class="color-green">LAN</span></td>
+<td>Udostępnianie plików</td>
+</tr>
+<tr>
+<td><span class="color-gold">NFS</span></td>
+<td><code>2049</code></td>
+<td><span class="color-green">LAN</span></td>
+<td>Udostępnianie plików (Linux)</td>
+</tr>
+<tr>
+<td><span class="color-gold">FTP</span></td>
+<td><code>21</code>/<code>20</code></td>
+<td><span class="color-green">LAN</span>/<span class="color-blue">WAN</span></td>
+<td>Transfer plików (bez szyfrowania)</td>
+</tr>
+<tr>
+<td><span class="color-gold">SFTP</span></td>
+<td><code>22</code></td>
+<td><span class="color-green">LAN</span>/<span class="color-blue">WAN</span></td>
+<td>Bezpieczny transfer (SSH)</td>
+</tr>
+<tr>
+<td><span class="color-gold">HTTP/HTTPS</span></td>
+<td><code>80</code>/<code>443</code></td>
+<td><span class="color-green">LAN</span>/<span class="color-blue">WAN</span></td>
+<td>Pobieranie/wysyłanie plików</td>
+</tr>
+<tr>
+<td><span class="color-gold">Bluetooth OBEX</span></td>
+<td>–</td>
+<td>PAN</td>
+<td>Transfer plików BT</td>
+</tr>
+<tr>
+<td><span class="color-gold">Wi‑Fi Direct</span></td>
+<td>–</td>
+<td><span class="color-green">LAN</span>/P2P</td>
+<td>Połączenie bez udziału głównego rutera (Access Point)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>📶 Warstwa fizyczna – technologie transmisji</h3>
+<table>
+<thead>
+<tr>
+<th>Technologia</th>
+<th>Częstotliwość</th>
+<th>Prędkość</th>
+<th>Zasięg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-blue">Wi‑Fi</span></td>
+<td>$2.4 / 5 / 6 \text{ GHz}$</td>
+<td>do $9.6 \text{ Gbps}$</td>
+<td>do $50 \text{ m}$</td>
+</tr>
+<tr>
+<td><span class="color-blue">Bluetooth</span></td>
+<td>$2.4 \text{ GHz}$</td>
+<td>do $3 \text{ Mbps}$</td>
+<td>do $100 \text{ m}$</td>
+</tr>
+<tr>
+<td><span class="color-blue">NFC</span></td>
+<td>$13.56 \text{ MHz}$</td>
+<td>do $424 \text{ Kbps}$</td>
+<td>do $10 \text{ cm}$</td>
+</tr>
+<tr>
+<td><span class="color-blue">Hotspot LTE/5G</span></td>
+<td>$700–2600 \text{ MHz} / 3.5 \text{ GHz}$</td>
+<td>$5 \text{ Mbps}$ – $2 \text{ Gbps}$</td>
+<td>do $5 \text{ km}$</td>
+</tr>
+<tr>
+<td><span class="color-blue">Wi‑Fi Direct</span></td>
+<td>$2.4 / 5 / 6 \text{ GHz}$</td>
+<td>do $9.6 \text{ Gbps}$</td>
+<td>do $50 \text{ m}$</td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-connection-matcher title="Zabezpieczenia Transmisji i Modele Sieci">
+    <div class="cmw-item" data-left="Zasada działania technologii End-to-End Encryption (E2EE)." data-right="Szyfruje całą treść i zabezpiecza klucze po obu końcach trasy. Serwer przekaźnikowy jest całkowicie 'ślepy' na ładunek i procesuje tylko ukryty szum entropijny."></div>
+    <div class="cmw-item" data-left="Ochrona oparta wyłącznie na powszechnym szyfrowaniu w warstwie Transport Encryption (E2E)." data-right="Pakiety są rozszyfrowywane po stronie serwerowni w chmurze (np. MS Teams). Narzędzia analityczne, algorytmy i obsługa techniczna mają pełen, swobodny wgląd do treści przesyłu."></div>
+    <div class="cmw-item" data-left="Architektura topologii na poziomie Metropolitan Area Network (MAN)." data-right="Ogromna infrastruktura szerokopasmowa operująca na liniach światłowodowych w obrębie zurbanizowanej, zwartej struktury miejskiej."></div>
+    <div class="cmw-item" data-left="Nawiązywanie łączności przy pomocy logicznej wymiany bezpośredniej P2P." data-right="Urządzenia negocjują ze sobą ustanowienie mostu łączącego sprzęt prosto między swoimi kartami sieciowymi (np. przez Wi-Fi Direct), całkowicie omijając po drodze publiczny, główny ruter."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Zestawienie mechanizmów do pracy lokalnej</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Oprogramowanie</th>
+<th align="left">Architektura sieciowa</th>
+<th align="left">Kontekst użycia (Praktyka)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">LocalSend</span></td>
+<td align="left"><span class="color-blue">LAN (P2P)</span></td>
+<td align="left">Błyskawiczne przerzucenie pliku na telefon lub Maca.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Udostępnianie w pobliżu</span></td>
+<td align="left"><span class="color-blue">Wi‑Fi Direct</span></td>
+<td align="left">Transfer plików między sprzętem firmowym zablokowanym przez IT.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Łącze z telefonem</span></td>
+<td align="left"><span class="color-blue">Hybrydowa (LAN/WAN)</span></td>
+<td align="left">Odpisywanie na SMS z klawiatury PC i import zdjęć.</td>
+</tr>
+</tbody></table>
+<h3>1. LocalSend (Windows, macOS, Linux, iOS, Android)</h3>
+<p>LocalSend to prosta aplikacja do przesyłania plików w sieci LAN. Działa trochę jak AirDrop, ale między różnymi systemami i jest darmową alternatywą dla tradycyjnego udostępniania <span class="color-blue">SMB</span>. Wykorzystuje protokół multicast i TLS.<br>Transmisja w zasadzie nie wychodzi poza sieć lokalną, choć społeczność tworzy już serwery przekaźnikowe (<span class="color-blue">Relay Servers</span>). Twórcy zaimplementowali tu prawdziwe szyfrowanie E2EE (<span class="color-blue">End to End Encryption</span>). Oznacza to, że nawet jeśli plik przejdzie przez serwer pośredniczący, nikt w połowie drogi go nie odczyta. Dla porównania – MS Teams używa szyfrowania, ale jego serwer rozszyfrowuje komunikację (by np. nałożyć filtry bezpieczeństwa), a następnie szyfruje ją ponownie. LocalSend działa bardziej jak Signal – klucze są tylko na końcach trasy.</p>
+<p>Co ciekawe, możesz przesłać zainstalowaną na Androidzie aplikację bezpośrednio jako paczkę <code>.apk</code> na dysk Windowsa:<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/localSend-windows11.webp" alt="Przesyłanie aplikacji na Windows 11" width="1919" height="1031" class="lazy-image" loading="lazy" decoding="async"></p>
+<h3>2. Udostępnianie w pobliżu (Wi-Fi Direct)</h3>
+<p>To funkcja wbudowana w Windows 11. Znajdziesz ją w <code>Ustawieniach</code> → <code>System</code> → <code>Udostępnianie w pobliżu</code>.<br>Do wyboru masz trzy tryby:</p>
+<ul>
+<li>Wyłączone: brak udostępniania</li>
+<li>Tylko moje urządzenia: tylko wysyłanie i odbieranie z tego samego konta Microsoft</li>
+<li>Wszyscy w pobliżu: wysyłanie i odbieranie od każdego</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Urządzenie musi być widoczne w sieci lokalnej. Najszybciej naprawisz to z poziomu Eksploratora plików. Wejdź w zakładkę <code>Sieci</code>, kliknij prawym przyciskiem myszy na komunikat u góry i wybierz opcję <code>Włącz odnajdywanie sieci i udostępnianie plików</code>.  </p>
+
+</div>
+</div><p>Pojawi się okienko wyboru, w jakim profilu zapory sieciowej to urządzenie ma być widoczne:</p>
+<ul>
+<li>Pierwsza opcja <span class="color-blue">„Nie, niech...”</span> włączy udostępnianie w sieci prywatnej (domowej lub firmowej).</li>
+<li>Druga opcja <span class="color-blue">„Tak, włącz...”</span> zostawi połączenie jako sieć publiczną (do kawiarni czy na lotnisko). W domowych warunkach zdecydowanie polecam pierwszą opcję.<blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Widoczność-w-sieci.webp" alt="Konfiguracja widoczności w sieci" width="1023" height="976" class="lazy-image" loading="lazy" decoding="async"></blockquote>
+</li>
+</ul>
+<p>Funkcja pozwala pominąć główny router i infrastrukturę sieciową. Jeśli główny punkt dostępu (AP) przestanie działać, pliki i tak przejdą.</p>
+<ul>
+<li><span class="color-green">Jak to działa pod spodem:</span> System używa modułu <span class="color-blue">Bluetooth Low Energy</span>, by znaleźć sprzęt w pokoju. Gdy komputery się „zauważą”, karty sieciowe negocjują własny, bezpośredni most – <span class="color-gold">Wi‑Fi Direct</span>. Pakiety wędrują prosto z anteny do anteny.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/windows-udostepnianie-w-poblirzu.webp" alt="Udostępnianie w pobliżu na Windows" width="2550" height="1019" class="lazy-image" loading="lazy" decoding="async">
+
+<h3>3. Łącze z telefonem (Transmisja hybrydowa)</h3>
+<p>To kolejna natywna aplikacja Windows 11, łącząca komputer ze smartfonem. Działa świetnie przy lekkich zadaniach (np. czytanie SMS-ów czy odbieranie powiadomień), ale przy większych operacjach mocno kuleje.</p>
+<p><span class="color-green">Jak to wygląda w praktyce?</span></p>
+<ul>
+<li>✅ <span class="color-green">Wygodne porządki:</span> Pamięć telefonu zostaje podpięta bezpośrednio pod Eksplorator plików. To genialne rozwiązanie do szybkiego usuwania starych zdjęć i śmieci za pomocą myszki.</li>
+<li>❌ <span class="color-green">Zadania wagi ciężkiej:</span> Przesyłanie większych plików (np. dokumentów PDF) czy streamowanie ekranu telefonu na komputer często laguje i zrywa połączenie.</li>
+<li>⚠️ <span class="color-green">Zależność od Wi‑Fi:</span> Całość działa tragicznie, jeśli pracujesz na zapchanym, starym paśmie $2.4 \text{ GHz}$ zamiast na szybszym $5 \text{ GHz}$. Otwieranie czegokolwiek przypomina wtedy czasy modemu z lat $90$.</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Aby to w ogóle działało, musisz być zalogowany tym samym kontem Microsoft na komputerze i w telefonie.<br>Sama aplikacja mocno korzysta z telemetrii i działa w tle, niezależnie od tego, czy z niej korzystasz.</p>
+
+</div>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/łączenie-z-telefonem.webp" alt="Aplikacja Łącze z telefonem" width="1932" height="924" class="lazy-image" loading="lazy" decoding="async">
+
+<h4>Jak działa transmisja hybrydowa</h4>
+<p>Łącze z telefonem korzysta z dwóch kanałów komunikacji:</p>
+<ul>
+<li><span class="color-green">Kanał sterujący (LTE / Internet / Microsoft Graph)</span> — przesyła powiadomienia, SMS‑y, miniaturki zdjęć i status urządzenia. Działa zawsze, o ile masz zasięg.</li>
+<li><span class="color-green">Kanał danych lokalnych (Wi‑Fi Direct / LAN / USB)</span> — obsługuje streamowanie ekranu i przesył całych plików. Niestety bywa bardzo kapryśny, gdy sieć lokalna odmawia współpracy.</li>
+</ul>
+<p>W praktyce oznacza to, że:</p>
+<ul>
+<li><span class="color-green">powiadomienia przychodzą zawsze</span>, bo lecą przez LTE,</li>
+<li><span class="color-green">pliki i ekran</span> działają tylko wtedy, gdy Windows i telefon dogadają się lokalnie, a jeśli nie — Windows udaje, że „coś robi”, ale tak naprawdę czeka na stabilny kanał.</li>
+</ul>
+<figure>
+<img aria-describedby="diagram-podzial-transmisji-lan-i" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/podział-transmisji-lan-wan-względem-funkcjonalności-łączenia-telefonu-windows.webp" alt="Podział transmisji LAN i WAN w funkcjonalności łączenia telefonu z Windows" width="659" height="541" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-podzial-transmisji-lan-i">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Architektura hybrydowa aplikacji Łącze z telefonem. Komunikacja opiera się na dwóch niezależnych kanałach: globalnym (<span class="color-blue">WAN</span> / <b>LTE</b>) do przesyłania lekkich powiadomień oraz lokalnym (<span class="color-green">LAN</span> / <b>Wi‑Fi Direct</b>) uruchamianym do ciężkiego transferu plików i strumieniowania ekranu.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Urządzenie źródłowe (Telefon Android):</span> Podzielone na cztery główne moduły generujące ruch: SMS / RCS (zielony), Powiadomienia (niebieski), Obrazy / Zdjęcia (czerwony) oraz Ekran urządzenia (fioletowy).</li>
+<li><span class="color-green">Kanał sterujący</span> (<span class="color-blue">LTE / Internet / Microsoft Graph</span>): Górna, brązowa sekcja pośrednicząca w warstwie WAN.<ul>
+<li><span class="color-green">Powiadomienia push:</span> Odbiera wiadomości SMS/RCS z telefonu i przekazuje je do modułu Powiadomień w systemie Windows 11.</li>
+<li><span class="color-green">Metadane:</span> Pobiera powiadomienia z telefonu i dostarcza je do aplikacji SMS/RCS na komputerze. Dodatkowo kanał ten rzutuje metadane bezpośrednio do modułu <span class="color-blue">Miniatur zdjęć</span>.</li>
+<li><span class="color-green">Status urządzenia:</span> Funkcjonuje niezależnie w kanale sterującym (stan baterii, zasięg).</li>
+</ul>
+</li>
+<li><span class="color-green">Kanał lokalny</span> (<span class="color-blue">Wi‑Fi Direct / LAN / USB</span>): Dolna, zielona sekcja działająca wyłącznie w sieci lokalnej do obsługi ciężkich zadań.<ul>
+<li><span class="color-green">Pełne zdjęcia:</span> Pobiera zasoby z modułu Obrazy/Zdjęcia i alternatywną, szybką drogą zasila generowanie <span class="color-blue">Miniatur zdjęć</span> w Windows 11. Zatem miniatury mają architekturę hybrydową (łączą Metadane z WAN oraz Pełne zdjęcia z LAN).</li>
+<li><span class="color-green">Transfer plików:</span> Obsługuje bezpośrednie, ciężkie przesyłanie Pełnych plików i zdjęć na dysk komputera.</li>
+<li><span class="color-green">Ekran na żywo:</span> Bezpośrednio przechwytuje Ekran urządzenia i przekazuje go do modułu Strumieniowania ekranu w Windows.</li>
+</ul>
+</li>
+<li><span class="color-green">Odbiorca (Windows 11):</span> Składa strumienie z obu kanałów (lokalnego i chmurowego) do spójnego interfejsu graficznego użytkownika.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Podział transmisji LAN i WAN w funkcjonalności łączenia telefonu z Windows",
+  "description": "Architektura hybrydowa aplikacji Łącze z telefonem. Komunikacja opiera się na dwóch niezależnych kanałach: globalnym (*WAN* / <b>LTE</b>) do przesyłania lekkich powiadomień oraz lokalnym (**LAN** / <b>Wi-Fi Direct</b>) uruchamianym do ciężkiego transferu plików i strumieniowania ekranu.",
+  "keywords": "ruch sieciowy, Podział, transmisji, funkcjonalności, łączenia, telefonu, Windows"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕵️ Finał: Scenariusze Helpdesku i Konfiguracja</h2>
+<p>Zrozumienie podwójnego systemu kontroli to inżynierska gwarancja sprawnego rozwiązywania zgłoszeń z brakiem dostępu do plików.</p>
+<data-gate>
+  <data-connection-matcher title="Narzędzia Lokalne i Zaawansowane Ścieżki Sieciowe">
+    <div class="cmw-item" data-left="Pracownik IT potrzebuje dyskretnie zgrać plik ze stacji roboczej pracownika, bez tworzenia nowych, udostępnionych folderów." data-right="Wpisuje w oknie Eksploratora ukrytą ścieżkę \\IP_Komputera\C$ i autoryzuje się poświadczeniami lokalnego Administratora docelowej maszyny."></div>
+    <div class="cmw-item" data-left="Menedżer szuka bezpiecznej aplikacji do szybkiego przerzucania dużych plików między komputerami w biurze bez używania serwerów w chmurze." data-right="Instaluje na stanowiskach darmowy program LocalSend, który działa w pełni lokalnie w oparciu o bezpośrednią komunikację P2P (Peer-to-Peer)."></div>
+    <div class="cmw-item" data-left="Uczeń próbuje wysłać plik na laptop nauczyciela przez funkcję 'Udostępnianie w pobliżu', ale jego sprzęt w ogóle nie pojawia się na liście." data-right="Nauczyciel ma włączoną tę funkcję, ale zapomniał zmienić tryb. Działa ona na ustawieniu 'Tylko moje urządzenia', przez co laptop ukrywa się przed cudzymi kontami."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Mechanizm dwóch zamków (SMB + NTFS):</span> Dostęp sieciowy to dwa osobne światy. <span class="color-gold">SMB</span> to pierwsza bramka na wejściu, a <span class="color-green">NTFS</span> to fizyczny zamek na dysku. System łączy je w "Uprawnienia Efektywne" i stosuje bezlitosną zasadę: najciaśniejsze przejście decyduje o wszystkim. 🏰</li>
+<li><span class="color-green">Standard Enterprise (Praktyka IT):</span> Nikt w IT nie układa skomplikowanych uprawnień w obu miejscach naraz! W dużych firmach udział <span class="color-gold">SMB</span> po prostu otwiera się na oścież ("Pełna kontrola" dla wszystkich), a dostęp do danych kontroluje się już twardo z poziomu zakładki zabezpieczeń w <span class="color-green">NTFS</span>. ⚙️</li>
+<li><span class="color-green">Dlaczego nie można usunąć <code>Usuwania</code> w MFT:</span> Aplikacje biurowe rzadko nadpisują pliki na żywo w sektorach. Najczęściej tworzą obok nową wersję, a starą kasują. Jeśli zabierzesz komuś w <span class="color-green">NTFS</span> prawo do <code>Usuwania</code>, jego praca z dokumentami Worda i Excela często zakończy się błędem zapisu. 📝</li>
+<li><span class="color-green">Ukryte udziały administracyjne</span> (<code>$</code>): Każdy Windows domyślnie rzutuje swój pełny dysk do sieci LAN jako ukryty zasób (np. <code>C$</code>). Znak dolara chowa folder z widoku, ale znając poświadczenia administratora danej stacji roboczej, możesz zarządzać nią w pełni zdalnie bez przerywania pracy użytkownika. 💻</li>
+<li><span class="color-green">Szyfrowanie E2EE vs. zwykłe E2E:</span> Szyfrowana transmisja (E2E) w usługach typu MS Teams czy zwykły Telegram nadal pozwala serwerom chmurowym czytać Twoje pakiety w połowie drogi, by je m.in. filtrować. Pełne E2EE (jak w LocalSend) daje pewność, że na kluczowej warstwie poufności przekaźnik widzi tylko szum informacyjny. 🔒</li>
+<li><span class="color-green">Kanały hybrydowe:</span> Nowoczesne usługi, jak wbudowane w Windows <span class="color-blue">Łącze z telefonem</span>, żonglują połączeniami. Lekkie dane i powiadomienia przepychają niezawodnym kanałem przez chmurę (LTE), a grube transfery plików rzucają na bezpośrednie lokalne mosty (Wi‑Fi Direct). 📱</li>
+</ul>
+<hr>
+<p>Strasznie sieciowo się zrobiło 😅.<br>Został nam ostatni moduł. Ruszmy z diagnostyką i modyfikacją systemu! 🫙</p>
+</section>

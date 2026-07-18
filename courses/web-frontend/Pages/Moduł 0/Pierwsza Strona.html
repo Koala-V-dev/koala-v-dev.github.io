@@ -1,0 +1,371 @@
+<h1>Pierwsza Strona</h1>
+<p>Rozpoczynamy pracę z praktyczną strukturą dokumentu HTML. Pierwszym zadaniem będzie utworzenie katalogu odnośników wzorowanego na klasycznym układzie <span class="color-blue">The Hidden Wiki</span>. Jest to surowy, tekstowy zbiór linków służący do nawigacji w sieci.</p>
+<p>W tym projekcie skupiamy się wyłącznie na strukturze logicznej. Najważniejszym celem jest poprawna <strong><span class="color-green">hierarchia informacji</span></strong> oraz odpowiednie zagnieżdżanie tagów.</p>
+<p>Twoim zadaniem jest utworzenie w programie VS Code nowego pliku o nazwie <code>index.html</code>. Zrobisz to poprzez kliknięcie ikony tworzenia nowego pliku (zaznaczonej fioletową obramówką). Gdyby sekcja boczna została zamknięta, możesz ją ponownie otworzyć klikając ikonę oznaczoną niebieską obramówką lub używając skrótu klawiszowego <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>B</kbd></span>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/nowy-plik-index-html.webp" alt="Wycinek z VS Code demonstrujący utworzenie nowego pliku" width="317" height="180" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Dlaczego właśnie <code>index.html</code>?  </p>
+<p>Wyobraź sobie, że wpisujesz w przeglądarce adres <code>https://example.com</code>. W tym adresie nie podajesz na końcu nazwy żadnego konkretnego pliku. </p>
+<p>Serwer internetowy musi jednak zdecydować, który plik ma Ci odesłać. Aby to zrobić, wykonuje proste kroki:</p>
+<ol>
+<li>Otwiera główny folder powiązany z adresem <code>https://example.com</code>.</li>
+<li>Szuka w tym folderze pliku o domyślnej nazwie <code>index.html</code>.</li>
+<li>Automatycznie wyświetla ten plik jako stronę główną portalu.</li>
+</ol>
+<p>Gdyby plik nazywał się inaczej (np. <code>strona.html</code>), <strong>serwer po wpisaniu samego adresu nie wiedziałby, co otworzyć</strong>. W zależności od jego konfiguracji zobaczymy wtedy błąd <code>403 Forbidden</code> (brak uprawnień do wyświetlenia zawartości) lub <code>404 Not Found</code> (nie odnaleziono pliku/strony).</p>
+<p>W niektórych konfiguracjach serwera skutkuje to wyświetleniem pełnej zawartości folderu na ekranie (tzw. <span class="color-blue">Directory Listing</span>). Ilustruje to zrzut ekranu poniżej – brak pliku <code>index.html</code> sprawił, że serwer ujawnił wszystkie pliki w tym folderze, w tym <strong>poufne pliki</strong> takie jak <code>dane_klientów.json</code> czy prywatny plik <code>notatka.txt</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/przykład-gdy-nie-ma-index-html.webp" alt="Wygląd okna przeglądarki w przypadku braku pliku index.html" width="512" height="378" class="lazy-image" loading="lazy" decoding="async">
+
+<data-gate>
+  <data-quiz>
+    <question><p>Co grozi serwerowi, na którym w folderze projektu zabraknie domyślnego pliku index.html?</p>
+</question>
+    <options>
+      <item><p>Przeglądarka zablokuje możliwość edycji kodu i wyświetli komunikat o uszkodzeniu struktury projektu.</p>
+</item>
+      <item correct=""><p>Serwer wyświetli spis plików (Directory Listing) lub zablokuje do nich dostęp błędem 403 Forbidden.</p>
+</item>
+      <item><p>Wtyczka Live Preview wyłączy automatyczne odświeżanie strony i wymusi ręczne ładowanie plików.</p>
+</item>
+      <item><p>System operacyjny serwera automatycznie usunie wszystkie pozostałe dokumenty w tym katalogu.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Przyjrzyj się uważnie powyższemu zrzutowi ekranu. Co dokładnie pokazała przeglądarka, gdy serwer nie znalazł domyślnego pliku startowego?</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Brak index.html to poważna luka bezpieczeństwa, która może ujawnić strukturę plików i poufne dane na serwerze.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Warto wiedzieć, że w przeszłości (w czasach systemu operacyjnego DOS) powszechnie stosowano również rozszerzenie <code>.htm</code>. Wynikało to z ograniczenia systemu plików <code>FAT16</code>, który pozwalał na nazwy rozszerzeń o maksymalnej długości $3$ znaków (tak zwana zasada <code>8.3</code>). <strong>Współczesnym i zalecanym standardem jest rozszerzenie <code>.html</code></strong>.</p>
+
+</div>
+</div><hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💀 Szkielet dokumentu HTML (Boilerplate)</h2>
+<p>Każdy dokument HTML potrzebuje podstawowej struktury startowej. Szablon ten (zwany <span class="color-blue">boilerplate</span>) definiuje parametry techniczne strony, zanim umieścimy na niej właściwą treść.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Tytuł karty&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;!-- Tu będziemy budować treść strony --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p>Warto dokładnie zrozumieć rolę każdego elementu w tej strukturze:</p>
+<ul>
+<li><code>&lt;!DOCTYPE html&gt;</code>: Deklaracja informująca przeglądarkę, że dokument korzysta ze standardu <span class="color-gold">HTML5</span>. Zapobiega to przejściu przeglądarki w tryb wstecznej kompatybilności (<span class="color-blue">quirks mode</span>).</li>
+<li><code>&lt;html lang="pl"&gt;</code>: Główny kontener dokumentu. Atrybut <code>lang="pl"</code> jest <strong>kluczowym wymogiem dostępności (WCAG)</strong>. Pozwala syntezatorom mowy prawidłowo odczytywać polski tekst z odpowiednim akcentem.</li>
+<li><code>&lt;head&gt;</code>: Sekcja nagłówkowa dokumentu. Informacje tu zawarte (poza tytułem w <code>&lt;title&gt;</code>) nie są bezpośrednio wyświetlane na ekranie. Służy ona do konfiguracji strony, ładowania zasobów oraz komunikacji z wyszukiwarkami.<ul>
+<li><code>&lt;meta charset="UTF‑8"&gt;</code>: Deklaracja kodowania znaków. Gwarantuje prawidłowe wyświetlanie polskich liter diakrytycznych (np. ą, ę, ł, ó, ś, ź, ż).</li>
+<li><code>&lt;meta name="viewport" ...&gt;</code>: Konfiguracja okna podglądu (viewport). Informuje przeglądarki na urządzeniach mobilnych, aby dostosowały szerokość strony do fizycznej szerokości ekranu urządzenia i ustawiły początkowe powiększenie na $100\%$. Zapobiega to nienaturalnemu pomniejszaniu tekstu i renderowaniu strony tak, jakby była wyświetlana na monitorze komputera.</li>
+</ul>
+</li>
+<li><code>&lt;body&gt;</code>: Główny kontener treści strony. Tutaj umieszcza się wszystkie elementy, które mają być bezpośrednio widoczne i dostępne dla użytkownika.</li>
+</ul>
+<p>Podczas przeglądania kodu różnych stron internetowych możesz zauważyć wiele dodatkowych znaczników <code>&lt;meta&gt;</code>. Służą one do przekazywania dodatkowych informacji robotom indeksującym internet, wyszukiwarkom, mediom społecznościowym oraz przeglądarkom.</p>
+<details>
+<summary>Dodatkowe znaczniki meta stosowane w sieci</summary>
+
+<table>
+<thead>
+<tr>
+<th align="left">Znacznik meta</th>
+<th align="left">Rola i przeznaczenie</th>
+<th align="left">Przykład zastosowania</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>description</code></td>
+<td align="left">Opis strony wyświetlany w wynikach wyszukiwania Google.</td>
+<td align="left"><code>&lt;meta name="description" content="Katalog bezpiecznych odnośników."&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>robots</code></td>
+<td align="left">Instrukcje dla robotów indeksujących (np. zakaz indeksowania).</td>
+<td align="left"><code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>og:title</code></td>
+<td align="left">Tytuł wyświetlany podczas udostępniania linku w mediach społecznościowych.</td>
+<td align="left"><code>&lt;meta property="og:title" content="The Hidden Wiki"&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>og:image</code></td>
+<td align="left">Adres obrazka wyświetlanego jako podgląd w social media.</td>
+<td align="left"><code>&lt;meta property="og:image" content="https://example.com/preview.jpg"&gt;</code></td>
+</tr>
+</tbody></table>
+</details>
+
+<p>Gdy będziesz chciał zobaczyć podgląd z zainstalowanej i skonfigurowanej wcześniej wtyczki <span class="color-blue"><code>Live Preview</code></span> od firmy Microsoft, kliknij ikonę, którą oznaczyłem fioletową obramówką w prawym górnym rogu.<br>Swoją drogą, wyłącz też podpowiedzi AI (patrz obrazek poniżej). Choć bywają wygodne, na początku mogą rozpraszać. Utrudniają też samodzielną naukę składni. Dodatkowo, jeśli model nie zrozumie Twoich intencji, zacznie podsuwać błędny kod. Bywa to naprawdę irytujące. Szczególnie gdy AI zapętli się i proponuje to samo $40$ razy z rzędu 😅.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/VSCode-wyłącz-podpowiedzi-AI.webp" alt="Wygląd okna przeglądarki w przypadku braku pliku index.html" width="1536" height="816" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Poniżej pokazuję efekt dwóch pierwszych modyfikacji szablonu startowego (<span class="color-blue">boilerplate</span>):</p>
+<ul>
+<li>Na pomarańczowo zaznaczyłem <code>&lt;html lang="en"&gt;</code>, przez co przeglądarka od razu zapytała, czy chcę przetłumaczyć stronę na język polski.</li>
+<li>Na fioletowo zaznaczyłem <code>&lt;title&gt;Tytuł karty&lt;/title&gt;</code> oraz dwa miejsca, w których ten tytuł się wyświetla: kartę podglądu Live Preview oraz kartę samej przeglądarki.</li>
+</ul>
+<blockquote>
+<p>PS. Możesz też wyłączyć minimapę, klikając na nią prawym przyciskiem myszy (PPM) i odznaczając odpowiednią opcję. Moim zdaniem to zbędny bajer.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/VSCode-wyłącz-minimapę.webp" alt="Wygląd okna przeglądarki w przypadku braku pliku index.html" width="1536" height="629" class="lazy-image" loading="lazy" decoding="async">
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌐 Adresy w przeglądarce: <code>http://127.0.0.1</code> (Live Preview) vs <code>file://</code> (dysk)</h2>
+<p>Gdy uruchomisz podgląd kodu (np. za pomocą ikony wtyczki <span class="color-blue"><code>Live Preview</code></span>), Twoja strona otworzy się pod adresem sieciowym zaczynającym się od <code>http://127.0.0.1:3000/...</code>.</p>
+<p>Gdybyś jednak otworzył ten sam plik <code>index.html</code> bezpośrednio ze swojego dysku twardego (np. klikając na niego dwukrotnie w folderze), w pasku adresu przeglądarki pojawi się ścieżka zaczynająca się od <code>file:///C:/...</code>.</p>
+<p>Różnica między nimi sprowadza się do sposobu, w jaki przeglądarka pobiera dane:</p>
+<ul>
+<li><span class="color-green">Protokół lokalny (<code>file:///</code>)</span>: Przeglądarka działa jak zwykły odtwarzacz plików na komputerze. Odczytuje kod bezpośrednio z dysku twardego. Adres ten zadziała wyłącznie na Twoim komputerze.</li>
+<li><span class="color-green">Protokół sieciowy (<code>http://</code>)</span>: Wtyczka <span class="color-blue"><code>Live Preview</code></span> to w rzeczywistości <strong><span class="color-blue">lokalny mini‑serwer</span></strong>. Kiedy z niej korzystasz, wtyczka uruchamia w tle proces serwera, który udaje, że Twoja strona jest opublikowana w sieci. Przeglądarka łączy się z nim przez protokół sieciowy <code>HTTP</code> pod adresem <code>127.0.0.1</code> (który wskazuje na Twój własny komputer, czyli tzw. <span class="color-blue">localhost</span>).</li>
+</ul>
+<h3>Czym są URI oraz URL?</h3>
+<p>Skoro widzisz już adres w pasku przeglądarki, warto poznać dwa pojęcia, które będą Ci towarzyszyć w całej karierze programistycznej:</p>
+<ul>
+<li><span class="color-green">URI</span> (<span class="color-blue">Uniform Resource Identifier</span>): Ogólny, ujednolicony identyfikator służący do nazywania i wskazywania dowolnego zasobu na świecie (może to być plik na komputerze, książka w bazie danych, czy dokument).</li>
+<li><span class="color-green">URL</span> (<span class="color-blue">Uniform Resource Locator</span>): Szczególny przypadek URI, który oprócz nazwy podaje również dokładną lokalizację zasobu w sieci oraz protokół, za pomocą którego przeglądarka ma się z nim połączyć (np. <code>http://</code>, <code>https://</code> lub <code>file://</code>).</li>
+</ul>
+<data-gate>
+  <data-connection-matcher title="Połącz adres/konfigurację w przeglądarce z jej faktyczną rolą techniczną:">
+    <div class="cmw-item" data-left="<pre><code>http://127.0.0.1:3000/...</code></pre>" data-right="Adres sieciowy lokalnego mini-serwera Live Preview"></div>
+    <div class="cmw-item" data-left="<pre><code>file:///C:/...</code></pre>" data-right="URL lokalny wskazujący na bezpośredni plik na dysku"></div>
+    <div class="cmw-item" data-left="<pre><code>&amp;lt;meta name=&amp;quot;viewport&amp;quot;...&amp;gt;</code></pre>" data-right="Konfiguracja skalowania strony na smartfonach"></div>
+    <div class="cmw-item" data-left="<pre><code>&amp;lt;html lang=&amp;quot;pl&amp;quot;&amp;gt;</code></pre>" data-right="Deklaracja języka kluczowa dla dostępności WCAG"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Architektura nagłówków (H1 - H6)</h2>
+<p>Nagłówki służą do określenia hierarchii i struktury znaczeniowej strony (tworzą tak zwane drzewo dokumentu). HTML oferuje sześć poziomów nagłówków: od najważniejszego <code>&lt;h1&gt;</code> do najmniej ważnego <code>&lt;h6&gt;</code>.</p>
+<p>Każdy z nich ma określone miejsce w strukturze:</p>
+<ul>
+<li><code>&lt;h1&gt;</code>: Główny tytuł strony lub podstrony. Powinien odnosić się do unikalnej treści danego widoku (np. tytuł artykułu, strony „Kontakt” czy panelu konta). Błędem jest stosowanie ogólnej nazwy serwisu/logo jako <code>&lt;h1&gt;</code> na każdej podstronie. Na danej podstronie powinien występować dokładnie jeden element tego poziomu. Dopuszcza się użycia <code>&lt;h1&gt;</code> jako nazwy logotypowej serwisu tylko raz na stronie głównej i nie wolno tego powturzyć w obrembie całego projektu.</li>
+<li><code>&lt;h2&gt;</code>: Główne sekcje (rozdziały) dokumentu.</li>
+<li><code>&lt;h3&gt;</code>: Podsekcje (podrozdziały) wewnątrz tematów z poziomu <code>&lt;h2&gt;</code>.</li>
+<li><code>&lt;h4&gt;</code>, <code>&lt;h5&gt;</code>, <code>&lt;h6&gt;</code>: Kolejne, głębsze poziomy podrozdziałów. Rzadko stosowane na prostych stronach wizytówkowych, ale niezbędne w rozbudowanych dokumentacjach, artykułach naukowych czy wielostronicowych instrukcjach.</li>
+</ul>
+<h3>📶 Zasady hierarchii nagłówków (WCAG)</h3>
+<p>Standardy dostępności cyfrowej (WCAG) oraz pozycjonowanie (SEO) opierają się na dwóch kluczowych zasadach budowania nagłówków:</p>
+<ol>
+<li><span class="color-green">Zakaz zagnieżdżania:</span> Nagłówki są elementami blokowymi i nigdy nie powinny być umieszczane jeden wewnątrz drugiego. Zapisujemy je kolejno w kodzie strony. Hierarchia logiczna (że dany temat leży „pod” innym) wynika z numeracji tagu (np. <code>&lt;h3&gt;</code> po <code>&lt;h2&gt;</code>), a nie z fizycznego włożenia jednego tagu do drugiego:</li>
+</ol>
+<pre><code class="language-html">&lt;!-- PRAWIDŁOWA KOLEJNOŚĆ W KODZIE --&gt;
+&lt;h2&gt;Wiadomości z ubiegłego świata&lt;/h2&gt;
+&lt;h3&gt;Biuletyny naukowe&lt;/h3&gt;
+&lt;h3&gt;Demaskatorzy&lt;/h3&gt;
+
+&lt;!-- BŁĘDNY UKŁAD (NIGDY TAK NIE PISZ) --&gt;
+&lt;h2&gt;Wiadomości z ubiegłego świata &lt;h3&gt;Biuletyny naukowe&lt;/h3&gt;&lt;/h2&gt;
+</code></pre>
+<ol start="2">
+<li><span class="color-green">Zakaz pomijania poziomów:</span> Aby czytniki ekranu dla osób niewidomych mogły poprawnie odczytać strukturę strony, <strong>nie wolno przeskakiwać poziomów w dół</strong> (np. bezpośrednio z <code>&lt;h2&gt;</code> do <code>&lt;h4&gt;</code>, z pominięciem <code>&lt;h3&gt;</code>). Przeglądarka i programy asystujące uznają to za błąd w strukturze i mogą błędnie zinterpretować układ treści.</li>
+</ol>
+<p>Poniższa tabela przedstawia poprawność różnych sekwencji nagłówków w dokumencie:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Sekwencja nagłówków</th>
+<th align="left">Stan</th>
+<th align="left">Wyjaśnienie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>H1</code> $\rightarrow$ <code>H2</code> $\rightarrow$ <code>H3</code></td>
+<td align="left"><span class="color-green">Poprawna</span></td>
+<td align="left">Stopniowe schodzenie w dół o jeden poziom.</td>
+</tr>
+<tr>
+<td align="left"><code>H1</code> $\rightarrow$ <code>H3</code> $\rightarrow$ <code>H2</code></td>
+<td align="left"><span class="color-red">Błędna</span></td>
+<td align="left">Pominięto poziom <code>H2</code> na początku struktury.</td>
+</tr>
+<tr>
+<td align="left"><code>H1</code> $\rightarrow$ <code>H3</code> $\rightarrow$ <code>H4</code></td>
+<td align="left"><span class="color-red">Błędna</span></td>
+<td align="left">Pominięto poziom <code>H2</code> podczas pierwszego kroku.</td>
+</tr>
+<tr>
+<td align="left"><code>H1</code> $\rightarrow$ <code>H2</code> $\rightarrow$ <code>H3</code> $\rightarrow$ <code>H2</code></td>
+<td align="left"><span class="color-green">Poprawna</span></td>
+<td align="left">Powrót do wyższego poziomu <code>H2</code> (nowy rozdział) jest dozwolony.</td>
+</tr>
+<tr>
+<td align="left"><code>H1</code> $\rightarrow$ <code>H2</code> $\rightarrow$ <code>H3</code> $\rightarrow$ <code>H2</code> $\rightarrow$ <code>H4</code></td>
+<td align="left"><span class="color-red">Błędna</span></td>
+<td align="left">Po powrocie do <code>H2</code> przeskoczono do <code>H4</code> bez poziomu <code>H3</code>.</td>
+</tr>
+</tbody></table>
+<p>Przykładowa, poprawna struktura dokumentu wygląda następująco:</p>
+<pre><code class="language-html">&lt;body&gt;
+    &lt;h1&gt;The Hidden Wiki&lt;/h1&gt;
+    &lt;p&gt;Witaj w katalogu bezpiecznych linków.&lt;/p&gt;
+    
+    &lt;h2&gt;Wiadomości z ubiegłego świata&lt;/h2&gt;
+    &lt;h3&gt;Biuletyny naukowe&lt;/h3&gt;
+    &lt;h3&gt;Demaskatorzy&lt;/h3&gt;
+    
+    &lt;h2&gt;Rynki Ekonomiczne&lt;/h2&gt;
+&lt;/body&gt;
+</code></pre>
+<p><strong>Nagłówki stosujemy wyłącznie do budowy logicznej struktury dokumentu.</strong> Na zwykłe bloki tekstu przeznaczony jest znacznik <code>&lt;p&gt;</code>.</p>
+<details>
+<summary>Ciekawostka: Czy można używać wielu nagłówków H1 oraz tagu <code>&lt;main&gt;</code>?</summary>
+
+<p>Wokół tych elementów narosło wiele mitów wynikających z dawnych wersji specyfikacji HTML:</p>
+<ul>
+<li><span class="color-green">Wielokrotne <code>&lt;h1&gt;</code> na jednej stronie:</span> Dawniej wczesny projekt HTML5 zakładał tzw. <span class="color-blue">Document Outline Algorithm</span>. Teoretycznie pozwalał on na umieszczanie osobnego <code>&lt;h1&gt;</code> wewnątrz każdego elementu <code>&lt;article&gt;</code> czy <code>&lt;section&gt;</code>. Pomysł ten jednak <strong><span class="color-red">nigdy nie został wdrożony</span></strong> przez twórców przeglądarek ani czytników ekranu. W $2022$ roku oficjalnie wycofano go ze standardu. Dziś zasada jest jedna: stosujemy dokładnie <strong>jeden nagłówek <code>&lt;h1&gt;</code> na stronę</strong>.</li>
+<li><span class="color-green">Logotyp jako <code>&lt;h1&gt;</code>:</span> Częstym błędem było oznaczanie głównego logo strony w nagłówku jako <code>&lt;h1&gt;</code>. Powodowało to, że na każdej podstronie czytniki ekranu odczytywały nazwę firmy jako najważniejszy tytuł, zamiast faktycznego tytułu artykułu. Współcześnie <code>&lt;h1&gt;</code> rezerwuje się wyłącznie dla unikalnego tytułu danej podstrony.</li>
+<li><span class="color-green">Znacznik <code>&lt;main&gt;</code>:</span> Ten znacznik reprezentuje unikalną, główną treść strony. Specyfikacja HTML <strong>kategorycznie zabrania stosowania więcej niż jednego widocznego elementu <code>&lt;main&gt;</code></strong> w całym kodzie dokumentu. Stosowanie wielu takich tagów powoduje błąd walidacji i utrudnia nawigację użytkownikom czytników ekranu.</li>
+</ul>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗂️ Struktura list: <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> i <code>&lt;li&gt;</code></h2>
+<p>Listy w języku HTML służą do logicznego grupowania powiązanych ze sobą elementów. Budujemy je na podstawie relacji <span class="color-green">„rodzic‑dziecko”</span> (<span class="color-blue">parent‑child</span>). Rolę rodzica pełni tu znacznik listy (<code>&lt;ul&gt;</code> lub <code>&lt;ol&gt;</code>), a rolę dziecka reprezentuje znacznik elementu listy (<code>&lt;li&gt;</code>).</p>
+<p>W specyfikacji HTML obowiązuje jedna kluczowa zasada strukturalna: <strong>bezpośrednim dzieckiem znacznika <code>&lt;ul&gt;</code> lub <code>&lt;ol&gt;</code> może być wyłącznie element <code>&lt;li&gt;</code></strong> (<span class="color-blue">List Item</span>).</p>
+<h3>📋 1. Lista nieuporządkowana (<code>&lt;ul&gt;</code>)</h3>
+<p><code>&lt;ul&gt;</code> (<span class="color-blue">unordered list</span>) stosujemy ją, gdy kolejność punktów nie ma znaczenia (np. lista zakupów lub menu nawigacji). Domyślnie przeglądarka wyświetla te elementy z czarnymi kropkami (punktory).</p>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Pierwszy zestaw linków badawczych&lt;/li&gt;
+    &lt;li&gt;Drugi zbiór danych telemetrycznych&lt;/li&gt;
+    &lt;li&gt;Materiały prasowe&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h3>🔢 2. Lista uporządkowana (<code>&lt;ol&gt;</code>)</h3>
+<p><code>&lt;ol&gt;</code> (<span class="color-blue">ordered list</span>) stosujemy ją, gdy kolejność ma znaczenie (np. rankingi lub instrukcje krok po kroku). Przeglądarka automatycznie ponumeruje takie elementy ($1$, $2$, $3$...).</p>
+<pre><code class="language-html">&lt;ol&gt;
+    &lt;li&gt;Pobierz i zainstaluj edytor VS Code&lt;/li&gt;
+    &lt;li&gt;Stwórz plik o nazwie index.html&lt;/li&gt;
+    &lt;li&gt;Uruchom podgląd Live Preview&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h3>⚠️ Dlaczego poprawne zagnieżdżanie jest ważne?</h3>
+<p>Jeśli umieścisz inne znaczniki (np. akapit <code>&lt;p&gt;</code>) lub zwykły tekst bezpośrednio wewnątrz <code>&lt;ul&gt;</code> lub <code>&lt;ol&gt;</code>, utworzysz tzw. <span class="color-green">„elementy osierocone”</span> (<span class="color-blue">orphaned elements</span>). </p>
+<blockquote>
+<p>Pojęcie „sierot” (struktur osieroconych) to uniwersalny problem w inżynierii oprogramowania. W innych środowiskach osierocone procesy, niezwolnione bloki pamięci czy osierocone obiekty prowadzą do <span class="color-green">wycieków zasobów</span> i poważnych błędów logicznych. Z tego powodu w każdym języku programowania dąży się do ich bezwzględnego wykrywania i likwidacji 🪓.</p>
+</blockquote>
+<p>W świecie HTML wizualny efekt posiadania takich osieroconych tagów ilustruje poniższy obrazek. W pierwszej liście tekst akapitu znajduje się prawidłowo wewnątrz elementu <code>&lt;li&gt;</code>. W drugiej liście znacznik <code>&lt;p&gt;</code> oraz zwykły tekst zostały wstawione bezpośrednio do <code>&lt;ol&gt;</code>. </p>
+<p>Przeglądarka nadal aplikuje domyślne marginesy wewnętrzne kontenera <code>&lt;ol&gt;</code> (dlatego tekst ma widoczne wcięcie), ale nie potrafi nadać tym elementom markerów liczbowych. Wynika to z faktu, że nie są one otoczone przez wymagany element <code>&lt;li&gt;</code>.</p>
+<p>Taki kod stwarza też poważne problemy dla czytników ekranu i łamie standardy dostępności WCAG. Pamiętaj: <strong>każdy element listy musi mieć swojego bezpośredniego opiekuna w postaci tagu <code>&lt;li&gt;</code></strong>, a wszelkie osierocone fragmenty muszą zostać usunięte lub prawidłowo opakowane.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/Przedstawienie_w_MS_Edge_i_Mozilla_Firefox_render_strony_oraz_inspekcję_kodu_Gdzie_pierwsza_lista_ol_jest_numerowana_a_druga_mimo_wcięć_nie_ma_markera.webp" alt="Przedstawienie w MS Edge i Mozilla Firefox render strony oraz inspekcję kodu Gdzie pierwsza lista ol jest numerowana a druga mimo wcięć nie ma markera" width="1197" height="1254" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Hiperłącza i atrybuty (<code>&lt;a&gt;</code>)</h2>
+<p>Podstawą funkcjonowania sieci jest łączenie dokumentów odnośnikami. Służy do tego znacznik kotwicy <code>&lt;a&gt;</code> (<span class="color-blue">Anchor</span>).</p>
+<p>Sam znacznik nie określa jeszcze celu odnośnika. Do zdefiniowania jego parametrów służą atrybuty. Dla hiperłącza najważniejszym atrybutem jest <code>href</code> (<span class="color-blue">Hypertext Reference</span>), który wskazuje adres docelowy, czyli wspomniany wcześniej <span class="color-green">URL</span> (np. prowadzący do zewnętrznej witryny internetowej).</p>
+<pre><code class="language-html">&lt;a href="https://sci-hub.in"&gt;Otwórz ukryty zasób naukowy&lt;/a&gt;
+</code></pre>
+<h3>🧭 Gdzie otwiera się strona? Atrybut target</h3>
+<p>Domyślnie kliknięcie odnośnika wczytuje nową stronę w tym samym oknie przeglądarki. Możesz zmienić to zachowanie za pomocą atrybutu <code>target</code>. Na tym etapie najważniejsze są dwie wartości:</p>
+<ul>
+<li><code>_self</code>: Otwiera stronę w tej samej karcie (jest to zachowanie domyślne, więc nie musisz go wpisywać).</li>
+<li><code>_blank</code>: Otwiera stronę w nowej karcie przeglądarki. Stosuj go, gdy odsyłasz do zewnętrznych portali, aby użytkownik nie opuścił Twojej witryny.</li>
+</ul>
+<pre><code class="language-html">&lt;a href="https://sci-hub.in" target="_blank"&gt;Otwórz zasób w nowej karcie&lt;/a&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>W specyfikacji HTML istnieją jeszcze dwie wartości: <code>_parent</code> oraz <code>_top</code>. Służą one do pracy z ramkami osadzonymi na stronie (<code>&lt;iframe&gt;</code>) i dowiesz się o nich w dalszej części nauki, gdy będziemy omawiać zaawansowane układy stron.</p>
+
+</div>
+</div><h3>📂 Linkowanie plików: Adresy względne i bezwzględne</h3>
+<p>Odnośnik <code>&lt;a&gt;</code> może prowadzić do innych plików w Twoim własnym projekcie. Wskazujemy je na dwa sposoby: za pomocą adresowania <span class="color-green">bezwzględnego</span> lub <span class="color-blue">względnego</span>. Wybór metody decyduje o tym, czy linki będą działać po przeniesieniu strony na serwer.</p>
+<h4>1. Adresowanie bezwzględne</h4>
+<p>Wskazuje stały, dokładny adres pliku w sieci lub na serwerze. Działa zawsze tak samo, niezależnie od tego, na jakiej podstronie aktualnie się znajdujesz. </p>
+<p>W naszej analogii odpowiada to podaniu pełnego adresu pocztowego: <span class="color-blue">„Polska, Warszawa, ul. Jasna 10, Hotel Bristol, pokój 305”</span>. Niezależnie od tego, w jakim miejscu na świecie się znajdujesz, ten adres zawsze zaprowadzi Cię dokładnie do tego samego pokoju.</p>
+<p>Mamy tu dwa popularne zapisy w kodzie:</p>
+<ul>
+<li><span class="color-green">Pełny adres URL</span> (np. <code>https://domena.pl/kontakt.html</code>): Wskazuje konkretną domenę w internecie oraz dokładną ścieżkę do pliku.</li>
+<li><span class="color-green">Ścieżka bezwzględna serwera</span> (np. <code>/kontakt.html</code>): Zaczyna się od ukośnika <code>/</code>. Ten początkowy ukośnik informuje przeglądarkę: „przejdź bezpośrednio do głównego folderu naszej domeny i tam szukaj pliku <code>kontakt.html</code>”.</li>
+</ul>
+<h4>2. Adresowanie względne (zalecane)</h4>
+<p>Wskazuje lokalizację pliku względem dokumentu, w którym aktualnie się znajdujesz. Jest to najbardziej uniwersalny i elastyczny sposób.</p>
+<p>W naszej analogii: jeśli jesteś już wewnątrz Hotelu Bristol, nie musisz za każdym razem powtarzać pełnego adresu z nazwą kraju i miasta. Wystarczy, że powiesz: <span class="color-blue">„idź do pokoju 308”</span> lub <span class="color-blue">„wejdź piętro wyżej”</span>. Ta instrukcja działa jednak wyłącznie dlatego, że odnosisz się do miejsca, w którym aktualnie przebywasz.</p>
+<p>W kodzie HTML używamy następujących zapisów:</p>
+<ul>
+<li><code>kontakt.html</code> lub <code>./kontakt.html</code> (plik znajduje się w tym samym katalogu). Zapis z kropką i ukośnikiem (<code>./</code>) jawnie wskazuje na obecny folder. Jest to format zalecany i często wymagany przez platformy hostingowe (np. GitHub Pages).</li>
+<li><code>podstrony/kontakt.html</code> (wejście do podkatalogu <code>podstrony</code>).</li>
+<li><code>../kontakt.html</code> (wyjście o poziom wyżej, do folderu nadrzędnego).</li>
+</ul>
+<h4>Protokół HTTP vs FILE: Dlaczego ścieżki bezwzględne mogą nie działać?</h4>
+<p>Wybór sposobu adresowania ma kluczowe znaczenie w zależności od sposobu uruchamiania strony przez przeglądarkę:</p>
+<ul>
+<li><span class="color-green">Protokół <code>file:///</code></span> (uruchomienie pliku bezpośrednio z dysku twardego): Ścieżka <code>/kontakt.html</code> zostanie zinterpretowana przez przeglądarkę jako odwołanie do głównego katalogu całego dysku komputera (np. <code>C:\kontakt.html</code>). Ponieważ pliku tam nie ma, link zwróci błąd.</li>
+<li><span class="color-green">Protokół <code>http://</code> / <code>https://</code></span> (uruchomienie strony przez Live Preview lub serwer internetowy): Ten sam adres <code>/kontakt.html</code> poprawnie wskaże na główny folder projektu na serwerze lokalnym (np. <code>http://127.0.0.1:3000/kontakt.html</code>).</li>
+</ul>
+<p>Aby tworzona strona była w pełni przenośna i działała poprawnie zarówno na Live Preview, jak i po wdrożeniu do sieci, <strong>zaleca się stosowanie adresowania względnego</strong> (np. <code>./kontakt.html</code>).</p>
+<h3>📋 Zagnieżdżanie odnośników w listach</h3>
+<p>Poniższy przykład przedstawia poprawne zagnieżdżenie hiperłączy w strukturze listy:</p>
+<pre><code class="language-html">&lt;h2&gt;Otwarta Biblioteka Akademicka&lt;/h2&gt;
+&lt;ul&gt;
+    &lt;li&gt;
+        &lt;a href="https://sci-hub.in"&gt;Platforma Danych Naukowych&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;a href="https://scholar.google.com"&gt;Publiczne Analizy Google&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>W tej strukturze kontenerem głównym jest lista <code>&lt;ul&gt;</code>. Zawiera ona elementy listowe <code>&lt;li&gt;</code>, wewnątrz których osadzono odnośniki <code>&lt;a&gt;</code> z atrybutem <code>href</code>. Taka konstrukcja zapewnia pełną zgodność z wytycznymi WCAG i pozwala robotom wyszukiwarek na właściwe indeksowanie powiązań na stronie.</p>
+<data-gate>
+  <data-quiz>
+    <question><p>Który z poniższych zapisów przedstawia prawidłowe i semantyczne zagnieżdżenie odnośnika w liście?</p>
+</question>
+    <options>
+<item><pre><code class="language-html">&lt;ul&gt;
+    &lt;a href="..."&gt;Link&lt;/a&gt;
+&lt;/ul&gt;
+</code></pre></item>
+<item correct=""><pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;
+        &lt;a href="..."&gt;Link&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre></item>
+<item><pre><code class="language-html">&lt;a href="..."&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Link&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/a&gt;
+</code></pre></item>
+<item><pre><code class="language-html">&lt;ul&gt;
+    &lt;a href="..."&gt;
+        &lt;li&gt;Link&lt;/li&gt;
+    &lt;/a&gt;
+&lt;/ul&gt;
+</code></pre></item>
+    </options>
+    <div data-hint="error"><p>Zastanów się, jaki znacznik musi być bezpośrednim i jedynym dozwolonym dzieckiem listy <code>&lt;ul&gt;</code> lub <code>&lt;ol&gt;</code> przed umieszczeniem w nim odnośnika.</p>
+</div>
+    <div data-hint="success"><p>Znakomicie! Bezpośrednim dzieckiem listy może być wyłącznie tag <code>&lt;li&gt;</code>, wewnątrz którego bezpiecznie osadzamy znacznik odnośnika <code>&lt;a&gt;</code>.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green"><code>index.html</code> to standard</span>: To domyślny plik główny w folderze serwera. Jego brak na serwerze grozi błędem <code>403 Forbidden</code> lub wyciekiem listy plików (Directory Listing).</li>
+<li><span class="color-green">Boilerplate tworzy szkielet</span>: Każda strona potrzebuje tagów <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code> oraz <code>&lt;meta name="viewport"&gt;</code> do prawidłowego skalowania na urządzeniach mobilnych.</li>
+<li><span class="color-green">Nagłówki budują strukturę</span>: Używamy poziomów od <code>&lt;h1&gt;</code> do <code>&lt;h6&gt;</code>. Zgodnie z WCAG, nie zagnieżdżamy ich w sobie, nie pomijamy poziomów w dół i stosujemy dokładnie jeden <code>&lt;h1&gt;</code> na stronę.</li>
+<li><span class="color-green">Listy mają sztywne relacje</span>: Bezpośrednim dzieckiem <code>&lt;ul&gt;</code> lub <code>&lt;ol&gt;</code> może być wyłącznie element <code>&lt;li&gt;</code>.</li>
+<li><span class="color-green">Hiperłącza łączą sieć</span>: Znacznik <code>&lt;a&gt;</code> wskazuje cel za pomocą atrybutu <code>href</code>, w którym umieszczamy adres URL (sieciowy lub lokalny).</li>
+<li><span class="color-green">Live Preview to mini‑serwer</span>: Podgląd w VS Code działa pod adresem sieciowym <code>http://127.0.0.1:3000/...</code> (protokół HTTP), podczas gdy bezpośrednie uruchomienie pliku z dysku używa lokalnego protokołu <code>file:///...</code>.</li>
+</ul>
+</section>

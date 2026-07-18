@@ -1,0 +1,361 @@
+<h1>Zarządzanie sprzętem i sterownikami</h1>
+<p>Zanim zaczniesz diagnozować „zdechłe” karty Wi‑Fi czy znikające myszki USB, musisz zrozumieć anatomię systemu. Środowisko Windows nie jest monolitem. To warstwowa konstrukcja, w której każdy element ma ściśle wyznaczone granice i interfejsy.</p>
+<p>Wyobraź sobie, że komputer to nie jeden wielki, bezładny program, ale wielopoziomowy budynek – a dokładniej <span class="color-green">stożek</span>, w którym najwyższe piętra są bezpieczną, odizolowaną przestrzenią dla użytkownika, a sama podstawa to fizyczny krzem, kable i płynący w nich prąd. </p>
+<p>Aby w pełni i absolutnie zrozumieć tę architekturę, spójrz na poniższe dwa diagramy. Wprowadzają one nas krok po kroku od ogólnej zasady działania do technicznych szczegółów.</p>
+<h3>Krok 1: Stożek i Pierścienie Bezpieczeństwa (Ring 3–0)</h3>
+<p>Pierwszy diagram przedstawia uproszczoną budowę systemu. Po lewej stronie widać tradycyjny, pionowy model stożka 3D, a po prawej – tzw. <span class="color-green">pierścienie ochrony (Protection Rings)</span>. Te pierścienie to sprzętowy mechanizm bezpieczeństwa wbudowany w sam procesor (CPU), który fizycznie pilnuje uprawnień uruchamianego kodu:</p>
+<figure>
+<img aria-describedby="diagram-budowa-systemu-operacyjne" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/budowa-systemu.webp" alt="Budowa systemu operacyjnego. Po lewej stożek (Aplikacje i UI, User Mode, Sterowniki, Sprzęt fizyczny), po prawej diagram pierścieniowy(ring 3(user mode), ring 2 (sterowniki użytkownika), ring 1 (sterowniki jądra), ring 0(kernel))" width="805" height="407" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-budowa-systemu-operacyjne">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Schemat przedstawia architekturę bezpieczeństwa i strukturę warstwową systemu operacyjnego Windows. Po lewej stronie ukazano pionowy model stożka (od aplikacji użytkownika do warstwy fizycznej sprzętu), natomiast po prawej zaprezentowano model pierścieni ochrony procesora (od zewnętrznego Ring 3 do centralnego jądra w Ring 0).</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Pionowy model stożka (po lewej)</span> – ilustruje cztery warstwy systemu od góry do dołu: <code>APLIKACJE I UI</code> (tryb użytkownika), <code>STEROWNIKI</code> (pośredniczące w komunikacji), <code>JĄDRO</code> (rdzeń zarządzający) oraz <code>SPRZĘT FIZYCZNY</code> stanowiący podstawę całego układu.  </li>
+<li><span class="color-green">Model pierścieniowy (po prawej)</span> – przedstawia sprzętowe pierścienie ochrony procesora (Ring 3–0):<ul>
+<li><span class="color-green">Ring 3 (zielony pierścień zewnętrzny)</span> – najbardziej odizolowany <code>TRYB UŻYTKOWNIKA (USER MODE)</code>, w którym działają aplikacje i pulpit.</li>
+<li><span class="color-green">Ring 2</span> – warstwa przeznaczona dla bezpiecznych sterowników trybu użytkownika.</li>
+<li><span class="color-green">Ring 1</span> – warstwa przeznaczona dla sterowników trybu jądra.</li>
+<li><span class="color-green">Ring 0 (ciemnoniebieski rdzeń centralny)</span> – uprzywilejowany <code>TRYB JĄDRA (KERNEL MODE)</code>, w którym działa jądro systemu z bezpośrednim dostępem do sprzętu i pamięci.</li>
+</ul>
+</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Budowa systemu operacyjnego. Po lewej stożek (Aplikacje i UI, User Mode, Sterowniki, Sprzęt fizyczny), po prawej diagram pierścieniowy(ring 3(user mode), ring 2 (sterowniki użytkownika), ring 1 (sterowniki jądra), ring 0(kernel))",
+  "description": "Schemat przedstawia architekturę bezpieczeństwa i strukturę warstwową systemu operacyjnego Windows. Po lewej stronie ukazano pionowy model stożka (od aplikacji użytkownika do warstwy fizycznej sprzętu), natomiast po prawej zaprezentowano model pierścieni ochrony procesora (od zewnętrznego Ring 3 do centralnego jądra w Ring 0).",
+  "keywords": "Budowa, systemu, operacyjnego, lewej, stożek, Aplikacje, User"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<ul>
+<li><span class="color-green">Ring 3 (Tryb Użytkownika / User Mode):</span> Najwyższy poziom izolacji (zielony pierścień zewnętrzny). Działają tu zwykłe aplikacje (np. przeglądarka, Discord, gry) oraz sam pulpit systemu Windows. Procesor zabrania stąd bezpośredniego dostępu do sprzętu i pamięci jądra. Jeśli program się zawiesi, system po prostu go zamyka i działa dalej.</li>
+<li><span class="color-green">Ring 2 &amp; Ring 1:</span> Zaprojektowane z myślą o sterownikach. W Windowsie w Ring 2 działają bezpieczne sterowniki trybu użytkownika (User‑Mode Drivers), a w Ring 1 sterowniki trybu jądra (Kernel‑Mode Drivers).</li>
+<li><span class="color-green">Ring 0 (Tryb Jądra / Kernel Mode):</span> Rdzeń systemu z najwyższymi, nieograniczonymi uprawnieniami (ciemnoniebieski środek). Działa tu jądro systemu (kernel). Każda uruchomiona tu linijka kodu ma bezpośredni dostęp do procesora, pamięci RAM i sprzętu. Dlatego awaria w tej strefie jest krytyczna i natychmiast powoduje wyłączenie systemu (słynny niebieski ekran <span class="color-green">BSOD</span>).</li>
+</ul>
+<hr>
+<h3>Krok 2: Zaawansowany diagram architektoniczny (Jak to czytać?)</h3>
+<p>Skoro już rozumiesz podział na bezpieczny tryb użytkownika (Ring 3) i potężny tryb jądra (Ring 0), spójrz na drugi diagram. To <span class="color-green">inżynieryjny diagram kołowy w rzucie 3D (krążek)</span>. Jest on podzielony na dwie połowy oraz centralny rdzeń:</p>
+<figure>
+<img aria-describedby="diagram-architektura-warstwowa-sy" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/warstwowy-diagram-systemu.webp" alt="Architektura warstwowa systemu operacyjnego" width="805" height="753" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-architektura-warstwowa-sy">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Zaawansowany diagram kołowy w rzucie 3D (wielowarstwowy krążek) obrazuje powiązania architektury warstwowej systemu operacyjnego. Górna część krążka reprezentuje oprogramowanie (Software), dolna – sprzęt komputerowy (Hardware), a centralna i boczne sekcje ukazują punkty styku oraz ścieżki przepływu danych.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Strefa oprogramowania (górna połowa krążka)</span> – składa się z trzech koncentrycznych łuków: zewnętrznego pomarańczowego łuku <code>APLIKACJE I UI</code> (Ring 3), środkowego zielonego łuku <code>USER MODE</code> (Ring 3) oraz wewnętrznego ciemnoniebieskiego łuku <code>KERNEL MODE</code> (Ring 0/1).  </li>
+<li><span class="color-green">Strefa sprzętowa (dolna połowa krążka)</span> – składa się z dwóch łuków: zewnętrznego czerwonego łuku <code>SPRZĘT FIZYCZNY</code> (np. procesor, pamięć RAM, karty rozszerzeń) oraz wewnętrznego żółtego łuku <code>HAL</code> (warstwa abstrakcji sprzętowej).  </li>
+<li><span class="color-green">Kliny sterowników (fioletowe skrzydła po bokach)</span> – dwie symetryczne sekcje sterowników (Drivers) wychodzące ze środka krążka na boki. Przecinają one warstwy oprogramowania i łączą się bezpośrednio ze sprzętem fizycznym, omijając HAL dla maksymalnej wydajności (DMA).  </li>
+<li><span class="color-green">Oś i rdzeń centralny (szary okrąg w środku tarczy)</span> – reprezentuje <code>BIOS/UEFI</code> (firmware startowy płyty), który stanowi punkt centralny, stykający się ze sterownikami (od góry) i HAL‑em (od dołu).</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Architektura warstwowa systemu operacyjnego",
+  "description": "Zaawansowany diagram kołowy w rzucie 3D (wielowarstwowy krążek) obrazuje powiązania architektury warstwowej systemu operacyjnego. Górna część krążka reprezentuje oprogramowanie (Software), dolna – sprzęt komputerowy (Hardware), a centralna i boczne sekcje ukazują punkty styku oraz ścieżki przepływu danych.",
+  "keywords": "Architektura, warstwowa, systemu, operacyjnego"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<ul>
+<li><span class="color-green">Górna połowa (Software):</span> Reprezentuje warstwy oprogramowania – od aplikacji na samej krawędzi, przez tryb użytkownika, jądro, aż po sterowniki w głębi.</li>
+<li><span class="color-green">Dolna połowa (Hardware):</span> Reprezentuje sprzęt fizyczny komputera oraz warstwę jego abstrakcji (HAL).</li>
+<li><span class="color-green">Boczne, fioletowe kliny sterowników:</span> Zwróć uwagę, że fioletowa warstwa sterowników rozchodzi się ze środka na lewo i prawo jak skrzydła, przecinając całe oprogramowanie i stykając się bezpośrednio z czerwonym sprzętem. Pokazuje to graficznie, jak sterowniki integrują cały stos i potrafią rozmawiać bezpośrednio z fizycznymi komponentami.</li>
+</ul>
+<p>Zrozumienie tych styków to <span class="color-green">klucz do 90% diagnostyki sprzętowej</span>:</p>
+<h3>1. Zewnętrzny krąg software: Aplikacje i UI (pomarańczowy łuk)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Wyłącznie z <span class="color-gold">User Mode (zielony)</span>.</li>
+<li>Twoja przeglądarka Chrome, edytor kodu czy gra nie mają pojęcia, jaką masz płytę główną czy kartę sieciową. Są całkowicie odcięte od jądra i sprzętu fizycznego. Jeśli aplikacja chce np. zapisać plik, musi wysłać prośbę do bibliotek systemowych piętro niżej.</li>
+</ul>
+<h3>2. Środkowo-zewnętrzny krąg software: User Mode (zielony łuk)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Z <span class="color-gold">Aplikacjami (pomarańczowy)</span>, <span class="color-gold">Kernel Mode (niebieski)</span> oraz bezpośrednio ze <span class="color-gold">Sterownikami (fioletowe boczne kliny)</span>.</li>
+<li>Działają tu usługi systemowe, powłoka pulpitu (<code>explorer.exe</code>) i podstawowe interfejsy API systemu (np. <code>kernel32.dll</code>). To bezpieczna piaskownica Ring 3. Zielona warstwa styka się z fioletowymi klinami sterowników – to tu działają tzw. <span class="color-blue">User‑Mode Drivers</span> (np. sterowniki drukarek czy prostych peryferii USB). Jeśli taki sterownik się zawiesi, Windows po cichu uruchomi go ponownie bez restartowania całego komputera.</li>
+</ul>
+<h3>3. Środkowo-wewnętrzny krąg software: Kernel Mode (niebieski łuk)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Z <span class="color-gold">User Mode (zielony)</span> oraz ze <span class="color-gold">Sterownikami (fioletowy)</span>.</li>
+<li>Prawdziwe serce systemu operacyjnego w Ring 0. To tu działa jądro (<code>ntoskrnl.exe</code>), które zarządza pamięcią RAM, przydziela czas procesora i dba o bezpieczeństwo. Kernel odbiera żądania z trybu użytkownika i zleca ich wykonanie sterownikom.</li>
+</ul>
+<h3>4. Wewnętrzny krąg software i boczne kliny: Sterowniki / Drivers (fioletowy)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Z prawie <span class="color-red">wszystkim</span>! To absolutny łącznik całego systemu. Dotyka centralnego rdzenia <span class="color-gold">BIOS/UEFI (7)</span>, <span class="color-gold">Kernel Mode (3)</span>, <span class="color-gold">User Mode (2)</span>, <span class="color-gold">HAL‑a (5)</span> oraz bezpośrednio <span class="color-gold">Sprzętu fizycznego (6)</span> po bokach.</li>
+<li>Sterowniki to tłumacze. Odbierają abstrakcyjne żądania z jądra i zamieniają je na precyzyjne sygnały elektryczne i fizyczne komendy. Ponieważ większość sterowników działa w Ring 0, błąd w nich (np. odwołanie do nieprawidłowego adresu pamięci) to wyrok śmierci dla stacji – Windows natychmiast wyłącza system i wyświetla <span class="color-red">BSOD</span> w celu ochrony fizycznych podzespołów.</li>
+</ul>
+<h3>5. Wewnętrzny krąg hardware: HAL / Hardware Abstraction Layer (żółty łuk)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Z <span class="color-gold">BIOS/UEFI (szary rdzeń)</span>, <span class="color-gold">Sterownikami (fioletowe boczne kliny)</span> oraz leży na <span class="color-gold">Sprzęcie fizycznym (czerwony)</span>.</li>
+<li>HAL (<code>hal.dll</code>) to biblioteka, która ukrywa przed jądrem różnice między płytami głównymi różnych producentów. Dzięki temu jądro Windowsa nie musi wiedzieć, jak konkretny producent zaprojektował linie przerwań na płycie – HAL daje ujednolicony interfejs.</li>
+</ul>
+<h3>6. Zewnętrzny krąg hardware: Sprzęt fizyczny (czerwony łuk)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Z <span class="color-gold">HAL‑em (żółty)</span> oraz bezpośrednio z <span class="color-gold">fioletowymi klinami sterowników</span> po bokach.</li>
+<li>Fizyczny krzem – procesor, RAM, kontroler grafiki, gniazda USB i dyski. Zwróć uwagę na kluczowy element: fioletowy styk sterowników ze sprzętem po bokach, który omija żółty HAL. Dla zachowania kosmicznej wydajności, sterowniki urządzeń o niskich opóźnieniach (np. karty graficzne przez PCIe, dyski NVMe) rozmawiają bezpośrednio z rejestrami sprzętu i pamięcią (DMA), omijając narzut warstwy HAL.</li>
+</ul>
+<h3>7. Centralny rdzeń: BIOS / UEFI (szary okrąg w samym środku)</h3>
+<ul>
+<li><span class="color-green">Z czym się styka:</span> Wyłącznie z <span class="color-gold">Sterownikami (fioletowy)</span> od góry i <span class="color-gold">HAL‑em (żółty)</span> od dołu.</li>
+<li>Oprogramowanie układowe (firmware) płyty głównej. Inicjalizuje sprzęt przy włączeniu zasilania komputera. Stanowi fizyczną i logiczną oś całego układu (centrum tarczy), na której po uruchomieniu komputera system Windows buduje swoje warstwy. Gdy system wystartuje, BIOS/UEFI usuwa się w cień.</li>
+</ul>
+<hr>
+<h3>🧨 Co się dzieje, gdy zawiesi się sterownik?</h3>
+<p>Gdy zawiesi się zwykła aplikacja (np. przeglądarka), można ją po prostu zamknąć i pracować dalej. W przypadku sterowników sytuacja zależy od tego, w którym <span class="color-green">pierścieniu (Ring)</span> pracują:</p>
+<ul>
+<li><span class="color-green">Sterowniki użytkownika (Ring 2):</span> Działają w bezpiecznej piaskownicy trybu użytkownika. Jeśli sterownik czujnika USB lub prostej drukarki ulegnie awarii, system Windows po prostu po cichu go zrestartuje. <span class="color-green">Nie ma tu ryzyka BSOD</span> – komputer działa nieprzerwanie, a Ty co najwyżej na sekundę stracisz połączenie z urządzeniem (tzw. <span class="color-blue">lag</span>).</li>
+<li><span class="color-green">Sterowniki jądra (Ring 1):</span> Działają w trybie uprzywilejowanym, bezpośrednio przy sercu systemu (Ring 0). Mają bezpośredni dostęp do sprzętu i pamięci jądra. Jeśli taki sterownik popełni krytyczny błąd (np. odwoła się do nieprawidłowego adresu w pamięci RAM), system Windows <span class="color-green">natychmiast resetuje komputer i wyświetla BSOD</span> (<span class="color-blue">Blue Screen of Death</span>). Robi to celowo – to awaryjny hamulec bezpieczeństwa, który chroni podzespoły przed fizycznym uszkodzeniem lub utratą integralności danych.</li>
+</ul>
+<hr>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Krytyczna awaria kodu na tym poziomie (np. błąd pamięci) wywoła natychmiastowy i nieuchronny ekran BSOD." data-right="Kernel (Ring 0) &amp; Sterowniki jądra (Ring 1)."></div>
+    <div class="cmw-item" data-left="Podczas normalnej pracy systemu operacyjnego ten moduł nie uczestniczy w operacjach I/O." data-right="BIOS / UEFI (firmware startowy płyty)."></div>
+    <div class="cmw-item" data-left="Ta warstwa leży bezpośrednio na fizycznym krzemie, izolując go od ogólnego jądra." data-right="HAL (Hardware Abstraction Layer - hal.dll)."></div>
+    <div class="cmw-item" data-left="Z powodu pełnej izolacji ta warstwa nie ma pojęcia o istnieniu karty graficznej czy dysku." data-right="Aplikacje i UI (najwyższy poziom Ring 3)."></div>
+    <div class="cmw-item" data-left="Pracują w bezpiecznej piaskownicy trybu użytkownika, a ich zawieszenie nie wywołuje restartu całego systemu." data-right="Sterowniki użytkownika (Ring 2)."></div>
+    <div class="cmw-item" data-left="Autostrada dla ultraszybkich urządzeń (np. GPU, NVMe), omijająca narzut warstw pośrednich." data-right="Sterowniki stykające się bezpośrednio ze Sprzętem."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Menedżer urządzeń</h2>
+<p>Głównym centrum zarządzania podzespołami jest panel o nazwie <span class="color-green">Menedżer urządzeń</span>. Zobaczysz na nim wszystko, co w komputerze zamontowano. Możesz go uruchomić skrótem klawiszowym <kbd class="Win"></kbd> + <kbd>X</kbd> lub ręcznie wpisaną komendę <code>devmgmt.msc</code> w wyszukiwarce menu Windows lub oknie Uruchom (<kbd class="Win"></kbd> + <kbd>R</kbd>).</p>
+<data-tabs>
+  <tabs>
+    <item>Symbole i Kody Błędów</item>
+    <item>Złe nawyki oszczędzania</item>
+    <item>Widmowe urządzenia</item>
+  </tabs>
+  <div><h3>Podstawowe symbole w Menedżerze urządzeń</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Symbol</th>
+<th align="left">Znaczenie</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menadżer-urządzeń-!.webp" alt="menadżer-urządzeń-!" width="45" height="43" class="lazy-image" loading="lazy" decoding="async"></td>
+<td align="left">Problem z urządzeniem</td>
+<td align="left">Urządzenie zgłasza awarię. Wejdź we „Właściwości”, aby sprawdzić dany kod błędu i poznać więcej szczegółów działania.</td>
+</tr>
+<tr>
+<td align="left"><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menadżer-urządzeń-arrow-down.webp" alt="menadżer-urządzeń-arrow-down" width="54" height="40" class="lazy-image" loading="lazy" decoding="async"></td>
+<td align="left">Wyłączone urządzenie</td>
+<td align="left">Urządzenie zostało umyślnie wyłączone przez użytkownika lub sam system. Prąd tam i tak dociera lecz windows to ignoruje.</td>
+</tr>
+<tr>
+<td align="left"><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menadżer-urządzeń-i.webp" alt="menadżer-urządzeń-i" width="52" height="41" class="lazy-image" loading="lazy" decoding="async"></td>
+<td align="left">Ręczne ustawienia</td>
+<td align="left">Port lub układ na płycie działa na rzadziej spotykanych dziś, ręcznie ustawionych przerwaniach systemowych.</td>
+</tr>
+<tr>
+<td align="left"><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menadżer-urządzeń-znak-zapytania.webp" alt="menadżer-urządzeń-znak-zapytania" width="47" height="44" class="lazy-image" loading="lazy" decoding="async"></td>
+<td align="left">Brak dedykowanego sterownika</td>
+<td align="left">Urządzenia jeszcze nikt nie ustawił poprawnie, ponieważ brakuje głównego oprogramowania sprzętowego.</td>
+</tr>
+</tbody></table>
+<details>
+<summary>Najczęstsze kody błędów Menedżera Urządzeń</summary>
+
+<table>
+<thead>
+<tr>
+<th align="left">Kod błędu</th>
+<th align="left">Przyczyna</th>
+<th align="left">Rozwiązanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10</td>
+<td align="left">Urządzenie nie może zostać uruchomione</td>
+<td align="left"><ul><li>Zrestartuj komputer.</li><li>Przeinstaluj sterownik.</li><li>Sprawdź zgodność sprzętu i ewentualne konflikty zasobów.</li></ul></td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">Konflikt zasobów (IRQ, adresy, DMA)</td>
+<td align="left"><ul><li>Odłącz zbędne urządzenia.</li><li>Zaktualizuj BIOS/UEFI.</li><li>Włącz „Użyj ustawień automatycznych” w Menedżerze urządzeń.</li></ul></td>
+</tr>
+<tr>
+<td align="left">19</td>
+<td align="left">Uszkodzone wpisy rejestru sterownika</td>
+<td align="left"><ul><li>Usuń urządzenie i zainstaluj ponownie.</li></ul></td>
+</tr>
+<tr>
+<td align="left">22</td>
+<td align="left">Urządzenie jest wyłączone</td>
+<td align="left"><ul><li>Włącz urządzenie w Menedżerze urządzeń.</li><li> Jeśli wyłącza się ponownie — sprawdź zasilanie lub sterownik.</li></ul></td>
+</tr>
+<tr>
+<td align="left">28</td>
+<td align="left">Brak zainstalowanego sterownika</td>
+<td align="left"><ul><li>Pobierz sterownik od producenta.</li><li> Jeśli brak — użyj Windows Update lub sterownika zgodnego.</li></ul></td>
+</tr>
+<tr>
+<td align="left">31</td>
+<td align="left">System nie może załadować sterownika</td>
+<td align="left"><ul><li>Przeinstaluj sterownik.</li><li>Sprawdź integralność systemu (SFC/DISM).</li></ul></td>
+</tr>
+<tr>
+<td align="left">32</td>
+<td align="left">Sterownik został wyłączony w rejestrze</td>
+<td align="left"><ul><li>Włącz usługę/sterownik w rejestrze lub przeinstaluj urządzenie.</li></ul></td>
+</tr>
+<tr>
+<td align="left">37</td>
+<td align="left">Sterownik nie załadował się poprawnie</td>
+<td align="left"><ul><li>Usuń urządzenie, zainstaluj ponownie.</li><li>Sprawdź, czy sterownik nie jest uszkodzony lub niezgodny.</li></ul></td>
+</tr>
+<tr>
+<td align="left">39</td>
+<td align="left">Sterownik jest uszkodzony lub brakuje pliku</td>
+<td align="left"><ul><li>Przeinstaluj sterownik.</li><li> Jeśli problem wraca — pobierz wersję od producenta.</li></ul></td>
+</tr>
+<tr>
+<td align="left">43</td>
+<td align="left">Urządzenie zgłosiło awarię</td>
+<td align="left"><ul><li>Odłącz i podłącz ponownie.</li><li>Zrestartuj komputer.</li><li>Zaktualizuj sterownik lub firmware.</li><li>Częste w GPU i USB.</li></ul></td>
+</tr>
+<tr>
+<td align="left">45</td>
+<td align="left">Urządzenie jest odłączone</td>
+<td align="left"><ul><li>Podłącz urządzenie.</li><li>Jeśli nadal widoczne — usuń wpis i odśwież listę urządzeń.</li></ul></td>
+</tr>
+<tr>
+<td align="left">56</td>
+<td align="left">Konflikt z usługą VPN lub filtrem sieciowym</td>
+<td align="left"><ul><li>Wyłącz VPN.</li><li>Usuń problematyczne oprogramowanie sieciowe.</li><li>Zrestartuj komputer.</li></ul></td>
+</tr>
+<tr>
+<td align="left">65</td>
+<td align="left">Problem z konfiguracją urządzenia Bluetooth</td>
+<td align="left"><ul><li>Usuń urządzenie z listy BT, sparuj ponownie.</li><li>Zrestartuj usługę Bluetooth.</li></ul></td>
+</tr>
+<tr>
+<td align="left">110</td>
+<td align="left">Błąd komunikacji z urządzeniem USB</td>
+<td align="left"><ul><li>Zmień port USB.</li><li>Użyj kabla o wyższej jakości.</li><li>Sprawdź zasilanie portów.</li></ul></td>
+</tr>
+</tbody></table>
+</details></div>
+<div><h3>Problem: „Co jakiś czas rozłącza mi Wi-Fi / myszkę USB”</h3>
+<p>To jeden z najczęstszych problemów zgłaszanych na Helpdesku, szczególnie przez użytkowników laptopów. </p>
+<p><span class="color-green">Co się dzieje?</span></p>
+<ul>
+<li>Windows domyślnie próbuje <span class="color-green">oszczędzać baterię</span>.</li>
+<li>Robi to poprzez <span class="color-green">wyłączanie zasilania</span> nieużywanych (jego zdaniem) portów USB oraz kart sieciowych.</li>
+<li>Skutkuje to <span class="color-green">losowym rozłączaniem Wi‑Fi</span> co kilkanaście minut lub <span class="color-green">zacinaniem się</span> myszek i klawiatur.</li>
+</ul>
+<p><span class="color-green">Co wtedy kliknąć?</span><br>Dwukrotnym kliknięciem wejdź we właściwości urządzenia „Główny koncentrator USB”, przejdź do zakładki „Zarządzanie energią” i odznacz opcję:<br><kbd class="check-mark-empty"></kbd> „Zezwalaj komputerowi na wyłączanie tego urządzenia w celu oszczędzania energii”.<br>Taki prosty zabieg rozwiązuje $90\%$ problemów z peryferiami!</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Zezwalaj-komputerowi-na-wyłączanie-tego-urządzenia-w-celu-oszczędzania-energii.webp" alt="Zezwalaj komputerowi na wyłączanie tego urządzenia w celu oszczędzania energii" width="870" height="572" class="lazy-image" loading="lazy" decoding="async">
+
+<blockquote>
+<p>PS. myszki bezprzewodowe mają własne mechanizmy zarządzania energią, więc i tak będą się usypiać po czasie nieaktywności, mimo odznaczenia opcji w menadżerze urządzeń. 😒</p>
+</blockquote></div>
+<div><h3>Pokazywanie ukrytych urządzeń</h3>
+<p>Zdarza się, że system odmawia przypisania np. wirtualnego portu <code>COM3</code> do nowego kabla.<br>Dlaczego?  🤔<br>Bo Windows wciąż „pamięta” sterownik urządzenia, które podłączyłeś tam $3$ lata temu, i rezerwuje dla niego ten port! </p>
+<p>Aby to wyczyścić, w Menedżerze urządzeń wejdź w menu górne: <span class="color-green">Widok</span> → <span class="color-green">Pokaż ukryte urządzenia</span>. </p>
+<p>Szare, wyblakłe ikony to nazywane przez administratorów <span class="color-green">Ghost Devices</span> (urządzenia widma). Ich usunięcie (PPM → <span class="color-green">Odinstaluj urządzenie</span>) często błyskawicznie rozwiązuje konflikty USB i eliminuje problem „Nie rozpoznano urządzenia USB”.</p>
+<p>Poniżej masz przykład – zobacz, jak Windows domyślnie zachowuje w pamięci sterownik dawno odłączonego smartfona Samsung:<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/pokaż-ukryte-urządzenia.webp" alt="Pokaż ukryte urządzenia" width="809" height="274" class="lazy-image" loading="lazy" decoding="async"></p></div>
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Akcje na sterownikach</h2>
+<p>Kliknięcie prawym klawiszem w element na liście wywoła menu kontekstowe.</p>
+<data-gate>
+  <data-hotspot image="/public/courses/windows-11/Images/devmgmt-sterownik-przyklad.png">
+    <hotspot x="30" y="31" title="Aktualizuj sterownik">
+Automatyczne wyszukiwanie z reguły zawodzi. Profesjonalista wybiera „Przeglądaj mój komputer”.  <br>
+Pobierasz spakowany folder (ZIP) ze strony producenta, wypakowujesz go i po prostu wskazujesz ten folder Windowsowi. System znajdzie w nim kluczowy plik z informacjami instalacyjnymi (`.inf`) i załaduje konfigurację.
+    </hotspot>
+    <hotspot x="48" y="34" title="Wyłącz urządzenie">
+Blokuje działanie wybranego komponentu. Choć urządzenie nadal może być fizycznie zasilane, system operacyjny (kernel) ignoruje jego sygnały i nie przekazuje danych do aplikacji. Przykład: wyłączony mikrofon nie będzie dostępny w programach, mimo że jest podłączony. To samo dotyczy kamerki – nawet tej wbudowanej w laptopa, więc nie musisz jej zaklejać taśmą. 😅 <br><br>
+...No nie koniecznie, jeżeli urządzenie z dowolnym systemem zostanie zainfekowane złośliwym oprogramowaniem klasy rootkit lub bootkit, to przestepca jest w stanie zrobić z takim sprzętem co mu sie podoba. Najbardziej problematyczne sprzęty z opcją odnajdywania nawet po wyłączeniu np. Applowskie *Finding My Devices*.
+    </hotspot>
+    <hotspot x="30" y="37" title="Odinstaluj urządzenie">
+Usuwa sterownik i wszystkie powiązane z nim pliki z systemu. Po ponownym uruchomieniu system spróbuje zainstalować sterownik ponownie (automatycznie lub ręcznie). Jest to kluczowe do pozbycia się uszkodzonych lub niekompatybilnych wersji oprogramowania.
+    </hotspot>
+    <hotspot x="62" y="41" title="Skanuj w poszukiwaniu zmian sprzętowych">
+Zmusza system do natychmiastowego odpytania wszystkich portów na płycie głównej (USB, PCIe) o nowy, podłączony sprzęt. Wykorzystywane, gdy np. po podłączeniu pendrive'a system nie reaguje automatycznie.
+    </hotspot>
+    <hotspot x="44" y="46" title="Właściwości">
+Otwiera okno dialogowe z zaawansowanymi informacjami o urządzeniu. Zawiera ono kluczowe zakładki diagnostyczne, takie jak:
+- „Ogólne” (status urządzenia), 
+- „Sterownik” (wersja i data sterownika), 
+- „Szczegóły” (w tym identyfikatory sprzętu – *Hardware IDs*) oraz 
+- „Zdarzenia” (historia błędów i komunikatów systemowych, w tym kody błędów, np. *Code 43*).
+    </hotspot>
+  </data-hotspot>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕵️ Identyfikacja „Nieznanego urządzenia”</h2>
+<p>Gdy system nie ma właściwego pliku sterownika, układ figuruje na liście jako <span class="color-green">Nieznane urządzenie</span>. Do jego rzetelnego zidentyfikowania wykorzystuje się <span class="color-green">identyfikatory sprzętu (<span class="color-blue">Hardware IDs</span>)</span> zapisane w oprogramowaniu układowym.</p>
+<p>Ścieżka weryfikacji w Menedżerze urządzeń:</p>
+<ol>
+<li>Wejdź we <span class="color-green">Właściwości</span> problematycznego komponentu.</li>
+<li>Przejdź do zakładki <span class="color-green">Szczegóły</span>.</li>
+<li>Z listy <span class="color-blue">Właściwość</span> wybierz <span class="color-green">Identyfikatory sprzętu</span>.</li>
+</ol>
+<p>W oknie pojawi się ustrukturyzowany ciąg znaków wyglądający zazwyczaj tak:</p>
+<p><code>PCI\VEN_10DE&amp;DEV_2504&amp;SUBSYS...</code></p>
+<ul>
+<li><span class="color-green"><code>VEN_</code> (<span class="color-blue">Vendor ID</span>)</span>: Skrót nazwy producenta wbudowanego układu (np. płyty głównej, karty sieciowej).</li>
+<li><span class="color-green"><code>DEV_</code> (<span class="color-blue">Device ID</span>)</span>: Skrót nazwy konkretnego modelu tego układu.</li>
+</ul>
+<h4>Jak z tego skorzystać na Helpdesku w $3$ sekundy?</h4>
+<ol>
+<li>Skopiuj sam początek kodu z najwyższej linijki (najlepiej wyciąć wyłącznie fragment <code>VEN_xxxx&amp;DEV_xxxx</code>). </li>
+<li>Wklej to w swój czat AI (np. Gemini) z zapytaniem: <span class="color-blue">„Czego to sterownik: [wklejony kod]?”</span> lub wrzuć w okno wyszukiwarki bazy <a href="https://www.pcilookup.com/">PCILookup.com</a> lub <a href="https://devicehunt.com/">DeviceHunt.com</a>.</li>
+<li>Od razu dostaniesz dokładną odpowiedź co do modelu np.:<br><span class="color-blue">„$\text{Dla podanego kodu DEV to karta sieciowa Intel AX}201$”</span>. </li>
+<li>Wpisujesz wynik w Google i pobierasz jedyny słuszny instalator bezpośrednio ze strony producenta (np. Intel).</li>
+</ol>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Metoda przeznaczona WYŁĄCZNIE dla tzw. podzespołów wewnętrznych</span> komputera (Wi‑Fi, układy audio, karty graficzne, chipset, czytniki pod obudową). </p>
+<p>Nie trać czasu na sprawdzanie kodów sprzętu zwykłych klawiatur, myszek czy pendrive'ów. Te urządzenia operują na uniwersalnych i natywnych sterownikach samego systemu Windows (tzw. klasa <span class="color-blue">Mass Storage</span> i <span class="color-blue">HID</span>). Jeśli po podpięciu pendrive'a instalacja „nie idzie”, to wina ukrytych, zablokowanych portów Menedżera (tzw. „duchów” – o których czytałeś wcześniej), zepsutego gniazda USB albo śmierci samej pamięci.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Szybka diagnostyka</h2>
+<p>Dopasuj objaw do rozwiązania:</p>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Mysz USB lub połączenie Wi-Fi losowo przestaje reagować na laptopie." data-right="Wejdź w Zarządzanie energią urządzenia i odznacz oszczędzanie baterii."></div>
+    <div class="cmw-item" data-left="W systemie wisi Nieznane urządzenie, a Windows Update milczy." data-right="Odczytaj Identyfikatory sprzętu (Szczegóły) i wyszukaj kod w sieci."></div>
+    <div class="cmw-item" data-left="Karta dźwiękowa całkowicie odmawia pracy po „aktualizacji”." data-right="Użyj Odinstaluj urządzenie, zaznacz „Usuń oprogramowanie sterownika” i zrestartuj system."></div>
+    <div class="cmw-item" data-left="Po fizycznym włożeniu pendrive'a system w ogóle go nie rejestruje." data-right="Wybierz Skanuj w poszukiwaniu zmian sprzętowych, by odpytać porty."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Izolacja trybów i Ringów:</span> system Windows opiera się na sprzętowej separacji trybu użytkownika (Aplikacje w Ring 3) od trybu jądra (Kernel w Ring 0). Zapobiega to bezpośredniemu dostępowi programów do sprzętu i chroni system przed ich błędami. 🧱</li>
+<li><span class="color-green">Rola Ringów w sterownikach:</span> Sterowniki użytkownika działają w bezpiecznym Ring 2 i ich awaria nie powoduje paraliżu stacji (Windows po cichu je restartuje). Sterowniki jądra działają w Ring 1 (tuż przy jądrze w Ring 0) – ich awaria jest krytyczna, natychmiast wywołuje błąd <span class="color-blue">BS</span><span class="color-red">OD</span> i resetuje komputer, by chronić podzespoły. 🚨</li>
+<li><span class="color-green">Autostrada sprzętowa (Omijanie HAL):</span> podczas gdy HAL (<code>hal.dll</code>) unifikuje interfejs płyty głównej dla jądra, ultraszybkie sterowniki (np. GPU przez PCIe, dyski NVMe) stykają się ze sprzętem bezpośrednio przez rejestry i pamięć DMA (widoczne jako boczne fioletowe kliny na diagramie), omijając narzut HAL‑a. ⚡</li>
+<li><span class="color-green">Ghost Devices (Urządzenia widma):</span> system trwale rezerwuje adresy i porty logiczne dla odłączonych urządzeń z przeszłości. Aktywacja opcji „Pokaż ukryte urządzenia” pozwala usunąć te blokady i zwolnić zasoby. 👻</li>
+<li><span class="color-green">Hardware IDs (Identyfikatory sprzętu):</span> to klucz do rozpoznania „Nieznanego urządzenia”. Identyfikatory <code>VEN_</code> (Vendor) oraz <code>DEV_</code> (Device) pozwalają w kilka sekund namierzyć i pobrać właściwy sterownik bezpośrednio od producenta. 🕵️</li>
+</ul>
+<hr>
+<p>Skoro już architekturę sprzętową komputera znasz to ruszamy w konfigurację interfejsów sieciowych i zwiększenia twojej prywatności w internecie. 👮🏻</p>
+</section>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dyslexia Simulation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .app-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #facc15;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: #334155;
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            .panels {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: #1e293b;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title-bad {
+            color: #ef4444;
+        }
+
+        .title-good {
+            color: #22c55e;
+        }
+
+        .text-block {
+            font-size: 14px;
+            line-height: 1.15;
+            color: #cbd5e1;
+            transition: all 0.2s ease;
+        }
+
+        .text-bad {
+            font-family: "Times New Roman", Times, serif;
+            text-align: justify;
+            letter-spacing: -0.5px;
+        }
+
+        .text-good {
+            font-family: "Atkinson Hyperlegible", system-ui, -apple-system, sans-serif;
+            text-align: left;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+        }
+
+        .controls {
+            padding: 16px 24px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            color: #94a3b8;
+            width: 140px;
+            font-weight: 600;
+        }
+
+        .slider {
+            flex: 1;
+            accent-color: #3b82f6;
+            cursor: pointer;
+        }
+
+        .control-value {
+            font-size: 12px;
+            color: #cbd5e1;
+            width: 80px;
+            text-align: right;
+        }
+
+        .toggle-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            background: #334155;
+            border: 1px solid #475569;
+            color: #f1f5f9;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: white;
+        }
+
+        .status-info {
+            font-size: 12px;
+            color: #f1f5f9;
+            margin-top: 8px;
+            line-height: 1.5;
+            background: #182235;
+            padding: 14px;
+            border-radius: 6px;
+            border: 2px solid #334155;
+            transition: border-color 0.2s ease;
+        }
+
+        .status-list {
+            list-style: none;
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .status-item.good {
+            color: #cbd5e1;
+        }
+
+        .status-item.warning {
+            color: #facc15;
+        }
+
+        .status-item.bad {
+            color: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="title">Porównanie czytelności typografii (Dysleksja i wady wzroku)</div>
+                <span style="font-size: 11px; color: #64748b; font-family: monospace; white-space: nowrap;">Koala-V</span>
+            </div>
+
+            <div class="panels">
+                <!-- Zły układ (Zagęszczony) -->
+                <div class="panel">
+                    <h3 class="panel-title title-bad">❌ Trudny odczyt (Błędy CSS)</h3>
+                    <div class="text-block text-bad" id="text-bad">
+                        <p>Osoby cierpiące na dysleksję wykazują specyficzne trudności w prawidłowym dekodowaniu znaków
+                            graficznych. Kiedy tekst na stronie internetowej jest wyjustowany do obu krawędzi,
+                            przeglądarka rozciąga spacje między słowami, co tworzy nieregularne białe korytarze pionowe.
+                            Wzrok czytelnika gubi się w tych szczelinach. Dodatkowo ozdobne szeryfy na końcach liter
+                            zlewają się ze sobą przy niskiej interlinii, sprawiając, że słowa wydają się poruszać lub
+                            nachodzić na siebie. Zbyt małe odstępy między znakami drastycznie obniżają szybkość czytania
+                            i powodują szybkie zmęczenie oczu.</p>
+                    </div>
+                </div>
+
+                <!-- Dobry układ (Płynny i dostępny) -->
+                <div class="panel">
+                    <h3 class="panel-title title-good">✔️ Zoptymalizowany pod czytelność</h3>
+                    <div class="text-block text-good" id="text-good">
+                        <p>Osoby cierpiące na dysleksję wykazują specyficzne trudności w prawidłowym dekodowaniu znaków
+                            graficznych. Kiedy tekst na stronie internetowej jest wyjustowany do obu krawędzi,
+                            przeglądarka rozciąga spacje między słowami, co tworzy nieregularne białe korytarze pionowe.
+                            Wzrok czytelnika gubi się w tych szczelinach. Dodatkowo ozdobne szeryfy na końcach liter
+                            zlewają się ze sobą przy niskiej interlinii, sprawiając, że słowa wydają się poruszać lub
+                            nachodzić na siebie. Zbyt małe odstępy między znakami drastycznie obniżają szybkość czytania
+                            i powodują szybkie zmęczenie oczu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel kontrolny interaktywny -->
+            <div class="controls">
+                <div class="control-group">
+                    <span class="control-label">Krój czcionki (Font)</span>
+                    <button class="toggle-btn active" id="btn-sans" onclick="toggleFont('sans')">Bezszeryfowy
+                        (Sans)</button>
+                    <button class="toggle-btn" id="btn-serif" onclick="toggleFont('serif')">Szeryfowy (Serif)</button>
+                    <div class="control-value" id="val-font">Sans-serif</div>
+                </div>
+                <div class="control-group">
+                    <span class="control-label">Wysokość linii (Line Height)</span>
+                    <input type="range" class="slider" min="1" max="2.2" step="0.1" value="1.6" id="slide-height"
+                        oninput="updateValues()">
+                    <span class="control-value" id="val-height">1.6</span>
+                </div>
+                <div class="control-group">
+                    <span class="control-label">Wyrównanie (Alignment)</span>
+                    <button class="toggle-btn active" id="btn-left" onclick="toggleAlign('left')">Do lewej</button>
+                    <button class="toggle-btn" id="btn-justify" onclick="toggleAlign('justify')">Wyjustowany</button>
+                    <div class="control-value" id="val-align">Do lewej</div>
+                </div>
+                <div class="control-group">
+                    <span class="control-label">Odstęp liter (Letter Spacing)</span>
+                    <input type="range" class="slider" min="-1" max="3" step="0.5" value="0.5" id="slide-space"
+                        oninput="updateValues()">
+                    <span class="control-value" id="val-space">0.5px</span>
+                </div>
+                <div class="status-info" id="status-info">
+                    Zmieniaj parametry drugiego panelu, aby zobaczyć jak proste reguły CSS (line-height, font-family,
+                    letter-spacing, text-align) wpływają na dostępność i redukują wysiłek poznawczy uczniów.
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let fontMode = 'sans';
+            let alignMode = 'left';
+
+            function toggleFont(mode) {
+                fontMode = mode;
+                document.getElementById('btn-sans').classList.toggle('active', mode === 'sans');
+                document.getElementById('btn-serif').classList.toggle('active', mode === 'serif');
+                updateValues();
+            }
+
+            function toggleAlign(mode) {
+                alignMode = mode;
+                document.getElementById('btn-left').classList.toggle('active', mode === 'left');
+                document.getElementById('btn-justify').classList.toggle('active', mode === 'justify');
+                updateValues();
+            }
+
+            function updateValues() {
+                const height = parseFloat(document.getElementById('slide-height').value);
+                const spacing = parseFloat(document.getElementById('slide-space').value);
+
+                const target = document.getElementById('text-good');
+
+                // Aplikacja stylów w locie
+                target.style.lineHeight = height;
+                target.style.letterSpacing = spacing + 'px';
+                target.style.textAlign = alignMode;
+                target.style.fontFamily = fontMode === 'sans' ? '"Atkinson Hyperlegible", system-ui, -apple-system, sans-serif' : '"Times New Roman", Times, serif';
+
+                // Aktualizacja etykiet tekstowych
+                document.getElementById('val-height').innerText = height;
+                document.getElementById('val-space').innerText = spacing + 'px';
+                document.getElementById('val-font').innerText = fontMode === 'sans' ? 'Atkinson Hyperlegible' : 'Times New Roman';
+                document.getElementById('val-align').innerText = alignMode === 'left' ? 'Do lewej' : 'Wyjustowany';
+
+                // Indywidualna ocena każdego kryterium
+                const checks = [];
+
+                // 1. Font family
+                if (fontMode === 'sans') {
+                    checks.push({ status: 'good', label: 'Czcionka: Atkinson Hyperlegible (bezszeryfowa z rozróżnieniem l/I/1) — Doskonale!' });
+                } else {
+                    checks.push({ status: 'bad', label: 'Czcionka: Szeryfowa (Times New Roman) — Zlewa znaki i utrudnia dekodowanie kształtów liter.' });
+                }
+
+                // 2. Line height
+                if (height >= 1.5 && height <= 1.8) {
+                    checks.push({ status: 'good', label: 'Wysokość linii: ' + height + ' — Optymalna przestrzeń oddechowa.' });
+                } else if (height < 1.3) {
+                    checks.push({ status: 'bad', label: 'Wysokość linii: ' + height + ' — Zbyt mała (tekst zlewa się w pionowe bloki).' });
+                } else if (height > 1.8) {
+                    checks.push({ status: 'warning', label: 'Wysokość linii: ' + height + ' — Za duża (rozprasza powierzchnię tekstu, utrudnia skupienie przy astygmatyzmie).' });
+                } else {
+                    checks.push({ status: 'warning', label: 'Wysokość linii: ' + height + ' — Przeciętna (celuj w zakres 1.5 - 1.8).' });
+                }
+
+                // 3. Alignment
+                if (alignMode === 'left') {
+                    checks.push({ status: 'good', label: 'Wyrównanie: Do lewej — Zapewnia stały punkt startu linii.' });
+                } else {
+                    checks.push({ status: 'bad', label: 'Wyrównanie: Wyjustowanie — Tworzy rozpraszające pionowe luki w tekście.' });
+                }
+
+                // 4. Letter spacing
+                if (spacing >= 0.5 && spacing <= 1.5) {
+                    checks.push({ status: 'good', label: 'Odstęp liter: ' + spacing + 'px — Zapobiega zlewaniu się sąsiednich liter.' });
+                } else if (spacing < 0) {
+                    checks.push({ status: 'bad', label: 'Odstęp liter: ' + spacing + 'px — Litery nakładają się na siebie.' });
+                } else if (spacing > 1.5) {
+                    checks.push({ status: 'warning', label: 'Odstęp liter: ' + spacing + 'px — Za duży (niszczy spójność słów).' });
+                } else {
+                    checks.push({ status: 'warning', label: 'Odstęp liter: ' + spacing + 'px — Przeciętny (optymalnie 0.5px - 1.5px).' });
+                }
+
+                // Ocena ogólna i obramowanie
+                const info = document.getElementById('status-info');
+                const allGood = checks.every(c => c.status === 'good');
+                const hasBad = checks.some(c => c.status === 'bad');
+
+                let title = '';
+                if (allGood) {
+                    title = '<strong>✅ Dostępność optymalna:</strong> Wszystkie kryteria są spełnione!';
+                    info.style.borderColor = "#22c55e";
+                } else if (hasBad) {
+                    title = '<strong>⚠️ Niska dostępność:</strong> Masz poważne błędy utrudniające odczyt!';
+                    info.style.borderColor = "#ef4444";
+                } else {
+                    title = '<strong>⚡ Dostępność umiarkowana:</strong> Możesz jeszcze poprawić czytelność.';
+                    info.style.borderColor = "#facc15";
+                }
+
+                // Budowanie listy HTML
+                let html = '<div>' + title + '</div><ul class="status-list">';
+                checks.forEach(c => {
+                    let icon = '✅';
+                    if (c.status === 'warning') icon = '⚡';
+                    if (c.status === 'bad') icon = '❌';
+                    html += '<li class="status-item ' + c.status + '"><span>' + icon + '</span><span>' + c.label + '</span></li>';
+                });
+                html += '</ul>';
+
+                info.innerHTML = html;
+            }
+
+            window.onload = () => {
+                updateValues();
+            };
+        </script>
+</body>
+
+</html>

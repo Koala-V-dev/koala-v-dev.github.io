@@ -1,0 +1,165 @@
+<h2>🌑 Liczby Ujemne: System U2</h2>
+<p>W poprzedniej lekcji opanowałeś cztery operacje arytmetyki binarnej — dodawanie, odejmowanie, mnożenie i dzielenie. Ale cała ta arytmetyka działała wyłącznie na <strong>liczbach dodatnich</strong>. Co jeśli wynik odejmowania jest ujemny? Co jeśli chcesz zapisać temperaturę $-15°C$?</p>
+<p>Potrzebujemy sposobu, by w świecie samych $0$ i $1$ zakodować <strong>minus</strong>. Rozwiązaniem jest <strong>System U2 (Uzupełnienie do Dwóch)</strong>.</p>
+<hr>
+<h3>🎯 Koncepcja "Wagi Znaku"</h3>
+<p>Umówiono się, że pierwszy bit (najbardziej po lewej) ma <strong>wagę ujemną</strong>. Pozostałe bity są dalej dodatnie.</p>
+<p><strong>Analiza 8&#8209;bitowa:</strong><br>Wartość bitu na ósmej pozycji wynosi <strong>$-128$</strong>.</p>
+<p>Aby zapisać liczbę <strong>$-96$</strong>, musimy połączyć ujemną wagę początku z dodatnimi wagami pozostałych bitów:<br>$$-128 + 32 = -96$$</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bit (Waga)</th>
+<th align="center">-128</th>
+<th align="center">64</th>
+<th align="center">32</th>
+<th align="center">16</th>
+<th align="center">8</th>
+<th align="center">4</th>
+<th align="center">2</th>
+<th align="center">1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Wartość</strong></td>
+<td align="center"><strong>1</strong></td>
+<td align="center">0</td>
+<td align="center"><strong>1</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p><strong>Zapis binarnie:</strong> <code>1010 0000</code></p>
+<hr>
+<h4>Zakresy w U2</h4>
+<p>Dzięki mechanizmowi wag, nasze 8&#8209;bitowe pudełko może teraz przechowywać liczby od $-128$ do $+127$:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Typ</th>
+<th align="center">Zakres 8&#8209;bitowy</th>
+<th align="center">Zakres 16&#8209;bitowy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>UNSIGNED</strong> (bez znaku)</td>
+<td align="center">$0$ do $255$</td>
+<td align="center">$0$ do $65535$</td>
+</tr>
+<tr>
+<td align="left"><strong>SIGNED / U2</strong> (ze znakiem)</td>
+<td align="center">$-128$ do $+127$</td>
+<td align="center">$-32768$ do $+32767$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To te same bity, ta sama pamięć! Jedyna różnica to <strong>sposób interpretacji</strong>. Ciąg <code>1111 1111</code> to $255$ w trybie UNSIGNED, ale $-1$ w trybie U2.</p>
+
+</div>
+</div><hr>
+<h3>🔧 Jak szybko uzyskać liczbę ujemną? (Metoda Invert + 1)</h3>
+<p>Choć mechanizm wag (opisany wyżej) najlepiej tłumaczy <em>dlaczego</em> U2 działa, w praktyce najczęściej stosuje się szybki algorytm zamiany liczby dodatniej na ujemną:</p>
+<ol>
+<li><strong>Zapisz liczbę dodatnią</strong> (np. $5$ to <code>0000 0101</code>).</li>
+<li><strong>Odwróć wszystkie bity</strong> ($0 \to 1, 1 \to 0$): <code>1111 1010</code>.</li>
+<li><strong>Dodaj 1</strong>: <code>1111 1011</code> $\gets$ To jest $-5$ w systemie U2.</li>
+</ol>
+<p><strong>Sprawdzenie wag:</strong> $-128 + 64 + 32 + 16 + 8 + 0 + 2 + 1 = -5$ ✅</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ta metoda działa w obie strony! Aby uzyskać liczbę dodatnią z ujemnej, zastosujesz ten sam algorytm: Invert + 1.</p>
+
+</div>
+</div><hr>
+<h3>🤯 Arytmetyka w U2 — Magia Pudełka</h3>
+<p>Najpiękniejsza właściwość U2: <strong>dodawanie i odejmowanie działają identycznie</strong> jak w trybie UNSIGNED! Procesor nie musi wiedzieć, czy liczby są ze znakiem czy bez — bity same się „układają&quot;.</p>
+<p><strong>Przykład: $5 + (-3) = 2$</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">liczba</th>
+<th align="left">zapis $8$-bitowy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$5$</td>
+<td align="left"><code>0000 0101</code></td>
+</tr>
+<tr>
+<td align="left">$-3$</td>
+<td align="left"><code>1111 1101</code></td>
+</tr>
+<tr>
+<td align="left">Suma</td>
+<td align="left"><em><code>1</code></em> <code>0000 0010</code></td>
+</tr>
+</tbody></table>
+<p>Nadmiarowy bit (dziewiąty) wypada poza pudełko. Zostaje <code>0000 0010</code> = $2$. Bingo! 🎯</p>
+<hr>
+<h3>⚠️ Najczęstsze błędy (The "Oops" Zone)</h3>
+<p>Podczas pracy z bitami łatwo o pomyłkę. Oto na co musisz uważać:</p>
+<ul>
+<li><strong>Ignorowanie Przepełnienia (Overflow)</strong>: Nadmiarowy bit (dziewiąty) często wypada poza pudełko i w U2 jest to normalne. Prawdziwy błąd (<strong>Overflow</strong>) następuje wtedy, gdy dodasz dwie liczby dodatnie, a wynik wyjdzie ujemny (lub odwrotnie), bo &#39;przebiłeś&#39; wagę znaku.</li>
+<li><strong>Mylenie U2 z &quot;Bitem Znaku&quot;</strong>: System U2 to nie tylko &quot;1 na początku&quot;. To system, w którym pierwszy bit ma ujemną wagę. Nie wystarczy zmienić go na 1, by uzyskać liczbę ujemną (stosuj metodę <em>Invert + 1</em>).</li>
+<li><strong>Dopisywanie zer przy mnożeniu</strong>: Pamiętaj, że dopisujesz tyle zer, ile wynosi <strong>indeks pozycji</strong>, a nie numer porządkowy bita.</li>
+</ul>
+<hr>
+<h3>🕹️ Symulator Arytmetyki Binarnej (Tryb U2)</h3>
+<p>Poniżej masz interaktywny symulator z <strong>włączonym trybem U2</strong>. Przełącz toggle, aby zobaczyć jak te same bity zmieniają swoją interpretację:</p>
+<p><data-binary-arithmetic digits="16" base="2" u2="true"></data-binary-arithmetic></p>
+<hr>
+<h3>🔒 Test: Czy rozumiesz U2?</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+Jaka jest wartość dziesiętna ciągu `1111 1111` w 8-bitowym systemie U2?
+    </question>
+    <options>
+      <option correct>-1</option>
+      <option>255</option>
+      <option>-128</option>
+      <option>127</option>
+    </options>
+    <div data-hint="error">
+      Przypomnij sobie mechanizm wag U2: najbardziej lewy bit ma wynik wagi **ujemny** ($-128$).  
+      Pozostałe są dodatnie, a ich sumowanie z $-128$ da ci mniejszą liczbę ujemną.
+    </div>
+    <div data-hint="success">
+      Dokładnie! Wszystkie bity zapalone w U2 dają $-1$, nie $255$. To jeden z najważniejszych faktów do zapamiętania. 🏆
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question>
+Ciąg bitów `1111 1100` w 8-bitowym systemie U2 reprezentuje liczbę:
+    </question>
+    <options>
+      <option>252</option>
+      <option correct>-4</option>
+      <option>-128</option>
+      <option>124</option>
+    </options>
+    <div data-hint="error">
+      Użyj mechanizmu wag: najbardziej lewy bit ma wartość wagi $-128$.  
+      Zsumuj wagi zapalonych bitów i pamiętaj że to U2, NIE unsigned!
+    </div>
+    <div data-hint="success">
+      Mistrz U2! Szybka metoda: odwróć bity → `0000 0011` = $3$, dodaj $1$ → $4$, dodaj minus → $-4$. 🎓
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>

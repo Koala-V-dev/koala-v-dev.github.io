@@ -1,0 +1,342 @@
+<h2>Wyrażenia Algebraiczne: Architektura Uniwersalnych Wzorców</h2>
+<p>W Module $0$ przyjąłeś „Złoty Wzór” na NWW jako gotową funkcję:<br>$$\text{NWW}(a, b) = \frac{a \cdot b}{\text{NWD}(a, b)}$$</p>
+<p>Dzisiaj wejdziemy „pod maskę” tego mechanizmu. Zapomnij o traktowaniu liczb jako sztywnych wartości. Zacznij postrzegać je jako <strong>struktury</strong>. Algebra nie jest po prostu „matematyką z literkami”, tylko <em>tworzeniem uniwersalnych wzorców</em>. To Twoje szablony działające bez względu na to, co wstawisz na pod sygnaturę.</p>
+<hr>
+<h3>🏗️ Zmienna jako Kontener i Kontrakt ($x$)</h3>
+<p>W kodzie zmienna to adres w pamięci. W algebrze litera $x$ to <strong>kontener na nieskończoność</strong>. </p>
+<p>W Module $0$ opanowaliśmy notację (alfabet). Algebra to pierwszy poziom logiki systemowej zbudowany na tym alfabecie. Jej siła tkwi w <em>abstrakcji</em>. Jeśli udowodnimy coś dla $x$, mechanizm zadziała dla każdej liczby z zadeklarowanej <strong>dziedziny</strong>.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Traktuj zmienną jak interfejs (<em>Interface</em>).<br>Nie interesuje nas konkretna implementacja (wartość), ale kontrakt: jak dany element zachowuje się w relacji z resztą systemu.</p>
+
+</div>
+</div><hr>
+<h3>⛓️ Liczba jako Wielomian: System Agnostic</h3>
+<p>To kluczowy most łączący arytmetykę z architekturą systemów. Każda liczba to w rzeczywistości ukryte wyrażenie algebraiczne: <strong>Wielomian</strong>.</p>
+<p>Liczba $123$ w zapisie pozycyjnym to po prostu „kod źródłowy”:<br>$$123 = \textcolor{#ff0001}{1 \cdot 10^2} + \textcolor{#ff0002}{2 \cdot 10^1} + \textcolor{#ff0003}{3 \cdot 10^0} = \textcolor{#ff0001}{100} + \textcolor{#ff0002}{20} + \textcolor{#ff0003}{3}$$</p>
+<p>Zamień podstawę systemu ($10$) na zmienną $x$, a otrzymasz uniwersalną strukturę funkcji wielomianowej:<br>$$f(x) = \textcolor{#ff0001}{1}\textcolor{#ff0004}{x^2} + \textcolor{#ff0002}{2}\textcolor{#ff0004}{x} + \textcolor{#ff0003}{3}$$</p>
+<p>Dzięki tej abstrakcji Twój wzór staje się <strong>niezależny od systemu</strong> (<em>System Agnostic</em>):</p>
+<ul>
+<li>$x=10$ — system dziesiętny.</li>
+<li>$x=2$ — system binarny (podstawa logiki z Modułu $1$).</li>
+<li>$x=16$ — system heksadecymalny.</li>
+</ul>
+<p>Algebra pozwala badać właściwości „liczbowości” jako takiej, zanim zdecydujemy, w jakim systemie ją wykorzystamy.</p>
+<hr>
+<h3>🪚 Budowa Wyrażeń: Komponenty Systemu</h3>
+<p>W algebrze operujemy na trzech typach komponentów, które tworzą architekturę wzoru:</p>
+<ol>
+<li><strong>Zmienne ($x, y, a, b$)</strong>: Twoje wejścia (Inputy).</li>
+<li><strong>Współczynniki</strong>: Liczby stojące przy zmiennych (np. w $5x$ to $5$). To <strong>wzmocnienie sygnału</strong> danej zmiennej.</li>
+<li><strong>Stałe</strong>: Wartości bez zmiennych (np. $+6$). To „bias”, czyli stały parametr przesunięcia Twojego wzorca.</li>
+</ol>
+<p><em><strong>Typy struktur:</strong></em></p>
+<ul>
+<li><em>Jednomian</em>: Najprostszy „atom” obliczeniowy (np. $3x^2$), oparty wyłącznie na mnożeniu.</li>
+<li><em>Suma algebraiczna</em>: Wielomian (np. $x + 5$). Jednomiany połączone operatorami dodawania lub odejmowania (logiczne <code>OR</code> dla struktur).</li>
+</ul>
+<hr>
+<h3>⚙️ Refaktoryzacja: Redukcja wyrazów podobnych</h3>
+<p>Podobnie jak w kodzie, w algebrze dążymy do minimalizacji długu technicznego.<br>Ten proces to <em>redukcja wyrazów podobnych</em> jest podstawą do czytelniejszego zapisu matematycznego i fragmentów kodu.</p>
+<p><strong>Wyrazy podobne</strong> to kontenery tego samego typu (te same zmienne w tych samych potęgach). Tylko one mogą być ze sobą agregowane. Próba dodania $x^2$ do $x$ to błąd niedopasowania typów (<em>Type Mismatch</em>), ponieważ są to różne wymiary danych.</p>
+<p>Przykład czystej refaktoryzacji:<br>$$\textcolor{#ff0001}{2x^2} + \textcolor{#ff0002}{3x} + \textcolor{#ff0001}{5x^2} - \textcolor{#ff0002}{x} \quad = \quad \textcolor{#ff0001}{(2 + 5) x^2} + \textcolor{#ff0002}{(3 - 1) x} \quad = \quad \textcolor{#ff0001}{7x^2} + \textcolor{#ff0002}{2x}$$</p>
+<h4>🛠️ Punkt Kontrolny: Konsolidacja danych</h4>
+<data-gate>
+<data-quiz>
+    <question>Zredukuj wyrażenie: $4a - 2b + 3a + 5b$</question>
+    <options>
+        <option correct>$7a + 3b$</option>
+        <option>$a + 3b$</option>
+        <option>$10ab$</option>
+    </options>
+    <div data-hint="success">Prawidłowo! Sumujemy $a$ do $a$ oraz $b$ do $b$. Zmienne o różnych nazwach są dla siebie „niekompatybilne” — nie wiemy, co jest w środku, więc nie możemy ich połączyć.</div>
+    <div data-hint="error">Pamiętaj: możesz agregować tylko kontenery tego samego typu. <br> $a$ nie jest kompatybilne z $b$ na poziomie dodawania. <br> Musisz zachować naturę każdego jednomianu, jeżeli przedrostkiem jest minus to wartość musi pozostać ujemna.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>⚡ Rozdzielność: Dystrybucja sygnału</h3>
+<p>Mnożenie $(a+b)(c+d)$ to proces przesyłania sygnału z każdego elementu jednej struktury do każdego elementu drugiej. W inżynierii nazywamy to rygorem „każdy z każdym”. Jest to iloczyn kartezjański wyrażony za pomocą wyrażeń algebraicznych.</p>
+<p>$$(\textcolor{#ff0001}{a} + \textcolor{#ff0002}{b})(\textcolor{#ff0003}{c} + \textcolor{#ff0004}{d}) = \textcolor{#ff0001}{a}\textcolor{#ff0003}{c} + \textcolor{#ff0001}{a}\textcolor{#ff0004}{d} + \textcolor{#ff0002}{b}\textcolor{#ff0003}{c} + \textcolor{#ff0002}{b}\textcolor{#ff0004}{d}$$</p>
+<h4>🪤 Sandbox: Rozwijanie struktury</h4>
+<data-gate>
+<data-math-sandbox level="algebra" data-label="Iloczyn dwóch jednomianów: $(x + 2)(x + 3)$">
+  <div 
+    data-step="1" 
+    data-expected="x^2 + 3x + 2x + 6" 
+    data-label="Krok 1: Rozwiń nawiasy (dystrybucja sygnału)"
+    data-hints='{"FORM_MISMATCH": "💡 Nie skracaj obliczeń. Pokaż wszystkie 4 składniki: \\\\(x^2 + 3x + 2x + 6\\\\).", "STRUCTURE_MISMATCH": "💡 Wymagana forma to suma 4 składników."}'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="x^2 + 5x + 6" 
+    data-label="Krok 2: Zredukuj wyrazy podobne"
+    data-hints='{"FORM_MISMATCH": "💡 Zredukuj środkowe wyrazy: \\\\(3x + 2x = 5x\\\\).", "STRUCTURE_MISMATCH": "💡 Wymagana forma: \\\\(x^2 + 5x + 6\\\\)."}'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🏗️ Faktoryzacja: Izolacja struktur</h3>
+<p>To proces odwrotny do mnożenia, kluczowy przy debugowaniu struktur matematycznych. Szukasz <strong>wspólnego czynnika</strong> i izolujesz go przed nawiasem.</p>
+<p><strong>Inżynierskie korzyści faktoryzacji:</strong></p>
+<ol>
+<li><strong>Optymalizacja</strong>: Zamiast mnożyć coś $n$ razy, wykonujesz jedno mnożenie na sumie.</li>
+<li><strong>Upraszczanie relacji</strong>: Bez faktoryzacji nie skrócisz ułamka ani nie rozwiążesz równania. To wyciąganie wspólnego kodu do oddzielnej metody.</li>
+</ol>
+<p>Przykład:<br>$$6x + 9 = 3(2x + 3)$$</p>
+<p>Wyciągnięcie trójki pozwala zobaczyć czystą strukturę wewnętrzną wyrażenia.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Faktoryzacja jest kluczowa w analizie funkcji. Dla $f(x) = x^2 + 2x$, faktoryzacja do postaci $f(x) = x(x + 2)$ natychmiast ujawnia <strong>punkty krytyczne</strong> (miejsca zerowe): $x=0$ i $x=-2$. Bez tego system pozostaje „czarną skrzynką”.<br>W programowaniu wyciągnięcie wspólnych operacji do funkcji poprawia czytelność i pozwala na bezpieczne modyfikacje, obniżając ryzyko błędu typu <em>regression</em>.</p>
+
+</div>
+</div><hr>
+<h3>🧵 Wzory Skróconego Mnożenia: Snippety Optymalizacyjne</h3>
+<p>W kodzie używasz snippetów, by nie pisać wszystkiego od zera. W matematyce takimi snippetami są <strong>wzory skróconego mnożenia</strong>. To prekompilowane transformacje, które pozwalają pominąć mozolne mnożenie krok po kroku.</p>
+<ol>
+<li><strong>Kwadrat sumy</strong>: $(a+b)^2 = a^2 + 2ab + b^2$</li>
+<li><strong>Kwadrat różnicy</strong>: $(a&#8209;b)^2 = a^2 - 2ab + b^2$</li>
+<li><strong>Różnica kwadratów</strong>: $(a&#8209;b)(a+b) = a^2 - b^2$</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zbrodnia na logice</strong>: Nigdy nie pisz $(a+b)^2 = a^2 + b^2$. To błąd niszczący integralność danych. Całkowicie pomijasz <strong>interakcję</strong> między zmiennymi ($2ab$). W systemach dynamicznych takie pominięcie to prosta droga do katastrofy.</p>
+
+</div>
+</div><p>W inżynierii nie wierzymy na słowo. Każdy wzór musi przejść testy jednostkowe (dowód operacyjny). Oto rozbicie struktur:</p>
+<h4>✔️ Rozbicie kwadratu sumy</h4>
+<p>$$(a+b)^2 = (a+b)(a+b) = \textcolor{#ff0001}{a(a+b)} + \textcolor{#ff0002}{b(a+b)} = \textcolor{#ff0001}{a^2}\textcolor{#ff0004}{+ ab + ba}\textcolor{#ff0002}{+b^2} = \textcolor{#ff0001}{a^2} + \textcolor{#ff0004}{2ab} + \textcolor{#ff0002}{b^2}$$</p>
+<h4>✔️ Rozbicie różnicy kwadratów</h4>
+<p>$$(a&#8209;b)(a+b) = \textcolor{#ff0001}{a(a+b)} - \textcolor{#ff0002}{b(a+b)} = \textcolor{#ff0001}{a^2} \textcolor{#ff0004}{+ ab -ba} \textcolor{#ff0002}{- b^2} = \textcolor{#ff0001}{a^2} - \textcolor{#ff0002}{b^2}$$</p>
+<h4>✔️ Rozbicie kwadratu różnicy</h4>
+<p>$$(a&#8209;b)^2 = (a&#8209;b)(a&#8209;b) = \textcolor{#ff0001}{a(a&#8209;b)} - \textcolor{#ff0002}{b(a&#8209;b)} = \textcolor{#ff0001}{a^2}\textcolor{#ff0004}{-ab -ba}\textcolor{#ff0002}{+ b^2} = \textcolor{#ff0001}{a^2} - \textcolor{#ff0004}{2ab} + \textcolor{#ff0002}{b^2}$$</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zauważ: $ab$ i $ba$ to ten sam sygnał (przemienność mnożenia z Modułu $0$).<br>Dlatego w wielu przypadkach dokonujemy agregacji jeżeli mają ten sam znak lub redukcji jeżeli mają różne znaki przedrostkowe.</p>
+
+</div>
+</div><h4>✔️ Rozbicie różnicy sześcianów</h4>
+<p>$$(a&#8209;b)(a^2+ab+b^2) = \textcolor{#ff0001}{a(a^2+ab+b^2)} - \textcolor{#ff0002}{b(a^2+ab+b^2)} = \textcolor{#ff0001}{a^3}\textcolor{#ff0003}{+a^2b}\textcolor{#ff0004}{+ab^2} \textcolor{#ff0003}{-ba^2}\textcolor{#ff0004}{-ab^2}\textcolor{#ff0002}{-b^3} = \textcolor{#ff0001}{a^3} - \textcolor{#ff0002}{b^3}$$</p>
+<h4>✔️ Rozbicie sumy sześcianów</h4>
+<p>$$(a+b)(a^2&#8209;ab+b^2) = \textcolor{#ff0001}{a(a^2&#8209;ab+b^2)} + \textcolor{#ff0002}{b(a^2&#8209;ab+b^2)} = \textcolor{#ff0001}{a^3}\textcolor{#ff0003}{-a^2b}\textcolor{#ff0004}{+ab^2} \textcolor{#ff0003}{+ba^2}\textcolor{#ff0004}{-ab^2}\textcolor{#ff0002}{+b^3} = \textcolor{#ff0001}{a^3} + \textcolor{#ff0002}{b^3}$$</p>
+<h4>🛠️ Punkt Kontrolny: Rozpoznawanie wzorca</h4>
+<data-gate>
+<data-quiz>
+    <question>Zwiń wyrażenie $x^2 - 6x + 9$ do postaci kwadratu różnicy.</question>
+    <options>
+        <option correct>$(x - 3)^2$</option>
+        <option>$(x - 9)^2$</option>
+        <option>$(x + 3)^2$</option>
+    </options>
+    <div data-hint="success">Brawo! Rozpoznałeś wzorzec (*Pattern Recognition*): $a=x$, $b=3$, a środkowy wyraz to $2 \cdot x \cdot 3 = 6x$. System został pomyślnie skompresowany.</div>
+    <div data-hint="error">Zwróć uwagę na środkowy wyraz: musi on pasować do schematu $2 \cdot a \cdot b$. Pamiętaj też o znaku minus, który wskazuje na różnicę.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>📦 Algebraiczna Geneza NWW: Inżynieria Struktur</h3>
+<p>Wróćmy do obietnicy z początku lekcji. Aby zrozumieć, dlaczego „Złoty Wzór” w ogóle istnieje, musimy przeprowadzić <strong>inżynierię odwrotną</strong>. </p>
+<p>$$\text{NWW}(a, b) = \frac{a \cdot b}{\text{NWD}(a, b)}$$</p>
+<p>W Module $1$ operowaliśmy na zbiorach. Tutaj każdą liczbę traktujemy jako <strong>multizbiór czynników pierwszych</strong> — to jej unikalna sygnatura, zestaw &quot;cegieł&quot;, z których jest zbudowana.</p>
+<p>Spójrzmy na architekturę liczb $a=4$ oraz $b=6$:</p>
+<ul>
+<li>$a = 4 \rightarrow \mathbf{\{2, 2\}}$</li>
+<li>$b = 6 \rightarrow \mathbf{\{2, 3\}}$</li>
+</ul>
+<p><strong>Analiza sygnału:</strong></p>
+<ul>
+<li><strong>NWD</strong> to <strong>iloczyn części wspólnej</strong> (<em>Intersection</em>) tych struktur. To, co łączy oba systemy. Dla $4$ i $6$: $\{2\}$.</li>
+<li><strong>NWW</strong> to <strong>unia multizbiorów czynników</strong> (<em>Union</em>). Najmniejsza struktura, która zawiera w sobie komplety czynników obu liczb. Dla $4$ i $6$: $\{2, 2, 3\} = 12$.</li>
+</ul>
+<p>W wizualizacji diagramu Venna sprawa jest prosta: <strong>moc części wspólnej</strong> ($|A \cap B|$) jest graficznie wydzielona. Widzimy dokładnie jedną &quot;instancję&quot; wspólnego czynnika, co pozwala bezbłędnie wyznaczyć NWW.</p>
+<p><data-lcm-gcf-venn n1="4" n2="6"></data-lcm-gcf-venn></p>
+<h4>❓ Hipoteza: Redundantne scalenie czynników pierwszych</h4>
+<p>Ale co się stanie, gdy przejdziemy na „surową” algebrę i spróbujemy po prostu pomnożyć obie liczby?</p>
+<p>Przeanalizujmy ponownie proces „składania” liczb $a=4$ oraz $b=6$:</p>
+<ul>
+<li>Zbiór czynników liczby $4$: $A = \mathbf{\{2, 2\}}$</li>
+<li>Zbiór czynników liczby $6$: $B = \mathbf{\{2, 3\}}$</li>
+<li>Część wspólna ($\text{NWD}$): $\mathbf{\{2\}}$</li>
+</ul>
+<p>Zastanówmy się, co uzyskamy, gdy w algebrze <strong>całkowicie zignorujemy moc części wspólnej</strong> (czyli fakt, że czynnik wspólny występuje w obu strukturach). Scalając te zbiory „na surowo”, otrzymamy zestaw: $\{2, 2, 2, 3\}$.<br>Arytmetycznie:</p>
+<p>$$\textcolor{#ff0001}{(2 \cdot 2)} \cdot \textcolor{#ff0002}{(2 \cdot 3)} = \textcolor{#ff0001}{4} \cdot \textcolor{#ff0002}{6} = 24$$</p>
+<p>Jednak wiemy, że $\text{NWW}(4, 6) = 12$. Jak uzyskać $12$ z powyższego wyniku?<br>Najprościej jest podzielić wynik iloczynu przez $2$:<br>$$\text{NWW}(a, b) = \frac{4 \cdot 6}{2} = 12$$</p>
+<p><em><strong>Test Hipotezy</strong></em>: Sprawdźmy, czy dzielenie iloczynu zawsze przez $2$ zadziała dla innych liczb, np. $a=6, b=9$:<br>$$\frac{6 \cdot 9}{2} = 27$$</p>
+<p><strong><em>Błąd!</em></strong> $\text{NWW}(6, 9) = 18$. Pierwsza próba nie powiodła się, ale wynik $27$ i oczekiwane $18$ to wielokrotności liczby $9$. Co oznacza że przestrzeliliśmy o dokładnie jedną wielokrotność.</p>
+<h4>🔭 Obserwacja empiryczna (Analiza Danych)</h4>
+<p>Zestawmy przypadki, by wyłapać prawidłowość między iloczynem, NWW i NWD:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Liczby $(a, b)$</th>
+<th align="left">Czynniki $a$</th>
+<th align="left">Czynniki $b$</th>
+<th align="center"><strong>NWD</strong></th>
+<th align="center"><strong>NWW</strong></th>
+<th align="center">Iloczyn $a \cdot b$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$(4, 6)$</td>
+<td align="left">$\{2, 2\}$</td>
+<td align="left">$\{2, 3\}$</td>
+<td align="center">$2$</td>
+<td align="center">$12$</td>
+<td align="center">$24$</td>
+</tr>
+<tr>
+<td align="center">$(6, 9)$</td>
+<td align="left">$\{2, 3\}$</td>
+<td align="left">$\{3, 3\}$</td>
+<td align="center">$3$</td>
+<td align="center">$18$</td>
+<td align="center">$54$</td>
+</tr>
+<tr>
+<td align="center">$(12, 4)$</td>
+<td align="left">$\{2, 2, 3\}$</td>
+<td align="left">$\{2, 2\}$</td>
+<td align="center">$4$</td>
+<td align="center">$12$</td>
+<td align="center">$48$</td>
+</tr>
+<tr>
+<td align="center">$(7, 5)$</td>
+<td align="left">$\{7\}$</td>
+<td align="left">$\{5\}$</td>
+<td align="center">$1$</td>
+<td align="center">$35$</td>
+<td align="center">$35$</td>
+</tr>
+</tbody></table>
+<p><strong>Widzisz to?</strong> 🧐<br>W każdym przypadku iloczyn liczb jest dokładnie równy iloczynowi ich NWD i NWW:<br>$$\text{NWD}(a, b) \cdot \text{NWW}(a, b) = a \cdot b$$</p>
+<p>To odkrycie to punkt zwrotny. Zamiast zgadywać to odkryliśmy powtarzalną prawidłowość, która pozwala nam na zapisanie jej wzorem uniwersalnym.  </p>
+<h4>⚙️ Proces Przekształcenia: Od obserwacji do wzoru</h4>
+<p>Skoro wiemy, że relacja jest stała, możemy wykorzystać algebrę do stworzenia „interfejsu” dla dowolnej niewiadomej. Jeśli potrzebujemy wyznaczyć <strong>NWW</strong>, musimy odizolować tę zmienną, dzieląc obie strony równania przez <strong>NWD</strong>:</p>
+<ol>
+<li><strong>Równanie bazowe</strong>: $\text{NWD} \cdot \text{NWW} = a \cdot b$</li>
+<li><strong>Izolacja NWW</strong>: $$\frac{\text{NWD} \quad \cdot \quad \text{NWW}}{\text{NWD}} = \frac{a \cdot b}{\text{NWD}}$$</li>
+<li><strong>Wynik po uproszczeniu</strong>: $$\frac{\cancel{\text{NWD}}^1 \quad  \cdot \quad \text{NWW}}{\cancel{\text{NWD}}_1} = \frac{a \cdot b}{\text{NWD}} \quad \Rightarrow \quad\text{NWW} = \frac{a \cdot b}{\text{NWD}}$$</li>
+</ol>
+<p>To, co właśnie zrobiliśmy, to bezpośrednie przeniesienie <strong>Zasady włączeń i wyłączeń</strong> z Modułu $1$ na grunt multiplikatywny. Porównaj te dwa światy:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Teoria Zbiorów <span style="text-wrap: nowrap;">(Moc $|...|$</span>)</th>
+<th align="left">Algebra (Wartość produktu)</th>
+<th align="left">Dlaczego tak?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Suma $|A| + |B|$</td>
+<td align="left">Iloczyn $a \cdot b$</td>
+<td align="left">Mnożąc liczby, sumujemy ich „zasoby” (czynniki).</td>
+</tr>
+<tr>
+<td align="left">Różnica $- |A \cap B|$</td>
+<td align="left">Dzielenie przez $\text{NWD}$</td>
+<td align="left">Aby usunąć duplikat informacji, musimy go odjąć (lub podzielić).</td>
+</tr>
+<tr>
+<td align="left">Wynik $|A \cup B|$</td>
+<td align="left">Wynik $\text{NWW}$</td>
+<td align="left">To unikalny zestaw czynników bez redundancji.</td>
+</tr>
+</tbody></table>
+<h4>💎 Krystalizacja: Uniwersalne API</h4>
+<p>Dzięki tej analizie wyprowadzamy wzory, które stają się naszymi <strong>systemowymi API</strong>:</p>
+<p>$$ \mathbf{\text{NWW} = \frac{a \cdot b}{\text{NWD}}} \quad \text{oraz} \quad \mathbf{\text{NWD} = \frac{a \cdot b}{\text{NWW}}} $$</p>
+<p>To jest siła algebry: przeszliśmy od błędu redundancji, przez testowanie hipotez, aż do matematycznego dowodu relacji. Stworzyliśmy narzędzie, które nie potrzebuje diagramu Venna, by podać poprawny wynik dla dowolnych danych.</p>
+<hr>
+<h3>⚠️ System Integrity: Niebezpieczne Operacje</h3>
+<p>W inżynierii danych błędy logiczne są groźniejsze niż błędy składni, bo działają po cichu. W algebrze najwięcej „zbrodni” popełnia się przy operacjach z dzieleniem.</p>
+<h4>🛑 Pułapka 1: Kasowanie stanów (Dzielenie przez zmienną)</h4>
+<p>Spójrz na równanie: $x^2 = 3x$.<br>Kusi Cię, aby „skrócić” obie strony przez $x$ 😏?<br>Zróbmy to: $$\frac{x^2}{x} = \frac{3x}{x} \implies x = 3$$</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Dzielenie przez $x$ jest dopuszczalne <strong>tylko wtedy, gdy $x \neq 0$</strong>. Skracając bez tego zastrzeżenia, narzuciłeś systemowi warunek, którego nie było w specyfikacji, i tym samym „skasowałeś” rozwiązanie $x=0$. W logice stanów (Moduł $1$) to tak, jakbyś usunął stan <code>false</code> z systemu, zostawiając tylko <code>true</code>. Twój system stałby się upośledzony i niekompletny.</p>
+
+</div>
+</div><p><strong>✔️ Poprawna metoda: Faktoryzacja</strong><br>Zamiast dzielić, przenieś wszystko na jedną stronę (pamiętaj by przenieść ze zmianą znaku) i wyciągnij czynnik przed nawias. Dzięki temu zachowasz wszystkie stany zmiennej:<br>$$x^2 - 3x = 0 \implies x(x - 3) = 0 \implies \mathbf{x = 0 \lor x = 3}$$</p>
+<hr>
+<h4>🛑 Pułapka 2: „Dziura” w systemie (Ukryta Dziedzina)</h4>
+<p>To najbardziej podstępna usterka. Weźmy ułamek:<br>$$ \frac{x^2 - 16}{x - 4} $$</p>
+<p>Zanim cokolwiek uprościsz, musisz sprawdzić <strong>Dziedzinę</strong> (walidacja wejścia). Tutaj mianownik nie może być zerem (<code>DivideByZeroException</code>):<br>$$ x - 4 \neq 0 \implies \mathbf{x \neq 4} $$</p>
+<p>Liczba $4$ jest więc <strong>punktem zakazanym</strong>. Teraz wykonajmy skracanie:<br>$$ \frac{(x - 4)(x + 4)}{x - 4} = \frac{(\cancel{x&#8209;4}^1)(x + 4)}{\cancel{x - 4}_1} = x + 4 $$</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Mógłbyś pomyśleć, że $$\frac{x^2 - 16}{x - 4}$$ to po prostu to samo co $x + 4$... <strong>To fundamentalny błąd logiczny.</strong>  </p>
+<h5>Analiza sprzeczności (Runtime Crash):</h5>
+<ol>
+<li><em><strong>Oryginał ($L$)</strong></em>: Dla $x = 4$ otrzymasz $\frac{0}{0} \rightarrow$ <em>Undefined Behavior</em> (nie zdefiniowana wartość). 😖</li>
+<li><em><strong>Uproszczenie ($P = x + 4$)</strong></em>: Dla $x = 4$ otrzymasz $8$. Udajesz, że wszystko jest OK. 😒</li>
+</ol>
+<p>Skoro $L(4) = \text{undefined}$, a $P(4) = 8$, to twierdzenie $L = P$ jest <strong><em>nieprawdą</em></strong>. Algebra musi być strażnikiem prawdy, a nie kreatywnym księgowym „ukrywającym” błędy pod maską uproszczenia. 😡</p>
+<p><strong>Wniosek?</strong> Nawet jeśli „problem” (mianownik) zniknął z zapisu, <strong>zakaz dla $x = 4$ nadal obowiązuje</strong>. Zawsze sprawdzaj dziedzinę na surowych danych. Inaczej Twój wynik poda wartość tam, gdzie system powinien wywalić błąd. 🥸</p>
+
+</div>
+</div><hr>
+<h3>🛠️ Finał: Refaktoryzacja Systemowa</h3>
+<p>Twoim ostatnim zadaniem jest optymalizacja poniższego wyrażenia. Wykorzystaj wzory skróconego mnożenia i wyciąganie przed nawias, aby uzyskać najczystszy kod matematyczny:</p>
+<data-math-sandbox level="algebra" data-label="Optymalizacja struktury: $\frac{x^2 - 6x + 9}{x^2 - 9}$">
+  <div 
+    data-step="1" 
+    data-expected="(x-3)^2" 
+    data-label="Skompresuj licznik za pomocą wzoru skróconego mnożenia ($x^2 - 6x + 9$):"
+    data-hints='{"FORM_MISMATCH": "💡 Zwiń trójmian korzystając ze wzoru na kwadrat różnicy: \\((x-3)^2\\).", "STRUCTURE_MISMATCH": "💡 Oczekiwany format to potęga dwumianu: \\((x-3)^2\\)."}'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="(x-3)(x+3)" 
+    data-label="Rozłóż mianownik na czynniki ($x^2 - 9$):"
+    data-hints='{"ALGEBRA_SIGN_ERROR": "💡 Prawie! Uważaj na znaki – wzór na różnicę kwadratów wymaga przeciwnych znaków w nawiasach: \\((x-3)(x+3)\\).", "FORM_MISMATCH": "💡 Użyj wzoru na różnicę kwadratów: \\(x^2 - 3^2 = (x-3)(x+3)\\).", "STRUCTURE_MISMATCH": "💡 Oczekiwany format to iloczyn nawiasów: \\((x-3)(x+3)\\)."}'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="\\frac{x-3}{x+3}" 
+    data-label="Skróć wspólny czynnik i podaj wynik w postaci ułamka:"
+    data-hints='{"FORM_MISMATCH": "💡 Skróć czynnik \\((x-3)\\) w liczniku i mianowniku. Pozostanie ułamek \\(\\frac{x-3}{x+3}\\).", "STRUCTURE_MISMATCH": "💡 Oczekiwany format to skrócony ułamek: \\(\\frac{x-3}{x+3}\\)."}'>
+  </div>
+</data-math-sandbox>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>liczba to uniwersalna struktura (wielomian), a nie tylko sztywna wartość,  </li>
+<li>zmienna to interfejs definiujący zachowanie w systemie,  </li>
+<li>jednomiany i sumy to klocki budulcowe „kodu matematycznego”,  </li>
+<li>redukcja wyrazów podobnych to proces czyszczenia długu technicznego (refaktoryzacja),  </li>
+<li>faktoryzacja pozwala izolować wspólny kod i wykrywać punkty krytyczne systemu,  </li>
+<li>wzory skróconego mnożenia to snippety optymalizujące operacje na strukturach,  </li>
+<li>relacja NWW i NWD opiera się na stałym kontrakcie: $a \cdot b = \text{NWD} \cdot \text{NWW}$,  </li>
+<li>zawsze pilnuj dziedziny ułamka, by uniknąć błędów typu <em>Undefined Behavior</em>.</li>
+</ul>
+<hr>
+<h3>🚀 Po co to inżynierowi?</h3>
+<p>Wszystko, co robisz w algebrze, to fundament pod <strong>Równania</strong> i <strong>Analizę Funkcjonalną</strong>. Biegłość w refaktoryzacji to:</p>
+<ul>
+<li><strong>Optymalizacja procesora</strong>: Uproszczenie wzoru to mniej instrukcji w <code>runtime</code>.</li>
+<li><strong>Grafika 3D</strong>: Każdy ruch kamery w Unreal Engine to operacje na macierzach i wyrażeniach algebraicznych.</li>
+<li><strong>Big Data</strong>: Rozpoznawanie wzorców (Pattern Matching) w miliardach rekordów opiera się na strukturach, które właśnie poznałeś.</li>
+</ul>
+<hr>
+<p>W kolejnej lekcji wejdziemy w <strong>Kwantyfikatory</strong>. Dowiesz się, jak za pomocą dwóch symboli narzucić rygor logiczny na całe zbiory danych. 🚀</p>

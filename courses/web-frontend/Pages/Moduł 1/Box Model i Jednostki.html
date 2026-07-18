@@ -1,0 +1,334 @@
+<h1>Box Model i Jednostki</h1>
+<p>Każdy element wyświetlany na stronie internetowej zajmuje określone miejsce. Nawet jeśli na ekranie widzisz tylko pojedynczą literę lub zaokrąglony przycisk, przeglądarka pod spodem traktuje go jak idealny, prostokątny obszar.</p>
+<p>Ten prostokąt składa się z kilku warstw układających się jedna w drugą jak rosyjska matrioszka 🪆. Zrozumienie tego mechanizmu (tzw. <span class="color-green">Box Model</span> lub model pudełkowy) oraz jednostek miar to absolutny fundament stabilnego i czytelnego layoutu CSS.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Cztery warstwy pudełka</h2>
+<p>Każde pudełko CSS składa się z czterech warstw (od wewnątrz do zewnątrz):</p>
+<div style="background-color: rgb(51 26 1);border: 1px dashed #ff8200;padding: 16px;margin: 16px 0;border-radius: 8px;font-family: system-ui, sans-serif;">
+  <span style="color: #ff8f1b;font-weight: bold;font-size: 12px;text-transform: uppercase;letter-spacing: 0.5px;">Margin</span>
+  <span style="color: #d3d3d3;font-size: 11px;margin-left: 8px;">— odstęp zewnętrzny (tło rodzica)</span>
+  <div style="background-color: rgb(87 68 9);border: 1px solid #ffc000;padding: 16px;margin-top: 10px;border-radius: 6px;">
+    <span style="color: #ffdc6f;font-weight: bold;font-size: 12px;text-transform: uppercase;letter-spacing: 0.5px;">Border</span>
+    <span style="color: #d3d3d3;font-size: 11px;margin-left: 8px;">— obramowanie elementu</span>
+    <div style="background-color: rgb(18 53 3);border: 1px dashed #5cb536;padding: 16px;margin-top: 10px;border-radius: 6px;">
+      <span style="color: #4dd519;font-weight: bold;font-size: 12px;text-transform: uppercase;letter-spacing: 0.5px;">Padding</span>
+      <span style="color: #d3d3d3;font-size: 11px;margin-left: 8px;">— odstęp wewnętrzny (tło elementu)</span>
+      <div style="background-color: rgb(0 42 51);border: 1px solid #45818e;padding: 16px;margin-top: 10px;border-radius: 4px;text-align: center;">
+        <span style="color: #0ac2e7;font-weight: bold;font-size: 12px;text-transform: uppercase;letter-spacing: 0.5px;">Content</span>
+        <div style="color: #d3d3d3;font-size: 11px;margin-top: 4px;">— właściwa treść (tekst, grafika)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ol>
+<li><span class="color-green"><code>content</code> (Zawartość):</span> Właściwy obszar roboczy, w którym znajduje się tekst, obrazek lub inne elementy potomne.</li>
+<li><span class="color-green"><code>padding</code> (Odstęp wewnętrzny):</span> Przestrzeń otaczająca treść. Przyjmuje kolor tła elementu. Używamy jej, gdy chcemy odsunąć tekst od obramowania.</li>
+<li><span class="color-green"><code>border</code> (Obramowanie):</span> Linia otaczająca padding i treść. Może mieć różną grubość, styl (np. ciągła, przerywana) oraz kolor.</li>
+<li><span class="color-green"><code>margin</code> (Margines zewnętrzny):</span> Pusta przestrzeń na zewnątrz obramowania, służąca do odsuwania pudełka od sąsiednich elementów. Jest całkowicie przezroczysta i pokazuje tło rodzica.</li>
+</ol>
+<p>Przykładowy zapis w CSS:</p>
+<pre><code class="language-css">.card {
+    width: 300px;
+    height: 150px;
+    padding: 20px;
+    border: 2px solid #444444;
+    margin: 30px;
+}
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 <code>box-sizing</code>: <code>content-box</code> vs <code>border-box</code></h2>
+<p>To, jak przeglądarka oblicza całkowity rozmiar elementu na ekranie, zależy od właściwości <code>box-sizing</code>. Wyróżniamy dwa modele:</p>
+<h3>1. <code>content-box</code> (Model domyślny)</h3>
+<p>W tym modelu szerokość (<code>width</code>) i wysokość (<code>height</code>) dotyczą <span class="color-green">wyłącznie warstwy content</span>. Każdy dopisany padding i border zwiększa optyczny rozmiar elementu na ekranie.</p>
+<ul>
+<li><span class="color-green">Wzór na całkowitą szerokość:</span><br>$$\text{Szerokość całkowita} = \text{width} + 2 \times \text{padding} + 2 \times \text{border}$$</li>
+<li>Dla powyższej klasy <code>.card</code>:<br>$$\text{Szerokość} = 300\text{px} + 2 \times 20\text{px} + 2 \times 2\text{px} = 344\text{px}$$</li>
+</ul>
+<p>To zachowanie często prowadzi do rozbicia układu stron (elementy stają się szersze niż zakładaliśmy i spadają do nowego wiersza).</p>
+<h3>2. <code>border-box</code> (Model rekomendowany)</h3>
+<p>W tym modelu szerokość (<code>width</code>) określa <span class="color-green">całkowity rozmiar pudełka na ekranie</span> (wliczając w to padding i border). Jeśli dodasz padding lub border, obszar treści (<code>content</code>) automatycznie się skurczy, aby zachować stałą szerokość.</p>
+<ul>
+<li>Dla powyższej klasy <code>.card</code> o szerokości $300\text{px}$, element na ekranie będzie miał dokładnie $300\text{px}$ szerokości. </li>
+<li>Obszar samej treści (<code>content</code>) zmniejszy się do:<br>$$300\text{px} - 2 \times 20\text{px} - 2 \times 2\text{px} = 256\text{px}$$</li>
+</ul>
+<p>Dlatego standardową praktyką na początku każdego projektu jest globalny reset:</p>
+<pre><code class="language-css">* {
+    box-sizing: border-box;
+}
+</code></pre>
+<p>Dzięki temu projektowanie układów staje się intuicyjne i przewidywalne.</p>
+<hr>
+<data-gate>
+  <data-web-challenge id="box-sizing-challenge">
+    <template data-type="html">
+      <div class="card">
+        Tekst wewnątrz karty
+      </div>
+    </template>
+    <template data-type="css">
+      .card {
+        width: 300px;
+        padding: 20px;
+        border: 5px solid #3498db;
+        /* Rzeczywista szerokość elementu w modelu content-box wynosi 350px.
+           Twoje zadanie: 
+           1. Zmień model pudełkowy elementu .card na border-box, aby jego rzeczywista szerokość wynosiła dokładnie 300px.
+           2. Ustaw kolor tła (.card) na #2c3e50.
+        */
+      }
+    </template>
+    <template data-type="requirements">
+      [
+        {"id": "box-sizing", "text": "Ustaw box-sizing elementu .card na border-box", "type": "selector-css", "selector": ".card", "property": "box-sizing", "value": "border-box"},
+        {"id": "bg-color", "text": "Ustaw kolor tła elementu .card na #2c3e50", "type": "selector-css", "selector": ".card", "property": "background-color", "value": "#2c3e50"}
+      ]
+    </template>
+  </data-web-challenge>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Eksperyment: Interaktywny symulator modelu pudełkowego</h2>
+<p>Sprawdź, jak parametry <code>box-sizing</code> oraz <code>display</code> wpływają na zachowanie i rzeczywiste wymiary elementu:</p>
+<iframe src="/public/resources/web-site-preview/box-model-visualizer.html" width="600" height="620" style="border: 3px solid #ccc; width: 100%; border-radius: 12px; background-color: #0c0f16;" title="Wizualizator Box Modelu CSS" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Typy wyświetlania (CSS Display)</h2>
+<p>Właściwość <code>display</code> decyduje o tym, jak element pozycjonuje się w strukturze dokumentu i jak reaguje na reguły modelu pudełkowego.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Wartość</th>
+<th align="left">Zachowanie w układzie</th>
+<th align="left">Wpływ marginesów i paddingów</th>
+<th align="left">Przykłady</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green"><code>block</code></span></td>
+<td align="left">Zajmuje całą dostępną szerokość rodzica (zaczyna się od nowej linii).</td>
+<td align="left">W pełni respektuje <code>width</code>, <code>height</code>, <code>padding</code> oraz <code>margin</code>.</td>
+<td align="left"><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;article&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>inline</code></span></td>
+<td align="left">Wpasowuje się w nurt tekstu. Zajmuje tylko tyle miejsca, ile jego zawartość.</td>
+<td align="left"><span class="color-green">Ignoruje <code>width</code> i <code>height</code>.</span> Marginesy i paddingi działają tylko w poziomie; w pionie nakładają się na sąsiednie linie, nie odpychając ich!</td>
+<td align="left"><code>&lt;a&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>inline-block</code></span></td>
+<td align="left">Układa się w jednej linii z innymi elementami (jak inline), ale zachowuje się w środku jak pudełko.</td>
+<td align="left">W pełni respektuje <code>width</code>, <code>height</code>, <code>padding</code> oraz pionowe/poziome marginesy.</td>
+<td align="left"><code>&lt;img&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>none</code></span></td>
+<td align="left">Element jest całkowicie usuwany z drzewa renderowania (znika z ekranu i nie zajmuje miejsca).</td>
+<td align="left">Brak (element nie istnieje w układzie).</td>
+<td align="left"><span class="color-blue">Brak domyślnych</span></td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Praktyka: Stylowanie elementów natywnych</h2>
+<p>Natywne elementy HTML (linki, przyciski, pola formularzy) posiadają fabryczne style przeglądarki (User Agent), które musimy świadomie kontrolować za pomocą Box Modelu.</p>
+<h3>1. Link (<code>&lt;a&gt;</code>) jako przycisk (Pułapka <code>inline</code>)</h3>
+<p>Domyślnie tag <code>&lt;a&gt;</code> jest elementem typu <code>inline</code>. Jeśli spróbujesz nadać mu tło i padding, aby wyglądał jak przycisk, jego pionowe krawędzie zaczną nachodzić na tekst powyżej i poniżej (co widać w symulatorze).</p>
+<p>Aby ostylować bezpieczny przycisk:</p>
+<pre><code class="language-css">.btn-primary {
+    display: inline-block; /* Zezwala na prawidłowe marginesy i pionowy padding */
+    padding: 12px 24px;   /* Odstępy wewnętrzne tworzące kształt przycisku */
+    text-decoration: none;
+    background-color: #0077c9;
+    color: #ffffff;
+    border-radius: 4px;
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dostępność mobilna (Touch Targets - WCAG):</span><br>Zgodnie z wytycznymi dostępności, elementy klikalne/dotykowe powinny mieć minimalny rozmiar <span class="color-green">$48\text{px} \times 48\text{px}$</span> (lub $44\text{px} \times 44\text{px}$ wg Apple). Stosowanie <code>display: inline-block</code> oraz odpowiednio dużego paddingu chroni użytkowników urządzeń mobilnych oraz osoby z ograniczeniami ruchowymi przed przypadkowymi kliknięciami.</p>
+
+</div>
+</div><h3>2. Stylowanie pól tekstowych (<code>&lt;input&gt;</code>)</h3>
+<p>Pola tekstowe domyślnie posiadają wbudowane ramki 3D. Ich poprawna stylizacja wymaga resetu i precyzyjnego paddingu:</p>
+<pre><code class="language-css">input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;      /* Zapewnia światło wewnątrz pola */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;           /* Usuwamy domyślny obrys przeglądarki */
+}
+
+/* Zapewnienie dostępnego focusu */
+input[type="text"]:focus {
+    border-color: #0077c9;
+    box-shadow: 0 0 0 3px rgba(0, 119, 201, 0.2); /* Wyraźna poświata dla osób nawigujących klawiaturą */
+}
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💥 Zjawisko zapadania się marginesów (Margin Collapse)</h2>
+<p>Gdy dwa elementy blokowe leżą bezpośrednio jeden pod drugim, ich pionowe marginesy <span class="color-green">nie sumują się</span>. Zamiast tego nakładają się na siebie, tworząc jeden margines o wielkości równej większemu z nich.</p>
+<h3>Przykład:</h3>
+<p>Mamy dwa akapity:</p>
+<pre><code class="language-css">p.first { margin-bottom: 30px; }
+p.second { margin-top: 20px; }
+</code></pre>
+<p>Rzeczywisty odstęp między tymi akapitami na ekranie wyniesie <span class="color-green">$30\text{px}$</span> (a nie $50\text{px}$).</p>
+<h3>Jak zapobiegać zapadaniu marginesów?</h3>
+<p>Zjawisko to występuje tylko dla pionowych marginesów sąsiadujących elementów w tym samym kontekście. Można je zablokować poprzez:</p>
+<ul>
+<li>Wprowadzenie paddingu lub obramowania między elementami,</li>
+<li>Zmianę typu wyświetlania na <code>inline-block</code>,</li>
+<li>Zastosowanie układu Flexbox lub CSS Grid dla rodzica (marginesy dzieci w tych układach nigdy się nie zapadają).</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📏 Jednostki CSS pod lupą</h2>
+<p>Aby interfejs był elastyczny i skalowalny, musisz dobrać odpowiednie jednostki do poszczególnych właściwości.</p>
+<h3>1. Piksele (<code>px</code>) — Jednostka absolutna</h3>
+<ul>
+<li><span class="color-green">Charakterystyka:</span> Stały rozmiar fizyczny na ekranie.</li>
+<li><span class="color-green">Zastosowanie:</span> Cienkie obramowania (np. <code>border: 1px solid</code>), precyzyjne cienie, drobne elementy geometryczne.</li>
+<li><span class="color-green">Wada:</span> Brak elastyczności. Jeśli użytkownik zwiększy bazowy rozmiar czcionki w ustawieniach systemowych lub przeglądarce ze względów zdrowotnych, elementy zadeklarowane w <code>px</code> nie dopasują się.</li>
+</ul>
+<h3>2. <code>rem</code> (Root EM) — Jednostka względna dostępności</h3>
+<ul>
+<li><span class="color-green">Charakterystyka:</span> Odnosi się do bazowego rozmiaru czcionki elementu głównego (<code>&lt;html&gt;</code>). Zazwyczaj domyślny rozmiar to <span class="color-green">$16\text{px}$</span>.</li>
+<li><span class="color-green">Skala:</span><ul>
+<li>$1\text{rem} = 16\text{px}$</li>
+<li>$1.5\text{rem} = 24\text{px}$</li>
+<li>$0.5\text{rem} = 8\text{px}$</li>
+</ul>
+</li>
+<li><span class="color-green">Zastosowanie:</span> Rozmiary czcionek (<code>font-size</code>), odstępy wewnętrzne (<code>padding</code>), marginesy układu.</li>
+<li><span class="color-green">Zaleta:</span> Pełna elastyczność i zgodność z zasadami dostępności WCAG. Tekst i layout skalują się proporcjonalnie do preferencji użytkownika.</li>
+</ul>
+<h3>3. <code>em</code> — Jednostka względna kontekstu</h3>
+<ul>
+<li><span class="color-green">Charakterystyka:</span> Odnosi się do rozmiaru czcionki <span class="color-green">bieżącego elementu</span> (lub jego rodzica).</li>
+<li><span class="color-green">Zastosowanie:</span> Właściwości, które powinny zmieniać się proporcjonalnie do tekstu w danym komponencie — np. wielkość ikony obok tekstu czy odstępy wewnątrz przycisku o różnej skali wielkości (<code>btn-lg</code>, <code>btn-sm</code>).</li>
+</ul>
+<h3>4. 📱 Jednostki obszaru roboczego oraz procenty (<code>%</code>, <code>vw</code>, <code>vh</code>, <code>svh</code>, <code>lvh</code>, <code>dvh</code>)</h3>
+<p>Zanim przejdziemy do nowości na urządzeniach mobilnych, musimy zrozumieć, czym w ogóle jest <span class="color-green">obszar roboczy (viewport)</span>. Viewport to widoczna część strony w oknie przeglądarki. W przeciwieństwie do tradycyjnych procentów (<code>%</code>), które zawsze liczą swój rozmiar względem bezpośredniego rodzica (nadrzędnego tagu w HTML), jednostki viewportu odnoszą się bezpośrednio do wymiarów całego okna urządzenia.</p>
+<ul>
+<li><span class="color-green"><code>%</code></span>: Odnosi się do rozmiaru rodzica. Idealne do tworzenia elastycznych siatek, kolumn i drobnych komponentów wewnątrz sekcji.</li>
+<li><span class="color-green"><code>vw</code> (Viewport Width):</span> $1\text{vw}$ to $1%$ szerokości okna przeglądarki. <div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<span class="color-green">Klasyczna pułapka z <code>100vw</code> na komputerach:</span><br>Jednostka <code>vw</code> wlicza w szerokość okna również pionowy suwak (scrollbar) przeglądarki na desktopie! Jeśli nadasz głównemu kontenerowi <code>width: 100vw</code>, a strona będzie długa i pojawi się suwak, element rozciągnie się pod suwak, wywołując irytujący <span class="color-green">poziomy pasek przewijania (horizontal scroll)</span> na dole ekranu. Dlatego dla szerokości elementów blokowych prawie zawsze lepszym wyborem jest <code>width: 100%</code>.
+</div>
+</div></li>
+<li><span class="color-green"><code>vh</code> (Viewport Height):</span> $1\text{vh}$ to $1%$ wysokości okna przeglądarki.</li>
+</ul>
+<h4>🕵️ Dlaczego tradycyjne `100vh` popsuło się na telefonach?</h4>
+<p>Na komputerze wysokość okna zmienia się rzadko. Na smartfonach jednak dynamiczne paski adresu przeglądarek (na dole w Safari na iOS, na górze w Chrome/Firefox na Androidzie) <span class="color-green">chowają się przy skrolowaniu w dół i wysuwają przy skrolowaniu w górę</span>.</p>
+<p>Przeglądarki mobilne nie mogły płynnie aktualizować <code>100vh</code> podczas każdego ruchu palca, ponieważ wywoływało to drżenie całej strony (ciągłe przeliczanie rozmiarów wszystkich elementów na stronie, tzw. <span class="color-blue">layout reflow</span>). Z tego powodu Apple i Google zdecydowały o <span class="color-green">zamrożeniu wartości <code>100vh</code> na maksymalną wysokość ekranu (tak jakby paska adresu w ogóle nie było)</span>.</p>
+<p>W efekcie:</p>
+<ul>
+<li>Gdy wchodzisz na stronę i pasek adresu jest widoczny, dolna część Twojego kontenera o wysokości <code>100vh</code> (np. przycisk lub stopka na dole strony) <span class="color-green">zostaje zasłonięta przez ten pasek</span> i staje się niewidoczna bez przewinięcia strony.</li>
+</ul>
+<hr>
+<h4>🛠️ Nowe jednostki mobilne: `svh`, `lvh` oraz `dvh` (CSS Viewports Level 4)</h4>
+<p>Aby dać nam pełną kontrolę, W3C wprowadziło trzy dedykowane jednostki wysokości:</p>
+<ol>
+<li><p><span class="color-green"><code>svh</code> (Small Viewport Height):</span></p>
+<ul>
+<li>Wysokość wyliczana dla stanu, gdy dynamiczne paski przeglądarki <span class="color-green">są w pełni widoczne</span> (najmniejszy możliwy obszar roboczy).</li>
+<li><span class="color-green">Zastosowanie:</span> Świetne do sekcji powitalnych, które od razu po wejściu muszą mieścić się na ekranie.</li>
+<li><span class="color-green">Wada (Pusta przestrzeń / Gap):</span> Jeśli ustawisz <code>html, body { height: 100svh; }</code>, a użytkownik zacznie skrolować stronę i pasek adresu się schowa, wysokość Twojego kontenera się nie zmieni. Na samym dole ekranu pod Twoją stroną odsłoni się pusta, zazwyczaj biała przestrzeń (tło przeglądarki). To ten słynny <span class="color-green">„nieszczęsny biały pasek”</span>, z którym deweloperzy zmagają się przy budowaniu mobilnych stron od zera.</li>
+</ul>
+</li>
+<li><p><span class="color-green"><code>lvh</code> (Large Viewport Height):</span></p>
+<ul>
+<li>Wysokość wyliczana dla stanu, gdy dynamiczne paski przeglądarki <span class="color-green">są całkowicie schowane</span> (największy możliwy obszar roboczy). Odpowiednik tradycyjnego <code>vh</code> na mobile.</li>
+<li><span class="color-green">Zastosowanie:</span> Rzadkie, głównie do sekcji, które mają być ogromne i mogą częściowo chować się pod interfejsem przeglądarki na start.</li>
+</ul>
+</li>
+<li><p><span class="color-green"><code>dvh</code> (Dynamic Viewport Height):</span></p>
+<ul>
+<li>Dynamiczna wysokość, która <span class="color-green">płynnie reaguje na przewijanie strony</span>.</li>
+<li>Gdy pasek adresu jest widoczny, <code>100dvh</code> ma rozmiar <code>svh</code> (np. <code>927px</code>). Gdy skrolujesz i pasek znika – płynnie rośnie do <code>lvh</code> (np. <code>1005px</code>).</li>
+<li><span class="color-green">Zastosowanie:</span> Najlepszy standard dla głównych kontenerów strony (<code>html</code>, <code>body</code>), ponieważ eliminuje zarówno problem zasłaniania elementów na start, jak i powstawania pustych przestrzeni po przewinięciu.</li>
+</ul>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Jak poprawnie ostylować główny kontener strony?</span><br>Aby uniknąć białych pasków i mieć pewność, że Twoje tło zawsze pasuje, stosuj w swoich projektach standardową regułę:</p>
+<pre><code class="language-css">html, body {
+    height: 100dvh;
+    margin: 0;
+    background-color: #twój-kolor-tła; /* Nadanie tła elementowi html zapobiega wyświetlaniu fabrycznego tła przeglądarki pod spodem */
+}
+</code></pre>
+
+</div>
+</div><hr>
+<h4>⌨️ Zmora wirtualnej klawiatury (`interactive-widget`)</h4>
+<p>Dynamiczne paski przeglądarki to jedno, ale prawdziwym wyzwaniem jest wirtualna klawiatura mobilna. Kiedy użytkownik klika w pole tekstowe (<code>&lt;input&gt;</code>), wysuwa się klawiatura, która zabiera ogromną część ekranu (np. 45% wysokości). </p>
+<p>To, jak przeglądarka zareaguje na pojawienie się klawiatury, zależy od systemu operacyjnego i silnika renderowania:</p>
+<ul>
+<li><span class="color-green">Safari (iOS):</span> Domyślnie <span class="color-green">nakłada klawiaturę na wierzch strony</span> (zachowanie <code>overlays-content</code>). Cała wysokość viewportu pozostaje bez zmian, a dolna część elementów <code>100vh</code>/<code>100dvh</code> oraz formularzy zostaje bezpowrotnie zasłonięta.</li>
+<li><span class="color-green">Chrome / Firefox (Android):</span> Domyślnie <span class="color-green">zmniejszają fizyczną wysokość obszaru roboczego</span> (zachowanie zbliżone do <code>resizes-content</code>). Elementy <code>100dvh</code> automatycznie kurczą się, dzięki czemu cały widok (w tym przyciski na dole) przesuwa się w górę i mieści się nad klawiaturą.</li>
+</ul>
+<p>Przeglądarki pozwalają nam w pełni kontrolować to zachowanie w tagu <code>&lt;meta&gt;</code> za pomocą parametru <code>interactive-widget</code>:</p>
+<ul>
+<li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=overlays-content"&gt;</code> — Klawiatura wysuwa się nad treść, nie wpływając na rozmiar viewportu (zachowanie z iOS Safari).</li>
+<li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"&gt;</code> — Klawiatura fizycznie pomniejsza wysokość viewportu, zmuszając jednostki <code>vh</code>/<code>dvh</code> do dostosowania się i przesunięcia całej strony w górę (zachowanie z Android Chrome).</li>
+</ul>
+<p>Oto kompletna macierz zależności, która ułatwi Ci podjęcie decyzji projektowej:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Ustawienie w <code>&lt;meta&gt;</code> (<code>interactive-widget</code>)</th>
+<th align="left">Zachowanie <code>100svh</code> / <code>100dvh</code> przy klawiaturze</th>
+<th align="left">Kiedy stosować?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green"><code>resizes-content</code></span> (skalowanie okna)</td>
+<td align="left">Wszystkie jednostki (<code>svh</code>/<code>dvh</code>) <span class="color-green">zmniejszają wysokość</span> o rozmiar klawiatury. Elementy na dole są <span class="color-green">przesuwane w górę</span> nad klawiaturę.</td>
+<td align="left">Gdy masz na dole strony formularze, komunikatory (czat z polem tekstowym), inputy lub przyciski akcji (np. „Dalej”, „Kup teraz”), które muszą być widoczne podczas pisania.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>overlays-content</code></span> (nakładanie na wierzch)</td>
+<td align="left">Jednostki nie zmieniają rozmiaru (lub <code>dvh</code> spada do <code>svh</code>), ale klawiatura <span class="color-green">zasłania dolne elementy</span> strony.</td>
+<td align="left">Gdy tworzysz gry webowe, aplikacje graficzne, galerie zdjęć lub prezentacje na pełny ekran, gdzie skurczenie widoku zepsułoby kompozycję i proporcje grafiki.</td>
+</tr>
+</tbody></table>
+<p>Przeanalizuj interaktywny symulator, aby zobaczyć, jak te ustawienia wpływają na dopasowanie ekranu:</p>
+<iframe src="/public/resources/web-site-preview/viewport-units-visualizer.html" width="600" height="620" style="border: 3px solid #ccc; width: 100%; border-radius: 12px; background-color: #0c0f16;" title="Wizualizator jednostek Viewportu" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz Pary: Dopasuj pojęcia modelu pudełkowego</h2>
+<data-gate>
+  <data-connection-matcher title="Połącz pojęcie z jego opisem:">
+    <div class="cmw-item" data-left="content-box" data-right="Szerokość elementu nie obejmuje paddingu i borderu"></div>
+    <div class="cmw-item" data-left="border-box" data-right="Szerokość elementu obejmuje content, padding i border"></div>
+    <div class="cmw-item" data-left="inline-block" data-right="Element układa się w linii, ale respektuje szerokość i wysokość"></div>
+    <div class="cmw-item" data-left="margin collapse" data-right="Nakładanie się pionowych marginesów sąsiadujących bloków"></div>
+    <div class="cmw-item" data-left="rem" data-right="Jednostka względna oparta o bazowy font elementu html"></div>
+    <div class="cmw-item" data-left="em" data-right="Jednostka względna oparta o font bieżącego elementu"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Każdy element jest prostokątem:</span> Układ CSS to kompozycja warstwowych pudełek.</li>
+<li><span class="color-green"><code>border-box</code> to standard rynkowy:</span> Ustawienie go zapobiega rozszerzaniu elementów przez border i padding, stabilizując layout.</li>
+<li><span class="color-green">Rozróżniaj typy wyświetlania:</span> Elementy <code>inline</code> ignorują wysokość/szerokość i pionowe marginesy. Zawsze zmieniaj je na <code>inline-block</code> lub <code>block</code> przy tworzeniu przycisków i formularzy.</li>
+<li><span class="color-green">Dbaj o Touch Targets ($48\text{px}$):</span> Używaj elastycznych paddingów i odpowiedniego display, aby ułatwić obsługę interfejsu na urządzeniach mobilnych (zgodnie z WCAG).</li>
+<li><span class="color-green">Zrozum zapadanie się marginesów:</span> Pionowe marginesy elementów blokowych nakładają się na siebie — rzeczywisty odstęp to wartość większego z nich.</li>
+<li><span class="color-green">Używaj <code>rem</code> dla tekstu i odstępów:</span> Zapewnia to pełną dostępność cyfrową i skalowanie layoutu przy zmianach preferencji użytkownika. pikseli (<code>px</code>) używaj jedynie do stałych detali geometrycznych (np. cienkie linie obramowań).</li>
+</ul>
+</section>

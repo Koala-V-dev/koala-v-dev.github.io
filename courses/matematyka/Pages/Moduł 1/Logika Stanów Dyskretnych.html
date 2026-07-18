@@ -1,0 +1,161 @@
+<h2>Logika Stanów Dyskretnych: Bramki i Operatory</h2>
+<p>Logika w inżynierii to nie filozofia.<br>To <strong>mechanika sygnałów</strong> — zero romantyzmu, czysta binarna rzeczywistość.</p>
+<p>W Module $0$ nauczyłeś się mówić językiem matematyki.<br>W Module $1$ nauczysz się <strong>myśleć jak procesor</strong>.</p>
+<p>Każde zdanie, warunek, trigger, filtr, predykat czy reguła biznesowa można sprowadzić do dwóch stanów:</p>
+<ul>
+<li><strong>$1$</strong> — TRUE / High (docelowe napięcie prądu np. $3.3V$ lub $5V$)</li>
+<li><strong>$0$</strong> — FALSE / Low (prawie lub całkowity brak napięcia np $0V$ lub $1.3V$)</li>
+</ul>
+<p>To jest fundament całej informatyki: od SQL&#8209;a, przez elektronikę, po kompilatory.</p>
+<hr>
+<h3>🔄 Inwersja (NOT)</h3>
+<p>Inwersja to najprostsza transformacja sygnału.<br>Odwraca jego stan — nic więcej, nic mniej.</p>
+<ul>
+<li><strong>Notacja matematyczna</strong>: $\neg p$  </li>
+<li><strong>W kodzie</strong>: <code>!p</code>  </li>
+<li><strong>Zasada</strong>: wyjście jest przeciwne do wejścia</li>
+</ul>
+<p>$$\neg 1 = 0 \qquad \neg 0 = 1$$</p>
+<p><data-logic-gate type="NOT"></data-logic-gate></p>
+<data-gate>
+<data-math-sandbox level="logic" mode="result" data-steps="2" data-label="🪤 Inwersja sygnału">
+  <div data-step="1" data-expected="0" data-label="Wyznacz stan sygnału po inwersji: $\neg 1$" data-hint-wrong=" :💡 Inwerter (NOT) działa jak logiczne lustro — stan wysoki ($1$) musi zostać odwrócony do zera." data-hints='{"LOGIC_ERROR": "💡 Inwerter (NOT) działa jak logiczne lustro — stan wysoki ($1$) musi zostać odwrócony do zera."}'></div>
+  <div data-step="2" data-expected="1" data-label="Wyznacz stan sygnału po inwersji: $\neg 0$" data-hint-wrong=" :💡 Skoro na wejściu masz brak sygnału (0), inwerter musi go wygenerować na wyjściu jako stan wysoki (1)." data-hints='{"LOGIC_ERROR": "💡 Skoro na wejściu masz brak sygnału (0), inwerter musi go wygenerować na wyjściu jako stan wysoki (1)."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<data-gate>
+<data-truth-table gate="NOT" data-label="Tabela prawdy: Inwerter (NOT)"></data-truth-table>
+</data-gate>
+
+<hr>
+<h3>🤝 Koniunkcja (AND)</h3>
+<p>Koniunkcja to <strong>bramka szeregowa</strong>.<br>Jeśli którakolwiek część układu wejścia jest wyłączona to na wyjściu nie będzie stanu $1$.</p>
+<ul>
+<li><strong>Notacja matematyczna</strong>: $A \land B$  </li>
+<li><strong>W kodzie</strong>: <code>&amp;&amp;</code>  </li>
+<li><strong>Zasada</strong>: wynik jest $1$ tylko wtedy, gdy <em>oba</em> wejścia są $1$</li>
+</ul>
+<p>$$1 \land 1 = 1 \qquad 1 \land 0 = 0$$</p>
+<p><data-logic-gate type="AND"></data-logic-gate></p>
+<data-gate>
+<data-math-sandbox level="logic" mode="result" data-steps="2" data-label="🪤 Iloczyn logiczny">
+  <div data-step="1" data-expected="1" data-label="Wyznacz stan wyjściowy: $1 \land 1$" data-hint-wrong=" :💡 Bramka AND (szeregowa) przepuszcza sygnał tylko, gdy oba wejścia są aktywne ($1 \land 1 = 1$)." data-hints='{"LOGIC_ERROR": "💡 Bramka AND (szeregowa) przepuszcza sygnał tylko, gdy oba wejścia są aktywne ($1 \land 1 = 1$)."}'></div>
+  <div data-step="2" data-expected="0" data-label="Wyznacz stan wyjściowy: $1 \land 0$" data-hint-wrong=" :💡 Wystarczy jeden przerwany przewodnik (0), aby cały układ szeregowy przestał przewodzić." data-hints='{"LOGIC_ERROR": "💡 Wystarczy jeden przerwany przewodnik (0), aby cały układ szeregowy przestał przewodzić."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<data-gate>
+<data-truth-table gate="AND" data-label="Tabela prawdy: Iloczyn (AND)"></data-truth-table>
+</data-gate>
+
+<hr>
+<h3>🛤️ Alternatywa (OR)</h3>
+<p>Alternatywa to <strong>bramka równoległa</strong>.<br>Wystarczy jedna aktywna ścieżka, by sygnał przeszedł.</p>
+<ul>
+<li><strong>Notacja</strong>: $A \lor B$  </li>
+<li><strong>W kodzie</strong>: <code>||</code>  </li>
+<li><strong>Zasada</strong>: wynik jest $1$ wtedy, gdy <em>co najmniej jedno</em> wejście jest $1$</li>
+</ul>
+<p>$$0 \lor 1 = 1 \qquad 1 \lor 1 = 1$$</p>
+<p><data-logic-gate type="OR"></data-logic-gate></p>
+<data-gate>
+<data-math-sandbox level="logic" mode="result" data-steps="2" data-label="🪤 Suma logiczna">
+  <div data-step="1" data-expected="1" data-label="Wyznacz stan wyjściowy: $0 \lor 1$"></div>
+  <div data-step="2" data-expected="1" data-label="Wyznacz stan wyjściowy: $1 \lor 1$"></div>
+</data-math-sandbox>
+</data-gate>
+
+<data-gate>
+<data-truth-table gate="OR" data-label="Tabela prawdy: Suma (OR)"></data-truth-table>
+</data-gate>
+
+<hr>
+<h3>⚖️ Semantyka symboli: = vs ≡ vs ⇔</h3>
+<p>To jest miejsce, gdzie $90\%$ ludzi myli znaczenie tych symboli.  </p>
+<blockquote>
+<p>Zapamiętaj że te symbole <strong><em>NIE są zamienne</em></strong>.</p>
+</blockquote>
+<h4>1. Równość ($=$)</h4>
+<p>Porównanie <em>konkretnych wartości</em>.<br>Prawda tylko jeżeli wartość lewej strony jest taka sama jak prawej ($L=P$).<br>W innym przypadku przekreślamy symbol równości ($L \neq P$). </p>
+<h4>2. Tożsamość / równoważność tautologiczna ($\equiv$)</h4>
+<p>Dwa wyrażenia mają <strong>identyczną tablicę prawdy</strong>.<br>Używane przy refaktoryzacji i optymalizacji układów.</p>
+<h4>3. Równoważność logiczna ($\iff$)</h4>
+<p>Spójnik wewnątrz formuły.<br>Zdanie jest prawdziwe, gdy oba składniki mają ten sam stan.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Tautologia</strong> — formuła, która jest prawdziwa dla <em>każdej</em> kombinacji wartości wejściowych.</p>
+
+</div>
+</div><hr>
+<h3>💻 Implementacja: Logika w Kodzie</h3>
+<p>Oto jak przełożyć notację matematyczną na standardy programistyczne (JS, C++, Rust):</p>
+<table>
+<thead>
+<tr>
+<th align="left">Symbol</th>
+<th align="left">Nazwa</th>
+<th align="left">Operator</th>
+<th align="left">Sens inżynierski</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$x = v$</td>
+<td align="left">Przypisanie</td>
+<td align="left"><code>=</code></td>
+<td align="left">Mutacja stanu</td>
+</tr>
+<tr>
+<td align="left">$L = P$</td>
+<td align="left">Porównanie</td>
+<td align="left"><code>==</code></td>
+<td align="left">Porównanie wartości</td>
+</tr>
+<tr>
+<td align="left">$L \equiv P$</td>
+<td align="left">Tożsamość</td>
+<td align="left"><code>===</code></td>
+<td align="left">Porównanie wartości i typów</td>
+</tr>
+<tr>
+<td align="left">$\land$</td>
+<td align="left">Koniunkcja</td>
+<td align="left"><code>&amp;&amp;</code></td>
+<td align="left">AND</td>
+</tr>
+<tr>
+<td align="left">$\lor$</td>
+<td align="left">Alternatywa</td>
+<td align="left"><code>||</code></td>
+<td align="left">OR</td>
+</tr>
+<tr>
+<td align="left">$\neg$</td>
+<td align="left">Inwersja</td>
+<td align="left"><code>!</code></td>
+<td align="left">Odwrócenie stanu</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🪤 Sandbox: Analiza układów złożonych</h3>
+<data-gate>
+<data-math-sandbox level="logic" mode="result" data-steps="2" data-label="🪤 Analiza sygnałów złożonych">
+  <div data-step="1" data-expected="0" data-label="Wyznacz stan układu: $1 \land \neg 1$" data-hint-wrong=" :💡 Przeanalizuj priorytet: najpierw inwersja $\neg 1$, potem koniunkcja. Masz $1 \land 0$. Czy taki układ może przewodzić?" data-hints='{"LOGIC_ERROR": "💡 Przeanalizuj priorytet: najpierw inwersja $\neg 1$, potem koniunkcja. Masz $1 \land 0$. Czy taki układ może przewodzić?"}'></div>
+  <div data-step="2" data-expected="1" data-label="Wyznacz stan układu: $1 \lor \neg 1$" data-hint-wrong=" :💡 To układ równoległy. Nawet jeśli jedna ścieżka ($\neg 1 = 0$) jest zablokowana, sprawdź czy główny kanał (1) zapewnia napięcie na wyjściu." data-hints='{"LOGIC_ERROR": "💡 To układ równoległy. Nawet jeśli jedna ścieżka ($\neg 1 = 0$) jest zablokowana, sprawdź czy główny kanał (1) zapewnia napięcie na wyjściu."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>logika operuje na dwóch stanach: $0$ i $1$,  </li>
+<li>NOT odwraca sygnał, AND go filtruje, OR zapewnia redundancję,  </li>
+<li>symbole $=$, $\equiv$, $\iff$ mają różne znaczenia i nie wolno ich mylić,  </li>
+<li>logika matematyczna i logika w kodzie to ten sam system zapisany innymi symbolami,  </li>
+<li>bramki logiczne to fundament elektroniki, SQL&#8209;a, sterowników i kompilatorów.</li>
+</ul>
+<hr>
+<p>W kolejnej lekcji wejdziesz w <strong>Algebrę Boole’a</strong> — język, który pozwala <em>upraszczać</em>, <em>optymalizować</em> i <em>refaktoryzować</em> układy logiczne.<br>Poznasz bramki NAND, NOR, XOR i XNOR — prawdziwe konie pociągowe współczesnych procesorów. 🚀</p>

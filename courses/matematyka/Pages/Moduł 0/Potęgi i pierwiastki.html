@@ -1,0 +1,260 @@
+<h2>Potęgi i pierwiastki — Architektura Skalowania Wykładniczego</h2>
+<p>Matematyka dąży do maksymalnej <strong>kompresji zapisu</strong>. Mnożenie wyewoluowało jako skrót dla iteracyjnego dodawania. <strong>Potęgowanie</strong> idzie o krok dalej — to zapis <em>iteracyjnego mnożenia</em> tej samej wartości.</p>
+<p>W inżynierii danych potęgi nie są tylko „dużymi liczbami” — to miara <em>skali i złożoności</em>. Od bitów w procesorze po algorytmy kryptograficzne, potęgowanie definiuje granice wydajności systemów.</p>
+<hr>
+<h3>🏗️ Anatomia Potęgi: Skalowanie Wykładnicze</h3>
+<p>Traktuj potęgę nie jako statyczną wartość, lecz jako <strong>instrukcję procesową</strong>:</p>
+<p>$$a^n = \underbrace{a \cdot a \cdot \ldots \cdot a}_{n \text{ operacji}}$$</p>
+<p>Elementy składowe:</p>
+<ul>
+<li><strong>Podstawa ($a$)</strong> — zasób (liczba), który poddajemy operacji.</li>
+<li><strong>Wykładnik ($n$)</strong> — liczba iteracji (mnożeń) w cyklu.</li>
+</ul>
+<p>Przykład: $2^3$ to instrukcja:</p>
+<p>$$2 \cdot 2 \cdot 2 = 8$$</p>
+<p><em>„weź $2$ i pomnóż je przez siebie łącznie $3$ razy”</em></p>
+<h3>🔍 Punkt Kontrolny: Ekstrakcja Danych</h3>
+<p>Zanim przejdziesz do analizy złożonych operacji, zweryfikuj poprawność identyfikacji parametrów wejściowych ($a$ oraz $n$):</p>
+<data-gate>
+  <data-math-worksheet type="power-definition" count="1" difficulty="easy" data-validation-mode="structural" data-hint-on-error="true"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-definition" count="2" difficulty="medium" data-validation-mode="structural" data-hint-on-error="true"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-definition" count="3" difficulty="hard" data-validation-mode="structural" data-hint-on-error="true"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>📉 Skala Ujemna: Inwersja i Podział</h3>
+<p>Pytanie o $a^0 = 1$ oraz $a^{-n}$ to klasyczny problem zrozumienia <strong>ciągłości systemu</strong>. Prześledźmy dekrementację wykładnika na przykładzie binarnym (podstawa $2$):</p>
+<ul>
+<li>$2^3 = 8$</li>
+<li>$2^2 = 4$ (redukcja skali: $\frac{8}{2}$)</li>
+<li>$2^1 = 2$ (redukcja skali: $\frac{4}{2}$)</li>
+<li><strong>$2^0 = 1$</strong> (punkt neutralny mnożenia: $\frac{2}{2}$)</li>
+<li><strong>$2^{-1} = \frac{1}{2}$</strong> (inwersja: wejście w skalę ułamkową)</li>
+</ul>
+<p>Wykładnik ujemny to instrukcja <strong>odwrócenia relacji</strong>: zamiast powielać zasób, dzielisz jednostkę przez ten zasób.</p>
+<p>$$a^{-n} = \frac{1}{a^{n}}$$</p>
+<h4>Wizualizacja Skali</h4>
+<p>Skorzystaj z poniższego symulatora, aby zobaczyć, jak zmiana wykładnika wpływa na modelowanie danych. Zwróć uwagę na przejście przez punkt zero:</p>
+<p><data-power-visualizer base="2" start="0" min="-3" max="3"></data-power-visualizer></p>
+<ol>
+<li><strong>Wykładnik $n &gt; 0$</strong>: Powielanie struktur (wzrost wykładniczy).</li>
+<li><em>Wykładnik $n = 0$</em>: Punkt neutralny jedna jednostka. </li>
+<li><em><strong>Wykładnik $n &lt; 0$</strong></em>: Fragmentacja (segmentacja jednostki). Karmazynowa komórka reprezentuje licznik ($1$), a suma wszystkich to mianownik.</li>
+</ol>
+<h3>🚀 Stacja Treningowa: Operacje na Odwrotnościach</h3>
+<data-gate>
+  <data-math-worksheet type="power-negative" count="1" difficulty="easy" data-validation-mode="structural" data-hint-on-error="true"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-negative" count="2" difficulty="medium" data-validation-mode="structural" data-hint-on-error="true"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-negative" count="3" difficulty="hard" data-validation-mode="structural" data-hint-on-error="true"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>🧬 Algorytmy Operacyjne: Własności Potęg</h3>
+<p>W inżynierii rzadko operujemy na surowych wynikach. Kluczem jest <strong>upraszczanie wyrażeń</strong>. Jeśli podstawy są identyczne, możemy zarządzać złożonością poprzez manipulację samym wykładnikiem.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zasada Izolacji:</strong> Własności potęg działają <strong>wyłącznie dla mnożenia i dzielenia</strong>. Próba „łączenia” potęg przy dodawaniu ($a^{\textcolor{#ff0004}{n}} + a^{\textcolor{#ff0003}{m}}$) to błąd krytyczny — w takim przypadku należy obliczyć wartości osobno lub wyłączyć wspólny czynnik przed nawias.</p>
+
+</div>
+</div><p>Jedyna sytuacja, w której wspólny wykładnik daje możliwość uproszczenia przy różnych podstawach, to:</p>
+<ul>
+<li>$$(a^{\textcolor{#ff0004}{n}} \cdot b^{\textcolor{#ff0004}{n}}) = (ab)^{\textcolor{#ff0004}{n}}$$</li>
+<li>$$(\frac{a^{\textcolor{#ff0004}{n}}}{b^{\textcolor{#ff0004}{n}}}) = (\frac{a}{b})^{\textcolor{#ff0004}{n}}$$</li>
+</ul>
+<h4>1. Agregacja (Mnożenie)</h4>
+<p>Mnożenie potęg o tej samej podstawie to sumowanie ich wykładników:</p>
+<span style="font-size:1.4rem">
+
+<p>$$a^{\textcolor{#ff0004}{n}} \cdot a^{\textcolor{#ff0003}{m}} = a^{\textcolor{#ff0004}{n}+\textcolor{#ff0003}{m}}$$</p>
+</span>
+
+<data-gate>
+  <data-math-worksheet type="power-product" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-product" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-product" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h4>2. Redukcja (Dzielenie)</h4>
+<p>Dzielenie to różnica wykładników:</p>
+<span style="font-size:1.4rem">
+
+<p>$$\frac{a^{\textcolor{#ff0004}{n}}}{a^{\textcolor{#ff0003}{m}}} = a^{\textcolor{#ff0004}{n}-\textcolor{#ff0003}{m}}$$</p>
+</span>
+
+<data-gate>
+  <data-math-worksheet type="power-division" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-division" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-division" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h4>3. Kompozycja (Potęga potęgi)</h4>
+<p>Podnoszenie potęgi do potęgi to iloczyn wykładników:</p>
+<span style="font-size:1.4rem">
+
+<p>$$(a^{\textcolor{#ff0004}{n}})^{\textcolor{#ff0003}{m}} = a^{\textcolor{#ff0004}{n} \cdot \textcolor{#ff0003}{m}}$$</p>
+</span>
+
+<data-gate>
+  <data-math-worksheet type="power-of-power" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-of-power" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-of-power" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>🔄 Pierwiastkowanie: Rekonstrukcja Podstawy</h3>
+<p>Pierwiastkowanie to <strong>proces odwrotny do potęgowania</strong>. W inżynierii bezpieczeństwa można to porównać do <strong>deszyfrowania</strong>: jeśli potęgowanie jest procesem „zamykania” informacji w nowej skali (szyfrowania), to pierwiastkowanie jest próbą odzyskania danych wejściowych.</p>
+<span style="font-size:1.4rem">
+
+<p>$$\sqrt[\textcolor{#ff0004}{n}]{\textcolor{#ff0003}{x}} = \textcolor{#ff0001}{a} \iff \textcolor{#ff0001}{a}^{\textcolor{#ff0004}{n}} = \textcolor{#ff0003}{x}$$</p>
+</span>
+
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pierwiastek stopnia $\textcolor{#ff0004}{n}$ to proces <strong>deszyfrowania</strong>:<br><em>„Jaką informację pierwotną ($\textcolor{#ff0001}{a}$) muszę poddać procesowi ($\textcolor{#ff0004}{n}$), aby otrzymać ten wynik ($\textcolor{#ff0003}{x}$)?”</em>.</p>
+
+</div>
+</div><h3>🔍 Punkt Kontrolny: Ekstrakcja Pierwiastków</h3>
+<data-gate>
+  <data-math-worksheet type="roots" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="roots" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="roots" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>⚠️ Parzystość Stopnia a Dziedzina $\mathbb{R}$</h3>
+<p>Zdolność do wyciągnięcia pierwiastka zależy od stopnia pierwiastka ($n$) oraz zbioru liczbowego, w którym operujemy — <em>reelle</em> <strong>Zahlen</strong> ($\mathbb{R}$).</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Dziedzina</strong> jest zbiorem wszystkich możliwych danych wejściowych, dla których operacja jest wykonalna.</p>
+
+</div>
+</div><details>
+<summary>Systematyka Zbiorów Liczbowych (Standard Inżynierski)</summary>
+
+<ul>
+<li>$\mathbb{N}$ – <em>natürliche</em> <strong>Zahlen</strong> (liczby naturalne): $\{ 0, 1, 2, 3, \ldots \}$</li>
+<li>$\mathbb{Z}$ – <em>ganze</em> <strong>Zahlen</strong> (liczby całkowite): $\{ \ldots, -3, -2, -1, 0, 1, 2, 3, \ldots \}$</li>
+<li>$\mathbb{Q}$ – <em>rationale</em> <strong>Zahlen</strong> (liczby wymierne): $$\{ \frac{a}{b} \text{ takich, że } a, b \in \mathbb{Z}, b \neq 0 \}$$</li>
+<li>$\mathbb{R}$ – <em>reelle</em> <strong>Zahlen</strong> (liczby rzeczywiste): Wszystkie liczby na osi liczbowej.<table>
+<thead>
+<tr>
+<th>Zbiór</th>
+<th>Przykłady</th>
+<th>Charakterystyka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\mathbb{Z}$</td>
+<td>$-2, 0, 3$</td>
+<td>Brak części ułamkowej.</td>
+</tr>
+<tr>
+<td>$\mathbb{Q}$</td>
+<td>$$\frac{1}{3}$$, $0.5$</td>
+<td>Rozwinięcie skończone lub okresowe.</td>
+</tr>
+<tr>
+<td>Niewymierne</td>
+<td>$\sqrt{2}, \pi$</td>
+<td>Rozwinięcie nieskończone, nieokresowe.</td>
+</tr>
+</tbody></table>
+</li>
+<li>$\mathbb{C}$ – <em>komplexe</em> <strong>Zahlen</strong> (liczby zespolone): $?$</li>
+</ul>
+<p>Ostatni zbiór liczb zespolonych to jak przejście z klasycznej fizyki do mechaniki kwantowej. Pozwala na rozwiązanie problemów, które w liczbach rzeczywistych są nierozwiązywalne. 👽</p>
+</details>
+
+<hr>
+<h4>⚠️ Analiza Sprzeczności: Parzystość Stopnia a Dziedzina $\mathbb{R}$</h4>
+<p>W inżynierii i matematyce ograniczenia nie biorą się z „zakazów”, lecz z <strong>właściwości operacyjnych systemów</strong>. Zrozumienie, dlaczego pierwiastkowanie liczb ujemnych stopniem parzystym jest w $\mathbb{R}$ niemożliwe, wymaga prześledzenia logicznego dowodu opartego na definicji:</p>
+<h5>1. Model Dedukcyjny: Pierwiastki Parzyste ($\sqrt{x}, \sqrt[4]{x}$)</h5>
+<p>Z definicji pierwiastka wiemy, że:<br>$$\sqrt[n]{x} = a \iff a^n = x$$</p>
+<p>Jeśli stopień $n$ jest parzysty (możemy go zapisać jako $n=2k$), to zachodzi następująca zależność dla dowolnej liczby $a$ należącej do zbioru liczb rzeczywistych ($a \in \mathbb{R}$):<br>$$a^{2k} = (a^k)^2$$</p>
+<p>Z właściwości liczb rzeczywistych wynika, że kwadrat dowolnej wartości (dodatniej, ujemnej czy zera) jest zawsze <strong>nieujemny</strong>:<br>$$(a^k)^2 \ge 0 \quad \implies \quad a^n \ge 0$$</p>
+<p>Przykładowo dla wyniku $\sqrt{4}$ mamy dwie możliwości: $2$ oraz $-2$.<br>$$(-2)^2 = 4, \quad (2)^2 = 4$$</p>
+<p>Otrzymujemy <strong>sprzeczność logiczną</strong> wyniku który mógłby być jednocześnie dodatni i ujemny (<em><strong>$\pm 2$</strong></em>).<br>To ograniczenie wymusiło na matematykach rozszerzenie systemu do <strong>liczb zespolonych</strong> — <em>komplexe</em> <strong>Zahlen</strong> ($\mathbb{C}$), gdzie zdefiniowano jednostkę urojoną $i^2 = -1$, pozwalającą na domknięcie operacji pierwiastkowania.</p>
+<h5>2. Model Ciągłości: Pierwiastki Nieparzyste ($\sqrt[3]{x}, \sqrt[5]{x}$)</h5>
+<p>W przypadku stopni nieparzystych ($n=2k+1$) asymetria znaku zostaje zachowana. Iloczyn nieparzystej liczby czynników ujemnych pozostaje ujemny:<br>$$(-a)^{2k+1} = \underbrace{(-a) \cdot \ldots \cdot (-a)}_{2k+1} &lt; 0$$</p>
+<p>Dlatego dla pierwiastków nieparzystych <strong>dziedzina jest nieograniczona</strong>:<br>$$\sqrt[3]{-27} = -3 \quad \iff \quad (-3)^3 = -27$$<br>System pozostaje spójny i nie generuje sprzeczności w zbiorze $\mathbb{R}$.</p>
+<hr>
+<h3>⚡ Implementacja IT: Od Bitów do Kryptografii</h3>
+<p>Współczesna technologia opiera się na matematyce potęg:</p>
+<ol>
+<li><strong>Architektura Binarna:</strong> Każdy bit to potęga dwójki $2^n$. Systemy $64$-bitowe pozwalają na adresowanie $2^{64}$ unikalnych komórek pamięci — to niewyobrażalna skala, która umożliwia działanie nowoczesnych systemów operacyjnych.</li>
+<li><strong>Złożoność Algorytmiczna ($O$):</strong> Notacja „Big O” często używa potęg do określenia wydajności kodu. Algorytmy o złożoności wykładniczej $O(2^n)$ są zabójcze dla wydajności — każda nowa dana wejściowa podwaja czas wykonywania operacji.</li>
+</ol>
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>potęgowanie to iteracyjne mnożenie — instrukcja skalowania zasobu,  </li>
+<li>wykładnik dodatni oznacza wzrost, wykładnik ujemny — inwersję i fragmentację,  </li>
+<li>$a^0 = 1$ to punkt neutralny mnożenia,  </li>
+<li>własności potęg działają tylko dla mnożenia i dzielenia,  </li>
+<li>potęga potęgi, iloczyn potęg i iloraz potęg upraszczają złożone wyrażenia,  </li>
+<li>pierwiastkowanie to proces odwrotny do potęgowania (deszyfrowanie),  </li>
+<li>pierwiastki parzyste liczb ujemnych nie istnieją w $\mathbb{R}$,  </li>
+<li>potęgi są fundamentem architektury binarnej, kryptografii i złożoności algorytmicznej.</li>
+</ul>
+<hr>
+<p>Opanowanie potęg i pierwiastków to przejście od operowania na „liczbach” do operowania na <strong>skali</strong>. To fundament, który pozwoli Ci w przyszłości zrozumieć logarytmy oraz notację naukową w następnej lekcji. 🚀</p>

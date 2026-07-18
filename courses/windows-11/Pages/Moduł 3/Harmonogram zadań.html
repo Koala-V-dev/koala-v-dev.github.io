@@ -1,0 +1,232 @@
+<h2>Harmonogram zadań</h2>
+<p><strong>Harmonogram zadań</strong> (<em>Task Scheduler</em>) to wbudowany automat Windowsa. Pozwala uruchamiać programy, skrypty i polecenia <strong>o określonej godzinie</strong>, przy logowaniu, przy starcie systemu – albo w reakcji na konkretne zdarzenie systemowe.</p>
+<p>Na Helpdesku spotkasz się z tym narzędziem, gdy klient potrzebuje automatyzacji: <em>„Chcę, żeby backup robił się codziennie o 2:00 w nocy"</em>, <em>„Muszę uruchamiać raport co poniedziałek"</em> albo <em>„Na pulpicie wyskakuje mi dziwne okno co godzinę"</em> (→ prawdopodobnie malware ukryty w harmonogramie).</p>
+<hr>
+<h3>🕐 Konsola Harmonogramu Zadań</h3>
+<p><kbd class="Win"></kbd> + <kbd>R</kbd> → <code>taskschd.msc</code></p>
+<p>Okno ma trzy panele:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Panel</th>
+<th align="left">Zawartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Lewy (biblioteka)</strong></td>
+<td align="left">Drzewo folderów z zadaniami (Microsoft, inne programy, Twoje własne)</td>
+</tr>
+<tr>
+<td align="left"><strong>Środkowy (lista)</strong></td>
+<td align="left">Zadania w wybranym folderze – nazwa, stan, wyzwalacze, czas ostatniego uruchomienia</td>
+</tr>
+<tr>
+<td align="left"><strong>Prawy (akcje)</strong></td>
+<td align="left">Przyciski: Utwórz zadanie, Utwórz zadanie podstawowe, Importuj, itp.</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>📋 Anatomia zadania</h3>
+<p>Każde zadanie składa się z czterech elementów:</p>
+<data-tabs>
+  <tabs>
+    <item>Wyzwalacze (Triggers)</item>
+    <item>Akcje (Actions)</item>
+    <item>Warunki (Conditions)</item>
+    <item>Ustawienia (Settings)</item>
+  </tabs>
+  <div><h4>Wyzwalacze – KIEDY zadanie ma się uruchomić?</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Typ wyzwalacza</th>
+<th align="left">Opis</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Według harmonogramu</strong></td>
+<td align="left">Codziennie, co tydzień, co miesiąc, jednorazowo</td>
+<td align="left">Backup codziennie o $2{:}00$</td>
+</tr>
+<tr>
+<td align="left"><strong>Przy logowaniu</strong></td>
+<td align="left">Gdy konkretny użytkownik (lub ktokolwiek) się zaloguje</td>
+<td align="left">Uruchomienie VPN po zalogowaniu</td>
+</tr>
+<tr>
+<td align="left"><strong>Przy uruchomieniu</strong></td>
+<td align="left">Gdy Windows się włączy (przed logowaniem)</td>
+<td align="left">Usługa monitoringu</td>
+</tr>
+<tr>
+<td align="left"><strong>Przy zdarzeniu</strong></td>
+<td align="left">Gdy w logach systemowych pojawi się określone zdarzenie</td>
+<td align="left">Alert e‑mail przy krytycznym błędzie</td>
+</tr>
+<tr>
+<td align="left"><strong>Przy bezczynności</strong></td>
+<td align="left">Gdy komputer jest nieużywany przez określony czas</td>
+<td align="left">Skanowanie antywirusowe</td>
+</tr>
+<tr>
+<td align="left"><strong>Przy podłączeniu do sieci</strong></td>
+<td align="left">Gdy aktywuje się połączenie sieciowe</td>
+<td align="left">Synchronizacja danych</td>
+</tr>
+</tbody></table>
+<p>Jedno zadanie może mieć <strong>wiele wyzwalaczy</strong> – np. uruchamiaj codziennie o $2{:}00$ ORAZ przy każdym logowaniu.</p></div>
+  <div><h4>Akcje – CO zadanie ma zrobić?</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Typ akcji</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Uruchom program</strong></td>
+<td align="left">Uruchamia plik <code>.exe</code>, <code>.bat</code>, <code>.ps1</code> lub inną komendę</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Starsze wersje systemu miały też akcje „Wyślij wiadomość e‑mail" i „Wyświetl komunikat" – zostały <strong>przestarzałe</strong> i usunięte w Windows 10/11. Jedyną aktywną akcją jest <strong>Uruchom program</strong>.</p>
+
+</div>
+</div><p><strong>Jak uruchomić skrypt PowerShell z harmonogramu?</strong></p>
+<ul>
+<li><p>Program: <code>powershell.exe</code></p>
+</li>
+<li><p>Argumenty: <code>-ExecutionPolicy Bypass -File "C:\Skrypty\backup.ps1"</code></p>
+</li></ul></div>
+<div><h4>Warunki – dodatkowe wymagania</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Warunek</th>
+<th align="left">Co robi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><kbd class="check-mark-empty"></kbd><code>Uruchom zadanie tylko wtedy, gdy komputer jest zasilany prądem</code></td>
+<td align="left">Nie uruchamiaj na baterii (laptopy)</td>
+</tr>
+<tr>
+<td align="left"><kbd class="check-mark-empty"></kbd><code>Uruchom tylko jeśli dostępna jest sieć</code></td>
+<td align="left">Czekaj na połączenie sieciowe</td>
+</tr>
+<tr>
+<td align="left"><kbd class="check-mark-empty"></kbd><code>Obudź komputer, aby uruchomić zadanie</code></td>
+<td align="left">Wybudza komputer ze stanu uśpienia</td>
+</tr>
+</tbody></table></div>
+  <div><h4>Ustawienia – co jeśli coś pójdzie nie tak?</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Ustawienie</th>
+<th align="left">Domyślnie</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Zezwalaj na uruchomienie na żądanie</td>
+<td align="left">✅</td>
+<td align="left">Możesz ręcznie kliknąć „Uruchom"</td>
+</tr>
+<tr>
+<td align="left">Zatrzymaj, jeśli trwa dłużej niż</td>
+<td align="left">$3$ dni</td>
+<td align="left">Zabezpieczenie przed zawieszeniem</td>
+</tr>
+<tr>
+<td align="left">Jeśli zadanie jest już uruchomione</td>
+<td align="left">Nie uruchamiaj nowej instancji</td>
+<td align="left">Zapobiega podwójnemu uruchomieniu</td>
+</tr>
+<tr>
+<td align="left">Uruchom jak najszybciej po pominięciu</td>
+<td align="left">❌</td>
+<td align="left">Nadrabia zaległe uruchomienia</td>
+</tr>
+</tbody></table></div>
+</data-tabs>
+
+<hr>
+<h3>🛠️ Tworzenie zadania – praktyczny przykład</h3>
+<p><strong>Scenariusz:</strong> Chcesz, żeby skrypt <code>czyszczenie-temp.bat</code> uruchamiał się codziennie o $3{:}00$ w nocy.</p>
+<ol>
+<li>Otwórz <code>taskschd.msc</code></li>
+<li>W prawym panelu kliknij <strong>Utwórz zadanie podstawowe</strong></li>
+<li><strong>Nazwa:</strong> <code>Czyszczenie plików tymczasowych</code> → <strong>Dalej</strong></li>
+<li><strong>Wyzwalacz:</strong> Codziennie → <strong>Dalej</strong> → ustaw godzinę $3{:}00$ → <strong>Dalej</strong></li>
+<li><strong>Akcja:</strong> Uruchom program → <strong>Dalej</strong> → <strong>Przeglądaj</strong> → wskaż <code>C:\Skrypty\czyszczenie-temp.bat</code> → <strong>Dalej</strong></li>
+<li>Zaznacz <kbd class="check-mark"></kbd><code>Otwórz okno dialogowe Właściwości po kliknięciu przycisku Zakończ</code></li>
+<li>W zakładce <strong>Ogólne</strong> zaznacz <kbd class="check-mark"></kbd><code>Uruchom niezależnie od tego, czy użytkownik jest zalogowany</code> ← <strong>kluczowe!</strong></li>
+<li>Zaznacz <kbd class="check-mark"></kbd><code>Uruchom z najwyższymi uprawnieniami</code> (jeśli skrypt wymaga admina)</li>
+<li><strong>OK</strong> → system poprosi o hasło użytkownika (musi je znać, by uruchomić zadanie w jego imieniu)</li>
+</ol>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Opcja <em>„Uruchom niezależnie od tego, czy użytkownik jest zalogowany"</em> jest kluczowa dla zadań serwerowych i nocnych. Bez niej zadanie <strong>nie uruchomi się</strong>, gdy nikt nie jest zalogowany – a w nocy nikt nie siedzi przed komputerem.</p>
+
+</div>
+</div><hr>
+<h3>⌨️ Zarządzanie z CMD (`schtasks`)</h3>
+<pre><code>schtasks /query /fo LIST /v                  ← lista wszystkich zadań (szczegółowo)
+schtasks /run /tn "Czyszczenie temp"         ← uruchom zadanie natychmiast
+schtasks /end /tn "Czyszczenie temp"         ← zatrzymaj działające zadanie
+schtasks /delete /tn "Czyszczenie temp" /f   ← usuń zadanie (bez pytania)
+
+schtasks /create /tn "Backup" /tr "C:\backup.bat" /sc daily /st 02:00 /ru SYSTEM
+         ← utwórz zadanie uruchamiane codziennie o 2:00 jako SYSTEM
+</code></pre>
+<hr>
+<h3>🕵️ Harmonogram jako narzędzie diagnostyczne</h3>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Co godzinę wyskakuje czarne okno CMD na ułamek sekundy." data-right="Sprawdź Harmonogram zadań – jakiś program lub malware utworzył cykliczne zadanie uruchamiające skrypt."></div>
+    <div class="cmw-item" data-left="Automatyczny backup nocny nie uruchomił się, choć zadanie istnieje." data-right="Sprawdź opcję 'Uruchom niezależnie od zalogowania' oraz 'Obudź komputer' – brak tych ustawień = brak nocnego uruchomienia."></div>
+    <div class="cmw-item" data-left="Komputer sam się restartuje co noc o 3:00." data-right="Windows Update ma domyślne zadanie restartujące komputer po instalacji aktualizacji – sprawdź folder Microsoft\Windows\UpdateOrchestrator."></div>
+    <div class="cmw-item" data-left="Po reinstalacji systemu przestały działać zaplanowane zadania firmowe." data-right="Wyeksportuj zadania (PPM → Eksportuj) przed reinstalacją, a potem zaimportuj je na nowym systemie."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Klient skarży się: „Ustawiłem backup na codziennie o 2:00 w nocy, ale rano widzę, że zadanie się nie uruchomiło. Status mówi: 'Zadanie nie zostało uruchomione, ponieważ nie zalogowano żadnego użytkownika'." Co jest przyczyną?</p>
+</question>
+    <options>
+      <item><p>Zadanie wymaga nowszej wersji Windows – trzeba zaktualizować system.</p>
+</item>
+      <item><p>Harmonogram zadań był wyłączony w nocy – trzeba włączyć usługę Schedule.</p>
+</item>
+      <item correct=""><p>W ustawieniach zadania wybrano 'Uruchom tylko wtedy, gdy użytkownik jest zalogowany'. Trzeba zmienić na 'Uruchom niezależnie od tego, czy użytkownik jest zalogowany' i podać hasło konta.</p>
+</item>
+      <item><p>Backup nie może działać w nocy – Windows blokuje operacje dyskowe w godzinach ciszy nocnej.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Nie istnieje „cisza nocna" w Windows. Usługa Schedule domyślnie działa zawsze. Problem leży w konfiguracji samego zadania – kontekst logowania użytkownika.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! To jedna z najczęstszych pomyłek przy tworzeniu zadań. Domyślnie zadanie uruchomi się tylko w sesji zalogowanego użytkownika. Zmiana na tryb „niezależny od logowania" wymaga podania hasła i pozwala zadaniu działać nawet na zablokowanym komputerze.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Złota zasada technika:</strong> Harmonogram zadań to też ulubione miejsce malware. Jeśli klient zgłasza „dziwne zachowania" (wyskakujące okna, niespodziewane restarty, wolny komputer) – zajrzyj do <code>taskschd.msc</code> i przejrzyj listę zadań, szczególnie te w głównym katalogu biblioteki.</p>
+
+</div>
+</div>

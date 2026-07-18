@@ -1,0 +1,51 @@
+<h2>Własności logarytmów — magia potęg</h2>
+<p>Logarytmy mają kilka &quot;nadludzkich&quot; właściwości, które sprawiają, że trudne działania (jak mnożenie ogromnych liczb) zamieniają się w proste (jak dodawanie). To nie jest przypadek — to wynika bezpośrednio z tego, jak działają potęgi.</p>
+<hr>
+<h3>🏗️ Własność 1: Logarytm iloczynu</h3>
+<p>Pamiętasz ze szkoły podstawowej, że przy mnożeniu potęg o tej samej podstawie, <strong>dodajemy wykładniki</strong>?</p>
+<p>$$a^n \cdot a^m = a^{n+m}$$</p>
+<p>Skoro logarytm to pytanie o wykładnik, to logiczne jest, że:<br><strong>Logarytm iloczynu to suma logarytmów.</strong></p>
+<p>$$\log_{a}{(x \cdot y)} = \log_{a}{x} + \log_{a}{y}$$</p>
+<h4>Dlaczego to działa? (Dowód intuicyjny)</h4>
+<p>Mnożenie liczb ($x \cdot y$) w świecie logarytmów zamienia się w dodawanie &quot;pytań o potęgi&quot;. To tak, jakbyś pytał: &quot;Ile dwójek mieści się w 8?&quot; (3) i &quot;Ile dwójek mieści się w 4?&quot; (2). W ich iloczynie ($8 \cdot 4 = 32$) zmieści się ich $3+2=5$.</p>
+<hr>
+<h3>🏗️ Własność 2: Logarytm ilorazu</h3>
+<p>Analogicznie, skoro przy dzieleniu potęg <strong>odejmujemy wykładniki</strong>:</p>
+<p>$$\frac{a^n}{a^m} = a^{n&#8209;m}$$</p>
+<p>To logarytm ilorazu to różnica logarytmów:</p>
+<p>$$\log_{a}{\left(\frac{x}{y}\right)} = \log_{a}{x} - \log_{a}{y}$$</p>
+<hr>
+<h3>🏗️ Własność 3: Logarytm potęgi (Zrzucanie wykładnika)</h3>
+<p>To najpotężniejsza broń w arsenale logarytmów. Jeśli mamy liczbę podniesioną do potęgi wewnątrz logarytmu, możemy ten wykładnik &quot;zrzucić&quot; przed logarytm:</p>
+<p>$$\log_{a}{(x^p)} = p \cdot \log_{a}{x}$$</p>
+<p><strong>Przykład:</strong> $\log_{2}{(8^2)} = 2 \cdot \log_{2}{8} = 2 \cdot 3 = 6$.<br>Sprawdźmy: $8^2 = 64$. Czy $\log_{2}{64} = 6$? Tak, bo $2^6 = 64$. Magia działa!</p>
+<hr>
+<h3>🛠️ Laboratorium: Upraszczanie wyrażeń</h3>
+<p>Wykorzystaj poznane zasady, aby uprościć poniższe wyrażenia w naszym piaskownicznym środowisku.</p>
+<data-gate>
+<data-math-sandbox>
+    <step expected="\log_{2}{10}" hint="Użyj wzoru na logarytm iloczynu dla \log_{2}{2} + \log_{2}{5}">\log_{2}{2} + \log_{2}{5}</step>
+    <step expected="3" hint="\log_{2}{2} to po prostu 1. Więc 1 + \log_{2}{4} = ?">\log_{2}{2} + \log_{2}{4}</step>
+    <step expected="\log_{3}{4}" hint="Zastosuj wzór na logarytm potęgi: 2 \cdot \log_{3}{2} = \log_{3}{2^?}">2 \cdot \log_{3}{2}</step>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🏆 Wielkie Wyzwanie: Logarytmiczny Detektyw</h3>
+<p>Czy potrafisz tak przekształcić wyrażenie, aby obliczyć je bez kalkulatora?</p>
+<data-gate>
+<data-quiz>
+  <question>Ile wynosi wartość wyrażenia: $\log_{6}{2} + \log_{6}{18}$?</question>
+  <options>
+    <option>$\log_{6}{20}$ (bo dodajemy liczby)</option>
+    <option correct>2 (bo $\log_{6}{(2 \cdot 18)} = \log_{6}{36}$)</option>
+    <option>$\log_{12}{36}$ (bo dodajemy wszystko)</option>
+  </options>
+  <div data-hint="error">Użyj właściwości sumy logarytmów! $\log a + \log b = \log(a \cdot b)$.</div>
+  <div data-hint="success">Genialne! $2 \cdot 18 = 36$, a $\log_{6}{36} = 2$. Właśnie użyłeś magii logarytmów do uproszczenia świata.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🔗 Pomost do IT: Kompresja danych</h3>
+<p>Właściwość zamiany mnożenia na dodawanie jest wykorzystywana w <strong>cyfrowym przetwarzaniu sygnałów (DSP)</strong> oraz w sytemach operacyjnych do szybkiego mnożenia liczb zmiennoprzecinkowych. Zamiast mnożyć, procesor może &quot;zlogarytmować&quot; liczby (często za pomocą gotowych tablic), dodać je i wykonać operację odwrotną.<br>Jest to fundament wydajności wczesnych systemów komputerowych!</p>

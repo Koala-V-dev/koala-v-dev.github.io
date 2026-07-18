@@ -1,0 +1,212 @@
+<h1>Przygotowanie ISO — Środowisko Rozruchowe</h1>
+<p>W pracy inżyniera systemowego zamiast tracić godziny na debugowanie ekstremalnie zużytego środowiska, często optymalnym wyborem jest dekompozycja i odbudowa od nowa — <span class="color-blue">tabula rasa</span> (czysta karta) 📖. </p>
+<p>Pierwszym krokiem jest utworzenie środowiska rozruchowego. 🥸</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🛑 Skąd pobrać obraz systemu (ISO)?</h2>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">ISO</span> to rozszerzenie pliku, które pochodzi od standardu $\text{ISO }9660$ i opisuje sposób zapisu danych na nośnikach optycznych. W praktyce jest to plik, który zawiera obraz struktury płyt. Możesz go wypalić lub zamontować. </p>
+<hr>
+W kontekście Windowsa, jest to zamknięty w jednym pliku instalator, a gdy uruchomisz go w systemie, zostanie on zamontowany tak, jakbyś włożył fizyczną płytę CD/DVD do napędu.
+
+</div>
+</div><p>Najbezpieczniejszym z perspektywy oficjalnego źródła jest zawsze <span class="color-green">witryna Microsoftu</span>, jednak w środowisku serwisowym doskonałą i powszechnie cenioną alternatywą są zweryfikowane polskie archiwa takie jak <span class="color-green"><code>basewin.pl</code></span> oraz <span class="color-green"><code>winiso.pl</code></span>. </p>
+<p>Serwisy te często udostępniają oryginalne obrazy z kanału <span class="color-blue">Unified Update Platform</span> (<span class="color-green">UUP</span>) wzbogacone o zintegrowane łatki odblokowujące wymogi instalacyjne (tzw. obrazy <code>No-TPM</code> / <code>No-SecureBoot</code>).</p>
+<hr>
+<h3>🌐 Pobieranie od Microsoftu</h3>
+<p>W przypadku <span class="color-blue">Microsoftu</span>:</p>
+<ol>
+<li>Otwórz stronę <a href="https://www.microsoft.com/pl-pl/software-download/windows11">Pobieranie oprogramowania Microsoft</a>.</li>
+<li>Przewiń stronę do sekcji <span class="color-green">Pobierz obraz dysku Windows 11 (ISO)</span> wybierz opcję z listy rozwijanej i kliknij pobierz. </li>
+<li>Po weryfikacji żądania pojawi się kolejna sekcja z wyborem języka. Wybierz język (Polski) i zatwierdź.</li>
+<li>Po kolejnej weryfikacji będziesz mieć sekcję do pobrania pliku ISO.<br>  <span class="color-blue">(Jeżeli chcesz aby ktoś pobrał plik i dasz mu link, to musi on kliknąć w link w ciągu $24$ godzin od jego wygenerowania, inaczej link wygaśnie.)</span></li>
+<li>Pobierzesz wersję $64$-bitową (Windows 11 nie występuje już na rynku w przestarzałej wersji $32$-bitowej).</li>
+</ol>
+<hr>
+<h3>📂 Alternatywne biblioteki (WinISO / BaseWin)</h3>
+<p>W przypadku <a href="https://winiso.pl">WinISO.pl</a> lub <a href="https://basewin.pl">BaseWin.pl</a>:</p>
+<ul>
+<li>Musisz znaleźć interesującą cię wersję Windows 11 i pobrać.  </li>
+<li>(W przypadku BaseWin.pl pobierzesz archiwum <code>.rar</code>, więc musisz mieć zainstalowany <a href="https://www.win-rar.com/start.html?&amp;L=0">WinRAR</a>.)</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Wymagany jest w miarę szybki internet. Niemodyfikowany obraz <code>.iso</code> zajmuje blisko $8\text{ GB}$. Uruchom pobieranie i bądź cierpliwy. ☕</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔑 Architektura Wymagań Sprzętowych (Zmora Płyt Głównych)</h2>
+<p>Premiera Windows 11 wywołała kontrowersje ze względu na drastyczne podniesienie wymagań sprzętowych, w szczególności tych dotyczących modułów bezpieczeństwa kryptograficznego. Instalator (<code>WinPE</code>) automatycznie przerywa proces wdrożenia na maszynach, które nie przechodzą walidacji sprzętowej.</p>
+<table>
+<thead>
+<tr>
+<th>Wymaganie</th>
+<th>Minimalna specyfikacja</th>
+<th>Realna rekomendacja</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Procesor</td>
+<td>$1 GHz$, $2$ rdzenie, $64‑bit$</td>
+<td>$2 GHz$, $4$ rdzenie, $64‑bit$</td>
+</tr>
+<tr>
+<td>Pamięć RAM</td>
+<td>$4 GB$</td>
+<td>$8 GB$ (absolutne minimum), zalecam $16 GB$</td>
+</tr>
+<tr>
+<td>Dysk twardy</td>
+<td>$64 GB$</td>
+<td>$128 GB$ (np. NVMe SSD)</td>
+</tr>
+<tr>
+<td>TPM</td>
+<td>Wersja $2.0$</td>
+<td>Wersja $2.0$</td>
+</tr>
+<tr>
+<td>Firmware</td>
+<td><span class="color-green">UEFI z Secure Boot</span></td>
+<td><span class="color-green">UEFI z Secure Boot</span></td>
+</tr>
+<tr>
+<td>Karta graf.</td>
+<td>Kompatybilna z DirectX $12$</td>
+<td>Kompatybilna z DirectX $12$</td>
+</tr>
+</tbody></table>
+<p>W kwestii procesorów warto wspomnieć o architekturze hybrydowej (wprowadzonej m.in. w procesorach Intel od $12$. generacji „Alder Lake”), która dzieli rdzenie na <span class="color-green">wydajnościowe</span> (<span class="color-gold">P‑cores</span>) oraz <span class="color-green">efektywne/energooszczędne</span> (<span class="color-gold">E‑cores</span>). </p>
+<p>Windows 11 natywnie wspiera ten podział dzięki zoptymalizowanemu <span class="color-green">schedulerowi</span> (planista zadań), który blisko współpracuje ze sprzętową technologią <span class="color-blue">Thread Director</span>. System dynamicznie mapuje wątki tła o niskim priorytecie (np. usługi indeksowania, Windows Defender) na rdzenie <code>E-cores</code>, zwalniając pełną przepustowość <code>P-cores</code> dla procesów pierwszoplanowych. Rozwiązuje to problem „zagłodzenia” głównych aplikacji przez ciężkie usługi systemowe w tle.</p>
+<hr>
+<h3>⚙️ Koprocesor Kryptograficzny (TPM 2.0)</h3>
+<p><span class="color-blue">Trusted Platform Module (TPM)</span> to mikrokontroler kryptograficzny osadzony bezpośrednio na płycie głównej lub zintegrowany z architekturą procesora (tzw. firmware TPM). Pełni on rolę izolowanej, sprzętowej enklawy bezpieczeństwa. Zamiast „sejfu”, inżynierowie traktują TPM jako komponent wykonujący zaufane operacje pierwotne:</p>
+<ul>
+<li>generowanie i sprzętowe przechowywanie kluczy asymetrycznych dla systemów szyfrowania wolumenów (np. BitLocker),</li>
+<li>separacja poświadczeń uwierzytelniania biometrycznego i sprzętowego (architektura infrastruktury Windows Hello),</li>
+<li>weryfikacja integralności łańcucha rozruchu (tzw. <span class="color-blue">Measured Boot</span>), która we współpracy z Secure Boot gwarantuje, że do pamięci ładowany jest wyłącznie autoryzowany, niemodyfikowany kod (ochrona przed 👾 <span class="color-red">rootkitami</span>).</li>
+</ul>
+<p>Wersja $2.0$ wprowadziła obsługę algorytmu <code>SHA-256</code>. Stanowi to absolutny wymóg dla Windows 11, ponieważ system wykorzystuje TPM jako rdzenny fundament dla architektury <span class="color-blue">VBS (Virtualization‑Based Security)</span>. Zamiast ufać oprogramowaniu (np. antywirusom) działającemu w przestrzeni użytkownika, system weryfikuje bezpieczeństwo własnego jądra, opierając się na sprzętowej izolacji.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli środowisko instalacyjne <code>WinPE</code> przerwie proces wdrażania na etapie walidacji wymagań, uruchom ponownie stację roboczą i przed załadowaniem <span class="color-green">bootloadera</span> systemu Windows, zainicjuj interfejs konfiguracyjny UEFI (domyślnie klawisz: <kbd>Delete</kbd> lub <kbd>F2</kbd>).<br>Odszukaj parametr odpowiedzialny za programową emulację TPM przez procesor: <span class="color-green"><code>fTPM</code> (platforma AMD)</span> lub <span class="color-green"><code>PTT</code> (platforma Intel)</span>. Zmień jego stan logiczny na <code>Enabled</code> i ponów proces rozruchu z dysku instalacyjnego.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt Kontrolny: Wymagania brzegowe</h2>
+<p>Zrozumienie blokad sprzętowych i logiki dostarczania paczek systemowych.</p>
+<data-gate>
+  <data-quiz>
+    <question><p>Jakie są minimalne wymagania dotyczące ilości pamięci RAM oraz miejsca na dysku, aby móc poprawnie uruchamiać wersję systemu Windows 11?</p>
+</question>
+    <options>
+      <option><p>$16 GB$ RAM i $128 GB$ miejsca na dysku</p>
+</option>
+      <option correct=""><p>$4 GB$ RAM i $64 GB$ miejsca na dysku</p>
+</option>
+      <option><p>$8 GB$ RAM i $32 GB$ miejsca na dysku</p>
+</option>
+    </options>
+    <div data-hint="error"><p>W pytaniu jest mowa o minimalnych wymaganiach brzegowych, które pozwalają uruchomić system.</p>
+</div>
+    <div data-hint="success"><p>Brawo! Windows 11 jest bardziej wymagający niż jego poprzednicy w architekturze pamięciowej.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💾 Deploy: Tworzenie instalacyjnego pendrive'a</h2>
+<p>Mając pobrany obraz $\text{ISO}$, nie możemy go po prostu „skopiować” na pendrive. Musimy stworzyć tzw. <span class="color-green">nośnik bootowalny</span> (<span class="color-blue">rozruchowy</span>), czyli taki, który zostanie wykryty przez bootloader BIOS/UEFI. </p>
+<p>Mamy do dyspozycji dwa świetne i darmowe rozwiązania:<br><span class="color-green">Rufus</span> (klasyka) lub <span class="color-green">Ventoy</span> (nowoczesna wygoda wirtualizacji $\text{ISO}$).</p>
+<data-tabs>
+<tabs>
+    <b>Rufus</b>
+    <b>Ventoy</b>
+</tabs>
+<div><p><span class="color-green"><a href="https://rufus.ie/pl/">Rufus</a></span> to niewielki program do tworzenia bootowalnych dysków USB.  </p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-blue">Co oznacza "Portable"?</span> Wersja przenośna programu to taka, której nie musisz tradycyjnie instalować w systemie operacyjnym. Aplikacja działa bezpośrednio z pobranego pliku lub wypakowanego folderu, a swoje ustawienia zazwyczaj zapisuje lokalnie. Dzięki temu program nie „wrasta” w Windowsa i nie modyfikuje głęboko rejestru systemowego.</p>
+
+</div>
+</div><p><span class="color-green">Przygotowanie pendrive'a w Rufusie:</span></p>
+<ol>
+<li>Podłącz pendrive (uwaga: <span class="color-red">wszystkie dane na nim zostaną usunięte!</span>).</li>
+<li>Uruchom program Rufus.</li>
+<li>W sekcji <span class="color-green">Urządzenie</span> wybierz swój podłączony pendrive.</li>
+<li>Kliknij <span class="color-green">Wybierz</span> i wskaż pobrany wcześniej plik $\text{ISO}$ Windowsa 11.</li>
+<li>Upewnij się, że <span class="color-green">Schemat partycjonowania</span> to <span class="color-gold">GPT</span>, a <span class="color-green">Dysk docelowy</span> to <span class="color-gold">UEFI (bez CSM)</span>.<ul>
+<li>Możesz też zmienić <span class="color-green">Nazwę woluminu</span> na bardziej opisową.<blockquote>
+<p><span class="color-gold">GPT</span>: <span class="color-green">GUID Partition Table</span> - nowocześniejszy standard partycjonowania dysków, który oferuje większą elastyczność i obsługę dużych dysków powyżej $2$ TB.<br><span class="color-gold">UEFI (bez CSM)</span>: <span class="color-green">Unified Extensible Firmware Interface</span> - nowoczesny firmware, który zastąpił starszy BIOS. Obsługuje partycje GPT i zapewnia szybsze uruchamianie systemu.<br><span class="color-gold">CSM</span>: <span class="color-green">Compatibility Support Module</span> - moduł umożliwiający uruchamianie starszych systemów operacyjnych w trybie BIOS, co nie jest potrzebne w przypadku Windows 11.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>Kliknij <span class="color-red">Start</span> i poczekaj na ukończenie <span class="color-blue">flashowania</span> i nagrywania obrazu $\text{ISO}$ na nośnik USB.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/okno_programu_rufus_z_wybraną_konfiguracją_pod_iso_windows11.webp" alt="Okno programu Rufus z ustawionymi parametrami dla Windows 11 (GPT, UEFI) przed kliknięciem Start" width="458" height="585" class="lazy-image" loading="lazy" decoding="async">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Podczas tworzenia nośnika Windows 11, program domyślnie wyświetli specjalne okienko <span class="color-blue">"Windows User Experience"</span>. Pozwala ono „w locie” usunąć wymóg <code>TPM 2.0</code> i <code>Secure Boot</code>. Możesz też ustawić automatyczne stworzenie lokalnego konta administratora z podaną nazwą użytkownika i wyłączyć zbieranie danych telemetrycznych.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/okno_popup_rufusa_z_opcjami_user_experience_zaznaczone_ominięcie_tpm_secure_boot_microsoft_account.webp" alt="Okno popup Rufusa z opcjami User Experience - zaznaczone ominięcie TPM/Secure Boot/Microsoft Account" width="635" height="287" class="lazy-image" loading="lazy" decoding="async"></p>
+
+</div>
+</div></div>
+<div><p><span class="color-green"><a href="https://www.ventoy.net/en/download.html">Ventoy</a></span> to zupełnie inna klasa oprogramowania (Chainloader). Instalujesz go na dysku USB tylko raz.</p>
+<p>Największą przewagą Ventoy jest <span class="color-green">brak konieczności formatowania nośnika</span> przy zmianie obrazu. Mając jeden pojemny pendrive, możesz umieścić na nim dziesiątki plików $\text{ISO}$ — np. instalatory Windows 11, serwerowe edycje dystrybucji Linux oraz środowiska diagnostyczne — po prostu je kopiując. </p>
+<p>Po zbootowaniu z USB, Ventoy wyświetli listę wszystkich obecnych na dysku obrazów $\text{ISO}$ i po dokonaniu wyboru zainicjuje wskazany system, emulując w locie sprzętowy napęd optyczny.</p>
+<p><span class="color-green">Jak przygotować pendrive z Ventoy:</span></p>
+<ol>
+<li>Pobierz archiwum <code>.zip</code> programu Ventoy i rozpakuj je.</li>
+<li>Uruchom plik <span class="color-blue"><code>Ventoy2Disk.exe</code></span>.</li>
+<li>Wybierz swój pendrive (uwaga: <span class="color-red">ta czynność całkowicie go sformatuje!</span>).</li>
+<li>Kliknij <span class="color-green">Install</span> (Zainstaluj).<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/instalacja_Ventoy.webp" alt="Aplikacja Ventoy2Disk z wybranym pendrivem i przyciskiem Install" width="623" height="619" class="lazy-image" loading="lazy" decoding="async"></li>
+<li>Po instalacji, otwórz <span class="color-blue">Ten Komputer</span>. Ventoy podzielił pendrive na dwa obszary:<ul>
+<li><span class="color-green"><code>Ventoy</code></span> (zazwyczaj format <code>exFAT</code>) – to Twoja główna, potężna przestrzeń. Tu będziesz wrzucać pliki instalacyjne $\text{ISO}$.</li>
+<li><span class="color-green"><code>VTOYEFI</code></span> (zaledwie $32\text{ MB}$ w <code>FAT32</code>) – to partycja rozruchowa z bootloaderem. Windows bardzo często samoistnie przypisze jej literę i pokaże ją obok, mimo że powinna być ukryta. <span class="color-red">Pamiętaj: nic na nią nie wrzucasz i absolutnie jej nie modyfikujesz!</span></li>
+</ul>
+</li>
+</ol>
+ <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ventoy_partycje.webp" alt="Dysk Ventoy w Eksploratorze plików i w przystawce zarządzania dyskami" width="565" height="162" class="lazy-image" loading="lazy" decoding="async">
+6. **Po prostu skopiuj plik ISO Windows 11** i wklej na ten nośnik. To wszystko!</div>
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz Pary: Komponenty instalatora</h2>
+<p>Przetestuj zrozumienie zależności środowiska przed przystąpieniem do operacji z wirtualizacją.</p>
+<data-gate>
+<data-connection-matcher title="Architektura Rozruchowa">
+    <item left="Wielość obrazów `.iso` na jednym nośniku pendrive" right="Ventoy"></item>
+    <item left="Fizyczne wyodrębnienie struktury $\text{ISO}$ i paczek instalacyjnych na dysk USB" right="Rufus"></item>
+    <item left="Sprzętowy klucz kryptograficzny na płycie głównej" right="TPM 2.0"></item>
+    <item left="Oficjalne źródło niemodyfikowanych obrazów $\text{ISO}$" right="Witryna Microsoftu"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>$\text{ISO}$ to zamknięty, skompresowany system plików zawierający instalator gotowy do wdrożenia,</li>
+<li>serwisy zewnętrzne jak <span class="color-blue">basewin.pl</span> mogą dostarczać nośniki z wbudowanymi obejściami wymagań sprzętowych,</li>
+<li>Windows 11 twardo weryfikuje zabezpieczenia sprzętowe procesów w tle (<code>TPM 2.0</code> i <code>UEFI</code> z <code>Secure Boot</code>),</li>
+<li>proces tworzenia nośnika instalacyjnego w Rufusie to głęboka modyfikacja dysku USB pozwalająca wstrzyknąć parametry omijania wymagań sprzętowych,</li>
+<li>Ventoy eliminuje potrzebę ciągłego formatowania pendrive'a za pomocą ukrytej logiki <span class="color-blue">Chainloadera</span>.</li>
+</ul>
+<hr>
+<p>W następnej lekcji poznamy zasady wirtualizacji instalacji i wejdziemy w środowisko VirtualBox. 🚀</p>
+</section>

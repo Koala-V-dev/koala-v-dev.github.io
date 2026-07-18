@@ -1,0 +1,470 @@
+<h1>Kaskadowość i Specyficzność</h1>
+<p>CSS nie jest zwykłą listą życzeń. Przeglądarka nie traktuje Twojego kodu jak zbioru poleceń, które wykonuje bezkrytycznie jedno po drugim.<br>Przeglądarka internetowa działa jak sędzia. Każdego dnia rozstrzyga setki sprzecznych instrukcji o tym, jak ma wyglądać pojedynczy element na ekranie.<br>Jeśli dwie różne reguły próbują ustawić odmienne kolory dla tego samego przycisku, przeglądarka musi rozstrzygnąć ten spór natychmiast.</p>
+<p>Do tego służy kaskada oraz specyficzność. Zrozumienie tych mechanizmów to klucz do sprawnego pisania CSS.</p>
+<p>Najważniejsza zasada tej lekcji brzmi: <strong><span class="color-green">CSS jest systemem rozstrzygania konfliktów, a nie tylko zbiorem dekoracji</span></strong>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏛️ Podział odpowiedzialności: HTML vs CSS</h2>
+<p>Pisząc kod, zawsze oddzielasz strukturę dokumentu od jego prezentacji.<br>HTML opisuje znaczenie treści, a CSS definiuje jej wygląd.</p>
+<p>Możesz wpisać styl bezpośrednio w atrybucie tagu, na przykład <code>&lt;p style="color: blue;"&gt;</code>.<br>Jest to jednak uciążliwe przy wielu podstronach. Gdy nagle musisz zmienić wygląd w całym serwisie, musisz edytować każdy plik osobno.<br>Zewnętrzny plik z rozszerzeniem <code>.css</code> to jedno źródło prawdy dla wszystkich podstron.<br>Dzięki temu oddzielasz kod HTML od CSS i zmieniasz wygląd całego serwisu w jednym miejscu.</p>
+<p>Aby połączyć zewnętrzny plik CSS z dokumentem HTML, używamy znacznika <code>&lt;link&gt;</code> umieszczanego w sekcji <code>&lt;head&gt;</code> pliku HTML:</p>
+<pre><code class="language-html">&lt;head&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+</code></pre>
+<p>Atrybut <code>href</code> wskazuje ścieżkę do pliku ze stylami, a <code>rel="stylesheet"</code> informuje przeglądarkę o typie powiązania.</p>
+<p>Istnieje jednak ważny wyjątek od tej reguły.<br>Są to style krytyczne (ang. <span class="color-blue">Critical CSS</span>).<br>Wklejamy je bezpośrednio w nagłówku <code>&lt;head&gt;</code> strony HTML. Przeglądarka może je wtedy narysować od pierwszej milisekundy.<br>Używamy ich do stworzenia prostego wskaźnika ładowania (loadera). Użytkownik widzi wtedy reakcję strony natychmiast, co poprawia odbiór aplikacji.</p>
+<p>Style krytyczne chronią również użytkownika przed zjawiskiem nagłego rozbłysku (ang. <span class="color-blue">flashlight</span>).<br>Gdy użytkownik pracuje w nocy z ciemnym motywem, nagły błysk białego tła przed załadowaniem stylów zewnętrznych męczy oczy.<br>Wstrzyknięcie podstawowych stylów ciemnego tła bezpośrednio w dokument HTML eliminuje ten problem.</p>
+<iframe src="/public/resources/web-site-preview/critical-css-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulacja ładowania Critical CSS vs Flashlight" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Podstawy wyglądu: kolory, czcionki i motywy</h2>
+<p>Na początku nauki CSS skupisz się na trzech podstawowych właściwościach tekstu i tła:</p>
+<ul>
+<li><code>color</code> (kolor samego tekstu),</li>
+<li><code>background-color</code> (barwa tła elementu),</li>
+<li><code>font-family</code> (krój czcionki).</li>
+</ul>
+<p>Dziś standardem projektowania stron jest wsparcie dla jasnego i ciemnego motywu. W CSS realizujemy to za pomocą zmiennych oraz reguł <span class="color-green">@media</span> (tzw. zapytań mediów):</p>
+<pre><code class="language-css">:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+  }
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+</code></pre>
+<h3>⚙️ Jak działają reguły @media?</h3>
+<p>Reguła <code>@media</code> to instrukcja warunkowa w CSS. Mówi ona przeglądarce: „zastosuj ten blok stylów tylko wtedy, gdy spełniony jest konkretny warunek urządzenia”. </p>
+<p>W powyższym kodzie używamy zapytania <code>(prefers-color-scheme: dark)</code>. Przeglądarka odczytuje preferencje kolorystyczne bezpośrednio z systemu operacyjnego użytkownika. Jeśli w systemie (np. w menu <kbd class="win-menu-btn">Ustawienia</kbd> → <kbd class="win-menu-btn">Personalizacja</kbd> → <kbd class="win-menu-btn">Kolory</kbd>, jak na poniższym zrzucie ekranu) włączony jest tryb ciemny, przeglądarka podmieni wartości zmiennych <code>--bg-color</code> i <code>--text-color</code> na ich ciemne odpowiedniki.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/motyw-systemu-windows-11.webp" alt="" width="740" height="714" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌊 Algorytm kaskady: jak przeglądarka godzi sprzeczne reguły</h2>
+<p>Nazwa <span class="color-blue">Cascading Style Sheets</span> wprost odnosi się do sposobu, w jaki style spływają kaskadą przez różne poziomy decyzyjne.<br>Słowo „kaskadowość” (Cascading) oznacza, że style spływają z góry na dół przez kolejne poziomy decyzyjne.<br>Gdy przeglądarka musi ustalić wygląd elementu, sprawdza trzy kryteria w określonej kolejności.</p>
+<h3>🏢 1. Znaczenie i pochodzenie stylu</h3>
+<p>Przeglądarka najpierw bada, skąd pochodzi dany styl.<br>Style zderzają się na trzech poziomach ważności:</p>
+<ul>
+<li>Style domyślne przeglądarki (<span class="color-gold">user agent stylesheet</span>).</li>
+<li>Style użytkownika (na przykład własne powiększone czcionki).</li>
+<li>Style dewelopera (Twoje pliki CSS).</li>
+</ul>
+<p>Możesz zmienić domyślną kolejność ważności poprzez użycie słowa <code>!important</code> na końcu deklaracji.</p>
+<h3>⚖️ 2. Specyficzność selektora</h3>
+<p>Jeśli dwa sprzeczne style pochodzą z tego samego źródła, przeglądarka porównuje ich specyficzność.<br>Specyficzność to matematyczna waga selektora.<br>Im bardziej precyzyjnie wskażesz element, tym większą siłę ma Twoja reguła.</p>
+<h3>🧭 3. Kolejność w kodzie</h3>
+<p>Gdy pochodzenie oraz specyficzność są identyczne, przeglądarka stosuje regułę ostatniej szansy.<br>Styl zdefiniowany niżej w pliku CSS nadpisze ten zdefiniowany wyżej.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Selektory w akcji: precyzja wskazywania elementów</h2>
+<p>Selektor to wyrażenie wskazujące przeglądarce, do którego elementu HTML ma zastosować styl.<br>Odpowiedni dobór selektorów pozwala zachować czytelność kodu i ułatwia późniejsze modyfikacje.</p>
+<h3>🧱 Selektory proste</h3>
+<p>Selektory proste to podstawowe narzędzie do wskazywania elementów w dokumencie HTML:</p>
+<ul>
+<li><span class="color-green">Selektor elementu (tagu):</span> odwołuje się do wszystkich tagów danego typu (np. <code>p</code> stylizuje każdy akapit, a <code>h1</code> każdy nagłówek pierwszego stopnia).</li>
+<li><span class="color-green">Selektor klasy:</span> oznaczany kropką <code>.</code> w pliku CSS (np. <code>.card</code>), która odpowiada atrybutowi <code>class="card"</code> w kodzie HTML. Klasy są elastyczne: możesz przypisać tę samą klasę do wielu różnych elementów na jednej stronie. Z tego powodu na klasach opiera się niemal całą strukturę współczesnego CSS.</li>
+<li><span class="color-green">Selektor identyfikatora (ID):</span> oznaczany hasztagiem <code>#</code> w pliku CSS (np. <code>#main-header</code>), który odpowiada atrybutowi <code>id="main-header"</code> w kodzie HTML. Identyfikator musi być unikalny — dany identyfikator może pojawić się na danej stronie HTML <span class="color-red">tylko jeden raz</span>.</li>
+</ul>
+<h4>🧭 Kiedy używać ID?</h4>
+<p>Ze względu na ogromną wagę specyficzności identyfikatorów, ich stosowanie bezpośrednio w arkuszach stylów CSS jest złą praktyką (blokują one elastyczność kaskady). ID ma jednak kluczowe, niezastąpione zastosowania w strukturze strony:</p>
+<ol>
+<li><span class="color-green">Dostępność (Accessibility):</span> łączenie etykiet z polami formularzy (atrybut <code>for</code> w <code>&lt;label&gt;</code> odsyłający do <code>id</code> w <code>&lt;input&gt;</code>) oraz asocjacje z atrybutami typu <code>aria-describedby</code> i <code>aria-labelledby</code>.</li>
+<li><span class="color-green">Nawigacja wewnątrzstronnicowa (kotwice):</span> odnośniki w menu <code>&lt;a href="#kontakt"&gt;</code> przenoszące użytkownika bezpośrednio do sekcji zdefiniowanej jako <code>&lt;section id="kontakt"&gt;</code>.</li>
+<li><span class="color-green">Skrypty JavaScript:</span> szybkie i jednoznaczne pobieranie konkretnego elementu z drzewa DOM za pomocą <code>document.getElementById()</code>.</li>
+</ol>
+<h3>🧩 Pseudo-klasy i pseudo-elementy</h3>
+<p>Pseudo‑klasy opisują stany elementów. Najpopularniejsza pseudo‑klasa <code>:hover</code> reaguje na najechanie kursorem myszy, a <code>:focus</code> aktywuje się podczas nawigacji klawiaturą (np. po wciśnięciu klawisza <kbd>Tab</kbd>).</p>
+<p>Pseudo‑elementy pozwalają wstawić wirtualną strukturę bez modyfikacji kodu HTML. Za pomocą pseudo‑elementów <code>::before</code> oraz <code>::after</code> w połączeniu z właściwością <code>content</code> wstrzykniesz dekoracje bezpośrednio przed lub po zawartości elementu.</p>
+<h3>🔗 Kombinatory</h3>
+<p>Kombinatory łączą selektory, tworząc relacje w drzewie dokumentu:</p>
+<ul>
+<li><span class="color-green">Kombinator potomka (spacja):</span> wybiera wszystkie zagnieżdżone elementy wewnątrz określonego rodzica (np. <code>.box article</code> ostyluje każdy tag <code>article</code> zagnieżdżony wewnątrz kontenera <code>.box</code>, niezależnie od głębokości. Nawet te zagnieżdżone w sobie nawzajem artykuły).</li>
+<li><span class="color-green">Kombinator dziecka (<code>&gt;</code>):</span> ogranicza stylizację wyłącznie do bezpośrednich potomków (np. <code>.box &gt; article</code> ostyluje tylko te artykuły <code>article</code>, które znajdują się bezpośrednio na pierwszym poziomie kontenera <code>.box</code>, ignorując te głębiej zagnieżdżone).</li>
+<li><span class="color-green">Kombinator sąsiedni (<code>+</code>):</span> stylizuje element leżący bezpośrednio po wybranym tagu na tym samym poziomie struktury HTML (np. w sekwencji trzech kontenerów selektor <code>.box + .box</code> ostyluje zarówno drugi, jak i trzeci kontener, ponieważ każdy z nich ma bezpośrednio przed sobą inny element <code>.box</code>).</li>
+</ul>
+<p>Dzięki kombinatorom precyzyjnie zaadresujesz elementy bez konieczności nadawania im osobnych klas.</p>
+<iframe src="/public/resources/web-site-preview/combinators-visualizer.html" width="600" height="450" style="border: 3px solid #ccc;width: 100%;" title="Wizualizator kombinatorów CSS" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Matematyka specyficzności: obliczanie wagi</h2>
+<p>Specyficzność to system punktowy obliczany przez przeglądarkę.<br>Wagę selektora zapisujemy w postaci czterech kolumn: <span class="color-green">(Inline, ID, Klasa, Element)</span>.</p>
+<p>System ten przypomina <span class="color-green">pozycyjny zapis liczbowy</span> (taki jak system dziesiętny, szesnastkowy lub dwójkowy). Wartość w lewej kolumnie ma zawsze nieskończenie większą wagę niż wartość w prawej kolumnie. Oznacza to, że pojedynczy punkt w kolumnie ID <code>(0, 1, 0, 0)</code> zawsze przeważy nad dowolną liczbą punktów w kolumnie klas czy elementów (np. selektor z dziesięcioma klasami <code>(0, 0, 10, 0)</code> i tak przegra z jednym ID). Historycznie niektóre silniki przeglądarek dosłownie kodowały te wartości jako liczby szesnastkowe (np. <code>0x0110</code> dla jednego ID i jednej klasy).</p>
+<p>Wartości poszczególnych kolumn obliczamy następująco:</p>
+<ol type="A">
+    <li>
+    
+<p><span class="color-green">Styl wbudowany:</span> Zapisany bezpośrednio w atrybucie <code>style="..."</code> w pliku HTML. Waga wynosi $1$ punkt w pierwszej kolumnie: <code>(1, 0, 0, 0)</code>.</p></li><p></p>
+<li>
+    
+<p><span class="color-green">Identyfikatory:</span> Każde użycie ID (np. <code>#header</code>) daje $1$ punkt w drugiej kolumnie: <code>(0, 1, 0, 0)</code>.</p></li><p></p>
+<li>
+    
+<p><span class="color-green">Klasy, atrybuty, pseudo‑klasy:</span> Klasy (np. <code>.card</code>), selektory atrybutów (np. <code>[type="text"]</code>) oraz pseudo‑klasy opisujące stany (np. <code>:hover</code>) dają $1$ punkt w trzeciej kolumnie: <code>(0, 0, 1, 0)</code>.</p></li><p></p>
+<li>
+    
+<p><span class="color-green">Elementy, pseudo‑elementy:</span> Tagi HTML (np. <code>p</code>) oraz pseudo‑elementy (np. <code>::before</code>) dają $1$ punkt w czwartej kolumnie: <code>(0, 0, 0, 1)</code>.</p></li><p></p>
+</ol>
+
+<iframe src="/public/resources/web-site-preview/cascade-visualizer.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Wizualizator kaskady i specyficzności CSS" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<hr>
+<data-gate>
+  <data-web-challenge id="specificity-challenge">
+    <template data-type="html">
+<div class="card">
+  <h2 class="title">Tytuł karty</h2>
+  <p class="desc">Opis karty z tekstem pomocniczym.</p>
+</div>
+    </template>
+    <template data-type="css-readonly">
+div.card h2.title {
+  color: #e74c3c; /* Czerwony */
+}
+div.card {
+  background-color: #2c3e50;
+}
+    </template>
+    <template data-type="css">
+/* Twoje zadanie: Napraw kolory bez używania !important!
+   Napisz selektory o wyższej specyficzności na dole, aby nadpisać powyższe reguły!
+   1. Ustaw kolor tła .card na ciemnoszary (#1a1a1a)
+   2. Ustaw kolor tekstu .title na złamany biały (#ebebeb) */
+.card {
+  /* Wpisz reguły tła (wskazówka: .card ma mniejszą specyficzność niż div.card) */
+}
+.title {
+  /* Wpisz reguły koloru tekstu */
+}
+.desc {
+  color: #bdc3c7;
+}
+    </template>
+    <template data-type="requirements">
+      [
+        {"id": "bg-color", "text": "Ustaw kolor tła .card na ciemnoszary (#1a1a1a)", "type": "selector-css", "selector": ".card", "property": "background-color", "value": "#1a1a1a"},
+        {"id": "title-color", "text": "Ustaw kolor tekstu .title na złamany biały (#ebebeb)", "type": "selector-css", "selector": ".title", "property": "color", "value": "#ebebeb"}
+      ]
+    </template>
+  </data-web-challenge>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧬 Dziedziczenie: kiedy style przechodzą w głąb dokumentu</h2>
+<p>Dziedziczenie to mechanizm, w którym niektóre właściwości CSS przechodzą z rodzica na jego dzieci w drzewie dokumentu.<br>Zapobiega to ciągłemu powtarzaniu tego samego kodu dla każdego elementu z osobna.</p>
+<h3>🟢 Co się dziedziczy?</h3>
+<p>Przeglądarka pozwala na automatyczne dziedziczenie właściwości powiązanych z prezentacją tekstu.<br>Należą do nich między innymi rodzina czcionek, rozmiar tekstu, jego waga, kolor oraz wysokość linii.<br>Wystarczy, że zdefiniujesz te właściwości dla kontenera <code>body</code>, a wszystkie podrzędne elementy tekstowe je przejmą.<br>Ułatwia to spójne zarządzanie typografią na całej stronie za pomocą zaledwie kilku linijek kodu.</p>
+<h3>🔴 Co się nie dziedziczy?</h3>
+<p>Przeglądarka nie dziedziczy właściwości związanych z układem przestrzennym i rozmiarem pudełka. Należą do nich marginesy zewnętrzne (<code>margin</code>), marginesy wewnętrzne (<code>padding</code>), obramowanie oraz kolor tła.<br>Bez tej blokady na stronie panowałby chaos: gdyby obramowanie sekcji dziedziczyło się automatycznie, każdy akapit i link wewnątrz tekstu otrzymałyby własną ramkę.<br>Dzięki blokadzie dziedziczenia elementy zachowują swój unikalny kształt i pozycję bez wpływu otaczających ich rodziców.</p>
+<h3>🛠️ Sterowanie dziedziczeniem (Wymuszony reset i dziedziczenie)</h3>
+<p>Czasami domyślne zachowanie przeglądarki nam nie odpowiada: chcemy zmusić element do dziedziczenia czegoś, co normalnie się nie dziedziczy (np. zmusić przycisk do przejęcia czcionki strony), albo zresetować styl do domyślnych wartości fabrycznych. </p>
+<p>Do sterowania tym mechanizmem służą cztery specjalne wartości w CSS:</p>
+<ol>
+<li><p><span class="color-green"><code>inherit</code> (Przejmij od rodzica)</span><br>Zmusza element do odczytania wartości od swojego bezpośredniego rodzica, nawet jeśli dana właściwość normalnie się nie dziedziczy.</p>
+<ul>
+<li><span class="color-green">Przykład:</span> Domyślnie przyciski <code>&lt;button&gt;</code> w przeglądarce ignorują czcionkę ustawioną dla całej strony (dla <code>body</code>). Aby to naprawić, zmuszamy je do przejęcia wartości:<pre><code class="language-css">button {
+    font-family: inherit; /* Przyjmij czcionkę po rodzicu */
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><span class="color-green"><code>initial</code> (Wyczyść do wartości fabrycznych CSS)</span><br>Resetuje właściwość do jej oficjalnej, fabrycznej wartości domyślnej zdefiniowanej w specyfikacji CSS (całkowicie ignoruje style rodziców).</p>
+<ul>
+<li><span class="color-green">Przykład:</span> Jeśli zmieniliśmy kolor tekstu w całej sekcji na zielony, a dla jednego akapitu chcemy przywrócić fabryczny domyślny kolor przeglądarki, piszemy:<pre><code class="language-css">p.reset {
+    color: initial; /* Wróć do domyślnej czerni CSS */
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><span class="color-green"><code>unset</code> (Inteligentny powrót do natury)</span><br>Działa jak automatyczny przełącznik:</p>
+<ul>
+<li>Jeśli właściwość naturalnie się dziedziczy (np. <code>color</code>), <code>unset</code> zachowa się jak <code>inherit</code>.</li>
+<li>Jeśli właściwość naturalnie się NIE dziedziczy (np. <code>border</code>, <code>margin</code>), <code>unset</code> zachowa się jak <code>initial</code>.</li>
+<li><span class="color-green">Przykład:</span> Zastosowanie <code>all: unset;</code> na przycisku <code>&lt;button&gt;</code> usunie z niego <span class="color-green">całkowicie</span> wbudowane style przeglądarki (szare tło, ramkę, marginesy wewnętrzne), zamieniając go w czysty, surowy tekst:<pre><code class="language-css">button.raw {
+    all: unset; /* Przycisk staje się wizualnie zwykłym tekstem */
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><span class="color-green"><code>revert</code> (Cofnij do domyślnych stylów przeglądarki)</span><br>Przywraca właściwość do wartości, jaką posiadałaby, gdyby autor strony nie napisał dla niej żadnych własnych reguł. Oznacza to powrót do domyślnego stylu przeglądarki (tzw. <span class="color-blue">User Agent Stylesheet</span>).</p>
+<ul>
+<li><span class="color-green">Przykład:</span> Jeśli całkowicie zmodyfikowaliśmy styl przycisków na stronie, ale dla jednego z nich chcemy przywrócić fabryczny wygląd z szarym tłem i domyślnym obramowaniem systemowym, piszemy:<pre><code class="language-css">button.classic {
+    all: revert; /* Przywraca fabryczny, domyślny wygląd przycisku */
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<data-gate>
+  <data-web-challenge id="inheritance-challenge">
+    <template data-type="html">
+<div class="container">
+  <button class="my-btn">Kliknij mnie</button>
+</div>
+    </template>
+    <template data-type="css-readonly">
+.container {
+  font-family: monospace;
+  color: #2ecc71;
+}
+    </template>
+    <template data-type="css">
+/* Twoje zadanie:
+   1. Zmuś przycisk (.my-btn) do przejęcia czcionki po rodzicu (.container) za pomocą inherit
+   2. Zresetuj style przycisku (tło i obramowanie) za pomocą unset */
+.my-btn {
+  /* Wpisz reguły */
+}
+    </template>
+    <template data-type="requirements">
+      [
+        {"id": "font-inherit", "text": "Zmuś .my-btn do dziedziczenia czcionki po rodzicu (.container)", "type": "selector-css", "selector": ".my-btn", "property": "font-family", "value": "inherit"},
+        {"id": "all-unset", "text": "Zresetuj tło i obramowanie przycisku za pomocą unset", "type": "contains", "target": "css", "pattern": "unset"}
+      ]
+    </template>
+  </data-web-challenge>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>♿ Dostępność wizualna: kontrast, dysleksja i barwy</h2>
+<p>Projektowanie interfejsów to także dbanie o to, by były one dostępne dla każdego użytkownika.</p>
+<h3>👓 Dobór czcionek pod dysleksję</h3>
+<p>Osoby z dysleksją napotykają trudności z płynnym odczytywaniem i rozróżnianiem kształtów liter, zwłaszcza w przypadku znaków o zbliżonej budowie graficznej (takich jak mała litera <code>l</code>, wielka litera <code>I</code> oraz cyfra <code>1</code>).<br>Możesz ułatwić im czytanie za pomocą odpowiedniego formatowania i doboru fontów w CSS.<br>Doskonałą praktyką jest stosowanie krojów pisma opracowanych z myślą o czytelności, takich jak specjalistyczny font <span class="color-green">Atkinson Hyperlegible</span> (stosowany w połączeniu z <code>Verdana</code> lub <code>Geneva</code>).<br>Domyślne systemowe czcionki bezszeryfowe (np. <span class="color-blue">Inter</span> lub <span class="color-blue">system‑ui</span>) również sprawdzają się lepiej niż tradycyjne czcionki szeryfowe o ozdobnych zakończeniach linii.</p>
+<p>Zwiększaj odstęp między wierszami za pomocą wysokości linii ustawionej w przedziale <span class="color-green">od $1.5$ do $1.8$</span>, np. <code>line-height: 1.7</code>.<br>Unikaj jednak przekraczania wartości $1.8$. Zbyt duże odległości pionowe rozpraszają powierzchnię tekstu i tworzą zbyt duże plamy światła, co utrudnia skupienie wzroku osobom z astygmatyzmem.<br>Unikaj także pełnego wyjustowania tekstu (<code>text-align: justify</code>). Tworzy ono nieregularne pionowe korytarze białej przestrzeni między wyrazami, które skutecznie rozpraszają czytelnika.</p>
+<iframe src="/public/resources/web-site-preview/dyslexia-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulacja typografii dla dysleksji" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<h3>🌗 Kontrast i czytelność tekstu</h3>
+<p>Osoby słabowidzące tracą zdolność rozróżniania słabych kontrastów barw tekstu i tła.<br>Wytyczne WCAG definiują minimalne progi dostępności cyfrowej dla tekstu standardowego (poniżej $18\text{pt}$ / $24\text{px}$):</p>
+<ul>
+<li><span class="color-green">Poziom AA (podstawowy):</span> kontrast tekstu do tła musi wynosić co najmniej <span class="color-green">$4.5:1$</span>.</li>
+<li><span class="color-green">Poziom AAA (optymalny):</span> kontrast tekstu do tła musi wynosić co najmniej <span class="color-green">$7:1$</span>.</li>
+</ul>
+<p>Dla dużych tekstów (powyżej $18\text{pt}$ lub pogrubionych powyżej $14\text{pt}$) wymagania te są łagodniejsze i wynoszą odpowiednio $3:1$ (AA) oraz $4.5:1$ (AAA). Przestrzeganie standardu AAA chroni wzrok wszystkich użytkowników pracujących np. na zewnątrz w pełnym słońcu lub na ściemnionym ekranie urządzenia.</p>
+<h4>👁️ Ciemny motyw, astygmatyzm i zjawisko halacji (poświaty)</h4>
+<p>Podczas projektowania ciemnego motywu (Dark Mode) należy pamiętać, że skrajnie wysoki kontrast (np. czysta biel <code>#ffffff</code> na czarnym tle <code>#000000</code>) utrudnia czytanie osobom z astygmatyzmem. Powstaje wtedy tzw. <span class="color-green">zjawisko halacji (poświaty)</span>. Efekt ten sprawia, że jasne litery emitują światło, które zmniejsza ostrość liter i pogarsza ich czytelność. Zjawisko to może dotyczyć również osób w starszym wieku. </p>
+<ul>
+<li><span class="color-green">Rozwiązanie:</span> Zgodnie z dobrymi praktykami dostępności WCAG, zamiast czystej bieli na czerni, należy <span class="color-gold">zmiękczyć kontrast</span>. Używaj jasnoszarych lub złamanych odcieni bieli (np. <code>#ebebeb</code> lub <code>#bababa</code>) na ciemnoszarym tle (np. <code>#151515</code>). Zapewnia to wysoki, czytelny kontrast bez wywoływania poświaty i męczenia wzroku.</li>
+</ul>
+<data-gate>
+<data-color-contrast></data-color-contrast>
+</data-gate>
+
+<h3>📏 Rozkład znaków i resetowanie stylów (CSS Resets)</h3>
+<p>Odstępy między znakami, wyrazami i liniami tekstu decydują o tym, jak szybko mózg przetwarza słowo pisane. Wytyczne <span class="color-green">WCAG 2.2 (Kryterium 1.4.12 - Text Spacing)</span> określają minimalne wymagania dla poprawnego rozkładu przestrzennego tekstu. Według nich system musi umożliwiać użytkownikowi zmianę parametrów do następujących wartości:</p>
+<ul>
+<li><span class="color-green">Wysokość linii (<code>line-height</code>):</span> co najmniej <span class="color-green">$1.5$</span> stopnia pisma,</li>
+<li><span class="color-green">Odstęp między literami (<code>letter-spacing</code>):</span> co najmniej <span class="color-green">$0.12\text{em}$</span>,</li>
+<li><span class="color-green">Odstęp między wyrazami (<code>word-spacing</code>):</span> co najmniej <span class="color-green">$0.16\text{em}$</span>.</li>
+</ul>
+<p>W praktyce deweloperskiej narzucenie pełnych wartości WCAG jako sztywnego globalnego resetu (<code>*</code>) może rozbić interfejsy (np. przyciski czy menu). Stosuje się więc kompromisy deweloperskie. Poniższa tabela przedstawia trzy główne warianty globalnego resetu typograficznego:</p>
+<table>
+<thead>
+<tr>
+<th>Reset minimalny (Standardowy)</th>
+<th>Reset optymalny (Praktyczny złoty środek)</th>
+<th>Reset skrajny (Zalecany przez WCAG)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+<pre><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.4;
+  letter-spacing: .5px;
+  word-spacing: 0;
+}
+</code></pre>
+<p><span class="color-blue">Zabezpiecza podstawowy układ stron, ale nie zapewnia pełnej dostępności typograficznej dla osób z trudnościami poznawczymi.</span></p>
+</td>
+<td>
+
+<pre><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.8;
+  letter-spacing: .06rem;
+  word-spacing: .13rem;
+  -webkit-text-stroke: .4px rgba(0,0,0,.2);
+}
+</code></pre>
+<p><span class="color-blue">Moja preferencja 🥸, sprawdzona w projektach kombinacja. Równoważy czytelność z bezpieczeństwem układu stron.</span></p>
+</td>
+<td>
+
+<pre><code class="language-css">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.8;
+  letter-spacing: .12em;
+  word-spacing: .16em;
+}
+</code></pre>
+<p><span class="color-blue">Wymusza maksymalne dopuszczalne odstępy zalecane przez standard WCAG. Wymaga bardzo elastycznego projektowania layoutów flex/grid.</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<h4>💡 Dlaczego ten wariant to optymalny złoty środek?</h4>
+<ol>
+<li><span class="color-green"><code>line-height: 1.8;</code></span>: zapewnia odpowiednią przestrzeń pionową między wierszami. Zapobiega to zlewaniu się sąsiednich linii tekstu, a jednocześnie nie rozprasza uwagi zbyt szerokimi przerwami. Można ją zmniejszyć ale nie poniżej $1.6$ które definitywnie ukraca problematykę gubienia wiersza.</li>
+<li><span class="color-green"><code>letter-spacing: .06rem;</code></span> (ok. $1\text{px}$): zapobiega optycznemu zlewaniu się liter (ang. <span class="color-blue">crowding</span>). Zwiększa czytelność bez rozbijania struktury małych elementów interfejsu (np. przycisków).</li>
+<li><span class="color-green"><code>word-spacing: .13rem;</code></span> (ok. $2\text{px}$): zwiększa odległości między słowami. Pozwala to na znacznie szybsze i łatwiejsze wyodrębnianie wyrazów.</li>
+<li><span class="color-green"><code>-webkit-text-stroke: .4px rgba(0,0,0,.2);</code></span>: bardzo cienki obrys stosowany jako niestandardowa technika wyostrzania czcionki na ekranie w ciemnym motywie.<ul>
+<li><span class="color-green">Jak to działa:</span> Właściwość ta redukuje efekt rozmycia krawędzi (antyaliasingu) generowanego przez przeglądarkę. Działa jak subtelny „cień do wewnątrz” na glifach. Dzięki temu czcionka traci nieco na swojej optycznej objętości (staje się cieńsza), co eliminuje poświatę i sprawia, że krawędzie znaków wydają się ostrzejsze.</li>
+<li><span class="color-green">Wskazówka:</span> Ponieważ obrys zmniejsza grubość linii liter, stosuj go ostrożnie. Najlepiej sprawdza się w elementach interfejsu (UI), nagłówkach czy czcionkach technicznych (np. KaTeX). W przypadku długich fragmentów tekstu może za bardzo odchudzić litery, powodując szybsze zmęczenie wzroku.</li>
+</ul>
+</li>
+</ol>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; font-family: system-ui, sans-serif; font-size: 16px;">
+    <!-- Lewy panel: Ciemny motyw (#101010) -->
+    <div style="background-color: #ebebeb; color: #f00; padding: 20px; border-radius: 8px; border: 1px solid #334155; box-sizing: border-box;">
+        <h5 style="margin-top: 0; color: #94a3b8; font-size: 13px; text-transform: uppercase; margin-bottom: 16px;">Ciemny motyw (Tło: #101010, Kolor: #f3f3f3)</h5>
+        <!-- Bez obrysu -->
+        <div style="margin-bottom: 16px; border-bottom: 1px dashed #222530; padding-bottom: 8px;">
+            <span style="font-size: 11px; color: #64748b; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 0px (Bez obrysu)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+        <!-- Wyszczuplenie 0.4px -->
+        <div style="margin-bottom: 16px; border-bottom: 1px dashed #222530; padding-bottom: 8px;">
+            <span style="font-size: 11px; color: #64748b; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 0.4px #101010 (Optyczne wyszczuplenie)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px #101010; line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px #101010; line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+        <!-- Utrata znaków 1px -->
+        <div style="margin-bottom: 16px;">
+            <span style="font-size: 11px; color: #64748b; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 1px #101010 (Zbyt gruby - utrata znaków)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; -webkit-text-stroke: 1px #101010; line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; -webkit-text-stroke: 1px #101010; line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+        <!-- Twój wariant z przezroczystością, oddzielony linią akcentu -->
+        <div style="padding-top: 8px;">
+            <hr style="border: none; height: 1px; background-color: var(--accent-color); margin: 16px 0;">
+            <span style="font-size: 11px; color: #64748b; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 0.4px rgba(0,0,0,0.2) (Oryginalny reset)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px rgba(0,0,0,0.2); line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px rgba(0,0,0,0.2); line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+    </div>
+    <!-- Prawy panel: Jasny motyw (#f3f3f3) -->
+    <div style="background-color: #141414; color: #f00; padding: 20px; border-radius: 8px; border: 1px solid #cbd5e1; box-sizing: border-box;">
+        <h5 style="margin-top: 0; color: #64748b; font-size: 13px; text-transform: uppercase; margin-bottom: 16px;">Jasny motyw (Tło: #f3f3f3, Kolor: #101010)</h5>
+        <!-- Bez obrysu -->
+        <div style="margin-bottom: 16px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 8px;">
+            <span style="font-size: 11px; color: #94a3b8; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 0px (Bez obrysu)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+        <!-- Pogrubienie 0.4px -->
+        <div style="margin-bottom: 16px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 8px;">
+            <span style="font-size: 11px; color: #94a3b8; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 0.4px #101010 (Rozlewanie obrysu / pogrubienie)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px #101010; line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px #101010; line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+        <!-- Zlanie się glifów 1px -->
+        <div style="margin-bottom: 16px;">
+            <span style="font-size: 11px; color: #94a3b8; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 1px #101010 (Całkowite zlanie się glifów)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; -webkit-text-stroke: 1px #101010; line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; -webkit-text-stroke: 1px #101010; line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+        <!-- Twój wariant z przezroczystością, oddzielony linią akcentu -->
+        <div style="padding-top: 8px;">
+            <hr style="border: none; height: 1px; background-color: var(--accent-color); margin: 16px 0;">
+            <span style="font-size: 11px; color: #94a3b8; display: block; font-family: monospace; margin-bottom: 4px;">-webkit-text-stroke: 0.4px rgba(0,0,0,0.2) (Oryginalny reset)</span>
+            <div style="font-family: KaTeX_Main, 'Times New Roman', serif; font-size: 22px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px rgba(0,0,0,0.2); line-height: 1.2;">1 2 3 4 5 6 7 8 9 0</div>
+            <div style="font-family: system-ui, sans-serif; font-size: 18px; font-weight: 700; color: #f00; -webkit-text-stroke: 0.4px rgba(0,0,0,0.2); line-height: 1.2;">ą ę ó ł (Zażółć gęślą)</div>
+        </div>
+    </div>
+</div>
+
+<h3>🎨 Daltonizm i ślepota barw</h3>
+<p>Zaburzenia rozpoznawania barw uniemożliwiają odróżnienie kolorów takich jak czerwony i zielony.<br>Należą do nich protanopia (brak czerwonego), deuteranopia (brak zielonego) oraz rzadka achromatopsja (widzenie czarno‑białe).<br>Podstawowa zasada dostępności mówi, że nie wolno przekazywać ważnych informacji wyłącznie za pomocą koloru.<br>Jeśli pole formularza zawiera błąd, nie zaznaczaj go tylko czerwoną ramką, lecz dodaj ikonę ostrzeżenia i komunikat tekstowy.<br>Gdy umieszczasz link w tekście, nie wyróżniaj go tylko kolorem, ale zastosuj również podkreślenie.</p>
+<iframe src="/public/resources/web-site-preview/color-blindness-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulator daltonizmu w interfejsach" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚫 Wojna specyficzności i pułapka <code>!important</code></h2>
+<p>Błędy w planowaniu struktury CSS oraz brak dyscypliny w doborze selektorów często prowadzą do sytuacji, w której nowo dopisana reguła „nie chce zadziałać”. Przeglądarka ignoruje nasz nowy kod, ponieważ wcześniej zadeklarowany styl ma wyższą specyficzność. </p>
+<p>Szybkim, lecz niezwykle niebezpiecznym rozwiązaniem staje się wtedy użycie dopisku <code>!important</code>.</p>
+<h3>⚠️ Jak działa <code>!important</code> i dlaczego to pułapka?</h3>
+<p>Dodanie deklaracji <code>!important</code> na końcu właściwości (np. <code>color: red !important;</code>):</p>
+<ol>
+<li><span class="color-green">Nie modyfikuje specyficzności samego selektora.</span></li>
+<li><span class="color-green">Przenosi daną właściwość do specjalnego, najwyższego koszyka pierwszeństwa</span>, całkowicie ignorując normalną matematykę specyficzności.</li>
+</ol>
+<p>Prowadzi to do tzw. <span class="color-green">„wyścigu zbrojeń” w CSS (wojny specyficzności)</span>:</p>
+<ul>
+<li>Jeśli chcesz nadpisać właściwość oznaczoną jako <code>!important</code>, musisz użyć kolejnego selektora z <code>!important</code>, który ma wyższą specyficzność lub występuje później w kodzie.</li>
+<li>Z czasem kod staje się chaotyczny, trudny do debugowania, a prosta zmiana wyglądu elementu wymaga dopisywania <code>!important</code> w kolejnych plikach.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kiedy użycie <code>!important</code> jest uzasadnione?</span></p>
+<ul>
+<li><span class="color-green">Klasy narzędziowe (Utility classes):</span> Np. klasa <code>.d-none { display: none !important; }</code> lub <code>.visually-hidden</code>. Chcemy mieć pewność, że jeśli przypiszemy tę klasę do elementu, to zawsze ukryje ona ten element, bez względu na inne reguły.</li>
+<li><span class="color-green">Overriding stylów zewnętrznych:</span> Gdy musimy wymusić zmianę wyglądu widgetu dostarczanego przez zewnętrzny skrypt JS, który generuje sztywne style inline.</li>
+</ul>
+
+</div>
+</div><hr>
+<h3>🛡️ Dobre praktyki: Jak unikać konfliktów specyficzności?</h3>
+<p>Zamiast sięgać po <code>!important</code>, stosuj sprawdzony zestaw reguł architektonicznych:</p>
+<h4>1. Projektuj płaską specyficzność (Flat Specificity)</h4>
+<p>Staraj się, aby większość Twoich reguł miała taką samą, niską specyficzność (opieraj kod o pojedyncze klasy). Unikaj głębokiego zagnieżdżania selektorów.</p>
+<ul>
+<li><p>❌ <span class="color-green">Źle (wysoka specyficzność: $0, 1, 2, 1$):</span></p>
+<pre><code class="language-css">#sidebar .card .card-body h2 { color: #333; }
+</code></pre>
+<p><span class="color-blue">Ta reguła zablokuje możliwość łatwego ostylowania nagłówka w innym miejscu.</span></p>
+</li>
+<li><p><span class="color-green">Dobrze (niska specyficzność: $0, 0, 1, 0$):</span></p>
+</li>
+</ul>
+<pre><code class="language-css">.card__title { color: #333; }
+</code></pre>
+<p>  <span class="color-blue">Opieraj nazewnictwo o metodologie takie jak BEM (Block‑Element-Modifier), co pozwala zachować czystą strukturę.</span></p>
+<h4>2. Rezerwuj ID dla HTML i JS, nie dla CSS</h4>
+<p>Identyfikatory (<code>#</code>) mają specyficzność o wadze $100$, co natychmiast blokuje elastyczność kodu.</p>
+<ul>
+<li>Używaj identyfikatorów (<code>id="..."</code>) do kotwic (linków), powiązań formularzy (<code>&lt;label for="..."&gt;</code>) oraz jako selektorów dla JavaScript.</li>
+<li>Do stylizowania w CSS używaj <span class="color-green">wyłącznie klas</span> (<code>class="..."</code>).</li>
+</ul>
+<h4>3. Unikaj stylów wbudowanych (Inline Styles)</h4>
+<p>Style zadeklarowane bezpośrednio w tagu HTML (<code>style="..."</code>) mają specyficzność $1000$. </p>
+<ul>
+<li>Blokują one możliwość modyfikowania wyglądu za pomocą zewnętrznych arkuszy CSS.</li>
+<li>Całkowicie uniemożliwiają stosowanie zapytań medialnych (Media Queries) do responsywnego dostosowania elementu.</li>
+</ul>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Kaskada to sędzia CSS:</span> Rozstrzyga konflikty reguł na podstawie pochodzenia, specyficzności oraz kolejności zapisu w pliku.</li>
+<li><span class="color-green">Kolejność w kodzie decyduje przy remisie:</span> Jeśli specyficzność jest taka sama, wygrywa deklaracja znajdująca się najniżej.</li>
+<li><span class="color-green">Selektory i kombinatory różnicują zasięg:</span> Kombinator potomka (<code>A B</code>) stylowuje wszystkie głęboko zagnieżdżone elementy, kombinator dziecka (<code>A &gt; B</code>) tylko te bezpośrednie, a kombinator sąsiedztwa (<code>A + B</code>) bezpośrednie rodzeństwo.</li>
+<li><span class="color-green">Wagi specyficzności (A, B, C, D):</span> Styl inline ($1000$) &gt; ID ($100$) &gt; Klasy i pseudoklasy ($10$) &gt; Elementy ($1$).</li>
+<li><span class="color-green">Sterowanie dziedziczeniem:</span> <code>revert</code> cofa styl do wbudowanego wyglądu przeglądarki (User Agent), podczas gdy <code>unset</code> zrzuca go całkowicie do wartości inicjalnych specyfikacji CSS (dla cech niedziedziczonych).</li>
+<li><span class="color-green">Dziedziczenie redukuje powtórzenia:</span> Przekazuje właściwości tekstu (np. czcionkę czy kolor) w głąb dokumentu, ułatwiając zarządzanie typografią. Marginesy i tła nie dziedziczą się.</li>
+<li><span class="color-green">Zapobieganie halacji (poświaty):</span> W ciemnych motywach unikaj czystej bieli na czerni, aby chronić wzrok osób z astygmatyzmem. Zmiękczaj kontrast (np. <code>#ebebeb</code> na <code>#151515</code>).</li>
+<li><span class="color-green">Precyzyjne wyostrzanie obrysem:</span> Niestandardowy <code>-webkit-text-stroke</code> z kanałem alfa wyostrza czcionki techniczne (jak KaTeX) lub UI w ciemnym motywie poprzez redukcję antyaliasingu (odchudzenie krawędzi), ale zniekształca znaki diakrytyczne (ą, ę, ó, ł) w zwykłym tekście.</li>
+<li><span class="color-green">!important to ostateczność:</span> Zaburza naturalną kaskadę i prowadzi do wojen specyficzności. Unikaj go w codziennej pracy.</li>
+</ul>
+</section>

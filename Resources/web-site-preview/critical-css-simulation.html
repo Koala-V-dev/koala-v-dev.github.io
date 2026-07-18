@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical CSS Simulation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .app-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 520px;
+        }
+
+        .header {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #facc15;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .controls {
+            padding: 16px;
+            display: flex;
+            gap: 10px;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #334155;
+            color: #f1f5f9;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #475569;
+            border-color: #64748b;
+        }
+
+        .btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .btn.active:hover {
+            background: #2563eb;
+        }
+
+        .viewport {
+            flex: 1;
+            position: relative;
+            background: #ffffff;
+            transition: background-color 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viewport.dark-theme {
+            background: #121212;
+        }
+
+        .flashlight-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ffffff;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .flashlight-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+            animation: pulse 1s infinite alternate;
+        }
+
+        .loader-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #121212;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #334155;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 12px;
+        }
+
+        .loader-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        .site-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 24px;
+            color: #f3f4f6;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .site-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #27272a;
+            padding-bottom: 12px;
+        }
+
+        .site-logo {
+            font-weight: 700;
+            font-size: 16px;
+            color: #3b82f6;
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: #a1a1aa;
+        }
+
+        .site-card {
+            background: #1e1e1e;
+            border: 1px solid #27272a;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .site-card h3 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .site-card p {
+            font-size: 12px;
+            color: #a1a1aa;
+            line-height: 1.5;
+        }
+
+        .btn-restart {
+            margin-top: auto;
+            align-self: flex-start;
+            padding: 8px 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-restart:hover {
+            background: #1d4ed8;
+        }
+
+        .status-bar {
+            padding: 12px 16px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            from {
+                opacity: 0.6;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="title">Symulacja ładowania w ciemnym motywie</div>
+                <span style="font-size: 11px; color: #64748b; font-family: monospace; white-space: nowrap;">Koala-V</span>
+            </div>
+            <div class="controls">
+                <button class="btn active" id="btn-no-critical" onclick="setMode('no-critical')">Brak Critical
+                    CSS</button>
+                <button class="btn" id="btn-critical" onclick="setMode('critical')">Z Critical CSS</button>
+            </div>
+            <div class="viewport" id="viewport">
+                <!-- Tryb bez Critical CSS (Błysk) -->
+                <div id="flashlight-screen" class="flashlight-screen hidden">
+                    <span class="flashlight-text">Błysk nieostylowanej strony (Brak CSS)</span>
+                </div>
+
+                <!-- Tryb z Critical CSS (Loader) -->
+                <div id="loader-screen" class="loader-screen hidden">
+                    <div class="spinner"></div>
+                    <span class="loader-text">Ładowanie zasobów aplikacji...</span>
+                </div>
+
+                <!-- Główna treść strony (ładowana po delay) -->
+                <div id="site-content" class="site-content">
+                    <div class="site-header">
+                        <span class="site-logo">CiemnaAplikacja</span>
+                        <div class="site-nav">
+                            <span>Opcja 1</span>
+                            <span>Opcja 2</span>
+                        </div>
+                    </div>
+                    <div class="site-card">
+                        <h3>Witamy w trybie nocnym</h3>
+                        <p>Ta sekcja jest w pełni załadowana i zoptymalizowana. Dzięki stylom krytycznym użytkownik nie
+                            doświadczył rozbłysku białego tła przeglądarki.</p>
+                    </div>
+                    <button class="btn-restart" onclick="triggerLoad()">Załaduj ponownie</button>
+                </div>
+            </div>
+            <div class="status-bar" id="status-bar">
+                Wybierz tryb i kliknij przycisk przeładowania, aby zobaczyć zachowanie przeglądarki na wolnym łączu.
+            </div>
+        </div>
+
+        <script>
+            let currentMode = 'no-critical';
+            let timeoutId = null;
+
+            function setMode(mode) {
+                currentMode = mode;
+                document.getElementById('btn-no-critical').classList.toggle('active', mode === 'no-critical');
+                document.getElementById('btn-critical').classList.toggle('active', mode === 'critical');
+                triggerLoad();
+            }
+
+            function triggerLoad() {
+                clearTimeout(timeoutId);
+
+                const viewport = document.getElementById('viewport');
+                const flashlight = document.getElementById('flashlight-screen');
+                const loader = document.getElementById('loader-screen');
+                const content = document.getElementById('site-content');
+                const statusBar = document.getElementById('status-bar');
+
+                // Reset
+                viewport.classList.remove('dark-theme');
+                flashlight.classList.add('hidden');
+                loader.classList.add('hidden');
+                content.classList.remove('visible');
+
+                if (currentMode === 'no-critical') {
+                    statusBar.innerHTML = "<strong>Brak Critical CSS:</strong> Przeglądarka ładuje HTML jako pierwszy. Domyślne białe tło body oślepia użytkownika (tzw. <em>flashlight</em>), zanim plik CSS zostanie pobrany.";
+                    flashlight.classList.remove('hidden');
+
+                    timeoutId = setTimeout(() => {
+                        flashlight.classList.add('hidden');
+                        viewport.classList.add('dark-theme');
+                        content.classList.add('visible');
+                        statusBar.innerHTML = "<strong>Zakończono:</strong> Plik zewnętrzny CSS się załadował. Witryna jest ciemna, ale użytkownik doświadczył męczącego oczy rozbłysku.";
+                    }, 1200);
+                } else {
+                    statusBar.innerHTML = "<strong>Z Critical CSS:</strong> Podstawowy styl ciemnego tła oraz loader wbudowano w nagłówek HTML. Ekran jest ciemny od razu, co chroni wzrok.";
+                    viewport.classList.add('dark-theme');
+                    loader.classList.remove('hidden');
+
+                    timeoutId = setTimeout(() => {
+                        loader.classList.add('hidden');
+                        content.classList.add('visible');
+                        statusBar.innerHTML = "<strong>Zakończono:</strong> Zewnętrzny plik CSS załadował się płynnie bez żadnego mignięcia ekranu.";
+                    }, 1200);
+                }
+            }
+
+            // Start na wejściu
+            window.onload = () => {
+                triggerLoad();
+            };
+        </script>
+</body>
+
+</html>

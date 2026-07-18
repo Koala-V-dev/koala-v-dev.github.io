@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podgląd: Flat Design</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, sans-serif;
+            background-color: #0072c6;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .flat-app {
+            width: 100%;
+            height: 100%;
+            background-color: #1f1f1f;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #111111;
+            padding: 20px;
+            border-bottom: 4px solid #00a200;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #00a200;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        /* Przewijana zawartość */
+        .flat-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        /* Siatka Metro-style kafelków */
+        .metro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .metro-tile {
+            padding: 15px;
+            color: #ffffff;
+            font-weight: 300;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100px;
+        }
+
+        .tile-blue {
+            background-color: #0072c6;
+        }
+
+        .tile-magenta {
+            background-color: #ff007f;
+        }
+
+        .tile-green {
+            background-color: #00a200;
+        }
+
+        .tile-orange {
+            background-color: #d80073;
+        }
+
+        .tile-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .tile-value {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-top: 5px;
+        }
+
+        /* Sekcja symulacji zakupów (Mystery Meat Navigation) */
+        .demo-zone {
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-left: 6px solid #ff007f;
+            margin-bottom: 20px;
+        }
+
+        .demo-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .shop-text {
+            color: #ccc;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .flat-store {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .store-header {
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #00a200;
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .product-info {
+            margin-bottom: 15px;
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .flat-btn {
+            background-color: #2d2d2d;
+            color: #fff;
+            padding: 12px;
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            font-weight: 400;
+        }
+
+        .flat-btn:hover {
+            background-color: #383838;
+        }
+
+        .flat-btn:active {
+            background-color: #444;
+        }
+
+        .store-feedback {
+            margin-top: 15px;
+            background-color: #000;
+            color: #ff007f;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            text-align: center;
+            border-left: 3px solid #ff007f;
+            min-height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.3;
+        }
+
+        /* Stylizacja scrollbara w duchu flat */
+        .flat-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .flat-content::-webkit-scrollbar-track {
+            background: #111;
+        }
+
+        .flat-content::-webkit-scrollbar-thumb {
+            background: #0072c6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="flat-app">
+        <header>
+            <h1>🗺️ Flat Dashboard</h1>
+            <div class="subtitle">Windows Metro style: Płaskie kafelki i brak cieni</div>
+        </header>
+
+        <div class="flat-content">
+            <div class="metro-grid">
+                <div class="metro-tile tile-blue">
+                    <span class="tile-title">Wiadomości</span>
+                    <span class="tile-value">5 nowych</span>
+                </div>
+                <div class="metro-tile tile-magenta">
+                    <span class="tile-title">System</span>
+                    <span class="tile-value">CPU 12%</span>
+                </div>
+                <div class="metro-tile tile-green">
+                    <span class="tile-title">Baza Danych</span>
+                    <span class="tile-value">Online</span>
+                </div>
+                <div class="metro-tile tile-orange">
+                    <span class="tile-title">Zadania</span>
+                    <span class="tile-value">84%</span>
+                </div>
+            </div>
+
+            <div class="demo-zone">
+                <div class="demo-title">Interaktywny Test: Mystery Meat Navigation</div>
+                <p class="shop-text">
+                    Spróbuj kupić ten produkt! Wszystkie elementy poniżej są zupełnie płaskie i wyglądają identycznie – bez cieni, bez ikon i bez ramek sugerujących klikalność. Znajdź przycisk dodawania do koszyka i przycisk przejścia do płatności:
+                </p>
+
+                <!-- Sklep Flat -->
+                <div class="flat-store">
+                    <div class="store-header">Sklep FlatAir</div>
+                    
+                    <!-- Produkt -->
+                    <div class="product-info">
+                        <div style="font-size: 1rem; font-weight: bold; margin-bottom: 4px; color: #fff;">Buty FlatRunner Pro</div>
+                        <div style="font-size: 0.85rem; color: #aaa; margin-bottom: 10px;">Cena: 499 PLN</div>
+                    </div>
+
+                    <div class="store-grid" id="main-grid">
+                        <!-- Różne elementy tekstowe wyglądające identycznie -->
+                        <div class="flat-btn" onclick="showFeedback('To jest zwykły opis właściwości butów. Nie dodaje produktu do koszyka.')">Informacje o produkcie</div>
+                        <div class="flat-btn" onclick="showFeedback('To tylko tabela rozmiarów (41-45). Nie jest to przycisk zakupu.')">Tabela rozmiarów</div>
+                        <div class="flat-btn" onclick="addToCart(this)">Dodaj do koszyka</div>
+                        <div class="flat-btn" onclick="showFeedback('To jest informacja o darmowym zwrocie do 30 dni.')">Darmowy zwrot</div>
+                    </div>
+
+                    <!-- Koszyk i Płatności -->
+                    <div class="cart-section" id="cart-section" style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; display: none;">
+                        <div style="font-size: 0.8rem; color: #00a200; font-weight: bold; margin-bottom: 10px; text-align: center;">Produkt pomyślnie dodany do koszyka!</div>
+                        <div class="store-grid">
+                            <div class="flat-btn" onclick="showFeedback('To są warunki regulaminu transakcji.')">Regulamin zakupów</div>
+                            <div class="flat-btn" onclick="checkout(this)">Kasa / Sfinalizuj transakcję</div>
+                        </div>
+                    </div>
+
+                    <!-- System komunikatów LCD/powiadomień pod spodem -->
+                    <div class="store-feedback" id="feedback-screen">Kliknij w wybrany napis powyżej...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const feedback = document.getElementById('feedback-screen');
+        const cartSection = document.getElementById('cart-section');
+
+        function showFeedback(text) {
+            feedback.style.color = '#ef4444';
+            feedback.innerText = `[⚠️ BŁĄD FRUSTRACJI]: ${text}`;
+        }
+
+        function addToCart(btn) {
+            feedback.style.color = '#22c55e';
+            feedback.innerText = '[✓ KROK 1 SUKCES]: Dodano buty do koszyka! Teraz znajdź przycisk przejścia do płatności.';
+            cartSection.style.display = 'block';
+        }
+
+        function checkout(btn) {
+            feedback.style.color = '#3b82f6';
+            feedback.innerText = '[🎉 ZAKUP ZAKOŃCZONY]: Udało Ci się kupić produkt, ale przez brak cieni i wskazówek znalezienie właściwych przycisków wymagało czytania wszystkich etykiet po kolei!';
+        }
+    </script>
+</body>
+
+</html>

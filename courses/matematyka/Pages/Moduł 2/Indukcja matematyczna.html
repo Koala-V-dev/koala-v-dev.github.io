@@ -1,0 +1,290 @@
+<h2>Indukcja Matematyczna: Okiełznanie Nieskończoności</h2>
+<p>Pamiętasz początek kursu i lekcję „Zapis matematyczny”? Twój mózg zareagował wtedy instynktownym <strong><em>„NIEBEZPIECZEŃSTWO!”</em></strong> na widok tego wzoru. Dziś, wyposażony w rygor logiczny Modułu 2, spojrzysz na niego nie jak na „szkolne zadanie”, ale jak na <strong>model behawioralny systemu</strong> sumującego dane od $1$ do $n$:</p>
+<p>$$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$$</p>
+<p>Wtedy nauczyliśmy się go tylko czytać. Dziś dokonamy jego <strong>Weryfikacji Formalnej</strong>. Udowodnimy ponad wszelką wątpliwość, że ten wzór jest niepodważalną prawdą dla każdego $n \in \mathbb{N}$, od 1 do nieskończoności. </p>
+<p>Zanim jednak uruchomimy ciężką inżynierię dowodową, musimy zrozumieć, jaką <strong>lukę w systemie</strong> wykorzystuje ten wzór.</p>
+<hr>
+<h3>💡 Skąd ten wzór? Trik młodego Gaussa</h3>
+<p>Wyobraź sobie klasę w XVIII wieku. Nauczyciel matematyki, chcąc zająć uczniów na całą godzinę, każe im dodać do siebie wszystkie liczby od $1$ do $100$.</p>
+<p>Wszyscy uczniowie mozolnie dodają: $1 + 2 = 3$, $3 + 3 = 6$, $6 + 4 = 10$... po paru minutach każdy gubi się w obliczeniach i zaczyna od nowa. Tymczasem mały, $10$-letni <em><strong>Carl Friedrich Gauss</strong></em> po kilku sekundach kładzie na biurku tabliczkę z gotowym, poprawnym wynikiem: <strong>$5050$</strong>.</p>
+<p>Jak to zrobił? Zamiast liczyć bezmyślnie po kolei, Gauss zauważył niesamowitą symetrię ukrytą w dodawaniu.<br>Rozpisał sobie liczby i zaczął łączyć skrajne wartości w pary:</p>
+<ul>
+<li>Pierwsza z ostatnią: $1 + 100 = 101$</li>
+<li>Druga z przedostatnią: $2 + 99 = 101$</li>
+<li>Trzecia z trzecią od końca: $3 + 98 = 101$<br>...i tak aż do środka: $50 + 51 = 101$.</li>
+</ul>
+<data-gate>
+<data-quiz>
+  <question>Skoro Gauss łączył $100$ liczb w takie pary i z każdej pary zawsze wychodziło mu $101$, to jakie genialne równanie stworzył, by policzyć całość w kilka sekund?</question>
+  <options>
+    <option>$100 \cdot 101$</option>
+    <option correct>$50 \cdot 101$</option>
+    <option>$101 \cdot 101$</option>
+  </options>
+  <div data-hint="error">Mamy $100$ elementów. Skoro łączymy je w pary po dwa, to ile takich par powstanie? Przemnóż liczbę par przez stałą sumę pojedynczej pary.</div>
+  <div data-hint="success">Dokładnie tak! Powstaje $50$ par (połowa wszystkich liczb), a każda para daje sumę $101$. Wynik to $50 \cdot 101 = 5050$.</div>
+</data-quiz>
+</data-gate>
+
+<p>Zrozumiałeś właśnie intuicję kryjącą się za wzorem na sumę! 😄<br>Gdy mamy liczby od $1$ do $n$:</p>
+<ul>
+<li>Ostatnia liczba w parze z pierwszą to zawsze $(n + 1)$.</li>
+<li>Ilość takich par to zawsze połowa wszystkich elementów, czyli $\frac{n}{2}$.</li>
+</ul>
+<p>Mnożąc te dwie rzeczy, otrzymujesz:<br>$$ \text{ilość par} \times \text{suma pary} \implies \frac{n}{2} \cdot (n+1) \implies \frac{n(n+1)}{2} $$</p>
+<h3>⚙️ Dlaczego intuicja to za mało? Dowodzenie Nieskończoności</h3>
+<p>Historia o Gaussie jest genialna i — co ważne — jego wzór działa bezbłędnie dla <strong>każdej</strong> liczby.<br>Możesz to zweryfikować dla $n=5$:<br>$$\text{Dla } n=5: \frac{5 \cdot (5+1)}{2} = 15$$, co zgadza się z sumą $1+2+3+4+5$. Gdzie więc leży problem?</p>
+<p>W tym, że pojedyncze sprawdzenie (nawet dla miliona liczb) to wciąż tylko <strong>poszlaka</strong>, a nie <strong>dowód</strong>. W inżynierii systemów krytycznych nie możesz zakładać, że skoro mechanizm działał przez $100$ dni, to nie wybuchnie $101$-go dnia z powodu specyficznej kaskady błędów. </p>
+<p>Potrzebujesz <em><strong>gwarancji procesowej</strong></em>, że struktura logiczna Twojego rozwiązania jest nienaruszalna dla każdego możliwego kroku. Do tego służy <strong>Indukcja Matematyczna</strong>: mechanizm, który pozwala dowieść nieskończonej liczby faktów przy użyciu tylko dwóch kroków.</p>
+<h4>⛓️‍💥 Architektura Łańcucha (Domino i Rekurencja)</h4>
+<p>Indukcja ma swojego potężnego bliźniaka w świecie cyfrowym: <strong>rekurencję</strong>. </p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Rekurencja</strong> to technika programistyczna, w której funkcja rozwiązuje problem, wywołując samą siebie dla mniejszego zestawu danych, aż dotrze do najprostszego przypadku. Gdy go rozwiąże, lawinowo zacznie zwracać wyniki wstecz, budując finalne rozwiązanie.</p>
+
+</div>
+</div><p>To ten sam schemat logiczny:</p>
+<data-gate>
+<data-connection-matcher>
+    <item left="Baza Indukcji (P(1))" right="Przypadek Bazowy (if n==1)"></item>
+    <item left="Krok Indukcyjny" right="Wywołanie rekurencyjne (fn(n-1))"></item>
+    <item left="Założenie Indukcyjne" right="Wynik z poprzedniego wywołania"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<ol>
+<li><strong>Baza (Base Case):</strong> Punkt startowy. Sprawdzasz, czy system działa poprawnie dla najmniejszej możliwej wartości (zazwyczaj $n=1$). Jeśli pierwszy klocek domino nie upadnie, cała reszta jest bezużyteczna.</li>
+<li><strong>Krok Przejścia (State Transition):</strong> Sztafeta. Udowadniasz, że jeśli system jest stabilny w dowolnym kroku $k$ (<strong>Założenie</strong>), to Twoja architektura GWARANTUJE, że będzie stabilny również w kroku $k+1$ (<strong>Teza</strong>).</li>
+</ol>
+<hr>
+<data-gate>
+<data-quiz>
+  <question>Masz nienaganny matematycznie Krok Przejścia $P(k) \implies P(k+1)$, ale pominąłeś weryfikację Bazy ($n=1$). Co to oznacza dla integralności Twojego dowodu?</question>
+  <options>
+    <option>System jest stabilny, bo mechanizm „sztafety” gwarantuje ciągłość logiczną.</option>
+    <option correct>System jest w stanie krytycznym, brak „punktu zakotwiczenia” unieważnia całą strukturę.</option>
+    <option>Dowód jest poprawny, ponieważ krok przejścia zawiera w sobie definicję stanu początkowego.</option>
+  </options>
+  <div data-hint="error">BŁĄD! To myślenie życzeniowe. Masz świetny „transmiter”, ale nie masz sygnału. To jak kable sieciowe bez podłączonego serwera — infrastruktura przejścia istnieje, ale nie ma czego przesyłać.</div>
+  <div data-hint="success">BINGO! W inżynierii nazywamy to błędem „Floating Bridge”. Bez sprawdzenia stanu początkowego, Twój dowód to tylko „obietnica” działania, która nigdy nie została zrealizowana w rzeczywistości. W kodzie skończyłoby się to nieskończoną rekurencją.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🏗️ Weryfikacja Formalna: Dowód Sumy</h3>
+<p>Udowodnijmy indukcyjnie wzór Gaussa, aby uzyskać $100\%$ pewności dla każdego możliwego $n \in \mathbb{N}$.</p>
+<p><strong>Teza P(n):</strong><br>$$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$$</p>
+<h4>Krok 1: Baza Indukcji (Zapalnik)</h4>
+<p>Sprawdzamy stan dla $n = 1$:</p>
+<ul>
+<li>Lewa strona ($L$): Suma kończy się na pierwszej liczbie: $L = 1$.</li>
+<li>Prawa strona ($P$): Podstawiamy pod wzór: $P = \frac{1(1+1)}{2} = 1$.<br><strong>Wniosek:</strong> $L = P$. Baza stoi stabilnie. ✅</li>
+</ul>
+<h4>Krok 2: Krok Indukcyjny (Przeniesienie Stanu)</h4>
+<p>To serce dowodu. Musimy pokazać, że prawdziwość wzoru dla $k$ wymusza jego prawdziwość dla $k+1$.</p>
+<ol>
+<li><p><strong>Założenie Indukcyjne $P(k)$:</strong><br>Przyjmujemy, że wzór działa bezbłędnie dla pewnego $k$:<br>$$1 + 2 + \dots + k = \frac{k(k+1)}{2}$$</p>
+</li>
+<li><p><strong>Teza Indukcyjna $P(k+1)$:</strong><br>  Chcemy udowodnić, że po dorzuceniu kolejnego $(k+1)$, suma przyjmie postać wzoru z podstawionym $k+1$:<br>  $$1 + 2 + \dots + k + (k+1) = \frac{(k+1)(k+2)}{2}$$</p>
+</li>
+</ol>
+<hr>
+<h4>🪤 Sandbox: Operacja na Stanie Systemu</h4>
+<p>Zaczynamy od lewej strony Tezy $P(k+1)$. Zauważ, że suma do $(k+1)$ to po prostu suma do $k$ (którą znamy z Założenia) plus ten ostatni element:</p>
+<p>$$ \underbrace{1 + 2 + \dots + k}_{\text{To jest nasze } P(k)} + (k+1) \implies \frac{k(k+1)}{2} + (k+1) $$</p>
+<p>Twoje zadanie: Sprowadź to wyrażenie do postaci docelowej $\frac{(k+1)(k+2)}{2}$. Wykaż, że mechanizm przejścia działa.</p>
+<details>
+<summary>🛠️ Arsenał Operacyjny: Słownik Dowodowy</summary>
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><em>Iniekcja Założenia</em>: To moment, w którym „wynajmujesz” gotową prawdę z poprzedniego kroku. Zamiast liczyć sumę od $1$ do $k$ od zera, wstawiasz tam gotowy blok (wzór) z Założenia. W inżynierii to jak użycie sprawdzonej biblioteki zamiast pisania wszystkiego od nowa.<br>$$\forall x: $$ <em><strong>$$\underbrace{P(x)}_{założenie}$$</strong></em> <em>$\implies$</em> <strong>$$\underbrace{Q(x)}_{teza}$$</strong></p>
+<p><em>Synchronizacja Mianowników</em>: W matematyce ułamkowej nie możesz połączyć danych o różnych „częstotliwościach” (mianownikach). Musisz sprowadzić je do wspólnej bazy, aby móc scalić je w jedną strukturę. Robimy to przez „rozszerzenie” (mnożenie przez $1$ w formie $\frac{2}{2}$), co zmienia format, ale nie wartość danych.</p>
+<p><em>Konsolidacja / Scalenie</em>: Ostateczne „uprzątnięcie” wzoru. Połączenie rozproszonych ułamków w jedną, spójną strukturę pod wspólną kreską ułamkową.</p>
+<p><em>Ekstrakcja (Faktoryzacja)</em>: Kluczowy ruch optymalizacyjny. Jeśli masz wyrażenie typu $A \cdot \mathbf{(C+D)} + B \cdot \mathbf{(C+D)}$, to element w nawiasie jest Twoim „wspólnym mianownikiem logicznym”. Możesz go „wyjąć” przed nawias zbiorczy: $\mathbf{(C+D)} \cdot (A+B)$.<br>To dokładnie ten sam mechanizm „zarządzania strukturą”, który stosowałeś przy <strong>Rozdzielności</strong> w Algebrze i przy „wyciąganiu negacji” w <strong>Prawach de Morgana</strong>. Pozwala to uniknąć bałaganu po wymnożeniu.</p>
+
+</div>
+</div></details>
+
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><em><strong>Złota Zasada Indukcji: Unikaj Algebraicznego Błota.</strong></em><br>Gdy widzisz wyrażenie typu $a(b+1) + x(b+1)$, Twoim pierwszym odruchem może być wymnożenie wszystkiego do postaci wielomianu $ab + a + xb + x$. <strong><em>Nie rób tego.</em></strong><br>To jak kompilowanie kodu do assemblera, żeby go zrozumieć (stracisz czytelną strukturę 😖). </p>
+<p>Zamiast tego szukaj „wspólnych klocków” (tutaj: $b+1$). Jeśli wyjmiesz go przed nawias, reszta ($a$ oraz $x$) sama ułoży się w docelową postać tezy: $(b+1)(a+x)$.</p>
+
+</div>
+</div><data-gate>
+<data-math-sandbox level="algebra" data-steps="4" data-label="Weryfikacja Strukturalna Wzoru Gaussa:">
+  <div data-step="1" data-expected="\frac{k(k+1)}{2} + (k+1)" data-label="Iniekcja <strong>Założenia</strong> do struktury Tezy (Krok P(k) + następnik):" 
+    data-hint-wrong="1+2+\dots+k+(k+1):💡 To jest lewa strona tezy. Teraz użyj Założenia i wstaw gotowy wzór w miejsce sumy $1+2+...+k$.|1+2+\dots+k:💡 To jest tylko lewa strona Założenia. W tym kroku budujemy P(k+1), więc musisz dodać kolejny wyraz: $(k+1)$.|1+2+\dots+(k+1):💡 To jest lewa strona tezy. Wykorzystaj Założenie, aby zamienić sumę do $k$ na gotowy wzór.|\frac{k(k+1)}{2}:💡 Prawie! To suma do $k$. Musisz dodać jeszcze następny wyraz: $(k+1)$."
+    data-hints='{"FORM_MISMATCH": "💡 Podstaw wzór z Założenia za sumę początkową i dodaj $(k+1)$."}'></div>
+  <div data-step="2" data-expected="\frac{k(k+1)}{2} + \frac{2(k+1)}{2}" data-label="<strong>Synchronizacja Mianowników</strong> i konsolidacja ułamka:" 
+    data-hint-wrong="\frac{k(k+1)+2k+2}{2}:Nie wymnażaj nawiasów! Staraj się utrzymać bloki $(k+1)$, aby ułatwić faktoryzację.|\frac{k(k+1)}{2}+(k+1):💡 Musisz sprowadzić oba wyrazy do wspólnego mianownika (2)."></div>
+  <div data-step="3" data-expected="\frac{k(k+1) + 2(k+1)}{2}" data-label="<strong>Scalenie</strong> dwóch ułamków z tym samym mianownikiem w całość:" 
+    data-hint-wrong="\frac{k^2+k+2k+2}{2}:💡 Unikaj „algebraicznego błota”. Nie wymnażaj nawiasów, szukaj wspólnego czynnika $(k+1)$."
+    data-hints='{"FORM_MISMATCH": "💡 Zapisz sumę ułamków pod jedną kreską ułamkową."}'></div>
+  <div data-step="4" data-expected="\frac{(k+1)(k+2)}{2}" data-label="<strong>Ekstrakcja</strong> wspólnego czynnika $(k+1)$ przed nawias:" 
+    data-hint-wrong="\frac{k^2+3k+2}{2}:💡 Nie wymnażaj wszystkiego! Zauważ, że masz dwa razy $(k+1)$, wyłącz je przed nawias, a w środku zostanie $(k+2)$."
+    data-hints='{"FORM_MISMATCH": "💡 Wyłącz $(k+1)$ przed nawias, aby otrzymać docelową postać tezy."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<p><strong>Dowód zakończony:</strong> Skoro baza $P(1)$ jest prawdziwa, a przejście $P(k) \implies P(k+1)$ zachowuje tę prawdę, to na mocy zasady indukcji wzór jest prawdziwy dla wszystkich liczb naturalnych. <span class="qed-symbol">∎</span></p>
+<hr>
+<h3>⚡ Indukcja w architekturze bitowej: Potęgi Dwójki</h3>
+<p>Dowód sumy Gaussa to klasyka, ale jako inżynier częściej spotkasz indukcję tam, gdzie liczy się <strong>pamięć i bity</strong>. Udowodnijmy coś, co leży u podstaw adresowania: sumę potęg dwójki.</p>
+<p><strong>Twierdzenie:</strong> Suma kolejnych potęg liczby $2$ (od $2^0$ do $2^n$) jest zawsze o $1$ mniejsza niż kolejna potęga dwójki.<br>$$\sum_{i=0}^{n} 2^i = 2^{n+1} - 1$$</p>
+<p>Przykład dla $n=2$ (3 bity): $1 + 2 + 4 = 7$ (czyli $2^3 - 1$). To dlatego największa liczba na $n$ bitach to zawsze „same jedynki”.</p>
+<p>Dla przypomnienia wiedzy z kursu <em><strong>Binarne Fundamenty IT</strong></em>, oto <em>Tabela mocy</em>🦸:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Wynik potęgowania</th>
+<th align="center">$2048$</th>
+<th align="center">$1024$</th>
+<th align="center">$512$</th>
+<th align="center">$256$</th>
+<th align="center">$128$</th>
+<th align="center">$64$</th>
+<th align="center">$32$</th>
+<th align="center">$16$</th>
+<th align="center">$8$</th>
+<th align="center">$4$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Potega dwójki</td>
+<td align="center">$2^{11}$</td>
+<td align="center">$2^{10}$</td>
+<td align="center">$2^{9}$</td>
+<td align="center">$2^{8}$</td>
+<td align="center">$2^{7}$</td>
+<td align="center">$2^{6}$</td>
+<td align="center">$2^{5}$</td>
+<td align="center">$2^{4}$</td>
+<td align="center">$2^{3}$</td>
+<td align="center">$2^{2}$</td>
+<td align="center">$2^{1}$</td>
+<td align="center">$2^{0}$</td>
+</tr>
+</tbody></table>
+<data-number-system target="255" base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Wszystkie przełączniki <strong>ON</strong>! To jest limit dla $8$ bitów ($1$ Bajta). Kolejna liczba ($256$) wymagałaby już $9$. bitów!</p>
+
+</div>
+</div></data-number-system>
+
+
+<h4>⚡ Dowód Systemowy: Dlaczego $2^n - 1$ to limit?</h4>
+<p>Zauważyłeś pewnie, że największa liczba na 8 bitach to $255$ ($2^8 - 1$). Czy ta zasada jest uniwersalna? Sprawdźmy to indukcją, traktując proces jako <strong>skalowanie rejestru</strong>.</p>
+<p><strong>Baza ($n=1$ bit):</strong><br>Na 1 bicie największa liczba to $1$. Wzór: $2^1 - 1 = 1$. Zgadza się. ✅</p>
+<p><strong>Krok Indukcyjny (Skalowanie):</strong><br>Załóżmy, że dla rejestru o rozmiarze $k$ wzór działa (maksymalna wartość to $2^k - 1$). Co się stanie, gdy dołożymy kolejny bit o mocy $2^k$?</p>
+<details>
+<summary> 🧩 Przypomnienie ważnej sekcji z lekcji o Potęgowaniu 😉</summary>
+  
+<h3>🧬 Algorytmy Operacyjne: Własności Potęg</h3>
+<p>W inżynierii rzadko operujemy na surowych wynikach. Kluczem jest <strong>upraszczanie wyrażeń</strong>. Jeśli podstawy są identyczne, możemy zarządzać złożonością poprzez manipulację samym wykładnikiem.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zasada Izolacji:</strong> Własności potęg działają <strong>wyłącznie dla mnożenia i dzielenia</strong>.<br>Próba „łączenia” potęg przy dodawaniu ($a^n + a^m$) to błąd krytyczny — w takim przypadku należy obliczyć wartości osobno lub wyłączyć wspólny czynnik przed nawias.</p>
+
+</div>
+</div><h4>1. Agregacja wykładników (Mnożenie)</h4>
+<p>Mnożenie potęg o tej samej podstawie to sumowanie ich wykładników:<br>$$a^n \cdot a^m = a^{n+m}$$</p>
+<h4>2. Redukcja wykładników (Dzielenie)</h4>
+<p>Dzielenie to różnica wykładników:<br>$$\frac{a^n}{a^m} = a^{n&#8209;m}$$</p>
+<h4>3. Kompozycja wykładników (Potęga potęgi)</h4>
+<p>Podnoszenie potęgi do potęgi to iloczyn wykładników:<br>$$(a^n)^m = a^{n \cdot m}$$</p>
+<blockquote>
+<p><em><strong>BONUS</strong></em></p>
+<h4>4. Agregacja podstaw (iloczyn podstaw)</h4>
+<p>Mnożenie potęg o tych samych wykładnikach to mnożenie podstaw:<br>$$a^n \cdot b^n = (ab)^n$$</p>
+<h4>5. Redukcja podstaw (dzielenie podstaw)</h4>
+<p>Dzielenie potęg o tych samych wykładnikach to dzielenie podstaw:<br>$$\frac{a^n}{b^n} = (\frac{a}{b})^n$$</p>
+</blockquote>
+</details>
+
+<p>Wyobraź sobie to jako <strong>agregację sprzętową</strong>: masz stary rejestr (sumę) i dokładasz do niego nowy komponent (bit). Aby to uprościć, musisz zauważyć, że masz teraz <strong>dwie identyczne potęgi</strong> tego samego stopnia. </p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pamiętaj o fundamentach: $x + x = 2 \cdot x$. W algebrze to najkrótsza droga do zwiększenia wykładnika!</p>
+
+</div>
+</div><data-gate>
+<data-math-sandbox level="algebra" data-steps="3" data-label="Skalowanie Rejestru ($k \to k+1$):">
+  <div data-step="1" data-expected="(2^k - 1) + 2^k" data-label="<strong>Agregacja</strong>: Dodaj moc nowego bitu ($2^k$) do poprzedniego limitu ($2^k - 1$):" 
+    data-hint-wrong="2^{k+1}-1:💡 Dobry wynik końcowy, ale najpierw zapisz operację 'stary limit + nowy bit'."></div>
+  <div data-step="2" data-expected="2 \cdot 2^k - 1" data-label="<strong>Konsolidacja</strong>: Zgrupuj identyczne potęgi dwójki (zapisz ile ich masz):" 
+    data-hint-wrong="2^{k+1}-1:💡 Prawie! Zanim połączysz potęgi, pokaż etap mnożenia przez 2 (czyli $2 \cdot 2^k - 1$).|4^k-1:⚠️ Uważaj! $2^k + 2^k$ to nie $4^k$. To dwie potęgi, czyli $2 \cdot 2^k$."></div>
+  <div data-step="3" data-expected="2^{k+1} - 1" data-label="<strong>Optymalizacja</strong>: Zastosuj prawo mnożenia potęg ($2^1 \cdot 2^k$):" 
+    data-hint-wrong="2 \cdot 2^k-1:💡 To już masz! Teraz użyj własności $a^n \cdot a^m = a^{n+m}$, aby otrzymać jedną potęgę."></div>
+</data-math-sandbox>
+</data-gate>
+
+<p><strong>Finał:</strong> $2 \cdot 2^k - 1 = 2^{k+1} - 1$.<br>Właśnie udowodniłeś, że dokładając dowolny bit, zawsze otrzymasz limit postaci „kolejna potęga minus 1”. To matematyczny fundament stabilności systemów liczbowych. <span class="qed-symbol">∎</span>🦾</p>
+<hr>
+<h3>🔩 Niezmiennik Pętli: Indukcja w Kodzie</h3>
+<p>To, co matematycy nazywają indukcją, w inżynierii oprogramowania jest fundamentem <strong>poprawności algorytmicznej</strong>. Kluczowe pojęcie to <strong>Niezmiennik Pętli</strong> (<em>Loop Invariant</em>).</p>
+<p>Wyobraź sobie sortowanie kart w dłoni (np. <em>Insertion Sort</em>). Skąd masz pewność, że po $n$ ruchach karty będą ułożone idealnie?</p>
+<p>Musisz polegać na logice indukcyjnej:</p>
+<ol>
+<li><strong>Inicjalizacja (Baza):</strong> Pierwsza karta w ręce jest z definicji <em>posortowana</em>. To Twój stabilny punkt wyjścia.</li>
+<li><strong>Utrzymanie (Krok):</strong> Algorytm gwarantuje, że jeśli lewa część ręki jest posortowana (Założenie), to wstawienie kolejnej karty w odpowiednie miejsce <strong>zachowa ten stan</strong> dla większego zbioru (Teza).</li>
+<li><strong>Zakończenie:</strong> Skoro każdy krok utrzymuje porządek, to po przejściu przez wszystkie karty (koniec pętli), cały zbiór musi być posortowany.</li>
+</ol>
+<p>To nie jest „nadzieja”, że kod zadziała. To matematyczna pewność, że niezmiennik (porządek) został przeniesiony przez każdą iterację pętli. Przetestuj to poniżej! 🚀</p>
+<p><data-insert-sort-poker></data-insert-sort-poker></p>
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>indukcja matematyczna to mechanizm weryfikacji nieskończonych ciągów zdarzeń,  </li>
+<li>Baza Indukcji ($n=1$) to niezbędny punkt zakotwiczenia całego dowodu,  </li>
+<li>Krok Indukcyjny ($P(k) \implies P(k+1)$) gwarantuje stabilność sztafety logicznej,  </li>
+<li>indukcja i rekurencja to dwie strony tego samego schematu myślenia strukturalnego,  </li>
+<li>technika „wyciągania wspólnego czynnika” chroni przed utonięciem w algebrze,  </li>
+<li>sumowanie potęg dwójki to matematyczny dowód limitów rejestrów bitowych,  </li>
+<li>Niezmiennik Pętli to indukcja stosowana w praktyce do dowodzenia poprawności algorytmów.</li>
+</ul>
+<hr>
+<h3>🎉 Milestone: Moduł 2 — Uzbrojenie Logiczne Gotowe!</h3>
+<p>Gratulacje. Przeszedłeś drogę od intuicji i „zgadywania” do <strong>matematycznej gwarancji niezawodności</strong>. Moduł 2 wyposażył Cię w pancerz logiczny niezbędny do weryfikacji systemów o krytycznym znaczeniu.</p>
+<h4>⚙️ Twój Arsenał Dowodowy:</h4>
+<ol>
+<li>✅ <strong>Abstrakcja Algebraiczna</strong>: Zmienna to interfejs, nie wartość. Potrafisz faktoryzować wyrażenia, rozpoznawać wzory skróconego mnożenia jako „prekompilowane snippety” i wyprowadzać relacje strukturalne z algebraicznej budowy liczb.</li>
+<li>✅ <strong>Globalne Kontrakty (Kwantyfikatory)</strong>: Wiesz, że <code>∀</code> to <code>Array.every()</code> a <code>∃</code> to <code>Array.some()</code> — i co ważniejsze, że <em>kolejność kwantyfikatorów decyduje o zależności zmiennych</em>. Potrafisz formalnie negować kontrakty używając praw de Morgana.</li>
+<li>✅ <strong>Techniki Dowodzenia</strong>: Opanowałeś trzy tryby ataku: dowód wprost (dedukcja liniowa), Reductio ad Absurdum (wejście w „świat na opak” i szukanie sprzeczności) oraz kontrapozycję — refaktoryzację problemu z $n$ wariantów do jednego eleganckiego przypadku.</li>
+<li>✅ <strong>Indukcja i Niezmienniki</strong>: Rozumiesz architekturę Bazy (Anchor Point) i Kroku Przejścia. Wiesz, że indukcja i rekurencja to ten sam schemat logiczny, a Niezmiennik Pętli to matematyczna gwarancja poprawności każdej iteracji Twojego kodu.</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Pancerz gotowy.</strong> Masz fundamenty (Moduł 0), logikę analizy (Moduł 1) i mechanizmy rygorystycznej weryfikacji (Moduł 2). Czas użyć tych narzędzi do rozwiązywania konkretnych problemów.</p>
+
+</div>
+</div><hr>
+<p>Jesteś gotowy na <strong>Moduł 3 — Równania i Nierówności</strong>. Przechodzimy od dowodzenia ogólnych prawd do wyznaczania konkretnych stanów nieustalonych. Witaj w świecie precyzyjnego rozwiązywania złożonych systemów zależności. 🚀</p>

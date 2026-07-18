@@ -1,0 +1,95 @@
+<h2>Rodzaje funkcji: Iniekcja, Surjekcja i Bijekcja</h2>
+<p>Większość uczniów traktuje te nazwy jak niepotrzebny, matematyczny żargon. Jednak dla inżyniera te trzy pojęcia to fundamenty <strong>teorii informacji</strong> i <strong>projektowania systemów</strong>. Zanim przejdziemy do wzorów, musimy zrozumieć, dlaczego w ogóle potrzebujemy tak dziwnych słów i skąd się wzięły.</p>
+<p>Nazwy te zawdzięczamy grupie francuskich matematyków działających pod pseudonimem <strong>Nicolas Bourbaki</strong>. Sięgnęli oni do łaciny (<em>jacere</em> – rzucać), aby opisać, w jaki sposób elementy jednego zbioru są „wrzucane” do drugiego.</p>
+<hr>
+<h3>🏛️ Problem Odwracalności: Dlaczego to w ogóle istnieje?</h3>
+<p>Wyobraź sobie, że budujesz system przesyłania danych. Masz wejście $x$, które przechodzi przez proces $f(x)$ i daje wynik $y$. Kluczowe pytanie brzmi: <strong>Czy znając tylko $y$, jesteś w stanie bezbłędnie odtworzyć $x$?</strong></p>
+<p>Jeśli Twoim procesem jest $f(x) = x + 10$, odpowiedź brzmi: tak (wystarczy odjąć $10$).<br>Jeśli jednak procesem jest $f(x) = x^2$, a wynik to $y=16$, masz problem. Na wejściu mogło być $4$ lub $-4$.<br>System „zgubił” informację o znaku. Aby opisać te różnice w zachowaniu systemów, Bourbaki wprowadził trzy rygorystyczne standardy.</p>
+<hr>
+<h3>🎯 Iniekcja: Strażnik Tożsamości (In-jacere)</h3>
+<p>Łacińskie <em>in</em> (do/wewnątrz) połączone z <em>jacere</em> daje nam „wstrzykiwanie”. W iniekcji każdy element dziedziny jest „wstrzykiwany” w unikalne miejsce w przeciwdziedzinie. Nie ma mowy o tym, by dwa różne wejścia trafiły w ten sam cel.</p>
+<p>W bazach danych iniekcja to fundament <strong>kluczy głównych (Primary Keys)</strong>. Gwarantuje ona unikalność. Wyobraź sobie, że funkcja tworząca ID dla użytkowników nie jest iniekcją. Wtedy dwie różne osoby mogłyby otrzymać ten sam identyfikator. To doprowadziłoby do krytycznego błędu w systemie.</p>
+<h4>Dowodzenie przez „odwracanie kota ogonem” 🐈</h4>
+<p>Udowodnienie iniekcji wymaga wykazania, że <em>„różne daje różne”</em>. Jednak znacznie łatwiej operuje się na równościach niż na nierównościach. Tu wracamy do <strong>prawa kontrapozycji</strong> z Modułu $2$.<br>Zamiast udowadniać $x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$, udowadniamy tezę równoważną:<br>$$f(x_1) = f(x_2) \implies x_1 = x_2$$</p>
+<p>Załóżmy, że wyniki są identyczne. Jeśli z tego logicznie wyniknie, że wejścia też były identyczne — mamy dowód. W takim systemie nie ma kolizji.</p>
+<h4>🛠️ Punkt Kontrolny: Analiza kolizji</h4>
+<data-quiz>
+    <question>Spróbujmy dowieść iniekcji dla $f(x) = x^2$ za pomocą kontrapozycji. Zaczynamy od założenia $x_1^2 = x_2^2$. Po wyciągnięciu pierwiastka otrzymujemy równanie $|x_1| = |x_2|$. Dlaczego to NIE dowodzi iniekcji?</question>
+    <options>
+        <option>Bo kwadrat liczby rzeczywistej zawsze daje wynik nieujemny.</option>
+        <option correct>Bo równość modułów $|x_1|=|x_2|$ nie gwarantuje równości $x_1=x_2$.</option>
+        <option>Bo dziedzina funkcji kwadratowej musi być ograniczona do dodatnich.</option>
+    </options>
+    <div data-hint="error">Pamiętaj o rygorze: dowód musi kończyć się wynikiem $x_1 = x_2$. Jeśli wynik dopuszcza sytuację, w której $x_1$ i $x_2$ są różne, iniekcja zostaje złamana.</div>
+    <div data-hint="success">Dokładnie! „Odwrócenie kota ogonem” obnażyło prawdę: istnieją dwa różne argumenty, które „wpadają” w ten sam wynik. To jest właśnie kolizja informacji.</div>
+</data-quiz>
+
+<hr>
+<h3>🌊 Surjekcja: Strażnik Pokrycia (Sur-jacere)</h3>
+<p>Francuskie <em>sur</em> oznacza „na” lub „ponad”. Surjekcja to funkcja, która „rzuca” elementy tak gęsto, że pokrywa <strong>całą</strong> wyznaczoną przeciwdziedzinę $Y$. </p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Przeciwdziedzina $Y$</strong> to zbiór wszystkich wartości, które mogą pojawić się jako wynik funkcji. Nie jest to zbiór liczb, do których funkcja ma prawo się odnosić, ale zbiór wszystkich wartości, jakie funkcja może zwrócić.<br><strong>Dziedzina</strong> $X$ to zbiór wszystkich wartości, które mogą pojawić się jako argument funkcji.<br><strong>Zbiór wartości $ZW_f$</strong> to zbiór wszystkich wartości, które faktycznie pojawiają się jako wynik funkcji.</p>
+
+</div>
+</div><p>Pamiętasz pojęcie <strong>Zbioru Wartości</strong> ($ZW_f$) z poprzedniej lekcji? 🧐<br>Funkcja jest surjekcją (czyli jest mapowaniem „na” zbiór $Y$) wtedy i tylko wtedy, gdy:<br>$$ZW_f = Y$$</p>
+<p>W inżynierii surjekcja oznacza brak „martwego kodu”. Wyobraź sobie system, który może zwracać błędy o kodach od $1$ do $5$. Jeśli Twój algorytm generuje tylko kody $1$ i $2$, to funkcja nie jest surjekcją. Reszta kodów ($3, 4, 5$) to martwa część interfejsu. Marnujesz zasoby swojego oprogramowania na coś czego i tak nie użyjesz. To nie optymalne, zwłaszcza na urządzeniach embedded gdzie każda komórka pamięci jest na wagę złota.😕</p>
+<h4>🪤 Sandbox: Formalny zapis Surjekcji</h4>
+<p>W systemach rygorystycznych surjekcję zapisujemy za pomocą kwantyfikatorów. Twoja intuicja może podpowiadać zapis <code>Dla każdego y istnieje x...</code>, ale matematyka (i kompilatory) wymagają wskazania <strong>gdzie</strong> te elementy żyją. </p>
+<p>Użyjemy definicji ze zbiorami: $y \in Y$ (element z przeciwdziedziny) oraz $x \in X$ (element z dziedziny).</p>
+<data-gate>
+<data-math-sandbox level="quantifiers" data-steps="1">
+  <div 
+    data-step="1" 
+    data-expected="\forall y \in Y \exists x \in X : f(x) = y" 
+    data-label="Zdefiniuj surjekcję: Dla każdego $y$ ze zbioru $Y$ istnieje $x$ ze zbioru $X$ taki, że $f(x)=y$:"
+    data-hint-wrong="\forall y \exists x : f(x) = y:Prawie! Ale musisz określić 'przestrzeń' dla zmiennych. Dopisz \in Y oraz \in X, aby system wiedział, w których zbiorach szukać danych.">
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<p>PS.: Ten zapis dla większości ludzi jest nie zrozumiały, a Ty go potrafiłeś zapisać. 😏<br>„Jestem Bogiem<br>Uświadom to sobie, sobie<br>Ty też jesteś Bogiem<br>Tylko wyobraź to sobie, sobie” - Pezet  </p>
+<p><a href="https://www.youtube.com/watch?v=u3HeJFr01T0">Paktofonika - Jestem Bogiem</a></p>
+<hr>
+<h3>💎 Bijekcja: Idealny Interfejs (Bi-jacere)</h3>
+<p>Przedrostek <em>bi-</em> oznacza dwoistość. Bijekcja to sytuacja, w której system jest <strong>jednocześnie</strong> iniekcją i surjekcją. Każdy $x$ ma swój unikalny $y$, a każde $y$ jest wykorzystane.</p>
+<p>W informatyce bijekcję nazywamy często <strong>izomorfizmem</strong> (z greckiego: <em>isos</em> – równy, <em>morphe</em> – kształt). Oznacza to, że zbiory $X$ i $Y$ mają identyczną strukturę, a funkcja jest jedynie „tłumaczem” między nimi.</p>
+<p>Bijekcja to jedyny typ funkcji, który jest <strong>w pełni odwracalny</strong>. Dzięki niej możemy stworzyć funkcję $f^{-1}$ (funkcję odwrotną), która działa jak idealne „Cofnij”. </p>
+<ul>
+<li><strong>Szyfrowanie symetryczne</strong> (np. AES): Musi być bijekcją, by odbiorca mógł odzyskać dane.</li>
+<li><strong>Konwersja systemów liczbowych</strong> (np. DEC $\leftrightarrow$ BIN): To bijekcja. Nie tracimy informacji, zmieniamy tylko system zapisu (interfejs).</li>
+</ul>
+<hr>
+<h4>💻 Analiza Systemowa: Rodzaje funkcji w kodzie</h4>
+<p>W nowoczesnych językach programowania rzadko używamy słowa „surjekcja”, ale codziennie korzystamy z tych koncepcji w <strong>Systemach Typów</strong>.</p>
+<ul>
+<li><strong><code>Dictionary&lt;Key, Value&gt;</code> (C#) / <code>std::map</code> (C++)</strong>: Mechanizm ten wymusza, aby mapowanie kluczy na wartości było <strong>iniekcją</strong>. Próba dodania drugiego takiego samego klucza kończy się błędem kolizji.</li>
+<li><strong><code>Enum</code> (Java/TypeScript)</strong>: Jeśli funkcja zwraca typ <code>Enum</code>, a my obsłużyliśmy w <code>switch</code> całe możliwe studium przypadków (case study), to traktujemy tę funkcję jako surjekcję na zbiór wartości tego typu.</li>
+<li><strong>Mapowanie bezstratne (np. <code>AutoMapper</code>)</strong>: Dążymy do tego, by mapowanie obiektów DTO na encje bazodanowe było bijekcją.</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><strong>DTO</strong> (<em>Data Transfer Object</em>) to obiekt służący do przenoszenia danych między warstwami aplikacji, np. między API a logiką domenową, albo między logiką domenową a bazą danych.</p>
+
+</div>
+</div><hr>
+<h4>🔗 Połącz Pary: Analiza bezpieczeństwa systemu</h4>
+<p>Zastosuj zdobytą intuicję do oceny dwóch mechanizmów, które spotkasz w każdej aplikacji webowej.</p>
+<data-gate>
+<data-connection-matcher title="Analiza architektury danych">
+    <item left="Funkcja Hashująca (np. SHA-256)" right="Brak iniekcji (możliwe kolizje) — celowo nieodwracalna." />
+    <item left="Szyfrowanie (np. RSA)" right="Bijekcja — musi być odwracalna, by odczytać wiadomość." />
+    <item left="Konwersja obrazu do skali szarości" right="Surjekcja (używamy wszystkich odcieni), ale brak iniekcji." />
+    <item left="Logowanie (Login → UserID)" right="Musi być iniekcją — jeden login to dokładnie jeden użytkownik." />
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<p>Pewnie już widzisz, jak bardzo informatyka jest powiązana z matematyką. 😊</p>
+<p>Zrozumienie tych trzech rzutowań pozwala Ci świadomie decydować, kiedy Twój algorytm może pozwolić sobie na stratę informacji, a kiedy musi być rygorystycznym, odwracalnym interfejsem. W następnej lekcji zobaczymy, jak te zasady realizuje w praktyce <strong>funkcja liniowa</strong>. 🚀</p>

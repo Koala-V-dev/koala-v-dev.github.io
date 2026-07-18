@@ -1,0 +1,621 @@
+<h1>Diagnostyka sprzętowa</h1>
+<p>By w pełni nazwać się informatykiem, musisz umieć poprawnie skonfigurować i przetestować komputer. Na koniec tego kursu pokażę Ci darmowe narzędzia diagnostyczne oraz to, jak na ich podstawie wykryłem i poprawiłem parę rzeczy we własnym komputerze.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>⚙️ Diagnostyka ogólna (CPU-Z)</h2>
+<p><span class="color-green">CPU‑Z</span> to mały program na Windowsa i Androida, który służy do identyfikacji podzespołów. Wyświetla szczegółowe parametry:</p>
+<ul>
+<li>procesora,</li>
+<li>płyty głównej oraz chipsetu,</li>
+<li>pamięci RAM (w tym fabrycznych profili SPD).</li>
+</ul>
+<p>Dzięki niemu sprawdzisz parametry techniczne bez rozkręcania obudowy – program czyta dane prosto z układów na podzespołach.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">SPD</span> (<span class="color-blue">Serial Presence Detect</span> - seryjny odczyt danych o pamięci RAM) to niewielka pamięć ROM na każdym module RAM. Przechowuje zapisane przez producenta informacje o zalecanych taktowaniach, opóźnieniach i napięciach zasilania.</p>
+
+</div>
+</div><h3>⚙️ Analiza procesora (zakładka CPU)</h3>
+<p><img src="/public/courses/windows-11/Images/CPU-Z_CPU.png" alt="CPU‑Z Zakładka CPU"></p>
+<p>Ta zakładka pokazuje dokładny model procesora oraz gniazdo (<span class="color-green">Socket</span>), w którym go zamontowano. Te dane ułatwiają wybór części przy modernizacji komputera.</p>
+<ul>
+<li><span class="color-green">Core Voltage (napięcie rdzenia):</span> Pokazuje aktualne napięcie zasilające rdzenie procesora w woltach ($\text{V}$). Płyta główna i system operacyjny regulują je dynamicznie pod wpływem obciążenia.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Stan napięcia</th>
+<th align="left">Co oznacza?</th>
+<th align="left">Zachowanie systemu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Niskie (w spoczynku)</span></td>
+<td align="left">Poniżej $1.0 \text{ V} – 1.2 \text{ V}$. Procesor oszczędza energię.</td>
+<td align="left">Komputer działa cicho i wydziela mało ciepła.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wysokie (pod obciążeniem)</span></td>
+<td align="left">$1.2 \text{ V} – 1.45 \text{ V}$. Procesor potrzebuje więcej mocy do szybszych obliczeń.</td>
+<td align="left">Temperatury rosną, a wentylatory przyspieszają.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zbyt niskie (Vdroop)</span></td>
+<td align="left">Spadek napięcia przy nagłym skoku obciążenia.</td>
+<td align="left">Błędy systemu, nagłe restarty lub niebieski ekran (<span class="color-blue">BS</span><span class="color-red">OD</span>).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zbyt wysokie (przevoltowanie)</span></td>
+<td align="left">Złe ustawienia w BIOS‑ie lub zbyt agresywny <span class="color-red">overclocking</span>.</td>
+<td align="left">Ryzyko przegrzania procesora i skrócenia jego żywotności.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-green">Stepping i Revision (wersje procesora):</span> Określają wersję fizycznego układu krzemowego.<ul>
+<li>Te parametry to odpowiednik numeru wersji oprogramowania (jak przejście z 1.0 na 1.1). Producent usuwa w ten sposób błędy konstrukcyjne (w mikrokodzie) w kolejnych partiach produkcyjnych, co poprawia stabilność lub bezpieczeństwo bez zmiany nazwy modelu. Zrzut pokazuje rewizję <code>C0</code> (typowe dla 12. generacji).</li>
+</ul>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Sortowanie krzemu (Binning):</span> Selekcja gotowych układów w fabryce. Wbrew niektórym opiniom, fabryka stara się wyprodukować wafle krzemowe o najwyższym standardzie (np. dążąc do Core i9). Po testach okazuje się jednak, że część rdzeni ma wady lub nie radzi sobie ze stabilną pracą na wysokim taktowaniu. Zamiast wyrzucać taki układ, producent blokuje uszkodzone rdzenie i sprzedaje go jako niższy model (np. Core i7 lub Core i5).</p>
+
+</div>
+</div><ul>
+<li><p><span class="color-green">Max TDP (maksymalna moc cieplna):</span> Teoretyczny wskaźnik ilości ciepła w watach ($\text{W}$), jaką procesor wydziela pod typowym obciążeniem. </p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<span class="color-green">Waty ($\text{W}$) vs Wolty ($\text{V}$):</span> Wolty określają napięcie prądu docierającego do procesora. Waty to pobór mocy i wydzielane ciepło.
+</div>
+</div><p>W rzeczywistości poborem prądu zarządzają limity w BIOS‑ie:</p>
+<ul>
+<li><span class="color-green">PL1 (Power Limit 1):</span> Limit mocy utrzymywany długotrwale. Zazwyczaj odpowiada wartości TDP (np. $65 \text{ W}$). Procesor może pracować z tą mocą bez limitów czasowych.</li>
+<li><span class="color-green">PL2 (Power Limit 2):</span> Chwilowy limit mocy (np. przez $28$ sekund do wartości $120 \text{ W}$). Umożliwia procesorowi krótkie przyspieszenie, np. podczas włączania aplikacji. Chłodzenie komputera dobiera się pod kątem wartości PL2.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Instructions (zestawy instrukcji):</span> Lista sprzętowych instrukcji obsługiwanych przez procesor. Określają one operacje matematyczne wykonywane bezpośrednio na poziomie procesora.</p>
+</li>
+</ul>
+<details>
+<summary>Najważniejsze zestawy instrukcji i ich rola</summary>
+
+<ul>
+<li><span class="color-green">MMX</span>: Starszy zestaw rozkazów poprawiający obsługę dźwięku i grafiki.</li>
+<li><span class="color-green">SSE (wersje od 1 do 4.2)</span>: Rozwinięcie MMX. Przyspiesza obliczenia zmiennoprzecinkowe w grach, grafice 3D i kompresji wideo.</li>
+<li><span class="color-green">SSSE3</span>: Dodatkowe instrukcje usprawniające zarządzanie pamięcią podręczną.</li>
+<li><span class="color-green">EM64T</span>: Umożliwia pracę w systemach 64‑bitowych i obsługę ponad 4 GB pamięci RAM.</li>
+<li><span class="color-green">AES</span>: Sprzętowa obsługa szyfrowania danych (np. BitLocker). Odciąża procesor przy zabezpieczaniu dysków.</li>
+<li><span class="color-green">AVX / AVX2</span>: Instrukcje przyspieszające obliczenia na dużych pakietach danych. Przydatne przy edycji wideo i symulacjach fizycznych, choć powodują mocniejsze nagrzewanie się układu.</li>
+<li><span class="color-green">AVX‑VNNI</span>: Instrukcje optymalizujące działanie algorytmów sztucznej inteligencji (AI).</li>
+<li><span class="color-green">FMA3</span>: Pozwala na jednoczesne mnożenie i dodawanie danych w jednym cyklu zegara. Przyspiesza obliczenia wektorowe.</li>
+<li><span class="color-green">SHA</span>: Wspiera obliczanie sum kontrolnych i szyfrowanie oparte na algorytmie SHA.</li>
+</ul>
+</details>
+
+<hr>
+<h3>⚙️ Płyta główna (zakładka Mainboard)</h3>
+<p><img src="/public/courses/windows-11/Images/CPU-Z_Mainboard.png" alt="CPU‑Z Zakładka Mainboard"></p>
+<p>Zakładka <span class="color-green">Mainboard</span> pokazuje parametry płyty głównej oraz połączenia między podzespołami.</p>
+<ul>
+<li><span class="color-green">Manufacturer &amp; Model (producent i model):</span> Marka i model płyty głównej (na zrzucie: <code>Gigabyte B660 GAMING X AX DDR4</code>). Te dane ułatwią Ci pobranie sterowników i nowego BIOS‑u ze strony producenta.</li>
+<li><span class="color-green">Chipset &amp; Southbridge (Alder Lake / B660):</span> Układy zarządzające przepływem danych na płycie głównej:<ul>
+<li><span class="color-gold">Mostek północny (Northbridge):</span> Znajduje się w procesorze (tutaj: Alder Lake). Łączy najszybsze komponenty: pamięć RAM i kartę graficzną.</li>
+<li><span class="color-gold">Mostek południowy (Southbridge):</span> Chipset na płycie głównej (tutaj: B660). Odpowiada za wolniejsze połączenia: porty USB, dyski SATA, karty sieciowe i dźwiękowe.</li>
+</ul>
+</li>
+<li><span class="color-green">LPCIO (Super I/O):</span> Układ na płycie głównej (tutaj: ITE IT8689). Monitoruje wentylatory, temperatury i napięcia. Z tego układu aplikacje diagnostyczne czerpią informacje o pracy komputera.</li>
+<li><span class="color-green">BIOS Version (wersja BIOS), Date (data) i CPU Microcode (mikrokod procesora):</span><ul>
+<li><span class="color-gold">BIOS Version (F34) i Date (12/02/2025):</span> Wersja oprogramowania sterującego płytą główną oraz data jego wydania. Aktualizacja BIOS‑u eliminuje błędy stabilności i kompatybilności, np. z pamięcią RAM.</li>
+<li><span class="color-gold">CPU Microcode (0x3A):</span> Mikropoprawki błędów wczytywane do procesora przy uruchamianiu komputera. Działa to jak łatka usuwająca fabryczne niedociągnięcia krzemu. Nowy mikrokod jest zazwyczaj częścią aktualizacji BIOS‑u.</li>
+</ul>
+</li>
+<li><span class="color-green">Graphic Interface (Interfejs graficzny):</span><ul>
+<li><span class="color-gold">Link Width (szerokość złącza):</span> Liczba aktywnych linii dla karty graficznej. Zrzut pokazuje <code>x16</code> (aktualna) / <code>x16</code> (maksymalna). Karta korzysta z pełnej szerokości złącza.</li>
+<li><span class="color-gold">Link Speed (prędkość złącza):</span> Aktualna prędkość magistrali to <code>2.5 GT/s</code> (PCIe 1.1), mimo że maksymalna wynosi <code>16.0 GT/s</code> (PCIe 4.0). Płyta główna spowalnia złącze na pulpicie, żeby oszczędzać prąd. Pełna prędkość powróci automatycznie, gdy tylko uruchomisz grę.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3>⚖️ Pamięć RAM (zakładki Memory i SPD)</h3>
+<p>Pamięć RAM bywa ustawiona wolniej, niż pozwalają na to jej parametry fabryczne. Porównując te dwie zakładki, łatwo sprawdzisz, czy komputer korzysta z pełnej wydajności RAM‑u.</p>
+<h4>📊 Zakładka Memory (parametry bieżące)</h4>
+<p><img src="/public/courses/windows-11/Images/CPU-Z_Memory.png" alt="CPU‑Z Zakładka Memory"></p>
+<ul>
+<li><span class="color-green">DRAM Frequency (rzeczywista częstotliwość):</span> Na zrzucie to $1596.1 \text{ MHz}$. Współczesne kości działają w technologii <span class="color-green">DDR</span> (<span class="color-blue">Double Data Rate</span>). Oznacza to przesyłanie dwóch pakietów danych w jednym cyklu zegara (na zboczu wznoszącym oraz opadającym sygnału). Rzeczywistą szybkość przesyłu określa się w <span class="color-green">$\text{MT/s}$</span> (megatransferach na sekundę) i wynosi ona dwukrotność częstotliwości DRAM:<br>$$1596.1 \text{ MHz} \times 2 \approx 3200 \text{ MT/s}$$<br><span class="color-blue">Uwaga: W sklepach ta wartość jest często błędnie oznaczana jako $\text{MHz}$.</span></li>
+<li><span class="color-green">CAS# Latency (CL):</span> Opóźnienie pamięci, czyli czas (w cyklach zegara) od żądania danych do rozpoczęcia ich wysyłania. Na zrzucie to $16$ cykli.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Standard RAM</th>
+<th><span style="text-wrap: nowrap;">Szybkość ($\text{MT/s}$)</span></th>
+<th>Ocena opóźnienia CAS Latency (CL)</th>
+<th>Komentarz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span class="color-gold">DDR4</span></td>
+<td><span style="text-wrap: nowrap;">$2133 - 4000$</span></td>
+<td><span style="text-wrap: nowrap;">CL14 - CL16: <span class="color-green">Bardzo dobre</span></span> <br>CL18 - CL19: <span class="color-blue">Standardowe</span> <br>CL22 i więcej: <span class="color-red">Słabe</span></td>
+<td>Najpopularniejszy standard. Wartości powyżej $3200\text{ MT/s}$ wymagają włączenia drugiego profilu XMP/EXPO.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-gold">DDR5</span></td>
+<td><span style="text-wrap: nowrap;">$4800 - 8400$</span></td>
+<td><span style="text-wrap: nowrap;">CL28 - CL32: <span class="color-green">Bardzo dobre</span></span> <br>CL36 - CL40: <span class="color-blue">Standardowe</span> <br>CL46 i więcej: <span class="color-red">Słabe</span></td>
+<td>Najnowsza generacja. Wyższe opóźnienia CL są równoważone przez znacznie wyższe taktowanie.</td>
+</tr>
+</tbody></table>
+<details>
+<summary>Tabela porównawcza CL dla pozostałych standardów RAM</summary>
+
+<table>
+<thead>
+<tr>
+<th>Standard RAM</th>
+<th><span style="text-wrap: nowrap;">Szybkość ($\text{MT/s}$)</span></th>
+<th>Ocena opóźnienia CAS Latency (CL)</th>
+<th>Komentarz techniczny</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-gold">SDRAM</span></td>
+<td>$66 - 133$</td>
+<td>CL2: <span class="color-green">Bardzo dobre</span> <br> CL3: <span class="color-blue">Standardowe</span></td>
+<td>Przesyła dane raz na cykl zegara. Wyższe wartości CL wtedy nie istniały.</td>
+</tr>
+<tr>
+<td><span class="color-gold">DDR</span> (DDR1)</td>
+<td>$200 - 400$</td>
+<td>CL2 - CL2.5: <span class="color-green">Bardzo dobre</span> <br> CL3: <span class="color-blue">Standardowe</span></td>
+<td>Pierwsza generacja podwajająca transfer (Double Data Rate).</td>
+</tr>
+<tr>
+<td><span class="color-gold">DDR2</span></td>
+<td>$400 - 1066$</td>
+<td>CL3 - CL4: <span class="color-green">Bardzo dobre</span> <br> CL5 - CL6: <span class="color-blue">Standardowe</span> <br> CL7 i więcej: <span class="color-red">Słabe</span></td>
+<td>Wzrost taktowań kosztem wyższych opóźnień CL.</td>
+</tr>
+<tr>
+<td><span class="color-gold">DDR3</span></td>
+<td><span style="text-wrap: nowrap;">$800 - 2133$</span></td>
+<td><span style="text-wrap: nowrap;">CL7 - CL9: <span class="color-green">Bardzo dobre</span></span> <br> CL10 - CL11: <span class="color-blue">Standardowe</span> <br> CL13 i więcej: <span class="color-red">Słabe</span></td>
+<td>Standard używany m.in. w procesorach Intel Core od 2. do 4. generacji.</td>
+</tr>
+</tbody></table>
+</details>
+
+<h4>🗃️ Zakładka SPD (parametry fabryczne kości)</h4>
+<p><img src="/public/courses/windows-11/Images/CPU-Z_SPD.png" alt="CPU‑Z Zakładka SPD"></p>
+<ul>
+<li><span class="color-green">Timings Table (tabela opóźnień):</span> Pokazuje gotowe profile działania zapisane przez producenta w pamięci kości RAM. Zrzut prezentuje 4 profile:<ul>
+<li><span class="color-green">JEDEC #8 i JEDEC #9:</span> Bezpieczne, standardowe profile o szybkości $2400\text{ MT/s}$ ($1200\text{ MHz} \times 2$) przy niskim napięciu $1.20 \text{ V}$. Bez włączonego profilu XMP w BIOS‑ie pamięć zwolniłaby do tych wartości.</li>
+<li><span class="color-green">XMP‑3204:</span> Profil XMP o szybkości <span class="color-green">$3200\text{ MT/s}$</span> ($1602\text{ MHz} \times 2$) przy napięciu $1.350 \text{ V}$ i opóźnieniu CL16. Z tego profilu korzysta teraz testowany komputer (co potwierdza zakładka Memory).</li>
+<li><span class="color-green">XMP‑3602:</span> Maksymalny profil XMP o szybkości <span class="color-green">$3600\text{ MT/s}$</span> ($1801\text{ MHz} \times 2$) przy napięciu $1.350 \text{ V}$ i opóźnieniu CL18.</li>
+</ul>
+</li>
+</ul>
+<h4>❓ Czym różnią się profile RAM?</h4>
+<ul>
+<li><span class="color-green">JEDEC:</span> Standardowe, bezpieczne ustawienia. Zapewniają bezproblemowy rozruch komputera zaraz po złożeniu.</li>
+<li><span class="color-green">XMP (Extreme Memory Profile):</span> Profile szybsze (fabryczne podkręcanie) stworzone przez Intela. Trzeba je włączyć w BIOS‑ie. Działają przy wyższym napięciu (np. $1.35\text{ V}$ zamiast $1.20\text{ V}$).</li>
+<li><span class="color-green">EXPO:</span> Odpowiednik profilu XMP opracowany przez AMD.</li>
+</ul>
+<h4>⚠️ Dlaczego szybsza praca pamięci nie jest włączona domyślnie?</h4>
+<ol>
+<li><span class="color-green">Stabilny rozruch:</span> Płyta główna przy pierwszym włączeniu zawsze uruchamia kości w podstawowym trybie <span class="color-green">JEDEC</span>. Chodzi o to, by komputer w ogóle wystartował.</li>
+<li><span class="color-green">Możliwości kontrolera (IMC):</span> Kontroler pamięci wbudowany w procesor (IMC) bywa wąskim gardłem przy wysokich taktowaniach. Stabilność zależy w dużej mierze od liczby zajętych gniazd.</li>
+<li><span class="color-green">Kwestia gwarancji i overclockingu:</span> Korzystanie z profilu XMP/EXPO wykracza poza standard JEDEC i z punktu widzenia producentów jest traktowane jako podkręcanie sprzętu.</li>
+</ol>
+<h4>🪤 Pułapka liczby kości RAM (2 vs 4 moduły)</h4>
+<p>Panuje przekonanie, że obsadzenie wszystkich czterech gniazd pamięci to świetny sposób na rozbudowę. W rzeczywistości to spore wyzwanie dla stabilności komputera.</p>
+<p>Schemat poniżej przedstawia fizyczny układ połączeń (magistralę Daisy Chain) na płycie głównej. Pokazuje, jak sygnał z procesora (IMC) dociera do poszczególnych slotów:</p>
+<p><img src="/public/courses/windows-11/Images/Schemat-kana%C5%82%C3%B3w-slot%C3%B3w-RAM-wzgl%C4%99dem-CPU.png" alt="Schemat kanałów slotów RAM względem CPU"></p>
+<h4>Sposób podłączenia a stabilność systemu:</h4>
+<ol>
+<li><p><span class="color-green">Zalecana konfiguracja (2 kości w slotach 2 i 4):</span></p>
+<ul>
+<li>Kości instaluje się w gniazdach <span class="color-green">A2</span> i <span class="color-green">B2</span> (na samym końcu linii sygnałowej, tuż przed fizycznymi terminatorami).</li>
+<li>Sygnał elektryczny z procesora (IMC) płynie przez puste sloty A1/B1 (które działają wtedy jedynie jako pasywne „przelotki” na ścieżce) bezpośrednio do kości w A2/B2.</li>
+<li>Na końcu linii znajduje się odbiornik (kości RAM), a zaraz za nim rezystor terminujący. Dzięki temu terminator w pełni pochłania resztki energii sygnału. Unikamy w ten sposób odbić (echa i szumu), co gwarantuje stabilną pracę pamięci na ich maksymalnym taktowaniu.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Błędna konfiguracja (2 kości w slotach 1 i 3):</span></p>
+<ul>
+<li>Kości trafiają do gniazd <span class="color-green">A1</span> i <span class="color-green">B1</span> (w środku linii), a gniazda końcowe A2 i B2 pozostają puste.</li>
+<li>Sygnał dociera do kości w A1/B1, ale biegnie też wolnymi ścieżkami na płycie w kierunku pustych gniazd.</li>
+<li>Brak aktywnego odbiornika na końcu pogarsza dopasowanie impedancji – terminator nie pochłania fali w całości. Część sygnału odbija się od pustego końca i wraca jako echo, nakładając się na oryginalny sygnał w slotach A1/B1 oraz na kontrolerze (IMC). Prowadzi to do zakłóceń i niestabilności pamięci przy wyższych częstotliwościach.</li>
+</ul>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Impedancja (opór pozorny)</span> – to odpowiednik oporu elektrycznego, ale dla sygnałów szybkozmiennych.<br>Choć zasilacz dostarcza prąd stały (DC), to sygnały przesyłające dane (np. zegar magistrali RAM) są ciągiem impulsów o częstotliwościach rzędu gigaherców ($\text{GHz}$). Przy takich prędkościach ścieżki na płycie głównej zachowują się jak linie transmisyjne, a prąd przybiera charakterystykę fali wysokiej częstotliwości. Dlatego zamiast zwykłego oporu (rezystancji) musimy brać pod uwagę <span class="color-green">impedancję</span>, która uwzględnia również pojemność i indukcyjność przewodów.</p>
+
+</div>
+</div><ol start="3">
+<li><span class="color-green">Konfiguracja z 4 kośćmi (wszystkie sloty zajęte):</span><ul>
+<li>Sygnał w każdym kanale biegnie szeregowo przez oba moduły (z IMC przez A1 do A2).</li>
+<li>Dwa aktywne odbiorniki na jednej linii oznaczają dwukrotny wzrost obciążenia pojemnościowego dla kontrolera pamięci (IMC). Impulsy cyfrowe narastają i opadają wolniej (to tzw. diagram oczkowy).</li>
+<li>Dodatkowo każda kość stanowi punkt skoku impedancji, co wywołuje kolejne odbicia sygnału (echo) krążące między gniazdem A1 a A2.</li>
+<li>Przy takich zakłóceniach kontroler IMC ma problem z zachowaniem stabilności przy wysokich częstotliwościach (np. $3600\text{ MT/s}$).</li>
+</ul>
+</li>
+</ol>
+<h4>Wniosek dla naszego przykładu:</h4>
+<p>Kości z przykładu mają fabryczny profil XMP na <span class="color-green">$3600\text{ MT/s}$</span> (XMP‑3602). Ponieważ jednak komputer ma zajęte wszystkie 4 sloty ($4 \times 8 \text{ GB}$), stabilne działanie z tą prędkością byłoby loterią.<br>W BIOS‑ie włączono więc bezpieczniejszy i w pełni stabilny profil <span class="color-green">XMP‑3204 ($3200\text{ MT/s}$)</span>. To najlepszy kompromis gwarantujący stabilną pracę przy pełnym obsadzeniu płyty.</p>
+<h3>🛠️ Punkt Kontrolny: Konfiguracja pamięci RAM</h3>
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego po zainstalowaniu 4 modułów pamięci RAM DDR4 oznaczonych jako $3600\text{ MT/s}$ płyta główna może automatycznie uruchomić je z niższą prędkością (np. $2400\text{ MT/s}$ lub $3200\text{ MT/s}$)?</p>
+</question>
+    <options>
+      <item correct=""><p>Obsadzenie wszystkich 4 gniazd zwiększa obciążenie pojemnościowe kontrolera pamięci (IMC) oraz wywołuje odbicia sygnału (echo) na magistrali Daisy Chain, co utrudnia stabilną pracę na najwyższym taktowaniu.</p>
+</item>
+      <item><p>Standard JEDEC fizycznie zabrania działania pamięci z prędkością wyższą niż $2400\text{ MT/s}$ przy 4 modułach z powodu zbyt wysokiego poboru energii.</p>
+</item>
+      <item><p>Procesory 12. generacji obsługują wyłącznie konfiguracje dwukanałowe (Dual Channel) i wyłączają drugą parę kości w celu zapobieżenia awarii systemu.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się nad fizyką sygnałów szybkozmiennych. Czy kontroler pamięci w procesorze (IMC) ma łatwiejszą pracę, gdy musi obsłużyć dwa moduły na końcu linii transmisyjnej, czy cztery?</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Dwa moduły w slotach A2 i B2 to optymalne obciążenie i czysty sygnał. Cztery kości to duże wyzwanie dla IMC i ryzyko niestabilności przy agresywnych profilach XMP.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Diagnostyka karty graficznej (GPU-Z)</h2>
+<p><span class="color-green">GPU‑Z</span> służy do sprawdzania parametrów kart graficznych (NVIDIA, AMD, Intel). Odczytuje dane układu (GPU), pamięci wideo (VRAM) i na bieżąco monitoruje parametry pracy.</p>
+<h3>⚙️ Parametry karty (zakładka Graphics Card)</h3>
+<p><img src="/public/courses/windows-11/Images/GPU-Z_Graphics_Card.png" alt="GPU‑Z Graphics Card"></p>
+<ul>
+<li><p><span class="color-green">Bus Interface (interfejs magistrali):</span> Pokazuje wersję i szerokość linii magistrali PCI‑Express (PCIe), z których korzysta karta.</p>
+<ul>
+<li><span class="color-green">W spoczynku:</span> Zrzut pokazuje <code>PCIe x16 4.0 @ x16 1.1</code>. Karta obsługuje standard PCIe 4.0, ale na pulpicie przełącza się w tryb 1.1, żeby oszczędzać energię.</li>
+<li><span class="color-green">Pod obciążeniem:</span> Kliknij znak zapytania (<code>?</code>) obok tej opcji i uruchom wbudowany <code>Render Test</code>. Wartość powinna skoczyć do nominalnej (np. <code>@ x16 4.0</code>).<br><span class="color-red">nie zaznaczaj tego checkboxa:</span> <span class="color-gold">Render in full‑screen (for CrossFire / SLI)</span>. Te opcje dotyczą starych systemów łączenia kilku kart w jeden układ.</li>
+</ul>
+<p><img src="/public/courses/windows-11/Images/GPU-Z_render_test.png" alt="GPU‑Z okno Render Test"></p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Test działa w nieskończonej pętli, bo ma stale obciążać kartę podczas diagnostyki. Gdy zobaczysz, że <code>Bus Interface</code> zmieniło się na docelową wartość (np. <code>@ x16 4.0</code>), możesz po prostu zamknąć okno testowe.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Co jeśli karta nie osiąga nominalnej prędkości?</span></p>
+<ol>
+<li><span class="color-blue">Zły slot PCIe:</span> Karta trafiła do dolnego slotu płyty głównej, który ma mniej linii (np. x4 zamiast x16) lub obsługuje starszą wersję PCIe. Kartę zawsze montuj w najwyższym slocie, najbliżej procesora.</li>
+<li><span class="color-blue">Dzielenie linii (Lane Sharing):</span> Szybki dysk SSD M.2 NVMe współdzieli linie z gniazdem karty, co obcina pasmo GPU o połowę (np. do x8).</li>
+<li><span class="color-blue">Opadanie karty (GPU Sag) lub zabrudzenie styków:</span> Ciężka karta mogła delikatnie wysunąć się ze złącza i stracić kontakt na skrajnych pinach. Wyjmij ją, przeczyść styki alkoholem izopropylowym (IPA) i zamontuj ponownie, najlepiej z podpórką."</li>
+</ol>
+
+</div>
+</div></li>
+<li><p><span class="color-green">Resizable BAR (ReBAR):</span> Daje procesorowi bezpośredni dostęp do całej pamięci VRAM karty graficznej.</p>
+<ul>
+<li><span class="color-green">Jak to działa:</span> Bez ReBAR procesor komunikuje się z pamięcią karty przez małe bloki o wielkości $256\text{ MB}$ (Base Address Register). Resizable BAR znosi ten limit. Tekstury i geometria przesyłane są szybciej, co w grach daje dodatkowe $5 - 15\%$ wydajności i zmniejsza przycięcia (stuttering).</li>
+<li><span class="color-green">Stan na zrzucie:</span> Pole <span class="color-green">Resizable BAR</span> pokazuje <span class="color-green">Disabled</span> (Wyłączone). Aby je włączyć, musisz w BIOS‑ie płyty aktywować <span class="color-gold">Above 4G Decoding</span> oraz <span class="color-gold">ReBAR Support</span> (u AMD ta funkcja nazywa się <span class="color-blue">SAM</span> – <span class="color-blue">Smart Access Memory</span>).</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Czyste UEFI i pułapka z trybem CSM (MBR vs GPT):</span><br>ReBAR ruszy tylko w czystym trybie UEFI. Funkcja <span class="color-green">CSM (Compatibility Support Module) / Legacy Boot</span> musi być wyłączona.</p>
+<p><span class="color-green">Uwaga na blokadę startu systemu:</span><br>Jeśli Windows był instalowany ze starym trybem CSM, Twój dysk ma układ partycji <span class="color-green">MBR</span> zamiast nowszego <span class="color-green">GPT</span>. Gdy po prostu wyłączysz CSM w BIOS‑ie, <span class="color-green">komputer nie wykryje dysku startowego i Windows się nie uruchomi</span>.</p>
+<p>Jak bezpiecznie odpalić ReBAR:</p>
+<ol>
+<li>Sprawdź w <span class="color-blue">Zarządzaniu dyskami</span>, czy dysk systemowy ma styl <span class="color-green">GPT</span>.</li>
+<li>Jeśli widzisz <span class="color-green">MBR</span>, zrób najpierw konwersję do GPT narzędziem <code>mbr2gpt</code> (z poziomu wiersza poleceń) lub najlepiej zainstaluj system na nowo w trybie UEFI.</li>
+<li>Dopiero gdy system działa w czystym trybie UEFI (GPT), wejdź do BIOS‑u, <span class="color-green">wyłącz CSM</span> i włącz <span class="color-green">Above 4G Decoding</span> oraz <span class="color-green">Resizable BAR</span>.</li>
+</ol>
+
+</div>
+</div><div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Efekt poprawnej konfiguracji w BIOS‑ie:</span><br>Poniższy zrzut pokazuje system po zmianach:</p>
+<ol>
+<li>W BIOS‑ie włączono <span class="color-gold">Above 4G Decoding</span>, _<span class="color-green">Above 4GB MMIO BIOS assignment</span> _oraz <span class="color-gold">Re‑Size BAR Support</span>.</li>
+<li>GPU‑Z pokazuje status <span class="color-green">Resizable BAR: Enabled</span> (Włączone).</li>
+<li>Na zrzucie (zrobionym podczas testu obciążeniowego) magistrala działa z pełną prędkością <span class="color-green">PCIe x16 4.0 @ x16 4.0</span>.</li>
+</ol>
+
+</div>
+</div><p><img src="/public/courses/windows-11/Images/GPU-Z_ResizableBAR_W%C5%82%C4%85czenie.png" alt="GPU‑Z Resizable BAR Enabled"></p>
+</li>
+<li><p><span class="color-green">Memory Size &amp; Bus Width (Pojemność i szyna pamięci):</span></p>
+<ul>
+<li><span class="color-green">Memory Size (Pojemność):</span> Karta ma $12288\text{ MB}$ ($12\text{ GB}$) pamięci wideo (VRAM).</li>
+<li><span class="color-green">Bus Width (Szerokość szyny pamięci):</span> Szyna danych między rdzeniem GPU a pamięcią VRAM ma szerokość <span class="color-green">$192\text{ bit}$</span>. Dla kości GDDR6 od Hynixa daje to przepustowość (<span class="color-blue">Bandwidth</span>) rzędu <span class="color-green">$360.0\text{ GB/s}$</span>.</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Przepustowość pamięci (Bandwidth):</span><br>Szerokość szyny to jak liczba pasów na drodze, a taktowanie pamięci – jak prędkość aut. Karta z wąską szyną (np. <span class="color-green">$128\text{-bit}$</span>) bywa wąskim gardłem w rozdzielczościach <span class="color-green">$1440p/4K$</span>. Nawet duża pojemność (np. <span class="color-green">$16\text{ GB}$</span> VRAM) nie pomoże, jeśli szyna nie nadąży z przesyłaniem danych.</p>
+
+</div>
+</div></li>
+</ul>
+<hr>
+<h3>🌡️ Czujniki temperatury i pracy (zakładka Sensors)</h3>
+<p><img src="/public/courses/windows-11/Images/GPU-Z_Sensors.png" alt="GPU‑Z Sensors"></p>
+<ul>
+<li><p><span class="color-green">GPU Temperature vs Hot Spot (temperatura średnia a najgorętszy punkt):</span></p>
+<ul>
+<li><span class="color-blue">GPU Temperature:</span> Średnia z czujników w rdzeniu. Zrzut pokazuje <span class="color-green">$46.0^\circ\text{C}$</span> w spoczynku. Tę wartość zobaczysz w Menedżerze zadań Windows.</li>
+<li><span class="color-blue">GPU Hot Spot Temperature:</span> Temperatura z najgorętszego punktu rdzenia krzemowego. Na zrzucie to <span class="color-green">$56.1^\circ\text{C}$</span>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Różnica (GPU vs Hot Spot)</th>
+<th align="left">Co oznacza?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Do $15^\circ\text{C}$ – $20^\circ\text{C}$</span><br><span style="font-size: 0.8em; text-wrap: nowrap"><span class="color-blue">(na zrzucie: $10.1^\circ\text{C}$)</span></span></td>
+<td align="left">Chłodzenie dolega prawidłowo, pasta działa bez zarzutu.</td>
+</tr>
+<tr>
+<td align="left"><span style="text-wrap: nowrap"><span class="color-green">Powyżej $25^\circ\text{C}$ - $30^\circ\text{C}$</span></span></td>
+<td align="left">Słaby odbiór ciepła. Pasta mogła wyschnąć, ulec wypompowaniu (<span class="color-blue">pump‑out effect</span>) albo docisk radiatora jest nierównomierny. Czas na wymianę pasty i termopadów.</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><span class="color-green">Fan Speed (prędkość wentylatorów):</span> Prędkość obrotowa wentylatorów (w $\%$ i RPM).</p>
+<ul>
+<li>Zrzut podaje <span class="color-green">$0\%$ (0 RPM)</span> dla obu wentylatorów. Dzisiejsze karty chłodzone są <span class="color-green">półpasywnie</span> – wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55‑60^\circ\text{C}$ na rdzeniu.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Board Power Draw (pobór prądu karty):</span> Całkowity pobór mocy przez całą konstrukcję w watach ($\text{W}$).</p>
+<ul>
+<li>Zrzut pokazuje <span class="color-green">$19.5\text{ W}$</span> w spoczynku, z czego sam rdzeń (<span class="color-green">GPU Chip Power Draw</span>) bierze tylko <span class="color-green">$5.6\text{ W}$</span>. Reszta idzie na VRAM, wentylatory, podświetlenie i sekcję zasilania. Ta wartość pozwala ocenić zapas mocy zasilacza.</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Skąd karta bierze prąd?</span></p>
+<ol>
+<li><span class="color-green">Slot PCIe płyty głównej:</span> Zasila kartę mocą do <span class="color-green">$75\text{ W}$</span>.</li>
+<li><span class="color-green">Dodatkowe złącza zasilania (PEG):</span> Wtyczki $6\text{-pin}$ (dają do <span class="color-green">$75\text{ W}$</span>), $8\text{-pin}$ (do <span class="color-green">$150\text{ W}$</span>) lub nowsze standardy typu $12\text{VHPWR}$ / $12\text{V}-2\times6$ (nawet do <span class="color-green">$600\text{ W}$</span>).<br>Taka karta pobierająca pod obciążeniem np. <span class="color-green">$250\text{ W}$</span> wymaga wpięcia odpowiednich kabli prosto z zasilacza.</li>
+</ol>
+
+</div>
+</div></li>
+</ul>
+<hr>
+<h3>🔍 Informacje zaawansowane (zakładka Advanced)</h3>
+<p>W zakładce <span class="color-green">Advanced</span> sprawdzisz parametry sterownika, limity sprzętowe i szczegółowy stan podłączonych monitorów.</p>
+<h4>⚡ 1. Limity mocy i temperatur (sekcja General / Power Limit)</h4>
+<p><img src="/public/courses/windows-11/Images/GPU-Z_Advanced_1.png" alt="GPU‑Z Advanced - Limity"></p>
+<ul>
+<li><span class="color-green">Power Limit (limit mocy):</span> W sekcji <span class="color-blue">General</span> program pokazuje fabryczne i dopuszczalne limity zasilania rdzenia GPU.<ul>
+<li>Zrzut pokazuje wartość domyślną <span class="color-green">Default ($100.0\%$)</span> oraz maksymalną <span class="color-green">Maximum ($124.7\%$)</span>. W programach do podkręcania (np. MSI Afterburner) limit mocy można zwiększyć o te <span class="color-green">$24.7\%$</span> ponad fabrykę (zakres regulacji sięga od $-41\%$ do $+25\%$).</li>
+<li><span class="color-green">Tuning:</span> Obniżenie limitu mocy (np. do $85\%$) to prosty sposób na redukcję temperatur i poboru prądu.</li>
+<li><span class="color-green">Temperature Limit:</span> Domyślny próg temperatury wynosi <span class="color-green">Current $83.0^\circ\text{C}$</span>. Po jego przekroczeniu karta zacznie spowalniać taktowanie rdzenia (<span class="color-blue">thermal throttling</span>), żeby się nie przegrzać. Maksymalny próg, jaki można ustawić, to <span class="color-green">$90.0^\circ\text{C}$</span>.</li>
+</ul>
+</li>
+</ul>
+<h4>🖥️ 2. Parametry podłączonych monitorów (sekcja General / Monitor)</h4>
+<p>Przewijając sekcję <span class="color-blue">General</span>, sprawdzisz parametry podłączonych ekranów:</p>
+<h5>Monitor 1 (DisplayPort)</h5>
+<p><img src="/public/courses/windows-11/Images/GPU-Z_Advanced_2.png" alt="GPU‑Z Advanced - Monitor 1"></p>
+<ul>
+<li><span class="color-green">Połączenie i linie sygnałowe:</span> Ekran podłączony jest przez <span class="color-green">DisplayPort</span>. Karta wynegocjowała 2 linie sygnałowe z 4 możliwych (<code>Lanes (current) 2</code> / <code>Lanes (max) 4</code>).</li>
+<li><span class="color-green">Link Rate i parametry obrazu:</span> Prędkość łącza to <span class="color-green">$2.7 Gbps$</span>, a głębia kolorów wynosi <span class="color-green">$8\text{-bit}$ RGB</span>. Te dane pomagają wykryć, dlaczego monitor $4\text{K}$ odświeża się np. w $30\text{ Hz}$ zamiast $60\text{ Hz}$ – winny jest zazwyczaj kiepski kabel, który nie pozwala na pracę na maksymalnej liczbie linii.</li>
+</ul>
+<h5>Monitor 2 (HDMI)</h5>
+<p><img src="/public/courses/windows-11/Images/GPU-Z_Advanced_3.png" alt="GPU‑Z Advanced - Monitor 2"></p>
+<ul>
+<li><span class="color-green">Złącze HDMI:</span> Drugi ekran podpięty jest kablem <span class="color-green">HDMI</span>.</li>
+<li><span class="color-green">Obsługa głębi barw i HDR:</span> Karta i porty obsługują obraz <span class="color-green">$8\text{-bit}$</span>, <span class="color-green">$10\text{-bit}$</span> oraz <span class="color-green">$12\text{-bit}$</span> w przestrzeniach barwnych <span class="color-green">RGB444</span>, <span class="color-green">YCbCr444</span> i <span class="color-green">YCbCr422</span>. Sam parametr <span class="color-green">HDR</span> ma jednak status <span class="color-green">N/A</span> (Not Available) – oznacza to, że ten monitor nie obsługuje wyświetlania o szerokiej rozpiętości tonalnej lub funkcja ta jest wyłączona w ustawieniach systemu Windows.</li>
+</ul>
+<h3>🛠️ Punkt Kontrolny: Włączanie Resizable BAR</h3>
+<data-gate>
+  <data-quiz>
+    <question><p>Użytkownik włączył w BIOS‑ie funkcję Resizable BAR, jednak program GPU‑Z nadal pokazuje status <code>Disabled</code>. Komputer ma tylko jeden dysk NVMe. Co może być przyczyną?</p>
+</question>
+    <options>
+      <item correct=""><p>System Windows został zainstalowany w starym trybie rozruchu CSM (Legacy) z partycjonowaniem dysku MBR, a ReBAR wymaga czystego UEFI i tablicy partycji GPT.</p>
+</item>
+      <item><p>Karta graficzna została zamontowana w pierwszym gnieździe PCIe płyty głównej (najbliżej CPU), co zablokowało bezpośredni dostęp procesora do pamięci VRAM.</p>
+</item>
+      <item><p>System operacyjny to 64‑bitowy Windows 11, który ze względów bezpieczeństwa domyślnie blokuje funkcję ReBAR dla dysków NVMe.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Przypomnij sobie, w jakim środowisku rozruchowym (BIOS/CSM czy czyste UEFI) działa funkcja Resizable BAR oraz jak styl partycjonowania dysku (MBR vs GPT) wpływa na możliwość uruchomienia systemu po wyłączeniu CSM.</p>
+</div>
+    <div data-hint="success"><p>Zgadza się! Wyłączenie CSM w BIOS‑ie jest niezbędne do działania ReBAR, ale bez wcześniejszej konwersji dysku z MBR na GPT system po prostu się nie uruchomi.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Diagnostyka i testowanie dysków SSD (CrystalDiskInfo &amp; CrystalDiskMark)</h2>
+<p>Do sprawdzania i testowania dysków SSD lub HDD służą dwa bezpłatne programy z rodziny <span class="color-green">CrystalDisk</span>:</p>
+<ol>
+<li><span class="color-green">CrystalDiskInfo:</span> Szybko odczytuje parametry <span class="color-gold">S.M.A.R.T.</span>, ogólny stan zdrowia dysku oraz jego temperaturę.</li>
+<li><span class="color-green">CrystalDiskMark:</span> Testuje prędkości odczytu i zapisu (sekwencyjne oraz losowe).</li>
+</ol>
+<hr>
+<h3>📥 1. Wybór wersji i pobieranie</h3>
+<p>Na stronie pobierania (<a href="https://crystalmark.info/en/download/#CrystalDiskInfo">crystalmark.info</a>) znajdziesz kilka wariantów programu:</p>
+<ul>
+<li><span class="color-green">Edycje wizualne (skórki):</span> Pod maską wszystkie wersje są identyczne. <span class="color-green">Standard Edition</span> to klasyczny wygląd Windowsa. Edycje tematyczne (np. <span class="color-green">Shizuku Edition</span>, <span class="color-green">Kurei Kei Edition</span> czy wersja partnerska z <span class="color-green">MSI</span>) mają tła w stylu anime i niestandardowe ikony. Niektóre z nich odtwarzają komunikaty głosowe przy ostrzeżeniach o stanie dysku. 😁</li>
+<li><span class="color-green">Wersja przenośna (Portable ZIP):</span> Zamiast instalatora wybierz paczkę <span class="color-green">ZIP (Portable)</span>. Takie programy działają bez instalacji w systemie – rozpakowujesz archiwum i od razu uruchamiasz. Oszczędzasz w ten sposób rejestr Windowsa przed zbędnymi wpisami.</li>
+</ul>
+<hr>
+<h3>🩺 2. Ocena kondycji dysku (CrystalDiskInfo)</h3>
+<p>Jako przykładu użyjemy dwóch dysków NVMe pracujących w tym samym komputerze: <span class="color-green">Lexar SSD NM790 4TB</span> (dysk systemowy PCIe Gen4) oraz <span class="color-green">IR‑SSDPR-P34B‑02T-80</span> (Goodram IRDM 2TB, dodatkowy dysk PCIe Gen3).</p>
+<h4>Dysk C: Lexar SSD NM790 4TB (Systemowy dysk PCIe Gen4)</h4>
+<p><img src="/public/courses/windows-11/Images/CristalDiskInfo-MSI-Lexar.png" alt="CrystalDiskInfo Lexar"></p>
+<h4>Dysk D: Goodram IRDM 2TB (Pomocniczy dysk PCIe Gen3)</h4>
+<p><img src="/public/courses/windows-11/Images/CristalDiskInfo-MSI-IR.png" alt="CrystalDiskInfo IRDM"></p>
+<p>Program wyciąga parametry <span class="color-gold">S.M.A.R.T.</span> (<span class="color-blue">Self‑Monitoring, Analysis and Reporting Technology</span>) bezpośrednio z wbudowanego kontrolera. Zestawienie tych dwóch modeli dobrze pokazuje różnice technologiczne:</p>
+<ul>
+<li><p><span class="color-green">Stan zdrowia (Health Status):</span></p>
+<ul>
+<li><span class="color-blue">Lexar (Dysk C):</span> Pokazuje <span class="color-green">Good ($100\%$)</span>. Dysk jest świeży i zapisał niewiele terabajtów.</li>
+<li><span class="color-blue">Goodram (Dysk D):</span> Wskazuje <span class="color-green">Good ($92\%$)</span>. Komórki pamięci flash w dyskach SSD zużywają się przy każdym zapisie danych. Te $8\%$ ubytku to normalny ślad użytkowania. Wartości powyżej $80‑90\%$ nie powinny martwić. Kopię zapasową i wymianę dysku planuj dopiero wtedy, gdy stan spadnie poniżej <span class="color-green">$50\%$</span> lub program zgłosi status <span class="color-red">„Coution”</span> lub <span class="color-red">„Bad”</span>.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Suma zapisów hosta (Total Host Writes):</span> Pokazuje łączną ilość danych zapisaną od nowości.</p>
+<ul>
+<li><span class="color-blue">Lexar:</span> Zapisał <span class="color-green">$5660\text{ GB}$</span> (ok. $5.6\text{ TB}$) w ciągu <span class="color-green">$1351$</span> godzin pracy.</li>
+<li><span class="color-blue">Goodram:</span> Przetworzył już <span class="color-green">$45620\text{ GB}$</span> (ok. $45.6\text{ TB}$) przez <span class="color-green">$9627$</span> godzin (czyli ponad rok ciągłego działania). Ta różnica w zużyciu tłumaczy spadek zdrowia starszego Goodrama do <span class="color-green">$92\%$</span>.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Wersja standardu i szyny (Transfer Mode):</span><br>Pokazuje interfejs, z którego aktualnie korzysta dysk, w formacie: <code>Bieżący tryb | Tryb maksymalny</code>.</p>
+<p>Tabela poniżej przedstawia maksymalne realne prędkości dla konfiguracji z czterema liniami (x4) w zależności od generacji złącza:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Generacja magistrali</th>
+<th>Maksymalny odczyt</th>
+<th>Maksymalny zapis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span class="color-green">PCIe 3.0 x4</span></td>
+<td>ok. $3500\text{ MB/s}$</td>
+<td>ok. $3000\text{ MB/s}$</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">PCIe 4.0 x4</span></td>
+<td>ok. $7500\text{ MB/s}$</td>
+<td>ok. $7000\text{ MB/s}$</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">PCIe 5.0 x4</span></td>
+<td>ok. $14000\text{ MB/s}$</td>
+<td>ok. $12000\text{ MB/s}$</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-blue">Lexar (Dysk C):</span> Działa w trybie <span class="color-green">PCIe 4.0 x4</span>. Został zamontowany w pierwszym, górnym slocie M.2 podłączonym bezpośrednio do linii procesora (CPU), co pozwala na pełne wykorzystanie przepustowości Gen4.</li>
+<li><span class="color-blue">Goodram (Dysk D):</span> Działa w trybie <span class="color-green">PCIe 3.0 x4</span>. Umieszczono go w dolnym slocie M.2 obsługiwanym przez chipset płyty głównej. Złącze to idealnie pasuje do możliwości tej generacji dysku.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Temperatura i fizyczny radiator:</span></p>
+<ul>
+<li><span class="color-blue">Lexar (Dysk <code>C:</code>):</span> Wskazuje <span class="color-green">$56^{\circ}\text{C}$</span> w spoczynku. Dyski PCIe Gen4 z protokołem NVMe 2.0 pobierają więcej prądu i mocno się grzeją. Na płycie głównej z naszego przykładu (<span class="color-blue">Gigabyte B660 Gaming X</span>) producent dodał fabryczny radiator (<span class="color-blue">M.2 Thermal Guard</span>) na najwyższym slocie M.2 pod procesorem. To tam siedzi dysk <span class="color-blue"><code>C:</code></span>. Radiator trzyma temperatury w ryzach – bez niego dysk z Windowsem w tle szybko dobijałby do $65 - 70^{\circ}\text{C}$ już w spoczynku.</li>
+<li><span class="color-blue">Goodram (Dysk <code>D:</code>):</span> Trzyma chłodne <span class="color-green">$30^{\circ}\text{C}$</span>. Starsze konstrukcje Gen3 nie generują tyle ciepła. Zazwyczaj lądują w dolnych slotach płyty głównej, które bywają zasłonięte przez kartę graficzną i często nie mają fabrycznych radiatorów. Przy tak niskiej emisji ciepła brak dodatkowego chłodzenia w niczym nie przeszkadza. 😎</li>
+</ul>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Co tu klikać?</span><br>CrystalDiskInfo służy tylko do odczytu danych. Nie uruchomisz tu żadnych testów obciążeniowych (do tego służy CrystalDiskMark). Warto jednak przestawić trzy opcje w menu:</p>
+<ol>
+<li><span class="color-green">Function -&gt; Advanced Function -&gt; RAW Values -&gt; 10 [DEC]:</span> Przełączy wartości w tabeli z systemu szesnastkowego (HEX) na dziesiętny (DEC). Dzięki temu łatwo odczytasz realną liczbę błędów czy nagłych wyłączeń dysku.</li>
+<li><span class="color-green">Function -&gt; Startup:</span> Program będzie startował razem z Windowsem i pilnował temperatur w tle (zobaczysz je w zasobniku systemowym obok zegarka).</li>
+<li><span class="color-green">Function -&gt; Auto Refresh:</span> Domyślnie dane odświeżają się co 10 minut. Możesz ustawić inne wartości.</li>
+</ol>
+
+</div>
+</div><hr>
+<h3>🧪 3. Testowanie wydajności (CrystalDiskMark)</h3>
+<p>Porównanie obu szyn w praktyce dobrze pokazują poniższe testy (wykonane przy parametrach: $3$ próby, próbka $1\text{ GiB}$):</p>
+<h4>Dysk C: Lexar SSD NM790 4TB (PCIe Gen4 x4)</h4>
+<p><img src="/public/courses/windows-11/Images/ClristalDiskMark-MSI-Lexar-wolumin-C.png" alt="CrystalDiskMark Lexar C"></p>
+<h4>Dysk D: Goodram IRDM 2TB (PCIe Gen3 x4)</h4>
+<p><img src="/public/courses/windows-11/Images/ClristalDiskMark-MSI-IR-wolumin-D.png" alt="CrystalDiskMark IRDM D"></p>
+<p><span class="color-green">Jak bezpiecznie przetestować dysk?</span><br>Przed kliknięciem któregokolwiek przycisku, przygotuj się:</p>
+<ol>
+<li><span class="color-green">Ustawienia na górnym pasku:</span><ul>
+<li><span class="color-green">Liczba przebiegów:</span> Zmień na <span class="color-green">$3$</span>. Domyślne $5$ przebiegów zbędnie obciąża i zużywa pamięć flash, a $3$ próby dają w pełni wiarygodny wynik.</li>
+<li><span class="color-green">Rozmiar pliku testowego:</span> Ustaw <span class="color-green">$1\text{ GiB}$</span>.</li>
+<li><span class="color-green">Wybór dysku:</span> Upewnij się, że testujesz właściwą partycję (rozwiń listę i wybierz np. <code>C:</code> lub <code>D:</code>).</li>
+</ul>
+</li>
+<li><span class="color-green">Wyłącz programy w tle:</span> Wyłącz gry, przeglądarki i wstrzymaj pobieranie (np. na Steamie czy Epic Games). Ruch na dysku w tle zepsuje pomiary i zaniży wyniki.</li>
+<li><span class="color-green">Start:</span> Kliknij zielony przycisk <kbd class="win-menu-btn">All</kbd> w lewym górnym rogu. Całość zajmie około $2 - 3$ minut.</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Nie testuj dysku bez potrzeby</span><br>Każdy test w CrystalDiskMark zapisuje na dysku od kilku do kilkunastu gigabajtów danych testowych. SSD mają ograniczony limit zapisu (<span class="color-green">TBW</span>). Okazjonalna weryfikacja parametrów w niczym nie zaszkodzi, ale powtarzanie benchmarku w nieskończoność skraca żywotność pamięci.</p>
+
+</div>
+</div><h4>Kluczowe parametry w tabeli wyników:</h4>
+<ul>
+<li><span class="color-green">SEQ1M [Q8T1] (Odczyt/Zapis sekwencyjny):</span> Odpowiada za transfer dużych plików, np. filmów, instalatorów czy kopii zapasowych.<ul>
+<li><span class="color-blue">Lexar (Dysk C - Gen4):</span> Wyciąga <span class="color-green">$7095.85 \text{ MB/s}$</span> przy odczycie i <span class="color-green">$6591.64 \text{ MB/s}$</span> przy zapisie. To wartości bliskie maksimum dla standardu PCIe Gen4.</li>
+<li><span class="color-blue">Goodram (Dysk D - Gen3):</span> Osiąga <span class="color-green">$3451.51 \text{ MB/s}$</span> (odczyt) i <span class="color-green">$3070.81 \text{ MB/s}$</span> (zapis). W pełni wykorzystuje możliwości złącza PCIe Gen3.</li>
+<li><span class="color-gold">Co z tego wynika w praktyce?</span> Kopiując pojedynczy plik o wadze $100\text{ GB}$ (np. spakowaną grę), Lexar upora się z tym w jakieś $15$ sekund. Goodram będzie potrzebował około $30$ sekund. Przy zwykłym przeglądaniu sieci czy graniu różnica ta jest jednak całkowicie nieodczuwalna.</li>
+</ul>
+</li>
+<li><span class="color-green">RND4K [Q1T1] (Odczyt/Zapis losowy):</span> Najważniejszy parametr dla płynności działania Windowsa. Sprawdza prędkość pracy na małych plikach o rozmiarze $4\text{ KB}$. System operacyjny przez większość czasu mieli właśnie takie dane (pliki rejestru, logi, małe biblioteki DLL).<ul>
+<li><span class="color-blue">Lexar (Dysk C):</span> Osiąga <span class="color-green">$85.75 \text{ MB/s}$</span> przy odczycie i <span class="color-green">$298.81 \text{ MB/s}$</span> przy zapisie. Szybki losowy odczyt bezpośrednio przekłada się na natychmiastowe reakcje Windowsa.</li>
+<li><span class="color-blue">Goodram (Dysk D):</span> Ma odpowiednio <span class="color-green">$44.90 \text{ MB/s}$</span> oraz <span class="color-green">$136.93 \text{ MB/s}$</span>. Jak na dysk Gen3 to dobre liczby, jednak starszy kontroler i wolniejsze pamięci flash nie dają mu szans w starciu z nowym Lexarem.</li>
+<li><span class="color-gold">Co z tego wynika w praktyce?</span> Mimo że Lexar ma dwukrotnie wyższe prędkości, Windows nie włączy się dwa razy szybciej – czas reakcji samego kontrolera pozostaje zbliżony. Jednak wyższa wartość losowego odczytu małych plików ($85.75\text{ MB/s}$ vs $44.90\text{ MB/s}$) sprawia, że system na Lexarze NM790 zareaguje na kliknięcia zauważalnie szybciej, a instalowanie aplikacji w tle nie powoduje mikroprzycięć interfejsu.</li>
+</ul>
+</li>
+</ul>
+<h3>🛠️ Punkt Kontrolny: Weryfikacja prędkości dysku SSD</h3>
+<data-gate>
+  <data-quiz>
+    <question><p>Użytkownik przeprowadził test dysku SSD w CrystalDiskMark i uzyskał prędkość sekwencyjną SEQ1M na poziomie ok. $3450\text{ MB/s}$ przy odczycie. Dysk to Lexar NM790 (nominalnie osiągający do $7400\text{ MB/s}$). Jaka jest najbardziej prawdopodobna przyczyna?</p>
+</question>
+    <options>
+      <item correct=""><p>Dysk został zainstalowany w slocie M.2 obsługującym jedynie starszy standard PCIe 3.0 lub współdzieli linie PCIe z innym gniazdem, co ograniczyło transfer do limitu poprzedniej generacji.</p>
+</item>
+      <item><p>Dysk przekroczył krytyczną temperaturę pracy pod obciążeniem i wbudowany radiator celowo obniżył wydajność o połowę w celu schłodzenia kontrolera.</p>
+</item>
+      <item><p>Przed testem zapomniano zaznaczyć w menu głównym opcji automatycznego przyspieszenia interfejsu (Auto Boost).</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zwróć uwagę na wartość prędkości – $3450\text{ MB/s}$ to niemal dokładnie fizyczny limit jednej z generacji PCIe x4. Której? Gdzie na płycie głównej mógł zostać wpięty ten dysk?</p>
+</div>
+    <div data-hint="success"><p>Znakomicie! Wynik na poziomie $3450\text{ MB/s}$ to kres możliwości PCIe Gen3 x4. Prawdopodobnie dysk trafił do gniazda obsługiwanego przez chipset w starszym standardzie.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3>🎉 Podsumowanie całego kursu: Twoja droga do statusu Power Usera</h3>
+<p>Gratulacje! Przebrnąłeś przez cały kurs Windows 11. Z poziomu zwykłego użytkownika awansowałeś na poziom świadomego administratora, który potrafi samodzielnie konfigurować, zabezpieczać i diagnozować środowisko systemowe oraz sprzętowe. Spójrzmy na kluczowe filary, które wspólnie zbudowaliśmy:</p>
+<h4>💿 Moduł 0: Instalacja i pierwsze uruchomienie</h4>
+<p>Opanowałeś instalację systemu od podstaw, omijanie restrykcji sprzętowych i sieciowych oraz podstawy wirtualizacji. Nauczyłeś się poruszać po interfejsie za pomocą skrótów klawiszowych i korzystać z wbudowanych narzędzi wiersza poleceń.</p>
+<h4>⚙️ Moduł 1: Codzienna obsługa i administracja systemem</h4>
+<p>Poznałeś mechanizmy zarządzania oprogramowaniem, sprzątania pozostałości po aplikacjach oraz kontrolowania usług systemowych. Wdrożyłeś również skuteczne strategie wykonywania kopii zapasowych w celu ochrony przed utratą danych.</p>
+<h4>🔌 Moduł 2: Sprzęt, sieć i bezpieczeństwo</h4>
+<p>Zgłębiłeś tematykę zarządzania sterownikami, konfiguracji sieci lokalnej i szyfrowania zapytań DNS. Poznałeś fizykę dysków i partycji, a także wdrożyłeś szyfrowanie danych za pomocą mechanizmów <span class="color-green">BitLocker</span> oraz <span class="color-green">EFS</span>.</p>
+<h4>🔒 Moduł 3: Zarządzanie środowiskiem użytkownika</h4>
+<p>Przejąłeś kontrolę nad uprawnieniami kont lokalnych i poziomami ochrony <span class="color-green">UAC</span>. Skonfigurowałeś reguły systemowej zapory sieciowej oraz udziały sieciowe, łącząc uprawnienia sieciowe z prawami dostępu do systemu plików NTFS (w tym dziedziczenie i efektywny dostęp).</p>
+<h4>🔍 Moduł 4: Zaawansowana administracja i diagnostyka</h4>
+<p>Nauczyłeś się badać logi w Podglądzie Zdarzeń, analizować zrzuty pamięci po awariach w debuggerze <span class="color-green">WinDbg</span> oraz zarządzać lokalnymi polisami zabezpieczeń. Dowiedziałeś się również, jak samodzielnie diagnozować parametry pracy i wydajność podzespołów sprzętowych (CPU, GPU, RAM, SSD).</p>
+<hr>
+<h3>🚀 Co dalej?</h3>
+<p>Zdobyte umiejętności dają Ci pełną niezależność. Zamiast zgadywać przyczyny problemów z systemem lub komputerem, potrafisz teraz logicznie analizować fakty – odczytywać błędy z logów, monitorować parametry pracy podzespołów i wdrażać bezpieczne rozwiązania. Windows 11 nie ma już przed Tobą tajemnic!</p>
+</section>

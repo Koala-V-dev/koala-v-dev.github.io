@@ -1,0 +1,738 @@
+<h2>Algebra Boole'a: Optymalizacja Struktur Logicznych</h2>
+<p>Bramki logiczne to tylko klocki.<br>Prawdziwa inżynieria zaczyna się wtedy, gdy musisz z tych klocków zbudować <strong>wydajny system</strong>.</p>
+<p><strong>Algebra Boole’a</strong> to język refaktoryzacji logiki.<br>Pozwala skracać ścieżki sygnałowe, usuwać redundancję i minimalizować liczbę bramek — a to oznacza:</p>
+<ul>
+<li>mniejszy pobór prądu,  </li>
+<li>krótszą ścieżkę krytyczną,  </li>
+<li>szybszy układ,  </li>
+<li>prostszy kod.</li>
+</ul>
+<p>To jest dokładnie to, co robią kompilatory, syntezatory HDL i optymalizatory zapytań SQL.</p>
+<hr>
+<h3>🔄 Prawo Inwolucji (Usuwanie Redundancji)</h3>
+<p>Najprostsza forma optymalizacji:<br><strong>podwójna negacja niczego nie zmienia.</strong></p>
+<p>$$\neg(\neg p) \equiv p$$</p>
+<p>W elektronice:<br>każda negacja to dodatkowa bramka, dodatkowy tranzystor i dodatkowe opóźnienie.<br>Dlatego syntezatory logiczne automatycznie usuwają pary negacji.</p>
+<p>Na schematach negację poznasz po małym kółku (bubble) na wejściu lub wyjściu bramki.</p>
+<data-gate>
+<data-math-sandbox level="logic" mode="transcription" data-steps="1" data-label="🪤 Eliminacja redundancji sygnału">
+  <div data-step="1" data-expected="p" data-label="Zredukuj inwolucję: $\neg(\neg p)$"></div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🧪 Prawa de Morgana (Transformacja Logiki)</h3>
+<p>To Twój <strong>szwajcarski scyzoryk</strong>.<br>Pozwalają zamieniać koniunkcję (AND) na alternatywę (OR) i odwrotnie, co jest kluczowe przy optymalizacji warunków i projektowaniu układów.</p>
+<ul>
+<li><p><strong>I prawo</strong>: Negacja iloczynu to suma negacji.<br>$$\neg(p \land q) \equiv \neg p \lor \neg q$$</p>
+</li>
+<li><p><strong>II prawo</strong>: Negacja sumy to iloczyn negacji.<br>$$\neg(p \lor q) \equiv \neg p \land \neg q$$</p>
+</li>
+</ul>
+<h3>🛠️ Bramki Uniwersalne: NAND i NOR</h3>
+<p>Z praw de Morgana wynikają dwie najważniejsze bramki w elektronice cyfrowej. Nazywamy je <strong>bramkami uniwersalnymi</strong>, bo <strong>z samych NAND-ów lub samych NOR-ów można zbudować dowolny układ logiczny</strong> — od prostego NOT aż po pełny procesor.</p>
+<p>Dlaczego są tak ważne? Bo każda funkcja logiczna może zostać zredukowana do kombinacji:</p>
+<ul>
+<li>negacji (NOT),</li>
+<li>koniunkcji (AND),</li>
+<li>alternatywy (OR).</li>
+</ul>
+<p>Jeśli jakaś bramka potrafi odtworzyć <strong>NOT, AND i OR</strong>, to potrafi odtworzyć <em>wszystko</em>.</p>
+<p>I właśnie to robią NAND i NOR.</p>
+<hr>
+<h4>🧱 Budowanie logiki z NAND ($\neg$ Iloczynu)</h4>
+<p><data-logic-gate type="NAND"></data-logic-gate></p>
+<h5>1. NOT z NAND</h5>
+<p>$$\text{NOT}(p) = \text{NAND}(p, p)$$</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>NAND(p,p)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+</tbody></table>
+<h5>2. AND z NAND</h5>
+<p>$$p \land q = \text{NOT}(\text{NAND}(p, q))$$</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>NAND(p,q)</th>
+<th>NOT(...) = AND</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<h5>3. OR z NAND</h5>
+<p>$$p \lor q = \text{NAND}(\text{NAND}(p,p),\ \text{NAND}(q,q))$$</p>
+<p>I pełna tablica:</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>NOT(p)</th>
+<th>NOT(q)</th>
+<th>OR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-truth-table gate="NAND" header="\neg(p \land q)"></data-truth-table>
+</data-gate>
+
+<hr>
+<h4>🧱 Budowanie logiki z NOR ($\neg$ Sumy)</h4>
+<p><data-logic-gate type="NOR"></data-logic-gate></p>
+<h5>1. NOT z NOR</h5>
+<p>Zewrzyj wejścia:</p>
+<p>$$\text{NOT}(p) = \text{NOR}(p, p)$$</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>NOR(p,p)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+</tbody></table>
+<h5>2. OR z NOR</h5>
+<p>OR to negacja NOR:</p>
+<p>$$p \lor q = \text{NOT}(\text{NOR}(p, q))$$</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>NOR(p,q)</th>
+<th>OR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<h5>3. AND z NOR</h5>
+<p>Z prawa de Morgana:</p>
+<p>$$p \land q = \text{NOR}(\text{NOR}(p,p),\ \text{NOR}(q,q))$$</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>NOT(p)</th>
+<th>NOT(q)</th>
+<th>AND</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-truth-table gate="NOR" header="\neg(p \lor q)"></data-truth-table>
+</data-gate>
+
+<hr>
+<h4>🧠 Dlaczego procesory kochają NAND?</h4>
+<ul>
+<li>NAND jest <strong>tańszy</strong> w produkcji (mniej tranzystorów niż AND + NOT).  </li>
+<li>NAND jest <strong>szybszy</strong> (krótsza ścieżka sygnałowa).  </li>
+<li>NAND jest <strong>stabilniejszy</strong> (łatwiej kontrolować progi napięć).  </li>
+<li>NAND jest <strong>uniwersalny</strong> (możesz zbudować cały CPU z jednego typu bramki).</li>
+</ul>
+<p>Dlatego większość nowoczesnych układów logicznych jest fizycznie zbudowana z… <strong>NAND-ów.</strong></p>
+<p>Tak, Twój procesor to w 90% <em>NAND farm</em>. 😉</p>
+<hr>
+<h3>🔀 Detekcja Różnic: XOR i XNOR</h3>
+<p>Do tej pory pracowaliśmy na bramkach, które opisują <strong>współwystępowanie</strong> sygnałów (AND, OR) lub ich <strong>odwracanie</strong> (NOT).<br>Ale w inżynierii często potrzebujemy czegoś innego:</p>
+<blockquote>
+<p><strong><em>Nie interesuje mnie, czy sygnały są wysokie.</em></strong><br><strong>Interesuje mnie, czy są takie same, czy różne.</strong></p>
+</blockquote>
+<p>I tu pojawiają się dwie bramki:</p>
+<ul>
+<li><strong>XOR</strong> — wykrywa różnicę (sygnały różne → 1)  </li>
+<li><strong>XNOR</strong> — wykrywa zgodność (sygnały takie same → 1)</li>
+</ul>
+<p>To są bramki <strong>porównujące</strong>, a nie „łączące” sygnały.<br>Dlatego ich rola jest zupełnie inna niż AND/OR/NAND/NOR.</p>
+<hr>
+<h4>⊕ XOR — Alternatywa Wykluczająca (Detektor Różnic)</h4>
+<p>XOR działa jak <strong>dodawanie modulo 2</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p ⊕ q</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+</tbody></table>
+<p>Interpretacja:</p>
+<ul>
+<li>sygnały <strong>różne</strong> → wynik <strong>1</strong>  </li>
+<li>sygnały <strong>identyczne</strong> → wynik <strong>0</strong></li>
+</ul>
+<p>Struktura logiczna XOR:</p>
+<p>$$p \oplus q \equiv (p \land \neg q) \lor (\neg p \land q)$$</p>
+<p><strong>Gdzie to spotkasz?</strong></p>
+<ul>
+<li><strong>ALU</strong> — dodawanie bitów bez przeniesienia  </li>
+<li><strong>kryptografia</strong> — XOR jest operacją <em>symetryczną</em>  </li>
+<li><strong>kodowanie błędów</strong> — parity bit, CRC, ECC</li>
+</ul>
+<p><data-logic-gate type="XOR"></data-logic-gate></p>
+<data-gate>
+<data-truth-table gate="XOR" header="p \oplus q"></data-truth-table>
+</data-gate>
+
+<hr>
+<h4>⊙ XNOR — Komparator Logiczny (Detektor Zgodności)</h4>
+<p>XNOR to zaprzeczenie XOR:</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p XNOR q</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td><strong>1</strong></td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<p>Interpretacja:</p>
+<ul>
+<li>sygnały <strong>identyczne</strong> → wynik <strong>1</strong>  </li>
+<li>sygnały <strong>różne</strong> → wynik <strong>0</strong></li>
+</ul>
+<p>To sprzętowy odpowiednik operatora <code>===</code>:</p>
+<ul>
+<li>porównuje wartość,  </li>
+<li>porównuje stan,  </li>
+<li>porównuje zgodność bitową.</li>
+</ul>
+<p><data-logic-gate type="XNOR"></data-logic-gate></p>
+<data-gate>
+<data-truth-table gate="XNOR" header="p \iff q"></data-truth-table>
+</data-gate>
+
+
+<hr>
+<h3>🏹 Relacje Przyczynowe: Implikacja i Równoważność</h3>
+<p>Do tej pory pracowaliśmy na bramkach, które opisują <strong>co się dzieje</strong>.<br>Teraz przechodzimy do operatorów, które opisują <strong>zależności między zdarzeniami</strong>.</p>
+<p>To nie są bramki fizyczne — to <strong>relacje logiczne</strong>, które budują:</p>
+<ul>
+<li>reguły biznesowe,  </li>
+<li>warunki w kodzie,  </li>
+<li>systemy eksperckie,  </li>
+<li>automaty sterujące,  </li>
+<li>logikę formalną.</li>
+</ul>
+<hr>
+<h4>➤ Implikacja ($p \implies q$)</h4>
+<p><em>„Jeśli $p$, to $q$”.</em></p>
+<p>To nie jest „strzałka w prawo”.<br>To jest <strong>model zależności przyczynowej</strong>.</p>
+<p>Formalnie:</p>
+<p>$$p \implies q \equiv \neg p \lor q$$</p>
+<p>Tablica prawdy:</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p ⇒ q</th>
+<th>Interpretacja</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td><strong>1</strong></td>
+<td>brak warunku → OK</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td><strong>1</strong></td>
+<td>brak warunku → OK</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td><strong>0</strong></td>
+<td>warunek spełniony, efekt nie → <strong><em>BŁĄD</em></strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong>1</strong></td>
+<td>warunek spełniony, efekt też → OK</td>
+</tr>
+</tbody></table>
+<h4>🛠️ Punkt Kontrolny: Intuicja inżynierska</h4>
+<data-gate>
+<data-quiz>
+  <question>Jeżeli system mówi: „Jeśli czujnik = 1, to uruchom pompę”. Jaka sytuacja jest niedozwolona?</question>
+  <options>
+    <option>czujnik = 0, pompa = 1</option>
+    <option correct>czujnik = 1, pompa = 0</option>
+    <option>czujnik = 1, pompa = 1</option>
+  </options>
+  <div data-hint="error">To sytuacja, w której czujnik się aktywował, ale system nie zareagował.</div>
+  <div data-hint="success">Dokładnie! To jedyna sytuacja, w której warunek jest spełniony (czujnik = 1), ale efekt nie następuje (pompa = 0), co łamie regułę implikacji.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h4>➤ Równoważność ($p \iff q$)</h4>
+<p><em>„$p$ i $q$ mają dokładnie ten sam stan.”</em></p>
+<p>To jest <strong>komparator logiczny</strong> — sprzętowo realizowany przez XNOR.</p>
+<p>Tablica prawdy:</p>
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p ⇔ q</th>
+<th>Interpretacja</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td><strong>1</strong></td>
+<td>zgodne</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td><strong>0</strong></td>
+<td><strong><em>różne</em></strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td><strong>0</strong></td>
+<td><strong><em>różne</em></strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td><strong>1</strong></td>
+<td>zgodne</td>
+</tr>
+</tbody></table>
+<p><strong>Zastosowania:</strong></p>
+<ul>
+<li>walidacja danych,  </li>
+<li>porównywanie sygnałów,  </li>
+<li>wykrywanie błędów,  </li>
+<li>synchronizacja stanów.</li>
+</ul>
+<hr>
+<h3>🏗️ Prawa Algebry Boole’a: Narzędzia Optymalizacji</h3>
+<p>Algebra Boole’a to nie teoria — to <strong>zestaw reguł refaktoryzacji</strong>, które skracają układy i warunki logiczne.</p>
+<p>Każde z tych praw pozwala:</p>
+<ul>
+<li>usunąć zbędne bramki,  </li>
+<li>skrócić ścieżkę krytyczną,  </li>
+<li>uprościć kod,  </li>
+<li>zmniejszyć pobór prądu.</li>
+</ul>
+<hr>
+<h4>🔹 Neutralność</h4>
+<table>
+<thead>
+<tr>
+<th>Prawo</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p \land 1 \equiv p$</td>
+<td>AND z 1 nic nie zmienia</td>
+</tr>
+<tr>
+<td>$p \lor 0 \equiv p$</td>
+<td>OR z 0 nic nie zmienia</td>
+</tr>
+</tbody></table>
+<p><strong>Przykład:</strong><br><code>if (x &amp;&amp; true)</code> → <code>if (x)</code></p>
+<hr>
+<h4>🔹 Dominacja</h4>
+<table>
+<thead>
+<tr>
+<th>Prawo</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p \lor 1 \equiv 1$</td>
+<td>OR z 1 zawsze daje 1</td>
+</tr>
+<tr>
+<td>$p \land 0 \equiv 0$</td>
+<td>AND z 0 zawsze daje 0</td>
+</tr>
+</tbody></table>
+<p><strong>Przykład:</strong><br><code>x || true</code> → zawsze <code>true</code></p>
+<hr>
+<h4>🔹 Idempotentność</h4>
+<table>
+<thead>
+<tr>
+<th>Prawo</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p \lor p \equiv p$</td>
+<td>powtarzanie OR nic nie daje</td>
+</tr>
+<tr>
+<td>$p \land p \equiv p$</td>
+<td>powtarzanie AND nic nie daje</td>
+</tr>
+</tbody></table>
+<p><strong>Przykład:</strong><br><code>x &amp;&amp; x</code> → <code>x</code></p>
+<hr>
+<h4>🔹 Absorpcja</h4>
+<table>
+<thead>
+<tr>
+<th>Prawo</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p \lor (p \land q) \equiv p$</td>
+<td>OR „połyka” AND</td>
+</tr>
+<tr>
+<td>$p \land (p \lor q) \equiv p$</td>
+<td>AND „połyka” OR</td>
+</tr>
+</tbody></table>
+<p><strong>Przykład:</strong><br><code>x || (x &amp;&amp; y)</code> → <code>x</code></p>
+<hr>
+<h4>🔹 Rozdzielność</h4>
+<table>
+<thead>
+<tr>
+<th>Prawo</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p \lor (q \land r) \equiv (p \lor q) \land (p \lor r)$</td>
+<td>rozbijanie AND w OR</td>
+</tr>
+<tr>
+<td>$p \land (q \lor r) \equiv (p \land q) \lor (p \land r)$</td>
+<td>rozbijanie OR w AND</td>
+</tr>
+</tbody></table>
+<p><strong>Przykład:</strong><br><code>x || (y &amp;&amp; z)</code> → <code>(x || y) &amp;&amp; (x || z)</code></p>
+<p>To jest fundament minimalizacji układów logicznych.</p>
+<hr>
+<h3>🔗 Połącz Pary: Prawa logiczne</h3>
+<data-gate>
+<data-connection-matcher title="Prawa logiczne">
+    <item left="Neutralność" right="AND z 1 nic nie zmienia"></item>
+    <item left="Dominacja" right="OR z 1 zawsze daje 1"></item>
+    <item left="Idempotentność" right="Powtarzanie operacji nic nie zmienia"></item>
+    <item left="Rozdzielność" right="AND w OR"></item>
+    <item left="Absorpcja" right="OR połyka AND"></item>
+    <item left="I Prawo De Morgana" right="Odwrotność iloczynu = iloczyn odwrotności"></item>
+    <item left="II Prawo De Morgana" right="Odwrotność sumy = suma odwrotności"></item>
+</data-connection-matcher>
+</data-gate>
+---
+
+<h3>📚 Specyfikacja Techniczna: Operatory i Symbole</h3>
+<table>
+<thead>
+<tr>
+<th>Operacja</th>
+<th>Symbol matematyczny</th>
+<th>Bramka</th>
+<th>Znaczenie inżynierskie</th>
+<th>Kod (JS/C++)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Negacja</td>
+<td>$\neg p$</td>
+<td>NOT</td>
+<td>Odwrócenie sygnału</td>
+<td><code>!p</code></td>
+</tr>
+<tr>
+<td>Koniunkcja</td>
+<td>$p \land q$</td>
+<td>AND</td>
+<td>Wymagane oba sygnały</td>
+<td><code>p &amp;&amp; q</code></td>
+</tr>
+<tr>
+<td>Alternatywa</td>
+<td>$p \lor q$</td>
+<td>OR</td>
+<td>Wystarczy jeden sygnał</td>
+<td><code>p || q</code></td>
+</tr>
+<tr>
+<td>NAND</td>
+<td>$\neg(p \land q)$</td>
+<td>NAND</td>
+<td>Bramka uniwersalna</td>
+<td><code>!(p &amp;&amp; q)</code></td>
+</tr>
+<tr>
+<td>NOR</td>
+<td>$\neg(p \lor q)$</td>
+<td>NOR</td>
+<td>Bramka uniwersalna</td>
+<td><code>!(p || q)</code></td>
+</tr>
+<tr>
+<td>XOR</td>
+<td>$p \oplus q$</td>
+<td>XOR</td>
+<td>Detekcja różnic</td>
+<td><code>p ^ q</code></td>
+</tr>
+<tr>
+<td>XNOR</td>
+<td>$p \iff q$</td>
+<td>XNOR</td>
+<td>Detekcja zgodności</td>
+<td><code>!(p ^ q)</code></td>
+</tr>
+<tr>
+<td>Implikacja</td>
+<td>$p \implies q$</td>
+<td>—</td>
+<td>Reguła warunkowa</td>
+<td><code>!p || q</code></td>
+</tr>
+<tr>
+<td>Równoważność</td>
+<td>$p \iff q$</td>
+<td>XNOR</td>
+<td>Porównanie stanów</td>
+<td><code>p === q</code></td>
+</tr>
+<tr>
+<td>Tautologia</td>
+<td>$1$</td>
+<td>—</td>
+<td>Zawsze prawda</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Sprzeczność</td>
+<td>$0$</td>
+<td>—</td>
+<td>Zawsze fałsz</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><code>^</code> w JS/C++ to <strong>bitowy XOR</strong>, nie logiczny.</p>
+
+</div>
+</div><hr>
+<h3>🪤 Sandbox: Refaktoryzacja Inżynierska</h3>
+<h4>Zadanie 1</h4>
+<p>Zredukuj sygnał:</p>
+<p>$$\neg(p \land q) \land p$$</p>
+<data-gate>
+<data-math-sandbox level="logic" mode="transcription" data-steps="4" data-label="🪤 Minimalizacja Struktur — Zadanie 1">
+  <div data-step="1" data-expected="(\neg p \lor \neg q) \land p" data-label="Prawa de Morgana" data-hint-wrong="\land:💡 Prawo de Morgana: negacja koniunkcji zamienia się w alternatywę (\(\lor\)) negacji. Sprawdź operator w nawiasie." data-hints='{"LOGIC_ERROR": "💡 Prawo de Morgana: negacja koniunkcji zamienia się w alternatywę \\\\(\\\\lor\\\\) negacji. Sprawdź operator w nawiasie."}'></div>
+  <div data-step="2" data-expected="(\neg p \land p) \lor (\neg q \land p)" data-label="Rozdzielność" data-hint-wrong="\lor:💡 Rozdzielność: zewnętrzny sygnał \(p\) musi zostać rozdzielony (przemnożony) przez oba składniki nawiasu." data-hints='{"LOGIC_ERROR": "💡 Rozdzielność: zewnętrzny sygnał \\\\(p\\\\) musi zostać rozdzielony (przemnożony) przez oba składniki nawiasu."}'></div>
+  <div data-step="3" data-expected="0 \lor (\neg q \land p)" data-label="Kolizja: $\neg p \land p \equiv 0$" data-hint-wrong="1:💡 Kolizja! Sygnał \(\neg p \land p\) to sprzeczność — wynik to zawsze 0." data-hints='{"LOGIC_ERROR": "💡 Kolizja! Sygnał \\\\(\\\\neg p \\\\land p\\\\) to sprzeczność — wynik to zawsze 0."}'></div>
+  <div data-step="4" data-expected="\neg q \land p" data-label="Eliminacja zera" data-hint-wrong="0:💡 Eliminacja zera: w alternatywie (OR) zero jest elementem neutralnym i można je usunąć." data-hints='{"LOGIC_ERROR": "💡 Eliminacja zera: w alternatywie (OR) zero jest elementem neutralnym i można je usunąć."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h4>Zadanie 2</h4>
+<p>Zredukuj:</p>
+<p>$$(p \land q) \lor (p \land \neg q)$$</p>
+<data-gate>
+<data-math-sandbox level="logic" mode="transcription" data-steps="3" data-label="🪤 Minimalizacja Struktur — Zadanie 2">
+  <div data-step="1" data-expected="p \land (q \lor \neg q)" data-label="Faktoryzacja" data-hint-wrong="\land:💡 Faktoryzacja: wyciągnij \(p\) przed nawias. Wewnątrz zostanie suma (\(\lor\)) pozostałych sygnałów." data-hints='{"LOGIC_ERROR": "💡 Faktoryzacja: wyciągnij \\\\(p\\\\) przed nawias. Wewnątrz zostanie suma \\\\(\\\\lor\\\\) pozostałych sygnałów."}'></div>
+  <div data-step="2" data-expected="p \land 1" data-label="Prawo wyłączonego środka" data-hint-wrong="0:💡 Prawo wyłączonego środka: \(q \lor \neg q\) to tautologia — zawsze któryś kanał jest aktywny (1)." data-hints='{"LOGIC_ERROR": "💡 Prawo wyłączonego środka: \\\\(q \\\\lor \\\\neg q\\\\) to tautologia — zawsze któryś kanał jest aktywny (1)."}'></div>
+  <div data-step="3" data-expected="p" data-label="Neutralność jedynki" data-hint-wrong="1:💡 Neutralność jedynki: koniunkcja (AND) z 1 nie zmienia stanu sygnału, wynik zależy tylko od \(p\)." data-hints='{"LOGIC_ERROR": "💡 Neutralność jedynki: koniunkcja (AND) z 1 nie zmienia stanu sygnału, wynik zależy tylko od \\\\(p\\\\)."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>Algebra Boole’a to język <strong>optymalizacji logiki</strong>, a nie tylko zestaw symboli.  </li>
+<li><strong>NAND i NOR</strong> są bramkami uniwersalnymi — zbudujesz z nich dowolny układ, od NOT po pełny procesor.  </li>
+<li><strong>XOR</strong> wykrywa różnice, <strong>XNOR</strong> wykrywa zgodność — to fundament porównywania bitów i budowy sumatorów.  </li>
+<li><strong>Implikacja</strong> opisuje zależności przyczynowe, <strong>równoważność</strong> opisuje zgodność stanów — to logika reguł i systemów eksperckich.  </li>
+<li>Prawa Boole’a (neutralność, dominacja, idempotentność, absorpcja, rozdzielność) to <strong>narzędzia refaktoryzacji</strong>, które skracają układy i warunki logiczne.  </li>
+<li>Minimalizacja logiki = <strong>mniej bramek, krótsza ścieżka krytyczna, niższy pobór prądu i prostszy kod</strong>.</li>
+</ul>
+<hr>
+<p>W kolejnej lekcji przechodzimy do <strong>Teorii Zbiorów</strong> — fundamentu strukturalnego, który pozwala formalnie opisywać przestrzenie danych i relacje między nimi. 🦾🐨</p>

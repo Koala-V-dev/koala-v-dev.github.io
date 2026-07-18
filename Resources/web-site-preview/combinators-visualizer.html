@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizualizator Kombinatorów CSS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 16px;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .visualizer {
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            background: #1e293b;
+            border-radius: 12px;
+            border: 2px solid #334155;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-bottom: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #facc15;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .main-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            overflow: hidden;
+        }
+
+        .control-panel {
+            padding: 16px;
+            border-right: 2px solid #334155;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+            background: #111827;
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+
+        .selector-btn {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .selector-btn:hover {
+            border-color: #3b82f6;
+            background: #1e293b;
+        }
+
+        /* RGB stylizacja aktywnych guzików */
+        .selector-btn.active#btn-desc {
+            background: #991b1b;
+            border-color: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .selector-btn.active#btn-desc .desc {
+            color: #fca5a5;
+        }
+
+        .selector-btn.active#btn-child {
+            background: #166534;
+            border-color: #22c55e;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+        }
+
+        .selector-btn.active#btn-child .desc {
+            color: #bbf7d0;
+        }
+
+        .selector-btn.active#btn-adjacent {
+            background: #1e3a8a;
+            border-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .selector-btn.active#btn-adjacent .desc {
+            color: #bfdbfe;
+        }
+
+        .selector-btn .desc {
+            display: block;
+            font-family: inherit;
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        .preview-pane {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sandbox-view {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #0f172a;
+        }
+
+        .box {
+            border: 2px dashed #475569;
+            background: rgba(30, 41, 59, 0.4);
+            padding: 14px;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .box::before {
+            content: "section.box";
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #1e293b;
+            padding: 0 6px;
+            font-size: 10px;
+            color: #94a3b8;
+            border: 1px solid #475569;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .item {
+            border: 1px solid #475569;
+            background: #1e293b;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: monospace;
+            position: relative;
+            transition: all 0.2s ease;
+            color: #cbd5e1;
+            display: block;
+        }
+
+        .item::before {
+            content: "article.item";
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: #1e293b;
+            padding: 0 4px;
+            font-size: 9px;
+            color: #64748b;
+            border: 1px solid #475569;
+            border-radius: 3px;
+        }
+
+        .sub-item {
+            border: 1px dashed #64748b;
+            background: #0f172a;
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            color: #94a3b8;
+            position: relative;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .sub-item::before {
+            content: "article.sub-item";
+            position: absolute;
+            top: -8px;
+            right: 8px;
+            background: #0f172a;
+            padding: 0 4px;
+            font-size: 8px;
+            color: #475569;
+            border: 1px solid #475569;
+            border-radius: 2px;
+        }
+
+        /* target-red (R) */
+        .item.target-red {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+            font-weight: 700;
+        }
+
+        .item.target-red::before {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .sub-item.target-red {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.2);
+            font-weight: 700;
+        }
+
+        .sub-item.target-red::before {
+            border-color: #ef4444;
+            color: #ef4444;
+            background: #1e1b4b;
+        }
+
+        /* target-green (G) */
+        .item.target-green {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
+            font-weight: 700;
+        }
+
+        .item.target-green::before {
+            border-color: #22c55e;
+            color: #22c55e;
+        }
+
+        .sub-item.target-green {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
+            font-weight: 700;
+        }
+
+        .sub-item.target-green::before {
+            border-color: #22c55e;
+            color: #22c55e;
+            background: #064e3b;
+        }
+
+        /* highlighted-box-blue (B) */
+        .box.highlighted-box-blue {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
+        }
+
+        .box.highlighted-box-blue::before {
+            border-color: #3b82f6;
+            color: #3b82f6;
+        }
+
+        .html-view {
+            border-top: 2px solid #334155;
+            background: #0b0f19;
+            padding: 12px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 10px;
+            overflow-y: auto;
+            max-height: 200px;
+            line-height: 1.4;
+            color: #94a3b8;
+        }
+
+        .code-line {
+            display: block;
+            padding: 0 6px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .code-line.hl-red {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .code-line.hl-green {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .code-line.hl-blue {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .info-bar {
+            background: #1e293b;
+            padding: 12px 16px;
+            border-top: 2px solid #334155;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #cbd5e1;
+            min-height: 70px;
+        }
+
+        .info-bar code {
+            background-color: #1a2c61;
+            padding: 0px 5px;
+            border: 1px solid #fff2;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="visualizer">
+        <div class="header">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+            <div class="title">🧬 Relacje i Kombinatory CSS (System RGB)</div>
+            <span style="font-size: 11px; color: #64748b; font-family: monospace; white-space: nowrap;">Koala-V</span>
+        </div>
+
+        <div class="main-layout">
+            <!-- Lewy Panel Kontrolny -->
+            <div class="control-panel">
+                <div class="panel-title">Wybierz Selektor CSS</div>
+
+                <button class="selector-btn active" id="btn-desc" onclick="selectMode('desc')">
+                    .box article
+                    <span class="desc">Potomek (każdy article wewnątrz)</span>
+                </button>
+
+                <button class="selector-btn" id="btn-child" onclick="selectMode('child')">
+                    .box > article
+                    <span class="desc">Dziecko (tylko bezpośredni article)</span>
+                </button>
+
+                <button class="selector-btn" id="btn-adjacent" onclick="selectMode('adjacent')">
+                    .box + .box
+                    <span class="desc">Sąsiad (element bezpośrednio po drugim)</span>
+                </button>
+            </div>
+
+            <!-- Prawy Podgląd -->
+            <div class="preview-pane">
+                <div class="sandbox-view">
+                    <!-- Box 1 -->
+                    <section class="box" id="box1">
+                        <article class="item" id="item1-1">
+                            article.item (1)
+                            <article class="sub-item" id="sub1-1">article.sub-item (odpowiedź)</article>
+                        </article>
+                        <article class="item" id="item1-2">article.item (2)</article>
+                    </section>
+
+                    <!-- Box 2 -->
+                    <section class="box" id="box2">
+                        <article class="item" id="item2-1">article.item (1)</article>
+                        <article class="item" id="item2-2">
+                            article.item (2)
+                            <article class="sub-item" id="sub2-1">article.sub-item (odpowiedź)</article>
+                        </article>
+                    </section>
+
+                    <!-- Box 3 -->
+                    <section class="box" id="box3">
+                        <article class="item" id="item3-1">article.item (1)</article>
+                    </section>
+                </div>
+
+                <!-- Podgląd Kodu HTML -->
+                <div class="html-view">
+                    <span class="code-line" id="code-box1">&lt;section class="box" id="box1"&gt;</span>
+                    <span class="code-line" id="code-item1-1">&nbsp;&nbsp;&lt;article class="item"&gt;</span>
+                    <span class="code-line" id="code-sub1-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;article
+                        class="sub-item"&gt;&lt;/article&gt;</span>
+                    <span class="code-line">&nbsp;&nbsp;&lt;/article&gt;</span>
+                    <span class="code-line" id="code-item1-2">&nbsp;&nbsp;&lt;article
+                        class="item"&gt;&lt;/article&gt;</span>
+                    <span class="code-line">&lt;/section&gt;</span>
+                    <span class="code-line" id="code-box2">&lt;section class="box" id="box2"&gt;</span>
+                    <span class="code-line" id="code-item2-1">&nbsp;&nbsp;&lt;article
+                        class="item"&gt;&lt;/article&gt;</span>
+                    <span class="code-line" id="code-item2-2">&nbsp;&nbsp;&lt;article class="item"&gt;</span>
+                    <span class="code-line" id="code-sub2-1">&nbsp;&nbsp;&nbsp;&nbsp;&lt;article
+                        class="sub-item"&gt;&lt;/article&gt;</span>
+                    <span class="code-line">&nbsp;&nbsp;&lt;/article&gt;</span>
+                    <span class="code-line">&lt;/section&gt;</span>
+                    <span class="code-line" id="code-box3">&lt;section class="box" id="box3"&gt;</span>
+                    <span class="code-line" id="code-item3-1">&nbsp;&nbsp;&lt;article
+                        class="item"&gt;&lt;/article&gt;</span>
+                    <span class="code-line">&lt;/section&gt;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pasek Informacyjny na dole -->
+        <div class="info-bar" id="info-bar">
+            Wybierz jeden z przycisków po lewej stronie, aby zaaplikować stylizację i zobaczyć, które elementy zostaną
+            wybrane.
+        </div>
+    </div>
+
+    <script>
+        function clearAll() {
+            // Czyszczenie stylów
+            const elements = document.querySelectorAll('.box, .item, .sub-item, .code-line');
+            elements.forEach(el => {
+                el.classList.remove('target-red', 'target-green', 'highlighted-box-blue', 'hl-red', 'hl-green', 'hl-blue');
+            });
+
+            const buttons = document.querySelectorAll('.selector-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+        }
+
+        function selectMode(mode) {
+            clearAll();
+
+            document.getElementById('btn-' + mode).classList.add('active');
+            const info = document.getElementById('info-bar');
+
+            if (mode === 'desc') {
+                // .box article -> RED (R)
+                const targets = ['item1-1', 'sub1-1', 'item1-2', 'item2-1', 'item2-2', 'sub2-1', 'item3-1'];
+                targets.forEach(id => {
+                    document.getElementById(id).classList.add('target-red');
+                    document.getElementById('code-' + id).classList.add('hl-red');
+                });
+                info.innerHTML = "<strong>Kombinator potomka (spacja):</strong> Wybiera <u>każdy</u> element <code>article</code> zagnieżdżony wewnątrz <code>.box</code> na dowolnym poziomie drzewa DOM. Podświetlone na czerwono zostają zarówno główne komentarze, jak i wewnętrzne odpowiedzi.";
+            }
+            else if (mode === 'child') {
+                // .box > article -> GREEN (G)
+                const targets = ['item1-1', 'item1-2', 'item2-1', 'item2-2', 'item3-1'];
+                targets.forEach(id => {
+                    document.getElementById(id).classList.add('target-green');
+                    document.getElementById('code-' + id).classList.add('hl-green');
+                });
+                info.innerHTML = "<strong>Kombinator dziecka (&gt;):</strong> Wybiera <u>tylko</u> te elementy <code>article</code>, które są bezpośrednimi potomkami (dziećmi) kontenerów <code>.box</code>. Podświetlone na zielono są tylko główne komentarze — głębsze odpowiedzi zostały zignorowane.";
+            }
+            else if (mode === 'adjacent') {
+                // .box + .box -> BLUE (B)
+                document.getElementById('box2').classList.add('highlighted-box-blue');
+                document.getElementById('code-box2').classList.add('hl-blue');
+                document.getElementById('box3').classList.add('highlighted-box-blue');
+                document.getElementById('code-box3').classList.add('hl-blue');
+                info.innerHTML = "<strong>Kombinator sąsiedni (+):</strong> Wybiera element leżący bezpośrednio po innym pasującym elemencie na tym samym poziomie drzewa DOM. Podświetlone na niebiesko zostały <b>drugi</b> i <b>trzeci</b> kontener, ponieważ każdy z nich ma przed sobą inny element <code>.box</code>.";
+            }
+        }
+
+        // Domyślny start
+        window.onload = () => {
+            selectMode('desc');
+        };
+    </script>
+
+</body>
+
+</html>

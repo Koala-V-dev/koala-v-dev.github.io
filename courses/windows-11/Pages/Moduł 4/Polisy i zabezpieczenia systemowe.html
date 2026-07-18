@@ -1,0 +1,799 @@
+<h1>Polisy, Zabezpieczenia i Rejestr Systemowy</h1>
+<p>Poprzednia lekcja uczyła nas analizy po fakcie – szukaliśmy śladów awarii w Dzienniku Zdarzeń. W tym module przestaniesz być tylko obserwatorem i zaczniesz aktywnie modyfikować surowe parametry systemu, od których zależy to, na co Windows pozwala użytkownikom i aplikacjom.</p>
+<p>Z poprzednich modułów wiesz już, jak ominąć proces OOBE i utworzyć lokalne konto administratora zamiast wymuszanego przez Microsoft konta online. Ma to jednak swoją cenę. Konto Microsoft automatycznie chroni dostęp za pomocą chmury i MFA. Konto lokalne daje Ci pełną niezależność od serwerów, ale zostawia kwestie bezpieczeństwa wyłącznie w Twoich rękach – domyślnie pozwala na puste hasła i nie posiada limitów prób logowania. W tej lekcji nauczysz się własnoręcznie łatać te luki: odetniemy drogę ransomware'owi, zahackujemy stan aplikacji w Rejestrze i zbudujemy rygorystyczną klatkę dla stanowiska publicznego. Czas wejść pod maskę.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Architektura: Dlaczego „Ustawienia" Windows to za mało?</h2>
+<p>Zanim przejdziemy do konfiguracji, musisz zrozumieć jeden kluczowy fakt. Graficzny panel <span class="color-green">Ustawienia</span> i klasyczny <span class="color-green">Panel sterowania</span> to zwykłe aplikacje działające w przestrzeni użytkownika (Ring 3). Modyfikują one standardowe klucze w Rejestrze, które mogą zostać łatwo nadpisane lub zignorowane.</p>
+<p>Z kolei narzędzia takie jak <code>gpedit.msc</code> i <code>secpol.msc</code> zapisują dane w chronionych kluczach polis (ang. <span class="color-blue">Policy Keys</span>) oraz w dedykowanej bazie zabezpieczeń (<code>secedit.sdb</code>). Podsystemy zabezpieczeń Windowsa (w tym proces <code>lsass.exe</code> z przestrzeni użytkownika oraz moduł <span class="color-blue">Security Reference Monitor</span> działający bezpośrednio w Jądrze, Ring 0) zawsze nadają absolutny priorytet tym politykom. W przypadku konfliktu ustawienia „wyklikiwane” przez użytkownika są całkowicie ignorowane.</p>
+<figure>
+<img src="/public/courses/windows-11/Images/akcje-na-rejestrze-i-bazie-systemu-dla-jądra-secpol-gpedit-oraz-ustawień-i-panelu-sterowania.png" alt="akcje-na-rejestrze-i-bazie-systemu-dla-jądra-secpol-gpedit-oraz-ustawień-i-panelu-sterowania" aria-describedby="diagram-akcje-na-rejestrze-i-bazi" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-akcje-na-rejestrze-i-bazi">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Schemat przedstawia architekturę przepływu konfiguracji w systemie Windows, ilustrując fizyczne relacje między Jądrem systemu, narzędziami administracyjnymi i interfejsem użytkownika, a centralną bazą Rejestru.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Główne komponenty</span> – W górnej części rysunku ułożone są poziomo cztery prostokątne bloki. Od lewej do prawej to: „🧿 Jądro Systemu (Ring 0)”, „🔧 <code>secpol.msc</code> Zasady Zabezpieczeń Lokalnych”, „🛠️ <code>gpedit.msc</code> Edytor Zasad Grupy” oraz „🪟 Ustawienia Windows Panel Sterowania (Ring 3)”.</li>
+<li><span class="color-green">Centralna baza danych</span> – W dolnej części schematu znajduje się ciemny, walcowaty kształt z pomarańczowym obrysem, opisany jako „🗄️ Rejestr Systemowy i Baza Zabezpieczeń”.</li>
+<li><span class="color-green">Pola akcji</span> – Pod każdym z czterech górnych bloków znajduje się szare pole z opisem działania, od którego prowadzi strzałka do centralnego walca na dole.</li>
+<li><span class="color-green">Relacja Jądra Systemu</span> – Od Jądra odchodzi zielona strzałka przez pole „Odczytuje podczas startu i logowania”, co wizualizuje proces pobierania danych.</li>
+<li><span class="color-green">Relacje narzędzi administracyjnych</span> – Od <code>secpol.msc</code> prowadzi biała strzałka przez pole „Modyfikuje secedit.sdb i klucze rejestru”. Od <code>gpedit.msc</code> prowadzi analogiczna strzałka przez pole „Generuje Registry.pol i nadpisuje rejestr”.</li>
+<li><span class="color-green">Relacja panelu użytkownika</span> – Skrajny prawy blok (Ustawienia) jest połączony białą strzałką z bazą poprzez pole opisane jako „Słabe zmiany, niższy priorytet”.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "akcje-na-rejestrze-i-bazie-systemu-dla-jądra-secpol-gpedit-oraz-ustawień-i-panelu-sterowania",
+  "description": "Schemat przedstawia architekturę przepływu konfiguracji w systemie Windows, ilustrując fizyczne relacje między Jądrem systemu, narzędziami administracyjnymi i interfejsem użytkownika, a centralną bazą Rejestru.",
+  "keywords": "akcjenarejestrzeibaziesystemudlajądrasecpolgpeditorazustawieńipanelusterowania"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><code>gpedit.msc</code> to potężna nakładka graficzna do masowej, bezpiecznej edycji <span class="color-green">Rejestru</span> w oparciu o polityki. Z kolei <code>secpol.msc</code> to wycinek (podzbiór) edytora <code>gpedit.msc</code>, wyseparowany jako osobne narzędzie, aby dać administratorom szybki wgląd w same krytyczne parametry ochrony systemu bez przebijania się przez resztę opcji. Co najważniejsze: <span class="color-green">ani <code>gpedit.msc</code>, ani <code>secpol.msc</code> nie są dostępne w systemie Windows 11 Home</span>. Narzędzia te zarezerwowane są wyłącznie dla wersji <span class="color-blue">Pro</span>, <span class="color-blue">Enterprise</span> oraz <span class="color-blue">Education</span>.</p>
+
+</div>
+</div><data-gate>
+  <data-quiz>
+    <question><p>Dlaczego narzędzia takie jak <code>gpedit.msc</code> zawsze mają absolutny priorytet nad standardowym Panelem Sterowania?</p>
+</question>
+    <options>
+      <item><p>Ponieważ operują one w przestrzeni użytkownika (Ring 3) i wymuszają uprawnienia przez UAC.</p>
+</item>
+      <item correct=""><p>Modyfikują one chronione klucze polis w Rejestrze, które Jądro systemu czyta jako pierwsze i ostateczne.</p>
+</item>
+      <item><p>Ze względu na to, że generują one pliki XML nadpisujące graficzne ustawienia menedżera pulpitu (DWM).</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się nad architekturą z diagramu.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! Zwykłe Ustawienia to tylko Ring 3. Polityki z <code>gpedit</code> i <code>secpol</code> modyfikują specjalne chronione klucze rejestru, które Jądro Windowsa zawsze traktuje jako ważniejsze w przypadku konfliktu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 1. Zasady Zabezpieczeń Lokalnych (secpol.msc)</h2>
+<p>Narzędzie <code>secpol.msc</code> (ang. <span class="color-blue">Security Policy</span>) to przystawka <span class="color-green">MMC</span> (<span class="color-blue">Microsoft Management Console</span>), na której opiera się zarządzanie wszystkimi biznesowymi wariantami systemów Windows. No chyba że infrastruktura opiera się o chmurę Microsoft Entra ID. Samo rozszerzenie <code>.msc</code> oznacza po prostu zapisany profil tej konsoli (<span class="color-blue">Microsoft Saved Console</span>).</p>
+<p>Ustawisz w niej m.in.: wymagania co do haseł, historię haseł, blokowanie konta, czy system ma tylko raportować nieudane próby logowania, czy je od razu blokować.</p>
+<p>Uruchamiasz ją skrótem <kbd class="Win"></kbd> + <kbd>R</kbd>, wpisz komendę <code>secpol.msc</code> i zatwierdzasz klawiszem <kbd>Enter</kbd>.</p>
+<h3>🔑 Zasady Haseł – koniec z `admin123`</h3>
+<p>Hasła to pierwsza linia obrony. Bez wymuszonych zasad użytkownicy będą ustawiać <code>hasło1</code>, <code>qwerty</code> lub, co gorsza, zostawią konto bez hasła w ogóle.</p>
+<p>W lewym drzewie przejdź do: <kbd class="win-menu-btn">Zasady konta</kbd> → <kbd class="win-menu-btn">Zasady haseł</kbd>.</p>
+<p>Poniższy widok przedstawia pełną listę dostępnych polis. Wartości, które tu narzucisz, nie powinny być przypadkowe – w środowiskach produkcyjnych opiera się je na branżowych standardach bezpieczeństwa, takich jak <span class="color-green">Microsoft Security Baselines</span>, wytyczne <span class="color-green">CIS (Center for Internet Security)</span> czy ramy <span class="color-green">NIST SP 800‑63B</span>. </p>
+<p>Zbadaj każdą z dostępnych zasad na interaktywnym zrzucie ekranu (najedź na pulsujące punkty):</p>
+<data-gate>
+  <data-hotspot image="/courses/windows-11/Images/secpol-zasady-haseł.png">
+    <hotspot x="31.3" y="20.8" title="Hasło musi spełniać wymagania co do złożoności">
+_**Zalecenie: Włączone**_
+Ta zasada wymusza, żeby hasło zawierało znaki z co najmniej **$3$ z $4$** kategorii:
+- Wielkie litery (A-Z)
+- Małe litery (a-z)  
+- Cyfry ($0 - 9$)
+- Znaki specjalne (!@#$%...)
+`SuperAdmin` – odrzucone ❌ (brak cyfr i znaków specjalnych).  
+`S3cur3@dmin` – zaakceptowane. ✅</hotspot>
+    <hotspot x="75.2" y="24.2" title="Inspekcja minimalnej długości hasła">
+_**Zalecenie: Używane przejściowo (np. $14$ znaków)**_
+Ta nowa polisa (ikona kartki z lupą) to flagowy przykład profesjonalnego podejścia **„Audit before Enforce”** (Audytuj przed Wymuszeniem).
+- **Jak to działa?** Nie blokuje fizycznie użytkownika przy zmianie hasła, ale cicho zapisuje w Dzienniku Zdarzeń każdą próbę ustawienia hasła krótszego niż podany tutaj próg.
+- **Zastosowanie:** Jeśli przejmujesz infrastrukturę, w której hasła miały $8$ znaków i chcesz podnieść limit na $14$, nie włączasz od razu twardej blokady (sparaliżowałbyś pracę firmy). Najpierw ustawiasz _audyt_ na $14$, przez miesiąc obserwujesz w logach kto próbuje ustawiać stare/krótkie hasła, docierasz do tych osób i tłumaczysz konieczność bezpieczniejszych haseł, a dopiero na samym końcu włączasz rzeczywiście wymuszasz nową politykę.</hotspot>
+    <hotspot x="31.3" y="27.6" title="Maksymalny okres ważności hasła">
+_**Zalecenie: 365 dni (lub wyłączone)**_
+Historycznie wymuszano zmianę co $30 - 90$ dni. Dziś wytyczne NIST odradzają ten proceder:
+- Częste zmiany zmuszają do używania przewidywalnych haseł (np. `Haslo1`, `Haslo2`).
+- Lepszym podejściem jest **jedno, długie hasło**, zmieniane wyłącznie w przypadku kompromitacji (ujawnienia/wycieku).</hotspot>
+    <hotspot x="75.2" y="31" title="Minimalna długość hasła">
+_**Zalecenie: $14$ znaków**_
+Najbardziej krytyczny parametr całego zestawienia.
+Zarówno CIS, jak i MS Baselines wskazują $14$ znaków jako próg bezpieczeństwa.
+Odpowiednia długość chroni przed atakami typu Brute-Force znacznie skuteczniej niż wymyślna złożoność znaków.</hotspot>
+    <hotspot x="31.3" y="34.2" title="Minimalny okres ważności hasła">
+_**Zalecenie: 1 dzień**_
+Stanowi zabezpieczenie przed oszustwami.
+Gdyby polisa wynosiła $0$ dni, użytkownik mógłby zmienić hasło $24$ razy z rzędu w ciągu minuty, „przepychając” historię haseł i bezkarnie wracając do swojego ulubionego, starego hasła. 😅</hotspot>
+    <hotspot x="75.2" y="37.6" title="Wymuszaj tworzenie historii haseł">
+_**Zalecenie: $24$ hasła**_
+System operacyjny zapamiętuje w izolowanej bazie $24$ ostatnie hasła użytkownika.
+Gdy nadchodzi czas obowiązkowej zmiany, Windows odrzuci próbę ponownego użycia któregokolwiek z haseł znajdujących się w tym buforze.</hotspot>
+    <hotspot x="31.3" y="41" title="Zapisz hasła korzystając z szyfrowania odwracalnego">
+_**Zalecenie: Bezwzględnie Wyłączone**_
+Krytycznie niebezpieczna polisa z czasów archaicznych protokołów (np. uwierzytelnianie CHAP).
+Włączenie tej opcji powoduje zapisywanie haseł praktycznie otwartym tekstem. 
+Pod żadnym pozorem nie używaj tego w nowoczesnym środowisku produkcyjnym. 🥶</hotspot>
+    <hotspot x="75.2" y="44.3" title="Zmniejsz restrykcyjność limitów minimalnej długości hasła">
+_**Zalecenie: Włączone**_
+Nowoczesna polityka (zwróć uwagę na dedykowaną ikonę).
+Wcześniej Windows pozwalał narzucić minimalną długość hasła tylko do $14$ znaków ze względu na przestarzałe API.
+Włączenie zasady znosi ten limit, dając administratorowi możliwość wymuszenia haseł o długości aż do $128$ znaków.</hotspot>
+  </data-hotspot>
+</data-gate>
+
+<hr>
+<h3>🔒 Zasady Blokady Konta – śmierć ataków Brute-Force</h3>
+<p>Sama złożoność hasła nie wystarczy. Jeśli atakujący ma nieograniczoną liczbę prób, każde hasło da się złamać słownikiem lub siłą. Zasady blokady konta rozwiązują ten problem radykalnie: po kilku błędnych próbach konto zostaje zablokowane.</p>
+<p>Przejdź do: <kbd class="win-menu-btn">Zasady konta</kbd> → <kbd class="win-menu-btn">Zasady blokady konta</kbd>.</p>
+<p>Na poniższym zrzucie widać poprawnie skonfigurowane zasady. Wyeliminuj mity krążące po forach i przeanalizuj produkcyjne zastosowanie każdej z nich:</p>
+<data-gate>
+  <data-hotspot image="/courses/windows-11/Images/secpol-zasady-blokady-konta.png">
+    <hotspot x="31.3" y="20.5" title="Czas trwania blokady konta">
+_**Zalecenie: $15$ minut (lub $0$ dla stałej blokady)**_
+Określa, na jak długo konto zostaje zamrożone po przekroczeniu limitu błędów.
+- Wartość $0$ oznacza blokadę do czasu ręcznej interwencji administratora (wymóg np. w sektorze finansowym).
+- W zwykłej firmie zaleca się $15$ minut. To wystarcza by zatrzymać ataki Brute-Force, unikając jednocześnie ataków typu *Denial of Service* (gdyby haker złośliwie chciał zablokować wszystkich pracowników na $24$ godziny 😉).</hotspot>
+    <hotspot x="75.2" y="24.4" title="Próg blokady konta">
+_**Zalecenie: $5$ do $10$ nieudanych prób**_
+Liczba pomyłek, po których system odcina dostęp do konta.
+Błędem początkujących administratorów jest ustawianie $3$ prób. Według *Microsoft Security Baselines* próg powinien wynosić minimum $5$. Dlaczego? Użytkownicy robią literówki (<kbd>Caps Lock</kbd>, <kbd>Num Lock</kbd>). Ustawienie limitu na $3$ powoduje jedynie paraliż działu Helpdesku z powodu setek fałszywych zablokowań.</hotspot>
+    <hotspot x="31.3" y="27.5" title="Wyzeruj licznik blokady konta po">
+_**Zalecenie: $15$ minut**_
+Polisa bardzo często źle rozumiana. Stanowi ona **okres „stygnięcia”** licznika pomyłek.
+- **Jak to działa?** Jeśli próg wynosi $5$ prób, a Ty pomylisz się $4$ razy, wystarczy poczekać $15$ minut. System sam wyzeruje licznik i znów będziesz miał do dyspozycji całą pulę $5$ prób.
+- Zapobiega to absurdalnej sytuacji, w której Twoje przypadkowe błędy sumują się przez cały tydzień pracy, prowadząc do nieuzasadnionej blokady.</hotspot>
+    <hotspot x="75.2" y="31" title="Zezwalaj na blokadę konta administratora">
+_**Zalecenie: Włączone**_
+Krytyczna polisa załatana oficjalnie dopiero w Windows 11 (22H2) i Windows Server 2022!
+Historycznie, wbudowane konto systemowe `Administrator` **w ogóle nie podlegało blokadom**. Atakujący doskonale o tym wiedzieli, celując automatycznymi botami zgadującymi hasła bezpośrednio w tego użytkownika. Zaznaczenie tej opcji eliminuje tę ogromną, wieloletnią lukę bezpieczeństwa Windowsa. 🤣</hotspot>
+  </data-hotspot>
+</data-gate>
+
+<h3>🧰 Zestaw narzędzi: Zarządzanie zablokowanymi kontami</h3>
+<p>Gdy polisa bezpieczeństwa zadziała i zablokuje atak (lub gdy pracownik zapomni hasła), konto zostanie zamrożone. Jako administrator możesz to szybko zweryfikować i odblokować z poziomu PowerShell:</p>
+<ol>
+<li><span class="color-green">Weryfikacja statusu konta:</span></li>
+</ol>
+<pre><code class="language-powershell">Get-LocalUser -Name "Administrator" | Select-Object Name, Enabled, LockedOut
+</code></pre>
+<ol start="2">
+<li><span class="color-green">Ręczne odblokowanie (po weryfikacji tożsamości):</span></li>
+</ol>
+<pre><code class="language-powershell">Unlock-LocalUser -Name "Administrator"
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli preferujesz interfejs graficzny (GUI), odpal komendę <code>lusrmgr.msc</code> (Lokalni użytkownicy i grupy), wejdź we właściwości danego użytkownika i po prostu odznacz okienko "Konto jest zablokowane".</p>
+
+</div>
+</div><hr>
+<h3>👁️ Zasady Inspekcji – włączenie „oczu” systemu</h3>
+<p>Zabezpieczenia to nie tylko blokady, ale też stały monitoring. System bez włączonego audytu jest ślepy. Windows posiada wbudowany, ultrawydajny mechanizm logowania oparty na architekturze <span class="color-green">ETW (Event Tracing for Windows)</span>. Domyślnie jednak, by oszczędzać zasoby dyskowe w wersjach Desktopowych (np. Pro/Home), system nie zapisuje wielu zdarzeń powiązanych z autoryzacją.</p>
+<p>Przejdź do: <kbd class="win-menu-btn">Zasady lokalne</kbd> → <kbd class="win-menu-btn">Zasady inspekcji</kbd>.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>W nowoczesnych środowiskach korporacyjnych z Windows 11 / Server 2022 używa się tzw. <span class="color-blue">Zaawansowanej konfiguracji zasad inspekcji</span> (znajdziesz ją na samym dole drzewa w <code>secpol</code>), która pozwala na precyzyjne ustawienie ponad 50 subkategorii. Jednak zaprezentowana tu lista klasycznych 9 polis jest historycznym fundamentem.</p>
+
+</div>
+</div><data-gate>
+  <data-hotspot image="/courses/windows-11/Images/secpol-zasady-inspekcji.png">
+    <hotspot x="31.3" y="21" title="Inspekcja zdarzeń logowania na kontach">
+Ta zasada **_NIE_** oznacza samego momentu wejścia do systemu. 
+- **Co robi?** Zapisuje sam fakt sprawdzania hasła w bazie danych (w lokalnej bazie SAM lub Kerberos na serwerze).
+- Wpis powstaje za kulisami, zanim użytkownik w ogóle otrzyma pulpit.
+    </hotspot>
+    <hotspot x="76" y="24.2" title="Inspekcja dostępu do obiektów">
+- **Co robi?** Rejestruje każdą próbę odczytu lub zmiany ważnego pliku.
+- **Wymóg:** Opcja zadziała, tylko jeśli najpierw włączysz ją ręcznie we właściwościach samego pliku (w zakładce Zabezpieczenia).
+- **Cel:** Odnajdywanie złodziei danych firmowych.
+    </hotspot>
+    <hotspot x="31.3" y="27.45" title="Inspekcja dostępu do usługi katalogowej">
+- **Gdzie działa?** Wyłącznie na serwerach pełniących rolę Kontrolera Domeny.
+- **Co robi?** Monitoruje wszystkie próby dostępu do głównej bazy Active Directory (czyli pliku `NTDS.dit`).
+    </hotspot>
+    <hotspot x="76" y="31" title="Inspekcja śledzenia procesów">
+Bardzo potężne, ale mocno obciążające dysk narzędzie.
+- **Co robi?** Zapisuje nazwę absolutnie każdej aplikacji, która została uruchomiona na komputerze.
+- **Cel:** Pozwala prześledzić krok po kroku, jakie programy potajemnie uruchomił wirus (np. **_Trojan_**).
+    </hotspot>
+    <hotspot x="31.3" y="34.5" title="Inspekcja użycia uprawnień">
+- **Co robi?** Tworzy wpis w dzienniku, gdy jakikolwiek program próbuje wykonać operację na jądrze systemowym.
+- **_Wada:_** Generuje ogromny szum informacyjny, przez co jest rzadko używana.
+    </hotspot>
+    <hotspot x="76" y="37.7" title="Inspekcja zarządzania kontami">
+- **Co robi?** Rejestruje fakt utworzenia, modyfikacji lub usunięcia dowolnego konta w systemie Windows.
+- **Cel:** Służy do błyskawicznego wykrywania hakerów, którzy po włamaniu ukradkiem tworzą własne konta administracyjne. Przydatne gdy masz setki jak nie tysiące kont, ale głównie w domenie Active Directory.
+    </hotspot>
+    <hotspot x="31.3" y="41" title="Inspekcja zdarzeń logowania">
+_**Absolutnie najważniejsza polisa dla obrony stanowiska!**_
+- **Co robi?** Zapisuje każdą próbę udanego lub błędnego wejścia **na ten konkretny komputer**.
+- Obejmuje wejścia przez klawiaturę fizyczną, przez sieć Wi-Fi oraz przez Pulpit Zdalny (RDP).
+    </hotspot>
+    <hotspot x="76" y="44.5" title="Inspekcja zdarzeń systemowych">
+- **Co robi?** Rejestruje działania wpływające na podsystem zabezpieczeń Jądra Windows.
+- **Przykłady:** Zapisuje dokładny czas włączenia i wyłączenia systemu, ukrytą modyfikację zegara, czy celowe wyczyszczenie Dziennika Zdarzeń.
+    </hotspot>
+    <hotspot x="31.3" y="48" title="Inspekcja zmian zasad">
+- **Co robi?** Zapisuje każdy moment, w którym administrator dokona zmian w samym programie `secpol.msc`.
+- **Cel:** Pierwszą rzeczą, jaką robi inteligentny wirus lub włamywacz, jest próba „wyłączenia monitoringu”. Ta zasada gwarantuje, że udana dezaktywacja audytu automatycznie wygeneruje o tym wpis.
+    </hotspot>
+  </data-hotspot>
+</data-gate>
+
+<h3>🗝️ Konfiguracja inspekcji zdarzeń logowania</h3>
+<p>Aby móc na żywo obserwować potencjalne ataki, kliknij dwukrotnie w <span class="color-green">„Przeprowadź inspekcję zdarzeń logowania"</span> i zaznacz obydwie opcje:</p>
+<ul>
+<li><kbd class="check-mark"></kbd> <span class="color-green">Sukces</span> – system zapisze każde udane wejście (<code>Event ID 4624</code>).</li>
+<li><kbd class="check-mark"></kbd> <span class="color-red">Niepowodzenie</span> – system zapisze każdą odrzuconą próbę wejścia (<code>Event ID 4625</code>).</li>
+</ul>
+<p>Po zapisaniu zmian otwórz <span class="color-green">Podgląd zdarzeń</span> (<code>eventvwr.msc</code>), rozwiń <kbd class="win-menu-btn">Dzienniki systemu Windows</kbd> i kliknij <kbd class="win-menu-btn">Zabezpieczenia</kbd>.</p>
+<data-tabs>
+  <tabs>
+    <item>Event ID 4624 – Sukces</item>
+    <item>Event ID 4625 – Niepowodzenie</item>
+    <item>Kody błędów (Hex)</item>
+  </tabs>
+  <div><p><img src="/public/courses/windows-11/Images/inspekcja-logowania-w-podgl%C4%85dzie-zdarze%C5%84-sukcesy.png" alt="Podgląd Zdarzeń z otwartym zdarzeniem 4624 - Inspekcja udanych logowań z pełnymi szczegółami"></p>
+<p><span class="color-green">Event ID 4624: Logowanie na koncie zakończone sukcesem</span></p>
+<p>Ten log oznacza po prostu, że ktoś dostał się do systemu. Zamiast czytać cały długi opis, skup się na trzech najważniejszych polach:</p>
+<ul>
+<li><span class="color-green">Nowe logowanie</span> → <span class="color-blue">Nazwa konta</span> – na jaki login ktoś wszedł (np. <code>Egzamin</code>).</li>
+<li><span class="color-green">Informacje o sieci</span> → <span class="color-blue">Źródłowy adres sieciowy</span> – z jakiego adresu IP się połączył (np. <code>127.0.0.1</code> (<span class="color-blue">localhost</span>) w przypadku logowania fizycznie z tej samej maszyny).</li>
+<li><span class="color-green">Informacje o logowaniu</span> → <span class="color-blue">Typ logowania</span> – w jaki sposób nastąpiło wejście. Najpopularniejsze to:<ul>
+<li><code>2</code> = Interaktywny (ktoś usiadł fizycznie przed monitorem i użył klawiatury).</li>
+<li><code>3</code> = Sieciowy (ktoś połączył się przez udostępniony w sieci folder).</li>
+<li><code>10</code> = Zdalny (ktoś wbił przez Pulpit Zdalny).</li>
+</ul>
+</li>
+</ul>
+<p>Jeśli w logach widzisz logowanie zdalne (Typ <code>10</code>) na konto <code>Administrator</code> o $03:00$ w nocy z adresu IP zarejestrowanego na innym kontynencie... to wiedz, że coś się dzieje. 🤔</p></div>
+  <div><p><img src="/public/courses/windows-11/Images/inspekcja-logowania-w-podgl%C4%85dzie-zdarze%C5%84-niepowodzenie.png" alt="Podgląd Zdarzeń z otwartym zdarzeniem 4625 – Niepowodzenie inspekcji z pełnymi szczegółami"></p>
+<p><span class="color-green">Event ID 4625: Logowanie na koncie nie powiodło się</span></p>
+<p>To Twój najważniejszy wpis do wyłapywania ataków Brute‑Force. W uproszczeniu, log z naszego środowiska testowego wygląda tak:</p>
+<pre><code class="language-yaml">Podmiot:
+  Identyfikator zabezpieczeń: SYSTEM
+  Nazwa konta: VM2$
+
+<p>Typ logowania: 2</p>
+<p>Konto, na którym logowanie nie powiodło się:<br>  Identyfikator zabezpieczeń: NULL SID<br>  Nazwa konta: Egzamin</p>
+<p>Informacje o niepowodzeniu:<br>  Stan: 0xC000006D<br>  Stan podrzędny: 0xC000006A</p>
+</code><p><code class="language-yaml">Informacje o sieci:<br>  Adres źródłowy sieci: 127.0.0.1<br></code></p></pre><p></p>
+<p>W tym przykładzie system odrzucił logowanie interaktywne (Typ <code>2</code>) na konto <code>Egzamin</code>, wykonane bezpośrednio z tej samej maszyny (<code>127.0.0.1</code> oznacza localhost). Skąd wiadomo, dlaczego Windows odrzucił hasło? Zajrzyj do zakładki z kodami.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">💡 Tipy i anegdoty: Testowanie audytu (RDP vs SMB)</span><br>Chcesz wygenerować Event 4625 u siebie? Połącz się z innym komputerem przez Pulpit Zdalny podając błędne hasło (w konsoli: <code>cmdkey /add:IP /user:Admin /pass:Zle</code>, a potem <code>mstsc /v:IP</code>).<br><span class="color-green">Dlaczego RDP, a nie np. udziały sieciowe (<code>net use \\IP\IPC$</code>)?</span> W Windows 11 w środowisku bez domeny Active Directory, protokół SMBv2 na dzień dobry wymaga podpisów kryptograficznych. Użycie <code>net use</code> z błędnym hasłem nie wrzuci Ci logu 4625. Zamiast tego serwer w ogóle zerwie połączenie z <span class="color-blue">Błędem systemu 86</span>, zanim zdąży sprawdzić hasło. RDP używa mechanizmu NLA (Network Level Authentication), który przepuści żądanie do bazy SAM i prawidłowo odnotuje w Dzienniku porażkę logowania.</p>
+
+</div>
+</div></div>
+  <div><h3>Słownik kodów 4625</h3>
+<p>Zamiast zgadywać, po prostu zerknij na kod w polu <span class="color-green">Stan podrzędny</span>. To on zdradza prawdziwą przyczynę porażki:</p>
+<ul>
+<li><code>0xC000006A</code> – Złe hasło. Najpopularniejszy błąd. Oznacza atak, złośliwe zgadywanie hasła albo... zwykłą literówkę przy logowaniu.</li>
+<li><code>0xC0000064</code> – Konto nie istnieje. Ktoś próbuje wejść na użytkownika, którego w ogóle nie ma na tym komputerze.</li>
+<li><code>0xC0000234</code> – Konto zablokowane. Atakujący wpisywał złe hasło tak długo, aż system odpalił ochronę z Zasad Blokady Konta.</li>
+</ul>
+<p>W podanym logu widoczny jest kod <code>0xC000006A</code>, co świadczy o błędnym haśle. Jeśli jednak widzisz, że obcy adres IP generuje błąd <code>0xC000006A</code> po kilkanaście razy na sekundę – masz 100% pewności, że trwa automatyczny atak siłowy (Brute‑Force). Rozwiązanie? Szybka blokada tego IP w Zaporze sieciowej (Firewall).</p></div>
+</data-tabs>
+
+<details>
+<summary>🧰 Wyciąganie logów w PowerShell</summary>
+
+<p>Przeklikiwanie się przez setki wpisów w powolnym Podglądzie Zdarzeń to katorga. Znacznie szybciej wyciągniesz te dane krótkim skryptem w konsoli. </p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Dziennik Zabezpieczeń (Security) jest zablokowany dla zwykłych kont. Skrypt zadziała tylko wtedy, gdy <span class="color-green">uruchomisz PowerShell jako Administrator</span>. Zwykły użytkownik dostaje z automatu odmowę dostępu (którą tutaj celowo ukryłem parametrem <code>-ErrorAction SilentlyContinue</code>, żeby nie sypać na czerwono w terminalu).</p>
+
+</div>
+</div><p>Poniższy kod filtruje błędne logowania z ostatnich $24$ godzin i formuje z nich prostą tabelę. Pobieramy wartości bezpośrednio po sztywnych numerach indeksów ze struktury XML:</p>
+<p><img src="/public/courses/windows-11/Images/skrypt-get-winevent-4625-zabezpieczenia.png" alt="Skrypt get‑winevent-4625‑zabezpieczenia.png"></p>
+<pre><code class="language-powershell">Get-WinEvent -FilterHashtable @{
+    LogName   = 'Security'
+    Id        = 4625
+    StartTime = (Get-Date).AddHours(-24)
+} -ErrorAction SilentlyContinue |
+    Select-Object TimeCreated,
+        @{n='Konto';     e={$_.Properties[5].Value}},
+        @{n='IP';        e={$_.Properties[19].Value}},
+        @{n='TypLog';    e={$_.Properties[10].Value}} |
+    Format-Table -AutoSize
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Skąd wzięły się indeksy 19 i 10?</span><br>W starym Windows 10 adres IP miał indeks $18$, a Typ Logowania $9$. W Windows 11 Microsoft wcisnął w środek struktury <code>4625</code> nowe pole – <code>FailureReason</code> – przez co wszystko pod nim przesunęło się w tablicy o jeden w dół. Opieranie się na sztywnych indeksach to oczywiście brudny hack, ale przy pisaniu jednorazowych komend na kolanie to po prostu najszybsza metoda.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli konsola ma prawa admina, a po puszczeniu skryptu widzisz absolutną pustkę – system po prostu nie zarejestrował żadnego nieudanego logowania w tym czasie. Upewnij się, że opcja audytu jest włączona w <code>secpol.msc</code> i została zastosowana (zmiany w <code>secpol.msc</code> i <code>gpedit.msc</code> stosowane są prz logowaniu ale możesz je wymusić wpisując w konsoli: <code>gpupdate /force</code>).</p>
+
+</div>
+</div></details>
+
+<h3>🔐 Konfiguracja inspekcji obiektów</h3>
+<p>Włączenie globalnej „Inspekcji dostępu do obiektów” w <code>secpol.msc</code> to tylko pierwszy krok. System mieli w tle setkami tysięcy plików operacyjnych. Gdyby Windows logował dostęp do każdego z nich, zajechałby dysk twardy w kilka minut. Dlatego musisz ręcznie wskazać mu konkretny plik‑pułapkę, który ma wziąć na celownik.</p>
+<p>Jak to skonfigurować i przetestować w praktyce? Wyobraź sobie plik tekstowy, do którego dostęp chcemy ściśle śledzić.</p>
+<ol>
+<li>Klikasz na plik prawym przyciskiem myszy i wybierasz <kbd class="win-menu-btn">Właściwości</kbd> → <kbd class="win-menu-btn">Zabezpieczenia</kbd> → <kbd class="win-menu-btn">Zaawansowane</kbd>.</li>
+<li>Przechodzisz do zakładki <span class="color-green">Inspekcja</span> i klikasz przycisk <kbd class="win-menu-btn">Dodaj</kbd>.</li>
+<li>Jako Podmiot wybierasz konkretnego użytkownika (na zrzucie ekranu jest to konto <code>test</code>) lub po prostu <span class="color-blue">Wszyscy</span>.<br>Typ zmieniasz na <span class="color-gold">Wszystko</span> (aby wyłapać zarówno sukcesy, jak i niepowodzenia), a w uprawnieniach zaznaczasz np. <span class="color-blue">Odczyt i wykonywanie</span>.</li>
+</ol>
+<p><img src="/public/courses/windows-11/Images/Przygotowanie-pliku-do-sprawdzenia-dzia%C5%82ania-inspekcji-dost%C4%99pu-do-obiektu.png" alt="Przygotowanie pliku do sprawdzenia działania inspekcji dostępu do obiektu"></p>
+<p>Teraz system ma ten plik na radarze. Aby wygenerować sztuczny ruch, logujemy się na konto <code>test</code> w nowym oknie konsoli:</p>
+<pre><code class="language-cmd">runas /user:test cmd
+</code></pre>
+<p>Następnie w nowym oknie konsoli próbujemy odczytać plik poleceniem <code>type</code>:</p>
+<pre><code class="language-cmd">cd /d "d:\Nowy folder"
+type "Nowy Dokument tekstowy.txt"
+</code></pre>
+<p>Gdy tylko obcy proces (w tym wypadku <code>cmd.exe</code>) dobierze się do zawartości, system natychmiast wyrzuci serię wpisów w Podglądzie Zdarzeń:</p>
+<p><img src="/public/courses/windows-11/Images/2-sukcesy-inspekcji-4663-4656-i-jedne-niepowodzenie-inspekcji-4565-na-kategorii-zadania-File-System.png" alt="Sukcesy inspekcji 4663 4656 i jedno niepowodzenie inspekcji 4565 na kategorii zadań File System"></p>
+<p>Kluczowe numery logów (Kategoria zadań: File System), których powinieneś szukać:</p>
+<ul>
+<li><span class="color-green">4656</span> – Informacja techniczna: ktoś (lub jakiś proces) poprosił system o uchwyt (Handle) do pliku.</li>
+<li><span class="color-green">4663</span> – Absolutny „dowód zbrodni”. Podjęto próbę konkretnej operacji na obiekcie. Jak widzisz na screenie wyżej, log bezbłędnie wyłapał dokładną nazwę konta (<code>test</code>) oraz ścieżkę do procesu (<code>C:\Windows\System32\cmd.exe</code>), który odczytał dokument. Intruz złapany za rękę!</li>
+</ul>
+<data-gate>
+  <data-connection-matcher title="Zarządzanie bezpieczeństwem kont i inspekcją">
+    <div class="cmw-item" data-left="Chcesz zapobiec atakom słownikowym poprzez uniemożliwienie powrotu do starych haseł." data-right="Ustawienie zasady `Wymuszaj tworzenie historii haseł` na np. 24 zapamiętane hasła."></div>
+    <div class="cmw-item" data-left="Atakujący wykonuje zautomatyzowany atak Brute-Force na konkretne konto na serwerze." data-right="Wygenerowany zostanie ogromny ciąg zdarzeń o Event ID 4625 z kodem błędu 0xC000006A."></div>
+    <div class="cmw-item" data-left="Pracownik notorycznie podaje błędne hasło (np. włączony <kbd>Caps Lock</kbd>) blokując sobie konto." data-right="Odpowiednia konfiguracja zasady `Wyzeruj licznik blokady konta po` pozwoli ominąć zatory w Helpdesku."></div>
+    <div class="cmw-item" data-left="Podejrzewasz, że nieznany proces czyta poufne dokumenty dyrekcji na dysku twardym." data-right="Włączenie Event ID 4663 w zakładce Zabezpieczenia dla konkretnego pliku po włączeniu polisy."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗄️ 2. Rejestr Systemowy (`regedit.exe`) – prawdziwa twarz systemu</h2>
+<p>Rejestr to hierarchiczna baza danych przechowywana jako pliki binarne (zwane <span class="color-blue">Hive</span>), które Jądro Windowsa mapuje na wirtualne drzewo podczas bootowania. Wszystko co system „wie" o sobie – sterowniki, konfiguracja aplikacji, preferencje użytkownika, polityki bezpieczeństwa – żyje w Rejestrze.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Gałąź</th>
+<th align="left">Skrót</th>
+<th align="left">Co przechowuje</th>
+<th align="left">Plik fizyczny</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">HKEY_LOCAL_MACHINE</td>
+<td align="left">HKLM</td>
+<td align="left">Cała konfiguracja maszyny</td>
+<td align="left"><code>C:\Windows\System32\config\</code></td>
+</tr>
+<tr>
+<td align="left">HKEY_CURRENT_USER</td>
+<td align="left">HKCU</td>
+<td align="left">Konfiguracja zalogowanego użytkownika</td>
+<td align="left"><code>%UserProfile%\NTUSER.DAT</code></td>
+</tr>
+<tr>
+<td align="left">HKEY_CLASSES_ROOT</td>
+<td align="left">HKCR</td>
+<td align="left">Skojarzenia plików i COM</td>
+<td align="left">Połączenie HKLM + HKCU</td>
+</tr>
+<tr>
+<td align="left">HKEY_USERS</td>
+<td align="left">HKU</td>
+<td align="left">Profile wszystkich użytkowników</td>
+<td align="left">Wiele plików NTUSER.DAT</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Przed modyfikacją rejestru zaleca się jego pełen eksport. Zwróć uwagę, czy przed kliknięciem w menu <kbd class="win-menu-btn">Plik</kbd> → <kbd class="win-menu-btn">Eksportuj</kbd> masz wybraną gałąź Komputer. W przeciwnym wypadku wyeksportujesz tylko daną gałąź kluczy.<br>Przy niektórych gałęziach podanie złej wartości sprawi, że system się nie uruchomi.<br>Taki kilkusetmegabajtowy plik <code>.reg</code> (w moim wypadku $543\text{ MB}$) zapisz koniecznie na pendrivie. Po kilku nieudanych próbach uruchomienia Windows zwykle automatycznie przełączy się do środowiska odzyskiwania WinRE (klawisz <kbd>F8</kbd> został domyślnie wyłączony w nowszych systemach by przyspieszyć bootowanie). Z poziomu WinRE możesz uruchomić wiersz polecenia i przywrócić poprawny rejestr z pendrive'a!</p>
+
+</div>
+</div><h3>🧪 Edycja Hex zapisu gry Jelly Drift</h3>
+<p>Często gry stworzone na silniku Unity zapisują postępy lokalnie w Rejestrze Windows wykorzystując <code>PlayerPrefs</code>.<br>Tak samo jest w przypadku <span class="color-blue">Jelly Drift</span>. Naszym celem będzie zwiększenie ilości posiadanej waluty.</p>
+<p>Link do gry: <a href="https://danidev.itch.io/jelly-drift">Jelly Drift by Dani Dev - itch.io</a></p>
+<p>Wiele aplikacji desktopowych zapisuje swoją konfigurację właśnie w gałęzi <span class="color-green"><code>HKEY_CURRENT_USER</code></span> → <span class="color-green"><code>Software</code></span> → <span class="color-gold"><code>NazwaProducenta</code></span> → <span class="color-blue"><code>NazwaProduktu</code></span>. Przykładem może być chociażby Discord, Blender czy właśnie nasza gierka z itch.io.</p>
+<ol>
+<li><p>Uruchom grę, aby utworzyła pliki zapisu w Edytorze Rejestru. Czasem może być konieczne ukończenie wyścigu, meczu czy poziomu albo ręczny zapis lub checkpoint. Sprawdź czy klucz się utworzył:</p>
+<pre><code class="language-yaml">Komputer\HKEY_CURRENT_USER\Software\Dani\Jelly Drift
+</code></pre>
+<p>W zależności od tego jak developer gry i developerzy unity zrealizowali implementację zapisu możesz tu napotkać wiele pojedynczych wartości REG_DWORD lub jak w tym przypadku jednej długiej wartości REG_BINARY.<br>Wtedy dane są tu przechowywane w postaci ciągu szesnastkowego (Hex), a nie jako edytowalna liczba decymalna.<br><img src="/public/courses/windows-11/Images/lokalizacja-klucza-iwarto%C5%9Bci-jelly-drift-w-regedit.png" alt="Lokalizacja klucza i wartości Jelly Drift w regedit"></p>
+</li>
+<li><p>Aby nie męczyć się z edycją pliku binarnego na oślep wyeksportujemy go. 😉  </p>
+<ul>
+<li>Zaznacz klucz <span class="color-green">Jelly Drift</span> w drzewie po lewej stronie. </li>
+<li>Z górnego menu wybierz <kbd class="win-menu-btn">Plik</kbd> → <kbd class="win-menu-btn">Eksportuj</kbd> i zapisz klucz jako plik <code>.reg</code> na pulpicie.</li>
+</ul>
+<p><img src="/public/courses/windows-11/Images/export-klucza-rejestru-jelly-drift.png" alt="Eksport klucza rejestru z programu Jelly Drift"></p>
+<blockquote>
+<p>Zwróć uwagę na wartość widoczną na dole okna. Musisz mieć zaznaczoną konkretną gałąź rejestru, żeby nie wyeksportować przypadkiem całego drzewa. Pole z wybraną ścieżką powinno automatycznie ustawić się zgodnie z tym, który klucz został wybrany w drzewie.  </p>
+</blockquote>
+</li>
+<li><p>Otwórz zapisany plik <code>.reg</code> w Notatniku. Odszukaj zmienną ze stanem gry. Zaznacz cały ciąg znaków szesnastkowych przypisany do tej zmiennej i skopiuj go do schowka. (Uwaga: <code>=hex:</code> tej wartości nie kopiuj. Interesuje nas to co jest po dwukropku 😉)</p>
+</li>
+</ol>
+<p><img src="/public/courses/windows-11/Images/edycja-exportu-klucza-rejestru-wnotatniku-i-zaznaczenie-warto%C5%9Bci-hexadecymalnej.png" alt="Edycja eksportu klucza rejestru w notatniku i zaznaczenie wartości hexadecymalnej"></p>
+<ol start="4">
+<li><p>Otwórz narzędzie <a href="https://gchq.github.io/CyberChef/">CyberChef</a>. Wklej skopiowany ciąg w oknie Input i wybierz operację <span class="color-green">From Hex</span>. Narzędzie zdekoduje szesnastkowy ciąg znaków do postaci tekstowego pliku XML.</p>
+</li>
+<li><p>Skopiuj wynikowy XML z okna Output i wklej go do nowego okna Notatnika. Wciśnij <kbd>Ctrl</kbd> + <kbd>F</kbd>, aby szybko wyszukać znacznik <code>&lt;money&gt;</code>. Zmień znajdującą się tam wartość na <code>9999999</code>.</p>
+</li>
+</ol>
+<p><img src="/public/courses/windows-11/Images/cyberChef-konwersja-from-hex-skopiowanie-wyniku-do-notatnika-i-wyszukanie-warto%C5%9Bci-money-w-xml.png" alt="CyberChef - konwersja z HEX, skopiowanie wyniku do notatnika i wyszukiwanie wartości money w XML"></p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Koszmar optymalizacyjny</span><br>Przeanalizuj ten XML na zrzucie ekranu z <span class="color-blue">CyberChefa</span> – to podręcznikowy przykład, jak <span class="color-red">NIE</span> projektować systemów zapisu.</p>
+<p>Zwróć uwagę na potężny narzut składniowy domyślnego serializatora XML w C#. Aby zapisać najprostszą wartość prawda/fałsz (wymagającą w teorii 1 bita), gra marnuje kilkanaście bajtów na tasiemcowy tag <code>&lt;boolean&gt;false&lt;/boolean&gt;</code>. W połączeniu z deklaracją <code>utf-16</code> (które rezerwuje dwa bajty na każdy znak, wstawiając w angielskim tekście puste zera) daje to gigantyczne pompowanie pliku. Surowe dane ważące 300 bajtów rozrastają się do kilkunastu kilobajtów! W małej grze to bez znaczenia, ale w większych produkcjach zapisywanie takich molochów do plików powoduje zauważalne zacinanie się gry (<span class="color-blue">stutter</span>) podczas autozapisu. Mądry deweloper użyłby tu lekkiego formatu JSON z wymuszonym UTF‑8. 😁</p>
+
+</div>
+</div><ol start="6">
+<li>Skopiuj zmodyfikowany kod XML z Notatnika z powrotem do CyberChefa (do sekcji Input). Zmień operację na <span class="color-green">To Hex</span>, aby zakodować tekst z powrotem do formatu szesnastkowego.</li>
+<li>Skopiuj nowy ciąg Hex z okna Output, wróć do pierwszego okna Notatnika (z otwartym plikiem <code>.reg</code>) i podmień stary ciąg szesnastkowy na nowy. Zapisz plik.</li>
+</ol>
+<p><img src="/public/courses/windows-11/Images/podmiana-nowej-warto%C5%9Bci-hex-zapis-pliku-i-import-zmodyfikowanego-klucza-rejestru.png" alt="Podmiana nowej wartości hex, zapis pliku i import zmodyfikowanego klucza rejestru"></p>
+<ol start="8">
+<li>Kliknij dwukrotnie na zapisany plik <code>.reg</code>, aby zaimportować zmodyfikowany klucz z powrotem do Rejestru Windows. Uruchom grę.</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Pułapka Integer Overflow (przepełnienie wartości liczbowej)</span><br>Wpisanie zbyt wysokiej kwoty (np. <code>999999999</code>) wywołuje błąd typu Integer Overflow. Gra ma problem ze zdeserializowaniem tak potężnej liczby z XML‑a do przypisanego typu zmiennej liczbowej w kodzie. Na zrzucie poniżej (po lewej stronie) widać efekt: gra zgłupiała, ustawiła błędny poziom (Lvl $88$), zresetowała pieniądze do $\text{$}4000$ i zablokowała możliwość rozpoczęcia wyścigu. Prawa strona obrazka pokazuje poprawne zachowanie po podaniu wartości <code>9999999</code> – środki zostały poprawnie dodane i pozwoliły na zakup dowolnych ulepszeń (np. niebieskiego lakieru dla auta).</p>
+
+</div>
+</div><p><img src="/public/courses/windows-11/Images/dziwny-bug-gdzie-warto%C5%9B%C4%87-money-po-przekroczeniu-max-int-zmienia-lvl-i-menu-si%C4%99-buguje-ale-dla-warto%C5%9Bci-9999999-wszystkodzia%C5%82a.png" alt="Dziwny bug gdzie wartość money po przekroczeniu max int zmienia lvl i menu się buguje"></p>
+<blockquote>
+<p>PS. W XML są tagi dotyczące odblokowania map i samochodów. Spróbuj je odnaleźć i pozmieniać wartości na <code>true</code>.  </p>
+</blockquote>
+<h3>🚀 Analiza Autostartu – wykrywanie ukrytych intruzów</h3>
+<p>Złośliwe oprogramowanie uwielbia jeden trick:<br>Wstrzykniecie się do kluczy autostartu w Rejestrze, żeby uruchomić się przy każdym starcie systemu. Menedżer zadań (zakładka Autostart) często ich nie pokazuje, bo <span class="color-red">rootkit</span> celowo ukrywa się przed API Windowsa.</p>
+<p>Większość prostego malware pozostawia po sobie ślady właśnie w kluczach autostartu.</p>
+<p>Otwórz <code>regedit.exe</code> i przejdź do:</p>
+<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+</code></pre>
+<p><img src="/public/courses/windows-11/Images/regedit-Run.png" alt="Edytor Rejestru otwarty na kluczu Run z wpisami RtkAudUService i SecurityHealth"></p>
+<p>Na powyższym zrzucie widzisz prawdziwe wpisy autostartu z działającego systemu:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Nazwa wartości</th>
+<th align="left">Dane</th>
+<th align="left">Ocena</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>RtkAudUService</code></td>
+<td align="left"><code>C:\WINDOWS\System32\DriverStore\...\RtkAudUService64.exe</code></td>
+<td align="left">✅ Legitny – sterownik audio Realtek</td>
+</tr>
+<tr>
+<td align="left"><code>SecurityHealth</code></td>
+<td align="left"><code>%windir%\system32\SecurityHealthSystray.exe</code></td>
+<td align="left">✅ Legitny – ikona Windows Security w zasobniku</td>
+</tr>
+</tbody></table>
+<p>W tym przypadku wszystko jest w porządku. Jak wygląda podejrzany wpis? 🤔 </p>
+<h4>Przykładowe sygnały alarmowe:</h4>
+<pre><code>Nazwa: xkj7238d
+Dane: C:\Users\Admin\AppData\Local\Temp\update.vbs
+</code></pre>
+<ul>
+<li>Losowa nazwa (nie nazwa programu)</li>
+<li>Ścieżka w <code>%Temp%</code> lub <code>%AppData%</code></li>
+<li>Plik <code>.vbs</code>, <code>.ps1</code>, lub <code>.bat</code> zamiast <code>.exe</code> z rozpoznawalnym programem</li>
+</ul>
+<p>Jeśli znajdziesz coś podejrzanego: PPM na wartości → <span class="color-green">Usuń</span>. Wirus straci mechanizm przetrwania przy restarcie.</p>
+<p>Sprawdź też te lokalizacje – to one najczęściej służą jako „schronienie” zarówno dla legitnych programów, jak i złośliwego oprogramowania:</p>
+<data-tabs>
+  <tabs>
+    <item>Klucz Run</item>
+    <item>Klucze RunOnce</item>
+  </tabs>
+  <div><p><span class="color-green">Ścieżka:</span> </p>
+<pre><code class="language-yaml">HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+</code></pre>
+<p>To ulubione miejsce programów, które instalują się w profilu użytkownika (omijając UAC). Będą się uruchamiać automatycznie tylko dla aktualnie zalogowanego użytkownika.<br><b>Wartości wyciągnięte z mojego własnego kompa:</b></p>
+<ul>
+<li><p>Trzy legitne wpisy z <code>Program Files</code>:</p>
+<ul>
+<li><span class="color-blue">Steam</span>: domyślnie tworzy ten wpis, aby odpalać się w tle (<code>-silent</code>) i od razu wyszukiwać aktualizacji gier.<pre><code class="language-cmd">"C:\Program Files (x86)\Steam\steam.exe" -silent
+</code></pre>
+</li>
+<li><span class="color-blue">EpicGamesLauncher</span>: podobnie jak Steam, dąży do ciągłej gotowości w tle.<pre><code class="language-cmd">"C:\Program Files\Epic Games\...\EpicGamesLauncher.exe" -silent -launchcontext=boot
+</code></pre>
+</li>
+<li><span class="color-blue">Microsoft Edge</span>: ładuje niezbędne procesy bez otwierania okna (<code>--no-startup-window</code>), aby przy kliknięciu ikony wystartować błyskawicznie.<pre><code class="language-cmd">"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window --win-session-start
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>Dwa legitne wpisy z <code>AppData</code>:</p>
+<ul>
+<li><span class="color-blue">Discord</span>: domyślnie dodaje się, aby przy starcie komputera sprawdzić dostępność nowej wersji (<code>Update.exe</code>) i odpalić komunikator w tle.<pre><code class="language-cmd">"C:\Users\user\AppData\Local\Discord\Update.exe" --processStart Discord.exe
+</code></pre>
+</li>
+<li><span class="color-blue">LocalSend</span>: nasłuchuje w sieci lokalnej w tle (<code>--hidden</code>), by stale być w gotowości na odbiór plików ze smartfona.<pre><code class="language-cmd">"C:\Users\user\AppData\Local\Programs\LocalSend\localsend_app.exe" --hidden
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dlaczego widzisz je w Rejestrze, skoro wyłączyłeś je w Autostarcie?!</span> 😡<br>Wyłączenie programu w zakładce Autostart w Menedżerze Zadań wcale nie kasuje jego wpisu z <code>Run</code>! Windows tworzy obok podklucz <code>StartupApproved\Run</code>, gdzie nadaje programowi status zablokowanego. Rejestr (klucz Run) przechowuje więc fizyczne wpisy deweloperów aby w przypadku ponownego włączenia dla autostartu wiedzieć co i z jakimi parametrami uruchomić. 😜</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Wirusy uwielbiają ten klucz, ponieważ <span class="color-green">nie wymaga praw administratora</span> do zapisu!</p>
+
+</div>
+</div></div>
+  <div><p><span class="color-green">Ścieżki:</span></p>
+<pre><code class="language-yaml">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce
+HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce
+</code></pre>
+<p>Klucze typu <code>RunOnce</code> (Uruchom Raz) działają na innej zasadzie – program umieszcza w nich swój wpis i <span class="color-green">czeka na następne logowanie użytkownika</span> (najczęściej następujące po restarcie systemu). W trakcie tego logowania Windows wykonuje polecenie, a następnie automatycznie usuwa wpis z Rejestru.</p>
+<p>Złapany przed restartem wpis z mojego systemu:</p>
+<ul>
+<li><p><span class="color-green">MS Edge WebView</span>:</p>
+<pre><code class="language-cmd">"C:\Program Files (x86)\Microsoft\EdgeWebView\Application\149.0.4022.69\Installer\setup.exe" --msedgewebview --delete-old-versions --system-level --verbose-logging --on-logon
+</code></pre>
+<p><span class="color-green">Dlaczego Edge zostawia śmieci, które trzeba usuwać przy reboocie?</span><br>Odpowiedź kryje się w architekturze Windows 11. Silnik przeglądarki Edge (WebView2) jest wykorzystywany przez wiele elementów interfejsu, takich jak systemowe Widżety czy różnego rodzaju usługi w tle. W przeszłości część komponentów powiązanych np. z <span class="color-green">Menu Start</span> korzystała również z technologii <span class="color-blue">React Native for Windows</span> (co tłumaczy powszechne narzekania na lagi... a mogli pisać w Vue. Hehe, żartuję, only C++ 💪🏼).  </p>
+<p><span class="color-green">Skutek blokady:</span><br>Skoro interfejs systemu cały czas korzysta z silnika WebView2, jego pliki bywają zablokowane przez działające procesy systemowe. Instalator nowej wersji Edge używa opcji <code>--delete-old-versions</code> i umieszcza ją w <code>RunOnce</code>. Przy następnym logowaniu użytkownika (zanim część komponentów korzystających z WebView2 zdąży ponownie zablokować stare pliki) instalator usuwa niepotrzebne wersje, a wpis samoczynnie znika z Rejestru.</p>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">🔥 Fast Startup może zablokować wykonanie RunOnce!</span><br>Zwykłe wyłączenie Windowsa z aktywnym <span class="color-blue">Fast Startup</span> to nie jest pełen reset – to jedynie wylogowanie użytkownika i <span class="color-green">hibernacja jądra</span> (co omawialiśmy w Module 1). </p>
+<p>Aby mieć pewność wykonania wpisów oczekujących na ponowne uruchomienie, należy użyć opcji <span class="color-green">Restart</span>. Wyłączenie komputera przy aktywnym Fast Startup może nie uruchomić wszystkich mechanizmów oczekujących na pełny restart systemu.</p>
+<p>Właśnie dlatego instalatory oprogramowania rzadko mówią <span class="color-blue">"Wyłącz i włącz komputer"</span>, tylko precyzyjnie wymuszają: <span class="color-green">"Uruchom ponownie (Restart)"</span>. Daje to 100% pewności na poprawne wykonanie poinstalacyjnych porządków.</p>
+
+</div>
+</div><p>Ponieważ wpisy <code>RunOnce</code> są automatycznie usuwane po wykonaniu, klucze te (zarówno w gałęzi <code>HKLM</code> jak i <code>HKCU</code>) przez większość czasu pozostają puste. Długotrwale zalegające wpisy są nietypowe i mogą wskazywać na błąd instalatora, nieudaną aktualizację lub (w niektórych przypadkach) mechanizm utrwalania obecności złośliwego oprogramowania (tzw. „persistence”).</p></div>
+</data-tabs>
+
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego złośliwe oprogramowanie (np. trojany) tak chętnie wykorzystuje gałąź HKCU w kluczu Run do utrwalenia swojej obecności w systemie?</p>
+</question>
+    <options>
+      <item correct=""><p>Klucze w HKCU ładują program przy logowaniu profilu i kompletnie nie wymagają uprawnień administratora do modyfikacji.</p>
+</item>
+      <item><p>Klucze w HKLM są ignorowane przez systemy Windows 11 i zastępowane przez bezpieczną zakładkę Autostart w Menedżerze.</p>
+</item>
+      <item><p>Wpisy dodane w HKLM wykonują się jednorazowo przy restarcie, podczas gdy te z HKCU są trwale i niemożliwe do usunięcia.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się nad restrykcjami. Czy zwykły pracownik (Konto Standardowe) może modyfikować ustawienia systemowe, a czy może własne?</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Zapis do <code>HKEY_LOCAL_MACHINE</code> wymaga podniesienia uprawnień (UAC). Zmiana w <code>HKEY_CURRENT_USER</code> przebiega po cichu w tle.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Projekt: Konfiguracja Stanowiska Publicznego</h2>
+<p>Stanowiska komputerowe w miejscach publicznych (szkoły, biblioteki, kawiarnie internetowe) są narażone na ciągłe próby modyfikacji konfiguracji lub wręcz celowego sabotażu. Administrowanie takim środowiskiem wymaga wyważenia dostępności – użytkownicy muszą móc pracować – z rygorystycznym bezpieczeństwem.</p>
+<h3>⚖️ Analiza wektorów ataku: Czy samo konto wystarczy?</h3>
+<p>Zanim zaczniesz konfigurować system, przeanalizuj dostępne rodzaje kont lokalnych i ich wbudowane ograniczenia.</p>
+<data-tabs>
+  <tabs>
+    <item>Tryb Kiosku (Assigned Access)</item>
+    <item>Konto Standardowe</item>
+  </tabs>
+  <div><p><span class="color-green">Scenariusz:</span> Konfigurujesz wbudowany w Windows 11 <span class="color-green">Tryb Kiosku</span>.</p>
+<ul>
+<li><p>Mechanizm <span class="color-blue">Assigned Access</span> pozwala przypisać do konta uruchamianie <span class="color-green">tylko jednej konkretnej aplikacji</span> (np. Microsoft Edge w trybie pełnoekranowym), która ładuje się automatycznie po zalogowaniu, z pominięciem klasycznego pulpitu (powłoki <code>explorer.exe</code>).</p>
+</li>
+<li><p>W tym trybie użytkownik jest całkowicie odcięty od systemu plików, wiersza poleceń czy Panelu Sterowania. Zablokowane są też standardowe skróty klawiszowe.</p>
+</li>
+<li><p><span class="color-green">Wniosek:</span> Tryb Kiosku to najbezpieczniejsze rozwiązanie dla informatorów cyfrowych czy terminali przeglądarkowych. Nie nadaje się jednak do sali komputerowej, w której użytkownik potrzebuje dostępu do wielu programów i swobodnej pracy z plikami na pulpicie.</p>
+</li></ul></div>
+<div><p><span class="color-green">Scenariusz:</span> Tworzysz <span class="color-green">Konto Standardowe</span> (bez uprawnień administratora) na potrzeby pracowni komputerowej. Użytkownik otrzymuje dostęp do klasycznego pulpitu. Nie zna hasła admina, co uniemożliwia mu pokonanie alertów kontroli konta (UAC).</p>
+<p>Co domyślnie może zrobić taki użytkownik bez dodatkowych restrykcji?</p>
+<ul>
+<li>✅ <span class="color-green">Instalować oprogramowanie (Per‑User).</span> To największy mit Konta Standardowego. Brak uprawnień blokuje tylko instalacje w folderze systemowym <code>C:\Program Files</code>. Użytkownik może bez problemu pobierać z internetu i instalować programy w swoim profilu <code>%LocalAppData%</code> (w ten sposób instaluje się np. Discord, Chrome, Spotify czy Visual Studio Code).</li>
+<li>✅ Otwierać konsolę CMD i PowerShell, z prawem do uruchamiania większości poleceń i skryptów w obrębie swoich uprawnień.</li>
+<li>✅ Zmieniać ustawienia wizualne (tapety), dźwiękowe i językowe systemu.</li>
+<li>✅ Manipulować ułatwieniami dostępu (np. włączając głośnego Narratora czy Tryb wysokiego kontrastu).</li>
+</ul>
+<p><span class="color-green">Wniosek:</span> Konto Standardowe daje podstawową izolację przestrzeni dyskowej, ale <span class="color-green">nie chroni</span> konfiguracji wizualnej ani nie blokuje instalacji oprogramowania per‑user. Wymaga rygorystycznego "dokręcenia śrub" przez zasady <code>gpedit.msc</code>.</p></div>
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Geneza: Ekran logowania jako główny punkt ataku</h2>
+<p>Ekran logowania to pierwsza i najsłabsza linia obrony w systemie Windows. Znajomość historycznych wektorów ataku pozwala zrozumieć, dlaczego fizyczny dostęp do komputera jest tak niebezpieczny.</p>
+<h3>Atak przez Klawisze Trwałe (Sticky Keys)</h3>
+<p>W starszych systemach (Windows XP/7/8) istniała potężna luka:</p>
+<ol>
+<li>Atakujący uruchamia komputer z narzędziowego pendrive'a (np. dystrybucji Linux LiveCD).</li>
+<li>Otwiera partycję z systemem Windows.</li>
+<li>Usuwa oryginalny plik <code>sethc.exe</code> (Klawisze Trwałe). Następnie kopiuje plik <code>cmd.exe</code> do katalogu, w którym znajdował się <code>sethc.exe</code>, i nadaje kopii nazwę <code>sethc.exe</code>.</li>
+<li>Uruchamia ponownie komputer i czeka na ekran logowania.</li>
+<li>Naciska klawisz <kbd>Shift</kbd> pięć razy z rzędu.</li>
+<li>System uruchamia ukrytą <span class="color-green">konsolę CMD z najwyższymi uprawnieniami (SYSTEM)</span>.</li>
+<li>Wpisanie polecenia <code>net user Administrator NoweHaslo</code> oddaje atakującemu pełną kontrolę nad maszyną.</li>
+</ol>
+<h3>Luki środowiska instalatora (OOBE)</h3>
+<p>Środowisko OOBE (<span class="color-blue">Out Of Box Experience</span>) odpowiada za pierwszą konfigurację systemu. Zanim kreator wymusi utworzenie konta użytkownika, naciśnięcie kombinacji <kbd>Shift</kbd> + <kbd>F10</kbd> otwiera konsolę wiersza poleceń z uprawnieniami <span class="color-green">SYSTEM</span>.</p>
+<p>Ta ukryta funkcja diagnostyczna istnieje nadal w instalatorze Windows 11. Każda osoba posiadająca oryginalny, podpisany instalator na pendrive ma pełny dostęp do odczytu i modyfikacji nieszyfrowanego BitLockerem dysku.</p>
+<h3>Dostęp z zewnątrz (Linux vs NTFS)</h3>
+<p>Systemy Linux posiadają natywne wsparcie dla formatu NTFS używanego przez Windows. Uruchomienie komputera z linuksowego pendrive'a daje swobodę edycji wszystkich plików systemowych. Narzędzia kryptograficzne takie jak <code>chntpw</code> potrafią wyzerować hasło dowolnego konta w kilkadziesiąt sekund.</p>
+<p>Ochrona przed bootowaniem z zewnętrznych nośników w Windows 11 zależy od środowiska:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Mechanizm</th>
+<th align="left">Działanie w praktyce</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Secure Boot (UEFI)</span></td>
+<td align="left">Teoretycznie blokuje nieautoryzowane systemy operacyjne. W praktyce instalatory popularnych dystrybucji Linuksa (np. Ubuntu, Fedora) <span class="color-green">posiadają certyfikaty kryptograficzne od Microsoftu</span>. Secure Boot ładuje je bez najmniejszego oporu.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">BitLocker</span></td>
+<td align="left">To jedyna skuteczna ochrona fizyczna. <span class="color-green">Szyfruje całą zawartość dysku</span>. Obcy system uruchomiony z pendrive'a widzi jedynie cyfrowy szum, aż do podania klucza odzyskiwania.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Problem wersji Home</span></td>
+<td align="left">Windows 11 Home nie oferuje klasycznego BitLockera. Posiada „Szyfrowanie Urządzenia”, które aktywuje się wyłącznie na nowym sprzęcie (wymaga TPM i Modern Standby) i wymusza zalogowanie Kontem Microsoft. Starsze komputery i sprzęty poleasingowe często tego nie obsługują. Ich dyski pozostają całkowicie otwarte na edycję.</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Kluczowa zasada bezpieczeństwa: <span class="color-green">jeśli dysk nie jest zaszyfrowany, to intruz z fizycznym dostępem do urządzenia całkowicie je przejmuje</span>. Wszelkie restrykcje zdefiniowane w <code>gpedit.msc</code> są egzekwowane wyłącznie przez działający system Windows (zarówno na ekranie logowania, jak i po zalogowaniu). Atakujący, uruchamiając własny system z pendrive'a, całkowicie je omija, ponieważ instalacja Windows jest w tym czasie wyłączona.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Metoda działania: Restrykcje za pomocą gpedit.msc</h2>
+<p>Narzędzie <code>gpedit.msc</code> (Edytor lokalnych zasad grupy) to podstawowy oręż administratora. W przeciwieństwie do <code>secpol.msc</code> (skupiającego się na hasłach i logowaniu), edytor GPO pozwala na głęboką ingerencję w interfejs użytkownika, dostępność narzędzi oraz restrykcje uruchamiania aplikacji.</p>
+<p>Aby uruchomić edytor, użyj skrótu <kbd>Win</kbd> + <kbd>R</kbd> i wpisz <code>gpedit.msc</code>.</p>
+<p>Zasady zgrupowane są w dwóch głównych sekcjach:</p>
+<ul>
+<li><span class="color-green">Konfiguracja komputera (Computer Configuration):</span> Aplikowana przez usługi systemu. Działa globalnie na całą maszynę (w tym na ekran logowania).</li>
+<li><span class="color-green">Konfiguracja użytkownika (User Configuration):</span> Aplikowana w momencie logowania. Działa wyłącznie w obrębie sesji konkretnego konta.</li>
+</ul>
+<data-tabs>
+  <tabs>
+    <item>🎨 Personalizacja</item>
+    <item>🔧 Narzędzia</item>
+  </tabs>
+  <div><h3>Ochrona wizualna systemu</h3>
+<p>Ograniczenie personalizacji zapobiega umieszczaniu niestosownych grafik na pulpitach stanowisk publicznych i zachowuje ich profesjonalny wygląd.</p>
+<p><span class="color-green">Ścieżka:</span> <kbd class="win-menu-btn">Konfiguracja użytkownika</kbd> → <kbd class="win-menu-btn">Szablony administracyjne</kbd> → <kbd class="win-menu-btn">Panel sterowania</kbd> → <kbd class="win-menu-btn">Personalizacja</kbd>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Zasada</th>
+<th align="left">Ustawienie</th>
+<th align="left">Wpływ na system</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span style="text-wrap:nowrap">Zapobiegaj zmienianiu tła pulpitu</span></td>
+<td align="left"><span class="color-green">Włączone</span></td>
+<td align="left">Nie da się już zmienić tła z menu kontekstowego pliku obrazu oraz <kbd class="win-menu-btn">Personalizacja</kbd> &gt; <kbd class="win-menu-btn">Tło</kbd> ma wyszarzone opcje z komunikatem <span class="color-blue">„Niektórymi z tych ustawień zarządza Twoja organizacja.”</span></td>
+</tr>
+<tr>
+<td align="left"><span style="text-wrap:nowrap">Zapobiegaj zmienianiu wygaszacza ekranu</span></td>
+<td align="left"><span class="color-green">Włączone</span></td>
+<td align="left">Przechodząc do <kbd class="win-menu-btn">Personalizacja</kbd> &gt; <kbd class="win-menu-btn">Ekran blokady</kbd> i klikając w <span class="color-green">Wygaszacz ekranu</span> pojawi się okienko z komunikatem <span class="color-blue">„Administrator systemu wyłączył; uruchamianie apletu Ekranu w Panelu Sterowania”</span></td>
+</tr>
+<tr>
+<td align="left"><span style="text-wrap:nowrap">Zapobiegaj zmienianiu kompozycji</span></td>
+<td align="left"><span class="color-green">Włączone</span></td>
+<td align="left"><kbd class="win-menu-btn">Personalizacja</kbd> &gt; <kbd class="win-menu-btn">Kompozycje</kbd> zablokowaniu ulegnie jedynie wybór gotowych kompozycji Windowsa</td>
+</tr>
+<tr>
+<td align="left"><span style="text-wrap:nowrap">Zapobiegaj zmienianiu kolorów i wyglądu</span></td>
+<td align="left"><span class="color-green">Włączone</span></td>
+<td align="left"><kbd class="win-menu-btn">Personalizacja</kbd> &gt; <kbd class="win-menu-btn">Kolory</kbd> wszystko jest wyszarzone i niedostępne. Poza trybem wysokiego kontrastu</td>
+</tr>
+</tbody></table>
+<p><span class="color-green">Wymuszenie jednolitej tapety dla wszystkich:</span></p>
+<p>Zamiast tylko blokować zmianę, możesz z góry narzucić konkretny plik graficzny jako niemożliwe do usunięcia tło.</p>
+<p><span class="color-green">Ścieżka:</span> <kbd class="win-menu-btn">Konfiguracja użytkownika</kbd> → <kbd class="win-menu-btn">Szablony administracyjne</kbd> → <kbd class="win-menu-btn">Pulpit</kbd> → <kbd class="win-menu-btn">Active Desktop</kbd> → <span class="color-gold">Tapeta pulpitu</span></p>
+<ol>
+<li>Zmień stan na <span class="color-green">Włączone</span>.</li>
+<li>Wpisz bezwzględną ścieżkę do pliku, np.: <code>C:\Windows\Web\Wallpaper\ThemeC\img30.jpg</code></li>
+</ol>
+<p><img src="/public/courses/windows-11/Images/gpedit-pulpit-theme.png" alt="Ustawienie tapety pulpitu za pomocą Edytora lokalnych zasad grupy"></p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dwubiegunowość Windowsa</span><br>Często można się złapać na pisaniu w konfiguracji systemowej nazw katalogów z lokalizacją, tak jak widzi się je w Eksploratorze (np. <code>...\Wallpaper\Wschód słońca\...</code>). Windows posiada mechanizm tłumaczenia nazw wyświetlanych (za pomocą ukrytego pliku <code>desktop.ini</code>), ale fizyczna, systemowa nazwa katalogu to w tym wypadku <code>ThemeC</code>. Konfigurując system poprzez <code>gpedit</code> i Rejestr, musisz bezwzględnie używać prawdziwych (fizycznych) nazw ścieżek! Dlatego gdy chcesz prawdziwą ścieżkę do pliku lub katalogu to kliknij PPM na niego i wybierz <kbd class="win-menu-btn">Kopiuj jako ścieżkę</kbd>. Uzyskasz poprawną ścieżkę zamkniętą w podwójnym cudzysłowie <code>"</code>.</p>
+<p>W przypadku grup systemowych jest odwrotnie 😅. Przykładowo w polskim Windowsie należy używać zlokalizowanych nazw zgodnych z językiem systemu (czyli grupa będzie się nazywać <code>Administratorzy</code>, a nie <code>Administrators</code>).</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>W środowisku domenowym (Active Directory) ścieżka do tapety powinna prowadzić do udziału sieciowego z uprawnieniami tylko do odczytu (np. udział <code>NETLOGON</code>). Gwarantuje to, że użytkownik nie podmieni pliku graficznego bezpośrednio na dysku komputera.</p>
+
+</div>
+</div></div>
+  <div><h3>Ograniczenie narzędzi administracyjnych</h3>
+<p>Zwykły użytkownik nie powinien mieć dostępu do konsoli systemowych. Bez tego zabezpieczenia, nawet na koncie o ograniczonych uprawnieniach, można uruchamiać lokalne, szkodliwe skrypty.</p>
+<p><span class="color-green">Ścieżka:</span> Konfiguracja użytkownika → Szablony administracyjne → <span class="color-green">System</span></p>
+<table>
+<thead>
+<tr>
+<th align="left">Zasada</th>
+<th align="left">Ustawienie</th>
+<th align="left">Wpływ na system</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Zapobiegaj dostępowi do wiersza polecenia</td>
+<td align="left"><span class="color-green">Włączone</span></td>
+<td align="left">Próba otwarcia <code>cmd.exe</code> kończy się komunikatem o blokadzie nałożonej przez administratora. <br> <span class="color-blue">Czy zapobiegać również przetwarzaniu skryptów wiersza polecenia?</span>: Wybranie <span class="color-green">Tak</span> blokuje również pliki wsadowe (<code>.bat</code> i <code>.cmd</code>).</td>
+</tr>
+<tr>
+<td align="left">Zapobiegaj dostępowi do narzędzi edycji rejestru</td>
+<td align="left"><span class="color-green">Włączone</span></td>
+<td align="left">Blokuje wywołanie programu <code>regedit.exe</code>. <br> <span class="color-blue">Czy wyłączyć pracę programu regedit w trybie cichym?</span>: Chodzi o to że regedit może być wywoływany przez inne programy w trybie cichym (<code>-Silent</code>).</td>
+</tr>
+</tbody></table>
+<p>Zmiany są natychmiastowe i nie musisz używać <code>gpupdate /force</code>. O dziwo blokadzie uległo jedynie cmd a powershell jest dalej dostępny.</p>
+<p><img src="/public/courses/windows-11/Images/gpedit-blokada-cmd-i-regedit.png" alt="Blokada dostępu do narzędzi systemowych za pomocą Edytora lokalnych zasad grupy"></p></div>
+</data-tabs>
+
+<data-gate>
+  <data-connection-matcher title="Restrykcje Stanowiska Publicznego">
+    <div class="cmw-item" data-left="Musisz zapobiec uruchamianiu szkodliwych skryptów `.bat` pobranych z internetu." data-right="Aktywacja zasady `Zapobiegaj dostępowi do wiersza polecenia` z parametrem **Tak**."></div>
+    <div class="cmw-item" data-left="Komputer ma pełnić rolę bezpiecznego punktu informacyjnego z dostępem tylko do jednej aplikacji." data-right="Najlepiej sprawdzi się tu Tryb Kiosku (Assigned Access) pomijający klasyczny pulpit."></div>
+    <div class="cmw-item" data-left="Użytkownicy złośliwie zamieniają tapety z wykorzystaniem menu kontekstowego systemu." data-right="Włączenie zasady `Zapobiegaj zmienianiu tła pulpitu` w Konfiguracji użytkownika w `gpedit.msc`."></div>
+    <div class="cmw-item" data-left="Atakujący ma fizyczny dostęp do niezabezpieczonego komputera z dyskiem w formacie NTFS." data-right="Może wyzerować hasło lokalne wykorzystując narzędzia z dystrybucji Linux LiveCD."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Architektura zarządzania zasadami:</span> Jądro czyta wartości prosto z Rejestru i bazy zabezpieczeń. <code>secpol.msc</code> i <code>gpedit.msc</code> to po prostu wygodne narzędzia do edycji tych plików. Tradycyjne Ustawienia Windows leżą na samym dole hierarchii – Jądro zignoruje je przy każdym konflikcie z polisami. 🏗️</li>
+<li><span class="color-green">Zasady haseł i blokady:</span> W <code>secpol.msc</code> narzucasz długość hasła i odcinasz dostęp po kilku błędach. Bez tego każdy prosty skrypt do Brute‑Force uderzy w konta lokalne siłą. 🔐</li>
+<li><span class="color-green">Polityki Audytu i Event ID:</span> Windows domyślnie milczy o incydentach bezpieczeństwa. Dopiero włączenie audytu logowania sprawia, że logi <span class="color-green">4624</span> i <span class="color-green">4625</span> zaczynają spływać do Podglądu Zdarzeń. Pojawia się błąd 4625 z obcym IP? Masz pewność, że ktoś właśnie włamuje się na maszynę. 👁️</li>
+<li><span class="color-green">Rejestr jako źródło prawdy:</span> Złośliwy kod najczęściej podpina się pod gałęzie <code>...\CurrentVersion\Run</code>, żeby zapewnić sobie start wraz z systemem. Z kolei klucze w poddrzewie <code>Policies</code> działają nad głową użytkownika – nadpisują wszystko, co zostało wyklikane w interfejsie graficznym. 🗄️</li>
+<li><span class="color-green">Ochrona stanowiska publicznego i ataki fizyczne:</span> Brak BitLockera oddaje dysk walkowerem. Wystarczy byle jaki pendrive z Linuxem albo stara sztuczka z Klawiszami Trwałymi, żeby zresetować hasło. Zwykłe Konto Standardowe nie rozwiąże problemu bałaganu w pracowni – musisz ręcznie zablokować CMD, Regedit i personalizację korzystając z <code>gpedit.msc</code>. 🛡️</li>
+</ul>
+<blockquote>
+<p>PS. Jak zobaczysz coś o hakowaniu czy bezpieczeństwie i wspomniane zostanie <code>netplwiz</code> to wtrafiłeś na bullshit.<br>To narzędzie jest tylko do zarządzania kontami. Reszta to bzdury. 😐</p>
+</blockquote>
+<hr>
+<p>Na ten moment zbudowaliśmy solidną obronę pasywną – system zablokuje ataki wykorzystując własne restrykcje. W następnym module przechodzimy do reagowania. Zbudujemy skrypty i wepniemy je w Harmonogram Zadań, żeby sprzęt automatycznie odpierał incydenty bez Twojego udziału. ⚡</p>
+</section>

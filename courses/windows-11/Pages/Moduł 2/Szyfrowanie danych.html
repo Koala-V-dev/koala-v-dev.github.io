@@ -1,0 +1,576 @@
+<h1>Szyfrowanie danych w Windows 11</h1>
+<p>Wyobraź sobie krytyczny scenariusz zgłoszony na Helpdesk: pracownik spieszący się na spotkanie zostawia służbowy laptop w pociągu. Ktoś go odnajduje, demontuje klapę obudowy, wyjmuje szybki nośnik SSD M.2 NVMe, a następnie podłącza go za pomocą zewnętrznego adaptera USB do innego komputera z systemem Linux. </p>
+<p>W tym momencie hasło logowania do systemu Windows oraz kody PIN są <span class="color-green">całkowicie bezużyteczne</span>. Zabezpieczają one jedynie sesję użytkownika w uruchomionym systemie operacyjnym (logowanie logiczne). Z perspektywy napastnika posiadającego fizyczny dostęp do nośnika, wszystkie bazy danych klientów, hasła zapamiętane w przeglądarce, prywatne klucze SSH oraz firmowe dokumenty leżą na dysku w postaci <span class="color-green">otwartego, jawnego strumienia bajtów</span> w strukturze systemu plików NTFS.</p>
+<p>Jedyną skuteczną inżynieryjną linią obrony przed tym wektorem ataku (nazywanym <span class="color-blue">atakiem offline</span> lub <span class="color-blue">Cold Boot</span>) jest <span class="color-gold">niskopoziomowe szyfrowanie danych</span>. Sprawia ono, że bez uwierzytelnienia sprzętowego lub klucza kryptograficznego, odczyt jakiegokolwiek sektora dysku zwraca wyłącznie losowy szum informacyjny (entropię).</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Entropia</span> to miara nieuporządkowania lub losowości w systemie. Im większa entropia, tym trudniej jest odgadnąć lub przewidzieć dane.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">NIE WOLNO MIEĆ WŁĄCZONEGO BITLOCKERA GDY INSTALUJESZ STEROWNIKI!!!!</span><br>Ja po zainstalowaniu sterowników NVIDIA RTX 3060 610.47 z 26 maja przeżyłem piekło: przez 9 dni w sumie 8 <span class="color-blue">BS</span><span class="color-red">OD</span> i 10 razy recovery z BitLockera. Mało tego – 5 razy pod rząd przy jednym uruchomieniu komputera zapętliło mi to gówno w kółko: <span class="color-blue">BS</span><span class="color-green"><span class="color-blue">OD</span>* ➔ BitLocker recovery ➔ *BS</span><span class="color-blue"><span class="color-blue">OD</span></span> ➔ BitLocker recovery... Myślałem, że oszaleję, dopóki nie wydali wersji 610.62 z 16 czerwca 2026. Od razu musiałem wstrzymać BitLockera i dopiero instalować sterowniki. Kompletny dramat i gigantyczny stres! 😫</p>
+
+</div>
+</div><hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔐 BitLocker – Szyfrowanie całego woluminu (FVE)</h2>
+<p><span class="color-green">BitLocker Drive Encryption</span> to wbudowana w system Windows technologia szyfrowania całego woluminu (ang. <span class="color-blue">Full Volume Encryption</span>). W przeciwieństwie do szyfrowania pojedynczych plików, BitLocker działa poniżej warstwy systemu plików, szyfrując sektory dysku w locie (ang. <span class="color-blue">on‑the-fly encryption</span>).</p>
+<h3>🛠️ Architektura i Hierarchia Kluczy BitLockera</h3>
+<p>Bezpośrednie szyfrowanie kilku terabajtów danych za pomocą hasła użytkownika byłoby kryptograficznym i wydajnościowym koszmarem. Zmiana hasła przez użytkownika wymagałaby odszyfrowania i ponownego szyfrowania całego nośnika, co trwałoby godzinami i doprowadziło do przedwczesnego zużycia komórek krzemowych NAND Flash (wyczerpania limitu cykli TBW – <span class="color-blue">Total Bytes Written</span>).</p>
+<p>Aby rozwiązać ten problem, inżynierowie Microsoftu wdrożyli wielowarstwową <span class="color-green">hierarchię kluczy</span>:</p>
+<figure>
+<img aria-describedby="diagram-vmk" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/diagram-hierarchia-kluczy-szyfrowanie-windows.drawio.webp" alt="Diagram hierarchii kluczy w usłudze szyfrowania danych w systemie Windows" width="681" height="581" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-vmk">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Diagram przedstawia proces deszyfrowania i hierarchię kluczy w usłudze BitLocker. Pokazuje, jak poszczególne metody autoryzacji (protektory) odszyfrowują główny klucz woluminu (VMK), który następnie odszyfrowuje klucz szyfrowania dysku (FVEK) wykonujący operacje we/wy w locie na sektorach dysku.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Protektory (Metody autoryzacji)</span> – cztery niezależne komórki na górze: Chip TPM 2.0, Kod PIN przy starcie, Klucz Odzyskiwania 48‑cyfr, Hasło Użytkownika.  </li>
+<li><span class="color-green">Pierwszy etap deszyfracji</span> – każdy z protektorów posiada powiązanie (strzałka „odszyfrowuje”) z centralnym blokiem Volume Master Key - VMK.  </li>
+<li><span class="color-green">Drugi etap deszyfracji</span> – blok Volume Master Key - VMK wskazuje za pomocą strzałki „odszyfrowuje” na blok Full Volume Encryption Key - FVEK.  </li>
+<li><span class="color-green">Operacje dyskowe</span> – klucz FVEK jest połączony strzałką „szyfruje/deszyfruje w locie” z fizyczną bazą danych (Zaszyfrowane Sektory na Dysku oznaczone ciemnoniebieskim walcem).</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Diagram hierarchii kluczy w usłudze szyfrowania danych w systemie Windows",
+  "description": "Diagram przedstawia proces deszyfrowania i hierarchię kluczy w usłudze BitLocker. Pokazuje, jak poszczególne metody autoryzacji (protektory) odszyfrowują główny klucz woluminu (VMK), który następnie odszyfrowuje klucz szyfrowania dysku (FVEK) wykonujący operacje we/wy w locie na sektorach dysku.",
+  "keywords": "Diagram, hierarchii, kluczy, usłudze, szyfrowania, danych, systemie"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<ol>
+<li><span class="color-green">FVEK</span> (<span class="color-blue">Full Volume Encryption Key</span>): Klucz szyfrowania całego woluminu. Jest to klucz symetryczny o długości $128$ lub $256$ bitów. To nim bezpośrednio szyfrowany jest każdy sektor na dysku. <span class="color-green">FVEK</span> jest generowany losowo podczas włączania BitLockera i <span class="color-red">nigdy się nie zmienia</span> (<span class="color-gold">chyba że BitLocker zostanie całkowicie wyłączony i włączony na nowo</span>).</li>
+<li><span class="color-green">VMK</span> (<span class="color-blue">Volume Master Key</span>): Główny klucz woluminu. Służy wyłącznie do zaszyfrowania i zabezpieczenia klucza <span class="color-green">FVEK</span>. Sam klucz <span class="color-green">VMK</span> jest przechowywany w metadanych woluminu w postaci zaszyfrowanej za pomocą jednego lub kilku <span class="color-green">Protektorów</span>.</li>
+<li><span class="color-green">Protektory Klucza</span> (<span class="color-blue">Key Protectors</span>): Konkretne metody autoryzacji. Może to być moduł sprzętowy <span class="color-green">TPM</span>, kod <span class="color-green">TPM+PIN</span>, klucz USB, hasło lub <span class="color-green">48‑cyfrowy Klucz Odzyskiwania</span> (<span class="color-blue">Recovery Key</span>). <ul>
+<li><span class="color-gold">Jak to działa w praktyce?</span> Każdy dodany protektor szyfruje niezależnie tę samą kopię klucza <span class="color-green">VMK</span>. Gdy zmieniasz hasło lub PIN, system nie dotyka plików ani <span class="color-green">FVEK</span> – odszyfrowuje klucz <span class="color-green">VMK</span> starym hasłem, szyfruje go nowym i zapisuje w metadanych. Trwa to ułamek sekundy i oszczędza dysk!</li>
+</ul>
+</li>
+</ol>
+<h3>📊 Algorytm XTS-AES: Kryptograficzne serce BitLockera</h3>
+<p>W nowoczesnych wersjach systemu Windows 11 domyślnym algorytmem szyfrowania BitLockera jest <span class="color-green">XTS‑AES</span> (zastępując starszy tryb AES‑CBC).</p>
+<p>Standardowy tryb szyfrowania blokowego AES‑CBC (Cipher Block Chaining) wymagał stosowania tzw. dyfuzora (Elephant Diffuser), ponieważ bez niego był podatny na ataki manipulacji bitami na poziomie sektorów (ang. <span class="color-blue">bit‑flipping attacks</span>). Jeśli napastnik znał strukturę sektora NTFS, mógł zmienić konkretne bajty w szyfrogramie, co po zdeszyfrowaniu przez system dawało przewidywalną zmianę (np. modyfikację uprawnień w pliku systemowym), mimo braku znajomości klucza!</p>
+<p><span class="color-green">XTS‑AES (zdefiniowany w standardzie IEEE 1619)</span> eliminuje tę podatność:</p>
+<ul>
+<li>Wykorzystuje <span class="color-green">dwa niezależne klucze AES</span> (stąd oznaczenie klucza $256$-bitowego jako $2 \times 128$ bitów lub $512$-bitowego jako $2 \times 256$ bitów).</li>
+<li>Wprowadza tzw. <span class="color-green">wątek adresowy (tweak)</span>, czyli matematyczne powiązanie szyfrogramu z adresem logicznym sektora (LBA) na dysku.</li>
+<li>Dzięki temu te same dane (np. ciąg samych zer) zapisane w sektorze $100$ i sektorze $500$ po zaszyfrowaniu będą wyglądać <span class="color-green">całkowicie inaczej</span>. Uniemożliwia to napastnikowi manipulację pojedynczymi blokami oraz kopiowanie zaszyfrowanych sektorów między różnymi miejscami na dysku.</li>
+</ul>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="FVEK (Full Volume Encryption Key)" data-right="Klucz symetryczny bezpośrednio szyfrujący każdy fizyczny sektor na dysku w locie."></div>
+    <div class="cmw-item" data-left="VMK (Volume Master Key)" data-right="Klucz pośredni szyfrujący FVEK, zapisywany w postaci zaszyfrowanej w metadanych woluminu."></div>
+    <div class="cmw-item" data-left="Protektory klucza (Key Protectors)" data-right="Metody autoryzacji (np. TPM, PIN, hasło) szyfrujące niezależną kopię klucza głównego."></div>
+    <div class="cmw-item" data-left="Wątek adresowy (Tweak w XTS-AES)" data-right="Matematyczne powiązanie szyfru z adresem LBA sektora, różnicujące ten sam ciąg danych."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏛️ Integracja Sprzętowa: Jak TPM i Secure Boot chronią klucze</h2>
+<p>Największą zaletą BitLockera jest jego bezobsługowość dla użytkownika końcowego. Dzieje się tak dzięki ścisłej integracji z dwoma sprzętowymi filarami bezpieczeństwa płyty głównej: <span class="color-green">Secure Boot</span> oraz układem <span class="color-green">TPM</span>.</p>
+<figure>
+<img aria-describedby="diagram-sekwencja-operacji-bitloc" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Działanie-Secure-boot-TPM-2.0.webp" alt="Sekwencja operacji BitLockera podczas rozruchu systemu" width="1348" height="1026" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-sekwencja-operacji-bitloc">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Diagram sekwencyjny przedstawia proces weryfikacji integralności platformy przez Secure Boot i moduł TPM 2.0 przy rozruchu komputera. Pokazuje dwa alternatywne scenariusze: pomyślne załadowanie jądra systemu (niebieski obszar) oraz blokadę rozruchu skutkującą wyświetleniem ekranu BitLocker Recovery (pomarańczowy obszar).</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Uruchomienie</span> – użytkownik włącza zasilanie PC, co aktywuje UEFI, które weryfikuje podpis cyfrowy Windows Boot Managera w bazie db oraz przedłuża rejestry PCR 0, 2, 4, 7 w chipie TPM.  </li>
+<li><span class="color-green">Scenariusz sukcesu (niebieska ramka)</span> – pomiary PCR zgadzają się ze stanem Seal w TPM. Windows Boot Manager wysyła żądanie "Unseal", TPM uwalnia klucz VMK do pamięci RAM, a Boot Manager odszyfrowuje klucz FVEK, ładuje jądro i wyświetla ekran logowania Windows 11.  </li>
+<li><span class="color-green">Scenariusz blokady (pomarańczowa ramka)</span> – w przypadku braku Secure Boot, zmiany konfiguracji lub obcego bootloadera, pomiary PCR różnią się od stanu Seal. TPM odrzuca żądanie "Unseal" (Odmowa), a Windows Boot Manager wyświetla ekran BitLocker Recovery, żądając 48‑cyfrowego klucza od użytkownika.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Sekwencja operacji BitLockera podczas rozruchu systemu",
+  "description": "Diagram sekwencyjny przedstawia proces weryfikacji integralności platformy przez Secure Boot i moduł TPM 2.0 przy rozruchu komputera. Pokazuje dwa alternatywne scenariusze: pomyślne załadowanie jądra systemu (niebieski obszar) oraz blokadę rozruchu skutkującą wyświetleniem ekranu BitLocker Recovery (pomarańczowy obszar).",
+  "keywords": "Sekwencja, operacji, BitLockera, podczas, rozruchu, systemu"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<h3>1. Secure Boot – Łańcuch Zaufania</h3>
+<p><span class="color-green">Secure Boot</span> to funkcja oprogramowania układowego UEFI, która gwarantuje, że komputer uruchamia wyłącznie zaufane oprogramowanie podpisane cyfrowo przez producenta sprzętu lub Microsoft. Architektura ta opiera się na bazie kluczy kryptograficznych zapisanych w nieulotnej pamięci płyty głównej:</p>
+<ul>
+<li><span class="color-green">PK</span> (<span class="color-blue">Platform Key</span>): Klucz platformy instalowany przez producenta płyty głównej. Ustanawia relację zaufania między właścicielem platformy a firmware.</li>
+<li><span class="color-green">KEK</span> (<span class="color-blue">Key Exchange Key</span>): Klucz wymiany klucza. Służy do weryfikacji podpisów podczas aktualizacji baz danych podpisów rozruchowych.</li>
+<li><span class="color-green">db</span> (<span class="color-blue">Authorized Signature Database</span>): Baza podpisów oprogramowania rozruchowego, które ma pozwolenie na uruchomienie (m.in. certyfikaty Microsoftu dla systemów operacyjnych).</li>
+<li><span class="color-green">dbx</span> (<span class="color-blue">Forbidden Signature Database</span>): Czarna lista certyfikatów i sum kontrolnych bootloaderów, które zostały uznane za zainfekowane lub posiadają znane podatności (np. podatność <span class="color-red">GRUB BootHole</span>).</li>
+</ul>
+<p>Jeśli spróbujesz załadować niepodpisany system operacyjny lub zmodyfikowany plik rozruchowy, Secure Boot natychmiast przerwie start komputera, chroniąc przed infekcjami typu bootkit. Tak jak to było podczas pierwszej instalacji Windowsa 11 za pomocą Ventoy w maszynie wirtualnej (Oracle VirtualBox).</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Verification-failed-(0x1A)-Security-Violation.webp" alt="Błąd naruszenia Secure Boot w maszynie wirtualnej Hyper-V" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+<h3>2. TPM 2.0 – Platformowe Rejestry Konfiguracyjne (PCR)</h3>
+<p><span class="color-green">TPM</span> (<span class="color-blue">Trusted Platform Module</span>) to dedykowany, fizyczny (lub wirtualny w procesorze – fTPM) mikrokontroler kryptograficzny. Jego kluczową rolą w BitLockerze jest <span class="color-green">przechowywanie i zabezpieczanie klucza VMK</span>.</p>
+<p>TPM nie wydaje klucza VMK „na ładne oczy”. Wydaje go tylko wtedy, gdy stan komputera jest identyczny z bezpiecznym stanem wzorcowym z momentu włączenia szyfrowania. Stan ten mierzony jest za pomocą <span class="color-green">Rejestrów PCR (Platform Configuration Registers)</span>:</p>
+<ul>
+<li><p>Rejestry PCR to małe komórki pamięci wewnątrz chipu TPM o rozmiarze odpowiadającym wybranej funkcji skrótu (np. $32\text{ bajty}$ dla <code>SHA-256</code>).</p>
+</li>
+<li><p><span class="color-green">Złota zasada PCR:</span> Wartości do rejestrów PCR nie mogą być bezpośrednio zapisywane/nadpisywane przez oprogramowanie. Jedyną operacją modyfikacji jest <span class="color-green">przedłużenie rejestru</span> (ang. <span class="color-blue">PCR Extend</span>):</p>
+<p><span class="color-green">$$\text{PCR}_{\text{nowy}}$$</span> $$=$$ <span class="color-green">$$ \text{HASH}$$</span> <span class="color-gold">$$(\text{PCR}_{\text{stary}}$$</span> $$\bf{||}$$ <span class="color-blue">$$\text{Nowy Pomiar})$$</span></p>
+<p>Oznacza to, że każdy załadowany sterownik, wersja BIOS‑u czy konfiguracja opcji rozruchowych jest hashowana i „doklejana” do rejestru. Jeśli napastnik zmieni kolejność ładowania sterowników lub podmieni plik rozruchowy – końcowa wartość rejestru PCR będzie zupełnie inna!</p>
+</li>
+</ul>
+<h3>🔬 Znaczenie konkretnych rejestrów PCR dla BitLockera:</h3>
+<p>Windows 11 konfiguruje domyślnie BitLockera tak, aby klucz VMK był <span class="color-green">zapieczętowany</span> (ang. <span class="color-blue">Sealed</span>) pod zestaw rejestrów PCR. Jeśli chociaż jeden z nich zmieni wartość, TPM zablokuje klucz.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Indeks PCR</th>
+<th align="left">Co mierzy i weryfikuje?</th>
+<th align="left">Co wywoła zablokowanie klucza w TPM?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span class="color-green">PCR 0</span></td>
+<td align="left">Kod i metadane firmware płyty głównej (BIOS/UEFI).</td>
+<td align="left">Aktualizacja BIOS‑u płyty głównej do nowszej wersji.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">PCR 2</span></td>
+<td align="left">Opcjonalne ROM‑y urządzeń (Option ROMs, np. firmware karty graficznej czy karty sieciowej).</td>
+<td align="left">Wymiana dedykowanej karty graficznej lub instalacja kontrolera RAID.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">PCR 4</span></td>
+<td align="left">Kod i konfiguracja <span class="color-gold">Windows Boot Managera</span> (<code>bootmgfw.efi</code>) oraz baza konfiguracji rozruchu (<span class="color-green">BCD</span>).</td>
+<td align="left">Modyfikacja opcji rozruchu (np. włączenie trybu debugowania, zmiana ścieżki jądra w BCD).</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">PCR 7</span></td>
+<td align="left">Status <span class="color-gold">Secure Boot</span> oraz bazy certyfikatów bezpieczeństwa (<span class="color-green">db</span>, <span class="color-green">dbx</span>).</td>
+<td align="left">Ręczne wyłączenie <span class="color-gold">Secure Boot</span> w UEFI lub instalacja niepodpisanego sterownika rozruchowego.</td>
+</tr>
+</tbody></table>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Technik IT weryfikuje status szyfrowania serwera za pomocą polecenia <code>manage-bde -status</code>. Zauważa, że jako protektor woluminu systemowego wymieniony jest wyłącznie moduł TPM, a Secure Boot został wyłączony w UEFI w celu instalacji testowego hypervisora. Co stanie się podczas najbliższego restartu systemu?</p>
+</question>
+    <options>
+      <option><p>System uruchomi się bez przeszkód, ponieważ wyłączenie Secure Boot nie zmienia pomiaru rejestru PCR 0.</p>
+</option>
+      <option correct=""><p>TPM odmówi wydania klucza VMK, ponieważ wyłączenie Secure Boot zmieniło sumę kontrolną rejestru PCR 7.</p>
+</option>
+      <option><p>BitLocker automatycznie zawiesi ochronę dla PCR 4, by uniknąć monitu o klucz odzyskiwania na serwerze.</p>
+</option>
+      <option><p>Rozruch zostanie przekierowany do konsoli odzyskiwania z powodu zmiany certyfikatów w rejestrze PCR 2.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Zastanów się, czy wyłączenie Secure Boot wpływa na pomiar integralności platformy przekazywany do TPM. Jaki status lub moduł ulega weryfikacji przy starcie UEFI i jak reaguje TPM na brak spójności?</p>
+</div>
+    <div data-hint="success"><p>Genialnie! Zmiana stanu Secure Boot zmienia wartość rejestru PCR 7, pod który zapieczętowany (sealed) jest klucz VMK. W efekcie TPM przy starcie stwierdza naruszenie integralności platformy i blokuje dostęp. Konieczne będzie ręczne wpisanie klucza odzyskiwania lub włączenie Secure Boot z powrotem.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Klucz Odzyskiwania (Recovery Key) – Ostatnia deska ratunku</h2>
+<p>Gdy TPM zablokuje klucz VMK (ponieważ wykrył zmianę w rejestrach PCR – np. po aktualizacji BIOS‑u lub przełożeniu dysku fizycznego do innego komputera), system przy starcie zaprezentuje charakterystyczny, niebieski ekran żądający <span class="color-green">48‑cyfrowego Klucza Odzyskiwania (Recovery Key)</span>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Bitlocker_Recovery.webp" alt="Niebieski ekran odzyskiwania funkcji BitLocker w systemie Windows" width="1024" height="768" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Należy wtedy wpisać odpowiedni klucz odzyskiwania, który BitLocker wygenerował podczas inicjalizacji.</p>
+<pre><code class="language-yaml">Klucz odzyskiwania do szyfrowania dysków funkcją BitLocker 
+
+Aby sprawdzić, czy jest to poprawny klucz odzyskiwania, porównaj początek następującego identyfikatora z wartością identyfikatora wyświetlaną na ekranie komputera.
+
+Identyfikator:
+
+	839B3329-E1DC-4694-9000-55ADD88577D9
+
+Jeśli powyższy identyfikator jest zgodny z wartością wyświetlaną na ekranie komputera, odblokuj dysk za pomocą poniższego klucza.
+
+Klucz odzyskiwania:
+
+	539007-462134-282137-107693-542420-057242-851337-634666
+
+Jeśli powyższy identyfikator nie jest zgodny z wyświetlanym na komputerze, oznacza to, że nie jest to odpowiedni klucz do odblokowania dysku.
+Spróbuj użyć innego klucza odzyskiwania albo przejdź do strony https://go.microsoft.com/fwlink/?LinkID=260589, aby uzyskać dodatkową pomoc.
+</code></pre>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Bez klucza odzyskiwania dane są trwale i bezpowrotnie utracone.</span><br>Szyfrowanie XTS‑AES-256 jest odporne na łamanie metodą brute‑force. Microsoft nie posiada tylnych drzwi ani centralnej bazy danych z kluczami użytkowników prywatnych. Brak klucza = brak dostępu do danych. 😶‍🌫️</p>
+
+</div>
+</div><h3>💾 Gdzie Windows 11 przechowuje Klucze Odzyskiwania?</h3>
+<p>Zależnie od edycji systemu i typu konta, klucz odzyskiwania może być zdeponowany w różnych miejscach:</p>
+<data-tabs>
+  <tabs>
+    <item>Konto Microsoft (MSA)</item>
+    <item>Active Directory (Lokalne)</item>
+    <item>Microsoft Entra ID / Intune</item>
+    <item>Zapis ręczny</item>
+  </tabs>
+  <div><h3>Klucz na prywatnym koncie Microsoft (MSA)</h3>
+<p>W edycji <span class="color-green">Windows 11 Home</span> (oraz Pro w konfiguracji konsumenckiej), klucz odzyskiwania jest automatycznie przesyłany do chmury Microsoftu podczas logowania się na konto Microsoft podczas pierwszej konfiguracji komputera (OOBE).</p>
+<p>Użytkownik może go odnaleźć logując się z dowolnego urządzenia na stronie:<br>🔗 <span class="color-green"><a href="https://account.microsoft.com/devices/recoverykey">account.microsoft.com/devices/recoverykey</a></span></p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Pułapka usuniętego konta MSA:</span><br>Klient kupił nowy komputer, zalogował się kontem Microsoft, system w tle zaszyfrował dysk systemowy. Po kilku miesiącach klient postanowił przejść na konto lokalne i usunął konto Microsoft z chmury. Podczas najbliższej aktualizacji BIOS‑u system zażądał klucza odzyskiwania. Ponieważ konto MSA zostało skasowane – klucz zniknął z serwerów MS. Dane na dysku są nie do odzyskania. <span class="color-green">Zawsze upewnij się, że posiadasz fizyczny wydruk klucza przed usunięciem konta!</span></p>
+
+</div>
+</div></div>
+  <div><h3>Klucz w lokalnej domenie Active Directory (AD DS)</h3>
+<p>W infrastrukturze lokalnej przedsiębiorstwa (Active Directory), zasady grupy (GPO) mogą wymusić, aby komputer <span class="color-green">nie mógł włączyć BitLockera</span>, dopóki pomyślnie nie prześle i nie zapisze klucza odzyskiwania jako atrybutu swojego obiektu komputerowego w bazie danych AD.</p>
+<p>Technik IT może go odczytać za pomocą narzędzia:</p>
+<ul>
+<li><p><span class="color-green">Active Directory Users and Computers (ADUC)</span> $\rightarrow$ właściwości danego komputera $\rightarrow$ zakładka: <kbd class="win-menu-btn">BitLocker Recovery</kbd>.</p>
+</li></ul></div>
+<div><h3>Klucz w chmurze Microsoft Entra ID (dawniej Azure AD) &amp; Intune</h3>
+<p>Dla urządzeń mobilnych i firmowych (zarządzanych w modelu Cloud‑Only lub hybrydowym), klucz odzyskiwania jest bezpiecznie eskortowany do chmury Entra ID za pośrednictwem agenta MDM (Microsoft Intune).</p>
+<ul>
+<li><p><span class="color-green">Z perspektywy Administratora:</span> Klucz jest widoczny w portalu administracyjnym Intune / Microsoft Endpoint Manager pod profilem sprzętowym urządzenia.</p>
+</li>
+<li><p><span class="color-green">Z perspektywy Użytkownika:</span> Użytkownik firmowy może zalogować się swoimi danymi służbowymi na portalu Moje Konto Microsoft i samodzielnie odczytać klucz.</p>
+</li></ul></div>
+<div><h3>Ręczny zapis i kopia fizyczna</h3>
+<p>Podczas ręcznej konfiguracji BitLockera w edycji Pro/Enterprise, kreator oferuje trzy alternatywne formy zabezpieczenia klucza:</p>
+<ol>
+<li><span class="color-green">Zapis na dysku flash (pendrive):</span> Tworzony jest plik tekstowy o nazwie zawierającej ID klucza (np. <code>BitLocker Recovery Key F8E9D2C4-....TXT</code>). Jego treść masz przedstawioną powyżej, w ramce.</li>
+<li><span class="color-green">Zapis do pliku tekstowego na innym woluminie:</span> (Windows zabrania zapisu pliku na szyfrowanym dysku systemowym).</li>
+<li><span class="color-green">Wydruk fizyczny:</span> Generowany jest sformatowany dokument papierowy z kodem kreskowym i pełnym ciągiem cyfr – idealny do zdeponowania w bezpiecznym firmowym sejfie.</li>
+</ol></div>
+</data-tabs>
+
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Konto Microsoft (MSA)" data-right="Klucz trafia do chmury automatycznie; zniknie z serwerów, jeśli usuniesz konto MSA."></div>
+    <div class="cmw-item" data-left="Active Directory (AD)" data-right="Klucz jest zapisywany jako atrybut obiektu komputera w lokalnej bazie domeny firmowej."></div>
+    <div class="cmw-item" data-left="Microsoft Entra ID" data-right="Klucz jest eskortowany do chmury przez agenta MDM i widoczny w portalu admina Intune."></div>
+    <div class="cmw-item" data-left="Kopia fizyczna (Sejf)" data-right="Klucz jest drukowany na papierze w celu zdeponowania go w bezpiecznej szafie pancernej."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔌 Windows 11 Home vs Pro – Konfrontacja standardów szyfrowania</h2>
+<p>Wielu techników popełnia błąd, twierdząc, że edycja Windows 11 Home nie posiada w ogóle funkcji szyfrowania, <span class="color-gold">bo nie ma Bitlockera</span>. To nie prawda! Różnica polega na interfejsie zarządzania oraz poziomie kontroli:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha / Funkcja</th>
+<th align="center">Windows 11 Home (Szyfrowanie urządzenia)</th>
+<th align="center">Windows 11 Pro / Enterprise (BitLocker)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Domyślna dostępność</span></td>
+<td align="center">✅ Tak (wymaga TPM 2.0 i Secure Boot)</td>
+<td align="center">✅ Tak</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Sposób aktywacji</span></td>
+<td align="center">⚡ Wyłącznie automatyczna (po zalogowaniu MSA)</td>
+<td align="center">🛠️ Ręczna przez GUI, CLI, GPO lub Intune</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szyfrowanie dysków niesystemowych</span></td>
+<td align="center">❌ Nie (szyfruje tylko wolumin <code>C:</code>)</td>
+<td align="center">✅ Tak (dowolne dyski wewnętrzne SATA/NVMe)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">BitLocker To Go (Pendrive / USB)</span></td>
+<td align="center">❌ Nie (może tylko odczytywać zablokowane nośniki)</td>
+<td align="center">✅ Tak (pełne szyfrowanie i zarządzanie)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wymóg uwierzytelnienia przedstartowego</span></td>
+<td align="center">❌ Nie (wyłącznie automatyczne odszyfrowanie przez TPM)</td>
+<td align="center">✅ Tak (opcjonalny wymóg podania <span class="color-green">kodu PIN</span> przy starcie)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zarządzanie kluczami i algorytmami</span></td>
+<td align="center">❌ Brak interfejsu (brak <code>manage-bde</code>, brak w Panelu sterowania)</td>
+<td align="center">✅ Pełne (konsola <code>manage-bde</code>, Panel Sterowania, GPO)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wymóg modern standby / HSTI</span></td>
+<td align="center">✅ Tak (wymaga zaliczenia sprzętowych testów bezpieczeństwa)</td>
+<td align="center">❌ Nie (BitLocker można włączyć na każdym sprzęcie z TPM)</td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-quiz>
+    <question><p>Technik wdrożył stację roboczą z systemem Windows 11 Home w małym biurze. Klient chce zabezpieczyć dane na dysku systemowym oraz na zewnętrznym dysku USB, a także wymusić podawanie kodu PIN przy każdym rozruchu komputera. Jakie ograniczenie napotka technik?</p>
+</question>
+    <options>
+      <option><p>Dysk systemowy nie może zostać zaszyfrowany, ponieważ podstawowa edycja Home nie obsługuje żadnej formy ochrony.</p>
+</option>
+      <option correct=""><p>System odmówi konfiguracji kodu PIN przed startem oraz włączenia pełnego szyfrowania dla zewnętrznego dysku USB.</p>
+</option>
+      <option><p>Wymagane będzie podłączenie komputera do domeny Active Directory, aby odblokować funkcję szyfrowania dysków USB.</p>
+</option>
+      <option><p>Szyfrowanie woluminów w edycji Home działa wyłącznie wtedy, gdy płyta główna nie posiada sprzętowego modułu TPM.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Przeanalizuj uważnie tabelę porównawczą Home vs Pro. Zwróć uwagę na dostępność funkcji BitLocker To Go oraz opcję uwierzytelnienia przedstartowego (PIN) w edycji Home.</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Szyfrowanie urządzenia w Windows 11 Home chroni wyłącznie dysk C:, nie pozwala na konfigurację PIN‑u przy starcie ani na szyfrowanie dysków zewnętrznych (BitLocker To Go). Do tych celów wymagana jest edycja Pro lub Enterprise.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔑 BitLocker To Go – Szyfrowanie nośników wymiennych</h2>
+<p><span class="color-green">BitLocker To Go</span> to rozszerzenie technologii BitLocker dedykowane dla wymiennych dysków pamięci masowej (pendrive'y, zewnętrzne dyski SSD/HDD, karty pamięci SD). Pozwala na zabezpieczenie nośników, które najłatwiej zgubić lub skraść.</p>
+<h3>⚙️ Procedura wdrożeniowa technika IT:</h3>
+<ol>
+<li>Podłącz nośnik USB do komputera z Windows 11 Pro.</li>
+<li>Otwórz Eksplorator plików $\rightarrow$ kliknij PPM na nośnik $\rightarrow$ wybierz <span class="color-green">Włącz funkcję BitLocker</span>.</li>
+<li><span class="color-green">Wybór metody odblokowywania:</span> Zaznacz opcję <span class="color-green">Użyj hasła do odblokowywania dysku</span> i wprowadź silne hasło zgodne z polityką bezpieczeństwa firmy.</li>
+<li><span class="color-green">Zapisz klucz odzyskiwania:</span> Zapisz go do pliku w bezpiecznym katalogu sieciowym IT lub wydrukuj.</li>
+<li><span class="color-green">Wybór obszaru do zaszyfrowania:</span><ul>
+<li><span class="color-blue">Szyfruj tylko zajęte miejsce na dysku:</span> Idealne dla nowych, czystych pendrive'ów (szybkie).</li>
+<li><span class="color-blue">Szyfruj cały dysk:</span> Bezwzględnie wymagane dla starych, używanych nośników (szyfruje również wolne sektory, w których mogą zalegać skasowane pliki możliwe do odzyskania).</li>
+</ul>
+</li>
+<li><span class="color-green">Wybór trybu szyfrowania – KROK KRYTYCZNY:</span><ul>
+<li><span class="color-blue">Nowy tryb szyfrowania (XTS‑AES):</span> Najlepszy dla dysków, które będą używane wyłącznie na nowoczesnych komputerach z Windows 10/11.</li>
+<li><span class="color-blue">Tryb zgodności (AES‑CBC):</span> <span class="color-green">Zalecany dla pendrive'ów</span>, które technik przenosi między różnymi urządzeniami. Umożliwia odczyt i zapis danych również pod starszymi systemami operacyjnymi (np. Windows 7/8/8.1 czy Windows Server 2012).</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+  <data-quiz>
+    <question><p>Przygotowujesz przenośny pendrive USB z szyfrowaniem BitLocker To Go dla pracownika, który będzie z niego korzystał zarówno na nowoczesnym laptopie z Windows 11, jak i na starszej maszynie diagnostycznej z Windows 7. Który tryb szyfrowania wybierasz?</p>
+</question>
+    <options>
+      <option><p>Nowy tryb szyfrowania (XTS‑AES), aby zapewnić najwyższy poziom bezpieczeństwa i ochronę przed manipulacją blokami.</p>
+</option>
+      <option correct=""><p>Tryb zgodności (AES‑CBC), ponieważ starsze systemy operacyjne nie obsługują algorytmu XTS‑AES i nie odczytają nośnika.</p>
+</option>
+      <option><p>Dowolny tryb szyfrowania, ponieważ Windows 7 automatycznie pobierze brakujące sterowniki XTS‑AES z usługi Windows Update.</p>
+</option>
+      <option><p>Szyfrowanie urządzenia (standard Home), gdyż automatycznie dopasowuje algorytm w zależności od wykrytego systemu.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Zastanów się, od której wersji systemu Windows wprowadzono nowoczesny tryb XTS‑AES i czy starsze platformy, takie jak Windows 7, potrafią zinterpretować ten algorytm bez natywnego wsparcia w kernelu.</p>
+</div>
+    <div data-hint="success"><p>Doskonale! Nowy tryb XTS‑AES został wprowadzony dopiero w Windows 10 (wersja 1511). Starsze systemy, jak Windows 7 czy starsze wersje Windows Server, nie rozumieją tego standardu. Wybór trybu zgodności (AES‑CBC) jest kluczowy, by nośnik był czytelny na starszych maszynach.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📁 EFS (Encrypting File System) – Szyfrowanie na poziomie plików</h2>
+<p><span class="color-green">Encrypting File System (EFS)</span> to technologia szyfrowania wbudowana bezpośrednio w system plików <span class="color-green">NTFS</span>.<br>W przeciwieństwie do BitLockera, który operuje na fizycznych sektorach dysku, EFS działa na poziomie logicznych struktur plików i folderów.</p>
+<figure>
+<img aria-describedby="diagram-diagram-hierarchii-kluczy" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/diagram-procedury-szyfrowania-plików.webp" alt="Diagram hierarchii kluczy w usłudze szyfrowania danych w systemie Windows" width="330" height="580" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-diagram-hierarchii-kluczy">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Diagram przedstawia proces transparentnego odszyfrowywania danych za pomocą systemu plików EFS (Encrypting File System) podczas logowania użytkownika. Pokazuje sekwencyjny łańcuch zależności od hasła logowania, przez mechanizm DPAPI i klucze asymetryczne RSA, aż do klucza symetrycznego FEK deszyfrującego plik na partycji NTFS.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Krok 1 (Logowanie)</span> – Użytkownik loguje się hasłem, co inicjuje proces autoryzacji w silniku DPAPI.  </li>
+<li><span class="color-green">Krok 2 (Odszyfrowanie klucza RSA)</span> – silnik DPAPI odszyfrowuje Klucz Prywatny RSA Użytkownika przechowywany w jego profilu.  </li>
+<li><span class="color-green">Krok 3 (Odszyfrowanie FEK)</span> – odszyfrowany Klucz Prywatny RSA Użytkownika deszyfruje klucz symetryczny FEK (File Encryption Key).  </li>
+<li><span class="color-green">Krok 4 (Dostęp do pliku)</span> – klucz FEK odszyfrowuje i udostępnia Fizyczny Plik zapisany na Partycji NTFS.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Diagram hierarchii kluczy w usłudze szyfrowania danych w systemie Windows",
+  "description": "Diagram przedstawia proces transparentnego odszyfrowywania danych za pomocą systemu plików EFS (Encrypting File System) podczas logowania użytkownika. Pokazuje sekwencyjny łańcuch zależności od hasła logowania, przez mechanizm DPAPI i klucze asymetryczne RSA, aż do klucza symetrycznego FEK deszyfrującego plik na partycji NTFS.",
+  "keywords": "Diagram, hierarchii, kluczy, usłudze, szyfrowania, danych, systemie"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<h3>🔬 Jak działa EFS pod maską? (DPAPI &amp; FEK)</h3>
+<p>Gdy oznaczysz folder lub plik jako zaszyfrowany (PPM $\rightarrow$ <kbd class="win-menu-btn">Właściwości</kbd> $\rightarrow$ <kbd class="win-menu-btn">Zaawansowane</kbd> $\rightarrow$ zaznaczenie <kbd class="check-mark"></kbd><span class="color-blue">Szyfruj zawartość, aby zabezpieczyć dane</span>):</p>
+<ol>
+<li>System operacyjny Windows generuje losowy, symetryczny <span class="color-green">Klucz Szyfrowania Pliku (FEK – File Encryption Key)</span> o długości 256 bitów (AES), którym fizycznie szyfruje zawartość pliku.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/EFS-instrukcja-włączenia-na-katalogu.webp" alt="EFS - instrukcja włączenia na katalogu" width="1346" height="717" class="lazy-image" loading="lazy" decoding="async">
+
+<ol start="2">
+<li><p>Klucz FEK jest następnie szyfrowany asymetrycznie za pomocą <span class="color-green">klucza publicznego RSA</span> zalogowanego użytkownika. Tak zaszyfrowany klucz FEK jest zapisywany w specjalnym atrybucie pliku NTFS (<span class="color-green"><code>$EFS</code></span>).</p>
+</li>
+<li><p>Powiązany z nim <span class="color-green">klucz prywatny RSA</span> użytkownika jest przechowywany w jego profilu systemowym (<code>%APPDATA%\Microsoft\SystemCertificates\My\Certificates</code>) i jest chroniony przez niskopoziomową usługę <span class="color-green">DPAPI (Data Protection API)</span>.</p>
+</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/EFS-lokalizacja-kluczy-prywatnych-RSA-uzytkownika.webp" alt="EFS - lokalizacja kluczy prywatnych RSA użytkownika" width="869" height="225" class="lazy-image" loading="lazy" decoding="async">
+
+<ol start="4">
+<li>DPAPI generuje klucz główny (Master Key) zabezpieczony bezpośrednio <span class="color-green">hasłem logowania użytkownika</span>.<br>Gdy użytkownik loguje się do komputera: jego hasło odblokowuje DPAPI $\rightarrow$ DPAPI odszyfrowuje klucz prywatny RSA $\rightarrow$ klucz prywatny odszyfrowuje FEK z metadanych pliku $\rightarrow$ plik otwiera się transparentnie.</li>
+</ol>
+<p>Jeżeli inny użytkownik będzie chciał otworzyć plik, to nie będzie w stanie tego zrobić, ponieważ nie będzie miał dostępu do klucza prywatnego RSA użytkownika.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/EFS-zaszyfrowany-plik-zapisany-w-katalogu-z-przypisanym-certyfikatem.webp" alt="EFS - zaszyfrowany plik zapisany w katalogu z przypisanym certyfikatem innego użytkownika" width="1020" height="922" class="lazy-image" loading="lazy" decoding="async"></p>
+<h3>⚠️ Krytyczna pętla katastrofy administratora EFS:</h3>
+<p>Ponieważ klucz prywatny RSA użytkownika jest zabezpieczony przez DPAPI za pomocą hasła logowania, istnieje gigantyczne zagrożenie utraty danych:</p>
+<ul>
+<li><span class="color-green">Scenariusz:</span> Użytkownik zapomniał hasła do konta lokalnego. Zgłasza się do administratora IT. Administrator loguje się na konto admina i brutalnie resetuje hasło pracownika komendą <code>net user pracownik NoweHaslo123</code> lub w przystawce <code>lusrmgr.msc</code>.</li>
+<li><span class="color-green">Konsekwencja:</span> Podczas resetu hasła „na siłę”, DPAPI traci możliwość zdeszyfrowania klucza głównego (Master Key), ponieważ nie zna starego hasła, które służyło jako sól kryptograficzna. Przy próbie logowania pracownika na nowe hasło, system Windows nie jest w stanie odszyfrować jego klucza prywatnego RSA. <span class="color-gold">Wszystkie pliki zaszyfrowane przez EFS stają się permanentnie bezużyteczne i niemożliwe do odczytania, mimo że pracownik zna nowe hasło!</span></li>
+</ul>
+<h3>🛡️ Jak zabezpieczyć EFS przed katastrofą?</h3>
+<ol>
+<li><span class="color-green">Eksport certyfikatu EFS do pliku <code>.pfx</code>:</span> Uruchom <code>certmgr.msc</code> $\rightarrow$ przejdź do <span class="color-blue">Osobiste</span> $\rightarrow$ <span class="color-blue">Certyfikaty</span> $\rightarrow$ znajdź certyfikat z przeznaczeniem <span class="color-blue">System szyfrowania plików</span> $\rightarrow$ kliknij PPM $\rightarrow$ <span class="color-blue">Wszystkie zadania</span> $\rightarrow$ <span class="color-blue">Eksportuj</span>.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/EFS-eksport-certyfikatu.webp" alt="EFS -eksport certyfikatu" width="989" height="442" class="lazy-image" loading="lazy" decoding="async">
+
+<ol start="2">
+<li>Windows przeprowadzi Cię przez proces eksportu w kreatorze:</li>
+</ol>
+<ul>
+<li>Pierwszym pytaniem będzie to, czy chcesz wyeksportować klucz prywatny wraz z certyfikatem. Bezwzględnie zaznacz opcję <span class="color-green">Tak, wyeksportuj klucz prywatny</span> (bez niego backup EFS nie będzie miał żadnej wartości rozszyfrowującej).</li>
+<li>Następnie w kreatorze wybierz format pliku. Powinien być to <span class="color-green">Personal Information Exchange - PKCS#12</span> (plik z rozszerzeniem <code>.pfx</code>) i powinien być zaznaczony checkbox <kbd class="check-mark"></kbd> <span class="color-blue">Jeśli jest to możliwe, dołącz wszystkie certyfikaty w ścieżce certyfikacji</span>. <blockquote>
+<p><span class="color-green">Dlaczego pozostałe formaty (DER, Base‑64, PKCS#7, SST) są wyszarzone?</span><br>Wynika to bezpośrednio z wybranej w poprzednim kroku opcji eksportu klucza prywatnego. Formaty takie jak <code>.cer</code> (DER/Base‑64), <code>.p7b</code> (PKCS#7) czy <code>.sst</code> technologicznie <span class="color-green">nie posiadają możliwości przechowywania klucza prywatnego</span> – służą wyłącznie do dystrybucji kluczy publicznych lub całych łańcuchów certyfikatów. Jedynym standardem w tym kreatorze, który pozwala bezpiecznie scalić klucz publiczny z kluczem prywatnym i dodatkowo zabezpieczyć go hasłem, jest właśnie standard <span class="color-green">PKCS#12</span> (PFX).</p>
+</blockquote>
+</li>
+<li>Ustaw silne hasło do pliku <code>.pfx</code> (będzie ono wymagane podczas importowania certyfikatu na nowym koncie/komputerze).</li>
+<li>Wskaż lokalizację docelową zapisu lub poprostu jego nazwę jak ja.</li>
+<li>Na ostatnim ekranie zobaczysz podsumowanie i lokalizację pliku w <code>C:\WINDOWS\System32\</code>.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/kreator-eksportu-certyfikatu.webp" alt="Wszystkie 6 okien kreatora eksportu certyfikatu EFS" width="1626" height="1064" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Utworzony plik po uruchomieniu pokaże kreator importu certyfikatu:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/kreator-importu-certyfikatu.webp" alt="Plik certyfikatu EFS w lokalizacji `C:\WINDOWS\System32\`" width="1024" height="205" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ BitLocker vs EFS – Tabela porównawcza</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha / Właściwość</th>
+<th align="left">BitLocker Drive Encryption (FVE)</th>
+<th align="left">Encrypting File System (EFS)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Poziom operacyjny</span></td>
+<td align="left">Sektorowy (Poniżej warstwy systemu plików).</td>
+<td align="left">Plikowy (Poziom systemu plików NTFS).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Jednostka szyfrowania</span></td>
+<td align="left">Cały wolumin (np. partycja <code>C:</code>, dysk <code>D:</code>).</td>
+<td align="left">Pojedyncze pliki, foldery.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Przechowywanie kluczy</span></td>
+<td align="left">Moduł sprzętowy <span class="color-green">TPM</span> lub klucz odzyskiwania.</td>
+<td align="left">Certyfikaty użytkownika (DPAPI, baza SAM).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Odporność na ataki offline</span></td>
+<td align="left"><span class="color-green">Wysoka</span> (pełna ochrona przed wyjęciem dysku).</td>
+<td align="left"><span class="color-green">Niska</span> (metadane i pliki nieszyfrowane są widoczne).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Transparentność</span></td>
+<td align="left">Pełna (użytkownik nie wie o szyfrowaniu).</td>
+<td align="left">Ręczna (użytkownik musi oznaczyć pliki/foldery).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wymagany system plików</span></td>
+<td align="left">Dowolny (szyfrowanie sektorów fizycznych).</td>
+<td align="left">Bezwzględnie <span class="color-green">NTFS</span>.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wydajność</span></td>
+<td align="left">Znikomy narzut (wsparcie sprzętowe instrukcji AES‑NI).</td>
+<td align="left">Narzut widoczny przy szyfrowaniu tysięcy małych plików.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Podstawowe zastosowanie</span></td>
+<td align="left">Ochrona skradzionego sprzętu.</td>
+<td align="left">Separacja użytkowników na jednym komputerze.</td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego brutalny i wymuszony reset zapomnianego hasła lokalnego użytkownika (np. za pomocą polecenia <code>net user</code> z konta administratora) uniemożliwia mu późniejszy odczyt jego plików zaszyfrowanych wcześniej przez EFS?</p>
+</question>
+    <options>
+      <option><p>Podczas wymuszonego resetu hasła system Windows bezpowrotnie usuwa prywatne certyfikaty użytkownika z profilu.</p>
+</option>
+      <option correct=""><p>Usługa DPAPI traci dostęp do Master Key szyfrowanego starym hasłem, blokując odczyt klucza prywatnego EFS.</p>
+</option>
+      <option><p>Zmieniony skrót hasła w bazie SAM nie pasuje do symetrycznego klucza FEK, który bezpośrednio szyfruje pliki.</p>
+</option>
+      <option><p>System NTFS trwale blokuje prawa dostępu ACL do zaszyfrowanych katalogów dla nowo utworzonej sesji konta.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Zwróć uwagę na architekturę ochrony kluczy w systemie Windows. Klucz prywatny certyfikatu EFS nie leży w profilu w postaci otwartej – chroni go usługa DPAPI. Co DPAPI wykorzystuje jako kluczowe źródło do wygenerowania swojego klucza głównego (Master Key)?</p>
+</div>
+    <div data-hint="success"><p>Dokładnie tak! DPAPI zabezpiecza Master Key kluczem wyprowadzonym z hasła użytkownika. Gdy zmieniamy hasło bez podania starego (brutalny reset admina), DPAPI nie jest w stanie odszyfrować starego Master Key. Klucz prywatny EFS staje się bezużyteczną stertą bajtów. Dlatego tak ważne jest posiadanie kopii zapasowej certyfikatu (.pfx) lub wdrożonego agenta DRA w domenie!</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zarządzanie BitLockerem z poziomu CLI (manage-bde)</h2>
+<p>W pracy administratora lub inżyniera helpdesku, graficzny Panel Sterowania jest zbyt ograniczony. Konsolowe narzędzie <span class="color-green"><code>manage-bde.exe</code></span> pozwala na pełną automatyzację i głęboką diagnostykę szyfrowania z poziomu terminala CMD/PowerShell (uruchomionego jako Administrator):</p>
+<h3>1. Sprawdzenie statusu szyfrowania wszystkich dysków:</h3>
+<pre><code class="language-cmd">manage-bde -status
+</code></pre>
+<p><span class="color-blue">Zwróć uwagę na wartość: "Metoda szyfrowania" (np. XTS‑AES 256) oraz "Status ochrony" (Włączona/Wyłączona).</span></p>
+<h3>2. Wyświetlenie aktywnych protektorów i odczytanie Klucza Odzyskiwania:</h3>
+<pre><code class="language-cmd">manage-bde -protectors -get C:
+</code></pre>
+<p><span class="color-blue">To polecenie wyciąga z metadanych pełny $48$-cyfrowy klucz odzyskiwania oraz jego identyfikator (ID). Kluczowe, gdy musimy zapisać klucz klienta, który gubi dostęp.</span></p>
+<h3>3. Wstrzymanie ochrony BitLocker na czas aktualizacji BIOS/firmware:</h3>
+<pre><code class="language-cmd">manage-bde -protectors -disable C: -rebootcount 1
+</code></pre>
+<p><span class="color-blue">Tymczasowo zawiesza weryfikację rejestrów PCR przez TPM na dokładnie $1$ restart systemu. Zapobiega to zablokowaniu komputera i wyzwoleniu ekranu odzyskiwania po zmianie firmware płyty głównej. Ochrona włączy się automatycznie przy kolejnym uruchomieniu.</span></p>
+<h3>4. Ręczne odblokowanie zaszyfrowanego dysku kluczem odzyskiwania:</h3>
+<pre><code class="language-cmd">manage-bde -unlock E: -RecoveryPassword 123456-123456-...-123456
+</code></pre>
+<p><span class="color-blue">Umożliwia technikowi dostęp do woluminu zablokowanego dysku z innego komputera z poziomu wiersza poleceń instalatora Windows (WinPE).</span></p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕵️ Scenariusze Helpdesku</h2>
+<p>Dopasuj awarię zgłoszoną przez użytkownika do poprawnego działania inżynierskiego:</p>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Pracownik dzwoni: po aktualizacji BIOS-u laptop żąda klucza odzyskiwania BitLocker. Użytkownik nie ma pojęcia co to." data-right="Wejdź na portal Intune lub zaloguj się na konto Microsoft pracownika (MSA), aby pobrać 48-cyfrowy kod."></div>
+    <div class="cmw-item" data-left="Administrator planuje zdalną, masową aktualizację BIOS na 100 stacjach roboczych w firmie." data-right="Wdrożyj skrypt wykonujący manage-bde -protectors -disable C: -rebootcount 1 przed instalacją firmware."></div>
+    <div class="cmw-item" data-left="Technik IT zresetował hasło lokalnego użytkownika przez 'net user'. Użytkownik nie może otworzyć swoich zielonych plików." data-right="DPAPI straciło klucz Master. Odszyfrowanie wymaga importu kopii zapasowej certyfikatu EFS (.pfx) lub użycia DRA."></div>
+    <div class="cmw-item" data-left="Użytkownik Windows 11 Home chce zaszyfrować swój przenośny pendrive USB za pomocą BitLocker To Go." data-right="Edycja Home nie wspiera tworzenia BitLocker To Go. Wykonaj szyfrowanie na stacji roboczej z Windows Pro."></div>
+    <div class="cmw-item" data-left="Klient kupił nowy dysk zewnętrzny i chce, aby działał z szyfrowaniem pod Windows 11 oraz starym Windows 7." data-right="Uruchom BitLocker To Go na Windows 11, ale bezwzględnie wybierz tryb szyfrowania zgodności (AES-CBC)."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Istota szyfrowania offline:</span> Szyfrowanie dysku (np. BitLocker) to jedyna linia obrony przed fizycznym wyjęciem nośnika z urządzenia. Hasła Windows zabezpieczają wyłącznie logiczną sesję w uruchomionym systemie, a nie surowe bloki na dysku. 🔑</li>
+<li><span class="color-green">Hierarchia kluczy dyskowych:</span> BitLocker nie szyfruje plików bezpośrednio hasłem. Dysk szyfrowany jest kluczem FVEK, ten z kolei chroniony jest przez VMK, a VMK jest zabezpieczony różnymi Protektorami (TPM, PIN, Hasło). Pozwala to na natychmiastową zmianę metod autoryzacji bez ponownego szyfrowania danych. ⛓️</li>
+<li><span class="color-green">Matematyczne zabezpieczenie XTS‑AES:</span> Nowoczesny tryb XTS‑AES wprowadza tzw. wątek adresowy (tweak), który wiąże matematycznie szyfrogram z fizycznym adresem sektora (LBA). Uniemożliwia to napastnikowi kopiowanie sektorów oraz ataki typu bit‑flipping. 📊</li>
+<li><span class="color-green">Rola TPM i rejestrów PCR:</span> Układ TPM weryfikuje integralność platformy przy starcie za pomocą rejestrów PCR. Zmiana wersji BIOS (PCR 0), konfiguracji BCD (PCR 4) lub wyłączenie Secure Boot (PCR 7) zablokuje klucz w TPM i wywoła ekran odzyskiwania. 🏛️</li>
+<li><span class="color-green">Windows 11 Home vs Pro:</span> Edycja Home wspiera uproszczone „Szyfrowanie urządzenia” (automatyczne, tylko dysk C:, wymaga konta MSA, brak kodu PIN i manage‑bde). Pełne szyfrowanie wielu dysków, obsługa CLI oraz protektor PIN wymagają edycji Pro/Enterprise. 💻</li>
+<li><span class="color-green">Szyfrowanie nośników wymiennych (BitLocker To Go):</span> W przypadku pendrive'ów przenoszonych na starsze systemy (np. Windows 7) należy bezwzględnie wybrać tryb zgodności (AES‑CBC), ponieważ standard XTS‑AES nie jest na nich obsługiwany. 🔌</li>
+<li><span class="color-green">Katastrofa EFS przy brutalnym resecie hasła:</span> EFS szyfruje pliki kluczem FEK, chronionym certyfikatem RSA. Klucz prywatny certyfikatu zabezpiecza usługa DPAPI, wykorzystująca hasło użytkownika. Wymuszony reset hasła przez administratora odcina DPAPI od soli starego hasła, trwale niszcząc dostęp do danych EFS. 📁</li>
+<li><span class="color-green">Złota zasada aktualizacji BIOS:</span> Przed masową aktualizacją BIOS‑u na komputerach z BitLockerem, zawsze wstrzymaj ochronę za pomocą polecenia <code>manage-bde -protectors -disable C: -rebootcount 1</code>, aby uniknąć paraliżu i konieczności ręcznego wpisywania 48‑cyfrowych kluczy odzyskiwania. 🧰</li>
+</ul>
+<hr>
+<p>Gratulacje! 🎉<br>Przebrnąłeś przez wstępne konfiguracje stanowiska. Czas na administrację! ⚙️</p>
+</section>

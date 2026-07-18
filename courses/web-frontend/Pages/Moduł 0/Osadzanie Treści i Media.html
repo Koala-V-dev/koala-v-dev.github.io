@@ -1,0 +1,389 @@
+<h1>Osadzanie Treści i Media</h1>
+<p>Wczesny internet był środowiskiem czysto tekstowym. Z czasem zaczęto dodawać do niego statyczne obrazy, jednak odtwarzanie filmów, dźwięków czy wstawianie interaktywnych widżetów z innych stron wymagało zewnętrznych wtyczek (np. Adobe Flash Player), które obciążały komputer i były luką w bezpieczeństwie.</p>
+<p>Współczesny HTML5 całkowicie to zmienił. </p>
+<p>Przeglądarki potrafią <strong>natywnie odtwarzać multimedia oraz osadzać zewnętrzne dokumenty bez żadnych dodatkowych wtyczek</strong>. W tej lekcji dowiesz się, jak poprawnie zorganizować strukturę mediów i integracji w czystym kodzie HTML.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎬 Odtwarzanie wideo: znacznik <code>&lt;video&gt;</code></h2>
+<p>Do wstawienia filmu na stronę służy znacznik <code>&lt;video&gt;</code>. Posiada on zestaw atrybutów sterujących odtwarzaczem:</p>
+<pre><code class="language-html">&lt;video src="public/resources/media-course-preview/koala.mp4" autoplay loop width="640" height="360"&gt;
+    Twoja przeglądarka nie wspiera natywnego odtwarzania wideo.
+&lt;/video&gt;
+</code></pre>
+<h4>⚙️ Kluczowe atrybuty:</h4>
+<ul>
+<li><span class="color-green"><code>controls</code></span>: Najważniejszy atrybut w zwykłym odtwarzaczu. Jeśli go pominiesz, przeglądarka nie pokaże paska odtwarzania, przycisku Play ani regulacji głośności. Film może nadal istnieć w DOM i da się nim sterować z JavaScriptu, ale użytkownik nie otrzyma standardowego interfejsu.</li>
+<li><span class="color-green"><code>autoplay</code></span>: Uruchamia odtwarzanie filmu od razu po załadowaniu strony.</li>
+<li><span class="color-green"><code>muted</code></span>: Domyślnie wycisza dźwięk w filmie.</li>
+<li><span class="color-green"><code>loop</code></span>: Powoduje odtwarzanie filmu w nieskończonej pętli.</li>
+<li><span class="color-green"><code>poster</code></span>: Wskazuje adres obrazka (miniatury), który ma być wyświetlany przed kliknięciem Play.</li>
+<li><span class="color-green"><code>preload</code></span>: Podpowiada przeglądarce, jak dużo danych filmu ma pobrać przed uruchomieniem wideo. Wskazane wartości to sugestie, które przeglądarka stara się respektować:<ul>
+<li><span class="color-blue"><code>none</code></span>: nie pobiera żadnych danych (oszczędza transfer użytkownika).</li>
+<li><span class="color-blue"><code>metadata</code></span>: pobiera tylko podstawowe informacje, takie jak czas trwania czy wymiary filmu.</li>
+<li><span class="color-blue"><code>auto</code></span>: pobiera cały plik wideo w tle od razu po wejściu na stronę.</li>
+</ul>
+</li>
+</ul>
+<p>Poniżej znajduje się przykładowe wideo z wbudowanymi napisami, <code>autoplay</code> (automatyczne odtwarzanie), <code>loop</code> (odtwarzanie w zapętleniu) i bez <code>controls</code> (pozbawione standardowego interfejsu sterowania):</p>
+<p><video src="/public/resources/media-course-preview/koala.mp4" autoplay="" loop="" width="360" height="640" style="width: unset; display: block; margin: auto;"><br>    <track src="/public/resources/media-course-preview/koala.vtt" kind="subtitles" srclang="pl" label="Polskie napisy" default=""><br>    Twoja przeglądarka nie wspiera natywnego odtwarzania wideo.<br></video></p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Polityka autoplay a silnik przeglądarki:</span> Powyższy kod celowo nie posiada atrybutu <code>muted</code>. Jeśli otworzysz tę lekcję w przeglądarce Firefox, odtwarzanie rozpocznie się automatycznie (ponieważ Firefox analizuje plik wideo i wykrywa brak ścieżki dźwiękowej). Jednak przeglądarki oparte na silniku Chromium (np. Chrome, Edge) zablokują autostart, dopóki nie dopiszesz atrybutu <code>muted</code>.</p>
+
+</div>
+</div><p>Porównanie domyślnych stylów kontrolek w przeglądarce Firefox (silnik Gecko) oraz MS Edge (silnik Blink):</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/porównanie-video-firefox-vs-edge.webp" alt="porównanie-video-firefox-vs-edge.png" width="820" height="600" class="lazy-image" loading="lazy" decoding="async">
+
+<blockquote>
+<p>Warto dodać, że w przeciwieństwie do przeglądarek opartych na silniku Chromium, domyślny odtwarzacz w Firefoksie ukrywa pasek sterowania po sekundzie bezczynności lub po odsunięciu od niego kursora myszy.</p>
+</blockquote>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Źródło wideo i licencja:</span> <a href="https://pixabay.com/videos/koala-australia-nature-animal-324570/">Użyty film z koalą pochodzi z serwisu Pixabay</a>. Licencja tej platformy pozwala na darmowe wykorzystanie komercyjne bez konieczności podawania autora (zasada podobna do CC0), o ile plik nie jest odsprzedawany w niezmienionej postaci.</p>
+
+</div>
+</div><h3>🗄️ Standard wielu źródeł (Fallback)</h3>
+<p>Nie każda przeglądarka obsługuje każdy kodek wideo. Aby zagwarantować, że film zadziała u każdego odbiorcy, stosujemy <span class="color-green">standard wielu źródeł</span> przy użyciu elementu <code>&lt;source&gt;</code>:</p>
+<pre><code class="language-html">&lt;video controls width="640" height="360"&gt;
+    &lt;source src="media/prezentacja.webm" type="video/webm"&gt;
+    &lt;source src="media/prezentacja.mp4" type="video/mp4"&gt;
+    &lt;p&gt;Twoja przeglądarka nie obsługuje tego formatu wideo. Pobierz plik bezpośrednio: &lt;a href="media/prezentacja.mp4"&gt;Pobierz wideo&lt;/a&gt;.&lt;/p&gt;
+&lt;/video&gt;
+</code></pre>
+<p>Przeglądarka przetwarza podane pliki źródłowe <span class="color-green">od góry do dołu</span>. Uruchomi ona <span class="color-green">pierwszy format</span>, który potrafi poprawnie odtworzyć. Jeśli nie obsłuży żadnego, wyświetli <span class="color-blue">tekst alternatywny</span> z odnośnikiem do bezpośredniego pobrania filmu.</p>
+<p>Kolejność źródeł to decyzja techniczna. Zazwyczaj jako pierwszy podaje się <span class="color-blue">nowocześniejszy format</span>, a dopiero potem powszechny fallback. Pamiętaj, że samo rozszerzenie pliku nie gwarantuje sukcesu, ponieważ kluczowy jest <span class="color-green">kontener</span> oraz użyty kodek obrazu i dźwięku.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kodek</span> - jest to algorytm służący do kompresji danych. W przypadku wideo kodeki decydują o tym, jak efektywnie zapisywane są poszczególne klatki obrazu oraz dźwięk. Najpopularniejsze kodeki wideo to <span class="color-gold"><code>H.264</code></span>, <span class="color-gold"><code>H.265</code></span> oraz <span class="color-gold"><code>VP9</code></span>.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kontener</span> - to format pliku, który przechowuje dane wideo i dźwięku. Najpopularniejsze kontenery wideo to <code>.MP4</code>, <code>.WebM</code> oraz <code>.MOV</code>.</p>
+
+</div>
+</div><h3>🏷️ Dostępność: napisy i tag <code>&lt;track&gt;</code></h3>
+<p>Jeśli film zawiera mowę lub ważne sygnały dźwiękowe, potrzebuje tekstowej alternatywy. Dla osób niesłyszących lub oglądających wideo bez dźwięku jest to <strong><span class="color-red">warunek dostępności treści</span></strong>.</p>
+<p>Służy do tego tag <code>&lt;track&gt;</code>, który wczytuje plik WebVTT (<code>.vtt</code>):</p>
+<pre><code class="language-html">&lt;video controls width="640" height="360"&gt;
+    &lt;source src="media/prezentacja.mp4" type="video/mp4"&gt;
+    &lt;track src="subtitles-pl.vtt" kind="subtitles" srclang="pl" label="Polskie napisy" default&gt;
+&lt;/video&gt;
+</code></pre>
+<p>Atrybut <span class="color-green"><code>default</code></span> informuje przeglądarkę, aby włączyła napisy automatycznie od razu przy starcie odtwarzacza.</p>
+<p>Warto rozróżnić dwa typy ścieżek:</p>
+<ul>
+<li><span class="color-green"><code>kind="subtitles"</code></span>: <span class="color-blue">napisy tłumaczeniowe</span> lub językowe. Zakładają, że użytkownik słyszy dźwięki, ale potrzebuje tekstu dialogów.</li>
+<li><span class="color-green"><code>kind="captions"</code></span>: <span class="color-blue">napisy dla osób niesłyszących</span>. Oprócz samej mowy opisują one również istotne dźwięki w tle (np. odgłos alarmu).</li>
+</ul>
+<p>Choć w praktyce nie tworzy się plików <code>.vtt</code> z wariantami uwzględniającymi dźwięki dodatkowe jak [muzyka w tle] czy [alarm].</p>
+<p>Dodatkowe dwa atrybuty które można dodać do tagu track to <span class="color-green"><code>srclang</code></span> (język napisów) oraz <span class="color-green"><code>label</code></span> (etykieta napisów wyświetlana w odtwarzaczu wideo):</p>
+<pre><code class="language-html">&lt;track src="subtitles-pl.vtt" kind="subtitles" srclang="pl" label="Polskie napisy" default&gt;
+&lt;track src="subtitles-en.vtt" kind="subtitles" srclang="en" label="English subtitles"&gt;
+</code></pre>
+<p>Pliki z napisami tworzymy w formacie <span class="color-gold">WebVTT</span> (z rozszerzeniem <code>.vtt</code>). Ich struktura wygląda następująco:</p>
+<pre><code class="language-vtt">WEBVTT
+
+00:01.000 --&gt; 00:02.500
+&nbsp;&nbsp;ra rai da&nbsp;&nbsp;
+
+00:02.500 --&gt; 00:04.500
+&nbsp;&nbsp;nanana&nbsp;&nbsp;
+</code></pre>
+<p>Warto wiedzieć, że domyślny wygląd wyświetlanych napisów modyfikujemy za pomocą stylów CSS i specjalnego selektora <span class="color-blue"><code>video::cue</code></span>, o których dowiesz się w kolejnej części kursu. Nie wszystkie efekty da się jednak osiągnąć w ten sposób. Przykładowo, style nie pozwalają kontrolować <strong><span class="color-red">odstępu krawędzi tła</span></strong> od samego tekstu, przez co czarny boks przylega ciasno do liter.</p>
+<p>Aby rozwiązać ten problem i uzyskać estetyczne odstępy po bokach, stosujemy <strong><span class="color-green">twarde spacje</span></strong> (znak Unicode <span class="color-blue"><code>\u00A0</code></span>) dopisywane bezpośrednio w pliku <code>.vtt</code> na początku i końcu każdej kwestii. Choć można dodawać je ręcznie lub prostym skryptem, do wygodniejszej pracy z napisami warto wykorzystać specjalistyczne oprogramowanie. Podobnie jak kod HTML można pisać w zwykłym „Notatniku”, ale znacznie sensowniejszym wyborem jest „VS Code”, tak do synchronizacji WebVTT warto użyć darmowych narzędzi:</p>
+<ul>
+<li><span class="color-green">Subtitle Edit</span> (zaawansowane, darmowe narzędzie o otwartym kodzie dla systemu Windows, dostępne w <a href="https://github.com/SubtitleEdit/subtitleedit/releases">oficjalnym repozytorium GitHub</a>).</li>
+<li><span class="color-green">Aegisub</span> (popularny, darmowy program o otwartym kodzie do precyzyjnej edycji i synchronizacji napisów, dostępny na oficjalnej stronie <a href="https://aegisub.org/">aegisub.org</a>).</li>
+</ul>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><strong><span class="color-red">Uwaga na fałszywe strony</span></strong>: W sieci istnieje wiele podrabianych witryn udających oficjalne serwisy programu <span class="color-green">Subtitle Edit</span>. Mogą one instalować niechciane oprogramowanie. Jedynym bezpiecznym i oficjalnym miejscem pobierania jest repozytorium na GitHubie.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎵 Odtwarzanie dźwięku: znacznik <code>&lt;audio&gt;</code></h2>
+<p>Znacznik <span class="color-green"><code>&lt;audio&gt;</code></span> służy do odtwarzania plików dźwiękowych. Działa analogicznie do <code>&lt;video&gt;</code>, lecz nie posiada warstwy wizualnej. Nie stosuje się do niego wymiarów ani miniatury.</p>
+<pre><code class="language-html">&lt;audio controls preload="metadata"&gt;
+    &lt;source src="media/wyklad.ogg" type="audio/ogg"&gt;
+    &lt;source src="media/wyklad.mp3" type="audio/mpeg"&gt;
+    &lt;p&gt;Twoja przeglądarka nie obsługuje odtwarzacza audio. &lt;a href="media/wyklad.mp3"&gt;Pobierz plik&lt;/a&gt;.&lt;/p&gt;
+&lt;/audio&gt;
+</code></pre>
+<p>Oprócz atrybutu <span class="color-green"><code>controls</code></span> (którego brak sprawi, że odtwarzacz będzie niewidoczny na stronie), znacznik <code>&lt;audio&gt;</code> obsługuje dodatkowe parametry:</p>
+<ul>
+<li><span class="color-green"><code>preload</code></span>: przyjmuje wartości <code>none</code> (nie pobieraj pliku), <code>metadata</code> (pobierz tylko czas trwania) oraz <code>auto</code> (pobierz cały plik przed odtworzeniem).</li>
+<li><span class="color-green"><code>loop</code></span>: zapętla odtwarzanie ścieżki dźwiękowej.</li>
+<li><span class="color-green"><code>muted</code></span>: odtwarzacz w trybie wyciszonym.</li>
+<li><span class="color-green"><code>autoplay</code></span>: automatycznie uruchamia odtwarzanie, ale wymaga jeszcze wyciszenia <code>muted</code>. Ani Chromium, ani Firefox nie pozwolą na automatyczne odtwarzanie dźwięku na stronie. Dlatego <code>autoplay</code> w przypadku stosowania go w tagu <code>&lt;audio&gt;</code> zwykle nie ma sensu.</li>
+</ul>
+<p>Dla nagrań dźwiękowych (np. podcastów czy wykładów) sam odtwarzacz to za mało. Osoby niesłyszące oraz roboty sieciowe (SEO) potrzebują tekstowego odpowiednika. <strong>Zgodnie z wytycznymi <span class="color-blue">W3C WAI</span> (kryterium <span class="color-blue">WCAG 1.2.1</span> na poziomie A), alternatywę dla audio dostarcza się w postaci <span class="color-gold">pełnej transkrypcji tekstowej</span>.</strong></p>
+<p>W przeciwieństwie do wideo, domyślny odtwarzacz <code>&lt;audio&gt;</code> nie posiada warstwy graficznej, więc nie wyświetli napisów z plików <code>.vtt</code>. Dlatego transkrypcję tworzymy jako standardowy tekst na stronie lub link do osobnego dokumentu HTML. Powinna ona zawierać wypowiedzi mówców oraz opisy ważnych dźwięków (np. <code>[śmiech]</code>).</p>
+<p>Zalecana przez <span class="color-green">W3C WAI</span> struktura kodu łączy odtwarzacz z transkrypcją w jedną całość. Odtwarzacz jest wtedy elementem interaktywnym, a transkrypcja pozostaje zwykłym tekstem, który można wyszukać, skopiować, przetłumaczyć i zindeksować.</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;audio controls preload="metadata" src="/audio/wyklad.mp3"&gt;&lt;/audio&gt;
+    &lt;figcaption&gt;
+        Transkrypcja nagrania: prowadzący wyjaśnia różnicę między plikiem audio,
+        napisami do wideo i pełnym tekstowym odpowiednikiem nagrania.
+    &lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Znaczniki <code>&lt;video&gt;</code> i <code>&lt;audio&gt;</code> współdzielą ten sam moduł obsługi multimediów, dlatego mają podobny zestaw atrybutów. To tłumaczy dziwną obecność <code>autoplay</code> przy audio: zadziała dopiero wtedy, gdy dodasz <code>muted</code>, czyli gdy dźwięk i tak będzie wyciszony. Tę zależność możesz jednak wykorzystać do ciekawego triku: jeśli umieścisz plik <code>mp3</code> i napisy <code>.vtt</code> wewnątrz znacznika <code>&lt;video&gt;</code>, stworzysz dynamiczną transkrypcję bez obrazu. Niestety rozwiązanie zadziała wyłącznie w przeglądarce Firefox. Chromium nie wyświetli napisów, jeżeli format pliku jest tylko audio.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪟 Osadzanie zewnętrznych treści: znacznik <code>&lt;iframe&gt;</code></h2>
+<p>Znacznik <span class="color-green"><code>&lt;iframe&gt;</code></span> (ang. <span class="color-blue">Inline Frame</span>) tworzy w dokumencie okno na inny dokument HTML. To nie jest obrazek, link ani zwykły fragment strony. To osobny kontekst przeglądania, z własnym adresem, własnym DOM‑em, własnymi skryptami i własnymi zasadami bezpieczeństwa.</p>
+<p>Dlatego ramkę traktuj jak małą przeglądarkę w przeglądarce. Jeśli osadzasz mapę, odtwarzacz wideo albo panel płatności, nie wklejasz „kawałka HTML‑a” od dostawcy. Wpuszczasz na stronę drugi dokument, który może pobierać pliki, uruchamiać skrypty, prosić o uprawnienia i śledzić część kontekstu użytkownika.</p>
+<p>Choć technicznie możesz wpisać w <code>src</code> dowolny adres URL, <span class="color-green">współczesne portale często blokują osadzanie swoich zwykłych stron</span>. Robią to przez nagłówki HTTP, najczęściej <code>X-Frame-Options</code> albo dyrektywę <code>frame-ancestors</code> w <code>Content-Security-Policy</code>. To ochrona przed atakiem typu <span class="color-blue">clickjacking</span>, czyli podszyciem obcej strony pod niewinny interfejs i przechwyceniem kliknięć użytkownika.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli ramka jest pusta, problem nie zawsze leży w Twoim HTML‑u. Serwer osadzanej strony może świadomie zabraniać wyświetlania w <code>&lt;iframe&gt;</code>. Wtedy nie „naprawiasz” tego atrybutem. Szukasz oficjalnego adresu typu <code>/embed/</code>, używasz widżetu udostępnionego przez usługę albo rezygnujesz z osadzania.</p>
+
+</div>
+</div><h3>🔌 Zastosowanie ramek w praktyce (widżety)</h3>
+<p>Współcześnie <code>&lt;iframe&gt;</code> służy głównie do osadzania dedykowanych widżetów (ang. <span class="color-blue">embeds</span>). Portale przygotowują specjalne, odchudzone wersje swoich podstron przeznaczone do wyświetlania w ramkach. Taka wersja ma zwykle inny adres niż normalna strona.</p>
+<p>Oto typowe źródła takich widżetów:</p>
+<ul>
+<li><span class="color-green">Interaktywne mapy:</span> Darmowy serwis <a href="https://www.openstreetmap.org">OpenStreetMap</a> pozwala pobrać gotowy kod ramki (wystarczy wyszukać lokalizację, kliknąć ikonę udostępniania i wybrać format „HTML”).</li>
+<li><span class="color-green">Odtwarzacze multimediów:</span> YouTube udostępnia gotowe ramki pod przyciskiem „Udostępnij”, a następnie „Umieść” na karcie filmu.</li>
+<li><span class="color-green">Piaskownice programistyczne:</span> Portale takie jak <a href="https://codepen.io">CodePen</a> umożliwiają wklejenie działającego kodu na własną stronę.</li>
+</ul>
+<p>Nie myl jednak „oficjalnego” z „automatycznie idealnym”. Kod z generatora bywa wygodny, ale nadal trzeba sprawdzić <code>title</code>, <code>loading</code>, <code>referrerpolicy</code>, <code>allow</code> i ewentualny <code>sandbox</code>.</p>
+<h3>📐 Przykład: Osadzanie interaktywnej mapy</h3>
+<p>Poniższy kod wyświetla mapę wybranego obszaru bez instalowania zewnętrznych bibliotek:</p>
+<pre><code class="language-html">&lt;iframe
+    src="https://www.openstreetmap.org/export/embed.html?bbox=19.398057460784916%2C51.720127626917765%2C19.42565202713013%2C51.72911286882532"
+    width="425"
+    height="350"
+    title="Mapa okolic lotniska w Łodzi"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    sandbox="allow-scripts allow-popups"&gt;&lt;/iframe&gt;
+</code></pre>
+<iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=19.398057460784916%2C51.720127626917765%2C19.42565202713013%2C51.72911286882532&amp;layer=transportmap" title="Mapa okolic lotniska w Łodzi" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-popups" style="border: 1px solid black"></iframe>
+
+<p>Zwróć uwagę na kluczowe atrybuty:</p>
+<ul>
+<li><span class="color-green"><code>src</code></span> wskazuje adres dokumentu wczytywanego do ramki. Dla map i filmów szukaj adresu przygotowanego do osadzania, a nie zwykłej strony z paskiem nawigacji.</li>
+<li><span class="color-green"><code>title</code></span> opisuje zawartość ramki. To nie jest ozdoba. Użytkownik czytnika ekranu musi wiedzieć, czy wchodzi do mapy, filmu, formularza płatności czy reklamy.</li>
+<li><span class="color-green"><code>width</code> i <code>height</code></span> rezerwują miejsce dla ramki, dzięki czemu układ nie skacze po wczytaniu zewnętrznej treści.</li>
+<li><span class="color-green"><code>loading="lazy"</code></span> opóźnia wczytanie ramki do momentu, gdy użytkownik zbliży się do niej w trakcie przewijania.</li>
+<li><span class="color-green"><code>referrerpolicy</code></span> ogranicza ilość informacji o Twojej stronie przekazywanych do zewnętrznego serwisu.</li>
+<li><span class="color-green"><code>sandbox</code></span> ogranicza możliwości kodu działającego wewnątrz ramki.</li>
+</ul>
+<h3>🎦 Przykład: Osadzanie wideo z YouTube</h3>
+<p>Oto świadomie odchudzony wariant kodu osadzenia wideo z YouTube:</p>
+<pre><code class="language-html">&lt;iframe
+    width="560"
+    height="315"
+    src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+    title="Odtwarzacz wideo YouTube: przykładowy film"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allow="fullscreen; picture-in-picture; encrypted-media"
+    allowfullscreen&gt;&lt;/iframe&gt;
+</code></pre>
+<p>Adres w <code>src</code> ma strukturę <code>/embed/</code>. YouTube kieruje ramkę na uproszczoną stronę odtwarzacza, a nie na zwykłą stronę filmu z komentarzami, menu i całą aplikacją. Fragment <code>VIDEO_ID</code> zastępujesz identyfikatorem filmu pobranym z kodu osadzania.</p>
+<p>W generatorze YouTube możesz zaznaczyć opcję <span class="color-green">„Włącz tryb rozszerzonej prywatności”</span>. Interfejs serwisu może się zmienić, ale decyzję w kodzie poznasz po domenie w atrybucie <code>src</code>:</p>
+<pre><code class="language-html">&lt;!-- Zwykły wariant osadzenia --&gt;
+&lt;iframe
+    src="https://www.youtube.com/embed/VIDEO_ID"
+    title="Odtwarzacz wideo YouTube"&gt;&lt;/iframe&gt;
+
+&lt;!-- Wariant z rozszerzonym trybem prywatności --&gt;
+&lt;iframe
+    src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+    title="Odtwarzacz wideo YouTube"&gt;&lt;/iframe&gt;
+</code></pre>
+<p>Różnica jest subtelna, ale ważna. Wariant <code>youtube.com</code> od razu korzysta ze standardowej domeny YouTube. Wariant <code>youtube-nocookie.com</code> jest przeznaczony do osadzania w <span class="color-green">rozszerzonym trybie prywatności</span>. Według komunikatu generatora YouTube nie będzie wtedy przechowywać informacji o osobach odwiedzających Twoją stronę, dopóki nie zaczną odtwarzać filmu.</p>
+<p>To nie znaczy, że ramka staje się magicznie „bez śledzenia”. Po kliknięciu odtwarzania użytkownik wchodzi w interakcję z usługą YouTube, a odtwarzacz nadal pobiera zasoby z zewnętrznych serwerów. Ten tryb zmniejsza kontakt z YouTube przed odtworzeniem filmu, ale nie zamienia osadzenia w lokalny plik wideo.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli masz wybór, dla zwykłych materiałów edukacyjnych lepiej użyć wariantu <code>youtube-nocookie.com</code>. To dobra praktyka prywatnościowa, a jednocześnie nie zmienia sposobu działania samego znacznika <code>&lt;iframe&gt;</code>.</p>
+
+</div>
+</div><p>Atrybut <span class="color-green"><code>allow</code></span> nie jest tym samym co <code>sandbox</code>. <code>allow</code> działa jak lista konkretnych funkcji przeglądarki, które ramka może wykorzystać, np. tryb pełnoekranowy, obraz w obrazie albo odtwarzanie zaszyfrowanych mediów. <code>sandbox</code> działa odwrotnie: najpierw blokuje wiele możliwości, a potem wybrane z nich oddajesz z powrotem.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Gotowy kod z YouTube często zawiera długą listę uprawnień, np. <code>accelerometer</code>, <code>autoplay</code>, <code>clipboard-write</code> czy <code>web-share</code>. W prawdziwym projekcie nie musisz bezmyślnie kopiować wszystkiego. Zostawiasz tylko to, czego realnie wymaga osadzony odtwarzacz i funkcje, które chcesz udostępnić użytkownikowi.</p>
+
+</div>
+</div><h3>🛡️ Bezpieczeństwo i izolacja: atrybut <code>sandbox</code></h3>
+<p>Wczytanie obcej witryny wewnątrz ramki niesie ryzyko wykonania niechcianego kodu, otwierania okien, wysyłania formularzy albo próby wyjścia poza ramkę. Do izolowania zawartości służy atrybut <span class="color-green"><code>sandbox</code></span>.</p>
+<p>Pusty <code>sandbox</code> nakłada maksymalne restrykcje:</p>
+<pre><code class="language-html">&lt;!-- Maksymalne ograniczenia (blokada skryptów, wyskakujących okienek i formularzy) --&gt;
+&lt;iframe src="https://obca-strona.com" title="Zewnętrzny widżet" sandbox&gt;&lt;/iframe&gt;
+</code></pre>
+<p>To najbezpieczniejszy zapis, ale często zbyt surowy. Mapa może przestać się przesuwać, formularz nie wyśle danych, a odtwarzacz wideo nie uruchomi interfejsu. Dlatego w praktyce zaczynasz od ograniczeń i dopiero potem dodajesz konkretne zezwolenia:</p>
+<pre><code class="language-html">&lt;!-- Zgoda wyłącznie na uruchamianie skryptów i formularzy --&gt;
+&lt;iframe src="https://obca-strona.com" title="Zewnętrzny formularz" sandbox="allow-scripts allow-forms"&gt;&lt;/iframe&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><strong><span class="color-red">Nie łącz bezmyślnie</span></strong> wartości <code>allow-scripts</code> oraz <code>allow-same-origin</code> dla ramki z tej samej domeny lub dla treści, której nie kontrolujesz. W takim układzie skrypt osadzony w ramce może odzyskać bardzo dużo uprawnień i praktycznie obejść sens piaskownicy.</p>
+
+</div>
+</div><details>
+<summary>Najważniejsze wartości atrybutu <code>sandbox</code></summary>
+
+<ul>
+<li><code>allow-scripts</code>: pozwala uruchamiać JavaScript wewnątrz ramki.</li>
+<li><code>allow-forms</code>: pozwala wysyłać formularze.</li>
+<li><code>allow-popups</code>: pozwala otwierać nowe okna i karty.</li>
+<li><code>allow-popups-to-escape-sandbox</code>: pozwala nowo otwartym stronom wyjść poza ograniczenia ramki. Przydatne czasem dla płatności i logowania, ale wymaga zaufania do dostawcy.</li>
+<li><code>allow-presentation</code>: pozwala użyć mechanizmów prezentacji, np. castowania lub trybu prezentacji.</li>
+<li><code>allow-downloads</code>: pozwala rozpoczynać pobieranie plików.</li>
+<li><code>allow-modals</code>: pozwala używać okien modalnych typu <code>alert</code>, <code>confirm</code> i <code>prompt</code>.</li>
+<li><code>allow-same-origin</code>: pozwala ramce zachować własne pochodzenie (<span class="color-blue">origin</span>) zamiast traktowania jej jak treści z unikalnego, izolowanego źródła. To bardzo mocne zezwolenie.</li>
+</ul>
+</details>
+
+<h3>🧭 Prywatność: atrybut <code>referrerpolicy</code></h3>
+<p>Gdy przeglądarka wczytuje ramkę, zewnętrzny serwer może dostać informację, z jakiej strony przyszło żądanie. Tę informację nazywamy <span class="color-blue">referrerem</span>. Czasem jest to tylko domena, czasem pełny adres URL, a czasem nic.</p>
+<p>Dla większości ramek rozsądnym domyślnym wyborem jest:</p>
+<pre><code class="language-html">referrerpolicy="strict-origin-when-cross-origin"
+</code></pre>
+<p>Ten zapis zachowuje praktyczny kompromis: przy przejściu do innej domeny przeglądarka wysyła zwykle tylko źródło strony, np. <code>https://twoja-strona.pl</code>, a nie pełny adres z fragmentem, parametrami i kontekstem użytkownika.</p>
+<details>
+<summary>Wartości <code>referrerpolicy</code>, które spotkasz w dokumentacji</summary>
+
+<ul>
+<li><code>no-referrer</code>: nie wysyła informacji o stronie źródłowej.</li>
+<li><code>origin</code>: wysyła tylko schemat, domenę i port, np. <code>https://example.com</code>.</li>
+<li><code>strict-origin</code>: wysyła samo źródło, ale nie wysyła go przy przejściu z HTTPS do HTTP.</li>
+<li><code>origin-when-cross-origin</code>: dla tej samej domeny może wysłać pełny adres, a dla obcej tylko źródło.</li>
+<li><code>strict-origin-when-cross-origin</code>: nowoczesny, bezpieczny kompromis i dobry domyślny wybór.</li>
+<li><code>same-origin</code>: wysyła referrera tylko w obrębie tej samej domeny.</li>
+<li><code>no-referrer-when-downgrade</code>: historyczne zachowanie wielu przeglądarek. Nie wysyła referrera tylko przy przejściu z HTTPS do HTTP.</li>
+<li><code>unsafe-url</code>: wysyła pełny adres także do obcych domen. Unikaj, bo może ujawnić parametry i strukturę strony.</li>
+</ul>
+</details>
+
+<h3>🔐 Uprawnienia: atrybut <code>allow</code></h3>
+<p>Atrybut <code>allow</code> opisuje, z których funkcji przeglądarki może korzystać osadzony dokument. To mechanizm powiązany z <span class="color-blue">Permissions Policy</span>. Nie zastępuje <code>sandbox</code>, tylko rozwiązuje inny problem.</p>
+<pre><code class="language-html">&lt;iframe
+    src="https://example.com/embed/player"
+    title="Odtwarzacz multimedialny"
+    allow="fullscreen; picture-in-picture"
+    allowfullscreen&gt;&lt;/iframe&gt;
+</code></pre>
+<p>W tym przykładzie ramka może przejść w tryb pełnoekranowy i użyć trybu obraz w obrazie. Nie dostaje automatycznie prawa do kamery, mikrofonu, geolokalizacji ani schowka.</p>
+<details>
+<summary>Przykłady uprawnień, których nie warto kopiować bez namysłu</summary>
+
+<ul>
+<li><code>autoplay</code>: pozwala próbować automatycznego odtwarzania. Przeglądarka i tak może je zablokować.</li>
+<li><code>clipboard-write</code>: pozwala zapisywać dane do schowka użytkownika.</li>
+<li><code>geolocation</code>: pozwala prosić o lokalizację.</li>
+<li><code>camera</code> i <code>microphone</code>: pozwalają prosić o kamerę i mikrofon.</li>
+<li><code>encrypted-media</code>: potrzebne niektórym odtwarzaczom DRM.</li>
+<li><code>fullscreen</code>: pozwala ramce wejść w tryb pełnoekranowy.</li>
+<li><code>picture-in-picture</code>: pozwala odtwarzaczowi przejść do małego pływającego okna.</li>
+</ul>
+</details>
+
+<h3>🧪 Bezpieczny schemat pracy z ramką</h3>
+<p>Gdy dostajesz kod <code>&lt;iframe&gt;</code> z obcego serwisu, nie traktuj go jak świętej formuły. Przejdź przez krótki rytuał kontroli:</p>
+<ol>
+<li>Sprawdź, czy <code>src</code> prowadzi do oficjalnego adresu osadzania, np. <code>/embed/</code>, <code>/export/embed.html</code> albo dokumentacji widżetu.</li>
+<li>Dodaj lub popraw <code>title</code>, aby mówił, co użytkownik znajdzie w ramce.</li>
+<li>Dodaj <code>loading="lazy"</code>, jeśli ramka nie jest krytyczna dla pierwszego widoku strony.</li>
+<li>Dodaj <code>referrerpolicy=</code> z polityką <code>"strict-origin-when-cross-origin"</code> lub ostrzejszą, jeśli nie chcesz ujawniać kontekstu.</li>
+<li>Dodaj <code>sandbox</code> i poluzuj go tylko wtedy, gdy konkretna funkcja widżetu tego wymaga.</li>
+<li>Ogranicz <code>allow</code> do faktycznie potrzebnych funkcji.</li>
+</ol>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>W profesjonalnych systemach renderer lub SSG może automatycznie dopisywać bezpieczne wartości do ramek, gdy autor o nich zapomni. To dobry pas bezpieczeństwa, ale nie zwalnia z rozumienia kodu źródłowego. Automat ma ratować przypadkowe przeoczenia, a nie zastępować decyzje autora.</p>
+
+</div>
+</div><h3>📟 Przestarzałe metody: znaczniki <code>&lt;embed&gt;</code> i <code>&lt;object&gt;</code></h3>
+<p><strong class="tag-stamp tag-stamp--obsolete">Przestarzały (lecz praktyczny)</strong></p>
+<p>Dawniej do osadzania zewnętrznych rozszerzeń (np. odtwarzaczy Flash) powszechnie stosowano znaczniki <code>&lt;embed&gt;</code> oraz <code>&lt;object&gt;</code>. Współczesny standard HTML5 zastępuje te wtyczki natywnymi elementami multimedialnymi oraz ramkami <code>&lt;iframe&gt;</code>.</p>
+<p>Dziś te tagi są wycofywane, ale można je spotkać w starszych projektach lub przy osadzaniu dokumentów PDF bezpośrednio na podstronie:</p>
+<ul>
+<li><span class="color-green"><code>&lt;embed&gt;</code></span>: prosty znacznik do wczytywania obcych zasobów, który nie oferuje mechanizmów izolacji tak silnych jak ramka.</li>
+<li><span class="color-green"><code>&lt;object&gt;</code></span>: bardziej rozbudowany tag, który pozwala określić typ danych oraz podać treść alternatywną (fallback) wyświetlaną w przypadku braku obsługi pliku.</li>
+</ul>
+<p>W praktyce do osadzania zewnętrznych witryn wybieramy ramki. Przy plikach PDF można jednak nadal spotkać te historyczne rozwiązania.</p>
+<data-gate>
+  <data-quiz>
+    <question><p>Wklejasz na stronę zewnętrzny widżet w elemencie <code>&lt;iframe&gt;</code>. Chcesz ograniczyć jego możliwości, ale nadal świadomie oddać mu tylko te funkcje, których naprawdę potrzebuje. Które podejście jest najlepsze?</p>
+</question>
+    <options>
+<item correct=""><p>Dodajesz <code>sandbox</code>, sprawdzasz co przestało działać, a potem dopisujesz tylko konkretne zezwolenia, np. <code>allow‑scripts</code> albo <code>allow‑forms</code>.</p>
+</item>
+<item><p>Dodajesz długą listę w <code>allow</code>, bo każdy oficjalny generator widżetu zawsze wie lepiej, jakie uprawnienia są potrzebne Twojej stronie.</p>
+</item>
+<item><p>Dodajesz <code>X‑Frame-Options</code> jako atrybut HTML do ramki, aby przeglądarka zablokowała skrypty w osadzonej stronie.</p>
+</item>
+<item><p>Usuwasz <code>title</code>, bo użytkownik i tak widzi zawartość ramki, więc opis nie ma znaczenia.</p>
+</item>
+</options>
+    <div data-hint="error"><p>Pomyśl o zasadzie minimalnych uprawnień. Najpierw ograniczasz ramkę, a potem oddajesz tylko to, bez czego widżet faktycznie nie działa.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie. <code>sandbox</code> tworzy izolację, a konkretne tokeny pozwalają świadomie przywrócić wybrane możliwości ramki.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<p>Jeśli równolegle piszesz własny plik w edytorze, nie czekaj na „zadanie na końcu”. Po każdej większej decyzji zatrzymaj się na chwilę i sprawdź kod jak dokument:</p>
+<ul>
+<li>czy w tagach <code>&lt;video&gt;</code> i <code>&lt;audio&gt;</code> dodałeś atrybut <code>controls</code>, aby użytkownik miał dostęp do paska odtwarzania,</li>
+<li>czy przygotowałeś alternatywne źródła <code>&lt;source&gt;</code> dla różnych kodeków oraz link tekstowy dla przestarzałych przeglądarek,</li>
+<li>czy dla audio przygotowałeś transkrypcję, a dla wideo napisy lub podpisy w <code>&lt;track&gt;</code>,</li>
+<li>czy każdy <code>&lt;iframe&gt;</code> korzysta z oficjalnego adresu osadzania, a nie ze zwykłej strony portalu,</li>
+<li>czy każdy <code>&lt;iframe&gt;</code> posiada jasny, zrozumiały <code>title</code>,</li>
+<li>czy ograniczyłeś wyciek informacji przez <code>referrerpolicy</code>,</li>
+<li>czy zabezpieczyłeś obce widżety za pomocą <code>sandbox</code> i nadałeś tylko potrzebne uprawnienia,</li>
+<li>czy lista w <code>allow</code> nie jest bezmyślną kopią z generatora.</li>
+</ul>
+<p>To jest lepszy tryb pracy niż dopisywanie semantyki na końcu. Najpierw myślisz o roli fragmentu, potem zapisujesz tag. CSS przyjdzie później.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Natywne multimedia</span>: Znaczniki <code>&lt;video&gt;</code> i <code>&lt;audio&gt;</code> nie wymagają wtyczek. Atrybut <code>controls</code> jest konieczny, aby udostępnić przyciski sterowania.</li>
+<li><span class="color-green">Dostępność wideo</span>: Tag <code>&lt;track&gt;</code> wczytuje napisy w formacie WebVTT, co pozwala osobom niesłyszącym na odbiór ścieżki dźwiękowej filmu.</li>
+<li><span class="color-green">Transkrypcja audio</span>: Odtwarzacz <code>&lt;audio&gt;</code> nie wyświetla napisów na ekranie. Z tego powodu dla nagrań dźwiękowych przygotowuje się pełny tekstowy odpowiednik.</li>
+<li><span class="color-green">Istota iframe</span>: Ramka wczytuje całkowicie zewnętrzny dokument HTML. Posiada własne skrypty i zasady bezpieczeństwa, dlatego wymaga zdefiniowania rozmiaru oraz atrybutu <code>title</code>.</li>
+<li><span class="color-green">Zabezpieczenie sandbox</span>: Atrybut <code>sandbox</code> izoluje kod wewnątrz ramki, a atrybut <code>allow</code> pozwala na kontrolowane nadawanie wybranych uprawnień (np. trybu pełnoekranowego).</li>
+<li><span class="color-green">Ochrona prywatności</span>: Atrybut <code>referrerpolicy</code> ogranicza informacje o Twojej stronie przekazywane do zewnętrznego serwera podczas ładowania widżetu.</li>
+<li><span class="color-green">Blokada osadzania</span>: Serwery dużych portali blokują wyświetlanie swoich stron w ramkach na obcych domenach za pomocą nagłówków <code>X-Frame-Options</code> lub <code>Content-Security-Policy</code> w celu ochrony przed przejęciem kliknięć.</li>
+</ul>
+</section>

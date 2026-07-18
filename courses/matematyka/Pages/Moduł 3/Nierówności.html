@@ -1,0 +1,177 @@
+<h2>Nierówności: Safety Guards i Przedziały Bezpieczeństwa</h2>
+<p>Równanie to kontrakt punktowy (precyzyjny). Nierówność to coś znacznie częstszego w inżynierii: <strong>Definicja Przedziału Stabilności</strong>. </p>
+<p>W systemach operacyjnych rzadko pytasz: „Czy obciążenie CPU wynosi dokładnie 80%?”. Pytasz: „Czy obciążenie jest <strong>w granicach normy</strong> (Safe Zone)?”.<br>Nierówności to Twoje <strong>Safety Guards</strong>, które definiują warunki brzegowe systemu:</p>
+<ul>
+<li><code>if (memoryUsed &lt; capacity)</code> $\rightarrow$ Stan bezpieczny.</li>
+<li><code>if (packetSize &gt; maxMTU)</code> $\rightarrow$ Przepełnienie bufora.</li>
+<li><code>if (voltage &gt;= threshold)</code> $\rightarrow$ Aktywacja zabezpieczeń.</li>
+</ul>
+<p>W tej lekcji nauczymy się wyznaczać te granice i zarządzać nimi z matematyczną precyzją.</p>
+<hr>
+<h3>🧱 Operatory Porównania (Stan Granicy)</h3>
+<p>Nierówność definiuje nie tylko to, co jest „większe/mniejsze”, ale też status samej granicy. To różnica między „stój przed linią” a „możesz stanąć na linii”.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Symbol</th>
+<th align="left">Nazwa</th>
+<th align="left">Status Granicy</th>
+<th align="left">Analogia IT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>$&lt;$</strong></td>
+<td align="left">Mniejsze niż</td>
+<td align="left"><strong>Otwarta</strong> (Wykluczona)</td>
+<td align="left"><code>x &lt; limit</code></td>
+</tr>
+<tr>
+<td align="center"><strong>$&gt;$</strong></td>
+<td align="left">Większe niż</td>
+<td align="left"><strong>Otwarta</strong> (Wykluczona)</td>
+<td align="left"><code>x &gt; threshold</code></td>
+</tr>
+<tr>
+<td align="center"><strong>$\le$</strong></td>
+<td align="left">Mniejsze lub równe</td>
+<td align="left"><strong>Zamknięta</strong> (Włączona)</td>
+<td align="left"><code>x &lt;= capacity</code></td>
+</tr>
+<tr>
+<td align="center"><strong>$\ge$</strong></td>
+<td align="left">Większe lub równe</td>
+<td align="left"><strong>Zamknięta</strong> (Włączona)</td>
+<td align="left"><code>x &gt;= minVersion</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>W notacji przedziałowej używamy nawiasów okrągłych $($ $)$ dla granic otwartych i ostrych $\langle$ $\rangle$ (lub kwadratowych $[$ $]$) dla zamkniętych. Pamiętaj: nieskończoność ($\pm\infty$) jest zawsze otwarta, bo nigdy nie możesz jej „dotknąć”.</p>
+
+</div>
+</div><hr>
+<h3>⚠️ Reguła Krytyczna: Odwrócenie Fazy (Sign Flip)</h3>
+<p>Izolowanie $\textcolor{#ff0001}{x}$ w nierówności liniowej przebiega niemal identycznie jak w równaniu, z jednym wyjątkiem, który decyduje o stabilności całego Twojego wywodu.</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><strong>Inwersja Fazy (Sign Flip)</strong>: Gdy mnożysz lub dzielisz obie strony przez <strong>liczbę ujemną</strong>, musisz <strong>odwrócić kierunek</strong> operatora.</p>
+
+</div>
+</div><blockquote>
+<p>$$\textcolor{#ff0002}{-2x &lt; 6} \quad \textcolor{#ff0002}{| \div (-2)}$$<br>$$\textcolor{#ff0001}{x &gt; -3}$$</p>
+<p><strong>Intuicja</strong>: Liczby ujemne działają jak lustro. Mnożenie przez ujemne „wzmocnienie” odwraca orientację całego układu na osi liczbowej. Jeśli pominiesz ten krok, Twój <em>Safety Guard</em> zadziała dokładnie odwrotnie (np. zablokuje legalnych użytkowników, a wpuści atak).</p>
+</blockquote>
+<hr>
+<h3>🛠️ Punkt Kontrolny: Diagnostyka Znaku</h3>
+<p>Zanim przejdziesz dalej, sprawdź, czy Twój „kompilator logiczny” wykrywa zmianę orientacji.</p>
+<data-gate>
+<data-quiz>
+  <question>Mamy warunek $-3x \ge 12$. Jaki jest stan końcowy po podzieleniu przez $-3$?</question>
+  <options>
+    <option>$x \ge -4$</option>
+    <option correct>$x \le -4$</option>
+    <option>$x \le 4$</option>
+  </options>
+  <div data-hint="success">Doskonale. Dzielenie przez liczbę ujemną wymusza zmianę orientacji operatora: $\ge$ staje się $\le$.</div>
+  <div data-hint="error">Uwaga: Dzielisz przez -3. To ujemne „wzmocnienie”, które odwraca fazę sygnału. Znak musi się obrócić.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🎢 Nierówności Kwadratowe: Mapa Sygnału</h3>
+<p>Rozwiązywanie nierówności kwadratowej (np. $\textcolor{#ff0002}{x^2 - 4x + 3 &gt; 0}$) to proces dwuetapowy. Nie wystarczy wyliczyć pierwiastków — musisz znać <strong>mapę przebiegu funkcji</strong>.</p>
+<h4>Algorytm „Paraboli”:</h4>
+<ol>
+<li><strong>Wyznacz Punkty Krytyczne</strong>: Rozwiąż równanie $\textcolor{#ff0002}{ax^2 + bx + c = 0}$ (użyj Delty). To Twoje granice stref.</li>
+<li><strong>Określ Kierunek (Współczynnik $a$)</strong>:<ul>
+<li>$\textcolor{#ff0002}{a &gt; 0}$: Ramiona w górę (System stabilny poza pierwiastkami).</li>
+<li>$\textcolor{#ff0002}{a &lt; 0}$: Ramiona w dół (System stabilny między pierwiastkami).</li>
+</ul>
+</li>
+<li><strong>Odczytaj Przedziały</strong>: Spójrz na wykres i wybierz te części, które spełniają warunek ($&gt;0$ to góra, $&lt;0$ to dół).</li>
+</ol>
+<h4>Przykład: $x^2 - 4 \le 0$</h4>
+<ul>
+<li>Pierwiastki: $x = 2, x = -2$.</li>
+<li>$a=1$ (dodatnie), więc parabola jest „uśmiechnięta”.</li>
+<li>Szukamy wartości $\le 0$ (pod osią).</li>
+<li>Wynik: $\textcolor{#ff0001}{x \in \langle -2, 2 \rangle}$.</li>
+</ul>
+<hr>
+<h3>🪤 Sandbox: Wyznaczanie Strefy Bezpieczeństwa</h3>
+<p>Rozwiąż nierówność, wyznaczając przedział, w którym system pracuje poprawnie.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Nierówność: $-2x + 10 > 4$">
+  <div 
+    data-step="1" 
+    data-expected="-2x > -6" 
+    data-label="Krok 1: Usuń stałą (odejmij 10 od obu stron) (L=P):"
+    data-hints='{"VARIABLE_MISMATCH": "💡 \\(-2x > 4 - 10 \implies -2x > -6\\)."}'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="x < 3" 
+    data-label="Krok 2: Podziel przez -2 (Pamiętaj o odwróceniu znaku!) (L=P):"
+    data-hints='{"LOGIC_ERROR": "💡 Krytyczny punkt! Dzielisz przez -2, więc > zmienia się w <. \\(-6 / -2 = 3\\)."}'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="x \in (-\infty, 3)" 
+    data-label="Krok 3: Zapisz wynik w notacji przedziałowej:"
+    data-hints='{"SET_MISMATCH": "💡 Wszystkie liczby mniejsze od 3 (bez 3). Zapisz: \\(x \in (-\infty, 3)\\). Użyj przecinka jako separatora."}'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🔗 Nierówności Złożone: Logika AND / OR</h3>
+<p>W Module 1 poznałeś operatory logiczne $\land$ (AND) oraz $\lor$ (OR). W nierównościach służą one do budowania złożonych polityk bezpieczeństwa.</p>
+<h4>1. Koniunkcja (AND / $\land$ / $\cap$)</h4>
+<p>Wymaga, aby system spełniał <strong>wszystkie warunki jednocześnie</strong>. </p>
+<ul>
+<li>Przykład: $x \ge 0 \land x \le 100$ (Wartość musi być wewnątrz zakresu operacyjnego).</li>
+<li>Geometrycznie: Szukamy <strong>części wspólnej</strong> przedziałów.</li>
+</ul>
+<h4>2. Alternatywa (OR / $\lor$ / $\cup$)</h4>
+<p>Wystarczy, że spełniony jest <strong>choć jeden</strong> z warunków. Zazwyczaj definiuje to &quot;strefy błędu&quot;.</p>
+<ul>
+<li>Przykład: $x &lt; -10 \lor x &gt; 10$ (Wartość jest niebezpieczna, jeśli jest zbyt niska LUB zbyt wysoka).</li>
+<li>Geometrycznie: Wynik to <strong>suma zbiorów</strong>.</li>
+</ul>
+<hr>
+<h3>💻 IT Context: Rate Limiting i Firewalle</h3>
+<p>W nowoczesnych systemach nierówności to podstawa ochrony przed atakami:</p>
+<ul>
+<li><strong>Rate Limiter</strong>: <code>if (requestsPerMinute &gt; 1000) { block_ip(); }</code></li>
+<li><strong>Walidacja Bufferów</strong>: <code>if (inputLength &gt;= MAX_BUFFER) { throw Overrun; }</code></li>
+<li><strong>Cloud Auto&#8209;scaling</strong>: <code>if (cpuUsage &gt; 80%) { add_node(); }</code></li>
+</ul>
+<p>Nierówność to nie jest tylko matematyka — to Twój <strong>Firewall</strong>, który pilnuje stabilności systemu w świecie niepewnych danych wejściowych.</p>
+<hr>
+<p>Opanowałeś właśnie mechanizmy wyznaczania granic. Wiesz, jak chronić system i jak zarządzać zakresami. Moduł 3 uzbroił Cię w narzędzia do precyzyjnego modelowania i zabezpieczania systemów.</p>
+<h3>🎉 Milestone: Moduł 3 — Mistrz Równowagi i Granic!</h3>
+<p>Gratulacje. Przeszedłeś przez fundamenty wyznaczania stanów układu.</p>
+<h4>⚙️ Twój nowy stos technologiczny:</h4>
+<ol>
+<li>✅ <strong>Równania Liniowe</strong>: Potrafisz wyizolować przyczynę błędu w systemie liniowym, szanując symetrię kontraktu $L=P$.</li>
+<li>✅ <strong>Układy Równań</strong>: Rozumiesz, jak godzić sprzeczne interesy wielu serwisów i jak diagnozować blokady typu Deadlock.</li>
+<li>✅ <strong>Równania Kwadratowe</strong>: Nie boisz się nieliniowości. Delta to Twój diagnostyk, a wzory Viète&#39;a to suma kontrolna poprawności Twoich obliczeń.</li>
+<li>✅ <strong>Układy Mieszane</strong>: Potrafisz znaleźć punkty styku systemów o różnej charakterystyce.</li>
+<li>✅ <strong>Nierówności</strong>: Projektujesz systemy odporne na błędy, wyznaczając im bezpieczne zakresy pracy i „firewalle” na wejściu.</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Fundamenty ustabilizowane.</strong> Masz już system opisywania obiektów (M0), logikę relacji (M1), rygor dowodzenia (M2) i narzędzia do rozwiązywania stanów (M3). Czas nadać tym strukturom <strong>dynamikę</strong>.</p>
+
+</div>
+</div><hr>
+<p>Jesteś gotowy na <strong>Moduł 4 — Relacje i Funkcje</strong>. Przechodzimy od wyznaczania konkretnych wartości do opisywania <strong>całych zachowań systemów</strong> — ich wzrostu, malenia, granic i ekstremów. Witaj w świecie funkcji. 🚀📈</p>

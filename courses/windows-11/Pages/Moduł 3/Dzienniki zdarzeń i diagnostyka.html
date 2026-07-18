@@ -1,0 +1,275 @@
+<h2>Dzienniki zdarzeń i diagnostyka</h2>
+<p>Gdy komputer się zawiesza, usługa nie startuje, albo użytkownik twierdzi że <em>„samo się wyłączyło"</em> – Twoja jedyna szansa na ustalenie przyczyny to <strong>Dziennik zdarzeń</strong> (<em>Event Viewer</em>). Windows rejestruje praktycznie <strong>wszystko</strong>, co się dzieje w systemie – od pomyślnego logowania po krytyczną awarię jądra. Wystarczy wiedzieć, gdzie szukać.</p>
+<hr>
+<h3>📖 Podgląd zdarzeń (`eventvwr.msc`)</h3>
+<p><kbd class="Win"></kbd> + <kbd>R</kbd> → <code>eventvwr.msc</code></p>
+<h4>Struktura dzienników</h4>
+<p>Okno po lewej stronie pokazuje drzewo folderów. Najważniejsze wzruty:</p>
+<data-tabs>
+  <tabs>
+    <item>Dzienniki Windows</item>
+    <item>Dzienniki aplikacji i usług</item>
+    <item>Widoki niestandardowe</item>
+  </tabs>
+  <div><h4>Dzienniki Windows – główne źródło informacji</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Dziennik</th>
+<th align="left">Co rejestruje</th>
+<th align="left">Kiedy zaglądasz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Aplikacja</strong></td>
+<td align="left">Zdarzenia z programów (błędy, ostrzeżenia, informacje)</td>
+<td align="left">Crash aplikacji, błędy Office, awarie programów</td>
+</tr>
+<tr>
+<td align="left"><strong>Zabezpieczenia</strong></td>
+<td align="left">Logowania, zmiany uprawnień, audyt dostępu</td>
+<td align="left">Kto się logował? Czy ktoś próbował włamać się do konta?</td>
+</tr>
+<tr>
+<td align="left"><strong>System</strong></td>
+<td align="left">Zdarzenia systemu operacyjnego (sterowniki, usługi, hardware)</td>
+<td align="left">BSOD, awarie sterowników, problemy z uruchomieniem</td>
+</tr>
+<tr>
+<td align="left"><strong>Konfiguracja</strong></td>
+<td align="left">Instalacja aktualizacji i komponentów Windows</td>
+<td align="left">Dlaczego update się nie zainstalował?</td>
+</tr>
+</tbody></table>
+<p><strong>Na Helpdesku w $90%$ przypadków</strong> wystarczą Ci dwa dzienniki: <strong>System</strong> (sprzęt i usługi) i <strong>Aplikacja</strong> (programy).</p></div>
+  <div><h4>Dzienniki aplikacji i usług</h4>
+<p>Zagnieżdżone foldery, z których najważniejszy to:</p>
+<p><strong>Microsoft → Windows →</strong> tu znajdziesz <strong>setki</strong> podsystemów:</p>
+<ul>
+<li><code>Diagnostics-Performance</code> – wolne uruchamianie systemu</li>
+<li><code>TaskScheduler</code> – błędy Harmonogramu zadań</li>
+<li><code>WindowsUpdateClient</code> – szczegóły aktualizacji</li>
+<li><code>WLAN-AutoConfig</code> – problemy z Wi‑Fi</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Nie musisz znać wszystkich poddzienników. Gdy szukasz problemu z konkretnym komponentem – wejdź do odpowiedniego folderu i posortuj po dacie. Zdarzenia błędów/krytyczne będą w kolorze czerwonym.</p>
+
+</div>
+</div></div>
+  <div><h4>Widoki niestandardowe – Twoja tablica filtrów</h4>
+<p><strong>Zdarzenia administracyjne</strong> – gotowy widok, który zbiera <strong>tylko błędy i ostrzeżenia</strong> ze wszystkich dzienników w jedno miejsce. To Twój <strong>pierwszy przystanek</strong> przy diagnostyce.</p>
+<p>Możesz też tworzyć <strong>własne widoki</strong> – np. filtr pokazujący wyłącznie krytyczne błędy z ostatnich $24$ godzin:</p>
+<ol>
+<li>PPM na <strong>Widoki niestandardowe</strong> → <strong>Utwórz widok niestandardowy</strong></li>
+<li>Zalogowane: <strong>Ostatnie $24$ godziny</strong></li>
+<li>Poziom zdarzenia: <kbd class="check-mark"></kbd><code>Krytyczny</code> <kbd class="check-mark"></kbd><code>Błąd</code></li>
+<li><strong>OK</strong> → gotowy filtr do szybkiej diagnostyki</li>
+</ol></div>
+</data-tabs>
+
+<hr>
+<h3>🔍 Anatomia zdarzenia</h3>
+<p>Każde zdarzenie w logu ma stałą strukturę:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Pole</th>
+<th align="left">Opis</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Poziom</strong></td>
+<td align="left">Ważność zdarzenia</td>
+<td align="left">Krytyczny / Błąd / Ostrzeżenie / Informacja</td>
+</tr>
+<tr>
+<td align="left"><strong>Data i godzina</strong></td>
+<td align="left">Kiedy wystąpiło</td>
+<td align="left">$2026$-$03$-$31$ $14{:}23{:}07$</td>
+</tr>
+<tr>
+<td align="left"><strong>Źródło</strong></td>
+<td align="left">Komponent, który zgłosił zdarzenie</td>
+<td align="left"><code>Service Control Manager</code>, <code>Disk</code>, <code>WHEA-Logger</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Identyfikator zdarzenia</strong> (Event ID)</td>
+<td align="left">Numeryczny kod zdarzenia</td>
+<td align="left">$7036$, $41$, $1000$</td>
+</tr>
+<tr>
+<td align="left"><strong>Kategoria zadania</strong></td>
+<td align="left">Podkategoria źródła</td>
+<td align="left">Brak / Logowanie / Zapis</td>
+</tr>
+<tr>
+<td align="left"><strong>Opis</strong></td>
+<td align="left">Szczegółowy komunikat (często bardzo techniczny)</td>
+<td align="left"><em>„Usługa Bufor wydruku przeszła w stan Zatrzymano."</em></td>
+</tr>
+</tbody></table>
+<h4>Poziomy zdarzeń:</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Ikona</th>
+<th align="left">Poziom</th>
+<th align="left">Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">❌</td>
+<td align="left"><strong>Krytyczny</strong></td>
+<td align="left">Awaria systemowa, nieodwracalny błąd (np. BSOD, utrata zasilania)</td>
+</tr>
+<tr>
+<td align="left">🔴</td>
+<td align="left"><strong>Błąd</strong></td>
+<td align="left">Coś nie zadziałało (crash programu, usługa nie wystartowała)</td>
+</tr>
+<tr>
+<td align="left">⚠️</td>
+<td align="left"><strong>Ostrzeżenie</strong></td>
+<td align="left">Potencjalny problem (mało miejsca na dysku, timeout sieciowy)</td>
+</tr>
+<tr>
+<td align="left">ℹ️</td>
+<td align="left"><strong>Informacja</strong></td>
+<td align="left">Normalna operacja (usługa uruchomiona, logowanie pomyślne)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🧰 Kluczowe Event ID dla Helpdesku</h3>
+<p>Zapamiętaj te numery – pozwolą Ci natychmiast zidentyfikować przyczynę problemu:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Event ID</th>
+<th align="left">Źródło</th>
+<th align="left">Co oznacza</th>
+<th align="left">Akcja</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>41</strong></td>
+<td align="left">Kernel‑Power</td>
+<td align="left">Nieoczekiwany restart / utrata zasilania (tzw. <em>Kernel Power 41</em>)</td>
+<td align="left">Sprawdź zasilacz, kabel, UPS. Częste na laptopach z wadliwą baterią.</td>
+</tr>
+<tr>
+<td align="left"><strong>1000</strong></td>
+<td align="left">Application Error</td>
+<td align="left">Crash aplikacji (podaje nazwę <code>.exe</code> i moduł, który zawinił)</td>
+<td align="left">Zaktualizuj lub przeinstaluj program. Sprawdź kompatybilność.</td>
+</tr>
+<tr>
+<td align="left"><strong>1001</strong></td>
+<td align="left">Windows Error Reporting</td>
+<td align="left">Raport błędu po crashu – szczegóły BugCheck (BSOD)</td>
+<td align="left">Przeczytaj kod stopu – wskazuje winny sterownik.</td>
+</tr>
+<tr>
+<td align="left"><strong>6008</strong></td>
+<td align="left">EventLog</td>
+<td align="left">Poprzednie zamknięcie systemu było <strong>nieoczekiwane</strong></td>
+<td align="left">Potwierdza nagłe wyłączenie (prąd, crash, przytrzymanie przycisku).</td>
+</tr>
+<tr>
+<td align="left"><strong>7036</strong></td>
+<td align="left">Service Control Manager</td>
+<td align="left">Usługa zmieniła stan (uruchomiona / zatrzymana)</td>
+<td align="left">Diagnostyka problemów z usługami (np. Spooler się zatrzymał).</td>
+</tr>
+<tr>
+<td align="left"><strong>7031</strong></td>
+<td align="left">Service Control Manager</td>
+<td align="left">Usługa nieoczekiwanie się zakończyła (crash usługi)</td>
+<td align="left">Sprawdź zakładkę Odzyskiwanie w właściwościach usługi.</td>
+</tr>
+<tr>
+<td align="left"><strong>4624</strong></td>
+<td align="left">Security</td>
+<td align="left">Pomyślne logowanie</td>
+<td align="left">Audyt – kto i kiedy się logował.</td>
+</tr>
+<tr>
+<td align="left"><strong>4625</strong></td>
+<td align="left">Security</td>
+<td align="left">Nieudane logowanie</td>
+<td align="left">Próba włamywania? Złe hasło? Zablokowane konto?</td>
+</tr>
+<tr>
+<td align="left"><strong>10016</strong></td>
+<td align="left">DCOM</td>
+<td align="left">Błąd uprawnień DCOM (występuje powszechnie)</td>
+<td align="left">W $99%$ przypadków <strong>ignoruj</strong> – znany, nieszkodliwy bug Windows.</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Helpdeskowy trik:</strong> Gdy widzisz Event ID, którego nie znasz – skopiuj numer i źródło, wklej w wyszukiwarkę (np. <em>„Event ID 41 Kernel‑Power"</em>). Microsoft i społeczność od lat dokumentują rozwiązania dla każdego kodu.</p>
+
+</div>
+</div><hr>
+<h3>⌨️ Dzienniki z linii poleceń</h3>
+<p><strong>CMD (<code>wevtutil</code>):</strong></p>
+<pre><code>wevtutil qe System /c:10 /f:text /rd:true    ← ostatnie 10 zdarzeń systemowych
+wevtutil qe Application /c:5 /f:text /rd:true ← ostatnie 5 zdarzeń aplikacji
+wevtutil cl System                             ← wyczyść dziennik System (ostrożnie!)
+</code></pre>
+<p><strong>PowerShell (<code>Get-WinEvent</code>):</strong></p>
+<pre><code class="language-powershell">Get-WinEvent -LogName System -MaxEvents 10                     # ostatnie 10 zdarzeń
+Get-WinEvent -LogName System | Where-Object {$_.LevelDisplayName -eq "Error"} | Select-Object -First 5
+                                                               # ostatnie 5 błędów
+Get-WinEvent -FilterHashtable @{LogName='System'; ID=41}       # tylko Event ID 41
+</code></pre>
+<hr>
+<h3>🕵️ Scenariusze diagnostyczne</h3>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Klient mówi: 'Komputer sam się wyłączył w nocy, rano był zimny'." data-right="Szukaj Event ID 41 (Kernel-Power) i 6008 (nieoczekiwane zamknięcie) w dzienniku System."></div>
+    <div class="cmw-item" data-left="Program Excel crashuje przy otwieraniu dużego pliku." data-right="Szukaj Event ID 1000 (Application Error) w dzienniku Aplikacja – zobaczysz który moduł (.dll) zawinił."></div>
+    <div class="cmw-item" data-left="Szef pyta: 'Kto logował się na komputerze w weekendy?'" data-right="Przejrzyj dziennik Zabezpieczenia, filtruj po Event ID 4624 (logowanie pomyślne) i zawęź daty."></div>
+    <div class="cmw-item" data-left="Usługa Bufor wydruku ciągle się wyłącza." data-right="Szukaj Event ID 7031 (crash usługi) w dzienniku System – pokaże czas i okoliczności awarii."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>W dzienniku System widzisz powtarzający się wpis: Event ID 41, źródło Kernel‑Power, poziom Krytyczny, opis: „System został ponownie uruchomiony bez wcześniejszego czystego zamknięcia." Klient twierdzi, że nie wyłączał komputera. Co to oznacza i co sprawdzasz w pierwszej kolejności?</p>
+</question>
+    <options>
+      <item><p>Wirus zainfekował jądro systemu i wymusza restarty – trzeba sformatować dysk.</p>
+</item>
+      <item><p>Windows Update instaluje się w tle i automatycznie restartuje komputer.</p>
+</item>
+      <item correct=""><p>Kernel‑Power 41 oznacza, że system stracił zasilanie lub zawiózł się na poziomie jądra. Sprawdź zasilacz, kabel, akumulator (laptop), temperatury procesora i karty graficznej. Sprawdź też BugCheck code – jeśli jest niezerowy, to BSOD.</p>
+</item>
+      <item><p>To normalne zachowanie diagnostyczne Windows – system okresowo się restartuje by oczyścić pamięć RAM.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Kernel‑Power 41 to NIE normalne zachowanie i NIE jest automatycznie winą wirusa. To jeden z najpoważniejszych komunikatów – oznacza utratę zasilania lub twardę awarię. Przyczyny są zwykle sprzętowe.</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Kernel‑Power 41 to „złoty standard" diagnostyki nagłych wyłączeń. Pole BugCheck w szczegółach zdarzenia powie Ci czy to był BSOD (niezerowy kod) czy utrata prądu (zerowy). To rozróżnienie kieruje Cię albo na problemy ze sterownikami (BSOD) albo na problemy z zasilaniem (hardware).</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Złota zasada technika:</strong> Podgląd zdarzeń to Twoja „czarna skrzynka". Gdy klient mówi <em>„nie wiem co się stało"</em> – Event Viewer wie. Zacznij od <strong>Widoki niestandardowe → Zdarzenia administracyjne</strong> i przefiltruj po czasie wystąpienia problemu.</p>
+
+</div>
+</div>

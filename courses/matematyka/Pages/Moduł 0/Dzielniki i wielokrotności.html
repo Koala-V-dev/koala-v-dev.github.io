@@ -1,0 +1,120 @@
+<h2>Dzielniki i wielokrotności: Algorytmy Synchronizacji</h2>
+<p>Często w inżynierii szukamy „wspólnego mianownika”... lub momentu, w którym dwa niezależne procesy w końcu się spotkają. To właśnie tutaj wchodzą nasze kluczowe narzędzia: <strong>NWD</strong> (Największy Wspólny Dzielnik) oraz <strong>NWW</strong> (Najmniejsza Wspólna Wielokrotność). 🦾🐨</p>
+<hr>
+<h3>🏗️ NWD: Największy Wspólny Dzielnik (Aspect Ratio)</h3>
+<p>Masz przed sobą ekran o rozdzielczości $1920 \times 1080$ pikseli. Intuicyjnie czujesz, że to proporcja <strong>$16:9$</strong>, ale skąd właściwie bierze się ta liczba? </p>
+<p>Aby poznać najprostszy stosunek boków (<em>Aspect Ratio</em>), musimy znaleźć największą możliwą liczbę, przez którą dzielą się obie te wartości — czyli właśnie <strong>NWD</strong>. Jest to „największa wspólna miara”, która pozwala uprościć wymiary do ich bazowej, eleganckiej postaci.</p>
+<h4>🔍 Metoda 1: Wypisywanie Dzielników (Intuicja)</h4>
+<p>Zanim użyjemy ciężkiego sprzętu (algorytmów), sprawdźmy prostszy przykład: <strong>rozdzielczość $800 \times 600$</strong>. Jakie to proporcje?</p>
+<ol>
+<li>Dzielniki <strong>$800$</strong>: ${1, 2, 4, 5, 8, 10, 16, 20, 25, 40, 50, 80, 100, 160, \mathbf{200}, 400, 800}$</li>
+<li>Dzielniki <strong>$600$</strong>: ${1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 24, 25, 30, 40, 50, 60, 75, 100, 120, 150, \mathbf{200}, 300, 600}$</li>
+<li><strong>Część wspólna</strong>: największą liczbą w obu zbiorach jest <strong>$200$</strong>.</li>
+</ol>
+<p>Wynik: $\text{NWD}(800, 600) = 200$. Oznacza to, że proporcje systemu to <strong>$4:3$</strong> (bo $800 \div 200 = 4$ oraz $600 \div 200 = 3$).</p>
+<p>To podejście świetnie buduje intuicję, ale dla dużych liczb (jak rozdzielczości 4K czy klucze szyfrujące) staje się uciążliwe. Potrzebujemy czegoś szybszego.</p>
+<h4>⚙️ Metoda 2: Algorytm Euklidesa (Proces Redukcji)</h4>
+<p>Ręczne wypisywanie dzielników dla ekranu <em>Full HD</em> ($1920$) byłoby stratą czasu. Euklides wymyślił genialny skrót logiczny:</p>
+<blockquote>
+<p>Jeśli liczba $k$ dzieli wartości $a$ i $b$, to musi ona również dzielić ich <strong>różnicę</strong> ($a - b$).</p>
+</blockquote>
+<p>Poprzez cykliczne odejmowanie mniejszej wartości od większej, redukujemy problem aż do momentu, w którym obie liczby się zrównają. Ten stan końcowy to nasze NWD.</p>
+<h4>⚡ Algorytm Euklidesa (Odejmowanie)</h4>
+<data-gate>
+<data-euclid-algorithm a="1920" b="1080"></data-euclid-algorithm>
+</data-gate>
+
+<hr>
+<h4>⚙️ Metoda 3: Zastosowanie Modulo</h4>
+<p>W nowoczesnych systemach obliczeniowych proces odejmowania zastępujemy operacją <strong>dzielenia z resztą (Modulo)</strong>. Zamiast wielokrotnie odejmować tę samą wartość, sprawdzamy „co zostanie” po jednym dużym dzieleniu.<br>Przykładowo $17 \pmod{5} =\textcolor{#ff0002}{2}$, bo $17 = 5 \cdot 3 + \textcolor{#ff0002}{2}$.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Operator <code>%</code> (Modulo):</strong> To fundament programowania. Zapis <code>10 % 3</code> mówi nam, że po pełnym podziale $10$ na części po $3$, pozostaje <strong>$1$</strong> reszty.</p>
+
+</div>
+</div><p>Zastosowanie Modulo drastycznie przyspiesza Algorytm Euklidesa, co jest krytyczne np. w kryptografii asymetrycznej (RSA).</p>
+<h4>⚡ Zoptymalizowany Euklides Modulo</h4>
+<data-gate>
+<data-euclid-modern a="100" b="30"></data-euclid-modern>
+</data-gate>
+
+<hr>
+<h3>🔃 NWW: Synchronizacja Procesów</h3>
+<p><strong>Najmniejsza Wspólna Wielokrotność (NWW)</strong> określa najwcześniejszy punkt, w którym dwa niezależne procesy o charakterystyce okresowej wejdą w stan synchronizacji.</p>
+<p>Wyobraź sobie dwa logery systemowe:</p>
+<ul>
+<li><strong>Loger A</strong>: wykonuje wpis co <strong>$4$ sekundy</strong>.</li>
+<li><strong>Loger B</strong>: wykonuje wpis co <strong>$6$ sekund</strong>.</li>
+</ul>
+<p>Kiedy po raz pierwszy oba logi pojawią się w tej samej milisekundzie?</p>
+<h4>🔍 Metoda 1: Analiza Interwałów</h4>
+<p>Wypiszmy sekundy, w których działają procesy:</p>
+<ul>
+<li><strong>Proces A</strong> ($4s$): $4, 8, \mathbf{12}, 16, 20, \mathbf{24} \dots$</li>
+<li><strong>Proces B</strong> ($6s$): $6, \mathbf{12}, 18, \mathbf{24} \dots$</li>
+</ul>
+<p>Pierwszą wspólną wartością jest <strong>$12$</strong>. Zatem $\text{NWW}(4, 6) = 12$.</p>
+<h4>⚙️ Metoda 2: Wielokrotność Większej</h4>
+<p>To najszybszy sposób na obliczenie NWW w pamięci. Bierzemy <strong>większą</strong> liczbę i sprawdzamy jej kolejne wielokrotności:</p>
+<ol>
+<li>Większa to <strong>$6$</strong>. Czy dzieli się przez $4$? Nie.</li>
+<li>Kolejna wielokrotność to <strong>$12$</strong> ($6 \cdot 2$). Czy dzieli się przez $4$? <strong>Tak!</strong></li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>NWW wykorzystasz, gdy będziesz chciał dodać ułamki (np. $$\frac{1}{4} + \frac{1}{6}$$). To właśnie liczba <strong>$12$</strong> stanie się ich wspólnym mianownikiem. 😉</p>
+
+</div>
+</div><hr>
+<h3>🔬 Złoty Wzór: Relacja NWD i NWW</h3>
+<p>Istnieje elegancka matematyczna „nić”, która łączy obie te wartości:</p>
+<p>$$\text{NWW}(a, b) = \frac{a \cdot b}{\text{NWD}(a, b)}$$</p>
+<p>Skąd się bierze ten wzór? 🤔 Aby go <strong>wyprowadzić od podstaw</strong>, potrzebujemy narzędzi algebraicznych, których jeszcze nie wprowadziliśmy. Gdy tylko opanujemy przekształcanie wyrażeń, wrócimy tutaj i pokażę Ci jego pełną genezę. </p>
+<p>Na razie potraktuj go jako niezawodny skrót. Spójrzmy na przykład: Synchronizacja interwałów <strong>$15$ms</strong> i <strong>$20$ms</strong>.</p>
+<ol>
+<li>Wyznaczamy $\text{NWD}(15, 20) = 5$.</li>
+<li>Obliczamy $$ \text{NWW} = \frac{15 \cdot 20}{5} = \frac{300}{5} = 300 \div 5 = \mathbf{60} $$.</li>
+</ol>
+<p>Synchronizacja stanów nastąpi co <strong>$60$ms</strong>.</p>
+<hr>
+<h3>🚀 Stacja Treningowa: Analiza Podzielności</h3>
+<data-gate>
+<data-math-worksheet type="nwd-nww" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+<data-math-worksheet type="nwd-nww" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+<data-math-worksheet type="nwd-nww" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>💻 Implementacja: NWD/NWW w architekturze IT</h3>
+<ol>
+<li><strong>Systemy Grid i Flexbox:</strong> NWD pozwala na wyznaczanie bazowych jednostek (rem/px), które gwarantują brak błędów zaokrągleń przy skalowaniu layoutu.</li>
+<li><strong>Kryptografia RSA:</strong> Bezpieczeństwo Twoich haseł opiera się na analizie podzielności ogromnych liczb pierwszych.</li>
+<li><strong>Scheduling i Watchdogi:</strong> NWW jest niezbędne do projektowania harmonogramów zadań (Cron), aby unikać jednoczesnego przeciążenia procesora przez wiele procesów o określonym interwale.</li>
+</ol>
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>NWD to największa wspólna miara dwóch liczb — fundament upraszczania proporcji,  </li>
+<li>NWW to najwcześniejszy punkt synchronizacji dwóch procesów okresowych,  </li>
+<li>wypisywanie dzielników buduje intuicję, ale jest nieefektywne dla dużych liczb,  </li>
+<li>Algorytm Euklidesa redukuje problem do prostych kroków (odejmowanie lub modulo),  </li>
+<li>operator <code>%</code> (Modulo) to kluczowy mechanizm w programowaniu i kryptografii,  </li>
+<li>NWW i NWD są ze sobą powiązane eleganckim wzorem: $$\text{NWW} = \frac{a \cdot b}{\text{NWD}}$$,  </li>
+<li>podzielność to narzędzie inżynierskie — od layoutów CSS po RSA i scheduling.</li>
+</ul>
+<hr>
+<p>Teraz, gdy panujesz nad podzielnością, operacje na ułamkach w kolejnej lekcji będą dla Ciebie formalnością. 😉</p>

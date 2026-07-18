@@ -1,0 +1,237 @@
+<h1>Elementy Natywnie Interaktywne</h1>
+<p>Nie każda interakcja na stronie wymaga pisania kodu w JavaScript. HTML posiada własne, wbudowane elementy, które potrafią rozwijać treść, pokazywać stan operacji, obsługiwać okna modalne czy prezentować postępy. </p>
+<p>Używanie gotowych elementów HTML jest kluczowe dla dostępności Twojej strony. Natywne tagi mają już wbudowaną obsługę klawiatury, odpowiednią semantykę i podstawowe ułatwienia dla osób z niepełnosprawnościami. </p>
+<p>Najważniejsza zasada tej lekcji brzmi: <span class="color-green">jeśli HTML ma gotowy element do danej interakcji, użyj go zamiast wymyślać własny mechanizm</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📂 Rozwijana treść: <code>&lt;details&gt;</code> i <code>&lt;summary&gt;</code></h2>
+<p>Tag <code>&lt;details&gt;</code> tworzy sekcję, którą użytkownik może samodzielnie rozwinąć i zwinąć. Wewnątrz niego umieszczasz tag <code>&lt;summary&gt;</code>, który pełni funkcję widocznego, klikalnego nagłówka.</p>
+<pre><code class="language-html">&lt;details&gt;
+    &lt;summary&gt;Dlaczego warto używać semantycznego HTML?&lt;/summary&gt;
+    &lt;p&gt;Semantyczny HTML ułatwia indeksowanie strony przez roboty i poprawia dostępność.&lt;/p&gt;
+&lt;/details&gt;
+</code></pre>
+<hr>
+<p><b>Podgląd:</b></p>
+<details class="non-styled">
+    <summary>Dlaczego warto używać semantycznego HTML?</summary>
+    <p>Semantyczny HTML ułatwia indeksowanie strony przez roboty i poprawia dostępność.</p>
+</details>
+
+<hr>
+<p>Możesz sprawić, aby sekcja była domyślnie otwarta po załadowaniu strony. Służy do tego atrybut logiczny <code>open</code>:</p>
+<pre><code class="language-html">&lt;details open&gt;
+    &lt;summary&gt;Widoczna informacja startowa&lt;/summary&gt;
+    &lt;p&gt;Ten fragment tekstu będzie rozwinięty od samego początku.&lt;/p&gt;
+&lt;/details&gt;
+</code></pre>
+<p><span class="color-gold">♿ Dostępność (WCAG):</span></p>
+<ul>
+<li><span class="color-green">Wbudowane zachowanie:</span> Przeglądarka automatycznie nadaje elementowi <code>&lt;summary&gt;</code> rolę przycisku oraz zarządza stanem <code>aria-expanded</code> (prawda/fałsz).</li>
+<li><span class="color-green">Zasada nieingerencji:</span> Nigdy nie dodawaj ręcznie atrybutów <code>role="button"</code> ani <code>aria-expanded</code> do tych znaczników. Możesz w ten sposób zaburzyć działanie czytników ekranu.</li>
+<li><span class="color-green">Obsługa klawiatury:</span> Użytkownik może otworzyć i zamknąć sekcję za pomocą klawisza <kbd>Enter</kbd> lub <kbd>Spacja</kbd> po przejściu na nią tabulatorem.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📊 Stan liczbowy: <code>&lt;progress&gt;</code> i <code>&lt;meter&gt;</code></h2>
+<p>Znacznik <code>&lt;progress&gt;</code> oznacza postęp w realizacji konkretnego zadania, które zmierza do określonego końca (np. pobieranie pliku).</p>
+<pre><code class="language-html">&lt;label for="upload"&gt;Postęp wysyłania pliku: &lt;/label&gt;
+&lt;progress id="upload" value="70" max="100"&gt;70%&lt;/progress&gt;
+</code></pre>
+<hr>
+<p><b>Podgląd:</b></p>
+<p><label for="upload">Postęp wysyłania pliku: </label><progress id="upload" value="70" max="100">70%</progress></p>
+<hr>
+<p>Znacznik <code>&lt;meter&gt;</code> reprezentuje wartość liczbową w znanym, stałym zakresie. Używasz go do pomiarów fizycznych lub statystycznych, które nie oznaczają postępu procesu (np. zajętość dysku, poziom baterii).</p>
+<pre><code class="language-html">&lt;label for="disk"&gt;Zajętość dysku: &lt;/label&gt;
+&lt;meter id="disk" min="0" max="100" low="70" high="90" optimum="50" value="82"&gt;82%&lt;/meter&gt;
+</code></pre>
+<hr>
+<p><b>Podgląd:</b></p>
+<p><label for="disk">Zajętość dysku: </label> <meter id="disk" min="0" max="100" low="70" high="90" optimum="50" value="82">82%</meter></p>
+<hr>
+<p><span class="color-gold">♿ Dostępność (WCAG):</span></p>
+<ul>
+<li><span class="color-green">Etykietowanie:</span> Zarówno <code>&lt;progress&gt;</code>, jak i <code>&lt;meter&gt;</code> muszą być jednoznacznie powiązane z opisem. Zawsze używaj elementu <code>&lt;label&gt;</code> powiązanego za pomocą atrybutu <code>for</code> z identyfikatorem <code>id</code> danej kontrolki.</li>
+<li><span class="color-green">Tekst alternatywny (Fallback):</span> Tekst wpisany wewnątrz znaczników (np. <code>70%</code>) nie wyświetla się w nowoczesnych przeglądarkach – zastępują go one gotowym elementem graficznym. Służy on jako zabezpieczenie (tzw. <span class="color-blue">fallback</span>) dla bardzo starych przeglądarek, które nie znają tych tagów i w przeciwnym razie nic by nie pokazały (wtedy wyświetlą sam tekst). Nowoczesne czytniki ekranu ignorują ten tekst wewnętrzny i odczytują stan bezpośrednio z atrybutów <code>value</code>, <code>min</code> oraz <code>max</code>.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧷 Kontrolka akcji: <code>&lt;button&gt;</code> kontra link</h2>
+<p>Elementy <code>&lt;a&gt;</code> (<span class="color-blue">HTMLAnchorElement</span>) oraz <code>&lt;button&gt;</code> (<span class="color-blue">HTMLButtonElement</span>) mają w specyfikacji HTML Standard (WHATWG) oraz wytycznych W3C WAI‑ARIA zdefiniowane wykluczające się role semantyczne. Zastępowanie jednego drugim jest krytycznym błędem dostępności.</p>
+<ul>
+<li><span class="color-green">Link (<code>&lt;a&gt;</code>):</span> Reprezentuje hiperłącze do zasobu URI.<ul>
+<li><span class="color-green">Zarządzanie adresem URL:</span> Manipuluje historią sesji przeglądarki (<code>window.history</code>). Wpływa na pasek adresu URL.</li>
+<li><span class="color-green">Kierunek działania:</span> Przenosi użytkownika pod nowy adres (zewnętrzny lub wewnętrzną podstronę), przewija widok do kotwicy (identyfikatora elementu na tej samej stronie, np. <code>#sekcja</code>) lub służy do pobierania zasobów (z atrybutem <code>download</code> przeglądarka pobiera plik, zamiast go otwierać):<pre><code class="language-html">&lt;a href="faktura.pdf" download="faktura-lipiec.pdf"&gt;Pobierz fakturę&lt;/a&gt;
+</code></pre>
+</li>
+<li><span class="color-green">Obsługa klawiatury:</span> Należy go aktywować wyłącznie klawiszem <kbd>Enter</kbd>. Przycisk <kbd>Spacja</kbd> na linku nie aktywuje go, lecz przewija stronę w dół (co jest domyślnym zachowaniem przeglądarki dla przewijania dokumentu).</li>
+</ul>
+</li>
+<li><span class="color-green">Przycisk (<code>&lt;button&gt;</code>):</span> Reprezentuje kontrolkę akcji w bieżącym dokumencie.<ul>
+<li><span class="color-green">Brak wpływu na URL:</span> Nie modyfikuje adresu w pasku przeglądarki ani historii sesji (chyba że przesyła formularz).</li>
+<li><span class="color-green">Kierunek działania:</span> Wyzwala zachowanie po stronie klienta (JavaScript) lub serwera (wysłanie formularza). Służy do modyfikacji stanu aplikacji lub struktury DOM (np. otwieranie modali, zatwierdzanie danych, usuwanie obiektów, przełączanie motywów).</li>
+<li><span class="color-green">Obsługa klawiatury:</span> Natively obsługuje aktywację za pomocą klawisza <kbd>Enter</kbd> oraz <kbd>Spacja</kbd>.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-html">&lt;!-- PRAWIDŁOWO: Link nawiguje do podstrony --&gt;
+&lt;a href="raport.html"&gt;Otwórz raport roczny&lt;/a&gt;
+
+&lt;!-- PRAWIDŁOWO: Przycisk wywołuje akcję lokalną --&gt;
+&lt;button type="button" id="trigger-calc"&gt;Oblicz wynik&lt;/button&gt;
+</code></pre>
+<h3>🧭 Element <code>&lt;button&gt;</code> wewnątrz <code>&lt;nav&gt;</code> – jaka jest zasada?</h3>
+<p>Zgodnie ze specyfikacją HTML, element <code>&lt;nav&gt;</code> grupuje linki służące do przemieszczania się po strukturze serwisu.</p>
+<ul>
+<li><span class="color-red">Błąd:</span> Umieszczanie przycisków <code>&lt;button&gt;</code> wykonujących nawigację poprzez skrypty JS:<pre><code class="language-html">&lt;button onclick="location.href='/kontakt'"&gt;Kontakt&lt;/button&gt;
+</code></pre>
+Taki element traci natywne funkcje przeglądarki, np. menu kontekstowe pod prawym przyciskiem myszy (<kbd class="win-menu-btn">Otwórz odnośnik w nowej karcie</kbd>).</li>
+<li><span class="color-green">Prawidłowe użycie:</span> Przycisk <code>&lt;button&gt;</code> jest dozwolony w <code>&lt;nav&gt;</code> wyłącznie jako element pomocniczy zarządzający samą nawigacją (np. przycisk rozwijający/zwijający menu typu hamburger <span style="border:1px solid;padding: 2px 5px;border-radius: 4px;cursor: pointer;">☰</span>, lub przycisk przełączający widoczność podmenu).</li>
+</ul>
+<p><span class="color-gold">♿ Dostępność (WCAG):</span></p>
+<ul>
+<li><span class="color-green">Semantyczna rola:</span> Użycie linku <code>&lt;a&gt;</code> ostylowanego tak, by udawał przycisk, nie zmienia jego zapowiedzi w czytniku ekranu. Użytkownik usłyszy słowo „link” i będzie oczekiwać nawigacji (przejścia na inną stronę), a nie wykonania lokalnej akcji.<ul>
+<li><span class="color-green">Grzech <code>href="#"</code> lub <code>javascript:void(0)</code>:</span> Stosowanie linku z pustym hashem jako przycisku JS powoduje niechciane przewinięcie okna na górę (domyślne zachowanie przeglądarki dla pustej kotwicy) i psuje działanie czytników ekranu, które traktują taki link jako niedziałający odnośnik.</li>
+</ul>
+</li>
+<li><span class="color-green">Nienatywne przyciski (np. <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>):</span> Nie posiadają domyślnie żadnych funkcji dostępnościowych. Są pomijane przy przechodzeniu tabulatorem i nie reagują na klawiaturę. Ich dostosowanie do standardów WCAG 2.1 wymaga ręcznego dodania <code>role="button"</code>, <code>tabindex="0"</code> oraz oprogramowania nasłuchu zdarzeń klawiatury dla klawiszy <kbd>Enter</kbd> i <kbd>Spacja</kbd>.</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<h3>Semantyczna rola oraz typy przycisku</h3>
+<ul>
+<li><span class="color-green">Atrybut <code>role="button"</code></span> – to proteza dla elementów nienatywnych (np. <code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>). Dodawanie go do tagu <code>&lt;button&gt;</code> jest błędem (redundancja).</li>
+<li><span class="color-green">Atrybut <code>type="button"</code></span> – zmienia domyślne zachowanie elementu <code>&lt;button&gt;</code>, którym w specyfikacji HTML jest wysyłanie formularza (<code>type="submit"</code>).<ul>
+<li><span class="color-green">Wewnątrz <code>&lt;form&gt;</code>:</span> Jest <span class="color-green">obowiązkowy</span> dla wszystkich przycisków, które mają uruchomić skrypt JavaScript, a nie przesyłać dane na serwer.</li>
+<li><span class="color-green">Poza <code>&lt;form&gt;</code>:</span> Jest <span class="color-green">redundantny</span>. Dopisuje się go wtedy głównie w ramach programowania defensywnego, aby przycisk nie zaczął wysyłać formularza po ewentualnej zmianie struktury strony. (Dany re‑używalny komponent stanie się potomnym dzieckiem formularza.)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💬 Dialog: <code>&lt;dialog&gt;</code></h2>
+<p>Tag <code>&lt;dialog&gt;</code> reprezentuje okno dialogowe lub okno modalne. Ponieważ jest to natywny element HTML, przeglądarka automatycznie zarządza jego zachowaniem przestrzennym, obsługą fokusu klawiatury oraz blokowaniem tła.</p>
+<pre><code class="language-html">&lt;dialog open&gt;
+    &lt;h2&gt;Komunikat systemowy&lt;/h2&gt;
+    &lt;p&gt;To jest natywne okno dialogowe HTML.&lt;/p&gt;
+    &lt;form method="dialog"&gt;
+        &lt;button&gt;Zamknij&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p>Atrybut logiczny <code>open</code> pozwala wyświetlić okno bezpośrednio po załadowaniu strony. W rzeczywistych projektach dialogi otwiera się jednak dynamicznie. Służą do tego dwie natywne metody JavaScript:</p>
+<ul>
+<li><code>show()</code>: Otwiera okno w trybie niemodalnym. Możesz wtedy wchodzić w interakcję z elementami znajdującymi się pod oknem.</li>
+<li><code>showModal()</code>: Otwiera okno w trybie modalnym. Przeglądarka tworzy ciemne tło (tzw. backdrop) i blokuje możliwość klikania czegokolwiek poza oknem.</li>
+</ul>
+<pre><code class="language-html">&lt;button type="button" id="open-profile-dialog"&gt;Edytuj profil&lt;/button&gt;
+
+&lt;dialog id="profile-dialog" aria-labelledby="profile-title" aria-describedby="profile-desc"&gt;
+    &lt;h2 id="profile-title"&gt;Edytuj profil&lt;/h2&gt;
+    &lt;p id="profile-desc"&gt;Zmień swoje dane użytkownika i zapisz formularz.&lt;/p&gt;
+    
+    &lt;form method="dialog"&gt;
+        &lt;button value="cancel"&gt;Anuluj&lt;/button&gt;
+        &lt;button value="save"&gt;Zapisz&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/dialog&gt;
+
+&lt;script&gt;
+const dialog = document.querySelector("#profile-dialog");
+const openButton = document.querySelector("#open-profile-dialog");
+
+openButton.addEventListener("click", () =&gt; {
+    dialog.showModal();
+});
+&lt;/script&gt;
+</code></pre>
+<p><span class="color-gold">♿ Dostępność (WCAG):</span></p>
+<ul>
+<li><span class="color-green">Rola semantyczna:</span> Element <code>&lt;dialog&gt;</code> ma domyślnie przypisaną rolę okna dialogowego. Określa to specyfikacja HTML, dlatego nie musisz dopisywać do niego atrybutu <code>role="dialog"</code>.</li>
+<li><span class="color-green">Etykietowanie:</span> Użyj atrybutu <code>aria-labelledby</code> w tagu <code>&lt;dialog&gt;</code> i skieruj go na identyfikator nagłówka wewnątrz okna (np. <code>id="profile-title"</code>). Jeśli okno zawiera dodatkowy opis, użyj <code>aria-describedby</code> skierowanego na opis (np. <code>id="profile-desc"</code>).</li>
+<li><span class="color-green">Pułapka fokusu (Focus Trap):</span> Kiedy otwierasz modal przez <code>showModal()</code>, przeglądarka automatycznie blokuje fokus klawiatury wewnątrz tego okna. Użytkownik klikający klawisz <kbd>Tab</kbd> nie wyjdzie poza formularz modala. Po zamknięciu okna, fokus automatycznie wraca na przycisk, który je wywołał.</li>
+<li><span class="color-green">Klawisz Escape:</span> Przeglądarka zapewnia, że kliknięcie klawisza <kbd>Esc</kbd> automatycznie zamyka okno modalne.</li>
+<li><span class="color-green">Unikaj własnych rozwiązań na divach:</span> Budowanie modali ze zwykłych tagów <code>&lt;div&gt;</code> wymaga ręcznego programowania pułapki fokusu, blokowania klawiatury i przywracania stanu aktywnego. Poco dodawać sobie roboty? 😉</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Podpowiedzi i wyskakujące warstwy: <code>popover</code></h2>
+<p>Atrybut <code>popover</code> to nowoczesny mechanizm HTML służący do tworzenia wyskakujących warstw, takich jak menu podręczne, podpowiedzi (tooltips) czy rozwijane listy opcji. </p>
+<p><span class="color-gold">Ważne rozróżnienie:</span> W przeciwieństwie do <code>&lt;dialog&gt;</code>, który jest dedykowanym elementem, <strong><code>popover</code> to <span class="color-green">atrybut globalny</span></strong>. Możesz przypisać go do dowolnego znacznika (np. <code>&lt;div&gt;</code>, <code>&lt;nav&gt;</code> czy <code>&lt;p&gt;</code>).</p>
+<pre><code class="language-html">&lt;!-- Przycisk kontrolujący podpowiedź --&gt;
+&lt;button popovertarget="help-tip"&gt;Pokaż pomoc&lt;/button&gt;
+
+&lt;!-- Element pełniący funkcję popoveru --&gt;
+&lt;div id="help-tip" popover&gt;
+    &lt;p&gt;To jest natywna podpowiedź wyświetlona jako popover.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h3>🔀 Dialog a Popover – kiedy stosować i jak je łączyć?</h3>
+<p>Te dwa mechanizmy różnią się przeznaczeniem i zachowaniem:</p>
+<ul>
+<li><span class="color-green">Popover (Warstwa lekka):</span> Służy do tymczasowych, nieblokujących elementów interfejsu (np. menu kontekstowe, podpowiedzi). Ma wbudowane zachowanie <span class="color-green">light dismiss</span> – zamyka się automatycznie po kliknięciu poza obszar popoveru lub wciśnięciu klawisza <kbd>Esc</kbd>. Domyślnie jest nie‑modalny i pozwala na interakcję z resztą strony.</li>
+<li><span class="color-green">Dialog modalny (Blokada pełna):</span> Stosujesz go przy krytycznych akcjach wymagających skupienia uwagi (np. potwierdzenie płatności, formularz edycji). Uruchamiany metodą <code>showModal()</code>, tworzy ciemne tło (<span class="color-blue">backdrop</span>), blokuje interakcję z resztą dokumentu i więzi fokus klawiatury w swoim obrębie.</li>
+</ul>
+<h4>🤝 Hybryda: <code>&lt;dialog popover&gt;</code> (Łączenie obu mechanizmów)</h4>
+<p>Przypisanie atrybutu <code>popover</code> do elementu <code>&lt;dialog&gt;</code> jest w pełni zgodne ze specyfikacją HTML i pozwala połączyć zalety obu rozwiązań:</p>
+<pre><code class="language-html">&lt;button popovertarget="info-dialog"&gt;Pokaż szczegóły&lt;/button&gt;
+
+&lt;dialog id="info-dialog" popover&gt;
+    &lt;p&gt;To jest semantyczny dialog sterowany deklaratywnie.&lt;/p&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p><span class="color-green">Zalety tego połączenia:</span></p>
+<ul>
+<li><span class="color-green">Zachowanie semantyki:</span> Czytniki ekranu rozpoznają element jako okno dialogowe (<code>role="dialog"</code>).</li>
+<li><span class="color-green">Deklaratywne sterowanie:</span> Przycisk z <code>popovertarget</code> automatycznie otwiera i zamyka dialog bez użycia JavaScriptu.</li>
+<li><span class="color-green">Wbudowane zamykanie:</span> Dialog dziedziczy po popoverze mechanizm <span class="color-blue">light dismiss</span> (automatyczne zamykanie przy kliknięciu poza okno).</li>
+<li><span class="color-green">Top Layer:</span> Element trafia do najwyższej warstwy renderowania przeglądarki, co zapobiega ucinaniu go przez <code>overflow: hidden</code> rodziców.</li>
+</ul>
+<p><span class="color-gold">♿ Dostępność (WCAG):</span></p>
+<ul>
+<li><span class="color-green">Automatyczne powiązanie:</span> Użycie atrybutu <code>popovertarget</code> na przycisku automatycznie informuje technologie asystujące, że przycisk steruje wyskakującą warstwą. Przeglądarka dba o to, by czytniki prawidłowo ogłaszały ten stan.</li>
+<li><span class="color-green">Fokus klawiatury:</span> Popover nie tworzy pułapki fokusu. Użytkownik może swobodnie przejść tabulatorem do innych elementów na stronie, co jest prawidłowym zachowaniem dla podpowiedzi lub bocznych menu pomocniczych.</li>
+</ul>
+<hr>
+<data-gate>
+  <data-connection-matcher title="Połącz natywny element HTML z jego zastosowaniem:">
+    <div class="cmw-item" data-left="`&amp;lt;details&amp;gt;`" data-right="Rozwijana i zwijana treść"></div>
+    <div class="cmw-item" data-left="`&amp;lt;progress&amp;gt;`" data-right="Postęp wykonywania zadania"></div>
+    <div class="cmw-item" data-left="`&amp;lt;meter&amp;gt;`" data-right="Pomiar wartości w znanym zakresie"></div>
+    <div class="cmw-item" data-left="`&amp;lt;dialog&amp;gt;`" data-right="Semantyczne okno dialogowe"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Kiedy powinieneś użyć elementu <code>&lt;button&gt;</code> zamiast <code>&lt;a&gt;</code>?</p>
+</question>
+    <options>
+      <item><p>Gdy tekst ma wyglądać bardziej technicznie.</p>
+</item>
+      <item><p>Gdy użytkownik ma przejść do innego dokumentu HTML.</p>
+</item>
+      <item correct=""><p>Gdy element uruchamia akcję w bieżącym interfejsie, a nie prowadzi pod nowy adres.</p>
+</item>
+      <item><p>Gdy chcesz ukryć adres URL przed użytkownikiem.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się, czy element prowadzi do zasobu, czy wykonuje akcję.</p>
+</div>
+    <div data-hint="success"><p>Dobrze. Link służy do nawigacji, przycisk do wywoływania akcji.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Semantyka to fundament interakcji:</span> Elementy takie jak <code>&lt;details&gt;</code>, <code>&lt;summary&gt;</code>, <code>&lt;progress&gt;</code>, <code>&lt;meter&gt;</code>, <code>&lt;dialog&gt;</code> i <code>&lt;button&gt;</code> posiadają własną, natywną funkcjonalność i dostępność.</li>
+<li><span class="color-green">Link i przycisk to różne światy:</span> <code>&lt;a&gt;</code> służy wyłącznie do nawigacji, a <code>&lt;button&gt;</code> do wykonywania akcji w aplikacji. Nigdy nie używaj ich zamiennie ani nie stosuj linków z pustym <code>href="#"</code>.</li>
+<li><span class="color-green">Natywny dialog chroni przed błędami:</span> Używanie metody <code>showModal()</code> automatycznie blokuje fokus klawiatury w oknie i obsługuje klawisz <kbd>Esc</kbd>, co zapobiega powstawaniu krytycznych błędów WCAG.</li>
+<li><span class="color-green">Popover to atrybut, nie tag:</span> Popover jest globalnym atrybutem służącym do tworzenia lekkich warstw z automatycznym zamykaniem po kliknięciu poza nimi (light dismiss). Nie blokuje on dostępu do strony tak jak modalny <code>&lt;dialog&gt;</code>.</li>
+<li><span class="color-green">Właściwe etykietowanie:</span> Wszystkie elementy stanu (<code>&lt;progress&gt;</code>, <code>&lt;meter&gt;</code>, <code>&lt;dialog&gt;</code>, <code>&lt;output&gt;</code>) wymagają precyzyjnego opisania i powiązania z etykietami za pomocą atrybutów <code>for</code>, <code>id</code> lub <code>aria-labelledby</code>, aby były widoczne dla czytników ekranu.</li>
+</ul>
+</section>

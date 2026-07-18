@@ -1,0 +1,276 @@
+<h1>Struktura Semantyczna</h1>
+<p>Poprzednia lekcja nauczyła Cię budować czysty szkielet dokumentu HTML. Wiesz już, jak połączyć strony linkami, jak ułożyć listę i jak stworzyć podstawową hierarchię nagłówków.</p>
+<p>Teraz zrobimy krok dalej. </p>
+<p>Zbudujesz szkielet artykułu internetowego, który nie jest tylko zbiorem bezimiennych pudełek na tekst. Będzie miał strukturę zrozumiałą dla człowieka, przeglądarki, wyszukiwarki i technologii asystujących.</p>
+<p>Najważniejsza zasada tej lekcji brzmi prosto: <strong><span class="color-blue">HTML opisuje znaczenie treści, a CSS opisuje jej wygląd</span></strong>.</p>
+<p>Jeśli używasz tagu tylko dlatego, że daje większą czcionkę albo pogrubienie, <strong>mieszasz dwa różne poziomy pracy</strong>. To szybko prowadzi do kodu, który wygląda dobrze na ekranie, ale jest słaby architektonicznie.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏛️ Semantyczne klocki HTML5: nowe kontenery</h2>
+<p>Zanim HTML5 stał się standardem, układ strony bardzo często budowano prawie wyłącznie z tagu <code>&lt;div&gt;</code>.</p>
+<p>Div do menu. Div do artykułu. Div do stopki. Div wewnątrz diva.</p>
+<p>Dla przeglądarki i czytnika ekranu był to anonimowy tłum kontenerów. Kod działał, ale jego struktura niewiele mówiła o treści.</p>
+<p>HTML5 dał nam zestaw <span class="color-gold">klocków semantycznych</span>. To tagi, które nadal są kontenerami (wizualnie zachowują się jak <code>&lt;div&gt;</code>), ale mają nazwę opisującą rolę danego fragmentu strony.</p>
+<p>Kluczowe tagi semantyczne, które musisz znać:</p>
+<pre><code class="language-html">&lt;header&gt;    &lt;!-- Nagłówek strony lub sekcji: logo, tytuł, nawigacja --&gt;
+&lt;nav&gt;       &lt;!-- Blok linków nawigacyjnych --&gt;
+&lt;main&gt;      &lt;!-- Główna, unikalna treść całej strony (tylko jeden na stronę!) --&gt;
+&lt;article&gt;   &lt;!-- Samodzielna publikacja: wpis blogowy, artykuł, raport, post --&gt;
+&lt;section&gt;   &lt;!-- Tematyczna część większej całości --&gt;
+&lt;aside&gt;     &lt;!-- Treść poboczna: sidebar, linki powiązane, reklamy --&gt;
+&lt;footer&gt;    &lt;!-- Stopka strony, artykułu lub sekcji --&gt;
+</code></pre>
+<p>Zastąpienie bezimiennych kontenerów <code>&lt;div&gt;</code> powyższymi tagami niesie ze sobą trzy kluczowe korzyści:</p>
+<ul>
+<li><span class="color-green">Dla programisty</span>: Kod staje się czytelniejszy. Od razu widać, gdzie zaczyna się i kończy nagłówek, artykuł czy stopka.</li>
+<li><span class="color-green">Dla dostępności (WCAG)</span>: Czytniki ekranowe osób z niepełnosprawnościami mogą płynnie nawigować po strukturze dokumentu, np. przeskakując bezpośrednio do treści głównej.</li>
+<li><span class="color-green">Dla wyszukiwarek (SEO)</span>: Roboty indeksujące łatwiej rozpoznają najważniejsze treści na stronie, co pozytywnie wpływa na pozycjonowanie.</li>
+</ul>
+<p>Pamiętaj, że znacznik <code>&lt;div&gt;</code> nie staje się przez to bezużyteczny. Nadal jest podstawowym narzędziem do grupowania elementów, gdy nie mają one żadnego znaczenia semantycznego.</p>
+<p>Dobry wybór sprowadza się do prostej zasady:</p>
+<ul>
+<li>Jeśli fragment strony pełni konkretną funkcję (np. jest stopką czy menu), wybierz odpowiedni tag semantyczny.</li>
+<li>Jeśli grupujesz elementy <strong>wyłącznie w celu ich ostylowania w CSS lub ułożenia w siatce</strong>, użyj tagu <code>&lt;div&gt;</code>.</li>
+<li>Jeśli masz wątpliwości, zapytaj siebie, czy ten element ma swoją nazwę w strukturze dokumentu (np. „miejsce na reklamę”), czy służy tylko do dekoracji.</li>
+</ul>
+<data-gate>
+  <data-connection-matcher title="Dopasuj tag semantyczny do jego roli w dokumencie:">
+    <div class="cmw-item" data-left="`&amp;lt;main&amp;gt;`" data-right="Unikalny kontener głównej treści strony. Może być tylko jeden."></div>
+    <div class="cmw-item" data-left="`&amp;lt;article&amp;gt;`" data-right="Niezależna publikacja: blog post, artykuł naukowy, wpis forum."></div>
+    <div class="cmw-item" data-left="`&amp;lt;aside&amp;gt;`" data-right="Treść poboczna niezwiązana bezpośrednio z artykułem: sidebar, reklama."></div>
+    <div class="cmw-item" data-left="`&amp;lt;nav&amp;gt;`" data-right="Blok linków do nawigacji po stronie lub serwisie."></div>
+    <div class="cmw-item" data-left="`&amp;lt;footer&amp;gt;`" data-right="Stopka dokumentu: prawa autorskie, kontakt, linki pomocnicze."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Nawigacja: globalna, lokalna i kontekstowa</h2>
+<p>Tag <code>&lt;nav&gt;</code> (<span class="color-blue">Navigation</span>) służy do oznaczania głównych bloków linków, które umożliwiają poruszanie się po stronie, artykule lub całym serwisie (np. menu główne, spis treści).</p>
+<p>Na jednej stronie możesz umieścić kilka różnych nawigacji o odmiennych rolach. W poniższych przykładach zobaczysz wewnątrz nich atrybut <code>aria-label</code>. Nie przejmuj się nim na tym etapie. Szczegółowo wyjaśnię jego znaczenie za chwilę.</p>
+<h3>🌐 Nawigacja główna serwisu</h3>
+<p>Nawigacja główna prowadzi między najważniejszymi częściami serwisu. Zwykle znajduje się w <code>&lt;header&gt;</code>, bo jest częścią stałego nagłówka strony.</p>
+<pre><code class="language-html">&lt;header&gt;
+    &lt;span class="logo"&gt;Mój Blog o Technologii&lt;/span&gt;
+    &lt;nav aria-label="Główna nawigacja"&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="index.html"&gt;Strona główna&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="artykuly.html"&gt;Artykuły&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+</code></pre>
+<p>To menu odpowiada na pytanie: „gdzie mogę przejść w ramach całego serwisu?”.</p>
+<h3>📚 Nawigacja między artykułami</h3>
+<p>Nawigacja między artykułami prowadzi do innych publikacji. Może znaleźć się w <code>&lt;aside&gt;</code>, jeśli jest poboczna wobec aktualnego tekstu, lub na końcu strony pod artykułem.</p>
+<pre><code class="language-html">&lt;aside&gt;
+    &lt;h2&gt;Powiązane artykuły&lt;/h2&gt;
+    &lt;nav aria-label="Powiązane artykuły"&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="aaron-swartz.html"&gt;Aaron Swartz i wolna wiedza&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="creative-commons.html"&gt;Creative Commons&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;
+</code></pre>
+<h3>🧩 Nawigacja po sekcjach artykułu (Spis Treści)</h3>
+<p>Artykuł może mieć też spis treści prowadzący do sekcji na tej samej stronie. Linki prowadzą wtedy do elementów z konkretnym atrybutem <code>id</code>.</p>
+<pre><code class="language-html">&lt;article&gt;
+    &lt;h1&gt;Sci-Hub: Kontrowersyjna Biblioteka Nauki&lt;/h1&gt;
+    &lt;nav aria-label="Spis treści artykułu"&gt;
+        &lt;ol&gt;
+            &lt;li&gt;&lt;a href="#historia"&gt;Historia i geneza&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#prawo"&gt;Kontrowersje prawne&lt;/a&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/nav&gt;
+
+    &lt;section id="historia"&gt;
+        &lt;h2&gt;Historia i geneza&lt;/h2&gt;
+        &lt;p&gt;Alexandra Elbakyan stworzyła platformę w 2011 roku...&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="prawo"&gt;
+        &lt;h2&gt;Kontrowersje prawne&lt;/h2&gt;
+        &lt;p&gt;Największe wydawnictwa naukowe pozwały serwis...&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/article&gt;
+</code></pre>
+<h3>🏷️ Dlaczego <code>aria-label</code> ma znaczenie</h3>
+<p>Jeśli na stronie masz kilka elementów <code>&lt;nav&gt;</code>, użytkownik czytnika ekranu usłyszy listę nawigacji. Bez etykiet brzmią one identycznie („nawigacja”). Z etykietami stają się rozróżnialne:</p>
+<ul>
+<li>
+
+<pre><code class="language-html">&lt;nav aria-label="Główna nawigacja"&gt;
+</code></pre>
+</li>
+<li>
+
+<pre><code class="language-html">&lt;nav aria-label="Spis treści artykułu"&gt;
+</code></pre>
+</li>
+<li>
+
+<pre><code class="language-html">&lt;nav aria-label="Powiązane artykuły"&gt;
+</code></pre>
+</li>
+</ul>
+
+<p>Etykieta nazywa funkcję konkretnej nawigacji. <strong>Stosuj ją zawsze, gdy na stronie pojawia się więcej niż jeden tag <code>&lt;nav&gt;</code></strong>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Układ artykułu z semantycznym szkieletem</h2>
+<p>Oto poprawna, kompletna struktura artykułu blogowego:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Sci-Hub: Kontrowersyjna Biblioteka Nauki | Mój Blog o Technologii&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header&gt;
+        &lt;span class="logo"&gt;Mój Blog o Technologii&lt;/span&gt;
+        &lt;nav aria-label="Główna nawigacja"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="index.html"&gt;Strona główna&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="artykuly.html"&gt;Artykuły&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;header&gt;
+                &lt;h1&gt;Sci-Hub: Kontrowersyjna Biblioteka Nauki&lt;/h1&gt;
+                &lt;p&gt;Artykuł opublikowany: &lt;time datetime="2026-06-16"&gt;16 czerwca 2026&lt;/time&gt;&lt;/p&gt;
+            &lt;/header&gt;
+
+            &lt;nav aria-label="Spis treści artykułu"&gt;
+                &lt;ol&gt;
+                    &lt;li&gt;&lt;a href="#historia"&gt;Historia i geneza&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#prawo"&gt;Kontrowersje prawne&lt;/a&gt;&lt;/li&gt;
+                &lt;/ol&gt;
+            &lt;/nav&gt;
+
+            &lt;section id="historia"&gt;
+                &lt;h2&gt;Historia i geneza&lt;/h2&gt;
+                &lt;p&gt;Alexandra Elbakyan stworzyła platformę w 2011 roku...&lt;/p&gt;
+            &lt;/section&gt;
+
+            &lt;section id="prawo"&gt;
+                &lt;h2&gt;Kontrowersje prawne&lt;/h2&gt;
+                &lt;p&gt;Największe wydawnictwa naukowe pozwały serwis...&lt;/p&gt;
+            &lt;/section&gt;
+
+            &lt;footer&gt;
+                &lt;p&gt;Autor: Arnold Schwarzenegger&lt;/p&gt;
+            &lt;/footer&gt;
+        &lt;/article&gt;
+
+        &lt;aside&gt;
+            &lt;h2&gt;Powiązane artykuły&lt;/h2&gt;
+            &lt;nav aria-label="Powiązane artykuły"&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;a href="aaron-swartz.html"&gt;Aaron Swartz i wolna wiedza&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2026 Mój Blog o Technologii. Wszelkie prawa zastrzeżone.&lt;/p&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Zwróć uwagę na kluczowe decyzje:</p>
+<ul>
+<li><span class="color-green"><code>&lt;main&gt;</code> jest jeden</span>: obejmuje unikalną treść tej konkretnej strony. Nie wkładaj do niego globalnego nagłówka ani stopki.</li>
+<li><span class="color-green"><code>&lt;article&gt;</code> ma własny nagłówek i stopkę</span>: tytuł artykułu i autor należą bezpośrednio do publikacji.</li>
+<li><span class="color-green">Wielokrotność tagów</span>: <code>&lt;header&gt;</code> i <code>&lt;footer&gt;</code> mogą wystąpić więcej niż raz, jeśli ich kontekst (strona vs artykuł) jest różny.</li>
+<li><span class="color-green">Nazwa bloga nie jest tytułem artykułu</span>: na stronie publikacji najważniejszym nagłówkiem <code>&lt;h1&gt;</code> jest tytuł tekstu, a nie logo serwisu.</li>
+<li><span class="color-green">Użycie encji <code>&amp;copy;</code></span>: W stopce strony użyliśmy kodu <code>&amp;copy;</code>. Przeglądarka wyświetla go jako znak praw autorskich ©.</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Encje HTML (HTML Entities)</span> to specjalne sekwencje znaków zaczynające się od symbolu ampersand <code>&amp;</code> i kończące średnikiem <code>;</code>. Używamy ich w dwóch sytuacjach: gdy chcemy wyświetlić znaki zastrzeżone dla składni języka (np. <code>&lt;</code> czy <code>&gt;</code>), oraz gdy wprowadzamy symbole trudne do wpisania z klawiatury.</p>
+<p>Kilka najpopularniejszych encji, które warto zapamiętać:</p>
+<ul>
+<li><code>&amp;copy;</code> (znak praw autorskich: <code>©</code> (<span class="color-blue">copyright</span>))</li>
+<li><code>&amp;lt;</code> (znak mniejszości: <code>&lt;</code> (<span class="color-blue">less than</span>))</li>
+<li><code>&amp;gt;</code> (znak większości: <code>&gt;</code> (<span class="color-blue">greater than</span>))</li>
+<li><code>&amp;amp;</code> (znak ampersand: <code>&amp;</code> (<span class="color-blue">ampersand</span>))</li>
+<li><code>&amp;nbsp;</code> (twarda spacja: <span class="color-blue">non‑breaking space</span>, która zapobiega automatycznemu przenoszeniu słów do nowej linii)</li>
+</ul>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Wybór znacznika: <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code> czy <code>&lt;div&gt;</code></h2>
+<p>Wybór odpowiedniego kontenera bywa wyzwaniem. Aby podjąć właściwą decyzję, przeanalizuj znaczenie (semantykę) wydzielanego fragmentu strony.</p>
+<h4>1. Znacznik <code>&lt;article&gt;</code> (Artykuł)</h4>
+<p>Stosuj go do treści, które stanowią niezależną, zamkniętą całość. Taki fragment mógłby zostać wycięty i umieszczony na zupełnie innej stronie (lub wysłany w newsletterze), zachowując swój pełny sens.</p>
+<p>Przykłady użycia:</p>
+<ul>
+<li>Wpis na blogu lub artykuł prasowy.</li>
+<li>Pojedynczy komentarz użytkownika pod tekstem.</li>
+<li>Post na forum dyskusyjnym.</li>
+</ul>
+<h4>2. Znacznik <code>&lt;section&gt;</code> (Sekcja)</h4>
+<p>Reprezentuje tematyczny rozdział dokumentu lub logiczny obszar strony. Sekcja nie jest samodzielną całością, lecz częścią większej struktury. Zgodnie ze specyfikacją HTML, <strong>każda prawidłowa sekcja powinna zawierać nagłówek</strong> (<code>&lt;h2&gt;</code>-<code>&lt;h6&gt;</code>) opisujący jej temat.</p>
+<h4>3. Znacznik <code>&lt;div&gt;</code> (Wrapper)</h4>
+<p>To element czysto strukturalny pozbawiony jakiegokolwiek znaczenia semantycznego. <strong>Używaj go wyłącznie wtedy, gdy grupujesz elementy w celu nadania im stylów wizualnych w CSS lub ustalenia ich pozycji w układzie strony</strong>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>♿ Dostępność sekcji: Rola aria-labelledby i dwa konteksty użycia</h2>
+<p>Sposób użycia znacznika <code>&lt;section&gt;</code> zależy od tego, czy tworzysz dokument tekstowy, czy układ aplikacji (np. panel dashboardu). Przeglądarka i czytniki ekranu reagują na te sytuacje zupełnie inaczej.</p>
+<h4>1. Sekcja dokumentu (Rozdział w tekście)</h4>
+<p>Kiedy dzielisz artykuł <code>&lt;article&gt;</code> na rozdziały (np. „Historia”, „Opis problemu”), znacznik <code>&lt;section&gt;</code> służy wyłącznie do budowania logicznej struktury dokumentu (tzw. <span class="color-blue">document outline</span>). </p>
+<p>W tym przypadku <strong><span class="color-red">nie stosuje się</span></strong> atrybutu <code>aria-labelledby</code>. Użytkownicy czytników ekranu poruszają się po artykule za pomocą poziomu nagłówków (<code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>), a nie za pomocą <span class="color-green">landmarków</span>. Dodanie etykiety do każdego rozdziału tekstu spowodowałoby tak zwane zanieczyszczenie punktów kontrolnych (<span class="color-blue">landmark pollution</span>), co utrudnia nawigację.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Landmark (punkt orientacyjny)</span> to kluczowy, wydzielony obszar strony (taki jak nagłówek, menu nawigacyjne, główna treść czy stopka), który posiada określone znaczenie semantyczne. Czytniki ekranu tworzą z nich specjalną mapę strony. Umożliwia to użytkownikom niewidomym szybkie przeskakiwanie między tymi sekcjami za pomocą skrótów klawiszowych.</p>
+
+</div>
+</div><pre><code class="language-html">&lt;section&gt;
+    &lt;h2&gt;Historia i geneza&lt;/h2&gt;
+    &lt;p&gt;Treść rozdziału...&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<h4>2. Sekcja aplikacji (Komponent lub widget)</h4>
+<p>Kiedy budujesz panel sterowania (dashboard) lub stronę z osobnymi widgetami (np. „Prognoza pogody”, „Kursy walut”), sekcje te pełnią funkcję samodzielnych narzędzi. </p>
+<p>W tym kontekście zależy nam, aby użytkownik mógł błyskawicznie przeskoczyć bezpośrednio do wybranego widgetu. W standardzie WAI‑ARIA (ogłoszonym przez W3C) znacznik <code>&lt;section&gt;</code> staje się widoczny jako ważny obszar nawigacyjny (tzw. <span class="color-blue">landmark</span> o roli <code>region</code>) <strong><span class="color-gold">wyłącznie wtedy, gdy ma nadaną nazwę</span></strong>.</p>
+<p>Aby nadać sekcji nazwę, stosujemy atrybut <code>aria-labelledby</code> wskazujący na unikalny identyfikator (<code>id</code>) nagłówka:</p>
+<pre><code class="language-html">&lt;section class="weather-widget" aria-labelledby="heading-weather"&gt;
+    &lt;h2 id="heading-weather"&gt;Prognoza pogody&lt;/h2&gt;
+    &lt;!-- formularze i kontrolki widgetu --&gt;
+&lt;/section&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Choć specyfikacja ARIA pozwala, aby <code>aria-labelledby</code> wskazywało na element leżący w dowolnym miejscu strony (nawet całkowicie poza sekcją), to z punktu widzenia standardu HTML5 jest to błąd walidacji. Każdy znacznik <code>&lt;section&gt;</code> musi posiadać nagłówek (<code>&lt;h2&gt;</code>-<code>&lt;h6&gt;</code>) jako swoje dziecko. Jeśli powiążesz sekcję z zewnętrznym nagłówkiem, oficjalny walidator W3C zgłosi ostrzeżenie: <em>„Section lacks heading”</em> (Sekcja nie posiada nagłówka). Dlatego <strong>nagłówek zawsze musi znajdować się wewnątrz sekcji</strong>.</p>
+
+</div>
+</div><h4>Podsumowanie zachowania technologii:</h4>
+<ul>
+<li><span class="color-green">Czytniki ekranu (NVDA, VoiceOver)</span>: W sekcji aplikacji (z <code>aria-labelledby</code>) dodadzą obszar do listy szybkiej nawigacji (np. w NVDA użytkownik może przeskakiwać między landmarkami klawiszem <kbd>D</kbd>), a czytnik oznajmi: „Prognoza pogody, region”. W sekcji dokumentu (bez etykiety) potraktują go jak zwykły <code>&lt;div&gt;</code>.</li>
+<li><span class="color-green">Roboty indeksujące (Googlebot, Bingbot)</span>: Całkowicie ignorują atrybuty ARIA, w tym <code>aria-labelledby</code>. Dla pozycjonowania SEO <strong>znaczenie ma wyłącznie treść nagłówka oraz hierarchia HTML</strong>.</li>
+</ul>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Tagi semantyczne HTML5 opisują funkcję</span>: <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;aside&gt;</code> i <code>&lt;footer&gt;</code> dzielą dokument na logiczne strefy.</li>
+<li><span class="color-green">Nawigacja wymaga nazw</span>: Gdy na stronie masz więcej niż jeden tag <code>&lt;nav&gt;</code>, musisz je rozróżnić za pomocą atrybutu <code>aria-label</code>.</li>
+<li><span class="color-green"><code>&lt;main&gt;</code> to serce strony</span>: Może być tylko jeden widoczny element <code>&lt;main&gt;</code> na dokument.</li>
+<li><span class="color-green"><code>&lt;article&gt;</code> to samodzielność</span>: Jeśli treść ma sens wycięta ze strony (np. post, artykuł), użyj <code>&lt;article&gt;</code>. Jeśli to rozdział lub powiązana tematycznie część, użyj <code>&lt;section&gt;</code>.</li>
+<li><span class="color-green">Hierarchia nagłówków buduje spis treści</span>: Nie skacz po poziomach nagłówków i nie używaj ich do zmiany wyglądu czcionki.</li>
+</ul>
+</section>

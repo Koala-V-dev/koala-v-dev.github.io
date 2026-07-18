@@ -1,0 +1,209 @@
+<h2>Notacja naukowa — Standaryzacja Skali i Normalizacja Danych</h2>
+<p>W inżynierii i naukach ścisłych operujemy na wartościach o ekstremalnej rozpiętości — od nanosekund w architekturze procesorów po eksabajty w globalnych bazach danych. Tradycyjny zapis dziesiętny z dziesiątkami zer jest nieefektywny i podatny na błędy ludzkie (tzw. <em>off&#8209;by-one errors</em>). </p>
+<p>Rozwiązaniem jest <strong>notacja naukowa</strong> — ustandaryzowany protokół zapisu, który oddziela precyzję liczby od jej skali.</p>
+<hr>
+<h3>🔭 Normalizacja Danych: Postać Standardowa</h3>
+<p>Zamiast operować na surowych zerach, każdą wartość sprowadzamy do znormalizowanej postaci:<br><strong>$$a \cdot 10^n$$</strong></p>
+<p>Gdzie parametry wejściowe to:</p>
+<ul>
+<li><strong>Mantysa ($a$)</strong> — precyzja liczby. Musi spełniać warunek: $1 \le a &lt; 10$ (dokładnie jedna cyfra niezerowa przed przecinkiem).</li>
+<li><strong>Wykładnik ($n$)</strong> — skala (rząd wielkości). Liczba całkowita określająca, o ile miejsc przesunięto punkt dziesiętny.</li>
+</ul>
+<h4>🧭 Bencharki skali (od makro do subatomu)</h4>
+<ol>
+<li><em><strong>Prędkość światła ($c$)</strong></em><br>$$c = 299 \ 792 \ 458 \ \text{m/s} \approx 3 \cdot 10^{8}\ \text{m/s}$$<br><em>Skala:</em> makro, kosmiczna<br><strong>Interpretacja:</strong> to tempo, w jakim informacja może przemieszczać się w próżni. Jedna z największych liczb, jakie pojawiają się w fizyce klasycznej.</li>
+</ol>
+<hr>
+<ol start="2">
+<li><em><strong>Czas cyklu CPU ($1 GHz$)</strong></em><br>$$t = 0.000000001\ \text{s} = 1 \cdot 10^{-9}\ \text{s}$$<br><em>Skala:</em> nano<br><strong>Interpretacja:</strong> jeden takt procesora $1 GHz$ trwa $1$ nanosekundę. To pokazuje, jak ekstremalnie szybkie są współczesne układy cyfrowe — $1$ miliard operacji na sekundę.</li>
+</ol>
+<hr>
+<ol start="3">
+<li><em><strong>Masa elektronu ($m_e$)</strong></em><br>$$m_e = 0.00000000000000000000000000091 \ \text{kg} \approx 9.1 \cdot 10^{-31}\ \text{kg}$$<br><em>Skala:</em> subatomowa<br><strong>Interpretacja:</strong> jedna z najmniejszych liczb, jakie pojawiają się w fizyce. Elektron jest tak lekki, że jego masa jest praktycznie pomijalna w skali makro.</li>
+</ol>
+<hr>
+<h3>⚖️ Protokół Balansu: Przesunięcie Przecinka (Kommaverschiebung)</h3>
+<p>Notacja naukowa opiera się na <strong>zasadzie zachowania wartości</strong>. Każda zmiana mantysy musi zostać skompensowana zmianą wykładnika w przeciwnym kierunku. To mechanizm „naczyń połączonych”.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Wykładnik ujemny ($10^{-n}$)</strong> nie zmienia znaku liczby na ujemny! Jest to jedynie informacja o skali ułamkowej — liczba znajduje się blisko zera, ponieważ podstawa $10$ trafiła do mianownika.</p>
+
+</div>
+</div><table>
+<thead>
+<tr>
+<th align="left">Kierunek przesunięcia przecinka</th>
+<th align="left">Operacja na mantysie</th>
+<th align="left">Kompensacja wykładnika $n$</th>
+<th align="left">Przykład inżynierski</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>W lewo</strong> ⬅️</td>
+<td align="left">Zmniejszenie wartości</td>
+<td align="left"><strong>Zwiększenie ($+1$)</strong></td>
+<td align="left">$299\ 000 \to 2.99 \cdot 10^5$</td>
+</tr>
+<tr>
+<td align="left"><strong>W prawo</strong> ➡️</td>
+<td align="left">Zwiększenie wartości</td>
+<td align="left"><strong>Zmniejszenie ($-1$)</strong></td>
+<td align="left">$0.00008 \to 8 \cdot 10^{-5}$</td>
+</tr>
+</tbody></table>
+<h4>Tabela Mapowania Skali ($a = 2.5$):</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Wykładnik $n$</th>
+<th align="left">$-3$</th>
+<th align="left">$-2$</th>
+<th align="left">$-1$</th>
+<th align="left">$0$</th>
+<th align="left">$1$</th>
+<th align="left">$2$</th>
+<th align="left">$3$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Mnożnik</strong></td>
+<td align="left">$10^{-3}$</td>
+<td align="left">$10^{-2}$</td>
+<td align="left">$10^{-1}$</td>
+<td align="left">$10^{0}$</td>
+<td align="left">$10^{1}$</td>
+<td align="left">$10^{2}$</td>
+<td align="left">$10^{3}$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wartość ($a \cdot 10^n$)</strong></td>
+<td align="left">$0.0025$</td>
+<td align="left">$0.025$</td>
+<td align="left">$0.25$</td>
+<td align="left">$2.5$</td>
+<td align="left">$25$</td>
+<td align="left">$250$</td>
+<td align="left">$2500$</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🚀 Stacja Treningowa: Normalizacja do Standardu</h3>
+<p>Wykonaj konwersję surowych danych na znormalizowaną postać naukową. Pamiętaj o zachowaniu precyzji mantysy:</p>
+<data-gate>
+  <data-math-worksheet type="power-scientific" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-scientific" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-math-worksheet type="power-scientific" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>⌨️ Kodowanie Zapisu: Składnia LaTeX</h3>
+<p>Aby Twoja dokumentacja techniczna i raporty były czytelne dla innych inżynierów (oraz systemów AI), musisz biegle posługiwać się standardem <code>LaTeX</code>. To „kod źródłowy” matematyki.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Element</th>
+<th align="left">Składnia LaTeX</th>
+<th align="left">Reprezentacja</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Mnożenie</strong></td>
+<td align="left"><code>\cdot</code></td>
+<td align="left">$a \cdot b$</td>
+</tr>
+<tr>
+<td align="left"><strong>Ułamek</strong></td>
+<td align="left"><code>\frac{a}{b}</code></td>
+<td align="left">$$\frac{1}{2}$$</td>
+</tr>
+<tr>
+<td align="left"><strong>Potęga</strong></td>
+<td align="left"><code>a^{n}</code></td>
+<td align="left">$2^{10}$</td>
+</tr>
+<tr>
+<td align="left"><strong>Pierwiastek</strong></td>
+<td align="left"><code>\sqrt[n]{x}</code></td>
+<td align="left">$\sqrt[3]{8}$</td>
+</tr>
+<tr>
+<td align="left"><strong>Notacja naukowa</strong></td>
+<td align="left"><code>a \cdot 10^{n}</code></td>
+<td align="left">$6.62 \cdot 10^{-34}$</td>
+</tr>
+</tbody></table>
+<details>
+<summary>🛠️ Zaawansowane Formaty Zapisu</summary>
+
+<ul>
+<li><strong>Wykładniki złożone</strong>: <code>10^{-n+1}</code> (używaj klamer <code>{}</code> dla grup znaków).</li>
+<li><strong>Balansowanie nawiasów</strong>: <code>\left( \frac{a}{b} \right)</code> (dynamiczne dopasowanie wysokości).</li>
+<li><strong>Indeksy dolne</strong>: <code>x_{min}</code> (np. dla stałych fizycznych).</li>
+</ul>
+</details>
+
+<hr>
+<h3>🪤 Finał Modułu: Optymalizacja Arki Danych</h3>
+<p>Fundamenty zostały położone. Twoim ostatnim zadaniem w Module $0$ jest przygotowanie <strong>Arki Danych</strong> dla transferu do Głównego Rdzenia Logicznego (Moduł $1$). Musisz zsynchronizować parametry klastra tak, aby przesunąć dane bez strat precyzji.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Przypomnienie jednostek: <strong>Bajt</strong> ($B$) to podstawowa komórka adresowalna, składająca się z 8 <strong>bitów</strong> ($b$).<br>$1B = 8b$</p>
+
+</div>
+</div><h4>⚙️ Manifest Arki (Specyfikacja Techniczna):</h4>
+<p>System wymaga synchronizacji następujących parametrów:</p>
+<ul>
+<li><strong>Pakiety Wejściowe</strong>: Struktury typu <strong>A</strong> ($1.2 \cdot 10^4\text{ B}$) oraz <strong>B</strong> ($1.8 \cdot 10^4\text{ B}$).</li>
+<li><strong>Infrastruktura</strong>: Rozmiar SuperSektora musi być <strong>NWW</strong> mantys obu pakietów przy zachowaniu skali $10^4$.</li>
+<li><strong>Klaster</strong>: Arka agreguje dokładnie $2^3$ SuperSektorów.</li>
+</ul>
+<data-gate>
+<data-math-sandbox level="basic" data-steps="5" data-label="🪤 Optymalizacja Arki Danych">
+  <div data-step="1" data-expected="3.6 \cdot 10^4" data-label="1. Wyznacz rozmiar SuperSektora jako NWW mantys ($1.2$ i $1.8$) przy zachowaniu rzędu wielkości $10^4$." data-hint-wrong="10:💡 Znajdź NWW dla surowych wartości mantys (12 i 18), a następnie przywróć przecinek. Pamiętaj o zachowaniu skali \(10^4\)." data-hints='{"LOGIC_ERROR": "💡 Znajdź NWW dla surowych wartości mantys (12 i 18), a następnie przywróć przecinek. Pamiętaj o zachowaniu skali \(10^4\)."}'></div>
+  <div data-step="2" data-expected="28.8 \cdot 10^4" data-label="2. Skalowanie: Pomnóż rozmiar sektora przez liczbę jednostek w klastrze ($2^3$)." data-hint-wrong="28:💡 Wykonaj proste mnożenie mantysy przez 8 (\(2^3\)). Nie przejmuj się jeszcze brakiem normalizacji." data-hints='{"LOGIC_ERROR": "💡 Wykonaj proste mnożenie mantysy przez 8 (\(2^3\)). Nie przejmuj się jeszcze brakiem normalizacji."}'></div>
+  <div data-step="3" data-expected="2.88 \cdot 10^5" data-label="3. Normalizacja: Przekształć wynik do poprawnej notacji naukowej (mantysa < 10)." data-hint-wrong="28:💡 Mantysa musi być w przedziale \([1, 10)\). Przesuń przecinek w lewo i zrównoważ to zwiększeniem wykładnika o 1." data-hints='{"SCIENTIFIC_SCALE": "💡 Mantysa musi być w przedziale \([1, 10)\). Przesuń przecinek w lewo i zrównoważ to zwiększeniem wykładnika o 1."}'></div>
+  <div data-step="4" data-expected="\frac{2.88 \cdot 10^5}{10^6}" data-label="4. Raport Wydajności: Zapisz ułamek porównujący pojemność Arki do miliona bajtów ($10^6$)." data-hint-wrong="frac:💡 Zastosuj składnię LaTeX \(\frac{licznik}{mianownik}\). Porównaj znormalizowany wynik do miliona (\(10^6\))." data-hints='{"LOGIC_ERROR": "💡 Zastosuj składnię LaTeX \\\\(\\\\frac{licznik}{mianownik}\\\\). Porównaj znormalizowany wynik do miliona \\\\(10^6\\\\)."}'></div>
+  <div data-step="5" data-expected="28.8\%" data-validation="result" data-label="5. Finalna Weryfikacja: Wyraź tę pojemność jako procent miliona bajtów. Pamiętaj o symbolu %!" data-hint-wrong="%:💡 Skróć potęgi 10 i zamień ułamek na procenty. Pamiętaj: \(2.88 \cdot 10^5 / 10^6 = 0.288\). Dodaj symbol %." data-hints='{"LOGIC_ERROR": "💡 Skróć potęgi 10 i zamień ułamek na procenty. Pamiętaj: \(2.88 \\\\cdot 10^5 / 10^6 = 0.288\). Dodaj symbol %."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>notacja naukowa oddziela precyzję liczby (mantysę) od jej skali (wykładnika),  </li>
+<li>mantysa musi spełniać warunek $1 \le a &lt; 10$,  </li>
+<li>przesunięcie przecinka wymaga kompensacji wykładnika (zasada balansu),  </li>
+<li>wykładnik ujemny oznacza skalę ułamkową, a nie liczbę ujemną,  </li>
+<li>notacja naukowa eliminuje błędy przy dużych i małych liczbach,  </li>
+<li>normalizacja danych jest kluczowa w fizyce, informatyce i inżynierii,  </li>
+<li>LaTeX to standard zapisu matematyki w dokumentacji technicznej.</li>
+</ul>
+<hr>
+<h2>🎉 Milestone: Moduł $0$ — Język Matematyki Opanowany!</h2>
+<p>Przeszedłeś pełną ścieżkę od intuicyjnego liczenia do świadomego modelowania danych.<br>Opanowałeś fundamenty, które stanowią <strong>system operacyjny matematyki</strong>:</p>
+<ol>
+<li><strong>Abstrakcja i Modelowanie</strong> — rozróżniasz ideę od symbolu.  </li>
+<li><strong>Składnia i Notacja</strong> — potrafisz czytać i pisać matematycznie.  </li>
+<li><strong>Struktury Liczbowe</strong> — rozumiesz logikę zbiorów $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$.  </li>
+<li><strong>Operacje Arytmetyczne</strong> — znasz ich sens, własności i ograniczenia.  </li>
+<li><strong>Podzielność i Synchronizacja</strong> — NWD, NWW, modularność.  </li>
+<li><strong>Skalowanie</strong> — potęgi, pierwiastki, notacja naukowa.  </li>
+<li><strong>Normalizacja Danych</strong> — potrafisz oddzielić precyzję od skali.</li>
+</ol>
+<p>To nie jest „matematyka szkolna”.<br>To jest <strong>język inżynierii</strong>, którego będziesz używać w każdym kolejnym module.</p>
+<hr>
+<p><strong>To dopiero początek.</strong> Właśnie skalibrowałeś swój mikroskop i teleskop. W następnym module $1$ użyjemy ich, aby zajrzeć w głąb samej Prawdy. 🚀</p>

@@ -1,0 +1,226 @@
+<h2>Ułamki, Proporcje i Procenty: Skalowanie Systemów</h2>
+<p>W poprzednich lekcjach nauczyliśmy się operować na stałych jednostkach i znajdować ich wspólne punkty (NWD i NWW). Jednak precyzyjne modelowanie rzeczywistości wymaga opisu stanów pośrednich. Proces dzielenia jednostki na mniejsze segmenty wprowadza nas do zbioru <strong>Liczb Wymiernych</strong> ($\mathbb{Q}$ — <em>rationale</em> <strong>Zahlen</strong>).</p>
+<p>$$\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q}$$</p>
+<p><em>Każdy kolejny zbiór jest rozszerzeniem poprzedniego, zachowując jego prawa i dodając nową precyzję zapisu danych.</em></p>
+<details>
+<summary>Zbiory liczb z niemieckiego (Źródło Prawdy)</summary>
+
+<ul>
+<li>$\mathbb{N}$ – <em>natürliche</em> <strong>Zahlen</strong> (liczby naturalne): $\{ 0, 1, 2, 3, \ldots \}$</li>
+<li>$\mathbb{Z}$ – <em>ganze</em> <strong>Zahlen</strong> (liczby całkowite): $\{ \ldots, -3, -2, -1, 0, 1, 2, 3, \ldots \}$</li>
+<li>$\mathbb{Q}$ – <em>rationale</em> <strong>Zahlen</strong> (liczby wymierne): $$\{ \frac{a}{b} \text{ takich, że } a, b \in \mathbb{Z} \text{ i } b \neq 0 \}$$</li>
+<li>$\mathbb{R}$ – <em>reelle</em> <strong>Zahlen</strong> (liczby rzeczywiste): $?$</li>
+<li>$\mathbb{C}$ – <em>komplexe</em> <strong>Zahlen</strong> (liczby zespolone): $?$</li>
+</ul>
+<p>Reszty dowiesz się, gdy tylko będziemy ich potrzebować 😉.</p>
+</details>
+
+<hr>
+<h3>🏗️ Ułamek: Instrukcja Podziału (Segmentacja)</h3>
+<p>Ułamek $$\frac{\textcolor{#ff0004}{a}}{\textcolor{#ff0003}{b}}$$ to w inżynierii coś więcej niż wynik dzielenia. To <strong>instrukcja segmentacji</strong>:</p>
+<blockquote>
+<p><em>„Podziel jednostkę na $\textcolor{#ff0003}{b}$ równych segmentów i wybierz z nich $\textcolor{#ff0004}{a}$ części.”</em></p>
+</blockquote>
+<ul>
+<li><strong>LICZNIK</strong> ($\textcolor{#ff0004}{a}$) — liczba wybranych segmentów.</li>
+<li><em><strong>MIANOWNIK</strong></em> ($\textcolor{#ff0003}{b}$) — całkowita liczba części, na które podzielono jednostkę (rozdzielczość podziału).</li>
+</ul>
+<p>W ułamku $$\frac{\textcolor{#ff0004}{5}}{\textcolor{#ff0003}{8}}$$ jednostka została podzielona na $\textcolor{#ff0003}{8}$ części (segmentów), z których posiadasz $\textcolor{#ff0004}{5}$.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Mianownik <strong><em>NIGDY</em></strong> nie może wynosić <strong><em>$0$</em></strong>. Ponieważ ułamek to operacja dzielenia, a dzielenie przez zero psuje logiczną spójność całego systemu (brak jednoznacznego wyniku).</p>
+
+</div>
+</div><hr>
+<h3>🔄 Kreska Ułamkowa: Operator Dzielenia</h3>
+<p>Kluczowym faktem jest to, że kreska ułamkowa jest matematycznie tożsama z operatorem dzielenia:<br>$$\frac{a}{b} = a \div b$$</p>
+<p>Zapis $$\frac{12}{4}$$ to po prostu żądanie: <em>„Rozdziel $12$ jednostek na $4$ równe grupy”</em>. Wynikiem jest liczba całkowita $3$.</p>
+<h3>🛠️ Punkt Kontrolny: Czytanie Ułamków</h3>
+<data-gate>
+<data-quiz>
+  <question>Ustal wartość dla ułamka $$\frac{12}{4}$$:</question>
+  <options>
+    <option>$4$</option>
+    <option correct>$3$</option>
+    <option>$$\frac{3}{1}$$</option>
+  </options>
+  <div data-hint="error">Zastosuj instrukcję: $12 \div 4$. Ile wynosi wynik operacji?</div>
+  <div data-hint="success">Poprawnie. Ułamek dający wynik całkowity to forma uproszczonego zapisu dzielenia.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>✂️ Skracanie: Optymalizacja Zapisu (NWD)</h3>
+<p>Pamiętasz <strong>NWD</strong> (<em>Największy Wspólny Dzielnik</em>)? To Twoje główne narzędzie do <strong>optymalizacji zapisu</strong>. Jeśli licznik i mianownik mają wspólny dzielnik, możemy „skrócić” ułamek, nie zmieniając jego realnej wartości.</p>
+<p>Przykład: $$\frac{200}{600}$$<br>Z lekcji o dzielnikach wiemy, że $\text{NWD}(200, 600) = 200$.<br>Dzieląc obie części przez $200$, otrzymujemy najprostszą formę:<br>$$\frac{200}{600} = \frac{\cancel{200}^{1}}{\cancel{600}_{3}} = \frac{1}{3}$$</p>
+<hr>
+<h3>⚙️ Dodawanie i Odejmowanie: Wspólny Mianownik (NWW)</h3>
+<p>Dodawanie ułamków o różnych mianownikach (np. $$\frac{1}{2} + \frac{1}{3}$$) wymaga sprowadzenia ich do tej samej skali. Przed wykonaniem operacji musimy przeprowadzić <strong>synchronizację mianowników</strong>.</p>
+<p>Wykorzystujemy tu mechanizm <strong>NWW</strong> (Najmniejsza Wspólna Wielokrotność).<br>Dla mianowników $2$ i $3$ najlepszą bazą (wspólną skalą) jest <strong>$6$</strong>.</p>
+<h4>⚡ Dodawanie Ułamków: Synchronizacja Skali</h4>
+<p><data-fraction-add n1="1" d1="2" n2="1" d2="3"></data-fraction-add></p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zasada Balansu:</strong> Rozszerzając mianownik, musisz w tym samym stopniu rozszerzyć licznik (pomnożyć przez tę samą wartość), aby zachować wartość ułamka.</p>
+
+</div>
+</div><hr>
+<h3>⚙️ Mnożenie i Dzielenie: Inwersja i Skalowanie</h3>
+<p><strong>Mnożenie</strong> ułamków to najbardziej bezpośrednia operacja — mnożymy liczniki oraz mianowniki niezależnie. Możesz to traktować jako „ułamek ułamka”.</p>
+<h4>⚡ Mnożenie Ułamków: Bezpośrednia Operacja</h4>
+<p><data-fraction-multiply n1="2" d1="3" n2="4" d2="5"></data-fraction-multiply></p>
+<h4>⚡ Dzielenie Ułamków: Mechanizm Odwrotności</h4>
+<p><strong>Dzielenie</strong> natomiast wykonujemy przez operację <strong>odwrotności (inwersji)</strong>. Dzielenie przez ułamek to po prostu mnożenie przez jego odwróconą postać.</p>
+<p><data-fraction-divide n1="2" d1="3" n2="1" d2="2"></data-fraction-divide></p>
+<h3>🛠️ Punkt Kontrolny: Mechanizm Odwrotności</h3>
+<data-gate>
+<data-quiz>
+  <question>Wyznacz wynik operacji $$2 \div \frac{1}{3}$$ wykorzystując odwrotność:</question>
+  <options>
+    <option>$$\frac{2}{3}$$</option>
+    <option correct>$6$</option>
+    <option>$3$</option>
+    <option>$$\frac{1}{6}$$</option>
+  </options>
+  <div data-hint="error">Pamiętaj: Dzielenie to mnożenie przez odwrotność. Odwróć ułamek $$\frac{1}{3}$$ i wykonaj mnożenie.</div>
+  <div data-hint="success">Doskonale. $$2 \div \frac{1}{3} = 2 \cdot 3 = 6$$. Masz dwie jednostki i sprawdzasz, ile segmentów „jedna trzecia” się w nich mieści. To czysta logika!</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🚀 Stacja Treningowa: Operacje Arytmetyczne</h3>
+<data-gate>
+<data-math-worksheet type="fractions-add" count="1" difficulty="easy" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+<data-math-worksheet type="fractions-add" count="2" difficulty="medium" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<data-gate>
+<data-math-worksheet type="fractions-add" count="3" difficulty="hard" data-validation-mode="structural"></data-math-worksheet>
+</data-gate>
+
+<hr>
+<h3>⚖️ Proporcja: Niezmienna Relacja</h3>
+<p>Proporcja to stwierdzenie, że stosunek dwóch wielkości jest <strong>stały</strong>. Pozwala to na skalowanie systemów (np. rozdzielczość ekranu, skala mapy czy dawkowanie zasobów).</p>
+<p>$$\frac{\textcolor{#ff0001}{a}}{\textcolor{#ff0002}{b}} = \frac{\textcolor{#ff0003}{c}}{\textcolor{#ff0004}{d}} \quad \implies \quad \textcolor{#ff0001}{a} \cdot \textcolor{#ff0004}{d} = \textcolor{#ff0002}{b} \cdot \textcolor{#ff0003}{c}$$</p>
+<h3>⚡ Proporcja: Skalowanie „Na Krzyż”</h3>
+<p><data-proportion-cross a="3" b="6" c="5" d="x"></data-proportion-cross></p>
+<p><em>Przykład: Jeśli $3$ kg materiału kosztuje $6$ zł, to zachowując tę samą proporcję, $5$ kg będzie kosztować $10$ zł.</em></p>
+<p>$$\frac{3}{6} = \frac{5}{x} \quad \implies \quad 3 \cdot x = 6 \cdot 5$$</p>
+<p>$$3x = 30 \quad | \div 3$$ Podzielmy obie strony równania przez 3, by uzyskać wartość $x$.</p>
+<p>$$x = 10$$</p>
+<h3>🛠️ Punkt Kontrolny: Analiza Relacji</h3>
+<data-gate>
+<data-quiz>
+  <question>W klasie mamy $12$ uczniów i $3$ opiekunów. Jaki jest stosunek (proporcja) uczniów do opiekunów?</question>
+  <options>
+    <option>$3:12$</option>
+    <option correct>$4:1$</option>
+    <option>$12:15$</option>
+  </options>
+  <div data-hint="error">Skróć relację wykorzystując NWD (podziel obie strony przez $3$).</div>
+  <div data-hint="success">Poprawnie. Relacja $12:3$ po skróceniu to $4:1$. Na jednego opiekuna przypada dokładnie $4$ uczniów.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>💯 Procenty: Skala Stustopniowa</h3>
+<p><strong>PROCENT</strong> to specjalny ułamek, w którym mianownik zawsze wynosi <strong>$100$</strong>. To uniwersalna skala, która ułatwia nam porównywanie danych z różnych źródeł.</p>
+<p>$$x\% = \frac{x}{100}$$</p>
+<table>
+<thead>
+<tr>
+<th align="center">Procent</th>
+<th align="center">Ułamek</th>
+<th align="center">Dziesiętnie</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$100\%$</td>
+<td align="center">$$\frac{100}{100}$$</td>
+<td align="center">$1,0$</td>
+<td align="left">Całość</td>
+</tr>
+<tr>
+<td align="center">$50\%$</td>
+<td align="center">$$\frac{1}{2}$$</td>
+<td align="center">$0,5$</td>
+<td align="left">Połowa</td>
+</tr>
+<tr>
+<td align="center">$25\%$</td>
+<td align="center">$$\frac{1}{4}$$</td>
+<td align="center">$0,25$</td>
+<td align="left">Ćwierć</td>
+</tr>
+<tr>
+<td align="center">$10\%$</td>
+<td align="center">$$$\frac{1}{10}$$</td>
+<td align="center">$0,1$</td>
+<td align="left">Jedna dziesiąta</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Co kraj to inny sposób zapisu.<br>W Polsce stosujemy przecinek <code>,</code> oddzielający część całkowitą od ułamkowej.<br>W anglosaskim i chińskim systemie matematycznym i informatycznym używa się do tego kropki <code>.</code>.<br>Kanadyjczycy piszą jak im się podoba w zależności od regionu.<br>No i jeszcze trzeci format z krajów arabskich gdzie używa się <code>٫</code> (momayyez).<br><a href="https://en.wikipedia.org/wiki/Decimal_separator#Influence_of_calculators_and_computers">Mapa świata z separatorami dziesiętnymi</a></p>
+
+</div>
+</div><h3>🔗 Połącz Pary: Konwersja Formatu</h3>
+<data-gate>
+<data-connection-matcher>
+    <item left="$20\%$" right='<span style="font-size:1.4rem">$\frac{1}{5}$</span>'></item>
+    <item left="$75\%$" right='<span style="font-size:1.4rem">$\frac{3}{4}$</span>'></item>
+    <item left="$200\%$" right="2 (dwie całości)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<h3>🛠️ Punkt Kontrolny: Obliczanie Procentów</h3>
+<data-gate>
+<data-quiz>
+  <question>Dysk ma $500$ GB pojemności. Zajęte jest $60\%$. Ile to GB?</question>
+  <options>
+    <option>$60$ GB</option>
+    <option>$200$ GB</option>
+    <option correct>$300$ GB</option>
+    <option>$440$ GB</option>
+  </options>
+  <div data-hint="error">Pomnóż: $$\frac{60}{100} \cdot 500$$.</div>
+  <div data-hint="success">Zgadza się. $0,6 \cdot 500 = 300$ GB. Procent to po prostu współczynnik skali.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>💻 Implementacja: Precyzja w IT</h3>
+<ol>
+<li><strong>Layout (CSS):</strong> Jednostki <code>%</code>, <code>vw</code>, <code>vh</code> to nic innego jak ułamki i procenty viewportu. Pozwalają na tworzenie interfejsów, które adaptują się do każdej rozdzielczości.</li>
+<li><strong>Statystyka i Logi:</strong> Analiza obciążenia procesora (CPU Usage) czy zajętości pamięci RAM podawana jest w procentach, co pozwala na szybką diagnostykę stanu systemu.</li>
+<li><strong>Grafika Komputerowa:</strong> Przezroczystość (Alpha Channel) to wartość od $0\%$ (pełna przezroczystość) do $100\%$ (pełne krycie).</li>
+</ol>
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>ułamek to instrukcja segmentacji jednostki na równe części,  </li>
+<li>mianownik określa rozdzielczość podziału i <strong><em>nigdy nie może być równy</em></strong> $\boldsymbol{0}$,  </li>
+<li>skracanie ułamków to optymalizacja zapisu przy użyciu NWD,  </li>
+<li>dodawanie i odejmowanie ułamków wymaga synchronizacji mianowników (NWW),  </li>
+<li>mnożenie ułamków to mnożenie liczników i mianowników,  </li>
+<li>dzielenie ułamków to mnożenie przez odwrotność,  </li>
+<li>proporcja to stała relacja skalująca system,  </li>
+<li>procent to ułamek o mianowniku $\boldsymbol{100}$ — uniwersalna skala porównawcza.</li>
+</ul>
+<hr>
+<p>Opanowanie części całości (ułamki), relacji (proporcje) oraz skali (procenty) kończy naszą podróż przez podstawy liczb wymiernych ( $\mathbb{Q}$ — <em>rationale</em> <strong>Zahlen</strong>). W następnym kroku opanujemy potęgi i pierwiastki. 🚀</p>

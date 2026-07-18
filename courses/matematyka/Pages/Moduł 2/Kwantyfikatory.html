@@ -1,0 +1,351 @@
+<h2>Kwantyfikatory: Globalne Kontrakty i Niezmienniki</h2>
+<p>W poprzednich lekcjach operowaliśmy na konkretnych wyrażeniach i pojedynczych stanach logicznych. Jednak w inżynierii systemów rzadko interesuje nas to, czy „ten jeden konkretny bajt jest poprawny”. Prawdziwym wyzwaniem jest narzucenie rygoru na <strong>całe zbiory danych</strong>.</p>
+<p>Kwantyfikatory to Twoje <strong>Globalne Kontrakty</strong>. To mechanizmy, które pozwalają Ci zdefiniować warunki brzegowe dla całych kolekcji rekordów, baz danych czy strumieni wejściowych. Dzięki nim matematyka przestaje być punktowa, a staje się zbiorcza.</p>
+<hr>
+<h3>🏗️ Funkcja Zdaniowa: Kod źródłowy z parametrem</h3>
+<p>Zanim wrzucimy kwantyfikator, potrzebujemy obiektu, który będzie on badał. Jest nim <strong>funkcja zdaniowa</strong> (predykat), czyli matematyczny odpowiednik funkcji zwracającej <code>boolean</code>.</p>
+<p>Przykład: $P(x): x \text{ jest parzyste}$.</p>
+<ul>
+<li>Samo $P(x)$ nie ma wartości logicznej puki nie zostanie użyta z konkretnym argumentem (to jakby „martwy kod”).</li>
+<li>$P(2)$ zwraca <code>true</code>.</li>
+<li>$P(3)$ zwraca <code>false</code>.</li>
+</ul>
+<p>Kwantyfikator „ożywia” ten kod, każąc mu przejść przez cały zdefiniowany zbiór (<em>dziedzinę</em>) i zwrócić ostateczny werdykt dla całego systemu.</p>
+<hr>
+<h3>♾️ Kwantyfikator Ogólny ($\forall$): Totalny łańcuch AND</h3>
+<p>Symbol $\forall$ (odwrócone A, czyli <em>All</em>) to strażnik <strong>Niezmienników Systemowych</strong> (<em>System Invariants</em>). Twierdzi on, że dany warunek musi być spełniony bezwzględnie przez <strong>każdy</strong> element zbioru.</p>
+<p><strong>Zapis:</strong> $\forall x \in X : P(x)$<br><strong>Czytamy:</strong> „Dla każdego $x$ należącego do zbioru $X$ zachodzi $P(x)$”.<br><strong>Logika Boole&#39;a:</strong> To gigantyczna operacja <code>AND</code> rozciągnięta na cały zbiór:<br>$$P(x_1) \land P(x_2) \land P(x_3) \land \dots \land P(x_n)$$</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Rygor Unit Testu</strong>: Kwantyfikator ogólny zachowuje się jak zestaw testów jednostkowych. Jeśli choć jeden element zbioru zawiedzie (zwróci <code>false</code>), całe wyrażenie $\forall$ natychmiast upada. W inżynierii to sygnał o naruszeniu integralności systemu.</p>
+
+</div>
+</div><hr>
+<h3>🛠️ Punkt kontrolny: Kwantyfikator ogólny</h3>
+<data-gate>
+<data-quiz title="Checkpoint: Rygor \forall">
+    <question>Masz bazę $1\phantom{0}000\phantom{0}000$ rekordów. Co się stanie z wartością logiczną wyrażenia $\forall$, jeśli $999\phantom{0}999$ rekordów jest poprawnych, a $1$ jest błędny?</question>
+    <options>
+        <option>Wyrażenie pozostaje prawdziwe (margines błędu $0.0001\\%$).</option>
+        <option correct>Wyrażenie natychmiast staje się fałszywe.</option>
+        <option>Wartość jest nieokreślona (Undefined).</option>
+    </options>
+    <div data-hint="error">Wartość nie określona zalicza się do fałszywych, ponieważ margines błędu nie istnieje w logice formalnej. Jeden fałsz unieważnia cały kwantyfikator ogólny.</div>
+    <div data-hint="success">Prawidłowo. Kwantyfikator ogólny to kontrakt binarny: albo $100\%$ zgodności, albo całkowita porażka.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th align="left">Atrybut</th>
+<th align="left">Specyfikacja Inżynierska</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Zapis LaTeX</strong></td>
+<td align="left"><code>\forall</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Programowanie</strong></td>
+<td align="left"><em>JS</em> - <code>Array.every()</code>, <em>C#</em> - <code>Enumerable.All()</code>, <em>C++</em> - <code>std::all_of()</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Cel</strong></td>
+<td align="left">Walidacja kontraktów, narzucanie typów, bezpieczeństwo pamięci.</td>
+</tr>
+<tr>
+<td align="left"><strong>SQL</strong></td>
+<td align="left">Podzapytania z operatorem <code>ALL</code></td>
+</tr>
+</tbody></table>
+<h5>Przykład Inżynierski:</h5>
+<p>$\forall x \in \text{Użytkownicy} : \text{Wiek}(x) \ge 13$<br><em>„System gwarantuje, że każdy zarejestrowany użytkownik spełnia wymóg wieku COPPA.”</em></p>
+<hr>
+<h3>🎯 Kwantyfikator Szczegółowy ($\exists$): Totalny łańcuch OR</h3>
+<p>Symbol $\exists$ (odwrócone E, czyli <em>Exists</em>) to <strong>Sonda Egzystencjalna</strong>. Nie szuka doskonałości, szuka <strong>dowodu istnienia</strong>.</p>
+<p><strong>Zapis:</strong> $\exists x \in X : P(x)$<br><strong>Logika Boole&#39;a:</strong> To gigantyczna operacja <code>OR</code> rozciągnięta na cały zbiór:<br>$$P(x_1) \lor P(x_2) \lor P(x_3) \lor \dots \lor P(x_n)$$</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Wyszukiwanie Wyjątków</strong>: Używamy go, gdy chcemy sprawdzić, czy w systemie występuje określony stan — np. czy istnieje błąd w logach (<code>existsError</code>) lub czy istnieje wolny slot w pamięci.</p>
+
+</div>
+</div><hr>
+<h4>🛠️ Punkt kontrolny: Sonda Egzystencjalna</h4>
+<data-gate>
+<data-quiz title="Checkpoint: Sonda \exists">
+    <question>Kiedy wyrażenie $\exists x \in X : P(x)$ jest prawdziwe w kontekście inżynierii danych?</question>
+    <options>
+        <option>Gdy absolutnie wszystkie elementy zbioru spełniają warunek.</option>
+        <option correct>Gdy znajdziemy przynajmniej jeden element spełniający warunek.</option>
+    </options>
+    <div data-hint="error">Absolutna zgodność to domena $\forall$, a nie $\exists$.</div>
+    <div data-hint="success">Dokładnie. To sonda egzystencjalna — szukamy „choć jednego” dowodu.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th align="left">Atrybut</th>
+<th align="left">Specyfikacja Inżynierska</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Zapis LaTeX</strong></td>
+<td align="left"><code>\exists</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Programowanie</strong></td>
+<td align="left"><em>JS</em> - <code>Array.some()</code>, <em>C#</em> - <code>Enumerable.Any()</code>, <em>C++</em> - <code>std::any_of()</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Cel</strong></td>
+<td align="left">Wykrywanie kolizji, obsługa wyjątków, wyszukiwanie rekordów.</td>
+</tr>
+<tr>
+<td align="left"><strong>SQL</strong></td>
+<td align="left">Klauzula <code>EXISTS</code></td>
+</tr>
+</tbody></table>
+<h5>Przykład Inżynierski:</h5>
+<p>$\exists x \in \text{Logi} : \text{Status}(x) = 500$<br><em>„W systemie wystąpił przynajmniej jeden błąd wewnętrzny serwera.”</em></p>
+<hr>
+<h4>🔗 Połącz Pary: Trening Mapowania Struktur</h4>
+<p>Jako architekt reguł, musisz bezbłędnie parować opisy z ich formalną implementacją:<br><data-gate><br><data-connection-matcher title="Połącz kontrakty z ich zapisem"><br>    <item left="Każdy proces musi mieć PID" right="$\forall p \in \text{Procesy} : \text{hasPID}(p)$" /><br>    <item left="Istnieje proces zombie" right="$\exists p \in \text{Procesy} : \text{isZombie}(p)$" /><br>    <item left="Wszystkie połączenia są szyfrowane" right="$\forall c \in \text{Conn} : \text{isEncrypted}(c)$" /><br>    <item left="Przynajmniej jeden port jest otwarty" right="$\exists p \in \text{Ports} : \text{isOpen}(p)$" /><br></data-connection-matcher><br></data-gate></p>
+<hr>
+<h3>🔭 Quantifier Scope: Zasięg i Związanie</h3>
+<p>To pojęcie, które programiści rozumieją intuicyjnie jako <strong>Scope</strong> (zasięg zmiennej). Kwantyfikator „wyłapuje” zmienną $x$ i tworzy dla niej lokalny kontekst (blok kodu).</p>
+<h4>1. Zmienna Związana vs Wolna</h4>
+<p>Wyobraź sobie kwantyfikator jako deklarację funkcji:</p>
+<pre><code class="language-javascript">// Zmienna Związana (Bound Variable):
+// x istnieje TYLKO wewnątrz tej funkcji.
+const P = (x) =&gt; x &gt; 0; 
+
+// Zmienna Wolna (Free Variable):
+// y musi istnieć w zasięgu globalnym, inaczej system padnie.
+const Q = (x) =&gt; x &gt; y; 
+</code></pre>
+<p>W logice:</p>
+<ul>
+<li>W wyrażeniu $\forall x : P(x)$, zmienna $x$ jest <strong>związana</strong> przez kwantyfikator. Jest bezpieczna, ma swój „kontener”.</li>
+<li>W wyrażeniu $\forall x : P(x, y)$, zmienna $x$ jest związana, ale $y$ jest <strong>wolna</strong>. Jeśli Twój system nie zdefiniuje $y$ wcześniej, formuła jest niekompletna (Undefined).</li>
+</ul>
+<pre><code class="language-javascript">P(5) // true
+Q(5) // ReferenceError: &#39;y&#39; is not defined
+let y = 10;
+Q(5) // false
+</code></pre>
+<hr>
+<h4>🔗 Połącz Pary: Analiza Scope'u i Związania</h4>
+<data-gate>
+<data-connection-matcher title="Analiza Scope'u i Związania">
+    <item left="$\forall x : P(x)$" right="Zmienna x jest związana (lokalna)" />
+    <item left="$\forall x : P(x, y)$" right="Zmienna y jest wolna (globalna)" />
+    <item left="$\forall x \, \big(P(x) \land \exists x \, Q(x)\big)$" right="Występuje Shadowing (przesłanianie)" />
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<h4>2. Shadowing (Przesłanianie)</h4>
+<p>To klasyczny błąd „kolizji nazw”, który w programowaniu nazywamy <em>shadowingiem</em>. Występuje, gdy zdefiniujesz nową zmienną o tej samej nazwie wewnątrz zasięgu już istniejącej.</p>
+<hr>
+<h5>Przykład w kodzie (Shadowing):</h5>
+<pre><code class="language-javascript">let x = 100; // Zewnętrzne &#39;x&#39;
+
+[1, 2, 3].every(x =&gt; {
+    // Wewnętrzne &#39;x&#39; przesłania to zewnętrzne!
+    // Tutaj &#39;x&#39; to kolejno 1, 2, 3... liczba 100 jest &quot;niewidoczna&quot;.
+    return x &gt; 0;
+});
+</code></pre>
+<hr>
+<p><strong>To samo w logice matematycznej:</strong></p>
+<div style="display: flex;">
+
+<p>$$\underbrace{\forall x}_{\text{zmienna 1}}$$</p>
+<p>$$\left(P(x) \land \underbrace{\exists x}_{\text{zmienna 2 — przesłania 1}} Q(x)\right)$$</p>
+</div>
+
+<ol>
+<li>Zewnętrzne $x$ jest związane przez $\forall x$.  </li>
+<li>Wewnątrz pojawia się $\exists x$, które <strong>przesłania</strong> poprzednie $x$.  </li>
+<li>W zakresie $\exists x$ zewnętrzne $x$ jest <strong>niewidoczne</strong> — dokładnie jak w przykładzie z JavaScript.</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><strong>Logic Bug</strong>: To proszenie się o kłopoty i błędną interpretację wartości dwóch różnych zmiennych $x$ i $x$ jako jednej.<br>Choć tak naprawdę przez zasięg i kontekst uniwersum mowa o szeregu zmiennych $x_1, x_2, x_3 ... x_n$, które są od siebie niezależne. </p>
+<p>Matematyka i kompilator lub interpreter to rozróżniają, ale matematyk i programista muszą nie potrzebnie marnować swoją energie.</p>
+<p>Jako architekt struktur, zawsze stosuj unikalne identyfikatory ($x, y, z$), aby zachować czystość „kodu matematycznego”. Czytelność jest ważniejsza niż oszczędność na literach. 🥸</p>
+
+</div>
+</div><hr>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<h4>🤖 Inżynierskie rozróżnienie: Kwantyfikacja vs Kwantyzacja</h4>
+<p>W świecie LLM i AI łatwo o pomyłkę terminologiczną:</p>
+<ol>
+<li><strong>Kwantyfikacja (Quantification)</strong>: To, co robimy teraz. Nakładanie rygoru logicznego ($\forall, \exists$).<br>Definiowanie <em><strong>co</strong></em> i <em><strong>ile</strong></em> elementów zbioru badamy.</li>
+<li><strong>Kwantyzacja (Quantization)</strong>: Proces kompresji wag modelu (np. z <code>FP32</code> ($32$-bitowa liczba zmiennoprzecinkowa) do <code>INT8</code> ($8$-bitowa liczba całkowita)). Zmniejszanie precyzji obliczeń, aby model działał szybciej na słabszym sprzęcie.</li>
+</ol>
+<p><strong>LLM a Logika</strong>: Modele językowe często zawodzą przy złożonych kwantyfikatorach (np. zamiana kolejności $\forall \exists \neq \exists \forall$). Dlatego w zaawansowanym promptingu stosujemy techniki <strong>Chain of Thought</strong> (łańcuch myśli - rozwiązywanie problemu krok po kroku), aby wymusić na modelu krokowe parsowanie zasięgu zmiennych.</p>
+
+</div>
+</div><hr>
+<h3>🚫 Negacja formalna: Prawa de Morgana</h3>
+<p>Zaprzeczanie kwantyfikatorom to klucz do <strong>Automatycznego Dowodzenia Prawdy</strong>. Intuicja często zawodzi, ale logika Boole&#39;a jest nieubłagana.</p>
+<p><em><strong>Prawa de Morgana dla Kwantyfikatorów:</strong></em></p>
+<ol>
+<li>$\neg ( \forall x : P(x)) \iff \exists x : \neg P(x)$<br><em>„Jeśli nie jest prawdą, że każdy element jest sprawny, to znaczy, że istnieje przynajmniej jeden zepsuty.”</em></li>
+<li>$\neg (\exists x : P(x)) \iff \forall x : \neg P(x)$<br><em>„Jeśli nie istnieje ani jeden element zepsuty, to znaczy, że absolutnie wszystkie są sprawne.”</em></li>
+</ol>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Negacja formalna wymaga absolutnie precyzyjnego stosowania nawiasów by na pewno zanegować wszystko co dla danego kwantyfikatora zachodzi.<br>Przykładowo:<br>$\forall x \in \mathbb{N} : x \ge 0$<br>$\exists x \in \mathbb{N} : \neg x \ge 0$ nie jest konkretną notacją, bo neguje jedynie $x$ zamias całego warunku $x \ge 0$.</p>
+<p>Prawidłowa notacja to: $\exists x \in \mathbb{N} : \neg (x \ge 0)$ co jest formalnym zapisem równoważnym z $\exists x \in \mathbb{N} : x &lt; 0$.</p>
+
+</div>
+</div><hr>
+<h4>🛠️ Punkt kontrolny: Negacja formalna</h4>
+<data-gate>
+<data-quiz>
+    <question>Co jest negacją zdania: „Wszystkie pakiety dotarły do celu”?</question>
+    <options>
+        <option>Żaden pakiet nie dotarł do celu.</option>
+        <option correct>Istnieje przynajmniej jeden pakiet, który nie dotarł.</option>
+        <option>Niektóre pakiety dotarły, a niektóre nie.</option>
+    </options>
+    <div data-hint="error">„Niektóre” to termin potoczny, a „Żaden” to $\forall \neg$, co jest silniejszym stwierdzeniem niż zwykła negacja „wszystkich”.</div>
+    <div data-hint="success">Dokładnie! Aby obalić globalny kontrakt ($\forall$), wystarczy wskazać jeden kontrprzykład ($\exists \neg$).</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h4>🪤 Sandbox: Implementacja Reguł</h4>
+<p>Zastosuj zdobytą wiedzę do sformułowania szczelnych reguł walidacji.</p>
+<data-gate>
+<data-math-sandbox level="quantifiers" data-label="Architekt Kontraktów:">
+  <div 
+    data-step="1" 
+    data-expected="\forall x \in \mathbb{N} : x \ge 0" 
+    data-label="Zdefiniuj: Każda liczba naturalna $x$ $\in \mathbb{N}$ musi być większa lub równa $0$:"
+    data-hints='{"QUANTIFIER_MISMATCH": "💡 Użyj kwantyfikatora ogólnego \\\\(\\\\forall\\\\) — sprawdzamy KAżdĄ liczbę naturalną, nie czy choć jedna istnieje.", "SET_MISMATCH": "💡 Liczby naturalne to \\\\(\\\\mathbb{N}\\\\). Zbiór \\\\(\\\\mathbb{Z}\\\\) zawiera też ujemne!", "RELATION_MISMATCH": "💡 Warunek to \\(x \\ge 0\\) — użyj  `\ge`.", "SYNTAX_ERROR": "💡 Sprawdź składnię: pamiętaj o dwukropku (: x) i poleceniu \\\\\\\\forall."}'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="\exists x \in \mathbb{Z} : x < 0" 
+    data-label="Weryfikacja egzystencjalna: Zdefiniuj że w zbiorze liczb całkowitych ($\mathbb{Z}$) istnieje choć jedna liczba $x$ ujemna:"
+    data-hints='{"QUANTIFIER_MISMATCH": "💡 Użyj \\\\(\\\\exists\\\\) — szukamy czy choć jedna liczba w zbiorze jest ujemna.", "SET_MISMATCH": "💡 Szukamy w \\\\(\\\\mathbb{Z}\\\\) (liczbach całkowitych). \\\\(\\\\mathbb{N}\\\\) nie zawiera liczb ujemnych!", "RELATION_MISMATCH": "💡 Szukamy ujemnych: warunek to \\\\(x < 0\\\\), a nie \\\\(x \\\\le 0\\\\) ani \\\\(x > 0\\\\)."}'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="\exists x \in \mathbb{N} : \neg (x = 0)" 
+    data-task="\forall x \in \mathbb{N} : x = 0"
+    data-label="Wykonaj **formalną negację** reguły „Każda liczba $x \in \mathbb{N}$ jest równa 0”:"
+    data-hints='{"QUANTIFIER_MISMATCH": "💡 Negacja \\\\(\\\\forall\\\\) to \\\\(\\\\exists\\\\) — zmień też kwantyfikator!", "RELATION_MISMATCH": "💡 Negacja \\\\(x = 0\\\\) to \\\\(\\\\neg(x = 0)\\\\) — zapisz z jawnym \\\\\\\\neg.", "IDENTITY_ERROR": "💡 To oryginalna reguła — zaprzecz ją: zamień \\\\(\\\\forall\\\\) na \\\\(\\\\exists\\\\) i dodaj \\\\\\\\neg (x = 0).", "FORM_MISMATCH": "💡 Prawie! Wymagana forma: \\\\(\\\\exists x \\\\in \\\\mathbb{N} : \\\\neg (x = 0)\\\\)."}'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🔍 Notacja Wielostopniowa (Separator)</h3>
+<p>Zanim przejdziemy do analizy zależności, musimy wyjaśnić składnię. Gdy łączymy kilka kwantyfikatorów, używamy <em>przecinka</em> jako separatora między nimi. Dopiero przed właściwym warunkiem (predykatem) stawiamy <em>dwukropek</em>.</p>
+<p><strong>Wzór:</strong> </p>
+<p>$$\underbrace{\forall x \in X, \exists y \in Y}_{\text{Struktura (Scope)}} \quad:\quad \overset{\text{Warunek zachodzący}}{P(x, y)}$$</p>
+<hr>
+<h4>⚔️ Kolejność ma znaczenie: Zależność zmiennych</h4>
+<p>To najważniejszy budulec Twojej intuicji logicznej. W logice <strong>kwantyfikator po lewej stronie kontroluje wszystko, co jest po jego prawej stronie.</strong></p>
+<p>Rozważmy różnicę na prostym działaniu matematycznym:</p>
+<p><em><strong>Sytuacja A (Zależność):</strong></em> $\forall x \in \mathbb{R}, \exists y \in \mathbb{R} : x + y = 0$</p>
+<ul>
+<li><em>Interpretacja</em>: „Dla każdej liczby $x$ znajdziemy taką liczbę $y$, że ich suma to $0$”.</li>
+<li><em>Mechanizm</em>: Najpierw wybierasz dowolne $x$ (np. $5$), a potem „dostosowujesz” do niego $y$ (wtedy $y = -5$).</li>
+<li><em>Analogia</em>: Każdy zamek ma swój własny, pasujący klucz.</li>
+<li><em>Status</em>: <strong>Prawda.</strong></li>
+</ul>
+<p><em><strong>Sytuacja B (Uniwersalność):</strong></em> $\exists y \in \mathbb{R}, \forall x \in \mathbb{R} : x + y = 0$</p>
+<ul>
+<li><em>Interpretacja</em>: „Istnieje jedna, magiczna liczba $y$, która po dodaniu do KAŻDEGO $x$ da $0$”.</li>
+<li><em>Mechanizm</em>: Musisz wybrać $y$ <strong>zanim</strong> poznasz $x$. Jeśli wybierzesz $y=0$, to zadziała dla $x=0$, ale zawiedzie dla $x=5$. Nie ma takiej stałej liczby $y$, która obsłuży wszystkie $x$ naraz.</li>
+<li><em>Analogia</em>: Istnieje jeden „Master Key” (wytrych), który otwiera absolutnie wszystkie zamki na świecie.</li>
+<li><em>Status</em>: <strong><em>Fałsz.</em></strong></li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zasada Widoczności</strong>: Zmienna wprowadzona przez $\exists$ „widzi” tylko te zmienne, które zostały zadeklarowane <strong>wcześniej</strong> (po jej lewej stronie). </p>
+<ul>
+<li>W sytuacji A: $y$ widzi $x$ (może od niego zależeć).</li>
+<li>W sytuacji B: $y$ nie widzi $x$ (musi być stałe dla całego zbioru).</li>
+</ul>
+
+</div>
+</div><hr>
+<h4>🛠️ Punkt kontrolny: Kolejność ma znaczenie: Zależność zmiennych</h4>
+<data-gate>
+<data-quiz title="Checkpoint: Precedencja Kwantyfikatorów">
+    <question>Który zapis opisuje sytuację, w której każdy użytkownik ma swój unikalny token dostępu (zależny od użytkownika)?</question>
+    <options>
+        <option correct>$\forall u \in \text{Users}, \exists t \in \text{Tokens} : \text{has}(u, t)$</option>
+        <option>$\exists t \in \text{Tokens}, \forall u \in \text{Users} : \text{has}(u, t)$</option>
+    </options>
+    <div data-hint="error">Błąd! Ten zapis sugeruje, że token musi być wybrany „na ślepo”, zanim poznamy użytkownika.</div>
+    <div data-hint="success">Właśnie tak. Pozycja kwantyfikatora definiuje hierarchię zależności. Token $t$ może zależeć od $u$.</div>
+</data-quiz>
+</data-gate>
+
+
+<hr>
+<h3>🕵️ Strategia Dowodowa: Atak i Obrona</h3>
+<p>Zrozumienie kwantyfikatorów to przygotowanie do walki, którą stoczysz w kolejnej lekcji o <strong>Dowodach</strong>. Każde twierdzenie matematyczne to wyzwanie (Challenge&#8209;Response):</p>
+<ol>
+<li><p><em><strong>Gdy dowodzisz $\forall x : P(x)$ (Obrona)</strong></em>:<br>Musisz stanąć w pozycji defensywnej. Nie możesz pokazać „kilku przykładów”. Musisz udowodnić, że dla <strong>dowolnego, losowo wybranego</strong> $x$ (tzw. „ustalonego, ale dowolnego”), Twój warunek $P(x)$ zawsze zostanie spełniony.</p>
+</li>
+<li><p><em><strong>Gdy atakujesz $\forall x : P(x)$ (Atak)</strong></em>:<br>Wystarczy Ci <strong>jeden kontrprzykład</strong> ($\exists x : \neg P(x)$). To jest Twoja snajperska precyzja — jeden błąd w systemie obala całą teorię oponenta.</p>
+</li>
+<li><p><em><strong>Gdy dowodzisz $\exists x : P(x)$ (Konstrukcja)</strong></em>:<br>Twoim zadaniem jest bycie inżynierem&#8209;twórcą. Musisz <strong>wskazać (skonstruować)</strong> przynajmniej jeden konkretny obiekt <span style="text-wrap:nowrap;">$x$,</span> który spełnia warunek. Jeśli go znajdziesz — wygrałeś.</p>
+</li>
+</ol>
+<hr>
+<h4>🔗 Połącz Pary: Strategia Dowodowa</h4>
+<data-gate>
+<data-connection-matcher title="Zmapuj rolę w dowodzie">
+    <item left="Dowodzenie $\forall$" right="Obrona przed 'dowolnym' elementem" />
+    <item left="Obalanie $\forall$" right="Atak snajperski (jeden kontrprzykład)" />
+    <item left="Dowodzenie $\exists$" right="Konstrukcja (wskazanie przykładu)" />
+</data-connection-matcher>
+</data-gate>
+
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>kwantyfikator ogólny ($\forall$) to globalny kontrakt typu <code>AND</code> (wymaga $100\%$ zgodności),  </li>
+<li>kwantyfikator szczegółowy ($\exists$) to sonda egzystencjalna typu <code>OR</code> (szuka choć jednego dowodu),  </li>
+<li>zmienna związana posiada swój „scope” zdefiniowany przez kwantyfikator,  </li>
+<li><em>Shadowing</em> to błąd przesłaniania nazw, który niszczy czytelność logiki,  </li>
+<li>negacja $\forall$ to $\exists$ z zaprzeczonym warunkiem (i odwrotnie) — zgodnie z prawami de Morgana,  </li>
+<li>kolejność kwantyfikatorów decyduje o hierarchii zależności zmiennych (kto kogo „widzi”),  </li>
+<li>dowodzenie $\forall$ wymaga obrony przed dowolnym elementem, a obalenie — tylko jednego kontrprzykładu.</li>
+</ul>
+<hr>
+<p>W kolejnej lekcji wejdziemy na szczyt: <strong>Dowody Matematyczne</strong>. Wykorzystasz kwantyfikatory, aby przeprowadzić rygorystyczne dowody <strong>Wprost</strong> (konstrukcja) oraz <strong>Nie wprost</strong> (szukanie sprzeczności przez negację de Morgana). Przygotuj się na ostateczne starcie z chaosem. 🚀</p>

@@ -1,0 +1,126 @@
+<h1>Złota Era (Wstęp do RWD)</h1>
+<p>W Module 0 zbudowałeś stronę, która ma sens bez stylów. To był cel: HTML miał mówić prawdę o strukturze dokumentu.</p>
+<p>Teraz wchodzimy w warstwę wyglądu. CSS nie ma naprawiać złego HTML‑a. CSS ma nadać poprawnej strukturze czytelny rytm, proporcje, kolory, odstępy i układ.</p>
+<p>Najważniejsza zasada tej lekcji brzmi: <strong><span class="color-green">CSS opisuje prezentację, ale nie może fałszować znaczenia dokumentu</span></strong>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏛️ Dlaczego CSS w ogóle powstał?</h2>
+<p>W pierwszych latach WWW wygląd często wpisywano bezpośrednio w HTML:</p>
+<pre><code class="language-html">&lt;body bgcolor="#111111" text="#eeeeee"&gt;
+    &lt;h1 align="center"&gt;Stara strona&lt;/h1&gt;
+    &lt;table border="1" cellpadding="8"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Menu&lt;/td&gt;
+            &lt;td&gt;Treść&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+</code></pre>
+<p>To działało, ale mieszało dwie odpowiedzialności:</p>
+<ul>
+<li>HTML miał opisywać treść.</li>
+<li>HTML jednocześnie próbował ustawiać wygląd.</li>
+</ul>
+<p>Im większa strona, tym większy chaos. Zmiana koloru tła wymagała edycji wielu plików. Layout z tabel udawał dane tabelaryczne. Atrybuty wyglądu zaciemniały strukturę dokumentu.</p>
+<p>CSS powstał, aby oddzielić znaczenie od prezentacji.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Pierwszy arkusz stylów</h2>
+<p>Najczystszy sposób pracy to osobny plik CSS podłączony w <code>&lt;head&gt;</code>.</p>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="styles.css"&gt;
+</code></pre>
+<p>Przykładowy plik <code>styles.css</code>:</p>
+<pre><code class="language-css">body {
+    background-color: #111111;
+    color: #eeeeee;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #7dd3fc;
+}
+</code></pre>
+<p>HTML nadal opisuje treść. CSS opisuje sposób jej pokazania.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Trzy miejsca zapisu CSS</h2>
+<p>CSS możesz spotkać w trzech miejscach.</p>
+<h3>1. Plik zewnętrzny</h3>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="styles.css"&gt;
+</code></pre>
+<p>To podstawowy i zalecany sposób. Jeden plik stylów może obsługiwać wiele podstron.</p>
+<h3>2. Znacznik <code>&lt;style&gt;</code></h3>
+<pre><code class="language-html">&lt;style&gt;
+    body {
+        color: #222222;
+    }
+&lt;/style&gt;
+</code></pre>
+<p>Przydatne w małych przykładach i eksperymentach, ale w większym projekcie szybko robi bałagan.</p>
+<h3>3. Atrybut <code>style</code></h3>
+<pre><code class="language-html">&lt;p style="color: red;"&gt;Ważny tekst&lt;/p&gt;
+</code></pre>
+<p>To zapis inline. Unikaj go w normalnej pracy. Jest trudny do utrzymania i miesza HTML z wyglądem.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>W tym module możesz zobaczyć <code>style</code> w krótkich przykładach porównawczych, ale docelowo uczymy się pisać CSS w osobnym pliku.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📱 RWD jako konsekwencja, nie sztuczka</h2>
+<p>RWD (<span class="color-blue">Responsive Web Design</span>) oznacza projektowanie strony tak, aby działała na różnych szerokościach ekranu.</p>
+<p>To nie jest jedna magiczna reguła. To połączenie:</p>
+<ul>
+<li>poprawnego HTML‑a,</li>
+<li>elastycznych jednostek,</li>
+<li>obrazów, które nie rozpychają kontenera,</li>
+<li>układów takich jak Flexbox i Grid,</li>
+<li>media queries, czyli reguł zależnych od warunków ekranu.</li>
+</ul>
+<p>W Module 0 dodałeś:</p>
+<pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+</code></pre>
+<p>To był fundament. Teraz CSS zacznie realnie odpowiadać za układ.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Pierwsza zasada bezpieczeństwa CSS</h2>
+<p>CSS potrafi ukryć problem w HTML.</p>
+<p>Możesz sprawić, że akapit wygląda jak nagłówek:</p>
+<pre><code class="language-css">p {
+    font-size: 32px;
+    font-weight: bold;
+}
+</code></pre>
+<p>Ale to nadal będzie akapit. Robot indeksujący, czytnik ekranu i parser dokumentu nie uznają go za <code>&lt;h1&gt;</code>.</p>
+<p>Dlatego zanim stylujesz, upewnij się, że HTML mówi prawdę.</p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Jaka jest podstawowa rola CSS względem HTML?</p>
+</question>
+    <options>
+      <option><p>CSS zastępuje semantyczne tagi HTML, jeśli element dobrze wygląda.</p>
+</option>
+      <option correct=""><p>CSS opisuje prezentację poprawnie zbudowanej struktury HTML.</p>
+</option>
+      <option><p>CSS służy wyłącznie do animacji i efektów specjalnych.</p>
+</option>
+      <option><p>CSS zabezpiecza formularze przed błędnymi danymi użytkownika.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Pomyśl o podziale odpowiedzialności: HTML mówi, czym coś jest, CSS mówi, jak to wygląda.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie. CSS jest warstwą prezentacji, a nie zamiennikiem semantyki.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">CSS oddziela wygląd od struktury</span>: HTML opisuje znaczenie, CSS opisuje prezentację.</li>
+<li><span class="color-green">Plik zewnętrzny jest standardem</span>: <code>styles.css</code> podłączony przez <code>&lt;link rel="stylesheet"&gt;</code> to bazowy sposób pracy.</li>
+<li><span class="color-green">Inline style to wyjątek</span>: <code>style="..."</code> miesza treść z prezentacją i utrudnia utrzymanie.</li>
+<li><span class="color-green">RWD zaczyna się od dobrej struktury</span>: Responsywność nie naprawi źle zbudowanego dokumentu.</li>
+<li><span class="color-green">Wygląd nie zmienia semantyki</span>: Akapit ostylowany jak nagłówek nadal jest akapitem.</li>
+</ul>
+</section>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Blindness Simulation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            tabindex: -1;
+        }
+
+        .app-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #facc15;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .controls {
+            padding: 16px 24px;
+            background: #0f172a;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-filter {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #334155;
+            color: #f1f5f9;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-filter.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .showcase {
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            position: relative;
+            background: #1e293b;
+        }
+
+        @media (max-width: 600px) {
+            .showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .column-title {
+            font-size: 14px;
+            font-weight: 700;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #334155;
+            margin-bottom: 8px;
+        }
+
+        .column-bad .column-title {
+            color: #ef4444;
+        }
+
+        .column-good .column-title {
+            color: #22c55e;
+        }
+
+        /* ALERTY - ZŁY PROJEKT (tylko kolory) */
+        .alert-bad-success {
+            background-color: #22c55e;
+            border: 1px solid #16a34a;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .alert-bad-error {
+            background-color: #ef4444;
+            border: 1px solid #dc2626;
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ALERTY - DOBRY PROJEKT (ikony, etykiety, kolory) - KONTRAST AAA (7:1+) */
+        .alert-good-success {
+            background-color: #064e3b;
+            border: 2px solid #059669;
+            color: #d1fae5;
+            /* AAA: 9.1:1 */
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-good-error {
+            background-color: #7f1d1d;
+            border: 2px solid #dc2626;
+            color: #fee2e2;
+            /* AAA: 10.6:1 */
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-icon {
+            font-size: 16px;
+        }
+
+        /* FILTRY ŚLEPOTY BARW (SVG) */
+        .normal {
+            filter: none;
+        }
+
+        .protanopia {
+            filter: url('#protanopia-filter');
+        }
+
+        .deuteranopia {
+            filter: url('#deuteranopia-filter');
+        }
+
+        .tritanopia {
+            filter: url('#tritanopia-filter');
+        }
+
+        .achromatopsia {
+            filter: url('#achromatopsia-filter');
+        }
+
+        .status-bar {
+            padding: 12px 24px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Filtry SVG dla symulacji daltonizmu -->
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true" focusable="false">
+        <defs>
+            <!-- Protanopia (Brak czerwonego) -->
+            <filter id="protanopia-filter">
+                <feColorMatrix type="matrix" values="0.567, 0.433, 0.000, 0.000, 0.000
+                                           0.558, 0.442, 0.000, 0.000, 0.000
+                                           0.000, 0.242, 0.758, 0.000, 0.000
+                                           0.000, 0.000, 0.000, 1.000, 0.000" />
+            </filter>
+            <!-- Deuteranopia (Brak zielonego) -->
+            <filter id="deuteranopia-filter">
+                <feColorMatrix type="matrix" values="0.625, 0.375, 0.000, 0.000, 0.000
+                                           0.700, 0.300, 0.000, 0.000, 0.000
+                                           0.000, 0.300, 0.700, 0.000, 0.000
+                                           0.000, 0.000, 0.000, 1.000, 0.000" />
+            </filter>
+            <!-- Tritanopia (Brak niebieskiego) -->
+            <filter id="tritanopia-filter">
+                <feColorMatrix type="matrix" values="0.950, 0.050, 0.000, 0.000, 0.000
+                                           0.000, 0.433, 0.567, 0.000, 0.000
+                                           0.000, 0.475, 0.525, 0.000, 0.000
+                                           0.000, 0.000, 0.000, 1.000, 0.000" />
+            </filter>
+            <!-- Achromatopsia (Brak barw) -->
+            <filter id="achromatopsia-filter">
+                <feColorMatrix type="matrix" values="0.299, 0.587, 0.114, 0.000, 0.000
+                                           0.299, 0.587, 0.114, 0.000, 0.000
+                                           0.299, 0.587, 0.114, 0.000, 0.000
+                                           0.000, 0.000, 0.000, 1.000, 0.000" />
+            </filter>
+        </defs>
+    </svg>
+
+    <div class="app-wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="title">Symulator ślepoty barw (Daltonizm w UI)</div>
+                <span style="font-size: 11px; color: #64748b; font-family: monospace; white-space: nowrap;">Koala-V</span>
+            </div>
+
+            <div class="controls">
+                <button class="btn-filter active" id="btn-normal" onclick="applyFilter('normal')">Normalny
+                    wzrok</button>
+                <button class="btn-filter" id="btn-deuter" onclick="applyFilter('deuteranopia')">Deuteranopia
+                    (Zielony)</button>
+                <button class="btn-filter" id="btn-protan" onclick="applyFilter('protanopia')">Protanopia
+                    (Czerwony)</button>
+                <button class="btn-filter" id="btn-tritan" onclick="applyFilter('tritanopia')">Tritanopia
+                    (Niebieski)</button>
+                <button class="btn-filter" id="btn-achroma" onclick="applyFilter('achromatopsia')">Achromatopsia
+                    (Monochrom.)</button>
+            </div>
+
+            <div class="showcase normal" id="showcase-area">
+                <!-- Zły projekt (Tylko kolor) -->
+                <div class="column column-bad">
+                    <h4 class="column-title">Zły projekt (Tylko kolory)</h4>
+                    <div class="alert-bad-success">
+                        Operacja powiodła się pomyślnie.
+                    </div>
+                    <div class="alert-bad-error">
+                        Wystąpił nieoczekiwany błąd zapisu.
+                    </div>
+                </div>
+
+                <!-- Dobry projekt (Ikony i tekst) -->
+                <div class="column column-good">
+                    <h4 class="column-title">Dobry projekt (Inkluzja i czytelność)</h4>
+                    <div class="alert-good-success">
+                        <span class="alert-icon">✔</span>
+                        <span><strong>Sukces:</strong> Operacja powiodła się pomyślnie.</span>
+                    </div>
+                    <div class="alert-good-error">
+                        <span class="alert-icon">⚠</span>
+                        <span><strong>Błąd:</strong> Wystąpił nieoczekiwany błąd zapisu.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-bar" id="status-bar">
+                Klikaj filtry ślepoty barw powyżej. Zwróć uwagę, że przy <strong>Deuteranopii</strong> lub
+                <strong>Achromatopsji</strong> zielone i czerwone boksy z lewej kolumny stają się niemal identyczne,
+                uniemożliwiając rozróżnienie stanu błędu od sukcesu. Prawa kolumna pozostaje w pełni zrozumiała.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function applyFilter(filterClass) {
+            const showcase = document.getElementById('showcase-area');
+            const statusBar = document.getElementById('status-bar');
+
+            // Reset filtrów
+            showcase.className = 'showcase';
+            showcase.classList.add(filterClass);
+
+            // Aktualizacja guzików
+            document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+
+            let label = '';
+            if (filterClass === 'normal') {
+                document.getElementById('btn-normal').classList.add('active');
+                label = "<strong>Normalny wzrok:</strong> Widzisz pełną paletę barw. Kolor zielony oznacza sukces, a czerwony błąd. Obie wersje są łatwo rozróżnialne.";
+            } else if (filterClass === 'deuteranopia') {
+                document.getElementById('btn-deuter').classList.add('active');
+                label = "<strong>Deuteranopia:</strong> Zielony i czerwony zlewają się w podobne odcienie żółto-brązowe. W lewym panelu oba boksy wyglądają tak samo! W prawym panelu ikony i etykiety tekstowe ratują sytuację.";
+            } else if (filterClass === 'protanopia') {
+                document.getElementById('btn-protan').classList.add('active');
+                label = "<strong>Protanopia:</strong> Czerwony kolor jest wygaszony i ciemny. Pasywne komunikaty oparte wyłącznie na barwie tracą swoją funkcję informacyjną.";
+            } else if (filterClass === 'tritanopia') {
+                document.getElementById('btn-tritan').classList.add('active');
+                label = "<strong>Tritanopia:</strong> Zaburzenie widzenia barwy niebieskiej i żółtej. Zmiana barw nadal powoduje utrudnienie odczytu bez wyraźnych etykiet tekstowych.";
+            } else if (filterClass === 'achromatopsia') {
+                document.getElementById('btn-achroma').classList.add('active');
+                label = "<strong>Achromatopsia:</strong> Widzenie wyłącznie w skali szarości. Lewa kolumna to dwa identyczne szare boksy. Tylko ikona i etykieta (prawa kolumna) pozwalają rozróżnić błąd od sukcesu.";
+            }
+
+            statusBar.innerHTML = label;
+        }
+    </script>
+</body>
+
+</html>

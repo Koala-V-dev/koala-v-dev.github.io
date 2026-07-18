@@ -1,0 +1,858 @@
+<h1>Konfiguracja interfejsów sieciowych</h1>
+<p>Na Helpdesku <span class="color-green">sieć</span> to temat numer jeden. Ponad połowa zgłoszeń zaczyna się od słów: <span class="color-blue">„Nie działa mi internet"</span>. Zanim zaczniesz przeszukiwać kable i resetować routery, musisz wiedzieć, jak Windows widzi i zarządza połączeniami sieciowymi – bo to właśnie tam najczęściej leży przyczyna.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🌐 Jak działa połączenie z Internetem?</h2>
+<p>Zanim przejdziemy do konfiguracji, warto mieć mentalny obraz tego, co się dzieje, gdy klient otwiera stronę <code>google.com</code>. Każdy element tego łańcucha może się zepsuć – a Ty musisz wiedzieć, <span class="color-blue">gdzie</span> szukać.</p>
+<h4>Łańcuch połączenia (uproszczony):</h4>
+<ol>
+<li><span class="color-green">Karta sieciowa</span> (<span class="color-gold">NIC</span> – <span class="color-blue">Network Interface Card</span>) – fizyczny lub wirtualny adapter w komputerze. Ethernet (kabel RJ‑45) lub Wi‑Fi.</li>
+<li><span class="color-green">Router / Access Point</span> – urządzenie w biurze lub domu, które przydziela adresy IP przez <span class="color-gold">DHCP</span> (<span class="color-blue">Dynamic Host Configuration Protocol</span>) i łączy sieć lokalną z Internetem tłumacząc lokalny adres na publiczny (<span class="color-gold">NAT</span> – <span class="color-blue">Network Address Translation</span>).</li>
+<li><span class="color-green">ISP</span> (<span class="color-blue">Internet Service Provider</span>) – dostawca internetu np. Orange, UPC, Play lub bezpośrednio NASK – państwowa jednostka odpowiedzialna za polską część Internetu. To on kontroluje Twoje połączenie ze światem. Jego serwery DNS decydują, jakie strony „widzisz”.</li>
+<li><span class="color-green">Serwer docelowy</span> – maszyna gdzieś na świecie, na której siedzi strona WWW lub usługa.</li>
+</ol>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">ISP to nie neutralny dostawca rury.</span> Twój dostawca internetu widzi <span class="color-green">każde</span> zapytanie DNS, które wysyłasz (bo domyślnie korzystasz z jego serwerów DNS). Na mocy polskiego prawa, ISP może <span class="color-green">blokować dostęp</span> do określonych domen (np. hazard, piractwo) przez tzw. blokadę DNS – po prostu nie odpowiada na zapytanie lub przekierowuje Cię na stronę z komunikatem o blokadzie.<br>Możesz sam sprawdzić <a href="https://cert.pl/lista-ostrzezen/">aktualizowaną listę ostrzeżeń CERT</a>. Lub rejestr zablokowanych w Polsce po ustawie delegalizującej internetowy hazard: <a href="https://hazard.mf.gov.pl/">Rejestr zablokowanych domen hazardowych</a>.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dual‑Stack i preferencja IPv6</span><br>Standardem sieciowym jest obecnie <span class="color-green">Dual‑Stack</span> – równoległe działanie IPv4 i IPv6. Zapewnia to obsługę starszych urządzeń, dlatego IPv4 nie zostanie wyłączony.</p>
+<p>Windows (od wersji Vista) domyślnie <span class="color-green">preferuje IPv6</span> (zgodnie z $\text{RFC }6724$). Jeśli router przydzieli globalny adres IPv6, system spróbuje połączyć się w tym standardzie. Jeśli sieć nie obsługuje IPv6 (brak trasowania), Windows od razu skorzysta z IPv4.</p>
+<p>Problemy diagnostyczne pojawiają się przy błędnej konfiguracji: gdy system otrzyma rekord DNS dla IPv6, ale router nie ma do niego trasy. Windows czeka wtedy na upłynięcie limitu czasu (<span class="color-blue">timeout</span>) przed przejściem na IPv4, co użytkownik odczuwa jako powolne ładowanie stron.</p>
+
+</div>
+</div><hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Co oznacza skrót ISP i NASK?</p>
+</question>
+    <options>
+      <item correct=""><p>ISP – Internet Service Provider, NASK – Naukowa i Akademicka Sieć Komputerowa</p>
+</item>
+      <item><p>ISP – Internetowy Serwis Pogotowia, NASK – Narodowa Agencja Sieci Komputerowej</p>
+</item>
+      <item><p>ISP – Internet Server Processing, NASK – National Agency for Scientific Computing</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Chodzi o skróty dostawcy internetu oraz polskiej jednostki odpowiedzialnej za krajową domenę internetową .pl i rejestrację nazw w tej domenie, a także za polską część globalnego Internetu.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie tak!<br><span class="color-green">ISP</span> to skrót od "Internet Service Provider", co po polsku oznacza „dostawca usług internetowych”.<br><span class="color-green">NASK</span> to natomiast skrót od „Naukowa i Akademicka Sieć Komputerowa”, polskiej jednostki odpowiedzialnej za krajową domenę internetową .pl i rejestrację nazw w tej domenie, a także za polską część globalnego Internetu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Podstawowa diagnostyka: ipconfig</h2>
+<p>To Twoja <span class="color-green">pierwsza komenda</span> przy każdym zgłoszeniu sieciowym. Otwórz okno Uruchom skrótem <kbd class="Win"></kbd> + <kbd>R</kbd>, wpisz <code>cmd</code> i zatwierdź klawiszem <kbd>Enter</kbd>, a następnie w konsoli wpisz:</p>
+<pre><code>ipconfig /all
+</code></pre>
+<data-tabs>
+  <tabs>
+    <item>Co widzisz w wyniku?</item>
+    <item>Kluczowe komendy ipconfig</item>
+  </tabs>
+  <div><p><span class="color-green">Anatomia wyniku <code>ipconfig /all</code></span></p>
+<p>Komenda wyświetla <span class="color-green">pełną konfigurację</span> każdego interfejsu sieciowego w systemie. Oto co musisz umieć odczytać:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Pole</th>
+<th align="left">Co oznacza</th>
+<th align="left">Co masz gadać</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Adres IPv4</span></td>
+<td align="left">Twój adres w sieci lokalnej</td>
+<td align="left">Jeśli zaczyna się od <code>169.254.x.x</code> → DHCP nie przydzielił adresu!</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Maska podsieci</span></td>
+<td align="left">Określa rozmiar sieci</td>
+<td align="left">Typowa: <code>255.255.255.0</code> (sieć /24, $254$ hosty)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Brama domyślna</span></td>
+<td align="left">Adres routera</td>
+<td align="left">Brak = zero połączenia z internetem</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Serwery DNS</span></td>
+<td align="left">Kto tłumaczy nazwy domen na IP</td>
+<td align="left">Domyślnie serwer ISP. Można zmienić!</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">DHCP włączony</span></td>
+<td align="left">Czy IP jest automatyczne</td>
+<td align="left"><code>Tak</code> = router przydziela. <code>Nie</code> = trzeba wpisać ręcznie</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Adres fizyczny (MAC)</span></td>
+<td align="left">Unikalny identyfikator karty sieciowej</td>
+<td align="left">Przydatny przy filtrowaniu MAC i diagnostyce</td>
+</tr>
+</tbody></table>
+<details>
+<summary>🔬 <b>Matematyka binarna pod maską TCP/IP – Dlaczego Binarne Fundamenty IT były obowiązkowe?</b></summary>
+
+<p>Jeśli zastanawiałeś się, po co uczyłeś się systemów binarnych i szesnastkowych w kursie wstępnym – oto Twoja odpowiedź. Stos sieciowy systemu Windows nie widzi liczb dziesiętnych. Dla karty sieciowej i jądra systemu, adresacja sieciowa to czysta logika cyfrowa.</p>
+<h3>1. Maska podsieci to bramka logiczna AND</h3>
+<p>Gdy Twój komputer chce wysłać pakiet pod adres <code>192.168.1.53</code> przy masce <code>255.255.255.0</code>, system operacyjny musi podjąć kluczową decyzję: </p>
+<p>Gdzie jest cel wysłania pakietu?</p>
+<table>
+<thead>
+<tr>
+<th>Sieci lokalna</th>
+<th>Sieć zewnętrzna</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ślemy go bezpośrednio przez switch</td>
+<td>ślemy go do bramy domyślnej / routera</td>
+</tr>
+</tbody></table>
+<p>Aby to ustalić, Windows wykonuje <span class="color-green">bitową operację AND (koniunkcję $\land$)</span> na adresie IP oraz masce podsieci:</p>
+<pre class="network-binary-calc">Adres IP:                   11000000 . 10101000 . 00000001 . 00110101  (192.168.1.53)
+Maska:                  AND 11111111 . 11111111 . 11111111 . 00000000  (255.255.255.0)
+                          ------------------------------------------
+Adres sieci (wynik):         11000000 . 10101000 . 00000001 . 00000000  (192.168.1.0)
+</pre>
+
+<p>Wszędzie tam, gdzie w masce są jedynki ($1$), bity adresu IP zostają przepisane bez zmian ($1 \text{ AND } 1 = 1$, $0 \text{ AND } 1 = 0$). Tam, gdzie są zera ($0$), wynik jest zawsze zerem ($x \text{ AND } 0 = 0$). </p>
+<ul>
+<li><span class="color-green">Maska <code>/24</code> (CIDR):</span> Notacja <code>/24</code> oznacza dokładnie liczbę początkowych jedynek w zapisie binarnym maski podsieci (trzy pełne oktety po $8$ bitów = $24$ jedynki). Pozostałe $8$ bitów (zera) to przestrzeń adresowa dla hostów ($2^8 - 2 = 254$ dostępne adresy w sieci, wyłączając adres sieci i adres rozgłoszeniowy).</li>
+</ul>
+<h3>2. Adres fizyczny MAC – 48 bitów zapisanych w HEX</h3>
+<p>Adres MAC (np. <code>00:1A:2B:3C:4D:5E</code>) to unikalny sprzętowy numer karty sieciowej składający się z $48$ bitów <span style="white-space: nowrap">($6$ bajtów)</span> zapisanych szesnastkowo. Dzieli się on na dwie równe części:</p>
+<ul>
+<li><span class="color-green">Pierwsze 24 bity (3 bajty – <code>00:1A:2B</code>):</span> To <span class="color-green">OUI</span> (<span class="color-blue">Organizationally Unique Identifier</span>). Unikalny kod przypisywany producentowi sprzętu (np. Intel, Realtek) przez organizację IEEE. Odczytując te bity, w sekundę dowiesz się, kto wyprodukował układ scalony karty!</li>
+<li><span class="color-green">Kolejne 24 bity (3 bajty – <code>3C:4D:5E</code>):</span> To unikalny numer seryjny karty przydzielany bezpośrednio przez producenta na taśmie produkcyjnej.</li></ul></details>
+
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Adres <code>169.254.x.x</code> (APIPA)</span> to sygnał alarmowy! Oznacza, że komputer <span class="color-green">nie dostał adresu od routera</span> i przypisał sobie tymczasowy. Przyczyny: kabel odłączony, router nie działa, usługa DHCP padła lub na routerze skończyła się pula adresów.</p>
+
+</div>
+</div></div>
+  <div><h3>Komendy ipconfig, które musisz znać</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Komenda</th>
+<th align="left">Co robi</th>
+<th align="left">Kiedy użyć</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>ipconfig</code></td>
+<td align="left">Podstawowy widok IP, maski, bramy</td>
+<td align="left">Szybka weryfikacja połączenia</td>
+</tr>
+<tr>
+<td align="left"><code>ipconfig /all</code></td>
+<td align="left">Pełne szczegóły (DNS, DHCP, MAC)</td>
+<td align="left">Głębsza diagnostyka</td>
+</tr>
+<tr>
+<td align="left"><code>ipconfig /release</code></td>
+<td align="left">Zwalnia aktualny adres IP z DHCP</td>
+<td align="left">Przed odnowieniem dzierżawy</td>
+</tr>
+<tr>
+<td align="left"><code>ipconfig /renew</code></td>
+<td align="left">Prosi router o nowy adres IP</td>
+<td align="left">Klasyczny „reset sieci"</td>
+</tr>
+<tr>
+<td align="left"><code>ipconfig /flushdns</code></td>
+<td align="left">Czyści lokalną pamięć podręczną DNS</td>
+<td align="left">Strona nie ładuje się, choć internet działa</td>
+</tr>
+<tr>
+<td align="left"><code>ipconfig /displaydns</code></td>
+<td align="left">Pokazuje zapisane w cache wpisy DNS</td>
+<td align="left">Sprawdzenie, jakie adresy DNS system zapamiętał od ostatniego restartu</td>
+</tr>
+</tbody></table>
+<p>Najpopularniejsza sekwencja na Helpdesku (tzw. <span class="color-green">reset stosu sieciowego</span>):</p>
+<pre><code>ipconfig /release    # zwalnia aktualny adres IP z DHCP
+ipconfig /renew     # prosi router o nowy adres IP
+ipconfig /flushdns  # czyści lokalną pamięć podręczną DNS
+</code></pre>
+<p>Te trzy komendy rozwiązują zaskakująco dużo problemów. Działają jak „wyłącz i włącz ponownie”, ale dla samej sieci.</p></div>
+</data-tabs>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Wpisujesz <code>ipconfig</code> na stacji roboczej i w wyniku widnieje adres IPv4 zaczynający się od <code>169.254.x.x</code>. Co oznacza ta sytuacja?</p>
+</question>
+    <options>
+      <item><p>Karta sieciowa działa w trybie statycznym – należy pilnie zmienić serwery DNS na publiczne.</p>
+</item>
+      <item><p>Adres IP został pomyślnie przypisany przez router, ale lokalna pamięć DNS wymaga czyszczenia.</p>
+</item>
+      <item correct=""><p>To adres APIPA – komputer nie dostał konfiguracji od serwera DHCP, np. przez odłączony kabel.</p>
+</item>
+      <item><p>To adres pętli zwrotnej (localhost) – system operacyjny nie załadował stosu protokołów sieciowych.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Sprawdź w ostrzeżeniu powyżej, w jakich okolicznościach system przypisuje tymczasowy adres z zakresu 169.254.x.x.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! Jest to adres APIPA (Automatic Private IP Addressing). System Windows przypisuje go tymczasowo, gdy karta sieciowa nie może pobrać adresu IP z serwera DHCP (np. z powodu braku połączenia fizycznego z routerem).</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Konfiguracja interfejsu sieciowego</h2>
+<p>Windows 11 oferuje dwie ścieżki do ustawień sieciowych. Obie prowadzą do tego samego celu, ale mają różne możliwości.</p>
+<data-tabs>
+  <tabs>
+    <item>Nowoczesne Ustawienia</item>
+    <item>Klasyczny Panel (ncpa.cpl)</item>
+  </tabs>
+  <div><h3>Nowoczesne Ustawienia</h3>
+<p>Otwórz <kbd class="Win"></kbd> + <kbd>I</kbd> → <span class="color-green">Sieć i Internet</span>. Zobaczysz przegląd aktywnych połączeń.</p>
+<p>Kliknięcie w aktywne połączenie (np. <span class="color-blue">Ethernet</span> lub <span class="color-blue">Wi‑Fi</span>) otwiera szczegóły, w których możesz konfigurować parametry protokołu IPv4:</p>
+<ul>
+<li><span class="color-green">Edycja przypisania IP:</span> Możesz zmienić ustawienie z DHCP (automatyczne) na Ręczne i przypisać statyczny adres IPv4, dziesiętną maskę podsieci oraz bramę domyślną.</li>
+<li><span class="color-green">Serwery DNS (IPv4):</span> Możesz ręcznie zdefiniować serwery DNS oraz włączyć dla nich szyfrowanie DNS over HTTPS (DoH).</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ipv4-ustawienia.webp" alt="Konfiguracja IPv4 w nowoczesnych ustawieniach Windows 11" width="2077" height="721" class="lazy-image" loading="lazy" decoding="async"></div>
+  <div><h3>Klasyczny Panel Sterowania</h3>
+<p>Wciśnij <kbd class="Win"></kbd> + <kbd>R</kbd> i wpisz <code>ncpa.cpl</code>. To <span class="color-green">klasyczne okno „Połączenia sieciowe”</span> – żywe od czasów Windows XP i wciąż niezastąpione na egzaminie zawodowym.</p>
+<p>Tutaj widzisz <span class="color-green">wszystkie</span> interfejsy sieciowe: aktywne, wyłączone, wirtualne (VPN, VirtualBox Host‑Only itp.).</p>
+<blockquote>
+<p><span class="color-green">PPM</span> – Kliknij prawym przyciskiem myszy.</p>
+</blockquote>
+<p><span class="color-green">PPM na interfejs → „Właściwości”</span> na wybranym interfejsie otwiera listę protokołów.</p>
+<ul>
+<li><kbd class="check-mark"></kbd> <span class="color-gold">Protokół internetowy w wersji 4 (TCP/IPv4)</span> – zaznacz go i kliknij <kbd class="win-menu-btn">Właściwości</kbd>.</li>
+</ul>
+<p>W nowo otwartym oknie ręcznie wpisujesz dane z podziałem na dwie sekcje:</p>
+<ol>
+<li><span class="color-green">Użyj następującego adresu IP:</span> Umożliwia wpisanie:</li>
+</ol>
+<ul>
+<li><span class="color-blue">Statycznego adresu IP</span> (np. <code>192.168.0.2</code>).</li>
+<li><span class="color-blue">Maska podsieci:</span> System Windows często sam uzupełnia maskę domyślną na podstawie klasy adresu IP (np. <code>255.255.255.0</code> dla klasy C).</li>
+<li><span class="color-blue">Brama domyślna:</span> Adres routera, przez który komputer komunikuje się z innymi sieciami (np. <code>192.168.0.1</code>).<br>  W przypadku maszyn wirtualnych np. VirtualBox możesz wpisać tu adres serwera bo to tam pójdzie pierwszy pakiet klienta.</li>
+</ul>
+<ol start="2">
+<li><span class="color-green">Użyj następujących adresów serwerów DNS:</span></li>
+</ol>
+<ul>
+<li><span class="color-blue">Preferowany serwer DNS</span> (np. <code>8.8.8.8</code> - Google‑owski DNS)</li>
+<li><span class="color-blue">Alternatywny serwer DNS</span> (np. <code>192.168.0.1</code> - adres routera, lub lokalnego serwera DNS)</li>
+</ul>
+<p>Panel <code>ncpa.cpl</code> jest jedynym miejscem, gdzie szybko:</p>
+<ul>
+<li><span class="color-green">wyłączysz/włączysz</span> interfejs sieciowy jednym klikiem (PPM → Wyłącz / Włącz).</li>
+<li>zmienisz nazwę interfejsu (PPM → Zmień nazwę).<br>To bezwzględnie wymagane umiejętności na egzaminie praktycznym INF.02! 😉</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ipv4-panel-sterowania.webp" alt="Panel sterowania - połączenia sieciowe z oknem konfiguracji IPv4" width="1024" height="646" class="lazy-image" loading="lazy" decoding="async"></div>
+</data-tabs>
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🆚 DHCP vs IP statyczny – kiedy co?</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha</th>
+<th align="left">DHCP (automatyczny)</th>
+<th align="left">Statyczny (ręczny)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Kto przydziela IP?</td>
+<td align="left">Router (serwer DHCP)</td>
+<td align="left">Ty, ręcznie</td>
+</tr>
+<tr>
+<td align="left">Typowe zastosowanie</td>
+<td align="left">Komputery pracowników, laptopy</td>
+<td align="left">Serwery, drukarki sieciowe, NAS (Network Attached Storage)</td>
+</tr>
+<tr>
+<td align="left">Ryzyko konfliktu IP</td>
+<td align="left">Minimalne (router pilnuje)</td>
+<td align="left">Wysokie (jeśli źle przypiszesz)</td>
+</tr>
+<tr>
+<td align="left">Zmiana sieci</td>
+<td align="left">Bezproblemowa</td>
+<td align="left">Trzeba ręcznie przestawić</td>
+</tr>
+</tbody></table>
+<p><span class="color-green">Na helpdesku</span> – $99\%$ stacji roboczych działa na DHCP. Adres statyczny ustawiasz tylko dla:</p>
+<ul>
+<li><span class="color-green">Drukarek sieciowych</span> (żeby adres się nie zmienił po restarcie routera)</li>
+<li><span class="color-green">Serwerów lokalnych</span> (NAS, serwer plików)</li>
+<li><span class="color-green">Rezerwacji DHCP</span> na routerze (alternatywa – przypisujesz stały IP do MAC adresu)</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Konflikt IP</span> – jeśli dwóm urządzeniom przypiszesz ten sam adres statyczny, oba stracą łączność. Windows wyświetli ostrzeżenie: <span class="color-blue">„Wykryto konflikt adresów IP”.</span> Rozwiązanie: zmień IP jednego z urządzeń lub przejdź na DHCP.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 DNS – serwer nazw (i dlaczego to Twoja sprawa)</h2>
+<p>DNS (<span class="color-blue">Domain Name System</span>) to <span class="color-green">książka telefoniczna internetu</span>. Zamienia nazwy, które ludzie rozumieją (<code>google.com</code>), na adresy IP, które rozumieją systemy komputerowe (<code>142.250.186.206</code>) i potrafią przetworzyć na binarny zapis by zrozumiała go maszyna.</p>
+<p>Ogromna część problemów <span class="color-blue">„nie działa internet”</span> to w rzeczywistości <span class="color-red">„nie działa DNS”</span>.</p>
+<p>Prosty test:</p>
+<ol>
+<li>Otwórz <code>cmd</code> i wpisz: <code>ping 8.8.8.8</code></li>
+<li>Jeśli ping <span class="color-blue">działa</span> → internet jest a problem leży w DNS.</li>
+<li>Jeśli ping <span class="color-red">nie działa</span> → problem jest głębiej (kabel, router, ISP).</li>
+</ol>
+<data-tabs>
+  <tabs>
+    <item>Blokada DNS przez ISP</item>
+    <item>Zmiana DNS (Windows)</item>
+    <item>DNS over HTTPS (DoH)</item>
+    <item>DoH w przeglądarkach</item>
+  </tabs>
+  <div><h3>Jak ISP blokuje strony przez DNS?</h3>
+<p>Mechanizm jest banalnie prosty:</p>
+<ol>
+<li>Wpisujesz <code>„zablokowana-strona.com”</code> w przeglądarkę.</li>
+<li>Twój komputer pyta serwer DNS dostawcy: <span class="color-blue">„Jaki IP ma ta strona?”</span></li>
+<li>Serwer ISP <span class="color-green">wie</span>, że domena jest na liście blokad → zamiast prawdziwego IP, zwraca <span class="color-blue">fałszywy adres</span> (np. stronę z komunikatem <span class="color-blue">„Domena zablokowana”</span>) albo w ogóle <span class="color-blue">nie odpowiada</span>.</li>
+</ol>
+<p>To tzw. <span class="color-gold">DNS hijacking</span> (porwanie DNS). ISP nie blokuje samej strony – blokuje <span class="color-green">odpowiedź na pytanie o jej adres</span>.</p>
+<p><span class="color-green">Jak to obejść?</span> Wystarczy zmienić serwer DNS na taki, który nie podlega polskiemu ISP.</p>
+<h3>Popularne publiczne serwery DNS</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Dostawca</th>
+<th align="left">Preferowany</th>
+<th align="left">Alternatywny</th>
+<th align="left">Uwagi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Cloudflare</span></td>
+<td align="left"><code>1.1.1.1</code></td>
+<td align="left"><code>1.0.0.1</code></td>
+<td align="left">Najszybszy, prywatność</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Google</span></td>
+<td align="left"><code>8.8.8.8</code></td>
+<td align="left"><code>8.8.4.4</code></td>
+<td align="left">Niezawodny, popularny</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Quad9</span></td>
+<td align="left"><code>9.9.9.9</code></td>
+<td align="left"><code>149.112.112.112</code></td>
+<td align="left">Blokuje złośliwe domeny</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Zmiana DNS <span class="color-red">nie</span> omija blokad na poziomie IP (np. firewall firmowy). Omija <span class="color-blue">wyłącznie</span> blokady oparte na DNS. To ważne rozróżnienie.</p>
+
+</div>
+</div></div>
+  <div><h3>Zmiana DNS w Windows 11</h3>
+<p><span class="color-green">Ścieżka nowoczesna:</span></p>
+<ol>
+<li><kbd class="Win"></kbd> + <kbd>I</kbd> → <span class="color-green">„Sieć i Internet”</span> → kliknij aktywne połączenie.</li>
+<li>Przy pozycji <span class="color-green">„Przypisanie serwera DNS”</span> kliknij <span class="color-green">„Edytuj”</span>.</li>
+<li>Zmień z <code>„Automatyczne (DHCP)”</code> na <code>„Ręczne”</code>.</li>
+<li>Włącz <span class="color-green">„IPv4”</span> i wpisz adresy (np. <code>1.1.1.1</code> i <code>1.0.0.1</code>).</li>
+<li>Zapisz.</li>
+</ol>
+<p><span class="color-green">Ścieżka klasyczna (ncpa.cpl):</span></p>
+<ol>
+<li><kbd class="Win"></kbd> + <kbd>R</kbd> → <code>ncpa.cpl</code></li>
+<li>PPM na aktywne połączenie → <span class="color-green">„Właściwości”</span></li>
+<li>Zaznacz <span class="color-green">„Protokół internetowy w wersji 4 (TCP/IPv4)”</span> → <span class="color-green">„Właściwości”</span></li>
+<li>Wybierz <span class="color-green">„Użyj następujących adresów serwerów DNS”</span></li>
+<li>Wpisz preferowany i alternatywny DNS → <kbd class="win-menu-btn">OK</kbd>  → <kbd class="win-menu-btn">OK</kbd> (oba okna)</li>
+</ol>
+<p>Po zmianie warto wyczyścić cache:</p>
+<pre><code>ipconfig /flushdns
+</code></pre></div>
+  <div><h3>DNS over HTTPS (DoH) – Szyfrowanie DNS i inżynieria prywatności</h3>
+<p>Zmiana serwera DNS na inny to dopiero połowa sukcesu. Standardowo zapytania DNS przesyłane są <span class="color-blue">całkowicie otwartym tekstem</span> na porcie <span class="color-green">53 (UDP)</span>. Niesie to ze sobą poważne konsekwencje i zagrożenia sieciowe:</p>
+<ul>
+<li><span class="color-gold">Inwigilacja i profilowanie ISP:</span> Twój dostawca internetu (ISP) rejestruje każdą odpytywaną przez Ciebie nazwę domeny (np. to, na jakie portale informacyjne, medyczne czy finansowe wchodzisz). Nawet jeśli cała komunikacja ze stroną jest szyfrowana (HTTPS), ISP doskonale zna historię Twoich zapytań DNS.</li>
+<li><span class="color-gold">Porywanie DNS (DNS Hijacking) i Phishing:</span> Zainfekowany router domowy, złośliwe oprogramowanie w sieci LAN lub cyberprzestępca w publicznej sieci Wi‑Fi może przechwycić Twoje zapytanie o adres banku i podmienić odpowiedź, kierując Cię na idealnie przygotowaną fałszywą stronę wyłudzającą hasła.</li>
+<li><span class="color-gold">Cenzura i blokady dostawców:</span> Wiele blokad nakładanych przez państwa lub dostawców internetu (np. blokady stron hazardowych lub pirackich) opiera się wyłącznie na porywaniu nieszyfrowanego ruchu DNS na porcie 53 i zwracaniu fałszywych adresów IP (np. strony ostrzegawczej).</li>
+</ul>
+<p><span class="color-green">DNS over HTTPS (DoH)</span> rozwiązuje ten problem. Zamyka zapytania DNS wewnątrz standardowego, szyfrowanego ruchu <span class="color-green">HTTPS (port 443)</span>. Zapytanie płynie w bezpiecznym kanale TLS bezpośrednio do zaufanego serwera.</p>
+<h4>Co to oznacza w praktyce i co się z tym wiąże?</h4>
+<ul>
+<li><span class="color-gold">Czy ISP może zablokować lub spowolnić DoH?</span> Ponieważ ruch DoH wygląda dla systemów monitorowania dostawcy identycznie jak normalny ruch HTTPS (np. logowanie do banku czy oglądanie wideo), <span class="color-red">ISP nie jest w stanie go zablokować ani spowolnić bez całkowitego zablokowania całego internetu</span>!<br>To kluczowa przewaga DoH nad konkurencyjnym standardem DoT (DNS over TLS), który działa na dedykowanym porcie 853 – ten port ISP może zablokować w ułamku sekundy.</li>
+<li><span class="color-gold">Wpływ na wydajność:</span> Narzut szyfrowania TLS i nawiązania bezpiecznego połączenia HTTPS dodaje minimalne opóźnienie (kilka milisekund), jednak dzięki agresywnemu buforowaniu (<span class="color-blue">cache'owaniu</span>) DNS w systemie Windows 11 i nowoczesnych przeglądarkach, różnica w codziennym użytkowaniu jest <span class="color-green">całkowicie nieodczuwalna</span>.</li>
+</ul>
+<hr>
+<h4>🌐 Najważniejsze publiczne serwery DoH (IPv4 &amp; IPv6):</h4>
+<p>Przechodząc na szyfrowany DNS, najczęściej wybieramy renomowane, globalne serwery:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Dostawca DNS</th>
+<th align="left">Preferowany IPv4</th>
+<th align="left">Preferowany IPv6</th>
+<th align="left">Szablon DoH (Adres URL)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Cloudflare</span> (Najszybszy, prywatność)</td>
+<td align="left"><code>1.1.1.1</code></td>
+<td align="left"><code>2606:4700:4700::1111</code></td>
+<td align="left"><code>https://cloudflare-dns.com/dns-query</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Google</span> (Szybki, globalny)</td>
+<td align="left"><code>8.8.8.8</code></td>
+<td align="left"><code>2001:4860:4860::8888</code></td>
+<td align="left"><code>https://dns.google/dns-query</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Quad9</span> (Filtrowanie malware/phishingu)</td>
+<td align="left"><code>9.9.9.9</code></td>
+<td align="left"><code>2620:fe::fe</code></td>
+<td align="left"><code>https://dns.quad9.net/dns-query</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h4>👓 Włączanie i konfiguracja DoH w najnowszych wersjach Windows 11 (GUI)</h4>
+<p>W najnowszych kompilacjach Windows 11 nie musimy już używać konsoli PowerShell do dodawania szyfrowanych DNS. Cały proces wyklikasz w nowoczesnym panelu Ustawień:</p>
+<ol>
+<li>Otwórz <kbd class="Win"></kbd> + <kbd>I</kbd> $\rightarrow$ <span class="color-green">„Sieć i Internet”</span> $\rightarrow$ kliknij aktywne połączenie (Wi‑Fi lub Ethernet).</li>
+<li>Przy pozycji <span class="color-green">„Przypisanie serwera DNS”</span> kliknij <span class="color-green">„Edytuj”</span>.</li>
+<li>Zmień z <code>„Automatyczne (DHCP)”</code> na <code>„Ręczne”</code> i aktywuj przełącznik <span class="color-green">IPv4</span> lub <span class="color-green">IPv6</span> (zalecam skonfigurowanie obu!).</li>
+<li>Wpisz adres (np. IPv4: <code>1.1.1.1</code> lub IPv6: <code>2606:4700:4700::1111</code>).</li>
+<li>W nowej opcji <span class="color-green">„DNS za pośrednictwem protokołu HTTPS”</span> wybierz jeden z trzech trybów:<ul>
+<li><span class="color-blue">Wyłączone:</span> Windows wysyła zapytania otwartym, nieszyfrowanym tekstem (port 53 UDP).</li>
+<li><span class="color-blue">Włączane (szablon automatyczny):</span> Windows automatycznie dopasuje adres URL szablonu szyfrowania dla najpopularniejszych serwerów (Cloudflare, Google, Quad9) na podstawie wpisanego IP.</li>
+<li><span class="color-blue">Włączane (szablon ręczny):</span> Otwiera dodatkowe pole tekstowe <span class="color-green">„DNS za pośrednictwem szablonu protokołu HTTPS”</span>, w które musisz ręcznie wkleić adres URL (szablon) z tabeli powyżej. Idealne, jeśli korzystasz z własnego lub mniej popularnego serwera DoH (np. NextDNS).</li>
+</ul>
+</li>
+<li><span class="color-green">Przełącznik „Powrót do zwykłego tekstu” (Dilemma awaryjny):</span><ul>
+<li><span class="color-blue">Włączony (Zalecany dla stabilności):</span> Jeśli serwer DoH ulegnie awarii lub sieć publiczna (np. w hotelu) zablokuje porty szyfrowane, Windows automatycznie przełączy się na klasyczny, nieszyfrowany protokół DNS (port 53 UDP), abyś nie stracił dostępu do sieci.</li>
+<li><span class="color-blue">Wyłączony (Strict / Tryb bezkompromisowy):</span> Windows zabrania wysyłania nieszyfrowanych zapytań DNS. Jeśli bezpieczne połączenie DoH nie może zostać nawiązane, system całkowicie zablokuje rozwiązywanie nazw domen. Zyskujesz $100\%$ prywatności, ale ryzykujesz brak internetu w niektórych sieciach.</li>
+</ul>
+</li>
+<li>Zapisz ustawienia i wyczyść cache komendą <code>ipconfig /flushdns</code> w konsoli CMD!</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/https-dns-ustawienia-windows.webp" alt="Ustawienia szyfrowanego serwera DNS w systemie Windows 11" width="961" height="901" class="lazy-image" loading="lazy" decoding="async">
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Jak sprawdzić, czy szyfrowanie naprawdę działa?</span></p>
+<ul>
+<li><span class="color-green">W systemowej aplikacji Ustawienia:</span> Przy Twoich serwerach DNS pojawi się jasna adnotacja <span class="color-green">„Zaszyfrowane”</span> (lub <span class="color-blue">Zaszyfrowane (DNS over HTTPS)</span>).</li>
+<li><span class="color-green">W konsoli za pomocą <code>ipconfig /all</code>:</span> W najnowszych wersjach Windows 11 (od kompilacji 24H2), komenda wprost wyświetla szablon DoH (np. <code>DoH: https://cloudflare-dns.com/dns-query</code>) bezpośrednio pod adresem IP każdego serwera DNS! W starszych wersjach systemu status szyfrowania sprawdzisz wyłącznie graficznie w Ustawieniach.</li>
+</ul>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dlaczego tuż po wyczyszczeniu cache (<code>ipconfig /flushdns</code>) internet może przez krótką chwilę delikatnie „przymulić”?</span><br>Ponieważ usuwasz z pamięci komputera wszystkie dotychczas zapamiętane adresy IP witryn sieciowych! Przy pierwszym wejściu na dowolną stronę internetową, system musi od zera wysłać zapytanie do serwera DNS i poczekać na odpowiedź. Pierwsze wczytanie danej strony potrwa minimalnie dłużej, ale każde kolejne wejście na tę samą stronę będzie już błyskawiczne, ponieważ jej adres IP ponownie trafi do lokalnej pamięci podręcznej (<span class="color-blue">cache'u</span>) Twojego systemu operacyjnego. 😉</p>
+
+</div>
+</div><hr>
+<h3>DoH w przeglądarkach – Niezależna linia obrony</h3>
+<p>Nawet jeśli nie posiadasz uprawnień administratora na komputerze (np. komputer firmowy / w pracowni szkolnej) i nie możesz zmienić ustawień systemowych DNS, <span class="color-green">przeglądarka internetowa</span> może samodzielnie szyfrować swoje zapytania.</p>
+<h4>Google Chrome / Microsoft Edge:</h4>
+<ol>
+<li>Wejdź w <span class="color-green">„Ustawienia”</span> → <span class="color-green">„Prywatność i bezpieczeństwo”</span> → <span class="color-green">„Bezpieczeństwo”</span>.</li>
+<li>Przewiń do sekcji <span class="color-green">„Użyj bezpiecznego DNS”</span>.</li>
+<li>Przełącz na <span class="color-green">„Przy użyciu”</span> i wybierz dostawcę (Cloudflare, Google itp.) lub wpisz własny adres.</li>
+</ol>
+<h4>Mozilla Firefox:</h4>
+<ol>
+<li>Wejdź w <span class="color-green">„Ustawienia”</span> → <span class="color-green">„Prywatność i bezpieczeństwo”</span>.</li>
+<li>Przewiń na sam dół do sekcji <span class="color-green">„DNS over HTTPS”</span>.</li>
+<li>Wybierz <span class="color-green">„Zwiększona ochrona”</span> lub <span class="color-green">„Maksymalna ochrona”</span>.</li>
+<li>Wybierz dostawcę (domyślnie Cloudflare).</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Mechanizm Auto‑upgrade</span> (Chrome/Edge) – jeśli wybierzesz <span class="color-blue">„Z bieżącym dostawcą usług”</span>, przeglądarka sprawdzi, czy Twój aktualny serwer DNS obsługuje DoH. Jeśli tak – automatycznie przełączy się na szyfrowanie. Jeśli nie – zostawi nieszyfrowane zapytania. Zero ryzyka, warto zawsze mieć włączone.</p>
+
+</div>
+</div></div>
+</data-tabs>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Wykonujesz test diagnostyczny: polecenie <code>ping 8.8.8.8</code> zwraca poprawne odpowiedzi, ale wpisanie nazwy strony w przeglądarce kończy się błędem. Co to oznacza?</p>
+</question>
+    <options>
+      <item><p>Kabel sieciowy jest uszkodzony lub switch w szafie rack uległ awarii.</p>
+</item>
+      <item correct=""><p>Serwer DNS ma awarię i system nie potrafi przetłumaczyć nazwy domeny.</p>
+</item>
+      <item><p>Dostawca internetu całkowicie zablokował ruch sieciowy na poziomie IP.</p>
+</item>
+      <item><p>Karta sieciowa otrzymała błędną i niespójną maskę podsieci z DHCP.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się: skoro pakiety docierają do adresu IP (8.8.8.8), połączenie działa. Czego brakuje do otwierania stron po nazwach słownych?</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! Jeśli <code>ping 8.8.8.8</code> działa, oznacza to, że połączenie sieciowe jest sprawne. Skoro jednak przeglądarka nie potrafi przetłumaczyć nazwy słownej witryny na adres IP, wina leży po stronie serwera DNS.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Narzędzia diagnostyczne</h2>
+<p>Gdy <code>ipconfig</code> nie wystarczy, masz do dyspozycji kilka narzędzi do głębszej diagnostyki. Każde z nich odpowiada na inne pytanie.</p>
+<data-tabs>
+  <tabs>
+    <item>ping</item>
+    <item>nslookup</item>
+    <item>tracert</item>
+    <item>netstat</item>
+  </tabs>
+  <div><h3>ping – czy cel jest osiągalny?</h3>
+<p>Wysyła pakiety <span class="color-gold">ICMP</span> (<span class="color-blue">Internet Control Message Protocol</span>) do wskazanego adresu i mierzy czas odpowiedzi.</p>
+<pre><code class="language-powershell">ping google.com
+ping 192.168.0.1
+ping -t 8.8.8.8        # (ciągły ping, zatrzymaj Ctrl+C)
+</code></pre>
+<p><span class="color-green">Rzeczywisty wynik badania łączności z bramą domyślną (routerem):</span></p>
+<pre class="network-binary-calc">C:\Users&gt;ping 192.168.0.1
+
+<p>Pinging 192.168.0.1 with 32 bytes of data:<br>Reply from 192.168.0.1: bytes=32 time=26ms TTL=64<br>Reply from 192.168.0.1: bytes=32 time=32ms TTL=64<br>Reply from 192.168.0.1: bytes=32 time=51ms TTL=64<br>Reply from 192.168.0.1: bytes=32 time=35ms TTL=64</p>
+<p>Ping statistics for 192.168.0.1:<br>    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),<br>Approximate round trip times in milli‑seconds:<br>    Minimum = 26ms, Maximum = 51ms, Average = 36ms<br></p></pre><p></p>
+<h4>Co czytać z wyniku:</h4>
+<ul>
+<li><span class="color-green"><code>time=26ms</code></span> (Czas odpowiedzi / <span class="color-blue">Latencja</span>) – czas, jaki pakiet potrzebował na podróż do bramy i z powrotem. W stabilnej, kablowej sieci LAN opóźnienie to wynosi zazwyczaj poniżej $1\text{ ms}$. W bezprzewodowej sieci Wi‑Fi czas ten może ulegać fluktuacjom (np. od 26ms do 51ms) z powodu obciążenia pasma radiowego lub odległości od routera.</li>
+<li><span class="color-green"><code>TTL=64</code></span> (<span class="color-blue">Time To Live</span>) – czas życia pakietu. Każdy router, przez który pakiet przechodzi, odejmuje 1 od wartości TTL. Jeśli TTL spadnie do $0$, pakiet zostaje odrzucony (zapobiega to krążeniu pakietów w nieskończoność w pętlach routingu). Domyślna wartość startowa $64$ jednoznacznie sugeruje, że bramą domyślną jest urządzenie oparte na systemie z rodziny Linux (np. domowy router), a my jesteśmy na bezpośrednim (pierwszym) przeskoku.</li>
+<li><span class="color-green"><code>Lost = 0 (0% loss)</code></span> – wskaźnik strat pakietów. Wszystkie wysłane zapytania wróciły pomyślnie. Jakakolwiek strata pakietów większa od $0\%$ wskazuje na problemy fizyczne (uszkodzony kabel RJ‑45) lub silne zakłócenia sygnału radiowego Wi‑Fi.</li>
+<li><span class="color-green">Upłynął limit czasu żądania</span> – cel nie odpowiada (zapora sieciowa, brak trasy, host offline).</li>
+<li><span class="color-green">Host docelowy nieosiągalny</span> – router brzegowy nie wie, jak wytrasować pakiet do podanej sieci.</li>
+</ul>
+<p><span class="color-green">Helpdeskowy trik – kolejność pingowania:</span></p>
+<ol>
+<li><code>ping 127.0.0.1</code> – stos TCP/IP działa? (localhost)</li>
+<li><code>ping &lt;brama domyślna&gt;</code> – widzisz router?</li>
+<li><code>ping 8.8.8.8</code> – wychodzisz na świat?</li>
+<li><code>ping google.com</code> – DNS działa?</li>
+</ol>
+<p>Jeśli krok $3$ działa, a $4$ nie → problem z DNS, nie z internetem!</p></div>
+  <div><h3>nslookup – kto odpowiada na pytania DNS?</h3>
+<p>Pozwala ręcznie odpytać serwer DNS o konkretną domenę.</p>
+<pre><code class="language-powershell">nslookup google.com
+nslookup google.com 1.1.1.1       # (odpytaj konkretny serwer DNS)
+</code></pre>
+<p><span class="color-green">Rzeczywisty wynik odpytania serwera Cloudflare (<code>1.1.1.1</code>):</span></p>
+<pre class="network-binary-calc">C:\Users&gt;nslookup google.com 1.1.1.1
+Server:  one.one.one.one
+Address:  1.1.1.1
+
+<p>Non‑authoritative answer:<br>Name:    google.com<br>Addresses:  2a00:1450:4008:803::200e<br>          216.58.207.14<br></p></pre><p></p>
+<h4>Wynik zawiera:</h4>
+<ul>
+<li><span class="color-green">Server / Address</span> – nazwa i IP serwera DNS, który nam odpowiedział (w tym przypadku publiczny serwer Cloudflare <code>one.one.one.one</code>).</li>
+<li><span class="color-green">Non‑authoritative answer</span> (Odpowiedź nieautorytatywna) – oznacza, że serwer DNS pobrał wynik ze swojej pamięci podręcznej (cache), a nie bezpośrednio od serwera zarządzającego strefą <code>google.com</code>.</li>
+<li><span class="color-green">Name / Addresses</span> – dopasowane adresy IP dla domeny. Zwróć uwagę, że serwer zwrócił zarówno nowoczesny adres IPv6 (<code>2a00:1450:4008:803::200e</code>), jak i klasyczny IPv4 (<code>216.58.207.14</code>)!</li>
+</ul>
+<p><span class="color-green">Kiedy używać:</span></p>
+<ul>
+<li><p>Strona nie ładuje się → sprawdź, czy DNS w ogóle zwraca odpowiedź.</p>
+</li>
+<li><p>Podejrzenie blokady DNS → odpytaj inny serwer (np. <code>1.1.1.1</code>) i porównaj wyniki.</p>
+</li>
+<li><p>Migracja domeny → sprawdź, czy nowy rekord DNS już się rozpropagował.</p>
+</li></ul></div>
+<div><h3>tracert – jaką trasą lecą pakiety?</h3>
+<p>Pokazuje <span class="color-green">każdy router</span> (przeskok), przez który przechodzi pakiet w drodze do celu.</p>
+<pre><code class="language-powershell">tracert google.com
+tracert -d google.com       # (bez rozwiązywania nazw – szybciej)
+</code></pre>
+<p><span class="color-green">Rzeczywisty wynik śledzenia trasy w standardzie IPv6:</span></p>
+<pre class="network-binary-calc">C:\Users&gt;tracert -d google.com
+
+<p>Tracing route to google.com [2a00:1450:4008:801::200e]<br>over a maximum of 30 hops:</p>
+<p>  1     4 ms     8 ms     2 ms  2a02:beef:ca8a:5800:5667:51ff:feeb:180f<br>  2    97 ms   101 ms    17 ms  2a02:beef:0:af::1<br>  3    19 ms    10 ms    14 ms  2a02:beef:80:33:0:1510:0:1<br>  4    43 ms   166 ms    93 ms  2001:730:2c00::5474:803d<br>  5     *        *        *     Request timed out.<br>  6   100 ms   113 ms    89 ms  2001:4c08:200f::731<br>  7   104 ms     *        *     2001:4860:1:1::171c<br>  8    37 ms    38 ms    42 ms  2001:4860:0:1::8677<br>  9   119 ms   110 ms   128 ms  2001:4860:0:1::8656<br> 10    47 ms    75 ms   117 ms  2001:4860::c:4003:364e<br> 11    82 ms    40 ms    60 ms  2001:4860::8:4000:f437<br> 12    59 ms   120 ms   101 ms  2001:4860::9:4003:3585<br> 13    53 ms    58 ms   144 ms  2a00:1450:4008:801::200e</p>
+<p>Trace complete.<br></p></pre><p></p>
+<h4>Co czytać z wyniku:</h4>
+<ul>
+<li><span class="color-green">Tracing route to google.com [2a00...]</span> – System operacyjny automatycznie wybrał preferowany protokół IPv6 do komunikacji z serwerami Google!</li>
+<li><span class="color-green">Przeskok 1 (Brama domyślna):</span> Pierwszy wiersz to Twój domowy router. Czas to zaledwie kilka milisekund, bo router stoi obok Ciebie. (<code>2a02:beef:ca8a:5800:5667:51ff:feeb:180f</code>) PS. Wyszukaj w googlu <code>beef</code> 😉.</li>
+<li><span class="color-green">Przeskoki 2‑4:</span> Urządzenia brzegowe i routery Twojego dostawcy internetu (ISP).</li>
+<li><span class="color-green">Przeskok 5 (<code>* * *</code>):</span> Router ma zablokowane odpowiedzi na diagnostyczne pakiety ICMP ze względów bezpieczeństwa (zapora sieciowa), ale bez problemu przesyła ruch dalej.</li>
+<li><span class="color-green">Przeskoki 7‑12 (<code>2001:4860::</code>):</span> Wkroczenie pakietów w szkieletową, globalną infrastrukturę sieci Google.</li>
+<li><span class="color-green">Przeskok 13 (Cel):</span> Ostateczny cel – serwer Google.</li>
+<li><span class="color-gold">Trzy kolumny czasu (Dlaczego aż trzy?):</span> <code>tracert</code> domyślnie wysyła <span class="color-green">trzy niezależne pakiety próbne (sondy)</span> do każdego routera po drodze. Daje to statystyczny obraz stabilności łącza (badanie opóźnień/latencji):<ul>
+<li><span class="color-blue">Czasy są niskie i podobne</span> (np. <code>4 ms 8 ms 2 ms</code>) $\rightarrow$ linia jest idealnie stabilna, a pakiety przesyłane są bez wahań i opóźnień.</li>
+<li><span class="color-blue">Pojedynczy wysoki czas</span> (np. <code>4 ms 120 ms  3 ms</code>) $\rightarrow$ chwilowe wahanie opóźnienia (<span class="color-blue">jitter</span>) lub chwilowe obciążenie procesora danego routera, który przetworzył diagnostyczny pakiet ICMP z najniższym priorytetem.</li>
+<li><span class="color-blue">Wydruk typu <code>4 ms  *  2 ms</code></span> $\rightarrow$ router zgubił jeden pakiet próbny (<span class="color-blue">packet loss</span>) lub zastosował limit zapytań (<span class="color-blue">rate limiting</span>) dla ruchu ICMP, by chronić swój procesor przed przeciążeniem.</li>
+<li><span class="color-blue">Wydruk <code>*  *  *</code></span> $\rightarrow$ router całkowicie blokuje i ignoruje zapytania diagnostyczne na swojej zaporze sieciowej (częste w dużych węzłach szkieletowych), ale ruch bez problemu płynie dalej.</li>
+</ul>
+</li>
+</ul>
+<p><span class="color-green">Zastosowanie na Helpdesku:</span></p>
+<ul>
+<li><p>Wolny internet → <code>tracert</code> pokaże, czy problem jest w sieci lokalnej, u ISP czy dalej.</p>
+</li>
+<li><p>Połączenie zrywa się na konkretnym etapie → wiadomo, gdzie zgłosić awarię (ISP, administrator).</p>
+</li></ul></div>
+<div><h3>netstat – co właśnie łączy się z komputerem?</h3>
+<p>Wyświetla aktywne połączenia sieciowe, nasłuchujące porty oraz procesy, które za nimi stoją.</p>
+<pre><code class="language-powershell">netstat -an          # (wszystkie połączenia, numerycznie)
+netstat -b           # (pokazuje program za połączeniem – wymaga admina)
+netstat -ano         # (z PID procesu – świetne do łączenia z Menedżerem zadań)
+</code></pre>
+<h4>1. Ręczne odpytanie wszystkich połączeń (netstat -an)</h4>
+<p>Wypisuje tablicę połączeń w postaci czysto numerycznej (bez rozwiązywania nazw portów i domen – dzięki czemu działa błyskawicznie):</p>
+<pre class="network-binary-calc">C:\Users&gt;netstat -an
+
+<p>Active Connections</p>
+<p>  Proto  Local Address          Foreign Address        State<br>  TCP    0.0.0.0:80             0.0.0.0:0              LISTENING<br>  TCP    0.0.0.0:443            0.0.0.0:0              LISTENING<br>  TCP    0.0.0.0:3306           0.0.0.0:0              LISTENING<br>  TCP    127.0.0.1:80           127.0.0.1:54267        ESTABLISHED<br>  TCP    127.0.0.1:54267        127.0.0.1:80           ESTABLISHED<br>  TCP    192.168.0.87:49728     104.18.124.108:443     ESTABLISHED<br>  TCP    [2a02:beef:ca8a:5800:97ef:c096:8b0a:6bd6]:51094  [2a00:1450:4008:803::200a]:443  ESTABLISHED<br></p></pre><p></p>
+<p><span class="color-green">Zrozumieć powyższy zrzut:</span></p>
+<ul>
+<li><span class="color-green"><code>0.0.0.0:80 / 0.0.0.0:3306</code> (LISTENING):</span> Twój komputer nasłuchuje na wszystkich dostępnych interfejsach sieciowych IPv4 (<code>0.0.0.0</code>) na porcie <span class="color-green">80</span> (serwer WWW HTTP) oraz <span class="color-green">3306</span> (baza danych MySQL). Komputer jest gotowy na przyjęcie połączeń!</li>
+<li><span class="color-green"><code>127.0.0.1:80</code> $\leftrightarrow$ <code>127.0.0.1:54267</code> (ESTABLISHED):</span> Aktywne połączenie lokalne wewnątrz pętli zwrotnej (<span class="color-blue">loopback</span>). Przeglądarka internetowa na tym samym komputerze rozmawia z lokalnym serwerem WWW.</li>
+<li><span class="color-green"><code>192.168.0.87:49728</code> $\leftrightarrow$ <code>104.18.124.108:443</code> (ESTABLISHED):</span> Komputer o prywatnym IP <code>192.168.0.87</code> nawiązał bezpieczne, szyfrowane połączenie (port <span class="color-green">443</span> - HTTPS) z publicznym serwerem w internecie o IP <code>104.18.124.108</code> (sieć Cloudflare).</li>
+<li><span class="color-green"><code>[2a02:beef:...]:51094</code> $\leftrightarrow$ <code>[2a00:...]:443</code> (ESTABLISHED):</span> Pełne połączenie zrealizowane w standardzie <span class="color-green">IPv6</span>! Komputer używa dynamicznego adresu publicznego do rozmowy z serwerem Google po HTTPS.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Adres <code>104.18.124.108</code> należy do sieci dostarczania treści (CDN) Cloudflare.<br>Zamiast wskazywać na jeden konkretny serwer, jest to adres typu <span class="color-blue">reverse proxy</span>.<br>Oznacza to, że chroni on prawdziwe serwery wielu różnych stron internetowych i aplikacji, ukrywając ich właściwe adresy.</p>
+
+</div>
+</div><hr>
+<h4>2. Kto stoi za połączeniem? Haczyk z uprawnieniami (netstat -b)</h4>
+<p>Jeśli spróbujesz sprawdzić programy przypisane do portów ze zwykłego wiersza poleceń, Windows natychmiast Cię zablokuje:</p>
+<pre class="network-binary-calc">C:\Users&gt;netstat -b
+Żądana operacja wymaga podniesienia uprawnień.
+</pre>
+
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Komenda <code>netstat -b</code> odczytuje dane bezpośrednio z jądra systemu, dlatego <span class="color-green">zawsze musi być uruchamiana w konsoli CMD otwartej jako Administrator</span>!</p>
+
+</div>
+</div><p>Po otwarciu CMD jako Administrator, otrzymujemy niesamowity, pełny i niezwykle pouczający wydruk procesów (Case Study Twojego systemu deweloperskiego):</p>
+<pre class="network-binary-calc">C:\Windows\System32&gt;netstat -b
+
+<p>Active Connections</p>
+<p>  Proto  Local Address          Foreign Address        State<br>  TCP    127.0.0.1:80           PC‑GAMER:54275         ESTABLISHED<br> [httpd.exe]<br>  TCP    127.0.0.1:49704        PC‑GAMER:59455         ESTABLISHED<br> [Antigravity.exe]<br>  TCP    127.0.0.1:53461        PC‑GAMER:53462         ESTABLISHED<br> [nvcontainer.exe]<br>  TCP    127.0.0.1:53462        PC‑GAMER:53461         ESTABLISHED<br> [nvcontainer.exe]<br>  TCP    127.0.0.1:54275        PC‑GAMER:http          ESTABLISHED<br> [firefox.exe]<br>  TCP    127.0.0.1:54456        PC‑GAMER:62828         ESTABLISHED<br> [language_server_windows_x64.exe]<br>  TCP    127.0.0.1:62828        PC‑GAMER:54456         ESTABLISHED<br> [Antigravity.exe]<br>  TCP    127.0.0.1:57600        PC‑GAMER:57601         ESTABLISHED<br> [OVRServer_x64.exe]<br>  TCP    127.0.0.1:57601        PC‑GAMER:57600         ESTABLISHED<br> [OVRServer_x64.exe]<br>  TCP    192.168.0.87:49728     104.18.124.108:https   ESTABLISHED<br> [EpicWebHelper.exe]<br>  TCP    192.168.0.87:52396     172.211.123.250:https  ESTABLISHED<br> [VirtualBoxVM.exe]<br>  TCP    192.168.0.87:54239     ec2‑52-202‑225-39:https  CLOSE_WAIT<br> [EpicGamesLauncher.exe]<br>  TCP    [::1]:3306             PC‑GAMER:54334         ESTABLISHED<br> [mysqld.exe]<br>  TCP    [::1]:54334            PC‑GAMER:3306          ESTABLISHED<br> [httpd.exe]<br>  TCP    [2a02:beef:ca8a:5800:97ef:c096:8b0a:6bd6]:49688  g2a02‑26f0-00d8‑0000-0000‑0000-6851‑3c3a:https  ESTABLISHED<br> [WidgetBoard.exe]<br>  TCP    [2a02:beef:ca8a:5800:97ef:c096:8b0a:6bd6]:52660  [2603:1020:206:d::1]:https  ESTABLISHED<br> [VirtualBoxVM.exe]<br>  TCP    [2a02:beef:ca8a:5800:97ef:c096:8b0a:6bd6]:57467  [2603:1020:1302:3::148]:https  ESTABLISHED<br> [CrossDeviceService.exe]<br></p></pre><p></p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Adres lokalny <code>2a02:beef:ca8a:5800:97ef:c096:8b0a:6bd6</code> to publiczny adres IPv6 (prefiks <code>2a02:</code>), w którym część interfejsu (<code>97ef:c096:8b0a:6bd6</code>) jest losowa i tymczasowa (zanonimizowana), co chroni tożsamość urządzenia przed profilowaniem przez zewnętrzne serwery.</p>
+
+</div>
+</div><h4>Inżynieryjny rozbiór i sekrety procesów:</h4>
+<ul>
+<li><span class="color-green"><code>httpd.exe</code> (Apache) $\leftrightarrow$ <code>mysqld.exe</code> (MySQL) na IPv6 (<code>[::1]:3306</code>):</span> To absolutny hit! Zauważ, że serwer WWW (<code>httpd.exe</code>) łączy się z bazą danych MySQL (<code>mysqld.exe</code>) nie pod klasycznym <code>127.0.0.1</code>, lecz przy użyciu lokalnego interfejsu <span class="color-green">IPv6 (<code>[::1]</code>)</span>! Windows 11 natywnie i preferencyjnie kieruje ruch localhosta po IPv6, co potwierdza ten log.</li>
+<li><span class="color-green">Komunikacja sterowników sprzętowych po TCP/IP:</span> <ul>
+<li><span class="color-green"><code>nvcontainer.exe</code> (NVIDIA Container):</span> Sterownik karty graficznej NVIDIA tworzy wewnętrzne gniazda TCP (<code>127.0.0.1:53461</code> $\leftrightarrow$ <code>127.0.0.1:53462</code>), by przesyłać dane telemetryczne i konfiguracje między swoimi modułami w systemie.</li>
+<li><span class="color-green"><code>OVRServer_x64.exe</code> (Oculus VR Runtime):</span> Oprogramowanie do wirtualnej rzeczywistości (VR) również używa lokalnego stosu sieciowego TCP (<code>57600</code> $\leftrightarrow$ <code>57601</code>) do komunikacji sterownika z goglami VR.</li>
+<li><span class="color-blue">Wniosek dydaktyczny:</span> Sieć TCP/IP i interfejs loopback są używane w nowoczesnych systemach operacyjnych jako najszybsza i najbardziej niezawodna forma komunikacji międzyprocesowej (IPC) dla sterowników i usług!</li>
+</ul>
+</li>
+<li><span class="color-green">Deweloperski agent AI (<code>Antigravity.exe</code>):</span> Nasz agent kodujący w tle aktywnie komunikuje się z serwerem językowym IDE (<code>language_server_windows_x64.exe</code>) po portach loopback (<code>54456</code> $\leftrightarrow$ <code>62828</code>).</li>
+<li><span class="color-green">Wirtualizacja w akcji (<code>VirtualBoxVM.exe</code>):</span> Maszyna wirtualna w tle utrzymuje połączenia z internetem po HTTPS zarówno przez protokół IPv4 (<code>192.168.0.87</code>), jak i zanonimizowany IPv6 (<code>2a02:beef:ca8a:5800:...</code>). Karta sieciowa maszyny wirtualnej działa w trybie mostka (bridged) lub NAT.</li>
+<li><span class="color-green">W tle sieciowe usługi Windows 11:</span><ul>
+<li><span class="color-green"><code>WidgetBoard.exe</code>:</span> Pobiera wiadomości i pogodę z chmury Microsoft po zanonimizowanym adresie publicznym IPv6.</li>
+<li><span class="color-green"><code>CrossDeviceService.exe</code>:</span> Odpowiada za integrację smartfona z komputerem (przez aplikację <span class="color-gold">Link to Windows</span>).</li>
+</ul>
+</li>
+<li><span class="color-green">Sklepy z grami i chmury AWS (<code>EpicGamesLauncher.exe</code>):</span><ul>
+<li>Widzimy status <span class="color-green"><code>CLOSE_WAIT</code></span> do chmury Amazon Web Services (<code>ec2-...</code>). Oznacza to, że zewnętrzny serwer Amazon zamknął już sesję (lub minął limit bezczynności), a nasz klient w tle przygotowuje się do zwolnienia gniazda sieciowego systemu operacyjnego.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4>3. Statusy połączeń (Co musisz wiedzieć):</h4>
+<ul>
+<li><span class="color-blue">LISTENING</span> – port otwarty, serwer czeka na połączenia przychodzące od klientów (np. baza danych lub serwer Apache czekający na zapytania).</li>
+<li><span class="color-blue">ESTABLISHED</span> – połączenie aktywne, trwa wymiana danych w czasie rzeczywistym.</li>
+<li><span class="color-blue">TIME_WAIT</span> – połączenie zostało zamknięte przez jedną ze stron, ale gniazdo sieciowe wciąż czeka w buforze bezpieczeństwa systemu, aby odebrać ewentualne spóźnione pakiety z sieci.</li>
+<li><span class="color-blue">CLOSE_WAIT</span> – druga strona zakończyła połączenie, nasz system przetwarza procedurę zamknięcia gniazda.</li>
+</ul>
+<p><span class="color-green">Kiedy przydatny na Helpdesku:</span></p>
+<ul>
+<li><p><span class="color-gold">Zajęty port:</span> Chcesz odpalić XAMPP (Apache na porcie 80), ale wyskakuje błąd, że port jest zajęty. Wpisujesz <code>netstat -ano</code> w CMD, odnajdujesz PID procesu nasłuchującego na porcie 80, otwierasz Menedżer Zadań i zamykasz proces (często port 80 blokuje w tle Skype lub usługi IIS).</p>
+</li>
+<li><p><span class="color-gold">Wykrywanie wirusów / malware:</span> Jeśli komputer dziwnie się zachowuje, <code>netstat -b</code> pozwala sprawdzić, który dokładnie plik <code>.exe</code> nawiązał połączenie z nieznanym serwerem w internecie.</p>
+</li></ul></div>
+
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕵️ Szybka diagnostyka sieciowa</h2>
+<p>Dopasuj objaw zgłoszony przez klienta do odpowiedniej procedury diagnostycznej:</p>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Klient mówi: „Nie działa mi internet”, ale Spotify w tle gra muzykę." data-right="Problem z DNS – uruchom ipconfig /flushdns i zmień serwer DNS na publiczny."></div>
+    <div class="cmw-item" data-left="Laptop nie ma w ogóle adresu IP (widoczne 169.254.x.x)." data-right="DHCP nie odpowiada – sprawdź kabel lub Wi-Fi, zrestartuj router, wykonaj ipconfig /renew."></div>
+    <div class="cmw-item" data-left="Strona działa u Ciebie, ale nie u klienta na tym samym łączu." data-right="Cache DNS klienta trzyma starą odpowiedź – wyczyść cache: ipconfig /flushdns."></div>
+    <div class="cmw-item" data-left="Klient nie może wejść na konkretną stronę, reszta internetu działa." data-right="Prawdopodobna blokada DNS przez ISP – sprawdź nslookup z alternatywnym serwerem (np. 1.1.1.1)."></div>
+    <div class="cmw-item" data-left="Internet jest ekstremalnie wolny, strony ładują się minutami." data-right="Użyj tracert, by znaleźć wąskie gardło – nagły skok latencji wskaże problematyczny przeskok."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Protokół IPv6 – Przyszłość, która już tu jest</h2>
+<p>Większość wciąż myśli wyłącznie kategoriami adresów IPv4. Jednak pula tych adresów ($2^{32} \approx 4{,}3$ miliarda) oficjalnie się wyczerpała. Dlatego mamy podział na sieci lokalne przed routerem i publiczne za routerem. Windows 11 jest systemem <span class="color-green">natywnie zaprojektowanym pod preferencję IPv6</span>. Jeśli Twoja sieć obsługuje oba standardy, Windows zawsze priorytetowo wybierze IPv6, a z IPv4 skorzysta dopiero jako z wyjścia awaryjnego.</p>
+<h3>🧱 Anatomia adresu IPv6 – Imperium Heksadecymalne</h3>
+<p>Adres IPv6 ma długość <span class="color-green">128 bitów (16 bajtów)</span> – to cztery razy więcej niż IPv4! Ponieważ zapisanie go dziesiętnie byłoby koszmarem, stosuje się zapis szesnastkowy (HEX) podzielony na $8$ grup po $4$ cyfry szesnastkowe rozdzielone dwukropkami:<br><code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code></p>
+<ul>
+<li><span class="color-green">Zasada kompresji zer (<code>::</code>):</span> Aby ułatwić czytanie, jedną ciągłą sekwencję samych zer w adresie można zastąpić podwójnym dwukropkiem. Powyższy adres po kompresji wygląda tak: <code>2001:db8:85a3::8a2e:370:7334</code>.</li>
+</ul>
+<hr>
+<h3>🔬 Wielki mit IPv6 – Obalamy błędne przekonania o NAT i prywatności</h3>
+<p>Wielu uczniów (a nawet starszych administratorów!) zadaje pytanie:<br><span class="color-blue">„Po co Windows ma generować losowy, dynamiczny adres IPv6, skoro router i tak przetłumaczy go na jeden publiczny adres IP?”</span></p>
+<p><span class="color-green">To kardynalny błąd!</span> <span class="color-red">W świecie IPv6... NIE MA NAT‑u</span> (translacji adresów)!</p>
+<ul>
+<li>Każde urządzenie w Twojej sieci lokalnej (komputer, telefon, inteligentna żarówka) otrzymuje swój własny, <span class="color-green">unikalny w skali całego świata GLOBALNY (publiczny) adres IP</span>!</li>
+<li>Pakiety lecą z Twojej karty sieciowej bezpośrednio do serwera docelowego (np. Google) bez żadnej podmiany adresów po drodze. Router w IPv6 zajmuje się wyłącznie czystym trasowaniem (routingiem), a nie podmienianiem nagłówków.</li>
+</ul>
+<p>Dlaczego więc <span class="color-blue">„Privacy Extensions”</span> (losowy IPv6) w Windows 11 ratuje naszą prywatność? 😏</p>
+<ul>
+<li><span class="color-red">Bez Privacy Extensions:</span> Twój globalny adres IPv6 byłby generowany na podstawie niezmiennego, fizycznego adresu MAC Twojej karty sieciowej (standard EUI‑64). Ponieważ ten adres jest publiczny i stały, każdy serwer na świecie, z którym się łączysz, mógłby w $100\%$ zidentyfikować dokładnie to jedno, konkretne urządzenie. Reklamodawcy mogliby śledzić Twoją historię surfowania bez względu na to, czy łączysz się z domu, z biura, czy z publicznego Wi‑Fi!</li>
+<li><span class="color-green">Z Privacy Extensions (Rozszerzeniami Prywatności):</span> Windows 11 obok jednego stałego adresu generuje <span class="color-green">losowy, tymczasowy adres IPv6</span> i regularnie go zmienia (zazwyczaj co $24$ godziny). To właśnie ten tymczasowy adres jest używany do komunikacji z internetem. Zewnętrzne serwisy widzą tylko losowy adres z danej puli, który za chwilę wygaśnie.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Privacy Extensions (L3 IPv6) vs Losowe adresy sprzętowe MAC (L2 Wi‑Fi):</span><br>Nie myl <span class="color-blue">Privacy Extensions</span> (losowania adresu IP w warstwie sieciowej L3) z <span class="color-green">losowymi adresami sprzętowymi</span> (losowaniem adresu MAC w warstwie łącza danych L2) w ustawieniach sieci bezprzewodowej Windows 11 (<code>Ustawienia</code> $\rightarrow$ <code>Sieć i Internet</code> $\rightarrow$ <code>Wi-Fi</code> $\rightarrow$ <code>Zarządzaj znanymi sieciami</code> $\rightarrow$ Wybierz sieć, np. <code>UPC69C666CF</code> $\rightarrow$ <code>Losowe adresy sprzętowe</code>).</p>
+<ul>
+<li><span class="color-green">Kiedy włączyć losowy MAC:</span> W publicznych sieciach Wi‑Fi (hotele, lotniska, galerie handlowe), aby systemy marketingowe i trackerzy nie mogli profilować ani śledzić fizycznej obecności Twojego urządzenia na podstawie stałego adresu MAC.</li>
+<li><span class="color-green">Kiedy wyłączyć losowy MAC:</span> W zaufanych sieciach domowych (np. Twojej sieci domowej <code>UPC69C666CF</code>) lub firmowych, jeśli na routerze / zaporze sieciowej masz wdrożone <span class="color-green">filtrowanie adresów MAC</span> (białe listy urządzeń dopuszczonych), przypisujesz stałe adresy IP w DHCP na podstawie MAC, lub sieć wymaga uwierzytelniania sprzętowego. Wyłączenie tej opcji przywraca stały, fabryczny adres fizyczny karty sieciowej (<code>Physical Address</code>), zapobiegając konfliktom autoryzacji, podczas gdy <span class="color-blue">Privacy Extensions</span> w warstwie L3 i tak doskonale chroni Twoją tożsamość przed śledzeniem w internecie!</li>
+</ul>
+
+</div>
+</div><hr>
+<h3>⚙️ Autokonfiguracja SLAAC – Zapomnij o DHCPv6</h3>
+<p>W IPv6 stacja robocza rzadko potrzebuje serwera DHCPv6. Windows 11 natywnie obsługuje <span class="color-green">SLAAC</span> (<span class="color-blue">Stateless Address Autoconfiguration</span>):</p>
+<ol>
+<li>Po podłączeniu do sieci Windows 11 wysyła zapytanie.</li>
+<li>Router odpowiada (<span class="color-blue">Router Advertisement</span>), rozgłaszając <span class="color-green">64‑bitowy prefiks sieci</span> (np. <code>2a02:beef:ca8a:5800::/64</code>).</li>
+<li>Windows 11 pobiera ten prefiks i automatycznie dokleja do niego swoje losowe 64 bity, tworząc kompletny, globalny adres IP!</li>
+</ol>
+<ul>
+<li><span class="color-green">Brak klasycznej maski:</span> W konfiguracji ręcznej IPv6 zamiast maski dziesiętnej wpisujesz <span class="color-green">„Długość prefiksu podsieci”</span> (gdzie standardem na stacji roboczej jest <code>/64</code>, czyli wartość $64$ 😅).</li>
+</ul>
+<hr>
+<h3>🔎 Case Study – Analiza prawdziwego wyniku ipconfig /all</h3>
+<p>Przyjrzyjmy się rzeczywistemu wydrukowi diagnostycznemu z Wi‑Fi komputera klienckiego podłączonego do internetu w Polsce (dostawca Play):</p>
+<pre><code class="language-bash">Wireless LAN adapter Wi-Fi:
+
+   Connection-specific DNS Suffix  . : home
+   Description . . . . . . . . . . . : RZ608 Wi-Fi 6E 80MHz
+   Physical Address. . . . . . . . . : 38-D5-7A-4B-E2-ED
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   IPv6 Address. . . . . . . . . . . : 2a02:beef:ca8a:5800:97ef:c096:8b0a:6bd6(Preferred)
+   Temporary IPv6 Address. . . . . . : 2a02:beef:ca8a:5800:4c2a:82ec:9621:d0b4(Deprecated)
+   Temporary IPv6 Address. . . . . . : 2a02:beef:ca8a:5800:5576:b155:68f7:f6ea(Deprecated)
+   Link-local IPv6 Address . . . . . : fe80::4927:6fb5:3c9e:f40f%8(Preferred)
+   IPv4 Address. . . . . . . . . . . : 192.168.0.87(Preferred)
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : fe80::5667:51ff:feeb:180f%8
+                                       192.168.0.1
+   DHCP Server . . . . . . . . . . . : 192.168.0.1
+   DNS Servers . . . . . . . . . . . : 2606:4700:4700::1111
+                                         DoH: https://cloudflare-dns.com/dns-query
+                                       2001:4860:4860::8888
+                                         DoH: https://dns.google/dns-query
+                                       1.1.1.1
+                                         DoH: https://cloudflare-dns.com/dns-query
+                                       8.8.8.8
+                                         DoH: https://dns.google/dns-query
+   NetBIOS over Tcpip. . . . . . . . : Enabled
+</code></pre>
+<h4>Co z tego odczyta profesjonalny inżynier?</h4>
+<ol>
+<li><span class="color-green"><code>2a02:beef:ca8a:5800...</code></span> – to globalny, publiczny prefiks IPv6 dostawcy Play. Urządzenie komunikuje się ze światem bezpośrednio, bez użycia NAT‑u.</li>
+<li><span class="color-green"><code>Temporary IPv6 Address... (Deprecated)</code></span> – to tymczasowe adresy wygenerowane przez <span class="color-blue">Privacy Extensions</span>. Ich status to <span class="color-green"><code>Deprecated</code> (przestarzały)</span>. Oznacza to, że ich czas ważności minął i system nie użyje ich do nowych połączeń, ale wciąż utrzymuje je jako aktywne dla trwających sesji w tle (np. pobieranie pliku lub sesja w grze), by nie zerwać aktywnego połączenia z użytkownikiem!</li>
+<li><span class="color-green"><code>Default Gateway: fe80::...%8</code></span> – w IPv6 bramą domyślną jest Link‑Local routera (<code>fe80::</code>), a końcówka <code>%8</code> (Zone Index) mówi jądru Windows, że pakiety mają wyjść fizycznie przez kartę sieciową o indeksie 8 (czyli Wi‑Fi).</li>
+<li><span class="color-green"><code>DNS Servers</code> i wiersze z szablonami <code>DoH: https://...</code>:</span> To jest absolutna rewelacja inżynieryjna! W najnowszych wersjach Windows 11 (od wersji 24H2 wzwyż), system w konsoli CMD wprost wyświetla przypisany do każdego IP szablon <span class="color-green">DoH (DNS over HTTPS)</span>! Widzimy tu w pełni wdrożone i aktywne szyfrowanie DNS oparte na publicznych, bezpiecznych serwerach Cloudflare (<code>1.1.1.1</code> i <code>2606:4700::1111</code>) oraz Google (<code>8.8.8.8</code> i <code>2001:4860::8888</code>). Każde zapytanie o nazwę domeny leci w bezpiecznym, szyfrowanym tunelu HTTPS (port 443).<ul>
+<li><span class="color-blue">Uwaga diagnostyczna:</span> W starszych kompilacjach Windows 11 komenda <code>ipconfig /all</code> nie raportuje szablów DoH – tam status szyfrowania (szyfrowany/nieszyfrowany) sprawdzamy wyłącznie graficznie w aplikacji Ustawienia w sekcji właściwości karty sieciowej.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Zgodnie z zasadą działania protokołu IPv6 w systemie Windows 11, do czego służy mechanizm Privacy Extensions?</p>
+</question>
+    <options>
+      <item><p>Do maskowania fizycznego adresu MAC karty sieciowej podczas łączenia z publicznymi sieciami Wi‑Fi.</p>
+</item>
+      <item correct=""><p>Do regularnego generowania losowego, tymczasowego adresu IPv6 używanego do połączeń z internetem.</p>
+</item>
+      <item><p>Do translacji wielu adresów lokalnych na jeden publiczny adres IP na routerze brzegowym (NAT).</p>
+</item>
+      <item><p>Do automatycznego szyfrowania zapytań DNS i przesyłania ich bezpiecznym kanałem HTTPS.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się: jak Windows 11 chroni tożsamość urządzenia w warstwie sieciowej L3 przed śledzeniem przez zewnętrzne witryny?</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! Privacy Extensions w warstwie sieciowej L3 regularnie generują tymczasowy, losowy adres IPv6 do ruchu wychodzącego. Chroni to urządzenie przed globalnym profilowaniem i śledzeniem historii przeglądania.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Złota zasada helpdeskowej diagnostyki sieci:</span> Zawsze idź od dołu do góry. Najpierw <span class="color-green">fizyka</span> (kable, zasilanie, Wi‑Fi, APIPA <code>169.254.x.x</code>), potem <span class="color-green">protokół IP</span> (<code>ipconfig /renew</code>), następnie <span class="color-green">DNS</span> (<code>ping 8.8.8.8</code> vs <code>ping google.com</code>), a na samym końcu <span class="color-green">aplikacja</span>. Przeskakiwanie tych kroków to najczęstsza strata czasu w pracy technika.</p>
+
+</div>
+</div><hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Bitowa logika masek IP:</span> Maska podsieci to binarna bramka AND. System operacyjny wyznacza adres sieci lokalnej za pomocą logicznej koniunkcji (AND) na adresie IP i masce bit po bicie. Jeśli wynik docelowego IP daje inny adres sieci niż lokalny, pakiet leci do bramy domyślnej. 🧱</li>
+<li><span class="color-green">Szesnastkowa tożsamość MAC:</span> Adres fizyczny MAC składa się z 48 bitów zapisanych w HEX. Pierwsze 24 bity (3 bajty) to unikalny identyfikator producenta (OUI), a kolejne 24 bity to unikalny numer sprzętowy przypisany na linii produkcyjnej. 🕵️</li>
+<li><span class="color-green">Bezpieczeństwo w IPv6 (SLAAC i Privacy Extensions):</span> W IPv6 nie ma NAT‑u. Windows 11 automatycznie konfiguruje swój globalny, publiczny IP (SLAAC) i włącza <span class="color-blue">Privacy Extensions</span>, które regularnie generują losowy, tymczasowy adres IPv6. Chroni to Twój sprzętowy adres MAC przed globalnym profilowaniem i śledzeniem w internecie! ⚡</li>
+<li><span class="color-green">Diagnostyka hierarchiczna:</span> Złota zasada helpdesku brzmi: <span class="color-blue">zawsze od dołu do góry</span>. Najpierw sprawdzasz warstwę fizyczną, potem protokół IP (<code>ipconfig /renew</code>), następnie DNS, a na końcu aplikację. 📶</li>
+<li><span class="color-green">Szyfrowanie DNS over HTTPS (DoH):</span> Klasyczny DNS leci jawnym tekstem na porcie 53 (UDP), co pozwala ISP na porywanie zapytań (DNS Hijacking). Włączenie DoH zamyka ruch DNS wewnątrz szyfrowanego protokołu HTTPS (port 443), chroniąc przed podsłuchem i blokadami dostawców. 🔒</li>
+</ul>
+<hr>
+<p>Brawo! Teraz jesteś już bezpieczny w sieci! 🌐<br>W kolejnej lekcji zajmiemy się danymi na dyskach. 🗃️</p>
+</section>

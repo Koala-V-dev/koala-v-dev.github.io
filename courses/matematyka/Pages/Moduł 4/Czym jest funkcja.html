@@ -1,0 +1,94 @@
+<h2>Czym jest funkcja?</h2>
+<p>W poprzedniej lekcji zdefiniowaliśmy relację formalnie jako podzbiór iloczynu kartezjańskiego:<br>$$R \subseteq A \times B$$<br>Relacja z natury dopuszcza dużą swobodę, jeden element $x$ może być powiązany z wieloma elementami $y$, albo z żadnym.</p>
+<p>Matematyka i inżynieria oprogramowania potrzebują jednak czegoś silniejszego: <strong>determinizmu</strong>. Funkcja to relacja obarczona jednym rygorystycznym warunkiem.</p>
+<hr>
+<h3>⚙️ Jedna zasada, która wszystko zmienia</h3>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zasada jednoznaczności:</strong> Każdemu elementowi ze zbioru wejściowego $X$ przyporządkowany jest <em><strong>dokładnie jeden</strong></em> element ze zbioru wyjściowego $Y$.</p>
+<p><em><strong>„Dokładnie jeden&quot;</strong></em> — nie zero, nie dwa. Ściśle jeden.</p>
+
+</div>
+</div><p>Formalnie, jeśli relacja $f \subseteq X \times Y$ jest funkcją, to dla każdego $x \in X$ istnieje dokładnie jedno $y \in Y$ takie, że para $(x, y) \in f$. Mówimy wtedy, że $y$ jest <strong>wartością</strong> funkcji $f$ w punkcie $x$ i zapisujemy:<br>$$f(x) = y$$</p>
+<p>Zapis składni języka <strong><code>LaTeX</code></strong>: <code>f(x) = y</code></p>
+<h4>🛠️ Punkt Kontrolny: Zasada jednoznaczności</h4>
+<data-quiz>
+    <question>Maszyna vendingowa (automat z napojami): wrzucasz monetę i wciskasz przycisk `A3`. Kiedy ta maszyna PRZESTAJE zachowywać się deterministycznie jak funkcja matematyczna?</question>
+    <options>
+        <option>Gdy kilka różnych przycisków wydaje ten sam produkt.</option>
+        <option correct>Gdy wciśnięcie A3 raz wydaje colę, a innym razem wodę.</option>
+        <option>Gdy przycisk A3 wydaje zawsze colę.</option>
+    </options>
+    <div data-hint="error">
+    Deterministyczność musi być w „przód”, to samo wejście = zawsze ten sam wynik. Jednocześnie w „tył” deterministyczność nie musi być zachowana, różne wejścia mogą prowadzić do tego samego wyniku.
+    </div>
+    <div data-hint="success">
+    Dokładnie. Naruszenie zasady jednoznaczności: to samo wejście (`A3`) daje różne wyniki.
+    W programowaniu to odpowiednik funkcji z efektami ubocznymi — wynik zależy od ukrytego stanu, nie tylko od argumentu.
+    </div>
+</data-quiz>
+
+<hr>
+<h3>🥊 Kiedy relacja NIE jest funkcją?</h3>
+<p>Dwie sytuacje wykluczają relację z bycia funkcją:</p>
+<p><strong>1. Jeden $x$, dwa różne $y$ — brak jednoznaczności:</strong><br>$$R = \{(1,2),(1,5),(2,3)\}$$<br>Element $1$ wskazuje jednocześnie na $2$ i $5$ — warunek jednoznaczności złamany.</p>
+<p><strong>2. Element $x$ ze zbioru wejściowego $X$ bez przypisanego $y$ — luka:</strong><br>$$R = \{(1,2),(3,4)\} \text{ na } X = \{1,2,3\}$$<br>Element $2 \in X$ nie pojawia się po lewej stronie żadnej pary — relacja nie pokrywa całego zbioru $X$, więc nie może być funkcją.</p>
+<p><strong>Dozwolone — kilka $x$ wskazuje na ten sam $y$:</strong><br>$$f(2) = 4, \quad f(-2) = 4$$<br>To przykład $f(x) = x^2$ — poprawna funkcja. Determinizm „w przód&quot; jest zachowany.</p>
+<h4>🔗 Połącz Pary: Funkcja czy relacja?</h4>
+<data-connection-matcher title="Funkcja czy relacja? Dopasuj opis do oceny">
+    <item left="$\{(1,3),(2,3),(3,3)\}$ na $X=\{1,2,3\}$" right="Funkcja — każdy $x$ z $X$ ma dokładnie jeden $y$ (choć wszystkie dają to samo)" />
+    <item left="$\{(1,2),(1,4),(2,3)\}$ na $X=\{1,2\}$" right="Nie funkcja — element $1$ z $X$ ma dwa różne przypisania" />
+    <item left="$\{(1,2),(3,4)\}$ na $X=\{1,2,3\}$" right="Nie funkcja — element $2$ z $X$ nie ma żadnego przypisanego $y$" />
+    <item left="$\{(1,5),(2,3),(3,1)\}$ na $X=\{1,2,3\}$" right="Funkcja — każdy $x$ z $X$ ma dokładnie jeden $y$, wszystkie różne" />
+</data-connection-matcher>
+
+<hr>
+<h3>📝 Zapis i notacja</h3>
+<p>Funkcję zapisujemy jako:<br>$$f: X \to Y, \quad f(x) = \text{wyrażenie}$$</p>
+<ul>
+<li>$X$ — <strong>zbiór wejściowy</strong>: zbiór wszystkich dopuszczalnych wejść</li>
+<li>$Y$ — <strong>zbiór wyjściowy</strong>: zbiór, w którym szukamy wyjść</li>
+<li>$f(x)$ — wartość funkcji w punkcie $x$</li>
+</ul>
+<p>Zapis $f: X \to Y$ to formalny odpowiednik sygnatury funkcji w programowaniu. W języku JavaScript wygląda to tak:</p>
+<pre><code class="language-javascript">// Sygnatura: f przyjmuje liczbę z X i zwraca liczbę do Y
+const f = (x) =&gt; x * x;
+</code></pre>
+<p>Czysta funkcja (ang. <em>pure function</em>) w programowaniu to matematyczny ideał — wynik zależy wyłącznie od argumentu, nie od żadnego zewnętrznego stanu:</p>
+<pre><code class="language-javascript">// Czysta funkcja — to samo wejście zawsze daje ten sam wynik
+const f = (x) =&gt; x * x;
+
+// To NIE jest funkcja matematyczna — wynik zależy od stanu zewnętrznego
+let bias = 5;
+const g = (x) =&gt; x + bias;  // zmień bias, zwiększ &quot;wynik&quot; dla podanego x
+</code></pre>
+<h4>🪤 Sandbox: Zbuduj funkcję</h4>
+<p>Zasada determinizmu oznacza, że dla każdego $x$ musisz podać jednoznaczny wzór. Wypróbuj to w nowej piaskownicy: wpisz wzór funkcji, która każdemu $x$ przypisuje wartość o $1$ mniejszą ($x - 1$).</p>
+<data-gate>
+<data-cartesian-sandbox 
+    data-range="5" 
+    data-instruction="Wpisz wzór funkcji $f(x) = x - 1$:"
+    data-expected-slope="1"
+    data-expected-intercept="-1"
+    data-hint-wrong="To nie jest wzór $x - 1$. Upewnij się, że poprawnie odejmujesz jedynkę od zmiennej $x$.">
+</data-cartesian-sandbox>
+</data-gate>
+
+<hr>
+<h4>🛠️ Punkt Kontrolny: Kompletność definicji</h4>
+<data-quiz>
+    <question>Warunek, że każdemu elementowi $x \in X$ musi odpowiadać dokładnie jeden element $y \in Y$, jest fundamentem definicji funkcji. Które stwierdzenie trafnie opisuje praktyczną konsekwencję tej zasady?</question>
+    <options>
+        <option correct>Jeśli choćby jeden element zbioru wejściowego $X$ nie ma przypisania, relacja przestaje być funkcją.</option>
+        <option>Jeśli dwa różne elementy $x_1, x_2 \in X$ dają ten sam wynik $y$, relacja przestaje być funkcją.</option>
+        <option>Funkcja musi przypisywać elementy z $X$ do różnych elementów $Y$ — żadne dwa $x$ nie mogą wskazywać na to samo $y$.</option>
+    </options>
+    <div data-hint="error">Pamiętaj: warunek funkcji jest jednostronny. Determinizm „w przód" (każde $x$ ma dokładnie jedno $y$) jest obowiązkowy. Determinizm „w tył" (każde $y$ pochodzi z dokładnie jednego $x$) to już osobna właściwość — iniekcja, którą poznasz w kolejnej lekcji.</div>
+    <div data-hint="success">Tak. Funkcja to deklaracja, że każdy element zbioru wejściowego zostaje obsłużony — bez wyjątków i bez niejasności.</div>
+</data-quiz>
+
+<hr>
+<p>W następnej lekcji przyjrzymy się <strong>granicom</strong> funkcji: co może być wejściem, a co wyjściem — czyli <strong>dziedzinie</strong> i <strong>zbiorowi wartości</strong>. 🚀</p>

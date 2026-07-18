@@ -1,0 +1,342 @@
+<h1>Tekst i Media</h1>
+<p>Mając już gotowy, poprawny szkielet dokumentu, czas zająć się tym, co znajduje się bezpośrednio wewnątrz akapitów. </p>
+<p>W tej lekcji dowiesz się, jak poprawnie formatować tekst i dodawać multimedia tak, aby strona była czytelna dla ludzi oraz w pełni zrozumiała dla systemów komputerowych.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔤 Semantyka tekstu: <code>&lt;strong&gt;</code> vs <code>&lt;b&gt;</code>, <code>&lt;em&gt;</code> vs <code>&lt;i&gt;</code></h2>
+<p>Pogrubienie i kursywa wyglądają prosto. W HTML mają jednak dwa różne poziomy znaczenia:</p>
+<ul>
+<li><span class="color-green">Tagi prezentacyjne</span>: opisują efekt wizualny.</li>
+<li><span class="color-green">Tagi semantyczne</span>: opisują znaczenie tekstu.</li>
+</ul>
+<p>Wyszukiwarki, parsery, algorytmy sztucznej inteligencji oraz technologie asystujące odczytują intencję kodu bezpośrednio z użytych tagów oraz atrybutów, a nie z ich wizualnego wyglądu.</p>
+<h3>✅ <code>&lt;strong&gt;</code> oznacza ważność</h3>
+<p>Tag <code>&lt;strong&gt;</code> oznacza, że zawarty tekst ma <strong>krytyczne lub bardzo ważne znaczenie w danym kontekście</strong>.</p>
+<pre><code class="language-html">&lt;p&gt;
+    Przed usunięciem konta
+    &lt;strong&gt;pobierz kopię swoich danych&lt;/strong&gt;.
+    Tej operacji nie da się cofnąć.
+&lt;/p&gt;
+</code></pre>
+<p>Użyj go wtedy, gdy pominięcie informacji może doprowadzić do błędu, utraty danych albo złej decyzji. <strong>Nie stosuj <code>&lt;strong&gt;</code> tylko po to, żeby tekst był grubszy</strong>.</p>
+<h3>🎨 <code>&lt;b&gt;</code> oznacza wyróżnienie wizualne</h3>
+<p><strong class="tag-stamp tag-stamp--obsolete">Przestarzały (lecz praktyczny)</strong></p>
+<p>Tag <code>&lt;b&gt;</code> daje pogrubienie bez dodatkowej semantycznej wagi. Chociaż we współczesnym frontendzie dąży się do oznaczania ważności semantycznej (<code>&lt;strong&gt;</code>) lub stylowania w CSS, tag <code>&lt;b&gt;</code> jest nadal praktyczny. Nadaje się do nazw własnych, słów kluczowych we wstępie albo terminów, które chcesz wyłapać wzrokiem na ekranie bez narzucania maszynom fałszywej hierarchii ważności.</p>
+<pre><code class="language-html">&lt;p&gt;
+    Oprogramowanie &lt;b&gt;Visual Studio Code&lt;/b&gt;
+    zostało stworzone przez Microsoft.
+&lt;/p&gt;
+</code></pre>
+<h3>✅ Tag <code>&lt;em&gt;</code> definiuje nacisk semantyczny</h3>
+<p>Tag <code>&lt;em&gt;</code> (skrót od <span class="color-blue">emphasis</span>, czyli nacisk na frazę) stosujemy do słów, które zmieniają sens logiczny całego zdania. Przeniesienie tego tagu na inne słowo całkowicie modyfikuje intencję zapisanego komunikatu.</p>
+<p>Spójrz na poniższe przykłady i przeanalizuj różnicę w znaczeniu logicznym:</p>
+<ul>
+<li>Ja <em>nie</em> chcę tam iść. (oznacza zaprzeczenie chęci pójścia)</li>
+<li><em>Ja</em> nie chcę tam iść. (oznacza, że ktoś inny może iść, ale nie ja)</li>
+<li>Ja nie chcę <em>tam</em> iść. (oznacza chęć pójścia w inne miejsce)</li>
+</ul>
+<p>Dla robotów indeksujących wyszukiwarki, translatorów, parserów i modeli językowych to informacja, że to konkretne słowo modyfikuje znaczenie całego zdania. Nie jest to jednak narzędzie do sterowania głosem czytnika ekranu – dla technologii asystujących to przede wszystkim strukturalna informacja o kontraście logicznym.</p>
+<h3>🎨 Tag <code>&lt;i&gt;</code> wyróżnia bez zmiany znaczenia</h3>
+<p><strong class="tag-stamp tag-stamp--obsolete">Przestarzały (lecz praktyczny)</strong></p>
+<p>Tag <code>&lt;i&gt;</code> (obecnie <span class="color-blue">idiomatic text</span>) służy do oznaczania słów, które różnią się charakterem od otaczającego tekstu, ale ich rola nie modyfikuje sensu logicznego zdania. Mimo że w klasycznym HTML uważano go za przestarzały znacznik czysto prezentacyjny, we współczesnych standardach jego wąskie, idiomatyczne użycie jest w pełni poprawne i praktyczne.</p>
+<p>To idealne miejsce na:</p>
+<ul>
+<li>zwroty obcojęzyczne (np. <i>divide et impera</i>),</li>
+<li>tytuły dzieł i publikacji (np. książka <i>Hobbit</i>),</li>
+<li>terminy techniczne lub nazwy plików (np. plik <i>config.json</i>).</li>
+</ul>
+<p>Wizualnie oba tagi dają pochylenie tekstu. Semantycznie różnią się jednak intencją: <code>&lt;em&gt;</code> zmienia znaczenie logiczne wypowiedzi, a <code>&lt;i&gt;</code> oznacza jedynie wydzielony językowo lub konwencjonalnie termin.</p>
+<h3>📊 Porównanie w tabeli</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Tag</th>
+<th align="left">Wygląd</th>
+<th align="left">Semantyka</th>
+<th align="left">Kiedy stosować</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>&lt;strong&gt;</code></td>
+<td align="left">Pogrubienie</td>
+<td align="left">Ważna lub krytyczna informacja</td>
+<td align="left">Instrukcje bezpieczeństwa, ostrzeżenia przed utratą danych</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;b&gt;</code></td>
+<td align="left">Pogrubienie</td>
+<td align="left">Wyróżnienie czysto wizualne</td>
+<td align="left">Nazwy własne w tekście, słowa kluczowe we wstępie</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;em&gt;</code></td>
+<td align="left">Kursywa</td>
+<td align="left">Nacisk semantyczny (emfaza)</td>
+<td align="left">Słowa kluczowe zmieniające sens logiczny całego zdania</td>
+</tr>
+<tr>
+<td align="left"><code>&lt;i&gt;</code></td>
+<td align="left">Kursywa</td>
+<td align="left">Wyróżnienie idiomatyczne</td>
+<td align="left">Tytuły książek, słownictwo obcojęzyczne, nazwy plików</td>
+</tr>
+</tbody></table>
+<h3>🧪 Rzeczywistość czytania kodu: Ludzie vs Maszyny</h3>
+<p>W świecie technologii asystujących i nowoczesnego webu musisz patrzeć na semantykę tekstu bez mitów.</p>
+<p>Czytniki ekranu (takie jak NVDA czy VoiceOver) przejeżdżają przez tagi <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;b&gt;</code> i <code>&lt;i&gt;</code> jak przez zwykły tekst. Słowo umieszczone wewnątrz <code>&lt;strong&gt;</code> brzmi dla słuchacza dokładnie tak samo jak każdy inny wyraz obok. Wynika to z prostej przyczyny: gdyby syntezator mowy zmieniał intonację przy każdym pogrubieniu czy kursywie, słuchanie stron internetowych (gdzie wyróżnienia bywają masowo nadużywane) byłoby dla użytkowników po prostu irytujące i trudne w odbiorze.</p>
+<p>Gdzie zatem leży sens stosowania semantyki? Kluczem jest rozdzielenie odbiorców na dwa światy: <span class="color-green">ludzi</span> oraz <span class="color-green">maszyny</span>.</p>
+<h4>Dla człowieka: Wizualne wyróżnienie (Wygląd)</h4>
+<p>Człowiek czytający stronę potrzebuje punktów skupienia, rytmu i czytelnej struktury graficznej. Robi to za pomocą wzroku. Aby ułatwić mu czytanie (szczególnie osobom z dysleksją czy trudnościami z koncentracją), stosujemy kolory, kontrast i style graficzne (które na produkcji definiujemy za pomocą klas CSS). </p>
+<p>Służy to wyłącznie ludzkiemu oku – ułatwia skanowanie wzrokiem, ale nie niesie wbudowanego, technicznego znaczenia dla kodu strony.</p>
+<h4>Dla maszyn: Semantyka HTML (Intencja Dokumentu)</h4>
+<p>Roboty indeksujące wyszukiwarki (SEO), ekstraktory treści, systemy podsumowujące (np. wbudowane w przeglądarki tryby czytnika) oraz algorytmy AI nie „widzą” kolorów ani stylów graficznych. Analizują one <span class="color-green">czysty kod źródłowy</span>.</p>
+<p>Dla nich użycie <code>&lt;strong&gt;</code> oraz <code>&lt;em&gt;</code> to jednoznaczny sygnał o intencji autora. Mówisz maszynie: <span class="color-blue">„Ta fraza to kluczowa reguła, ostrzeżenie przed nieodwracalną akcją lub istotna definicja w strukturze dokumentu”</span>. Semantyka HTML opisuje znaczenie informacji, a nie wygląd ekranu.</p>
+<h4>Synergia: Wygląd i znaczenie</h4>
+<p>Te dwa światy nie wykluczają się wzajemnie. Jeśli dany fragment ma być zarówno szybko dostrzeżony przez człowieka, jak i poprawnie zinterpretowany przez maszyny, stosujemy oba rozwiązania: nadajemy mu wagę semantyczną w HTML (np. opakowując w <code>&lt;strong&gt;</code>) oraz odpowiedni styl graficzny.</p>
+<p>Dzięki temu kod pozostaje maksymalnie czytelny dla czytelnika, a jednocześnie czysty i w pełni zrozumiały dla całego ekosystemu internetu.</p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Piszesz dokumentację techniczną. Pojawia się zdanie ostrzegające o nieodwracalnej operacji usunięcia danych. Który tag powinieneś zastosować?</p>
+</question>
+<options>
+<item correct=""><pre><code class="language-html">&lt;strong&gt;
+</code></pre></item>
+<item><pre><code class="language-html">&lt;em&gt;
+</code></pre></item>
+<item><pre><code class="language-html">&lt;i&gt;
+</code></pre></item>
+</options>
+    <div data-hint="error"><p>Zastanów się, który z tych tagów niesie ze sobą faktyczną wagę semantyczną oznaczającą krytyczne znaczenie dla bezpieczeństwa użytkownika i systemu.</p>
+</div>
+    <div data-hint="success"><p>Dobrze. <code>&lt;strong&gt;</code> informuje maszyny i systemy operacyjne o wysokiej wadze treści. <code>&lt;b&gt;</code> to wyłącznie efekt wizualny.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📝 Inne przydatne tagi śródtekstowe</h2>
+<p>Artykuł techniczny rzadko składa się wyłącznie z akapitów. HTML oferuje tagi dopasowane do specyficznych rodzajów informacji.</p>
+<h3>💬 <code>&lt;blockquote&gt;</code> i <code>&lt;cite&gt;</code> dla cytatów</h3>
+<p>Znacznik <strong><span class="color-green"><code>&lt;blockquote&gt;</code></span></strong> służy do oznaczania <span class="color-blue">dłuższych cytatów blokowych</span>. Zazwyczaj w jego stopce (oznaczonej tagiem <strong><span class="color-green"><code>&lt;footer&gt;</code></span></strong>) podajemy źródło cytatu za pomocą znacznika <strong><span class="color-green"><code>&lt;cite&gt;</code></span></strong>. W strukturze HTML należy odróżnić znacznik <code>&lt;cite&gt;</code> od atrybutu <code>cite</code>. Atrybut ten (dodawany do elementu <code>&lt;blockquote&gt;</code>) jest <strong><span class="color-red">całkowicie niewidoczny dla czytelnika</span></strong> i ignorowany przez wyszukiwarki pod kątem pozycjonowania (SEO), przez co w praktyce nie ma potrzeby jego stosowania. Prawidłowym podejściem jest użycie samego elementu <code>&lt;cite&gt;</code> i zagnieżdżenie w nim standardowego linku <code>&lt;a&gt;</code> prowadzącego do źródła:</p>
+<pre><code class="language-html">&lt;!-- NAJLEPSZA PRAKTYKA: Klikalny odnośnik dla ludzi oraz poprawna semantyka dla wyszukiwarek --&gt;
+&lt;blockquote&gt;
+    &lt;p&gt;Treść powinna być dostępna dla każdego użytkownika.&lt;/p&gt;
+    &lt;footer&gt;
+        Źródło: &lt;cite&gt;&lt;a href="https://www.w3.org/WAI/WCAG21/Understanding/"&gt;Web Content Accessibility Guidelines (WCAG) 2.1&lt;/a&gt;&lt;/cite&gt;
+    &lt;/footer&gt;
+&lt;/blockquote&gt;
+</code></pre>
+<p><code>&lt;cite&gt;</code> podobnie jak <code>&lt;i&gt;</code> oraz <code>&lt;em&gt;</code> renderuje się jako <span class="color-blue">kursywa</span>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/porównanie-cite-i-em-oraz-przedstawienie-wszystkie-3-rendery.webp" alt="Porównanie tagów cite, i oraz em" width="898" height="80" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>💻 Tagi <code>&lt;code&gt;</code> i <code>&lt;pre&gt;</code> dla kodu</h3>
+<p>Przeglądarki internetowe domyślnie ignorują dodatkowe spacje oraz znaki nowej linii w kodzie HTML. Łączą je w jedną spację. Przy zwykłym tekście to pomaga. Przy kodzie programistycznym jest to jednak <strong><span class="color-red">poważny problem</span></strong>, ponieważ wcięcia i struktura linii decydują o czytelności.</p>
+<p>Rozwiązaniem jest połączenie dwóch tagów.</p>
+<ul>
+<li><span class="color-green">1. Warstwa semantyczna:</span> Tag <code>&lt;code&gt;</code> informuje przeglądarki, czytniki ekranu oraz roboty sieciowe, że dany fragment to kod źródłowy. Sam w sobie nie zachowuje jednak wcięć.</li>
+<li><span class="color-green">2. Warstwa prezentacyjna:</span> Tag <code>&lt;pre&gt;</code> oznacza tekst preformatowany (ang. <span class="color-blue">preformatted text</span>). Nakazuje przeglądarce renderować tekst dokładnie tak, jak został wpisany w edytorze kodu. Zachowuje każdy znak nowej linii oraz każdą spację.</li>
+</ul>
+<p>Połączenie <code>&lt;pre&gt;</code> oraz <code>&lt;code&gt;</code> jest najbardziej naturalnym sposobem na prezentację bloków kodu:</p>
+<pre><code class="language-html">&lt;p&gt;Metoda &lt;code&gt;querySelector()&lt;/code&gt; zwraca pierwszy pasujący element.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function hello(name) {
+    return "Cześć, " + name;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</code></pre>
+<p>Dzięki temu kod zachowuje <span class="color-gold">idealną strukturę</span> i czytelność. Jest jednocześnie w pełni zrozumiały dla maszyn analizujących naszą stronę.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Przeglądarki internetowe nie kolorują automatycznie kodu umieszczonego w tagach <code>&lt;code&gt;</code>. Jeśli chcesz uzyskać wielokolorowe podświetlanie składni (takie jak w edytorach kodu), musisz zastosować zewnętrzne biblioteki JavaScript (np. <code>highlight.js</code> czy <code>Prism.js</code>) lub ręcznie otoczyć słowa kluczowe znacznikami <code>&lt;span&gt;</code> (które działają jak bezużyteczne semantycznie, liniowe kontenery przeznaczone do stylowania tekstu wewnątrz zdania).</p>
+
+</div>
+</div><hr>
+<h3>🏷️ Znacznik <code>&lt;span&gt;</code> (Kontener liniowy)</h3>
+<p>W poprzedniej lekcji poznałeś znacznik <code>&lt;div&gt;</code>, który służy jako uniwersalne pudełko blokowe do grupowania elementów. W tekście jego odpowiednikiem jest znacznik <code>&lt;span&gt;</code>.</p>
+<p>To element <span class="color-green">czysto strukturalny i liniowy</span> (ang. <span class="color-blue">inline</span>). Oznacza to dwie rzeczy:</p>
+<ul>
+<li>Nie posiada żadnego znaczenia semantycznego (nie informuje maszyn o ważności czy typie tekstu).</li>
+<li>Domyślnie nie zmienia wyglądu tekstu (nie pogrubia go ani nie przenosi do nowej linii).</li>
+</ul>
+<p>Stosujemy go wyłącznie wtedy, gdy chcemy wydzielić pojedyncze słowo lub fragment zdania, aby w przyszłości móc nadać mu specyficzny styl graficzny (np. zmienić kolor tekstu).</p>
+<pre><code class="language-html">&lt;p&gt;
+    W tym zdaniu słowo &lt;span&gt;czerwony&lt;/span&gt; ma zachować swój domyślny wygląd, 
+    dopóki nie zmienimy jego stylu.
+&lt;/p&gt;
+</code></pre>
+<p>Stanowi to idealne dopełnienie dla tagu <code>&lt;div&gt;</code> – <code>&lt;div&gt;</code> grupuje całe akapity i sekcje, a <code>&lt;span&gt;</code> działa wyłącznie wewnątrz linii tekstu.</p>
+<hr>
+<h3>📅 <code>&lt;time&gt;</code> czyli data dla maszyny</h3>
+<p>W artykule data publikacji może wyglądać po ludzku:</p>
+<pre><code class="language-html">&lt;p&gt;Artykuł opublikowany: &lt;time datetime="2024-01-15"&gt;15 stycznia 2024&lt;/time&gt;&lt;/p&gt;
+</code></pre>
+<p>Tekst „$15$ stycznia $2024$” jest dla czytelnika. Wartość <code>2024-01-15</code> jest dla maszyny.</p>
+<p>Format <code>datetime</code> korzysta ze standardu <span class="color-gold">ISO 8601</span>. Najpierw zapisujesz rok, potem miesiąc, potem dzień.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-gold">ISO 8601</span> w HTML‑u nie oznacza, że użytkownik ma widzieć datę w takim zapisie.<br>To format techniczny dla przeglądarek, robotów, wyszukiwarek, kalendarzy i modeli językowych.<br>W Polsce naturalny tekst to zwykle „$15$ stycznia $2024$” albo „$15.01.2024$”, ale w atrybucie <code>datetime</code> nadal zapisujesz <code>2024-01-15</code>.</p>
+
+</div>
+</div><p>Przykłady:</p>
+<ul>
+<li><span class="color-green">Pełna data</span>: <code>2024-01-15</code>.</li>
+<li><span class="color-green">Miesiąc</span>: <code>2013-01</code>.</li>
+<li><span class="color-green">Rok</span>: <code>2019</code>.</li>
+<li><span class="color-green">Godzina</span>: <code>14:30</code>.</li>
+<li><span class="color-green">Data i godzina</span>: <code>2024-01-15T14:30</code> (połączone literą <code>T</code>).<br>Zakres dat, taki jak <code>2024-01-01/2024-12-31</code>, wygląda jak ISO 8601, ale nie jest dobrym przykładem dla pojedynczego elementu <code>&lt;time&gt;</code>. Jeśli opisujesz przedział, zwykle bezpieczniej użyć dwóch elementów <code>&lt;time&gt;</code>:</li>
+</ul>
+<pre><code class="language-html">&lt;p&gt;
+    Kurs trwa od &lt;time datetime="2024-01-01"&gt;1 stycznia 2024&lt;/time&gt;
+    do &lt;time datetime="2024-12-31"&gt;31 grudnia 2024&lt;/time&gt;.
+&lt;/p&gt;
+</code></pre>
+<p>Formaty zapisu dat różnią się w zależności od kraju (np. w Polsce stosuje się układ dzień, miesiąc, rok, a w USA miesiąc, dzień, rok). Poniższa mapa pokazuje te różnice na świecie. Właśnie dlatego maszyna potrzebuje jednego, ustandaryzowanego formatu ISO 8601 w atrybucie <code>datetime</code>, niezależnie od tego, jak prezentujemy datę użytkownikowi.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/web-frontend/Images/date-format-map.webp" alt="Mapa świata przedstawiająca regionalne formaty zapisu dat." width="1200" height="760" class="lazy-image" loading="lazy" decoding="async">
+
+<blockquote>
+<p>PS. Otwórz ten obraz w nowej karcie, a po najechaniu na niego myszką zobaczysz dymek z nazwą kraju oraz formatem zapisu daty w nim stosowanym. 😉</p>
+</blockquote>
+<pre><code class="language-html">&lt;p&gt;Facebook uruchomił wersję &lt;code&gt;.onion&lt;/code&gt; w
+    &lt;time datetime="2014"&gt;2014&lt;/time&gt; roku.&lt;/p&gt;
+
+&lt;p&gt;Spotkanie odbędzie się o
+    &lt;time datetime="14:30"&gt;wpół do trzeciej&lt;/time&gt;.&lt;/p&gt;
+
+&lt;p&gt;BBC udostępniło mirror w sieci Tor w
+    &lt;time datetime="2019"&gt;2019&lt;/time&gt; roku.&lt;/p&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zapis daty w elemencie <code>&lt;time&gt;</code> z niejednoznacznym lub niepasującym atrybutem <code>datetime</code> (np. <code>datetime="1990"</code> dla tekstu "lat $90$.") jest <span class="color-green">martwy semantycznie</span>, ponieważ parsery i roboty sieciowe nie będą w stanie poprawnie zinterpretować takiego zapisu. Pamiętaj, że <code>&lt;time&gt;</code> ma sens <span class="color-green">tylko wtedy, gdy data jest w pełni jednoznaczna</span> i poprawnie sformatowana według standardu ISO 8601.</p>
+
+</div>
+</div><pre><code class="language-html">&lt;!-- Niepoprawnie: „lata 90.” to opis epoki, nie jedna data --&gt;
+&lt;p&gt;Projekt powstał w &lt;time datetime="1990"&gt;latach 90.&lt;/time&gt;&lt;/p&gt;
+</code></pre>
+<p>Taki zapis jest <strong>błędny semantycznie</strong>. Kod mówi „$1990$”, ale tekst mówi „cała dekada”.</p>
+<h3>🔤 <code>&lt;abbr&gt;</code> czyli skrót z kontekstem</h3>
+<p><strong class="tag-stamp tag-stamp--dead">Martwa semantyka (abbr)</strong></p>
+<p>Tag <code>&lt;abbr&gt;</code> (skrót od <span class="color-blue">abbreviation</span>) miał w teorii służyć do oznaczania skrótów i akronimów. W praktyce jest to jednak <span class="color-red">znacznik martwy</span>. Współczesne wyszukiwarki (SEO), modele językowe (AI) oraz czytniki ekranu całkowicie go ignorują, a domyślny atrybut <code>title</code> wywołujący dymek podpowiedzi stwarza ogromne bariery dostępności.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Atrybut <code>title</code> jest atrybutem globalnym. Oznacza to, że możesz dodać go do dowolnego znacznika w HTML. Przeglądarki graficzne wyświetlają jego wartość w formie prostego dymku (ang. <span class="color-blue">tooltip</span>) po najechaniu myszką.</p>
+
+</div>
+</div><h4>Dlaczego ten tag i dymek <code>title</code> to ślepa uliczka?</h4>
+<p>Ukrywanie pełnego wyjaśnienia skrótu w atrybucie <code>title</code> to zła praktyka. Dymek ten nie wyświetla się na urządzeniach mobilnych (brak kursora myszy), nie pojawia się przy nawigacji za pomocą klawisza <kbd>Tab</kbd>, a czytniki ekranu domyślnie go ignorują, odczytując sam skrót (np. <span class="color-blue">„<abbr title="Content Management System">CMS</abbr>”</span> jako litery C, M, S) na podstawie własnych mechanizmów analizy wielkich liter.</p>
+<pre><code class="language-html">&lt;!-- BŁĘDNIE: Użytkownicy mobilni, klawiaturowi oraz roboty sieciowe nie dowiedzą się, co oznacza skrót CMS --&gt;
+&lt;p&gt;
+    System &lt;abbr title="Content Management System"&gt;CMS&lt;/abbr&gt;
+    zarządza treścią w panelu administracyjnym.
+&lt;/p&gt;
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖼️ Obrazy w HTML: znacznik <code>&lt;img&gt;</code></h2>
+<p>Do osadzania plików graficznych na stronie służy znacznik <code>&lt;img src="..."&gt;</code>.</p>
+<p>Zgodnie ze standardem <span class="color-green">HTML5</span> poprawna deklaracja grafiki wymaga zdefiniowania wymiarów <span class="color-blue"><code>width</code></span> i <span class="color-blue"><code>height</code></span> w pikselach (bez jednostki <code>px</code>). Pozwala to przeglądarce zarezerwować odpowiedni obszar w układzie strony przed pobraniem pliku. Zapobiega to <span class="color-green">skokom układu strony</span> (ang. <span class="color-blue">Layout Shift</span>, efekt rwania stony podczas ładowania).</p>
+<p>Dla poprawy wydajności stosujemy atrybut <span class="color-green"><code>loading="lazy"</code></span> (tzw. <span class="color-blue">lazy loading</span>). Opóźnia on pobieranie grafiki do momentu zbliżenia się do niej przez użytkownika podczas przewijania. Dodatkowo pozwala na przekierowanie piorytetu pobrania najpierw plików <code>html</code>, <code>css</code> i <code>js</code>.</p>
+<h3>🏷️ Tekst alternatywny: atrybut <code>alt</code></h3>
+<p>Każdy znacznik <code>&lt;img&gt;</code> musi posiadać atrybut <span class="color-green"><code>alt</code></span> (ang. <span class="color-blue">alternative text</span>). <strong>Brak tego atrybutu to kardynalny błąd dostępności</strong>.</p>
+<p>Tekst alternatywny pełni trzy kluczowe funkcje:</p>
+<ul>
+<li><span class="color-green">Dla dostępności:</span> Czytniki ekranu (np. NVDA) odczytują wartość <code>alt</code> osobom niewidomym. Bez tego atrybutu program  wygeneruje irytujący i rozpraszający komunikat o grafice bez etykiety.</li>
+<li><span class="color-green">Dla wyszukiwarek (SEO):</span> Roboty sieciowe analizują <code>alt</code>, aby sklasyfikować tematykę obrazu w wynikach wyszukiwania.</li>
+<li><span class="color-green">Jako fallback:</span> Jeśli plik graficzny nie załaduje się z powodu błędu połączenia, przeglądarka wyświetli w jego miejscu tekst alternatywny.</li>
+</ul>
+<p>Wartość atrybutu <code>alt</code> dobieramy na podstawie kontekstu grafiki na stronie:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Rola grafiki</th>
+<th align="left">Rekomendowana wartość <code>alt</code></th>
+<th align="left">Opis zachowania</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Grafika dekoracyjna</span> (np. ozdobna linia)</td>
+<td align="left"><code>alt=""</code> (pusty atrybut)</td>
+<td align="left">Czytnik ekranu całkowicie ją zignoruje. Ozdobniki CSS nie używają <code>&lt;img&gt;</code>.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Link graficzny</span> (np. logo jako odnośnik)</td>
+<td align="left"><code>alt="Strona główna"</code></td>
+<td align="left">Opisuje cel i kierunek odnośnika, a nie wygląd logotypu.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zdjęcie produktowe w katalogu</span></td>
+<td align="left"><code>alt=""</code> (pusty atrybut)</td>
+<td align="left">Jeśli obok znajduje się widoczny tytuł produktu, pusty <code>alt</code> zapobiega redundancji.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zdjęcie detalu na karcie produktu</span></td>
+<td align="left"><code>alt="Zbliżenie na boczne porty USB-C smartfona"</code></td>
+<td align="left">Opisuje unikalny szczegół, którego brakuje w opisie karty produktu.</td>
+</tr>
+</tbody></table>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗃️ Konteneryzacja semantyczna: znacznik <code>&lt;figure&gt;</code> i <code>&lt;figcaption&gt;</code></h2>
+<p>Standard <span class="color-green">WHATWG HTML Living Standard</span> wprowadza element <span class="color-green"><code>&lt;figure&gt;</code></span> jako kontener na <span class="color-green">treść samodzielną</span> (ang. <span class="color-blue">self‑contained</span>). Reprezentuje on grupę elementów, którą można wyciąć z głównego tekstu i przenieść w inne miejsce w dokumencie (np. do załącznika na końcu) bez zaburzania logicznej struktury lekcji.</p>
+<blockquote>
+<p>Znacznik <code>&lt;figure&gt;</code> nie jest przypisany wyłącznie do obrazków. Może grupować również fragmenty kodu źródłowego, wykresy i schematy.</p>
+</blockquote>
+<p>Do podpisywania zawartości kontenera służy tag <span class="color-green"><code>&lt;figcaption&gt;</code></span>. Musi on być bezpośrednim dzieckiem elementu <code>&lt;figure&gt;</code> (jako pierwszy lub ostatni znacznik).</p>
+<p>Zgodnie z wytycznymi <a href="https://www.w3.org/WAI/tutorials/images/complex/">W3C Web Accessibility Initiative (WAI)</a>, przy parowaniu tych elementów precyzyjnie rozdzielamy role opisów, aby uniknąć redundancji w syntezatorach mowy:</p>
+<pre><code class="language-html">&lt;figure&gt;
+    &lt;img src="images/architektura-sieci.png" width="640" height="360" loading="lazy" alt="Schemat architektury klient-serwer."&gt;
+    &lt;figcaption&gt;
+        &lt;strong&gt;Schemat 1: Przepływ danych w architekturze aplikacji internetowej.&lt;/strong&gt; 
+        Żądanie HTTP wysłane z przeglądarki przechodzi przez zaporę sieciową (Firewall) i trafia do serwera aplikacji (Node.js), który odpytuje bazę danych SQL, a następnie zwraca odpowiedź.
+    &lt;/figcaption&gt;
+&lt;/figure&gt;
+</code></pre>
+<p>W powyższym kodzie zastosowaliśmy profesjonalny podział ról:</p>
+<ul>
+<li><span class="color-green">Szczegółowy opis techniczny</span> (droga zapytania przez firewall) znajduje się bezpośrednio w podpisie <code>&lt;figcaption&gt;</code>, dzięki czemu każdy uczeń ma do niego dostęp.</li>
+<li><span class="color-green">Atrybut <code>alt</code></span> na obrazku służy wyłącznie do zwięzłej identyfikacji tematu grafiki, co zapobiega powielaniu wypowiedzi w czytnikach ekranu.</li>
+</ul>
+<p>Zgodnie z wytycznymi <span class="color-green">WCAG</span>, jeśli podpis <code>&lt;figcaption&gt;</code> całkowicie wyczerpuje opis grafiki, dopuszczalne jest pozostawienie pustego atrybutu <code>alt=""</code>. Całkowite pominięcie tego atrybutu (brak zapisu <code>alt</code> w kodzie) jest jednak błędem, ponieważ część starszych systemów odczyta wtedy nazwę pliku.</p>
+<data-gate>
+  <data-quiz>
+    <question><p>Na stronie sklepu internetowego umieszczasz zdjęcie produktu. Jaką wartość atrybutu <code>alt</code> zastosować dla fotografii czerwonych sneakersów Nike Air Max 270?</p>
+</question>
+    <options>
+<item><pre><code class="language-html">alt=""
+</code></pre></item>
+<item correct=""><pre><code class="language-html">alt="Czerwone buty sportowe Nike Air Max 270"
+</code></pre></item>
+<item><pre><code class="language-html">alt="Zdjęcie produktu numer 4721"
+</code></pre></item>
+<item><pre><code class="language-html">alt="Obrazek przedstawiający buty"
+</code></pre></item>
+</options>
+    <div data-hint="error"><p>Zastanów się, co usłyszy osoba niewidoma. Opis powinien pozwolić jej podjąć świadomą decyzję o tym, co dokładnie znajduje się na zdjęciu produktu.</p>
+</div>
+    <div data-hint="success"><p>Dobrze. Opisowy <code>alt</code> zastępuje wzrokowe postrzeganie zdjęcia. Powinien przekazać cechy kluczowe dla kontekstu strony.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green"><code>&lt;strong&gt;</code> to nie pogrubienie, a <code>&lt;em&gt;</code> to nie kursywa</span>: Służą one do oznaczania wagi semantycznej oraz emfazy zdaniowej. Do celów czysto wizualnych stosujesz tagi <code>&lt;b&gt;</code> oraz <code>&lt;i&gt;</code>.</li>
+<li><span class="color-green"><code>&lt;span&gt;</code> to liniowy odpowiednik <code>&lt;div&gt;</code></span>: Nie posiada znaczenia semantycznego. Służy wyłącznie do grupowania słów wewnątrz tekstu pod przyszłe stylowanie lub np. na potrzeby kolorowania kodu w <code>&lt;code&gt;</code>.</li>
+<li><span class="color-green"><code>&lt;abbr&gt;</code> i dymki <code>title</code> to martwa semantyka</span>: Współczesne wyszukiwarki, syntezatory mowy i systemy AI całkowicie je ignorują. Każdy skrót najlepiej i najbezpieczniej rozwijać wprost w zwykłym tekście (np. w nawiasie) przy jego pierwszym użyciu.</li>
+<li><span class="color-green">Brak <code>alt</code> to błąd i</span> <span class="color-red">„grafika bez etykiety”</span>: Całkowity brak tego atrybutu sprawia, że czytniki ekranu zgłaszają komunikat o braku etykiety. Pusty <code>alt=""</code> rezerwujesz wyłącznie dla elementów czysto ozdobnych, które czytnik ma zignorować.</li>
+<li><span class="color-green"><code>&lt;time&gt;</code> wymaga formatu ISO 8601</span>: Atrybut <code>datetime</code> musi zawierać jednoznacznie i poprawnie sformatowaną datę, by roboty i parsery mogły ją bezbłędnie zinterpretować.</li>
+</ul>
+</section>

@@ -1,0 +1,151 @@
+<h1>CSS Grid</h1>
+<p>Flexbox świetnie układa elementy w jednej osi. Ale strona często potrzebuje układu dwuwymiarowego: kolumn i wierszy jednocześnie.</p>
+<p>Do tego służy CSS Grid.</p>
+<p>Najważniejsza zasada tej lekcji brzmi: <strong><span class="color-green">Grid jest najlepszy wtedy, gdy projektujesz relację kolumn i wierszy</span></strong>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧱 Kontener grid</h2>
+<p>Grid zaczyna się od kontenera:</p>
+<pre><code class="language-css">.layout {
+    display: grid;
+}
+</code></pre>
+<p>Bezpośrednie dzieci stają się elementami grid.</p>
+<pre><code class="language-html">&lt;main class="layout"&gt;
+    &lt;article&gt;Treść&lt;/article&gt;
+    &lt;aside&gt;Linki powiązane&lt;/aside&gt;
+&lt;/main&gt;
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Kolumny i wiersze</h2>
+<p>Podstawowe właściwości:</p>
+<pre><code class="language-css">.layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+</code></pre>
+<p><code>grid-template-columns: 2fr 1fr</code> tworzy dwie kolumny:</p>
+<ul>
+<li>pierwsza dostaje dwie części dostępnej przestrzeni,</li>
+<li>druga dostaje jedną część.</li>
+</ul>
+<p>Jednostka <code>fr</code> oznacza ułamek wolnej przestrzeni.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Repeat i minmax</h2>
+<p>Grid ma funkcje, które pomagają budować elastyczne siatki.</p>
+<pre><code class="language-css">.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+</code></pre>
+<p>To tworzy trzy równe kolumny.</p>
+<p>Bardziej elastyczny zapis:</p>
+<pre><code class="language-css">.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+</code></pre>
+<p>Ten układ tworzy tyle kolumn, ile się zmieści. Każda karta ma minimum <code>240px</code>, a potem może rosnąć.</p>
+<p>To jeden z fundamentów responsywnego CSS bez ręcznego liczenia breakpointów dla każdego przypadku.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗺️ Obszary siatki</h2>
+<p>Grid potrafi nazywać obszary layoutu.</p>
+<pre><code class="language-css">.page {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "main aside"
+        "footer footer";
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+}
+
+aside {
+    grid-area: aside;
+}
+
+footer {
+    grid-area: footer;
+}
+</code></pre>
+<p>To czytelne, ale pamiętaj: kolejność wizualna nie powinna fałszować kolejności HTML.</p>
+<p>HTML nadal ma mieć logiczny porządek dokumentu.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Grid czy Flexbox?</h2>
+<p>Uproszczona decyzja:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Problem</th>
+<th align="left">Lepsze narzędzie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Menu w jednym rzędzie</td>
+<td align="left">Flexbox</td>
+</tr>
+<tr>
+<td align="left">Pasek narzędzi</td>
+<td align="left">Flexbox</td>
+</tr>
+<tr>
+<td align="left">Karty zawijające się w rzędach</td>
+<td align="left">Flexbox albo Grid</td>
+</tr>
+<tr>
+<td align="left">Cały layout strony z kolumnami i wierszami</td>
+<td align="left">Grid</td>
+</tr>
+<tr>
+<td align="left">Galeria obrazów</td>
+<td align="left">Grid</td>
+</tr>
+<tr>
+<td align="left">Dashboard z panelami</td>
+<td align="left">Grid</td>
+</tr>
+</tbody></table>
+<p>Nie chodzi o religię narzędzi. Chodzi o oś problemu.</p>
+<p>Flexbox myśli linią. Grid myśli siatką.</p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Kiedy CSS Grid jest zwykle lepszym wyborem niż Flexbox?</p>
+</question>
+    <options>
+      <option><p>Gdy chcesz pogrubić tekst w akapicie.</p>
+</option>
+      <option><p>Gdy układasz pojedynczy przycisk w formularzu.</p>
+</option>
+      <option correct=""><p>Gdy projektujesz układ kolumn i wierszy jednocześnie.</p>
+</option>
+      <option><p>Gdy chcesz zmienić atrybut <code>alt</code> obrazka.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Pomyśl o różnicy między jedną osią a siatką dwuwymiarową.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie. Grid jest naturalny dla układów dwuwymiarowych.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Grid tworzy siatkę</span>: Działa na kolumnach i wierszach jednocześnie.</li>
+<li><span class="color-green"><code>fr</code> dzieli wolną przestrzeń</span>: To wygodna jednostka layoutu.</li>
+<li><span class="color-green"><code>repeat()</code> skraca zapis</span>: Pomaga tworzyć powtarzalne kolumny.</li>
+<li><span class="color-green"><code>minmax()</code> stabilizuje responsywność</span>: Pozwala określić minimum i maksimum rozmiaru toru.</li>
+<li><span class="color-green">Flexbox i Grid się uzupełniają</span>: Flexbox jest linią, Grid jest mapą.</li>
+</ul>
+</section>

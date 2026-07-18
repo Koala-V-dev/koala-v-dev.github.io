@@ -1,0 +1,56 @@
+<h2>Układy Mieszane: Intersekcja Linii i Krzywej</h2>
+<p>Pamiętać o dziedzinie dla równań, bo w układach równań padło S=D ale nigdy nie mówiono o dziedzinie tak jak to było w równaniu liniowym i równaniu kwadratowym</p>
+<p>W poprzednich lekcjach rozwiązywałeś konflikty między dwoma liniowymi kontraktami ($2 \times$ stopień 1) lub diagnozowałeś nieliniowy stan pojedynczego równania ($1 \times$ stopień 2).</p>
+<p>W rzeczywistych systemach często dochodzi do <strong>interakcji mieszanej</strong>: liniowy sygnał sterujący musi „dogadać się” z nieliniowym procesem fizycznym. To świat <strong>Układów Mieszanych</strong>.</p>
+<p>$$\begin{cases} y = ax + b \ y = ax^2 + bx + c \end{cases}$$</p>
+<hr>
+<h3>🧠 Intuicja: Kolizja i Intersekcja</h3>
+<p>Z perspektywy geometrycznej układ mieszany to zapytanie o punkty styku <strong>Linii</strong> i <strong>Paraboli</strong>.</p>
+<p>W <strong>Game Development</strong> (np. w systemach fizyki) to absolutna podstawa. Wyobraź sobie promień lasera (linia) i tarczę energetyczną w kształcie sfery (którą w przekroju opisuje równanie kwadratowe). Rozwiązanie układu powie Ci:</p>
+<ol>
+<li><strong>Chybiłeś</strong> ($\Delta &lt; 0$): Brak punktów wspólnych.</li>
+<li><strong>Otarłeś się</strong> ($\Delta = 0$): Linia jest styczna do paraboli (jeden punkt styku).</li>
+<li><strong>Trafiłeś</strong> ($\Delta &gt; 0$): Linia przebija parabolę (dwa punkty: wejścia i wyjścia).</li>
+</ol>
+<hr>
+<h3>⚙️ Strategia: Iniekcja Stanu (Podstawianie)</h3>
+<p>Najskuteczniejszą metodą rozwiązywania układów mieszanych jest <strong>Podstawianie</strong>. Ponieważ oba równania zazwyczaj definiują tę samą zmienną wyjściową ($y$), możemy je do siebie porównać.</p>
+<h4>Algorytm Rozwiązywania:</h4>
+<ol>
+<li><strong>Porównanie</strong>: Przyrównaj prawe strony obu równań ($ax + b = ax^2 + bx + c$).</li>
+<li><strong>Redukcja</strong>: Przenieś wszystko na jedną stronę, aby uzyskać klasyczne równanie kwadratowe równe zero.</li>
+<li><strong>Diagnoza ($\Delta$)</strong>: Oblicz deltę, aby sprawdzić liczbę punktów styku.</li>
+<li><strong>Finalizacja</strong>: Wyznacz $x_{1,2}$ i wróć do równania liniowego, aby odzyskać odpowiadające im wartości $y_{1,2}$.</li>
+</ol>
+<h5>Przykład:</h5>
+<p>$$\begin{cases} y = x + 1 \ y = x^2 - 1 \end{cases}$$</p>
+<p>Porównujemy:<br>$$x^2 - 1 = x + 1 \implies x^2 - x - 2 = 0$$<br>$$\Delta = 1 - 4(1)(-2) = 9 \implies \sqrt{\Delta} = 3$$<br>$$x_1 = \frac{1+3}{2} = 2 \implies y_1 = 2+1 = 3$$<br>$$x_2 = \frac{1&#8209;3}{2} = -1 \implies y_2 = -1+1 = 0$$</p>
+<p>Punkty konsensusu: $S = {(2, 3), (-1, 0)}$.</p>
+<hr>
+<h3>🪤 Sandbox: Detekcja Kolizji</h3>
+<p>Rozwiąż układ, aby wyznaczyć punkty, w których linia przecina nieliniowy obszar.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Układ mieszany: $\begin{cases} y = 2x + 1 \\ y = x^2 + 1 \end{cases}$">
+  <div 
+    data-step="1" 
+    data-expected="x^2 - 2x = 0" 
+    data-label="Krok 1: Przyrównaj równania i przenieś wszystko na lewą stronę ($ax^2 + bx + c = 0$):"
+    data-hints='{"FORM_MISMATCH": "💡 x² + 1 = 2x + 1 \implies x² - 2x = 0."}'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="x_1 = 0, x_2 = 2" 
+    data-label="Krok 2: Wyznacz wartości $x$ (podpowiedź: wyciągnij x przed nawias):"
+    data-hints='{"VARIABLE_MISMATCH": "💡 x(x - 2) = 0, czyli x = 0 lub x = 2."}'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="S = \{(0, 1), (2, 5)\}" 
+    data-label="Krok 3: Wyznacz wartości $y$ i podaj zbiór punktów $S = \{(x_1, y_1), (x_2, y_2)\}$:"
+    data-hints='{"SET_MISMATCH": "💡 Podstaw x do y = 2x + 1. Dla x=0, y=1. Dla x=2, y=5."}'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<p>Opanowałeś łączenie różnych światów matematycznych. To najwyższy stopień wtajemniczenia w analizie punktowej. W następnej, ostatniej lekcji tego modułu, zajmiemy się <strong>Nierównościami</strong>, gdzie zamiast szukać punktów, będziemy wyznaczać <strong>Bezpieczne Zakresy</strong> dla całych systemów. 🚀🛡️</p>

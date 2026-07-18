@@ -1,0 +1,850 @@
+<h2>🧮 Arytmetyka Binarna</h2>
+<p>Matematyka, której uczysz się w szkole, jest nieskończona — zawsze możesz dodać kolejną cyfrę, a z lewej strony masz nieskończoną ilość <em>zer wiodących</em>, których nie musimy zapisywać. Ale technologia komputerowa jest <strong>deterministyczna i skończona</strong>. Procesor operuje na <strong>pudełkach o sztywnym rozmiarze</strong>, które mają swoje nieprzekraczalne limity.</p>
+<hr>
+<p>My skupimy się na standardzie <strong>16&#8209;bitowym</strong> (typ <code>short</code> stosowany np. w C++). Mieści on dokładnie $2^{16} = 65536$ kombinacji. To nasze maksimum, z którego liczby nie mogą uciec.</p>
+<h3>➕ Dodawanie z mechanizmem "Przeniesienia"</h3>
+<p>Dodawanie binarne opiera się na prostych regułach:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Działanie</th>
+<th align="center">Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$0 + 0$</td>
+<td align="center"><strong>$0$</strong></td>
+</tr>
+<tr>
+<td align="center">$0 + 1$</td>
+<td align="center"><strong>$1$</strong></td>
+</tr>
+<tr>
+<td align="center">$1 + 0$</td>
+<td align="center"><strong>$1$</strong></td>
+</tr>
+</tbody></table>
+<p> Problem pojawia się wtedy, gdy suma jedynek w kolumnie wynosi $2$ lub $3$. Wtedy następuje <strong>przeniesienie</strong> do kolejnej pozycji, zupełnie jak w dodawaniu słupkowym, gdy suma przekracza $9$ dla systemu dziesiętnego (decymalnego).</p>
+<table>
+<thead>
+<tr>
+<th align="left">Suma w kolumnie</th>
+<th align="center">Wynik</th>
+<th align="center">Nowe Przeniesienie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$1 + 1$</td>
+<td align="center"><strong>$0$</strong></td>
+<td align="center"><strong>$1$</strong> dla kolejnej kolumny po lewej</td>
+</tr>
+<tr>
+<td align="left">$1 + 1 +$ <em>$1$ (z przeniesienia)</em></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="center"><strong>$1$</strong> dla kolejnej kolumny po lewej</td>
+</tr>
+<tr>
+<td align="left">$0 + 1 +$ <em>$1$ (z przeniesienia)</em></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="center"><strong>$1$</strong> dla kolejnej kolumny po lewej</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Przykład (3 + 1):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Przeniesienie</th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Tu masz 1 z przeładowania w poprzedniej kolumnie po prawej. &#10;Patrzysz, czy tym razem też zajdzie przeładowanie. &#10;W tym przypadku kolumna nie zawiera choćby jednej jedynki, aby nastąpiło przeładowanie, więc skoro 0+0=0, to wystarczy przepisać jedynkę z poprzedniego przeładowania.">$1$</span></th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Tu masz 1 z przeładowania w poprzedniej kolumnie po prawej. &#10;Patrzysz, czy tym razem też zajdzie przeładowanie. &#10;Jak w tej kolumnie występuje jedynka, to masz kolejne przeładowanie i teraz to przeładowanie da ci operację 0 + druga wartość, która może być 0 albo 1 i ją przepisujesz jako wynik sumy. &#10;Poniżej widzisz, że zabierając jedynkę do przeładowania, masz ostateczne działanie 0+0, więc wynik to 0 i jedynka do przeniesienia, bo było przeładowanie.">$1$</span></th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Poniżej widzisz sumę 1 i 1, więc do kolejnej kolumny przenosisz przeładowaną wartość (1), a w wyniku zapisujesz zresetowany licznik (0)">←</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Składnik A $(3)_{10}$</strong></td>
+<td align="center">$0$</td>
+<td align="center">$1$</td>
+<td align="center">$1$</td>
+</tr>
+<tr>
+<td align="left"><strong>Składnik B $(1)_{10}$</strong></td>
+<td align="center">$0$</td>
+<td align="center">$0$</td>
+<td align="center">$1$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik $(4)_{10}$</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="center"><strong>$0$</strong></td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
+</data-gate>
+
+
+<h3>➖ Odejmowanie: Reguła "Niwelowania i Cofania"</h3>
+<p>Odejmowanie binarne, podobnie jak dziesiętne, opiera się na procesie pożyczania. Najskuteczniejszym sposobem na zrozumienie tego procesu jest <strong>Reguła Niwelowania i Cofania</strong>. </p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Mechanizm ten uruchamia się <strong>wyłącznie wtedy, gdy od cyfry mniejszej odejmujesz większą ($y &lt; x$)</strong>. Jeśli $y \ge x$, odejmowanie jest bezpośrednie i nie generuje długu.</p>
+
+</div>
+</div><h4>Jak to działa? (Pełny proces obsługi długu)</h4>
+<p>Spójrzmy na mechanizm w systemie dziesiętnym, opierając się na zestawie znaków ($0$-$9$), czyli naszym <strong>Liczniku</strong>:</p>
+<p><strong>Przykład A (<em>$125 - 7$</em>):</strong></p>
+<ol>
+<li><strong>Jedności</strong>: $5 - 7$. Ponieważ $5 &lt; 7$, niwelujemy część wspólną ($5$), zostaje <em>$2$ długu</em>.</li>
+<li><strong>Cofanie &amp; Paradoks Pożyczki</strong>: Aby spłacić to $2$, musimy &quot;cofnąć&quot; licznik o jedną pozycję (pożyczka od sąsiada). Sąsiad bierze &quot;rachunek&quot; za przeskok (1) na siebie. To paradoks: pożyczka od sąsiada <strong>zmniejsza</strong> nasz lokalny dług, bo opłaca koszt przeskoku z $0$ na $9$.</li>
+<li><strong>Reszta długu</strong>: Po opłaceniu kosztu przeskoku, nasz pozostały dług wynosi już tylko $1$ ($2 - 1 = 1$).</li>
+<li><strong>Wynik jedności</strong>: Licznik wskazuje $9$ (nowa pozycja). Odejmujemy resztę długu ($9 - 1$). Wynik: <em><strong>$8$</strong></em>.</li>
+<li><strong>Dziesiątki</strong>: Mieliśmy $2$. Spłacamy sąsiadowi koszt Vouchera za przeskok ($2 - 1$). Wynik: <em><strong>$1$</strong></em>.</li>
+<li><strong>Rachunek końcowy</strong>: <em><strong>118</strong></em>.</li>
+</ol>
+<hr>
+<p><strong>Przykład B (<em>$48 - 19$</em>):</strong></p>
+<ol>
+<li><strong>Jedności</strong>: $8 - 9$. Niwelujemy część wspólną ($8$), zostaje <em>$1$ długu</em>.</li>
+<li><strong>Cofanie &amp; Paradoks</strong>: Pożyczka od sąsiada (1) w całości opłaca koszt przeskoku licznika (1). </li>
+<li><strong>Reszta długu</strong>: Cały dług spłacony ($1 - 1 = 0$).</li>
+<li><strong>Wynik jedności</strong>: Licznik po przeskoku wskazuje $9$. Brak reszty długu. Wynik: <em><strong>$9$</strong></em>.</li>
+<li><strong>Dziesiątki</strong>: Mamy $4$. Najpierw regulujemy zadłużenie za pożyczkę (&quot;Voucher&quot;) dla jedności ($4 - 1 = 3$). Teraz odejmujemy cyfrę $1$ (z części dziesiętnej liczby $19$). Wynik: <em><strong>$2$</strong></em>.</li>
+<li><strong>Rachunek końcowy</strong>: <em><strong>29</strong></em>.</li>
+</ol>
+<hr>
+<p>W systemie binarnym (zestaw znaków $0$-$1$) mechanizm jest identyczny. Cofnięcie licznika (przeskok z $0$ na $1$) zawsze spłaca dokładnie <em>$1$ długu</em>.</p>
+<hr>
+<p><strong>Reguły bezpośrednie (Brak długu z prawej):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Działanie</th>
+<th align="center">Wynik</th>
+<th align="left">Komentarz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$0$ - $0$</td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">$1$ - $1$</td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">$1$ - $0$</td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">$0$ - $1$</td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left">Niweluję $0$, zostaje $1$ długu. Licznik cofa się na $1$, co przenosi dług na sąsiada z lewej.</td>
+</tr>
+</tbody></table>
+<hr>
+<p>A skoro w ostatnim przypadku ($0&#8209;1$) wygenerował się dług dla sąsiada, to popatrz na reguły gry dla zadłużonych. </p>
+<p><strong>Reguły z długiem (Gdy kolumna otrzymała dług z prawej):</strong><br>W tej tabeli najpierw spłacamy &quot;dług przychodzący&quot;, a potem sprawdzamy, czy sami musimy pożyczyć od sąsiada z lewej.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Działanie</th>
+<th align="center">Wynik</th>
+<th align="left">Czy tworzy nowy dług dla lewego sąsiada?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$0$ - $0$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left"><strong>TAK</strong> (Cofam licznik na $1$, co spłaca dług)</td>
+</tr>
+<tr>
+<td align="left">$1$ - $0$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left"><strong>NIE</strong> (1 niweluje dług 1, zostaje 0)</td>
+</tr>
+<tr>
+<td align="left">$0$ - $1$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left"><strong>TAK</strong> (Niweluję 0, spłacam długu 1. Brakło na odejmowanie 1!)</td>
+</tr>
+<tr>
+<td align="left">$1$ - $1$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left"><strong>TAK</strong> (1 niweluje 1. Zostaje dług 1. Cofam licznik na 1)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>W skrócie: Ściąga dla Długu</strong></p>
+<ul>
+<li>Jeśli bit = <strong>0</strong> i musisz odjąć <strong>1</strong> → bierzesz pożyczkę → wynik <strong>1</strong>, dług idzie w lewo.</li>
+<li>Jeśli bit = <strong>1</strong> i masz dług (1) → spłacasz go → wynik <strong>0</strong>, dług wygasa.</li>
+<li>Jeśli bit = <strong>0</strong> i masz dług (1) → bierzesz pożyczkę, by spłacić dług → wynik <strong>1</strong>, dług idzie w lewo.</li>
+</ul>
+
+</div>
+</div><h4>Co gdy brakuje sąsiada? (Wynik Ujemny)</h4>
+<p>Zauważ, że opisane reguły działają idealnie, dopóki masz &quot;kogoś po lewej&quot;, kto może opłacić Twój Voucher na skok w tył licznika. Ale co, gdy $2 - 3$ 🤔?</p>
+<p>Wtedy ostatnia jedynka po lewej nie istnieje, by spłacić dług. Procesor musi &quot;przekręcić&quot; wszystkie licznik 🤯, co w świecie bitów oznacza wejście w obszar <strong>liczb ujemnych</strong> (U2). Ale o tym w następnej lekcji 😉.</p>
+<hr>
+<p><strong>Przykład (4 − 1):</strong><br>Analiza operacji $100 - 001$ ($4 - 1$). Dług wędruje przez kolumny, aż trafi na jedynkę, która może go spłacić.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Stan długu</th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Ostatnia faza. Tu dokonujesz odejmowania 1 - 0. Widzisz z poprzednich obliczeń, że twój prawy sąsiad zarzucił na ten róg dług wynoszący 1. Posiadasz jednak do dyspozycji natywne 1 na starcie. Twój zasób jest w stanie opłacić zadaną karę. Spłacasz kwotę długu 1 posiadając swój punkt 1, i pozostajesz z wartością 0 na koncie. Rozliczywszy się, kończysz działanie kolumny wedle wzoru: od Twojego zostawionego 0 schodzi dolne odjęcie równe 0, zejściem tego jest wymiar 0. Koniec długu.">❌</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Kolejna kolumna, w której robisz 0 - 0. Zauważasz jednak, że na kolumnie spoczywa też 1 przejętego długu, który zrzuciła wcześniejsza iteracja obok z prawej. Aby spłacić 1 nie mając własnego stanu na liczniku, ponownie zmuszony jesteś rzucić ten ciążący dług z wynoszącą kwotą 1, powielając ten stan w lewo. Sam rzut na kolejnego sąsiada pozwala na cofnięcie sprzętowo licznika do tyłu, wracając oknem cyklu z 0 na pozycję 1. Krok ujęty tą operacją usuwa wymiar Twojego pierwotnego długu wynoszącego okrągłe 1. Skoro zaległość została spłacona w całości u manewru - od odnowionego na 1 progu odejmujesz bazowe wskazywane na spodzie kolumny 0. Przerzucasz na dół wynik tego odcinka: 1.">✅</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Patrzysz na bieżącą kolumnę od prawej strony. Masz polecenie zrzucenia wartości 1 domyślnie startując na 0. Od mniejszej idziesz ku górze na mniejszą, czyli musisz ugiąć i cofnąć licznik. W tym celu bez wahania wymuszasz u następnego lewego sąsiada wygenerowanie przypisanego Ci długu o wymiarze 1. Zabieg ten uiszcza Ci pożądaną odgórną zgodę, i uwarunkowanie do wykonania pełnego cofnięcia we własnym liczniku na dół poniżej kółka podłoża, do cyfry 1. Przez odrzucenia wspólnego pułapu (0) Twoja wartość długu szacuje się na skromne 1. Dodatkowo sam zwrot licznika pod 0 niszczy z racjonalizacji zeszłą cząstkę wymiaru. Zostają z długów uległe okrągłe 0 do obsłużenia długu na czysto, tak wobec tego – od cofniętego licznika zatrzymanego za kółkiem na 1 zrzucasz opór 0. Ostateczny wynik zapisywany z ramienia w pierwszej kolumnie ląduje zrzutem 1.">✅</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Odjemna (4)</strong></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left"><strong>Odjemnik (1)</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik (3)</strong></td>
+<td align="center"><strong>0</strong></td>
+<td align="center"><strong>1</strong></td>
+<td align="center"><strong>1</strong></td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
+</data-gate>
+
+<h3>✖️ Mnożenie: Reguła "Pozycja = Ilość Zer"</h3>
+<p>Mnożenie w procesorze to ściśle zdefiniowana procedura przesunięć. Cała logika opiera się na <strong>Indeksie Pozycji</strong> (liczonym od $0$ z prawej strony).</p>
+<h4>Twarda Reguła (Shift Rule)</h4>
+<p>Spójrz na dolną liczbę (mnożnik). Numer pozycji, na której znajdziesz <code>1</code>, mówi Ci dokładnie, ile zer dopisujesz do liczby górnej (mnożnej). Pamiętaj – pozycje liczymy od zera, patrząc od prawej strony!</p>
+<table>
+<thead>
+<tr>
+<th align="center">Pozycja</th>
+<th align="center">7</th>
+<th align="center">6</th>
+<th align="center">5</th>
+<th align="center">4</th>
+<th align="center">3</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Zapis binarny mnożnej</td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+</tr>
+<tr>
+<td align="center">Zapis binarny mnożnika</td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Przesunięcie w mnożeniu opiera się na zdefiniowaniu ilości dopisywania zer do mnożnej względem pozycji, na której stoi jedynka w dolnej liczbie. </p>
+
+</div>
+</div><p>👉 <strong>Wizualizacja przesunięcia (Bit&#8209;Shift):</strong><br>Wyobraź sobie, że mnożenie to &quot;popychanie&quot; liczby w lewo — dopisujesz zera na końcu:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Mnożna</th>
+<th align="center">Pozycja jedynki</th>
+<th align="center">Shift</th>
+<th align="center">Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>11011</code></td>
+<td align="center">$0$</td>
+<td align="center">$\xleftarrow{0}$</td>
+<td align="center"><code>11011</code></td>
+</tr>
+<tr>
+<td align="center"><code>11011</code></td>
+<td align="center">$1$</td>
+<td align="center">$\xleftarrow{1}$</td>
+<td align="center"><code>11011</code><strong><code>0</code></strong></td>
+</tr>
+<tr>
+<td align="center"><code>11011</code></td>
+<td align="center">$2$</td>
+<td align="center">$\xleftarrow{2}$</td>
+<td align="center"><code>11011</code><strong><code>00</code></strong></td>
+</tr>
+</tbody></table>
+<hr>
+<p>Dla powyższego przykładu patrzymy najpierw na mnożnik <code>0001 0111</code> i widzimy że jedynki występują na pozycjach $0, 1, 2$ i $4$. Zatem uzyskamy cztery przesunięcia i cztery wartości do zsumowania. </p>
+<table>
+<thead>
+<tr>
+<th align="center">Pozycja</th>
+<th align="center">Wartość mnożnika</th>
+<th align="center">Operacja</th>
+<th align="center">Wynik mnożnej po przesunieciu do późniejszego zsumowania</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$0$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{0}$</strong></em></td>
+<td align="center"><strong>$0001\text{ }1011$</strong></td>
+</tr>
+<tr>
+<td align="center">$1$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{1}$</strong></em></td>
+<td align="center"><strong>$0011\text{ }011$<em>$0$</em></strong></td>
+</tr>
+<tr>
+<td align="center">$2$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{2}$</strong></em></td>
+<td align="center"><strong>$0110\text{ }11$<em>$00$</em></strong></td>
+</tr>
+<tr>
+<td align="center">$3$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{3}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+<tr>
+<td align="center">$4$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{4}$</strong></em></td>
+<td align="center"><strong>$0001\text{ }1011\text{ }$<em>$0000$</em></strong></td>
+</tr>
+<tr>
+<td align="center">$5$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{5}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+<tr>
+<td align="center">$6$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{6}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+<tr>
+<td align="center">$7$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{7}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+</tbody></table>
+<p>W powyższej tabeli dokonaliśmy przesunięcia w lewo o ilość względem pozycji każdego bitu mnożnej.<br>Dla wartości zerowych mnożnika chodź operacja przesunięcia występuje to jej wynik może zostać zignorowany ponieważ matematycznie mnożenie przez zero daje zero. </p>
+<p>Więc ostatecznie mamy cztery wartości do przeprowadzenia trzech operacji dodawania:</p>
+<ol>
+<li><em><strong>$0001\text{ }1011$</strong></em> + <em>$0011\text{ }0110$</em> = <code>0101 0001</code><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+</tr>
+<tr>
+<td>+</td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+<li>Wynik poprzedniej opercaji dodawania → <em><strong>$0101\text{ }0001$</strong></em> + <em>$0110\text{ }1100$</em> = <code>1011 1101</code><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+</tr>
+<tr>
+<td>+</td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+<li>Wynik poprzedniej operacji dodawania → <em><strong>$1011\text{ }1101$</strong></em> + <em>$0001\text{ }1011\text{ }0000$</em> = <code>0010 0110 1101</code><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+</tr>
+<tr>
+<td>+</td>
+<td></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<hr>
+<p>To podejście działa zawsze i dla każdej liczby. Procesor po prostu &quot;skanuje&quot; bity mnożnika i dla każdej jedynki generuje odpowiednio przesuniętą wersję liczby, a na końcu wszystko sumuje. ⚡</p>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
+</data-gate>
+
+<hr>
+<p>Alternatywnie, skoro komputer aby coś obliczyć musi to przekonwertować pierw na zapis binarny i potem wynik zwrócić człowiekowi w zapisie dziesiętnym to Ty możesz zrobić podobnie.</p>
+<p>Mając do pomnożenia liczby binarne <code>0001 1011</code> i <code>0001 0111</code>, dokonaj pierw konwersji i przeprowadź operację mnożenia w systemie dziesiętnym by na koniec wynik spowrotem przekonwertować na zapis binarny.</p>
+<ul>
+<li><code>0001 1011</code> to $27$</li>
+<li><code>0001 0111</code> to $23$</li>
+<li>$27\cdot23 = 621$</li>
+<li>Przekonwertuj wynik spowrotem do zapisu binarnego czyli: <code>0010 0110 1101</code></li>
+</ul>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
+</data-gate>
+
+<h3>➗ Dzielenie: Skanowanie po Indeksach</h3>
+<p>Dzielenie binarne to proces sprawdzania, które przesunięcia dzielnika &quot;mieszczą się&quot; w naszej liczbie. Wyobraź sobie dzielnik jako <strong>szablon</strong> (stempel), który przesuwasz nad dzielną, szukając miejsca na kolejne &quot;wycięcie&quot; (odejmowanie).</p>
+<h4>Reguła Przewagi (Czy szablon pasuje?)</h4>
+<p>Zanim zaczniesz wycinać, procesor mechanicznie sprawdza &quot;czy góra ma przewagę&quot;:</p>
+<ol>
+<li><strong>Długość</strong>: Liczba z większą ilością cyfr (bez <em>zer wiodących</em>) zawsze wygrywa (np. <code>101</code> &gt; <code>11</code>).</li>
+<li><strong>Pierwszy różny bit</strong>: Jeśli są równe, o zwycięstwie decyduje pierwsza różnica od lewej (<strong>1</strong> &gt; <strong>0</strong>).</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Głowa i Ogon</strong>: W informatyce stosujemy nomenklaturę, że maksymalnie lewy znak w fragmencie tekstu to <strong>Głowa</strong> (<em><strong>head</strong></em>), a maksymalnie prawy znak w tym fragmencie to <strong>Ogon</strong> (<em><strong>tail</strong></em>). 😉 </p>
+
+</div>
+</div><h4>Przykład: Skanowanie krok po kroku (22 ÷ 5)</h4>
+<p>Dzielimy $22$ przez $5$. Nasz szablon to <code>101</code>. Sprawdzamy wszystkie pozycje, zaczynając od największej możliwej:</p>
+<h5>Krok 1: Pierwsza przymiarka</h5>
+<p>Kładziemy szablon tak, aby jego <strong>Głowa</strong> była maksymalnie na lewo pod dzielną i widzimy że <strong>Ogon</strong> jest na <strong>indeksie $2$</strong>. </p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">$4$</th>
+<th align="center">$3$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+<th align="center">$0$</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Dzielna</strong></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Wartość początkowa</td>
+</tr>
+<tr>
+<td align="left"><strong>Szablon</strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>0</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><em><code>0</code></em></td>
+<td align="center"><em><code>0</code></em></td>
+<td align="left"><strong>Ogon na indeksie $2$</strong></td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>?</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Aktualny wynik po poniższych operacjach.</td>
+</tr>
+</tbody></table>
+<p>Zobacz na te zera w szablonie. Musimy je dopisać, bo przesunęliśmy nasz szablon o <em>2</em>.</p>
+<ul>
+<li><strong>Decyzja</strong>: Czy Góra ma przewagę (<code>0001 0110</code> $\geq$ <code>0001 0100</code>)? <strong>TAK</strong>!</li>
+<li><strong>Wynik</strong>: Na indeksie $2$ gdzie znajduje się ogon wpisujesz pod nim <em><strong>$1$</strong></em>.</li>
+<li><strong>Reszta</strong>: Odejmujesz <code>0001 0110</code> $-$ <code>0001 0100</code> $=$ <code>0000 0010</code>. To Twój nowy cel dla kolejnych kroków.</li>
+</ul>
+<h5>Krok 2: Druga przymiarka</h5>
+<p>Przesuwamy szablon o jedno miejsce w prawo. Teraz jego <strong>Ogon</strong> ląduje na <strong>indeksie $1$</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">$4$</th>
+<th align="center">$3$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+<th align="center">$0$</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Reszta</strong></td>
+<td align="center"></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Reszta z poprzedniego odejmowania</td>
+</tr>
+<tr>
+<td align="left"><strong>Szablon</strong></td>
+<td align="center"></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>0</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><em><code>0</code></em></td>
+<td align="left"><strong>Ogon na indeksie $1$</strong></td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Aktualny wynik po poniższych operacjach.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Decyzja</strong>: Czy Góra (reszta <code>0010</code>) ma przewagę nad Szablonem (<code>1010</code>)? <strong>NIE</strong>.</li>
+<li><strong>Wynik</strong>: Na indeksie $1$ wyniku wpisujesz <em><strong>$0$</strong></em>.</li>
+<li><strong>Reszta</strong>: Bez zmian, nadal masz <strong><code>10</code></strong>.</li>
+</ul>
+<h5>Krok 3: Trzecia przymiarka</h5>
+<p>Kładziemy szablon na ostatnim możliwym miejscu. <strong>Ogon</strong> na <strong>indeksie $0$</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">$4$</th>
+<th align="center">$3$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+<th align="center">$0$</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Reszta</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Reszta z poprzedniego odejmowania</td>
+</tr>
+<tr>
+<td align="left"><strong>Szablon</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>0</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="left"><strong>Ogon na indeksie $0$</strong></td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Aktualny wynik po poniższych operacjach.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Decyzja</strong>: Czy Góra (<code>0010</code>) ma przewagę nad Szablonem (<code>101</code>)? <strong>NIE</strong>.</li>
+<li><strong>Wynik</strong>: Na indeksie $0$ wyniku wpisujesz <em><strong>$0$</strong></em>.</li>
+</ul>
+<hr>
+<p><strong>Wynik końcowy:</strong></p>
+<ul>
+<li><strong>Iloraz</strong>: <code>100</code> (czyli <strong>4</strong>)</li>
+<li><strong>Reszta ( % - Modulo)</strong>: <code>10</code> (czyli <strong>2</strong>)</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To jest czysta mechanika: skanujesz kolejne indeksy, przesuwasz szablon <strong>Ogonem</strong> do pozycji i decydujesz o jednym bicie wyniku.<br>Po każdym &quot;trafieniu&quot; (1) odejmujesz i pracujesz na mniejszej reszcie.</p>
+
+</div>
+</div><p><strong>Algorytm Dzielenia w 4 krokach:</strong></p>
+<ol>
+<li><strong>Ustaw szablon</strong> (dzielnik) maksymalnie w lewo pod dzielną.</li>
+<li><strong>Sprawdź przewagę</strong>: Jeśli góra $\ge$ dół → wpisz <strong>1</strong> w wyniku pod ogonem szablonu i odejmij.</li>
+<li><strong>Brak przewagi?</strong>: Wpisz <strong>0</strong> w wyniku.</li>
+<li><strong>Przesuń szablon</strong> o 1 w prawo i powtarzaj, aż dojdziesz ogonem do indeksu $0$.</li>
+</ol>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="/"></data-arithmetic-challenge>
+</data-gate>
+
+<h3>🕹️ Symulator Arytmetyki Binarnej</h3>
+<p>Poniżej masz interaktywny element w którym możesz przetestować wszelkie kombinacje arytmetyczne dwóch liczb szesnastobitowych:</p>
+<p><data-binary-arithmetic digits="16" base="2" u2="false"></data-binary-arithmetic></p>
+<h3>🔒 Operacje arytmetyczne w systemie binarnym</h3>
+<p>Czas na podsumowanie i sprawdzenie wiedzy w praktyce.</p>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dodawać już umiesz. 🙂</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Odejmowanie to dla ciebie nie jest problem. 😎</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Oby tak dalej z pomnażaniem. 🤑</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="/"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dziel i rządź! 👑</p>
+
+</div>
+</div></data-gate>

@@ -1,0 +1,733 @@
+<h1>Tabele i Raporty</h1>
+<p>Do tej pory budowałeś dokument jako ciąg nagłówków, akapitów, list, linków, sekcji i mediów.</p>
+<p>To wystarcza dla artykułu, katalogu linków albo prostej strony informacyjnej. W realnych serwisach szybko trafisz jednak na dane, które mają układ porównawczy.</p>
+<p>Wtedy nie walcz z listą ani z akapitami. Użyj tabeli.</p>
+<p>Najważniejsza zasada tej lekcji brzmi: <strong><span class="color-green">tabela służy do danych tabelarycznych, a nie do układania wyglądu strony</span></strong>. Tak jak to robiono w zamierzchłych czasach.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧾 Kiedy tabela ma sens?</h2>
+<p>Tabela jest dobra wtedy, gdy relacja między informacjami wynika z przecięcia wiersza i kolumny.</p>
+<p>Jeżeli możesz naturalnie powiedzieć: „w tym wierszu mam konkretny obiekt, a w tej kolumnie jego cechę”, to prawdopodobnie potrzebujesz tabeli.</p>
+<p>Przykłady:</p>
+<ul>
+<li>raport wyników egzaminu,</li>
+<li>cennik pakietów,</li>
+<li>lista zamówień,</li>
+<li>porównanie formatów plików,</li>
+<li>harmonogram zajęć,</li>
+<li>zestawienie dostępności funkcji w przeglądarkach.</li>
+</ul>
+<p>Nie każda powtarzalna informacja jest tabelą.</p>
+<p>Jeżeli opisujesz kilka cech jednego obiektu, często lepsza będzie lista definicji albo zwykła sekcja z nagłówkami. Jeżeli prezentujesz zestaw kart produktów, tabela zwykle będzie zła, bo najważniejsza relacja nie wynika z przecięcia wiersza i kolumny. Jeżeli pokazujesz kolejność działań, lepsza będzie lista uporządkowana.</p>
+<p><strong><span class="color-green">Tabela ma sens wtedy, gdy użytkownik ma porównywać dane w dwóch kierunkach: poziomo i pionowo</span></strong>.</p>
+<p>Nie używaj tabeli do robienia kolumn strony, sidebarów, kart produktów ani układu wizualnego. To historyczna praktyka z czasów przed CSS. Działała wizualnie, ale niszczyła sens dokumentu.</p>
+<pre><code class="language-html">&lt;!-- ŹLE: tabela udaje layout strony --&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Menu&lt;/td&gt;
+        &lt;td&gt;Treść artykułu&lt;/td&gt;
+        &lt;td&gt;Reklama&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Taki zapis mówi maszynom: „to są dane do porównywania”. A w rzeczywistości są to obszary układu strony. Dla czytnika ekranu, robota indeksującego i przyszłego parsera AI to fałszywy sygnał.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Podstawowa struktura tabeli</h2>
+<p>Minimalna tabela składa się z trzech elementów:</p>
+<ul>
+<li><code>&lt;table&gt;</code>: kontener całej tabeli.</li>
+<li><code>&lt;tr&gt;</code> (<span class="color-blue">table row</span>): wiersz tabeli.</li>
+<li><code>&lt;td&gt;</code> (<span class="color-blue">table data</span>): zwykła komórka danych.</li>
+</ul>
+<blockquote>
+<p>Domyślnie tabela wyświetla się bez obramowania. Aby zbliżyć się do standardowego wyglądu tabeli można dodać <code>border="1"</code>.</p>
+</blockquote>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Nazwa&lt;/td&gt;
+        &lt;td&gt;Status&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;index.html&lt;/td&gt;
+        &lt;td&gt;Gotowy&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Ten kod wyświetli tabelę, ale semantycznie jest jeszcze zbyt ubogi. Maszyny nie wiedzą, czy pierwszy wiersz jest nagłówkiem, czy zwykłymi danymi.</p>
+<p>W raporcie technicznym to za mało.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔲 Nagłówki tabeli: <code>&lt;th&gt;</code></h2>
+<p>Tag <code>&lt;th&gt;</code> (<span class="color-blue">table header</span>) oznacza komórkę nagłówkową. To ona mówi maszynom i przeglądarkom, jak interpretować komórki danych w tej samej kolumnie lub w tym samym wierszu.</p>
+<p>Domyślnie tekst w komórce <code>&lt;th&gt;</code> wyświetla się jako pogrubiony i wyśrodkowany. Zastępując odpowiednie tagi <code>&lt;td&gt;</code> znacznikiem <code>&lt;th&gt;</code>, nadajesz tabeli właściwą strukturę:</p>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nazwa pliku&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+        &lt;th&gt;Uwagi&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;index.html&lt;/th&gt;
+        &lt;td&gt;Gotowy&lt;/td&gt;
+        &lt;td&gt;Strona główna projektu&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>W tym przykładzie pierwszy wiersz zawiera nagłówki kolumn, natomiast w drugim wierszu komórka <code>index.html</code> jest nagłówkiem wiersza (dzięki użyciu <code>&lt;th&gt;</code> zamiast <code>&lt;td&gt;</code>). Pozostałe komórki opisują jej właściwości.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏷️ Tytuł tabeli: <code>&lt;caption&gt;</code></h2>
+<p>Tabela powinna mieć własny tytuł. Do tego służy tag <code>&lt;caption&gt;</code>.</p>
+<p><code>&lt;caption&gt;</code> umieszczasz bezpośrednio po otwierającym tagu <code>&lt;table&gt;</code>.</p>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;caption&gt;Raport plików projektu HTML&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Plik&lt;/th&gt;
+        &lt;th&gt;Rola&lt;/th&gt;
+        &lt;th&gt;Status&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;index.html&lt;/th&gt;
+        &lt;td&gt;Strona główna&lt;/td&gt;
+        &lt;td&gt;Gotowy&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p><code>&lt;caption&gt;</code> nie jest ozdobnym nagłówkiem nad tabelą. To semantyczna nazwa całej struktury.</p>
+<p>Dla człowieka jest podpisem. Dla czytnika ekranu, ekstraktora treści i LLM‑a jest informacją: „ta tabela dotyczy raportu plików projektu”.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Jeżeli tabela występuje bezpośrednio pod nagłówkiem sekcji, nadal warto dodać <code>&lt;caption&gt;</code>, gdy tabela ma być samodzielnie zrozumiała.<br><strong>Nagłówek sekcji opisuje fragment artykułu, natomiast <code>&lt;caption&gt;</code> opisuje konkretną tabelę.</strong></p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Grupowanie tabeli: <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code></h2>
+<p>W większych tabelach warto rozdzielić części tabeli na logiczne grupy.</p>
+<ul>
+<li><code>&lt;thead&gt;</code>: część nagłówkowa.</li>
+<li><code>&lt;tbody&gt;</code>: główne dane.</li>
+<li><code>&lt;tfoot&gt;</code>: podsumowanie, suma, średnia albo wniosek.</li>
+</ul>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;caption&gt;Raport wyników walidacji HTML&lt;/caption&gt;
+
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Plik&lt;/th&gt;
+            &lt;th&gt;Błędy&lt;/th&gt;
+            &lt;th&gt;Ostrzeżenia&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th&gt;index.html&lt;/th&gt;
+            &lt;td&gt;0&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;artykul.html&lt;/th&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;0&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Razem&lt;/th&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Taki zapis jest dłuższy, ale czytelniejszy. Maszyna widzi, gdzie są etykiety, gdzie dane, a gdzie podsumowanie.</p>
+<p>To ma znaczenie dla:</p>
+<ul>
+<li>czytników ekranu,</li>
+<li>automatycznego eksportu danych,</li>
+<li>indeksowania treści,</li>
+<li>przyszłych narzędzi AI analizujących raporty na stronie.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>♿ Tabela dostępna w praktyce</h2>
+<p>Tabela staje się problemem, gdy użytkownik nie widzi całego układu naraz.</p>
+<p>Osoba widząca może przesunąć wzrok z komórki do nagłówka kolumny. Czytnik ekranu czyta liniowo. Potrzebuje struktury zapisanej w kodzie.</p>
+<p>Dlatego te trzy decyzje są kluczowe:</p>
+<ol>
+<li>Dodaj <code>&lt;caption&gt;</code>, aby nazwać tabelę.</li>
+<li>Używaj <code>&lt;th&gt;</code>, aby oznaczać nagłówki.</li>
+<li>Zacznij od wdrożenia poprawnych znaczników <code>&lt;th&gt;</code> w prostych tabelach. Atrybut <code>scope</code> dodawaj wtedy, gdy chcesz jawnie doprecyzować relację nagłówka z kolumną lub wierszem.</li>
+</ol>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;caption&gt;Porównanie sposobów osadzania mediów&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Element&lt;/th&gt;
+            &lt;th scope="col"&gt;Zastosowanie&lt;/th&gt;
+            &lt;th scope="col"&gt;Wymagany opis&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;&amp;lt;img&amp;gt;&lt;/th&gt;
+            &lt;td&gt;Obraz&lt;/td&gt;
+            &lt;td&gt;alt&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;&amp;lt;iframe&amp;gt;&lt;/th&gt;
+            &lt;td&gt;Osadzona strona&lt;/td&gt;
+            &lt;td&gt;title&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Nie zostawiaj tabeli bez nagłówków tylko dlatego, że wizualnie „widać, o co chodzi”.<br>W kodzie nie ma wzroku. Jest struktura.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔤 Encje HTML w komórkach tabeli</h2>
+<p>Możesz chcieć pokazać nazwę znacznika jako tekst: <code>&lt;img&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>. Problem polega na tym, że znaki <code>&lt;</code> i <code>&gt;</code> mają w HTML‑u specjalne znaczenie. Otwierają i zamykają tagi.</p>
+<p>Jeżeli wpiszesz w komórce tabeli surowe <code>&lt;iframe&gt;</code>, przeglądarka może potraktować to jako próbę utworzenia prawdziwego elementu <code>&lt;iframe&gt;</code>, a nie jako tekst do pokazania odbiorcy.</p>
+<p>Dlatego w treści HTML zapisujesz znaki specjalne jako <span class="color-green">encje</span>:</p>
+<ul>
+<li><code>&amp;lt;</code> oznacza znak <code>&lt;</code>,</li>
+<li><code>&amp;gt;</code> oznacza znak <code>&gt;</code>,</li>
+<li><code>&amp;amp;</code> oznacza znak <code>&amp;</code>,</li>
+<li><code>&amp;copy;</code> oznacza znak <code>©</code>.</li>
+</ul>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;caption&gt;Elementy wymagające opisu&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th scope="col"&gt;Element&lt;/th&gt;
+        &lt;th scope="col"&gt;Atrybut opisujący&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th scope="row"&gt;&amp;lt;img&amp;gt;&lt;/th&gt;
+        &lt;td&gt;alt&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th scope="row"&gt;&amp;lt;iframe&amp;gt;&lt;/th&gt;
+        &lt;td&gt;title&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Na stronie użytkownik zobaczy tekst <code>&lt;img&gt;</code> i <code>&lt;iframe&gt;</code>, ale parser HTML nie pomyli ich z prawdziwymi tagami.</p>
+<p>A co jeżeli chcesz pokazać encję jako tekst? 😅<br>Wtedy wystarczy zastąpić ampersanta (<code>&amp;</code>) frazą <code>&amp;amp;</code> i dopisać resztę encji: <code>&amp;lt;</code> → <code>&amp;amp;lt;</code> = &amp;lt; (&lt;).</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Proste i złożone tabele</h2>
+<p>Na tym etapie trzymaj się tabel prostych.</p>
+<p>Prosta tabela ma jeden poziom nagłówków kolumn i ewentualnie jeden poziom nagłówków wierszy. Do przedstawienia takich danych wystarczą standardowe tagi <code>&lt;th&gt;</code> i <code>&lt;td&gt;</code>.</p>
+<p>Złożona tabela ma nagłówki wielopoziomowe, scalone komórki, grupy kolumn albo wiele powiązań między nagłówkami a danymi.</p>
+<p>W HTML istnieją do tego atrybuty <code>colspan</code>, <code>rowspan</code>, <code>id</code> i <code>headers</code>, ale łatwo zbudować nimi strukturę trudną do zrozumienia.</p>
+<p>Przykład prostego scalenia:</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Raport tygodniowy&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Dzień&lt;/th&gt;
+        &lt;th&gt;Zadania&lt;/th&gt;
+        &lt;th&gt;Błędy&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Poniedziałek&lt;/th&gt;
+        &lt;td&gt;5&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Razem&lt;/th&gt;
+        &lt;td colspan="2"&gt;6 wpisów w raporcie&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<ul>
+<li><code>colspan="2"</code> oznacza, że komórka zajmuje dwie kolumny.</li>
+<li><code>rowspan="2"</code> oznacza, że komórka zajmuje dwa wiersze.</li>
+</ul>
+
+</div>
+</div><p>Używasz tego oszczędnie. Jeżeli tabela zaczyna przypominać labirynt, często lepiej rozbić ją na dwie prostsze tabele.</p>
+<hr>
+<h3>🔗 Gdy tabela robi się trudniejsza: <code>scope</code> i <code>colgroup</code></h3>
+<p>Atrybut <code>scope</code> służy do jawnego wskazania relacji między komórką nagłówkową a komórkami danych. Pomaga to urządzeniom asystującym (np. VoiceOver czy TalkBack) w odczytaniu struktury, gdy tabela staje się bardziej złożona.</p>
+<p>Przydaje się on, gdy łączysz nagłówki wierszy i kolumn lub tworzysz grupy komórek. Wybierz wtedy jedną z czterech wartości:</p>
+<ul>
+<li><code>scope="col"</code>: nagłówek pojedynczej kolumny,</li>
+<li><code>scope="row"</code>: nagłówek pojedynczego wiersza,</li>
+<li><code>scope="colgroup"</code>: nagłówek dla grupy kolumn (zdefiniowanej przez <code>&lt;colgroup&gt;</code>),</li>
+<li><code>scope="rowgroup"</code>: nagłówek dla grupy wierszy (zdefiniowanej przez osobne <code>&lt;tbody&gt;</code>).</li>
+</ul>
+<blockquote>
+<p>Niektóre programy desktopowe (np. NVDA) dobrze radzą sobie bez niego w prostych układach. Jednak na systemach mobilnych (iOS z VoiceOver, Android z TalkBack) jawny <code>scope</code> bywa kluczowy do prawidłowego odczytywania danych.</p>
+</blockquote>
+<details>
+<summary><b>🔍 Zobacz przykład zaawansowanej struktury z <code>scope</code> i <code>colgroup</code></b></summary>
+
+<p>W wielopoziomowych strukturach nagłówki mogą działać na kilku poziomach naraz. Poniżej zobaczysz tabelę pomiarowo‑medyczną posiadającą grupy kolumn oraz grupy wierszy. W takim przypadku <code>scope="colgroup"</code> oraz <code>scope="rowgroup"</code> ma realne uzasadnienie, ale tylko wtedy, gdy grupy są faktycznie zapisane w strukturze tabeli.</p>
+<p>Grupy kolumn tworzy <code>&lt;colgroup&gt;</code>. Grupy wierszy tworzą osobne sekcje <code>&lt;tbody&gt;</code>.</p>
+<details>
+<summary><b>📄 Kod HTML zaawansowanej tabeli pomiarowo-medycznej</b></summary>
+
+<pre><code class="language-html">&lt;table border="1" cellpadding="8" cellspacing="0" width="100%"&gt;
+    &lt;caption&gt;Porównawczy raport jakości powietrza i powikłań oddechowych&lt;/caption&gt;
+    &lt;colgroup span="1"&gt;&lt;/colgroup&gt;
+    &lt;colgroup span="1"&gt;&lt;/colgroup&gt;
+    &lt;colgroup span="2"&gt;&lt;/colgroup&gt;
+    &lt;colgroup span="2"&gt;&lt;/colgroup&gt;
+    &lt;colgroup span="2"&gt;&lt;/colgroup&gt;
+    &lt;thead&gt;
+        &lt;tr bgcolor="#CFD6DF"&gt;
+            &lt;th scope="col" rowspan="2"&gt;Województwo&lt;/th&gt;
+            &lt;th scope="col" rowspan="2"&gt;Pora roku&lt;/th&gt;
+            &lt;th scope="colgroup" colspan="2"&gt;Średnia PM2.5 (µg/m³)&lt;/th&gt;
+            &lt;th scope="colgroup" colspan="2"&gt;Średnia PM10 (µg/m³)&lt;/th&gt;
+            &lt;th scope="colgroup" colspan="2"&gt;Zarejestrowane przypadki medyczne&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr bgcolor="#CFD6DF"&gt;
+            &lt;th scope="col"&gt;Rok 2024&lt;/th&gt;
+            &lt;th scope="col"&gt;Rok 2025&lt;/th&gt;
+            &lt;th scope="col"&gt;Rok 2024&lt;/th&gt;
+            &lt;th scope="col"&gt;Rok 2025&lt;/th&gt;
+            &lt;th scope="col"&gt;Ataki astmy&lt;/th&gt;
+            &lt;th scope="col"&gt;Stany ostre POChP&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="rowgroup" rowspan="2"&gt;Mazowieckie&lt;/th&gt;
+            &lt;th scope="row"&gt;Zima&lt;/th&gt;
+            &lt;td align="right"&gt;42&lt;/td&gt;
+            &lt;td align="right"&gt;38&lt;/td&gt;
+            &lt;td align="right"&gt;68&lt;/td&gt;
+            &lt;td align="right"&gt;58&lt;/td&gt;
+            &lt;td align="right"&gt;124&lt;/td&gt;
+            &lt;td align="right"&gt;340&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr bgcolor="#E1E1E1"&gt;
+            &lt;th scope="row"&gt;Lato&lt;/th&gt;
+            &lt;td align="right"&gt;12&lt;/td&gt;
+            &lt;td align="right"&gt;10&lt;/td&gt;
+            &lt;td align="right"&gt;22&lt;/td&gt;
+            &lt;td align="right"&gt;18&lt;/td&gt;
+            &lt;td align="right"&gt;15&lt;/td&gt;
+            &lt;td align="right"&gt;45&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="rowgroup" rowspan="2"&gt;Śląskie&lt;/th&gt;
+            &lt;th scope="row"&gt;Zima&lt;/th&gt;
+            &lt;td align="right"&gt;95&lt;/td&gt;
+            &lt;td align="right"&gt;84&lt;/td&gt;
+            &lt;td align="right"&gt;160&lt;/td&gt;
+            &lt;td align="right"&gt;140&lt;/td&gt;
+            &lt;td align="right"&gt;412&lt;/td&gt;
+            &lt;td align="right"&gt;980&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr bgcolor="#E1E1E1"&gt;
+            &lt;th scope="row"&gt;Lato&lt;/th&gt;
+            &lt;td align="right"&gt;24&lt;/td&gt;
+            &lt;td align="right"&gt;18&lt;/td&gt;
+            &lt;td align="right"&gt;42&lt;/td&gt;
+            &lt;td align="right"&gt;32&lt;/td&gt;
+            &lt;td align="right"&gt;48&lt;/td&gt;
+            &lt;td align="right"&gt;112&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr bgcolor="#CFD6DF"&gt;
+            &lt;th scope="row" colspan="2"&gt;Średnia krajowa (województwa)&lt;/th&gt;
+            &lt;td align="right"&gt;43.25 µg/m³&lt;/td&gt;
+            &lt;td align="right"&gt;37.5 µg/m³&lt;/td&gt;
+            &lt;td align="right"&gt;73 µg/m³&lt;/td&gt;
+            &lt;td align="right"&gt;62 µg/m³&lt;/td&gt;
+            &lt;td align="right"&gt;149.75 przypadków&lt;/td&gt;
+            &lt;td align="right"&gt;369.25 przypadków&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+</details>
+
+<details>
+<summary><b>🖥️ Render zaawansowanej tabeli pomiarowo-medycznej</b></summary>
+
+<div class="native-html-preview">
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <caption>Porównawczy raport jakości powietrza i powikłań oddechowych</caption>
+    <colgroup span="1"></colgroup>
+    <colgroup span="1"></colgroup>
+    <colgroup span="2"></colgroup>
+    <colgroup span="2"></colgroup>
+    <colgroup span="2"></colgroup>
+    <thead>
+        <tr bgcolor="#CFD6DF">
+            <th scope="col" rowspan="2">Województwo</th>
+            <th scope="col" rowspan="2">Pora roku</th>
+            <th scope="colgroup" colspan="2">Średnia PM2.5 (µg/m³)</th>
+            <th scope="colgroup" colspan="2">Średnia PM10 (µg/m³)</th>
+            <th scope="colgroup" colspan="2">Zarejestrowane przypadki medyczne</th>
+        </tr>
+        <tr bgcolor="#CFD6DF">
+            <th scope="col">Rok 2024</th>
+            <th scope="col">Rok 2025</th>
+            <th scope="col">Rok 2024</th>
+            <th scope="col">Rok 2025</th>
+            <th scope="col">Ataki astmy</th>
+            <th scope="col">Stany ostre POChP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="rowgroup" rowspan="2">Mazowieckie</th>
+            <th scope="row">Zima</th>
+            <td align="right">42</td>
+            <td align="right">38</td>
+            <td align="right">68</td>
+            <td align="right">58</td>
+            <td align="right">124</td>
+            <td align="right">340</td>
+        </tr>
+        <tr bgcolor="#E1E1E1">
+            <th scope="row">Lato</th>
+            <td align="right">12</td>
+            <td align="right">10</td>
+            <td align="right">22</td>
+            <td align="right">18</td>
+            <td align="right">15</td>
+            <td align="right">45</td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <th scope="rowgroup" rowspan="2">Śląskie</th>
+            <th scope="row">Zima</th>
+            <td align="right">95</td>
+            <td align="right">84</td>
+            <td align="right">160</td>
+            <td align="right">140</td>
+            <td align="right">412</td>
+            <td align="right">980</td>
+        </tr>
+        <tr bgcolor="#E1E1E1">
+            <th scope="row">Lato</th>
+            <td align="right">24</td>
+            <td align="right">18</td>
+            <td align="right">42</td>
+            <td align="right">32</td>
+            <td align="right">48</td>
+            <td align="right">112</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr bgcolor="#CFD6DF">
+            <th scope="row" colspan="2">Średnia krajowa (województwa)</th>
+            <td align="right">43.25 µg/m³</td>
+            <td align="right">37.5 µg/m³</td>
+            <td align="right">73 µg/m³</td>
+            <td align="right">62 µg/m³</td>
+            <td align="right">149.75 przypadków</td>
+            <td align="right">369.25 przypadków</td>
+        </tr>
+    </tfoot>
+</table>
+</div>
+
+</details>
+
+</details>
+
+<hr>
+<h3>🔗 Ręczne powiązanie: <code>id</code> i <code>headers</code></h3>
+<p>Czasami tabele są skrajnie złożone. Ich nagłówki bywają wielopoziomowe i nie układają się w proste rzędy czy kolumny. Wtedy sam atrybut <code>scope</code> nie wystarczy. W takich sytuacjach stosuje się bezpośrednie powiązanie komórek z nagłówkami za pomocą atrybutów <code>id</code> oraz <code>headers</code>.</p>
+<p>Zasada działania jest prosta:</p>
+<ol>
+<li>Każdej komórce nagłówkowej <code>&lt;th&gt;</code> nadajesz unikalny identyfikator w atrybucie <code>id</code>.</li>
+<li>Każdej komórce danych <code>&lt;td&gt;</code> (lub podnagłówkowi) przypisujesz atrybut <code>headers</code>, w którym wymieniasz (rozdzielone spacją) identyfikatory wszystkich nagłówków, które się do niej odnoszą.</li>
+</ol>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;caption&gt;Plan zajęć z podziałem na sale i grupy&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th id="h-dzien"&gt;Dzień&lt;/th&gt;
+            &lt;th id="h-sala1" colspan="2"&gt;Sala A&lt;/th&gt;
+            &lt;th id="h-sala2" colspan="2"&gt;Sala B&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th id="h-godz" headers="h-dzien"&gt;Godzina&lt;/th&gt;
+            &lt;th id="h-g1" headers="h-sala1"&gt;Grupa 1&lt;/th&gt;
+            &lt;th id="h-g2" headers="h-sala1"&gt;Grupa 2&lt;/th&gt;
+            &lt;th id="h-g3" headers="h-sala2"&gt;Grupa 1&lt;/th&gt;
+            &lt;th id="h-g4" headers="h-sala2"&gt;Grupa 2&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th id="r-pn" headers="h-dzien h-godz"&gt;Poniedziałek 09:00&lt;/th&gt;
+            &lt;td headers="h-sala1 h-g1 r-pn"&gt;Projektowanie UI&lt;/td&gt;
+            &lt;td headers="h-sala1 h-g2 r-pn"&gt;Programowanie JS&lt;/td&gt;
+            &lt;td headers="h-sala2 h-g3 r-pn"&gt;Bazy danych&lt;/td&gt;
+            &lt;td headers="h-sala2 h-g4 r-pn"&gt;Wolne 🤙🏼&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Ta metoda wymaga ręcznego wpisywania wielu identyfikatorów. Przez to kod staje się obszerny i trudniejszy w utrzymaniu. Używaj jej tylko w skomplikowanych tabelach, gdy standardowe <code>scope</code> nie pozwala na czytelne powiązanie danych z nagłówkiem.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Warstwa prezentacji przed CSS</h2>
+<p><strong class="tag-stamp tag-stamp--dead">Etap przejściowy (legacy HTML)</strong></p>
+<p>Dawniej HTML odpowiadał także za wygląd strony. W starych tabelach zobaczysz więc atrybuty prezentacyjne. Dzisiaj to zła praktyka. Jeśli musisz szybko ostylować element bez CSS, używaj <code>style=""</code>. To też miesza treść z wyglądem, ale jest nowocześniejsze niż stare atrybuty.</p>
+<p>Dlaczego o tym wspominam?<br>Te stare rozwiązania:</p>
+<ul>
+<li>pozwalają łatwo zobaczyć tabelę, zanim poznasz CSS</li>
+<li>pokazują historyczną ewolucję HTML‑a</li>
+</ul>
+<p>Najprostsza pomoc wizualna to <code>border="1"</code>:</p>
+<pre><code class="language-html">&lt;table border="1"&gt;
+    &lt;caption&gt;Raport plików projektu&lt;/caption&gt;
+    &lt;tr&gt;
+        &lt;th scope="col"&gt;Plik&lt;/th&gt;
+        &lt;th scope="col"&gt;Status&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th scope="row"&gt;index.html&lt;/th&gt;
+        &lt;td&gt;Gotowy&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Potem możesz dodać podstawowe odstępy i kolor tła nagłówka:</p>
+<pre><code class="language-html">&lt;table border="1" cellpadding="6" cellspacing="0"&gt;
+    &lt;caption&gt;Raport dostępności elementów HTML&lt;/caption&gt;
+    &lt;tr bgcolor="#CFD6DF"&gt;
+        &lt;th scope="col"&gt;Element&lt;/th&gt;
+        &lt;th scope="col"&gt;Opis wymagany?&lt;/th&gt;
+        &lt;th scope="col"&gt;Atrybut&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th scope="row"&gt;&amp;lt;img&amp;gt;&lt;/th&gt;
+        &lt;td&gt;Tak&lt;/td&gt;
+        &lt;td&gt;alt&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr bgcolor="#E1E1E1"&gt;
+        &lt;th scope="row"&gt;&amp;lt;iframe&amp;gt;&lt;/th&gt;
+        &lt;td&gt;Tak&lt;/td&gt;
+        &lt;td&gt;title&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Najważniejsze atrybuty tej przejściowej warstwy:</p>
+<ul>
+<li><code>border="1"</code>: pokazuje obramowanie tabeli i komórek,</li>
+<li><code>cellpadding="6"</code>: dodaje odstęp między tekstem a krawędzią komórki,</li>
+<li><code>cellspacing="0"</code>: usuwa odstęp między komórkami,</li>
+<li><code>bgcolor="#CFD6DF"</code>: ustawia kolor tła wiersza albo komórki,</li>
+<li><code>width="100%"</code>: rozciąga tabelę na dostępną szerokość,</li>
+<li><code>align="center"</code>: wyrównuje zawartość komórki lub tabelę w starszych dokumentach.</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To jest warstwa przejściowa, nie docelowy wzorzec. HTML ma opisać strukturę danych. CSS przejmie wygląd. Atrybuty takie jak <code>bgcolor</code> warto rozumieć, ale nie warto budować na nich nowego systemu stylowania.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Przykład: Kompleksowy raport w HTML</h2>
+<p>Aby lepiej zobrazować, jak połączyć semantykę tabeli z tradycyjnym formatowaniem, przygotowałem poniższy przykład. Zwróć uwagę na zastosowanie grup wierszy, nagłówków oraz atrybutów prezentacyjnych.</p>
+<p>Oto kod kompletnej tabeli z raportem jakości powietrza:</p>
+<pre><code class="language-html">&lt;table border="1" cellpadding="8" cellspacing="0" width="100%"&gt;
+    &lt;caption&gt;Bieżący raport jakości powietrza i stężeń pyłów zawieszonych&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr bgcolor="#98D3FF"&gt;
+            &lt;th scope="col"&gt;Stacja pomiarowa&lt;/th&gt;
+            &lt;th scope="col"&gt;Pył PM2.5 (µg/m³)&lt;/th&gt;
+            &lt;th scope="col"&gt;Pył PM10 (µg/m³)&lt;/th&gt;
+            &lt;th scope="col"&gt;Tlenek węgla CO (mg/m³)&lt;/th&gt;
+            &lt;th scope="col"&gt;Indeks AQI&lt;/th&gt;
+            &lt;th scope="col"&gt;Zalecenie medyczne&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr bgcolor="#FFFFFF"&gt;
+            &lt;th scope="row"&gt;Warszawa-Ursynów&lt;/th&gt;
+            &lt;td align="right"&gt;12&lt;/td&gt;
+            &lt;td align="right"&gt;22&lt;/td&gt;
+            &lt;td align="right"&gt;0.3&lt;/td&gt;
+            &lt;td bgcolor="#93F179" align="center"&gt;24 (Dobry)&lt;/td&gt;
+            &lt;td&gt;Powietrze czyste, brak obostrzeń&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr bgcolor="#E1E1E1"&gt;
+            &lt;th scope="row"&gt;Katowice-Koszutka&lt;/th&gt;
+            &lt;td align="right"&gt;38&lt;/td&gt;
+            &lt;td align="right"&gt;58&lt;/td&gt;
+            &lt;td align="right"&gt;0.8&lt;/td&gt;
+            &lt;td bgcolor="#EADA90" align="center"&gt;84 (Umiarkowany)&lt;/td&gt;
+            &lt;td&gt;Osoby wrażliwe powinny ograniczyć wysiłek&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr bgcolor="#FFFFFF"&gt;
+            &lt;th scope="row"&gt;Kraków-Krasińskiego&lt;/th&gt;
+            &lt;td align="right"&gt;72&lt;/td&gt;
+            &lt;td align="right"&gt;115&lt;/td&gt;
+            &lt;td align="right"&gt;1.6&lt;/td&gt;
+            &lt;td bgcolor="#DD8585" align="center"&gt;152 (Zły)&lt;/td&gt;
+            &lt;td&gt;Ogranicz przebywanie i wysiłek na zewnątrz&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr bgcolor="#E1E1E1"&gt;
+            &lt;th scope="row"&gt;Rybnik-Borki&lt;/th&gt;
+            &lt;td align="right"&gt;145&lt;/td&gt;
+            &lt;td align="right"&gt;230&lt;/td&gt;
+            &lt;td align="right"&gt;2.9&lt;/td&gt;
+            &lt;td bgcolor="#B999BE" align="center"&gt;204 (Bardzo zły)&lt;/td&gt;
+            &lt;td&gt;Pozostań w domu i włącz oczyszczacz powietrza&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr bgcolor="#CFD6DF"&gt;
+            &lt;th scope="row" colspan="2"&gt;Średnia pomiarowa (województwa)&lt;/th&gt;
+            &lt;td align="right"&gt;66.75 µg/m³&lt;/td&gt;
+            &lt;td align="right"&gt;106.25 µg/m³&lt;/td&gt;
+            &lt;td align="right"&gt;1.4 mg/m³&lt;/td&gt;
+            &lt;td align="center"&gt;Status: ostrzegawczy&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+<p>A oto jak ta tabela wygląda po wyrenderowaniu w przeglądarce:</p>
+<div class="native-html-preview">
+<table border="1" cellpadding="8" cellspacing="0" width="100%">
+    <caption>Bieżący raport jakości powietrza i stężeń pyłów zawieszonych</caption>
+    <thead>
+        <tr bgcolor="#98D3FF">
+            <th scope="col">Stacja pomiarowa</th>
+            <th scope="col">Pył PM2.5 (µg/m³)</th>
+            <th scope="col">Pył PM10 (µg/m³)</th>
+            <th scope="col">Tlenek węgla CO (mg/m³)</th>
+            <th scope="col">Indeks AQI</th>
+            <th scope="col">Zalecenie medyczne</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr bgcolor="#FFFFFF">
+            <th scope="row">Warszawa-Ursynów</th>
+            <td align="right">12</td>
+            <td align="right">22</td>
+            <td align="right">0.3</td>
+            <td bgcolor="#93F179" align="center">24 (Dobry)</td>
+            <td>Powietrze czyste, brak obostrzeń</td>
+        </tr>
+        <tr bgcolor="#E1E1E1">
+            <th scope="row">Katowice-Koszutka</th>
+            <td align="right">38</td>
+            <td align="right">58</td>
+            <td align="right">0.8</td>
+            <td bgcolor="#EADA90" align="center">84 (Umiarkowany)</td>
+            <td>Osoby wrażliwe powinny ograniczyć wysiłek</td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+            <th scope="row">Kraków-Krasińskiego</th>
+            <td align="right">72</td>
+            <td align="right">115</td>
+            <td align="right">1.6</td>
+            <td bgcolor="#DD8585" align="center">152 (Zły)</td>
+            <td>Ogranicz przebywanie i wysiłek na zewnątrz</td>
+        </tr>
+        <tr bgcolor="#E1E1E1">
+            <th scope="row">Rybnik-Borki</th>
+            <td align="right">145</td>
+            <td align="right">230</td>
+            <td align="right">2.9</td>
+            <td bgcolor="#B999BE" align="center">204 (Bardzo zły)</td>
+            <td>Pozostań w domu i włącz oczyszczacz powietrza</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr bgcolor="#CFD6DF">
+            <th scope="row" colspan="2">Średnia pomiarowa (województwa)</th>
+            <td align="right">66.75 µg/m³</td>
+            <td align="right">106.25 µg/m³</td>
+            <td align="right">1.4 mg/m³</td>
+            <td align="center">Status: ostrzegawczy</td>
+        </tr>
+    </tfoot>
+</table>
+</div>
+
+<p>W tym przykładzie:</p>
+<ul>
+<li><span class="color-green">Semantyka</span>: Zastosowałem znaczniki <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, <code>&lt;th&gt;</code> oraz <code>scope</code>. Dzięki temu struktura jest w pełni dostępna dla czytników ekranu.</li>
+<li><span class="color-green">Prezentacja</span>: Wykorzystałem atrybuty <code>border</code>, <code>cellpadding</code>, <code>cellspacing</code> oraz <code>bgcolor</code>. Określają one wygląd tabeli przed wprowadzeniem arkuszy stylów CSS.</li>
+</ul>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Który zestaw elementów najlepiej opisuje dostępną tabelę z raportem danych?</p>
+</question>
+    <options>
+      <item><p><code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code> oraz dużo tekstu w pierwszym wierszu bez nagłówków.</p>
+</item>
+      <item correct=""><p><code>&lt;caption&gt;</code>, poprawne <code>&lt;th&gt;</code>, logiczne grupy wierszy oraz dane, które naprawdę tworzą relację wierszy i kolumn.</p>
+</item>
+      <item><p><code>&lt;div&gt;</code>, <code>&lt;span&gt;</code> i ręcznie wpisane odstępy, aby kolumny wyglądały równo.</p>
+</item>
+      <item><p><code>&lt;table&gt;</code> użyta do podzielenia strony na menu, treść i stopkę.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Pamiętaj, że dostępna tabela musi nazwać siebie i pokazać relację nagłówków z danymi.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie. <code>&lt;caption&gt;</code>, <code>&lt;th&gt;</code> i logiczne grupy tabeli tworzą strukturę czytelną dla człowieka, czytnika ekranu i maszyn. <code>scope</code> doprecyzowuje relacje wtedy, gdy tabela robi się trudniejsza.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-connection-matcher title="Połącz element tabeli z jego rolą semantyczną:">
+    <div class="cmw-item" data-left="`&amp;lt;caption&amp;gt;`" data-right="Nazwa lub opis całej tabeli"></div>
+    <div class="cmw-item" data-left="`&amp;lt;th&amp;gt;`" data-right="Komórka nagłówkowa opisująca kolumnę albo wiersz"></div>
+    <div class="cmw-item" data-left="`scope`" data-right="Doprecyzowanie relacji nagłówka z trudniejszą tabelą"></div>
+    <div class="cmw-item" data-left="`&amp;lt;tfoot&amp;gt;`" data-right="Podsumowanie tabeli, np. suma lub wniosek"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<p>Jeśli piszesz własny dokument równolegle z lekcją, nie zaczynaj od pytania „jak zrobić tabelkę?”. Zacznij od pytania, czy dane naprawdę tworzą raport.</p>
+<p>Sprawdź:</p>
+<ul>
+<li>czy tabela pokazuje dane, a nie układ strony,</li>
+<li>czy każdy wiersz ma jeden jasny temat,</li>
+<li>czy każda kolumna opisuje jedną cechę,</li>
+<li>czy tabela ma <code>&lt;caption&gt;</code>,</li>
+<li>czy nagłówki są zapisane jako <code>&lt;th&gt;</code>,</li>
+<li>czy <code>scope</code> jest potrzebny, bo tabela ma nagłówki w obu kierunkach albo grupy danych,</li>
+<li>czy historyczne atrybuty wyglądu są użyte świadomie, a nie jako zamiennik CSS.</li>
+</ul>
+<p>To jest dobry nawyk. Najpierw sprawdzasz sens danych. Dopiero potem wybierasz znaczniki.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Tabela jest dla danych</span>: Używaj <code>&lt;table&gt;</code> wtedy, gdy informacje tworzą relację wierszy i kolumn.</li>
+<li><span class="color-green"><code>&lt;caption&gt;</code> nazywa tabelę</span>: To semantyczny podpis całej struktury, ważny dla ludzi, czytników ekranu i parserów.</li>
+<li><span class="color-green"><code>&lt;th&gt;</code> opisuje dane</span>: Nagłówki kolumn i wierszy zapisuj jako <code>&lt;th&gt;</code>, nie jako pogrubione <code>&lt;td&gt;</code>.</li>
+<li><span class="color-green"><code>scope</code> jest narzędziem sytuacyjnym</span>: W prostych tabelach często wystarczy <code>&lt;th&gt;</code>. Przy trudniejszych raportach <code>scope="col"</code>, <code>scope="row"</code>, <code>scope="colgroup"</code> i <code>scope="rowgroup"</code> doprecyzowują relacje.</li>
+<li><span class="color-green">Trudne tabele sprawdzaj u źródła</span>: Gdy będziesz chciał utworzyć niestandardową strukturę tabeli, sięgnij po <a href="https://www.w3.org/WAI/tutorials/tables/">WAI Tables Tutorial</a>. Zobaczysz tam, co w aktualnych standardach warto dodać, a co możesz pominąć, na przykład <code>scope</code> w prostych tabelach.</li>
+<li><span class="color-green">Raport wymaga decyzji</span>: Tabela jest dobra, gdy chcesz porównywać dane między wierszami i kolumnami. Lista, karta albo opis mogą być lepsze dla innych typów informacji.</li>
+<li><span class="color-green"><code>border</code> i <code>bgcolor</code> to etap przejściowy</span>: Pomagają zobaczyć tabelę w surowym HTML‑u, ale właściwe stylowanie tabel przeniesie później CSS.</li>
+<li><span class="color-green">Tabele nie są layoutem</span>: Układ strony budujesz semantycznymi kontenerami HTML, a później CSS‑em, nie tabelą udającą siatkę.</li>
+</ul>
+</section>

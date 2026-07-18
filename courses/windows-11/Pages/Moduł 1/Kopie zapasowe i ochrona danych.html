@@ -1,0 +1,284 @@
+<h1>Kopie zapasowe i ochrona danych</h1>
+<p>W świecie IT istnieją tylko dwie grupy ludzi: ci, którzy <span class="color-green">już robią backupy</span>, i ci, którzy <span class="color-green">jeszcze o tym nie wiedzą</span>.<br>Jako przyszły specjalista IT, Twoim zadaniem jest zapewnienie ciągłości działania biznesu, a zwłaszcza wtedy, gdy wszystko płonie. 🔥<br>Tylko Ty, dysponując odpowiednią wiedzą i procedurami, będziesz w stanie odzyskać dane z popiołów. 🐦‍🔥</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Filozofia bezpieczeństwa</h2>
+<p>Zanim wybierzesz narzędzie, musisz zrozumieć, <span class="color-blue">dlaczego</span> i <span class="color-blue">jak</span> chronimy dane. Backup to nie tylko kopia plików – to przemyślany system i procedury odzyskiwania.</p>
+<data-tabs>
+  <tabs>
+    <item>RPO vs RTO</item>
+    <item>Zasada 3-2-1</item>
+  </tabs>
+  <div><h3>Fundamenty Biznesowe: Czas to pieniądz</h3>
+<ol>
+<li><span class="color-green">RPO (Recovery Point Objective)</span> – <span class="color-blue">Ile danych możemy stracić?</span> Jeśli robisz backup o $2:00$, a awaria nastąpi o $23:00$ – tracisz $21$ h pracy. Twoje RPO wynosi $24$ h.</li>
+<li><span class="color-green">RTO (Recovery Time Objective)</span> – <span class="color-blue">Jak szybko musimy wrócić do pracy?</span> Jeśli odzyskanie systemu z chmury trwa $48$ h, a firma stoi – Twoje RTO wynosi $48$ h. Czy organizacja to przeżyje?</li>
+</ol></div>
+<div><h3>Złoty Standard: Zasada $3-2-1$</h3>
+<p>To absolutny standard rynkowy. Jeśli go nie stosujesz, nie masz backupu – masz tylko „szansę na odzysk”.</p>
+<ul>
+<li><span class="color-green">$3$ kopie danych:</span> Oryginał + dwie dodatkowe kopie.</li>
+<li><span class="color-green">$2$ różne nośniki:</span> Np. szybki dysk zewnętrzny HDD/SSD + chmura.</li>
+<li><span class="color-green">$1$ kopia offline/off‑site:</span> Fizycznie w innym budynku lub odłączona od sieci (ochrona przed pożarem i Ransomware).  </li></ul></div>
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📊 Rodzaje Kopii Zapasowych</h2>
+<p>Wybór strategii backupu to kompromis między <span class="color-green">czasem trwania kopii</span>, <span class="color-green">rozmiarem archiwum</span> a <span class="color-green">szybkością przywracania</span>.</p>
+<h3>1. Kopia Pełna (Full Backup)</h3>
+<p>Kopiuje absolutnie wszystkie wybrane dane.</p>
+<ul>
+<li><span class="color-green">Zaleta:</span> Najszybsze odzyskiwanie (potrzebujesz tylko jednego pliku/nośnika).</li>
+<li><span class="color-green">Wada:</span> Trwa najdłużej i zajmuje najwięcej miejsca.</li>
+</ul>
+<h3>2. Kopia Przyrostowa (Incremental Backup)</h3>
+<p>Zapisuje tylko te dane, które zmieniły się od czasu <span class="color-green">ostatniej dowolnej</span> kopii (pełnej lub przyrostowej).</p>
+<ul>
+<li><span class="color-green">Zaleta:</span> Bardzo szybki backup i minimalny rozmiar plików.</li>
+<li><span class="color-green">Wada:</span> Najwolniejsze odzyskiwanie (musisz posiadać kopię pełną i <span class="color-green">wszystkie</span> kolejne kopie przyrostowe w odpowiedniej kolejności).</li>
+</ul>
+<h3>3. Kopia Różnicowa (Differential Backup)</h3>
+<p>Zapisuje dane, które zmieniły się od czasu <span class="color-green">ostatniej pełnej</span> kopii.</p>
+<ul>
+<li><span class="color-green">Zaleta:</span> Szybsze odzyskiwanie niż w przyrostowej (potrzebujesz tylko kopii pełnej i ostatniej różnicowej).</li>
+<li><span class="color-green">Wada:</span> Pliki rosną z każdym dniem, dopóki nie zrobisz nowej pełnej kopii.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗓️ Historia plików</h2>
+<p>W klasycznym Panelu sterowania: <code>System i zabezpieczenia</code> → <code>Historia plików</code> możesz zobaczyć poniższy komunikat:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/komunikat-o-braku-oddzielnego-dysku-histria-plików.webp" alt="Komunikat o braku oddzielnego dysku w Historii plików" width="580" height="59" class="lazy-image" loading="lazy" decoding="async">
+
+<data-tabs>
+  <tabs>
+    <item>Dysk wewnętrzny</item>
+    <item>Dysk zewnętrzny</item>
+
+  </tabs>
+  <div><hr>
+<h2>Wykorzystanie dysku wewnętrznego stacji roboczej</h2>
+<ol>
+<li>W ustawieniach maszyny wirtualnej z systemem Windows 11 przejdź do sekcji <code>Pamięć</code>. Zobaczysz tam najpewniej kontroler SATA. Gdy na niego klikniesz, ukażą się dwie ikony: okrągła dla napędów optycznych ($\text{ISO}$) i kwadratowa dla dysków twardych. </li>
+<li>Kliknij kwadratową ikonę dysku twardego. To będzie nasz pierwszy, dodatkowy dysk, więc go utwórzmy, klikając ikonę <code>Stwórz</code>. Pojawi się kolejne okno z określeniem lokalizacji <code>.vdi</code> (VirtualBox Disk Image) i rozmiaru dysku, np. $80\text{ }GB$. </li>
+<li>Możesz od razu zakończyć na domyślnych ustawieniach, upewniając się, że opcja <kbd class="check-mark-empty"></kbd> „Wstępnie przydzielony pełny rozmiar” <span class="color-green">jest odznaczona</span>. Jest to starszy mechanizm dla dysków HDD, który sprawiał, że maszyny były szybsze, ale zajmowały więcej miejsca na dysku fizycznym. W przypadku dysków SSD nie ma to znaczenia, a jedynie skróciłoby delikatnie żywotność dysku SSD przez zbędne operacje odczytu i zapisu zerowych bloków.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/nowy-dysk-dla-vm-win-11.webp" alt="Tworzenie nowego dysku wirtualnego" width="1306" height="732" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Po utworzeniu dysku wirtualnego musisz go podpiąć, wybierając z listy <code>Not Attached</code>. Jest to oznaczone taką delikatną pionową kreską z lewej strony elementu listy:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/nowy-dysk-dla-vm-win-11-atyached.webp" alt="Podłączanie dysku wirtualnego" width="411" height="107" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Teraz, gdy uruchomisz maszynę, zobaczysz... że dysku nie ma? 🤨<br>Dodaliśmy do VirtualBoxa całkowicie czysty dysk. Aby system mógł z niego korzystać, należy zainicjować tablicę partycjonowania oraz utworzyć partycje, które Windows nazywa woluminami.</p>
+<p>Przejdź do aplikacji Ustawienia (<kbd class="Win"></kbd> + <kbd>I</kbd>) → <code>System</code> → <code>Pamięć</code> → <code>Dyski i woluminy</code>.<br>Kliknij <code>Zainicjuj</code> i wybierz tablicę partycjonowania GPT.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ustawienia-windows-inicjalizacjia-dysku.webp" alt="Inicjalizacja dysku" width="1023" height="703" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Jeszcze tylko utworzenie partycji podstawowej i sformatowanie jej w systemie plików NTFS.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ustawienia-windows-tworzenie-nowego-woluminu.webp" alt="Tworzenie partycji" width="1024" height="716" class="lazy-image" loading="lazy" decoding="async"></div>
+<div><h2>Wykorzystanie dysku zewnętrznego</h2>
+<p>Tu sprawa jest prosta i być może już to robiłeś przy instalacji systemu przez pendrive z <span class="color-blue">Ventoy</span>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/vm-podłączenie-pendrive.webp" alt="Podłączanie pendrive do maszyny wirtualnej" width="1487" height="415" class="lazy-image" loading="lazy" decoding="async"></div>
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Konfiguracja Historii plików</h2>
+<data-gate>
+  <data-hotspot image="/public/courses/windows-11/Images/panel-sterowania-historia-plików.png">
+<hotspot x="1" y="45" title="Przywróć pliki osobiste">
+
+<p>Jeżeli została już utworzona kopia zapasowa, to w tym miejscu możesz przywracać pliki z wykorzystaniem <span class="color-green">UI</span><br>(<span class="color-blue">User Interface</span> – <span class="color-blue">interfejs użytkownika</span>).<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-przywracanie-plików.webp" alt="Przywracanie plików osobistych" width="754" height="512" class="lazy-image" loading="lazy" decoding="async"></p>
+</hotspot>
+<hotspot x="12" y="52" title="Wybierz dysk">
+
+<p>Możesz określić inny niż domyślnie wybrany dysk do tworzenia kopii zapasowych lub nawet wskazać lokalizację w sieci.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-wybierz-dysk.webp" alt="Wybór dysku do Historii plików" width="589" height="211" class="lazy-image" loading="lazy" decoding="async"></p>
+</hotspot>
+<hotspot x="1" y="58" title="Wyklucz foldery">
+
+<p>W starszych wersjach Windowsa backupowane były foldery bibliotek (zaznaczone na pomarańczowo) i kilka innych (oprócz „Pobrane”).<br>Microsoft już dawno porzucił tę funkcjonalność na rzecz OneDrive. Dlatego powoli znikają kolejne elementy bibliotek, nie można już utworzyć nowych przez menu kontekstowe, a do działania wymagane jest połączenie z usługą OneDrive. W innym przypadku zobaczysz wyszarzoną opcję <code>Trwa pobieranie bibliotek...</code>.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-wykluczanie-katalogów-biblioteki.webp" alt="Wykluczanie folderów z Historii plików" width="783" height="543" class="lazy-image" loading="lazy" decoding="async"></p>
+</hotspot>
+<hotspot x="19" y="65" title="Ustawienia zaawansowane">
+
+<p>To tu możesz ustawić jak często mają być tworzone kopie zapasowe oraz jak długo mają być przechowywane ich wersje.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-ustawienia-zaawansowane.webp" alt="Ustawienia zaawansowane Historii plików" width="596" height="258" class="lazy-image" loading="lazy" decoding="async"></p>
+</hotspot>
+<hotspot x="78" y="95" title="Włącz">
+
+<p>Gdy wybierzesz dysk i klikniesz <kbd class="win-menu-btn">Włącz</kbd>, Historia plików rozpocznie tworzenie kopii zapasowych.<br>Ustawienia zaawansowane dalej są dostępne do zmiany harmonogramu.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-włączenie.webp" alt="Włącz Historii plików" width="616" height="285" class="lazy-image" loading="lazy" decoding="async"></p>
+</hotspot>
+  </data-hotspot>
+</data-gate>
+
+<hr>
+<p>Gdy już skonfigurowałeś i uruchomiłeś Historię plików, możesz przejść do katalogu, w którym będą wszystkie Twoje pliki z pierwszej kopii zapasowej. Kolejne pliki będą dodawane co wyznaczony czas, a w przypadku zmiany zawartości już skopiowanych plików zobaczysz ich pełną kopię jako oddzielny plik.  </p>
+<ul>
+<li>Aby odróżnić pliki, dopisywana jest data i godzina utworzenia kopii.*</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-lokalizacja-po-uruchomieniu.webp" alt="Lokalizacja kopii zapasowych" width="1023" height="720" class="lazy-image" loading="lazy" decoding="async">
+
+
+<p>Dla przykładu utworzyłem obraz czarnej kropki i zapisałem go na pulpicie. Uruchomiłem ręcznie Historię plików, by nie czekać domyślnej godziny. Następnie ponowiłem proces, dodając po kolei kolejne kropki.<br>Jak widzisz, wszystkie zmiany, które zarchiwizowała Historia plików, mają nazwę zawierającą w nawiasie datę i godzinę utworzenia kopii.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-obrazy-kropek.webp" alt="Kopie zapasowe kolejnych wersji pliku" width="778" height="295" class="lazy-image" loading="lazy" decoding="async"></p>
+<p>Dzięki temu w katalogu Pulpitu mogę z menu kontekstowego wybrać przywrócenie odpowiedniego wariantu pliku, który został zarchiwizowany, nadpisując docelowy:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/historia-plików-przywróć-poprzednie-wersje.webp" alt=" Przywracanie poprzednich wersji pliku" width="1070" height="727" class="lazy-image" loading="lazy" decoding="async">
+
+
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Historia plików jest fajnym, ale przestarzałym rozwiązaniem. Microsoft wycofuje się z tej funkcjonalności na rzecz OneDrive, a w profesjonalnych środowiskach programistycznych używa się kontroli wersji, takiej jak Git.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🤔 Scenariusze Eksperckie (Diagnostyka)</h2>
+<p>Dobierz odpowiednią technologię do kryzysu, z którym mierzy się Twój klient w Windows 11 PRO.</p>
+<data-gate>
+  <data-connection-matcher>
+    <div class="cmw-item" data-left="Użytkownik przed chwilą nadpisał ważny plik arkusza Excel." data-right="PPM na plik → Przywróć poprzednie wersje (Historia Plików)"></div>
+    <div class="cmw-item" data-left="Firma chce chronić dane przed totalną katastrofą (pożar biura)." data-right="Zasada 3-2-1 → Kopie w bezpiecznej chmurze (Off-site)"></div>
+    <div class="cmw-item" data-left="Chcesz zachować historię zmian dokumentów bez ręcznego kopiowania." data-right="Skonfiguruj Harmonogram w Historii Plików"></div>
+    <div class="cmw-item" data-left="Kopia zapasowa musi zajmować jak najmniej miejsca i być szybka." data-right="Kopia Przyrostowa (Incremental)"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗃️ Kopia zapasowa i przywracanie (Windows 7)</h2>
+<p>Świetnym narzędziem domyślnie dostępnym w systemie Windows od wersji 7 jest <span class="color-green">Kopia zapasowa i przywracanie (Windows 7)</span>. Pozwala ono na tworzenie pełnej kopii zapasowej ze wszystkimi danymi oraz całym systemem wraz z jego konfiguracją.</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Tak można pomyśleć na pierwszy rzut oka, lecz nic bardziej mylnego. Nie wykonuj kopii zapasowej systemu Windows 10/11 z wykorzystaniem tego narzędzia. To „wsteczna kompatybilność” i nic więcej.</p>
+
+</div>
+</div><ol>
+<li>Wybierz „Konfiguruj wykonanie kopii zapasowej”. Zobaczysz okienko kreatora, w którym zostaniesz poproszony o wskazanie lokalizacji kopii zapasowej (możesz też ją zapisać w udziale sieciowym).</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/kopia-zapasowa-i-przywracanie-win-7.webp" alt="Kopia zapasowa i przywracanie (Windows 7)" width="1025" height="721" class="lazy-image" loading="lazy" decoding="async">
+
+<ol start="2">
+<li>Wybierając pierwszą opcję tego, co ma zawierać kopia zapasowa, ograniczysz się do zawartości katalogów bibliotek oraz obrazu systemowego z ustawieniami. W przypadku drugiej opcji system sam wybierze partycje systemowe i katalogi bibliotek konkretnych użytkowników lokalnych.<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+Upewnij się, że masz zaznaczoną opcję <kbd class="check-mark"></kbd> „Dołącz obraz systemu Windows...”<br>Tylko w tym przypadku do kopii zapasowej zostaną dodane pliki programu rozruchowego (bootloadera) i będziesz w stanie je przywrócić z poziomu instalatora Windows.
+</div>
+</div><p>Na ostatniej karcie zobaczysz podsumowanie tego, co zostanie skopiowane, oraz możliwość ustawienia harmonogramu tworzenia.</p>
+</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/kopia-zapasowa-i-przywracanie-win-7-kreator.webp" alt="Kopia zapasowa i przywracanie (Windows 7)" width="1857" height="542" class="lazy-image" loading="lazy" decoding="async">
+
+<ol start="3">
+<li>Pierwsza kopia, w zależności od ilości danych, może trwać kilkadziesiąt minut. Kolejne kopie są tworzone przyrostowo i trwają znacznie krócej.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/kopia-zapasowa-i-przywracanie-win-7-wykonywanie-kopii.webp" alt="Kopia zapasowa i przywracanie (Windows 7)" width="810" height="617" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Odzyskiwanie obrazu z kopii zapasowej i przywracanie systemu (Windows 7)</h2>
+<p>Na początku warto sprawdzić, czy w przystawce <code>diskmgmt.msc</code> (Zarządzanie dyskami) jest utworzona partycja odzyskiwania – tak zwana <span class="color-blue">recovery</span>. Jeżeli jest, możesz uruchomić system w trybie zaawansowanym, przytrzymując klawisz <kbd>Shift</kbd> i wybierając z menu Start „Uruchom ponownie”.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/partycja-odzyskiwania-w-diskmgmt.msc.webp" alt="Partycja odzyskiwania w diskmgmt.msc" width="833" height="595" class="lazy-image" loading="lazy" decoding="async"></p>
+<p>W opcjach zaawansowanych wybierz „Rozwiąż problemy” → „Zaawansowane opcje” → „Zobacz więcej opcji odzyskiwania” → „Odzyskiwanie obrazu systemu”.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/odzyskiwanie-obrazu-systemu-z-opcji-zaawansowanych.webp" alt="Opcje zaawansowane" width="993" height="761" class="lazy-image" loading="lazy" decoding="async"></p>
+<p>W przypadku, gdy chcesz użyć instalatora Windows, wystarczy wybrać opcję „Napraw komputer” zamiast instalacji i wykonać podobne kroki.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/odzyskiwanie-obrazu-systemu-z-poziomu-instalatora.webp" alt="Odzyskiwanie obrazu systemu z poziomu instalatora" width="1680" height="1143" class="lazy-image" loading="lazy" decoding="async"></p>
+<p>Niezależnie od tego, jaką drogę wybrałeś, zobaczysz ten sam kreator przywracania obrazu systemu.<br>Domyślna, pierwsza opcja oznacza, że system sam przywróci najnowszą kopię zapasową. Jeżeli chcesz wybrać inną, zaznacz „Wybierz obraz systemu” i kliknij „Dalej”.<br>Kolejna karta to wskazanie pamięci masowej, na której znajduje się kopia zapasowa. Jeżeli w oknie nie ma żadnej pozycji do wyboru, oznacza to konieczność doinstalowania sterowników kontrolera pamięci przez przycisk <kbd class="win-menu-btn">Zaawansowane</kbd>.  </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Przywracanie-kopi-zapasowej-obrazu-systemu-win-7.webp" alt=" Przywracanie kopii zapasowej obrazu systemu Win 7" width="1586" height="430" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Zanim przejdziesz dalej, zaznacz opcję <kbd class="check-mark"></kbd>„Formatuj dyski i ponownie przydziel partycje”.<br>Następnie kliknij <kbd class="win-menu-btn">Wyklucz dyski...</kbd> i odznacz partycje, które mają zostać pominięte w procesie formatowania (np. swoje pendrive'y). Potem kliknij <kbd class="win-menu-btn">Dalej</kbd> → <kbd class="win-menu-btn">Zakończ</kbd> i zatwierdź komunikat o formatowaniu dysku.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/przywracanie-obrazu-systemu-win-7-wykluczanie-dysków-z-procesu-formatowania.webp" alt=" Przywracanie kopii zapasowej obrazu systemu Win 7" width="982" height="425" class="lazy-image" loading="lazy" decoding="async">
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Dlaczego należy stosować zasadę $3 - 2 - 1$ i sprawdzać, czy kopia zapasowa działa poprawnie?<br>Poniżej masz odpowiedź na to pytanie. W procesie kopiowania na drugi dysk plik w kopii zapasowej został uszkodzony.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/uszkodzony-plik-kopi-zapasowej.webp" alt="Uszkodzony plik kopii zapasowej (Windows 7)" width="480" height="213" class="lazy-image" loading="lazy" decoding="async"></p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>😑 Lenistwo Microsoftu i pułapka zdeprecjonowanej kopii zapasowej (Windows 7)</h2>
+<p>Jak widziałeś powyżej, cała procedura przechodzi bez problemów. Dopóki w trakcie przywracania coś się nie wykrzaczy.</p>
+<p>Dlaczego Microsoft na to pozwala?<br>Usunięcie tej funkcjonalności wiązałoby się z brakiem wsparcia dla starszych edycji Windowsa. Nadal są osoby korzystające z siódemki – to zaproszenie ich na najnowszą edycję, aby łatwo przenieśli swoje dane. Dlatego dodano ten dopisek <code>(Windows 7)</code>. Przy aktualnych ruchach Microsoftu można łatwo wywnioskować, że jest im to na rękę. Raz zawiedziesz się na tej funkcji, tracąc ogrom czasu, i chętniej przejdziesz na kopie zapasowe konfiguracji systemu oraz usługę OneDrive. W razie problemów oficjalne wsparcie Microsoftu odeśle Cię do <a href="https://learn.microsoft.com/pl-pl/windows/compatibility/windows-7-backup-and-restore-deprecated">dokumentacji</a>.</p>
+<p>Jak sam widzisz, domyślne opcje kopii zapasowych w Windows 11 są bardzo słabe... delikatnie mówiąc. 😐</p>
+<p>Więc po co to wszystko było?<br>Wiele razy przekonasz się, że różnego rodzaju oprogramowanie nie spełnia Twoich oczekiwań lub po prostu nie będzie działać. Jednak sama idea posiadania kopii zapasowych jest niezwykle ważna. Oto kilka propozycji do przetestowania:</p>
+<table>
+<thead>
+<tr>
+<th>Narzędzie</th>
+<th>Co MOŻESZ zrobić</th>
+<th>Czego ABSOLUTNIE NIE MOŻESZ zrobić</th>
+<th>Dlaczego</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green">CloneZilla</span></td>
+<td>✔️ Skopiować dysk 1:1 w tym samym urządzeniu (np. NVMe → NVMe w laptopie) <br> ✔️ Skopiować dysk między <span class="color-green">identycznymi</span> modelami komputerów</td>
+<td>❌ Przenieść system laptop → PC <br> ❌ Przenieść system na inny sprzęt (chipset, CPU, grafika) <br> ❌ Użyć jako backup systemu Windows</td>
+<td>CloneZilla kopiuje <span class="color-green">bloki dysku</span>, nie system. <br> Kopiuje sterowniki, HAL, konfigurację sprzętu.<br> Inny sprzęt = system nie wstaje.</td>
+</tr>
+<tr>
+<td><span class="color-green">Macrium Reflect</span></td>
+<td>✔️ Zrobić obraz systemu Windows 10/11 <br> ✔️ Przywrócić system na innym sprzęcie (po sysprep) <br> ✔️ Backup przyrostowy</td>
+<td>❌ Przenieść system bez sysprep na zupełnie inny sprzęt</td>
+<td>Macrium rozumie Windows, VSS, GPT, NVMe — ale nie usuwa sterowników sprzętowych.</td>
+</tr>
+<tr>
+<td><span class="color-green">AOMEI Backupper</span></td>
+<td>✔️ Backup systemu <br> ✔️ Klonowanie dysku w tym samym komputerze</td>
+<td>❌ Migracja systemu na inny sprzęt</td>
+<td>To narzędzie działa, ale nie rozwiązuje problemu sterowników.</td>
+</tr>
+<tr>
+<td><span class="color-green">OneDrive / Google Drive</span></td>
+<td>✔️ Chronić dokumenty <br> ✔️ Cofnąć wersje po ransomware</td>
+<td>❌ Backup systemu <br> ❌ Backup programów</td>
+<td>To jest synchronizacja + wersjonowanie, nie obraz systemu.</td>
+</tr>
+<tr>
+<td><span class="color-green">Git</span></td>
+<td>✔️ Historia projektów <br> ✔️ Cofanie zmian</td>
+<td>❌ Backup zdjęć, filmów, dużych plików <br> ❌ Backup systemu</td>
+<td>Git to system kontroli wersji, nie backup danych.</td>
+</tr>
+<tr>
+<td><span class="color-green">Ręczna kopia</span></td>
+<td>✔️ Szybkie zabezpieczenie plików</td>
+<td>❌ Automatyzacja <br> ❌ Backup systemu</td>
+<td>To procedura, nie narzędzie.</td>
+</tr>
+</tbody></table>
+<p>Jak widzisz, opcji jest mnóstwo. Mają swoje plusy i minusy. Dlatego warto poznawać oprogramowanie firm trzecich, a najlepiej te typu OpenSource.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Złota myśl technika:</span> Kopia całego systemu nie jest optymalną opcją. Liczą się dane bez których biznes nie może być kontynuowany lub prawnie należy je chronić. Środowisko zawsze odtworzysz. Pracy użytkownika niekoniecznie.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Sprawdź swoją wiedzę</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Firma doświadczyła ataku ransomware, który zaszyfrował pliki użytkowników na dyskach lokalnych. Pliki te były synchronizowane z chmurą OneDrive. Które z podjętych działań pozwoli na najszybsze odzyskanie dokumentów bez utraty danych?</p>
+</question>
+    <options>
+      <item correct=""><p>Wykorzystanie wbudowanej w OneDrive funkcji przywracania stanu chmury (Roll‑back) do 30 dni wstecz po uprzednim wyczyszczeniu zainfekowanych stacji roboczych.</p>
+</item>
+      <item><p>Uruchomienie narzędzia Kopia zapasowa i przywracanie (Windows 7) w celu odtworzenia uszkodzonych plików z lokalnej partycji recovery.</p>
+</item>
+      <item><p>Wykonanie klonowania zainfekowanych dysków za pomocą narzędzia CloneZilla 1:1 na nowe stacje robocze.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Ransomware szyfruje pliki lokalne, co wyzwala automatyczną synchronizację zmian do chmury. Tradycyjna kopia systemu Windows 7 czy klonowanie blokowe programem CloneZilla nie służą do wersjonowania dokumentów użytkownika ani nie eliminują zagrożenia z zainfekowanego systemu. Zastanów się, jakie wbudowane mechanizmy chmury Microsoftu chronią przed tego typu skutkami.</p>
+</div>
+    <div data-hint="success"><p>Doskonale! OneDrive posiada mechanizm wersjonowania plików oraz funkcję <span class="color-blue">„Roll‑back”</span> (przywracanie stanu dysku chmurowego), która pozwala na cofnięcie zmian wprowadzonych przez ransomware w ciągu ostatnich $30$ dni. Przed synchronizacją należy oczywiście dokładnie oczyścić lub przeinstalować systemy operacyjne na stacjach roboczych.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Zasada $3 - 2 - 1$ i RPO/RTO:</span> to fundament planowania kopii zapasowych. Dążymy do minimalizacji utraty danych (RPO) i przestoju (RTO). Zawsze przechowuj $3$ kopie na $2$ różnych nośnikach, w tym co najmniej $1$ w lokalizacji offline/off‑site. 🗄️</li>
+<li><span class="color-green">Historia plików i inicjalizacja dysku:</span> wbudowane wersjonowanie plików użytkownika w Windows wymaga podłączenia i przygotowania dedykowanego dysku (inicjalizacja w GPT i formatowanie w NTFS). Umożliwia ono bezproblemowe przywracanie poprzednich wersji plików wprost z menu kontekstowego. 🔄</li>
+<li><span class="color-green">Zdeprecjonowany backup Windows 7:</span> narzędzie <span class="color-red">Kopia zapasowa i przywracanie (Windows 7)</span> to spuścizna wstecznej kompatybilności. Tworzy niestabilne obrazy systemu, które potrafią ulec uszkodzeniu w procesie przywracania. ⚠️</li>
+<li><span class="color-green">Dopasowanie narzędzi:</span> dobieraj oprogramowanie do potrzeb: CloneZilla do klonowania dysków blok po bloku na identyczny sprzęt, Macrium Reflect do stabilnych obrazów całego systemu (z użyciem <span class="color-green">VSS</span> - <span class="color-blue">Volume Shadow Copy Service</span>), a OneDrive/Google Drive wyłącznie do synchronizacji i wersjonowania dokumentów roboczych lub zdjęć. 🧰</li>
+</ul>
+<hr>
+<p>Kopie zapasowe i ochrona danych to dopiero początek drogi. Czas na zarządzanie sprzętem i sterownikami! 🥸</p>
+</section>

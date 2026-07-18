@@ -1,0 +1,202 @@
+<h1>Konfiguracja Systemu</h1>
+<p>Nowoczesna aplikacja <span class="color-green">Ustawienia</span> (skrót <span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>I</kbd></span>) sukcesywnie przejmuje rolę klasycznego Panelu Sterowania.<br>Czas nauczyć się w niej sprawnie nawigować i zrozumieć, co tak naprawdę robią kluczowe przełączniki.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💻 Zarządzanie Zasobami i Wydajnością (System)</h2>
+<p>Sekcja <span class="color-green">System</span> grupuje parametry bezpośrednio wpływające na stabilność, wydajność sprzętową oraz obsługę urządzeń wejścia/wyjścia.</p>
+<h3>Optymalizacja planów zasilania</h3>
+<p><span class="color-blue">Lokalizacja:</span> <code>System</code> → <code>Zasilanie i bateria</code></p>
+<p>Na komputerach stacjonarnych i stacjach roboczych wdrożenie trybu <span class="color-green">Najwyższa wydajność</span> wyłącza agresywne mechanizmy oszczędzania energii. Dzięki temu system nie parkuje (nie wprowadza w stan uśpienia) rdzeni procesora, co eliminuje mikroopóźnienia przy nagłych skokach obciążenia (np. podczas intensywnych operacji I/O, wirtualizacji czy kompilacji kodu).</p>
+<hr>
+<h3>Zjawisko Fast Startup (Szybkie uruchamianie)</h3>
+<p>System Windows domyślnie korzysta z funkcji <span class="color-green">Fast Startup</span>, będącej formą hybrydowej hibernacji. </p>
+<p>W tym modelu:</p>
+<ul>
+<li>Kliknięcie opcji <kbd class="os-ui">Zamknij</kbd> <span class="color-green">nie wyłącza</span> komputera całkowicie.</li>
+<li>Przestrzeń jądra (kernel space) oraz kluczowe sterowniki są zamrażane i zapisywane do pliku systemowego <code>hiberfil.sys</code>.</li>
+<li>Przy kolejnym rozruchu Windows odtwarza zapisany obraz pamięci, zamiast inicjalizować wszystkie usługi od zera.</li>
+</ul>
+<p>Dzięki temu system startuje szybciej, jednak <span class="color-green">czas pracy jądra kumuluje się między sesjami</span>. W zakładce wydajności Menedżera Zadań czas pracy procesora może wskazywać wiele dni lub tygodni uptime'u, mimo regularnego wyłączania komputera.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menedżer-zadań-czas-pracy-procesora.webp" alt="Menedżer zadań - czas pracy procesora" width="1184" height="852" class="lazy-image" loading="lazy" decoding="async">
+
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Aktywny Fast Startup niesie za sobą poważne ryzyka diagnostyczne:</p>
+<ul>
+<li>Błędy w przestrzeni jądra lub sterownikach są przenoszone do kolejnych sesji.</li>
+<li>Przy instalacji niektórych poprawek plik <code>hiberfil.sys</code> nie jest prawidłowo czyszczony, co prowadzi do konfliktów wersji sterowników po rozruchu.</li>
+</ul>
+
+</div>
+</div><p>To wyjaśnia, dlaczego standardowa opcja <span class="color-green">Uruchom ponownie</span> (Restart) rozwiązuje większość problemów ze stabilnością – jako jedyna wymusza pełną inicjalizację jądra od zera. 😜</p>
+<p>Jeżeli chcesz mieć pewność co do czystości sesji i zminimalizować ryzyko problemów, wyłącz <span class="color-green">Fast Startup</span> w Panelu Sterowania. System delikatnie dłużej się bedzie uruchamiać, ale bedzie to stabilniejsze.</p>
+<p><img src="/public/courses/windows-11/Images/Panel-sterowania-wy%C5%82%C4%85czenie-szybkiego-startu.png" alt="Panel sterowania - wyłączenie szybkiego startu"></p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Pracownik zgłasza powtarzające się błędy sterowników i spadek wydajności stacji roboczej. Twierdzi, że codziennie po pracy wyłącza komputer opcją Zamknij. Menedżer Zadań w zakładce Wydajność wskazuje czas pracy procesora przekraczający $20$ dni. Jaka jest przyczyna tej rozbieżności?</p>
+</question>
+    <options>
+      <item correct=""><p>Aktywna funkcja Fast Startup zapisuje stan jądra w pliku hiberfil.sys zamiast je wyładowywać. Czas pracy kumuluje się z sesji na sesję.</p>
+</item>
+      <item><p>Wyczerpana bateria CMOS na płycie głównej powoduje utratę konfiguracji i restart zegarów sprzętowych po każdym odłączeniu zasilania.</p>
+</item>
+      <item><p>Uszkodzony czujnik termiczny płyty głównej fałszuje statystyki wydajności w Menedżerze Zadań.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Przy włączonej hybrydowej hibernacji kliknięcie „Zamknij” nie resetuje środowiska wykonawczego. Zwróć uwagę na plik hiberfil.sys.</p>
+</div>
+    <div data-hint="success"><p>Prawidłowa diagnoza! Funkcja Fast Startup zrzuca stan jądra na dysk, przez co system operuje na tej samej sesji jądra przez wiele dni. Pełny restart rozwiązuje ten problem.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖥️ Parametry Wyświetlania i Skalowania</h2>
+<p><span class="color-blue">Lokalizacja:</span> <code>System</code> → <code>Ekran</code> → <code>Zaawansowane wyświetlanie</code></p>
+<p>Częstym niedopatrzeniem po instalacji systemu lub sterowników GPU jest pozostawienie domyślnego odświeżania $60 \text{ Hz}$ na monitorach obsługujących wyższe częstotliwości (np. $144 \text{ Hz}$ lub więcej). Powoduje to spadek płynności animacji systemowych i może wywoływać zjawisko rozrywania obrazu (<span class="color-blue">tearing</span>).</p>
+<p>Drugim kluczowym aspektem jest skalowanie interfejsu (DPI/PPI) na ekranach o wysokiej gęstości pikseli (np. panele 4K), gdzie niewłaściwe ustawienia powodują rozmycie czcionek lub zbyt małe elementy interfejsu.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Hz (Częstotliwość odświeżania) vs FPS (Klatki na sekundę):</span></p>
+<ul>
+<li><span class="color-green">$\text{Hz}$</span> to fizyczna częstotliwość, z jaką monitor jest w stanie odświeżyć obraz w ciągu sekundy.</li>
+<li><span class="color-green">$\text{FPS}$</span> to liczba klatek generowanych i wysyłanych przez procesor graficzny (GPU) w ciągu sekundy.</li>
+</ul>
+<p>Jeśli GPU generuje $120 \text{ FPS}$ na monitorze o odświeżaniu $60 \text{ Hz}$, zobaczysz tylko $60$ klatek (nadmiarowe klatki mogą zmniejszyć tzw. <span class="color-blue">input lag</span>, ale nie poprawią płynności wizualnej).</p>
+
+</div>
+</div><hr>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>W menu <code>Ekran</code> możesz graficznie dostosować <span class="color-green">Układ wielu monitorów</span>. Jeśli system błędnie mapuje kierunki przejścia kursora między ekranami, chwyć lewym przyciskiem myszy miniaturę ekranu i przeciągnij ją tak, aby odzwierciedlała fizyczny układ monitorów na Twoim biurku.<br><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/układ-monitorów.webp" alt="Układ wielu monitorów" width="1075" height="476" class="lazy-image" loading="lazy" decoding="async"><br>PS. Nie próbuj działać <span class="color-blue">Pixel Perfect</span>. Ekrany by wydłużyć swoją żywotność co jakiś czas minimalnie przesuwają obraz w pionie.</p>
+
+</div>
+</div><hr>
+<p>Dla przykładu – poniżej widać zmianę odświeżania z standardowych $60\text{ } Hz$ na płynniejsze $100\text{ } Hz$ dla budżetowego monitora Samsung.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ustawienia-windows-monitor-100Hz.webp" alt="Zaawansowane opcje wyświetlania" width="1019" height="866" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Jak najprościej zobaczyć różnicę gołym okiem? Wystarczy szybko poruszać kursorem myszy po pulpicie przed i po operacji. Mając podłączone dwa monitory do stacji, możesz porównać ruch na obu jednocześnie. Ten efekt który zobaczysz to <span class="color-blue">ghosting</span>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📋 Historia schowka</h2>
+<p><span class="color-blue">Lokalizacja:</span> <code>System</code> → <code>Schowek</code> | Skrót: <span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>V</kbd></span></p>
+<p>Klasyczny schowek systemowy przechowuje tylko jeden skopiowany element. Aktywacja historii schowka pozwala systemowi zapamiętać do $25$ ostatnio skopiowanych obiektów (tekstów, grafik, zrzutów ekranu). </p>
+<p>Wybrane elementy schowka można przypiąć pinezką, co zapobiega ich wyczyszczeniu przy restarcie systemu. </p>
+<p>Genialne narzędzie! Na początku nawyk używania klawisza <kbd class="Win"></kbd> zamiast <kbd>Ctrl</kbd> do wklejania wydaje się dziwny, ale po kilku tygodniach nie wyobrażam sobie pracy bez pełnej historii tego, co kopiowałem.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>👥 Zarządzanie użytkownikami (Konta)</h2>
+<p>Microsoft od dłuższego czasu bardzo mocno zmusza do logowania się kontem Microsoft.</p>
+<ul>
+<li><p><span class="color-green">Omijanie wymogu internetu:</span> W okienku dodawania użytkownika system stanowczo domaga się podania e‑maila. </p>
+<p>Aby stworzyć normalne <span class="color-green">Konto Lokalne</span>, musisz kliknąć opcję <span class="color-blue">Nie mam informacji logowania tej osoby</span>, a na następnym ekranie powtórzyć operację klikając <span class="color-blue">Dodaj użytkownika bez konta Microsoft</span>. Teraz możesz utworzyć konto lokalne, ale jak przeczytasz, co jest tam napisane, to zobaczysz, że Microsoft wysuwa kartę pułapki „ochrona dziecka”. 🤔</p>
+</li>
+<li><p><span class="color-green">Tryb Kiosk:</span> Ciekawa opcja Windowsa. Możesz stworzyć specjalne konto użytkownika o roli „Kiosk”. Po wybraniu tego profilu Windows odpala się w sekundę i na pełnym ekranie wyświetla <span class="color-green">tylko ten jeden wybrany przez Ciebie program</span> (np. aplikację pogody). Jest to rozwiązanie dla biletomatów, bankomatów czy stanowisk informacyjnych w galeriach handlowych.</p>
+</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕒 Dlaczego przez złe ustawienie czasu nagle „pada” internet?</h2>
+<p>Zła konfiguracja zegara wydaje się drobnostką, ale to najczęstsza przyczyna nagłego odcięcia od stron WWW i dziwnych błędów w aplikacjach sieciowych.</p>
+<ul>
+<li><span class="color-blue">Jak to działa w praktyce:</span><br>Wszystkie bezpieczne strony internetowe (te z kłódką <code>HTTPS</code>) opierają się na <span class="color-green">certyfikatach SSL/TLS</span>. Każdy taki certyfikat ma sztywny okres ważności (od‑do). Jeśli bateria CMOS na Twojej płycie głównej padnie i zegar w komputerze cofnie się np. o rok, przeglądarka przy próbie wejścia na stronę uzna jej certyfikat za sfałszowany lub nieważny. Efekt? Czerwony ekran blokady i błąd typu <code>ERR_CERT_DATE_INVALID</code>. Internet fizycznie działa, ale system Cię do niego nie dopuści.</li>
+<li><span class="color-green">Szybki fix:</span> Zawsze, gdy widzisz dziwne błędy „zabezpieczeń” na znanych witrynach lub w nowo postawionych usługach, w pierwszej kolejności zmuś system do pobrania aktualnego czasu: <code>Czas i język</code> → <code>Data i godzina</code> → <kbd class="os-ui">Synchronizuj teraz</kbd> (kliknięcie tego przycisku odpala natychmiastowe zapytanie do serwerów czasu NTP).</li>
+</ul>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Po wymianie uszkodzonej baterii CMOS na płycie głównej komputer uruchomił się poprawnie, ale użytkownik nie może otworzyć żadnej bezpiecznej witryny HTTPS w przeglądarce. Wyświetla się czerwony ekran z błędem ERR_CERT_DATE_INVALID. Jak należy rozwiązać ten problem?</p>
+</question>
+    <options>
+      <item correct=""><p>Zsynchronizować czas systemowy z serwerem czasu NTP w sekcji Czas i język aplikacji Ustawienia.</p>
+</item>
+      <item><p>Wyłączyć zaporę sieciową Windows Defender, która blokuje szyfrowany ruch na porcie $443$.</p>
+</item>
+      <item><p>Usunąć i zainstalować ponownie przeglądarkę internetową w celu resetu magazynu certyfikatów.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się, w jaki sposób przeglądarka sprawdza ważność certyfikatów bezpieczeństwa witryn HTTPS. Wymaga to porównania czasu zapisanego w certyfikacie z czasem na komputerze.</p>
+</div>
+    <div data-hint="success"><p>Zgadza się. Certyfikaty SSL/TLS mają ściśle określony okres ważności. Jeśli czas systemowy stacji drastycznie odbiega od rzeczywistego, walidacja certyfikatu zakończy się błędem.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗂️ Panel Sterowania i Klasyczne Aplety</h2>
+<p>Panel Sterowania pozostaje kluczowym narzędziem administracyjnym, przechowującym zaawansowane aplety konfiguracyjne, które nie zostały jeszcze w pełni zaimplementowane w nowoczesnej aplikacji Ustawienia.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Aby błyskawicznie otworzyć klasyczny Panel Sterowania, wciśnij <span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>R</kbd></span>, wpisz <code>control</code> i zatwierdź klawiszem <kbd>Enter</kbd>. Dla wygody zmień widok w prawym górnym rogu na <span class="color-green">Duże ikony</span>.</p>
+
+</div>
+</div><p>Zestawienie najważniejszych apletów systemowych (plików z rozszerzeniem <code>.cpl</code>), wywoływanych bezpośrednio z konsoli:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Aplet</th>
+<th align="left">Rola w systemie</th>
+<th align="left">Skrót powłoki</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Połączenia sieciowe</span></td>
+<td align="left">Zaawansowane zarządzanie kartami sieciowymi, adresacją IP, maską podsieci i bramą domyślną.</td>
+<td align="left"><code>ncpa.cpl</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Programy i funkcje</span></td>
+<td align="left">Klasyczny menedżer instalacji i deinstalacji oprogramowania.</td>
+<td align="left"><code>appwiz.cpl</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Opcje zasilania</span></td>
+<td align="left">Konfiguracja zaawansowanych planów zasilania i limitów zużycia energii przez CPU.</td>
+<td align="left"><code>powercfg.cpl</code></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zapora Windows Defender</span></td>
+<td align="left">Zarządzanie regułami filtrowania ruchu sieciowego (porty wejściowe i wyjściowe).</td>
+<td align="left"><code>firewall.cpl</code></td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Diagnoza Problemów Konfiguracyjnych</h2>
+<p>Dopasuj zgłaszany przez użytkownika problem do odpowiedniego narzędzia lub lokalizacji w systemie:</p>
+<data-gate>
+  <data-connection-matcher title="Diagnostyka Konfiguracji">
+    <div class="cmw-item" data-left="Niewłaściwa skala czcionek i elementów interfejsu na monitorze o wysokiej gęstości pikseli (np. 4K)" data-right="<code>Ustawienia</code> → <code>System</code> → <code>Ekran</code> → <code>Skala</code>"></div>
+    <div class="cmw-item" data-left="Konieczność szybkiego dostępu do historii kopiowanych fragmentów tekstu lub zrzutów ekranu" data-right="Wywołanie schowka skrótem <kbd class=&quot;Win&quot;></kbd> + <kbd>V</kbd>"></div>
+    <div class="cmw-item" data-left="Przeglądarka odrzuca połączenia HTTPS z powodu błędu ważności certyfikatu SSL" data-right="Synchronizacja czasu systemowego z serwerem NTP"></div>
+    <div class="cmw-item" data-left="Kumulowanie czasu pracy jądra systemu operacyjnego mimo codziennego zamykania stacji" data-right="Dezaktywacja funkcji Fast Startup"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pasek adresu Eksploratora plików obsługuje protokoły systemowe (np. URI <code>ms-settings:</code>), co pozwala na bezpośrednie wywoływanie konkretnych zakładek Ustawień. Wpisanie <code>ms-settings:display</code> przeniesie Cię natychmiast do zaawansowanych opcji wyświetlania.</p>
+
+</div>
+</div><hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Pełny restart a zamknięcie:</span> włączona funkcja <span class="color-blue">Fast Startup</span> sprawia, że zamknięcie systemu jedynie hibernuje jądro (<code>hiberfil.sys</code>). Tylko opcja <span class="color-green">Uruchom ponownie</span> (Restart) gwarantuje załadowanie czystego jądra od zera. 🔄</li>
+<li><span class="color-green">Synchronizacja czasu to podstawa:</span> desynchronizacja zegara systemowego (np. po rozładowaniu baterii CMOS) natychmiast blokuje bezpieczne połączenia <code>HTTPS</code> z powodu błędów walidacji certyfikatów SSL/TLS. 🕒</li>
+<li><span class="color-green">Narzędzia legacy są niezbędne:</span> klasyczne aplety Panelu Sterowania (np. <code>ncpa.cpl</code> czy <code>appwiz.cpl</code>) nadal stanowią podstawowe narzędzie diagnostyczne w pracy administratora IT. 🗂️</li>
+</ul>
+<hr>
+<p>Mam nadzieje że zaczniesz używać schowka systemowego <kbd class="Win"></kbd> + <kbd>V</kbd>. To naprawde genialna funkcja! 😎</p>
+</section>

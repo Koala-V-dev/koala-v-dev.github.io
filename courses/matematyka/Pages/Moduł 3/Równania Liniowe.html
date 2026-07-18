@@ -1,0 +1,486 @@
+<h2>Równania Liniowe: Analiza Stanów i Kontraktów</h2>
+<p>W Module $2$ operowałeś na <strong>Wyrażeniach Algebraicznych</strong> — statycznych szablonach (<em>Templates</em>), które optymalizowałeś pod kątem redukcji długu technicznego. Wtedy liczyła się <strong>Struktura</strong>.</p>
+<p>Teraz przechodzimy do <strong>Równań</strong>. To moment, w którym Twoje szablony stają się częścią aktywnego układu. Równanie to <strong>Kontrakt</strong> między dwiema stronami ($L=P$), w którym szukamy konkretnego sygnału wejściowego (wartości $x$), przy którym system osiąga stan równowagi.</p>
+<p>Jeśli w Module $1$ (Logika) operator <code>==</code> służył do porównywania gotowych stanów, to w Module $3$ równanie jest zapytaniem do systemu: <em>„Dla jakiego wejścia wynik porównania zwróci $1$ (<strong>True</strong>)?”</em>.</p>
+<hr>
+<h3>🧬 Wzór ogólny równania</h3>
+<p>Równanie liniowe ma następującą postać:<br>$$\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c}$$</p>
+<p>Gdzie każda składowa pełni określoną rolę w systemie:</p>
+<ul>
+<li>Baza:<ul>
+<li>$\textcolor{#ff0001}{a}$ (<strong>Wzmocnienie sygnału</strong> / <em>Współczynnik</em>): Mnożnik lub dzielnik definiujący skalę transformacji zmiennej $\textcolor{#ff0004}{x}$.</li>
+<li>$\textcolor{#ff0004}{x}$ (<strong>Interface / Input</strong> / <em>Zmienna</em>): Kontener na wartość wejściową, której poszukujemy.</li>
+</ul>
+</li>
+<li>Transformacja:<ul>
+<li>$\textcolor{#ff0002}{b}$ (<strong>Bias / Offset</strong> / <em>Wyraz wolny</em>): Stałe przesunięcie wyniku bazowego o określoną wartość.</li>
+</ul>
+</li>
+<li>Cel:<ul>
+<li>$\textcolor{#ff0003}{c}$ (<strong>Target State</strong> / <em>Wynik</em>): Docelowy stan systemu po transformacji.</li>
+</ul>
+</li>
+</ul>
+<p>Gdy zwiększysz potęgę $\textcolor{#ff0004}{x}$ o $1$, to równanie staje się kwadratowe, a gdy zwiększysz ją o $n$, to równanie będzie jeszcze wyższego stopnia.  </p>
+<blockquote>
+<p>Pamiętaj: stopień równania określa <strong>maksymalną liczbę rozwiązań</strong> w zbiorze liczb rzeczywistych.</p>
+</blockquote>
+<p>$$\textcolor{#ff0001}{a}\textcolor{#ff0004}{x^n} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c}$$</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Równania też mogą mieć swoją skróconą postać gdy iloczyn czynnika $\textcolor{#ff0001}{a}$ jest równy $1$ to nie musisz tej jedynki zapisywać. Adekwatnie z $-1$, wtedy wystarczy dopisać znak minus przed zmienną $\textcolor{#ff0004}{x}$. Podobnie można zredukować wyraz wolny $\textcolor{#ff0002}{b}$ o przesunięcie przez $0$ dla dodawania i odejmowania, ponieważ żadna z tych operacji nie zmieni wyniku.</p>
+
+</div>
+</div><h5>Przykłady zredukowanych równań liniowych:</h5>
+<ul>
+<li>$\textcolor{#ff0001}{x} + \textcolor{#ff0002}{3} = \textcolor{#ff0003}{12} \implies x=9$</li>
+<li>$\textcolor{#ff0001}{-x} + \textcolor{#ff0002}{7} = \textcolor{#ff0003}{5} \implies -x = -2 \implies x=2$</li>
+<li>$\textcolor{#ff0001}{5x} = \textcolor{#ff0003}{15} \implies x=3$</li>
+<li>$\textcolor{#ff0001}{x} + \textcolor{#ff0003}{(-10)} = \textcolor{#ff0003}{5} \implies x=15$</li>
+</ul>
+<h3>🛡️ Firewall (Dziedzina) vs. Werdykt (Zbiór Rozwiązań)</h3>
+<p>W analizie kontraktów (równań) musisz odróżnić <strong>zasady bezpieczeństwa</strong> od <strong>końcowego wyniku</strong>. To dwa różne poziomy walidacji:</p>
+<h5>1. Firewall: Dziedzina ($D$)</h5>
+<p>To Twoja walidacja wejścia (<em>Input Validation</em>). Określa, jaki zbiór wartości w ogóle wolno nam włożyć do systemu, aby nie spowodować awarii (np. dzielenia przez zero). </p>
+<ul>
+<li>Zazwyczaj $D = \mathbb{R}$ (akceptujemy wszystkie liczby rzeczywiste).</li>
+<li>Jeśli istnieją wartości krytyczne np.: zmienna w mianowniku lub pod pierwiastkiem, nakładamy filtr:<br>$D = \mathbb{R} \setminus \{ \text{punkty awarii} \}$.</li>
+</ul>
+<h5>2. Werdykt: Zbiór Rozwiązań ($S$)</h5>
+<p>To wynik Twojego śledztwa. Zbiór konkretnych wartości, które spełniają kontrakt ($L=P$). Architektura równania narzuca nam <strong>maksymalną liczebność</strong> tego zbioru:</p>
+<ul>
+<li>Dla $\textcolor{#ff0002}{x^1}$ (liniowe): Zbiór $S$ ma maksymalnie <strong>1</strong> element.<blockquote>
+<p>$$\textcolor{#ff0001}{ax} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c} \implies x = \frac{\textcolor{#ff0003}{c}-\textcolor{#ff0002}{b}}{\textcolor{#ff0001}{a}}$$</p>
+</blockquote>
+</li>
+<li>Dla $\textcolor{#ff0003}{x^2}$ (kwadratowe): Zbiór $S$ ma maksymalnie <strong>2</strong> elementy.<blockquote>
+<p>$$\textcolor{#ff0001}{ax^2} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c} \implies x = \pm\sqrt{\frac{\textcolor{#ff0003}{c}-\textcolor{#ff0002}{b}}{\textcolor{#ff0001}{a}}}\quad\quad$$ Symbol: <code>$\pm$</code> to skrót od plus lub minus.</p>
+</blockquote>
+</li>
+<li>Dla $\textcolor{#ff0004}{x^n}$ (n&#8209;tego stopnia): Zbiór $S$ ma maksymalnie <strong>$n$</strong> elementów.<blockquote>
+<p>$$\textcolor{#ff0001}{ax^n} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c} \implies x = \sqrt[n]{\frac{\textcolor{#ff0003}{c}-\textcolor{#ff0002}{b}}{\textcolor{#ff0001}{a}}}$$</p>
+</blockquote>
+</li>
+</ul>
+<p><em>Rozwiązanie Jednoelementowe ($S = \{x_0\}$)</em><br>  Standardowy, poprawny przypadek: system ma dokładnie jedną wartość wejściową, która prowadzi do oczekiwanego stanu wyjściowego.<br>  <strong>Single Source of Truth</strong> — jedno wejście, jeden poprawny stan.</p>
+<blockquote>
+<p>$$ 2x + 3 = 11 $$<br>$$ x = 4 $$<br>Jeśli $(4 \in D)$, to $(S = \{4\})$.</p>
+</blockquote>
+<h4>Stany Wyjątkowe (Edge Cases):</h4>
+<p>Podczas analizy równań możesz trafić na specyficzne zachowania systemu. Każde z nich odpowiada innemu typowi błędu lub zachowania kontraktu.</p>
+<hr>
+<h4><em>Sprzeczność ($S = \emptyset$)</em></h4>
+<p>  Kontrakt jest niemożliwy do spełnienia — lewa strona i prawa strona opisują dwa różne, niezgodne stany.<br>  Logiczny <strong><em>deadlock</em></strong>: system nie ma prawa działać poprawnie dla żadnego wejścia.</p>
+<blockquote>
+<p>$$ 2x - 1 = 2x - 4 $$<br>$$ -1 = -4 \quad \text{(fałsz)} $$</p>
+</blockquote>
+<hr>
+<h4><strong>Tożsamość ($S = D$)</strong></h4>
+<p>  Kontrakt jest spełniony dla każdego dopuszczalnego wejścia.<br>  Pełna <em>redundancja</em> — test jednostkowy, który zawsze zwraca <code>true</code>.</p>
+<blockquote>
+<p>$$ 3x + 6 = 3(x + 2) $$</p>
+</blockquote>
+<hr>
+<h4><strong><em>Błąd Walidacji (Domain Firewall Reject)</em></strong></h4>
+<p>  Obliczenia wskazują wartość, która <strong>_nie przechodzi walidacji dziedzin_y</strong>.<br>  Firewall odrzuca wynik jeszcze przed wejściem do systemu.<br>  Jeśli jedyne rozwiązanie wypada poza $D$, to <em>równanie liniowe nie ma rozwiązań</em>.</p>
+<blockquote>
+<p>Dziedzina:  $(D = \mathbb{R} \setminus \{2,4\})$<br>Równanie:<br>$$ \frac{3x - 1}{(x - 2)(x - 4)} = 5 $$<br>Jeśli z obliczeń wyjdzie $(x = 4)$, to zostaje odrzucone → $(S = \emptyset)$.</p>
+</blockquote>
+<hr>
+<h4><em><strong>Rozwiązanie Pozorne (Phantom Solution)</strong></em></h4>
+<p>  Występuje, gdy algebraicznie otrzymujesz wartość, która <em>wydaje się</em> rozwiązaniem, ale po podstawieniu do równania okazuje się fałszywa.<br>  Typowy efekt uboczny nielegalnych operacji (np. mnożenia przez wyrażenie, które może być zerem).</p>
+<blockquote>
+<p>$$ x(x - 4) = 4(x - 4) $$<br>Po podzieleniu przez $(x - 4)$ (<strong><em>niedozwolone!</em></strong>) dostajesz:<br>$$ x = 4 $$<br>Po podstawieniu:<br>$$ 4(0) = 4(0) \quad \text{(prawda)} $$<br>Ale <strong>dzielenie przez zero było nielegalne</strong>, więc <em><strong>$(x = 4)$ jest rozwiązaniem pozornym</strong></em>.<br>Poprawna analiza:<br>$$ (x - 4)(x - 4) = 0 \Rightarrow x = 4 $$<br>Ale jeśli dziedzina wyklucza 4 → $(S = \emptyset)$.</p>
+</blockquote>
+<hr>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><em>$D$</em> - <strong>dziedzina</strong> (<em>die Definitionsmenge</em> lub <em>Domain</em>): Zbiór dopuszczalnych wartości, które możesz użyć.<br><em>$S$</em> - <strong>zbiór rozwiązań</strong> (<em>die Lösungsmenge</em> lub <em>Solution set</em>): Zbiór wartości, które spełniają równanie.<br>Zbiór rozwiązań możesz zapisać jako $L$ co oznacza <strong>Lösungs</strong> (<em>ang: solution</em>). Jednakże będę stosować $S$ gdyż lepiej kojarzy się z <em><strong>Set</strong></em> i łatwiej zapamiętać że wynik to zbiór wartości zapisany w klamrach np. $S=\{1, 2, 3\}$.</p>
+
+</div>
+</div><table>
+<thead>
+<tr>
+<th>Stan</th>
+<th>Co oznacza?</th>
+<th>Odpowiednik w inżynierii</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$S = \{x_0\}$</td>
+<td>jedno rozwiązanie</td>
+<td>single valid config</td>
+</tr>
+<tr>
+<td><em>$S = \emptyset$</em></td>
+<td>brak rozwiązań</td>
+<td>deadlock / invalid state</td>
+</tr>
+<tr>
+<td><strong>$S = D$</strong></td>
+<td>nieskończenie wiele rozwiązań</td>
+<td>redundant true</td>
+</tr>
+<tr>
+<td><strong><em>błąd walidacji</em></strong></td>
+<td>wynik poza domeną</td>
+<td>firewall reject</td>
+</tr>
+<tr>
+<td><em><strong>rozwiązanie pozorne</strong></em></td>
+<td>błąd algebraiczny</td>
+<td>undefined behavior</td>
+</tr>
+</tbody></table>
+<hr>
+<h4>🛠️ Punkt Kontrolny: Równanie i możliwa dziedzina</h4>
+<data-gate>
+<data-quiz>
+    <question>Wskaz zdanie fałszywe</question>
+    <options>
+        <option>$2x + 6 = 10, \quad S=\\{2\\}$</option>
+        <option correct>$4x + 7 = 10, \quad S=\\{1\\}$</option>
+        <option>$2x - 7 = -1, \quad S=\\{3\\}$</option>
+    </options>
+    <div data-hint="success">Brawo! Poprawnie zdiagnozowałeś fałszywy zbiór rozwiązań. <br>W równaniu $4x+7=10$ nie da się uzyskać wyniku $10$ gdy podstawisz $1$ pod $x$. <br>$4 \cdot 1 + 7 = 11 \neq 10$.</div>
+    <div data-hint="error">Dokonaj analizy poprzez podstawienie wartości zbioru rozwiązań pod równanie i sprawdź poprawność $L=P$.</div>
+</data-quiz>
+</data-gate>
+
+<h3>🧮 Algorytm Rozwiązywania (Izolacja Zmiennej)</h3>
+<p>Analiza równania to proces dążenia do stanu, w którym zmienna zostaje całkowicie odizolowana po jednej ze stron kontraktu. </p>
+<p>Przykład bazowy:<br>$$\textcolor{#ff0001}{2}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{6} = \textcolor{#ff0003}{16}$$</p>
+<p>Choć inspekcja wzrokowa pozwala szybko podać wynik ($x=5$), kluczowa jest znajomość formalnej procedury, niezbędnej przy systemach o wysokiej złożoności:</p>
+<ol>
+<li><strong>Inicjalizacja Firewalla ($D$):</strong> Zakładamy $D = \mathbb{R}$, o ile struktura nie zawiera mianowników ze zmienną.</li>
+<li><strong>Redukcja Biasu:</strong> Usuwamy wyraz wolny $\textcolor{#ff0002}{b}$ poprzez wykonanie operacji przeciwnej na obu stronach równania (zachowanie symetrii).</li>
+<li><strong>Cofnięcie Wzmocnienia:</strong> Jeśli zmienna posiada współczynnik $\textcolor{#ff0001}{a} \neq 1$, dzielimy obie strony równania przez tę wartość, aby uzyskać czyste $\textcolor{#ff0004}{x}$.</li>
+<li><strong>Weryfikacja Końcowa:</strong> Sprawdzamy, czy wynik należy do dziedziny $D$ i definiujemy zbiór $S$.</li>
+</ol>
+<hr>
+<p>Prześledźmy ten proces formalnie:</p>
+<ol>
+<li><strong>Zredukujmy przesunięcie</strong> (<em>offset</em>) <strong>wyrazu wolnego.</strong> <ul>
+<li>Patrzymy czy znak przed wyrazem wolnym $\textcolor{#ff0002}{b}$ jest dodatni czy ujemny i odpowiednio dodajemy lub odejmujemy go od obu stron równania.</li>
+<li>W naszym przypadku jest to liczba $\textcolor{#ff0002}{6}$, która jest dodatnia więc odejmujemy ją od obu stron równania.<br> Otrzymamy wtedy:<br> $$\textcolor{#ff0001}{2}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{6} = \textcolor{#ff0003}{16}\quad\ \quad|\quad\textcolor{#ff0002}{-6}$$<br>$$\textcolor{#ff0001}{2}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{6} - \textcolor{#ff0002}{6} = \textcolor{#ff0003}{16} - \textcolor{#ff0002}{6}$$<br>$$\textcolor{#ff0001}{2}\textcolor{#ff0004}{x} = \textcolor{#ff0003}{10}$$</li>
+</ul>
+</li>
+<li><strong>Zredukujmy współczynnik niewiadomej $x$</strong> (<em>cofamy transformację mutacji</em>).  <ul>
+<li>Patrzymy czy współczynnik $\textcolor{#ff0001}{a}$ jest w relacji iloczynu czy ilorazu do niewiadomej $\textcolor{#ff0004}{x}$ i odpowiednio wykorzystujemy jego wartość w odwrotnej operacji na całości równania (lewa strona i prawa strona). </li>
+<li>W naszym przypadku współczynnik $\textcolor{#ff0001}{2}$ jest w relacji iloczynu, więc dokonujemy operacji dzielenia.<br> Otrzymamy wtedy:<br> $$\textcolor{#ff0001}{2}\textcolor{#ff0004}{x} = \textcolor{#ff0003}{10} \quad  \quad |\quad :\textcolor{#ff0001}{2}$$<br>$$\textcolor{#ff0004}{x} = \frac{\textcolor{#ff0003}{10}}{\textcolor{#ff0001}{2}}$$<br>$$\textcolor{#ff0004}{x} = \textcolor{#ff0003}{5}$$</li>
+</ul>
+</li>
+<li><strong>Stan końcowy</strong> to <strong>zbiór rozwiązań</strong> dla tego równania: $$\textcolor{#ff0004}{S = \{5\}}$$</li>
+</ol>
+<h3>🪤 Sandbox: Debugowanie równania liniowego krok po kroku</h3>
+<p>Dobrze wiem że możesz poprawnie wskazać wynik $\textcolor{#ff0004}{S}$, ale pamiętaj liczy się proces. Wynik uzyskany bez przedstawienia kroków procesu jest nic nie warty.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Równanie liniowe: $3x + 5 = 20$">
+  <div 
+    data-step="1" 
+    data-expected="3x = 15" 
+    data-label="Zdejmij offset ($+5$) odejmując go od obu stron (L=P):"
+    data-hints='{"ASYMMETRY_ERROR": "💡 Symetria utracona! Wykonałeś operację na lewej stronie, ale zapomniałeś o prawej. Balans został utracony.", "ILLEGAL_MUTATION": "💡 Nielegalna mutacja! Próbujesz odjąć 5 tylko od x. Musisz odjąć od CAŁEJ strony (pamiętaj o nawiasach!)." }'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="x = 5" 
+    data-label="Cofnij transformację mutacji ($3x$) dzieląc obie strony przez współczynnik (L=P):"
+    data-hints='{"ASYMMETRY_ERROR": "💡 Pamiętaj: dzielisz obie strony przez 3, aby zachować balans.", "STRUCTURE_MISMATCH": "💡 Cel osiągnięty: \\(x\\) musi być odizolowany."}'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🧠 Obserwacja i zdefiniowanie intuicji</h3>
+<p>Dlaczego jesteś w stanie przy równaniu liniowym poprawnie „zgadnąć” wartość dla $\textcolor{#ff0004}{x}$?<br>Ponieważ widząc równanie liniowe $\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c}$ od razu dokonujesz przekształcenia by poznać niewiadomą $\textcolor{#ff0004}{x}$. Dobrze to obrazuje ten wzór: </p>
+<p>$$\textcolor{#ff0004}{x} = \frac{\textcolor{#ff0003}{c} - \textcolor{#ff0002}{b}}{\textcolor{#ff0001}{a}}$$</p>
+<p>Podstawiasz wartości i masz wynik 😉.</p>
+<p>Bardzo sprytnie wykonałeś dwa przekształcenia w jednym procesie myślowym 😏:</p>
+<ol>
+<li>$$\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c} \quad \textcolor{#ff0002}{| -b}$$<br>$$\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} = \textcolor{#ff0003}{c} - \textcolor{#ff0002}{b}$$</li>
+<li>$\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} = \textcolor{#ff0003}{c} - \textcolor{#ff0002}{b} \quad \textcolor{#ff0002}{| :a}$<br>$$\textcolor{#ff0004}{x} = \frac{\textcolor{#ff0003}{c} - \textcolor{#ff0002}{b}}{\textcolor{#ff0001}{a}}$$</li>
+</ol>
+<p>To co uzyskałeś to przekształcenie równania liniowego na wyrażenie algebraiczne. Jak dobrze pamiętasz powyższy wzór jest bardzo ryzykowny. Co gdyby $\textcolor{#ff0001}{a} = 0$? Wtedy otrzymamy dzielenie przez zero, które jest niedozwoloną operacją. </p>
+<p>Jednakże to ryzyko w równaniach liniowych nie występuje, ponieważ gdyby $\textcolor{#ff0001}{a}=0$ to od razu mamy wynik $\textcolor{#ff0002}{b} = \textcolor{#ff0003}{c}$</p>
+<h3>🔬 Co gdy składowe równania są wyrażeniami algebraicznymi?</h3>
+<p>W przypadkach operowania na liczbach równania liniowe są wręcz trywialne w swoim rozwiązaniu. Inaczej jest gdy składowe równania są wyrażeniami algebraicznymi. Wtedy w grę wchodzi cała wcześniejsza procedura. 🧐</p>
+<p>Dokonajmy analizy kontraktu: $$\frac{x + 2}{x - 1} = 2$$. </p>
+<p>To już nie wygląda Ci jak kanoniczy wzór równania liniowego $\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c}$ i technicznie rzecz biorąc masz rację. Jest to równanie wymierne ($\mathbb{Q}$). Jednakże czy to oznacza że nie ma zastosowania procedura analizy równania i przejścia do formy kanonicznej? 🤔</p>
+<hr>
+<p>Wykorzystajmy poznaną już procedurę do rozwiązywania tego przypadku:</p>
+<ol>
+<li><p><em>Wyznacz dziedzinę ($D$):</em><br>Domyślnie zakładamy, że akceptujemy wszystkie liczby rzeczywiste ($D = \mathbb{R}$), a następnie nałożymy filtr zbioru wartości, dla których moglibyśmy dokonać operacji niedozwolonych.</p>
+</li>
+<li><p><em>Określ stany brzegowe (Firewall):</em><br>Zastanówmy się, jakie $\textcolor{#ff0004}{x}$ spowodowałoby ryzyko dzielenia przez zero i wykluczmy te wartości z naszej dziedziny.<br>Ułamek to ładniejsza forma zapisu dzielenia licznika przez mianownik, więc jaka wartość $\textcolor{#ff0004}{x}$ podstawiona w mianowniku da nam $0$? 😉<br>W naszym przypadku jest to $\textcolor{#ff0004}{x}=1$ ($$x - 1 = 0 \to 1 - 1 = 0$$). Zatem odrzucamy tą wartość z naszej dziedziny:<br>$$\textcolor{#ff0002}{D} = \mathbb{R}\setminus\{1\}$$</p>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Pamiętaj że dziedzina to <strong>zbiór</strong> więc wykluczając wartości z dziedziny koniecznie musisz zapisać je w nawiasach klamrowych <strong>$\{\}$</strong>.</p>
+
+</div>
+</div><ol start="3">
+<li><em>Przekształć równanie do postaci kanonicznej</em> ($\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{b} = \textcolor{#ff0003}{c}$).</li>
+</ol>
+<p>W formie kanonicznej nie mamy ułamka więc najprostszą operacją przekształcenia będzie obustronne pomnożenie przez mianownik, czyli $$x - 1$$. Oczywiście musimy dodać adnotację $$\textcolor{#ff0002}{D} = \mathbb{R} \setminus \{1\}$$</p>
+<p>Zapisujemy:<br>$$\frac{x + 2}{x - 1} = 2 \quad | \cdot (x - 1) \quad \quad \quad \quad \quad \quad \textcolor{#ff0002}{D} = \mathbb{R} \setminus \{1\}$$</p>
+<p>Wykonujemy operację:<br>$$\frac{x + 2}{x - 1} \cdot (x - 1) = 2 \cdot (x - 1) \quad \quad \quad \textcolor{#ff0002}{D} = \mathbb{R} \setminus \{1\}$$</p>
+<p>Uzyskujemy postać kanoniczną $x + 2 = 2(x - 1)$ gdzie:</p>
+<ul>
+<li>$L=$ $\textcolor{#ff0001}{a}\textcolor{#ff0004}{x} + \textcolor{#ff0002}{b} \implies (x + 2)$</li>
+<li>$P= $ $\textcolor{#ff0003}{c} \implies 2(x - 1)$</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<h3>🌊 Normalizacja Sygnału: NWW vs Ułamki</h3>
+<p>Ułamki w równaniu to „szum”, który utrudnia izolację danych. Najskuteczniejszą metodą jest <strong>Normalizacja Sygnału</strong> poprzez pomnożenie całego kontraktu przy pomocy <strong>NWW</strong> mianowników.</p>
+<p><strong>Przykład:</strong> $$\frac{\textcolor{#ff0004}{x}}{\textcolor{#ff0001}{2}} + \frac{\textcolor{#ff0004}{x}}{\textcolor{#ff0001}{3}} = \textcolor{#ff0003}{10} \quad |\cdot 6$$</p>
+<p>$$6 \cdot \frac{\textcolor{#ff0004}{x}}{\textcolor{#ff0001}{2}} + 6 \cdot \frac{\textcolor{#ff0004}{x}}{\textcolor{#ff0001}{3}} = 6 \cdot \textcolor{#ff0003}{10} \implies \textcolor{#ff0001}{3}\textcolor{#ff0004}{x} + \textcolor{#ff0001}{2}\textcolor{#ff0004}{x} = \textcolor{#ff0003}{60} \implies \textcolor{#ff0001}{5}\textcolor{#ff0004}{x} = \textcolor{#ff0003}{60} \implies \textcolor{#ff0004}{x} = \textcolor{#ff0003}{12}$$</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Pamiętaj o pomnożeniu <strong>każdego</strong> składnika równania, w tym stałych (liczb stojących samodzielnie). Zapomnienie o stałej niszczy symetrię układu.</p>
+
+</div>
+</div>
+</div>
+</div><p>Teraz możemy przejść do klasycznego rozwiązywania równań:</p>
+<p>Przemnażamy nawias w prawej stronie równania:</p>
+<blockquote>
+<p>$$x + 2 = 2(x - 1) \implies x + 2 = 2x - 2$$ </p>
+</blockquote>
+<p>Przenosimy składowe równania z zmianą znaku na przeciwny by uzyskać porównanie niewiadomych z liczbami:</p>
+<blockquote>
+<p>$$x + 2 = 2x - 2 \implies x - 2x = -2 -2$$ </p>
+</blockquote>
+<p>Szukamy $x$, a uzyskaliśmy $-x$, więc mnożymy całe równanie przez $-1$, bo jedynka nic nie zmieni, a para minusów w operacji daje nam plus:</p>
+<blockquote>
+<p>$$-x = -4 \quad | \cdot (- 1) \quad \implies x = 4$$ </p>
+</blockquote>
+<p>Wiemy już że w równaniu liniowym mamy jedno albo zero rozwiązań. W rezultacie nasze rozważania dobiegły końca i pozostało nam tylko sprawdzić czy uzyskany wynik nie koliduje z którąś wartością ze zbioru dziedziny <span style="white-space: nowrap;">$\textcolor{#ff0002}{D} = \mathbb{R} \setminus \{1\}$.</span></p>
+<p>$$4 \neq 1 \quad \checkmark \iff 4 \in \mathbb{R} \setminus \{1\} \quad \checkmark$$</p>
+<p>Podsumowanie:<br>Równanie wymierne $$\frac{x + 2}{x - 1} = 2$$ posiada dziedzinę: $\textcolor{#ff0002}{D=\mathbb{R}\setminus\{1\}}$ i zbiór rozwiązań: $\textcolor{#ff0004}{S=\{4\}}$</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<h4>🔴 Zbrodnia na Runtime</h4>
+<p>Zanim podzielisz przez $\textcolor{#ff0001}{a}$, musisz mieć pewność, że $\textcolor{#ff0001}{a} \neq 0$. Dzielenie przez zero to prosta droga do zawieszenia logiki wywodu.</p>
+<h4>✅ Weryfikacja: Unit Testing</h4>
+<p>Sprawdzenie wyniku to nic innego jak Dowód Wprost dla konkretnego przypadku. Jeśli Twój wynik to x=12, podstaw go do oryginalnego zapytania i sprawdź, czy relacja L=P jest prawdziwa. Brak weryfikacji to wypuszczenie kodu bez testów jednostkowych.</p>
+
+</div>
+</div><hr>
+<h3>🔗 Połącz Pary: Równania Liniowe z zbiorem rozwiązania</h3>
+<data-gate>
+<data-connection-matcher>
+    <item left="$5x+2=17$" right="$\textcolor{#ff0002}{D=\mathbb{R}},\quad \textcolor{#ff0004}{S=\{3\}}$"></item>
+    <item left="$4x+5=69$" right="$\textcolor{#ff0002}{D=\mathbb{R}},\quad \textcolor{#ff0004}{S=\{16\}}$"></item>
+    <item left='<span style="font-size:1.4rem">$\frac{x+5}{x-1}$</span> $= 4$' right="$\textcolor{#ff0002}{D=\mathbb{R}\setminus\{1\}},\quad \textcolor{#ff0004}{S=\{3\}}$"></item>
+    <item left='<span style="font-size:1.4rem">$\frac{5x+3}{x}$</span> $= 5.5$' right="$\textcolor{#ff0002}{D=\mathbb{R}\setminus\{0\}},\quad \textcolor{#ff0004}{S=\{6\}}$"></item>
+    <item left='$\sqrt{5x+1}=x+1$' right="$\textcolor{#ff0002}{D=\mathbb{R}},\quad \textcolor{#ff0004}{S=\{4\}}$"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3>🔬 Stany Brzegowe: Diagnoza Logiczna</h3>
+<p>Nie każde zapytanie zwraca jeden punkt. Systemy mogą wpadać w stany anomalne, które musisz zdiagnozować jako inżynier, korzystając z pojęć <strong>Modułu 1 (Logika)</strong> oraz <strong>Modułu 2 (Dowody)</strong>.</p>
+<h4>🔴 Case 1: Sprzeczność</h4>
+<p>Podczas izolacji niewiadoma $\textcolor{#ff0004}{x}$ zostaje całkowicie zredukowana ($0 = 3$), a to, co zostaje, jest <strong>kłamstwem logicznym</strong> ($\bot$).</p>
+<ul>
+<li><strong>Diagnoza:</strong> Zapytanie jest sprzeczne. Żaden stan wejściowy nie spełnia kontraktu.</li>
+<li><strong>Wniosek formalny:</strong> $\forall {\textcolor{#ff0004}{x} \in \mathbb{R}}: \bot$ (Dla każdego $x$ otrzymujemy fałsz).</li>
+<li><strong>Zbiór rozwiązań:</strong> $S = \emptyset$.</li>
+</ul>
+<p>Wydedukuj stany po refaktoryzacji i zobacz sprzeczności:</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$2x + 5 = 2x + 4$</td>
+<td align="center">$x + 1 = x$</td>
+<td align="center">$3(x + 1) = 3x + 5$</td>
+<td align="center">$10 - x = 12 - x$</td>
+<td align="center">$2(x + 4) = 2x + 10$</td>
+</tr>
+</tbody></table>
+<h4>🟢 Case 2: Tożsamość</h4>
+<p>Zmienna $\textcolor{#ff0004}{x}$ znika, ale zostaje prawda logiczna (np. $\textcolor{#ff0001}{0 = 0}$, $\textcolor{#ff0004}{6 = 6}$, $\textcolor{#ff0002}{x = x}$).</p>
+<ul>
+<li><strong>Diagnoza:</strong> Równanie jest <strong>tautologią</strong> ($\top$). Obie strony od początku opisywały ten sam stan.</li>
+<li><strong>Wniosek formalny:</strong> $\forall {\textcolor{#ff0004}{x} \in D}: \top$ (Dla każdego $x$ należącego do dziedziny otrzymujemy prawdę).</li>
+<li><strong>Zbiór rozwiązań:</strong> $S = D$ (Wszystkie liczby, które przepuścił Firewall).</li>
+</ul>
+<p>Wydedukuj stany po refaktoryzacji i zobacz tożsamości:</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$2x + 4 = 2(x + 2)$</td>
+<td align="center">$x + x = 2x$</td>
+<td align="center">$3x + 5 - x = 2x + 5$</td>
+<td align="center">$x - x = 0$</td>
+<td align="center">$2(x - 3) = 2x - 6$</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🚀 Stacja Treningowa: Debugowanie Systemów Liniowych</h3>
+<p>Czas na ostateczny audyt Twoich kompetencji. Rozwiąż poniższe zadania, przechodząc przez pełny stos technologiczny: <strong>Firewall</strong> $\rightarrow$ <strong>Normalizacja</strong> $\rightarrow$ <strong>Izolacja</strong> $\rightarrow$ <strong>Weryfikacja</strong>.</p>
+<h4>Poziom 1: Synchronizacja Klastrów (NWW + Pułapka znaku)</h4>
+<p>W tym zadaniu musisz znormalizować sygnał przy użyciu NWW i uniknąć błędu asymetrii przy stałych.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Zadanie 1: $\frac{\textcolor{#ff0004}{x}+3}{2} - \frac{\textcolor{#ff0004}{x}-2}{3} = 2$">
+  <div 
+    data-step="1" 
+    data-strict="false"
+    data-expected="3(x+3) - 2(x-2) = 12" 
+    data-label="Znormalizuj sygnał mnożąc obie strony przez $NWW(2,3)=6$ (zachowaj nawiasy):"
+    data-hints='{
+      "ASYMMETRY_ERROR": "💡 Balans utracony! Wykonałeś operację tylko na jednej stronie kontraktu. Pamiętaj, aby pomnożyć KAŻDY składnik równania (również stałe) przez 6.",
+      "FORM_MISMATCH": "💡 Poprawna normalizacja. Jednak dla bezpieczeństwa zapisz postać z nawiasami. To chroni Cię przed błędną inwersją znaków w kolejnym kroku."
+    }'>
+  </div>
+  <div 
+    data-step="2" 
+    data-strict="false"
+    data-expected="3x + 9 - 2x + 4 = 12" 
+    data-label="Pozbądź się nawiasów (uważaj na inwersję znaku przy $-2$):"
+    data-hint-wrong="-2x-4:⚠️ Pułapka znaku! Sprawdź wynik mnożenia dwóch wartości ujemnych."
+    data-hints='{
+      "CALCULATION_ERROR": "💡 Sprawdź dystrybucję sygnału. Uważaj szczególnie na znaki przy wymnażaniu drugiego nawiasu.",
+      "VARIABLE_MISMATCH": "💡 Pamiętaj o pomnożeniu współczynnika przez każdy element wewnątrz nawiasu."
+    }'>
+  </div>
+  <div 
+    data-step="3" 
+    data-strict="false"
+    data-expected="x + 13 = 12" 
+    data-label="Zredukuj wyrazy podobne (refaktoryzacja lewej strony):"
+    data-hints='{
+      "CALCULATION_ERROR": "💡 Sprawdź sumowanie stałych oraz redukcję współczynników przy zmiennej.",
+      "VARIABLE_MISMATCH": "💡 Sumuj kontenery tego samego typu: x do x, stałe do stałych."
+    }'>
+  </div>
+  <div 
+    data-step="4" 
+    data-expected="x = -1" 
+    data-label="Odizoluj niewiadomą $\textcolor{#ff0004}{x}$ (werdykt):"
+    data-hints='{
+      "VARIABLE_MISMATCH": "💡 Przenosząc stałą na drugą stronę kontraktu, musisz zmienić jej znak na przeciwny.",
+      "CALCULATION_ERROR": "💡 Wykonaj końcowe odejmowanie, aby wyznaczyć stan wejściowy."
+    }'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<h4>Poziom 2: Logiczny Firewall (Krytyczna Walidacja)</h4>
+<p>Sprawdź, czy system jest stabilny, zanim zaakceptujesz wynik. Firewall to Twoja pierwsza linia obrony.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Zadanie 2: $\frac{2\textcolor{#ff0004}{x}+4}{\textcolor{#ff0004}{x}+2} = 3$">
+  <div 
+    data-step="1" 
+    data-expected="D = \mathbb{R} \setminus \{-2\}" 
+    data-label="Zdefiniuj dziedzinę równania (Firewall):"
+    data-hints='{
+      "SET_MISMATCH": "💡 Błąd w punkcie krytycznym. Sprawdź, dla jakiej wartości mianownik przyjmuje stan zerowy.",
+      "FORM_MISMATCH": "💡 Firewall musi być precyzyjnie zdefiniowany. Użyj zapisu zbioru: D = \\mathbb{R} \\setminus \\{ x_0 \\}.",
+      "LOGIC_ERROR": "💡 Pamiętaj, że Firewall wyklucza tylko te wartości, które powodują operację niedozwoloną (dzielenie przez zero)."
+    }'>
+  </div>
+  <div 
+    data-step="2" 
+    data-strict="false"
+    data-expected="2x + 4 = 3(x + 2)" 
+    data-label="Znormalizuj sygnał mnożąc obie strony przez mianownik ($L=P$):"
+    data-hints='{
+      "ASYMMETRY_ERROR": "💡 Balans utracony! Wykonałeś operację tylko na jednej stronie kontraktu. Pamiętaj, aby pomnożyć każdy element (również stałe) przez mianownik.",
+      "STRUCTURE_MISMATCH": "💡 Wyeliminuj ułamek mnożąc obie strony przez mianownik. Pamiętaj o nawiasach dla zachowania struktury strony."
+    }'>
+  </div>
+  <div 
+    data-step="3" 
+    data-strict="false"
+    data-expected="x = -2" 
+    data-label="Izoluj niewiadomą $\textcolor{#ff0004}{x}$:"
+    data-hints='{
+      "VARIABLE_MISMATCH": "💡 Pamiętaj o zmianie znaków przy przenoszeniu elementów na drugą stronę znaku równości.",
+      "CALCULATION_ERROR": "💡 Sprawdź dystrybucję sygnału (mnożenie przez nawias) oraz późniejszą redukcję wyrazów podobnych."
+    }'>
+  </div>
+  <div 
+    data-step="4" 
+    data-expected="S = \emptyset" 
+    data-label="Werdykt końcowy (Zbiór $S$) — zweryfikuj wynik z zasadami Firewalla:"
+    data-hints='{
+      "LOGIC_ERROR": "⚠️ Krytyczna niespójność! Porównaj uzyskany wynik z zasadami Firewalla zdefiniowanymi na starcie procesu.",
+      "SET_MISMATCH": "💡 Jeśli wynik obliczeń został odrzucony przez Firewall, zbiór rozwiązań musi odzwierciedlać brak poprawnych stanów wejściowych."
+    }'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<h4>Poziom 3: Diagnoza Stanu (Analiza Tożsamości)</h4>
+<p>Nie każde zapytanie zwraca unikalny punkt. Zdiagnozuj zachowanie tego układu.<br>Równanie: $4(\textcolor{#ff0004}{x}-1) = 2(2\textcolor{#ff0004}{x}-2)$</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Zadanie 3: $4(\textcolor{#ff0004}{x}-1) = 2(2\textcolor{#ff0004}{x}-2)$">
+  <div 
+    data-step="1" 
+    data-expected="4x - 4 = 4x - 4" 
+    data-label="Uprość struktury kontraktu (dystrybucja sygnału):"
+    data-hints='{
+      "CALCULATION_ERROR": "💡 Sprawdź dystrybucję sygnału. Pamiętaj, aby pomnożyć współczynnik przez KAŻDY element wewnątrz nawiasu po obu stronach.",
+      "VARIABLE_MISMATCH": "💡 Uważaj na znaki przy wymnażaniu. Sprawdź, czy po redukcji obie strony kontraktu opisują ten sam stan."
+    }'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="S = \mathbb{R}" 
+    data-label="Zdiagnozuj stan końcowy (Werdykt) $S=...$:"
+    data-hints='{
+      "LOGIC_ERROR": "💡 Zauważ, że obie strony są identyczne (tautologia). Oznacza to, że system jest w pełni redundantny.",
+      "SET_MISMATCH": "💡 Skoro każda wartość spełnia warunek L=P, zbiór rozwiązań musi obejmować wszystkie liczby dopuszczone przez Firewall."
+    }'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li><strong>Równanie to Kontrakt</strong> między wejściem a wyjściem układu ($L=P$),</li>
+<li><strong>Wzmocnienie ($a$) i Bias ($b$)</strong> to parametry transformacji zmiennej $x$,</li>
+<li><strong>Firewall (Dziedzina)</strong> musi zostać wdrożony <em>przed</em> analizą, aby uniknąć błędów krytycznych,</li>
+<li><strong>Zbiór Rozwiązań ($S$)</strong> to werdykt końcowy po przejściu przez walidację,</li>
+<li><strong>Normalizacja (NWW)</strong> to klucz do czyszczenia szumu w równaniach wymiernych.</li>
+</ul>
+<hr>
+<p>W kolejnej lekcji zajmiemy się <strong>Układami Równań</strong>, gdzie wiele kontraktów musi zostać spełnionych jednocześnie, co wymaga wyższych poziomów korelacji danych i eliminacji zmiennych. 🚀🦾</p>

@@ -1,0 +1,58 @@
+<h2>Bity, Bajty i Realne Prędkości</h2>
+<p>Wiesz już, co to jest bit (najmniejszy impuls) i dlaczego informatyka kocha potęgi dwójki. Teraz nauczymy się, jak te bity są pakowane w jednostki, które widzisz na co dzień w smartfonie, na Steamie czy w reklamach internetu.</p>
+<h3>📦 Pakiet w proporcji $1$:$8$</h3>
+<p>Bity to luźne impulsy. Przesyłanie ich pojedynczo byłoby chaosem. Dlatego informatycy umówili się na standard:<br><strong><em>$1$ Bajt</em> (<em>B</em>) zawsze składa się z <em>$8$ bitów</em> (<em>b</em>)</strong>.</p>
+<p>To jak pudełko jajek. Możesz mieć $1$ jajko (<em>bit</em>), ale sklep (system) sprzedaje i liczy je w całych pudełkach (<em>Bajtach</em>).</p>
+<hr>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zapamiętaj różnicę w zapisie:</p>
+<ul>
+<li><strong>b</strong> (małe): bit -&gt; impuls (sieć/światłowód)</li>
+<li><strong>B</strong> (duże): Bajt -&gt; waga (dysk/pamięć RAM)</li>
+</ul>
+
+</div>
+</div><h3>📡 Scam czy Matematyka? (Analiza ISP)</h3>
+<p>Dostawcy internetu (<strong><em>ISP</em></strong> - <em>Internet Service Provider</em>) uwielbiają podawać prędkości w <strong>Mega&#8209;bitach</strong> ($Mb/s$). Dlaczego?<br>Bo liczba $1000$ $Mb/s$ wygląda $8$ razy potężniej na billboardzie niż $125$ $MB/s$.</p>
+<p>Z kolei programy takie jak $Steam$, przeglądarka czy $qBittorrent$, pokazują prędkość w <strong>Mega&#8209;Bajtach</strong> ($MB/s$), by zobrazować Ci jak szybko plik &quot;puchnie&quot; na Twoim dysku.</p>
+<h4>Wzór na czas oczekiwania do pobrania</h4>
+<p>Aby dowiedzieć się, jak szybko realnie ściągniesz grę, zawsze wykonaj operację dzielenia:  </p>
+<p><em><strong>$$\text{Czas (s)} = \frac{\text{Rozmiar pliku (MB)}}{\text{Prędkość pobierania (MB/s)}}$$</strong></em></p>
+<h4>Wzór na prędkość pobierania</h4>
+<p>Jeśli masz już znaną prędkość pobierania, możesz obliczyć czas oczekiwania do pobrania:  </p>
+<p><strong><em>$$\left(\text{Prędkość (MB/s)} = \frac{\text{Rozmiar pliku (MB)}}{\text{Czas (s)}}\right) \div 8 = \text{Prędkość (Mb/s)}$$</em></strong></p>
+<hr>
+<p>Do ręcznego przeliczania wielkości polegamy na proporcji $1:8$ i operacji dzielenia lub mnożenia, lecz w głowie bywa to uciążliwe.  </p>
+<p>Właśnie dlatego informatycy automatyzują proces. Zamiast liczyć ręcznie, wypróbuj poniższy <strong>Symulator ISP</strong>!</p>
+<p><data-transfer-speed></data-transfer-speed></p>
+<p><data-gate></data-gate></p>
+<h3>💾 Zagadka Brakującego Miejsca</h3>
+<p>Kupiłeś kartę pamięci 64 GB, a telefon pokazał 59.6 GB? To wynika z konfliktu systemów:</p>
+<ol>
+<li><strong>Ludzki (Producenci - Norma SI)</strong>: Liczą $1 KB$ (Kilobajt) jako $1000$ B. ($1000 = 10^3$)</li>
+<li><strong>Binarny (Systemy np. Windows)</strong>: Liczą $1 KB$ jako $1024$ B. ($1024 = 2^{10}$)</li>
+</ol>
+<p>Poprawną, współczesną nazwą dla $1024$ B w standardzie IT i systemach takich jak Linux jest <strong>Kibibajt (KiB)</strong>. Jednakże producenci sprzętu trzymają się przedrostka &quot;Kilo&quot; dla $1000$, a Windows ze względów historycznych używa u siebie &quot;KB&quot; lecz realnie pokazując wartość &quot;KiB&quot;.</p>
+<p>Przy większych jednostkach (GB) ta różnica narasta do kilku procent. To nie błąd dysku – to po prostu inna &quot;miarka&quot;.</p>
+<data-gate>
+  <data-quiz>
+    <question>
+Dlaczego system operacyjny liczy kilo-bajty jako 1024 bajty, a nie równe 1000?
+    </question>
+    <options>
+      <option correct>Ponieważ 1024 to $2^{10}$, co pozwala procesorowi na bezpośrednie i szybkie adresowanie pamięci bez skomplikowanych konwersji.</option>
+      <option>To błąd z przeszłości, którego nikt nie chciał naprawić.</option>
+      <option>Producentom zależy, abyśmy widzieli mniejsze liczby.</option>
+    </options>
+
+<div data-hint="error">
+  Pamiętaj o "gloryfikacji dwójki" z poprzedniej lekcji. Czy procesorowi łatwiej operować na okrągłych dziesiątkach, czy na potęgach dwóch?
+</div>
+  </data-quiz>
+</data-gate>
+
+<p>Teraz, gdy wiesz już, jak ważyć dane i mierzyć ich prędkość, wejdziemy o poziom wyżej. Zobaczysz, jak informatycy skracają sobie te długie ciągi zer i jedynek za pomocą systemów <strong>Octal</strong> i <strong>Hex</strong>.</p>

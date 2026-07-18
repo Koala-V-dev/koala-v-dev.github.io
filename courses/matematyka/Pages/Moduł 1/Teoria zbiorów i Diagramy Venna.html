@@ -1,0 +1,356 @@
+<h2>Teoria Zbiorów: Relacje i przestrzenie danych</h2>
+<p>Do tej pory pracowaliśmy na pojedynczych sygnałach (<strong>1/0</strong>). Teraz wchodzimy na wyższy poziom – zajmiemy się grupami obiektów. </p>
+<p>Teoria zbiorów to podstawa. To na niej opierają się bazy SQL, systemy uprawnień czy systemy typów w Twoim ulubionym języku programowania. Zamiast pytać: „czy ten sygnał jest wysoki?”, będziemy sprawdzać: <strong>„Czy ten element pasuje do mojej grupy?”</strong>.</p>
+<hr>
+<h3>📦 Co to jest zbiór?</h3>
+<p>Zbiór to po prostu worek z unikalnymi elementami. Kolejność nie ma znaczenia, a duplikaty są ignorowane – dodanie czegoś, co już tam jest, nic nie zmienia.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Idempotentność</strong>: W informatyce dodawanie elementu do zbioru jest operacją idempotentną. Zbiór $\{1, 2, 2, 3\}$ to to samo co $\{1, 2, 3\}$. System po prostu olewa duplikaty. To Twoja pierwsza linia obrony przed śmieciowymi danymi.</p>
+
+</div>
+</div><ul>
+<li><strong>Zapis</strong>: Zbiory oznaczamy wielkimi literami ($A, B, \Omega$), a ich zawartość zamykamy w klamrach $\{ \dots \}$.</li>
+<li><strong>Przynależność</strong> (<em><strong>$\in$</strong></em>): Jeśli element $x$ jest w zbiorze $A$, piszemy $x \in A$. Jeśli go nie ma: $x \notin A$.</li>
+</ul>
+<data-gate>
+<data-quiz>
+  <question>Masz zbiór identyfikatorów $C = \{1, 2, 3\}$. Jak zmieni się liczba elementów tego zbioru po próbie dodania elementu '$2$'?</question>
+  <options>
+    <option>Wzrośnie do $4$ elementów.</option>
+    <option correct>Pozostanie bez zmian ($3$ elementy).</option>
+    <option>Zbiór zostanie nadpisany nową wartością.</option>
+    <option>Operacja zostanie odrzucona jako błąd krytyczny.</option>
+  </options>
+  <div data-hint="error">Pamiętaj o zasadzie unikalności. Zbiór nie przechowuje duplikatów.</div>
+  <div data-hint="success">Dokładnie. Liczy się obecność typu, a nie liczba wystąpień.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🌌 Przestrzeń Ω: Granice systemu</h3>
+<p>Zanim cokolwiek policzysz, musisz ustalić granice. W teorii zbiorów nazywamy to <strong>Przestrzenią $\Omega$</strong> (Omega) — czyli dziedziną, w której porusza się Twój system.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Koniunkcja Sfer</strong>: Jeśli znasz <em>Wiedźmina</em>, potraktuj $\Omega$ jako całe multiwersum. Zbiory $A$ i $B$ to poszczególne sfery (ludzi i elfów). Kiedy się nakładają, mamy część wspólną — potwory przenikające do naszego wymiaru! </p>
+
+</div>
+</div><p>Bez jasnych granic „wszechświata” ($\Omega$) nie wiadomo, co właściwie jest poza zbiorem. Musisz wiedzieć, gdzie kończy się Twoja piaskownica, żeby nie liczyć „wszystkiego we wszechświecie”.</p>
+<hr>
+<h3>🎨 Diagramy Venna: Wizualizacja danych</h3>
+<p>Diagramy Venna to najprostszy sposób, żeby „zobaczyć” relacje między grupami danych, zanim zaczniesz pisać skomplikowany kod SQL czy reguły dostępu.</p>
+<p>Każdy region to konkretny stan:</p>
+<ul>
+<li><strong>Wewnątrz koła $A$</strong>: Obiekty spełniające warunek $A$.</li>
+<li><strong>Część wspólna ($A \cap B$)</strong>: Obiekty spełniające oba warunki naraz (np. miecze, które są i srebrne, i ostre).</li>
+<li><strong>Poza kołami (w prostokącie $\Omega$)</strong>: Elementy, które pasują do kontekstu, ale nie do żadnej z grup (np. NPC, który nie jest ani wrogiem, ani sojusznikiem).</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Dobra rada</strong>: Zanim napiszesz skomplikowany <code>JOIN</code> w SQL, narysuj to sobie. Jeśli nie potrafisz tego zwizualizować, Twoja logika biznesowa prawdopodobnie jest mętna i sam się w niej pogubisz.</p>
+
+</div>
+</div><hr>
+<h3>📎 Operacje na zbiorach</h3>
+<p>Operacje na zbiorach to w praktyce bramki logiczne zastosowane do całych grup elementów.</p>
+<h4>🤝 Część wspólna ($A \cap B$) — Iloczyn Logiczny</h4>
+<p>Zostają tylko te elementy, które należą <strong>jednocześnie</strong> do obu zbiorów. To najbardziej rygorystyczna operacja.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Analogia: Procedura 2FA</strong>. Wyobraź sobie system wystrzelenia rakiety 🚀. Aby operacja się powiodła ($A \cap B$), potrzebne są dwa klucze przekręcone jednocześnie przez dwóch oficerów. Brak jednego klucza ($x \notin A$ lub $x \notin B$) zabija cały proces. To czysty <code>AND</code>.</p>
+
+</div>
+</div><ul>
+<li><strong>Logika</strong>: $x \in (A \cap B) \iff (x \in A \land x \in B)$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Symbol</th>
+<th align="left">Nazwa</th>
+<th align="left">Zapis LaTeX</th>
+<th align="left">Operacja SQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\cap$</td>
+<td align="left">Iloczyn (przekrój)</td>
+<td align="left"><code>\cap</code></td>
+<td align="left"><code>INNER JOIN</code></td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-venn-diagram sets="2" task="A \cap B"></data-venn-diagram>
+</data-gate>
+
+<h4>➕ Unia ($A \cup B$) — Suma Zbiorów</h4>
+<p>Łączymy wszystko z obu grup. To operacja inkluzywna.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Analogia: Unia Lubelska</strong>. To scalenie zasobów dwóch mocarstw (Korony i Litwy) w jedną całość. Każdy obywatel należał do unii, jeśli był obywatelem Korony <strong>LUB</strong> Litwy.</p>
+
+</div>
+</div><ul>
+<li><strong>Logika</strong>: $x \in (A \cup B) \iff (x \in A \lor x \in B)$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Symbol</th>
+<th align="left">Nazwa</th>
+<th align="left">Zapis LaTeX</th>
+<th align="left">Operacja SQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\cup$</td>
+<td align="left">Suma zbiorów</td>
+<td align="left"><code>\cup</code></td>
+<td align="left"><code>UNION</code></td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-venn-diagram sets="2" task="A \cup B"></data-venn-diagram>
+</data-gate>
+
+<h4>✂️ Różnica ($A \setminus B$) — Wykluczenie</h4>
+<p>Zabieramy ze zbioru $A$ wszystko, co ma jakikolwiek związek ze zbiorem $B$. </p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Analogia: Spór o miedzę</strong>. Jeśli sąsiad ($B$) twierdzi, że kawałek Twojego pola ($A$) należy do niego, a sąd mu przyzna rację, musisz ten kawałek „wyciąć”. To, co Ci zostanie, to czysta różnica $A \setminus B$. </p>
+
+</div>
+</div><ul>
+<li><strong>Logika</strong>: $x \in (A \setminus B) \iff (x \in A \land x \notin B)$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Symbol</th>
+<th align="left">Nazwa</th>
+<th align="left">Zapis LaTeX</th>
+<th align="left">Operacja SQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\setminus$</td>
+<td align="left">Różnica zbiorów</td>
+<td align="left"><code>\setminus</code></td>
+<td align="left"><code>EXCEPT</code></td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-venn-diagram sets="2" task="A \setminus B"></data-venn-diagram>
+</data-gate>
+
+<h4>🕵️‍♂️ Różnica Symetryczna ($A \Delta B$) — Detekcja Rozbieżności</h4>
+<p>Pokazuje elementy, które są <strong>unikalne</strong> dla każdej ze stron. To, co wspólne, ląduje w koszu.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Analogia: Czystka szpiegów</strong>. Masz dwie agencje wywiadowcze ($A$ i $B$). Ich część wspólna to podwójni agenci. Różnica symetryczna to proces usuwania tych zdrajców – zostają tylko lojaliści pracujący dla jednej ze stron. To czysty <strong>XOR</strong>.</p>
+
+</div>
+</div><ul>
+<li><strong>Logika</strong>: $x \in (A \Delta B) \iff (x \in A \oplus x \in B)$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Symbol</th>
+<th align="left">Nazwa</th>
+<th align="left">Zapis LaTeX</th>
+<th align="left">Bramka Logiczna</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\Delta$</td>
+<td align="left">Różnica symetryczna</td>
+<td align="left"><code>\Delta</code></td>
+<td align="left"><code>XOR</code></td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-venn-diagram sets="2" task="A \Delta B"></data-venn-diagram>
+</data-gate>
+
+<hr>
+<h3>🌑 Wszystko inne ($A'$) — Dopełnienie</h3>
+<p>Dopełnienie to wszystko w Przestrzeni $\Omega$, co <strong>nie należy</strong> do zbioru $A$. To po prostu operator <strong>NOT</strong>.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Analogia: Bariera wieku</strong>. Jeśli $\Omega$ to wszyscy ludzie, a zbiór $A$ to niepełnoletni, to dopełnienie $A&#39;$ to osoby, które mogą legalnie kupić alkohol 🍻. Albo jesteś w $A$, albo w $A&#39;$. Trzeciej opcji nie ma.</p>
+
+</div>
+</div><ul>
+<li><strong>Logika</strong>: $x \in A&#39; \iff \neg(x \in A)$</li>
+</ul>
+<data-gate>
+<data-venn-diagram sets="3" task="(A')"></data-venn-diagram>
+</data-gate>
+
+<hr>
+<h3>⚡ Prawa de Morgana: Negacja Przestrzeni</h3>
+<p>To tutaj większość inżynierów popełnia błędy przy pisaniu warunków <code>WHERE</code> w SQL lub <code>if</code> w kodzie. Prawa te mówią, jak zachowuje się negacja (dopełnienie) względem unii i iloczynu.</p>
+<ol>
+<li><strong>Dopełnienie sumy to iloczyn dopełnień</strong>: $(A \cup B)&#39; = A&#39; \cap B&#39;$</li>
+<li><strong>Dopełnienie iloczynu to suma dopełnień</strong>: $(A \cap B)&#39; = A&#39; \cup B&#39;$</li>
+</ol>
+<p><strong>W praktyce</strong>: Jeśli szukasz użytkowników, którzy NIE są (aktywni LUB mają bana), to szukasz osób, które (NIE są aktywne) ORAZ (NIE mają bana).</p>
+<data-gate>
+<data-venn-diagram sets="2" task="(A \cup B)'"></data-venn-diagram>
+</data-gate>
+
+<hr>
+<h3>🏗️ Prawa Rachunku Zbiorów (Twoja optymalizacja)</h3>
+<p>Znajomość tych zasad pozwala na upraszczanie zapytań i struktur danych:</p>
+<ul>
+<li><strong>Idempotentność</strong>: $A \cup A = A$ oraz $A \cap A = A$.</li>
+<li><strong>Przemienność</strong>: $A \cup B = B \cup A$. Kolejność łączenia grup nie ma znaczenia.</li>
+<li><strong>Łączność</strong>: $(A \cup B) \cup C = A \cup (B \cup C)$. </li>
+<li><strong>Rozdzielność</strong>: $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$. Możesz „wnosić” warunki do nawiasu, optymalizując filtry.</li>
+</ul>
+<hr>
+<h3>📏 Moc zbioru: Ile danych mamy w środku?</h3>
+<p>Inżyniera interesuje nie tylko to, co jest w zbiorze, ale też jak duży on jest. <strong>Moc zbioru</strong> (kardynalność) to po prostu liczba jego unikalnych elementów. Oznaczamy ją: $|A|$.</p>
+<h4>🛰️ Problem duplikacji ($|A \cup B|$)</h4>
+<p>Największy błąd to proste dodawanie liczebności dwóch zbiorów ($|A| + |B|$). Jeśli to zrobisz, elementy z części wspólnej policzysz <strong>podwójnie</strong>.</p>
+<p>Musisz odjąć nadmiarowy zestaw części wspólnej:<br>$$|A \cup B| = |A| + |B| - |A \cap B|$$</p>
+<p><strong>Przykład:</strong><br>Masz $100$ użytkowników Linuxa i $80$ użytkowników Windowsa. $30$ osób ma oba systemy (dual boot). Łączna liczba unikalnych osób to:<br>$$100 + 80 - 30 = 150$$</p>
+<hr>
+<h3>📏 Relacje: Element vs Grupa</h3>
+<p>Musisz odróżniać pojedynczy obiekt od całej struktury:</p>
+<ol>
+<li><strong>Należenie ($x \in A$)</strong>: Pojedynczy element jest częścią zbioru.</li>
+<li><strong>Zawieranie ($A \subseteq B$)</strong>: Cała grupa $A$ mieści się wewnątrz grupy $B$.</li>
+</ol>
+<data-gate>
+<data-quiz>
+  <question>Jeśli zbiór $A = \{1, 2\}$ oraz $B = \{1, 2, 3\}$, jaka relacja ich łączy?</question>
+  <options>
+    <option>$A \in B$ (A jest elementem B)</option>
+    <option correct>$A \subseteq B$ (A jest podzbiorem B)</option>
+    <option>$B \subseteq A$ (B zawiera się w A)</option>
+  </options>
+  <div data-hint="error">$A$ to kontener, a nie pojedyncza liczba. Czy kontener może być „elementem” bez bycia częścią całości?</div>
+  <div data-hint="success">Słusznie. $A$ jest podzbiorem $B$, czyli każdy element $A$ jest też elementem $B$.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🧬 Zbiór Potęgowy: Uprawnienia i Bitmaski</h3>
+<p>Zbiór potęgowy $\mathcal{P}(A)$ to wszystkie możliwe podzbiory zbioru $A$. To na tym opierają się systemy uprawnień. Jeśli masz zasoby $\{R, W, X\}$, to zbiór potęgowy określa każdą możliwą kombinację dostępu – od braku uprawnień ($\emptyset$) po pełen dostęp.</p>
+<p>Liczba tych kombinacji rośnie błyskawicznie: $$|\mathcal{P}(A)| = 2^{|A|}$$</p>
+<p><strong>Zastosowanie: Uprawnienia Systemowe (chmod)</strong>:<br>W systemach Unix, uprawnienia są modelowane jako sumy zbioru potęgowego (bitmaski):</p>
+<ul>
+<li>$4$ ($100_2$): READ</li>
+<li>$2$ ($010_2$): WRITE</li>
+<li>$1$ ($001_2$): EXECUTE</li>
+</ul>
+<p>Suma $7$ ($111_2$) to po prostu unia wszystkich trzech zbiorów uprawnień.</p>
+<table>
+<thead>
+<tr>
+<th align="center">READ ($4$)</th>
+<th align="center">WRITE ($2$)</th>
+<th align="center">EXECUTE ($1$)</th>
+<th align="center">Wartość</th>
+<th align="left">Stan logiczny (Podzbiór)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">$0$</td>
+<td align="left">$\emptyset$ (Brak dostępu)</td>
+</tr>
+<tr>
+<td align="center">✔️</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">$4$</td>
+<td align="left">$\{READ\}$</td>
+</tr>
+<tr>
+<td align="center">✔️</td>
+<td align="center">✔️</td>
+<td align="center">❌</td>
+<td align="center">$6$</td>
+<td align="left">$\{READ, WRITE\}$</td>
+</tr>
+<tr>
+<td align="center">✔️</td>
+<td align="center">✔️</td>
+<td align="center">✔️</td>
+<td align="center">$7$</td>
+<td align="left">$\{READ, WRITE, EXECUTE\}$</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🔢 Sandbox: Liczenie unikalnych danych</h3>
+<p>Oblicz liczebność różnicy symetrycznej, pamiętając o usuwaniu części wspólnej.</p>
+<data-gate>
+<data-math-sandbox mode="result" level="basic" data-steps="1" data-label="🧮 Obliczanie kardynalności">
+  <div data-step="1" data-expected="12" data-label="Zbiór $A$ ma $10$ elementów, zbiór $B$ ma $10$ elementów. Mają po $4$ elementy wspólne. <br> Ile unikalnych elementów należy do różnicy symetrycznej ($A \Delta B$)?" data-hint-wrong="20:💡 To suma bez usuwania duplikatów. Różnica symetryczna (\(\Delta\)) to elementy, które są WYŁĄCZNIE w jednym ze zbiorów. Musisz odjąć część wspólną.|16:💡 To unia (\(A \cup B\)). Różnica symetryczna wymaga usunięcia części wspólnej całkowicie z obu zbiorów.|6:💡 To tylko jedna strona różnicy (\(A \setminus B\)). Różnica symetryczna to suma obu takich stron." data-hints='{"LOGIC_ERROR": "💡 Pamiętaj o wzorze: \\\\(|A \\\\Delta B| = |A| + |B| - 2|A \\\\cap B|\\\\). Musisz odjąć część wspólną od obu zbiorów."}'></div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>🏆 Zastosowanie: NWD i NWW</h3>
+<p>Dzielniki i wielokrotności to w praktyce operacje na zbiorach czynników pierwszych:</p>
+<ul>
+<li><strong>NWD</strong> to część wspólna ($\cap$) tych zbiorów.</li>
+<li><strong>NWW</strong> to unia ($\cup$) wszystkich czynników.</li>
+</ul>
+<p><data-lcm-gcf-venn n1="24" n2="36"></data-lcm-gcf-venn></p>
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>zbiór to struktura unikalnych elementów, a operacje na zbiorach działają jak bramki logiczne,  </li>
+<li>przestrzeń $\Omega$ definiuje granice systemu — bez niej nie ma sensu mówić o dopełnieniach,  </li>
+<li>diagramy Venna pozwalają <em>zobaczyć</em> logikę zanim ją zapiszesz,  </li>
+<li>iloczyn ($\cap$), suma ($\cup$), różnica ($\setminus$) i różnica symetryczna ($\Delta$) to odpowiedniki AND, OR, NOT i XOR,  </li>
+<li>prawa de Morgana działają identycznie w logice i w zbiorach,  </li>
+<li>kardynalność ($|A|$) to liczba unikalnych elementów — kluczowa w analizie danych,  </li>
+<li>podzbiory i zbiory potęgowe tworzą fundament systemów uprawnień i bitmask,  </li>
+<li>operacje na zbiorach pozwalają modelować relacje, filtrować dane i optymalizować zapytania SQL.</li>
+</ul>
+<hr>
+<h2>🎉 Milestone: Moduł $1$ — Fundamenty Struktur Opanowane!</h2>
+<p>Przeszedłeś drogę od pojedynczych bitów do pełnych przestrzeni danych.<br>Zbudowałeś <strong>logiczny kręgosłup</strong>, na którym opiera się cała informatyka — od procesorów, przez SQL, po systemy uprawnień i kompilatory.</p>
+<p>Opanowałeś trzy filary myślenia strukturalnego:</p>
+<ol>
+<li><p><strong>Sygnały i Bramki</strong> — rozumiesz, jak działa logika na poziomie fizycznym i symbolicznym.<br>Potrafisz analizować układy, przewidywać ich zachowanie i optymalizować ścieżki sygnałowe.</p>
+</li>
+<li><p><strong>Algebra Boole’a</strong> — potrafisz <em>upraszczać</em>, <em>minimalizować</em> i <em>refaktoryzować</em> logikę.<br>Wiesz, czym różni się równość od tożsamości, a implikacja od równoważności.<br>Znasz prawa, które skracają kod i układy o całe gałęzie.</p>
+</li>
+<li><p><strong>Teoria Zbiorów</strong> — przeszedłeś od wartości do struktur.<br>Rozumiesz unie, przecięcia, różnice, dopełnienia i przestrzeń Ω.<br>Potrafisz modelować relacje, filtrować dane i analizować zbiory tak, jak robi to SQL i systemy typów.</p>
+</li>
+</ol>
+<p>To nie jest „logika szkolna”.<br>To jest <strong>język struktur</strong>, który pozwala opisywać, organizować i kontrolować dowolny system danych.</p>
+<hr>
+<p>Jesteś gotowy na <strong>Moduł $2$ — Algebra i Dowodzenie</strong>. Wchodzimy w abstrakcyjny, algebraicznie świat Kwantyfikatorów ($\forall, \exists$) i rygorystycznego dowodzenia obiektywnej Prawdy. Witaj w świecie dowodów wprost, nie wprost i potężnej indukcji matematycznej... Będzie się działo. 😎 🚀</p>

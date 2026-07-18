@@ -1,0 +1,250 @@
+<h2>Narzędzia rysownicze i wypełnianie</h2>
+<p>Opanowanie koloru to teoria, ale to rysowanie buduje formę. W GIMPie linię możesz stworzyć na dziesiątki sposobów – od technicznie idealnych "schodków" po malarskie, miękkie smugi. Kluczem do profesjonalizmu jest zrozumienie, co dzieje się na krawędzi Twojego pędzla.</p>
+<p>W tym module opanujesz "Wielką Piątkę":</p>
+<ol>
+<li><strong>Ołówek</strong> (Pencil)</li>
+<li><strong>Pędzel</strong> (Brush)</li>
+<li><strong>Gradient</strong> (Gradient)</li>
+<li><strong>Gumka</strong> (Eraser)</li>
+<li><strong>Wypełnianie kubłem</strong> (Bucket Fill)</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/narzedzia_rysowania_i_malowania.webp" alt="Interfejs narzędzi rysowniczych i wypełniania" width="656" height="383" class="lazy-image" loading="lazy" decoding="async">
+
+<h3>✏️ Ołówek vs Pędzel: Aliasing vs Antialiasing</h3>
+<p>Choć oba narzędzia służą do stawiania kresek, różni je fundamentalna matematyka krawędzi na siatce kwadratowych pikseli.</p>
+<ul>
+<li><strong>Ołówek (Pencil)</strong>: To narzędzie <strong>Aliasingowe</strong>. Piksel jest albo w 100% zamalowany, albo wcale. Powoduje to powstawanie charakterystycznych "schodków" na łukach. Idealny do pixel‑artu 👾.</li>
+<li><strong>Pędzel (Brush)</strong>: Narzędzie <strong>Antialiasingowe</strong>. GIMP sprytnie dodaje półprzezroczyste piksele na krawędziach, by wygładzić przejście. Z daleka linia wygląda na idealnie gładką, ale w dużym przybliżeniu zobaczysz delikatne rozmycie.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/porównanie_ołówka_z_pędzlem.webp" alt="Pędzel i ołówek" width="1601" height="898" class="lazy-image" loading="lazy" decoding="async">
+
+<h4>Czym jest Antialiasing?</h4>
+<p>To technika "oszukiwania" oka. Ponieważ ekrany składają się z kwadratowych pikseli, nie da się na nich narysować idealnego skosu, który nie będzie schodkowy. Antialiasing wypełnia puste miejsca pośrednimi kolorami, tworząc iluzję płynności obrazu.<br>Na poniższym obrazku widać literę <code>e</code> z włączonym i wyłączonym antialiasingiem oraz jak wygląda w powiększeniu.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/anti-aliasing_vs_aliasing.webp" alt="Anti-aliasing i aliasing" width="549" height="371" class="lazy-image" loading="lazy" decoding="async">
+
+<data-gate>
+<data-quiz>
+<question><p>Tworzysz ikonę w stylu retro Pixel‑Art (rozmiar 32x32 piksele). Którego narzędzia powinieneś użyć, aby krawędzie były idealnie ostre, bez żadnych półprzezroczystych pikseli?</p>
+</question>
+<options>
+<option><p>Pędzla, ponieważ z natury dąży do idealnej gładkości linii.</p>
+</option>
+<option correct=""><p>Ołówka, ponieważ jako narzędzie aliasingowe gwarantuje twarde, czyste krawędzie pikseli.</p>
+</option>
+<option><p>Obu zamiennie, ponieważ w tak małej skali oko ludzkie i tak nie zauważy różnicy.</p>
+</option>
+</options>
+<div data-hint="error"><p>Zastanów się, które narzędzie kładzie kolor w systemie "wszystko albo nic" (100% koloru lub 0%).</p>
+</div>
+<div data-hint="success"><p>Dokładnie tak! W Pixel‑arcie każdy piksel musi być pod Twoją pełną kontrolą, bez "samowolki" GIMP‑a w wygładzaniu krawędzi.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<h3>🛠️ Opcje Narzędzia</h3>
+<p>Panel pod przybornikiem to zestawienie zasad działania wybranego narzędzia. Na początku definiujesz krycie czyli przezroczystość tekstury pędzla, którą wybierasz z pola niżej. Są to tak zwane brush‑e.</p>
+<p>Oto podstawowe parametry:</p>
+<ol>
+<li><strong>Rozmiar (Size)</strong>: Szerokość i wysokość wybranej tekstury pędzla z zachowaniem proporcji.</li>
+<li><strong>Proporcje (Aspect ratio)</strong>: Pozwala spłaszczyć lub rozciągnąć teksturę pędzla (np. do kaligrafii).</li>
+<li><strong>Kąt (Angle)</strong>: Obraca teksturę pędzla.</li>
+<li><strong>Odstępy (Spacing)</strong>: Pędzel to seria stempli. Przy 1% linia jest ciągła. Przy 50% zobaczysz wyraźne odstępy między śladami.</li>
+<li><strong>Twardość (Hardness)</strong>: Decyduje o "rozmyciu" krawędzi. 100% to ostra krawędź, 0% to miękka mgiełka.</li>
+<li><strong>Siła (Force)</strong>: (nie dotyczy ołówka) Decyduje o "nacisku". Przy małej sile kolor jest blady, ale ponowne malowanie w tym samym miejscu (po puszczeniu i wciśnięciu myszki) dodaje kolejną, nową warstwę koloru.</li>
+</ol>
+<hr>
+<p>Wszystkie te wartości to liczby zmiennoprzecinkowe więc możesz wpisać daną wartość lub zmieniać je klawiszami strzałek lub scrollem (kółkiem) myszy.  </p>
+<blockquote>
+<p>Wybierz brush gwiazdy a następnie zmieniaj parametry proporcji i kąta obserwując jak twój pędzel nad płótnem się zmienia.</p>
+</blockquote>
+<hr>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/ustawinia_narzedzia_pędzla.webp" alt="Ustawienia narzedzia pedzla" width="247" height="756" class="lazy-image" loading="lazy" decoding="async">
+
+<data-gate>
+<data-quiz>
+<question><p>Twoja linia pędzla wygląda jak "sznur koralików" (widzisz pojedyncze kółeczka zamiast gładkiej kreski). Który parametr powinieneś zmniejszyć, aby linia stała się ciągła?</p>
+</question>
+<options>
+<option><p>Twardość (Hardness).</p>
+</option>
+<option correct=""><p>Odstępy (Spacing).</p>
+</option>
+<option><p>Rozmiar (Size).</p>
+</option>
+</options>
+<div data-hint="error"><p>Pamiętaj, że pędzel w GIMPie to nie ciągły strumień, ale seria powtarzających się obrazków. Co decyduje o dystansie między nimi?</p>
+</div>
+<div data-hint="success"><p>Brawo! Zrozumienie, że linia to "gęsty stempel", to klucz do opanowania cyfrowego malarstwa.<br>Ustawienie blisko $1\%$ sprawi, że "stemple" pędzla będą bardzo gęsto obok siebie.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<h4>🚀 Opcje Zaawansowane</h4>
+<p>Niektóre funkcje wydają się zagadkowe, ale dają ciekawe możliwości:</p>
+<ul>
+<li><strong>Dynamika (Dynamics)</strong>: Łączy zachowanie pędzla z ruchem myszy lub naciskiem tabletu.<ul>
+<li><strong>Opcje kolorów</strong>: Pozwalają pędzlowi "zmieniać kolor w trakcie jazdy" na podstawie wybranego gradientu. Np. zaczynasz kreskę czerwoną, a kończysz niebieską.</li>
+</ul>
+</li>
+<li><strong>Drganie (Jitter)</strong>: Rozrzucanie śladów pędzla wokół punktu kursora (efekt sprayu).</li>
+<li><strong>Płynne rysowanie (Flow)</strong>: Symuluje bezwładność pędzla. Brush nie nadąża za kursorem, co pozwala rysować idealnie gładkie łuki (Quality i Weight).</li>
+<li><strong>Zablokowanie pędzla do widoku (Lock brush to view)</strong>: Standardowo $50$px to $50$px na obrazku. Gdy przybliżasz obraz, pedzel ma stały rozmiar pikseli. Po włączeniu tej opcji, gdy bedziesz się przybliżać to pedzel bedzie się pomniejszał. Przykładowo po dwukrotnym przybliżeniu z włączoną tą opcją pędzel zmieni swój rozmiar z 50px na $25$px, a gdy oddalisz trzykrotnie to pędzel zmieni swój rozmiar z aktualnych $25$px na $75$px. </li>
+<li>** Przyrostowe (Incremental)**: <ul>
+<li><em>WYŁACZONE</em>: Przy kryciu $30\%$ ciągły ruch myszką nie ciemnieje.</li>
+<li><em>WŁĄCZONE</em>: Każde "najechanie" na własny ślad w jednym ruchu sumuje kolor ($30\%$ + $30\%$...).</li>
+</ul>
+</li>
+<li><strong>Rozszerz warstwy (Expand Layers)</strong>: GIMP automatycznie powiększa warstwę, jeśli wyjedziesz pędzlem poza jej obecne granice. Płótno podstawowe nie będzie powiększane, to się tyczy tylko przypadków warstw mniejszych niż przestrzeń malarska.</li>
+</ul>
+<h3>⭐ Przykład: Kolorowe Gwiazdy</h3>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Brush</td>
+<td>gwiazdka</td>
+</tr>
+<tr>
+<td>rozmiar</td>
+<td>$61.00$</td>
+</tr>
+<tr>
+<td>Proporcje</td>
+<td>$0.50$</td>
+</tr>
+<tr>
+<td>Kąt</td>
+<td>$55.00$</td>
+</tr>
+<tr>
+<td>Odstęp</td>
+<td>$97.0$</td>
+</tr>
+</tbody></table>
+<p>Aby uzyskać efekt jak niżej, włącz dynamikę i wybierz <strong>Random Color</strong>. Aby zastosować pełną gamę <em>Hue</em>, wybierz gradient <code>Full Saturation Spectrum CW</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/przykład_ustawienia_pędzla_do_rysowania_gwiazdek_w_różnych_kolorach.webp" alt="Przykład ustawienia pędzla do rysowania gwiazdek w różnych kolorach" width="1255" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+<data-gate>
+<data-quiz>
+<question><p>Pracujesz nad bardzo drobnym detalem oka postaci przy 800% powiększeniu. Chcesz, aby pędzel nie zasłaniał Ci połowy ekranu, lecz zachował stałą, precyzyjną wielkość względem Twojego wzroku. Co aktywujesz?</p>
+</question>
+<options>
+<option><p>Płynne rysowanie (Flow).</p>
+</option>
+<option correct=""><p>Zablokowanie pędzla do widoku (Lock brush to view).</p>
+</option>
+<option><p>Przyrostowe (Incremental).</p>
+</option>
+</options>
+<div data-hint="error"><p>Szukamy opcji, która "odkleja" rozmiar pędzla od skali obrazka i wiąże go ze skalą ekranu monitora.</p>
+</div>
+<div data-hint="success"><p>Dokładnie! To świetne narzędzie do retuszu drobnych szczegółów bez konieczności ciągłej zmiany rozmiaru pędzla suwakiem.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<h3>🌈 Gradienty</h3>
+<p>Wybierając narzędzie gradientu otrzymasz do dyspozycji okno z jego ustawieniami. W oknie tym możesz wybrać rodzaj gradientu z puli gotowych i go zmodyfikować.<br>Wybierając jeden z dostępnych kształtów:</p>
+<ul>
+<li><em>Liniowy</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/liniowy.webp" alt="Gradient liniowy" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Dwuliniowy</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/dwuliniowy.webp" alt="Gradient dwuliniowy" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Promienisty</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/promienisty.webp" alt="Gradient promienisty" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Prostokątny</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/prostokątny.webp" alt="Gradient prostokątny" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Stożkowy (symetryczny)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/stożek_symetryczny.webp" alt="Gradient stożkowy symetryczny" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Stożkowy (asymetryczny)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/stożek_asymetryczny.webp" alt="Gradient stożkowy asymetryczny" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Rozlany (kąt)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/rozlany_kąt.webp" alt="Gradient rozlany kąt" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Rozlany (sfera)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/rozlany_sfera.webp" alt="Gradient rozlany sfera" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Rozlany (dół)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/rozlany_dół.webp" alt="Gradient rozlany dol" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Spiralny (w prawo)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/spiralny_w_prawo.webp" alt="Gradient spiralny w prawo" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+<li><em>Spiralny (w lewo)</em>: <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/spiralny_w_lewo.webp" alt="Gradient spiralny w lewo" width="16" height="16" class="lazy-image" loading="lazy" decoding="async"></li>
+</ul>
+<p>Rysując linię określasz kierunek początkowy i końcowy gradientu. Na tej lini masz też rąbki które jak klikniesz to możesz zmienić kolor przesunąć je w wzdłuż linii lub usunąć. Klikając na samą linię możesz dodać kolejne rąbki.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/gradient_z_usuwaniem_przery.webp" alt="Gradient liniowy z opcją usuwania przerwy" width="1920" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+<p>Spróbuj przy użyciu gradientu wytworzyć podobny obraz jak poniżej:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/gradient_karmelowej_spirali.webp" alt="Gradient karmelowej spirali" width="712" height="399" class="lazy-image" loading="lazy" decoding="async">
+
+<h3>🧽 Gumka: Spisek</h3>
+<p>Gumka to w rzeczywistości <strong><em>Pędzel</em></strong>! Wszystkie programy grafiki rastrowej nas oszukują 😮.<br>"Gumka"... w zależności czy warstwa posiada Kanał Alfa zachowuje się inaczej.</p>
+<ul>
+<li><strong>Jeśli warstwa posiada Kanał Alfa</strong>, gumka robi "dziury" (przezroczystość).</li>
+<li><strong>Jeśli warstwa NIE posiada Kanału Alfa</strong>, gumka maluje aktualnym kolorem tła.</li>
+</ul>
+<p>Klikając prawym przyciskiem na warstwę w panelu warstw, zobaczysz opcje dotyczące Kanału Alfa.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/kalan_alfa_warstwy.webp" alt="Kanał alfa warstwy" width="432" height="400" class="lazy-image" loading="lazy" decoding="async">
+
+<data-gate>
+<data-quiz>
+<question><p>Używasz gumki na nowej warstwie, ale zamiast robić "dziury" do zdjęcia pod spodem, gumka maluje na biało. Co musisz zrobić, aby zaczęła działać poprawnie?</p>
+</question>
+<options>
+<option><p>Zmienić kolor narzędzia na przezroczysty.</p>
+</option>
+<option correct=""><p>Dodać Kanał Alfa do warstwy (prawym przyciskiem na warstwę -&gt; Dodaj kanał alfa).</p>
+</option>
+<option><p>Użyć Ołówka zamiast Gumki.</p>
+</option>
+</options>
+<div data-hint="error"><p>Zastanów się, co decyduje o tym, czy warstwa w ogóle "rozumie" pojęcie przezroczystości.</p>
+</div>
+<div data-hint="success"><p>Świetnie! Bez Kanału Alfa warstwa jest jak kartka papieru. Możesz ją zamazać, ale nie możesz w niej zrobić "przezroczystej dziury".</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<h3>🪣 Wypełnianie: Dlaczego to nie działa?</h3>
+<p>Narzędzie <strong>Wypełnianie kubłem</strong> (Bucket Fill) to najczęstszy powód frustracji. Wszystko rozbija się o dwa filary:</p>
+<h4>1. Próg (Threshold)</h4>
+<p>Decyduje, jak bardzo podobne muszą być piksele, by GIMP je zamalował.</p>
+<ul>
+<li><strong>Niski (np. $15$)</strong>: Wypełnia tylko niemal identyczny kolor. Zostawia "brudne" brzegi przy antyaliasingu.</li>
+<li><strong>Wysoki (np. $150$)</strong>: Zamaluje połowę obrazka, ignorując różnice w cieniu.</li>
+</ul>
+<p>Poniżej masz przykład jak działa progowanie wypełnienia:</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Zauważ że aby praktycznie pozbyć się białego prześwitu poprzedniej warstwy przy pędzlu <code>2. Hardness 075</code> musiałem ustawić progowanie wypełnienia na $150$.</p>
+
+</div>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/progowanie_wypełnienia.webp" alt="Progowanie wypełnienia" width="1920" height="1080" class="lazy-image" loading="lazy" decoding="async">
+
+<h4>2. Próbkowanie (Sample)</h4>
+<ul>
+<li><strong>Próbkuj wszystkie warstwy (Sample Merged)</strong>: Pozwala "wykrywać kształty" na wszystkich warstwach, ale wypełniać tylko tą aktywną. Możesz mieć kontur na jednej warstwie, a kolorować na czystej pod nią!</li>
+</ul>
+<p>Poniżej na obrazku masz przedstawiony przykład wykorzystania samplingu.<br>Przygotowano trzy warstwy:</p>
+<ul>
+<li>Warstwa z fioletowym tłem</li>
+<li>Warstwa z czarną otwartą kreską ala litera <code>c</code></li>
+<li>Warstwa z białą otwartą kreską ala litera <code>u</code>, której krawędź wizualnie domyka czarną kreskę<br>Na najwyższej (chodź kolejność nie ma znaczenia), aktywnej warstwie i włączonym <code>Próbkowanie wszystkich warstw</code> zamalowałem na zielono obszar zamknięty przy pomocy liter <code>c</code> i <code>u</code>.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/gimp/Images/próbkowanie_do_wypełnienia.webp" alt="Próbkowanie do wypełnienia kolorem" width="1171" height="876" class="lazy-image" loading="lazy" decoding="async">
+
+<data-gate>
+<data-quiz>
+<question><p>Masz czarny kontur postaci na jednej warstwie. Chcesz wypełnić jego środek kolorem na nowej, pustej warstwie, ale po kliknięciu "kubłem" zalewa się cały ekran. Jaka funkcja pomoże GIMP‑owi "zobaczyć" kontur z pozostałych warstw?</p>
+</question>
+<options>
+<option><p>Zwiększenie progu (Threshold).</p>
+</option>
+<option correct=""><p>Próbkuj wszystkie warstwy (Sample Merged).</p>
+</option>
+<option><p>Antialiasing pędzla.</p>
+</option>
+</options>
+<div data-hint="error"><p>Problem polega na tym, że na aktywnej (pustej) warstwie nie ma żadnych granic. Jak zmusić narzędzie do szukania granic na innych warstwach?</p>
+</div>
+<div data-hint="success"><p>Brawo! To jedna z najważniejszych funkcji przy profesjonalnym kolorowaniu rysunków i komiksów.</p>
+</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<p>Mam nadzieję że bardziej rozjaśniłem, a niżeli zamieszałem w głowie 😅.<br>Było już wspomniane o warstwach i jak sam widzisz nie da się ich przemilczeć, więc w następnej lekcji je omówimy 😉.</p>

@@ -1,0 +1,335 @@
+<h2>Układy Równań: Analiza Zależności Współbieżnych</h2>
+<p>W poprzedniej lekcji debugowałeś pojedynczy kontrakt liniowy. Jednak rzeczywiste systemy to rzadko izolowane procesy — to raczej <strong>sieć zależności</strong>. Najczęściej operujesz na wielu procesach, które muszą współdzielić te same zasoby ($\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y}$) i oba muszą osiągnąć stan równowagi jednocześnie.</p>
+<p>Układ równań to nic innego jak <strong>Koniunkcja ($AND$)</strong> dwóch lub więcej kontraktów. Szukamy <strong>Punktu Konsensusu</strong> — stanu wejściowego, w którym wszystkie zdania logiczne układu stają się prawdą ($True$).</p>
+<p>$$\begin{cases} \textcolor{#ff0001}{L_1} = \textcolor{#ff0003}{P_1} \\ \textcolor{#ff0002}{L_2} = \textcolor{#ff0003}{P_2} \end{cases}$$</p>
+<hr>
+<h3>🧠 Intuicja: Punkt Konsensusu (Intersection)</h3>
+<p>Z perspektywy geometrycznej każde równanie liniowe to prosta. Układ równań to zapytanie o <strong>Punkt Konsensusu</strong> — stan, w którym obie proste się przecinają.</p>
+<ul>
+<li><strong>Stabilny Konsensus</strong>: Proste się przecinają — mamy jednoznaczny zestaw parametrów, czyli <strong>Parę Uporządkowaną</strong>:<br>$$S = \{(x, y)\}$$.</li>
+<li><strong>Deadlock (Układ Sprzeczny)</strong>: Proste są równoległe i nie pokrywające się. Systemy mają niemożliwe do pogodzenia warunki wejściowe: $S = \emptyset$</li>
+<li><strong>Redundancja (Układ Tożsamościowy)</strong>: Proste się pokrywają. Jeden z kontraktów jest całkowicie zbędny, bo nie wnosi żadnych nowych ograniczeń do systemu: $S = D$</li>
+</ul>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><em><strong>Konsensus</strong></em> (z łac. <em>consensus</em> – zgoda): Oznacza stan, w którym wszystkie elementy systemu zgadzają się co do wartości poszczególnych parametrów. To stan równowagi i harmonii.<br><em><strong>Deadlock</strong></em> (z ang. <em>dead</em> – martwy, <em>lock</em> – blokada): Oznacza stan, w którym system nie jest w stanie kontynuować pracy z powodu sprzecznych wymagań lub braku zasobów. To przestój w ciągłości.<br><em><strong>Redundancja</strong></em> (z łac. <em>redundantia</em> – nadmiar): Oznacza sytuację, w której system posiada nadmiarowe dane lub zasoby, które nie są wykorzystywane do prawidłowego funkcjonowania systemu. To strata potencjału.</p>
+
+</div>
+</div><h3>📋 Protokół Zapisu: Para Uporządkowana</h3>
+<p>W układach równań nie szukamy już pojedynczej wartości, lecz <strong>punktu w przestrzeni</strong>. Dlatego wynik zapisujemy wewnątrz zbioru $S$ jako parę w nawiasach okrągłych.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><strong>Zasada Kolejności</strong>: Obowiązuje standard alfabetyczny. Nawet jeśli Twoja logika obliczeń najpierw wypluła wartość $y$, w końcowym raporcie zawsze zachowujemy format ($\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y}$).<br>To Twoja suma kontrolna — dzięki temu każdy inny inżynier odczyta Twój wynik bez domysłów, która liczba przypisana jest do której osi.</p>
+
+</div>
+</div><h3>🌐 Skalowanie Systemu: Wymiarowość i Symbole</h3>
+<p>Może Cię zastanawiać, czy system zawsze kończy się na dwóch zmiennych. Odpowiedź brzmi: <strong>Absolutnie nie</strong>.</p>
+<ol>
+<li><p><strong>Złożoność (n&#8209;wymiarów)</strong>: Układy mogą składać się z dowolnej liczby równań i zmiennych. W grafice 3D standardem są układy $3$ i $4$ zmiennych ($\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y}, \textcolor{#ff0003}{z}, \textcolor{#ff0004}{w}$ — gdzie $\textcolor{#ff0004}{w}$ w GameDev często służy do obliczeń rotacji w kwaternionach).</p>
+</li>
+<li><p><strong>Wymiary poza geometrią</strong>: Możesz się zastanawiać, czy $5$. lub $100$. wymiar ma sens. W inżynierii danych <strong>TAK</strong>. Każdy wymiar to po prostu kolejna cecha (parametr). Punkt w $500$-wymiarowej przestrzeni może opisywać stan Twojego serwera (użycie RAM, CPU, temperatura, liczba zapytań, opóźnienie...). Szukanie rozwiązania układu takich równań to szukanie optymalnego punktu pracy systemu.</p>
+</li>
+<li><p><strong>Indeksowanie ($x_n$)</strong>: Gdy brakuje alfabetu, inżynierowie przechodzą na indeksy. Zamiast ($\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y}, \textcolor{#ff0003}{z}, \textcolor{#ff0004}{w}, \dots$) piszemy $(x_1, x_2, x_3, \dots, x_n)$. To pozwala nam operować na układach o tysiącach zmiennych za pomocą pętli i macierzy. My skupiamy się na systemach $2 \times 2$, ponieważ stanowią one atomową jednostkę logiczną, którą najłatwiej zwizualizować.</p>
+</li>
+<li><p><strong>Dowolność Etykiet</strong>: Zmienne $\textcolor{#ff0001}{x}$ i $\textcolor{#ff0002}{y}$ to tylko najczęstsza konwencja. System może operować na dowolnych symbolach, np. $\textcolor{#ff0003}{(a, b, c)}$ lub fizycznych parametrach $\textcolor{#ff0004}{(V, I, R)}$ (napięcie, prąd, opór).</p>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Niezależnie od wybranych literek, Twoim zadaniem jest zachowanie <strong>spójnej kolejności w raporcie $S$</strong>. Jeśli system operuje na $(a, y, \alpha)$, Twoja „krotka” wynikowa powinna zawsze trzymać się ustalonego na początku porządku (zazwyczaj alfabetycznego).</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><em><strong>Krotka</strong></em> (z łac. <em>captus</em> – ujęty, schwytany): Zbiór wartości powiązanych ze sobą w uporządkowany sposób.</p>
+
+</div>
+</div><hr>
+<h3>🛠️ Punkt Kontrolny: Logika Koniunkcji</h3>
+<data-gate>
+<data-quiz>
+  <question>Kiedy układ dwóch równań uważa się za „rozwiązany”?</question>
+  <options>
+    <option>Gdy znajdziemy x i y spełniające dowolne z równań.</option>
+    <option correct>Gdy para (x, y) czyni OBA równania prawdziwymi jednocześnie.</option>
+    <option>Gdy suma wyników obu równań jest równa zero.</option>
+  </options>
+  <div data-hint="success">Słusznie. Klamra układu równań to graficzny odpowiednik operatora $\land$ (AND). System jest stabilny tylko w części wspólnej obu zbiorów rozwiązań.</div>
+  <div data-hint="error">Pomyśl o tym jak o systemie uprawnień. Aby wejść do serwera, musisz mieć login ORAZ hasło. Poprawny login przy złym haśle to wciąż brak dostępu.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>⚙️ Metoda 1: Podstawianie</h3>
+<p>To intuicyjna metoda polegająca na wykorzystaniu jednego równania jako „definicji” zmiennej, którą następnie wstawiamy do drugiego równania.</p>
+<p><strong>Algorytm Podstawiania:</strong></p>
+<ol>
+<li><strong>Izolacja</strong>: Wybierz równanie, w którym najłatwiej wyznaczyć $\textcolor{#ff0001}{x}$ lub $\textcolor{#ff0002}{y}$ (szukaj współczynnika $1$ lub $-1$).</li>
+<li><strong>Podstawienie</strong>: Wstaw to wyrażenie w miejsce zmiennej w <strong>drugim</strong> równaniu.</li>
+<li><strong>Redukcja</strong>: Rozwiąż powstałe równanie z jedną zmienną.</li>
+<li><strong>Finalizacja</strong>: Wróć z wynikiem do punktu 1, aby odzyskać drugą zmienną.</li>
+</ol>
+<h5>Przykład:</h5>
+<p>$$\begin{cases} \textcolor{#ff0002}{y} = \textcolor{#ff0001}{2x} - \textcolor{#ff0004}{1} \\ \textcolor{#ff0001}{3x} + \textcolor{#ff0002}{y} = \textcolor{#ff0004}{14} \end{cases}$$</p>
+<p>Zauważ, że pierwszy kontrakt już daje nam gotową definicję $\textcolor{#ff0002}{y}$. Wstrzykujemy ją do drugiego:<br>$$\textcolor{#ff0001}{3x} + \textcolor{#ff0002}{(2x - 1)} = \textcolor{#ff0004}{14} \implies \textcolor{#ff0003}{5x} = \textcolor{#ff0004}{15} \implies \textcolor{#ff0001}{x = 3}$$<br>Teraz wracamy do bazy: $\textcolor{#ff0002}{y} = \textcolor{#ff0001}{2(3)} - \textcolor{#ff0004}{1} = \textcolor{#ff0002}{5}$.</p>
+<p>Punkt konsensusu: $S = \{(\textcolor{#ff0001}{3}, \textcolor{#ff0002}{5})\}$.</p>
+<p>Zwróć uwagę na zapis $S = \{(\textcolor{#ff0001}{3}, \textcolor{#ff0002}{5})\}$. Zawiera on nawias okrągły $(\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y})$, czyli parę uporządkowaną.</p>
+<hr>
+<h4>🪤 Sandbox: Podstawianie w praktyce</h4>
+<p>Rozwiąż konflikt między dwoma serwisami, stosując metodę <em>iniekcji stanu</em>.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Układ równań: $\begin{cases}\textcolor{#ff0002}{y} = \textcolor{#ff0001}{x} + \textcolor{#ff0004}{2}\\ \textcolor{#ff0001}{2x} + \textcolor{#ff0002}{y} = \textcolor{#ff0004}{11}\end{cases}$">
+  <div 
+    data-step="1" 
+    data-expected="2x + (x + 2) = 11" 
+    data-label="Wstrzyknij definicję sygnału $\textcolor{#ff0002}{y}$ do drugiego kontraktu ($L=P$):"
+    data-hints='{"FORM_MISMATCH": "💡 Podstaw wyrażenie definiujące $\textcolor{#ff0002}{y}$ w odpowiednie miejsce. Pamiętaj o nawiasach dla zachowania integralności struktury.", "STRUCTURE_MISMATCH": "💡 Po iniekcji musisz uzyskać równanie z jedną zmienną ($\textcolor{#ff0001}{x}$). To klucz do izolacji danych."}'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="x = 3" 
+    data-label="Zredukuj układ i wyznacz wartość wejściową $\textcolor{#ff0001}{x}$:"
+    data-hints='{"VARIABLE_MISMATCH": "💡 Błąd przy redukcji lub przenoszeniu stałych na drugą stronę kontraktu.", "CALCULATION_ERROR": "💡 Sprawdź sumowanie współczynników przy x oraz końcowe dzielenie sygnału."}'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="y = 5" 
+    data-label="Odzyskaj wartość $\textcolor{#ff0002}{y}$, wykorzystując wyznaczony stan $\textcolor{#ff0001}{x}$:"
+    data-hints='{"FORM_MISMATCH": "💡 Podstaw wyliczone $\textcolor{#ff0001}{x}$ do dowolnego z pierwotnych kontraktów, aby otrzymać $\textcolor{#ff0002}{y}$."}'>
+  </div>
+  <div 
+    data-step="4" 
+    data-expected="S = \{(3, 5)\}" 
+    data-label="Zdefiniuj werdykt końcowy (Punkt konsensusu):"
+    data-hints='{"SET_MISMATCH": "💡 Użyj zapisu zbioru punktu w przestrzeni: S = \\{(x, y)\\}."}'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>⚙️ Metoda 2: Redukcja Sygnału</h3>
+<p>Jeśli oba serwisy mają podobną strukturę, możemy je do siebie dodać lub odjąć, aby „wygasić” (wyeliminować) jedną ze zmiennych. To jak odejmowanie szumu od sygnału w przetwarzaniu dźwięku.</p>
+<p><strong>Warunek</strong>: Współczynniki przy jednej ze zmiennych muszą być przeciwne (np. $\textcolor{#ff0002}{2y}$ i $\textcolor{#ff0002}{-2y}$). Jeśli nie są — musisz <strong>przeskalować</strong> (poddać mutacji) jedno lub oba równania.</p>
+<h4>🧬 Case 1: Mutacja Jednostronna</h4>
+<p>Mnożymy tylko jedno równanie, aby dopasować je do drugiego.</p>
+<div>
+
+<p>$$\begin{cases} \textcolor{#ff0001}{3x} + \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{16} \\ \textcolor{#ff0001}{x} - \textcolor{#ff0002}{y} = \textcolor{#ff0004}{2} \quad \textcolor{#ff0003}{| \cdot 2} \end{cases} \implies \begin{cases} \textcolor{#ff0001}{3x} + \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{16} \\ \textcolor{#ff0001}{2x} - \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{4} \end{cases}$$</p>
+</div>
+
+<p>Z nowego układu równań łączymy oba w jedno:</p>
+<p>$$\textcolor{#ff0001}{3x} + \textcolor{#ff0001}{2x} + \textcolor{#ff0002}{2y} - \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{16} + \textcolor{#ff0004}{4}$$</p>
+<p>Redukują nam się wyrazy z $\textcolor{#ff0002}{y}$ i wyliczamy wartość $\textcolor{#ff0001}{x}$:</p>
+<p>$$\textcolor{#ff0001}{5x} = \textcolor{#ff0004}{20} \implies \textcolor{#ff0001}{x = 4}$$</p>
+<p>Gdy znamy wartość niewiadomej $\textcolor{#ff0001}{x}$, to podstawiamy ją do jednego z pierwotnych równań i wyliczamy wartość dla $\textcolor{#ff0002}{y}$:</p>
+<blockquote>
+<p>$$\textcolor{#ff0002}{2y} = \textcolor{#ff0004}{16} - \textcolor{#ff0001}{3x} \implies \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{16} - \textcolor{#ff0001}{3(4)} \implies \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{16} - \textcolor{#ff0002}{12} \implies \textcolor{#ff0002}{2y} = \textcolor{#ff0004}{4} \implies \textcolor{#ff0002}{y = 2}$$</p>
+</blockquote>
+<p>... lub</p>
+<blockquote>
+<p>$$\textcolor{#ff0001}{x} - \textcolor{#ff0004}{2} = \textcolor{#ff0002}{y} \implies \textcolor{#ff0001}{4} - \textcolor{#ff0004}{2} = \textcolor{#ff0002}{y} \implies \textcolor{#ff0002}{y} = \textcolor{#ff0002}{2}$$</p>
+</blockquote>
+<p>Na koniec otrzymujemy: </p>
+<p>$$\textcolor{#ff0002}{y = 2}$$</p>
+<p>Wynikiem dla tego układu równań jest para liczb (punkt konsensusu):<br>$S = \{(\textcolor{#ff0001}{4}, \textcolor{#ff0002}{2})\}$.</p>
+<h4>🪤 Sandbox: Mutacja jednostronna</h4>
+<p>Zobaczmy jakie możliwości mutacji jednego równania będą najwygodniejsze do liczenia:</p>
+<p><strong>Droga A (Eliminacja $\textcolor{#ff0001}{x}$):</strong> Najmniej upierdliwa, używamy tylko liczb całkowitych.</p>
+<p>$$\begin{cases} 2x + 3y = 7 \\ x - 2y = 0 \quad | \cdot (-2) \end{cases} \implies \begin{cases} 2x + 3y = 7 \\ -2x + 4y = 0 \end{cases}$$</p>
+<p><strong>Droga B (Eliminacja $\textcolor{#ff0002}{y}$):</strong> Wchodzimy w ułamki dziesiętne, co zwiększa ryzyko błędu.</p>
+<p>$$\begin{cases} 2x + 3y = 7 \\ x - 2y = 0 \quad | \cdot (1.5) \end{cases} \implies \begin{cases} 2x + 3y = 7 \\ 1.5x - 3y = 0 \end{cases}$$</p>
+<p>Wybieramy <strong>Drogę A</strong> jako najbardziej optymalny kontrakt obliczeniowy.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Układ równań: $\begin{cases} 2x + 3y = 7 \\ x - 2y = 0 \end{cases}$">
+  <div 
+    data-step="1" 
+    data-expected="7y = 7" 
+    data-label="Zapisz równanie po zsumowaniu faz (redukcja sygnału $\textcolor{#ff0002}{x}$):"
+    data-hints='{
+      "CALCULATION_ERROR": "💡 Wskazówka: Po skalowaniu drugiego równania przez -2, zsumuj strony obu kontraktów, aby wyeliminować x.",
+      "VARIABLE_MISMATCH": "💡 Sprawdź znaki przy y po wykonaniu mutacji."
+    }'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="y = 1" 
+    data-label="Wyznacz czystą wartość sygnału $\textcolor{#ff0001}{y}$:"
+    data-hints='{
+      "CALCULATION_ERROR": "💡 Wykonaj końcowe dzielenie, aby odizolować y."
+    }'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="x = 2" 
+    data-label="Odzyskaj wartość $\textcolor{#ff0002}{x}$ z dowolnego pierwotnego kontraktu:"
+    data-hints='{
+      "FORM_MISMATCH": "💡 Podstaw wyliczone y do jednego z równań, aby zamknąć pętlę i odzyskać x."
+    }'>
+  </div>
+  <div 
+    data-step="4" 
+    data-expected="S = \{(2, 1)\}" 
+    data-label="Zdefiniuj werdykt końcowy (Punkt konsensusu):"
+    data-hints='{
+      "SET_MISMATCH": "💡 Pamiętaj o kolejności (x, y) w zbiorze S."
+    }'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<h4>🧬 Case 2: Mutacja Obustronna (NWW)</h4>
+<p>Kiedy współczynniki są „niewygodne” (np. 2 i 3), mnożymy oba równania, aby osiągnąć <strong>Najmniejszą Wspólną Wielokrotność (NWW)</strong>.</p>
+<div>
+
+<p>$$\begin{cases} \textcolor{#ff0002}{3x} + \textcolor{#ff0001}{4y} = \textcolor{#ff0004}{10} \quad \textcolor{#ff0003}{| \cdot 3} \\ \textcolor{#ff0002}{2x} + \textcolor{#ff0001}{3y} = \textcolor{#ff0004}{7} \quad \textcolor{#ff0003}{| \cdot (-4)} \end{cases} \implies \begin{cases} \textcolor{#ff0002}{9x} + \textcolor{#ff0001}{12y} = \textcolor{#ff0004}{30} \\ \textcolor{#ff0002}{-8x} - \textcolor{#ff0001}{12y} = \textcolor{#ff0004}{-28} \end{cases}$$</p>
+</div>
+
+<p>Z nowego układu równań łączymy oba w jedno:</p>
+<p>$$\textcolor{#ff0002}{9x} + \textcolor{#ff0002}{-8x} + \textcolor{#ff0001}{12y} - \textcolor{#ff0001}{12y} = \textcolor{#ff0004}{30} + \textcolor{#ff0004}{-28}$$</p>
+<p>Redukują nam się wyrazy z $\textcolor{#ff0001}{y}$ i wyliczamy wartość $\textcolor{#ff0002}{x}$:  </p>
+<p>$$\textcolor{#ff0002}{1x} = \textcolor{#ff0004}{2} \implies \textcolor{#ff0002}{x = 2}$$</p>
+<p>Gdy znamy wartość niewiadomej $\textcolor{#ff0002}{x}$, to podstawiamy ją do jednego z pierwotnych równań i wyliczamy wartość dla $\textcolor{#ff0001}{y}$: </p>
+<p>$$\textcolor{#ff0002}{3x} + \textcolor{#ff0001}{4y} = \textcolor{#ff0004}{10} \implies \textcolor{#ff0002}{3(2)} + \textcolor{#ff0001}{4y} = \textcolor{#ff0004}{10} \implies \textcolor{#ff0002}{6} + \textcolor{#ff0001}{4y} = \textcolor{#ff0004}{10} \implies \textcolor{#ff0001}{4y} = \textcolor{#ff0004}{10} - \textcolor{#ff0002}{6} \implies \textcolor{#ff0001}{4y} = \textcolor{#ff0004}{4}$$</p>
+<p>Na koniec otrzymujemy: </p>
+<p>$$\textcolor{#ff0001}{y = 1}$$</p>
+<p>Punkt konsensusu dla tego systemu: $S = \{(2, 1)\}$.</p>
+<h4>🪤 Sandbox: Mutacja dwustronna (NWW)</h4>
+<p>Gdy przy zmiennych stoją liczby utrudniające prostą eliminację, znowu używamy $NWW$ (Moduł $0$) 😅. Zobaczmy, która droga mutacji wymaga najmniejszego nakładu sił:</p>
+<p><strong>Droga A (Eliminacja $\textcolor{#ff0002}{x}$):</strong> Szukamy $NWW(2, 3)$, czyli $6$. </p>
+<p>$$\begin{cases} 2x + 5y = 11 \quad | \cdot (3) \\ 3x + 2y = 11 \quad | \cdot (-2) \end{cases} \implies \begin{cases} 6x + 15y = 33 \\ -6x - 4y = -22 \end{cases}$$</p>
+<p><strong>Droga B (Eliminacja $\textcolor{#ff0001}{y}$):</strong> Szukamy $NWW(5, 2)$, czyli $10$.</p>
+<p>$$\begin{cases} 2x + 5y = 11 \quad | \cdot (2) \\ 3x + 2y = 11 \quad | \cdot (-5) \end{cases} \implies \begin{cases} 4x + 10y = 22 \\ -15x - 10y = -55 \end{cases}$$</p>
+<p>Wybieramy <strong>Drogę A</strong>, ponieważ zauważyłem że w <strong>B</strong> po zredukowaniu stronami pojawiają się ujemne wartości, co wymagałoby dodatkowego kroku przemnożenia przez $(-1)$.</p>
+<data-gate>
+<data-math-sandbox level="equations" data-label="Układ równań: $\begin{cases} 2x + 5y = 11 \\ 3x + 2y = 11 \end{cases}$">
+  <div 
+    data-step="1" 
+    data-expected="11y = 11" 
+    data-label="Zredukuj sygnał $\textcolor{#ff0001}{x}$ poprzez skalowanie obu kontraktów (NWW):"
+    data-hints='{
+      "ASYMMETRY_ERROR": "💡 Pamiętaj, aby pomnożyć KAŻDY składnik obu równań przez odpowiednie współczynniki NWW.",
+      "STRUCTURE_MISMATCH": "💡 Skalowanie: I * 3 oraz II * (-2). Po zsumowaniu x musi zostać wyeliminowane."
+    }'>
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="y = 1" 
+    data-label="Wyznacz czystą wartość sygnału $\textcolor{#ff0002}{y}$:"
+    data-hints='{
+      "CALCULATION_ERROR": "💡 Sprawdź wynik dzielenia po zredukowaniu układu."
+    }'>
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="x = 3" 
+    data-label="Odzyskaj wartość $\textcolor{#ff0001}{x}$, wykorzystując wyznaczony stan $\textcolor{#ff0002}{y}$:"
+    data-hints='{
+      "FORM_MISMATCH": "💡 Podstaw y=1 do pierwotnej postaci kontraktu, aby wyliczyć x.",
+      "CALCULATION_ERROR": "💡 Sprawdź izolację: 2x + 5 = 11."
+    }'>
+  </div>
+  <div 
+    data-step="4" 
+    data-expected="S = \{(3, 1)\}" 
+    data-label="Zdefiniuj werdykt końcowy (Punkt konsensusu):"
+    data-hints='{
+      "SET_MISMATCH": "💡 S = \\{(x, y)\\} — zachowaj standardową kolejność krotki."
+    }'>
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<h3>🔬 Stany Brzegowe: Diagnoza Logiczna Układu</h3>
+<p>Podobnie jak w równaniach z jedną zmienną, układy mogą wpadać w stany anomalne. Musisz umieć rozpoznać, czy system jest stabilny, czy znajduje się w stanie „zawieszenia” (<strong><em>deadlock</em></strong>).</p>
+<h4>🛑 Case 1: Sprzeczność (Deadlock)</h4>
+<p>Podczas redukcji obie zmienne $\textcolor{#ff0001}{x}$ i $\textcolor{#ff0002}{y}$ znikają, a zostaje kłamstwo logiczne (np. $0 = 7$).</p>
+<ul>
+<li><strong>Diagnoza</strong>: Proste są równoległe i nie mają punktów wspólnych.</li>
+<li><strong>Wniosek formalny</strong>: Brak takiej pary $(\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y})$, która spełniałaby oba warunki naraz.</li>
+<li><strong>Status</strong>: $S = \emptyset$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\begin{cases} x + y = 5 \\ x + y = 2 \end{cases}$</td>
+<td align="center">$\begin{cases} 2x - y = 4 \\ 4x - 2y = 10 \end{cases}$</td>
+<td align="center">$\begin{cases} y = x + 1 \\ y = x - 3 \end{cases}$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Może się zdarzyć że w wyniku mutacji jednostronnej lub w pierwotnym stanie układ równań ma identyczny zapis lewych stron i na prawych mamy dwie różne wartości. Wtedy również jest to sprzeczność.</p>
+
+</div>
+</div><h4>🌐 Case 2: Tożsamość (Redundancja)</h4>
+<p>Zmienne znikają, ale zostaje prawda logiczna (np. $0 = 0$).</p>
+<ul>
+<li><strong>Diagnoza</strong>: Oba równania opisują tę samą linię. System ma nieskończenie wiele rozwiązań.</li>
+<li><strong>Wniosek formalny</strong>: Każda para $(\textcolor{#ff0001}{x}, \textcolor{#ff0002}{y})$ należąca do prostej spełnia układ.</li>
+<li><strong>Status</strong>: $S = D$</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$\begin{cases} x + y = 2 \\ 2x + 2y = 4 \end{cases}$</td>
+<td align="center">$\begin{cases} y = 2x - 1 \\ 4x - 2y = 2 \end{cases}$</td>
+<td align="center">$\begin{cases} 3x - y = 5 \\ 6x - 2y = 10 \end{cases}$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Podobnie jak w przypadku sprzeczności, może się zdarzyć że w wyniku mutacji jednostronnej lub w pierwotnym stanie układ równań ma identyczny zapis lewych stron i na prawych mamy te same wartości. Wtedy również jest to tożsamość.</p>
+
+</div>
+</div><hr>
+<h3>🔗 Połącz Pary: Wybór Strategii Rozwiązania</h3>
+<p>Dobry inżynier nie wybiera metody losowo.<br>Wybiera tę, która generuje najmniej upierdliwych obliczeń i minimalizuje ryzyko błędu. 😎</p>
+<data-gate>
+<data-connection-matcher title="Analiza Struktury: Dobierz najbardziej optymalną strategię">
+    <item left="$\begin{cases} y = 0.5x + 7 \\ 2x - 4y = 1 \end{cases}$" right="Iniekcja Stanu (wykorzystanie gotowej definicji sygnału $y$)"></item>
+    <item left="$\begin{cases} 5x - 3y = 11 \\ 2x + 3y = 3 \end{cases}$" right="Redukcja Bezpośrednia (wykorzystanie przeciwnych faz sygnału $y$)"></item>
+    <item left="$\begin{cases} 4x + 3y = 10 \\ 3x + 2y = 7 \end{cases}$" right="Mutacja NWW (pełne skalowanie obu linii dla eliminacji $x$)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li><strong>Punkt Konsensusu</strong> to stan wejściowy $(x, y)$ spełniający wszystkie kontrakty układu jednocześnie,</li>
+<li><strong>Iniekcja Stanu (Podstawianie)</strong> to metoda najskuteczniejsza, gdy jedna zmienna jest już odizolowana,</li>
+<li><strong>Redukcja Fazy (Przeciwne Współczynniki)</strong> pozwala wyeliminować szum poprzez skalowanie NWW,</li>
+<li><strong>Deadlock i Redundancja</strong> to anomalie logiczne układów sprzecznych i tożsamościowych,</li>
+<li><strong>Zasada Krotki</strong> wymaga raportowania wyników w uporządkowanej parze $(x, y)$.</li>
+</ul>
+<hr>
+<p>W następnym kroku wejdziemy w świat <strong>Równań Kwadratowych</strong>, gdzie nauczymy się diagnozować nieliniowe stany stabilności. Gotowy na skok w drugi stopień? 🚀📈</p>

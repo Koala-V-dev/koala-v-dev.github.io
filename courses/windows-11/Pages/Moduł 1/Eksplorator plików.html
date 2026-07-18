@@ -1,0 +1,324 @@
+<h1>Eksplorator Plików Windows 11</h1>
+<p>Eksplorator plików to Twoja <span class="color-green">baza operacyjna</span> w systemie. </p>
+<p>Uruchamiasz go skrótem <span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>E</kbd></span> i w ułamku sekundy zyskujesz dostęp do każdego dysku, pliku i folderu. To podstawowe narzędzie dla Ciebie jako technika.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧭 Anatomia Eksploratora</h2>
+<p>Eksplorator plików dzieli się na logiczne obszary z dedykowanymi funkcjami:</p>
+<data-gate>
+  <data-hotspot image="/courses/windows-11/Images/eksplorator-pliku-anatomia.png">
+    <hotspot x="10" y="45" title="Panel boczny (lewy)">Drzewo nawigacji. Zapewnia szybki dostęp do ulubionych folderów, dysków lokalnych, podłączonych nośników USB i zasobów sieciowych.</hotspot>
+    <hotspot x="73" y="8" title="Pasek adresu">Pokazuje aktualną ścieżkę. Klikając na nazwę katalogu, przeniesiesz się do niego, a klikając w wolną przestrzeń na końcu, zmienisz tryb na pole tekstowe (możesz edytować ścieżkę).</hotspot>
+    <hotspot x="50" y="15" title="Menu wyświetlania">Tu zmienisz sposób prezentacji plików. Możesz np. włączyć wyświetlanie rozszerzeń plików (jak `.txt` czy `.exe`) oraz podejrzeć ukryte elementy.</hotspot>
+    <hotspot x="15" y="15" title="Pasek wstążki (górny)">Narzędzia kontekstowe. Zmieniają się dynamicznie w zależności od tego, czy pracujesz z dokumentem, zdjęciem, archiwum ZIP czy jesteś właśnie na świeżej płycie CD/DVD (wtedy pojawia się narzędzie do nagrywania).</hotspot>
+    <hotspot x="60" y="55" title="Obszar główny">Serce aplikacji. Wyświetla listę plików w aktualnie otwartym katalogu.</hotspot>
+    <hotspot x="30" y="98" title="Pasek stanu (dolny)">Podsumowanie. Wyświetla całkowitą liczbę elementów w folderze oraz rozmiar aktualnie zaznaczonych plików.</hotspot>
+    <hotspot x="90" y="18" title="Szczegóły wybranego elementu">Dostarcza danych o zaznaczonym pliku lub folderze – rozmiarze, dacie utworzenia i typie elementu.</hotspot>
+  </data-hotspot>
+</data-gate>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Hack Power‑Usera:</span> Kliknij w <span class="color-green">pasek adresu</span> (zmieni się w edytowalne pole tekstowe) i wpisz w nim słowo <code>cmd</code> lub <code>powershell</code>. Po wciśnięciu <kbd>Enter</kbd> otworzysz konsolę z lokalizacją folderu, w którym właśnie jesteś!<br>Oszczędność czasu. 🤯</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📂 Kluczowe Ścieżki Systemowe</h2>
+<p>Poniższe lokalizacje to techniczne fundamenty Windowsa:</p>
+<data-tabs>
+    <tabs>
+        <b>🖥️ Pliki Systemowe</b>
+        <b>📟 Dane Aplikacji</b>
+        <b>👤 Profile Użytkownika</b>
+    </tabs>
+<div><table>
+<thead>
+<tr>
+<th align="left">Ścieżka</th>
+<th align="left">Co tu znajdziesz?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>C:\Windows</code></td>
+<td align="left">Główne zasoby operacyjne systemu</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Windows\System32</code></td>
+<td align="left">Fundamentalne pliki binarne, biblioteki DLL i narzędzia CLI dla środowiska $64$-bitowego</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Windows\SysWOW64</code></td>
+<td align="left">Biblioteki $32$-bitowe utrzymywane dla kompatybilności wstecznej w systemach $64$-bitowych</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Windows\Temp</code></td>
+<td align="left">Miejsce dla plików tymczasowych procesów i instalatorów o zasięgu globalnym</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Absolutnie niczego nie kasuj ręcznie w <code>C:\Windows\System32</code>. Usunięcie zaledwie jednego, krytycznego pliku systemowego potrafi bezpowrotnie odebrać Tobie możliwość korzystania z środowiska.<br><span class="color-green">PS. Dopiero w Windows 11 usunięcie tego katalogu zostało zablokowane.</span> 😅</p>
+
+</div>
+</div></div>
+<div><table>
+<thead>
+<tr>
+<th align="left">Ścieżka</th>
+<th align="left">Co tu znajdziesz?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>C:\Program Files</code></td>
+<td align="left">Oprogramowanie zainstalowane w nowszej architekturze $64$-bitowej</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Program Files (x86)</code></td>
+<td align="left">Instalacje starszego oprogramowania $32$-bitowego</td>
+</tr>
+<tr>
+<td align="left"><code>C:\ProgramData</code></td>
+<td align="left"><span class="color-green">(Ukryty!)</span> Cache i ustawienia globalne współdzielone przez wszystkie konta użytkowników</td>
+</tr>
+<tr>
+<td align="left"><code>%TEMP%</code></td>
+<td align="left">Zmienna środowiskowa przypisana do osobistego folderu <code>Temp</code> dla aktualnie zalogowanego konta</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zamiast przebijać się przez drzewo dysku i ukryty folder AppData, wpisz po prostu <span class="color-green"><code>%TEMP%</code></span> w pasku adresu i wciśnij Enter. Eksplorator automatycznie rozwiąże tę zmienną środowiskową i otworzy profilowy folder z plikami tymczasowymi. To pierwsze miejsce, do którego zaglądasz przy ręcznym sprzątaniu cache'u i śmieci pozostawionych przez crashe niedomkniętych aplikacji.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Folder <code>AppData</code> jest <span class="color-green">domyślnie niewidoczny</span>.<br>Aby go włączyć: w menu <span class="color-green">Wyświetl</span> → <span class="color-green">Pokaż</span> → <span class="color-green">Ukryte elementy</span>.</p>
+
+</div>
+</div></div>
+<div><table>
+<thead>
+<tr>
+<th align="left">Ścieżka</th>
+<th align="left">Co tu znajdziesz?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>C:\Users\</code></td>
+<td align="left">Główny kontener przechowujący foldery przypisane do każdego utworzonego konta użytkownika</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Users\[nazwa]\Desktop</code></td>
+<td align="left">Pliki z pulpitu konkretnego profilu</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Users\[nazwa]\Documents</code></td>
+<td align="left">Domyślne miejsce dla dokumentów tekstowych i zapisów</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Users\[nazwa]\Downloads</code></td>
+<td align="left">Domyślny folder dla plików ściągniętych z przeglądarki internetowej</td>
+</tr>
+<tr>
+<td align="left"><code>C:\Users\[nazwa]\AppData</code></td>
+<td align="left"><span class="color-green">(Ukryty!)</span> Indywidualne ustawienia oprogramowania i cache dla tego profilu</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Folder <code>AppData</code> jest <span class="color-green">domyślnie niewidoczny</span>.<br>Aby go włączyć: w menu <span class="color-green">Wyświetl</span> → <span class="color-green">Pokaż</span> → <span class="color-green">Ukryte elementy</span>.</p>
+
+</div>
+</div></div>
+</data-tabs>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Aplikacja wyłącza się natychmiast po uruchomieniu (crash), ale problem występuje tylko u jednego pracownika. W którym katalogu w pierwszej kolejności poszukasz winnych pików konfiguracyjnych?</p>
+</question>
+    <options>
+      <item correct=""><p><code>C:\Users\[nazwa_pracownika]\AppData</code> (odkrywając najpierw ukryte elementy).</p>
+</item>
+      <item><p><code>C:\Program Files\[nazwa_aplikacji]</code>, gdzie każdy profil zapisuje swoje własne ustawienia startowe.</p>
+</item>
+      <item><p><code>C:\Windows\System32</code>, w plikach <code>.dll</code> powiązanych z tym konkretnym użytkownikiem.</p>
+</item>
+      <item><p><code>C:\ProgramData</code>, ponieważ tam współdzielone są systemowe pliki tymczasowe dla błędów oprogramowania.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Skoro problem dotyczy tylko jednej konkretnej osoby (a nie wszystkich korzystających ze stacji roboczej), przyczyna błędu jest w plikach profilu <code>(per-user)</code>. Ustawienia i cache nie znajdują się w ogólnodostępnych folderach instalacyjnych aplikacji. Zastanów się, gdzie system zrzuca dane aplikacji konkretnego użytkownika.</p>
+</div>
+    <div data-hint="success"><p>Prawidłowa ścieżka! Ustawienia konfiguracyjne poszczególnych profili lądują zawsze w ich prywatnych folderach AppData. Wyczyszczenie ich najpewniej usunie problem.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Skróty klawiszowe Eksploratora</h2>
+<p>Ogranicz klikanie myszką. Administratorzy w środowisku graficznym najszybciej operują przy użyciu kombinacji klawiszowych.</p>
+<p>Oto $8$ kolejnych, absolutnych fundamentów Twojego warsztatu:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Skrót</th>
+<th align="left">Działanie w Eksploratorze</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd></td>
+<td align="left">Klasyczne skróty „Wróć” i „Dalej” poruszające się w historii odwiedzonych podfolderów</td>
+</tr>
+<tr>
+<td align="left"><kbd>Alt</kbd> + <kbd>↑</kbd></td>
+<td align="left">Wejście jeden szczebel wyżej w drzewie głównym katalogów dyskowych</td>
+</tr>
+<tr>
+<td align="left"><kbd>F2</kbd></td>
+<td align="left">Natychmiastowa aktywacja trybu edycji nazwy zaznaczonego obiektu</td>
+</tr>
+<tr>
+<td align="left"><kbd>F5</kbd></td>
+<td align="left">Wymuszenie odświeżenia zawartości folderu</td>
+</tr>
+<tr>
+<td align="left"><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd></span></td>
+<td align="left">Błyskawiczne utworzenie nowego folderu bez klikania w prawy przycisk myszy</td>
+</tr>
+<tr>
+<td align="left"><kbd>Ctrl</kbd> + <kbd>W</kbd></td>
+<td align="left">Zamknięcie aktualnie wybranej karty / okna</td>
+</tr>
+<tr>
+<td align="left"><kbd>Delete</kbd></td>
+<td align="left">Przeniesienie plików do systemowego wirtualnego śmietnika (Kosz) przed ich bezpiecznym skasowaniem</td>
+</tr>
+<tr>
+<td align="left"><kbd>Shift</kbd> + <kbd>Delete</kbd></td>
+<td align="left"><span class="color-green">Bezpowrotne usunięcie plików z dysku</span> omijające zupełnie system Kosza</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Uważaj. Klawisz skrótowy <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>Delete</kbd></span> jest bezwzględny. Ominięcie ratunkowego mechanizmu wirtualnego Kosza z reguły eliminuje plik bezpowrotnie. </p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>👁️ Sztuka analizy widoków</h2>
+<p>Sposób prezentacji zawartości przyspiesza skanowanie dziesiątek plików przy diagnostyce. Prawy przycisk myszy w pustej przestrzeni i z menu podręcznego wybierz <span class="color-green">Widok</span>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Typ widoku</th>
+<th align="left">Praktyczne zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Szczegóły</span></td>
+<td align="left">Widok tabelaryczny. Umożliwia kliknięcie w nagłówek kolumny, aby natychmiast posortować setki plików według daty modyfikacji, rozmiaru lub rozszerzenia.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Lista</span></td>
+<td align="left">Zagęszcza układ do samych nazw bez zbędnych detali.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Duże ikony</span></td>
+<td align="left">Generuje miniatury zawartości. Przydatne w pracy ze grafiką i wideo bez konieczności ich otwierania.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Kafelki</span></td>
+<td align="left">Zwykła miniatura połączona z podstawowymi metadanymi pliku (nazwa, rozmiar).</td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-quiz>
+    <question><p>Księgowy szuka zagubionego raportu w folderze wypełnionym $4000$ plików Excela. Pamięta jedynie, że pracował na nim wczoraj w godzinach wieczornych. Który widok w Eksploratorze pozwoli Ci najszybciej namierzyć zgubę?</p>
+</question>
+    <options>
+      <item correct=""><p>Widok <span class="color-green">Szczegóły</span> – pozwala kliknąć w nagłówek „Data modyfikacji”, bezbłędnie sortując całą strukturę plików chronologicznie.</p>
+</item>
+      <item><p>Widok <span class="color-green">Duże ikony</span> – pozwala przeskrolować zasoby folderu graficznie i zidentyfikować poszukiwaną miniaturę na ekranie głównym.</p>
+</item>
+      <item><p>Widok <span class="color-green">Lista</span> – kompresuje wyświetlane pliki i ułatwia wzrokowe zlokalizowanie odpowiedniej nazwy podczas szybkiego scrollowania.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Przy $4000$ obiektów, wzrokowe poszukiwania to samobójstwo. Konieczny będzie widok udostępniający tabelaryczne zarządzanie cechami plików (takimi jak na przykład czas edycji).</p>
+</div>
+    <div data-hint="success"><p>Tylko tryb „Szczegółów” zapewni dostęp do zaawansowanych nagłówków kolumn umożliwiających mechaniczne posortowanie całego zasobu pod kątem precyzyjnej chronologii zapisów.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Wyszukiwanie w Eksploratorze</h2>
+<p>Pasek wyszukiwania (w górnym prawym rogu okna) obsługuje tak zwane <span class="color-green">filtry techniczne</span>. Zamiast wpisywać część nazwy pliku, możesz przefiltrować wyniki mechanicznie na znacznie wyższym poziomie zarządzania:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Filtr</th>
+<th align="left">Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>*.pdf</code></td>
+<td align="left">Pokaże wszystkie pliki z rozszerzeniem <code>.pdf</code> w danym folderze</td>
+</tr>
+<tr>
+<td align="left"><code>*.log datemodified:&gt;2024</code></td>
+<td align="left">Przefiltruje pliki z rozszerzeniem logu do tych z $2024$ lub nowszych</td>
+</tr>
+<tr>
+<td align="left"><code>size:&gt;100mb</code></td>
+<td align="left">Zwróci same pliki o wadze przekraczającej $100 \text{ MB}$ przestrzeni dyskowej</td>
+</tr>
+<tr>
+<td align="left"><code>kind:picture</code></td>
+<td align="left">Przefiltruje surowce i skupi się na grafice cyfrowej</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Do natychmiastowego technicznego wyszukiwania ogromnych ilości informacji rozrzuconych na całym dysku stosuje się program <span class="color-green"><a href="https://www.voidtools.com/">Everything</a></span> (bezpłatny, do użytku niekomercyjnego/komercyjnego). Moduł oprogramowania ignoruje skomplikowane i oporne systemowe procesy, błyskawicznie wyświetlając poszukiwane pakiety plików. To popularny standard wśród inżynierów!<br>Działa zdecydowanie szybciej niż wbudowana wyszukiwarka Eksploratora plików Windows. 🚀</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Finał: Diagnoza wiedzy o operowaniu Eksploratorem</h2>
+<data-gate>
+  <data-connection-matcher title="Funkcjonalność Nawigacyjna">
+    <div class="cmw-item" data-left="Rozpoczęcie szybkiej i natychmiastowej edycji ścieżki dostępu do katalogu" data-right="Pojedyncze kliknięcie kursorem bezpośrednio w wolną strefę paska adresu"></div>
+    <div class="cmw-item" data-left="Bezwzględne wyrzucenie pliku z pominięciem procedury buforowania i wirtualnego kosza na pliki" data-right="Kombinacja klawiszy <kbd>Shift</kbd> + <kbd>Delete</kbd>"></div>
+    <div class="cmw-item" data-left="Ręczne wpisywanie polecenia nakazującego wyselekcjonowanie dużych plików po wielkości w $\text{MB}$ i $\text{GB}$. Np. $10\text{ MB}$" data-right="Polecenie wielkości <code>size:>10MB</code> wpisane w pasek technicznej wyszukiwarki plików"></div>
+    <div class="cmw-item" data-left="Rozpoczęcie wykonywania środowiskowych operacji skryptowych od razu ze sparowaniem z aktualnym otworzonym folderem docelowym" data-right="Wpisanie <code>cmd</code> albo <code>powershell</code> w kliknięty i aktywny pasek adresu"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Eksplorator plików:</span> do szybkiej nawigacji po systemie używaj paska adresu, w którym możesz nie tylko wpisać katalog docelowy ale wręcz odpalić stamtąd terminal po wpisaniu komendy powłoki (<code>cmd</code>, <code>powershell</code>). 🚀</li>
+<li><span class="color-green">Skróty ułatwiające pracę:</span> poruszaj się po plikach bez ciągłego ruszania dłonią w stronę myszki, wspieraj się błyskawiczną klawiaturą (<kbd>Alt</kbd>+<kbd>↑</kbd>, zmiana nazwy z <kbd>F2</kbd>). ⌨️</li>
+<li><span class="color-green">Sortowanie i analiza:</span> widok „Szczegóły” pozwala błyskawicznie uporządkować tysiące plików jednym kliknięciem w nagłówek kolumny (np. po dacie modyfikacji lub rozmiarze). 🧹</li>
+</ul>
+<hr>
+<p>Nawigowanie i skakanie po zakamarkach dysku opanowane do perfekcji. 💪🏻<br>W kolejnej lekcji bierzemy się za zarządzanie oprogramowaniem. 🥸</p>
+</section>

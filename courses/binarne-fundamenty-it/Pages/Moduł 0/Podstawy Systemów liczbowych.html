@@ -1,0 +1,111 @@
+<h2>Podstawy Systemów liczbowych</h2>
+<p>Większość ludzi traktuje liczby jako &quot;po prostu liczby&quot;. W informatyce każda liczba ma swoją <strong>szerokość</strong> i <strong>granicę</strong>. Zanim przejdziemy do zer i jedynek, musimy zrozumieć, co się dzieje, gdy wyczerpiemy pulę dostępnych znaków.</p>
+<h3>🦖 System Dziesiętny: Mechanika Przeniesienia</h3>
+<p>W systemie dziesiętnym (DEC) mamy 10 symboli: $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$. Kiedy dodajemy $1$ do największego symbolu ($9$), następuje <strong>przeniesienie</strong>.</p>
+<p>Spójrz na poniższą tabelę. To jest mechanizm, który znasz z podstawówki, ale spójrz na niego technicznie:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Tysiące</th>
+<th align="center">Setki</th>
+<th align="center">Dziesiątki</th>
+<th align="center">Jedności</th>
+<th align="center">Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center">9</td>
+<td align="center"><strong>$9$</strong></td>
+</tr>
+<tr>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center"><strong>$10$</strong></td>
+</tr>
+</tbody></table>
+<p>Gdy kolumna &quot;Jedności&quot; osiąga limit, zeruje się i wysyła sygnał przeniesienia do kolumny po lewej.</p>
+<h3>⚠️ Przepełnienie: Gdy hardware mówi "STOP"</h3>
+<p>W komputerze nie masz nieskończonej ilości kolumn. Jeśli Twój procesor ma system $3$-cyfrowy, to liczba <strong>$999$</strong> jest jego absolutnym sufitem. Co się stanie, gdy dodasz do niej $1$?</p>
+<p>To zależy od tego, jak zaprojektowano sprzęt. W większości przypadków następuje <strong>Overflow</strong> (przepełnienie).</p>
+<data-gate>
+  <data-quiz>
+    <question>
+Mamy fizyczny licznik (jak w starym samochodzie), który ma TYLKO $6$ pól na cyfry. Obecny stan to $999999$. Dodajesz $1$. Jaki będzie FIZYCZNY obraz tego licznika po operacji?
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/tarcza_zegarqa_samochodowego.webp" alt="Tarcza zegara samochodowego" width="612" height="407" class="lazy-image" loading="lazy" decoding="async">
+    </question>
+    <options>
+      <option correct> $000000$. Ponieważ licznik nie ma siódmego pola na kolejną "jedynkę".</option>
+      <option> $1000000$. Licznik magicznie stworzy nową kolumnę, aby pomieścić wynik.</option>
+    </options>
+
+<div data-hint="error">
+  Skup się na słowie "TYLKO $6$ pól". Fizycznie nie widzę tam miejsca na kolejną cyfrę. Co się stanie z bębnami licznika?
+</div>
+  </data-quiz>
+</data-gate>
+
+<h3>💻 Od 10 do 2: Przeskok Logiczny</h3>
+<p>W systemie binarnym (<strong><em>BIN</em></strong>) mamy tylko $2$ symbole: <code>0</code> i <code>1</code>. Zasada przeniesienia działa identycznie, ale... znacznie częściej.</p>
+<ol>
+<li>Masz <code>0</code>.</li>
+<li>Dodajesz <code>1</code> -&gt; masz <code>1</code>. (Limit osiągnięty!)</li>
+<li>Dodajesz kolejne <code>1</code> -&gt; Jedynka się zeruje (<code>0</code>) i następuje przeniesienie w lewo (<code>1</code>). Wynik: <code>10</code> (co w systemie dziesiętnym oznacza $2$).</li>
+</ol>
+<h4>Ćwiczenie: Przesunięcia w Binarnym</h4>
+<p>Spójrz na tabelę i spróbuj samodzielnie &quot;przesunąć&quot; wartości w głowie:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Dziesiętnie</th>
+<th align="center">Binarnie</th>
+<th align="left">Co się stało?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center"><code>001</code></td>
+<td align="left">Start</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"><code>010</code></td>
+<td align="left">Przeniesienie z jedności do dwójek</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"><code>011</code></td>
+<td align="left">Dodanie jedynki</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center"><code>100</code></td>
+<td align="left">Podwójne przeniesienie!</td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-quiz>
+    <question>
+Jaka będzie następna liczba binarna po `111`? (Pamiętaj o mechanizmie przeniesienia!)
+    </question>
+    <options>
+      <option correct>`1000`</option>
+      <option>`112`</option>
+      <option>`1111`</option>
+      <option>`000`</option>
+    </options>
+
+<div data-hint="error">
+  Każda kolumna ma już jedynkę (czyli swój limit). Dodanie `1` spowoduje, że pierwsza się wyzeruje i poda przeniesienie dalej. Druga zrobi to samo, trzecia też... Gdzie wyląduje ta ostatnia jedynka?
+</div>
+  </data-quiz>
+</data-gate>
+
+<p>Na koniec chcę abyś popatrzył na poniższe dłonie. Na lewym obrazku palce liczymy normalnie, a na prawym <em>indeksujemy</em> je od zera (<code>0</code>). Wciąż mamy $10$ palców, ale w informatyce i zaawansowanej matematyce liczenie od zera to standard.<br>Kiedyś w pełni zrozumiesz jak to bardzo ułatwia życię i pracę 😎.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/palce.webp" alt="Palce od 1 do 10 i od 0 do 9" width="882" height="300" class="lazy-image" loading="lazy" decoding="async">
+
+<hr>

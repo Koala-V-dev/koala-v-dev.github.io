@@ -1,0 +1,89 @@
+<h2>Funkcja liniowa: Architektura Stałego Wzrostu</h2>
+<p>W poprzedniej lekcji poznałeś inżynierski ideał: <strong>Bijekcję</strong>. Funkcja liniowa (dla $a \neq 0$) to jej najprostszy, rzeczywisty przykład. Jest to mapowanie, które nie gubi informacji, nie tworzy kolizji i pozwala na idealne odwrócenie procesu. </p>
+<p>W informatyce i inżynierii funkcja liniowa to fundament skalowalności. Gdy mówimy, że system jest „liniowy”, mamy na myśli przewidywalność: jeśli podwoisz wysiłek, otrzymasz podwójny wynik.</p>
+<hr>
+<h3>🏗️ Budowa Systemu: Skąd bierze się $y = ax + b$?</h3>
+<p>Zamiast traktować ten wzór jako dogmat, zbudujmy go od zera, projektując prosty system pomiarowy. Załóżmy, że tworzysz oprogramowanie dla czujnika temperatury.</p>
+<ol>
+<li><strong>Stan Początkowy ($b$):</strong> Gdy system startuje ($x = 0$), czujnik pokazuje jakąś wartość bazową. To jest nasze <strong>$b$</strong> (wyraz wolny). Na wykresie to punkt, w którym prosta przecina oś pionową OY.</li>
+<li><strong>Czułość Systemu ($a$):</strong> Każdy wzrost temperatury o $1$ stopień ($x$) powoduje zmianę sygnału o stałą wartość. Tę stałą zmianę nazywamy <strong>$a$</strong> (współczynnik kierunkowy).</li>
+</ol>
+<p>Logiczny ciąg zdarzeń:</p>
+<ul>
+<li>Dla $x = 0$ mamy $y = b$</li>
+<li>Dla $x = 1$ mamy $y = b + a$</li>
+<li>Dla $x = 2$ mamy $y = b + a + a = b + 2a$</li>
+<li>Dla dowolnego $x$ mamy: <strong>$y = ax + b$</strong></li>
+</ul>
+<p>Dzięki temu wzór przestaje być arbitralną regułą, a staje się logiczną konsekwencją stałego tempa wzrostu.</p>
+<hr>
+<h3>🪤 Sandbox: Projektowanie Wykresu</h3>
+<p>Zanim przejdziemy do obliczeń, zobacz jak parametry $a$ i $b$ budują geometrię prostej. Spróbuj tak dobrać wzór funkcji liniowej, aby prosta przecinała oś OY w wskazanym punkcie i miała współczynnik kierunkowy $a = 3$.</p>
+<data-gate>
+<data-cartesian-sandbox 
+    data-expected-pass-x="0" 
+    data-expected-pass-y="2" 
+    data-expected-slope="3" 
+    data-instruction="Wpisz wzór funkcji:">
+</data-cartesian-sandbox>
+</data-gate>
+
+<hr>
+<h3>🔍 Kalibracja: Wyznaczanie $a$ i $b$ z danych</h3>
+<p>Inżynier rzadko dostaje gotowy wzór. Częściej ma dwa odczyty z sensora i musi wyznaczyć parametry $a$ i $b$.</p>
+<h4>Krok 1: Wyznaczenie czułości ($a$)</h4>
+<p>Jeśli w punkcie $x_1$ mamy wynik $y_1$, a w punkcie $x_2$ mamy $y_2$, to współczynnik $a$ to stosunek zmiany wyników do zmiany argumentów:</p>
+<div class="eq">
+  $$ a = \frac{ \textcolor{#ff0002}{y_2} - \textcolor{#ff0001}{y_1} }{ \textcolor{#ff0004}{x_2} - \textcolor{#ff0003}{x_1} } $$
+</div>
+
+
+
+
+<h4>Krok 2: Wyznaczenie punktu startowego ($b$)</h4>
+<p>Znając $a$ oraz dowolny punkt $(x_1, y_1)$, możemy wyliczyć przesunięcie:<br>$$b = \textcolor{#ff0001}{y_1} - a \cdot \textcolor{#ff0003}{x_1}$$</p>
+<h4>🪤 Sandbox: Kalibracja Procesu</h4>
+<p>Wyznacz wzór funkcji, która przechodzi przez punkty $(\textcolor{#ff0003}{2}, \textcolor{#ff0001}{7})$ oraz $(\textcolor{#ff0004}{4}, \textcolor{#ff0002}{11})$. </p>
+<data-gate>
+<data-math-sandbox level="algebra" data-steps="3">
+  <div 
+    data-step="1" 
+    data-expected="a = 2" 
+    data-label="Oblicz współczynnik $a$ (zmiana $y$ to $11-7=4$, zmiana $x$ to $4-2=2$):"
+    data-hint-wrong="a = 4:Pamiętaj o podzieleniu zmiany $y$ przez zmianę $x$.">
+  </div>
+  <div 
+    data-step="2" 
+    data-expected="b = 3" 
+    data-label="Podstaw $a = 2$ i punkt $(2, 7)$ do wzoru $b = 7 - a \cdot 2$:"
+    data-hint-wrong="b = 5:Oblicz: $7 - (2 \cdot 2) = 3$.">
+  </div>
+  <div 
+    data-step="3" 
+    data-expected="2x + 3" 
+    data-label="Zapisz pełny wzór funkcji $f(x)=\dots$">
+  </div>
+</data-math-sandbox>
+</data-gate>
+
+<hr>
+<h3>💻 IT: Potęga Skalowania $O(n)$</h3>
+<p>W informatyce funkcja liniowa to wzorzec <strong>idealnej skalowalności</strong>. Zapisujemy to jako <strong>$O(n)$</strong>. Oznacza to, że czas pracy algorytmu rośnie dokładnie tak samo szybko, jak ilość danych.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/matematyka/Images/notacja_dużego_O_z_wydajnością.webp" alt="Wykres notacji Big O — porównanie złożoności" width="823" height="638" class="lazy-image" loading="lazy" decoding="async">
+*Tu pojawi się wykres porównujący O(1), O(n) i O(n^2)*
+
+<p>W notacji Big O interesuje nas trend przy ogromnych danych. Dlatego ignorujemy wyraz wolny $b$ oraz mnożniki. Dla informatyka funkcje $y = 2n + 100$ i $y = 1000n$ to ta sama klasa — <strong>liniowa</strong>. Przy miliardzie danych stały narzut ($+100$) staje się nieistotny.</p>
+<hr>
+<h4>🔗 Połącz Pary: Analiza Systemów Liniowych</h4>
+<p>Dopasuj opis inżynierski do odpowiadającego mu wzoru matematycznego.</p>
+<data-gate>
+<data-connection-matcher title="Analiza parametrów systemu">
+    <item left="Abonament 50zł + 2zł/GB" right="$y = 2x + 50$" />
+    <item left="Szyfrowanie symetryczne (odwracalne)" right="Bijekcja ($a \neq 0$)" />
+    <item left="Algorytm O(n) bez narzutu początkowego" right="$y = ax$" />
+    <item left="Stały sygnał zepsutego czujnika" right="$y = b$ (brak iniekcji)" />
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<p>Ukończyłeś Moduł 4! Wiesz już, że funkcje to nie tylko wzory, ale <strong>architektura przepływu danych</strong>. W Module 5 przejdziemy do potężniejszych narzędzi — <strong>Logarytmów i Funkcji Wykładniczych</strong>, które pozwolą nam opisać procesy rosnące znacznie szybciej niż prosta linia. 🚀</p>

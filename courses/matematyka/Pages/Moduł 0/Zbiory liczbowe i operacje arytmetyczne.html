@@ -1,0 +1,205 @@
+<h2>Zbiory liczbowe i operacje arytmetyczne: Fundamenty Logiki</h2>
+<p>Zanim zaczniemy budować złożone struktury danych czy algorytmy, musimy zrozumieć fundament: czym właściwie jest liczba w systemie logicznym? To nie tylko cyfra na ekranie — to konkretna <strong>idea</strong>, którą musimy umieć zarządzać.</p>
+<h3>🛠️ Punkt Kontrolny: Idea vs Znak</h3>
+<data-gate>
+<data-quiz>
+  <question>Masz przed sobą obrazek z pięcioma jabłkami. Czym w matematyce jest cyfra $5$?</question>
+  <options>
+    <option>Jedynym poprawnym znakiem graficznym dla tej ilości.</option>
+    <option correct>Symbolem idei ilości, która istnieje niezależnie od zapisu.</option>
+    <option>Wynikiem konkretnego równania.</option>
+  </options>
+  <div data-hint="error">Oddziel „interfejs” (znak) od „logiki” (znaczenia).</div>
+  <div data-hint="success">Dokładnie. Symbol to tylko etykieta. Pamiętasz Kość z Ishango? Tam symbolem były nacięcia, a idea ilości była ta sama.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<p>Większość z nas tabliczkę mnożenia zapamiętała na pamięć, jak wierszyk (np. $7 \cdot 8 = 56$).<br>W tej lekcji zrobimy krok dalej. Zobaczysz, <strong>skąd te wyniki się biorą</strong> — żebyś nie musiał „wierzyć na słowo” i nie musiał powtarzać za klasykiem z internetu, że:<br><a href="https://www.youtube.com/watch?v=mQaQiuIm--4">$6 \cdot 6$ to jest najgorsze — by BDOES</a>. 😉</p>
+<hr>
+<h3>🏗️ Liczby Naturalne: Fundament Liczenia</h3>
+<p>To podstawowy zbiór, od którego wszystko się zaczyna. Służy do liczenia obiektów, które możemy wskazać palcem:</p>
+<p>$$\mathbb{N} = \{0, 1, 2, 3, 4, 5, \ldots\}$$</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Czy $0$ jest liczbą naturalną?<br>W matematyce szkolnej bywa różnie, ale w informatyce (i w tym kursie) przyjmujemy, że <strong>TAK</strong> ($0 \in \mathbb{N}$).<br>Zero to stan początkowy, pusty licznik — niezbędny w każdym systemie.</p>
+
+</div>
+</div><blockquote>
+<p><em>Ciekawostka językowa:</em> Niemcy nazywają ten zbiór <em>natürliche</em> <strong>Zahlen</strong>. Stąd oznaczenie $\mathbb{N}$.</p>
+</blockquote>
+<hr>
+<h3>⚙️ Dodawanie: Akumulacja Stanów</h3>
+<p>Dodawanie to najbardziej pierwotna operacja łączenia ilości. Możemy je opisać trzema żelaznymi zasadami:</p>
+<ol>
+<li><em><strong>PRZEMIENNOŚĆ</strong></em>: $a + b = b + a$  </li>
+<li><em><strong>ŁĄCZNOŚĆ</strong></em>: $(a + b) + c = a + (b + c)$  </li>
+<li><em><strong>ELEMENT NEUTRALNY</strong></em>: $a + 0 = a$</li>
+</ol>
+<p>Zero działa jak <em>bypass</em> — nie zmienia stanu sumy.</p>
+<h3>🔗 Połącz Pary: Własności Dodawania</h3>
+<data-gate>
+<data-connection-matcher>
+    <item left="$12 + 4 = 4 + 12$" right="PRZEMIENNOŚĆ"></item>
+    <item left="$(2+3)+8 = 2+(3+8)$" right="ŁĄCZNOŚĆ"></item>
+    <item left="$99 + 0 = 99$" right="ELEMENT NEUTRALNY"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3>⚖️ Odejmowanie: Inwersja i Rozszerzenie Systemu</h3>
+<p>Odejmowanie to operacja odwrotna (<em>inwersja</em>) do dodawania:</p>
+<p>$$a - b = x \quad \iff \quad x + b = a$$</p>
+<p>Szukamy liczby, która „naprawi” różnicę.</p>
+<p>Problem pojawia się, gdy chcemy odjąć więcej, niż mamy (np. $3 - 7$).<br>W zbiorze liczb naturalnych ($\mathbb{N}$) takie działanie <em><strong>nie ma wyniku</strong></em>.</p>
+<p>Żeby system się nie „wywalił”, musimy go rozszerzyć o stany ujemne.<br>Formalnie oznacza to przejście do zbioru <strong>liczb całkowitych</strong>:</p>
+<p>$$\mathbb{N} \subset \mathbb{Z}$$</p>
+<blockquote>
+<p>Powyższy zapis oznacza że zbiór liczb naturalnych zawiera się w zbiorze liczb całkowitych.</p>
+</blockquote>
+<details>
+<summary>Zbiory liczb z niemieckiego</summary>
+
+<ul>
+<li>$\mathbb{N}$ – <em>natürliche</em> <strong>Zahlen</strong> (liczby naturalne): $\{0, 1, 2, 3, \ldots\}$</li>
+<li>$\mathbb{Z}$ – <em>ganze</em> <strong>Zahlen</strong> (liczby całkowite): $\{\ldots, -3, -2, -1, 0, 1, 2, 3, \ldots\}$</li>
+<li>$\mathbb{Q}$ – <em>rationale</em> <strong>Zahlen</strong> (liczby wymierne): $?$</li>
+<li>$\mathbb{R}$ – <em>reelle</em> <strong>Zahlen</strong> (liczby rzeczywiste): $?$</li>
+<li>$\mathbb{C}$ – <em>komplexe</em> <strong>Zahlen</strong> (liczby zespolone): $?$</li>
+</ul>
+<p>Reszty dowiesz się, gdy będziemy musieli ich użyć 😉.</p>
+</details>
+
+<hr>
+<h3>🛠️ Punkt Kontrolny: Zbiory Liczbowe</h3>
+<p>Jeżeli na koncie masz $100$ zł, a płacisz $150$ zł, to „brakuje” Ci $50$ zł.</p>
+<data-gate>
+<data-quiz>
+  <question>Rozwiązanie problemu $100 - 150 = ?$ w spójnym systemie logicznym wymaga:</question>
+  <options>
+    <option>Zamiany liczb miejscami, żeby „wyszło dodatnie”.</option>
+    <option correct>Rozszerzenia zbioru liczbowego o liczby ujemne (dług).</option>
+    <option>Wprowadzenia jednorazowej poprawki dla tego konkretnego zakupu.</option>
+  </options>
+  <div data-hint="error">Inżynieria nie lubi wyjątków. Chcemy jednej, uniwersalnej zasady dla każdego odejmowania.</div>
+  <div data-hint="success">Właśnie tak. Przechodzimy do zbioru $\mathbb{Z}$, gdzie wynik $-50$ jest w pełni poprawny.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>⚙️ Mnożenie: Skrót Operacyjny (Skalowanie)</h3>
+<p>Mnożenie to nic innego jak <strong>zoptymalizowane dodawanie</strong>.<br>Zamiast pisać $4 + 4 + 4$, piszemy:</p>
+<p>$$3 \cdot 4$$</p>
+<p>Mnożenie dziedziczy cechy dodawania, ale ma inny element neutralny:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Właściwość</th>
+<th align="center">Dodawanie</th>
+<th align="center">Mnożenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><em><strong>PRZEMIENNOŚĆ</strong></em></td>
+<td align="center">$a + b = b + a$</td>
+<td align="center">$a \cdot b = b \cdot a$</td>
+</tr>
+<tr>
+<td align="left"><em><strong>ŁĄCZNOŚĆ</strong></em></td>
+<td align="center">$(a+b)+c = a+(b+c)$</td>
+<td align="center">$(a \cdot b) \cdot c = a \cdot (b \cdot c)$</td>
+</tr>
+<tr>
+<td align="left"><em><strong>ELEMENT NEUTRALNY</strong></em></td>
+<td align="center">$a + \textcolor{#ff0003}{0} = a$</td>
+<td align="center">$a \cdot \textcolor{#ff0003}{1} = a$</td>
+</tr>
+</tbody></table>
+<h3>🛠️ Punkt Kontrolny: Element Neutralny</h3>
+<data-gate>
+<data-quiz>
+  <question>Co się stanie, jeśli pomnożysz dowolną wartość przez $0$ (element neutralny dodawania)?</question>
+  <options>
+    <option>Wartość nie zmieni się (zostanie taka sama).</option>
+    <option correct>Wartość zostanie wyzerowana (anihilacja).</option>
+    <option>System zgłosi błąd krytyczny.</option>
+  </options>
+  <div data-hint="error">Zero jest neutralne przy dodawaniu, ale nie przy mnożeniu.</div>
+  <div data-hint="success">Poprawnie. Mnożenie przez $0$ oznacza „dodaj tę wartość zero razy”. Wynik to pustka.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>🔬 Rozdzielność: Synchronizacja Operacji</h3>
+<p>To jedno z najważniejszych praw w inżynierii matematycznej.<br>Pozwala <strong>rozbić duży problem na mniejsze, łatwiejsze do policzenia segmenty</strong> — dokładnie tak, jak robi to każdy dobry algorytm.</p>
+<p>$$a \cdot (b + c) = a \cdot b + a \cdot c$$</p>
+<p>Przykład z życia:<br>Chcesz kupić 3 zestawy, w których jest kawa (2 zł) i ciastko (5 zł).</p>
+<p>Możesz policzyć cenę zestawu:</p>
+<ul>
+<li>$3 \cdot 7 = 21$</li>
+</ul>
+<p>Albo rozbić problem na mniejsze części:</p>
+<ul>
+<li>$3 \cdot 2 + 3 \cdot 5 = 6 + 15 = 21$</li>
+</ul>
+<p>Wynik jest identyczny — ale druga metoda pokazuje <strong>dlaczego</strong> działa.<br>To właśnie rozdzielność: matematyczny odpowiednik „divide and conquer”.</p>
+<h3>🛠️ Punkt Kontrolny: Rozdzielność Mnożenia</h3>
+<data-gate>
+<data-quiz>
+  <question>Ile wynosi $5 \cdot 0$ i dlaczego?</question>
+  <options>
+    <option>5 — bo mnożenie nie powinno nic zmieniać.</option>
+    <option correct>0 — bo mnożenie to wielokrotne dodawanie.</option>
+    <option>0 — bo tak kazała pani w szkole.</option>
+  </options>
+  <div data-hint="error">Wróć do definicji mnożenia jako skrótu dodawania. 🫤</div>
+  <div data-hint="success">Dokładnie. Definicja mnożenia nie pozostawia złudzeń.</div>
+</data-quiz>
+</data-gate>
+
+<hr>
+<h3>⚖️ Dzielenie: Dekonstrukcja Mnożenia</h3>
+<p>Dzielenie to proces „odkręcania” mnożenia:</p>
+<p>$$12 \div 3 = x \quad \iff \quad x \cdot 3 = 12$$</p>
+<h4>⚠️ Krytyczny Błąd Systemu: Dzielenie przez Zero</h4>
+<p>W arytmetyce klasycznej dzielenie przez zero jest <strong>operacją niedozwoloną</strong>.<br>Nie dlatego, że „tak po prostu jest”, ale dlatego, że <strong>psuje to logikę systemu</strong>:</p>
+<ul>
+<li><strong>$5 \div 0$</strong> — nie istnieje żadna liczba, która po pomnożeniu przez $0$ dałaby $5$ (brak rozwiązania).  </li>
+<li><strong>$0 \div 0$</strong> — każda liczba pomnożona przez $0$ daje $0$, więc istnieje nieskończenie wiele „kandydatów” (brak jednoznaczności).</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Dzielenie przez zero w kodzie zazwyczaj kończy się błędem <code>DivisionByZeroException</code>.<br>Zawsze sprawdzaj mianownik!</p>
+
+</div>
+</div><hr>
+<h3>🔗 Połącz Pary: Synteza Logiczna</h3>
+<data-gate>
+<data-connection-matcher title="Dopasuj operacje do ich mechanizmów odwrotnych i elementów neutralnych">
+    <item left="Dodawanie (+)" right="Odejmowanie (−)"></item>
+    <item left="Mnożenie (·)" right="Dzielenie (÷)"></item>
+    <item left="Element neutralny dodawania" right="Zero (0)"></item>
+    <item left="Element neutralny mnożenia" right="Jedynka (1)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<h4><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h4>
+<ul>
+<li>liczby to idee, a symbole to tylko interfejs,  </li>
+<li>$\mathbb{N}$ i $\mathbb{Z}$ to podstawowe zbiory liczbowe,  </li>
+<li>dodawanie ma trzy kluczowe własności,  </li>
+<li>odejmowanie wymaga rozszerzenia zbioru liczb,  </li>
+<li>mnożenie to wielokrotne dodawanie,  </li>
+<li>rozdzielność upraszcza obliczenia,  </li>
+<li>dzielenie jest odwrotnością mnożenia,  </li>
+<li>dzielenie przez zero jest nielogiczne i niedozwolone.</li>
+</ul>
+<hr>
+<p>Znasz już fundamenty operacji w zbiorach $\mathbb{N}$ i $\mathbb{Z}$.<br>Kolejnym krokiem będzie nauka optymalizacji — poznamy <strong>NWW</strong> i <strong>NWD</strong>, które przygotują nas do wejścia w świat ułamków i liczb wymiernych ($\mathbb{Q}$). 🚀</p>

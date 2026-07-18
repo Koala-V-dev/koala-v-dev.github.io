@@ -1,0 +1,3887 @@
+<h3>Moduł 0: Mechanika Cyfrowego Świata</h3>
+<h2>Podstawy Systemów liczbowych</h2>
+<h2>Potęga Dwójki i Zakresy Mocy</h2>
+<h2>Bity, Bajty i Realne Prędkości</h2>
+<h2>Systemy Octalny i Hexadecymalny</h2>
+<h3>Moduł 1: Arytmetyka i Kodowanie</h3>
+<h2>Arytmetyka Binarna</h2>
+<h2>Liczby Ujemne - System U2</h2>
+<h2>Arytmetyka Ósemkowa i Szesnastkowa</h2>
+<h2>Kodowanie Znaków - ASCII i Matrix</h2>
+<h2>Wielki Finał - Wyzwania Mistrza Bitów</h2>
+<hr>
+<h2>Podstawy Systemów liczbowych</h2>
+<p>Większość ludzi traktuje liczby jako &quot;po prostu liczby&quot;. W informatyce każda liczba ma swoją <strong>szerokość</strong> i <strong>granicę</strong>. Zanim przejdziemy do zer i jedynek, musimy zrozumieć, co się dzieje, gdy wyczerpiemy pulę dostępnych znaków.</p>
+<h3>🦖 System Dziesiętny: Mechanika Przeniesienia</h3>
+<p>W systemie dziesiętnym (DEC) mamy 10 symboli: $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$. Kiedy dodajemy $1$ do największego symbolu ($9$), następuje <strong>przeniesienie</strong>.</p>
+<p>Spójrz na poniższą tabelę. To jest mechanizm, który znasz z podstawówki, ale spójrz na niego technicznie:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Tysiące</th>
+<th align="center">Setki</th>
+<th align="center">Dziesiątki</th>
+<th align="center">Jedności</th>
+<th align="center">Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center">9</td>
+<td align="center"><strong>$9$</strong></td>
+</tr>
+<tr>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center"><span style="color: var(--text-muted);">0</span></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center"><strong>$10$</strong></td>
+</tr>
+</tbody></table>
+<p>Gdy kolumna &quot;Jedności&quot; osiąga limit, zeruje się i wysyła sygnał przeniesienia do kolumny po lewej.</p>
+<h3>⚠️ Przepełnienie: Gdy hardware mówi "STOP"</h3>
+<p>W komputerze nie masz nieskończonej ilości kolumn. Jeśli Twój procesor ma system $3$-cyfrowy, to liczba <strong>$999$</strong> jest jego absolutnym sufitem. Co się stanie, gdy dodasz do niej $1$?</p>
+<p>To zależy od tego, jak zaprojektowano sprzęt. W większości przypadków następuje <strong>Overflow</strong> (przepełnienie).</p>
+<data-gate>
+  <data-quiz>
+    <question>
+Mamy fizyczny licznik (jak w starym samochodzie), który ma TYLKO $6$ pól na cyfry. Obecny stan to $999999$. Dodajesz $1$. Jaki będzie FIZYCZNY obraz tego licznika po operacji?
+![Tarcza zegara samochodowego](/courses/binarne-fundamenty-it/Images/tarcza_zegarqa_samochodowego.png)
+    </question>
+    <options>
+      <option correct> $000000$. Ponieważ licznik nie ma siódmego pola na kolejną "jedynkę".</option>
+      <option> $1000000$. Licznik magicznie stworzy nową kolumnę, aby pomieścić wynik.</option>
+    </options>
+
+<div data-hint="error">
+  Skup się na słowie "TYLKO $6$ pól". Fizycznie nie widzę tam miejsca na kolejną cyfrę. Co się stanie z bębnami licznika?
+</div>
+  </data-quiz>
+</data-gate>
+
+<h3>💻 Od 10 do 2: Przeskok Logiczny</h3>
+<p>W systemie binarnym (<strong><em>BIN</em></strong>) mamy tylko $2$ symbole: <code>0</code> i <code>1</code>. Zasada przeniesienia działa identycznie, ale... znacznie częściej.</p>
+<ol>
+<li>Masz <code>0</code>.</li>
+<li>Dodajesz <code>1</code> -&gt; masz <code>1</code>. (Limit osiągnięty!)</li>
+<li>Dodajesz kolejne <code>1</code> -&gt; Jedynka się zeruje (<code>0</code>) i następuje przeniesienie w lewo (<code>1</code>). Wynik: <code>10</code> (co w systemie dziesiętnym oznacza $2$).</li>
+</ol>
+<h4>Ćwiczenie: Przesunięcia w Binarnym</h4>
+<p>Spójrz na tabelę i spróbuj samodzielnie &quot;przesunąć&quot; wartości w głowie:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Dziesiętnie</th>
+<th align="center">Binarnie</th>
+<th align="left">Co się stało?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center"><code>001</code></td>
+<td align="left">Start</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"><code>010</code></td>
+<td align="left">Przeniesienie z jedności do dwójek</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"><code>011</code></td>
+<td align="left">Dodanie jedynki</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center"><code>100</code></td>
+<td align="left">Podwójne przeniesienie!</td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-quiz>
+    <question>
+Jaka będzie następna liczba binarna po `111`? (Pamiętaj o mechanizmie przeniesienia!)
+    </question>
+    <options>
+      <option correct>`1000`</option>
+      <option>`112`</option>
+      <option>`1111`</option>
+      <option>`000`</option>
+    </options>
+
+<div data-hint="error">
+  Każda kolumna ma już jedynkę (czyli swój limit). Dodanie `1` spowoduje, że pierwsza się wyzeruje i poda przeniesienie dalej. Druga zrobi to samo, trzecia też... Gdzie wyląduje ta ostatnia jedynka?
+</div>
+  </data-quiz>
+</data-gate>
+
+<p>Na koniec chcę abyś popatrzył na poniższe dłonie. Na lewym obrazku palce liczymy normalnie, a na prawym <em>indeksujemy</em> je od zera (<code>0</code>). Wciąż mamy $10$ palców, ale w informatyce i zaawansowanej matematyce liczenie od zera to standard.<br>Kiedyś w pełni zrozumiesz jak to bardzo ułatwia życię i pracę 😎.</p>
+<p><img src="/courses/binarne-fundamenty-it/Images/palce.png" alt="Palce od 1 do 10 i od 0 do 9"></p>
+<hr>
+<h2>Potęga Dwójki i Zakresy Mocy</h2>
+<p>Dlaczego Twój smartfon ma $128$ GB pamięci, a nie równe $100$ GB? Dlaczego stare gry miały $256$ kolorów? Wszystko w informatyce kręci się wokół <strong>Potęgi Dwójki</strong>. To nie jest estetyczny wybór – to wynika z fizyki prądu.</p>
+<h3>⚡ Gloryfikacja Dwójki</h3>
+<p>Każdy dołożony bit (przełącznik) <strong>podwaja</strong> ilość kombinacji, które możesz zapisać. To jest wykładniczy wzrost mocy.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bity</th>
+<th align="center">Ilość możliwości (od $0$ do ... Wzór $2^n$)</th>
+<th align="left">Gdzie używany?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>1</code></td>
+<td align="center">$0$ - $1$</td>
+<td align="left">Wybór wartości logicznej (Boolean - wartość boolowska): <br> TAK / NIE (Prawda / Fałsz)</td>
+</tr>
+<tr>
+<td align="left"><code>3</code></td>
+<td align="center">$0$ - $7$</td>
+<td align="left">Uprawnienia plików w systemach GNU/Linux</td>
+</tr>
+<tr>
+<td align="left"><code>4</code></td>
+<td align="center">$0$ - $15$</td>
+<td align="left">Jedna cyfra systemu HEX - zapis adresów MAC i kolorów</td>
+</tr>
+<tr>
+<td align="left"><code>8</code></td>
+<td align="center">$0$ - $255$</td>
+<td align="left"><strong>Standardowy BAJT</strong> (kolory <span style="color: red">R</span>, <span style="color: green">G</span>, <span style="color: blue">B</span>)</td>
+</tr>
+<tr>
+<td align="left"><code>10</code></td>
+<td align="center">$0$ - $1023$</td>
+<td align="left">Podstawa KILO&#8209;bajta</td>
+</tr>
+</tbody></table>
+<h3>📐 Tablica Mocy (Musisz to znać)</h3>
+<p>Inżynier IT widząc liczbę $512$, nie myśli o niej jako o &quot;pięciuset dwunastu&quot;. Widzi w niej $2^9$.</p>
+<h4>🦸 <em>Tabela mocy:</em></h4>
+<table>
+<thead>
+<tr>
+<th align="left">Wynik potęgowania</th>
+<th align="center">$2048$</th>
+<th align="center">$1024$</th>
+<th align="center">$512$</th>
+<th align="center">$256$</th>
+<th align="center">$128$</th>
+<th align="center">$64$</th>
+<th align="center">$32$</th>
+<th align="center">$16$</th>
+<th align="center">$8$</th>
+<th align="center">$4$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Potega dwójki</td>
+<td align="center">$2^{11}$</td>
+<td align="center">$2^{10}$</td>
+<td align="center">$2^{9}$</td>
+<td align="center">$2^{8}$</td>
+<td align="center">$2^{7}$</td>
+<td align="center">$2^{6}$</td>
+<td align="center">$2^{5}$</td>
+<td align="center">$2^{4}$</td>
+<td align="center">$2^{3}$</td>
+<td align="center">$2^{2}$</td>
+<td align="center">$2^{1}$</td>
+<td align="center">$2^{0}$</td>
+</tr>
+</tbody></table>
+<h3>🧠 Zależność 2ⁿ - 1</h3>
+<p>Zauważyłeś, że maksymalna liczba, jaką możesz zapisać, jest zawsze o $1$ mniejsza niż kolejna potęga?<br>Jeśli masz 3 bity, możesz zapisać $2^3 = 8$ kombinacji. Ale ponieważ zaczynamy od zera, Twoją największą liczbą jest <strong>7</strong> (<code>111</code> w binarnym).  </p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question>
+Masz system 10-bitowy. Jaka jest NAJWIĘKSZA liczba dziesiętna, którą możesz w nim zapisać? <br>
+    </question>
+    <options>
+      <option correct>1023</option>
+      <option>1024</option>
+      <option>1000</option>
+      <option>511</option>
+    </options>
+
+<div data-hint="error">
+  Podpowiedź: wykorzystaj tabelę mocy i zasadę $2^n-1$. Pamiętaj że liczymy od zera, a nie od jeden.
+</div>
+  </data-quiz>
+</data-gate>
+
+<h3>🕹️ Praktyka: Budowanie Zakresów</h3>
+<p>Spróbuj poczuć te wagi. Ustaw bit na $1$ tam, gdzie jest to potrzebne, aby uzyskać wynik dziesiętny.</p>
+<p>Zbuduj liczbę <strong>85</strong> (używając wag: $64, 32, 16, 8, 4, 2, 1$):</p>
+<data-gate>
+  <data-number-system target="85" base="2" digits="7">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>$64 + 16 + 4 + 1 = 85$. W binarnym to <code>0101 0101</code>. Czy widzisz ten rytmiczny wzór?</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<p>A teraz wyzwanie: Zbuduj <strong>$255$</strong>. Co zauważyłeś?</p>
+<data-gate>
+  <data-number-system target="255" base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Wszystkie przełączniki <strong>ON</strong>! To jest limit dla $8$ bitów ($1$ Bajta). Kolejna liczba ($256$) wymagałaby już $9$. bitów!</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+
+<h2>Wyzwanie 6 bram</h2>
+<hr>
+<blockquote>
+<p>Super! 💪😎<br>To teraz samemu pokonaj kolejne $6$ bram:</p>
+</blockquote>
+<hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pierwsza brama padła zostało jeszcze pięć! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Druga brama padła zostały jeszcze cztery! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Trzecia brama padła zostały jeszcze trzy! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Czwarta brama padła zostały jeszcze dwie! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Piąta brama padła została jeszcze jedna! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ostatnia brama padła! Odblokowałeś kolejną lekcję. 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<p>PS. Jak odświeżysz stronę to te 6 bram może wylosować inne liczby. Powodzenia! 🦾🐨</p>
+<hr>
+<h2>Bity, Bajty i Realne Prędkości</h2>
+<p>Wiesz już, co to jest bit (najmniejszy impuls) i dlaczego informatyka kocha potęgi dwójki. Teraz nauczymy się, jak te bity są pakowane w jednostki, które widzisz na co dzień w smartfonie, na Steamie czy w reklamach internetu.</p>
+<h3>📦 Pakiet w proporcji $1$:$8$</h3>
+<p>Bity to luźne impulsy. Przesyłanie ich pojedynczo byłoby chaosem. Dlatego informatycy umówili się na standard:<br><strong><em>$1$ Bajt</em> (<em>B</em>) zawsze składa się z <em>$8$ bitów</em> (<em>b</em>)</strong>.</p>
+<p>To jak pudełko jajek. Możesz mieć $1$ jajko (<em>bit</em>), ale sklep (system) sprzedaje i liczy je w całych pudełkach (<em>Bajtach</em>).</p>
+<hr>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zapamiętaj różnicę w zapisie:</p>
+<ul>
+<li><strong>b</strong> (małe): bit -&gt; impuls (sieć/światłowód)</li>
+<li><strong>B</strong> (duże): Bajt -&gt; waga (dysk/pamięć RAM)</li>
+</ul>
+
+</div>
+</div><h3>📡 Scam czy Matematyka? (Analiza ISP)</h3>
+<p>Dostawcy internetu (<strong><em>ISP</em></strong> - <em>Internet Service Provider</em>) uwielbiają podawać prędkości w <strong>Mega&#8209;bitach</strong> ($Mb/s$). Dlaczego?<br>Bo liczba $1000$ $Mb/s$ wygląda $8$ razy potężniej na billboardzie niż $125$ $MB/s$.</p>
+<p>Z kolei programy takie jak $Steam$, przeglądarka czy $qBittorrent$, pokazują prędkość w <strong>Mega&#8209;Bajtach</strong> ($MB/s$), by zobrazować Ci jak szybko plik &quot;puchnie&quot; na Twoim dysku.</p>
+<h4>Wzór na czas oczekiwania do pobrania</h4>
+<p>Aby dowiedzieć się, jak szybko realnie ściągniesz grę, zawsze wykonaj operację dzielenia:  </p>
+<p><em><strong>$$\text{Czas (s)} = \frac{\text{Rozmiar pliku (MB)}}{\text{Prędkość pobierania (MB/s)}}$$</strong></em></p>
+<h4>Wzór na prędkość pobierania</h4>
+<p>Jeśli masz już znaną prędkość pobierania, możesz obliczyć czas oczekiwania do pobrania:  </p>
+<p><strong><em>$$\left(\text{Prędkość (MB/s)} = \frac{\text{Rozmiar pliku (MB)}}{\text{Czas (s)}}\right) \div 8 = \text{Prędkość (Mb/s)}$$</em></strong></p>
+<hr>
+<p>Do ręcznego przeliczania wielkości polegamy na proporcji $1:8$ i operacji dzielenia lub mnożenia, lecz w głowie bywa to uciążliwe.  </p>
+<p>Właśnie dlatego informatycy automatyzują proces. Zamiast liczyć ręcznie, wypróbuj poniższy <strong>Symulator ISP</strong>!</p>
+<p><data-transfer-speed></data-transfer-speed></p>
+<p><data-gate></data-gate></p>
+<h3>💾 Zagadka Brakującego Miejsca</h3>
+<p>Kupiłeś kartę pamięci 64 GB, a telefon pokazał 59.6 GB? To wynika z konfliktu systemów:</p>
+<ol>
+<li><strong>Ludzki (Producenci - Norma SI)</strong>: Liczą $1 KB$ (Kilobajt) jako $1000$ B. ($1000 = 10^3$)</li>
+<li><strong>Binarny (Systemy np. Windows)</strong>: Liczą $1 KB$ jako $1024$ B. ($1024 = 2^{10}$)</li>
+</ol>
+<p>Poprawną, współczesną nazwą dla $1024$ B w standardzie IT i systemach takich jak Linux jest <strong>Kibibajt (KiB)</strong>. Jednakże producenci sprzętu trzymają się przedrostka &quot;Kilo&quot; dla $1000$, a Windows ze względów historycznych używa u siebie &quot;KB&quot; lecz realnie pokazując wartość &quot;KiB&quot;.</p>
+<p>Przy większych jednostkach (GB) ta różnica narasta do kilku procent. To nie błąd dysku – to po prostu inna &quot;miarka&quot;.</p>
+<data-gate>
+  <data-quiz>
+    <question>
+Dlaczego system operacyjny liczy kilo-bajty jako 1024 bajty, a nie równe 1000?
+    </question>
+    <options>
+      <option correct>Ponieważ 1024 to $2^{10}$, co pozwala procesorowi na bezpośrednie i szybkie adresowanie pamięci bez skomplikowanych konwersji.</option>
+      <option>To błąd z przeszłości, którego nikt nie chciał naprawić.</option>
+      <option>Producentom zależy, abyśmy widzieli mniejsze liczby.</option>
+    </options>
+
+<div data-hint="error">
+  Pamiętaj o "gloryfikacji dwójki" z poprzedniej lekcji. Czy procesorowi łatwiej operować na okrągłych dziesiątkach, czy na potęgach dwóch?
+</div>
+  </data-quiz>
+</data-gate>
+
+<p>Teraz, gdy wiesz już, jak ważyć dane i mierzyć ich prędkość, wejdziemy o poziom wyżej. Zobaczysz, jak informatycy skracają sobie te długie ciągi zer i jedynek za pomocą systemów <strong>Octal</strong> i <strong>Hex</strong>.</p>
+<hr>
+<h2>Systemy Octalny i Hexadecymalny</h2>
+<p>Binarka jest świetna dla procesora, ale beznadziejna dla człowieka. Liczba $255$ to dla komputera <code>11111111</code>. Zapisywanie tego ręcznie to proszenie się o błąd. Dlatego programiści używają &quot;skrótów&quot;: </p>
+<ul>
+<li>systemu ósemkowego (Oct)</li>
+<li>szesnastkowego (Hex).</li>
+</ul>
+<h3>8️⃣ System Octalny (Ósemkowy)</h3>
+<p>Używa cyfr od <strong>$0$ do $7$</strong>. Każda cyfra ósemkowa to dokładnie <strong>$3$ bity</strong>.<br>W dzisiejszych czasach używany głównie w systemach Linux do uprawnień plików (np. <code>chmod 755</code>).</p>
+<h3>🔟➕6️⃣ System Hexadecymalny (Szesnastkowy)</h3>
+<p>To król informatyki. Używa 16 znaków: $0&#8209;9$ oraz litery $A$ ($10$), $B$ ($11$), $C$ ($12$), $D$ ($13$), $E$ ($14$), $F$ ($15$).</p>
+<p><strong>Jeden znak HEX to dokładnie $4$ bity</strong>. Zatem jeden Bajt ($8$ bitów) to zawsze dwie cyfry HEX (np. <code>FF</code> = <code>1111 1111</code>). Genialne, prawda?</p>
+<table>
+<thead>
+<tr>
+<th align="center">HEX</th>
+<th align="center">Binarnie</th>
+<th align="center">Dziesiętnie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><em><strong>$1$</strong></em></td>
+<td align="center"><code>0001</code></td>
+<td align="center">$1$</td>
+</tr>
+<tr>
+<td align="center"><em><strong>$9$</strong></em></td>
+<td align="center"><code>1001</code></td>
+<td align="center">$9$</td>
+</tr>
+<tr>
+<td align="center"><em><strong>A</strong></em></td>
+<td align="center"><code>1010</code></td>
+<td align="center">$10$</td>
+</tr>
+<tr>
+<td align="center"><em><strong>F</strong></em></td>
+<td align="center"><code>1111</code></td>
+<td align="center">$15$</td>
+</tr>
+</tbody></table>
+<p>Czy więc <em><strong>F</strong></em> to <em><strong>$15$</strong></em>? Nie! To bardzo niebezpieczny skrót myślowy.<br><em><strong>F</strong></em> w systemie szesnastkowym ma wartość <em>$15_{10}$</em> - po konwersji na system dziesiętny. Lecz gdy przekonwertujesz <em><strong>F</strong></em> na system ósemkowy otrzymasz <em>$17_{8}$</em>. Uważaj by nie popełnić tego kardynalnego błędu! 😉</p>
+<h3>🎨 Hex w Twoim monitorze</h3>
+<p>Najczęstszym miejscem, gdzie spotkasz Hexa, są kolory <span style="color: red">R</span><span style="color: green">G</span><span style="color: blue">B</span>. Każdy kolor ma składowe Czerwony, Zielony i Niebieski. Każda z nich ma $8$ bitów zakresu ($0&#8209;255$).<br>Kolor biały to:</p>
+<ul>
+<li>RGB: <code>(255, 255, 255)</code></li>
+<li>HEX: <code>#FFFFFF</code></li>
+</ul>
+<data-gate>
+  <data-quiz>
+    <question>
+Kolor czysty zielony w formacie HEX to `#00FF00`.  
+Wiedząc, że dwie pierwsze cyfry to kolor Czerwony (Red), dwie kolejne to Zielony (Green), a dwie ostatnie to Niebieski (Blue) – ile bajtów zajmuje zapis tego koloru w pamięci?
+    </question>
+    <options>
+      <option correct>3 bajty. Po jednym bajcie koloru.</option>
+      <option>6 bajtów. Bo jest 6 znaków dla kolorów.</option>
+      <option>1 bajt. Bo to w sumie tworzy jeden kolor.</option>
+    </options>
+
+<div data-hint="error">
+  Pamiętaj: 1 znak HEX = $4$ bity. Dwa znaki HEX (jak `FF` lub `00`) = $8$ bitów. Ile par znaków widzisz w kodzie `#00FF00`?
+</div>
+  </data-quiz>
+</data-gate>
+
+<h3>🔐 Wyliczanie dziesiętnych z systemów ósemkowego i szesnastkowego</h3>
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Czapki z głów! 🎓</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ale ciśniesz! 😎</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>To już jest wyższa szkoła jazdy! 🚗</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jest pompa! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Wchodzisz na wyższy level! 🚀</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Matematyczna poezja! ✨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Tak się robi robotę! 🔧🔥</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Elegancko to ogarniasz! 🎩</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Liczby tańczą jak im zagrasz! 💃🕺</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>To już prawie sztuka! 🎨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jesteś jak liczbowy ninja! 🥷</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Mistrzostwo świata! 🏆</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jednak dalej pamiętasz binarkę! 🤯</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<p>Widzę, że konwersjami binarnymi, ósemkowymi i szesnastkowymi na dziesiętne już cię nie zagnę. 😅<br>Lecimy dalej? 🤔 Będzie trudniej, hahahaha! 😆</p>
+<hr>
+<h2>🧮 Arytmetyka Binarna</h2>
+<p>Matematyka, której uczysz się w szkole, jest nieskończona — zawsze możesz dodać kolejną cyfrę, a z lewej strony masz nieskończoną ilość <em>zer wiodących</em>, których nie musimy zapisywać. Ale technologia komputerowa jest <strong>deterministyczna i skończona</strong>. Procesor operuje na <strong>pudełkach o sztywnym rozmiarze</strong>, które mają swoje nieprzekraczalne limity.</p>
+<hr>
+<p>My skupimy się na standardzie <strong>16&#8209;bitowym</strong> (typ <code>short</code> stosowany np. w C++). Mieści on dokładnie $2^{16} = 65536$ kombinacji. To nasze maksimum, z którego liczby nie mogą uciec.</p>
+<h3>➕ Dodawanie z mechanizmem "Przeniesienia"</h3>
+<p>Dodawanie binarne opiera się na prostych regułach:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Działanie</th>
+<th align="center">Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$0 + 0$</td>
+<td align="center"><strong>$0$</strong></td>
+</tr>
+<tr>
+<td align="center">$0 + 1$</td>
+<td align="center"><strong>$1$</strong></td>
+</tr>
+<tr>
+<td align="center">$1 + 0$</td>
+<td align="center"><strong>$1$</strong></td>
+</tr>
+</tbody></table>
+<p> Problem pojawia się wtedy, gdy suma jedynek w kolumnie wynosi $2$ lub $3$. Wtedy następuje <strong>przeniesienie</strong> do kolejnej pozycji, zupełnie jak w dodawaniu słupkowym, gdy suma przekracza $9$ dla systemu dziesiętnego (decymalnego).</p>
+<table>
+<thead>
+<tr>
+<th align="left">Suma w kolumnie</th>
+<th align="center">Wynik</th>
+<th align="center">Nowe Przeniesienie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$1 + 1$</td>
+<td align="center"><strong>$0$</strong></td>
+<td align="center"><strong>$1$</strong> dla kolejnej kolumny po lewej</td>
+</tr>
+<tr>
+<td align="left">$1 + 1 +$ <em>$1$ (z przeniesienia)</em></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="center"><strong>$1$</strong> dla kolejnej kolumny po lewej</td>
+</tr>
+<tr>
+<td align="left">$0 + 1 +$ <em>$1$ (z przeniesienia)</em></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="center"><strong>$1$</strong> dla kolejnej kolumny po lewej</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Przykład (3 + 1):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Przeniesienie</th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Tu masz 1 z przeładowania w poprzedniej kolumnie po prawej. &#10;Patrzysz, czy tym razem też zajdzie przeładowanie. &#10;W tym przypadku kolumna nie zawiera choćby jednej jedynki, aby nastąpiło przeładowanie, więc skoro 0+0=0, to wystarczy przepisać jedynkę z poprzedniego przeładowania.">$1$</span></th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Tu masz 1 z przeładowania w poprzedniej kolumnie po prawej. &#10;Patrzysz, czy tym razem też zajdzie przeładowanie. &#10;Jak w tej kolumnie występuje jedynka, to masz kolejne przeładowanie i teraz to przeładowanie da ci operację 0 + druga wartość, która może być 0 albo 1 i ją przepisujesz jako wynik sumy. &#10;Poniżej widzisz, że zabierając jedynkę do przeładowania, masz ostateczne działanie 0+0, więc wynik to 0 i jedynka do przeniesienia, bo było przeładowanie.">$1$</span></th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Poniżej widzisz sumę 1 i 1, więc do kolejnej kolumny przenosisz przeładowaną wartość (1), a w wyniku zapisujesz zresetowany licznik (0)">←</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Składnik A $(3)_{10}$</strong></td>
+<td align="center">$0$</td>
+<td align="center">$1$</td>
+<td align="center">$1$</td>
+</tr>
+<tr>
+<td align="left"><strong>Składnik B $(1)_{10}$</strong></td>
+<td align="center">$0$</td>
+<td align="center">$0$</td>
+<td align="center">$1$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik $(4)_{10}$</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="center"><strong>$0$</strong></td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
+</data-gate>
+
+
+<h3>➖ Odejmowanie: Reguła "Niwelowania i Cofania"</h3>
+<p>Odejmowanie binarne, podobnie jak dziesiętne, opiera się na procesie pożyczania. Najskuteczniejszym sposobem na zrozumienie tego procesu jest <strong>Reguła Niwelowania i Cofania</strong>. </p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Mechanizm ten uruchamia się <strong>wyłącznie wtedy, gdy od cyfry mniejszej odejmujesz większą ($y &lt; x$)</strong>. Jeśli $y \ge x$, odejmowanie jest bezpośrednie i nie generuje długu.</p>
+
+</div>
+</div><h4>Jak to działa? (Pełny proces obsługi długu)</h4>
+<p>Spójrzmy na mechanizm w systemie dziesiętnym, opierając się na zestawie znaków ($0$-$9$), czyli naszym <strong>Liczniku</strong>:</p>
+<p><strong>Przykład A (<em>$125 - 7$</em>):</strong></p>
+<ol>
+<li><strong>Jedności</strong>: $5 - 7$. Ponieważ $5 &lt; 7$, niwelujemy część wspólną ($5$), zostaje <em>$2$ długu</em>.</li>
+<li><strong>Cofanie &amp; Paradoks Pożyczki</strong>: Aby spłacić to $2$, musimy &quot;cofnąć&quot; licznik o jedną pozycję (pożyczka od sąsiada). Sąsiad bierze &quot;rachunek&quot; za przeskok (1) na siebie. To paradoks: pożyczka od sąsiada <strong>zmniejsza</strong> nasz lokalny dług, bo opłaca koszt przeskoku z $0$ na $9$.</li>
+<li><strong>Reszta długu</strong>: Po opłaceniu kosztu przeskoku, nasz pozostały dług wynosi już tylko $1$ ($2 - 1 = 1$).</li>
+<li><strong>Wynik jedności</strong>: Licznik wskazuje $9$ (nowa pozycja). Odejmujemy resztę długu ($9 - 1$). Wynik: <em><strong>$8$</strong></em>.</li>
+<li><strong>Dziesiątki</strong>: Mieliśmy $2$. Spłacamy sąsiadowi koszt Vouchera za przeskok ($2 - 1$). Wynik: <em><strong>$1$</strong></em>.</li>
+<li><strong>Rachunek końcowy</strong>: <em><strong>118</strong></em>.</li>
+</ol>
+<hr>
+<p><strong>Przykład B (<em>$48 - 19$</em>):</strong></p>
+<ol>
+<li><strong>Jedności</strong>: $8 - 9$. Niwelujemy część wspólną ($8$), zostaje <em>$1$ długu</em>.</li>
+<li><strong>Cofanie &amp; Paradoks</strong>: Pożyczka od sąsiada (1) w całości opłaca koszt przeskoku licznika (1). </li>
+<li><strong>Reszta długu</strong>: Cały dług spłacony ($1 - 1 = 0$).</li>
+<li><strong>Wynik jedności</strong>: Licznik po przeskoku wskazuje $9$. Brak reszty długu. Wynik: <em><strong>$9$</strong></em>.</li>
+<li><strong>Dziesiątki</strong>: Mamy $4$. Najpierw regulujemy zadłużenie za pożyczkę (&quot;Voucher&quot;) dla jedności ($4 - 1 = 3$). Teraz odejmujemy cyfrę $1$ (z części dziesiętnej liczby $19$). Wynik: <em><strong>$2$</strong></em>.</li>
+<li><strong>Rachunek końcowy</strong>: <em><strong>29</strong></em>.</li>
+</ol>
+<hr>
+<p>W systemie binarnym (zestaw znaków $0$-$1$) mechanizm jest identyczny. Cofnięcie licznika (przeskok z $0$ na $1$) zawsze spłaca dokładnie <em>$1$ długu</em>.</p>
+<hr>
+<p><strong>Reguły bezpośrednie (Brak długu z prawej):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Działanie</th>
+<th align="center">Wynik</th>
+<th align="left">Komentarz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$0$ - $0$</td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">$1$ - $1$</td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">$1$ - $0$</td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">$0$ - $1$</td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left">Niweluję $0$, zostaje $1$ długu. Licznik cofa się na $1$, co przenosi dług na sąsiada z lewej.</td>
+</tr>
+</tbody></table>
+<hr>
+<p>A skoro w ostatnim przypadku ($0&#8209;1$) wygenerował się dług dla sąsiada, to popatrz na reguły gry dla zadłużonych. </p>
+<p><strong>Reguły z długiem (Gdy kolumna otrzymała dług z prawej):</strong><br>W tej tabeli najpierw spłacamy &quot;dług przychodzący&quot;, a potem sprawdzamy, czy sami musimy pożyczyć od sąsiada z lewej.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Działanie</th>
+<th align="center">Wynik</th>
+<th align="left">Czy tworzy nowy dług dla lewego sąsiada?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$0$ - $0$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left"><strong>TAK</strong> (Cofam licznik na $1$, co spłaca dług)</td>
+</tr>
+<tr>
+<td align="left">$1$ - $0$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left"><strong>NIE</strong> (1 niweluje dług 1, zostaje 0)</td>
+</tr>
+<tr>
+<td align="left">$0$ - $1$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$0$</strong></td>
+<td align="left"><strong>TAK</strong> (Niweluję 0, spłacam długu 1. Brakło na odejmowanie 1!)</td>
+</tr>
+<tr>
+<td align="left">$1$ - $1$ <strong>(- dług $1$)</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="left"><strong>TAK</strong> (1 niweluje 1. Zostaje dług 1. Cofam licznik na 1)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>W skrócie: Ściąga dla Długu</strong></p>
+<ul>
+<li>Jeśli bit = <strong>0</strong> i musisz odjąć <strong>1</strong> → bierzesz pożyczkę → wynik <strong>1</strong>, dług idzie w lewo.</li>
+<li>Jeśli bit = <strong>1</strong> i masz dług (1) → spłacasz go → wynik <strong>0</strong>, dług wygasa.</li>
+<li>Jeśli bit = <strong>0</strong> i masz dług (1) → bierzesz pożyczkę, by spłacić dług → wynik <strong>1</strong>, dług idzie w lewo.</li>
+</ul>
+
+</div>
+</div><h4>Co gdy brakuje sąsiada? (Wynik Ujemny)</h4>
+<p>Zauważ, że opisane reguły działają idealnie, dopóki masz &quot;kogoś po lewej&quot;, kto może opłacić Twój Voucher na skok w tył licznika. Ale co, gdy $2 - 3$ 🤔?</p>
+<p>Wtedy ostatnia jedynka po lewej nie istnieje, by spłacić dług. Procesor musi &quot;przekręcić&quot; wszystkie licznik 🤯, co w świecie bitów oznacza wejście w obszar <strong>liczb ujemnych</strong> (U2). Ale o tym w następnej lekcji 😉.</p>
+<hr>
+<p><strong>Przykład (4 − 1):</strong><br>Analiza operacji $100 - 001$ ($4 - 1$). Dług wędruje przez kolumny, aż trafi na jedynkę, która może go spłacić.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Stan długu</th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Ostatnia faza. Tu dokonujesz odejmowania 1 - 0. Widzisz z poprzednich obliczeń, że twój prawy sąsiad zarzucił na ten róg dług wynoszący 1. Posiadasz jednak do dyspozycji natywne 1 na starcie. Twój zasób jest w stanie opłacić zadaną karę. Spłacasz kwotę długu 1 posiadając swój punkt 1, i pozostajesz z wartością 0 na koncie. Rozliczywszy się, kończysz działanie kolumny wedle wzoru: od Twojego zostawionego 0 schodzi dolne odjęcie równe 0, zejściem tego jest wymiar 0. Koniec długu.">❌</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Kolejna kolumna, w której robisz 0 - 0. Zauważasz jednak, że na kolumnie spoczywa też 1 przejętego długu, który zrzuciła wcześniejsza iteracja obok z prawej. Aby spłacić 1 nie mając własnego stanu na liczniku, ponownie zmuszony jesteś rzucić ten ciążący dług z wynoszącą kwotą 1, powielając ten stan w lewo. Sam rzut na kolejnego sąsiada pozwala na cofnięcie sprzętowo licznika do tyłu, wracając oknem cyklu z 0 na pozycję 1. Krok ujęty tą operacją usuwa wymiar Twojego pierwotnego długu wynoszącego okrągłe 1. Skoro zaległość została spłacona w całości u manewru - od odnowionego na 1 progu odejmujesz bazowe wskazywane na spodzie kolumny 0. Przerzucasz na dół wynik tego odcinka: 1.">✅</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Patrzysz na bieżącą kolumnę od prawej strony. Masz polecenie zrzucenia wartości 1 domyślnie startując na 0. Od mniejszej idziesz ku górze na mniejszą, czyli musisz ugiąć i cofnąć licznik. W tym celu bez wahania wymuszasz u następnego lewego sąsiada wygenerowanie przypisanego Ci długu o wymiarze 1. Zabieg ten uiszcza Ci pożądaną odgórną zgodę, i uwarunkowanie do wykonania pełnego cofnięcia we własnym liczniku na dół poniżej kółka podłoża, do cyfry 1. Przez odrzucenia wspólnego pułapu (0) Twoja wartość długu szacuje się na skromne 1. Dodatkowo sam zwrot licznika pod 0 niszczy z racjonalizacji zeszłą cząstkę wymiaru. Zostają z długów uległe okrągłe 0 do obsłużenia długu na czysto, tak wobec tego – od cofniętego licznika zatrzymanego za kółkiem na 1 zrzucasz opór 0. Ostateczny wynik zapisywany z ramienia w pierwszej kolumnie ląduje zrzutem 1.">✅</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Odjemna (4)</strong></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="left"><strong>Odjemnik (1)</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik (3)</strong></td>
+<td align="center"><strong>0</strong></td>
+<td align="center"><strong>1</strong></td>
+<td align="center"><strong>1</strong></td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
+</data-gate>
+
+<h3>✖️ Mnożenie: Reguła "Pozycja = Ilość Zer"</h3>
+<p>Mnożenie w procesorze to ściśle zdefiniowana procedura przesunięć. Cała logika opiera się na <strong>Indeksie Pozycji</strong> (liczonym od $0$ z prawej strony).</p>
+<h4>Twarda Reguła (Shift Rule)</h4>
+<p>Spójrz na dolną liczbę (mnożnik). Numer pozycji, na której znajdziesz <code>1</code>, mówi Ci dokładnie, ile zer dopisujesz do liczby górnej (mnożnej). Pamiętaj – pozycje liczymy od zera, patrząc od prawej strony!</p>
+<table>
+<thead>
+<tr>
+<th align="center">Pozycja</th>
+<th align="center">7</th>
+<th align="center">6</th>
+<th align="center">5</th>
+<th align="center">4</th>
+<th align="center">3</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Zapis binarny mnożnej</td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+</tr>
+<tr>
+<td align="center">Zapis binarny mnożnika</td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Przesunięcie w mnożeniu opiera się na zdefiniowaniu ilości dopisywania zer do mnożnej względem pozycji, na której stoi jedynka w dolnej liczbie. </p>
+
+</div>
+</div><p>👉 <strong>Wizualizacja przesunięcia (Bit&#8209;Shift):</strong><br>Wyobraź sobie, że mnożenie to &quot;popychanie&quot; liczby w lewo — dopisujesz zera na końcu:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Mnożna</th>
+<th align="center">Pozycja jedynki</th>
+<th align="center">Shift</th>
+<th align="center">Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>11011</code></td>
+<td align="center">$0$</td>
+<td align="center">$\xleftarrow{0}$</td>
+<td align="center"><code>11011</code></td>
+</tr>
+<tr>
+<td align="center"><code>11011</code></td>
+<td align="center">$1$</td>
+<td align="center">$\xleftarrow{1}$</td>
+<td align="center"><code>11011</code><strong><code>0</code></strong></td>
+</tr>
+<tr>
+<td align="center"><code>11011</code></td>
+<td align="center">$2$</td>
+<td align="center">$\xleftarrow{2}$</td>
+<td align="center"><code>11011</code><strong><code>00</code></strong></td>
+</tr>
+</tbody></table>
+<hr>
+<p>Dla powyższego przykładu patrzymy najpierw na mnożnik <code>0001 0111</code> i widzimy że jedynki występują na pozycjach $0, 1, 2$ i $4$. Zatem uzyskamy cztery przesunięcia i cztery wartości do zsumowania. </p>
+<table>
+<thead>
+<tr>
+<th align="center">Pozycja</th>
+<th align="center">Wartość mnożnika</th>
+<th align="center">Operacja</th>
+<th align="center">Wynik mnożnej po przesunieciu do późniejszego zsumowania</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$0$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{0}$</strong></em></td>
+<td align="center"><strong>$0001\text{ }1011$</strong></td>
+</tr>
+<tr>
+<td align="center">$1$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{1}$</strong></em></td>
+<td align="center"><strong>$0011\text{ }011$<em>$0$</em></strong></td>
+</tr>
+<tr>
+<td align="center">$2$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{2}$</strong></em></td>
+<td align="center"><strong>$0110\text{ }11$<em>$00$</em></strong></td>
+</tr>
+<tr>
+<td align="center">$3$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{3}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+<tr>
+<td align="center">$4$</td>
+<td align="center"><code>1</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{4}$</strong></em></td>
+<td align="center"><strong>$0001\text{ }1011\text{ }$<em>$0000$</em></strong></td>
+</tr>
+<tr>
+<td align="center">$5$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{5}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+<tr>
+<td align="center">$6$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{6}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+<tr>
+<td align="center">$7$</td>
+<td align="center"><code>0</code></td>
+<td align="center"><em><strong>$0001\text{ }1011 \xleftarrow{7}$</strong></em></td>
+<td align="center"><em>$0000\text{ }0000$</em></td>
+</tr>
+</tbody></table>
+<p>W powyższej tabeli dokonaliśmy przesunięcia w lewo o ilość względem pozycji każdego bitu mnożnej.<br>Dla wartości zerowych mnożnika chodź operacja przesunięcia występuje to jej wynik może zostać zignorowany ponieważ matematycznie mnożenie przez zero daje zero. </p>
+<p>Więc ostatecznie mamy cztery wartości do przeprowadzenia trzech operacji dodawania:</p>
+<ol>
+<li><em><strong>$0001\text{ }1011$</strong></em> + <em>$0011\text{ }0110$</em> = <code>0101 0001</code><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+</tr>
+<tr>
+<td>+</td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+<li>Wynik poprzedniej opercaji dodawania → <em><strong>$0101\text{ }0001$</strong></em> + <em>$0110\text{ }1100$</em> = <code>1011 1101</code><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+</tr>
+<tr>
+<td>+</td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+<li>Wynik poprzedniej operacji dodawania → <em><strong>$1011\text{ }1101$</strong></em> + <em>$0001\text{ }1011\text{ }0000$</em> = <code>0010 0110 1101</code><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>1</code></strong></td>
+<td><strong><code>0</code></strong></td>
+<td><strong><code>1</code></strong></td>
+</tr>
+<tr>
+<td>+</td>
+<td></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>1</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+<td><em><code>0</code></em></td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+<td><code>1</code></td>
+<td><code>0</code></td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<hr>
+<p>To podejście działa zawsze i dla każdej liczby. Procesor po prostu &quot;skanuje&quot; bity mnożnika i dla każdej jedynki generuje odpowiednio przesuniętą wersję liczby, a na końcu wszystko sumuje. ⚡</p>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
+</data-gate>
+
+<hr>
+<p>Alternatywnie, skoro komputer aby coś obliczyć musi to przekonwertować pierw na zapis binarny i potem wynik zwrócić człowiekowi w zapisie dziesiętnym to Ty możesz zrobić podobnie.</p>
+<p>Mając do pomnożenia liczby binarne <code>0001 1011</code> i <code>0001 0111</code>, dokonaj pierw konwersji i przeprowadź operację mnożenia w systemie dziesiętnym by na koniec wynik spowrotem przekonwertować na zapis binarny.</p>
+<ul>
+<li><code>0001 1011</code> to $27$</li>
+<li><code>0001 0111</code> to $23$</li>
+<li>$27\cdot23 = 621$</li>
+<li>Przekonwertuj wynik spowrotem do zapisu binarnego czyli: <code>0010 0110 1101</code></li>
+</ul>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
+</data-gate>
+
+<h3>➗ Dzielenie: Skanowanie po Indeksach</h3>
+<p>Dzielenie binarne to proces sprawdzania, które przesunięcia dzielnika &quot;mieszczą się&quot; w naszej liczbie. Wyobraź sobie dzielnik jako <strong>szablon</strong> (stempel), który przesuwasz nad dzielną, szukając miejsca na kolejne &quot;wycięcie&quot; (odejmowanie).</p>
+<h4>Reguła Przewagi (Czy szablon pasuje?)</h4>
+<p>Zanim zaczniesz wycinać, procesor mechanicznie sprawdza &quot;czy góra ma przewagę&quot;:</p>
+<ol>
+<li><strong>Długość</strong>: Liczba z większą ilością cyfr (bez <em>zer wiodących</em>) zawsze wygrywa (np. <code>101</code> &gt; <code>11</code>).</li>
+<li><strong>Pierwszy różny bit</strong>: Jeśli są równe, o zwycięstwie decyduje pierwsza różnica od lewej (<strong>1</strong> &gt; <strong>0</strong>).</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Głowa i Ogon</strong>: W informatyce stosujemy nomenklaturę, że maksymalnie lewy znak w fragmencie tekstu to <strong>Głowa</strong> (<em><strong>head</strong></em>), a maksymalnie prawy znak w tym fragmencie to <strong>Ogon</strong> (<em><strong>tail</strong></em>). 😉 </p>
+
+</div>
+</div><h4>Przykład: Skanowanie krok po kroku (22 ÷ 5)</h4>
+<p>Dzielimy $22$ przez $5$. Nasz szablon to <code>101</code>. Sprawdzamy wszystkie pozycje, zaczynając od największej możliwej:</p>
+<h5>Krok 1: Pierwsza przymiarka</h5>
+<p>Kładziemy szablon tak, aby jego <strong>Głowa</strong> była maksymalnie na lewo pod dzielną i widzimy że <strong>Ogon</strong> jest na <strong>indeksie $2$</strong>. </p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">$4$</th>
+<th align="center">$3$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+<th align="center">$0$</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Dzielna</strong></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Wartość początkowa</td>
+</tr>
+<tr>
+<td align="left"><strong>Szablon</strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>0</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><em><code>0</code></em></td>
+<td align="center"><em><code>0</code></em></td>
+<td align="left"><strong>Ogon na indeksie $2$</strong></td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>?</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Aktualny wynik po poniższych operacjach.</td>
+</tr>
+</tbody></table>
+<p>Zobacz na te zera w szablonie. Musimy je dopisać, bo przesunęliśmy nasz szablon o <em>2</em>.</p>
+<ul>
+<li><strong>Decyzja</strong>: Czy Góra ma przewagę (<code>0001 0110</code> $\geq$ <code>0001 0100</code>)? <strong>TAK</strong>!</li>
+<li><strong>Wynik</strong>: Na indeksie $2$ gdzie znajduje się ogon wpisujesz pod nim <em><strong>$1$</strong></em>.</li>
+<li><strong>Reszta</strong>: Odejmujesz <code>0001 0110</code> $-$ <code>0001 0100</code> $=$ <code>0000 0010</code>. To Twój nowy cel dla kolejnych kroków.</li>
+</ul>
+<h5>Krok 2: Druga przymiarka</h5>
+<p>Przesuwamy szablon o jedno miejsce w prawo. Teraz jego <strong>Ogon</strong> ląduje na <strong>indeksie $1$</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">$4$</th>
+<th align="center">$3$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+<th align="center">$0$</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Reszta</strong></td>
+<td align="center"></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Reszta z poprzedniego odejmowania</td>
+</tr>
+<tr>
+<td align="left"><strong>Szablon</strong></td>
+<td align="center"></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>0</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><em><code>0</code></em></td>
+<td align="left"><strong>Ogon na indeksie $1$</strong></td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Aktualny wynik po poniższych operacjach.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Decyzja</strong>: Czy Góra (reszta <code>0010</code>) ma przewagę nad Szablonem (<code>1010</code>)? <strong>NIE</strong>.</li>
+<li><strong>Wynik</strong>: Na indeksie $1$ wyniku wpisujesz <em><strong>$0$</strong></em>.</li>
+<li><strong>Reszta</strong>: Bez zmian, nadal masz <strong><code>10</code></strong>.</li>
+</ul>
+<h5>Krok 3: Trzecia przymiarka</h5>
+<p>Kładziemy szablon na ostatnim możliwym miejscu. <strong>Ogon</strong> na <strong>indeksie $0$</strong>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">$4$</th>
+<th align="center">$3$</th>
+<th align="center">$2$</th>
+<th align="center">$1$</th>
+<th align="center">$0$</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Reszta</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Reszta z poprzedniego odejmowania</td>
+</tr>
+<tr>
+<td align="left"><strong>Szablon</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="center"><strong><code>0</code></strong></td>
+<td align="center"><strong><code>1</code></strong></td>
+<td align="left"><strong>Ogon na indeksie $0$</strong></td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="left">Aktualny wynik po poniższych operacjach.</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Decyzja</strong>: Czy Góra (<code>0010</code>) ma przewagę nad Szablonem (<code>101</code>)? <strong>NIE</strong>.</li>
+<li><strong>Wynik</strong>: Na indeksie $0$ wyniku wpisujesz <em><strong>$0$</strong></em>.</li>
+</ul>
+<hr>
+<p><strong>Wynik końcowy:</strong></p>
+<ul>
+<li><strong>Iloraz</strong>: <code>100</code> (czyli <strong>4</strong>)</li>
+<li><strong>Reszta ( % - Modulo)</strong>: <code>10</code> (czyli <strong>2</strong>)</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To jest czysta mechanika: skanujesz kolejne indeksy, przesuwasz szablon <strong>Ogonem</strong> do pozycji i decydujesz o jednym bicie wyniku.<br>Po każdym &quot;trafieniu&quot; (1) odejmujesz i pracujesz na mniejszej reszcie.</p>
+
+</div>
+</div><p><strong>Algorytm Dzielenia w 4 krokach:</strong></p>
+<ol>
+<li><strong>Ustaw szablon</strong> (dzielnik) maksymalnie w lewo pod dzielną.</li>
+<li><strong>Sprawdź przewagę</strong>: Jeśli góra $\ge$ dół → wpisz <strong>1</strong> w wyniku pod ogonem szablonu i odejmij.</li>
+<li><strong>Brak przewagi?</strong>: Wpisz <strong>0</strong> w wyniku.</li>
+<li><strong>Przesuń szablon</strong> o 1 w prawo i powtarzaj, aż dojdziesz ogonem do indeksu $0$.</li>
+</ol>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="/"></data-arithmetic-challenge>
+</data-gate>
+
+<h3>🕹️ Symulator Arytmetyki Binarnej</h3>
+<p>Poniżej masz interaktywny element w którym możesz przetestować wszelkie kombinacje arytmetyczne dwóch liczb szesnastobitowych:</p>
+<p><data-binary-arithmetic digits="16" base="2" u2="false"></data-binary-arithmetic></p>
+<h3>🔒 Operacje arytmetyczne w systemie binarnym</h3>
+<p>Czas na podsumowanie i sprawdzenie wiedzy w praktyce.</p>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dodawać już umiesz. 🙂</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Odejmowanie to dla ciebie nie jest problem. 😎</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Oby tak dalej z pomnażaniem. 🤑</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="/"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dziel i rządź! 👑</p>
+
+</div>
+</div></data-gate>
+
+<hr>
+<h2>🌑 Liczby Ujemne: System U2</h2>
+<p>W poprzedniej lekcji opanowałeś cztery operacje arytmetyki binarnej — dodawanie, odejmowanie, mnożenie i dzielenie. Ale cała ta arytmetyka działała wyłącznie na <strong>liczbach dodatnich</strong>. Co jeśli wynik odejmowania jest ujemny? Co jeśli chcesz zapisać temperaturę $-15°C$?</p>
+<p>Potrzebujemy sposobu, by w świecie samych $0$ i $1$ zakodować <strong>minus</strong>. Rozwiązaniem jest <strong>System U2 (Uzupełnienie do Dwóch)</strong>.</p>
+<hr>
+<h3>🎯 Koncepcja "Wagi Znaku"</h3>
+<p>Umówiono się, że pierwszy bit (najbardziej po lewej) ma <strong>wagę ujemną</strong>. Pozostałe bity są dalej dodatnie.</p>
+<p><strong>Analiza 8&#8209;bitowa:</strong><br>Wartość bitu na ósmej pozycji wynosi <strong>$-128$</strong>.</p>
+<p>Aby zapisać liczbę <strong>$-96$</strong>, musimy połączyć ujemną wagę początku z dodatnimi wagami pozostałych bitów:<br>$$-128 + 32 = -96$$</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bit (Waga)</th>
+<th align="center">-128</th>
+<th align="center">64</th>
+<th align="center">32</th>
+<th align="center">16</th>
+<th align="center">8</th>
+<th align="center">4</th>
+<th align="center">2</th>
+<th align="center">1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Wartość</strong></td>
+<td align="center"><strong>1</strong></td>
+<td align="center">0</td>
+<td align="center"><strong>1</strong></td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p><strong>Zapis binarnie:</strong> <code>1010 0000</code></p>
+<hr>
+<h4>Zakresy w U2</h4>
+<p>Dzięki mechanizmowi wag, nasze 8&#8209;bitowe pudełko może teraz przechowywać liczby od $-128$ do $+127$:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Typ</th>
+<th align="center">Zakres 8&#8209;bitowy</th>
+<th align="center">Zakres 16&#8209;bitowy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>UNSIGNED</strong> (bez znaku)</td>
+<td align="center">$0$ do $255$</td>
+<td align="center">$0$ do $65535$</td>
+</tr>
+<tr>
+<td align="left"><strong>SIGNED / U2</strong> (ze znakiem)</td>
+<td align="center">$-128$ do $+127$</td>
+<td align="center">$-32768$ do $+32767$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To te same bity, ta sama pamięć! Jedyna różnica to <strong>sposób interpretacji</strong>. Ciąg <code>1111 1111</code> to $255$ w trybie UNSIGNED, ale $-1$ w trybie U2.</p>
+
+</div>
+</div><hr>
+<h3>🔧 Jak szybko uzyskać liczbę ujemną? (Metoda Invert + 1)</h3>
+<p>Choć mechanizm wag (opisany wyżej) najlepiej tłumaczy <em>dlaczego</em> U2 działa, w praktyce najczęściej stosuje się szybki algorytm zamiany liczby dodatniej na ujemną:</p>
+<ol>
+<li><strong>Zapisz liczbę dodatnią</strong> (np. $5$ to <code>0000 0101</code>).</li>
+<li><strong>Odwróć wszystkie bity</strong> ($0 \to 1, 1 \to 0$): <code>1111 1010</code>.</li>
+<li><strong>Dodaj 1</strong>: <code>1111 1011</code> $\gets$ To jest $-5$ w systemie U2.</li>
+</ol>
+<p><strong>Sprawdzenie wag:</strong> $-128 + 64 + 32 + 16 + 8 + 0 + 2 + 1 = -5$ ✅</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ta metoda działa w obie strony! Aby uzyskać liczbę dodatnią z ujemnej, zastosujesz ten sam algorytm: Invert + 1.</p>
+
+</div>
+</div><hr>
+<h3>🤯 Arytmetyka w U2 — Magia Pudełka</h3>
+<p>Najpiękniejsza właściwość U2: <strong>dodawanie i odejmowanie działają identycznie</strong> jak w trybie UNSIGNED! Procesor nie musi wiedzieć, czy liczby są ze znakiem czy bez — bity same się „układają&quot;.</p>
+<p><strong>Przykład: $5 + (-3) = 2$</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">liczba</th>
+<th align="left">zapis $8$-bitowy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$5$</td>
+<td align="left"><code>0000 0101</code></td>
+</tr>
+<tr>
+<td align="left">$-3$</td>
+<td align="left"><code>1111 1101</code></td>
+</tr>
+<tr>
+<td align="left">Suma</td>
+<td align="left"><em><code>1</code></em> <code>0000 0010</code></td>
+</tr>
+</tbody></table>
+<p>Nadmiarowy bit (dziewiąty) wypada poza pudełko. Zostaje <code>0000 0010</code> = $2$. Bingo! 🎯</p>
+<hr>
+<h3>⚠️ Najczęstsze błędy (The "Oops" Zone)</h3>
+<p>Podczas pracy z bitami łatwo o pomyłkę. Oto na co musisz uważać:</p>
+<ul>
+<li><strong>Ignorowanie Przepełnienia (Overflow)</strong>: Nadmiarowy bit (dziewiąty) często wypada poza pudełko i w U2 jest to normalne. Prawdziwy błąd (<strong>Overflow</strong>) następuje wtedy, gdy dodasz dwie liczby dodatnie, a wynik wyjdzie ujemny (lub odwrotnie), bo &#39;przebiłeś&#39; wagę znaku.</li>
+<li><strong>Mylenie U2 z &quot;Bitem Znaku&quot;</strong>: System U2 to nie tylko &quot;1 na początku&quot;. To system, w którym pierwszy bit ma ujemną wagę. Nie wystarczy zmienić go na 1, by uzyskać liczbę ujemną (stosuj metodę <em>Invert + 1</em>).</li>
+<li><strong>Dopisywanie zer przy mnożeniu</strong>: Pamiętaj, że dopisujesz tyle zer, ile wynosi <strong>indeks pozycji</strong>, a nie numer porządkowy bita.</li>
+</ul>
+<hr>
+<h3>🕹️ Symulator Arytmetyki Binarnej (Tryb U2)</h3>
+<p>Poniżej masz interaktywny symulator z <strong>włączonym trybem U2</strong>. Przełącz toggle, aby zobaczyć jak te same bity zmieniają swoją interpretację:</p>
+<p><data-binary-arithmetic digits="16" base="2" u2="true"></data-binary-arithmetic></p>
+<hr>
+<h3>🔒 Test: Czy rozumiesz U2?</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+Jaka jest wartość dziesiętna ciągu `1111 1111` w 8-bitowym systemie U2?
+    </question>
+    <options>
+      <option correct>-1</option>
+      <option>255</option>
+      <option>-128</option>
+      <option>127</option>
+    </options>
+    <div data-hint="error">
+      Przypomnij sobie mechanizm wag U2: najbardziej lewy bit ma wynik wagi **ujemny** ($-128$).  
+      Pozostałe są dodatnie, a ich sumowanie z $-128$ da ci mniejszą liczbę ujemną.
+    </div>
+    <div data-hint="success">
+      Dokładnie! Wszystkie bity zapalone w U2 dają $-1$, nie $255$. To jeden z najważniejszych faktów do zapamiętania. 🏆
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question>
+Ciąg bitów `1111 1100` w 8-bitowym systemie U2 reprezentuje liczbę:
+    </question>
+    <options>
+      <option>252</option>
+      <option correct>-4</option>
+      <option>-128</option>
+      <option>124</option>
+    </options>
+    <div data-hint="error">
+      Użyj mechanizmu wag: najbardziej lewy bit ma wartość wagi $-128$.  
+      Zsumuj wagi zapalonych bitów i pamiętaj że to U2, NIE unsigned!
+    </div>
+    <div data-hint="success">
+      Mistrz U2! Szybka metoda: odwróć bity → `0000 0011` = $3$, dodaj $1$ → $4$, dodaj minus → $-4$. 🎓
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h2>🎱💎 Arytmetyka Ósemkowa i Szesnastkowa</h2>
+<p>Znasz już arytmetykę binarną — dodawanie, odejmowanie, mnożenie i dzielenie na zerach i jedynkach. Teraz czas zastosować <strong>te same reguły</strong> w systemach, które informatycy używają na co dzień: <strong>ósemkowym (Octal)</strong> i <strong>szesnastkowym (Hexadecimal)</strong>.</p>
+<p>Zasada jest uniwersalna: zmienia się tylko <strong>pojemność licznika</strong>, przy której następuje <strong>Przeładowanie</strong> (gdy suma jest zbyt duża) lub zapotrzebowanie na <strong>Cofnięcie licznika</strong> (gdy od mniejszej cyfry odejmujemy większą).</p>
+<table>
+<thead>
+<tr>
+<th align="left">System</th>
+<th align="center">Cyfry</th>
+<th align="center">Limit Licznika</th>
+<th align="center">Przeładowanie (koszt z sumy)</th>
+<th align="center">Zapożyczenie i Koszt Przrótu (z długu)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Binarny</td>
+<td align="center">0&#8209;1</td>
+<td align="center">1</td>
+<td align="center">$-2$</td>
+<td align="center">Sąsiad bierze 1 długu, przewrót kosztuje -1 długu</td>
+</tr>
+<tr>
+<td align="left"><strong>Ósemkowy</strong></td>
+<td align="center">0&#8209;7</td>
+<td align="center">7</td>
+<td align="center">$-8$</td>
+<td align="center">Sąsiad bierze 1 długu, przewrót kosztuje -1 długu</td>
+</tr>
+<tr>
+<td align="left"><strong>Szesnastkowy</strong></td>
+<td align="center">0&#8209;F</td>
+<td align="center">15 (F)</td>
+<td align="center">$-16$</td>
+<td align="center">Sąsiad bierze 1 długu, przewrót kosztuje -1 długu</td>
+</tr>
+</tbody></table>
+<h3>🎱 System Ósemkowy (Octal)</h3>
+<p>System ósemkowy był popularny w erze 12&#8209;bitowych i 36&#8209;bitowych maszyn. Dziś spotkasz go głównie w uprawnieniach systemów Linux (<code>chmod 755</code>). Jedna cyfra ósemkowa to <strong>dokładnie 3 bity</strong>.</p>
+<h4>➕ Dodawanie Ósemkowe</h4>
+<p>System wykorzystuje cyfry $0$-$7$. Gdy suma przekroczy $7$, licznik ulega <strong>Przeładowaniu</strong> (oddajesz $8$ z sumy) i przenosi $1$ do kolejnej kolumny.</p>
+<p><strong>Przykład ($37_8 + 25_8$):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Przeniesienie</th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Suma 3 + 2 = 5, plus 1 z przeładowania z prawej kolumny daje 6. To mieści się w naszym liczniku ($< 8$), więc nie ma kolejnego przeładowania.">$1$</span></th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="7 + 5 = 12. Suma wykracza poza licznik (maks 7). Oddajesz z sumy jedno pełne przeładowanie (-8), co pozostawia Ci cyfrę 4 w wyniku. Powstało przeładowanie licznika, więc przenosisz 1 w lewo.">←</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Składnik A</strong></td>
+<td align="center">$3$</td>
+<td align="center">$7$</td>
+</tr>
+<tr>
+<td align="left"><strong>Składnik B</strong></td>
+<td align="center">$2$</td>
+<td align="center">$5$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><strong>$6$</strong></td>
+<td align="center"><strong>$4$</strong></td>
+</tr>
+</tbody></table>
+<p>Analiza kolumn (od prawej):</p>
+<ul>
+<li><strong>Jedności</strong>: $7 + 5 = 12$. Ponieważ to więcej niż pomieści licznik: oddajemy $8$ za jedno pełne przeładowanie. Wynik to $12 - 8 = 4$. <strong>Przeładowanie (1)</strong> idzie do kolumny po lewej.</li>
+<li><strong>Ósemki</strong>: $3 + 2 + 1_{\text{przeładowanie}} = 6$. Ponieważ $6 &lt; 8$, brak kolejnego przeładowania.</li>
+</ul>
+<p>Wynik: $64_8$ (sprawdzenie: $31_{10} + 21_{10} = 52_{10}$ = $64_8$ ✅)</p>
+<hr>
+<data-gate>
+  <data-arithmetic-challenge base="8" operation="+"></data-arithmetic-challenge>
+</data-gate>
+
+<h4>➖ Odejmowanie Ósemkowe</h4>
+<p>System wykorzystuje <strong>Regułę Niwelowania i Cofania</strong>. Różnica względem układu dziesiętnego polega tylko na tym, że po cofnięciu licznik staje na pozycji <strong>$7$</strong>.</p>
+<p><strong>Przykład ($52_8 - 37_8$):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Stan długu</th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Tu stoisz by operować 5 - 3. Sprawdzasz jednak, że na Twoim obiekcie spoczywa dług 1 wleczony z przeskoku prawej krawędzi. Spłacasz go na starcie pomniejszając górny stan (5 - 1 = 4). Zostajesz z przeliczoną jednością 4. Z czystym kątem na zrzuconej 4 rozliczasz bazowe zadanie przez odjemnik - więc na sam koniec odejmujesz widniejące niżej 3 (4 - 3). Notujesz finalny opad warty 1. Koniec zmartwień o generowanie nadmiernych obciążeń dla sąsiadów z lewej.">❌</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Tu od mniejszej cyfry odciągasz 7. Większe od mniejszego u podstawy, więc musi nastąpić ujęcie długu wprawionego w środowisku lewym (lewy sąsiad przejmuje na siebie próg 1 długu wyrównawczego). Zaciągnąwszy u niego pożyczkę bezkarnie cofasz u bazy swój licznik. Określamy w głowie realny wymiar długu niwelując do zera wspólną część (ujemne 7 uszczuplone po spłaceniu górnym 2 to zadłużenie dające 5 długu). Sam bezwarunkowy akt obracania licznika wstecz poniżej bariery 0 na próg maksymalny systemu (czyli cyfrę 7) niweluje i spłaca automatyczną część z całego wygenerowanego długu za to przewrócenie (dług zostaje uszczuplony 5 - 1 = 4). Pamiętając o zadłużeniu 4 zdejmujesz je z wymiaru spoczywającego na cofniętym obwodzie (7), tak po ściągnięciu (7 - 4) zostaje legalnie odzyskana i wpisana cyfra o wariancie 3. W lewą drogę wysłany został jeden proces długu.">✅</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Odjemna</strong></td>
+<td align="center">$5$</td>
+<td align="center">$2$</td>
+</tr>
+<tr>
+<td align="left"><strong>Odjemnik</strong></td>
+<td align="center">$3$</td>
+<td align="center">$7$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><strong>$1$</strong></td>
+<td align="center"><strong>$3$</strong></td>
+</tr>
+</tbody></table>
+<p>Analiza kolumn (od prawej):</p>
+<ul>
+<li><strong>Jedności</strong>: $2 - 7$. <strong>Niwelujemy</strong> nasze $2$, co zostawia nam <em>$5$ długu</em>. Ratujemy się pożyczką, więc sąsiad bierze $1$ na swój rachunek, co z kolei pozwala nam cofnąć licznik pod zero na pozycję <strong>$7$</strong>. Przewrót ten kosztuje nas zawsze $1$ długu. Reszta długu wynosi więc $5 - 1 = 4$. Od aktualnej pozycji licznika ($7$) odejmujemy te $4$. Wynik: <em><strong>$3$</strong></em>.</li>
+<li><strong>Ósemki</strong>: Masz na liczniku $5$, ale wisi na Tobie dług z tytułu pożyczki ($1$). Spłacasz go: $5 - 1 = 4$. Teraz na czysto od tego $4$ odejmujesz docelowe $3$. Wynik: <em><strong>$1$</strong></em>.</li>
+</ul>
+<p>Wynik: $13_8$ (sprawdzenie: $42_{10} - 31_{10} = 11_{10}$ = $13_8$ ✅)</p>
+<hr>
+<data-gate>
+  <data-arithmetic-challenge base="8" operation="-"></data-arithmetic-challenge>
+</data-gate>
+
+<h4>🛡️ Symulator Ósemkowy</h4>
+<p>Przetestuj dowolne operacje. Zwróć uwagę, jak carry i borrow zachowują się z progiem 8:</p>
+<p><data-binary-arithmetic base="8" digits="6" u2="false"></data-binary-arithmetic></p>
+<h4>✖️ Mnożenie Ósemkowe</h4>
+<p>Mnożenie w każdym systemie to proces sumowania wielokrotności liczby oraz poślizgu w lewo (Shift) o pozycję cyfry. Gdy operacji mnożenia podlega zestaw cyfr ($0&#8209;7$), należy pilnować momentów przeładowań dla potęgi $8$. </p>
+<p><strong>Przykład ($25_8 \cdot 14_8$):</strong><br>Mnożymy dokładnie tak, jak pod kreską w systemie dziesiętnym, decydując jedynie ile pełnych &quot;pudełek z 8 elementami&quot; możemy spakować.</p>
+<p><strong>Krok 1:</strong> Mnożenie przez pozycję jedności ($4$)</p>
+<ul>
+<li>$4 \cdot 5 = 20_{(decymalnie)}$. Dzieląc to przez limit $8$, mamy $2$ pełne ósemki i pozostaje nam reszta $4$. Przeładowanie (carry) = $2$. Wynik zapisu: <strong>4</strong>.</li>
+<li>$4 \cdot 2 = 8_{(dec)}$. Dodajemy zapisany przelew z poprzedniej pozycji ($+2$). Suma to $10_{(dec)}$.</li>
+<li>$10_{(dec)} \div 8$ = $1$ pełna ósemka i $2$ reszty. Przeładowanie (carry) = $1$. Wynik zapisu: <strong>2</strong>.</li>
+<li>Wynik I cyklu: <strong>$124_8$</strong></li>
+</ul>
+<p><strong>Krok 2:</strong> Mnożenie przez pozycję ósemek ($1$) + obowiązkowe Puste Przesunięcie (Shift by 1)</p>
+<ul>
+<li>Ogon uzupełniamy o $0$.</li>
+<li>$1 \cdot 5 = 5_{(dec)}$. Poniżej 8, brak paczki. Przeładowanie = 0.</li>
+<li>$1 \cdot 2 = 2_{(dec)}$.</li>
+<li>Wynik II cyklu: <strong>$250_8$</strong></li>
+</ul>
+<p><strong>Krok 3:</strong> Dodawanie Ósemkowe pod kreską:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>$1$</td>
+<td>$2$</td>
+<td>$4$</td>
+</tr>
+<tr>
+<td>+</td>
+<td>$2$</td>
+<td>$5$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+<td><hr></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>$3$</strong></td>
+<td><strong>$7$</strong></td>
+<td><strong>$4_8$</strong></td>
+</tr>
+</tbody></table>
+<p>$( 25_8 \cdot 14_8 = 374_8 \rightarrow 21_{10} \cdot 12_{10} = 252_{10})$</p>
+<h4>➗ Dzielenie Ósemkowe</h4>
+<p>Dzielenie to procedura &quot;przymierzania mniejszego pudełka do większego&quot;, identycznie jak badanie Reguły Przewagi w arytmetyce Binarnej.</p>
+<p><strong>Przykład ($124_8 \div 4_8$):</strong></p>
+<ul>
+<li>Bierzemy głowę liczby <code>1</code> - czwórka się nie mieści (wynik 0). </li>
+<li>Bierzemy <code>12_8</code> do przymiarki. Skoro to ósemki, musisz pamiętać, że <code>12_8</code> odpowiada wymiarze dziesiętnemu $1 \cdot 8^1 + 2 = 10_{(10)}$. Ile wpadów <code>4</code> zmieścisz w wartości matematycznej 10? Zmieścisz dokładnie dwa rzuty ($2 \cdot 4 = 8_8$).</li>
+<li>Zapisujesz <strong>$2$</strong> jako pierwszą cześć wyniku podzielenia. </li>
+<li>Odejmujesz: <code>12_8</code> - $8_8$. Według zasad cofania z odejmowania: spadek o dwie pozycje w dół. Reszta to <code>2</code>.</li>
+<li>Zrzucasz kolejną cyfrę wiersza z góry (<code>4</code>) i stykasz do reszty: Przymierzasz dzielnik <code>4</code> do liczby <code>24_8</code>.</li>
+<li>Wersja matematyczna tej wartości to $2 \cdot 8 + 4 = 20_{(10)}$. Wartość 20 na matematyce mieści <code>4</code> perfekcyjnie równe 5 razy ($4 \cdot 5 = 20_{10}$). Twoje dzielenie dziesiętne zamyka wynik resztą u zera, więc konwertujesz wyłowione równe wycinki. Zapisujesz ostatecznie jako dół wyniku: <strong>$5$</strong>.</li>
+<li>Otrzymujesz poprawny wymiar końcowy cykli 1 i 2 -&gt; Wynikiem jest cyfra $2$, potem dopisano $5$: <strong>$25_8$</strong>. To ten sam przypadek co w powyższym mnożeniu!</li>
+</ul>
+<h3>💎 System Szesnastkowy (Hexadecimal)</h3>
+<p>System szesnastkowy to <strong>absolutny król informatyki</strong>. Znajdziesz go wszędzie: kody kolorów CSS (<code>#FF5733</code>), adresy pamięci, instrukcje procesora, hashe kryptograficzne. Ma 16 cyfr: <code>0-9</code> oraz <code>A-F</code>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Znak Hex</th>
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">C</th>
+<th align="center">D</th>
+<th align="center">E</th>
+<th align="center">F</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Wartość</strong></td>
+<td align="center">10</td>
+<td align="center">11</td>
+<td align="center">12</td>
+<td align="center">13</td>
+<td align="center">14</td>
+<td align="center">15</td>
+</tr>
+</tbody></table>
+<p>Jeden znak Hex to <strong>dokładnie 4 bity</strong> (nibble). Dwie cyfry = pełny bajt:</p>
+<ul>
+<li><code>00</code> = $0$, <code>FF</code> = $255$, <code>7F</code> = $127$</li>
+</ul>
+<h4>➕ Dodawanie Szesnastkowe</h4>
+<p>Licznik w Hex mieści wartości od $0$ do $15$ (<code>F</code>). Gdy suma dobije do $16$, licznik robi pełne <strong>Przeładowanie</strong> i przenosi zsumowane $16$ bajtów jako $1$ do starszej kolumny.</p>
+<p><strong>Przykład ($3A_{16} + 2F_{16}$):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Przeniesienie</th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="3 + 2 = 5, doliczamy punkt przeładowania z prawej i mamy 6. Wynik spokojnie mieści się w liczniku.">$1$</span></th>
+<th align="center"><span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="A(10) + F(15) = 25. Zdecydowanie przekracza pojemność licznika (maks 15). Koszt pełnego przeładowania to -16 bajtów, zostaje Ci 9! Przenosisz 1 w lewo.">←</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Składnik A</strong></td>
+<td align="center">$3$</td>
+<td align="center">$A$</td>
+</tr>
+<tr>
+<td align="left"><strong>Składnik B</strong></td>
+<td align="center">$2$</td>
+<td align="center">$F$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><strong>$6$</strong></td>
+<td align="center"><strong>$9$</strong></td>
+</tr>
+</tbody></table>
+<p>Analiza kolumn (od prawej):</p>
+<ul>
+<li><strong>Jedności</strong>: $A (10) + F (15) = 25$. Pożera to całkowitą pojemność licznika, więc oddajemy $16$ za jedno pełne <strong>przeładowanie</strong>. W wyniku zostaje reszta: $25 - 16 = 9$. Ślemy <strong>1</strong> do sąsiada.</li>
+<li><strong>Szesnastki</strong>: $3 + 2 + 1_{\text{przeładowanie}} = 6$. Brak kolejnego przeładowania.</li>
+</ul>
+<p>Wynik: $69_{16}$ (sprawdzenie: $58_{10} + 47_{10} = 105_{10}$ = $69_{16}$ ✅)</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Gdy litery Cię mylą, po prostu zamień je na wartości dziesiętne ($A=10, B=11...$), wykonaj operację i zamień wynik z powrotem na Hex. Uważaj, by nie popełnić błędu przy cofaniu!</p>
+
+</div>
+</div><hr>
+<data-gate>
+  <data-arithmetic-challenge base="16" operation="+"></data-arithmetic-challenge>
+</data-gate>
+
+<h4>➖ Odejmowanie Szesnastkowe</h4>
+<p>System operuje dokładnie tą samą logiką powszechną. Jedyna subtelność polega na tym, że po cofnięciu pod 0, licznik ląduje na maksymalnej pozycji: <strong>$F (15)$</strong>.</p>
+<p><strong>Przykład ($B3_{16} - 4E_{16}$):</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Stan długu</th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Operujesz bieżącym zakresem pierwszej kolumny z lewej strony, gdzie od rzędu B (czyli równego w matematyce dziesiętnej 11) odejmowane bazowo będzie cyfra 4. Zobacz jednak precyzyjnie jak z prawej trasy ugięć wkroczył wcześniej doliczony próg do wyrównania (wędrujący dług kwoty 1 po sąsiedzku). Dysponowane przez Ciebie i gotowe z góry 11 naturalnie spłaca twój nieskończony ciąg wymiarów dziesiętnych o wartość jeden i staje się w tym kroku wyzerowanym z zaległości układem naturalnym stojącym na punkcie wymiary 10 (co literowo utożsamia się w powłoce szesnastek literą A). Jesteś czysty przed zapożyczeniami z obwodu prawego i lewego, więc czas przeprowadzić operację pierwotnie bazową. Z punktu 10 zrzucasz w dół do odjęcia podane u spodu dolne 4 jedności, a matematyczny obrachunek owocuje natywną i czystą cyrkulacją wymiaru: u dołu zapisujesz wynikającą na poczet bazy 6, nie wymuszając przy tym dodatkowej awarii zadłużeń.">❌</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Dokonujesz bezceremonialnego odjęcia potężnej u progu litery E (wartości w systemie natywnym: 14) od ułomnego u dołu, górnego składnika 3. Wobec deficytu wymuszasz roszadę i generujesz jawny ciężar długu względem lewego sąsiada w postaci kwoty jeden (lekką ręką oddalając wymogi długu u lewej strefy modułu). Rozliczamy ten zawiły problem do wyrównania oceniając wytyczne - niwelujesz wspólną część dozwolonej wartości trójki i oszacowujesz, że ze skali bazy po odliczeniu owych posiadanych trzech sztuk zaległość spada i wynosi aktualnie wycinek o masie 11 na zaciągnięty rosnący układ. Z racji, że wziąłeś dług z lewej strony, wolno ci dokonać przeskoku pętli: cofasz bębny pod spód progu u zera twardo osadzając na maksymalnym punkcie domeny F (w rozliczeniu to punktu równy 15). Fakt samego cofnięcia jest nagradzany - pętla pochłania część zadłużenia mianowicie jeden element, zbijając Twój zaległy wymiar ze zdania na pułap natywnych 10. Przeprowadzenie tej części operacji wymusza zdjęcie zadziwiających zaległości: od punktu licznika (litera F = 15) ubywamy spłacając to pozostałe opóźnienie w kwocie 10. Cykliczny obrót 15 - 10 zrzuca 5, więc zapisujemy i pozostawiamy rozwiązanie 5 na tym ujętym module, wynosząc próg jednego pożądanego długu do uregulowania obok.">✅</span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Odjemna</strong></td>
+<td align="center">$B$</td>
+<td align="center">$3$</td>
+</tr>
+<tr>
+<td align="left"><strong>Odjemnik</strong></td>
+<td align="center">$4$</td>
+<td align="center">$E$</td>
+</tr>
+<tr>
+<td align="left"><strong>Wynik</strong></td>
+<td align="center"><strong>$6$</strong></td>
+<td align="center"><strong>$5$</strong></td>
+</tr>
+</tbody></table>
+<p>Analiza kolumn (od prawej):</p>
+<ul>
+<li><strong>Jedności</strong>: $3 - E (14)$. <strong>Niwelujemy</strong> skromne $3$, co zostawia nam koszmarne <em>$11$ długu</em>. Wymmuszamy pożyczkę od sąsiada na lewo (sąsiad łapie $1$ długu). To ratuje nas prawem cofnięcia licznika na maksymalną pozycję <strong>$15$</strong>, ale ten przewrót kosztuje nas odpis z długu ($1$). Z $11$ robi się resztka $10$ długu. Odejmujemy resztę od stanu licznika ($15 - 10$) i w wyniku ląduje urocze <em><strong>$5$</strong></em>.</li>
+<li><strong>Szesnastki</strong>: Na starcie masz $B (11)$, ale wisisz sąsiadowi ten 1 punkt długu za pożyczkę: $11 - 1 = 10 (A)$. Jesteśmy na czysto jako czyste dziesięć, od którego odejmujemy dolną pozycję: $10 - 4 = 6$. Zostaje <em><strong>$6$</strong></em>.</li>
+</ul>
+<p>Wynik: $65_{16}$ (sprawdzenie: $179_{10} - 78_{10} = 101_{10}$ = $65_{16}$ ✅)</p>
+<hr>
+<data-gate>
+  <data-arithmetic-challenge base="16" operation="-"></data-arithmetic-challenge>
+</data-gate>
+
+<h4>🛡️ Symulator Szesnastkowy</h4>
+<p>Poczuj się jak programista niskopoziomowy. 4 cyfry Hex = idealnie 16 bitów ($16^4 = 2^{16}$):</p>
+<p><data-binary-arithmetic base="16" digits="4" u2="false"></data-binary-arithmetic></p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Spójrz na elegancję: każda cyfra Hex odpowiada dokładnie 4 bitom (półbajtowi). Ta matematyczna czystość sprawiła, że Hex wyparł Octal w nowoczesnym programowaniu.</p>
+
+</div>
+</div><h4>✖️ Mnożenie i ➗ Dzielenie Szesnastkowe</h4>
+<p>System operacji pozostaje ten sam co we wszystkich innych - różnicą są tu wymiar potęg na przeładowania (mod 16 - carry overflow).</p>
+<p><strong>Mnożenie przykładowe ($2A_{16} \cdot B_{16}$)</strong><br>Przeliczając litery na stan liczbowy w głowie: Mnożysz $42_{(10)} \cdot 11_{(10)} = 462_{(10)}$.</p>
+<p><strong>Jak się to odbywa manualnie?</strong><br>Bierzesz pierwszą część ($B \cdot A$): Wartość to $11 \cdot 10 = 110$ w Dec.<br>Dzielisz na paczki Szesnastki: Co składa się w limitze paczek szesnastnicy? Mieścisz tam równo 6 szesnastek ($6 \cdot 16 = 96$).<br>Reszta zostająca do zapisu to $14$ - więc zapisujesz literę bazową Hex: <strong><code>E</code></strong>. Pamiętasz że pod &quot;skrzydłami z boku&quot; wisi paczka 6 pudeł z carry.</p>
+<p>Druga fraza to ($B \cdot 2$): $11 \cdot 2 = 22$.<br>Doklejasz z puli te zapamiętałe na boku 6 pudeł sumy: $22 + 6 = 28$.<br>$28$ w limitach pudełek 16 to zaledwie jedno pudełko całej wielkości, z resztkami $12_{(10)}$. Resztka z $12$ to znak <strong><code>C</code></strong>.<br>Przebicie za pełne jedno pudełko zsuwasz w dół jako finalny opusz: <strong><code>1</code></strong>.<br>Wynikiem tej partii dodawaniowo&#8209;mnożniczej było zatem złożone rozwiązanie bitowe: <strong><code>1CE</code></strong></p>
+<p>Dzielenie ułamkowe odbywa się dosłownie tą samą zrzutową regułą słupków. Dopasowujesz pozycję (Head i Ogon) największym możliwym mnożnikiem dopasowanym o maskę wartościową z zachowaniem rzeki - wiersz za wierszem ściągając na dół po szczeplach operacyjnych reszt. </p>
+<p>W informatyce i przy tak masowych systemowych rozlokowywaniach - procesory nie operują z zębatek Hexadecymalnych – dekompresują te zapytania na rejestry natychmiastowe Bitów jako poślizgi mnożnicze. Przesunięcie i Suma (Shift and Sum). Wynika to z zasady elegancji i oszczędności nanosekund architektury hardware, na której wszystko i wszyscy stoją.</p>
+<h3>🏁 Wielki Finał: Wyzwania Arytmetyczne</h3>
+<p>Pokaż, że potrafisz liczyć w obu systemach. Pamiętaj: próg carry to <strong>8</strong> w OCT i <strong>16</strong> w HEX!</p>
+<data-gate>
+  <data-arithmetic-challenge base="8" operation="+"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ósemkowe dodawanie opanowane! 🎱</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="8" operation="-"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pożyczanie ósemkowe nie ma przed Tobą tajemnic! 💪</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="16" operation="+"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Hex dodawanie? Dziecinna igraszka! 💎</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="16" operation="-"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Świat niskopoziomowych operacji stoi przed Tobą otworem! 👑</p>
+
+</div>
+</div></data-gate>
+
+
+<hr>
+<h2>🧩 Kodowanie Znaków: ASCII i Matrix</h2>
+<p>Wiesz już, jak procesor liczy, jak radzi sobie z minusami i jak operuje w różnych systemach liczbowych. Ale komputer wyświetla litery, emoji i filmy. Jak to możliwe? Odpowiedź brzmi: <strong>Mapowanie</strong> – każdy znak to po prostu <strong>liczba</strong> przypisana do symbolu.</p>
+<hr>
+<h3>🚪 Brama Konwersji: Oct i Hex</h3>
+<p>Zanim pójdziemy dalej, sprawdźmy Twoje umiejętności szybkiego przełączania się między systemami. Rozwiąż te dwa zamki, aby odblokować lekcję o znakach.</p>
+<data-gate>
+  <data-number-system target="16, 47, 9, 19" base="8" digits="3">
+    > [!NOTE]
+    > To jest system ósemkowy. Aby uzyskać $16_{10}$, musisz wpisać $20_8$ ($2 \cdot 8 = 16$).
+  </data-number-system>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-number-system target="23, 13, 10, 25" base="16" digits="2">
+    > [!NOTE]
+    > To jest system szesnastkowy. Podpowiedź: $2 \cdot 16 = 32$. Ile brakuje do $47$? Brakuje $15$. A $15$ w Hex to... ?
+  </data-number-system>
+</data-gate>
+
+<hr>
+<h3>📜 Tablica ASCII</h3>
+<p>Informatycy po prostu umówili się, że konkretna liczba oznacza konkretny znak. Ten standard nazywa się <strong>ASCII</strong> (American Standard Code for Information Interchange). Podstawowa tablica ma 7 bitów (128 znaków), ale my używamy wersji 8&#8209;bitowej (1 Bajt = 256 znaków).</p>
+<h4>Znaki sterujące (0-31)</h4>
+<p>Pierwsze 32 pozycje to <strong>niewidoczne znaki sterujące</strong> - sygnały dla maszyn, nie dla ludzi:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Dec</th>
+<th align="center">Hex</th>
+<th align="left">Nazwa</th>
+<th align="left">Co robi?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center"><code>00</code></td>
+<td align="left"><code>NUL</code></td>
+<td align="left">Pusty bajt – koniec tekstu w C/C++</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center"><code>09</code></td>
+<td align="left"><code>TAB</code></td>
+<td align="left">Tabulacja (wcięcie)</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center"><code>0A</code></td>
+<td align="left"><code>LF</code></td>
+<td align="left">Nowa linia (Linux/Mac)</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="center"><code>0D</code></td>
+<td align="left"><code>CR</code></td>
+<td align="left">Powrót karetki (Windows: CR+LF)</td>
+</tr>
+<tr>
+<td align="center">27</td>
+<td align="center"><code>1B</code></td>
+<td align="left"><code>ESC</code></td>
+<td align="left">Escape – kolory w terminalu</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dlaczego Windows używa dwóch znaków na nową linię (<code>\r\n</code> = CR+LF), a Linux jednego (<code>\n</code> = LF)? To spadek po maszynach do pisania – &quot;Carriage Return&quot; cofał głowicę, &quot;Line Feed&quot; przesuwał papier.</p>
+
+</div>
+</div><h4>Znaki drukowalne (32-126)</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Zakres</th>
+<th align="center">Dec</th>
+<th align="center">Hex</th>
+<th align="left">Znaki</th>
+<th align="left">Wzorzec</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Spacja</td>
+<td align="center">32</td>
+<td align="center"><code>20</code></td>
+<td align="left"><code> </code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Cyfry</td>
+<td align="center">48&#8209;57</td>
+<td align="center"><code>30</code>-<code>39</code></td>
+<td align="left"><code>0</code>-<code>9</code></td>
+<td align="left">Wartość = Dec $-\text{ }48$</td>
+</tr>
+<tr>
+<td align="left">Wielkie litery</td>
+<td align="center">65&#8209;90</td>
+<td align="center"><code>41</code>-<code>5A</code></td>
+<td align="left"><code>A</code>-<code>Z</code></td>
+<td align="left">26 liter po kolei</td>
+</tr>
+<tr>
+<td align="left">Małe litery</td>
+<td align="center">97&#8209;122</td>
+<td align="center"><code>61</code>-<code>7A</code></td>
+<td align="left"><code>a</code>-<code>z</code></td>
+<td align="left">26 liter po kolei</td>
+</tr>
+<tr>
+<td align="left">Znaki specjalne</td>
+<td align="center">reszta</td>
+<td align="center">reszta</td>
+<td align="left"><code>!</code>, <code>@</code>, <code>#</code>, <code>+</code>, <code>=</code>...</td>
+<td align="left">Interpunkcja i operatory</td>
+</tr>
+</tbody></table>
+<p><strong>Pełna tabela najważniejszych znaków:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Znak</th>
+<th align="center">Dec</th>
+<th align="center">Bin</th>
+<th align="center">Hex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Spacja</td>
+<td align="center">32</td>
+<td align="center"><code>0010 0000</code></td>
+<td align="center"><code>20</code></td>
+</tr>
+<tr>
+<td align="center"><code>0</code></td>
+<td align="center">48</td>
+<td align="center"><code>0011 0000</code></td>
+<td align="center"><code>30</code></td>
+</tr>
+<tr>
+<td align="center"><code>9</code></td>
+<td align="center">57</td>
+<td align="center"><code>0011 1001</code></td>
+<td align="center"><code>39</code></td>
+</tr>
+<tr>
+<td align="center"><strong>A</strong></td>
+<td align="center">65</td>
+<td align="center"><code>0100 0001</code></td>
+<td align="center"><code>41</code></td>
+</tr>
+<tr>
+<td align="center"><strong>B</strong></td>
+<td align="center">66</td>
+<td align="center"><code>0100 0010</code></td>
+<td align="center"><code>42</code></td>
+</tr>
+<tr>
+<td align="center"><strong>Z</strong></td>
+<td align="center">90</td>
+<td align="center"><code>0101 1010</code></td>
+<td align="center"><code>5A</code></td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">97</td>
+<td align="center"><code>0110 0001</code></td>
+<td align="center"><code>61</code></td>
+</tr>
+<tr>
+<td align="center"><strong>b</strong></td>
+<td align="center">98</td>
+<td align="center"><code>0110 0010</code></td>
+<td align="center"><code>62</code></td>
+</tr>
+<tr>
+<td align="center"><strong>z</strong></td>
+<td align="center">122</td>
+<td align="center"><code>0111 1010</code></td>
+<td align="center"><code>7A</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🕵️ Wzorce Bitowe: Ukryte Reguły</h3>
+<p>Tablica ASCII nie jest losowa - kryje w sobie eleganckie wzorce bitowe:</p>
+<h4>Bit 5: Wielka vs Mała litera</h4>
+<p>Zauważ, że wielkie <strong>A</strong> ($65$) i małe <strong>a</strong> ($97$) różnią się dokładnie o <strong>$32$</strong>. A $32 = 2^5$, czyli <strong>jeden bit</strong>:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Litera</th>
+<th align="center">Dec</th>
+<th align="center">Bin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>A</strong></td>
+<td align="center">65</td>
+<td align="center"><code>0</code><strong><code>1</code></strong><code>00 0001</code></td>
+</tr>
+<tr>
+<td align="center"><strong>a</strong></td>
+<td align="center">97</td>
+<td align="center"><code>0</code><strong><code>1</code></strong><code>10 0001</code></td>
+</tr>
+</tbody></table>
+<p><strong>Bit nr 5</strong> (licząc od $0$ z prawej) działa jak <strong>przełącznik wielkości</strong>:</p>
+<ul>
+<li>Bit 5 = <code>0</code> - wielka litera</li>
+<li>Bit 5 = <code>1</code> - mała litera</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>To nie przypadek! Projektanci ASCII celowo tak ułożyli tablicę, aby zamiana wielkości litery wymagała zmiany <strong>jednego bita</strong>. Procesor robi to jedną instrukcją XOR.</p>
+
+</div>
+</div><h4>Cyfry: Zamaskowane wartości</h4>
+<p>Cyfra <code>0</code> ma kod $48$ (<code>0011 0000</code>), a <code>9</code> ma $57$ (<code>0011 1001</code>). Aby uzyskać wartość liczbową cyfry, wystarczy <strong>zamaskować górne 4 bity</strong> (ustawić na <code>0000</code>):</p>
+<table>
+<thead>
+<tr>
+<th align="center">Znak</th>
+<th align="center">Bin</th>
+<th align="center">Dolne 4 bity</th>
+<th align="center">Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0011</code> <strong><code>0000</code></strong></td>
+<td align="center"><code>0000</code></td>
+<td align="center">$0$</td>
+</tr>
+<tr>
+<td align="center"><code>5</code></td>
+<td align="center"><code>0011</code> <strong><code>0101</code></strong></td>
+<td align="center"><code>0101</code></td>
+<td align="center">$5$</td>
+</tr>
+<tr>
+<td align="center"><code>9</code></td>
+<td align="center"><code>0011</code> <strong><code>1001</code></strong></td>
+<td align="center"><code>1001</code></td>
+<td align="center">$9$</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>🕶️ Czytanie Matrixa</h3>
+<p>Kiedy patrzysz na kod binarny lub szesnastkowy, Twój mózg może zacząć widzieć ukryte słowa. Spróbuj:</p>
+<data-gate>
+  <data-quiz>
+    <question>
+Otrzymałeś od serwera ciąg bajtów w systemie szesnastkowym: `42 41 42 41`. Korzystając z powyższej tabelki ASCII, jakie słowo wyświetli komputer?
+    </question>
+    <options>
+      <option correct>BABA</option>
+      <option>ABBA</option>
+      <option>AAAA</option>
+    </options>
+    <div data-hint="error">
+      Spójrz na tabelkę: `41` (Hex) to 'A', a `42` (Hex) to 'B'. Teraz po prostu przeczytaj te cztery bajty po kolei.
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-quiz>
+    <question>
+Bajt `0100 1000` w ASCII to litera 'H'. Jaki bajt reprezentuje małe 'h'?
+    </question>
+    <options>
+      <option correct>`0110 1000`</option>
+      <option>`0100 1001`</option>
+      <option>`1100 1000`</option>
+    </options>
+    <div data-hint="error">
+      Przypomnij sobie regułę bitu $5$: aby zamienić wielką literę na małą, ustaw bit $5$ (szósty od prawej) na $1$. `0100 1000` → `0110 1000`.
+    </div>
+    <div data-hint="success">
+      Brawo! Zmiana jednego bita - to właśnie elegancja projektowania ASCII. 🎯
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3>🗣️ Profesjonalny żargon: Prefixy</h3>
+<p>Na koniec nauczymy się, jak profesjonaliści zapisują systemy w kodzie, aby się nie pomylić. Zamiast pisać &quot;10 w systemie szesnastkowym&quot;, używamy <strong>Przedrostków (Prefixów)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">System</th>
+<th align="center">Prefix</th>
+<th align="left">Przykład</th>
+<th align="center">Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Binarny</td>
+<td align="center"><code>0b</code></td>
+<td align="left"><code>0b10</code></td>
+<td align="center">$2$</td>
+</tr>
+<tr>
+<td align="left">ósemkowy</td>
+<td align="center"><code>0o</code></td>
+<td align="left"><code>0o10</code></td>
+<td align="center">$8$</td>
+</tr>
+<tr>
+<td align="left">Szesnastkowy</td>
+<td align="center"><code>0x</code></td>
+<td align="left"><code>0x10</code></td>
+<td align="center">$16$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zapamiętaj <code>0x</code>. To najczęstszy zapis w programowaniu, oznaczający system szesnastkowy.</p>
+
+</div>
+</div><hr>
+<h3>🌐 Co dalej? Unicode i UTF-8</h3>
+<p>ASCII obsługuje tylko <strong>128 znaków</strong> - wystarczy dla angielskiego, ale co z polskimi <code>ą, ć, ę</code>? Japońskimi kanji? Emoji 🚀?</p>
+<p>Standard <strong>Unicode</strong> przypisał numery <strong>ponad 150 000 znakom</strong> ze wszystkich języków świata. A <strong>UTF&#8209;8</strong> to sprytny sposób ich kodowania:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Zakres znaków</th>
+<th align="center">Bajty</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ASCII (0&#8209;127)</td>
+<td align="center">1 bajt</td>
+<td align="left"><code>A</code> = <code>0x41</code></td>
+</tr>
+<tr>
+<td align="left">Polskie znaki</td>
+<td align="center">2 bajty</td>
+<td align="left"><code>ą</code> = <code>0xC4 0x85</code></td>
+</tr>
+<tr>
+<td align="left">Emoji</td>
+<td align="center">4 bajty</td>
+<td align="left">🎮 = <code>0xF0 0x9F 0x8E 0xAE</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>UTF&#8209;8 jest <strong>wstecznie kompatybilny</strong> z ASCII - każdy plik ASCII jest jednocześnie poprawnym plikiem UTF&#8209;8. To dlatego UTF&#8209;8 zdominował internet (ponad 98% stron).</p>
+
+</div>
+</div><h3>📋 Pełne Tabele Kodowania (Ściąga)</h3>
+<details>
+<summary><b>Rozwiń: Zestawienie Podstawowe ASCII (0-127)</b></summary>
+Poniżej znajdziesz pocięte dla czytelności bloki całkowitych, oficjalnych znaków natywnych komputerów przyporządkowanych od wartości 0 do 127.
+
+<details>
+<summary>Znaki Sterujące (0 - 31)</summary>
+Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowaniem druku.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th>Skrót</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>00</td>
+<td>NUL</td>
+<td>Znak pusty (Null)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>01</td>
+<td>SOH</td>
+<td>Początek nagłówka</td>
+</tr>
+<tr>
+<td>2</td>
+<td>02</td>
+<td>STX</td>
+<td>Początek tekstu</td>
+</tr>
+<tr>
+<td>3</td>
+<td>03</td>
+<td>ETX</td>
+<td>Koniec tekstu</td>
+</tr>
+<tr>
+<td>4</td>
+<td>04</td>
+<td>EOT</td>
+<td>Koniec transmisji</td>
+</tr>
+<tr>
+<td>5</td>
+<td>05</td>
+<td>ENQ</td>
+<td>Zapytanie</td>
+</tr>
+<tr>
+<td>6</td>
+<td>06</td>
+<td>ACK</td>
+<td>Potwierdzenie</td>
+</tr>
+<tr>
+<td>7</td>
+<td>07</td>
+<td>BEL</td>
+<td>Dzwonek (Sygnał dźwiękowy)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>08</td>
+<td>BS</td>
+<td>Backspace (Cofnięcie)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>09</td>
+<td>HT</td>
+<td>Tabulacja pozioma</td>
+</tr>
+<tr>
+<td>10</td>
+<td>0A</td>
+<td>LF</td>
+<td>Znak nowej linii (Line Feed)</td>
+</tr>
+<tr>
+<td>11</td>
+<td>0B</td>
+<td>VT</td>
+<td>Tabulacja pionowa</td>
+</tr>
+<tr>
+<td>12</td>
+<td>0C</td>
+<td>FF</td>
+<td>Nowa strona (Form Feed)</td>
+</tr>
+<tr>
+<td>13</td>
+<td>0D</td>
+<td>CR</td>
+<td>Powrót karetki (Carriage Return)</td>
+</tr>
+<tr>
+<td>14</td>
+<td>0E</td>
+<td>SO</td>
+<td>Przesunięcie wyjścia (Shift Out)</td>
+</tr>
+<tr>
+<td>15</td>
+<td>0F</td>
+<td>SI</td>
+<td>Przesunięcie wejścia (Shift In)</td>
+</tr>
+<tr>
+<td>16</td>
+<td>10</td>
+<td>DLE</td>
+<td>Ucieczka łącza danych (Data Link Escape)</td>
+</tr>
+<tr>
+<td>17</td>
+<td>11</td>
+<td>DC1</td>
+<td>Sterowanie urządzeniem 1 (XON)</td>
+</tr>
+<tr>
+<td>18</td>
+<td>12</td>
+<td>DC2</td>
+<td>Sterowanie urządzeniem 2</td>
+</tr>
+<tr>
+<td>19</td>
+<td>13</td>
+<td>DC3</td>
+<td>Sterowanie urządzeniem 3 (XOFF)</td>
+</tr>
+<tr>
+<td>20</td>
+<td>14</td>
+<td>DC4</td>
+<td>Sterowanie urządzeniem 4</td>
+</tr>
+<tr>
+<td>21</td>
+<td>15</td>
+<td>NAK</td>
+<td>Negatywne potwierdzenie</td>
+</tr>
+<tr>
+<td>22</td>
+<td>16</td>
+<td>SYN</td>
+<td>Oczekiwanie synchroniczne</td>
+</tr>
+<tr>
+<td>23</td>
+<td>17</td>
+<td>ETB</td>
+<td>Koniec bloku transmisji</td>
+</tr>
+<tr>
+<td>24</td>
+<td>18</td>
+<td>CAN</td>
+<td>Anuluj</td>
+</tr>
+<tr>
+<td>25</td>
+<td>19</td>
+<td>EM</td>
+<td>Koniec nośnika</td>
+</tr>
+<tr>
+<td>26</td>
+<td>1A</td>
+<td>SUB</td>
+<td>Zastąpienie</td>
+</tr>
+<tr>
+<td>27</td>
+<td>1B</td>
+<td>ESC</td>
+<td>Escape (Ucieczka)</td>
+</tr>
+<tr>
+<td>28</td>
+<td>1C</td>
+<td>FS</td>
+<td>Separator pliku</td>
+</tr>
+<tr>
+<td>29</td>
+<td>1D</td>
+<td>GS</td>
+<td>Separator grupy</td>
+</tr>
+<tr>
+<td>30</td>
+<td>1E</td>
+<td>RS</td>
+<td>Separator rekordu</td>
+</tr>
+<tr>
+<td>31</td>
+<td>1F</td>
+<td>US</td>
+<td>Separator jednostki</td>
+</tr>
+<tr>
+<td>127</td>
+<td>7F</td>
+<td>DEL</td>
+<td>Usuń (Delete)</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Znaki Specjalne i Interpunkcja</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>32</td>
+<td>20</td>
+<td align="center"></td>
+<td>Spacja</td>
+</tr>
+<tr>
+<td>33</td>
+<td>21</td>
+<td align="center">!</td>
+<td>Wykrzyknik</td>
+</tr>
+<tr>
+<td>34</td>
+<td>22</td>
+<td align="center">&quot;</td>
+<td>Cudzysłów</td>
+</tr>
+<tr>
+<td>35</td>
+<td>23</td>
+<td align="center">#</td>
+<td>Hashtag (Krzyżyk)</td>
+</tr>
+<tr>
+<td>36</td>
+<td>24</td>
+<td align="center">$</td>
+<td>Znak dolara</td>
+</tr>
+<tr>
+<td>37</td>
+<td>25</td>
+<td align="center">%</td>
+<td>Znak procentu</td>
+</tr>
+<tr>
+<td>38</td>
+<td>26</td>
+<td align="center">&amp;</td>
+<td>Ampersand (And)</td>
+</tr>
+<tr>
+<td>39</td>
+<td>27</td>
+<td align="center">&#39;</td>
+<td>Apostrof</td>
+</tr>
+<tr>
+<td>40</td>
+<td>28</td>
+<td align="center">(</td>
+<td>Nawias okrągły otwierający</td>
+</tr>
+<tr>
+<td>41</td>
+<td>29</td>
+<td align="center">)</td>
+<td>Nawias okrągły zamykający</td>
+</tr>
+<tr>
+<td>42</td>
+<td>2A</td>
+<td align="center">*</td>
+<td>Gwiazdka</td>
+</tr>
+<tr>
+<td>43</td>
+<td>2B</td>
+<td align="center">+</td>
+<td>Znak plus</td>
+</tr>
+<tr>
+<td>44</td>
+<td>2C</td>
+<td align="center">,</td>
+<td>Przecinek</td>
+</tr>
+<tr>
+<td>45</td>
+<td>2D</td>
+<td align="center">-</td>
+<td>Łącznik (Minus)</td>
+</tr>
+<tr>
+<td>46</td>
+<td>2E</td>
+<td align="center">.</td>
+<td>Kropka</td>
+</tr>
+<tr>
+<td>47</td>
+<td>2F</td>
+<td align="center">/</td>
+<td>Ukośnik (Slash)</td>
+</tr>
+<tr>
+<td>58</td>
+<td>3A</td>
+<td align="center">:</td>
+<td>Dwukropek</td>
+</tr>
+<tr>
+<td>59</td>
+<td>3B</td>
+<td align="center">;</td>
+<td>Średnik</td>
+</tr>
+<tr>
+<td>60</td>
+<td>3C</td>
+<td align="center">&lt;</td>
+<td>Znak mniejszości</td>
+</tr>
+<tr>
+<td>61</td>
+<td>3D</td>
+<td align="center">=</td>
+<td>Znak równości</td>
+</tr>
+<tr>
+<td>62</td>
+<td>3E</td>
+<td align="center">&gt;</td>
+<td>Znak większości</td>
+</tr>
+<tr>
+<td>63</td>
+<td>3F</td>
+<td align="center">?</td>
+<td>Znak zapytania</td>
+</tr>
+<tr>
+<td>64</td>
+<td>40</td>
+<td align="center">@</td>
+<td>Małpa (At)</td>
+</tr>
+<tr>
+<td>91</td>
+<td>5B</td>
+<td align="center">[</td>
+<td>Nawias kwadratowy otwierający</td>
+</tr>
+<tr>
+<td>92</td>
+<td>5C</td>
+<td align="center">\</td>
+<td>Ukośnik odwrotny (Backslash)</td>
+</tr>
+<tr>
+<td>93</td>
+<td>5D</td>
+<td align="center">]</td>
+<td>Nawias kwadratowy zamykający</td>
+</tr>
+<tr>
+<td>94</td>
+<td>5E</td>
+<td align="center">^</td>
+<td>Daszek (Potęga)</td>
+</tr>
+<tr>
+<td>95</td>
+<td>5F</td>
+<td align="center">_</td>
+<td>Podkreślenie</td>
+</tr>
+<tr>
+<td>96</td>
+<td>60</td>
+<td align="center">`</td>
+<td>Akcent słaby (Backtick)</td>
+</tr>
+<tr>
+<td>123</td>
+<td>7B</td>
+<td align="center">{</td>
+<td>Nawias klamrowy otwierający</td>
+</tr>
+<tr>
+<td>124</td>
+<td>7C</td>
+<td align="center">|</td>
+<td>Pionowa kreska (Pipe)</td>
+</tr>
+<tr>
+<td>125</td>
+<td>7D</td>
+<td align="center">}</td>
+<td>Nawias klamrowy zamykający</td>
+</tr>
+<tr>
+<td>126</td>
+<td>7E</td>
+<td align="center">~</td>
+<td>Tylda</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Cyfry (48 - 57)</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>48</td>
+<td>30</td>
+<td align="center">0</td>
+<td>Cyfra Zero</td>
+</tr>
+<tr>
+<td>49</td>
+<td>31</td>
+<td align="center">1</td>
+<td>Cyfra Jeden</td>
+</tr>
+<tr>
+<td>50</td>
+<td>32</td>
+<td align="center">2</td>
+<td>Cyfra Dwa</td>
+</tr>
+<tr>
+<td>51</td>
+<td>33</td>
+<td align="center">3</td>
+<td>Cyfra Trzy</td>
+</tr>
+<tr>
+<td>52</td>
+<td>34</td>
+<td align="center">4</td>
+<td>Cyfra Cztery</td>
+</tr>
+<tr>
+<td>53</td>
+<td>35</td>
+<td align="center">5</td>
+<td>Cyfra Pięć</td>
+</tr>
+<tr>
+<td>54</td>
+<td>36</td>
+<td align="center">6</td>
+<td>Cyfra Sześć</td>
+</tr>
+<tr>
+<td>55</td>
+<td>37</td>
+<td align="center">7</td>
+<td>Cyfra Siedem</td>
+</tr>
+<tr>
+<td>56</td>
+<td>38</td>
+<td align="center">8</td>
+<td>Cyfra Osiem</td>
+</tr>
+<tr>
+<td>57</td>
+<td>39</td>
+<td align="center">9</td>
+<td>Cyfra Dziewięć</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Litery Wielkie (65 - 90)</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>65</td>
+<td>41</td>
+<td align="center">A</td>
+<td>Wielka litera A</td>
+</tr>
+<tr>
+<td>66</td>
+<td>42</td>
+<td align="center">B</td>
+<td>Wielka litera B</td>
+</tr>
+<tr>
+<td>67</td>
+<td>43</td>
+<td align="center">C</td>
+<td>Wielka litera C</td>
+</tr>
+<tr>
+<td>68</td>
+<td>44</td>
+<td align="center">D</td>
+<td>Wielka litera D</td>
+</tr>
+<tr>
+<td>69</td>
+<td>45</td>
+<td align="center">E</td>
+<td>Wielka litera E</td>
+</tr>
+<tr>
+<td>70</td>
+<td>46</td>
+<td align="center">F</td>
+<td>Wielka litera F</td>
+</tr>
+<tr>
+<td>71</td>
+<td>47</td>
+<td align="center">G</td>
+<td>Wielka litera G</td>
+</tr>
+<tr>
+<td>72</td>
+<td>48</td>
+<td align="center">H</td>
+<td>Wielka litera H</td>
+</tr>
+<tr>
+<td>73</td>
+<td>49</td>
+<td align="center">I</td>
+<td>Wielka litera I</td>
+</tr>
+<tr>
+<td>74</td>
+<td>4A</td>
+<td align="center">J</td>
+<td>Wielka litera J</td>
+</tr>
+<tr>
+<td>75</td>
+<td>4B</td>
+<td align="center">K</td>
+<td>Wielka litera K</td>
+</tr>
+<tr>
+<td>76</td>
+<td>4C</td>
+<td align="center">L</td>
+<td>Wielka litera L</td>
+</tr>
+<tr>
+<td>77</td>
+<td>4D</td>
+<td align="center">M</td>
+<td>Wielka litera M</td>
+</tr>
+<tr>
+<td>78</td>
+<td>4E</td>
+<td align="center">N</td>
+<td>Wielka litera N</td>
+</tr>
+<tr>
+<td>79</td>
+<td>4F</td>
+<td align="center">O</td>
+<td>Wielka litera O</td>
+</tr>
+<tr>
+<td>80</td>
+<td>50</td>
+<td align="center">P</td>
+<td>Wielka litera P</td>
+</tr>
+<tr>
+<td>81</td>
+<td>51</td>
+<td align="center">Q</td>
+<td>Wielka litera Q</td>
+</tr>
+<tr>
+<td>82</td>
+<td>52</td>
+<td align="center">R</td>
+<td>Wielka litera R</td>
+</tr>
+<tr>
+<td>83</td>
+<td>53</td>
+<td align="center">S</td>
+<td>Wielka litera S</td>
+</tr>
+<tr>
+<td>84</td>
+<td>54</td>
+<td align="center">T</td>
+<td>Wielka litera T</td>
+</tr>
+<tr>
+<td>85</td>
+<td>55</td>
+<td align="center">U</td>
+<td>Wielka litera U</td>
+</tr>
+<tr>
+<td>86</td>
+<td>56</td>
+<td align="center">V</td>
+<td>Wielka litera V</td>
+</tr>
+<tr>
+<td>87</td>
+<td>57</td>
+<td align="center">W</td>
+<td>Wielka litera W</td>
+</tr>
+<tr>
+<td>88</td>
+<td>58</td>
+<td align="center">X</td>
+<td>Wielka litera X</td>
+</tr>
+<tr>
+<td>89</td>
+<td>59</td>
+<td align="center">Y</td>
+<td>Wielka litera Y</td>
+</tr>
+<tr>
+<td>90</td>
+<td>5A</td>
+<td align="center">Z</td>
+<td>Wielka litera Z</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary>Litery Małe (97 - 122)</summary>
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>97</td>
+<td>61</td>
+<td align="center">a</td>
+<td>Mała litera a</td>
+</tr>
+<tr>
+<td>98</td>
+<td>62</td>
+<td align="center">b</td>
+<td>Mała litera b</td>
+</tr>
+<tr>
+<td>99</td>
+<td>63</td>
+<td align="center">c</td>
+<td>Mała litera c</td>
+</tr>
+<tr>
+<td>100</td>
+<td>64</td>
+<td align="center">d</td>
+<td>Mała litera d</td>
+</tr>
+<tr>
+<td>101</td>
+<td>65</td>
+<td align="center">e</td>
+<td>Mała litera e</td>
+</tr>
+<tr>
+<td>102</td>
+<td>66</td>
+<td align="center">f</td>
+<td>Mała litera f</td>
+</tr>
+<tr>
+<td>103</td>
+<td>67</td>
+<td align="center">g</td>
+<td>Mała litera g</td>
+</tr>
+<tr>
+<td>104</td>
+<td>68</td>
+<td align="center">h</td>
+<td>Mała litera h</td>
+</tr>
+<tr>
+<td>105</td>
+<td>69</td>
+<td align="center">i</td>
+<td>Mała litera i</td>
+</tr>
+<tr>
+<td>106</td>
+<td>6A</td>
+<td align="center">j</td>
+<td>Mała litera j</td>
+</tr>
+<tr>
+<td>107</td>
+<td>6B</td>
+<td align="center">k</td>
+<td>Mała litera k</td>
+</tr>
+<tr>
+<td>108</td>
+<td>6C</td>
+<td align="center">l</td>
+<td>Mała litera l</td>
+</tr>
+<tr>
+<td>109</td>
+<td>6D</td>
+<td align="center">m</td>
+<td>Mała litera m</td>
+</tr>
+<tr>
+<td>110</td>
+<td>6E</td>
+<td align="center">n</td>
+<td>Mała litera n</td>
+</tr>
+<tr>
+<td>111</td>
+<td>6F</td>
+<td align="center">o</td>
+<td>Mała litera o</td>
+</tr>
+<tr>
+<td>112</td>
+<td>70</td>
+<td align="center">p</td>
+<td>Mała litera p</td>
+</tr>
+<tr>
+<td>113</td>
+<td>71</td>
+<td align="center">q</td>
+<td>Mała litera q</td>
+</tr>
+<tr>
+<td>114</td>
+<td>72</td>
+<td align="center">r</td>
+<td>Mała litera r</td>
+</tr>
+<tr>
+<td>115</td>
+<td>73</td>
+<td align="center">s</td>
+<td>Mała litera s</td>
+</tr>
+<tr>
+<td>116</td>
+<td>74</td>
+<td align="center">t</td>
+<td>Mała litera t</td>
+</tr>
+<tr>
+<td>117</td>
+<td>75</td>
+<td align="center">u</td>
+<td>Mała litera u</td>
+</tr>
+<tr>
+<td>118</td>
+<td>76</td>
+<td align="center">v</td>
+<td>Mała litera v</td>
+</tr>
+<tr>
+<td>119</td>
+<td>77</td>
+<td align="center">w</td>
+<td>Mała litera w</td>
+</tr>
+<tr>
+<td>120</td>
+<td>78</td>
+<td align="center">x</td>
+<td>Mała litera x</td>
+</tr>
+<tr>
+<td>121</td>
+<td>79</td>
+<td align="center">y</td>
+<td>Mała litera y</td>
+</tr>
+<tr>
+<td>122</td>
+<td>7A</td>
+<td align="center">z</td>
+<td>Mała litera z</td>
+</tr>
+</tbody></table>
+</details>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Polskie (Windows-1250)</b></summary>
+Zestawienie tzw. polskich ogonków rozszerzenia tabeli ASCII. 
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>165</td>
+<td>A5</td>
+<td align="center">Ą</td>
+<td>Wielka litera A z ogonkiem</td>
+</tr>
+<tr>
+<td>185</td>
+<td>B9</td>
+<td align="center">ą</td>
+<td>Mała litera a z ogonkiem</td>
+</tr>
+<tr>
+<td>198</td>
+<td>C6</td>
+<td align="center">Ć</td>
+<td>Wielka litera C z kreską (akcentem ostrym)</td>
+</tr>
+<tr>
+<td>230</td>
+<td>E6</td>
+<td align="center">ć</td>
+<td>Mała litera c z kreską</td>
+</tr>
+<tr>
+<td>202</td>
+<td>CA</td>
+<td align="center">Ę</td>
+<td>Wielka litera E z ogonkiem</td>
+</tr>
+<tr>
+<td>234</td>
+<td>EA</td>
+<td align="center">ę</td>
+<td>Mała litera e z ogonkiem</td>
+</tr>
+<tr>
+<td>163</td>
+<td>A3</td>
+<td align="center">Ł</td>
+<td>Wielka litera L z przekreśleniem</td>
+</tr>
+<tr>
+<td>179</td>
+<td>B3</td>
+<td align="center">ł</td>
+<td>Mała litera l z przekreśleniem</td>
+</tr>
+<tr>
+<td>209</td>
+<td>D1</td>
+<td align="center">Ń</td>
+<td>Wielka litera N z kreską</td>
+</tr>
+<tr>
+<td>241</td>
+<td>F1</td>
+<td align="center">ń</td>
+<td>Mała litera n z kreską</td>
+</tr>
+<tr>
+<td>211</td>
+<td>D3</td>
+<td align="center">Ó</td>
+<td>Wielka litera O z kreską</td>
+</tr>
+<tr>
+<td>243</td>
+<td>F3</td>
+<td align="center">ó</td>
+<td>Mała litera o z kreską</td>
+</tr>
+<tr>
+<td>140</td>
+<td>8C</td>
+<td align="center">Ś</td>
+<td>Wielka litera S z kreską</td>
+</tr>
+<tr>
+<td>156</td>
+<td>9C</td>
+<td align="center">ś</td>
+<td>Mała litera s z kreską</td>
+</tr>
+<tr>
+<td>143</td>
+<td>8F</td>
+<td align="center">Ź</td>
+<td>Wielka litera Z z kreską</td>
+</tr>
+<tr>
+<td>159</td>
+<td>9F</td>
+<td align="center">ź</td>
+<td>Mała litera z z kreską</td>
+</tr>
+<tr>
+<td>175</td>
+<td>AF</td>
+<td align="center">Ż</td>
+<td>Wielka litera Z z kropką</td>
+</tr>
+<tr>
+<td>191</td>
+<td>BF</td>
+<td align="center">ż</td>
+<td>Mała litera z z kropką</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Niemieckie (Iso / UTF-8)</b></summary>
+Umlauty (przegłosy) i specjalna ligatura używane w języku niemieckim.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>196</td>
+<td>C4</td>
+<td align="center">Ä</td>
+<td>Wielkie A z umlautem (przegłosem)</td>
+</tr>
+<tr>
+<td>228</td>
+<td>E4</td>
+<td align="center">ä</td>
+<td>Małe a z umlautem</td>
+</tr>
+<tr>
+<td>214</td>
+<td>D6</td>
+<td align="center">Ö</td>
+<td>Wielkie O z umlautem</td>
+</tr>
+<tr>
+<td>246</td>
+<td>F6</td>
+<td align="center">ö</td>
+<td>Małe o z umlautem</td>
+</tr>
+<tr>
+<td>220</td>
+<td>DC</td>
+<td align="center">Ü</td>
+<td>Wielkie U z umlautem</td>
+</tr>
+<tr>
+<td>252</td>
+<td>FC</td>
+<td align="center">ü</td>
+<td>Małe u z umlautem</td>
+</tr>
+<tr>
+<td>223</td>
+<td>DF</td>
+<td align="center">ß</td>
+<td>Mała litera Eszett (ostre S)</td>
+</tr>
+<tr>
+<td>7838</td>
+<td>1E9E</td>
+<td align="center">ẞ</td>
+<td>Wielka litera Eszett (dodana w normie znacznie później)</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Hiszpańskie (Iso / UTF-8)</b></summary>
+Znaki akcentowane oraz odwrócona interpunkcja specyficzne dla j. Hiszpańskiego.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>193</td>
+<td>C1</td>
+<td align="center">Á</td>
+<td>Wielka litera A z akcentem</td>
+</tr>
+<tr>
+<td>225</td>
+<td>E1</td>
+<td align="center">á</td>
+<td>Mała litera a z akcentem</td>
+</tr>
+<tr>
+<td>201</td>
+<td>C9</td>
+<td align="center">É</td>
+<td>Wielka litera E z akcentem</td>
+</tr>
+<tr>
+<td>233</td>
+<td>E9</td>
+<td align="center">é</td>
+<td>Mała litera e z akcentem</td>
+</tr>
+<tr>
+<td>205</td>
+<td>CD</td>
+<td align="center">Í</td>
+<td>Wielka litera I z akcentem</td>
+</tr>
+<tr>
+<td>237</td>
+<td>ED</td>
+<td align="center">í</td>
+<td>Mała litera i z akcentem</td>
+</tr>
+<tr>
+<td>211</td>
+<td>D3</td>
+<td align="center">Ó</td>
+<td>Wielka litera O z akcentem</td>
+</tr>
+<tr>
+<td>243</td>
+<td>F3</td>
+<td align="center">ó</td>
+<td>Mała litera o z akcentem</td>
+</tr>
+<tr>
+<td>218</td>
+<td>DA</td>
+<td align="center">Ú</td>
+<td>Wielka litera U z akcentem</td>
+</tr>
+<tr>
+<td>250</td>
+<td>FA</td>
+<td align="center">ú</td>
+<td>Mała litera u z akcentem</td>
+</tr>
+<tr>
+<td>209</td>
+<td>D1</td>
+<td align="center">Ñ</td>
+<td>Wielka litera N z tyldą</td>
+</tr>
+<tr>
+<td>241</td>
+<td>F1</td>
+<td align="center">ñ</td>
+<td>Mała litera n z tyldą</td>
+</tr>
+<tr>
+<td>161</td>
+<td>A1</td>
+<td align="center">¡</td>
+<td>Odwrócony wykrzyknik</td>
+</tr>
+<tr>
+<td>191</td>
+<td>BF</td>
+<td align="center">¿</td>
+<td>Odwrócony znak zapytania</td>
+</tr>
+</tbody></table>
+</details>
+
+<details>
+<summary><b>Rozwiń: Zestawienie Japońskie Hiragana / Kanji (Unicode UTF-8)</b></summary>
+Skromny wycinek znaków japońskich jako ciekawostka udowadniająca ogromną rozpiętość standardu UTF-8, używanego by móc pokazać każdy alfabet świata na Twoim ekranie używając wielobajtowego zapisu.
+
+<table>
+<thead>
+<tr>
+<th>DEC</th>
+<th>HEX</th>
+<th align="center">Znak</th>
+<th>Opis (Romaji)</th>
+<th>Typ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12354</td>
+<td>3042</td>
+<td align="center">あ</td>
+<td>Litera <em>A</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12356</td>
+<td>3044</td>
+<td align="center">い</td>
+<td>Litera <em>I</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12358</td>
+<td>3046</td>
+<td align="center">う</td>
+<td>Litera <em>U</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12360</td>
+<td>3048</td>
+<td align="center">え</td>
+<td>Litera <em>E</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12362</td>
+<td>304A</td>
+<td align="center">お</td>
+<td>Litera <em>O</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12363</td>
+<td>304B</td>
+<td align="center">か</td>
+<td>Znak <em>Ka</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12365</td>
+<td>304D</td>
+<td align="center">き</td>
+<td>Znak <em>Ki</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>12367</td>
+<td>304F</td>
+<td align="center">く</td>
+<td>Znak <em>Ku</em></td>
+<td>Hiragana</td>
+</tr>
+<tr>
+<td>26085</td>
+<td>65E5</td>
+<td align="center">日</td>
+<td><em>Dzień / Słońce</em> (Nichi)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>26412</td>
+<td>672C</td>
+<td align="center">本</td>
+<td><em>Książka / Korzeń</em> (Hon)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>20154</td>
+<td>4EBA</td>
+<td align="center">人</td>
+<td><em>Człowiek</em> (Hito)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>26408</td>
+<td>6728</td>
+<td align="center">木</td>
+<td><em>Drzewo</em> (Ki)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>35211</td>
+<td>898B</td>
+<td align="center">見</td>
+<td><em>Widzieć</em> (Mi)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>27700</td>
+<td>6C34</td>
+<td align="center">水</td>
+<td><em>Woda</em> (Mizu)</td>
+<td>Kanji</td>
+</tr>
+<tr>
+<td>28779</td>
+<td>706B</td>
+<td align="center">火</td>
+<td><em>Ogień</em> (Hi)</td>
+<td>Kanji</td>
+</tr>
+</tbody></table>
+</details>
+
+<p><data-ascii-converter></data-ascii-converter></p>
+<hr>
+<h2>🏆 Wielki Finał: Wyzwania Mistrza Bitów</h2>
+<p>Przeszedłeś przez dwa moduły. Poznałeś systemy liczbowe, bity, bajty, arytmetykę binarną, liczby ujemne, kodowanie znaków i wiele więcej. Czas sprawdzić, czy naprawdę to <strong>czujesz</strong> — nie jako teorię, ale jako narzędzie.</p>
+<p>Każde wyzwanie poniżej to <strong>brama</strong>. Otrzymasz tylko powierzchowne podpowiedzi. Żadnego „zgadywania w nieskończoność&quot;. Albo wiesz, albo wracasz do lekcji.&nbsp;😈</p>
+<hr>
+<h3>🎨 Wyzwanie 1: Kolory w Matrixie</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+Grafik przysyła Ci kolor CSS: `#FF8800`. Ile dziesiętnie wynosi składowa Zielona (Green) tego koloru? Pamiętaj: format to `#RRGGBB`.
+    </question>
+    <options>
+      <option>255</option>
+      <option correct>136</option>
+      <option>0</option>
+      <option>88</option>
+    </options>
+    <div data-hint="error">
+      Znajdź które znaki hex odpowiadają zielonemu, a potem użyj wag:  
+      pierwszy znak $\cdot 16^{\text{waga}}$ + drugi znak $\cdot 16^{\text{waga}}$.  
+      Wagi to indexy bitów. Pamietasz jak to było w binarce? Wagi $2^3, 2^2, 2^1, 2^0$. 
+    </div>
+    <div data-hint="success">
+      Właśnie dekodowałeś kolor jak prawdziwy frontend developer! 🎨 Każdy kolor CSS to trzy bajty Hex — Red, Green, Blue. Teraz gdy zobaczysz `#FF8800` w kodzie, od razu wiesz, że to pomarańczowy z pełnym czerwonym, 136/255 zielonym i zerowym niebieskim. To wiedza, którą używa się **codziennie** w web developmencie! 🌐
+    </div>
+  </data-quiz>
+</data-gate>
+
+<h3>🔢 Wyzwanie 2: Indeksowanie od Zera</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+Programista mówi: „Element jest na indeksie $3$". Który to element **po kolei** w tablicy, jeśli indeksowanie zaczyna się od $0$?
+    </question>
+    <options>
+      <option>Trzeci</option>
+      <option correct>Czwarty</option>
+      <option>Piąty</option>
+    </options>
+    <div data-hint="error">
+      Indeksy zaczynają się od $0$! Indeks $0$ = pierwszy, indeks $1$ = drugi, indeks $2$ = trzeci, indeks $3$ = ...?
+    </div>
+    <div data-hint="success">
+      Bingo! 🎯 Indeksowanie od zera to fundament CAŁEGO programowania. Tablice, stringi, piksele na ekranie — wszystko startuje od $0$. Właśnie dlatego uczyłeś się pozycji bitów od $0$ w mnożeniu i dzieleniu. To ta sama koncepcja! To jeden z tych momentów, gdzie „binarny fundament" staje się „programistycznym nawykiem". 🧠
+    </div>
+  </data-quiz>
+</data-gate>
+
+<h3>🔓 Wyzwanie 3: Uprawnienia Linuxa</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+Pamietasz że w systemie Linux komenda `chmod` ustawia uprawnienia.  
+Liczba $7_8$ w systemie ósemkowym to binarnie `111`. Ile uprawnień (Read, Write, Execute) daje wartość $7_8$?
+    </question>
+    <options>
+      <option>Tylko 1 — pełny dostęp</option>
+      <option>2 — odczyt i zapis</option>
+      <option correct>3 — wszystkie: odczyt, zapis i wykonanie</option>
+    </options>
+    <div data-hint="error">
+      Każdy bit to jedno uprawnienie: `1` = tak, `0` = nie.  
+      Trzy pozycje to po kolei: **R**ead, **W**rite, e**X**ecute. 
+    </div>
+    <div data-hint="success">
+      Tak jest! `rwx` = `111` = $7_8$. Teraz rozumiesz, dlaczego administratorzy serwerów mówią „daj mu 755" — to skrót binarny zapisany w systemie ósemkowym! 🐧 Właściciel dostaje `7` (rwx), grupa `5` (r-x), reszta `5` (r-x). Eleganckie, prawda?
+    </div>
+  </data-quiz>
+</data-gate>
+
+<h3>🕶️ Wyzwanie 4: Czytanie Matrixa</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+Przechwycono transmisję sieciową. Oto bajty w Hex: `48 45 4C 4C 4F`.  
+Korzystając z poniższych fragmentów z tablicy ASCII, co widzisz?  
+[ `4C`=_**L**_, `4F`=_**O**_, `43`=_**C**_, `48`=_**H**_, `45`=_**E**_  ]
+    </question>
+    <options>
+      <option>HELL</option>
+      <option correct>HELLO</option>
+      <option>HELP</option>
+    </options>
+    <div data-hint="error">
+      Skorzystaj z tablicy ASCII podanej w pytaniu. Każdy bajt Hex to jeden znak. Policz ile masz bajtów i przetłumacz je po kolei.
+    </div>
+    <div data-hint="success">
+      Widzisz Matrixa! 🕶️ To dokładnie tak działają narzędzia do analizy pakietów sieciowych (Wireshark), debuggery i hex edytory. Programiści i hakerzy czytają surowe bajty na co dzień. Ty właśnie dołączyłeś do tego klubu! 💻🔥
+    </div>
+  </data-quiz>
+</data-gate>
+
+<h3>🧮 Wyzwanie 5: Potęga Dwójki</h3>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Binarny jak zegarek! ⏱️ Czy wiesz, że ten sam mechanizm wag, którego właśnie użyłeś, jest w <strong>każdym przetwornikowi ADC</strong> w mikrofonach, kamerach i czujnikach? Twój telefon zamienia dźwięk na bity dokładnie tą metodą. 🎤➡️🔢</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<h3>➕ Wyzwanie 6: Arytmetyka Pod Presją</h3>
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dodawanie binarne to serce procesora! ⚡ Dosłownie <strong>każda</strong> operacja w komputerze (nawet wyświetlanie tej strony) sprowadza się do miliardów takich dodawań na sekundę. Właśnie wykonałeś ręcznie to, co CPU robi 4 miliardy razy na sekundę. Szacun! 🦾</p>
+
+</div>
+</div></data-gate>
+
+<data-gate>
+  <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Fun fact: procesor nie ma osobnego układu do odejmowania! Zamienia odjemnik na U2 (Invert + 1) i... dodaje. Tak, Twoje odejmowanie to tak naprawdę sprytne dodawanie. Mind = blown 🤯</p>
+
+</div>
+</div></data-gate>
+
+<h3>💎 Wyzwanie 7: Hex Jak Zawodowiec</h3>
+<data-gate>
+  <data-arithmetic-challenge base="16" operation="+"></data-arithmetic-challenge>
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Hex dodawanie? W jednej ręce! 💎 Gdy będziesz debugował crash dump, analizował firmware mikrokontrolera, albo ręcznie edytował bajty pliku w hex edytorze — ta umiejętność będzie Twoim supermocą. 🦸</p>
+
+</div>
+</div></data-gate>
+
+<h3>🌑 Wyzwanie 8: Notacja U2</h3>
+<data-gate>
+  <data-quiz>
+    <question>
+W 8-bitowym systemie U2 ciąg `1000 0000` reprezentuje:
+    </question>
+    <options>
+      <option>128</option>
+      <option correct>-128</option>
+      <option>-1</option>
+      <option>0</option>
+    </options>
+    <div data-hint="error">
+      W U2 najbardziej lewy bit ma wagę **ujemną**. Tutaj tylko jeden bit jest zapalony.  
+      Pomyśl który to i jaką ma wartość dziesiętnie?
+    </div>
+    <div data-hint="success">
+      System U2 nie ma dla Ciebie tajemnic!🎓
+    </div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3>🎓 Certyfikat Mistrza Bitów</h3>
+<p><strong>Gratulacje!</strong> 🎉🎊🏆</p>
+<p>Właśnie udowodniłeś, że rozumiesz <strong>fundamenty informatyki</strong> — nie na pamięć, ale mechanicznie. Wiesz, jak procesor liczy, jak zapisuje minus, jak kolory stają się bajtami i jak surowe dane zamieniają się w tekst.</p>
+<p>To wiedza, która <strong>nie starzeje się</strong>. Języki programowania przychodzą i odchodzą, frameworki zmieniają się co sezon, ale bity, bajty i systemy liczbowe pozostają <strong>niezmienne od 70 lat</strong>.</p>
+<h4>Co umiesz?</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Umiejętność</th>
+<th align="left">Gdzie to wykorzystasz?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Konwersje systemów (Bin/Oct/Hex)</td>
+<td align="left">Debugowanie, analiza pakietów, low&#8209;level programming</td>
+</tr>
+<tr>
+<td align="left">Arytmetyka binarna (+, −, ×, ÷)</td>
+<td align="left">Rozumienie CPU, optymalizacja, algorytmy</td>
+</tr>
+<tr>
+<td align="left">System U2 (liczby ujemne)</td>
+<td align="left">Typy danych w C/C++/Java, overflow bugs</td>
+</tr>
+<tr>
+<td align="left">Arytmetyka Oct/Hex</td>
+<td align="left">Uprawnienia Linux, kody kolorów, adresy pamięci</td>
+</tr>
+<tr>
+<td align="left">ASCII i kodowanie znaków</td>
+<td align="left">Przetwarzanie tekstu, protokoły sieciowe, kryptografia</td>
+</tr>
+<tr>
+<td align="left">Potęgi dwójki i zakresy</td>
+<td align="left">Projektowanie baz danych, alokacja pamięci</td>
+</tr>
+</tbody></table>
+<h4>Dokąd dalej? 🗺️</h4>
+<p>Twoje binarne fundamenty otwierają <strong>wszystkie ścieżki</strong> w informatyce:</p>
+<ul>
+<li>🖥️ <strong>Systemy i Sprzęt</strong> — jak procesor wykonuje instrukcje</li>
+<li>🌐 <strong>Sieci</strong> — jak dane podróżują przez internet</li>
+<li>🎮 <strong>Programowanie</strong> — Desktop, Web, Gaming, Embedded</li>
+<li>🎨 <strong>Grafika</strong> — 2D i 3D, shadery, rendering</li>
+<li>🔒 <strong>Cyberbezpieczeństwo</strong> — kryptografia, reverse engineering</li>
+<li>⚙️ <strong>DevOps</strong> — automatyzacja, konteneryzacja, CI/CD</li>
+</ul>
+<p><strong>Wybierz swoją ścieżkę!</strong> 🚀</p>
+<hr>

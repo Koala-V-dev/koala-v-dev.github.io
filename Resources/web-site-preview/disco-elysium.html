@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podgląd: Disco Elysium</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #191b1e;
+            background-image: radial-gradient(#25292e 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: #d1c7bd;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .dialogue-app {
+            width: 100%;
+            height: 100%;
+            background-color: #121416;
+            border-left: 1px solid #3a322d;
+            border-right: 1px solid #3a322d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            border-bottom: 1px dashed #3a322d;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #e5dac9;
+            letter-spacing: -0.5px;
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #857366;
+            margin-top: 5px;
+        }
+
+        .dialogue-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+        }
+
+        .dialogue-block {
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .speaker {
+            font-family: 'Arial', sans-serif;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .speaker-narrator {
+            color: #857366;
+        }
+
+        .speaker-logic {
+            color: #4682b4;
+        }
+
+        .speaker-shivers {
+            color: #cd5c5c;
+        }
+
+        .speaker-drama {
+            color: #d4af37;
+        }
+
+        .dialogue-choices {
+            margin-top: 30px;
+            border-top: 1px solid #3a322d;
+            padding-top: 20px;
+        }
+
+        .choice-item {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: #9e8e81;
+            cursor: pointer;
+            transition: color 0.2s ease, padding-left 0.2s ease;
+            outline: none;
+        }
+
+        .choice-item:hover {
+            color: #ffeedb;
+            padding-left: 6px;
+        }
+
+        .choice-number {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            margin-right: 8px;
+            color: #857366;
+        }
+
+        /* Custom scrollbar */
+        .dialogue-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .dialogue-content::-webkit-scrollbar-track {
+            background: #121416;
+        }
+
+        .dialogue-content::-webkit-scrollbar-thumb {
+            background: #3a322d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dialogue-app">
+        <header>
+            <h1>✍️ Dialogue System</h1>
+            <div class="subtitle">Disco Elysium: Melancholia tekstu i narracji</div>
+        </header>
+
+        <div class="dialogue-content">
+            <div class="dialogue-block">
+                <span class="speaker speaker-narrator">NARRATOR</span>
+                Wąski czarny panel dialogowy leży po prawej stronie ekranu gry. Typografia szeryfowa narzuca
+                powolniejsze tempo, zamieniając grę w interaktywną literaturę.
+            </div>
+
+            <div class="dialogue-block">
+                <span class="speaker speaker-logic">LOGIKA [Średnia: Sukces]</span>
+                Zwróć uwagę, że barwy tła (beże i wyblakłe brązy) redukują zmęczenie oczu podczas czytania tysięcy linii
+                tekstu. To celowy zabieg.
+            </div>
+
+            <div class="dialogue-block">
+                <span class="speaker speaker-drama">DRAMAT [Trudny: Sukces]</span>
+                Ach, panie! Ta opowieść to nie tylko suche fakty. To teatr, w którym słowa i ich krój stają się sceną
+                dla całej ludzkiej tragedii, zaiste!
+            </div>
+
+            <div class="dialogue-choices">
+                <div class="choice-item" tabindex="-1">
+                    <span class="choice-number">1.</span> [Zbadaj krój szeryfowy] Spójrz na ozdobne stopki liter, które
+                    zwiększają płynność linii tekstu.
+                </div>
+                <div class="choice-item" tabindex="-1">
+                    <span class="choice-number">2.</span> [Skup się na atmosferze] Zrozum, że brak jaskrawych kolorów
+                    buduje powagę i głębię psychologiczną.
+                </div>
+                <div class="choice-item" tabindex="-1">
+                    <span class="choice-number">3.</span> [Wróć do lekcji] Powróć do studiowania stylów kaskadowych CSS.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

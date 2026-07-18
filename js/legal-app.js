@@ -1,0 +1,1 @@
+import{T as a,S as o,C as n}from"./CookieNotice-CteC-F6C.js";import"./markdown-CUzkdAAO.js";document.addEventListener("DOMContentLoaded",()=>{document.body.classList.add("app-bootstrapped");const t=document.querySelector("header"),e=document.createElement("div");e.className="header-actions",t?.appendChild(e),new a().inject(e),new o,n.init()});
