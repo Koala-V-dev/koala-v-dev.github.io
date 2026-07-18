@@ -1,22 +1,21 @@
-import{T as l,S as o}from"./ScrollManager-Bvu4jb_g.js";import"./markdown-CUzkdAAO.js";let r=[];document.addEventListener("DOMContentLoaded",async()=>{const a=document.querySelector("header");if(a){let e=a.querySelector(".header-actions");e||(e=document.createElement("div"),e.className="header-actions",a.appendChild(e)),new l().inject(e)}new o,await d();const s=document.getElementById("search-input");s&&s.addEventListener("input",e=>u(e.target.value.trim()))});async function d(){const a=document.getElementById("home-courses-grid-mount");if(a)try{const s=await fetch("/courses/registry.json");if(!s.ok)throw new Error(`HTTP ${s.status}`);r=((await s.json()).courses||[]).filter(t=>t.status==="published"),i(r,a)}catch(s){console.info("[Centrum Wiedzy] Brak registry.json lub brak opublikowanych kursów.",s.message),a.innerHTML=`
-            <div class="courses-empty">
-                <p>Kursy są w przygotowaniu — wkrótce tutaj!</p>
-            </div>`}}function i(a,s){if(!a.length){s.innerHTML='<div class="courses-empty"><p>Brak kursów spełniających kryteria.</p></div>';return}s.innerHTML=a.map(e=>`
-        <article class="course-card" role="listitem">
-            <a href="/courses/${e.slug}/" class="course-card__link">
-                ${e.thumbnail?`<img class="course-card__thumb" src="${e.thumbnail}" alt="${e.title}" loading="lazy" decoding="async" width="320" height="180" />`:'<div class="course-card__thumb course-card__thumb--placeholder" aria-hidden="true"></div>'}
-                <div class="course-card__body">
-                    <h3 class="course-card__title">${e.title}</h3>
-                    ${e.description?`<p class="course-card__desc">${e.description}</p>`:""}
-                    <div class="course-card__meta">
-                        ${e.level?`<span class="badge badge--level">${e.level}</span>`:""}
-                        ${e.lessons?`<span class="badge">${e.lessons} lekcji</span>`:""}
-                        ${e.modules?`<span class="badge">${e.modules} modułów</span>`:""}
-                    </div>
-                    ${e.tags?.length?`<ul class="course-card__tags" aria-label="Tagi">
-                               ${e.tags.map(t=>`<li class="tag">${t}</li>`).join("")}
-                           </ul>`:""}
+import{T as l,S as c}from"./ScrollManager-Bvu4jb_g.js";import"./markdown-CUzkdAAO.js";let i=[];document.addEventListener("DOMContentLoaded",async()=>{const t=document.getElementById("header-actions");t&&new l().inject(t),new c,await d()});async function d(){const t=document.getElementById("home-courses-grid-mount");if(t)try{const e=await fetch("/courses/registry.json");if(!e.ok)throw new Error(`HTTP ${e.status}`);i=((await e.json()).courses||[]).filter(r=>r.status==="published"),u(i,t)}catch(e){console.info("[Koala-V] Brak registry.json lub błąd pobierania.",e.message),t.innerHTML='<div class="courses-empty"><p>Kursy są w przygotowaniu — wkrótce tutaj!</p></div>'}}function u(t,e){if(!t.length){e.innerHTML='<div class="courses-empty"><p>Brak dostępnych kursów.</p></div>';return}e.innerHTML=`
+        <div class="courses-filter-wrapper">
+            <input type="text" class="form-control" id="search-input" placeholder="Szukaj kursu..." style="width: 100%; max-width: 600px;">
+        </div>
+        <ul class="courses-list" id="courses-list" style="grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));">
+            ${n(t)}
+        </ul>
+        <div class="pagination-controls" style="display: flex; justify-content: center; gap: 10px; margin-top: 30px;"></div>
+    `;const s=document.getElementById("search-input");s&&s.addEventListener("input",r=>m(r.target.value.trim()))}function n(t){return t.map(e=>{const s=e.thumbnail||"/resources/courses/default_course.webp";return`
+        <li class="course-card-item" style="display: contents;">
+            <div class="card course-card" tabindex="-1">
+                <a class="stretched-link" href="/courses/${e.slug}" aria-label="Otwórz kurs: ${e.title}" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;" tabindex="-1" aria-hidden="true"></a>
+                <div class="card-img-container">
+                    <img src="${s}" alt="${e.title}" class="card-img-top lazy-image lazy-image--loaded" loading="lazy" width="199" height="141">
                 </div>
-            </a>
-        </article>
-    `).join("")}function u(a){const s=document.getElementById("home-courses-grid-mount");if(!s)return;const e=a.toLowerCase(),t=e?r.filter(n=>n.title?.toLowerCase().includes(e)||n.description?.toLowerCase().includes(e)||n.tags?.some(c=>c.toLowerCase().includes(e))):r;i(t,s)}
+                <div class="card-body">
+                    <div class="card-title" role="text">${e.title}</div>
+                </div>
+            </div>
+        </li>
+        `}).join("")}function m(t){const e=document.getElementById("courses-list");if(!e)return;const s=t.toLowerCase(),r=s?i.filter(a=>a.title?.toLowerCase().includes(s)||a.description?.toLowerCase().includes(s)||a.tags?.some(o=>o.toLowerCase().includes(s))):i;r.length?e.innerHTML=n(r):e.innerHTML='<li style="grid-column: 1 / -1; text-align: center; color: var(--text-muted);">Brak kursów spełniających kryteria.</li>'}

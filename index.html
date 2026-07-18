@@ -1,76 +1,118 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+  <script>
+    (function () {
+      try {
+        var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+        var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+        if (t === 'dark') {
+          document.documentElement.style.backgroundColor = '#030303';
+          document.documentElement.style.color = '#c7c5c5';
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Centrum Wiedzy — interaktywna platforma dydaktyczna z kursami IT, matematyką i nie tylko. Bez rejestracji, bez danych osobowych." />
-  <meta name="theme-color" content="#0f172a" />
-  <meta property="og:title" content="Centrum Wiedzy" />
-  <meta property="og:description" content="Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://koala-v-dev.github.io/" />
+  <title>Koala-V — Strona Główna</title>
 
-  <title>Centrum Wiedzy</title>
-
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
-  <!-- Tylko home.css — zawiera własny base/root/fonts (bez style.css = brak duplikacji) -->
+  <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
   <link rel="stylesheet" href="/css/home.css" />
-</head>
-<body>
-
-  <header id="main-header">
-    <nav id="main-nav" aria-label="Nawigacja główna"></nav>
-    <div class="header-actions" id="header-actions"></div>
-  </header>
-
-  <main id="app" role="main">
-
-    <!-- Hero — klasy z _welcome.scss -->
-    <section class="welcome-section" id="hero-section" aria-label="Centrum Wiedzy – wprowadzenie">
-      <div class="welcome-message">
-        <h1>Centrum Wiedzy</h1>
-        <p>Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej.<br>Bez rejestracji. Bez danych osobowych. Bez opłat.</p>
-        <img src="/main-logo.svg" alt="Maskotka Centrum Wiedzy" />
-      </div>
-      <div class="auth-section" id="auth-section" aria-label="Nawigacja do kursów">
-        <h2>Dołącz do nas</h2>
-        <p>Wybierz kurs i zacznij naukę — bezpłatnie, bez konta.</p>
-        <a href="#kursy" class="btn">Przeglądaj kursy ↓</a>
-      </div>
-    </section>
-
-    <!-- Katalog kursów — klasy z _home-courses-list.scss -->
-    <section id="kursy" aria-labelledby="courses-heading">
-      <div class="courses-container">
-        <h2 id="courses-heading">Katalog Kursów</h2>
-
-        <div class="courses-filter-wrapper" role="search">
-          <label for="search-input" class="sr-only">Szukaj kursu</label>
-          <input
-            id="search-input"
-            type="search"
-            class="search-input"
-            placeholder="Szukaj kursu..."
-            autocomplete="off"
-            aria-label="Szukaj kursu"
-          />
-        </div>
-
-        <!-- Mount point JS — używa .courses-list i .course-card z _home-courses-list.scss -->
-        <ul id="home-courses-grid-mount" class="courses-list" role="list" aria-live="polite" aria-label="Lista kursów">
-        </ul>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer" role="contentinfo">
-    <p>© 2026 Centrum Wiedzy — projekt open source</p>
-    <p>
-      <a href="https://github.com/Koala-V-dev/koala-v-dev.github.io" rel="noopener" target="_blank">GitHub</a>
-    </p>
-  </footer>
-
   <script type="module" src="/js/home-app.js"></script>
+
+  <style>
+    /* Usuwamy podział na dwie kolumny z sekcji powitalnej, skoro nie ma formularza logowania */
+    .welcome-section {
+      grid-template-columns: 1fr !important;
+    }
+    
+    /* Centrujemy zawartość tekstową i maskotkę */
+    .welcome-message {
+      align-items: center !important;
+      text-align: center !important;
+    }
+    .welcome-message h1, .welcome-message p {
+      text-align: center !important;
+      padding-right: 0 !important;
+    }
+    .welcome-message img {
+      align-self: center !important;
+      margin-top: 2rem !important;
+    }
+    
+    .cta-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body class="browser-firefox app-bootstrapped" data-bootstrapped-at="100">
+  <div id="app-main-content" class="app-main-content--visible">
+
+    <header>
+      <p class="site-logo medievalsharp-regular">
+        <a href="/" aria-label="Koala-V — strona główna">
+          <img
+            src="/main-logo.svg"
+            alt=""
+            height="80"
+            width="80"
+            class="lazy-image lazy-image--loaded"
+          />
+          <span class="logo-text">Koala-V</span>
+        </a>
+      </p>
+      <div class="header-actions" id="header-actions"></div>
+    </header>
+
+    <main id="welcome-page">
+
+      <section id="welcome-section" class="welcome-section" aria-labelledby="welcome-title">
+        <section id="welcome-message" class="welcome-message" aria-labelledby="welcome-title">
+          <div>
+            <h1 id="welcome-title">
+              Witamy na stronie <span class="wrap-span-text">Koala-V!</span>
+            </h1>
+            <p>Twoje centrum materiałów edukacyjnych z dziedziny informatyki i matematyki.</p>
+            <div class="cta-buttons">
+              <a href="#courses-content-container" data-ui="button" data-variant="primary" class="bg-primary" role="button">
+                Przeglądaj kursy ↓
+              </a>
+            </div>
+          </div>
+          <!-- Poprawne logo maskotki, nie główne logo strony -->
+          <img
+            src="/resources/courses/koalaWarrior.png"
+            alt="Obrazek z koalą wojownikiem"
+            loading="lazy"
+            class="lazy-image lazy-image--loaded"
+          />
+        </section>
+      </section>
+
+      <section id="courses-content-container" class="courses-container">
+        <h2>Katalog Kursów</h2>
+        <!-- Struktura zgodna z oryginałem renderowana przez JS -->
+        <div id="home-courses-grid-mount"></div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+  </div>
 </body>
 </html>
