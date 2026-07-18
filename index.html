@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Centrum Wiedzy — interaktywna platforma dydaktyczna z kursami IT, matematyką i nie tylko. Bez rejestracji, bez danych osobowych." />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Centrum Wiedzy" />
+  <meta property="og:description" content="Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://koala-v-dev.github.io/" />
+
+  <title>Centrum Wiedzy</title>
+
+  <!-- Preconnect dla fontów -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Ikona -->
+  <link rel="icon" href="/public/logo.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <!-- Nagłówek -->
+  <header id="main-header" class="site-header">
+    <div class="header-inner">
+      <a href="/" class="site-logo" aria-label="Centrum Wiedzy – strona główna">
+        <img src="/public/logo.svg" alt="Logo Centrum Wiedzy" width="40" height="40" />
+        <span>Centrum Wiedzy</span>
+      </a>
+      <nav id="main-nav" class="main-nav" aria-label="Nawigacja główna">
+        <a href="/" class="nav-link">Strona główna</a>
+        <a href="/kursy" class="nav-link">Kursy</a>
+      </nav>
+      <div class="header-actions" id="header-actions"></div>
+    </div>
+  </header>
+
+  <!-- Główna treść aplikacji (SPA mount point) -->
+  <main id="app" role="main">
+    <!-- Strona główna – lista kursów -->
+    <section class="hero" id="hero-section">
+      <div class="hero-inner">
+        <h1>Centrum Wiedzy</h1>
+        <p class="hero-lead">Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej.<br>Bez rejestracji. Bez danych osobowych. Bez opłat.</p>
+        <a href="#kursy" class="btn btn--primary">Przeglądaj kursy</a>
+      </div>
+    </section>
+
+    <!-- Siatka kursów -->
+    <section id="kursy" class="courses-section" aria-labelledby="courses-heading">
+      <div class="container">
+        <h2 id="courses-heading">Dostępne kursy</h2>
+
+        <!-- Wyszukiwarka (zasilana z courses/registry.json) -->
+        <div class="courses-search" role="search">
+          <label for="search-input" class="sr-only">Szukaj kursu</label>
+          <input
+            id="search-input"
+            type="search"
+            class="search-input"
+            placeholder="Szukaj kursu..."
+            autocomplete="off"
+            aria-label="Szukaj kursu"
+          />
+        </div>
+
+        <!-- Siatka kart kursów (renderowana przez JS z registry.json) -->
+        <div id="home-courses-grid-mount" class="courses-grid" role="list" aria-live="polite" aria-label="Lista kursów">
+          <!-- Skeleton loader -->
+          <div class="course-card course-card--skeleton" aria-hidden="true"></div>
+          <div class="course-card course-card--skeleton" aria-hidden="true"></div>
+          <div class="course-card course-card--skeleton" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Stopka -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>Centrum Wiedzy © 2026 — projekt open source, licencja MIT</p>
+      <p>
+        <a href="https://github.com/Koala-V-dev/koala-v-dev.github.io" rel="noopener" target="_blank">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Style i skrypt (ścieżki po buildzie Vite) -->
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/home.css" />
+  <script type="module" src="/js/home-app.js"></script>
+</body>
+</html>
