@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Centrum Wiedzy — interaktywna platforma dydaktyczna z kursami IT, matematyką i nie tylko. Bez rejestracji, bez danych osobowych." />
   <meta name="theme-color" content="#0f172a" />
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Centrum Wiedzy" />
   <meta property="og:description" content="Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej." />
   <meta property="og:type" content="website" />
@@ -14,48 +12,39 @@
 
   <title>Centrum Wiedzy</title>
 
-  <!-- Preconnect dla fontów -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- Ikona -->
   <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+  <!-- Tylko home.css — zawiera własny base/root/fonts (bez style.css = brak duplikacji) -->
+  <link rel="stylesheet" href="/css/home.css" />
 </head>
 <body>
 
-  <!-- Nagłówek -->
-  <header id="main-header" class="site-header">
-    <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="Centrum Wiedzy – strona główna">
-        <img src="/logo.svg" alt="Logo Centrum Wiedzy" width="40" height="40" />
-        <span>Centrum Wiedzy</span>
-      </a>
-      <nav id="main-nav" class="main-nav" aria-label="Nawigacja główna">
-        <a href="/" class="nav-link">Strona główna</a>
-        <a href="/kursy" class="nav-link">Kursy</a>
-      </nav>
-      <div class="header-actions" id="header-actions"></div>
-    </div>
+  <header id="main-header">
+    <nav id="main-nav" aria-label="Nawigacja główna"></nav>
+    <div class="header-actions" id="header-actions"></div>
   </header>
 
-  <!-- Główna treść aplikacji (SPA mount point) -->
   <main id="app" role="main">
-    <!-- Strona główna – lista kursów -->
-    <section class="hero" id="hero-section">
-      <div class="hero-inner">
+
+    <!-- Hero — klasy z _welcome.scss -->
+    <section class="welcome-section" id="hero-section" aria-label="Centrum Wiedzy – wprowadzenie">
+      <div class="welcome-message">
         <h1>Centrum Wiedzy</h1>
-        <p class="hero-lead">Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej.<br>Bez rejestracji. Bez danych osobowych. Bez opłat.</p>
-        <a href="#kursy" class="btn btn--primary">Przeglądaj kursy</a>
+        <p>Interaktywne kursy dydaktyczne — IT, matematyka, systemy operacyjne i więcej.<br>Bez rejestracji. Bez danych osobowych. Bez opłat.</p>
+        <img src="/main-logo.svg" alt="Maskotka Centrum Wiedzy" />
+      </div>
+      <div class="auth-section" id="auth-section" aria-label="Nawigacja do kursów">
+        <h2>Dołącz do nas</h2>
+        <p>Wybierz kurs i zacznij naukę — bezpłatnie, bez konta.</p>
+        <a href="#kursy" class="btn">Przeglądaj kursy ↓</a>
       </div>
     </section>
 
-    <!-- Siatka kursów -->
-    <section id="kursy" class="courses-section" aria-labelledby="courses-heading">
-      <div class="container">
-        <h2 id="courses-heading">Dostępne kursy</h2>
+    <!-- Katalog kursów — klasy z _home-courses-list.scss -->
+    <section id="kursy" aria-labelledby="courses-heading">
+      <div class="courses-container">
+        <h2 id="courses-heading">Katalog Kursów</h2>
 
-        <!-- Wyszukiwarka (zasilana z courses/registry.json) -->
-        <div class="courses-search" role="search">
+        <div class="courses-filter-wrapper" role="search">
           <label for="search-input" class="sr-only">Szukaj kursu</label>
           <input
             id="search-input"
@@ -67,30 +56,21 @@
           />
         </div>
 
-        <!-- Siatka kart kursów (renderowana przez JS z registry.json) -->
-        <div id="home-courses-grid-mount" class="courses-grid" role="list" aria-live="polite" aria-label="Lista kursów">
-          <!-- Skeleton loader -->
-          <div class="course-card course-card--skeleton" aria-hidden="true"></div>
-          <div class="course-card course-card--skeleton" aria-hidden="true"></div>
-          <div class="course-card course-card--skeleton" aria-hidden="true"></div>
-        </div>
+        <!-- Mount point JS — używa .courses-list i .course-card z _home-courses-list.scss -->
+        <ul id="home-courses-grid-mount" class="courses-list" role="list" aria-live="polite" aria-label="Lista kursów">
+        </ul>
       </div>
     </section>
+
   </main>
 
-  <!-- Stopka -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <p>Centrum Wiedzy © 2026 — projekt open source, licencja MIT</p>
-      <p>
-        <a href="https://github.com/Koala-V-dev/koala-v-dev.github.io" rel="noopener" target="_blank">GitHub</a>
-      </p>
-    </div>
+  <footer class="footer" role="contentinfo">
+    <p>© 2026 Centrum Wiedzy — projekt open source</p>
+    <p>
+      <a href="https://github.com/Koala-V-dev/koala-v-dev.github.io" rel="noopener" target="_blank">GitHub</a>
+    </p>
   </footer>
 
-  <!-- Style i skrypt (ścieżki po buildzie Vite) -->
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/home.css" />
   <script type="module" src="/js/home-app.js"></script>
 </body>
 </html>
