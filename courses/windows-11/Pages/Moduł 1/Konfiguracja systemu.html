@@ -1,4 +1,51 @@
-<h1>Konfiguracja Systemu</h1>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Konfiguracja systemu - Koala-V</title>
+    
+    <!-- Fix favicon csp by just using relative svg -->
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="/css/course-style.css">
+    
+    <!-- Moduł SPA/Pjax -->
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox course-shell-layout" data-bootstrapped-at="100">
+    <div id="course-slug" style="display:none;">windows-11</div>
+    <header class="course-header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: var(--bg-surface, #1e1e1e); border-bottom: 1px solid var(--border-color, #333);">
+        <p class="site-logo medievalsharp-regular" style="margin: 0;">
+            <a href="/" aria-label="Koala-V — strona główna" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                <img src="/main-logo.svg" alt="" height="40" width="40" class="lazy-image lazy-image--loaded" style="margin-right: 10px;">
+                <span class="logo-text" style="font-size: 1.5rem;">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <label class="switch" title="Przełącz motyw" aria-label="Przełącz motyw" role="switch" aria-checked="true"><input type="checkbox" id="theme-switcher"><span class="slider round"></span></label>
+        </div>
+    </header>
+    
+    <main class="course-page fade-in" id="course-page-shell" style="display: flex; flex-direction: row; height: calc(100vh - 61px);">
+        <aside class="course-sidebar" id="course-lesson-content-nav" style="width: 320px; overflow-y: auto; border-right: 1px solid var(--border-color, #333); padding: 15px; background: var(--bg-surface-alt, #151515);">
+            <nav id="course-lesson-content-nav-inner">
+                <ul class="course-menu" style="list-style: none; padding-left: 0;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Wprowadzenie.html" data-pjax style="font-weight: bold;">Wprowadzenie</a></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 0: Instalacja i Pierwsze Uruchomienie</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%200%2FPrzygotowanie%20ISO.html" data-pjax>Przygotowanie ISO</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%200%2FInstalacja%20w%20VirtualBox.html" data-pjax>Instalacja w VirtualBox</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%200%2F%C5%9Arodowisko%20Graficzne.html" data-pjax>Środowisko Graficzne</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 1: Codzienna Obsługa Systemu</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FEksplorator%20plik%C3%B3w.html" data-pjax>Eksplorator plików</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FZarz%C4%85dzanie%20oprogramowaniem.html" data-pjax>Zarządzanie oprogramowaniem</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FKonfiguracja%20systemu.html" data-pjax>Konfiguracja systemu</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FKopie%20zapasowe%20i%20ochrona%20danych.html" data-pjax>Kopie zapasowe i ochrona danych</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 2: Sprzęt, Sieć i Bezpieczeństwo</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FZarz%C4%85dzanie%20sprz%C4%99tem%20i%20sterownikami.html" data-pjax>Zarządzanie sprzętem i sterownikami</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FKonfiguracja%20interfejs%C3%B3w%20sieciowych.html" data-pjax>Konfiguracja interfejsów sieciowych</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FZarz%C4%85dzanie%20dyskami%20i%20partycjami.html" data-pjax>Zarządzanie dyskami i partycjami</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FSzyfrowanie%20danych.html" data-pjax>Szyfrowanie danych</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 3: Zarządzanie środowiskiem użytkownika</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%203%2FU%C5%BCytkownicy%20i%20uprawnienia%20lokalne.html" data-pjax>Użytkownicy i uprawnienia lokalne</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%203%2FZapora%20i%20regu%C5%82y%20bezpiecze%C5%84stwa.html" data-pjax>Zapora i reguły bezpieczeństwa</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%203%2FFoldery%20i%20udzia%C5%82y%20sieciowe.html" data-pjax>Foldery i udziały sieciowe</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 4: Zaawansowana Administracja i Diagnostyka</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%204%2FDiagnoza%20awarii%20i%20us%C5%82ugi%20systemowe.html" data-pjax>Diagnoza awarii i usługi systemowe</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%204%2FPolisy%20i%20zabezpieczenia%20systemowe.html" data-pjax>Polisy i zabezpieczenia systemowe</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%204%2FDiagnostyka%20sprz%C4%99towa.html" data-pjax>Diagnostyka sprzętowa</a></li></ul></details></li></ul>
+            </nav>
+        </aside>
+        
+        <section class="course-content-wrapper" style="flex: 1; overflow-y: auto; padding: 30px; background: var(--bg-base, #030303);">
+            <article id="course-lesson-content" class="markdown-body" style="max-width: 900px; margin: 0 auto;">
+                <h1>Konfiguracja Systemu</h1>
 <p>Nowoczesna aplikacja <span class="color-green">Ustawienia</span> (skrót <span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>I</kbd></span>) sukcesywnie przejmuje rolę klasycznego Panelu Sterowania.<br>Czas nauczyć się w niej sprawnie nawigować i zrozumieć, co tak naprawdę robią kluczowe przełączniki.</p>
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>💻 Zarządzanie Zasobami i Wydajnością (System)</h2>
@@ -32,7 +79,8 @@
 </div>
 </div><p>To wyjaśnia, dlaczego standardowa opcja <span class="color-green">Uruchom ponownie</span> (Restart) rozwiązuje większość problemów ze stabilnością – jako jedyna wymusza pełną inicjalizację jądra od zera. 😜</p>
 <p>Jeżeli chcesz mieć pewność co do czystości sesji i zminimalizować ryzyko problemów, wyłącz <span class="color-green">Fast Startup</span> w Panelu Sterowania. System delikatnie dłużej się bedzie uruchamiać, ale bedzie to stabilniejsze.</p>
-<p><img src="/public/courses/windows-11/Images/Panel-sterowania-wy%C5%82%C4%85czenie-szybkiego-startu.png" alt="Panel sterowania - wyłączenie szybkiego startu"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Panel-sterowania-wyłączenie-szybkiego-startu.webp" alt="Panel sterowania - wyłączenie szybkiego startu" width="1098" height="619" class="lazy-image" loading="lazy" decoding="async">
+
 <hr>
 <data-gate>
   <data-quiz>
@@ -200,3 +248,8 @@
 <hr>
 <p>Mam nadzieje że zaczniesz używać schowka systemowego <kbd class="Win"></kbd> + <kbd>V</kbd>. To naprawde genialna funkcja! 😎</p>
 </section>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

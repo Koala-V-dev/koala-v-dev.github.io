@@ -1,0 +1,1 @@
+import{U as a}from"./UIFacade-DEQhC2k-.js";class k{static create(s,i,n,e,t,p=""){const c=a.container({class:`kpi-card ${p}`.trim()}),r=a.create("div",{class:`kpi-icon ${e}`}),l=a.container({class:"kpi-content"},[a.paragraph(n,{class:"kpi-value"}),a.span(i,{class:"kpi-label"}),a.span(t,{class:"kpi-desc"})]);return a.appendChildren(c,[r,l]),s.appendChild(c),c}}export{k as K};

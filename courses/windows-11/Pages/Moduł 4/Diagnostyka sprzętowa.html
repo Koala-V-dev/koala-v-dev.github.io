@@ -1,4 +1,51 @@
-<h1>Diagnostyka sprzętowa</h1>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 4\Diagnostyka sprzętowa - Koala-V</title>
+    
+    <!-- Fix favicon csp by just using relative svg -->
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    
+    <link rel="stylesheet" href="/css/course-style.css">
+    
+    <!-- Moduł SPA/Pjax -->
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox course-shell-layout" data-bootstrapped-at="100">
+    <div id="course-slug" style="display:none;">windows-11</div>
+    <header class="course-header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: var(--bg-surface, #1e1e1e); border-bottom: 1px solid var(--border-color, #333);">
+        <p class="site-logo medievalsharp-regular" style="margin: 0;">
+            <a href="/" aria-label="Koala-V — strona główna" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                <img src="/main-logo.svg" alt="" height="40" width="40" class="lazy-image lazy-image--loaded" style="margin-right: 10px;">
+                <span class="logo-text" style="font-size: 1.5rem;">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <label class="switch" title="Przełącz motyw" aria-label="Przełącz motyw" role="switch" aria-checked="true"><input type="checkbox" id="theme-switcher"><span class="slider round"></span></label>
+        </div>
+    </header>
+    
+    <main class="course-page fade-in" id="course-page-shell" style="display: flex; flex-direction: row; height: calc(100vh - 61px);">
+        <aside class="course-sidebar" id="course-lesson-content-nav" style="width: 320px; overflow-y: auto; border-right: 1px solid var(--border-color, #333); padding: 15px; background: var(--bg-surface-alt, #151515);">
+            <nav id="course-lesson-content-nav-inner">
+                <ul class="course-menu" style="list-style: none; padding-left: 0;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Wprowadzenie.html" data-pjax style="font-weight: bold;">Wprowadzenie</a></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 0: Instalacja i Pierwsze Uruchomienie</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%200%2FPrzygotowanie%20ISO.html" data-pjax>Przygotowanie ISO</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%200%2FInstalacja%20w%20VirtualBox.html" data-pjax>Instalacja w VirtualBox</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%200%2F%C5%9Arodowisko%20Graficzne.html" data-pjax>Środowisko Graficzne</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 1: Codzienna Obsługa Systemu</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FEksplorator%20plik%C3%B3w.html" data-pjax>Eksplorator plików</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FZarz%C4%85dzanie%20oprogramowaniem.html" data-pjax>Zarządzanie oprogramowaniem</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FKonfiguracja%20systemu.html" data-pjax>Konfiguracja systemu</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%201%2FKopie%20zapasowe%20i%20ochrona%20danych.html" data-pjax>Kopie zapasowe i ochrona danych</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 2: Sprzęt, Sieć i Bezpieczeństwo</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FZarz%C4%85dzanie%20sprz%C4%99tem%20i%20sterownikami.html" data-pjax>Zarządzanie sprzętem i sterownikami</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FKonfiguracja%20interfejs%C3%B3w%20sieciowych.html" data-pjax>Konfiguracja interfejsów sieciowych</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FZarz%C4%85dzanie%20dyskami%20i%20partycjami.html" data-pjax>Zarządzanie dyskami i partycjami</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%202%2FSzyfrowanie%20danych.html" data-pjax>Szyfrowanie danych</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 3: Zarządzanie środowiskiem użytkownika</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%203%2FU%C5%BCytkownicy%20i%20uprawnienia%20lokalne.html" data-pjax>Użytkownicy i uprawnienia lokalne</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%203%2FZapora%20i%20regu%C5%82y%20bezpiecze%C5%84stwa.html" data-pjax>Zapora i reguły bezpieczeństwa</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%203%2FFoldery%20i%20udzia%C5%82y%20sieciowe.html" data-pjax>Foldery i udziały sieciowe</a></li></ul></details></li><li class="module"><details open><summary style="font-weight: bold; cursor: pointer; margin-top: 10px;">Moduł 4: Zaawansowana Administracja i Diagnostyka</summary><ul style="list-style: none; padding-left: 15px;"><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%204%2FDiagnoza%20awarii%20i%20us%C5%82ugi%20systemowe.html" data-pjax>Diagnoza awarii i usługi systemowe</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%204%2FPolisy%20i%20zabezpieczenia%20systemowe.html" data-pjax>Polisy i zabezpieczenia systemowe</a></li><li class="lesson-item"><a href="/courses/windows-11/Pages/Modu%C5%82%204%2FDiagnostyka%20sprz%C4%99towa.html" data-pjax>Diagnostyka sprzętowa</a></li></ul></details></li></ul>
+            </nav>
+        </aside>
+        
+        <section class="course-content-wrapper" style="flex: 1; overflow-y: auto; padding: 30px; background: var(--bg-base, #030303);">
+            <article id="course-lesson-content" class="markdown-body" style="max-width: 900px; margin: 0 auto;">
+                <h1>Diagnostyka sprzętowa</h1>
 <p>By w pełni nazwać się informatykiem, musisz umieć poprawnie skonfigurować i przetestować komputer. Na koniec tego kursu pokażę Ci darmowe narzędzia diagnostyczne oraz to, jak na ich podstawie wykryłem i poprawiłem parę rzeczy we własnym komputerze.</p>
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>⚙️ Diagnostyka ogólna (CPU-Z)</h2>
@@ -18,7 +65,8 @@
 
 </div>
 </div><h3>⚙️ Analiza procesora (zakładka CPU)</h3>
-<p><img src="/public/courses/windows-11/Images/CPU-Z_CPU.png" alt="CPU‑Z Zakładka CPU"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/CPU-Z_CPU.webp" alt="CPU-Z Zakładka CPU" width="403" height="402" class="lazy-image" loading="lazy" decoding="async">
+
 <p>Ta zakładka pokazuje dokładny model procesora oraz gniazdo (<span class="color-green">Socket</span>), w którym go zamontowano. Te dane ułatwiają wybór części przy modernizacji komputera.</p>
 <ul>
 <li><span class="color-green">Core Voltage (napięcie rdzenia):</span> Pokazuje aktualne napięcie zasilające rdzenie procesora w woltach ($\text{V}$). Płyta główna i system operacyjny regulują je dynamicznie pod wpływem obciążenia.</li>
@@ -102,7 +150,8 @@
 
 <hr>
 <h3>⚙️ Płyta główna (zakładka Mainboard)</h3>
-<p><img src="/public/courses/windows-11/Images/CPU-Z_Mainboard.png" alt="CPU‑Z Zakładka Mainboard"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/CPU-Z_Mainboard.webp" alt="CPU-Z Zakładka Mainboard" width="403" height="402" class="lazy-image" loading="lazy" decoding="async">
+
 <p>Zakładka <span class="color-green">Mainboard</span> pokazuje parametry płyty głównej oraz połączenia między podzespołami.</p>
 <ul>
 <li><span class="color-green">Manufacturer &amp; Model (producent i model):</span> Marka i model płyty głównej (na zrzucie: <code>Gigabyte B660 GAMING X AX DDR4</code>). Te dane ułatwią Ci pobranie sterowników i nowego BIOS‑u ze strony producenta.</li>
@@ -127,7 +176,8 @@
 <h3>⚖️ Pamięć RAM (zakładki Memory i SPD)</h3>
 <p>Pamięć RAM bywa ustawiona wolniej, niż pozwalają na to jej parametry fabryczne. Porównując te dwie zakładki, łatwo sprawdzisz, czy komputer korzysta z pełnej wydajności RAM‑u.</p>
 <h4>📊 Zakładka Memory (parametry bieżące)</h4>
-<p><img src="/public/courses/windows-11/Images/CPU-Z_Memory.png" alt="CPU‑Z Zakładka Memory"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/CPU-Z_Memory.webp" alt="CPU-Z Zakładka Memory" width="403" height="402" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><span class="color-green">DRAM Frequency (rzeczywista częstotliwość):</span> Na zrzucie to $1596.1 \text{ MHz}$. Współczesne kości działają w technologii <span class="color-green">DDR</span> (<span class="color-blue">Double Data Rate</span>). Oznacza to przesyłanie dwóch pakietów danych w jednym cyklu zegara (na zboczu wznoszącym oraz opadającym sygnału). Rzeczywistą szybkość przesyłu określa się w <span class="color-green">$\text{MT/s}$</span> (megatransferach na sekundę) i wynosi ona dwukrotność częstotliwości DRAM:<br>$$1596.1 \text{ MHz} \times 2 \approx 3200 \text{ MT/s}$$<br><span class="color-blue">Uwaga: W sklepach ta wartość jest często błędnie oznaczana jako $\text{MHz}$.</span></li>
 <li><span class="color-green">CAS# Latency (CL):</span> Opóźnienie pamięci, czyli czas (w cyklach zegara) od żądania danych do rozpoczęcia ich wysyłania. Na zrzucie to $16$ cykli.</li>
@@ -194,7 +244,8 @@
 </details>
 
 <h4>🗃️ Zakładka SPD (parametry fabryczne kości)</h4>
-<p><img src="/public/courses/windows-11/Images/CPU-Z_SPD.png" alt="CPU‑Z Zakładka SPD"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/CPU-Z_SPD.webp" alt="CPU-Z Zakładka SPD" width="403" height="402" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><span class="color-green">Timings Table (tabela opóźnień):</span> Pokazuje gotowe profile działania zapisane przez producenta w pamięci kości RAM. Zrzut prezentuje 4 profile:<ul>
 <li><span class="color-green">JEDEC #8 i JEDEC #9:</span> Bezpieczne, standardowe profile o szybkości $2400\text{ MT/s}$ ($1200\text{ MHz} \times 2$) przy niskim napięciu $1.20 \text{ V}$. Bez włączonego profilu XMP w BIOS‑ie pamięć zwolniłaby do tych wartości.</li>
@@ -218,7 +269,8 @@
 <h4>🪤 Pułapka liczby kości RAM (2 vs 4 moduły)</h4>
 <p>Panuje przekonanie, że obsadzenie wszystkich czterech gniazd pamięci to świetny sposób na rozbudowę. W rzeczywistości to spore wyzwanie dla stabilności komputera.</p>
 <p>Schemat poniżej przedstawia fizyczny układ połączeń (magistralę Daisy Chain) na płycie głównej. Pokazuje, jak sygnał z procesora (IMC) dociera do poszczególnych slotów:</p>
-<p><img src="/public/courses/windows-11/Images/Schemat-kana%C5%82%C3%B3w-slot%C3%B3w-RAM-wzgl%C4%99dem-CPU.png" alt="Schemat kanałów slotów RAM względem CPU"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Schemat-kanałów-slotów-RAM-względem-CPU.webp" alt="Schemat kanałów slotów RAM względem CPU" width="752" height="763" class="lazy-image" loading="lazy" decoding="async">
+
 <h4>Sposób podłączenia a stabilność systemu:</h4>
 <ol>
 <li><p><span class="color-green">Zalecana konfiguracja (2 kości w slotach 2 i 4):</span></p>
@@ -279,14 +331,16 @@
 </section><section class="lesson-section" data-lesson-section="true"><h2>Diagnostyka karty graficznej (GPU-Z)</h2>
 <p><span class="color-green">GPU‑Z</span> służy do sprawdzania parametrów kart graficznych (NVIDIA, AMD, Intel). Odczytuje dane układu (GPU), pamięci wideo (VRAM) i na bieżąco monitoruje parametry pracy.</p>
 <h3>⚙️ Parametry karty (zakładka Graphics Card)</h3>
-<p><img src="/public/courses/windows-11/Images/GPU-Z_Graphics_Card.png" alt="GPU‑Z Graphics Card"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_Graphics_Card.webp" alt="GPU-Z Graphics Card" width="388" height="539" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><p><span class="color-green">Bus Interface (interfejs magistrali):</span> Pokazuje wersję i szerokość linii magistrali PCI‑Express (PCIe), z których korzysta karta.</p>
 <ul>
 <li><span class="color-green">W spoczynku:</span> Zrzut pokazuje <code>PCIe x16 4.0 @ x16 1.1</code>. Karta obsługuje standard PCIe 4.0, ale na pulpicie przełącza się w tryb 1.1, żeby oszczędzać energię.</li>
 <li><span class="color-green">Pod obciążeniem:</span> Kliknij znak zapytania (<code>?</code>) obok tej opcji i uruchom wbudowany <code>Render Test</code>. Wartość powinna skoczyć do nominalnej (np. <code>@ x16 4.0</code>).<br><span class="color-red">nie zaznaczaj tego checkboxa:</span> <span class="color-gold">Render in full‑screen (for CrossFire / SLI)</span>. Te opcje dotyczą starych systemów łączenia kilku kart w jeden układ.</li>
 </ul>
-<p><img src="/public/courses/windows-11/Images/GPU-Z_render_test.png" alt="GPU‑Z okno Render Test"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_render_test.webp" alt="GPU-Z okno Render Test" width="319" height="485" class="lazy-image" loading="lazy" decoding="async">
+
 <div class="markdown-alert markdown-alert--important">
 <p class="markdown-alert-title">
 <span class="alert-icon">📌</span> Ważny punkt
@@ -342,7 +396,7 @@
 </ol>
 
 </div>
-</div><p><img src="/public/courses/windows-11/Images/GPU-Z_ResizableBAR_W%C5%82%C4%85czenie.png" alt="GPU‑Z Resizable BAR Enabled"></p>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_ResizableBAR_Włączenie.webp" alt="GPU-Z Resizable BAR Enabled" width="388" height="655" class="lazy-image" loading="lazy" decoding="async">
 </li>
 <li><p><span class="color-green">Memory Size &amp; Bus Width (Pojemność i szyna pamięci):</span></p>
 <ul>
@@ -361,7 +415,8 @@
 </ul>
 <hr>
 <h3>🌡️ Czujniki temperatury i pracy (zakładka Sensors)</h3>
-<p><img src="/public/courses/windows-11/Images/GPU-Z_Sensors.png" alt="GPU‑Z Sensors"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_Sensors.webp" alt="GPU-Z Sensors" width="388" height="539" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><p><span class="color-green">GPU Temperature vs Hot Spot (temperatura średnia a najgorętszy punkt):</span></p>
 <ul>
@@ -412,7 +467,8 @@
 <h3>🔍 Informacje zaawansowane (zakładka Advanced)</h3>
 <p>W zakładce <span class="color-green">Advanced</span> sprawdzisz parametry sterownika, limity sprzętowe i szczegółowy stan podłączonych monitorów.</p>
 <h4>⚡ 1. Limity mocy i temperatur (sekcja General / Power Limit)</h4>
-<p><img src="/public/courses/windows-11/Images/GPU-Z_Advanced_1.png" alt="GPU‑Z Advanced - Limity"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_Advanced_1.webp" alt="GPU-Z Advanced - Limity" width="388" height="539" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><span class="color-green">Power Limit (limit mocy):</span> W sekcji <span class="color-blue">General</span> program pokazuje fabryczne i dopuszczalne limity zasilania rdzenia GPU.<ul>
 <li>Zrzut pokazuje wartość domyślną <span class="color-green">Default ($100.0\%$)</span> oraz maksymalną <span class="color-green">Maximum ($124.7\%$)</span>. W programach do podkręcania (np. MSI Afterburner) limit mocy można zwiększyć o te <span class="color-green">$24.7\%$</span> ponad fabrykę (zakres regulacji sięga od $-41\%$ do $+25\%$).</li>
@@ -424,13 +480,15 @@
 <h4>🖥️ 2. Parametry podłączonych monitorów (sekcja General / Monitor)</h4>
 <p>Przewijając sekcję <span class="color-blue">General</span>, sprawdzisz parametry podłączonych ekranów:</p>
 <h5>Monitor 1 (DisplayPort)</h5>
-<p><img src="/public/courses/windows-11/Images/GPU-Z_Advanced_2.png" alt="GPU‑Z Advanced - Monitor 1"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_Advanced_2.webp" alt="GPU-Z Advanced - Monitor 1" width="388" height="662" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><span class="color-green">Połączenie i linie sygnałowe:</span> Ekran podłączony jest przez <span class="color-green">DisplayPort</span>. Karta wynegocjowała 2 linie sygnałowe z 4 możliwych (<code>Lanes (current) 2</code> / <code>Lanes (max) 4</code>).</li>
 <li><span class="color-green">Link Rate i parametry obrazu:</span> Prędkość łącza to <span class="color-green">$2.7 Gbps$</span>, a głębia kolorów wynosi <span class="color-green">$8\text{-bit}$ RGB</span>. Te dane pomagają wykryć, dlaczego monitor $4\text{K}$ odświeża się np. w $30\text{ Hz}$ zamiast $60\text{ Hz}$ – winny jest zazwyczaj kiepski kabel, który nie pozwala na pracę na maksymalnej liczbie linii.</li>
 </ul>
 <h5>Monitor 2 (HDMI)</h5>
-<p><img src="/public/courses/windows-11/Images/GPU-Z_Advanced_3.png" alt="GPU‑Z Advanced - Monitor 2"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_Advanced_3.webp" alt="GPU-Z Advanced - Monitor 2" width="388" height="609" class="lazy-image" loading="lazy" decoding="async">
+
 <ul>
 <li><span class="color-green">Złącze HDMI:</span> Drugi ekran podpięty jest kablem <span class="color-green">HDMI</span>.</li>
 <li><span class="color-green">Obsługa głębi barw i HDR:</span> Karta i porty obsługują obraz <span class="color-green">$8\text{-bit}$</span>, <span class="color-green">$10\text{-bit}$</span> oraz <span class="color-green">$12\text{-bit}$</span> w przestrzeniach barwnych <span class="color-green">RGB444</span>, <span class="color-green">YCbCr444</span> i <span class="color-green">YCbCr422</span>. Sam parametr <span class="color-green">HDR</span> ma jednak status <span class="color-green">N/A</span> (Not Available) – oznacza to, że ten monitor nie obsługuje wyświetlania o szerokiej rozpiętości tonalnej lub funkcja ta jest wyłączona w ustawieniach systemu Windows.</li>
@@ -473,9 +531,11 @@
 <h3>🩺 2. Ocena kondycji dysku (CrystalDiskInfo)</h3>
 <p>Jako przykładu użyjemy dwóch dysków NVMe pracujących w tym samym komputerze: <span class="color-green">Lexar SSD NM790 4TB</span> (dysk systemowy PCIe Gen4) oraz <span class="color-green">IR‑SSDPR-P34B‑02T-80</span> (Goodram IRDM 2TB, dodatkowy dysk PCIe Gen3).</p>
 <h4>Dysk C: Lexar SSD NM790 4TB (Systemowy dysk PCIe Gen4)</h4>
-<p><img src="/public/courses/windows-11/Images/CristalDiskInfo-MSI-Lexar.png" alt="CrystalDiskInfo Lexar"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/CristalDiskInfo-MSI-Lexar.webp" alt="CrystalDiskInfo Lexar" width="1002" height="833" class="lazy-image" loading="lazy" decoding="async">
+
 <h4>Dysk D: Goodram IRDM 2TB (Pomocniczy dysk PCIe Gen3)</h4>
-<p><img src="/public/courses/windows-11/Images/CristalDiskInfo-MSI-IR.png" alt="CrystalDiskInfo IRDM"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/CristalDiskInfo-MSI-IR.webp" alt="CrystalDiskInfo IRDM" width="1002" height="833" class="lazy-image" loading="lazy" decoding="async">
+
 <p>Program wyciąga parametry <span class="color-gold">S.M.A.R.T.</span> (<span class="color-blue">Self‑Monitoring, Analysis and Reporting Technology</span>) bezpośrednio z wbudowanego kontrolera. Zestawienie tych dwóch modeli dobrze pokazuje różnice technologiczne:</p>
 <ul>
 <li><p><span class="color-green">Stan zdrowia (Health Status):</span></p>
@@ -545,9 +605,11 @@
 <h3>🧪 3. Testowanie wydajności (CrystalDiskMark)</h3>
 <p>Porównanie obu szyn w praktyce dobrze pokazują poniższe testy (wykonane przy parametrach: $3$ próby, próbka $1\text{ GiB}$):</p>
 <h4>Dysk C: Lexar SSD NM790 4TB (PCIe Gen4 x4)</h4>
-<p><img src="/public/courses/windows-11/Images/ClristalDiskMark-MSI-Lexar-wolumin-C.png" alt="CrystalDiskMark Lexar C"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ClristalDiskMark-MSI-Lexar-wolumin-C.webp" alt="CrystalDiskMark Lexar C" width="1002" height="547" class="lazy-image" loading="lazy" decoding="async">
+
 <h4>Dysk D: Goodram IRDM 2TB (PCIe Gen3 x4)</h4>
-<p><img src="/public/courses/windows-11/Images/ClristalDiskMark-MSI-IR-wolumin-D.png" alt="CrystalDiskMark IRDM D"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ClristalDiskMark-MSI-IR-wolumin-D.webp" alt="CrystalDiskMark IRDM D" width="1002" height="547" class="lazy-image" loading="lazy" decoding="async">
+
 <p><span class="color-green">Jak bezpiecznie przetestować dysk?</span><br>Przed kliknięciem któregokolwiek przycisku, przygotuj się:</p>
 <ol>
 <li><span class="color-green">Ustawienia na górnym pasku:</span><ul>
@@ -619,3 +681,8 @@
 <h3>🚀 Co dalej?</h3>
 <p>Zdobyte umiejętności dają Ci pełną niezależność. Zamiast zgadywać przyczyny problemów z systemem lub komputerem, potrafisz teraz logicznie analizować fakty – odczytywać błędy z logów, monitorować parametry pracy podzespołów i wdrażać bezpieczne rozwiązania. Windows 11 nie ma już przed Tobą tajemnic!</p>
 </section>
+            </article>
+        </section>
+    </main>
+</body>
+</html>
