@@ -7,14 +7,17 @@
           var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
           var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
         } catch (e) {}
       })();
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moduł 3\Foldery i udziały sieciowe - Koala-V</title>
-    <link rel="icon" href="/Resources/courses/windows11.webp">
-    <link rel="stylesheet" href="/css/course-style.css">
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
     <script type="module" src="/js/course-app.js"></script>
 </head>
 <body class="browser-firefox">
@@ -853,10 +856,18 @@
 <hr>
 <p>Strasznie sieciowo się zrobiło 😅.<br>Został nam ostatni moduł. Ruszmy z diagnostyką i modyfikacją systemu! 🫙</p>
 </section>
+            <footer>
+              <p>
+                <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+                <span class="important-font">©</span> 2026 Koala-V
+              </p>
+              <p>kamil.zbrzezniak@teb.edu.pl</p>
+            </footer>
         </article>
 
         <!-- Puste miejsce na nawigację po nagłówkach -->
         <section id="course-lesson-content-nav"></section>
     </main>
+
 </body>
 </html>

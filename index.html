@@ -7,47 +7,22 @@
   <title>Koala-V — Strona Główna</title>
 
   <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <script>
+    (function () {
+      try {
+        var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+        var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+        if (t === 'dark') {
+          document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="/css/home.css" />
   <script type="module" src="/js/home-app.js"></script>
 
-  <style>
-    /* Usuwamy podział na dwie kolumny z sekcji powitalnej, skoro nie ma formularza logowania */
-    .welcome-section {
-      grid-template-columns: 1fr !important;
-    }
-    
-    /* Centrujemy zawartość tekstową */
-    .welcome-message {
-      align-items: center !important;
-      text-align: center !important;
-      justify-content: center !important;
-    }
-    .welcome-message h1 {
-      text-align: center !important;
-      padding-right: 0 !important;
-      margin-bottom: 1rem;
-    }
-    .welcome-message p {
-      text-align: center !important;
-      padding-right: 0 !important;
-      max-width: 800px;
-      margin: 0 auto 1.5rem auto;
-      font-size: 1.2rem;
-    }
-    .welcome-project-description {
-      color: var(--text-muted, #a0a0a0);
-      max-width: 800px;
-      margin: 0 auto 2rem auto;
-      line-height: 1.6;
-      font-size: 1.05rem;
-    }
-    
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-  </style>
+
 </head>
 
 <body class="browser-firefox">
