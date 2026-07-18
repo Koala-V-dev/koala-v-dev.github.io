@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <script>
-    (function () {
-      try {
-        var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
-        var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', t);
-        if (t === 'dark') {
-          document.documentElement.style.backgroundColor = '#030303';
-          document.documentElement.style.color = '#c7c5c5';
-        }
-      } catch (e) {}
-    })();
-  </script>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Centrum Wiedzy — interaktywna platforma dydaktyczna z kursami IT, matematyką i nie tylko. Bez rejestracji, bez danych osobowych." />
@@ -30,22 +16,33 @@
       grid-template-columns: 1fr !important;
     }
     
-    /* Centrujemy zawartość tekstową i maskotkę */
+    /* Centrujemy zawartość tekstową */
     .welcome-message {
       align-items: center !important;
       text-align: center !important;
+      justify-content: center !important;
     }
-    .welcome-message h1, .welcome-message p {
+    .welcome-message h1 {
       text-align: center !important;
       padding-right: 0 !important;
+      margin-bottom: 1rem;
     }
-    .welcome-message img {
-      align-self: center !important;
-      margin-top: 2rem !important;
+    .welcome-message p {
+      text-align: center !important;
+      padding-right: 0 !important;
+      max-width: 800px;
+      margin: 0 auto 1.5rem auto;
+      font-size: 1.2rem;
+    }
+    .welcome-project-description {
+      color: var(--text-muted, #a0a0a0);
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      line-height: 1.6;
+      font-size: 1.05rem;
     }
     
     .cta-buttons {
-      margin-top: 1.5rem;
       display: flex;
       gap: 1rem;
       justify-content: center;
@@ -81,19 +78,20 @@
               Witamy na stronie <span class="wrap-span-text">Koala-V!</span>
             </h1>
             <p>Twoje centrum materiałów edukacyjnych z dziedziny informatyki i matematyki.</p>
+            
+            <div class="welcome-project-description">
+              Projekt stanowi nowoczesną, interaktywną platformę dydaktyczną. Został całkowicie przebudowany
+              na architekturę statyczną (bez backendu), co gwarantuje błyskawiczne ładowanie i pełną zgodność
+              z wytycznymi prywatności (brak konieczności logowania, profilowania i śledzenia użytkowników).
+              Wszystkie materiały są otwarte i darmowe.
+            </div>
+
             <div class="cta-buttons">
               <a href="#courses-content-container" data-ui="button" data-variant="primary" class="bg-primary" role="button">
                 Przeglądaj kursy ↓
               </a>
             </div>
           </div>
-          <!-- Poprawne logo maskotki, nie główne logo strony -->
-          <img
-            src="/resources/courses/koalaWarrior.png"
-            alt="Obrazek z koalą wojownikiem"
-            loading="lazy"
-            class="lazy-image lazy-image--loaded"
-          />
         </section>
       </section>
 
