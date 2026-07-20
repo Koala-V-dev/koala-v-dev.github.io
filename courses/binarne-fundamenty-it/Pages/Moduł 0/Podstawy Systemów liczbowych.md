@@ -32,12 +32,11 @@ To zależy od konstrukcji sprzętu. W większości przypadków <strong>następuj
 Jako przykład posłuży nam fizyczny licznik kilometrów w starym samochodzie, który ma tylko $4$ pola na cyfry. Obecny stan to $9999$. Co się stanie, gdy przejedziesz kolejny kilometr i dodasz $1$? Jaki będzie fizyczny stan licznika?
 ![Tarcza zegara samochodowego](/public/courses/binarne-fundamenty-it/Images/tarcza_zegarqa_samochodowego.jpg)
 <!-- Licencja CC0 serwisu Pexels. Zdjęcie dodane przez Luke Miller: https://www.pexels.com/pl-pl/zdjecie/zblizenie-predkosciomierza-samochodu-zabytkowego-32725800/ -->
-    </question>
-    <options>
-      <option>$10000$. powstanie nowa kolumna, aby pomieścić wynik.</option>
-      <option correct>$0000$. Licznik nie ma piątego pola na kolejną „jedynkę”.</option>
-    </options>
-
+</question>
+<options>
+<option>$10000$. powstanie nowa kolumna, aby pomieścić wynik.</option>
+<option correct>$0000$. Licznik nie ma piątego pola na kolejną „jedynkę”.</option>
+</options>
 <div data-hint="error">
   Skup się na ograniczeniu: licznik ma dokładnie $4$ pola. Nie ma tam miejsca na piątą cyfrę. Co stanie się z bębnami po osiągnięciu maksymalnej wartości?
 </div>
