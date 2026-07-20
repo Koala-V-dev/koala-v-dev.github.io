@@ -2,6 +2,30 @@
 
 Rozpoczynając pracę na dowolnym serwerze lub stacji roboczej Linux, pierwszą i kluczową czynnością jest zorientowanie się w środowisku. Informacje o dystrybucji i wersji systemu operacyjnego decydują o tym, jakich komend użyjesz, jakie pakiety zainstalujesz oraz które poradniki będą zgodne z Twoją konfiguracją.
 
+## ⚙️ Anatomia poleceń w terminalu (CLI)
+
+Zanim zaczniesz wpisywać pierwsze komendy w terminalu, musisz zrozumieć, jak system interpretuje to, co piszesz. Każda instrukcja wprowadzana w CLI (Command Line Interface) budowana jest według ściśle określonej składni:
+
+$$\text{polecenie} \quad \text{[opcje]} \quad \text{[argumenty]}$$
+
+### 1. Polecenie (Command)
+To nazwa programu lub narzędzia, które chcesz uruchomić (np. `cat`, `hostname`, `ls`, `cp`). Wpisywana jest zawsze na samym początku linii.
+
+### 2. Opcje / Flagi (Options / Flags)
+Modyfikują zachowanie polecenia. Zazwyczaj zaczynają się od pojedynczego myślnika `-` (wersja skrócona, np. `-h`, `-r`) lub podwójnego myślnika `--` (wersja pełna słowna, np. `--help`, `--recursive`).  
+*Przykład:* komenda `df` pokazuje miejsce na dysku w bajtach, ale `df -h` (opcja *human-readable*) wyświetli te same dane w megabajtach i gigabajtach.
+
+### 3. Argumenty (Arguments)
+To dane wejściowe dla polecenia - zazwyczaj wskazują pliki, katalogi lub teksty, na których program ma wykonać operację.  
+*Przykład:* w komendzie `cat /etc/hostname` argumentem jest ścieżka do pliku `/etc/hostname`.
+
+> [!IMPORTANT]
+> **Separator spacji**  
+> W terminalu spacja jest **jedynym operatorem rozdzielającym** poszczególne elementy polecenia. Jeśli zapomnisz o spacji (np. wpiszesz `cat/etc/os-release`), system potraktuje to jako jedną nazwę polecenia i zgłosi błąd: `command not found`.  
+> Jeśli ścieżka lub nazwa pliku zawiera spację, należy ją ująć w cudzysłów (np. `"mój plik.txt"`) lub poprzedzić spację znakiem ucieczki (np. `mój\ plik.txt`), inaczej terminal uzna, że podajesz dwa osobne argumenty.
+
+---
+
 ## 🧪 Stacja treningowa: identyfikacja systemu
 
 W tej lekcji dowiesz się, jak sprawnie odczytać tożsamość systemu.

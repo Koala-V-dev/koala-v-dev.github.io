@@ -1,17 +1,17 @@
-# 🏆 Wielki Finał: Wyzwania Mistrza Bitów
+# Wielki finał: wyzwania mistrza bitów
 
-Przeszedłeś przez dwa moduły. Poznałeś systemy liczbowe, bity, bajty, arytmetykę binarną, liczby ujemne, kodowanie znaków i wiele więcej. Czas sprawdzić, czy naprawdę to **czujesz** — nie jako teorię, ale jako narzędzie.
+Gratulacje - dotarłeś do końca pierwszego modułu. Poznałeś systemy pozycyjne, operacje na bitach, arytmetykę dwójkową, kodowanie liczb ujemnych w systemie U2 oraz reprezentację tekstu za pomocą ASCII i UTF-8. Czas sprawdzić, jak te koncepcje przekładają się na praktyczną pracę.
 
-Każde wyzwanie poniżej to **brama**. Otrzymasz tylko powierzchowne podpowiedzi. Żadnego „zgadywania w nieskończoność". Albo wiesz, albo wracasz do lekcji.&nbsp;😈
+Poniższe wyzwania to krótkie zadania sprawdzające Twoje zrozumienie tematu. Rozwiąż je wszystkie, aby potwierdzić opanowanie materiału z Modułu 1.
 
 ---
 
-## 🎨 Wyzwanie 1: Kolory w Matrixie
+## 🎨 Punkt kontrolny: Kolory w Matrixie
 
 <data-gate>
   <data-quiz>
     <question>
-Grafik przysyła Ci kolor CSS: `#FF8800`. Ile dziesiętnie wynosi składowa Zielona (Green) tego koloru? Pamiętaj: format to `#RRGGBB`.
+Grafik przesyła w specyfikacji kolor zapisany w formacie CSS: `#FF8800`. Ile wynosi dziesiętna wartość składowej zielonej (Green) tego koloru? Pamiętaj, że format zapisu to `#RRGGBB`.
     </question>
     <options>
       <option>255</option>
@@ -20,68 +20,69 @@ Grafik przysyła Ci kolor CSS: `#FF8800`. Ile dziesiętnie wynosi składowa Ziel
       <option>88</option>
     </options>
     <div data-hint="error">
-      Znajdź które znaki hex odpowiadają zielonemu, a potem użyj wag:  
-      pierwszy znak $\cdot 16^{\text{waga}}$ + drugi znak $\cdot 16^{\text{waga}}$.  
-      Wagi to indexy bitów. Pamietasz jak to było w binarce? Wagi $2^3, 2^2, 2^1, 2^0$. 
+      Znajdź dwie cyfry hex odpowiadające za kolor zielony (GG). Następnie przelicz wartość `88` z systemu szesnastkowego na dziesiętny: $8 \cdot 16^1 + 8 \cdot 16^0$.
     </div>
     <div data-hint="success">
-      Właśnie dekodowałeś kolor jak prawdziwy frontend developer! 🎨 Każdy kolor CSS to trzy bajty Hex — Red, Green, Blue. Teraz gdy zobaczysz `#FF8800` w kodzie, od razu wiesz, że to pomarańczowy z pełnym czerwonym, 136/255 zielonym i zerowym niebieskim. To wiedza, którą używa się **codziennie** w web developmencie! 🌐
+      Znakomicie! Każdy kolor w formacie CSS to trzy bajty szesnastkowe odpowiadające kolejno za czerwień (Red), zieleń (Green) i niebieski (Blue). Zapis `#FF8800` oznacza pełną intensywność czerwieni ($255_{10}$), średnią zieleni ($136_{10}$) i brak koloru niebieskiego. Ta wiedza jest przydatna na co dzień w pracy z interfejsami webowymi.
     </div>
   </data-quiz>
 </data-gate>
 
-## 🔢 Wyzwanie 2: Indeksowanie od Zera
+---
+
+## 🔢 Punkt kontrolny: Indeksowanie od zera
 
 <data-gate>
   <data-quiz>
     <question>
-Programista mówi: „Element jest na indeksie $3$". Który to element **po kolei** w tablicy, jeśli indeksowanie zaczyna się od $0$?
+Programista informuje, że poszukiwany element w tablicy znajduje się pod indeksem $3$. Który to element z kolei, jeżeli indeksowanie tablicy rozpoczyna się od zera ($0$)?
     </question>
     <options>
-      <option>Trzeci</option>
-      <option correct>Czwarty</option>
-      <option>Piąty</option>
+      <option>trzeci</option>
+      <option correct>czwarty</option>
+      <option>piąty</option>
     </options>
     <div data-hint="error">
-      Indeksy zaczynają się od $0$! Indeks $0$ = pierwszy, indeks $1$ = drugi, indeks $2$ = trzeci, indeks $3$ = ...?
+      Indeksy zaczynają się od zera: indeks $0$ to pierwszy element, indeks $1$ to drugi, indeks $2$ to trzeci, a indeks $3$ to...
     </div>
     <div data-hint="success">
-      Bingo! 🎯 Indeksowanie od zera to fundament CAŁEGO programowania. Tablice, stringi, piksele na ekranie — wszystko startuje od $0$. Właśnie dlatego uczyłeś się pozycji bitów od $0$ w mnożeniu i dzieleniu. To ta sama koncepcja! To jeden z tych momentów, gdzie „binarny fundament" staje się „programistycznym nawykiem". 🧠
+      Doskonale! Indeksowanie od zera to fundamentalna zasada w architekturze komputerów i językach programowania. Od zera liczymy pozycje bitów w rejestrach, indeksy elementów w tablicach oraz znaki w łańcuchach tekstowych.
     </div>
   </data-quiz>
 </data-gate>
 
-## 🔓 Wyzwanie 3: Uprawnienia Linuxa
+---
+
+## 🐧 Punkt kontrolny: Uprawnienia w systemach Linux
 
 <data-gate>
   <data-quiz>
     <question>
-Pamietasz że w systemie Linux komenda `chmod` ustawia uprawnienia.  
-Liczba $7_8$ w systemie ósemkowym to binarnie `111`. Ile uprawnień (Read, Write, Execute) daje wartość $7_8$?
+W systemie Linux uprawnienia do plików konfiguruje się m.in. za pomocą kodów ósemkowych. Liczba $7_8$ to binarnie `111`. Ile różnych praw dostępu (odczyt, zapis, wykonanie) nadaje ta wartość?
     </question>
     <options>
-      <option>Tylko 1 — pełny dostęp</option>
-      <option>2 — odczyt i zapis</option>
-      <option correct>3 — wszystkie: odczyt, zapis i wykonanie</option>
+      <option>tylko jedno - pełny dostęp</option>
+      <option>dwa - odczyt i zapis</option>
+      <option correct>trzy - odczyt, zapis oraz wykonanie</option>
     </options>
     <div data-hint="error">
-      Każdy bit to jedno uprawnienie: `1` = tak, `0` = nie.  
-      Trzy pozycje to po kolei: **R**ead, **W**rite, e**X**ecute. 
+      Każdy bit w trzybitowym ciągu reprezentuje jedno uprawnienie (od lewej do prawej): Read (odczyt), Write (zapis), Execute (wykonanie). Bit ustawiony na `1` włącza dane uprawnienie.
     </div>
     <div data-hint="success">
-      Tak jest! `rwx` = `111` = $7_8$. Teraz rozumiesz, dlaczego administratorzy serwerów mówią „daj mu 755" — to skrót binarny zapisany w systemie ósemkowym! 🐧 Właściciel dostaje `7` (rwx), grupa `5` (r-x), reszta `5` (r-x). Eleganckie, prawda?
+      Dokładnie tak! Wartość $7_8$ (`111` binarnie) aktywuje wszystkie trzy prawa dostępu (Read, Write, Execute). Stąd bierze się popularne polecenie administratorów `chmod 755` - daje ono właścicielowi pełne prawa ($7_8 = 111$), a grupie i pozostałym użytkownikom jedynie odczyt i wykonanie ($5_8 = 101$).
     </div>
   </data-quiz>
 </data-gate>
 
-## 🕶️ Wyzwanie 4: Czytanie Matrixa
+---
+
+## 🕶️ Punkt kontrolny: Czytanie Matrixa
 
 <data-gate>
   <data-quiz>
     <question>
-Przechwycono transmisję sieciową. Oto bajty w Hex: `48 45 4C 4C 4F`.  
-Korzystając z poniższych fragmentów z tablicy ASCII, co widzisz?  
-[ `4C`=_**L**_, `4F`=_**O**_, `43`=_**C**_, `48`=_**H**_, `45`=_**E**_  ]
+Podczas analizy ruchu sieciowego przechwycono następujący ciąg bajtów w systemie szesnastkowym: `48 45 4C 4C 4F`. Korzystając z wycinka tablicy ASCII, zdekoduj ukryte słowo.
+[ `4C` = L, `4F` = O, `48` = H, `45` = E ]
     </question>
     <options>
       <option>HELL</option>
@@ -89,32 +90,36 @@ Korzystając z poniższych fragmentów z tablicy ASCII, co widzisz?
       <option>HELP</option>
     </options>
     <div data-hint="error">
-      Skorzystaj z tablicy ASCII podanej w pytaniu. Każdy bajt Hex to jeden znak. Policz ile masz bajtów i przetłumacz je po kolei.
+      Przetłumacz każdy z pięciu bajtów szesnastkowych po kolei na odpowiednią literę z podanego zestawu.
     </div>
     <div data-hint="success">
-      Widzisz Matrixa! 🕶️ To dokładnie tak działają narzędzia do analizy pakietów sieciowych (Wireshark), debuggery i hex edytory. Programiści i hakerzy czytają surowe bajty na co dzień. Ty właśnie dołączyłeś do tego klubu! 💻🔥
+      Brawo! Umiejętność czytania surowych bajtów i kodów szesnastkowych jest niezbędna przy debugowaniu aplikacji, analizie pakietów sieciowych w programach takich jak Wireshark oraz podczas niskopoziomowej analizy bezpieczeństwa.
     </div>
   </data-quiz>
 </data-gate>
 
-## 🧮 Wyzwanie 5: Potęga Dwójki
+---
+
+## 🧮 Stacja treningowa: Potęga dwójki
 
 <data-gate>
   <data-number-system base="2" digits="8">
 
 > [!TIP]
-> Binarny jak zegarek! ⏱️ Czy wiesz, że ten sam mechanizm wag, którego właśnie użyłeś, jest w **każdym przetwornikowi ADC** w mikrofonach, kamerach i czujnikach? Twój telefon zamienia dźwięk na bity dokładnie tą metodą. 🎤➡️🔢
+> Algorytm sumowania wag pozycji binarnych leży u podstaw działania przetworników analogowo-cyfrowych (ADC). To te układy zamieniają fale dźwiękowe z mikrofonu czy obraz z matrycy aparatu na bity przechowywane w pamięci urządzenia.
 
   </data-number-system>
 </data-gate>
 
-## ➕ Wyzwanie 6: Arytmetyka Pod Presją
+---
+
+## ⚡ Stacja treningowa: Arytmetyka pod presją
 
 <data-gate>
   <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
 
 > [!TIP]
-> Dodawanie binarne to serce procesora! ⚡ Dosłownie **każda** operacja w komputerze (nawet wyświetlanie tej strony) sprowadza się do miliardów takich dodawań na sekundę. Właśnie wykonałeś ręcznie to, co CPU robi 4 miliardy razy na sekundę. Szacun! 🦾
+> Dodawanie binarne to podstawowa funkcja realizowana przez procesor. Wszystkie bardziej skomplikowane operacje programistyczne na najniższym poziomie sprowadzają się do milionów takich elementarnych sumowań na sekundę.
 
 </data-gate>
 
@@ -122,26 +127,30 @@ Korzystając z poniższych fragmentów z tablicy ASCII, co widzisz?
   <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
 
 > [!TIP]
-> Fun fact: procesor nie ma osobnego układu do odejmowania! Zamienia odjemnik na U2 (Invert + 1) i... dodaje. Tak, Twoje odejmowanie to tak naprawdę sprytne dodawanie. Mind = blown 🤯
+> Ciekawostka: procesor nie posiada fizycznego, osobnego układu do odejmowania. Zamiast tego zamienia odjemnik na jego reprezentację w kodzie U2 (negacja bitów i dodanie 1), a następnie wykonuje zwykłe dodawanie.
 
 </data-gate>
 
-## 💎 Wyzwanie 7: Hex Jak Zawodowiec
+---
+
+## 💎 Stacja treningowa: Hex jak zawodowiec
 
 <data-gate>
   <data-arithmetic-challenge base="16" operation="+"></data-arithmetic-challenge>
 
 > [!TIP]
-> Hex dodawanie? W jednej ręce! 💎 Gdy będziesz debugował crash dump, analizował firmware mikrokontrolera, albo ręcznie edytował bajty pliku w hex edytorze — ta umiejętność będzie Twoim supermocą. 🦸
+> Sprawne dodawanie w systemie szesnastkowym pozwala szybko orientować się w zrzutach pamięci (crash dumps) oraz analizować adresy wskaźników podczas profilowania wydajności aplikacji.
 
 </data-gate>
 
-## 🌑 Wyzwanie 8: Notacja U2
+---
+
+## 🌑 Punkt kontrolny: Notacja U2
 
 <data-gate>
   <data-quiz>
     <question>
-W 8-bitowym systemie U2 ciąg `1000 0000` reprezentuje:
+W 8-bitowym systemie kodowania liczb ze znakiem (U2), jaka wartość dziesiętna odpowiada ciągowi bitów `1000 0000`?
     </question>
     <options>
       <option>128</option>
@@ -150,47 +159,48 @@ W 8-bitowym systemie U2 ciąg `1000 0000` reprezentuje:
       <option>0</option>
     </options>
     <div data-hint="error">
-      W U2 najbardziej lewy bit ma wagę **ujemną**. Tutaj tylko jeden bit jest zapalony.  
-      Pomyśl który to i jaką ma wartość dziesiętnie?
+      Pamiętaj, że w systemie U2 najbardziej lewy bit (MSB) ma wagę ujemną. Dla formatu 8-bitowego waga ta wynosi $-128$. Pozostałe bity to zera.
     </div>
     <div data-hint="success">
-      System U2 nie ma dla Ciebie tajemnic!🎓
+      Świetnie! Najbardziej lewy bit na pozycji 7 ma wagę $-128_{10}$. Ponieważ jest to jedyny ustawiony bit w tym ciągu, cała liczba reprezentuje dolną granicę zakresu 8-bitowego systemu U2.
     </div>
   </data-quiz>
 </data-gate>
 
 ---
 
-## 🎓 Certyfikat Mistrza Bitów
+## 🎉 Certyfikat mistrza bitów
 
-**Gratulacje!** 🎉🎊🏆
+Wykazałeś się praktycznym zrozumieniem fundamentów działania komputera. Zamiast uczenia się reguł na pamięć, rozumiesz mechanizmy kryjące się za reprezentacją danych liczbowych i tekstowych.
 
-Właśnie udowodniłeś, że rozumiesz **fundamenty informatyki** — nie na pamięć, ale mechanicznie. Wiesz, jak procesor liczy, jak zapisuje minus, jak kolory stają się bajtami i jak surowe dane zamieniają się w tekst.
+Wiedza ta ma charakter uniwersalny. Podczas gdy języki programowania i frameworki zmieniają się regularnie, podstawowe zasady kodowania danych i arytmetyki binarnej pozostają niezmienne od początku ery komputerów osobistych.
 
-To wiedza, która **nie starzeje się**. Języki programowania przychodzą i odchodzą, frameworki zmieniają się co sezon, ale bity, bajty i systemy liczbowe pozostają **niezmienne od 70 lat**.
+### Przegląd zdobytych umiejętności
 
-### Co umiesz?
+| Umiejętność                            | Praktyczne zastosowanie w inżynierii                           |
+| :------------------------------------- | :------------------------------------------------------------- |
+| Konwersje baz liczbowych (Bin/Oct/Hex) | Analiza protokołów sieciowych, edycja plików binarnych         |
+| Arytmetyka binarna i szesnastkowa      | Projektowanie algorytmów, optymalizacja kodu źródłowego        |
+| Zapis liczb ujemnych w systemie U2     | Unikanie błędów przepełnienia (overflow)                       |
+| Kodowanie znaków (ASCII/UTF-8)         | Przetwarzanie plików tekstowych, internacjonalizacja aplikacji |
+| Wykorzystanie potęg dwójki             | Zarządzanie pamięcią podręczną, planowanie struktur danych     |
 
-| Umiejętność | Gdzie to wykorzystasz? |
-| :--- | :--- |
-| Konwersje systemów (Bin/Oct/Hex) | Debugowanie, analiza pakietów, low-level programming |
-| Arytmetyka binarna (+, −, ×, ÷) | Rozumienie CPU, optymalizacja, algorytmy |
-| System U2 (liczby ujemne) | Typy danych w C/C++/Java, overflow bugs |
-| Arytmetyka Oct/Hex | Uprawnienia Linux, kody kolorów, adresy pamięci |
-| ASCII i kodowanie znaków | Przetwarzanie tekstu, protokoły sieciowe, kryptografia |
-| Potęgi dwójki i zakresy | Projektowanie baz danych, alokacja pamięci |
+### Gdzie wykorzystasz tę wiedzę?
 
-### Dokąd dalej? 🗺️
+Zrozumienie niskopoziomowych fundamentów ułatwia naukę w dowolnym obszarze IT:
 
-Twoje binarne fundamenty otwierają **wszystkie ścieżki** w informatyce:
-
-- 🖥️ **Systemy i Sprzęt** — jak procesor wykonuje instrukcje
-- 🌐 **Sieci** — jak dane podróżują przez internet
-- 🎮 **Programowanie** — Desktop, Web, Gaming, Embedded
-- 🎨 **Grafika** — 2D i 3D, shadery, rendering
-- 🔒 **Cyberbezpieczeństwo** — kryptografia, reverse engineering
-- ⚙️ **DevOps** — automatyzacja, konteneryzacja, CI/CD
-
-**Wybierz swoją ścieżkę!** 🚀
+- 🖥️ **Architektura komputerów** - analiza sposobu wykonywania instrukcji przez rdzenie CPU.
+- 🌐 **Inżynieria sieciowa** - optymalizacja przesyłu pakietów przez protokoły sieciowe.
+- 🔌 **Systemy wbudowane (Embedded)** - bezpośrednie programowanie rejestrów mikrokontrolerów.
+- 🎨 **Grafika komputerowa** - operacje na kolorach, shaderach i strukturach buforów ekranu.
+- 🔒 **Cyberbezpieczeństwo** - analiza kodu maszynowego i badanie podatności oprogramowania.
+- ⚙️ **Infrastruktura i DevOps** - zarządzanie uprawnieniami systemowymi i konfiguracja serwerów.
 
 ---
+
+### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tego modułu:
+
+- Komputery reprezentują wszystkie typy danych (liczby, litery, kolory, instrukcje) za pomocą stanów logicznych $0$ i $1$.
+- Systemy ósemkowy (Octal) i szesnastkowy (Hexadecimal) to darmowe w przeliczeniu sprzętowym skróty zapisu binarnego, które grupują bity odpowiednio po 3 i 4.
+- Ujemny znak liczby jest uzyskiwany w sprzęcie poprzez przypisanie ujemnej wagi do najbardziej znaczącego bitu (MSB) w notacji U2.
+- Współczesny Internet opiera się na kodowaniu UTF-8, które płynnie łączy oszczędność pamięci ASCII dla podstawowych znaków z możliwością zapisu dowolnego symbolu na świecie za pomocą sekwencji wielobajtowych.

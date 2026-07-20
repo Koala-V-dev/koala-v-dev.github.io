@@ -1,0 +1,1 @@
+import{U as i}from"./TouchGestureService-D8veQte4.js";class c{static enableApplicationMode(t,{labelledBy:a=null,describedBy:r=null}={}){return t?(i.setAttribute(t,"role","application"),i.setAttribute(t,"data-widget-interaction-mode","application"),a&&i.setAttribute(t,"aria-labelledby",a),r&&i.setAttribute(t,"aria-describedby",r),t):null}}export{c as W};

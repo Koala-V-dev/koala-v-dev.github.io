@@ -1,299 +1,330 @@
-# 🧮 Arytmetyka Binarna
+# Arytmetyka binarna
 
-Matematyka, której uczysz się w szkole, jest nieskończona — zawsze możesz dodać kolejną cyfrę, a z lewej strony masz nieskończoną ilość *zer wiodących*, których nie musimy zapisywać. Ale technologia komputerowa jest **deterministyczna i skończona**. Procesor operuje na **pudełkach o sztywnym rozmiarze**, które mają swoje nieprzekraczalne limity.
+Matematyka, której uczysz się w szkole, jest nieskończona. Zawsze możesz dodać kolejną cyfrę z lewej strony w postaci zer wiodących. Technologia komputerowa jest jednak skończona i deterministyczna. Procesor operuje na rejestrach o sztywnym rozmiarze, które mają swoje nieprzekraczalne limity.
+
+W tym module skupimy się na standardzie *16-bitowym* (typ `short` stosowany np. w języku C++). Mieści on dokładnie $2^{16} = 65\ 536$ kombinacji. Jest to limit przestrzeni liczbowej dla tego typu danych.
 
 ---
 
-My skupimy się na standardzie **16-bitowym** (typ `short` stosowany np. w C++). Mieści on dokładnie $2^{16} = 65536$ kombinacji. To nasze maksimum, z którego liczby nie mogą uciec.
-
-## ➕ Dodawanie z mechanizmem "Przeniesienia"
+## ➕ Dodawanie z mechanizmem przeniesienia
 
 Dodawanie binarne opiera się na prostych regułach:
 
-| Działanie | Wynik | 
-| :---: | :---: |
-| $0 + 0$ | **$0$** |
-| $0 + 1$ | **$1$** |
-| $1 + 0$ | **$1$** |
+| Działanie |  Wynik  |
+| :-------: | :-----: |
+|  $0 + 0$  | **$0$** |
+|  $0 + 1$  | **$1$** |
+|  $1 + 0$  | **$1$** |
 
- Problem pojawia się wtedy, gdy suma jedynek w kolumnie wynosi $2$ lub $3$. Wtedy następuje **przeniesienie** do kolejnej pozycji, zupełnie jak w dodawaniu słupkowym, gdy suma przekracza $9$ dla systemu dziesiętnego (decymalnego).
+Problem pojawia się wtedy, gdy suma jedynek w kolumnie wynosi $2$ lub $3$. Wtedy następuje _**przeniesienie**_ (ang. *carry*) do kolejnej pozycji po lewej stronie, analogicznie do dodawania pisemnego w systemie dziesiętnym, gdy suma cyfr w kolumnie przekracza $9$.
 
-| Suma w kolumnie | Wynik | Nowe Przeniesienie |
-| :--- | :---: | :---: |
-| $1 + 1$ | **$0$** | **$1$** dla kolejnej kolumny po lewej |
+| Suma w kolumnie                   |  Wynik  |          Nowe przeniesienie           |
+| :-------------------------------- | :-----: | :-----------------------------------: |
+| $1 + 1$                           | **$0$** | **$1$** dla kolejnej kolumny po lewej |
 | $1 + 1 +$ *$1$ (z przeniesienia)* | **$1$** | **$1$** dla kolejnej kolumny po lewej |
 | $0 + 1 +$ *$1$ (z przeniesienia)* | **$0$** | **$1$** dla kolejnej kolumny po lewej |
 
 ---
 
-**Przykład (3 + 1):**
+**Przykład dodawania ($3 + 1$):**
 
-| Przeniesienie | <span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Tu masz 1 z przeładowania w poprzedniej kolumnie po prawej. &#10;Patrzysz, czy tym razem też zajdzie przeładowanie. &#10;W tym przypadku kolumna nie zawiera choćby jednej jedynki, aby nastąpiło przeładowanie, więc skoro 0+0=0, to wystarczy przepisać jedynkę z poprzedniego przeładowania.">$1$</span> | <span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Tu masz 1 z przeładowania w poprzedniej kolumnie po prawej. &#10;Patrzysz, czy tym razem też zajdzie przeładowanie. &#10;Jak w tej kolumnie występuje jedynka, to masz kolejne przeładowanie i teraz to przeładowanie da ci operację 0 + druga wartość, która może być 0 albo 1 i ją przepisujesz jako wynik sumy. &#10;Poniżej widzisz, że zabierając jedynkę do przeładowania, masz ostateczne działanie 0+0, więc wynik to 0 i jedynka do przeniesienia, bo było przeładowanie.">$1$</span> | <span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Poniżej widzisz sumę 1 i 1, więc do kolejnej kolumny przenosisz przeładowaną wartość (1), a w wyniku zapisujesz zresetowany licznik (0)">←</span> |
-| :--- | :---: | :---: | :---: |
-| **Składnik A $(3)_{10}$** | $0$ | $1$ | $1$ |
-| **Składnik B $(1)_{10}$** | $0$ | $0$ | $1$ |
-| **Wynik $(4)_{10}$** | **$1$** | **$0$** | **$0$** |
-
+| Przeniesienie             | <span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Dodajemy 0 i 0 oraz przeniesienie 1 z poprzedniej kolumny. Wynik wynosi 1, nie generując kolejnego przeniesienia." aria-label="Dodajemy 0 i 0 oraz przeniesienie 1 z poprzedniej kolumny. Wynik wynosi 1, nie generując kolejnego przeniesienia.">$1$</span> | <span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Mamy cyfry 1 i 0 oraz przeniesienie 1 z poprzedniej kolumny. Ich suma wynosi 2 (binarnie 10). Wpisujemy 0 w wyniku, a nową 1 przenosimy dalej w lewo." aria-label="Mamy cyfry 1 i 0 oraz przeniesienie 1 z poprzedniej kolumny. Ich suma wynosi 2 (binarnie 10). Wpisujemy 0 w wyniku, a nową 1 przenosimy dalej w lewo.">$1$</span> | <span style="color: var(--task-italic-color);font-size: 20px;display: block;height: 30px;" title="Suma w tej kolumnie wynosi 2 (binarnie 10). Wpisujemy 0 w wyniku, a 1 przenosimy do kolejnej kolumny po lewej." aria-label="Suma w tej kolumnie wynosi 2 (binarnie 10). Wpisujemy 0 w wyniku, a 1 przenosimy do kolejnej kolumny po lewej.">←</span> |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Składnik A $(3)_{10}$** |                                                                                                                                                                              $0$                                                                                                                                                                               |                                                                                                                                                                                                                  $1$                                                                                                                                                                                                                   |                                                                                                                                                                          $1$                                                                                                                                                                           |
+| **Składnik B $(1)_{10}$** |                                                                                                                                                                              $0$                                                                                                                                                                               |                                                                                                                                                                                                                  $0$                                                                                                                                                                                                                   |                                                                                                                                                                          $1$                                                                                                                                                                           |
+| **Wynik $(4)_{10}$**      |                                                                                                                                                                            **$1$**                                                                                                                                                                             |                                                                                                                                                                                                                **$0$**                                                                                                                                                                                                                 |                                                                                                                                                                        **$0$**                                                                                                                                                                         |
 
 <data-gate>
   <data-arithmetic-challenge base="2" operation="+"></data-arithmetic-challenge>
 </data-gate>
 
+---
 
-## ➖ Odejmowanie: Reguła "Niwelowania i Cofania"
+## ➖ Odejmowanie: reguła „niwelowania i cofania”
 
-Odejmowanie binarne, podobnie jak dziesiętne, opiera się na procesie pożyczania. Najskuteczniejszym sposobem na zrozumienie tego procesu jest **Reguła Niwelowania i Cofania**. 
+Odejmowanie w dowolnym pozycyjnym systemie liczbowym o bazie $B$, podobnie jak w systemie dziesiętnym, opiera się na pożyczaniu wartości od lewego sąsiada. Najwygodniejszym i uniwersalnym sposobem na zrozumienie tego procesu jest _**reguła niwelowania i cofania**_. Działa ona niezależnie od bazy systemu (dwójkowej, ósemkowej, dziesiętnej czy szesnastkowej) i eliminuje potrzebę skomplikowanego dodawania bazy w pamięci.
 
 > [!IMPORTANT]
-> Mechanizm ten uruchamia się **wyłącznie wtedy, gdy od cyfry mniejszej odejmujesz większą ($y < x$)**. Jeśli $y \ge x$, odejmowanie jest bezpośrednie i nie generuje długu.
+> Mechanizm pożyczki uruchamia się **_wyłącznie wtedy, gdy od cyfry mniejszej odejmujesz większą ($y < x$)_**.
+> Jeśli cyfra odjemnej jest większa lub równa cyfrze odjemnika ($y \ge x$), odejmowanie wykonujemy bezpośrednio bez generowania długu.
 
-### Jak to działa? (Pełny proces obsługi długu)
-Spójrzmy na mechanizm w systemie dziesiętnym, opierając się na zestawie znaków ($0$-$9$), czyli naszym **Liczniku**:
+### 💡 Ogólna zasada działania reguły
 
-**Przykład A (_$125 - 7$_):**
-1. **Jedności**: $5 - 7$. Ponieważ $5 < 7$, niwelujemy część wspólną ($5$), zostaje *$2$ długu*.
-2. **Cofanie & Paradoks Pożyczki**: Aby spłacić to $2$, musimy "cofnąć" licznik o jedną pozycję (pożyczka od sąsiada). Sąsiad bierze "rachunek" za przeskok (1) na siebie. To paradoks: pożyczka od sąsiada **zmniejsza** nasz lokalny dług, bo opłaca koszt przeskoku z $0$ na $9$.
-3. **Reszta długu**: Po opłaceniu kosztu przeskoku, nasz pozostały dług wynosi już tylko $1$ ($2 - 1 = 1$).
-4. **Wynik jedności**: Licznik wskazuje $9$ (nowa pozycja). Odejmujemy resztę długu ($9 - 1$). Wynik: _**$8$**_.
-5. **Dziesiątki**: Mieliśmy $2$. Spłacamy sąsiadowi koszt Vouchera za przeskok ($2 - 1$). Wynik: _**$1$**_.
-6. **Rachunek końcowy**: _**118**_.
+Każdą pozycję liczbową możemy traktować jak *licznik* o ograniczonym zestawie znaków (od $0$ do $B - 1$, gdzie $B$ to baza systemu). Gdy od cyfry $y$ odejmujemy większą cyfrę $x$:
 
----
-
-**Przykład B (_$48 - 19$_):**
-1. **Jedności**: $8 - 9$. Niwelujemy część wspólną ($8$), zostaje *$1$ długu*.
-2. **Cofanie & Paradoks**: Pożyczka od sąsiada (1) w całości opłaca koszt przeskoku licznika (1). 
-3. **Reszta długu**: Cały dług spłacony ($1 - 1 = 0$).
-4. **Wynik jedności**: Licznik po przeskoku wskazuje $9$. Brak reszty długu. Wynik: _**$9$**_.
-5. **Dziesiątki**: Mamy $4$. Najpierw regulujemy zadłużenie za pożyczkę ("Voucher") dla jedności ($4 - 1 = 3$). Teraz odejmujemy cyfrę $1$ (z części dziesiętnej liczby $19$). Wynik: _**$2$**_.
-6. **Rachunek końcowy**: _**29**_.
+1. **Niwelowanie**: Sprowadzasz cyfrę na danej pozycji do $0$, zużywając część odejmowanej wartości. Pozostała część tworzy Twój lokalny dług: $d = x - y$.
+2. **Cofanie (Pożyczka)**: Aby spłacić dług $d$, pożyczasz $1$ od sąsiada po lewej stronie (co pomniejszy jego wartość o $1$). Ta pożyczka powoduje cofnięcie („przekręcenie”) Twojego lokalnego licznika wstecz — z $0$ na maksymalny znak w danym systemie ($B - 1$).
+3. **Koszt przeskoku (Paradoks pożyczki)**: Przejście licznika wstecz z $0$ na $B - 1$ odpowiada wykonaniu dokładnie jednego kroku wstecz. Ten krok zmniejsza Twój lokalny dług o $1$. Pozostały dług do spłacenia to teraz: $d_{pozostały} = d - 1$.
+4. **Wynik pozycji**: Ostateczną cyfrą wyniku na tej pozycji jest maksymalny znak systemu pomniejszony o pozostały dług: $(B - 1) - d_{pozostały}$.
 
 ---
 
-W systemie binarnym (zestaw znaków $0$-$1$) mechanizm jest identyczny. Cofnięcie licznika (przeskok z $0$ na $1$) zawsze spłaca dokładnie *$1$ długu*.
+### 🔟 Przykład A: System dziesiętny (Baza $B=10$, znaki $0$-$9$)
+
+Rozważmy odejmowanie $125 - 7$:
+
+1. **Jedności ($5 - 7$)**: Ponieważ $5 < 7$, niwelujemy część wspólną ($5$), co daje nam dług $d = 7 - 5 = 2$.
+2. **Pożyczka (Cofanie)**: Pożyczamy $1$ od dziesiątek. Nasz lokalny licznik cofa się z $0$ na maksymalną cyfrę $9$.
+3. **Koszt przeskoku**: Cofnięcie na $9$ spłaca $1$ jednostkę długu. Pozostały dług wynosi $2 - 1 = 1$.
+4. **Wynik jedności**: Od ustawionego licznika ($9$) odejmujemy pozostały dług ($1$): $9 - 1 = \mathbf{8}$.
+5. **Dziesiątki**: Początkowa cyfra dziesiątek ($2$) została pomniejszona o udzieloną pożyczkę ($2 - 1 = 1$). Odejmujemy: $1 - 0 = \mathbf{1}$.
+6. **Setki**: Pozostają bez zmian: $1 - 0 = \mathbf{1}$.
+7. **Wynik końcowy**: $118$.
 
 ---
 
-**Reguły bezpośrednie (Brak długu z prawej):**
-| Działanie | Wynik | Komentarz |
-| :--- | :---: | :--- |
-| $0$ - $0$ | **$0$** | - |
-| $1$ - $1$ | **$0$** | - |
-| $1$ - $0$ | **$1$** | - |
-| $0$ - $1$ | **$1$** | Niweluję $0$, zostaje $1$ długu. Licznik cofa się na $1$, co przenosi dług na sąsiada z lewej. |
+### 🎨 Przykład B: System szesnastkowy (Baza $B=16$, znaki $0$-$F$)
+
+Rozważmy odejmowanie $\text{A}5_{16} - \text{D}_{16}$ (gdzie $\text{A}_{16} = 10_{10}$, $\text{D}_{16} = 13_{10}$, a maksymalny znak to $\text{F}_{16} = 15_{10}$):
+
+1. **Pozycja 0 ($5 - \text{D}$)**: Ponieważ $5 < 13$, niwelujemy część wspólną ($5$), co daje nam dług $d = 13 - 5 = 8$.
+2. **Pożyczka (Cofanie)**: Pożyczamy $1$ od lewego sąsiada (znak $\text{A}$ staje się $9$). Nasz lokalny licznik cofa się z $0$ na maksymalny znak $\text{F}$.
+3. **Koszt przeskoku**: Cofnięcie na $\text{F}$ spłaca $1$ jednostkę długu. Pozostały dług wynosi $8 - 1 = 7$.
+4. **Wynik pozycji 0**: Od znaku $\text{F}$ ($15_{10}$) odejmujemy pozostały dług ($7$): $15 - 7 = 8 \rightarrow \mathbf{8}$.
+5. **Pozycja 1**: Cyfra $\text{A}$ po udzieleniu pożyczki to teraz $9$. Odejmujemy: $9 - 0 = \mathbf{9}$.
+6. **Wynik końcowy**: $98_{16}$.
 
 ---
 
-A skoro w ostatnim przypadku ($0-1$) wygenerował się dług dla sąsiada, to popatrz na reguły gry dla zadłużonych. 
+### 💾 Przykład C: System binarny (Baza $B=2$, znaki $0$-$1$)
 
-**Reguły z długiem (Gdy kolumna otrzymała dług z prawej):**
-W tej tabeli najpierw spłacamy "dług przychodzący", a potem sprawdzamy, czy sami musimy pożyczyć od sąsiada z lewej.
+W systemie dwójkowym zasada jest identyczna. Cofnięcie licznika wstecz z $0$ na maksymalną cyfrę $1$ zawsze spłaca dokładnie $1$ jednostkę długu.
 
-| Działanie | Wynik | Czy tworzy nowy dług dla lewego sąsiada? |
-| :--- | :---: | :--- |
-| $0$ - $0$ **(- dług $1$)** | **$1$** | **TAK** (Cofam licznik na $1$, co spłaca dług) |
-| $1$ - $0$ **(- dług $1$)** | **$0$** | **NIE** (1 niweluje dług 1, zostaje 0) |
-| $0$ - $1$ **(- dług $1$)** | **$0$** | **TAK** (Niweluję 0, spłacam długu 1. Brakło na odejmowanie 1!) |
-| $1$ - $1$ **(- dług $1$)** | **$1$** | **TAK** (1 niweluje 1. Zostaje dług 1. Cofam licznik na 1) |
+**Reguły bezpośrednie (bez pożyczania):**
+| Działanie |  Wynik  |
+| :-------: | :-----: |
+|  $0 - 0$  | **$0$** |
+|  $1 - 1$  | **$0$** |
+|  $1 - 0$  | **$1$** |
+
+**Działanie z długiem ($0 - 1$):**
+Niwelujemy $0$, co daje dług $d = 1$. Pożyczka od sąsiada z lewej cofa nasz licznik na $1$. Koszt przeskoku wynosi $1$, co spłaca nasz dług w całości ($1 - 1 = 0$ pozostałego długu). Wynik na tej pozycji to **$1$**, a sąsiad z lewej otrzymuje dług do spłacenia.
+
+**Reguły dla kolumny, która otrzymała przychodzący dług z prawej strony:**
+Najpierw spłacamy przychodzący dług, a potem wykonujemy właściwe odejmowanie:
+
+| Działanie                                                          | Wynik | Czy tworzy nowy dług dla lewego sąsiada?                                                                                                                               |
+| :----------------------------------------------------------------- | :---: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <span style="text-wrap:nowrap">$0$ - $0$ _**(- dług $1$)**_</span> | *$1$* | **TAK** (Wykonujemy $0 - 1$. Dług wynosi $1$. Pożyczamy od sąsiada, cofa licznik na 1. Dług spłacony. Wynik 1)                                                         |
+| <span style="text-wrap:nowrap">$1$ - $0$ _**(- dług $1$)**_</span> | *$0$* | **_NIE_** (Mamy $1$ i spłacamy dług $1$. Wynik 0)                                                                                                                      |
+| <span style="text-wrap:nowrap">$0$ - $1$ _**(- dług $1$)**_</span> | *$0$* | **TAK** (Niwelujemy $0$, spłacamy przychodzący dług $1$. Zostaje do odjęcia dolne 1. Dług wynosi 1. Pożyczamy, licznik cofa się na 1. Odejmujemy dolne $1$: wynik $0$) |
+| <span style="text-wrap:nowrap">$1$ - $1$ _**(- dług $1$)**_</span> | *$1$* | **TAK** (Lokalne $1$ spłaca dług $1$. Zostaje odjęcie dolnego 1 od 0. Wykonujemy $0 - 1$. Wynik 1, generuje dług w lewo)                                               |
 
 > [!TIP]
-> **W skrócie: Ściąga dla Długu**
-> - Jeśli bit = **0** i musisz odjąć **1** → bierzesz pożyczkę → wynik **1**, dług idzie w lewo.
-> - Jeśli bit = **1** i masz dług (1) → spłacasz go → wynik **0**, dług wygasa.
-> - Jeśli bit = **0** i masz dług (1) → bierzesz pożyczkę, by spłacić dług → wynik **1**, dług idzie w lewo.
+> _**Ściąga dla długu w systemie binarnym**_
+> - Jeśli masz *0* i musisz odjąć *1* $\rightarrow$ bierzesz pożyczkę $\rightarrow$ wynik **1**, dług idzie w lewo.
+> - Jeśli masz *1* i przychodzi dług (*1*) $\rightarrow$ spłacasz go $\rightarrow$ wynik **0**, dług wygasa.
+> - Jeśli masz *0* i przychodzi dług (*1*) $\rightarrow$ pożyczasz od sąsiada, aby spłacić dług $\rightarrow$ wynik **1**, dług idzie w lewo.
 
-### Co gdy brakuje sąsiada? (Wynik Ujemny)
-Zauważ, że opisane reguły działają idealnie, dopóki masz "kogoś po lewej", kto może opłacić Twój Voucher na skok w tył licznika. Ale co, gdy $2 - 3$ 🤔?
+### ⚠️ Przepełnienie przy wynikach ujemnych
 
-Wtedy ostatnia jedynka po lewej nie istnieje, by spłacić dług. Procesor musi "przekręcić" wszystkie licznik 🤯, co w świecie bitów oznacza wejście w obszar **liczb ujemnych** (U2). Ale o tym w następnej lekcji 😉.
+Opisane reguły działają idealnie, dopóki po lewej stronie znajduje się pozycja, z której można zapożyczyć wartość. W przypadku próby wykonania działania dającego wynik ujemny (np. $2 - 3$), ostatni dług po lewej stronie nie ma skąd zostać spłacony. W skończonej architekturze procesora prowadzi to do przepełnienia i wejścia w obszar liczb ujemnych (zapis U2), o czym powiemy w kolejnej lekcji.
 
 ---
 
-**Przykład (4 − 1):**
-Analiza operacji $100 - 001$ ($4 - 1$). Dług wędruje przez kolumny, aż trafi na jedynkę, która może go spłacić.
+**Przykład odejmowania ($4 - 1$):**
 
-| Stan długu | <span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Ostatnia faza. Tu dokonujesz odejmowania 1 - 0. Widzisz z poprzednich obliczeń, że twój prawy sąsiad zarzucił na ten róg dług wynoszący 1. Posiadasz jednak do dyspozycji natywne 1 na starcie. Twój zasób jest w stanie opłacić zadaną karę. Spłacasz kwotę długu 1 posiadając swój punkt 1, i pozostajesz z wartością 0 na koncie. Rozliczywszy się, kończysz działanie kolumny wedle wzoru: od Twojego zostawionego 0 schodzi dolne odjęcie równe 0, zejściem tego jest wymiar 0. Koniec długu.">❌</span> | <span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Kolejna kolumna, w której robisz 0 - 0. Zauważasz jednak, że na kolumnie spoczywa też 1 przejętego długu, który zrzuciła wcześniejsza iteracja obok z prawej. Aby spłacić 1 nie mając własnego stanu na liczniku, ponownie zmuszony jesteś rzucić ten ciążący dług z wynoszącą kwotą 1, powielając ten stan w lewo. Sam rzut na kolejnego sąsiada pozwala na cofnięcie sprzętowo licznika do tyłu, wracając oknem cyklu z 0 na pozycję 1. Krok ujęty tą operacją usuwa wymiar Twojego pierwotnego długu wynoszącego okrągłe 1. Skoro zaległość została spłacona w całości u manewru - od odnowionego na 1 progu odejmujesz bazowe wskazywane na spodzie kolumny 0. Przerzucasz na dół wynik tego odcinka: 1.">✅</span> | <span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Patrzysz na bieżącą kolumnę od prawej strony. Masz polecenie zrzucenia wartości 1 domyślnie startując na 0. Od mniejszej idziesz ku górze na mniejszą, czyli musisz ugiąć i cofnąć licznik. W tym celu bez wahania wymuszasz u następnego lewego sąsiada wygenerowanie przypisanego Ci długu o wymiarze 1. Zabieg ten uiszcza Ci pożądaną odgórną zgodę, i uwarunkowanie do wykonania pełnego cofnięcia we własnym liczniku na dół poniżej kółka podłoża, do cyfry 1. Przez odrzucenia wspólnego pułapu (0) Twoja wartość długu szacuje się na skromne 1. Dodatkowo sam zwrot licznika pod 0 niszczy z racjonalizacji zeszłą cząstkę wymiaru. Zostają z długów uległe okrągłe 0 do obsłużenia długu na czysto, tak wobec tego – od cofniętego licznika zatrzymanego za kółkiem na 1 zrzucasz opór 0. Ostateczny wynik zapisywany z ramienia w pierwszej kolumnie ląduje zrzutem 1.">✅</span> |
-| :--- | :---: | :---: | :---: |
-| **Odjemna (4)** | 1 | 0 | 0 |
-| **Odjemnik (1)** | 0 | 0 | 1 |
-| **Wynik (3)** | **0** | **1** | **1** |
+| Stan długu       | <span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Mamy 1 - 0, ale spłacamy przychodzący dług 1. Wykonujemy 1 - 1 = 0. Brak nowego długu, wynik: 0.">❌</span> | <span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Mamy 0 - 0, ale spłacamy przychodzący dług 1. Działanie to 0 - 1. Dług wynosi 1. Pożyczamy od sąsiada (generujemy dług w lewo), co przekręca licznik do 1. Koszt przeskoku spłaca dług. Wynik: 1.">✅</span> | <span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Odejmujemy 1 od 0. Dług wynosi 1. Pożyczamy od sąsiada (generujemy dług w lewo), co przekręca nasz licznik do 1. Koszt przeskoku spłaca dług (1 - 1 = 0 pozostałego długu). Wynik: 1.">✅</span> |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Odjemna (4)**  |                                                                                                       1                                                                                                        |                                                                                                                                                        0                                                                                                                                                        |                                                                                                                                                  0                                                                                                                                                  |
+| **Odjemnik (1)** |                                                                                                       0                                                                                                        |                                                                                                                                                        0                                                                                                                                                        |                                                                                                                                                  1                                                                                                                                                  |
+| **Wynik (3)**    |                                                                                                     **0**                                                                                                      |                                                                                                                                                      **1**                                                                                                                                                      |                                                                                                                                                **1**                                                                                                                                                |
 
 <data-gate>
   <data-arithmetic-challenge base="2" operation="-"></data-arithmetic-challenge>
 </data-gate>
 
-## ✖️ Mnożenie: Reguła "Pozycja = Ilość Zer"
+---
 
-Mnożenie w procesorze to ściśle zdefiniowana procedura przesunięć. Cała logika opiera się na **Indeksie Pozycji** (liczonym od $0$ z prawej strony).
+## ✖️ Mnożenie: przesunięcie bitowe i sumowanie
 
-### Twarda Reguła (Shift Rule)
-Spójrz na dolną liczbę (mnożnik). Numer pozycji, na której znajdziesz `1`, mówi Ci dokładnie, ile zer dopisujesz do liczby górnej (mnożnej). Pamiętaj – pozycje liczymy od zera, patrząc od prawej strony!
+Mnożenie w procesorze opiera się na dwóch głównych regułach: podstawowych zasadach mnożenia pojedynczych bitów oraz regule przesunięcia bitowego w lewo (ang. *bit-shift*) wraz z sumowaniem częściowych wyników.
 
-| Pozycja| 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Zapis binarny mnożnej | `0` | `0` | `0` | `1` | `1` | `0` | `1` | `1` |
-| Zapis binarny mnożnika | `0` | `0` | `0` | **`1`** | `0` | **`1`** | **`1`** | **`1`** |
+### 1️⃣ Pierwsza reguła: mnożenie pojedynczych bitów
 
-> [!IMPORTANT]
-> Przesunięcie w mnożeniu opiera się na zdefiniowaniu ilości dopisywania zer do mnożnej względem pozycji, na której stoi jedynka w dolnej liczbie. 
+Mnożenie pojedynczych bitów jest bardzo proste i działa identycznie jak w systemie dziesiętnym:
 
-👉 **Wizualizacja przesunięcia (Bit-Shift):**
-Wyobraź sobie, że mnożenie to "popychanie" liczby w lewo — dopisujesz zera na końcu:
+|  Działanie   |  Wynik  |
+| :----------: | :-----: |
+| $0 \times 0$ | **$0$** |
+| $0 \times 1$ | **$0$** |
+| $1 \times 0$ | **$0$** |
+| $1 \times 1$ | **$1$** |
 
-| Mnożna | Pozycja jedynki | Shift | Wynik |
-| :---: | :---: | :---: | :---: |
-| `11011` | $0$ | $\xleftarrow{0}$ | `11011` |
-| `11011` | $1$ | $\xleftarrow{1}$ | `11011`**`0`** |
-| `11011` | $2$ | $\xleftarrow{2}$ | `11011`**`00`** |
+### 2️⃣ Druga reguła: przesunięcie bitowe (Shift Rule)
+
+Mnożenie większych liczb w procesorze opiera się na operacjach przesunięcia bitowego w lewo. Cała logika bazuje na _**indeksie pozycji**_ bitów mnożnika (liczonym od $0$ z prawej strony).
+
+Spójrz na dolną liczbę (mnożnik). Numer pozycji, na której znajduje się cyfra $1$, określa dokładnie, ile zer dopisujesz na końcu liczby górnej (mnożnej).
+
+| Pozycja                    |   7   |   6   |   5   |    4    |   3   |    2    |    1    |    0    |
+| :------------------------- | :---: | :---: | :---: | :-----: | :---: | :-----: | :-----: | :-----: |
+| **Zapis binarny mnożnej**  |  `0`  |  `0`  |  `0`  |   `1`   |  `1`  |   `0`   |   `1`   |   `1`   |
+| **Zapis binarny mnożnika** |  `0`  |  `0`  |  `0`  | **`1`** |  `0`  | **`1`** | **`1`** | **`1`** |
+
+**Wizualizacja przesunięcia (mnożna `11011`):**
+Mechanicznie mnożenie polega na przesuwaniu liczby w lewo i dopisywaniu zer na jej końcu:
+- Dla bitu na pozycji $0$ (mnożenie przez $2^0 = 1$): brak przesunięcia $\rightarrow$ `11011`
+- Dla bitu na pozycji $1$ (mnożenie przez $2^1 = 2$): przesunięcie o 1 miejsce $\rightarrow$ `110110`
+- Dla bitu na pozycji $2$ (mnożenie przez $2^2 = 4$): przesunięcie o 2 miejsca $\rightarrow$ `1101100`
 
 ---
 
-Dla powyższego przykładu patrzymy najpierw na mnożnik `0001 0111` i widzimy że jedynki występują na pozycjach $0, 1, 2$ i $4$. Zatem uzyskamy cztery przesunięcia i cztery wartości do zsumowania. 
+Przeanalizujmy pomnożenie liczb `0001 1011` przez `0001 0111`. W mnożniku jedynki występują na pozycjach $0$, $1$, $2$ oraz $4$. Generuje to cztery przesunięte wartości pośrednie:
 
-| Pozycja | Wartość mnożnika | Operacja | Wynik mnożnej po przesunieciu do późniejszego zsumowania|
-| :---: | :---: | :---: | :---: |
-| $0$ | `1` | *__$0001\text{ }1011 \xleftarrow{0}$__* | **$0001\text{ }1011$** |
-| $1$ | `1` | *__$0001\text{ }1011 \xleftarrow{1}$__* | **$0011\text{ }011$_$0$_** |
-| $2$ | `1` | *__$0001\text{ }1011 \xleftarrow{2}$__* | **$0110\text{ }11$_$00$_** |
-| $3$ | `0` | *__$0001\text{ }1011 \xleftarrow{3}$__* | *$0000\text{ }0000$* |
-| $4$ | `1` | *__$0001\text{ }1011 \xleftarrow{4}$__* | **$0001\text{ }1011\text{ }$_$0000$_** |
-| $5$ | `0` | *__$0001\text{ }1011 \xleftarrow{5}$__* | *$0000\text{ }0000$* |
-| $6$ | `0` | *__$0001\text{ }1011 \xleftarrow{6}$__* | *$0000\text{ }0000$* |
-| $7$ | `0` | *__$0001\text{ }1011 \xleftarrow{7}$__* | *$0000\text{ }0000$* |
+| Pozycja | Wartość mnożnika |      Operacja przesunięcia       |    Wynik pośredni    |
+| :-----: | :--------------: | :------------------------------: | :------------------: |
+|   $0$   |       `1`        |   `0001 1011` bez przesunięcia   |   **`0001 1011`**    |
+|   $1$   |       `1`        |   `0001 1011` przesunięte o 1    |   **`0011 0110`**    |
+|   $2$   |       `1`        |   `0001 1011` przesunięte o 2    |   **`0110 1100`**    |
+|   $3$   |       `0`        | brak operacji (mnożenie przez 0) |     `0000 0000`      |
+|   $4$   |       `1`        |   `0001 1011` przesunięte o 4    | **`0001 1011 0000`** |
 
-W powyższej tabeli dokonaliśmy przesunięcia w lewo o ilość względem pozycji każdego bitu mnożnej.  
-Dla wartości zerowych mnożnika chodź operacja przesunięcia występuje to jej wynik może zostać zignorowany ponieważ matematycznie mnożenie przez zero daje zero. 
-
-Więc ostatecznie mamy cztery wartości do przeprowadzenia trzech operacji dodawania:
+Wyniki zerowe pomijamy w sumowaniu. Ostateczny wynik otrzymujemy przez zsumowanie czterech wartości pośrednich:
 
 1. _**$0001\text{ }1011$**_ + *$0011\text{ }0110$* = `0101 0001`
-|| | | | | | | | |
-|---|---|---|---|---|---|---|---|---|
-| |**`0`** | **`0`** | **`0`** | **`1`** | **`1`** | **`0`** | **`1`** | **`1`**|
-| + |_`0`_ | _`0`_ | _`1`_ | _`1`_ | _`0`_ | _`1`_ | _`1`_ | _`0`_|
-|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|
-| |`0` | `1` | `0` | `1` | `0` | `0` | `0` | `1`|
-2. Wynik poprzedniej opercaji dodawania → _**$0101\text{ }0001$**_ + *$0110\text{ }1100$* = `1011 1101`
-|| | | | | | | | |
-|---|---|---|---|---|---|---|---|---|
-| |**`0`** | **`1`** | **`0`** | **`1`** | **`0`** | **`0`** | **`0`** | **`1`**|
-| + | _`0`_ | _`1`_ | _`1`_ | _`0`_ | _`1`_ | _`1`_ | _`0`_ | _`0`_|
-|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|
-| |`1` | `0` | `1` | `1` | `1` | `1` | `0` | `1`|
+
+|      |         |           |           |           |           |           |         |         |
+| ---- | ------- | --------- | --------- | --------- | --------- | --------- | ------- | ------- |
+|      |         | **_`1`_** | **_`1`_** | **_`1`_** | **_`1`_** | **_`1`_** |         |         |
+|      | **`0`** | **`0`**   | **`0`**   | **`1`**   | **`1`**   | **`0`**   | **`1`** | **`1`** |
+| +    | _`0`_   | _`0`_     | _`1`_     | _`1`_     | _`0`_     | _`1`_     | _`1`_   | _`0`_   |
+| <hr> | <hr>    | <hr>      | <hr>      | <hr>      | <hr>      | <hr>      | <hr>    | <hr>    |
+|      | `0`     | `1`       | `0`       | `1`       | `0`       | `0`       | `0`     | `1`     |
+
+2. Wynik poprzedniej operacji dodawania → _**$0101\text{ }0001$**_ + *$0110\text{ }1100$* = `1011 1101`
+
+|      |           |         |         |         |         |         |         |         |
+| ---- | --------- | ------- | ------- | ------- | ------- | ------- | ------- | ------- |
+|      | **_`1`_** |         |         |         |         |         |         |         |
+|      | **`0`**   | **`1`** | **`0`** | **`1`** | **`0`** | **`0`** | **`0`** | **`1`** |
+| +    | _`0`_     | _`1`_   | _`1`_   | _`0`_   | _`1`_   | _`1`_   | _`0`_   | _`0`_   |
+| <hr> | <hr>      | <hr>    | <hr>    | <hr>    | <hr>    | <hr>    | <hr>    | <hr>    |
+|      | `1`       | `0`     | `1`     | `1`     | `1`     | `1`     | `0`     | `1`     |
+
 3. Wynik poprzedniej operacji dodawania → _**$1011\text{ }1101$**_ + *$0001\text{ }1011\text{ }0000$* = `0010 0110 1101`
-|| | | | | | | | | | |
-|---|---|---|---|---|---|---|---|---|---|---|
-| | | | **`1`** | **`0`** | **`1`** | **`1`** | **`1`** | **`1`** | **`0`** | **`1`** |
-| + | | _`1`_ | _`1`_ | _`0`_ | _`1`_ | _`1`_ | _`0`_ | _`0`_ | _`0`_ | _`0`_ |
-|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|<hr>|
-| | `1` | `0` | `0` | `1` | `1` | `0` | `1` | `1` | `0` | `1` |
+ 
+|      |           |           |         |           |           |         |         |         |         |         |
+| ---- | --------- | --------- | ------- | --------- | --------- | ------- | ------- | ------- | ------- | ------- |
+|      | **_`1`_** | **_`1`_** |         | **_`1`_** | **_`1`_** |         |         |         |         |         |
+|      |           |           | **`1`** | **`0`**   | **`1`**   | **`1`** | **`1`** | **`1`** | **`0`** | **`1`** |
+| +    |           | _`1`_     | _`1`_   | _`0`_     | _`1`_     | _`1`_   | _`0`_   | _`0`_   | _`0`_   | _`0`_   |
+| <hr> | <hr>      | <hr>      | <hr>    | <hr>      | <hr>      | <hr>    | <hr>    | <hr>    | <hr>    | <hr>    |
+|      | `1`       | `0`       | `0`     | `1`       | `1`       | `0`     | `1`     | `1`     | `0`     | `1`     |
 
 ---
-
-To podejście działa zawsze i dla każdej liczby. Procesor po prostu "skanuje" bity mnożnika i dla każdej jedynki generuje odpowiednio przesuniętą wersję liczby, a na końcu wszystko sumuje. ⚡
 
 <data-gate>
   <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
 </data-gate>
 
 ---
+
+### 💡 Alternatywna metoda konwersji
 
 Alternatywnie, skoro komputer aby coś obliczyć musi to przekonwertować pierw na zapis binarny i potem wynik zwrócić człowiekowi w zapisie dziesiętnym to Ty możesz zrobić podobnie.
 
-Mając do pomnożenia liczby binarne `0001 1011` i `0001 0111`, dokonaj pierw konwersji i przeprowadź operację mnożenia w systemie dziesiętnym by na koniec wynik spowrotem przekonwertować na zapis binarny.
+Mając do pomnożenia liczby binarne `0001 1011` i `0001 0111`, dokonaj pierw konwersji i przeprowadź operację mnożenia w systemie dziesiętnym by na koniec wynik z powrotem przekonwertować na zapis binarny.
 
-- `0001 1011` to $27$
-- `0001 0111` to $23$
-- $27\cdot23 = 621$
-- Przekonwertuj wynik spowrotem do zapisu binarnego czyli: `0010 0110 1101`
+- `0001 1011` $\rightarrow$ $27_{10}$
+- `0001 0111` $\rightarrow$ $23_{10}$
+- $27 \times 23 = 621_{10}$
+- Konwersja $621_{10}$ na postać binarną daje wynik: `0010 0110 1101`
 
 <data-gate>
   <data-arithmetic-challenge base="2" operation="*"></data-arithmetic-challenge>
 </data-gate>
 
-## ➗ Dzielenie: Skanowanie po Indeksach
+---
 
-Dzielenie binarne to proces sprawdzania, które przesunięcia dzielnika "mieszczą się" w naszej liczbie. Wyobraź sobie dzielnik jako **szablon** (stempel), który przesuwasz nad dzielną, szukając miejsca na kolejne "wycięcie" (odejmowanie).
+## ➗ Dzielenie: skanowanie po indeksach
 
-### Reguła Przewagi (Czy szablon pasuje?)
-Zanim zaczniesz wycinać, procesor mechanicznie sprawdza "czy góra ma przewagę":
-1. **Długość**: Liczba z większą ilością cyfr (bez *zer wiodących*) zawsze wygrywa (np. `101` > `11`).
-2. **Pierwszy różny bit**: Jeśli są równe, o zwycięstwie decyduje pierwsza różnica od lewej (**1** > **0**).
+Dzielenie binarne polega na sprawdzaniu, które przesunięcia dzielnika mieszczą się w dzielnej. Dzielnik służy jako _**szablon**_ (stempel), który przesuwamy nad dzielną w poszukiwaniu miejsca na kolejne odejmowanie.
+
+### 🎯 Reguła przewagi (Czy szablon pasuje?)
+
+Zanim zaczniesz wycinać, procesor mechanicznie sprawdza, czy dzielna w danym przedziale ma przewagę nad dzielnikiem:
+1. **Długość**: Liczba z większą liczbą cyfr (bez zer wiodących) zawsze wygrywa (np. `101` > `11`).
+2. **Pierwszy różny bit**: Jeśli długości są równe, o zwycięstwie decyduje pierwszy różniący się bit od lewej strony ($1 > 0$).
 
 > [!TIP]
-> **Głowa i Ogon**: W informatyce stosujemy nomenklaturę, że maksymalnie lewy znak w fragmencie tekstu to **Głowa** (_**head**_), a maksymalnie prawy znak w tym fragmencie to **Ogon** (_**tail**_). 😉 
+> _**Głowa i Ogon**_
+> Inżynierowie systemowi stosują nazewnictwo, w którym skrajnie lewy znak w fragmencie to _**Głowa**_ (*head*), a skrajnie prawy to _**Ogon**_ (*tail*). Pozycja, na której ląduje _**Ogon**_ szablonu pod dzielną, wskazuje dokładnie indeks bitu wyniku, który w danej chwili wyliczasz.
 
-### Przykład: Skanowanie krok po kroku (22 ÷ 5)
-Dzielimy $22$ przez $5$. Nasz szablon to `101`. Sprawdzamy wszystkie pozycje, zaczynając od największej możliwej:
+### ✂️ Przykład dzielenia ($22 \div 5$)
+
+Dzielimy liczbę $22$ (`10110`) przez $5$ (`101`). Nasz szablon to `101`. Sprawdzamy wszystkie pozycje, zaczynając od największego możliwego przesunięcia:
 
 #### Krok 1: Pierwsza przymiarka
-Kładziemy szablon tak, aby jego **Głowa** była maksymalnie na lewo pod dzielną i widzimy że **Ogon** jest na **indeksie $2$**. 
+Kładziemy szablon tak, aby jego _**Głowa**_ była maksymalnie po lewej stronie pod dzielną. Widzimy, że _**Ogon**_ szablonu znajduje się na _**indeksie $2$**_.
 
-| Indeksy   | $4$ | $3$ | $2$ | $1$ | $0$ | Opis |
-| :---      |:-:|:-:|:-:|:-:|:-:| :--- |
-| **Dzielna**| `1` | `0` | `1` | `1` | `0` | Wartość początkowa|
-| **Szablon**| **`1`** | **`0`** | **`1`** | _`0`_ | _`0`_ | **Ogon na indeksie $2$** |
-| <hr> |<hr> |<hr> |<hr> |<hr> |<hr> |<hr> |
-| **Wynik**  | `0` | `0` | `1` | `?` | `?` | Aktualny wynik po poniższych operacjach. |
+| Indeksy     |    4    |    3    |    2    |   1   |   0   | Opis                                                        |
+| :---------- | :-----: | :-----: | :-----: | :---: | :---: | :---------------------------------------------------------- |
+| **Dzielna** |   `1`   |   `0`   |   `1`   |  `1`  |  `0`  | Wartość początkowa                                          |
+| **Szablon** | **`1`** | **`0`** | **`1`** | _`0`_ | _`0`_ | **Ogon na indeksie $2$** (szablon przesunięty o $2$ w lewo) |
+| <hr>        |  <hr>   |  <hr>   |  <hr>   | <hr>  | <hr>  | <hr>                                                        |
+| **Wynik**   |   `0`   |   `0`   |   `1`   |  `?`  |  `?`  | Aktualny wynik na tym etapie                                |
 
-Zobacz na te zera w szablonie. Musimy je dopisać, bo przesunęliśmy nasz szablon o *2*.
-
-- **Decyzja**: Czy Góra ma przewagę (`0001 0110` $\geq$ `0001 0100`)? **TAK**!
-- **Wynik**: Na indeksie $2$ gdzie znajduje się ogon wpisujesz pod nim _**$1$**_.
-- **Reszta**: Odejmujesz `0001 0110` $-$ `0001 0100` $=$ `0000 0010`. To Twój nowy cel dla kolejnych kroków.
+Dopisane na końcu zera w szablonie wynikają z przesunięcia go o dwa miejsca w lewo.
+- *Decyzja*: Czy dzielna ma przewagę nad przesuniętym szablonem (`10110` $\ge$ `10100`)? **TAK**.
+- **Wynik**: Na indeksie $2$ (gdzie leży ogon szablonu) wpisujemy **$1$**.
+- **_Nowa reszta_**: Odejmujemy `10110` - `10100` = `00010`. To nasz cel w kolejnym kroku.
 
 #### Krok 2: Druga przymiarka
-Przesuwamy szablon o jedno miejsce w prawo. Teraz jego **Ogon** ląduje na **indeksie $1$**.
+Przesuwamy szablon o jedno miejsce w prawo. Teraz jego _**Ogon**_ ląduje na _**indeksie $1$**_.
 
-| Indeksy   | $4$ | $3$ | $2$ | $1$ | $0$ | Opis |
-| :---      |:-:|:-:|:-:|:-:|:-:| :--- |
-| **Reszta** |   | `0`  |  `0` | `1` | `0` | Reszta z poprzedniego odejmowania |
-| **Szablon**|   | **`1`** | **`0`** | **`1`** | _`0`_ | **Ogon na indeksie $1$** |
-| <hr> |<hr> |<hr> |<hr> |<hr> |<hr> |<hr> |
-| **Wynik**  | `0` | `0` | `1` | `0` | `?` | Aktualny wynik po poniższych operacjach. |
+| Indeksy     |   4   |    3    |    2    |    1    |   0   | Opis                                                        |
+| :---------- | :---: | :-----: | :-----: | :-----: | :---: | :---------------------------------------------------------- |
+| **Reszta**  |       |   `0`   |   `0`   |   `1`   |  `0`  | Reszta z poprzedniego kroku                                 |
+| **Szablon** |       | **`1`** | **`0`** | **`1`** | _`0`_ | **Ogon na indeksie $1$** (szablon przesunięty o $1$ w lewo) |
+| <hr>        | <hr>  |  <hr>   |  <hr>   |  <hr>   | <hr>  | <hr>                                                        |
+| **Wynik**   |  `0`  |   `0`   |   `1`   |   `0`   |  `?`  | Aktualny wynik na tym etapie                                |
 
-- **Decyzja**: Czy Góra (reszta `0010`) ma przewagę nad Szablonem (`1010`)? **NIE**.
-- **Wynik**: Na indeksie $1$ wyniku wpisujesz _**$0$**_.
-- **Reszta**: Bez zmian, nadal masz **`10`**.
+- *Decyzja*: Czy reszta (`0010`) ma przewagę nad przesuniętym szablonem (`1010`)? **_NIE_**.
+- **Wynik**: Na indeksie $1$ wyniku wpisujemy **$0$**.
+- **_Nowa reszta_**: Pozostaje bez zmian (`10`).
 
 #### Krok 3: Trzecia przymiarka
-Kładziemy szablon na ostatnim możliwym miejscu. **Ogon** na **indeksie $0$**.
+Kładziemy szablon na ostatnim możliwym miejscu. _**Ogon**_ ląduje na _**indeksie $0$**_.
 
-| Indeksy   | $4$ | $3$ | $2$ | $1$ | $0$ | Opis |
-| :---      |:-:|:-:|:-:|:-:|:-:| :--- |
-| **Reszta** |   |   | `0`  | `1` | `0` | Reszta z poprzedniego odejmowania |
-| **Szablon**|   |   | **`1`** | **`0`** | **`1`** | **Ogon na indeksie $0$** |
-| <hr> |<hr> |<hr> |<hr> |<hr> |<hr> |<hr> |
-| **Wynik**  | `0` | `0` | `1` | `0` | `0` | Aktualny wynik po poniższych operacjach. |
+| Indeksy     |   4   |   3   |    2    |    1    |    0    | Opis                                                |
+| :---------- | :---: | :---: | :-----: | :-----: | :-----: | :-------------------------------------------------- |
+| **Reszta**  |       |       |   `0`   |   `1`   |   `0`   | Reszta z poprzedniego kroku                         |
+| **Szablon** |       |       | **`1`** | **`0`** | **`1`** | **Ogon na indeksie $0$** (szablon bez przesunięcia) |
+| <hr>        | <hr>  | <hr>  |  <hr>   |  <hr>   |  <hr>   | <hr>                                                |
+| **Wynik**   |  `0`  |  `0`  |   `1`   |   `0`   |   `0`   | Ostateczny wynik działania                          |
 
-- **Decyzja**: Czy Góra (`0010`) ma przewagę nad Szablonem (`101`)? **NIE**.
-- **Wynik**: Na indeksie $0$ wyniku wpisujesz _**$0$**_.
+- *Decyzja*: Czy reszta (`0010`) ma przewagę nad przesuniętym szablonem (`101`)? **_NIE_**.
+- **Wynik**: Na indeksie $0$ wyniku wpisujemy **$0$**.
 
 ---
 
 **Wynik końcowy:**
-- **Iloraz**: `100` (czyli **4**)
-- **Reszta ( % - Modulo)**: `10` (czyli **2**)
+- **Iloraz**: `100` (czyli **$4_{10}$**)
+- **Reszta (operacja modulo %)**: `10` (czyli **$2_{10}$**)
 
 > [!IMPORTANT]
-> To jest czysta mechanika: skanujesz kolejne indeksy, przesuwasz szablon **Ogonem** do pozycji i decydujesz o jednym bicie wyniku.  
-> Po każdym "trafieniu" (1) odejmujesz i pracujesz na mniejszej reszcie.
+> Dzielenie to powtarzalna mechanika: skanujesz kolejne pozycje od lewej do prawej, dopasowując szablon, i na podstawie relacji wielkości (góra $\ge$ dół) decydujesz o wpisaniu kolejnego bitu wyniku (na indeksie, w którym leży ogon szablonu).
 
-**Algorytm Dzielenia w 4 krokach:**
-1. **Ustaw szablon** (dzielnik) maksymalnie w lewo pod dzielną.
-2. **Sprawdź przewagę**: Jeśli góra $\ge$ dół → wpisz **1** w wyniku pod ogonem szablonu i odejmij.
-3. **Brak przewagi?**: Wpisz **0** w wyniku.
-4. **Przesuń szablon** o 1 w prawo i powtarzaj, aż dojdziesz ogonem do indeksu $0$.
+_**Algorytm dzielenia w $4$ krokach:**_
+1. *Ustaw szablon* (dzielnik) maksymalnie po lewej stronie pod dzielną.
+2. *Sprawdź przewagę*: Jeśli góra $\ge$ dół $\rightarrow$ wpisz **$1$** w wyniku na pozycji ogona szablonu i odejmij wartości.
+3. *Brak przewagi?*: Wpisz **$0$** w wyniku na pozycji ogona.
+4. *Przesuń szablon* o $1$ w prawo i powtarzaj proces, aż ogon szablonu osiągnie indeks $0$.
 
 <data-gate>
   <data-arithmetic-challenge base="2" operation="/"></data-arithmetic-challenge>
 </data-gate>
 
-## 🕹️ Symulator Arytmetyki Binarnej
+---
 
-Poniżej masz interaktywny element w którym możesz przetestować wszelkie kombinacje arytmetyczne dwóch liczb szesnastobitowych:
+## 🕹️ Symulator arytmetyki binarnej
+
+Poniżej znajduje się interaktywne narzędzie, w którym możesz przetestować operacje arytmetyczne na dwóch liczbach szesnastobitowych:
 
 <data-binary-arithmetic digits="16" base="2" u2="false"></data-binary-arithmetic>
+
+---
 
 ## 🔒 Operacje arytmetyczne w systemie binarnym
 
@@ -330,3 +361,12 @@ Czas na podsumowanie i sprawdzenie wiedzy w praktyce.
 > Dziel i rządź! 👑
 
 </data-gate>
+
+---
+
+### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
+
+- Dodawanie binarne opiera się na przeniesieniu (carry) wartości do kolejnej kolumny, gdy suma w danej kolumnie wynosi co najmniej $2$.
+- Odejmowanie binarne realizujemy za pomocą uniwersalnej reguły niwelowania i cofania (pożyczania), w której pożyczka od lewego sąsiada cofa licznik na pozycję $B - 1$, zmniejszając lokalny dług o $1$.
+- Mnożenie binarne realizowane jest przez przesunięcia bitowe w lewo o indeks pozycji mnożnika i sumowanie wyników częściowych.
+- Dzielenie binarne to proces sekwencyjnego porównywania fragmentów dzielnej z dzielnikiem (szablonem) i zapisywania bitu wyniku na pozycji ogona szablonu.

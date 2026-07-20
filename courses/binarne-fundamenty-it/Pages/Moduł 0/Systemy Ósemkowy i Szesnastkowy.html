@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Systemy Ósemkowy i Szesnastkowy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Systemy ósemkowy i szesnastkowy</h1>
+<p>Zapis binarny jest idealny dla procesora, ale trudny do szybkiego odczytania przez człowieka. Zapisanie liczby $255$ jako ciągu ośmiu jedynek (<code>11111111</code>) bywa uciążliwe i sprzyja pomyłkom. Z tego powodu informatycy stosują dwa skróty: system ósemkowy (<span class="color-blue">oktalny</span>) oraz szesnastkowy (<span class="color-blue">heksadecymalny</span>).</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>8️⃣ System ósemkowy (oktalny)</h2>
+<p>System ósemkowy wykorzystuje cyfry od <span class="color-green">$0$ do $7$</span>. Każda cyfra ósemkowa reprezentuje dokładnie <span class="color-green">trzy bity</span> informacji.</p>
+<h3>⚙️ Jak działa przeliczanie dwójkowo-ósemkowe?</h3>
+<p>Ponieważ baza systemu ósemkowego ($8$) jest trzecią potęgą dwójki ($2^3 = 8$), konwersja między systemem binarnym a ósemkowym opiera się na prostym grupowaniu bitów po <span class="color-green">trzy</span> (od prawej strony do lewej):</p>
+<ol>
+<li><p><span class="color-green">Z systemu binarnego na ósemkowy</span>:<br>Weźmy liczbę binarną <code>110101</code>. Dzielimy ją na grupy po 3 bity, licząc od prawej:</p>
+<ul>
+<li>Prawa grupa: <code>101</code> (wartość dziesiętna: $1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 = 5$)</li>
+<li>Lewa grupa: <code>110</code> (wartość dziesiętna: $1 \times 2^2 + 1 \times 2^1 + 0 \times 2^0 = 6$)<br>Zapisujemy cyfry obok siebie i otrzymujemy: $65_8$.<blockquote>
+<p>Co gdy mamy wartość <code>11010</code>? Wtedy uzupełniamy zapis o zero wiodące, czyli <code>011010</code> i otrzymujemy $32_8$.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><span class="color-green">Z systemu ósemkowego na binarny</span>:<br>Każdą cyfrę ósemkową rozpisujemy niezależnie na 3 bity. Weźmy liczbę $73_8$:</p>
+<ul>
+<li>Cyfra $7$ to binarnie <code>111</code></li>
+<li>Cyfra $3$ to binarnie <code>011</code> (pamiętamy o zachowaniu wiodącego zera, aby otrzymać dokładnie $3$ bity)<br>Łączymy wyniki w jeden ciąg: $111011_2$.</li>
+</ul>
+</li>
+</ol>
+<h3>🐧 Zastosowanie praktyczne: uprawnienia w systemie Linux</h3>
+<p>Gdy administrator systemu Linux wpisuje polecenie <code>chmod 755 plik.txt</code>, korzysta bezpośrednio z zapisu ósemkowego. Trzy cyfry określają uprawnienia kolejno dla: właściciela pliku, grupy użytkowników oraz pozostałych osób.</p>
+<p>Każda cyfra to suma trzech niezależnych praw (bitów), które mogą być włączone ($1$) lub wyłączone ($0$):</p>
+<ul>
+<li><span class="color-green">Bit odczytu</span> (<code>r</code> — od ang. <span class="color-blue">read</span>) o wadze <span class="color-green">$4$</span> ($2^2$ lub binarnie <code>100</code>).</li>
+<li><span class="color-green">Bit zapisu</span> (<code>w</code> — od ang. <span class="color-blue">write</span>) o wadze <span class="color-green">$2$</span> ($2^1$ lub binarnie <code>010</code>).</li>
+<li><span class="color-green">Bit wykonania</span> (<code>x</code> — od ang. <span class="color-blue">execute</span>) o wadze <span class="color-green">$1$</span> ($2^0$ lub binarnie <code>001</code>).</li>
+</ul>
+<p>Suma tych uprawnień tworzy jedną cyfrę ósemkową:</p>
+<ul>
+<li><code>7</code> ($4 + 2 + 1$) oznacza pełne prawa: odczyt, zapis i wykonanie (<code>rwx</code>, binarnie <code>111</code>).</li>
+<li><code>5</code> ($4 + 0 + 1$) oznacza odczyt i wykonanie (<code>r-x</code>, binarnie <code>101</code>).</li>
+</ul>
+<p>Dlatego <code>755</code> oznacza, że właściciel może wszystko a grupa i pozostali mogą go jedynie czytać i uruchamiać.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 System szesnastkowy (heksadecymalny)</h2>
+<p>To najpopularniejszy system zapisu w informatyce. Korzysta z szesnastu znaków: cyfr od $0$ do $9$ oraz liter od $A$ do $F$, które odpowiadają wartościom dziesiętnym od $10$ do $15$:</p>
+<ul>
+<li>$A = 10$</li>
+<li>$B = 11$</li>
+<li>$C = 12$</li>
+<li>$D = 13$</li>
+<li>$E = 14$</li>
+<li>$F = 15$</li>
+</ul>
+<p>Jeden znak szesnastkowy (nazywany skrótowo <span class="color-green">HEX</span>) odpowiada dokładnie <span class="color-green">czterem bitom</span> (półbajtowi, czyli nazywanym w żargonie <span class="color-blue">nibble</span>). Dzięki temu jeden bajt (osiem bitów) można zapisać za pomocą zaledwie dwóch cyfr szesnastkowych (np. zapis <code>FF</code> reprezentuje bajt o wartości <code>1111 1111</code>).</p>
+<h3>⚙️ Jak działa przeliczanie dwójkowo-szesnastkowe?</h3>
+<p>Baza systemu szesnastkowego ($16$) to czwarta potęga dwójki ($2^4 = 16$). Konwersja polega na grupowaniu bitów po <span class="color-green">cztery</span> (od prawej do lewej):</p>
+<ol>
+<li><p><span class="color-green">Z systemu binarnego na szesnastkowy</span>:<br>Weźmy liczbę binarną <code>1110101</code>. Dzielimy ją na grupy po $4$ bity od prawej (w razie potrzeby dopełniając lewą stronę zerami wiodącymi):</p>
+<ul>
+<li>Prawa grupa: <code>0101</code> (wartość dziesiętna: $5$)</li>
+<li>Lewa grupa (uzupełniona zerem wiodącym): <code>0111</code> (wartość dziesiętna: $7$)<br>Otrzymujemy zapis szesnastkowy: $75_{16}$.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Z systemu szesnastkowego na binarny</span>:<br>Każdą cyfrę szesnastkową rozpisujemy na $4$ bity. Przekonwertujmy liczbę $A3_{16}$:</p>
+<ul>
+<li>Znak $A$ (wartość $10$) to binarnie <code>1010</code></li>
+<li>Cyfra $3$ (wartość $3$) to binarnie <code>0011</code> (zawsze pełne $4$ bity)<br>Łączymy wyniki w jeden ciąg: $10100011_2$.</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">HEX</th>
+<th align="center">Binarnie</th>
+<th align="center">Dziesiętnie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0001</code></td>
+<td align="center">$1$</td>
+</tr>
+<tr>
+<td align="center"><code>9</code></td>
+<td align="center"><code>1001</code></td>
+<td align="center">$9$</td>
+</tr>
+<tr>
+<td align="center"><code>A</code></td>
+<td align="center"><code>1010</code></td>
+<td align="center">$10$</td>
+</tr>
+<tr>
+<td align="center"><code>F</code></td>
+<td align="center"><code>1111</code></td>
+<td align="center">$15$</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Warto pamiętać, że znak <code>F</code> nie jest po prostu synonimem liczby piętnaście. Reprezentuje on wartość piętnaście w systemie dziesiętnym ($15_{10}$). Jeśli jednak przekonwertujemy <code>F</code> na system ósemkowy, otrzymamy zapis $17_8$. Każdy zapis liczbowy ma sens tylko w powiązaniu z bazą swojego systemu.</p>
+
+</div>
+</div><hr>
+<h3>🎨 Kolory w formacie szesnastkowym</h3>
+<p>Najpopularniejszym miejscem codziennego kontaktu z zapisem szesnastkowym jest paleta kolorów <span class="color-box"><span class="R">R</span><span class="G">G</span><span class="B">B</span></span> (skrót od ang. <span class="color-red">Red</span>, <span class="color-green">Green</span>, <span class="color-blue">Blue</span>). Każda barwa na ekranie monitora powstaje z wymieszania trzech składowych o intensywności od $0$ do $255$ (co odpowiada dokładnie jednemu bajtowi zakresu dla każdej składowej).</p>
+<p>Przykładowo, czysty kolor biały (maksymalna intensywność wszystkich trzech składowych) zapisujemy jako:</p>
+<ul>
+<li>RGB: <code>(255, 255, 255)</code></li>
+<li>HEX: <code>#FFFFFF</code> (gdzie <code>FF</code> oznacza maksymalną wartość $255$ dla każdej z trzech składowych)</li>
+</ul>
+<data-gate>
+  <data-quiz>
+    <question><p>Kolor czysty zielony w formacie HEX ma zapis <code>#00FF00</code>. Pierwsze dwa znaki określają barwę czerwoną, kolejne dwa zieloną, a dwa ostatnie niebieską. Ile bajtów zajmuje taki zapis w pamięci?</p>
+</question>
+    <options>
+      <option correct=""><p>3 bajty. Po jednym bajcie dla każdej składowej.</p>
+</option>
+      <option><p>6 bajtów. Bo zapis składa się z 6 znaków.</p>
+</option>
+      <option><p>1 bajt. Ponieważ wszystkie składowe tworzą w efekcie jeden kolor.</p>
+</option>
+    </options>
+
+<div data-hint="error"><p>Pamiętaj, że jeden znak szesnastkowy to cztery bity. Dwa znaki (np. „FF” lub „00”) to osiem bitów, czyli dokładnie jeden bajt. Policz, ile par znaków składa się na zapis „#00FF00”.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Rozwijanie liczb pozycyjnych w dowolnej bazie</h2>
+<p>Aby przeliczyć liczbę z systemu ósemkowego lub szesnastkowego bezpośrednio na system dziesiętny, stosujemy dokładnie tę samą zasadę sumowania wag pozycji, którą poznałeś w pierwszej lekcji. Jedyną różnicą jest podstawa potęgowania (baza).</p>
+<p>Każdą cyfrę mnożymy przez bazę systemu podniesioną do potęgi odpowiadającej jej pozycji (licząc od prawej strony, zaczynając od zera).</p>
+<h3>🀄 Przykład 1: Konwersja z systemu ósemkowego (Base 8)</h3>
+<p>Przeliczmy liczbę $157_8$ na system dziesiętny. Zobaczmy, jak rozkładają się poszczególne pozycje:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Pozycja (Indeks od prawej)</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Cyfra ósemkowa</span></td>
+<td align="center"><span class="color-green">1</span></td>
+<td align="center"><span class="color-green">5</span></td>
+<td align="center"><span class="color-green">7</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Waga pozycji (Mnożnik)</span></td>
+<td align="center">$8^2$ ($64$)</td>
+<td align="center">$8^1$ ($8$)</td>
+<td align="center">$8^0$ ($1$)</td>
+</tr>
+</tbody></table>
+<p>Teraz mnożymy każdą cyfrę przez jej mnożnik i sumujemy wyniki:</p>
+<p>$$\textcolor{#ff0001}{\text{Wartość dziesiętna}} = (1 \times 8^2) + (5 \times 8^1) + (7 \times 8^0)$$<br>$$\textcolor{#ff0001}{\text{Wartość dziesiętna}} = (1 \times 64) + (5 \times 8) + (7 \times 1) = 64 + 40 + 7 = \textcolor{#ff0004}{111}$$</p>
+<h3>🃏 Przykład 2: Konwersja z systemu szesnastkowego (Base 16)</h3>
+<p>Przeliczmy liczbę $1\text{A}_{16}$ na system dziesiętny. Pamiętamy, że litera $\text{A}$ ma wartość $10$:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Pozycja (Indeks od prawej)</th>
+<th align="center">1</th>
+<th align="center">0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Znak szesnastkowy</span></td>
+<td align="center"><span class="color-green">1</span></td>
+<td align="center"><span class="color-green">A</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wartość dziesiętna znaku</span></td>
+<td align="center">$1$</td>
+<td align="center">$10$</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Waga pozycji (Mnożnik)</span></td>
+<td align="center">$16^1$ ($16$)</td>
+<td align="center">$16^0$ ($1$)</td>
+</tr>
+</tbody></table>
+<p>Pomnóżmy wartości przez ich mnożniki i zsumujmy:</p>
+<p>$$\textcolor{#ff0002}{\text{Wartość dziesiętna}} = (1 \times 16^1) + (10 \times 16^0)$$<br>$$\textcolor{#ff0002}{\text{Wartość dziesiętna}} = (1 \times 16) + (10 \times 1) = 16 + 10 = \textcolor{#ff0004}{26}$$</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Stacja treningowa: konwersja systemów liczbowych</h2>
+<p>Przeanalizuj poniższe ćwiczenia i spróbuj samodzielnie dokonać konwersji podanych wartości:</p>
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Czapki z głów! 🎓</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ale ciśniesz! 😎</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>To już jest wyższa szkoła jazdy! 🚗</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jest pompa! 🦾🐨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Wchodzisz na wyższy level! 🚀</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Matematyczna poezja! ✨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Tak się robi robotę! 🔧🔥</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Elegancko to ogarniasz! 🎩</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Liczby tańczą jak im zagrasz! 💃🕺</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>To już prawie sztuka! 🎨</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="8" digits="3">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jesteś jak liczbowy ninja! 🥷</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="16" digits="2">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Mistrzostwo świata! 🏆</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jednak dalej pamiętasz binarkę! 🤯</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<p>Opanowanie konwersji między systemami dwójkowym, ósemkowym i szesnastkowym to kluczowy krok w zrozumieniu, jak procesor komunikuje się z pamięcią. W kolejnych lekcjach przyjrzymy się bliżej strukturze danych i kolejnym operacjom bitowym.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>System ósemkowy (baza 8) grupuje bity po 3, a system szesnastkowy (baza 16) po 4.</li>
+<li>W systemie szesnastkowym wartości od $10$ do $15$ są reprezentowane literami od $A$ do $F$.</li>
+<li>Dwa znaki HEX odpowiadają dokładnie jednemu bajtowi ($8$ bitów), co czyni ten system idealnym m.in. do zapisu kolorów w formacie RGB lub adresów pamięci.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,63 +1,126 @@
-<h2>Podstawy Systemów liczbowych</h2>
-<p>Większość ludzi traktuje liczby jako &quot;po prostu liczby&quot;. W informatyce każda liczba ma swoją <strong>szerokość</strong> i <strong>granicę</strong>. Zanim przejdziemy do zer i jedynek, musimy zrozumieć, co się dzieje, gdy wyczerpiemy pulę dostępnych znaków.</p>
-<h3>🦖 System Dziesiętny: Mechanika Przeniesienia</h3>
-<p>W systemie dziesiętnym (DEC) mamy 10 symboli: $0, 1, 2, 3, 4, 5, 6, 7, 8, 9$. Kiedy dodajemy $1$ do największego symbolu ($9$), następuje <strong>przeniesienie</strong>.</p>
-<p>Spójrz na poniższą tabelę. To jest mechanizm, który znasz z podstawówki, ale spójrz na niego technicznie:</p>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Podstawy Systemów liczbowych - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Podstawy systemów liczbowych</h1>
+<p>Większość ludzi traktuje liczby jako „po prostu liczby”. W informatyce jest inaczej: <strong>każda liczba ma swoją <span class="color-green">szerokość</span> oraz <span class="color-green">granicę</span></strong>. Zanim przejdziemy do zer i jedynek, musimy zobaczyć, co się dzieje, gdy wyczerpiemy pulę dostępnych znaków.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ System dziesiętny: mechanika przeniesienia</h2>
+<p>W systemie dziesiętnym (zwanym również <strong><span class="color-gold">DEC</span></strong> - skrót od <span class="color-blue">decimal</span>) mamy do dyspozycji dziesięć symboli: od $0$ do $9$.<br>Kiedy dodajemy $1$ do największego z nich ($9$), na danej pozycji brakuje miejsca. Wtedy <strong>następuje <span class="color-green">przeniesienie</span> do sąsiedniej kolumny</strong>.</p>
+<p>Spójrz na poniższą tabelę. To mechanizm, który znasz z podstawówki, ale spójrz na niego z perspektywy technicznej:</p>
 <table>
 <thead>
 <tr>
+<th align="center"><span class="color-red">Wynik</span></th>
 <th align="center">Tysiące</th>
 <th align="center">Setki</th>
 <th align="center">Dziesiątki</th>
 <th align="center">Jedności</th>
-<th align="center">Wynik</th>
 </tr>
 </thead>
 <tbody><tr>
+<td align="center"><span class="color-red">$9$</span></td>
 <td align="center"><span style="color: var(--text-muted);">0</span></td>
 <td align="center"><span style="color: var(--text-muted);">0</span></td>
 <td align="center"><span style="color: var(--text-muted);">0</span></td>
-<td align="center">9</td>
-<td align="center"><strong>$9$</strong></td>
+<td align="center">$9$</td>
 </tr>
 <tr>
+<td align="center"><span class="color-red">$10$</span></td>
 <td align="center"><span style="color: var(--text-muted);">0</span></td>
 <td align="center"><span style="color: var(--text-muted);">0</span></td>
-<td align="center">1</td>
-<td align="center">0</td>
-<td align="center"><strong>$10$</strong></td>
+<td align="center">$1$</td>
+<td align="center">$0$</td>
 </tr>
 </tbody></table>
-<p>Gdy kolumna &quot;Jedności&quot; osiąga limit, zeruje się i wysyła sygnał przeniesienia do kolumny po lewej.</p>
-<h3>⚠️ Przepełnienie: Gdy hardware mówi "STOP"</h3>
-<p>W komputerze nie masz nieskończonej ilości kolumn. Jeśli Twój procesor ma system $3$-cyfrowy, to liczba <strong>$999$</strong> jest jego absolutnym sufitem. Co się stanie, gdy dodasz do niej $1$?</p>
-<p>To zależy od tego, jak zaprojektowano sprzęt. W większości przypadków następuje <strong>Overflow</strong> (przepełnienie).</p>
+<p>Gdy kolumna „Jedności” osiąga swój limit, zeruje się i jednocześnie wysyła sygnał przeniesienia do sąsiedniej kolumny po lewej stronie.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Przepełnienie: gdy sprzęt mówi „STOP”</h2>
+<p>W komputerze nie ma miejsca na nieskończoną liczbę kolumn. Każda komórka pamięci ma swoje ograniczenia. Jeśli procesor operuje na liczbach maksymalnie trzycyfrowych, to wartość $999$ jest jego absolutną granicą. Co się stanie, gdy dodasz do niej $1$?</p>
+<p>To zależy od konstrukcji sprzętu. W większości przypadków <strong>następuje wtedy <span class="color-red">przepełnienie</span> (ang. <span class="color-blue">overflow</span>)</strong>.</p>
 <data-gate>
   <data-quiz>
-    <question>
-Mamy fizyczny licznik (jak w starym samochodzie), który ma TYLKO $6$ pól na cyfry. Obecny stan to $999999$. Dodajesz $1$. Jaki będzie FIZYCZNY obraz tego licznika po operacji?
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/tarcza_zegarqa_samochodowego.webp" alt="Tarcza zegara samochodowego" width="612" height="407" class="lazy-image" loading="lazy" decoding="async">
-    </question>
-    <options>
-      <option correct> $000000$. Ponieważ licznik nie ma siódmego pola na kolejną "jedynkę".</option>
-      <option> $1000000$. Licznik magicznie stworzy nową kolumnę, aby pomieścić wynik.</option>
-    </options>
+    <question><p>Jako przykład posłuży nam fizyczny licznik kilometrów w starym samochodzie, który ma tylko $4$ pola na cyfry. Obecny stan to $9999$. Co się stanie, gdy przejedziesz kolejny kilometr i dodasz $1$? Jaki będzie fizyczny stan licznika?</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/tarcza_zegarqa_samochodowego.webp" alt="Tarcza zegara samochodowego" width="640" height="427" class="lazy-image" loading="lazy" decoding="async">
 
-<div data-hint="error">
-  Skup się na słowie "TYLKO $6$ pól". Fizycznie nie widzę tam miejsca na kolejną cyfrę. Co się stanie z bębnami licznika?
+
+<!-- Licencja CC0 serwisu Pexels. Zdjęcie dodane przez Luke Miller: https://www.pexels.com/pl-pl/zdjecie/zblizenie-predkosciomierza-samochodu-zabytkowego-32725800/ -->
+<pre><code>&lt;/question&gt;
+&lt;options&gt;
+  &lt;option&gt;$10000$. powstanie nowa kolumna, aby pomieścić wynik.&lt;/option&gt;
+  &lt;option correct&gt;$0000$. Licznik nie ma piątego pola na kolejną „jedynkę”.&lt;/option&gt;
+&lt;/options&gt;
+</code></pre>
+<div data-hint="error"><p>Skup się na ograniczeniu: licznik ma dokładnie $4$ pola. Nie ma tam miejsca na piątą cyfrę. Co stanie się z bębnami po osiągnięciu maksymalnej wartości?</p>
 </div>
-  </data-quiz>
+<div data-hint="success"><p>Dobrze! Dokładnie tak. W fizycznym świecie mechanizm resetuje się do zera, gdy osiągnie swój limit. W świecie cyfrowym procesor ignoruje dodatkową jedynkę, co jest podstawą działania arytmetyki modularnej. 🎯</p>
+</div></question></data-quiz>
 </data-gate>
 
-<h3>💻 Od 10 do 2: Przeskok Logiczny</h3>
-<p>W systemie binarnym (<strong><em>BIN</em></strong>) mamy tylko $2$ symbole: <code>0</code> i <code>1</code>. Zasada przeniesienia działa identycznie, ale... znacznie częściej.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Od 10 do 2: Przeskok Logiczny</h2>
+<p>W systemie dwójkowym, nazywanym również binarnym (<strong><span class="color-gold">BIN</span></strong>), mamy do dyspozycji tylko dwa symbole: <code>0</code> i <code>1</code>. Zasada przeniesienia działa tu dokładnie tak samo jak w systemie dziesiętnym, ale występuje znacznie częściej.</p>
 <ol>
-<li>Masz <code>0</code>.</li>
-<li>Dodajesz <code>1</code> -&gt; masz <code>1</code>. (Limit osiągnięty!)</li>
-<li>Dodajesz kolejne <code>1</code> -&gt; Jedynka się zeruje (<code>0</code>) i następuje przeniesienie w lewo (<code>1</code>). Wynik: <code>10</code> (co w systemie dziesiętnym oznacza $2$).</li>
+<li>Zaczynasz od wartości <code>0</code>.</li>
+<li>Dodajesz <code>1</code> i otrzymujesz <code>1</code>. To jest maksymalny symbol w tym systemie.</li>
+<li>Gdy dodasz kolejną <code>1</code>, pierwsza pozycja się zeruje (<code>0</code>), a jedynka przechodzi na nową pozycję po lewej (<code>1</code>).<br>Otrzymujesz wynik <code>10</code> (odpowiednik dziesiętnej dwójki).</li>
 </ol>
-<h4>Ćwiczenie: Przesunięcia w Binarnym</h4>
-<p>Spójrz na tabelę i spróbuj samodzielnie &quot;przesunąć&quot; wartości w głowie:</p>
+<hr>
+<h3>🧪 Ćwiczenie: przesunięcia w systemie binarnym</h3>
+<p>Spójrz na poniższe zestawienie i spróbuj przeanalizować te przesunięcia:</p>
 <table>
 <thead>
 <tr>
@@ -67,45 +130,86 @@ Mamy fizyczny licznik (jak w starym samochodzie), który ma TYLKO $6$ pól na cy
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">1</td>
+<td align="center">$1$</td>
 <td align="center"><code>001</code></td>
-<td align="left">Start</td>
+<td align="left">Stan początkowy</td>
 </tr>
 <tr>
-<td align="center">2</td>
+<td align="center">$2$</td>
 <td align="center"><code>010</code></td>
-<td align="left">Przeniesienie z jedności do dwójek</td>
+<td align="left">Przeniesienie na wyższą pozycję</td>
 </tr>
 <tr>
-<td align="center">3</td>
+<td align="center">$3$</td>
 <td align="center"><code>011</code></td>
-<td align="left">Dodanie jedynki</td>
+<td align="left">Zwykłe dodanie jedynki</td>
 </tr>
 <tr>
-<td align="center">4</td>
+<td align="center">$4$</td>
 <td align="center"><code>100</code></td>
-<td align="left">Podwójne przeniesienie!</td>
+<td align="left">Podwójne przeniesienie</td>
 </tr>
 </tbody></table>
 <data-gate>
   <data-quiz>
-    <question>
-Jaka będzie następna liczba binarna po `111`? (Pamiętaj o mechanizmie przeniesienia!)
-    </question>
+    <question><p>Jaka będzie następna liczba binarna po wartości <code>111</code>? Pamiętaj o mechanizmie przeniesienia.</p>
+</question>
     <options>
-      <option correct>`1000`</option>
-      <option>`112`</option>
-      <option>`1111`</option>
-      <option>`000`</option>
+      <option correct=""><p><code>1000</code></p>
+</option>
+      <option><p><code>112</code></p>
+</option>
+      <option><p><code>1111</code></p>
+</option>
+      <option><p><code>000</code></p>
+</option>
     </options>
 
-<div data-hint="error">
-  Każda kolumna ma już jedynkę (czyli swój limit). Dodanie `1` spowoduje, że pierwsza się wyzeruje i poda przeniesienie dalej. Druga zrobi to samo, trzecia też... Gdzie wyląduje ta ostatnia jedynka?
+<div data-hint="error"><p>Każda kolumna ma już maksymalną wartość. Dodanie <code>1</code> spowoduje lawinowe przeniesienie we wszystkich kolumnach od prawej do lewej. Gdzie ostatecznie pojawi się nowa jedynka?</p>
+</div>
+<div data-hint="success"><p>Dokładnie! Gdy wszystkie pozycje osiągną <code>1</code>, nowa wartość tworzy kolejną kolumnę po lewej, zerując poprzednie. To jest serce arytmetyki binarnej.</p>
 </div>
   </data-quiz>
 </data-gate>
 
-<p>Na koniec chcę abyś popatrzył na poniższe dłonie. Na lewym obrazku palce liczymy normalnie, a na prawym <em>indeksujemy</em> je od zera (<code>0</code>). Wciąż mamy $10$ palców, ale w informatyce i zaawansowanej matematyce liczenie od zera to standard.<br>Kiedyś w pełni zrozumiesz jak to bardzo ułatwia życię i pracę 😎.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/palce.webp" alt="Palce od 1 do 10 i od 0 do 9" width="882" height="300" class="lazy-image" loading="lazy" decoding="async">
-
 <hr>
+<p>Spójrz na poniższą ilustrację. Lewa strona pokazuje klasyczne liczenie od jedynki, a prawa przedstawia <strong><span class="color-green">indeksowanie</span> od zera (<code>0</code>)</strong>. W obu przypadkach mamy dziesięć palców, jednak w informatyce i matematyce dyskretnej liczenie od zera jest standardem. Ułatwia to adresowanie pamięci komputera oraz pracę z tablicami danych.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/palce.webp" alt="Ilustracja przedstawiająca liczenie na palcach od 1 do 10 oraz indeksowanie od 0 do 9" width="961" height="276" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p> <span class="color-gold">Dlaczego indeksy zaczynają się od zera?</span></p>
+<p>W indeksowaniu komputerowym numer elementu oznacza przesunięcie względem początku (<span class="color-gold">$bias$, $offset$</span>).<br><span class="color-blue">Indeks</span> nie jest „numerem w kolejności”, tylko liczbą kroków od startu.</p>
+<p>Indeks $0$ → przesunięcie o $0$ od początku → pierwszy element<br>Indeks $1$ → przesunięcie o $1$ od początku → drugi element<br>Indeks $n$ → przesunięcie o $n$ od początku<br>Dzięki temu <span class="color-blue">indeks</span> = <span class="color-gold">$bias$</span>, więc nie trzeba wykonywać mentalnego „minus jeden”, jak przy liczeniu od $1$.</p>
+
+</div>
+</div><hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>W informatyce liczby nie są abstrakcją. Każda z nich zajmuje ściśle określoną przestrzeń w pamięci (szerokość) i posiada swój limit.</li>
+<li><strong>Błąd <span class="color-red">przepełnienia</span> (ang. <span class="color-blue">overflow</span>)</strong> pojawia się w momencie próby zapisu wartości wykraczającej poza maksymalny limit danej zmiennej.</li>
+<li>Liczenie i indeksowanie od zera (<code>0</code>) to standard w programowaniu, ułatwiający zarządzanie pamięcią oraz strukturami danych.</li>
+</ul>
+<hr>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

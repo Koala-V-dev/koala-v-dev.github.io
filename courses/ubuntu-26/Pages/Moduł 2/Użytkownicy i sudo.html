@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Użytkownicy i sudo - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="lesson-item lesson" tabindex="0" data-path="Wprowadzenie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Wprowadzenie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wprowadzenie</a></li><li class="module">Moduł 0: Pierwsze Kroki z Linuksem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest Linux"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200%2FCzym%20jest%20Linux.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest Linux</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Instalacja w VirtualBox"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200%2FInstalacja%20w%20VirtualBox.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja w VirtualBox</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Ustawienia GNOME"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200%2FUstawienia%20GNOME.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Ustawienia GNOME</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Katalogi w Ubuntu"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200%2FKatalogi%20w%20Ubuntu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Katalogi w Ubuntu</a></li><li class="module">Moduł 1: Podstawowa praca w terminalu</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Pliki i katalogi"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201%2FPliki%20i%20katalogi.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pliki i katalogi</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wstępne informacje o systemie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201%2FWst%C4%99pne%20informacje%20o%20systemie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wstępne informacje o systemie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kopie i odtwarzanie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201%2FKopie%20i%20odtwarzanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kopie i odtwarzanie</a></li><li class="module">Moduł 2: Użytkownicy, sudo i uprawnienia</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Użytkownicy i sudo"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%202%2FU%C5%BCytkownicy%20i%20sudo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Użytkownicy i sudo</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Uprawnienia plików i katalogów"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%202%2FUprawnienia%20plik%C3%B3w%20i%20katalog%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Uprawnienia plików i katalogów</a></li><li class="module">Moduł 3: Diagnostyka, tekst i potoki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Diagnostyka wyników komend"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203%2FDiagnostyka%20wynik%C3%B3w%20komend.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Diagnostyka wyników komend</a></li><li class="module">Moduł 4: Sieć i UFW</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/00 - Zapora i ekspozycja usług"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204%2F00%20-%20Zapora%20i%20ekspozycja%20us%C5%82ug.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">00 - Zapora i ekspozycja usług</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/01 - Zrzut komend UFW"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204%2F01%20-%20Zrzut%20komend%20UFW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">01 - Zrzut komend UFW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/02 - Zapora w praktyce"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204%2F02%20-%20Zapora%20w%20praktyce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">02 - Zapora w praktyce</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Użytkownicy i sudo</h1>
+<p>Bezpieczeństwo w systemie Linux opiera się na <span class="color-green">kontroli tożsamości</span>. Każda operacja w powłoce wykonywana jest w imieniu określonego użytkownika, co bezpośrednio wpływa na zakres dostępnych dla niego poleceń i zasobów.</p>
+<p>W tej lekcji dowiesz się, jak Ubuntu identyfikuje konta użytkowników i ich przynależność do grup oraz jak zarządzać lokalną bazą kont.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧪 Stacja treningowa: konto lokalne</h2>
+<p>Pod okiem tutora wykonasz podstawowy cykl konfiguracyjny. Sprawdzisz własną tożsamość, utworzysz nowe konto użytkownika, utworzysz nową grupę i przypiszesz do niej konto.</p>
+<p>Zarządzanie kontami i grupami to niezbędny <span class="color-green">etap przygotowawczy</span>. Uprawnienia do plików i katalogów zyskują sens dopiero wtedy, gdy w systemie istnieją przypisane do nich podmioty.</p>
+<data-gate>
+<data-terminal-tutor src="/public/courses/ubuntu-26/Scenarios/terminal-tutor/m2-01-uzytkownik-lokalny.md"></data-terminal-tutor>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Zestaw komend po tutorze</h2>
+<p>Ta tabela jest szybkim punktem odniesienia po przejściu tutora.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Komenda</th>
+<th align="left">Co robi</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>whoami</code></td>
+<td align="left">pokazuje nazwę aktualnego użytkownika</td>
+<td align="left"><code>whoami</code></td>
+</tr>
+<tr>
+<td align="left"><code>id</code></td>
+<td align="left">pokazuje UID, GID i grupy aktualnego użytkownika</td>
+<td align="left"><code>id</code></td>
+</tr>
+<tr>
+<td align="left"><code>id [użytkownik]</code></td>
+<td align="left">pokazuje identyfikatory i grupy wybranego użytkownika</td>
+<td align="left"><code>id technik</code></td>
+</tr>
+<tr>
+<td align="left"><code>groups [użytkownik]</code></td>
+<td align="left">pokazuje grupy użytkownika w krótszej formie</td>
+<td align="left"><code>groups technik</code></td>
+</tr>
+<tr>
+<td align="left"><code>sudo adduser [nazwa]</code></td>
+<td align="left">tworzy lokalne konto i katalog domowy</td>
+<td align="left"><code>sudo adduser technik</code></td>
+</tr>
+<tr>
+<td align="left"><code>sudo groupadd [grupa]</code></td>
+<td align="left">tworzy lokalną grupę</td>
+<td align="left"><code>sudo groupadd audyt</code></td>
+</tr>
+<tr>
+<td align="left"><code>sudo usermod -aG [grupa] [użytkownik]</code></td>
+<td align="left">dopisuje użytkownika do grupy dodatkowej</td>
+<td align="left"><code>sudo usermod -aG audyt technik</code></td>
+</tr>
+<tr>
+<td align="left"><code>getent passwd [użytkownik]</code></td>
+<td align="left">pokazuje wpis konta z bazy systemowej</td>
+<td align="left"><code>getent passwd technik</code></td>
+</tr>
+</tbody></table>
+</section><section class="lesson-section" data-lesson-section="true"><h2>👤 Tożsamość i plik <code>/etc/passwd</code></h2>
+<p>Dla użytkownika najwygodniejszym identyfikatorem konta jest jego nazwa tekstowa. System operacyjny Linux wykonuje jednak operacje w oparciu o unikalne <span class="color-green">identyfikatory liczbowe</span> (<span class="color-blue"><code>UID</code></span>).</p>
+<p>Wszystkie lokalne konta systemowe są zarejestrowane w pliku konfiguracyjnym <code>/etc/passwd</code>. Każdy wpis w tym pliku składa się z siedmiu pól rozdzielonych dwukropkami:</p>
+<pre><code class="language-bash">technik:x:1001:1001:technik:/home/technik:/bin/bash
+</code></pre>
+<p>Znaczenie poszczególnych pól:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Fragment pola</th>
+<th align="left">Opis i funkcja w systemie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>technik</code></td>
+<td align="left">Unikalna nazwa konta użytkownika.</td>
+</tr>
+<tr>
+<td align="left"><code>x</code></td>
+<td align="left">Zaślepka wskazująca, że zaszyfrowane hasło znajduje się w pliku <code>/etc/shadow</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>1001</code> (pierwszy)</td>
+<td align="left"><span class="color-green"><code>UID</code></span> (<span class="color-blue">User ID</span>), czyli unikalny identyfikator numeryczny użytkownika.</td>
+</tr>
+<tr>
+<td align="left"><code>1001</code> (drugi)</td>
+<td align="left"><span class="color-green"><code>GID</code></span> (<span class="color-blue">Group ID</span>), czyli identyfikator grupy głównej użytkownika.</td>
+</tr>
+<tr>
+<td align="left"><code>technik</code></td>
+<td align="left">Pole informacyjne (np. pełne dane kontaktowe użytkownika).</td>
+</tr>
+<tr>
+<td align="left"><code>/home/technik</code></td>
+<td align="left">Ścieżka katalogu domowego przypisanego do konta.</td>
+</tr>
+<tr>
+<td align="left"><code>/bin/bash</code></td>
+<td align="left">Domyślna powłoka uruchamiana podczas logowania.</td>
+</tr>
+</tbody></table>
+<p>Narzędzie <code>adduser</code> podczas tworzenia użytkownika pyta o hasło i zapisuje jego zaszyfrowany skrót w pliku <code>/etc/shadow</code>. Hasła nigdy nie są przechowywane w formie jawnej w pliku <code>/etc/passwd</code>. Z tego powodu ręczna edycja plików tożsamości jest niebezpieczna. Do zarządzania kontami należy zawsze używać dedykowanych poleceń.</p>
+<details>
+<summary>Grupy widoczne przy koncie <code>egzamin</code></summary>
+
+<p>W systemach Ubuntu pierwsze konto utworzone podczas instalacji systemu (w tym środowisku jest to konto <code>egzamin</code>) należy domyślnie do wielu grup pomocniczych:</p>
+<pre><code class="language-text">egzamin adm cdrom sudo dip plugdev users lpadmin lxd
+</code></pre>
+<p>Rola poszczególnych grup systemowych:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Grupa</th>
+<th align="left">Zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>egzamin</code></td>
+<td align="left">Prywatna grupa główna użytkownika.</td>
+</tr>
+<tr>
+<td align="left"><code>adm</code></td>
+<td align="left">Umożliwia odczyt niektórych logów systemowych w <code>/var/log</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>cdrom</code></td>
+<td align="left">Pozwala na montowanie i obsługę lokalnych napędów optycznych.</td>
+</tr>
+<tr>
+<td align="left"><code>sudo</code></td>
+<td align="left">Daje uprawnienie do podnoszenia uprawnień i wykonywania poleceń administracyjnych.</td>
+</tr>
+<tr>
+<td align="left"><code>dip</code></td>
+<td align="left">Starsza grupa umożliwiająca nawiązywanie połączeń modemowych oraz VPN.</td>
+</tr>
+<tr>
+<td align="left"><code>plugdev</code></td>
+<td align="left">Pozwala na montowanie zewnętrznych nośników danych (np. pendrive).</td>
+</tr>
+<tr>
+<td align="left"><code>users</code></td>
+<td align="left">Ogólna grupa skupiająca wszystkich użytkowników lokalnych.</td>
+</tr>
+<tr>
+<td align="left"><code>lpadmin</code></td>
+<td align="left">Daje prawo do zarządzania systemem drukowania.</td>
+</tr>
+<tr>
+<td align="left"><code>lxd</code></td>
+<td align="left">Umożliwia uruchamianie i zarządzanie kontenerami LXD.</td>
+</tr>
+</tbody></table>
+<p>Wymienione grupy przydzielają dostęp do określonych zasobów sprzętowych lub usług systemowych bez konieczności nadawania pełnych uprawnień administratora.</p>
+</details>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Działanie polecenia <code>sudo</code></h2>
+<p>Polecenie <code>sudo</code> (<span class="color-blue">superuser do</span>) pozwala na uruchomienie pojedynczego polecenia z uprawnieniami konta administratora (<span class="color-red">root</span>).</p>
+<p>W codziennej pracy zaleca się podnoszenie uprawnień tylko dla tych operacji, które faktycznie modyfikują konfigurację lub stan systemu:</p>
+<pre><code class="language-bash">sudo adduser technik
+</code></pre>
+<p>Dzięki temu minimalizujesz ryzyko przypadkowego uszkodzenia systemu operacyjnego. W tej lekcji polecenie <code>sudo</code> jest wymagane do wykonania operacji modyfikujących konta i grupy:</p>
+<ul>
+<li>Tworzenie konta użytkownika:<pre><code class="language-bash">sudo adduser technik
+</code></pre>
+</li>
+<li>Tworzenie nowej grupy lokalnej:<pre><code class="language-bash">sudo groupadd audyt
+</code></pre>
+</li>
+<li>Przypisanie użytkownika do grupy dodatkowej:<pre><code class="language-bash">sudo usermod -aG audyt technik
+</code></pre>
+</li>
+</ul>
+</section><section class="lesson-section" data-lesson-section="true"><h2>👥 Bezpieczne dopisywanie do grup dodatkowych</h2>
+<p>Grupy dodatkowe służą do organizowania dostępu do określonych zasobów dla wielu użytkowników jednocześnie. Do przypisania użytkownika do nowej grupy dodatkowej służy polecenie <code>usermod</code>.</p>
+<p>Prawidłowa konstrukcja polecenia:</p>
+<pre><code class="language-bash">sudo usermod -aG audyt technik
+</code></pre>
+<p>Znaczenie poszczególnych opcji (flag):</p>
+<table>
+<thead>
+<tr>
+<th align="left">Opcja</th>
+<th align="left">Funkcja w poleceniu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-G audyt</code></td>
+<td align="left">Wskazuje nazwę grupy dodatkowej, do której przypisujemy konto.</td>
+</tr>
+<tr>
+<td align="left"><code>-a</code></td>
+<td align="left">Skrót od <span class="color-blue">append</span> (dopisz). Dołącza wskazaną grupę do aktualnej listy grup dodatkowych użytkownika.</td>
+</tr>
+</tbody></table>
+<p>Pominięcie flagi <code>-a</code> w poleceniu <code>usermod -G</code> jest <span class="color-red">poważnym błędem konfiguracyjnym</span>. Bez tej opcji system nadpisze dotychczasowe członkostwo użytkownika we wszystkich grupach dodatkowych, pozostawiając go wyłącznie w nowo wskazanej grupie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔎 Weryfikacja i audyt konfiguracji</h2>
+<p>Brak komunikatu o błędzie po wykonaniu polecenia administracyjnego nie oznacza automatycznie, że konfiguracja działa zgodnie z założeniami. Każda zmiana powinna zostać zweryfikowana za pomocą narzędzi kontrolnych.</p>
+<p>Do sprawdzenia stanu konta po modyfikacji służą trzy polecenia:</p>
+<ol>
+<li>Wyświetlenie identyfikatorów UID, GID oraz wszystkich przypisanych grup użytkownika:<pre><code class="language-bash">id technik
+</code></pre>
+</li>
+<li>Szybki podgląd członkostwa w grupach:<pre><code class="language-bash">groups technik
+</code></pre>
+</li>
+<li>Odpytanie bazy danych użytkowników o wpis dotyczący konkretnego konta:<pre><code class="language-bash">getent passwd technik
+</code></pre>
+</li>
+</ol>
+<p>Weryfikacja ta pozwala upewnić się, że tożsamości oraz uprawnienia sieciowe zostały skonfigurowane w sposób bezbłędny.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Misja: przygotuj konto operatora</h2>
+<p>W misji przygotujesz inne konto niż w tutorze.</p>
+<p>Masz utworzyć użytkownika <code>operator</code>, utworzyć grupę <code>wsparcie</code> i dopisać użytkownika do tej grupy. Hasło zostaje ustawione podczas działania <code>adduser</code>.</p>
+<p>Na końcu pokaż audyt. System ma mieć dowód, że konto istnieje i należy do właściwej grupy.</p>
+<data-gate>
+<data-terminal-mission src="/public/courses/ubuntu-26/Scenarios/terminal-missions/m2-01-konto-operatora.md"></data-terminal-mission>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Narzędzia <code>whoami</code>, <code>id</code> oraz <code>groups</code> służą do weryfikacji <span class="color-green">tożsamości roboczej</span> użytkownika oraz przypisanych do niego uprawnień.</li>
+<li>Plik <code>/etc/passwd</code> przechowuje definicje lokalnych kont systemowych, w tym unikalny identyfikator <span class="color-green"><code>UID</code></span>, numer grupy głównej (<code>GID</code>), ścieżkę katalogu domowego i domyślną powłokę.</li>
+<li>Polecenie <code>sudo</code> pozwala na bezpieczne podniesienie uprawnień do poziomu administratora (<span class="color-red">root</span>) wyłącznie na czas wykonania jednej komendy.</li>
+<li>Modyfikacja grup dodatkowych poleceniem <code>usermod</code> bez flagi <code>-a</code> jest <span class="color-red">poważnym błędem</span>, ponieważ powoduje skasowanie dotychczasowego członkostwa w innych grupach.</li>
+<li>Każdą zmianę konfiguracyjną należy zweryfikować, wykonując <span class="color-green">audyt stanu konta</span> przy użyciu poleceń <code>id</code> lub <code>getent passwd</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

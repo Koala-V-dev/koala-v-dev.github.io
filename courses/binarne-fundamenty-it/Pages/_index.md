@@ -3,7 +3,7 @@
 # Podstawy Systemów liczbowych
 # Potęga Dwójki i Zakresy Mocy
 # Bity, Bajty i Realne Prędkości
-# Systemy Octalny i Hexadecymalny
+# Systemy Ósemkowy i Szesnastkowy
 
 ## Moduł 1: Arytmetyka i Kodowanie
 

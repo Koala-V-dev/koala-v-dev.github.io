@@ -1,44 +1,110 @@
-<h2>Potęga Dwójki i Zakresy Mocy</h2>
-<p>Dlaczego Twój smartfon ma $128$ GB pamięci, a nie równe $100$ GB? Dlaczego stare gry miały $256$ kolorów? Wszystko w informatyce kręci się wokół <strong>Potęgi Dwójki</strong>. To nie jest estetyczny wybór – to wynika z fizyki prądu.</p>
-<h3>⚡ Gloryfikacja Dwójki</h3>
-<p>Każdy dołożony bit (przełącznik) <strong>podwaja</strong> ilość kombinacji, które możesz zapisać. To jest wykładniczy wzrost mocy.</p>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Potęga Dwójki i Zakresy Mocy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Potęga dwójki i zakresy wartości</h1>
+<p>Dlaczego smartfon ma $128$ GB pamięci, a nie równe $100$ GB? Dlaczego stare gry wyświetlały $256$ kolorów? Wszystko w informatyce kręci się wokół <strong><span class="color-green">potęgi dwójki</span></strong>. Nie jest to kwestia estetyki, lecz bezpośrednia konsekwencja fizyki prądu i działania tranzystorów.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Dlaczego komputery używają potęg dwójki</h2>
+<p>Każdy kolejny bit (przełącznik) <strong><span class="color-blue">podwaja</span></strong> liczbę kombinacji, które można zapisać. Daje to wykładniczy przyrost liczby dostępnych stanów.</p>
 <table>
 <thead>
 <tr>
 <th align="left">Bity</th>
-<th align="center">Ilość możliwości (od $0$ do ... Wzór $2^n$)</th>
-<th align="left">Gdzie używany?</th>
+<th align="center">Liczba kombinacji (Wzór: $2^n$)</th>
+<th align="center">Zakres wartości (od zera)</th>
+<th align="left">Gdzie jest używany?</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="left"><code>1</code></td>
-<td align="center">$0$ - $1$</td>
-<td align="left">Wybór wartości logicznej (Boolean - wartość boolowska): <br> TAK / NIE (Prawda / Fałsz)</td>
+<td align="center">$2$</td>
+<td align="center">$0$ do $1$</td>
+<td align="left">Wybór wartości logicznej: TAK lub NIE</td>
 </tr>
 <tr>
 <td align="left"><code>3</code></td>
-<td align="center">$0$ - $7$</td>
-<td align="left">Uprawnienia plików w systemach GNU/Linux</td>
+<td align="center">$8$</td>
+<td align="center">$0$ do $7$</td>
+<td align="left">Uprawnienia plików w systemach Linux</td>
 </tr>
 <tr>
 <td align="left"><code>4</code></td>
-<td align="center">$0$ - $15$</td>
-<td align="left">Jedna cyfra systemu HEX - zapis adresów MAC i kolorów</td>
+<td align="center">$16$</td>
+<td align="center">$0$ do $15$</td>
+<td align="left">Cyfra szesnastkowa, zapis adresów MAC</td>
 </tr>
 <tr>
 <td align="left"><code>8</code></td>
-<td align="center">$0$ - $255$</td>
-<td align="left"><strong>Standardowy BAJT</strong> (kolory <span style="color: red">R</span>, <span style="color: green">G</span>, <span style="color: blue">B</span>)</td>
+<td align="center">$256$</td>
+<td align="center">$0$ do $255$</td>
+<td align="left"><strong><span class="color-green">Standardowy bajt</span></strong> (np. składowe kolorów RGB)</td>
 </tr>
 <tr>
 <td align="left"><code>10</code></td>
-<td align="center">$0$ - $1023$</td>
-<td align="left">Podstawa KILO&#8209;bajta</td>
+<td align="center">$1024$</td>
+<td align="center">$0$ do $1023$</td>
+<td align="left">Podstawa kilobajta ($1$ KB)</td>
 </tr>
 </tbody></table>
-<h3>📐 Tablica Mocy (Musisz to znać)</h3>
-<p>Inżynier IT widząc liczbę $512$, nie myśli o niej jako o &quot;pięciuset dwunastu&quot;. Widzi w niej $2^9$.</p>
-<h4>🦸 <em>Tabela mocy:</em></h4>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/wykres-wzrostu-potegi-2.webp" alt="Wykres wzrostu potęgi 2" width="1186" height="946" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Tablica potęg dwójki</h2>
+<p>Inżynier oprogramowania widząc liczbę $512$, rzadko myśli o niej jako o zwykłej wartości dziesiętnej. Widzi w niej przede wszystkim wartość $2^9$.</p>
 <table>
 <thead>
 <tr>
@@ -58,7 +124,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">Potega dwójki</td>
+<td align="left">Potęga dwójki</td>
 <td align="center">$2^{11}$</td>
 <td align="center">$2^{10}$</td>
 <td align="center">$2^{9}$</td>
@@ -73,30 +139,60 @@
 <td align="center">$2^{0}$</td>
 </tr>
 </tbody></table>
-<h3>🧠 Zależność 2ⁿ - 1</h3>
-<p>Zauważyłeś, że maksymalna liczba, jaką możesz zapisać, jest zawsze o $1$ mniejsza niż kolejna potęga?<br>Jeśli masz 3 bity, możesz zapisać $2^3 = 8$ kombinacji. Ale ponieważ zaczynamy od zera, Twoją największą liczbą jest <strong>7</strong> (<code>111</code> w binarnym).  </p>
+<h3>🏗️ Maksymalna wartość: zależność $2^n - 1$</h3>
+<p>Maksymalna wartość, jaką można zapisać na określonej liczbie bitów, jest zawsze o $1$ mniejsza niż kolejna potęga dwójki.<br>Gdy dysponujesz trzema bitami, masz do dyspozycji $2^3 = 8$ kombinacji. Ponieważ jednak liczenie zaczyna się od zera, największą zapisaną liczbą będzie <span class="color-green">7</span> (<code>111</code> w systemie binarnym).</p>
 <hr>
 <data-gate>
   <data-quiz>
-    <question>
-Masz system 10-bitowy. Jaka jest NAJWIĘKSZA liczba dziesiętna, którą możesz w nim zapisać? <br>
-    </question>
+    <question><p>Dysponujesz systemem 10‑bitowym. Jaka jest największa liczba dziesiętna, którą możesz w nim zapisać?</p>
+</question>
     <options>
-      <option correct>1023</option>
-      <option>1024</option>
-      <option>1000</option>
-      <option>511</option>
+      <option correct=""><p>1023</p>
+</option>
+      <option><p>1024</p>
+</option>
+      <option><p>1000</p>
+</option>
+      <option><p>511</p>
+</option>
     </options>
 
-<div data-hint="error">
-  Podpowiedź: wykorzystaj tabelę mocy i zasadę $2^n-1$. Pamiętaj że liczymy od zera, a nie od jeden.
+<div data-hint="error"><p>Skorzystaj z tabeli potęg oraz wzoru $2^n - 1$. Pamiętaj, że indeksowanie rozpoczyna się od zera.</p>
 </div>
   </data-quiz>
 </data-gate>
 
-<h3>🕹️ Praktyka: Budowanie Zakresów</h3>
-<p>Spróbuj poczuć te wagi. Ustaw bit na $1$ tam, gdzie jest to potrzebne, aby uzyskać wynik dziesiętny.</p>
-<p>Zbuduj liczbę <strong>85</strong> (używając wag: $64, 32, 16, 8, 4, 2, 1$):</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Metoda działania: jak przeliczyć liczbę dziesiętną na binarną?</h2>
+<p>Aby ręcznie przeliczyć liczbę dziesiętną na binarną (bez zgadywania), najwygodniej posłużyć się <span class="color-green">metodą odejmowania wag</span> (największych mieszczących się potęg dwójki).</p>
+<h3>Algorytm krok po kroku:</h3>
+<ol>
+<li>Znajdź w tabeli potęg dwójki największą wartość, która jest <span class="color-green">mniejsza lub równa</span> Twojej liczbie dziesiętnej.</li>
+<li>Ustaw bit na tej pozycji na <code>1</code>.</li>
+<li>Odejmij tę potęgę od swojej liczby.</li>
+<li>Spójrz na pozostałą resztę. Przejdź do kolejnej niższej pozycji bitowej:<ul>
+<li>Jeśli aktualna potęga dwójki <span class="color-green">mieści się</span> w reszcie, ustaw bit na <code>1</code> i odejmij tę potęgę od reszty.</li>
+<li>Jeśli aktualna potęga dwójki <span class="color-green">nie mieści się</span> w reszcie, ustaw bit na <code>0</code> i przejdź do kolejnej pozycji po prawej.</li>
+</ul>
+</li>
+<li>Powtarzaj te kroki, aż dojdziesz do pozycji $2^0$ (waga 1).</li>
+</ol>
+<h3>📖 Przykład: przeliczamy liczbę $45$ na zapis binarny</h3>
+<p>Budujemy tabelę dla 6 bitów (wagi od lewej: $32, 16, 8, 4, 2, 1$):</p>
+<ul>
+<li>Nasza liczba to $45$. Największa potęga dwójki mieszcząca się w $45$ to $32$.<br>Ustawiamy pozycję dla wagi $32$ na <span class="color-gold"><code>1</code></span>. Zostaje nam reszta: $45 - 32 = 13$.</li>
+<li>Kolejna waga to $16$. Czy $16$ mieści się w pozostałej reszcie $13$? <span class="color-red">Nie</span>.<br>Ustawiamy pozycję dla wagi $16$ na <span class="color-gold"><code>0</code></span>. Reszta bez zmian: $13$.</li>
+<li>Kolejna waga to $8$. Czy $8$ mieści się w $13$? <span class="color-green">Tak</span>.<br>Ustawiamy pozycję dla wagi $8$ na <span class="color-gold"><code>1</code></span>. Nowa reszta: $13 - 8 = 5$.</li>
+<li>Kolejna waga to $4$. Czy $4$ mieści się w $5$? <span class="color-green">Tak</span>.<br>Ustawiamy pozycję dla wagi $4$ na <span class="color-gold"><code>1</code></span>. Nowa reszta: $5 - 4 = 1$.</li>
+<li>Kolejna waga to $2$. Czy $2$ mieści się w $1$? <span class="color-red">Nie</span>.<br>Ustawiamy pozycję dla wagi $2$ na <span class="color-gold"><code>0</code></span>. Reszta bez zmian: $1$.</li>
+<li>Ostatnia waga to $1$. Czy $1$ mieści się w $1$? <span class="color-green">Tak</span>.<br>Ustawiamy pozycję dla wagi $1$ na <span class="color-gold"><code>1</code></span>. Koniec działania (reszta wynosi 0).</li>
+</ul>
+<p><span class="color-green">Otrzymany wynik:</span></p>
+<ul>
+<li><code>101101</code> binarnie ($32 + 8 + 4 + 1 = 45$).</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔎 Budowanie zakresów wartości</h2>
+<p>Przeanalizuj wagi poszczególnych pozycji. Ustaw bity na $1$ na właściwych miejscach, aby uzyskać zadaną wartość dziesiętną.<br>Spróbuj zbudować liczbę $85$ (korzystając z wag: $64, 32, 16, 8, 4, 2, 1$):</p>
 <data-gate>
   <data-number-system target="85" base="2" digits="7">
 
@@ -105,13 +201,14 @@ Masz system 10-bitowy. Jaka jest NAJWIĘKSZA liczba dziesiętna, którą możesz
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>$64 + 16 + 4 + 1 = 85$. W binarnym to <code>0101 0101</code>. Czy widzisz ten rytmiczny wzór?</p>
+<p>$64 + 16 + 4 + 1 = 85$. W systemie binarnym (na 7 bitach) otrzymasz wartość <code>1010101</code>. Czy dostrzegasz ten naprzemienny wzór?</p>
 
 </div>
 </div>  </data-number-system>
 </data-gate>
 
-<p>A teraz wyzwanie: Zbuduj <strong>$255$</strong>. Co zauważyłeś?</p>
+<hr>
+<p>Kolejne zadanie: spróbuj zbudować wartość $255$. Co możesz zaobserwować po włączeniu wszystkich pozycji?</p>
 <data-gate>
   <data-number-system target="255" base="2" digits="8">
 
@@ -120,104 +217,133 @@ Masz system 10-bitowy. Jaka jest NAJWIĘKSZA liczba dziesiętna, którą możesz
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Wszystkie przełączniki <strong>ON</strong>! To jest limit dla $8$ bitów ($1$ Bajta). Kolejna liczba ($256$) wymagałaby już $9$. bitów!</p>
-
-</div>
-</div>  </data-number-system>
-</data-gate>
-
-
-<h2>Wyzwanie 6 bram</h2>
-<hr>
-<blockquote>
-<p>Super! 💪😎<br>To teraz samemu pokonaj kolejne $6$ bram:</p>
-</blockquote>
-<hr>
-<data-gate>
-  <data-number-system base="2" digits="8">
-
-<div class="markdown-alert markdown-alert--tip">
-<p class="markdown-alert-title">
-<span class="alert-icon">✨</span> Wskazówka
-</p>
-<div class="markdown-alert-content">
-<p>Pierwsza brama padła zostało jeszcze pięć! 🦾🐨</p>
-
-</div>
-</div>  </data-number-system>
-</data-gate>
-
-<data-gate>
-  <data-number-system base="2" digits="8">
-
-<div class="markdown-alert markdown-alert--tip">
-<p class="markdown-alert-title">
-<span class="alert-icon">✨</span> Wskazówka
-</p>
-<div class="markdown-alert-content">
-<p>Druga brama padła zostały jeszcze cztery! 🦾🐨</p>
-
-</div>
-</div>  </data-number-system>
-</data-gate>
-
-
-<data-gate>
-  <data-number-system base="2" digits="8">
-
-<div class="markdown-alert markdown-alert--tip">
-<p class="markdown-alert-title">
-<span class="alert-icon">✨</span> Wskazówka
-</p>
-<div class="markdown-alert-content">
-<p>Trzecia brama padła zostały jeszcze trzy! 🦾🐨</p>
-
-</div>
-</div>  </data-number-system>
-</data-gate>
-
-<data-gate>
-  <data-number-system base="2" digits="8">
-
-<div class="markdown-alert markdown-alert--tip">
-<p class="markdown-alert-title">
-<span class="alert-icon">✨</span> Wskazówka
-</p>
-<div class="markdown-alert-content">
-<p>Czwarta brama padła zostały jeszcze dwie! 🦾🐨</p>
-
-</div>
-</div>  </data-number-system>
-</data-gate>
-
-<data-gate>
-  <data-number-system base="2" digits="8">
-
-<div class="markdown-alert markdown-alert--tip">
-<p class="markdown-alert-title">
-<span class="alert-icon">✨</span> Wskazówka
-</p>
-<div class="markdown-alert-content">
-<p>Piąta brama padła została jeszcze jedna! 🦾🐨</p>
-
-</div>
-</div>  </data-number-system>
-</data-gate>
-
-<data-gate>
-  <data-number-system base="2" digits="8">
-
-<div class="markdown-alert markdown-alert--tip">
-<p class="markdown-alert-title">
-<span class="alert-icon">✨</span> Wskazówka
-</p>
-<div class="markdown-alert-content">
-<p>Ostatnia brama padła! Odblokowałeś kolejną lekcję. 🦾🐨</p>
+<p>Gdy wszystkie przełączniki są włączone, osiągasz limit dla 8 bitów (czyli 1 bajta). Zapisanie kolejnej wartości ($256$) wymagałaby już dziewiątego bitu.</p>
 
 </div>
 </div>  </data-number-system>
 </data-gate>
 
 <hr>
-<p>PS. Jak odświeżysz stronę to te 6 bram może wylosować inne liczby. Powodzenia! 🦾🐨</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Trening: wyzwanie sześciu bram</h2>
+<p>Czas na samodzielny trening. Spróbuj poprawnie ustawić wartości dla kolejnych sześciu bram:</p>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Pierwsza brama pokonana, zostało jeszcze pięć. 🦾</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
 <hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Druga brama pokonana, zostały jeszcze cztery. 🦾</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Trzecia brama pokonana, zostały jeszcze trzy. 🦾</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Czwarta brama pokonana, zostały jeszcze dwie. 🦾</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Piąta brama pokonana, została jeszcze jedna. 🦾</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<hr>
+<data-gate>
+  <data-number-system base="2" digits="8">
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Ostatnia brama pokonana! Kolejna lekcja stoi otworem. 🦾</p>
+
+</div>
+</div>  </data-number-system>
+</data-gate>
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Po odświeżeniu strony wartości w bramach mogą zostać wylosowane ponownie.</p>
+
+</div>
+</div><hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Każdy dodatkowy bit podwaja przestrzeń możliwych wartości (wzrost wykładniczy).</li>
+<li>Maksymalna wartość dla $n$ bitów wynosi $2^n - 1$, ponieważ liczenie w systemach komputerowych zawsze rozpoczyna się od zera.</li>
+<li>Jeden standardowy bajt ($8$ bitów) pozwala na zapisanie $256$ wartości: od $0$ do $255$.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

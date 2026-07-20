@@ -1,66 +1,120 @@
-<h2>🧩 Kodowanie Znaków: ASCII i Matrix</h2>
-<p>Wiesz już, jak procesor liczy, jak radzi sobie z minusami i jak operuje w różnych systemach liczbowych. Ale komputer wyświetla litery, emoji i filmy. Jak to możliwe? Odpowiedź brzmi: <strong>Mapowanie</strong> – każdy znak to po prostu <strong>liczba</strong> przypisana do symbolu.</p>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Kodowanie Znaków - ASCII i Matrix - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Kodowanie znaków: ASCII i Matrix</h1>
+<p>Komputer nie rozumie liter, obrazów ani dźwięków, dla niego wszystko jest liczbą. Aby wyświetlić na ekranie tekst, maszyna musi przypisać każdemu znakowi konkretną wartość liczbową. Ten proces nazywamy <span class="color-gold">mapowaniem</span> (kodowaniem) znaków.</p>
 <hr>
-<h3>🚪 Brama Konwersji: Oct i Hex</h3>
-<p>Zanim pójdziemy dalej, sprawdźmy Twoje umiejętności szybkiego przełączania się między systemami. Rozwiąż te dwa zamki, aby odblokować lekcję o znakach.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🚪 Brama konwersji: Oct i Hex</h2>
+<p>Zanim przejdziemy do znaków, sprawdźmy Twoje umiejętności szybkiego przeliczania wartości między systemami. Rozwiąż te dwa zamki, aby odblokować lekcję.</p>
 <data-gate>
   <data-number-system target="16, 47, 9, 19" base="8" digits="3">
-    > [!NOTE]
-    > To jest system ósemkowy. Aby uzyskać $16_{10}$, musisz wpisać $20_8$ ($2 \cdot 8 = 16$).
   </data-number-system>
 </data-gate>
 
 <hr>
 <data-gate>
   <data-number-system target="23, 13, 10, 25" base="16" digits="2">
-    > [!NOTE]
-    > To jest system szesnastkowy. Podpowiedź: $2 \cdot 16 = 32$. Ile brakuje do $47$? Brakuje $15$. A $15$ w Hex to... ?
   </data-number-system>
 </data-gate>
 
 <hr>
-<h3>📜 Tablica ASCII</h3>
-<p>Informatycy po prostu umówili się, że konkretna liczba oznacza konkretny znak. Ten standard nazywa się <strong>ASCII</strong> (American Standard Code for Information Interchange). Podstawowa tablica ma 7 bitów (128 znaków), ale my używamy wersji 8&#8209;bitowej (1 Bajt = 256 znaków).</p>
-<h4>Znaki sterujące (0-31)</h4>
-<p>Pierwsze 32 pozycje to <strong>niewidoczne znaki sterujące</strong> - sygnały dla maszyn, nie dla ludzi:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Tablica ASCII</h2>
+<p>W pionierskich czasach informatyki inżynierowie musieli stworzyć wspólny standard przypisywania liczb do liter. Tak powstał system <span class="color-gold">ASCII</span> (<span class="color-blue">American Standard Code for Information Interchange</span>). </p>
+<p>Pierwotna tabela była siedmiobitowa i mieściła $128$ znaków. Z czasem rozszerzono ją do standardu ośmiobitowego ($1$ bajt), co pozwoliło na zakodowanie $256$ unikalnych symboli.</p>
+<h3>⚙️ Znaki sterujące (0-31)</h3>
+<p>Pierwsze $32$ pozycje w tabeli to niewidoczne na ekranie <span class="color-green">znaki sterujące</span>. Służą one do przesyłania komend bezpośrednio do urządzeń odbiorczych (np. drukarek czy terminali):</p>
 <table>
 <thead>
 <tr>
 <th align="center">Dec</th>
 <th align="center">Hex</th>
 <th align="left">Nazwa</th>
-<th align="left">Co robi?</th>
+<th align="left">Działanie</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="center">0</td>
 <td align="center"><code>00</code></td>
 <td align="left"><code>NUL</code></td>
-<td align="left">Pusty bajt – koniec tekstu w C/C++</td>
+<td align="left">Pusty bajt - oznacza koniec tekstu w językach C/C++</td>
 </tr>
 <tr>
 <td align="center">9</td>
 <td align="center"><code>09</code></td>
 <td align="left"><code>TAB</code></td>
-<td align="left">Tabulacja (wcięcie)</td>
+<td align="left">Tabulacja (poziome wcięcie tekstu)</td>
 </tr>
 <tr>
 <td align="center">10</td>
 <td align="center"><code>0A</code></td>
 <td align="left"><code>LF</code></td>
-<td align="left">Nowa linia (Linux/Mac)</td>
+<td align="left">Nowa linia (standard Linux i macOS)</td>
 </tr>
 <tr>
 <td align="center">13</td>
 <td align="center"><code>0D</code></td>
 <td align="left"><code>CR</code></td>
-<td align="left">Powrót karetki (Windows: CR+LF)</td>
+<td align="left">Powrót karetki (część standardu nowej linii Windows)</td>
 </tr>
 <tr>
 <td align="center">27</td>
 <td align="center"><code>1B</code></td>
 <td align="left"><code>ESC</code></td>
-<td align="left">Escape – kolory w terminalu</td>
+<td align="left">Escape - używany m.in. do kolorowania tekstu w terminalu</td>
 </tr>
 </tbody></table>
 <div class="markdown-alert markdown-alert--tip">
@@ -68,10 +122,10 @@
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Dlaczego Windows używa dwóch znaków na nową linię (<code>\r\n</code> = CR+LF), a Linux jednego (<code>\n</code> = LF)? To spadek po maszynach do pisania – &quot;Carriage Return&quot; cofał głowicę, &quot;Line Feed&quot; przesuwał papier.</p>
+<p>Różnica w zapisie nowej linii między systemem Windows (<code>\r\n</code> = CR+LF) a Linuxem (<code>\n</code> = LF) to zaszłość z ery mechanicznych maszyn do pisania. Sygnał <span class="color-gold">CR</span> cofał głowicę drukującą na początek wiersza, a sygnał <span class="color-gold">LF</span> przesuwał papier w górę o jedną linię.</p>
 
 </div>
-</div><h4>Znaki drukowalne (32-126)</h4>
+</div><h3>🖨️ Znaki drukowalne (32-126)</h3>
 <table>
 <thead>
 <tr>
@@ -79,7 +133,7 @@
 <th align="center">Dec</th>
 <th align="center">Hex</th>
 <th align="left">Znaki</th>
-<th align="left">Wzorzec</th>
+<th align="left">Zależność matematyczna</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -91,34 +145,34 @@
 </tr>
 <tr>
 <td align="left">Cyfry</td>
-<td align="center">48&#8209;57</td>
+<td align="center">48‑57</td>
 <td align="center"><code>30</code>-<code>39</code></td>
 <td align="left"><code>0</code>-<code>9</code></td>
-<td align="left">Wartość = Dec $-\text{ }48$</td>
+<td align="left">wartość dziesiętna = kod ASCII $- 48_{10}$</td>
 </tr>
 <tr>
 <td align="left">Wielkie litery</td>
-<td align="center">65&#8209;90</td>
+<td align="center">65‑90</td>
 <td align="center"><code>41</code>-<code>5A</code></td>
 <td align="left"><code>A</code>-<code>Z</code></td>
-<td align="left">26 liter po kolei</td>
+<td align="left">kolejnych 26 liter alfabetu łacińskiego</td>
 </tr>
 <tr>
 <td align="left">Małe litery</td>
-<td align="center">97&#8209;122</td>
+<td align="center">97‑122</td>
 <td align="center"><code>61</code>-<code>7A</code></td>
 <td align="left"><code>a</code>-<code>z</code></td>
-<td align="left">26 liter po kolei</td>
+<td align="left">kolejnych 26 liter alfabetu łacińskiego</td>
 </tr>
 <tr>
 <td align="left">Znaki specjalne</td>
-<td align="center">reszta</td>
-<td align="center">reszta</td>
-<td align="left"><code>!</code>, <code>@</code>, <code>#</code>, <code>+</code>, <code>=</code>...</td>
-<td align="left">Interpunkcja i operatory</td>
+<td align="center">pozostałe</td>
+<td align="center">pozostałe</td>
+<td align="left"><code>!</code>, <code>@</code>, <code>#</code>, <code>+</code>, <code>=</code></td>
+<td align="left">interpunkcja i znaki matematyczne</td>
 </tr>
 </tbody></table>
-<p><strong>Pełna tabela najważniejszych znaków:</strong></p>
+<p><span class="color-green">Pełna tabela najważniejszych znaków:</span></p>
 <table>
 <thead>
 <tr>
@@ -147,47 +201,47 @@
 <td align="center"><code>39</code></td>
 </tr>
 <tr>
-<td align="center"><strong>A</strong></td>
+<td align="center"><span class="color-green">A</span></td>
 <td align="center">65</td>
 <td align="center"><code>0100 0001</code></td>
 <td align="center"><code>41</code></td>
 </tr>
 <tr>
-<td align="center"><strong>B</strong></td>
+<td align="center"><span class="color-green">B</span></td>
 <td align="center">66</td>
 <td align="center"><code>0100 0010</code></td>
 <td align="center"><code>42</code></td>
 </tr>
 <tr>
-<td align="center"><strong>Z</strong></td>
+<td align="center"><span class="color-green">Z</span></td>
 <td align="center">90</td>
 <td align="center"><code>0101 1010</code></td>
 <td align="center"><code>5A</code></td>
 </tr>
 <tr>
-<td align="center"><strong>a</strong></td>
+<td align="center"><span class="color-green">a</span></td>
 <td align="center">97</td>
 <td align="center"><code>0110 0001</code></td>
 <td align="center"><code>61</code></td>
 </tr>
 <tr>
-<td align="center"><strong>b</strong></td>
+<td align="center"><span class="color-green">b</span></td>
 <td align="center">98</td>
 <td align="center"><code>0110 0010</code></td>
 <td align="center"><code>62</code></td>
 </tr>
 <tr>
-<td align="center"><strong>z</strong></td>
+<td align="center"><span class="color-green">z</span></td>
 <td align="center">122</td>
 <td align="center"><code>0111 1010</code></td>
 <td align="center"><code>7A</code></td>
 </tr>
 </tbody></table>
 <hr>
-<h3>🕵️ Wzorce Bitowe: Ukryte Reguły</h3>
-<p>Tablica ASCII nie jest losowa - kryje w sobie eleganckie wzorce bitowe:</p>
-<h4>Bit 5: Wielka vs Mała litera</h4>
-<p>Zauważ, że wielkie <strong>A</strong> ($65$) i małe <strong>a</strong> ($97$) różnią się dokładnie o <strong>$32$</strong>. A $32 = 2^5$, czyli <strong>jeden bit</strong>:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕵🏼‍♂️ Wzorce bitowe: ukryte reguły</h2>
+<p>Układ tabeli ASCII nie jest dziełem przypadku. Projektanci wdrożyli tu sprytne sztuczki bitowe, które ułatwiają procesorom analizę tekstu.</p>
+<h3>⚙️ Bit 5: wielka vs mała litera</h3>
+<p>Zauważ, że kody wielkiej litery <span class="color-green">A</span> ($65_{10}$) i małej litery <span class="color-green">a</span> ($97_{10}$) różnią się dokładnie o $32_{10}$. Wartość $32_{10}$ to potęga dwójki ($2^5$), czyli dokładnie jeden bit:</p>
 <table>
 <thead>
 <tr>
@@ -197,108 +251,115 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><strong>A</strong></td>
+<td align="center"><span class="color-green">A</span></td>
 <td align="center">65</td>
-<td align="center"><code>0</code><strong><code>1</code></strong><code>00 0001</code></td>
+<td align="center"><code>01</code><span class="color-green"><code>0</code></span><code>0 0001</code></td>
 </tr>
 <tr>
-<td align="center"><strong>a</strong></td>
+<td align="center"><span class="color-green">a</span></td>
 <td align="center">97</td>
-<td align="center"><code>0</code><strong><code>1</code></strong><code>10 0001</code></td>
+<td align="center"><code>01</code><span class="color-green"><code>1</code></span><code>0 0001</code></td>
 </tr>
 </tbody></table>
-<p><strong>Bit nr 5</strong> (licząc od $0$ z prawej) działa jak <strong>przełącznik wielkości</strong>:</p>
+<p><span class="color-green">Bit numer 5</span> (licząc od $0$ od prawej strony) działa w tabeli jako przełącznik wielkości znaku:</p>
 <ul>
-<li>Bit 5 = <code>0</code> - wielka litera</li>
-<li>Bit 5 = <code>1</code> - mała litera</li>
+<li>Jeśli bit 5 wynosi <code>0</code> - mamy do czynienia z wielką literą.</li>
+<li>Jeśli bit 5 wynosi <code>1</code> - mamy do czynienia z małą literą.</li>
 </ul>
 <div class="markdown-alert markdown-alert--important">
 <p class="markdown-alert-title">
 <span class="alert-icon">📌</span> Ważny punkt
 </p>
 <div class="markdown-alert-content">
-<p>To nie przypadek! Projektanci ASCII celowo tak ułożyli tablicę, aby zamiana wielkości litery wymagała zmiany <strong>jednego bita</strong>. Procesor robi to jedną instrukcją XOR.</p>
+<p>Dzięki temu zabiegowi zmiana wielkości litery w programie nie wymaga przeszukiwania tablic konwersji. Procesor wykonuje tę operację błyskawicznie za pomocą jednej instrukcji bitowej XOR na bicie 5.</p>
 
 </div>
-</div><h4>Cyfry: Zamaskowane wartości</h4>
-<p>Cyfra <code>0</code> ma kod $48$ (<code>0011 0000</code>), a <code>9</code> ma $57$ (<code>0011 1001</code>). Aby uzyskać wartość liczbową cyfry, wystarczy <strong>zamaskować górne 4 bity</strong> (ustawić na <code>0000</code>):</p>
+</div><h3>⚙️ Cyfry: zamaskowane wartości</h3>
+<p>Cyfra <code>0</code> ma kod dziesiętny $48_{10}$ (<code>0011 0000</code>), a cyfra <code>9</code> ma kod $57_{10}$ (<code>0011 1001</code>). </p>
+<p>W informatyce bity w bajcie dzielimy umownie na dwie części:</p>
+<ul>
+<li><span class="color-green">Starsze bity</span> (lewa połowa bajtu) - odpowiadają za wyższe wartości ($128, 64, 32, 16$).</li>
+<li><span class="color-green">Młodsze bity</span> (prawa połowa bajtu) - odpowiadają za niższe wartości ($8, 4, 2, 1$).</li>
+</ul>
+<p>W przypadku cyfr w ASCII lewa połowa (starsze bity) to zawsze stałe <code>0011</code>, a prawa połowa (młodsze bity) to rzeczywista wartość cyfry. Aby wydobyć wartość liczbową ze znaku tekstowego, wystarczy <span class="color-green">wyzerować starsze bity (lewą połowę)</span>:</p>
 <table>
 <thead>
 <tr>
 <th align="center">Znak</th>
 <th align="center">Bin</th>
-<th align="center">Dolne 4 bity</th>
+<th align="center">Dolne 4 bity (młodsze)</th>
 <th align="center">Wartość</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="center"><code>0</code></td>
-<td align="center"><code>0011</code> <strong><code>0000</code></strong></td>
+<td align="center"><code>0011</code> <span class="color-green"><code>0000</code></span></td>
 <td align="center"><code>0000</code></td>
 <td align="center">$0$</td>
 </tr>
 <tr>
 <td align="center"><code>5</code></td>
-<td align="center"><code>0011</code> <strong><code>0101</code></strong></td>
+<td align="center"><code>0011</code> <span class="color-green"><code>0101</code></span></td>
 <td align="center"><code>0101</code></td>
 <td align="center">$5$</td>
 </tr>
 <tr>
 <td align="center"><code>9</code></td>
-<td align="center"><code>0011</code> <strong><code>1001</code></strong></td>
+<td align="center"><code>0011</code> <span class="color-green"><code>1001</code></span></td>
 <td align="center"><code>1001</code></td>
 <td align="center">$9$</td>
 </tr>
 </tbody></table>
 <hr>
-<h3>🕶️ Czytanie Matrixa</h3>
-<p>Kiedy patrzysz na kod binarny lub szesnastkowy, Twój mózg może zacząć widzieć ukryte słowa. Spróbuj:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕶️ Punkt kontrolny: Czytanie Matrixa</h2>
+<p>Kiedy patrzysz na kody binarne lub szesnastkowe, Twój mózg po pewnym czasie zaczyna automatycznie dostrzegać ukryte pod nimi litery. Sprawdźmy to w praktyce:</p>
 <data-gate>
   <data-quiz>
-    <question>
-Otrzymałeś od serwera ciąg bajtów w systemie szesnastkowym: `42 41 42 41`. Korzystając z powyższej tabelki ASCII, jakie słowo wyświetli komputer?
-    </question>
+    <question><p>Otrzymałeś od serwera ciąg bajtów w systemie szesnastkowym: <code>42 41 42 41</code>. Korzystając z tabeli ASCII, jakie słowo wyświetli komputer?</p>
+</question>
     <options>
-      <option correct>BABA</option>
-      <option>ABBA</option>
-      <option>AAAA</option>
+      <option correct=""><p>BABA</p>
+</option>
+      <option><p>ABBA</p>
+</option>
+      <option><p>AAAA</p>
+</option>
     </options>
-    <div data-hint="error">
-      Spójrz na tabelkę: `41` (Hex) to 'A', a `42` (Hex) to 'B'. Teraz po prostu przeczytaj te cztery bajty po kolei.
-    </div>
+    <div data-hint="error"><p>Spójrz na tabelę: <code>41</code> (Hex) to „A”, a <code>42</code> (Hex) to „B”. Teraz po prostu przeczytaj te cztery bajty po kolei.</p>
+</div>
   </data-quiz>
 </data-gate>
 
 <hr>
 <data-gate>
   <data-quiz>
-    <question>
-Bajt `0100 1000` w ASCII to litera 'H'. Jaki bajt reprezentuje małe 'h'?
-    </question>
+    <question><p>Bajt <code>0100 1000</code> w ASCII to litera „H”. Jaki bajt reprezentuje małą literę „h”?</p>
+</question>
     <options>
-      <option correct>`0110 1000`</option>
-      <option>`0100 1001`</option>
-      <option>`1100 1000`</option>
+      <option correct=""><p><code>0110 1000</code></p>
+</option>
+      <option><p><code>0100 1001</code></p>
+</option>
+      <option><p><code>1100 1000</code></p>
+</option>
     </options>
-    <div data-hint="error">
-      Przypomnij sobie regułę bitu $5$: aby zamienić wielką literę na małą, ustaw bit $5$ (szósty od prawej) na $1$. `0100 1000` → `0110 1000`.
-    </div>
-    <div data-hint="success">
-      Brawo! Zmiana jednego bita - to właśnie elegancja projektowania ASCII. 🎯
-    </div>
+    <div data-hint="error"><p>Przypomnij sobie regułę bitu 5 (szósty od prawej): aby zamienić wielką literę na małą, ustaw ten bit na <code>1</code>. <code>0100 1000</code> → <code>0110 1000</code>.</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Zmiana jednego bita w locie - to właśnie kryje się pod pojęciem elegancji ASCII. 🎯</p>
+</div>
   </data-quiz>
 </data-gate>
 
 <hr>
-<h3>🗣️ Profesjonalny żargon: Prefixy</h3>
-<p>Na koniec nauczymy się, jak profesjonaliści zapisują systemy w kodzie, aby się nie pomylić. Zamiast pisać &quot;10 w systemie szesnastkowym&quot;, używamy <strong>Przedrostków (Prefixów)</strong>:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💡 Profesjonalny żargon: prefiksy</h2>
+<p>Aby uniknąć pomyłek w kodzie źródłowym, programiści nie piszą słownie <span class="color-blue">„liczba 10 w systemie szesnastkowym”</span>. Zamiast tego stosują specjalne przedrostki (<span class="color-gold">prefiksy</span>), które jednoznacznie określają bazę systemu:</p>
 <table>
 <thead>
 <tr>
 <th align="left">System</th>
-<th align="center">Prefix</th>
+<th align="center">Prefiks</th>
 <th align="left">Przykład</th>
-<th align="center">Wartość</th>
+<th align="center">Wartość dziesiętna</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -308,7 +369,7 @@ Bajt `0100 1000` w ASCII to litera 'H'. Jaki bajt reprezentuje małe 'h'?
 <td align="center">$2$</td>
 </tr>
 <tr>
-<td align="left">ósemkowy</td>
+<td align="left">Ósemkowy</td>
 <td align="center"><code>0o</code></td>
 <td align="left"><code>0o10</code></td>
 <td align="center">$8$</td>
@@ -325,34 +386,34 @@ Bajt `0100 1000` w ASCII to litera 'H'. Jaki bajt reprezentuje małe 'h'?
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Zapamiętaj <code>0x</code>. To najczęstszy zapis w programowaniu, oznaczający system szesnastkowy.</p>
+<p>Prefiks <code>0x</code> spotkasz w programowaniu najczęściej. Zawsze oznacza on zapis hexadecymalny.</p>
 
 </div>
 </div><hr>
-<h3>🌐 Co dalej? Unicode i UTF-8</h3>
-<p>ASCII obsługuje tylko <strong>128 znaków</strong> - wystarczy dla angielskiego, ale co z polskimi <code>ą, ć, ę</code>? Japońskimi kanji? Emoji 🚀?</p>
-<p>Standard <strong>Unicode</strong> przypisał numery <strong>ponad 150 000 znakom</strong> ze wszystkich języków świata. A <strong>UTF&#8209;8</strong> to sprytny sposób ich kodowania:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌐 Wkraczamy w nowoczesność: Unicode i UTF-8</h2>
+<p>Standard ASCII obsługiwał jedynie $128$ podstawowych symboli. To wystarczało dla języka angielskiego, ale nie mieściło polskich liter („ą”, „ć”, „ę”), alfabetów azjatyckich ani współczesnych emoji.</p>
+<p>Rozwiązaniem tego problemu stał się standard <span class="color-gold">Unicode</span>, który przypisuje unikalne numery dla ponad $150\ 000$ znaków ze wszystkich języków świata. Do ich zapisu na dysku najczęściej stosuje się sprytny, zmienno‑bajtowy format <span class="color-gold">UTF‑8</span>:</p>
 <table>
 <thead>
 <tr>
 <th align="left">Zakres znaków</th>
-<th align="center">Bajty</th>
+<th align="center">Rozmiar w pamięci</th>
 <th align="left">Przykład</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">ASCII (0&#8209;127)</td>
-<td align="center">1 bajt</td>
+<td align="left">Znaki ASCII (0‑127)</td>
+<td align="center">$1$ bajt</td>
 <td align="left"><code>A</code> = <code>0x41</code></td>
 </tr>
 <tr>
-<td align="left">Polskie znaki</td>
-<td align="center">2 bajty</td>
+<td align="left">Polskie litery narodowe</td>
+<td align="center">$2$ bajty</td>
 <td align="left"><code>ą</code> = <code>0xC4 0x85</code></td>
 </tr>
 <tr>
-<td align="left">Emoji</td>
-<td align="center">4 bajty</td>
+<td align="left">Symbole i emoji</td>
+<td align="center">$4$ bajty</td>
 <td align="left">🎮 = <code>0xF0 0x9F 0x8E 0xAE</code></td>
 </tr>
 </tbody></table>
@@ -361,17 +422,18 @@ Bajt `0100 1000` w ASCII to litera 'H'. Jaki bajt reprezentuje małe 'h'?
 <span class="alert-icon">💬</span> Notatka
 </p>
 <div class="markdown-alert-content">
-<p>UTF&#8209;8 jest <strong>wstecznie kompatybilny</strong> z ASCII - każdy plik ASCII jest jednocześnie poprawnym plikiem UTF&#8209;8. To dlatego UTF&#8209;8 zdominował internet (ponad 98% stron).</p>
+<p>Standard UTF‑8 jest w pełni <span class="color-gold">wstecznie kompatybilny</span> z ASCII. Każdy tradycyjny plik tekstowy ASCII jest od razu poprawnym plikiem UTF‑8. To właśnie ta cecha sprawiła, że UTF‑8 zdominował współczesną sieć i według <a href="https://w3techs.com/technologies/overview/character_encoding?utm_source=copilot.com" target="_blank">statystyk W3Techs na <time datetime="2026-06">20 czerwca 2026</time> UTF‑8 koduje $99\%$</a> współczesnych stron internetowych.</p>
 
 </div>
-</div><h3>📋 Pełne Tabele Kodowania (Ściąga)</h3>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Pełne tabele kodowania (ściąga)</h2>
 <details>
-<summary><b>Rozwiń: Zestawienie Podstawowe ASCII (0-127)</b></summary>
-Poniżej znajdziesz pocięte dla czytelności bloki całkowitych, oficjalnych znaków natywnych komputerów przyporządkowanych od wartości 0 do 127.
+<summary><b>Rozwiń: podstawowe zestawienie ASCII (0-127)</b></summary>
+Poniżej znajdują się uporządkowane grupy znaków standardu ASCII przyporządkowane do poszczególnych kodów.
 
 <details>
-<summary>Znaki Sterujące (0 - 31)</summary>
-Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowaniem druku.
+<summary>Znaki sterujące (0-31 oraz 127)</summary>
+Niewidoczne komendy służące historycznie do sterowania dalekopisami, a dziś wykorzystywane przez protokoły sieciowe i systemy operacyjne.
 
 <table>
 <thead>
@@ -584,7 +646,7 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 </details>
 
 <details>
-<summary>Znaki Specjalne i Interpunkcja</summary>
+<summary>Znaki specjalne i interpunkcja</summary>
 
 <table>
 <thead>
@@ -610,7 +672,7 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 <tr>
 <td>34</td>
 <td>22</td>
-<td align="center">&quot;</td>
+<td align="center">"</td>
 <td>Cudzysłów</td>
 </tr>
 <tr>
@@ -640,7 +702,7 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 <tr>
 <td>39</td>
 <td>27</td>
-<td align="center">&#39;</td>
+<td align="center">'</td>
 <td>Apostrof</td>
 </tr>
 <tr>
@@ -797,7 +859,7 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 </details>
 
 <details>
-<summary>Cyfry (48 - 57)</summary>
+<summary>Cyfry (48-57)</summary>
 
 <table>
 <thead>
@@ -872,7 +934,7 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 </details>
 
 <details>
-<summary>Litery Wielkie (65 - 90)</summary>
+<summary>Litery wielkie (65-90)</summary>
 
 <table>
 <thead>
@@ -1043,7 +1105,7 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 </details>
 
 <details>
-<summary>Litery Małe (97 - 122)</summary>
+<summary>Litery małe (97-122)</summary>
 
 <table>
 <thead>
@@ -1215,8 +1277,8 @@ Niewidoczne komendy służące historycznie do sterowania dalekopisami i formowa
 </details>
 
 <details>
-<summary><b>Rozwiń: Zestawienie Polskie (Windows-1250)</b></summary>
-Zestawienie tzw. polskich ogonków rozszerzenia tabeli ASCII. 
+<summary><b>Rozwiń: polskie znaki narodowe (Windows-1250)</b></summary>
+Zestawienie tzw. polskich ogonków rozszerzenia tabeli ASCII.
 
 <table>
 <thead>
@@ -1339,7 +1401,7 @@ Zestawienie tzw. polskich ogonków rozszerzenia tabeli ASCII.
 </details>
 
 <details>
-<summary><b>Rozwiń: Zestawienie Niemieckie (Iso / UTF-8)</b></summary>
+<summary><b>Rozwiń: znaki niemieckie (ISO / UTF-8)</b></summary>
 Umlauty (przegłosy) i specjalna ligatura używane w języku niemieckim.
 
 <table>
@@ -1397,14 +1459,14 @@ Umlauty (przegłosy) i specjalna ligatura używane w języku niemieckim.
 <td>7838</td>
 <td>1E9E</td>
 <td align="center">ẞ</td>
-<td>Wielka litera Eszett (dodana w normie znacznie później)</td>
+<td>Wielka litera Eszett</td>
 </tr>
 </tbody></table>
 </details>
 
 <details>
-<summary><b>Rozwiń: Zestawienie Hiszpańskie (Iso / UTF-8)</b></summary>
-Znaki akcentowane oraz odwrócona interpunkcja specyficzne dla j. Hiszpańskiego.
+<summary><b>Rozwiń: znaki hiszpańskie (ISO / UTF-8)</b></summary>
+Znaki akcentowane oraz odwrócona interpunkcja specyficzne dla języka hiszpańskiego.
 
 <table>
 <thead>
@@ -1503,8 +1565,8 @@ Znaki akcentowane oraz odwrócona interpunkcja specyficzne dla j. Hiszpańskiego
 </details>
 
 <details>
-<summary><b>Rozwiń: Zestawienie Japońskie Hiragana / Kanji (Unicode UTF-8)</b></summary>
-Skromny wycinek znaków japońskich jako ciekawostka udowadniająca ogromną rozpiętość standardu UTF-8, używanego by móc pokazać każdy alfabet świata na Twoim ekranie używając wielobajtowego zapisu.
+<summary><b>Rozwiń: znaki japońskie Hiragana / Kanji (Unicode UTF-8)</b></summary>
+Wycinek znaków japońskich ilustrujący działanie wielobajtowego kodowania standardu UTF-8.
 
 <table>
 <thead>
@@ -1520,108 +1582,135 @@ Skromny wycinek znaków japońskich jako ciekawostka udowadniająca ogromną roz
 <td>12354</td>
 <td>3042</td>
 <td align="center">あ</td>
-<td>Litera <em>A</em></td>
+<td>Litera <span class="color-blue">A</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12356</td>
 <td>3044</td>
 <td align="center">い</td>
-<td>Litera <em>I</em></td>
+<td>Litera <span class="color-blue">I</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12358</td>
 <td>3046</td>
 <td align="center">う</td>
-<td>Litera <em>U</em></td>
+<td>Litera <span class="color-blue">U</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12360</td>
 <td>3048</td>
 <td align="center">え</td>
-<td>Litera <em>E</em></td>
+<td>Litera <span class="color-blue">E</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12362</td>
 <td>304A</td>
 <td align="center">お</td>
-<td>Litera <em>O</em></td>
+<td>Litera <span class="color-blue">O</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12363</td>
 <td>304B</td>
 <td align="center">か</td>
-<td>Znak <em>Ka</em></td>
+<td>Znak <span class="color-blue">Ka</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12365</td>
 <td>304D</td>
 <td align="center">き</td>
-<td>Znak <em>Ki</em></td>
+<td>Znak <span class="color-blue">Ki</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>12367</td>
 <td>304F</td>
 <td align="center">く</td>
-<td>Znak <em>Ku</em></td>
+<td>Znak <span class="color-blue">Ku</span></td>
 <td>Hiragana</td>
 </tr>
 <tr>
 <td>26085</td>
 <td>65E5</td>
 <td align="center">日</td>
-<td><em>Dzień / Słońce</em> (Nichi)</td>
+<td><span class="color-blue">Dzień / Słońce</span> (Nichi)</td>
 <td>Kanji</td>
 </tr>
 <tr>
 <td>26412</td>
 <td>672C</td>
 <td align="center">本</td>
-<td><em>Książka / Korzeń</em> (Hon)</td>
+<td><span class="color-blue">Książka / Korzeń</span> (Hon)</td>
 <td>Kanji</td>
 </tr>
 <tr>
 <td>20154</td>
 <td>4EBA</td>
 <td align="center">人</td>
-<td><em>Człowiek</em> (Hito)</td>
+<td><span class="color-blue">Człowiek</span> (Hito)</td>
 <td>Kanji</td>
 </tr>
 <tr>
 <td>26408</td>
 <td>6728</td>
 <td align="center">木</td>
-<td><em>Drzewo</em> (Ki)</td>
+<td><span class="color-blue">Drzewo</span> (Ki)</td>
 <td>Kanji</td>
 </tr>
 <tr>
 <td>35211</td>
 <td>898B</td>
 <td align="center">見</td>
-<td><em>Widzieć</em> (Mi)</td>
+<td><span class="color-blue">Widzieć</span> (Mi)</td>
 <td>Kanji</td>
 </tr>
 <tr>
 <td>27700</td>
 <td>6C34</td>
 <td align="center">水</td>
-<td><em>Woda</em> (Mizu)</td>
+<td><span class="color-blue">Woda</span> (Mizu)</td>
 <td>Kanji</td>
 </tr>
 <tr>
 <td>28779</td>
 <td>706B</td>
 <td align="center">火</td>
-<td><em>Ogień</em> (Hi)</td>
+<td><span class="color-blue">Ogień</span> (Hi)</td>
 <td>Kanji</td>
 </tr>
 </tbody></table>
 </details>
 
+
 <p><data-ascii-converter></data-ascii-converter></p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Wszystko jest liczbą</span>: Komputery nie przetwarzają bezpośrednio liter ani symboli – każdy znak na ekranie odpowiada przypisanej mu liczbie (mapowanie).</li>
+<li><span class="color-green">Standard ASCII</span>: Klasyczny, 8‑bitowy standard kodujący podstawowe znaki alfabetu łacińskiego, cyfry i znaki specjalne w zakresie 0‑255.</li>
+<li><span class="color-green">Wzorce bitowe</span>: Tabela ASCII powstała celowo w taki sposób, aby ułatwić maszynom pracę – np. bit 5 służy jako przełącznik między wielką a małą literą (różnica 32), a odcięcie górnych 4 bitów z kodu cyfry daje jej bezpośrednią wartość liczbową.</li>
+<li><span class="color-green">Prefiksy</span>: Zapisy <code>0b</code> (binarny), <code>0o</code> (ósemkowy) oraz <code>0x</code> (szesnastkowy) to standardowy sposób oznaczania baz liczbowych w kodzie.</li>
+<li><span class="color-green">Unicode i UTF‑8</span>: Unicode to gigantyczny uniwersalny zbiór ponad $150\ 000$ znaków (w tym emoji i znaki narodowe), a UTF‑8 to jego zmienno‑bajtowa implementacja, wstecznie kompatybilna z ASCII, kodująca dziś niemal cały Internet.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

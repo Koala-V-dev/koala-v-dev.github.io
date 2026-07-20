@@ -60,7 +60,7 @@ Przy **astygmatyzmie** światło nie ogniskuje się w jednym punkcie, lecz wzdł
 
 </data-tabs>
 
-## ⚒️ Przygotowanie Stanowiska: Kalibracja Twojego "Płótna"
+## ⚒️ Przygotowanie stanowiska: diagnostyka Twojego „płótna”
 GIMP jest już zainstalowany, ale zanim postawisz pierwszą kreskę, musisz zaufać swojemu monitorowi.  
 Monitor to Twoje jedyne okno na świat projektu. Jeżeli przekłamuje jasność lub barwy, Twoja praca będzie wyglądać inaczej na każdym innym ekranie.
 
@@ -68,11 +68,14 @@ Współczesna grafika opiera się na dwóch dominujących technologiach matryc, 
 *   **Matryce IPS**: Standard w pracy graficznej. Oferują świetne kąty widzenia, ale cierpią na tzw. „IPS Glow” — czerń nigdy nie jest w nich idealnie czarna, lecz lekko świecąca.
 *   **Matryce OLED**: Nowoczesny standard mobilny i premium. Tutaj piksel potrafi się całkowicie wyłączyć, dając „nieskończoną czerń”, co jednak często prowadzi do problemu *Black Crush* (zalewania detali w cieniach).
 
-Poniższy kalibrator pomoże Ci dostroić sprzęt do standardu **Gamma 2.2**.
+Poniższy test pozwoli wizualnie ocenić, czy ekran nie gubi detali i czy jego ustawienia są zbliżone do **Gamma 2.2**.
 
-<data-calibration type="IPS"></data-calibration>
+> [!IMPORTANT]
+> To diagnostyka wizualna, a nie kalibracja. Dokładna kalibracja wymaga kolorymetru i dedykowanego programu, który mierzy ekran oraz tworzy profil ICC. GIMP może później korzystać z systemowego profilu monitora w ustawieniach zarządzania kolorem.
 
-## 📒 Jak przygotować monitor w 4 krokach:
+<data-calibration></data-calibration>
+
+## 📒 Jak sprawdzić monitor w 4 krokach:
 1.  **Fundament Jasności (Test Gamma):** To najważniejszy krok. Twoim celem jest uzyskanie płynnej krzywej jasności.  
 Patrz na koło **_CEL:2.2_** (możesz zmrużyć oczy lub użyć funkcji rozmycia). Jeśli koło wyróżnia się na tle wzoru, Twój monitor „przypala” lub „gasi” średnie tony. Uzyskanie idealnej krzywej gamma może okazać się bardzo trudne, ale warto zbliżyć się do ideału 😉.
 2.  **Odcięcie Czerni (Cienie):** Tutaj zobaczysz różnicę między technologiami matryc. _**OLED**_ wyłącza piksele, a _**IPS**_ zmniejsza natężenie podświetlenia. 

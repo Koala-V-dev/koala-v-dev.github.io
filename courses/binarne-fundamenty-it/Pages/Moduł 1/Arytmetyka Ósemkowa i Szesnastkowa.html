@@ -1,43 +1,154 @@
-<h2>🎱💎 Arytmetyka Ósemkowa i Szesnastkowa</h2>
-<p>Znasz już arytmetykę binarną — dodawanie, odejmowanie, mnożenie i dzielenie na zerach i jedynkach. Teraz czas zastosować <strong>te same reguły</strong> w systemach, które informatycy używają na co dzień: <strong>ósemkowym (Octal)</strong> i <strong>szesnastkowym (Hexadecimal)</strong>.</p>
-<p>Zasada jest uniwersalna: zmienia się tylko <strong>pojemność licznika</strong>, przy której następuje <strong>Przeładowanie</strong> (gdy suma jest zbyt duża) lub zapotrzebowanie na <strong>Cofnięcie licznika</strong> (gdy od mniejszej cyfry odejmujemy większą).</p>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Arytmetyka Ósemkowa i Szesnastkowa - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Arytmetyka ósemkowa i szesnastkowa</h1>
+<p>Znasz już arytmetykę binarną — dodawanie, odejmowanie, mnożenie i dzielenie na zerach i jedynkach. Teraz czas zastosować <span class="color-gold">te same reguły</span> w systemach, które informatycy używają na co dzień: ósemkowym (<span class="color-blue">Octal</span>) i szesnastkowym (<span class="color-blue">Hexadecimal</span>).</p>
+<p>Zasada jest uniwersalna: zmienia się tylko <span class="color-gold">pojemność licznika</span>, przy której następuje <span class="color-green">Przeładowanie</span> (gdy suma jest zbyt duża) lub zapotrzebowanie na <span class="color-red">Cofnięcie licznika</span> (gdy od mniejszej cyfry odejmujemy większą).</p>
 <table>
 <thead>
 <tr>
 <th align="left">System</th>
 <th align="center">Cyfry</th>
-<th align="center">Limit Licznika</th>
+<th align="center">Limit licznika</th>
 <th align="center">Przeładowanie (koszt z sumy)</th>
-<th align="center">Zapożyczenie i Koszt Przrótu (z długu)</th>
+<th align="center">Zapożyczenie i koszt przewrotu (dług)</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">Binarny</td>
-<td align="center">0&#8209;1</td>
-<td align="center">1</td>
+<td align="left"><span class="color-green">Binarny</span></td>
+<td align="center">$0-1$</td>
+<td align="center">$1$</td>
 <td align="center">$-2$</td>
-<td align="center">Sąsiad bierze 1 długu, przewrót kosztuje -1 długu</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
 </tr>
 <tr>
-<td align="left"><strong>Ósemkowy</strong></td>
-<td align="center">0&#8209;7</td>
-<td align="center">7</td>
+<td align="left"><span class="color-green">Ósemkowy</span></td>
+<td align="center">$0-7$</td>
+<td align="center">$7$</td>
 <td align="center">$-8$</td>
-<td align="center">Sąsiad bierze 1 długu, przewrót kosztuje -1 długu</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
 </tr>
 <tr>
-<td align="left"><strong>Szesnastkowy</strong></td>
-<td align="center">0&#8209;F</td>
-<td align="center">15 (F)</td>
+<td align="left"><span class="color-green">Szesnastkowy</span></td>
+<td align="center"><span style="text-wrap: nowrap;">$0-\text{F}$</span></td>
+<td align="center">$15$ ($\text{F}$)</td>
 <td align="center">$-16$</td>
-<td align="center">Sąsiad bierze 1 długu, przewrót kosztuje -1 długu</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">Dziesiętny</span></td>
+<td align="center">$0-9$</td>
+<td align="center">$9$</td>
+<td align="center">$-10$</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Szóstkowy</span></td>
+<td align="center">$0-5$</td>
+<td align="center">$5$</td>
+<td align="center">$-6$</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Czwórkowy</span></td>
+<td align="center">$0-3$</td>
+<td align="center">$3$</td>
+<td align="center">$-4$</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Trójkowy</span></td>
+<td align="center">$0-2$</td>
+<td align="center">$2$</td>
+<td align="center">$-3$</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Dwunastkowy</span></td>
+<td align="center">$0-\text{B}$</td>
+<td align="center">$11$</td>
+<td align="center">$-12$</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
+</tr>
+<tr>
+<td align="left"><a href="https://pl.wikipedia.org/wiki/Sze%C5%9B%C4%87dziesi%C4%85tkowy_system_liczbowy">Sześćdziesiętny</a></td>
+<td align="center"><a href="https://en.wikipedia.org/wiki/Sexagesimal#Babylonian_mathematics">Zapis klinowy</a></td>
+<td align="center">$59$</td>
+<td align="center">$-60$</td>
+<td align="center">Sąsiad bierze $1$ długu, przewrót kosztuje $-1$ długu</td>
 </tr>
 </tbody></table>
-<h3>🎱 System Ósemkowy (Octal)</h3>
-<p>System ósemkowy był popularny w erze 12&#8209;bitowych i 36&#8209;bitowych maszyn. Dziś spotkasz go głównie w uprawnieniach systemów Linux (<code>chmod 755</code>). Jedna cyfra ósemkowa to <strong>dokładnie 3 bity</strong>.</p>
-<h4>➕ Dodawanie Ósemkowe</h4>
-<p>System wykorzystuje cyfry $0$-$7$. Gdy suma przekroczy $7$, licznik ulega <strong>Przeładowaniu</strong> (oddajesz $8$ z sumy) i przenosi $1$ do kolejnej kolumny.</p>
-<p><strong>Przykład ($37_8 + 25_8$):</strong></p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Rachunki na papierze vs sprzęt procesora</span><br>Przedstawione w tym rozdziale pisemne metody odejmowania (oparte na pożyczkach i długu) to tradycyjny sposób wykonywania obliczeń przez człowieka na papierze. W fizycznym procesorze odejmowanie realizowane jest inaczej - maszyna nie posiada osobnego układu odejmującego, lecz zamienia drugą liczbę na jej postać ujemną w kodzie U2 (metoda <code>Invert + 1</code>) i wykonuje zwykłe dodawanie binarne. Wynik jest następnie interpretowany w systemie ósemkowym lub szesnastkowym bezpośrednio z rejestru, bez potrzeby wykonywania skomplikowanych pożyczek.</p>
+
+</div>
+</div><hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎱 System ósemkowy (Octal)</h2>
+<blockquote>
+<p>[!REMINDER]<br>System ósemkowy był popularny w erze 12‑bitowych i 36‑bitowych maszyn. Dziś spotkasz go głównie w uprawnieniach systemów Linux (<code>chmod 755</code>). Jedna cyfra ósemkowa to <span class="color-blue">dokładnie 3 bity</span>.</p>
+</blockquote>
+<hr>
+<h3>➕ Dodawanie ósemkowe</h3>
+<p>System wykorzystuje cyfry $0$-$7$. Gdy suma przekroczy $7$, licznik ulega <span class="color-gold">przeładowaniu</span> (oddajesz $8$ z sumy) i przenosi $1$ do kolejnej kolumny.</p>
+<p><span class="color-green">Przykład ($37_8 + 25_8$):</span></p>
 <table>
 <thead>
 <tr>
@@ -47,25 +158,25 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>Składnik A</strong></td>
+<td align="left"><span class="color-green">Składnik A</span></td>
 <td align="center">$3$</td>
 <td align="center">$7$</td>
 </tr>
 <tr>
-<td align="left"><strong>Składnik B</strong></td>
+<td align="left"><span class="color-green">Składnik B</span></td>
 <td align="center">$2$</td>
 <td align="center">$5$</td>
 </tr>
 <tr>
-<td align="left"><strong>Wynik</strong></td>
-<td align="center"><strong>$6$</strong></td>
-<td align="center"><strong>$4$</strong></td>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><span class="color-green">$6$</span></td>
+<td align="center"><span class="color-green">$4$</span></td>
 </tr>
 </tbody></table>
 <p>Analiza kolumn (od prawej):</p>
 <ul>
-<li><strong>Jedności</strong>: $7 + 5 = 12$. Ponieważ to więcej niż pomieści licznik: oddajemy $8$ za jedno pełne przeładowanie. Wynik to $12 - 8 = 4$. <strong>Przeładowanie (1)</strong> idzie do kolumny po lewej.</li>
-<li><strong>Ósemki</strong>: $3 + 2 + 1_{\text{przeładowanie}} = 6$. Ponieważ $6 &lt; 8$, brak kolejnego przeładowania.</li>
+<li><span class="color-green">Jedności</span>: $7 + 5 = 12$. Ponieważ to więcej niż pomieści licznik, oddajemy $8$ za jedno pełne przeładowanie. Wynik to $12 - 8 = 4$. <span class="color-green">przeniesienie (1)</span> idzie do kolumny po lewej.</li>
+<li><span class="color-green">Ósemki</span>: $3 + 2 + 1_{\text{przeładowanie}} = 6$. Ponieważ $6 &lt; 8$, brak kolejnego przeładowania.</li>
 </ul>
 <p>Wynik: $64_8$ (sprawdzenie: $31_{10} + 21_{10} = 52_{10}$ = $64_8$ ✅)</p>
 <hr>
@@ -73,37 +184,48 @@
   <data-arithmetic-challenge base="8" operation="+"></data-arithmetic-challenge>
 </data-gate>
 
-<h4>➖ Odejmowanie Ósemkowe</h4>
-<p>System wykorzystuje <strong>Regułę Niwelowania i Cofania</strong>. Różnica względem układu dziesiętnego polega tylko na tym, że po cofnięciu licznik staje na pozycji <strong>$7$</strong>.</p>
-<p><strong>Przykład ($52_8 - 37_8$):</strong></p>
+<hr>
+<h3>➖ Odejmowanie ósemkowe</h3>
+<p>System wykorzystuje <span class="color-gold">regułę niwelowania i cofania</span>. Różnica względem układu dziesiętnego polega tylko na tym, że po cofnięciu licznik staje na pozycji <span class="color-blue">$7$</span>.</p>
+<p><span class="color-green">Przykład ($52_8 - 37_8$):</span></p>
 <table>
 <thead>
 <tr>
 <th align="left">Stan długu</th>
-<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Tu stoisz by operować 5 - 3. Sprawdzasz jednak, że na Twoim obiekcie spoczywa dług 1 wleczony z przeskoku prawej krawędzi. Spłacasz go na starcie pomniejszając górny stan (5 - 1 = 4). Zostajesz z przeliczoną jednością 4. Z czystym kątem na zrzuconej 4 rozliczasz bazowe zadanie przez odjemnik - więc na sam koniec odejmujesz widniejące niżej 3 (4 - 3). Notujesz finalny opad warty 1. Koniec zmartwień o generowanie nadmiernych obciążeń dla sąsiadów z lewej.">❌</span></th>
-<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Tu od mniejszej cyfry odciągasz 7. Większe od mniejszego u podstawy, więc musi nastąpić ujęcie długu wprawionego w środowisku lewym (lewy sąsiad przejmuje na siebie próg 1 długu wyrównawczego). Zaciągnąwszy u niego pożyczkę bezkarnie cofasz u bazy swój licznik. Określamy w głowie realny wymiar długu niwelując do zera wspólną część (ujemne 7 uszczuplone po spłaceniu górnym 2 to zadłużenie dające 5 długu). Sam bezwarunkowy akt obracania licznika wstecz poniżej bariery 0 na próg maksymalny systemu (czyli cyfrę 7) niweluje i spłaca automatyczną część z całego wygenerowanego długu za to przewrócenie (dług zostaje uszczuplony 5 - 1 = 4). Pamiętając o zadłużeniu 4 zdejmujesz je z wymiaru spoczywającego na cofniętym obwodzie (7), tak po ściągnięciu (7 - 4) zostaje legalnie odzyskana i wpisana cyfra o wariancie 3. W lewą drogę wysłany został jeden proces długu.">✅</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Wykonujemy odejmowanie w lewej kolumnie: początkowe 5 pomniejszamy o pożyczkę 1 przekazaną w prawo, co daje 4. Następnie odejmujemy 3 (4 - 3 = 1). Brak nowego długu, wynik to 1.">❌</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Stosujemy regułę niwelowania i cofania dla 2 - 7: niwelujemy 2, co daje 5 długu. Pożyczamy 1 od sąsiada, co cofa licznik na 7 (koszt przeskoku to 1, zostaje 4 długu). Odejmujemy pozostały dług od licznika: 7 - 4 = 3. Przenosimy dług w lewo.">✅</span></th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>Odjemna</strong></td>
+<td align="left"><span class="color-green">Odjemna</span></td>
 <td align="center">$5$</td>
 <td align="center">$2$</td>
 </tr>
 <tr>
-<td align="left"><strong>Odjemnik</strong></td>
+<td align="left"><span class="color-green">Odjemnik</span></td>
 <td align="center">$3$</td>
 <td align="center">$7$</td>
 </tr>
 <tr>
-<td align="left"><strong>Wynik</strong></td>
-<td align="center"><strong>$1$</strong></td>
-<td align="center"><strong>$3$</strong></td>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><span class="color-green">$1$</span></td>
+<td align="center"><span class="color-green">$3$</span></td>
 </tr>
 </tbody></table>
 <p>Analiza kolumn (od prawej):</p>
 <ul>
-<li><strong>Jedności</strong>: $2 - 7$. <strong>Niwelujemy</strong> nasze $2$, co zostawia nam <em>$5$ długu</em>. Ratujemy się pożyczką, więc sąsiad bierze $1$ na swój rachunek, co z kolei pozwala nam cofnąć licznik pod zero na pozycję <strong>$7$</strong>. Przewrót ten kosztuje nas zawsze $1$ długu. Reszta długu wynosi więc $5 - 1 = 4$. Od aktualnej pozycji licznika ($7$) odejmujemy te $4$. Wynik: <em><strong>$3$</strong></em>.</li>
-<li><strong>Ósemki</strong>: Masz na liczniku $5$, ale wisi na Tobie dług z tytułu pożyczki ($1$). Spłacasz go: $5 - 1 = 4$. Teraz na czysto od tego $4$ odejmujesz docelowe $3$. Wynik: <em><strong>$1$</strong></em>.</li>
+<li><span class="color-green">Jedności</span>: Odejmujemy $2_8 - 7_8$.<ol>
+<li><span class="color-blue">Niwelowanie</span>: Spłacamy część odejmowanej wartości za pomocą posiadanej $2$, co pozostawia nam $5$ długu ($7 - 2 = 5$).</li>
+<li><span class="color-blue">Cofanie (pożyczka)</span>: Pożyczamy $1$ od lewego sąsiada, co pozwala nam cofnąć licznik z $0$ na maksymalną wartość $7_8$.</li>
+<li><span class="color-blue">Koszt przeskoku</span>: Cofnięcie licznika wstecz o jeden pełny obrót spłaca $1$ jednostkę długu. Pozostały dług do spłacenia to teraz $4$ ($5 - 1 = 4$).</li>
+<li><span class="color-blue">Wynik pozycji</span>: Odejmujemy pozostały dług od pozycji licznika: $7 - 4 = 3$. Zapisujemy w wyniku: <span class="color-gold">$3$</span>.</li>
+</ol>
+</li>
+<li><span class="color-green">Ósemki</span>: Odejmujemy $5_8 - 3_8$.<ol>
+<li>Uwzględniamy pożyczkę udzieloną kolumnie jedności: zmniejszamy stan licznika o $1$: $5_8 - 1 = 4_8$.</li>
+<li>Odejmujemy dolną cyfrę: $4_8 - 3_8 = 1_8$. Zapisujemy w wyniku: <span class="color-gold">$1$</span>.</li>
+</ol>
+</li>
 </ul>
 <p>Wynik: $13_8$ (sprawdzenie: $42_{10} - 31_{10} = 11_{10}$ = $13_8$ ✅)</p>
 <hr>
@@ -111,105 +233,253 @@
   <data-arithmetic-challenge base="8" operation="-"></data-arithmetic-challenge>
 </data-gate>
 
-<h4>🛡️ Symulator Ósemkowy</h4>
-<p>Przetestuj dowolne operacje. Zwróć uwagę, jak carry i borrow zachowują się z progiem 8:</p>
-<p><data-binary-arithmetic base="8" digits="6" u2="false"></data-binary-arithmetic></p>
-<h4>✖️ Mnożenie Ósemkowe</h4>
-<p>Mnożenie w każdym systemie to proces sumowania wielokrotności liczby oraz poślizgu w lewo (Shift) o pozycję cyfry. Gdy operacji mnożenia podlega zestaw cyfr ($0&#8209;7$), należy pilnować momentów przeładowań dla potęgi $8$. </p>
-<p><strong>Przykład ($25_8 \cdot 14_8$):</strong><br>Mnożymy dokładnie tak, jak pod kreską w systemie dziesiętnym, decydując jedynie ile pełnych &quot;pudełek z 8 elementami&quot; możemy spakować.</p>
-<p><strong>Krok 1:</strong> Mnożenie przez pozycję jedności ($4$)</p>
+<hr>
+<h3>🕹️ Symulator ósemkowy</h3>
+<p>Przetestuj dowolne operacje. Zwróć uwagę, jak <span class="color-green">carry</span> i <span class="color-red">borrow</span> zachowują się z progiem $8$:</p>
+<p><data-binary-arithmetic base="8" digits="6" u2="true"></data-binary-arithmetic></p>
+<hr>
+<h3>✖️ Mnożenie ósemkowe</h3>
+<p>Mnożenie w każdym systemie to proces sumowania wielokrotności liczby oraz przesunięcia bitowego w lewo (<span class="color-blue">Shift</span>) o pozycję cyfry. Gdy operacji mnożenia podlega zestaw cyfr ($0-7$), należy pilnować momentów przeładowań dla potęgi $8$.</p>
+<p><span class="color-green">Przykład ($25_8 \cdot 14_8$):</span><br>Mnożymy pisemnie, cyfra po cyfrze, dokładnie tak jak w systemie dziesiętnym, pamiętając jednak, że każda wartość $\ge 8$ musi zostać podzielona przez $8$ w celu wyznaczenia przeniesienia i reszty.</p>
+<p><span class="color-green">Krok 1: Mnożenie przez cyfrę jedności ($4_8$)</span><br>Mnożymy górną liczbę $25_8$ od prawej do lewej przez cyfrę $4$:</p>
+<ol>
+<li><span class="color-blue">Mnożymy $4 \cdot 5$</span>: Wynik dziesiętny to $20_{10}$. Sprawdzamy, ile ósemek mieści się w $20$: $20 \div 8 = 2$ reszty $4$. Zapisujemy pod kreską cyfrę reszty: <span class="color-green">$4$</span>, a pełne ósemki przenosimy dalej: <span class="color-green">carry</span> = <span class="color-green">$2$</span>.</li>
+<li><span class="color-blue">Mnożymy $4 \cdot 2$</span>: Wynik dziesiętny to $8_{10}$. Dodajemy przeniesioną wcześniej wartość: $8 + 2 = 10_{10}$. Sprawdzamy, ile ósemek mieści się w $10$: $10 \div 8 = 1$ reszty $2$. Zapisujemy pod kreską cyfrę reszty: <span class="color-green">$2$</span>, a pełną ósemkę przenosimy dalej: <span class="color-green">carry</span> = <span class="color-green">$1$</span>.</li>
+<li><span class="color-blue">Zapisujemy pozostałe przeniesienie</span>: Przeniesioną na koniec jedynkę dopisujemy na początku wiersza: <span class="color-green">$1$</span>.</li>
+</ol>
 <ul>
-<li>$4 \cdot 5 = 20_{(decymalnie)}$. Dzieląc to przez limit $8$, mamy $2$ pełne ósemki i pozostaje nam reszta $4$. Przeładowanie (carry) = $2$. Wynik zapisu: <strong>4</strong>.</li>
-<li>$4 \cdot 2 = 8_{(dec)}$. Dodajemy zapisany przelew z poprzedniej pozycji ($+2$). Suma to $10_{(dec)}$.</li>
-<li>$10_{(dec)} \div 8$ = $1$ pełna ósemka i $2$ reszty. Przeładowanie (carry) = $1$. Wynik zapisu: <strong>2</strong>.</li>
-<li>Wynik I cyklu: <strong>$124_8$</strong></li>
+<li>Otrzymujemy pierwszy wynik częściowy: <span class="color-green">$124_8$</span>.</li>
 </ul>
-<p><strong>Krok 2:</strong> Mnożenie przez pozycję ósemek ($1$) + obowiązkowe Puste Przesunięcie (Shift by 1)</p>
+<p><span class="color-green">Krok 2: Mnożenie przez cyfrę ósemek ($1_8$)</span><br>Mnożymy górną liczbę $25_8$ przez $1$, pamiętając o dopisaniu $0$ na końcu (przesunięcie o jedną pozycję w lewo):</p>
+<ol>
+<li>Dopisujemy na końcu cyfrę przesunięcia: <span class="color-green">$0$</span> (ogon).</li>
+<li><span class="color-blue">Mnożymy $1 \cdot 5$</span>: Wynik to $5$. Ponieważ $5 &lt; 8$, nie ma przeniesienia. Zapisujemy: <span class="color-green">$5$</span>.</li>
+<li><span class="color-blue">Mnożymy $1 \cdot 2$</span>: Wynik to $2$. Ponieważ $2 &lt; 8$, nie ma przeniesienia. Zapisujemy: <span class="color-green">$2$</span>.</li>
+</ol>
 <ul>
-<li>Ogon uzupełniamy o $0$.</li>
-<li>$1 \cdot 5 = 5_{(dec)}$. Poniżej 8, brak paczki. Przeładowanie = 0.</li>
-<li>$1 \cdot 2 = 2_{(dec)}$.</li>
-<li>Wynik II cyklu: <strong>$250_8$</strong></li>
+<li>Otrzymujemy drugi wynik częściowy: <span class="color-green">$250_8$</span>.</li>
 </ul>
-<p><strong>Krok 3:</strong> Dodawanie Ósemkowe pod kreską:</p>
+<p><span class="color-green">Krok 3:</span> Dodawanie ósemkowe pod kreską:</p>
 <table>
 <thead>
 <tr>
 <th></th>
-<th></th>
-<th></th>
-<th></th>
+<th align="center"></th>
+<th align="center"></th>
+<th align="center"></th>
 </tr>
 </thead>
 <tbody><tr>
 <td></td>
-<td>$1$</td>
-<td>$2$</td>
-<td>$4$</td>
+<td align="center">$1$</td>
+<td align="center">$2$</td>
+<td align="center">$4$</td>
 </tr>
 <tr>
 <td>+</td>
-<td>$2$</td>
-<td>$5$</td>
-<td>$0$</td>
+<td align="center">$2$</td>
+<td align="center">$5$</td>
+<td align="center">$0$</td>
 </tr>
 <tr>
 <td><hr></td>
-<td><hr></td>
-<td><hr></td>
-<td><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
 </tr>
 <tr>
 <td></td>
-<td><strong>$3$</strong></td>
-<td><strong>$7$</strong></td>
-<td><strong>$4_8$</strong></td>
+<td align="center"><span class="color-green">$3$</span></td>
+<td align="center"><span class="color-green">$7$</span></td>
+<td align="center"><span class="color-green">$4_8$</span></td>
 </tr>
 </tbody></table>
 <p>$( 25_8 \cdot 14_8 = 374_8 \rightarrow 21_{10} \cdot 12_{10} = 252_{10})$</p>
-<h4>➗ Dzielenie Ósemkowe</h4>
-<p>Dzielenie to procedura &quot;przymierzania mniejszego pudełka do większego&quot;, identycznie jak badanie Reguły Przewagi w arytmetyce Binarnej.</p>
-<p><strong>Przykład ($124_8 \div 4_8$):</strong></p>
+<hr>
+<h3>➗ Dzielenie ósemkowe</h3>
+<p>Dzielenie w systemie ósemkowym opiera się na dokładnie tej samej procedurze, którą znasz z systemu binarnego, to znaczy na <span class="color-gold">skanowaniu po indeksach za pomocą szablonu</span> (dzielnika). Jedyna różnica polega na tym, że zamiast decydować czy wpisać $0$ czy $1$, sprawdzamy <span class="color-blue">ile razy</span> dzielnik mieści się w danej sekcji (od $0$ do $7$).</p>
+<p><span class="color-green">Przykład ($124_8 \div 4_8$):</span><br>Nasza dzielna to $124_8$ (indeksy pozycji od prawej: $2, 1, 0$), a szablon to $4_8$. Przymierzamy szablon, zaczynając od skrajnej lewej strony:</p>
+<h4>Krok 1: Pierwsza przymiarka</h4>
+<p>Kładziemy szablon (dzielnik <code>4</code>) tak, aby jego <span class="color-gold">Głowa</span> znajdowała się pod skrajnie lewym indeksem ($2$). <span class="color-gold">Ogon</span> szablonu leży na <span class="color-gold">indeksie $2$</span>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Dzielna</span></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>4</code></td>
+<td align="left">Wartość początkowa</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablon</span></td>
+<td align="center"><span class="color-green"><code>4</code></span></td>
+<td align="center"><span class="color-blue"><code>0</code></span></td>
+<td align="center"><span class="color-blue"><code>0</code></span></td>
+<td align="left"><span class="color-green">Ogon na indeksie $2$</span> (szablon przesunięty o $2$ w lewo)</td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>?</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Wynik na indeksie $2$ to $0$</td>
+</tr>
+</tbody></table>
 <ul>
-<li>Bierzemy głowę liczby <code>1</code> - czwórka się nie mieści (wynik 0). </li>
-<li>Bierzemy <code>12_8</code> do przymiarki. Skoro to ósemki, musisz pamiętać, że <code>12_8</code> odpowiada wymiarze dziesiętnemu $1 \cdot 8^1 + 2 = 10_{(10)}$. Ile wpadów <code>4</code> zmieścisz w wartości matematycznej 10? Zmieścisz dokładnie dwa rzuty ($2 \cdot 4 = 8_8$).</li>
-<li>Zapisujesz <strong>$2$</strong> jako pierwszą cześć wyniku podzielenia. </li>
-<li>Odejmujesz: <code>12_8</code> - $8_8$. Według zasad cofania z odejmowania: spadek o dwie pozycje w dół. Reszta to <code>2</code>.</li>
-<li>Zrzucasz kolejną cyfrę wiersza z góry (<code>4</code>) i stykasz do reszty: Przymierzasz dzielnik <code>4</code> do liczby <code>24_8</code>.</li>
-<li>Wersja matematyczna tej wartości to $2 \cdot 8 + 4 = 20_{(10)}$. Wartość 20 na matematyce mieści <code>4</code> perfekcyjnie równe 5 razy ($4 \cdot 5 = 20_{10}$). Twoje dzielenie dziesiętne zamyka wynik resztą u zera, więc konwertujesz wyłowione równe wycinki. Zapisujesz ostatecznie jako dół wyniku: <strong>$5$</strong>.</li>
-<li>Otrzymujesz poprawny wymiar końcowy cykli 1 i 2 -&gt; Wynikiem jest cyfra $2$, potem dopisano $5$: <strong>$25_8$</strong>. To ten sam przypadek co w powyższym mnożeniu!</li>
+<li><span class="color-blue">Decyzja</span>: Czy dzielna na indeksie $2$ ma przewagę nad szablonem ($1_8 \ge 4_8$)? <span class="color-red">NIE</span>. Dzielnik się nie mieści.</li>
+<li><span class="color-green">Wynik</span>: Na indeksie $2$ wyniku wpisujemy <span class="color-green">$0$</span>.</li>
 </ul>
-<h3>💎 System Szesnastkowy (Hexadecimal)</h3>
-<p>System szesnastkowy to <strong>absolutny król informatyki</strong>. Znajdziesz go wszędzie: kody kolorów CSS (<code>#FF5733</code>), adresy pamięci, instrukcje procesora, hashe kryptograficzne. Ma 16 cyfr: <code>0-9</code> oraz <code>A-F</code>.</p>
+<h4>Krok 2: Druga przymiarka</h4>
+<p>Przesuwamy szablon o jedno miejsce w prawo. Teraz jego <span class="color-gold">Ogon</span> ląduje na <span class="color-gold">indeksie $1$</span>. Badany fragment dzielnej to teraz $12_8$ (indeksy $2$ i $1$).</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Dzielna</span></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>4</code></td>
+<td align="left">Wartość początkowa</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablon</span></td>
+<td align="center"></td>
+<td align="center"><span class="color-green"><code>4</code></span></td>
+<td align="center"><span class="color-blue"><code>0</code></span></td>
+<td align="left"><span class="color-green">Ogon na indeksie $1$</span> (szablon przesunięty o $1$ w lewo)</td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Wynik na indeksie $1$ to $2$</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-blue">Decyzja</span>: Ile razy szablon $4_8$ mieści się w fragmencie $12_8$?<ul>
+<li>Przeliczamy fragment: $12_8 = (1 \cdot 8^1) + (2 \cdot 8^0) = 10_{10}$.</li>
+<li>Sprawdzamy dziesiętnie: $10_{10} \div 4_{10} = 2$ i reszty $2$. Szablon mieści się dokładnie $2$ razy ($2 \cdot 4_8 = 10_8$).</li>
+</ul>
+</li>
+<li><span class="color-green">Wynik</span>: Na indeksie $1$ wyniku wpisujemy <span class="color-green">$2$</span>.</li>
+<li><span class="color-red">Nowa reszta</span>: Odejmujemy badany fragment: $12_8 - 10_8 = 2_8$. Ta reszta $2_8$ przechodzi do kolejnego kroku, tworząc z kolejną cyfrą fragment $24_8$ (na indeksach $1$ i $0$).</li>
+</ul>
+<h4>Krok 3: Trzecia przymiarka</h4>
+<p>Przesuwamy szablon na ostatnią pozycję. Jego <span class="color-gold">Ogon</span> ląduje na <span class="color-gold">indeksie $0$</span>. Badany fragment to teraz nasza reszta wraz z ostatnią cyfrą dzielnej, czyli <code>24_8</code>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Reszta</span></td>
+<td align="center"></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>4</code></td>
+<td align="left">Stan z poprzedniego kroku (reszta + ostatnia cyfra)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablon</span></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><span class="color-green"><code>4</code></span></td>
+<td align="left"><span class="color-green">Ogon na indeksie $0$</span> (szablon bez przesunięcia)</td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>5</code></td>
+<td align="left">Ostateczny wynik działania</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-blue">Decyzja</span>: Ile razy szablon $4_8$ mieści się w fragmencie $24_8$?<ul>
+<li>Przeliczamy fragment: $24_8 = (2 \cdot 8^1) + (4 \cdot 8^0) = 20_{10}$.</li>
+<li>Sprawdzamy dziesiętnie: $20_{10} \div 4_{10} = 5$ i reszty $0$. Szablon mieści się dokładnie $5$ razy ($5 \cdot 4_8 = 24_8$).</li>
+</ul>
+</li>
+<li><span class="color-green">Wynik</span>: Na indeksie $0$ wyniku wpisujemy <span class="color-green">$5$</span>.</li>
+<li><span class="color-red">Nowa reszta</span>: Odejmujemy: $24_8 - 24_8 = 0_8$. Dzielenie skończone bez reszty.</li>
+</ul>
+<p>Ostatecznym wynikiem dzielenia jest <span class="color-green">$25_8$</span> (co idealnie pasuje do wyniku mnożenia $25_8 \cdot 14_8 = 374_8$).</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💎 System szesnastkowy (Hexadecimal)</h2>
+<p>System szesnastkowy to absolutny król informatyki. Znajdziesz go wszędzie: kody kolorów CSS (<code>#FF5733</code>), adresy pamięci, instrukcje procesora, hashe kryptograficzne. Ma $16$ znaków: <code>0-9</code> oraz <code>A-F</code>.</p>
 <table>
 <thead>
 <tr>
 <th align="left">Znak Hex</th>
-<th align="center">A</th>
-<th align="center">B</th>
-<th align="center">C</th>
-<th align="center">D</th>
-<th align="center">E</th>
-<th align="center">F</th>
+<th align="center">$\mathbf{A}$</th>
+<th align="center">$\mathbf{B}$</th>
+<th align="center">$\mathbf{C}$</th>
+<th align="center">$\mathbf{D}$</th>
+<th align="center">$\mathbf{E}$</th>
+<th align="center">$\mathbf{F}$</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>Wartość</strong></td>
-<td align="center">10</td>
-<td align="center">11</td>
-<td align="center">12</td>
-<td align="center">13</td>
-<td align="center">14</td>
-<td align="center">15</td>
+<td align="left"><span class="color-green">Wartość</span></td>
+<td align="center">$10$</td>
+<td align="center">$11$</td>
+<td align="center">$12$</td>
+<td align="center">$13$</td>
+<td align="center">$14$</td>
+<td align="center">$15$</td>
 </tr>
 </tbody></table>
-<p>Jeden znak Hex to <strong>dokładnie 4 bity</strong> (nibble). Dwie cyfry = pełny bajt:</p>
+<p>Jeden znak Hex to <span class="color-blue">dokładnie $4$ bity</span> (nibble). Dwie cyfry = pełny bajt:</p>
 <ul>
-<li><code>00</code> = $0$, <code>FF</code> = $255$, <code>7F</code> = $127$</li>
+<li>$00_{16} = 0_{10}$ </li>
+<li>$\text{FF}_{16} = 255_{10}$ </li>
+<li>$\text{7F}_{16} = 127_{10}$</li>
 </ul>
-<h4>➕ Dodawanie Szesnastkowe</h4>
-<p>Licznik w Hex mieści wartości od $0$ do $15$ (<code>F</code>). Gdy suma dobije do $16$, licznik robi pełne <strong>Przeładowanie</strong> i przenosi zsumowane $16$ bajtów jako $1$ do starszej kolumny.</p>
-<p><strong>Przykład ($3A_{16} + 2F_{16}$):</strong></p>
+<hr>
+<h3>➕ Dodawanie szesnastkowe</h3>
+<p>Licznik w Hex mieści wartości od $0_{10}$ do $15_{10}$ ($\text{F}_{16}$). Gdy suma dobije do $16_{10}$, licznik robi pełne <span class="color-gold">przeładowanie</span> (przenosi $1$ do lewej kolumny, odejmując $16_{10}$ od sumy częściowej).</p>
+<p><span class="color-green">Przykład ($3\text{A}_{16} + 2\text{F}_{16}$):</span></p>
 <table>
 <thead>
 <tr>
@@ -219,25 +489,25 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>Składnik A</strong></td>
+<td align="left"><span class="color-green">Składnik A</span></td>
 <td align="center">$3$</td>
 <td align="center">$A$</td>
 </tr>
 <tr>
-<td align="left"><strong>Składnik B</strong></td>
+<td align="left"><span class="color-green">Składnik B</span></td>
 <td align="center">$2$</td>
 <td align="center">$F$</td>
 </tr>
 <tr>
-<td align="left"><strong>Wynik</strong></td>
-<td align="center"><strong>$6$</strong></td>
-<td align="center"><strong>$9$</strong></td>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><span class="color-green">$6$</span></td>
+<td align="center"><span class="color-green">$9$</span></td>
 </tr>
 </tbody></table>
 <p>Analiza kolumn (od prawej):</p>
 <ul>
-<li><strong>Jedności</strong>: $A (10) + F (15) = 25$. Pożera to całkowitą pojemność licznika, więc oddajemy $16$ za jedno pełne <strong>przeładowanie</strong>. W wyniku zostaje reszta: $25 - 16 = 9$. Ślemy <strong>1</strong> do sąsiada.</li>
-<li><strong>Szesnastki</strong>: $3 + 2 + 1_{\text{przeładowanie}} = 6$. Brak kolejnego przeładowania.</li>
+<li><span class="color-green">Jedności</span>: $\text{A}_{16} (10_{10}) + \text{F}_{16} (15_{10}) = 25_{10}$. Pożera to całkowitą pojemność licznika, więc oddajemy $16_{10}$ za jedno pełne <span class="color-green">przeniesienie</span>. W wyniku zostaje reszta: $25_{10} - 16_{10} = 9_{10}$. Ślemy <span class="color-green">$1$</span> do sąsiada.</li>
+<li><span class="color-green">Szesnastki</span>: $3_{16} + 2_{16} + 1_{\text{przeładowanie}} = 6_{10}$. Brak kolejnego przeładowania.</li>
 </ul>
 <p>Wynik: $69_{16}$ (sprawdzenie: $58_{10} + 47_{10} = 105_{10}$ = $69_{16}$ ✅)</p>
 <div class="markdown-alert markdown-alert--tip">
@@ -245,7 +515,7 @@
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Gdy litery Cię mylą, po prostu zamień je na wartości dziesiętne ($A=10, B=11...$), wykonaj operację i zamień wynik z powrotem na Hex. Uważaj, by nie popełnić błędu przy cofaniu!</p>
+<p>Gdy litery Cię mylą, po prostu zamień je na wartości dziesiętne ($\text{A}_{16}=10_{10}, \text{B}_{16}=11_{10}, ...$), wykonaj operację i zamień wynik z powrotem na Hex. Uważaj, by nie popełnić błędu przy cofaniu!</p>
 
 </div>
 </div><hr>
@@ -253,37 +523,48 @@
   <data-arithmetic-challenge base="16" operation="+"></data-arithmetic-challenge>
 </data-gate>
 
-<h4>➖ Odejmowanie Szesnastkowe</h4>
-<p>System operuje dokładnie tą samą logiką powszechną. Jedyna subtelność polega na tym, że po cofnięciu pod 0, licznik ląduje na maksymalnej pozycji: <strong>$F (15)$</strong>.</p>
-<p><strong>Przykład ($B3_{16} - 4E_{16}$):</strong></p>
+<hr>
+<h3>➖ Odejmowanie szesnastkowe</h3>
+<p>System operuje dokładnie tą samą logiką powszechną. Jedyna subtelność polega na tym, że po cofnięciu pod $0$, licznik ląduje na maksymalnej pozycji: <span class="color-blue">$\text{F} (15)$</span>.</p>
+<p><span class="color-green">Przykład ($\text{B}3_{16} - 4\text{E}_{16}$):</span></p>
 <table>
 <thead>
 <tr>
 <th align="left">Stan długu</th>
-<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Operujesz bieżącym zakresem pierwszej kolumny z lewej strony, gdzie od rzędu B (czyli równego w matematyce dziesiętnej 11) odejmowane bazowo będzie cyfra 4. Zobacz jednak precyzyjnie jak z prawej trasy ugięć wkroczył wcześniej doliczony próg do wyrównania (wędrujący dług kwoty 1 po sąsiedzku). Dysponowane przez Ciebie i gotowe z góry 11 naturalnie spłaca twój nieskończony ciąg wymiarów dziesiętnych o wartość jeden i staje się w tym kroku wyzerowanym z zaległości układem naturalnym stojącym na punkcie wymiary 10 (co literowo utożsamia się w powłoce szesnastek literą A). Jesteś czysty przed zapożyczeniami z obwodu prawego i lewego, więc czas przeprowadzić operację pierwotnie bazową. Z punktu 10 zrzucasz w dół do odjęcia podane u spodu dolne 4 jedności, a matematyczny obrachunek owocuje natywną i czystą cyrkulacją wymiaru: u dołu zapisujesz wynikającą na poczet bazy 6, nie wymuszając przy tym dodatkowej awarii zadłużeń.">❌</span></th>
-<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Dokonujesz bezceremonialnego odjęcia potężnej u progu litery E (wartości w systemie natywnym: 14) od ułomnego u dołu, górnego składnika 3. Wobec deficytu wymuszasz roszadę i generujesz jawny ciężar długu względem lewego sąsiada w postaci kwoty jeden (lekką ręką oddalając wymogi długu u lewej strefy modułu). Rozliczamy ten zawiły problem do wyrównania oceniając wytyczne - niwelujesz wspólną część dozwolonej wartości trójki i oszacowujesz, że ze skali bazy po odliczeniu owych posiadanych trzech sztuk zaległość spada i wynosi aktualnie wycinek o masie 11 na zaciągnięty rosnący układ. Z racji, że wziąłeś dług z lewej strony, wolno ci dokonać przeskoku pętli: cofasz bębny pod spód progu u zera twardo osadzając na maksymalnym punkcie domeny F (w rozliczeniu to punktu równy 15). Fakt samego cofnięcia jest nagradzany - pętla pochłania część zadłużenia mianowicie jeden element, zbijając Twój zaległy wymiar ze zdania na pułap natywnych 10. Przeprowadzenie tej części operacji wymusza zdjęcie zadziwiających zaległości: od punktu licznika (litera F = 15) ubywamy spłacając to pozostałe opóźnienie w kwocie 10. Cykliczny obrót 15 - 10 zrzuca 5, więc zapisujemy i pozostawiamy rozwiązanie 5 na tym ujętym module, wynosząc próg jednego pożądanego długu do uregulowania obok.">✅</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Wykonujemy odejmowanie w lewej kolumnie: początkowe B (11) pomniejszamy o pożyczkę 1 przekazaną w prawo, co daje A (10). Odejmujemy 4 (10 - 4 = 6). Brak nowego długu, wynik to 6.">❌</span></th>
+<th align="center"><span style="color: var(--task-italic-bold-color);font-size:20px;display:block;height:30px;" title="Stosujemy regułę niwelowania i cofania dla 3 - E (14): niwelujemy 3, co daje 11 długu. Pożyczamy 1 od sąsiada, co cofa licznik na F (15), koszt przeskoku wynosi 1 (zostaje 10 długu). Odejmujemy pozostały dług od licznika: F (15) - 10 = 5. Przenosimy dług w lewo.">✅</span></th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>Odjemna</strong></td>
+<td align="left"><span class="color-green">Odjemna</span></td>
 <td align="center">$B$</td>
 <td align="center">$3$</td>
 </tr>
 <tr>
-<td align="left"><strong>Odjemnik</strong></td>
+<td align="left"><span class="color-green">Odjemnik</span></td>
 <td align="center">$4$</td>
 <td align="center">$E$</td>
 </tr>
 <tr>
-<td align="left"><strong>Wynik</strong></td>
-<td align="center"><strong>$6$</strong></td>
-<td align="center"><strong>$5$</strong></td>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><span class="color-green">$6$</span></td>
+<td align="center"><span class="color-green">$5$</span></td>
 </tr>
 </tbody></table>
 <p>Analiza kolumn (od prawej):</p>
 <ul>
-<li><strong>Jedności</strong>: $3 - E (14)$. <strong>Niwelujemy</strong> skromne $3$, co zostawia nam koszmarne <em>$11$ długu</em>. Wymmuszamy pożyczkę od sąsiada na lewo (sąsiad łapie $1$ długu). To ratuje nas prawem cofnięcia licznika na maksymalną pozycję <strong>$15$</strong>, ale ten przewrót kosztuje nas odpis z długu ($1$). Z $11$ robi się resztka $10$ długu. Odejmujemy resztę od stanu licznika ($15 - 10$) i w wyniku ląduje urocze <em><strong>$5$</strong></em>.</li>
-<li><strong>Szesnastki</strong>: Na starcie masz $B (11)$, ale wisisz sąsiadowi ten 1 punkt długu za pożyczkę: $11 - 1 = 10 (A)$. Jesteśmy na czysto jako czyste dziesięć, od którego odejmujemy dolną pozycję: $10 - 4 = 6$. Zostaje <em><strong>$6$</strong></em>.</li>
+<li><span class="color-green">Jedności</span>: Odejmujemy $3_{16} - \text{E}_{16}$ (dziesiętnie $3_{10} - 14_{10}$).<ol>
+<li><span class="color-blue">Niwelowanie</span>: Spłacamy część odejmowanej wartości za pomocą posiadanej $3$, co pozostawia nam $11$ długu ($14 - 3 = 11$).</li>
+<li><span class="color-blue">Cofanie (pożyczka)</span>: Pożyczamy $1$ od lewego sąsiada, co pozwala nam cofnąć licznik z $0$ na maksymalną wartość $\text{F}_{16}$ (czyli $15_{10}$).</li>
+<li><span class="color-blue">Koszt przeskoku</span>: Cofnięcie licznika wstecz o jeden pełny obrót spłaca $1$ jednostkę długu. Pozostały dług do spłacenia to teraz $10_{10}$ ($11_{10} - 1_{10} = 10_{10}$).</li>
+<li><span class="color-blue">Wynik pozycji</span>: Odejmujemy pozostały dług od pozycji licznika: $15_{10} - 10_{10} = 5_{10}$. Zapisujemy w wyniku: <span class="color-gold">$5_{16}$</span>.</li>
+</ol>
+</li>
+<li><span class="color-green">Szesnastki</span>: Odejmujemy $\text{B}_{16} - 4_{16}$.<ol>
+<li>Uwzględniamy pożyczkę udzieloną kolumnie jedności: zmniejszamy stan licznika o $1$: $\text{B}_{16} - 1 = \text{A}_{16}$ (czyli $10_{10}$). </li>
+<li>Odejmujemy dolną cyfrę: $10_{10} - 4_{10} = 6_{10}$. Zapisujemy w wyniku: <span class="color-gold">$6_{16}$</span>.</li>
+</ol>
+</li>
 </ul>
 <p>Wynik: $65_{16}$ (sprawdzenie: $179_{10} - 78_{10} = 101_{10}$ = $65_{16}$ ✅)</p>
 <hr>
@@ -291,26 +572,203 @@
   <data-arithmetic-challenge base="16" operation="-"></data-arithmetic-challenge>
 </data-gate>
 
-<h4>🛡️ Symulator Szesnastkowy</h4>
-<p>Poczuj się jak programista niskopoziomowy. 4 cyfry Hex = idealnie 16 bitów ($16^4 = 2^{16}$):</p>
-<p><data-binary-arithmetic base="16" digits="4" u2="false"></data-binary-arithmetic></p>
+<hr>
+<h3>🕹️ Symulator szesnastkowy</h3>
+<p>Poczuj się jak programista niskopoziomowy. $4$ cyfry Hex = idealnie 16 bitów ($16^4 = 2^{16}$):</p>
+<p><data-binary-arithmetic base="16" digits="4" u2="true"></data-binary-arithmetic></p>
 <div class="markdown-alert markdown-alert--tip">
 <p class="markdown-alert-title">
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Spójrz na elegancję: każda cyfra Hex odpowiada dokładnie 4 bitom (półbajtowi). Ta matematyczna czystość sprawiła, że Hex wyparł Octal w nowoczesnym programowaniu.</p>
+<p>Spójrz na elegancję: <span class="color-blue">każda cyfra Hex odpowiada dokładnie $4$ bitom (półbajtowi)</span>. Ta matematyczna czystość sprawiła, że Hex wyparł Octal w nowoczesnym programowaniu.</p>
 
 </div>
-</div><h4>✖️ Mnożenie i ➗ Dzielenie Szesnastkowe</h4>
-<p>System operacji pozostaje ten sam co we wszystkich innych - różnicą są tu wymiar potęg na przeładowania (mod 16 - carry overflow).</p>
-<p><strong>Mnożenie przykładowe ($2A_{16} \cdot B_{16}$)</strong><br>Przeliczając litery na stan liczbowy w głowie: Mnożysz $42_{(10)} \cdot 11_{(10)} = 462_{(10)}$.</p>
-<p><strong>Jak się to odbywa manualnie?</strong><br>Bierzesz pierwszą część ($B \cdot A$): Wartość to $11 \cdot 10 = 110$ w Dec.<br>Dzielisz na paczki Szesnastki: Co składa się w limitze paczek szesnastnicy? Mieścisz tam równo 6 szesnastek ($6 \cdot 16 = 96$).<br>Reszta zostająca do zapisu to $14$ - więc zapisujesz literę bazową Hex: <strong><code>E</code></strong>. Pamiętasz że pod &quot;skrzydłami z boku&quot; wisi paczka 6 pudeł z carry.</p>
-<p>Druga fraza to ($B \cdot 2$): $11 \cdot 2 = 22$.<br>Doklejasz z puli te zapamiętałe na boku 6 pudeł sumy: $22 + 6 = 28$.<br>$28$ w limitach pudełek 16 to zaledwie jedno pudełko całej wielkości, z resztkami $12_{(10)}$. Resztka z $12$ to znak <strong><code>C</code></strong>.<br>Przebicie za pełne jedno pudełko zsuwasz w dół jako finalny opusz: <strong><code>1</code></strong>.<br>Wynikiem tej partii dodawaniowo&#8209;mnożniczej było zatem złożone rozwiązanie bitowe: <strong><code>1CE</code></strong></p>
-<p>Dzielenie ułamkowe odbywa się dosłownie tą samą zrzutową regułą słupków. Dopasowujesz pozycję (Head i Ogon) największym możliwym mnożnikiem dopasowanym o maskę wartościową z zachowaniem rzeki - wiersz za wierszem ściągając na dół po szczeplach operacyjnych reszt. </p>
-<p>W informatyce i przy tak masowych systemowych rozlokowywaniach - procesory nie operują z zębatek Hexadecymalnych – dekompresują te zapytania na rejestry natychmiastowe Bitów jako poślizgi mnożnicze. Przesunięcie i Suma (Shift and Sum). Wynika to z zasady elegancji i oszczędności nanosekund architektury hardware, na której wszystko i wszyscy stoją.</p>
-<h3>🏁 Wielki Finał: Wyzwania Arytmetyczne</h3>
-<p>Pokaż, że potrafisz liczyć w obu systemach. Pamiętaj: próg carry to <strong>8</strong> w OCT i <strong>16</strong> w HEX!</p>
+</div><hr>
+<h3>✖️ Mnożenie szesnastkowe</h3>
+<p>Mnożenie w systemie szesnastkowym odbywa się pisemnie, analogicznie do systemu dziesiętnego, pamiętając jednak, że każda wartość $\ge 16_{10}$ musi zostać podzielona przez $16_{10}$ w celu wyznaczenia przeniesienia i reszty.</p>
+<p><span class="color-green">Przykład ($2\text{A}_{16} \cdot \text{B}_{16}$):</span><br>Przeliczając litery na wartości dziesiętne: wykonujemy działanie $42_{10} \cdot 11_{10} = 462_{10}$. </p>
+<p>Mnożymy górną liczbę $2\text{A}_{16}$ od prawej do lewej przez cyfrę $\text{B}_{16}$ ($11_{10}$):</p>
+<ol>
+<li><span class="color-blue">Mnożymy $\text{B} \cdot \text{A}$</span>: Wynik dziesiętny to $11 \cdot 10 = 110_{10}$.<ul>
+<li>Sprawdzamy, ile pełnych szesnastek mieści się w $110$: $110 \div 16 = 6$ i reszty $14$.</li>
+<li>Zapisujemy pod kreską resztę: <span class="color-green">$\text{E}$</span> (ponieważ $14_{10} = \text{E}_{16}$).</li>
+<li>Przenosimy dalej pełne szesnastki: <span class="color-green">carry</span> = <span class="color-green">$6$</span>.</li>
+</ul>
+</li>
+<li><span class="color-blue">Mnożymy $\text{B} \cdot 2$</span>: Wynik dziesiętny to $11 \cdot 2 = 22_{10}$.<ul>
+<li>Dodajemy przeniesioną wcześniej wartość: $22 + 6 = 28_{10}$.</li>
+<li>Sprawdzamy, ile pełnych szesnastek mieści się w $28$: $28 \div 16 = 1$ i reszty $12$.</li>
+<li>Zapisujemy pod kreską resztę: <span class="color-green">$\text{C}$</span> (ponieważ $12_{10} = \text{C}_{16}$).</li>
+<li>Przenosimy dalej pełną szesnastkę: <span class="color-green">carry</span> = <span class="color-green">$1$</span>.</li>
+</ul>
+</li>
+<li><span class="color-blue">Zapisujemy pozostałe przeniesienie</span>: Przeniesioną na koniec jedynkę dopisujemy na początku wiersza: <span class="color-green">$1$</span>.</li>
+</ol>
+<p>Ostatecznym wynikiem mnożenia jest <span class="color-green">$\text{1CE}_{16}$</span>.</p>
+<hr>
+<h3>➗ Dzielenie szesnastkowe</h3>
+<p>Dzielenie w systemie szesnastkowym wykonujemy metodą <span class="color-gold">skanowania po indeksach za pomocą szablonu</span> (dzielnika).<br>Szablon sprawdzamy pod kątem tego, <span class="color-blue">ile razy</span> mieści się w danej sekcji dzielnej od $0_{16}$ do $\text{F}_{16}$ ($0_{10} - 15_{10}$). </p>
+<p><span class="color-green">Przykład ($\text{1CE}_{16} \div \text{B}_{16}$):</span><br>Nasza dzielna to $\text{1CE}_{16}$ (indeksy pozycji od prawej: $2, 1, 0$), a szablon to $\text{B}_{16}$ ($11_{10}$). Przymierzamy szablon od lewej strony:</p>
+<h4>Krok 1: Pierwsza przymiarka</h4>
+<p>Kładziemy szablon (dzielnik <code>B</code>) tak, aby jego <span class="color-gold">Głowa</span> znajdowała się pod skrajnie lewym indeksem ($2$). <span class="color-gold">Ogon</span> szablonu leży na <span class="color-gold">indeksie $2$</span>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Dzielna</span></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>C</code></td>
+<td align="center"><code>E</code></td>
+<td align="left">Wartość początkowa</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablon</span></td>
+<td align="center"><span class="color-green"><code>B</code></span></td>
+<td align="center"><span class="color-blue"><code>0</code></span></td>
+<td align="center"><span class="color-blue"><code>0</code></span></td>
+<td align="left"><span class="color-green">Ogon na indeksie $2$</span> (szablon przesunięty o $2$ w lewo)</td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>?</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Wynik na indeksie $2$ to $0$</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-blue">Decyzja</span>: Czy dzielna na indeksie $2$ ma przewagę nad szablonem ($1_{16} \ge \text{B}_{16}$)? <span class="color-red">NIE</span>. Dzielnik się nie mieści.</li>
+<li><span class="color-green">Wynik</span>: Na indeksie $2$ wpisujemy <span class="color-green">$0$</span>.</li>
+</ul>
+<h4>Krok 2: Druga przymiarka</h4>
+<p>Przesuwamy szablon o jedno miejsce w prawo. Teraz jego <span class="color-gold">Ogon</span> ląduje na <span class="color-gold">indeksie $1$</span>. Badany fragment dzielnej to $\text{1C}_{16}$ (indeksy 2 i 1).</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Dzielna</span></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>C</code></td>
+<td align="center"><code>E</code></td>
+<td align="left">Wartość początkowa</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablon</span></td>
+<td align="center"></td>
+<td align="center"><span class="color-green"><code>B</code></span></td>
+<td align="center"><span class="color-blue"><code>0</code></span></td>
+<td align="left"><span class="color-green">Ogon na indeksie $1$</span> (szablon przesunięty o $1$ w lewo)</td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>?</code></td>
+<td align="left">Wynik na indeksie $1$ to $2$</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-blue">Decyzja</span>: Ile razy szablon <code>B</code> mieści się w fragmencie <code>1C</code>?<ul>
+<li>Przeliczamy fragment: $\text{1C}_{16} = (1 \cdot 16^1) + 12_{10} = 16_{10} + 12_{10} = 28_{10}$.</li>
+<li>Sprawdzamy dziesiętnie: $28_{10} \div 11_{10} = 2$ i reszty $6$. Szablon mieści się dokładnie $2$ razy ($2 \cdot \text{B}_{16} = 22_{10} = 16_{16}$).</li>
+</ul>
+</li>
+<li><span class="color-green">Wynik</span>: Na indeksie $1$ wpisujemy <span class="color-green">$2$</span>.</li>
+<li><span class="color-red">Nowa reszta</span>: Odejmujemy badany fragment: $\text{1C}_{16} - 16_{16} = 6_{16}$. Reszta $6_{16}$ przechodzi do kolejnego kroku, tworząc z kolejną cyfrą fragment $\text{6E}_{16}$ (na indeksach $1$ i $0$).</li>
+</ul>
+<h4>Krok 3: Trzecia przymiarka</h4>
+<p>Przesuwamy szablon na ostatnią pozycję. Jego <span class="color-gold">Ogon</span> ląduje na <span class="color-gold">indeksie $0$</span>. Badany fragment to reszta wraz z ostatnią cyfrą dzielnej, czyli $\text{6E}_{16}$.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Indeksy</th>
+<th align="center">2</th>
+<th align="center">1</th>
+<th align="center">0</th>
+<th align="left">Opis</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Reszta</span></td>
+<td align="center"></td>
+<td align="center"><code>6</code></td>
+<td align="center"><code>E</code></td>
+<td align="left">Stan z poprzedniego kroku (reszta + ostatnia cyfra)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablon</span></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><span class="color-green"><code>B</code></span></td>
+<td align="left"><span class="color-green">Ogon na indeksie $0$</span> (szablon bez przesunięcia)</td>
+</tr>
+<tr>
+<td align="left"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="center"><hr></td>
+<td align="left"><hr></td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wynik</span></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>A</code></td>
+<td align="left">Ostateczny wynik działania</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="color-blue">Decyzja</span>: Ile razy szablon <code>B</code> mieści się w fragmencie <code>6E</code>?<ul>
+<li>Przeliczamy fragment: $\text{6E}_{16} = (6 \cdot 16^1) + 14_{10} = 96_{10} + 14_{10} = 110_{10}$.</li>
+<li>Sprawdzamy dziesiętnie: $110_{10} \div 11_{10} = 10$ i reszty $0$. Szablon mieści się dokładnie $10$ razy. Ponieważ $10_{10} = \text{A}_{16}$, nasz mnożnik to $\text{A}$.</li>
+</ul>
+</li>
+<li><span class="color-green">Wynik</span>: Na indeksie $0$ wpisujemy <span class="color-green">$\text{A}$</span>.</li>
+<li><span class="color-red">Nowa reszta</span>: Odejmujemy: $\text{6E}_{16} - \text{6E}_{16} = 0_{16}$. Dzielenie zakończone bez reszty.</li>
+</ul>
+<p>Ostatecznym wynikiem dzielenia jest <span class="color-green">$2\text{A}_{16}$</span> (co jest dokładną odwrotnością mnożenia $2\text{A}_{16} \cdot \text{B}_{16} = 1\text{CE}_{16}$).</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Sprzętowa realizacja — dlaczego Hex i Octal są „darmowe”?</h2>
+<p>Możesz się zastanawiać: skoro komputer operuje wyłącznie na bitach ($0$ i $1$), to jak procesor radzi sobie z wykonywaniem działań w systemie ósemkowym czy szesnastkowym? </p>
+<p>Odpowiedź brzmi: <span class="color-green">procesor o nich nie wie</span>. Z punktu widzenia krzemu te systemy nie istnieją. Wszystkie operacje arytmetyczne jednostka <span class="color-gold">ALU</span> (<span class="color-blue">Arithmetic Logic Unit</span>) wykonuje wyłącznie na surowych danych binarnych.</p>
+<p>Hex i Octal to jedynie nakładka interpretacyjna stworzona dla wygody ludzi. Mają one jednak unikalną cechę, która wyróżnia je na tle systemu dziesiętnego: <strong><span class="color-gold">sprzętowa konwersja między nimi a systemem binarnym ma zerowy koszt</span></strong>.</p>
+<ul>
+<li><span class="color-green">Grupowanie przewodów (szyn danych)</span>: Ponieważ $8 = 2^3$ oraz $16 = 2^4$, konwersja nie wymaga żadnych obliczeń ani cykli procesora. Polega ona wyłącznie na fizycznym grupowaniu ścieżek na płycie głównej lub wewnątrz układu scalonego. Cztery fizyczne przewody (bity) przesyłające sygnał są po prostu podpięte do jednego wspólnego dekodera.</li>
+<li><span class="color-green">Brak narzutu</span>: Zapisanie wartości w kodzie Hex nie spowalnia programu. Z punktu widzenia maszyny to wciąż te same stany napięciowe na tranzystorach.</li>
+</ul>
+<p>Dlatego właśnie system szesnastkowy wyparł dziesiętny wszędzie tam, gdzie programista musi kontrolować fizyczny stan pamięci lub rejestrów — pozwala on zapisać 8 bitów za pomocą zaledwie $2$ czytelnych znaków, nie obciążając przy tym sprzętu nawet o jedną nanosekundę.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏁 Wielki finał: wyzwania arytmetyczne</h2>
+<p>Pokaż, że potrafisz liczyć w obu systemach. Pamiętaj: próg carry to <span class="color-green">8</span> w OCT i <span class="color-green">16</span> w HEX!</p>
 <data-gate>
   <data-arithmetic-challenge base="8" operation="+"></data-arithmetic-challenge>
 
@@ -345,7 +803,7 @@
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Hex dodawanie? Dziecinna igraszka! 💎</p>
+<p>Dodawanie szesnastkowe opanowane! 💎</p>
 
 </div>
 </div></data-gate>
@@ -362,3 +820,30 @@
 
 </div>
 </div></data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Arytmetyka w dowolnym systemie pozycyjnym opiera się na tych samych zasadach co w systemie dziesiętnym lub binarnym; zmienia się jedynie baza (dzielnik przeładowania i wartość pożyczki).</li>
+<li>W systemie ósemkowym (baza $8$) przeładowanie i przeniesienie następuje przy sumie równej $8$ lub większej, a pożyczka ma wartość $8$ (licznik cofa się na $7$).</li>
+<li>W systemie szesnastkowym (baza $16$) przeładowanie następuje przy sumie równej $16$ lub większej, a pożyczka ma wartość $16$ (licznik cofa się na $15$, czyli $F$).</li>
+<li>Pojedyncza cyfra ósemkowa reprezentuje dokładnie 3 bity (triadę), natomiast pojedyncza cyfra szesnastkowa reprezentuje dokładnie 4 bity (tetradę / półbajt).</li>
+<li>Programiści wolą system szesnastkowy (Hex) od ósemkowego (Octal), ponieważ dwie cyfry Hex idealnie kodują cały 8‑bitowy bajt (<code>00</code> to $0$, a <code>FF</code> to $255$).</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

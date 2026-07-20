@@ -1,58 +1,202 @@
-<h2>Bity, Bajty i Realne Prędkości</h2>
-<p>Wiesz już, co to jest bit (najmniejszy impuls) i dlaczego informatyka kocha potęgi dwójki. Teraz nauczymy się, jak te bity są pakowane w jednostki, które widzisz na co dzień w smartfonie, na Steamie czy w reklamach internetu.</p>
-<h3>📦 Pakiet w proporcji $1$:$8$</h3>
-<p>Bity to luźne impulsy. Przesyłanie ich pojedynczo byłoby chaosem. Dlatego informatycy umówili się na standard:<br><strong><em>$1$ Bajt</em> (<em>B</em>) zawsze składa się z <em>$8$ bitów</em> (<em>b</em>)</strong>.</p>
-<p>To jak pudełko jajek. Możesz mieć $1$ jajko (<em>bit</em>), ale sklep (system) sprzedaje i liczy je w całych pudełkach (<em>Bajtach</em>).</p>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Bity, Bajty i Realne Prędkości - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Bity, bajty i realne prędkości</h1>
+<p>Wiesz już, czym jest bit oraz dlaczego informatyka bazuje na potęgach dwójki. Teraz zobaczysz, jak bity są łączone w większe jednostki. Spotykasz je codziennie w telefonie, na platformach z grami czy w ofertach dostawców internetu.</p>
 <hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Pakiet w proporcji jeden do ośmiu</h2>
+<p>Pojedyncze bity to elementarne impulsy. Przesyłanie ich pojedynczo w systemach komputerowych byłoby nieefektywne. Z tego powodu wprowadzono standard: <strong>jeden <span class="color-green">bajt</span> (oznaczany jako <span class="color-blue">B</span>) zawsze składa się z <span class="color-green">ośmiu bitów</span> (oznaczanych jako <span class="color-blue">b</span>)</strong>.</p>
+<p>Można to porównać do opakowania jajek. Pojedyncze jajko to <span class="color-blue">bit</span>. Sklep sprzedaje je jednak w całych wytłaczankach, czyli <span class="color-blue">bajtach</span>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/jajka.webp" alt="Przedstawienie bajtu jako opakowania jajek reprezentujących 5 bitów" width="2580" height="1026" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <div class="markdown-alert markdown-alert--important">
 <p class="markdown-alert-title">
 <span class="alert-icon">📌</span> Ważny punkt
 </p>
 <div class="markdown-alert-content">
-<p>Zapamiętaj różnicę w zapisie:</p>
+<p>Zapamiętaj różnicę w oznaczeniach:</p>
 <ul>
-<li><strong>b</strong> (małe): bit -&gt; impuls (sieć/światłowód)</li>
-<li><strong>B</strong> (duże): Bajt -&gt; waga (dysk/pamięć RAM)</li>
+<li><span class="color-green">b</span> (mała litera) oznacza bit. Stosuje się go przy określaniu przepustowości sieci (np. światłowodu).</li>
+<li><span class="color-green">B</span> (wielka litera) oznacza bajt. Służy do określania pojemności dysków oraz pamięci RAM.</li>
 </ul>
 
 </div>
-</div><h3>📡 Scam czy Matematyka? (Analiza ISP)</h3>
-<p>Dostawcy internetu (<strong><em>ISP</em></strong> - <em>Internet Service Provider</em>) uwielbiają podawać prędkości w <strong>Mega&#8209;bitach</strong> ($Mb/s$). Dlaczego?<br>Bo liczba $1000$ $Mb/s$ wygląda $8$ razy potężniej na billboardzie niż $125$ $MB/s$.</p>
-<p>Z kolei programy takie jak $Steam$, przeglądarka czy $qBittorrent$, pokazują prędkość w <strong>Mega&#8209;Bajtach</strong> ($MB/s$), by zobrazować Ci jak szybko plik &quot;puchnie&quot; na Twoim dysku.</p>
-<h4>Wzór na czas oczekiwania do pobrania</h4>
-<p>Aby dowiedzieć się, jak szybko realnie ściągniesz grę, zawsze wykonaj operację dzielenia:  </p>
-<p><em><strong>$$\text{Czas (s)} = \frac{\text{Rozmiar pliku (MB)}}{\text{Prędkość pobierania (MB/s)}}$$</strong></em></p>
-<h4>Wzór na prędkość pobierania</h4>
-<p>Jeśli masz już znaną prędkość pobierania, możesz obliczyć czas oczekiwania do pobrania:  </p>
-<p><strong><em>$$\left(\text{Prędkość (MB/s)} = \frac{\text{Rozmiar pliku (MB)}}{\text{Czas (s)}}\right) \div 8 = \text{Prędkość (Mb/s)}$$</em></strong></p>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💾 Zagadka brakującej pojemności dysku</h2>
+<p>Kupujesz pendrive o pojemności $64$ GB, a Twój telefon lub komputer po podłączeniu pokazuje jedynie $57.2$ GB wolnego miejsca? Nie jest to wada fabryczna. Wynika to z zastosowania dwóch różnych miar przez producentów sprzętu oraz systemy operacyjne.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/sandisk-64GB.webp" alt="Pendrive SanDisk 64 GB i okna właściwości w Windows 11" width="1407" height="516" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <hr>
-<p>Do ręcznego przeliczania wielkości polegamy na proporcji $1:8$ i operacji dzielenia lub mnożenia, lecz w głowie bywa to uciążliwe.  </p>
-<p>Właśnie dlatego informatycy automatyzują proces. Zamiast liczyć ręcznie, wypróbuj poniższy <strong>Symulator ISP</strong>!</p>
-<p><data-transfer-speed></data-transfer-speed></p>
-<p><data-gate></data-gate></p>
-<h3>💾 Zagadka Brakującego Miejsca</h3>
-<p>Kupiłeś kartę pamięci 64 GB, a telefon pokazał 59.6 GB? To wynika z konfliktu systemów:</p>
+<h3>⚖️ Różnica w definicjach przedrostków</h3>
+<p>Problem tkwi w tym, jak definiujemy przedrostki kilo, mega i giga:</p>
 <ol>
-<li><strong>Ludzki (Producenci - Norma SI)</strong>: Liczą $1 KB$ (Kilobajt) jako $1000$ B. ($1000 = 10^3$)</li>
-<li><strong>Binarny (Systemy np. Windows)</strong>: Liczą $1 KB$ jako $1024$ B. ($1024 = 2^{10}$)</li>
+<li><p><span class="color-green">System dziesiętny (Norma SI — używany przez producentów sprzętu)</span>:<br>Bazą jest liczba $10$. Przedrostki rosną o potęgi tysiąca ($10^3$):</p>
+<ul>
+<li>$1\text{ KB}$ (kilobajt) = $1000\text{ bajtów}$ ($10^3$)</li>
+<li>$1\text{ MB}$ (megabajt) = $1\ 000\ 000\text{ bajtów}$ ($10^6$)</li>
+<li>$1\text{ GB}$ (gigabajt) = $1\ 000\ 000\ 000\text{ bajtów}$ ($10^9$)</li>
+</ul>
+</li>
+<li><p><span class="color-green">System dwójkowy (używany przez architekturę komputerów)</span>:<br>Bazą jest liczba $2$. Przedrostki rosną o potęgi liczby $1024$ ($2^{10}$):</p>
+<ul>
+<li>$1\text{ KiB}$ (kibibajt) = $1024\text{ bajty}$ ($2^{10}$)</li>
+<li>$1\text{ MiB}$ (mebibajt) = $1024\text{ KiB} = 1\ 048\ 576\text{ bajtów}$ ($2^{20}$)</li>
+<li>$1\text{ GiB}$ (gibibajt) = $1024\text{ MiB} = 1\ 073\ 741\ 824\text{ bajtów}$ ($2^{30}$)</li>
+</ul>
+</li>
 </ol>
-<p>Poprawną, współczesną nazwą dla $1024$ B w standardzie IT i systemach takich jak Linux jest <strong>Kibibajt (KiB)</strong>. Jednakże producenci sprzętu trzymają się przedrostka &quot;Kilo&quot; dla $1000$, a Windows ze względów historycznych używa u siebie &quot;KB&quot; lecz realnie pokazując wartość &quot;KiB&quot;.</p>
-<p>Przy większych jednostkach (GB) ta różnica narasta do kilku procent. To nie błąd dysku – to po prostu inna &quot;miarka&quot;.</p>
+<hr>
+<h3>🧮 Matematyczny dowód na „brakujące” miejsce</h3>
+<p>W teorii producent nośnika podaje pojemność w standardzie dziesiętnym:<br>$$\text{Pojemność nominalna} = 64\text{ GB} = 64\ 000\ 000\ 000\text{ bajtów}$$</p>
+<p>Gdyby system operacyjny otrzymał dokładnie tyle bajtów, po podzieleniu przez $1024^3$ (czyli zamianie na gibibajty) pokazałby:<br>$$\frac{64\ 000\ 000\ 000\text{ B}}{1024 \times 1024 \times 1024} \approx 59.6\text{ GiB}$$</p>
+<p>Dlaczego więc na zrzucie ekranu powyżej system Windows wyświetla pojemność <span class="color-green">$57.2$ GB</span>?</p>
+<p>Na tę różnicę składają się <span class="color-green">dwa czynniki</span>:</p>
+<ol>
+<li><span class="color-green">Narzut sprzętowo‑systemowy</span>: Producenci podają pojemność surowych kości pamięci. Po sformatowaniu nośnika część przestrzeni jest rezerwowana na tablicę partycji, strukturę systemu plików (np. exFAT) oraz kontroler pamięci flash (zarządzanie uszkodzonymi blokami). W efekcie realna pojemność użytkowa tego pendrive'a to dokładnie <span class="color-green"><code>61 525 196 800</code> bajtów</span> (czyli ok. $61.5$ GB).</li>
+<li><span class="color-green">Konwersja na jednostki dwójkowe</span>: Windows bierze tę realną pojemność w bajtach i dzieli ją przez $1024^3$:</li>
+</ol>
+<p>$$\textcolor{#ff0001}{\text{Pojemność w GiB}} = \frac{\textcolor{#ff0002}{61\ 525\ 196\ 800\text{ B}}}{\textcolor{#ff0003}{1024 \times 1024 \times 1024}} = \textcolor{#ff0001}{57.2998046875\text{ GiB}} \approx \textcolor{#ff0004}{57.2\text{ GiB}}$$</p>
+<p>Ponieważ Windows błędnie podpisuje tę wartość skrótem „GB” zamiast „GiB”, użytkownik widzi komunikat o pojemności $57.2$ GB.</p>
+<hr>
+<h3>⚖️ Różnice między systemami operacyjnymi</h3>
+<p>Systemy operacyjne prezentują te informacje w różny sposób, co widać na zrzutach ekranu tego samego pendrive'a:</p>
+<ul>
+<li><span class="color-green">Windows</span>: oblicza pojemność dwójkowo (dzieląc przez $1024^3$), co daje $57.2$ GiB, ale na ekranie błędnie podpisuje tę wartość jednostką „GB” (sugerując system dziesiętny).</li>
+<li><span class="color-green">macOS</span> oraz <span class="color-green">GNU/Linux (graficzne menedżery plików, np. w Ubuntu)</span>: obliczają pojemność dziesiętnie (dzieląc przez $1000^3$). Dlatego w systemie Ubuntu ten sam pendrive jest widoczny w narzędziach jako <span class="color-green">$62$ GB</span>.</li>
+<li><span class="color-green">Narzędzia konsolowe Linux</span>: stosują skrócony zapis do jednej litery „G”, ale ich baza obliczeń zależy od polecenia. Przykładowo, polecenie <code>df -H</code> (dziesiętne) wyświetla rozmiar partycji jako <span class="color-green">$62\text{ G}$</span>, podczas gdy polecenie <code>lsblk</code> (dwójkowe) pokazuje <span class="color-green">$57.3\text{ G}$</span>.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/binarne-fundamenty-it/Images/sanddisk-64GB-ubuntu26.04.webp" alt="Pendrive SanDisk 64 GB w Ubuntu 26.04" width="1314" height="609" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
 <data-gate>
   <data-quiz>
-    <question>
-Dlaczego system operacyjny liczy kilo-bajty jako 1024 bajty, a nie równe 1000?
-    </question>
+    <question><p>Dlaczego system operacyjny Windows przelicza kilobajty jako 1024 bajty, zamiast przyjąć równe 1000?</p>
+</question>
     <options>
-      <option correct>Ponieważ 1024 to $2^{10}$, co pozwala procesorowi na bezpośrednie i szybkie adresowanie pamięci bez skomplikowanych konwersji.</option>
-      <option>To błąd z przeszłości, którego nikt nie chciał naprawić.</option>
-      <option>Producentom zależy, abyśmy widzieli mniejsze liczby.</option>
+      <option correct=""><p>Ponieważ 1024 to $2^{10}$, co pozwala procesorowi na bezpośrednie i szybkie adresowanie pamięci bez skomplikowanych konwersji.</p>
+</option>
+      <option><p>To błąd z przeszłości, którego nikt nie chciał naprawić.</p>
+</option>
+      <option><p>Producentom zależy, abyśmy widzieli mniejsze liczby.</p>
+</option>
     </options>
-
-<div data-hint="error">
-  Pamiętaj o "gloryfikacji dwójki" z poprzedniej lekcji. Czy procesorowi łatwiej operować na okrągłych dziesiątkach, czy na potęgach dwóch?
+<div data-hint="error"><p>Weź pod uwagę, jak działa procesor. Czy dla komputera naturalniejsze są okrągłe wartości dziesiętne, czy potęgi dwójki?</p>
 </div>
   </data-quiz>
 </data-gate>
 
-<p>Teraz, gdy wiesz już, jak ważyć dane i mierzyć ich prędkość, wejdziemy o poziom wyżej. Zobaczysz, jak informatycy skracają sobie te długie ciągi zer i jedynek za pomocą systemów <strong>Octal</strong> i <strong>Hex</strong>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ Megabity a megabajty: marketing czy scam?</h2>
+<p>Dostawcy internetu (<strong><span class="color-green">ISP</span></strong>, od ang. <span class="color-blue">Internet Service Provider</span>) podają prędkości w megabitach na sekundę ($Mb/s$), opierając się na systemie dziesiętnym ($1\text{ Mb} = 10^6\text{ bitów}$). Na plakacie reklamowym wartość $1000\text{ Mb/s}$ wygląda znacznie lepiej niż $125\text{ MB/s}$.</p>
+<p>Z kolei większość aplikacji pobierających pliki (np. Steam czy przeglądarka) wyświetla prędkość pobierania w megabajtach na sekundę ($MB/s$).</p>
+<hr>
+<h3>📡 Wyjątek: prędkości przesyłu danych</h3>
+<p>Warto wiedzieć, że w przypadku <span class="color-green">prędkości przesyłu danych</span> (przepustowość sieci, magistrale PCIe, standardy SATA) przedrostki zawsze oznaczają wartości <span class="color-green">dziesiętne</span>.<br>Łącze o prędkości $1\text{ Gb/s}$ (gigabit na sekundę) przesyła dokładnie $1\ 000\ 000\ 000$ bitów na sekundę, a nie $1\ 073\ 741\ 824$ bity. Wynika to z faktu, że transmisja sieciowa opiera się na ciągłym sygnale fizycznym w czasie, a nie na adresowaniu komórek pamięci.</p>
+<hr>
+<h3>🧮 Wzór na czas pobierania</h3>
+<p>Aby dowiedzieć się, ile potrwa pobieranie pliku, użyj następującego wzoru:</p>
+<p>$$\textcolor{#ff0001}{\text{Czas (s)}} = \frac{\textcolor{#ff0002}{\text{Rozmiar pliku (MB)}}}{\textcolor{#ff0003}{\text{Prędkość pobierania (MB/s)}}}$$</p>
+<hr>
+<h3>🧰 Konwersja jednostek prędkości (uproszczona)</h3>
+<p>W podstawowych wyliczeniach przyjmujemy prostą proporcję $1\text{ B} = 8\text{ b}$. Aby przeliczyć dziesiętną prędkość łącza ($Mb/s$) na megabajty na sekundę ($MB/s$), dzielimy ją przez $8$:</p>
+<p>$$\textcolor{#ff0003}{\text{Prędkość (MB/s)}} = \frac{\textcolor{#ff0004}{\text{Prędkość (Mb/s)}}}{8}$$</p>
+<p>I odwrotnie: aby zamienić megabajty na megabity, mnożymy wartość przez $8$:</p>
+<p>$$\textcolor{#ff0004}{\text{Prędkość (Mb/s)}} = \textcolor{#ff0003}{\text{Prędkość (MB/s)}} \times 8$$</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Gdzie tkwi haczyk w rzeczywistości?</span><br>Powyższy wzór zakłada uproszczone przeliczenie dziesiętne ($1000\text{ Mb/s} \div 8 = 125\text{ MB/s}$). Jednak systemy operacyjne i aplikacje (np. Steam) obliczają rozmiar pobieranych plików dwójkowo (czyli w mebibajtach na sekundę, $MiB/s$).<br>Z tego powodu łącze $1000\text{ Mb/s}$ wyświetli w aplikacji maksymalną prędkość około $119.2\text{ MB/s}$ (czyli $125\ 000\ 000\text{ B/s} \div 1024^2$), a nie pełne $125\text{ MB/s}$.</p>
+
+</div>
+</div><p> Czas na praktykę w laboratorium transferu danych. Twoim zadaniem jest obliczenie czasu pobierania pliku przy danej przepustowości łącza. Wykorzystaj powyższe uproszczone wzory i uzupełnij brakujące pola w poniższym ćwiczeniu:</p>
+<hr>
+<data-gate>
+  <data-transfer-speed></data-transfer-speed>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Jeden bajt ($1\text{ B}$) składa się z $8$ bitów ($8\text{ b}$). Pamiętaj o wielkości liter w oznaczeniach.</li>
+<li>Prędkość pobierania w aplikacjach podawana jest w megabajtach na sekundę ($MB/s$), podczas gdy dostawcy internetu reklamują prędkość w megabitach ($Mb/s$).</li>
+<li>Różnica w wolnej przestrzeni (np. nominalne $64\text{ GB}$ na pendrive vs $57.2\text{ GB}$ widoczne w Windows) wynika z narzutu systemu plików oraz różnicy między miarą dziesiętną ($1\text{ KB} = 1000\text{ B}$) a dwójkową ($1\text{ KiB} = 1024\text{ B}$).</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

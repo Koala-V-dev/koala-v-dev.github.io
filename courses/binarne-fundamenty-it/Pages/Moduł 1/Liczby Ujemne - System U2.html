@@ -1,11 +1,68 @@
-<h2>🌑 Liczby Ujemne: System U2</h2>
-<p>W poprzedniej lekcji opanowałeś cztery operacje arytmetyki binarnej — dodawanie, odejmowanie, mnożenie i dzielenie. Ale cała ta arytmetyka działała wyłącznie na <strong>liczbach dodatnich</strong>. Co jeśli wynik odejmowania jest ujemny? Co jeśli chcesz zapisać temperaturę $-15°C$?</p>
-<p>Potrzebujemy sposobu, by w świecie samych $0$ i $1$ zakodować <strong>minus</strong>. Rozwiązaniem jest <strong>System U2 (Uzupełnienie do Dwóch)</strong>.</p>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Liczby Ujemne - System U2 - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPodstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FPot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FBity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200%2FSystemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Arytmetyka i Kodowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Binarna"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20Binarna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Binarna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Liczby Ujemne - System U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FLiczby%20Ujemne%20-%20System%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne - System U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FArytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kodowanie Znaków - ASCII i Matrix"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FKodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Matrix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Matrix</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielki Finał - Wyzwania Mistrza Bitów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201%2FWielki%20Fina%C5%82%20-%20Wyzwania%20Mistrza%20Bit%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - Wyzwania Mistrza Bitów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Liczby Ujemne: System U2</h1>
+<p>W poprzedniej lekcji opanowałeś cztery operacje arytmetyki binarnej — dodawanie, odejmowanie, mnożenie i dzielenie. Ale cała ta arytmetyka działała wyłącznie na <span class="color-blue">liczbach dodatnich</span>. Co jeśli wynik odejmowania jest ujemny? Co jeśli chcesz zapisać temperaturę $-15°C$?</p>
+<p>Rozwiązaniem jest <span class="color-green">System U2 (Uzupełnienie do Dwóch)</span>.</p>
 <hr>
-<h3>🎯 Koncepcja "Wagi Znaku"</h3>
-<p>Umówiono się, że pierwszy bit (najbardziej po lewej) ma <strong>wagę ujemną</strong>. Pozostałe bity są dalej dodatnie.</p>
-<p><strong>Analiza 8&#8209;bitowa:</strong><br>Wartość bitu na ósmej pozycji wynosi <strong>$-128$</strong>.</p>
-<p>Aby zapisać liczbę <strong>$-96$</strong>, musimy połączyć ujemną wagę początku z dodatnimi wagami pozostałych bitów:<br>$$-128 + 32 = -96$$</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🎯 Koncepcja „Wagi Znaku”</h2>
+<p>Umówiono się, że pierwszy bit (najbardziej po lewej) ma <span class="color-gold">wagę ujemną</span>. Pozostałe bity są dalej dodatnie.</p>
+<p><span class="color-green">Analiza 8‑bitowa:</span><br>Wartość bitu na ósmej pozycji wynosi <span class="color-blue">$-128$</span>.</p>
+<p>Aby zapisać liczbę <span class="color-blue">$-96$</span>, musimy połączyć ujemną wagę początku z dodatnimi wagami pozostałych bitów:<br>$$-128 + 32 = -96$$</p>
 <table>
 <thead>
 <tr>
@@ -21,10 +78,10 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>Wartość</strong></td>
-<td align="center"><strong>1</strong></td>
+<td align="left"><span class="color-green">Wartość</span></td>
+<td align="center"><span class="color-green">1</span></td>
 <td align="center">0</td>
-<td align="center"><strong>1</strong></td>
+<td align="center"><span class="color-green">1</span></td>
 <td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
@@ -32,25 +89,25 @@
 <td align="center">0</td>
 </tr>
 </tbody></table>
-<p><strong>Zapis binarnie:</strong> <code>1010 0000</code></p>
+<p><span class="color-green">Zapis binarnie:</span> <code>1010 0000</code></p>
 <hr>
-<h4>Zakresy w U2</h4>
-<p>Dzięki mechanizmowi wag, nasze 8&#8209;bitowe pudełko może teraz przechowywać liczby od $-128$ do $+127$:</p>
+<h3>📊 Zakresy w U2</h3>
+<p>Dzięki mechanizmowi wag, nasze 8‑bitowe pudełko może teraz przechowywać liczby od $-128$ do $+127$:</p>
 <table>
 <thead>
 <tr>
 <th align="left">Typ</th>
-<th align="center">Zakres 8&#8209;bitowy</th>
-<th align="center">Zakres 16&#8209;bitowy</th>
+<th align="center">Zakres 8‑bitowy</th>
+<th align="center">Zakres 16‑bitowy</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><strong>UNSIGNED</strong> (bez znaku)</td>
+<td align="left"><span class="color-blue">UNSIGNED</span> (bez znaku)</td>
 <td align="center">$0$ do $255$</td>
 <td align="center">$0$ do $65535$</td>
 </tr>
 <tr>
-<td align="left"><strong>SIGNED / U2</strong> (ze znakiem)</td>
+<td align="left"><span class="color-blue">SIGNED / U2</span> (ze znakiem)</td>
 <td align="center">$-128$ do $+127$</td>
 <td align="center">$-32768$ do $+32767$</td>
 </tr>
@@ -60,30 +117,30 @@
 <span class="alert-icon">📌</span> Ważny punkt
 </p>
 <div class="markdown-alert-content">
-<p>To te same bity, ta sama pamięć! Jedyna różnica to <strong>sposób interpretacji</strong>. Ciąg <code>1111 1111</code> to $255$ w trybie UNSIGNED, ale $-1$ w trybie U2.</p>
+<p>To te same bity, ta sama pamięć! Jedyna różnica to <span class="color-gold">sposób interpretacji</span>. Ciąg <code>1111 1111</code> to $255$ w trybie UNSIGNED, ale $-1$ w trybie U2.</p>
 
 </div>
 </div><hr>
-<h3>🔧 Jak szybko uzyskać liczbę ujemną? (Metoda Invert + 1)</h3>
-<p>Choć mechanizm wag (opisany wyżej) najlepiej tłumaczy <em>dlaczego</em> U2 działa, w praktyce najczęściej stosuje się szybki algorytm zamiany liczby dodatniej na ujemną:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Jak szybko uzyskać liczbę ujemną? (Metoda Invert + 1)</h2>
+<p>Choć mechanizm wag (opisany wyżej) najlepiej tłumaczy <span class="color-blue">dlaczego</span> U2 działa, w praktyce najczęściej stosuje się szybki algorytm zamiany liczby dodatniej na ujemną:</p>
 <ol>
-<li><strong>Zapisz liczbę dodatnią</strong> (np. $5$ to <code>0000 0101</code>).</li>
-<li><strong>Odwróć wszystkie bity</strong> ($0 \to 1, 1 \to 0$): <code>1111 1010</code>.</li>
-<li><strong>Dodaj 1</strong>: <code>1111 1011</code> $\gets$ To jest $-5$ w systemie U2.</li>
+<li><span class="color-blue">Zapisz liczbę dodatnią</span> (np. $5$ to <code>0000 0101</code>).</li>
+<li><span class="color-blue">Odwróć wszystkie bity</span> ($0 \to 1, 1 \to 0$): <code>1111 1010</code>.</li>
+<li><span class="color-blue">Dodaj 1</span>: <code>1111 1011</code> $\gets$ To jest $-5$ w systemie U2.</li>
 </ol>
-<p><strong>Sprawdzenie wag:</strong> $-128 + 64 + 32 + 16 + 8 + 0 + 2 + 1 = -5$ ✅</p>
+<p><span class="color-green">Sprawdzenie wag:</span> $-128 + 64 + 32 + 16 + 8 + 0 + 2 + 1 = -5$ ✅</p>
 <div class="markdown-alert markdown-alert--tip">
 <p class="markdown-alert-title">
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Ta metoda działa w obie strony! Aby uzyskać liczbę dodatnią z ujemnej, zastosujesz ten sam algorytm: Invert + 1.</p>
+<p>Ta metoda działa w obie strony! Aby uzyskać liczbę dodatnią z ujemnej, zastosujesz ten sam algorytm: <span style="font-family: var(--font-family-code-google) !important;color: var(--task-italic-bold-color);font-weight: bold;">Invert+1</span>.</p>
 
 </div>
 </div><hr>
-<h3>🤯 Arytmetyka w U2 — Magia Pudełka</h3>
-<p>Najpiękniejsza właściwość U2: <strong>dodawanie i odejmowanie działają identycznie</strong> jak w trybie UNSIGNED! Procesor nie musi wiedzieć, czy liczby są ze znakiem czy bez — bity same się „układają&quot;.</p>
-<p><strong>Przykład: $5 + (-3) = 2$</strong></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💾 Arytmetyka w U2: magia pudełka</h2>
+<p>Najpiękniejsza właściwość U2: <span class="color-gold">dodawanie i odejmowanie działają identycznie</span> jak w trybie UNSIGNED! Procesor nie musi wiedzieć, czy liczby są ze znakiem czy bez — bity same się „układają”.</p>
+<p><span class="color-green">Przykład: $5 + (-3) = 2$</span></p>
 <table>
 <thead>
 <tr>
@@ -101,65 +158,90 @@
 </tr>
 <tr>
 <td align="left">Suma</td>
-<td align="left"><em><code>1</code></em> <code>0000 0010</code></td>
+<td align="left"><span class="color-blue"><code>1</code></span> <code>0000 0010</code></td>
 </tr>
 </tbody></table>
-<p>Nadmiarowy bit (dziewiąty) wypada poza pudełko. Zostaje <code>0000 0010</code> = $2$. Bingo! 🎯</p>
+<p>Nadmiarowy bit (dziewiąty) wypada poza pudełko. Zostaje <code>0000 0010</code> = $2$. Wynik zgadza się z oczekiwanym. 🎯</p>
 <hr>
-<h3>⚠️ Najczęstsze błędy (The "Oops" Zone)</h3>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Najczęstsze błędy i pułapki</h2>
 <p>Podczas pracy z bitami łatwo o pomyłkę. Oto na co musisz uważać:</p>
 <ul>
-<li><strong>Ignorowanie Przepełnienia (Overflow)</strong>: Nadmiarowy bit (dziewiąty) często wypada poza pudełko i w U2 jest to normalne. Prawdziwy błąd (<strong>Overflow</strong>) następuje wtedy, gdy dodasz dwie liczby dodatnie, a wynik wyjdzie ujemny (lub odwrotnie), bo &#39;przebiłeś&#39; wagę znaku.</li>
-<li><strong>Mylenie U2 z &quot;Bitem Znaku&quot;</strong>: System U2 to nie tylko &quot;1 na początku&quot;. To system, w którym pierwszy bit ma ujemną wagę. Nie wystarczy zmienić go na 1, by uzyskać liczbę ujemną (stosuj metodę <em>Invert + 1</em>).</li>
-<li><strong>Dopisywanie zer przy mnożeniu</strong>: Pamiętaj, że dopisujesz tyle zer, ile wynosi <strong>indeks pozycji</strong>, a nie numer porządkowy bita.</li>
+<li><span class="color-blue">Ignorowanie przepełnienia (Overflow)</span>: Nadmiarowy bit (dziewiąty) często wypada poza pudełko i w U2 jest to normalne. Prawdziwy błąd (<span class="color-red">Overflow</span>) następuje wtedy, gdy dodasz dwie liczby dodatnie, a wynik wyjdzie ujemny (lub odwrotnie), bo „przebiłeś” wagę znaku.</li>
+<li><span class="color-blue">Mylenie U2 z „Bitem Znaku”</span>: System U2 to nie tylko „1 na początku”. To system, w którym pierwszy bit ma ujemną wagę. Nie wystarczy zmienić go na 1, by uzyskać liczbę ujemną (stosuj metodę <span style="font-family: var(--font-family-code-google) !important;color: var(--task-italic-bold-color);font-weight: bold;">Invert+1</span>).</li>
+<li><span class="color-blue">Dopisywanie zer przy mnożeniu</span>: Pamiętaj, że dopisujesz tyle zer, ile wynosi <span class="color-blue">indeks pozycji</span>, a nie numer porządkowy bita.</li>
 </ul>
 <hr>
-<h3>🕹️ Symulator Arytmetyki Binarnej (Tryb U2)</h3>
-<p>Poniżej masz interaktywny symulator z <strong>włączonym trybem U2</strong>. Przełącz toggle, aby zobaczyć jak te same bity zmieniają swoją interpretację:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕹️ Symulator arytmetyki binarnej (Tryb U2)</h2>
+<p>Poniżej znajduje się interaktywny symulator z <span class="color-gold">włączonym trybem U2</span>. Przełącz toggle, aby zobaczyć jak te same bity zmieniają swoją interpretację:</p>
 <p><data-binary-arithmetic digits="16" base="2" u2="true"></data-binary-arithmetic></p>
 <hr>
-<h3>🔒 Test: Czy rozumiesz U2?</h3>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Test: Czy rozumiesz U2?</h2>
 <data-gate>
   <data-quiz>
-    <question>
-Jaka jest wartość dziesiętna ciągu `1111 1111` w 8-bitowym systemie U2?
-    </question>
+    <question><p>Jaka jest wartość dziesiętna ciągu <code>1111 1111</code> w 8‑bitowym systemie U2?</p>
+</question>
     <options>
-      <option correct>-1</option>
-      <option>255</option>
-      <option>-128</option>
-      <option>127</option>
+      <option correct=""><p>-1</p>
+</option>
+      <option><p>255</p>
+</option>
+      <option><p>-128</p>
+</option>
+      <option><p>127</p>
+</option>
     </options>
-    <div data-hint="error">
-      Przypomnij sobie mechanizm wag U2: najbardziej lewy bit ma wynik wagi **ujemny** ($-128$).  
-      Pozostałe są dodatnie, a ich sumowanie z $-128$ da ci mniejszą liczbę ujemną.
-    </div>
-    <div data-hint="success">
-      Dokładnie! Wszystkie bity zapalone w U2 dają $-1$, nie $255$. To jeden z najważniejszych faktów do zapamiętania. 🏆
-    </div>
+    <div data-hint="error"><p>Przypomnij sobie mechanizm wag U2: najbardziej lewy bit ma wynik wagi <span class="color-red">ujemny</span> ($-128$).<br>      Pozostałe są dodatnie, a ich sumowanie z $-128$ da ci mniejszą liczbę ujemną.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! Wszystkie bity zapalone w U2 dają $-1$, nie $255$. To jeden z najważniejszych faktów do zapamiętania. 🏆</p>
+</div>
   </data-quiz>
 </data-gate>
 
 <hr>
 <data-gate>
   <data-quiz>
-    <question>
-Ciąg bitów `1111 1100` w 8-bitowym systemie U2 reprezentuje liczbę:
-    </question>
+    <question><p>Ciąg bitów <code>1111 1100</code> w 8‑bitowym systemie U2 reprezentuje liczbę:</p>
+</question>
     <options>
-      <option>252</option>
-      <option correct>-4</option>
-      <option>-128</option>
-      <option>124</option>
+      <option><p>252</p>
+</option>
+      <option correct=""><p>-4</p>
+</option>
+      <option><p>-128</p>
+</option>
+      <option><p>124</p>
+</option>
     </options>
-    <div data-hint="error">
-      Użyj mechanizmu wag: najbardziej lewy bit ma wartość wagi $-128$.  
-      Zsumuj wagi zapalonych bitów i pamiętaj że to U2, NIE unsigned!
-    </div>
-    <div data-hint="success">
-      Mistrz U2! Szybka metoda: odwróć bity → `0000 0011` = $3$, dodaj $1$ → $4$, dodaj minus → $-4$. 🎓
-    </div>
+    <div data-hint="error"><p>Użyj mechanizmu wag: najbardziej lewy bit ma wartość wagi $-128$.<br>      Zsumuj wagi zapalonych bitów i pamiętaj że to U2, NIE unsigned!</p>
+</div>
+    <div data-hint="success"><p>Bardzo dobrze! Szybka metoda: odwróć bity → <code>0000 0011</code> = $3$, dodaj $1$ → $4$, dodaj minus → $-4$. 🎓</p>
+</div>
   </data-quiz>
 </data-gate>
 
 <hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>System U2 (Uzupełnienie do Dwóch) pozwala kodować liczby ujemne w systemie binarnym poprzez nadanie ujemnej wagi najstarszemu bitowi (np. $-128$ na ósmej pozycji).</li>
+<li>Zakres liczb signed dla $N$ bitów wynosi od $-2^{N-1}$ do $+2^{N-1} - 1$ (dla 8 bitów: od $-128$ do $+127$).</li>
+<li>Szybka konwersja liczby dodatniej na ujemną (i odwrotnie) opiera się na algorytmie Invert + 1 (odwrócenie bitów i dodanie 1).</li>
+<li>Dodawanie i odejmowanie w U2 działają identycznie jak w trybie unsigned; nadmiarowy bit przeniesienia po prostu wypada poza rejestr.</li>
+<li>Przepełnienie (Overflow) w U2 następuje, gdy wynik dodawania dwóch liczb o tym samym znaku przekracza zakres i zmienia znak wyniku na przeciwny.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>
