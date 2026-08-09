@@ -37,7 +37,7 @@ Ta tabela stanowi szybki układ odniesienia dla podstawowych komend powłoki. Mo
 
 ### 🧷 Spacje w nazwach
 
-Interpreter poleceń (powłoka) traktuje spacje jako znaki rozdzielające kolejne parametry. Z tego powodu próba utworzenia katalogu z kilkuczłonową nazwą może przynieść nieoczekiwane rezultaty.
+Interpreter poleceń (*powłoka*) traktuje spacje jako znaki rozdzielające kolejne parametry. Z tego powodu próba utworzenia katalogu z kilkuczłonową nazwą może przynieść nieoczekiwane rezultaty.
 
 Rozważmy poniższe polecenie:
 
@@ -70,7 +70,8 @@ W codziennej pracy znacznie bardziej przejrzystym i zalecanym rozwiązaniem jest
 
 Narzędzie `rm` (*remove*) usuwa pliki w sposób <strong>**_bezpowrotny_**</strong>, omijając systemowy kosz. Dodanie flagi `-r` (*recursive*) powoduje skasowanie całego katalogu wraz z wszystkimi jego plikami i podkatalogami.
 
-Przed wykonaniem tak radykalnej operacji należy bezwzględnie zweryfikować bieżący katalog roboczy oraz jego strukturę. Pozwoli to zapobiec przypadkowemu skasowaniu ważnych danych.
+> [!WARNING]
+> Przed wykonaniem tak radykalnej operacji należy bezwzględnie zweryfikować bieżący katalog roboczy oraz jego strukturę. Pozwoli to zapobiec przypadkowemu skasowaniu ważnych danych.
 
 Zalecana sekwencja kontrolna przed użyciem `rm`:
 

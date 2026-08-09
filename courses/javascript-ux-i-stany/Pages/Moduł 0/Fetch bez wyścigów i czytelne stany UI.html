@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Fetch bez wyścigów i czytelne stany UI - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">javascript-ux-i-stany</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zdarzenia i niezawodna asynchroniczność</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kolejność zdarzeń i niezawodna asynchroniczność"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Kolejno%C5%9B%C4%87%20zdarze%C5%84%20i%20niezawodna%20asynchroniczno%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolejność zdarzeń i niezawodna asynchroniczność</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zdarzenia dynamicznego DOM i dostępny akordeon"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Zdarzenia%20dynamicznego%20DOM%20i%20dost%C4%99pny%20akordeon.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia dynamicznego DOM i dostępny akordeon</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Fetch bez wyścigów i czytelne stany UI"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Fetch%20bez%20wy%C5%9Bcig%C3%B3w%20i%20czytelne%20stany%20UI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Fetch bez wyścigów i czytelne stany UI</a></li><li class="module">Moduł 1: Stan aplikacji i kontrola przejść</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Czysty reducer i niezmienny stan"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Czysty%20reducer%20i%20niezmienny%20stan.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czysty reducer i niezmienny stan</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Reaktywność z Proxy i jej granice"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Reaktywno%C5%9B%C4%87%20z%20Proxy%20i%20jej%20granice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reaktywność z Proxy i jej granice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Maszyna stanów formularza i idempotencja"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Maszyna%20stan%C3%B3w%20formularza%20i%20idempotencja.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maszyna stanów formularza i idempotencja</a></li><li class="module">Moduł 2: Narzędzia, pomiar i ruch</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Node, npm i Vite z powtarzalną instalacją"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Node%2C%20npm%20i%20Vite%20z%20powtarzaln%C4%85%20instalacj%C4%85.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Node, npm i Vite z powtarzalną instalacją</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Pomiar DOM i kontrola częstych zdarzeń"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Pomiar%20DOM%20i%20kontrola%20cz%C4%99stych%20zdarze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pomiar DOM i kontrola częstych zdarzeń</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Animacje z requestAnimationFrame, FLIP i ograniczonym ruchem"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Animacje%20z%20requestAnimationFrame%2C%20FLIP%20i%20ograniczonym%20ruchem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Animacje z requestAnimationFrame, FLIP i ograniczonym ruchem</a></li><li class="module">Moduł 3: Dostępne i odporne komponenty</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dostępny dialog z natywnym elementem dialog"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Dost%C4%99pny%20dialog%20z%20natywnym%20elementem%20dialog.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dostępny dialog z natywnym elementem dialog</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Granice obsługi błędów i bezpieczny fallback"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Granice%20obs%C5%82ugi%20b%C5%82%C4%99d%C3%B3w%20i%20bezpieczny%20fallback.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Granice obsługi błędów i bezpieczny fallback</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Bezpieczny Web Component z Shadow DOM"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Bezpieczny%20Web%20Component%20z%20Shadow%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bezpieczny Web Component z Shadow DOM</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Fetch bez wyścigów i czytelne stany UI</h1>
+<p>Użytkownik najpierw wyszukuje „ko”, a chwilę później „koala”. Pierwsze żądanie jest wolniejsze. Jeśli jego odpowiedź dotrze na końcu, może nadpisać poprawny wynik dla nowszego zapytania.</p>
+<p>Po tej lekcji rozdzielisz błąd HTTP od błędu żądania i nie dopuścisz, aby stara odpowiedź zmieniła aktualny widok.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw przewidź wyścig</h2>
+<p>Dwa żądania startują w tej kolejności:</p>
+<pre><code class="language-text">1. „ko”    czas odpowiedzi: 900 ms
+2. „koala” czas odpowiedzi: 200 ms
+</code></pre>
+<p>Jeśli każda odpowiedź bezwarunkowo wywoła <code>render(data)</code>, jaki tekst użytkownik zobaczy po 900 ms?</p>
+<p>Odpowiedź „ko” jest starsza, ale kończy się później. Sama kolejność <code>await</code> wewnątrz dwóch osobnych wywołań nie zachowuje kolejności intencji użytkownika.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Model: pięć stanów zamiast trzech haseł</h2>
+<p>Dla tego widoku potrzebujesz stanów: <code>idle</code>, <code>loading</code>, <code>success</code>, <code>empty</code> i <code>error</code>.</p>
+<p>Uczeń nie ma ich zapamiętać jako listy. Użyj ich do odpowiedzi na pytanie: co powinien zobaczyć użytkownik i jaka akcja jest teraz dozwolona?</p>
+<pre><code class="language-javascript">const initialState = {
+  status: 'idle',
+  query: '',
+  results: [],
+  message: ''
+};
+</code></pre>
+<p><code>fetch()</code> zwykle rozwiązuje Promise także dla odpowiedzi HTTP 404 lub 500. Dlatego kod ocenia <code>response.ok</code> zgodnie z przyjętą polityką aplikacji.</p>
+<p>Promise może zostać odrzucona z wielu powodów związanych z żądaniem, między innymi po przerwaniu przez <code>AbortController</code>. Nie sprowadzaj <code>catch</code> wyłącznie do „braku fizycznej sieci”.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Zabezpiecz aktualność odpowiedzi</h2>
+<p>Każde wyszukiwanie otrzymuje numer. Tylko odpowiedź o numerze równym najnowszemu może zmienić widok.</p>
+<pre><code class="language-javascript">let latestRequestId = 0;
+
+async function searchProducts(query) {
+  const requestId = ++latestRequestId;
+  renderState({ status: 'loading', query });
+
+  try {
+    const response = await fetch(`/api/products?q=${encodeURIComponent(query)}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (requestId !== latestRequestId) return;
+
+    renderState({
+      status: data.length ? 'success' : 'empty',
+      query,
+      results: data
+    });
+  } catch (error) {
+    if (requestId !== latestRequestId) return;
+    renderState({ status: 'error', query, message: error.message });
+  }
+}
+</code></pre>
+<p>W większej aplikacji warto dodatkowo przerwać poprzednie żądanie przez <code>AbortController</code>. Numer żądania nadal pozostaje użytecznym dowodem, że odpowiedź odpowiada bieżącej intencji.</p>
+<p>Wstawiaj tekst z API przez <code>textContent</code> lub twórz elementy DOM. Nie interpoluj niezaufanych wartości do <code>innerHTML</code>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: wybierz dowód aktualności</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Żądanie A wystartowało przed B, ale zakończyło się po B. Który warunek pozwala A bezpiecznie zmienić widok?</p>
+</question>
+    <options>
+      <option><p>A ma status HTTP 200.</p>
+</option>
+      <option correct=""><p>Identyfikator A nadal jest równy <code>latestRequestId</code>.</p>
+</option>
+      <option><p>A trwało dłużej niż 500 ms.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Status HTTP mówi o odpowiedzi serwera, nie o tym, czy użytkownik nadal czeka na ten wynik.</p>
+</div>
+    <div data-hint="success"><p>Porównanie identyfikatorów wiąże odpowiedź z najnowszą intencją użytkownika.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Napraw symulowany live search</h2>
+<p>Funkcja otrzymuje listę żądań. Każde ma <code>value</code> oraz <code>delay</code>. Wszystkie startują w kolejności tablicy.</p>
+<p>Zwróć wartość ostatniego rozpoczętego żądania, nawet jeśli starsze zakończy się później.</p>
+<data-gate>
+  <data-code-runner language="javascript" title="Odrzuć spóźnioną odpowiedź" data-code="YXN5bmMgZnVuY3Rpb24gcmVzb2x2ZUxhdGVzdChyZXF1ZXN0cykgewogIGxldCBkaXNwbGF5ZWQgPSBudWxsOwoKICBhd2FpdCBQcm9taXNlLmFsbChyZXF1ZXN0cy5tYXAocmVxdWVzdCA9PgogICAgbmV3IFByb21pc2UocmVzb2x2ZSA9PiB7CiAgICAgIHNldFRpbWVvdXQoKCkgPT4gewogICAgICAgIGRpc3BsYXllZCA9IHJlcXVlc3QudmFsdWU7CiAgICAgICAgcmVzb2x2ZSgpOwogICAgICB9LCByZXF1ZXN0LmRlbGF5KTsKICAgIH0pCiAgKSk7CgogIHJldHVybiBkaXNwbGF5ZWQ7Cn0=" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJvbGRlci1maW5pc2hlcy1sYXN0IiwKICAgICAgICAgICJ0ZXh0IjogIlN0YXJzemEgaSB3b2xuaWVqc3phIG9kcG93aWVkxbogbmllIG5hZHBpc3VqZSBub3dzemVqIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInJlc29sdmVMYXRlc3QiLAogICAgICAgICAgImlucHV0IjogW1t7InZhbHVlIjoia28iLCJkZWxheSI6MzB9LHsidmFsdWUiOiJrb2FsYSIsImRlbGF5Ijo1fV1dLAogICAgICAgICAgImV4cGVjdGVkIjogImtvYWxhIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImxhdGVzdC1maW5pc2hlcy1sYXN0IiwKICAgICAgICAgICJ0ZXh0IjogIk5ham5vd3N6YSBvZHBvd2llZMW6IG5hZGFsIGR6aWHFgmEsIGdkeSBrb8WEY3p5IHNpxJkgamFrbyBvc3RhdG5pYSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJyZXNvbHZlTGF0ZXN0IiwKICAgICAgICAgICJpbnB1dCI6IFtbeyJ2YWx1ZSI6ImtvIiwiZGVsYXkiOjV9LHsidmFsdWUiOiJrb2FsYSIsImRlbGF5IjozMH1dXSwKICAgICAgICAgICJleHBlY3RlZCI6ICJrb2FsYSIKICAgICAgICB9CiAgICAgIF0="></data-code-runner>
+</data-gate>
+
+<p>Nie wolno zwrócić po prostu ostatniej wartości z tablicy. Użyj identyfikatora żądania do podjęcia decyzji wewnątrz callbacka odpowiedzi.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<pre><code class="language-javascript">async function resolveLatest(requests) {
+  let latestRequestId = 0;
+  let displayed = null;
+
+  await Promise.all(requests.map(request =&gt; {
+    const requestId = ++latestRequestId;
+
+    return new Promise(resolve =&gt; {
+      setTimeout(() =&gt; {
+        if (requestId === latestRequestId) {
+          displayed = request.value;
+        }
+        resolve();
+      }, request.delay);
+    });
+  }));
+
+  return displayed;
+}
+</code></pre>
+<p>Test zmienia kolejność zakończenia, więc rozwiązanie oparte wyłącznie na czasie jednego przykładu nie przejdzie obu przypadków.</p>
+</details>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Rozszerz przypadek o anulowanie</h2>
+<p>Dodaj <code>AbortController</code>. Przed rozpoczęciem nowego żądania przerwij poprzednie. W <code>catch</code> odróżnij <code>AbortError</code> od błędu, który powinien pokazać komunikat użytkownikowi.</p>
+<p>Kryterium: anulowanie starego żądania nie przełącza aktualnego widoku w stan <code>error</code>.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Oceniaj osobno odpowiedź HTTP, błąd żądania i aktualność odpowiedzi.</li>
+<li>Wiąż wynik z najnowszą intencją użytkownika przez identyfikator lub anulowanie.</li>
+<li>Renderuj tekst z API bez parsowania go jako HTML.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

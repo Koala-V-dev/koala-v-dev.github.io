@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\PHP twoja personalna strona (BMI) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: PHP uruchomione w XAMPP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Algorytmy sortowania"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Algorytmy%20sortowania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy sortowania</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>PHP twoja personalna strona</h1>
+<p><span class="color-green">PHP</span> (początkowo <span class="color-blue">Personal Home Page Tools</span>, obecnie <span class="color-blue">PHP: Hypertext Preprocessor</span>) zaczął w <time datetime="1994">1994 roku</time> jako zestaw narzędzi Rasmusa Lerdorfa do śledzenia odwiedzin jego internetowego CV. Później rozwinął się w narzędzie do tworzenia dynamicznych stron.<br>Za chwilę wykorzystamy dokładnie tę cechę: jeden plik PHP utworzy stronę na podstawie zapisanych w nim danych.</p>
+<p>Na start potrzebujesz <span class="color-green">IDE</span> (<span class="color-blue">Integrated Development Environment</span>) - np.: <a href="https://code.visualstudio.com/download">VS Code</a>.<br>Oraz z racji że PHP jest językiem backendowym działającym po stronie serwera to potrzebujesz oprogramowania które obsłuży ci to środowisko w systemie desktopowym. Na początek spoko rozwiązaniem jest <a href="https://www.apachefriends.org/download.html">XAMPP</a>.<br>Jeden pakiet, który zawiera PHP, serwer WWW i bazę danych.</p>
+<p>Standardowo w katalogu <code>C:\xampp\htdocs\</code>  umieszczasz swoje katalogi z projektami stron by Apache wiedział co zaserwować pod adresem <code>http://localhost/&lt;nazwa-folderu&gt;</code>.</p>
+<p>Możesz też przejść szybko do katalogu <code>htdocs</code> z poziomu okna XAMPPa klikając przycisk <kbd class="win-menu-btn">Explorer</kbd>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/xampp-apache-run.webp" alt="Uruchomienie usługi apache w xampp" width="668" height="433" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>My jednak na start zrobimy to trochę inaczej. Zainstalowaliśmy XAMPP, aby mieć kompletne środowisko, lecz teraz potrzebujemy jedynie interpretera PHP. XAMPP dostarcza PHP najwyżej w wersji 8.2, podczas gdy produkcyjnie dostępne są stabilne PHP 8.4 oraz najnowsze PHP 8.5.9.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-released.webp" alt="Strona PHP.net z informacjami o wersji PHP" width="1086" height="943" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧰 IDE i server PHP</h2>
+<p>Zamiast się bawić w podkatalogi w htdocs,  uruchomimy server bezpośrednio w dowolnym katalogu z kodem projektu. Chodzi o to żęby lepiej zarządzać URL. Jeżeli tworzysz podkatalog w htdocs to adres do uruchomienia strony bedzie taki: </p>
+<pre><code>http://localhost/nazwa-folderu/
+</code></pre>
+<p>Natomiast jak tworzysz w dowolnym katalogu to adres bedzie taki:</p>
+<pre><code>http://localhost:xxxx/
+</code></pre>
+<p>Popatrz na końcówkę adresów - w obu przypadkach jest <code>/</code>. Natomiast w pierwszym URL mowa o podstronie gdzie w naszym wariancie operujemy na bezpośredniej domenie co przy deploy projektu na product... hehe.<br>Wrzucenie tego nad czym pracowaliśmy lokalnie na server nie spowoduje że linki będą błędnie się odnosić do zasobów strony.  </p>
+<p>Na poniższym zrzucie przedstawiam ci punkt startowy pracy z PHP.<br>Na początek doinstaluj sobie rozszerzenie <span class="color-green">Live Preview</span> od <span class="color-blue">Microsoft</span>.<br>Potem utwórz plik <code>index.php</code>. Rozszerzenie <code>.php</code> jest informacją że ten plik nalerzy przekazać do interpretera PHP by ten przeanalizował go pod kątem znalezienia operacji do wykonania, które zamieszcza się pomiędzy <code>&lt;?php</code> a <code>?&gt;</code>. Na koniec zwracany jest zwykły plik tekstowy który domyślnie posiada typ <code>text/html</code>. Czyli dokładnie taki sam jak pliki z rozszerzeniem <code>.html</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-hello-world!.webp" alt="Uruchomienie php-hello-world" width="1920" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Zaznaczyłem ci żółto obramówką miejsce to otwarcia/zamkniecia okna terminala.<br>W terminalu zanim wpiszesz widoczną komendę to napisz pierw: </p>
+<pre><code class="language-powershell">php -v
+</code></pre>
+<p>Poznasz wersję PHP, którą uruchamiasz. Potem użyj komendy z obrazka:</p>
+<pre><code class="language-powershell">php -S 127.0.0.1:8080
+</code></pre>
+<ul>
+<li><code>php</code> informacja że, to co po nim zostanie przekazane do interpretera <code>C:\xampp\php\php.exe</code></li>
+<li><code>-S</code> to włączenie serwera</li>
+<li><code>127.0.0.1</code> to adres IP localhosta który pozwala na komunikację przy pomocy stosu TCP/IP na tej samej maszynie.</li>
+<li><code>:8080</code> to port na którym nasłuchuje serwer. Standardowo serwer WWW nasłuchuje na porcie <code>80</code>. Tradycyjnie przy web dewelopmencie duplikujemy <code>80</code> lub podajemy <code>3000</code>. Jeżeli bedziesz chciał uruchomić kika serwerów to będą one musiały mieć inne porty by nie ingerowały sobie nawzajem.</li>
+</ul>
+<p>Na niebiesko zaznaczyłem link na którym działa serwer. Wystarczy przytrzymać <kbd>Ctrl</kbd> i kliknąć w link by <span class="color-blue">Live Preview</span> otworzyło kartę z uruchomioną stroną.  </p>
+<p>W czerwonej obramówce masz klasykę gatunku przy nauce jakiegokolwiek języka programowania:</p>
+<pre><code class="language-php">&lt;?php
+    echo "Hello, World!";
+?&gt;
+</code></pre>
+<p>Kod php może znajdować się tylko wewnątrz znacznika otwierającego <code>&lt;?php</code> i zamykającego <code>?&gt;</code>. W każdym innym przypadku bedzie to zwykłym tekstem na stronie html. Oraz vice versa. Zapis "tekstu" musi odbywać się w apostrofach lub cudzysłowach. Tego typu wartość nazywa się string‑iem. Nie możesz od tak wpisać kodu html w obrębie znacznika <code>&lt;?php</code> i <code>?&gt;</code>. </p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📔 HTML zwracany przez PHP</h2>
+<p>Jeżeli potrzebujesz struktury html by przedstawić dane w bardziej czytelny sposób, to php umożliwia to na kilka sposobów.</p>
+<ol>
+<li>Funkcja <code>echo()</code>: zwraca podaną wartość jako tekst i dodatkowo nie musisz w niej zapisywać nawiasów.</li>
+<li><code>var_dump()</code>: to narzędzie diagnostyczne. Pokaże typ, długość i wartość danych. Bardzo przydatne przy debugowaniu.</li>
+<li><code>printf()</code>: zwraca podaną wartość jako tekst, ale z formatowaniem.</li>
+<li>Funkcja <code>print_r()</code>: zwraca dane które są formatowane. Czesto wykorzystywane dla łatwiejszego odczytu struktur tablic i obiektów.</li>
+</ol>
+<p>No to użyjmy tych sposobów w praktyce, ale do tego przydadzą nam się zmienne.  </p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📊 Zmienne: typy i struktury danych</h2>
+<p>Nazwy zmiennych w PHP zaczynają się znakiem dolara <code>$</code>. Pierwszym znakiem właściwej nazwy może być litera albo <code>_</code>, ale nie cyfra. PHP jest językiem dynamicznie typowanym: typ należy do aktualnej wartości i może zmienić się po kolejnym przypisaniu.</p>
+<p>Zmienna może przechowywać między innymi pojedynczą wartość, tablicę albo obiekt:</p>
+<ul>
+<li>Zmienna przechowująca pojedyńczą wartość:<pre><code class="language-php">$imie = "Kamil"; // String - ciąg znaków
+$wiek = 27; // Integer - liczba całkowita
+$wzrost = 1.5; // Float - liczba zmiennoprzecinkowa
+$czyKobieta = false; // Boolean - wartość boolowska prawda/fałsz
+</code></pre>
+</li>
+<li>Tablica przechowuje wiele wartości:<pre><code class="language-php">$tablica = array("Kamil", "27", "1.5", "false");
+$tablica = ["Kamil", "27", "1.5", "false"];
+</code></pre>
+</li>
+<li>Tablica asocjacyjna przechowuje wartości pod nazwanymi kluczami:<pre><code class="language-php">$obiekt = array("imie" =&gt; "Kamil", "wiek" =&gt; "27", "wzrost" =&gt; "1.5", "czyKobieta" =&gt; "false");
+$obiekt = ["imie" =&gt; "Kamil", "wiek" =&gt; "27", "wzrost" =&gt; "1.5", "czyKobieta" =&gt; "false"];
+</code></pre>
+</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/tablice-i-obiekty-print_r.webp" alt="" width="1920" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Weryfikacja BMI</h2>
+<p>Zrealizujmy skrypt obliczający moje BMI.</p>
+<p>Wzór na BMI jest następujący:<br>$$\text{BMI} = \frac{\text{Masa } [kg]}{\text{Wzrost}^2 [m^2]}$$</p>
+<p>Natomiast klasyfikacja jest taka: </p>
+<table>
+<thead>
+<tr>
+<th align="left">BMI</th>
+<th align="left">Niedowaga</th>
+<th align="left">Prawidłowa</th>
+<th align="left">Nadwaga</th>
+<th align="left">Otyłość 1 stopnia</th>
+<th align="left">Otyłość 2 stopnia</th>
+<th align="left">Otyłość 3 stopnia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Wartość</td>
+<td align="left">$\le 18.5$</td>
+<td align="left">$18.5 - 24.9$</td>
+<td align="left">$25 - 29.9$</td>
+<td align="left">$30 - 34.9$</td>
+<td align="left">$35 - 39.9$</td>
+<td align="left">$\ge 40$</td>
+</tr>
+</tbody></table>
+<p>Do wcześniejszych zmiennych brakuje nam wagi, więc ją dopiszmy.</p>
+<p>Do zapisania wzoru potrzebujemy operatorów arytmetycznych PHP.</p>
+<table>
+<thead>
+<tr>
+<th>Znak specjalny</th>
+<th>znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+</code></td>
+<td>dodawanie</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>odejmowanie</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>mnożenie</td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>dzielenie</td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>modulo — reszta z dzielenia</td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>potęgowanie</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>konkatenacja łączenie ciągów znaków</td>
+</tr>
+</tbody></table>
+<p>Na zrzucie poniżej widać użycie tych operatorów. Zapis <code>\n</code> oznacza nową linię. Przeglądarka zachowa ją, gdy wynik znajdzie się wewnątrz znacznika <code>&lt;pre&gt;</code>.</p>
+<p>Znaki <code>#</code> i <code>//</code> rozpoczynają komentarz jednoliniowy, który interpreter PHP pomija.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-arytmetyka.webp" alt="" width="1602" height="839" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>BMI obliczamy z masy i wzrostu:</p>
+<pre><code class="language-php">$bmi = $waga / $wzrost ** 2;
+</code></pre>
+<p>Wynik ma wiele cyfr po przecinku. <code>printf()</code> pozwala ograniczyć ich liczbę podczas wyświetlania:</p>
+<pre><code class="language-php">printf("%.2f", $bmi);
+</code></pre>
+<details>
+  <summary>inne wartości printf</summary>
+
+<table>
+<thead>
+<tr>
+<th>format</th>
+<th>znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%d</code></td>
+<td>dziesiętna liczba całkowita</td>
+</tr>
+<tr>
+<td><code>%f</code></td>
+<td>dziesiętna liczba zmiennoprzecinkowa</td>
+</tr>
+<tr>
+<td><code>%.2f</code></td>
+<td>liczba zmiennoprzecinkowa z dwoma miejscami po przecinku</td>
+</tr>
+<tr>
+<td><code>%s</code></td>
+<td>ciąg znaków</td>
+</tr>
+<tr>
+<td><code>%c</code></td>
+<td>pojedynczy znak</td>
+</tr>
+<tr>
+<td><code>%b</code></td>
+<td>liczba binarna</td>
+</tr>
+<tr>
+<td><code>%o</code></td>
+<td>liczba ósemkowa</td>
+</tr>
+<tr>
+<td><code>%x</code></td>
+<td>liczba szesnastkowa małymi literami</td>
+</tr>
+<tr>
+<td><code>%X</code></td>
+<td>liczba szesnastkowa dużymi literami</td>
+</tr>
+<tr>
+<td><code>%10s</code></td>
+<td>ciąg znaków z wyrównaniem do prawej</td>
+</tr>
+<tr>
+<td><code>%-10s</code></td>
+<td>ciąg znaków z wyrównaniem do lewej</td>
+</tr>
+</tbody></table>
+</details>
+
+
+<h3>🔀 Instrukcje warunkowe <code>if</code>, <code>elseif</code>, <code>else</code></h3>
+<p>Dokończmy skrypt obliczający BMI. Sama liczba niewiele mówi, dlatego przygotujemy dwie tablice:<br>progi oraz odpowiadające im klasyfikacje.</p>
+<pre><code class="language-php">$bmi_stat = [18.5, 25, 30, 35, 40];
+$bmi_nazwa = ["Niedowaga", "Prawidłowa", "Nadwaga", "Otyłość 1 stopnia", "Otyłość 2 stopnia", "Otyłość 3 stopnia"];
+</code></pre>
+<p>Do wartości w tablicy odwołujemy się przez indeks zapisany w nawiasach kwadratowych. Pierwszy element ma indeks <code>0</code>, dlatego pięć progów zajmuje indeksy od <code>0</code> do <code>4</code>.</p>
+<p>Poniższa struktura <span class="color-green"><code>if</code></span> najpierw sprawdza, czy warunek <code>$bmi &gt;= $bmi_stat[4]</code> jest prawdziwy. Jeżeli <span class="color-green">tak</span>, wypisze <code>$bmi_nazwa[5]</code> i pominie pozostałe gałęzie.<br>Jeżeli <span class="color-red">nie</span> to sprawdzi kolejny <span class="color-red"><code>else if</code></span>.<br>Jeżeli <span class="color-gold">wszystkie warunki będą fałszywe</span> to wykonany zostanie kod w <span class="color-gold"><code>else</code></span>, który już nic nie sprawdza.</p>
+<pre><code class="language-php">if($bmi &gt;= $bmi_stat[4]){
+    echo $bmi_nazwa[5];
+} elseif ($bmi &gt;= $bmi_stat[3]){
+    echo $bmi_nazwa[4];
+} elseif ($bmi &gt;= $bmi_stat[2]){
+    echo $bmi_nazwa[3];
+} elseif ($bmi &gt;= $bmi_stat[1]){
+    echo $bmi_nazwa[2];
+} elseif ($bmi &gt;= $bmi_stat[0]){
+    echo $bmi_nazwa[1];
+} else {
+    echo $bmi_nazwa[0];
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/bmi-if-else.webp" alt="" width="1852" height="947" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Na koniec pozwoliłem sobie przedstawić działanie <code>var_dump</code> i tu ciekawostka nie można tej funkcji sklejać konkatenacją (<code>.</code>).</p>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Kod PHP zapisujemy pomiędzy <code>&lt;?php</code> a <code>?&gt;</code>.</li>
+<li>PHP jest językiem dynamicznie typowanym, a jego zmienne tworzy się przez przypisanie wartości do nazwy zaczynającej się od <code>$</code>.</li>
+<li>Zbiory danych przechowujemy w tablicach które mogą być indeksowane lub asocjacyjne.</li>
+<li>W bloku <code>if</code> wykonujemy kod tylko wtedy gdy warunek jest prawdziwy. Jeżeli nie to sprawdzamy kolejny warunek w instrukcji <code>elseif</code>. Jeżeli wszystkie warunki są fałszywe to wykonujemy kod w instrukcji <code>else</code>.</li>
+<li>Łączenie znaków nazywamy konkatenacją i robimy to za pomocą operatora <code>.</code>.</li>
+<li>W skład działań arytmetycznych wchodzą: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>**</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

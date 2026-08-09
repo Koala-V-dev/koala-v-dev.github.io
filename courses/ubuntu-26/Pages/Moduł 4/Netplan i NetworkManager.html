@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 4\Netplan i NetworkManager - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwsze Kroki z Linuksem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest Linux"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Czym%20jest%20Linux.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest Linux</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Instalacja w VirtualBox"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Instalacja%20w%20VirtualBox.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja w VirtualBox</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Ustawienia GNOME"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Ustawienia%20GNOME.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Ustawienia GNOME</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Katalogi w Ubuntu"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Katalogi%20w%20Ubuntu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Katalogi w Ubuntu</a></li><li class="module">Moduł 1: Podstawowa praca w terminalu</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Pliki i katalogi"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201/Pliki%20i%20katalogi.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pliki i katalogi</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wstępne informacje o systemie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201/Wst%C4%99pne%20informacje%20o%20systemie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wstępne informacje o systemie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kopie i odtwarzanie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201/Kopie%20i%20odtwarzanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kopie i odtwarzanie</a></li><li class="module">Moduł 2: Użytkownicy, sudo i uprawnienia</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Użytkownicy i sudo"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%202/U%C5%BCytkownicy%20i%20sudo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Użytkownicy i sudo</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Uprawnienia plików i katalogów"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%202/Uprawnienia%20plik%C3%B3w%20i%20katalog%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Uprawnienia plików i katalogów</a></li><li class="module">Moduł 3: Diagnostyka, potoki i dyski</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Diagnostyka wyników komend"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203/Diagnostyka%20wynik%C3%B3w%20komend.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Diagnostyka wyników komend</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Edycja plików i nano"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203/Edycja%20plik%C3%B3w%20i%20nano.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Edycja plików i nano</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Zarządzanie dyskami - parted i fstab"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203/Zarz%C4%85dzanie%20dyskami%20-%20parted%20i%20fstab.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie dyskami - parted i fstab</a></li><li class="module">Moduł 4: Zdalne zarządzanie w sieci</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Netplan i NetworkManager"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204/Netplan%20i%20NetworkManager.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Netplan i NetworkManager</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Zdalny dostęp - SSH"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204/Zdalny%20dost%C4%99p%20-%20SSH.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdalny dostęp - SSH</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Zapora sieciowa - UFW"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204/Zapora%20sieciowa%20-%20UFW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zapora sieciowa - UFW</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Netplan i NetworkManager</h1>
+<section class="lesson-section" data-lesson-section="true"><h2>tree nie jest domyślnym pakietem komendy</h2>
+<p>W systemach z rodziny Debian oraz w Ubuntu konfiguracja sieci opiera się na narzędziu Netplan. Kluczowa różnica między wersją desktopową a serwerową dotyczy używanego wykonawcy konfiguracji, określanego jako <span class="color-red">renderer</span>.</p>
+<p>W wersji Ubuntu Desktop domyślnym wykonawcą jest <span class="color-green">NetworkManager</span> (w skrócie <span class="color-green">NM</span>). Zarządza on profilami połączeń w sposób dynamiczny i ułatwia obsługę sieci Wi‑Fi oraz zmianę interfejsów w środowisku graficznym.<br>Na serwerach preferowana jest wyższa stabilność oraz przewidywalność, a połączenia są realizowane wyłącznie po kablu. Dlatego wykorzystuje się tam usługę o niższym narzucie <span class="color-green"><code>systemd-networkd</code></span>, która nie nadpisuje swoimi działaniami przygotowanych konfiguracji Netplan.</p>
+<p>Przygotuj dwie maszyny wirtualne i upewnij się, że mają różne adresy MAC:</p>
+<ul>
+<li>VM1: Jedna karta sieciowa pracująca w trybie sieci wewnętrznej.</li>
+<li>VM2: Dwie karty sieciowe: jedna w sieci wewnętrznej, a druga w trybie NAT.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/ubuntu-sieć-wewnętrzna.webp" alt="Ubuntu sieć wewnętrzna" width="1477" height="918" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>Od razu możesz zmienić tonację kolorów w terminalu na czytelniejszą niż ta domyślna, np.:</p>
+<ul>
+<li>Monokai Soda</li>
+<li>Monokai Dark</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/terminal-kolor-ip-br-route-a.webp" alt="Ubuntu terminal kolor ip br route a" width="2881" height="896" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak widzisz, ja używam motywu Monokai Dark.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Rozpoznanie interfejsów, tras i uprawnień</h2>
+<p>Zanim przejdziesz do modyfikacji plików YAML, zapoznaj się z interfejsami sieciowymi oraz ich aktualnymi ustawieniami:</p>
+<pre><code class="language-bash">ip a
+</code></pre>
+<p>Wynikiem powyższego polecenia zobaczysz nazwy interfejsów i stan UP/DOWN lub UNKNOWN, typ połączenia, adres MAC, adres IPv4 oraz IPv6:</p>
+<pre><code class="language-shell">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:07:3e:6e brd ff:ff:ff:ff:ff:ff
+    altname enx080027073e6e
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3
+       valid_lft 83475sec preferred_lft 83475sec
+</code></pre>
+<ol>
+<li>Pierwsza pozycja <code>lo</code> to sieć pętli zwrotnej (<span class="color-blue">localhost</span>, adres IPv4 <code>127.0.0.1/8</code>, IPv6 <code>::1/128</code>). Służy do komunikacji systemu z samym sobą między zainstalowanymi usługami przy użyciu stosu ISO/OSI (jest to najwydajniejszy sposób).</li>
+<li>Kolejne interfejsy dotyczą fizycznych lub wirtualnych kart sieciowych a ich nazwy są zależne od dystrybucji i środowiska (np. w VirtualBox: <code>enp0s3</code>, <code>enp0s8</code>, <code>enp0s9</code>, <code>enp0s10</code> a na fizycznym sprzęcie mogą być <code>eth0</code>, <code>eth1</code> itp.).</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/ipa-br-routre.webp" alt="Ubuntu terminal ipa br route a" width="874" height="441" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dodatkowo warto znać polecenie wyświetlające skrócone informacje o interfejsach:</p>
+<pre><code class="language-bash">ip -br address
+</code></pre>
+<pre><code class="language-shell">lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp0s3           UP             10.0.2.15/24 
+</code></pre>
+<p>Zdecydowanie ważniejszym i koniecznym do zapamiętania poleceniem jest:</p>
+<pre><code class="language-bash">ip route
+</code></pre>
+<p>Pozwala ono na podejrzenie tablicy routingu, gdzie wpis <code>default via</code> oznacza bramę domyślną. Jest to adres routera, przełącznika lub innego urządzenia przekazującego ruch do innych sieci:</p>
+<pre><code class="language-shell">default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 100 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 metric 100 
+</code></pre>
+<ul>
+<li><code>default via</code>: brama domyślna, do której wysyłany jest cały ruch z nieokreślonym przeznaczeniem.</li>
+<li><code>dev</code>: nazwa karty sieciowej, przez którą wysyłany jest ruch.</li>
+<li><code>proto</code>: protokół użyty do konfiguracji interfejsu:<ul>
+<li><code>dhcp</code>: adres pobrany z serwera DHCP.</li>
+<li><code>static</code>: adres skonfigurowany statycznie.</li>
+<li><code>kernel</code>: adres skonfigurowany bezpośrednio przez jądro systemu.</li>
+</ul>
+</li>
+<li><code>src</code>: adres źródłowy używany do wysłania pakietów.</li>
+<li><code>metric</code>: metryka określająca priorytet interfejsu (im niższa wartość, tym wyższy priorytet).</li>
+</ul>
+<hr>
+<h3>🛡️ Kopia zapasowa i uprawnienia <code>/etc/netplan/</code></h3>
+<p>Gdy poniższym poleceniem podejrzymy zawartość katalogu <code>/etc/netplan/</code>, zauważymy pliki z rozszerzeniem <code>.yaml</code>. Uprawnienia tych plików muszą wynosić <code>600</code> (<code>-rw-------</code>) przyznane wyłącznie właścicielowi <code>root</code>. Oznacza to, że pliki konfiguracyjne są przeznaczone tylko do odczytu i zapisu przez administratora. Jeżeli grupa właścicielska lub inni użytkownicy mieliby jakiekolwiek prawa, usługa Netplan zgłosi ostrzeżenie o zbyt otwartych uprawnieniach (<span class="color-blue">permissions are too open</span>).</p>
+<pre><code class="language-bash">ls -l /etc/netplan
+</code></pre>
+<p>Dla bezpieczeństwa przygotujmy katalog na kopię zapasową tych konfiguracji w swojej lokalizacji domowej. Wykorzystamy do tego polecenie <code>mkdir</code> z opcją <code>-p</code> pozwalającą na budowanie struktury katalogów:</p>
+<pre><code class="language-bash">mkdir -p ~/etc/netplan/
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/listowanie-netplan-tworzenie-katalogu-i-kopia-plików-z-sprawdzeniem.webp" alt="Przygotowanie katalogu na kopię zapasową" width="800" height="548" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Gdy struktura w katalogu <code>~/etc/netplan/</code> jest gotowa, skopiujmy wszystkie pliki z katalogu <code>/etc/netplan/</code> do <code>~/etc/netplan/</code> przy użyciu polecenia <code>cp</code> z opcją <code>-p</code>, aby zachować wszystkie uprawnienia i metadane:</p>
+<pre><code class="language-bash">sudo cp -p /etc/netplan/* ~/etc/netplan/
+</code></pre>
+<p>Upewniamy się czy zawartość najważniejszego z nich (<code>01-network-manager-all.yaml</code>) jest poprawna i czy użycie <code>cat</code>  bez <code>sudo</code> zostanie odrzucone z błędem braku uprawnień:</p>
+<hr>
+<h3>📝 Nowa konfiguracja interfejsów i obsługa błędów YAML</h3>
+<p>Skoro mamy bezpieczną kopię zapasową, możemy usunąć oryginalne pliki z <code>/etc/netplan/</code> i utworzyć nowy plik konfiguracyjny:</p>
+<pre><code class="language-bash">sudo rm -rf /etc/netplan/*
+sudo nano /etc/netplan/00-net-conf.yaml
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/usuniecie-zawartości-netplan-i-przygotowanie-się-do-edycji-w-nano-nowego-pliku-00-net-conf.yaml.webp" alt="" width="799" height="159" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Możemy wyświetlić w drugim oknie terminala dotychczasową zawartość skopiowanego pliku <code>01-network-manager-all.yaml</code> i zapisać nową konfigurację w nano (<code>^O</code> czyli <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>O</kbd></span>).</p>
+<p>Aby zweryfikować poprawność nowego pliku konfiguracyjnego, korzystamy z polecenia:</p>
+<pre><code class="language-bash">sudo netplan try
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/netplan-new-conf-bad-perm.webp" alt="" width="1598" height="867" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak widać na powyższym obrazku, podczas próby zastosowania nowej konfiguracji mogą pojawić się dwa typowe błędy:</p>
+<ol>
+<li><span class="color-green">Ostrzeżenie o uprawnieniach:</span> plik utworzony w <code>/etc/netplan/</code> ma uprawnienia inne niż <code>600</code>.</li>
+<li><span class="color-green">Błąd składniowy YAML:</span> nieodpowiednia ilość spacji lub literówki</li>
+</ol>
+<pre><code>    renderer: NetworkManager
+            ^
+</code></pre>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>W plikach YAML <span class="color-red">nie wolno używać klawisza <kbd>Tab</kbd></span> do tworzenia wcięć. Należy używać wyłącznie spacji.</p>
+
+</div>
+</div><p>Aby rozwiązać ostrzeżenie o uprawnieniach, użyj polecenia nadpisującego prawa dla wszystkich plików w katalogu <code>/etc/netplan/</code>:</p>
+<pre><code class="language-bash">sudo chmod 600 /etc/netplan/*
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Przygotowanie maszyn i konfiguracja netplan</h2>
+<data-tabs>
+  <tabs>
+    <item>Konfiguracja VM1</item>
+    <item>Konfiguracja VM2</item>
+  </tabs>
+  <div><h3>🛠️ Konfiguracja VM1</h3>
+<table>
+<thead>
+<tr>
+<th>Karta sieciowa VB</th>
+<th>Interfejs w ubuntu</th>
+<th>Typ działania</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Karta 1</td>
+<td>enp0s3</td>
+<td>Sieć wewnętrzna</td>
+</tr>
+</tbody></table>
+<p>Poniższa konfiguracja ustawi statyczny adres IPv4 <code>192.168.50.10</code> z maską podsieci <code>255.255.255.0</code> w skróconym zapisie <code>/24</code>. Opcjonalnie dla pełnej poprawności można zadeklarować wyłączenie DHCP <code>dhcp4: false</code>, ale nie jest to konieczne.</p>
+<pre><code class="language-yaml">network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:
+      dhcp4: false
+      addresses:
+        - 192.168.50.10/24
+</code></pre>
+<p>Gdy zapiszesz konfigurację wykonaj (nie czekaj kliknij <kbd>Enter</kbd>, i od razu się zastosuje jeżeli nie ma błędów)</p>
+<pre><code class="language-bash">sudo netplan try
+</code></pre>
+<p>Dla pewności możesz wykonać jeszcze (albo od razu zamiast try):</p>
+<pre><code class="language-bash">sudo netplan apply
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/netplan-vm1-setup-conf.webp" alt="Dwa okna terminala. Na pierwszym konfiguracja netplan, a na drugim zastosowanie jej i sprawdzenia ip a" width="1599" height="867" class="lazy-image" loading="lazy" decoding="async"></div>
+  <div><h3>🛠️ Krok po kroku na maszynie VM2</h3>
+<table>
+<thead>
+<tr>
+<th>Karta sieciowa VB</th>
+<th>Interfejs w ubuntu</th>
+<th>Typ działania</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Karta 1</td>
+<td>enp0s3</td>
+<td>NAT</td>
+</tr>
+<tr>
+<td>Karta 2</td>
+<td>enp0s8</td>
+<td>Sieć wewnętrzna</td>
+</tr>
+<tr>
+<td>Karta 3</td>
+<td>enp0s9</td>
+<td>Nie podłączona</td>
+</tr>
+<tr>
+<td>Karta 4</td>
+<td>enp0s10</td>
+<td>Nie podłączona</td>
+</tr>
+</tbody></table>
+<p>Poniższa konfiguracja ustawi dynamicznie pobierany i stosowany adres z puli DHCP VirtualBoxa na pierwszym interfejsie NAT oraz adres statyczny IPv4 <code>192.168.50.20</code> z maską podsieci <code>255.255.255.0</code> w skróconym zapisie <code>/24</code>. Bez opcjonalnego <code>dhcp4: false</code> dla karty sieciowej pracującej w sieci wewnętrznej.</p>
+<pre><code class="language-yaml">network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:
+      dhcp4: true
+    enp0s8:
+      addresses:
+        - 192.168.50.20/24
+</code></pre>
+<p>Poniżej widzisz wszystkie 4 karty sieciowe z czego dwie ostatnie nie mają konfiguracji więc są wyłączone (<span class="color-red">DOWN</span>).</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/netplan-vm2-setup-conf.webp" alt="Dwa okna terminala. Na pierwszym konfiguracja netplan, a na drugim zastosowanie jej i sprawdzenia ip a" width="1598" height="867" class="lazy-image" loading="lazy" decoding="async"></div>
+</data-tabs>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Weryfikacja połączenia</h2>
+<p>Po konfiguracji interfejsów sieciowych musisz się jeszcze upewnić że komunikacja przebiega poprawnie.<br>Dlatego wykonaj ping z obu maszyn na tą drugą.</p>
+<pre><code class="language-bash">ping -c 4 [ADRES_IP_DRUGIEJ_MASZYNY]
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/netplan-test-ping-dwie-maszyny.webp" alt="Dwa okna terminala. Na pierwszym konfiguracja netplan, a na drugim zastosowanie jej i sprawdzenia ip a" width="1917" height="701" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>🚂 Przekazywanie ruchu do internetu, Brama, DNS i NAT</h3>
+<p>Przestrzegam prze stosowaniem <code>gatewey4</code> jest zdepresjonowany i w nowszych systemach jako bramy domyślnej używamy pierwszego domyślnego wpisu w <code>routes:</code>.</p>
+<pre><code class="language-yaml">network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:
+      dhcp4: true
+    enp0s8:
+      addresses:
+        - 192.168.50.20/24
+      routes:
+        - to: default
+          via: 192.168.50.20
+</code></pre>
+<p>Jak widać dzieki zastosowaniu bramy mogłżna spingować z VM1 kratę siciową NAT VM2 w innej podsieci, ale dalej nie spinguje się DNS Googla. </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/netplan-route-default-gatewey.webp" alt="Wygląd okna z wynikami poleceń ip -br route oraz resolvectl status" width="1914" height="705" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Aby VM2 udostępniła internet maszynie VM1 trzeba włączyć tymczasowo funkcjonalność routera i mechanizm NAT.</p>
+<pre><code class="language-bash">sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+</code></pre>
+<ul>
+<li><code>sysctl</code> jest narzędziem do zarządzania parametrami jądra Linux.<ul>
+<li><code>-w</code> - pozwala na <span class="color-green">w</span>pisanie (zmianę) wartości parametru jądra.</li>
+<li><code>net.ipv4.ip_forward</code> - parametr jądra Linux odpowiedzialny za przekazywanie ruchu IP.</li>
+</ul>
+</li>
+<li><code>iptables</code> jest narzędziem do zarządzania tablicami, łańcuchami i regułami filtrowania pakietów IP.<ul>
+<li><code>-t nat</code> - wskazuje na tablicę <code>nat</code> odpowiedzialną za operacje na adresach IP.</li>
+<li><code>-A POSTROUTING</code> - dodaje regułę do łańcucha <code>POSTROUTING</code>, wykonywanego <span class="color-green">po</span> zakończeniu operacji na adresach IP.</li>
+<li><code>-o enp0s3</code> - określa interfejs wyjściowy (kartę sieciową NAT <code>enp0s3</code> na VM2).</li>
+<li><code>-j MASQUERADE</code> - określa akcję <code>MASQUERADE</code> (mechanizm NAT pozwalający na udostępnianie internetu maszynie VM1).</li>
+</ul>
+</li>
+</ul>
+<p>Dzieki temu VM1 ma pośrednio dostęp do internetu... Do puki VM2 nie zostanie ponownie uruchomiona. </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/netplan-ipv4-forwarding.webp" alt="Wygląd okna z wynikami poleceń cat /proc/sys/net/ipv4/ip_forward oraz sysctl net.ipv4.ip_forward" width="1917" height="867" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Końcowa konfiguracja netplanu dla maszyny VM1 powinna wyglądać tak:</p>
+<pre><code class="language-yaml">network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:
+      dhcp4: false
+      addresses:
+        - 192.168.50.10/24
+      routes:
+        - to: default
+          via: 192.168.50.20
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+</code></pre>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Netplan przechowuje opis konfiguracji, a NetworkManager wykonuje go w Ubuntu Desktop.</li>
+<li>Maszyna może korzystać z niezależnych kart: jednej dla ruchu internetowego (NAT) i drugiej dla prywatnej sieci laboratoryjnej.</li>
+<li>Karta w prywatnej sieci <code>ubuntu-lab</code> nie wymaga bramy domyślnej ani DNS, aby uniknąć konfliktów tras.</li>
+<li>Przestarzała klauzula <code>gateway4</code> została wycofana na rzecz bloku <code>routes:</code>.</li>
+<li>Konfiguracja z <code>renderer: NetworkManager</code> tworzy profil widoczny w oknie Ustawień graficznych.</li>
+<li>Po wprowadzeniu zmian w sieci należy sprawdzić adresy (<code>ip -br address</code>), trasy (<code>ip route</code>), DNS (<code>resolvectl status</code>) oraz łączność (<code>ping</code>).</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

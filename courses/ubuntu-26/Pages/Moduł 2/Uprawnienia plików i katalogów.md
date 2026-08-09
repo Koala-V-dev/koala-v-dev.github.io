@@ -87,11 +87,11 @@ Poniższy model pozwala na bezpieczną, interaktywną wizualizację i testowanie
 <data-permission-lab src="/public/courses/ubuntu-26/Scenarios/permissions/model-rwx-zadanie.md"></data-permission-lab>
 </data-gate>
 
-## 🚀 Misja: zabezpiecz katalog projektu
+## 🚀 Misja: zabezpieczenie katalogu projektu
 
-W misji dostajesz inny katalog projektu. Masz ustawić właściciela, grupę i prawa, a potem pokazać wynik przez `ls -l`.
+W tej misji otrzymujesz inny katalog roboczy w systemie plików. Twoim zadaniem jest poprawne ustawienie właściciela konta, przydzielenie grupy właścicielskiej oraz skonfigurowanie praw dostępu w trybie ósemkowym, a następnie przeprowadzenie końcowego audytu za pomocą polecenia `ls -l`.
 
-To jest normalna administracyjna praca: zmieniasz stan systemu, robisz audyt i testujesz dostęp z właściwego konta.
+To standardowa praca administracyjna: modyfikujesz stan systemu, weryfikujesz uprawnienia i testujesz dostęp z właściwego konta.
 
 <data-gate>
 <data-terminal-mission src="/public/courses/ubuntu-26/Scenarios/terminal-missions/m2-02-katalog-projektu.md"></data-terminal-mission>

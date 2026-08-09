@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Warstwy sesji, prezentacji i aplikacji - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Warstwy sesji, prezentacji i aplikacji</h1>
+<p>Połączenie TCP działa. Serwer odebrał wszystkie bajty, lecz operacja nadal kończy się błędem. Naprawianie kabla albo tablicy routingu niczego już nie rozdzieli.</p>
+<p>W tej lekcji wykorzystasz górne warstwy modelu OSI jako trzy pytania diagnostyczne. Sprawdzisz, czy strony rozumieją zapis danych, czy zachowały potrzebny stan rozmowy i czy żądanie ma poprawne znaczenie dla usługi.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw znajdź pierwszą granicę błędu</h2>
+<p>Serwer zapisuje trzy niezależne zdarzenia:</p>
+<pre><code class="language-text">A. odebrano komplet bajtów, nie można zdekodować tekstu jako UTF-8
+B. tekst i JSON są poprawne, identyfikator sesji wygasł
+C. tekst, JSON i sesja są poprawne, operacja "zamknij_okno" nie istnieje
+</code></pre>
+<p>Dla każdego zdarzenia zapisz pierwsze pytanie, na które odpowiedź brzmi „nie”:</p>
+<ol>
+<li>Czy bajty mają uzgodnioną reprezentację?</li>
+<li>Czy wymiana ma wymagany stan i ciągłość?</li>
+<li>Czy usługa rozumie znaczenie polecenia?</li>
+</ol>
+<p>Nie przypisuj jeszcze numerów warstw. Najpierw rozdziel dowody. Zdarzenie C nie staje się problemem kodowania tylko dlatego, że polecenie jest tekstem.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Trzy warstwy są trzema zakresami pytań</h2>
+<p>Model OSI opisuje funkcje komunikacji. Nie wymaga, aby każdy program miał osobny moduł dla każdej warstwy.</p>
+<p><span class="color-green">Warstwa sesji</span> dotyczy organizacji dialogu. Obejmuje między innymi ustanowienie kontekstu wymiany, kontrolę dialogu oraz punkty synchronizacji potrzebne do wznowienia pracy.</p>
+<p><span class="color-green">Warstwa prezentacji</span> dotyczy składni i reprezentacji informacji. Odpowiada na pytanie, jak przesyłane bajty zamienić na dane rozumiane po obu stronach. W praktyce mogą to być kodowanie znaków, serializacja, kompresja albo transformacja kryptograficzna.</p>
+<p><span class="color-green">Warstwa aplikacji</span> dotyczy operacji oferowanych przez usługę i znaczenia wiadomości. Określa między innymi, jakie polecenia istnieją, jakich pól wymagają oraz jaki wynik oznacza sukces albo odmowę.</p>
+<p>W stosie internetowym te funkcje często znajdują się w jednej bibliotece lub protokole aplikacyjnym. HTTP opisuje znaczenie żądań i odpowiedzi. JSON może opisywać składnię treści. Aplikacja może utrzymywać stan użytkownika za pomocą tokenu. TLS chroni dane między punktami końcowymi. Żaden z tych przykładów nie tworzy prostego mapowania jeden protokół do jednej warstwy OSI.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Dowody tworzą łańcuch</h2>
+<p>Analizuj komunikację w stałej kolejności:</p>
+<pre><code class="language-text">transport dostarczył bajty
+        ↓
+ochrona kanału zaakceptowała i odsłoniła dane
+        ↓
+reprezentacja daje się zdekodować i sparsować
+        ↓
+kontekst rozmowy jest ważny
+        ↓
+reguła aplikacji przyjmuje operację
+</code></pre>
+<p>Każdy krok opiera się na poprzednim. Poprawny JSON potwierdza składnię dokumentu. Nie potwierdza, że sesja użytkownika nadal jest ważna ani że aplikacja obsługuje wskazaną operację.</p>
+<p>Sukces TCP potwierdza uporządkowane dostarczenie strumienia do punktu komunikacji. Nie dowodzi, że odbiorca potrafi zinterpretować bajty.</p>
+<p>Dzięki tej kolejności znajdujesz pierwszą niepotwierdzoną granicę i wybierasz następny test. Numer „winnej warstwy” nie zastępuje dowodu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧾 Reprezentacja zmienia bajty w strukturę</h2>
+<p>Tekst JSON przesyłany między systemami używa UTF‑8. Odbiorca wykonuje co najmniej dwa różne sprawdzenia:</p>
+<pre><code class="language-text">bajty -&gt; znaki UTF-8 -&gt; tokeny i struktura JSON
+</code></pre>
+<p>Te dane nie tworzą poprawnego JSON:</p>
+<pre><code class="language-text">{ "temperatura": 21, }
+</code></pre>
+<p>Końcowy przecinek narusza gramatykę JSON. Parser nie dochodzi jeszcze do pytania, czy pole <code>temperatura</code> jest dozwolone.</p>
+<p>Inny dokument może być składniowo poprawny:</p>
+<pre><code class="language-json">{ "temperatura": "bardzo" }
+</code></pre>
+<p>Parser zbuduje obiekt i wartość tekstową. Aplikacja może go później odrzucić, jeśli wymaga liczby. To nie jest już błąd gramatyki JSON. Jest to naruszenie reguły danych ustalonej przez konkretną usługę.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Stan rozmowy łączy oddzielne wymiany</h2>
+<p>HTTP definiuje żądania, których znaczenie można rozumieć osobno. Aplikacje często dodają jednak własny stan: logowanie, koszyk, identyfikator zadania albo punkt wznowienia transferu.</p>
+<p>Rozważ dwa poprawne składniowo żądania:</p>
+<pre><code class="language-text">1. rozpocznij import, sesja S7
+2. zatwierdź import, sesja S7
+</code></pre>
+<p>Drugie żądanie ma sens tylko wtedy, gdy serwer nadal zna stan <code>S7</code> i wie, który import ma zatwierdzić. Jeśli kontekst wygasł, ponowne wysłanie tych samych bajtów nie naprawi problemu. Klient musi odtworzyć wymagany stan albo rozpocząć operację zgodnie z regułami usługi.</p>
+<p>Nie utożsamiaj sesji aplikacyjnej z połączeniem TCP. Kilka żądań jednej sesji może korzystać z różnych połączeń, a jedno połączenie może przenosić wiele niezależnych żądań.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Reguła aplikacji nadaje danym znaczenie</h2>
+<p>Po poprawnym zdekodowaniu i odtworzeniu kontekstu usługa interpretuje polecenie. To tutaj rozstrzyga, czy operacja istnieje, użytkownik ma uprawnienie i wartość mieści się w dozwolonym zakresie.</p>
+<p>Przykład:</p>
+<pre><code class="language-json">{ "operacja": "ustaw_temperature", "wartosc": 900 }
+</code></pre>
+<p>Dokument może być poprawnym UTF‑8 i JSON. Sesja może być aktywna. Sterownik nadal powinien odrzucić wartość spoza bezpiecznego zakresu.</p>
+<p>Odpowiedź aplikacji jest dowodem. Kod HTTP <code>400</code> może wskazywać, że serwer uważa żądanie za błędne, a <code>401</code> oznacza brak ważnych danych uwierzytelniających dla zasobu. Sam kod nie zastępuje jednak opisu błędu i dokumentacji konkretnego API.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: pierwszy niepotwierdzony krok</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Serwer potwierdził odbiór pełnego żądania. TLS zakończył się poprawnie, treść została zdekodowana jako UTF‑8, parser JSON zbudował obiekt, a identyfikator sesji jest aktywny. Usługa zwraca błąd <code>nieznana operacja: archiwizuj</code>. Gdzie znajduje się pierwszy niepotwierdzony krok?</p>
+</question>
+    <options>
+      <option><p>W routingu, ponieważ pakiet trafił do niewłaściwej sieci.</p>
+</option>
+      <option><p>W reprezentacji, ponieważ każda nieznana wartość oznacza błędny JSON.</p>
+</option>
+      <option><p>W stanie sesji, ponieważ aktywna sesja zawsze musi zostać utworzona ponownie.</p>
+</option>
+      <option correct=""><p>W regule aplikacji, ponieważ składnia i stan zostały potwierdzone, ale usługa nie definiuje takiej operacji.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Nie cofaj diagnozy przed ostatni potwierdzony dowód. Transport, ochrona kanału, reprezentacja i stan sesji przeszły swoje sprawdzenia.</p>
+</div>
+    <div data-hint="success"><p>Pierwszy brak potwierdzenia dotyczy znaczenia polecenia w konkretnej usłudze. Następny test powinien sprawdzić listę obsługiwanych operacji lub kontrakt API.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Rozdziel cztery odrzucenia</h2>
+<p>System przyjmuje żądania ustawienia temperatury. Kontrakt wymaga UTF‑8, poprawnego JSON, aktywnej sesji oraz liczby od 5 do 35 w polu <code>wartosc</code>.</p>
+<p>Przeanalizuj cztery raporty:</p>
+<pre><code class="language-text">A. TCP dostarczył dane, dekoder UTF-8 zgłosił niedozwoloną sekwencję bajtów
+B. UTF-8 działa, parser otrzymał: { "wartosc": 22, }
+C. JSON to { "wartosc": 22 }, ale identyfikator sesji wygasł
+D. JSON to { "wartosc": 80 }, sesja jest aktywna
+</code></pre>
+<p>Dla każdego raportu zapisz:</p>
+<ol>
+<li>ostatni potwierdzony krok;</li>
+<li>pierwszy krok zakończony błędem;</li>
+<li>jeden test lub zapis, który potwierdzi diagnozę;</li>
+<li>działanie naprawcze, które nie cofa się do już potwierdzonej warstwy.</li>
+</ol>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>odróżniasz dekodowanie UTF‑8 od parsowania JSON;</li>
+<li>poprawny JSON nie wystarcza do uznania wartości <code>80</code> za dozwoloną;</li>
+<li>wygasła sesja nie jest awarią TCP;</li>
+<li>proponowany test dotyczy pierwszej niepotwierdzonej granicy;</li>
+<li>nie oceniasz odpowiedzi na podstawie nazw numerów warstw, lecz na podstawie dowodów.</li>
+</ul>
+<p>Zmień przypadek B na poprawny JSON bez pola <code>wartosc</code>: <code>{ "tryb": "eco" }</code>. Ustal, dlaczego błąd przesuwa się z reprezentacji do reguły aplikacyjnej.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W raporcie A ostatnim potwierdzonym krokiem jest dostarczenie bajtów przez TCP. Pierwszy błąd występuje przy dekodowaniu reprezentacji. Log dekodera z pozycją niedozwolonej sekwencji potwierdzi diagnozę. Nadawca powinien wysłać dane w uzgodnionym UTF‑8.</p>
+<p>W raporcie B dekodowanie UTF‑8 działa, ale końcowy przecinek łamie gramatykę JSON. Test parserem zgodnym z RFC 8259 odtworzy błąd. Trzeba poprawić serializację dokumentu, nie sesję ani routing.</p>
+<p>W raporcie C reprezentacja jest poprawna. Pierwszy błąd dotyczy stanu rozmowy. Rejestr sesji powinien pokazać czas wygaśnięcia identyfikatora. Klient musi uzyskać ważny kontekst zgodnie z protokołem usługi.</p>
+<p>W raporcie D reprezentacja i sesja są poprawne. Wartość <code>80</code> narusza regułę aplikacji. Test walidatora kontraktu powinien zwrócić dozwolony zakres od 5 do 35. Zmiana kodowania nie wpłynie na wynik.</p>
+<p>Po zmianie raportu B dokument jest poprawnym JSON. Parser zbuduje obiekt, lecz usługa nie znajdzie wymaganego pola <code>wartosc</code>. Pierwszy błąd wystąpi więc podczas sprawdzania kontraktu aplikacji, a nie podczas odczytu reprezentacji.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Warstwy od 5 do 7 wyznaczają zakresy pytań.</span> Nie muszą istnieć jako trzy osobne moduły programu.</li>
+<li><span class="color-green">Reprezentacja odpowiada za odczyt danych.</span> Poprawne UTF‑8 i poprawna składnia JSON są dwoma różnymi dowodami.</li>
+<li><span class="color-green">Stan rozmowy łączy wymiany.</span> Jego wygaśnięcie nie oznacza awarii połączenia TCP.</li>
+<li><span class="color-green">Aplikacja nadaje operacji znaczenie.</span> Poprawny dokument może naruszać kontrakt albo regułę usługi.</li>
+<li><span class="color-green">Diagnozę zaczynasz po ostatnim sukcesie.</span> Następny test dotyczy pierwszej niepotwierdzonej granicy.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

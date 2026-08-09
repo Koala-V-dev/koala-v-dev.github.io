@@ -72,15 +72,19 @@ Ten indeks opisuje docelową kolejność użycia scenariuszy. Nazwy części pli
    - komendy: `mkdir`, `sudo lshw | grep product`, `mv`, `lsblk -f`, `df -h`, `free -h`, `ps -ef | grep networkd`, `>`, `>>`
    - cel: przygotować sprawdzalny raport stanowiska, bez kopiowania przebiegu z tutora
 
-## Moduł 4: sieć i UFW
+## Moduł 4: zdalne zarządzanie w sieci
 
-Scenariusze sieciowe zostają jako przedsmak kursu serwerowego:
+Rdzeniem modułu jest rzeczywiste laboratorium z dwiema maszynami VirtualBox. Symulator terminala nie potwierdzi działania dwóch interfejsów, połączenia SSH ani zachowania aktywnej sesji po zmianie UFW.
+
+Istniejące scenariusze pozostają jako dodatkowe ćwiczenie składni UFW:
 
 - `../terminal-tutor/m4-01-ufw-podstawy.md`,
 - `../terminal-missions/m4-01-regula-testowa-ufw.md`.
+
+Nie zastępują końcowego testu na VM1 i VM2.
 
 Pakowanie raportu i archiwa nie są rdzeniem modułu 3. Mogą wrócić jako dodatek, jeśli po diagnostyce będą miały realny powód.
 
 ## Scenariusze do usunięcia z wczesnej ścieżki
 
-`systemctl`, `journalctl` i diagnoza usług nie wchodzą do podstaw kursu Desktop. Jeżeli wrócą, to jako późny moduł albo osobny kurs serwerowy.
+Tworzenie jednostek `systemd`, zależności między nimi i rozbudowana diagnoza usług nie wchodzą do podstaw kursu Desktop. W Module 4 występują tylko `systemctl status ssh`, `enable --now`, `sshd -t` oraz dziennik usługi SSH, ponieważ są potrzebne do wykonania rzeczywistego zadania.

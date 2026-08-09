@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Operacje na tablicach (strict_type) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: PHP uruchomione w XAMPP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Algorytmy sortowania"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Algorytmy%20sortowania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy sortowania</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Operacje na tablicach</h1>
+<p>Tablice to podstawowa struktura danych w dowolnym języku programowania.</p>
+<p>Zamiast pisać:</p>
+<pre><code class="language-php">$produkt_1 = "banan";
+$produkt_2 = "jabłko";
+$produkt_3 = "pomarańcza";
+$produkt_4 = "truskawka";
+$produkt_5 = "czereśnia";
+</code></pre>
+<p>Możemy stworzyć tablicę:</p>
+<pre><code class="language-php">$produkty = ["banan", "jabłko", "pomarańcza", "truskawka", "czereśnia"];
+</code></pre>
+<p>dodatkowo szybciej można wyświetlić grupę danych w tablicy:</p>
+<pre><code class="language-php">print_r($produkty);
+</code></pre>
+<p>Zamiast pisać:</p>
+<pre><code class="language-php">echo $produkt_1;
+echo $produkt_2;
+echo $produkt_3;
+echo $produkt_4;
+echo $produkt_5;
+</code></pre>
+<p>No i tyle wstępu.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>Wyświetlanie danych z tablicy</h2>
+<p>Jeżeli chcemy wyświetlić jeden element z tablicy, podajemy jego indeks (numer pozycji) w nawiasach kwadratowych.</p>
+<pre><code class="language-php">echo $produkty[0];
+echo $produkty[1];
+echo $produkty[2];
+echo $produkty[3];
+echo $produkty[4];
+</code></pre>
+<p>A dlaczego indeksy zaczynają się od $0$, a nie od $1$?</p>
+<p>Tak naprawdę index to nic innego jak wartość biasu czyli informacja o ile komputer ma przesunąć się w tablicy względem startowego elementu by pobrać wartość z danej pozycji. </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bias = $0$</td>
+<td>bias = $1$</td>
+<td>bias = $2$</td>
+<td>bias = $3$</td>
+<td>bias = $4$</td>
+</tr>
+<tr>
+<td><code>"banan"</code></td>
+<td><code>"jabłko"</code></td>
+<td><code>"pomarańcza"</code></td>
+<td><code>"truskawka"</code></td>
+<td><code>"czereśnia"</code></td>
+</tr>
+</tbody></table>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Suma wartości w tablicy $\Sigma$</h2>
+<p>Potrzebujemy tablicy z całkowicie losowymi liczbami np.:</p>
+<pre><code class="language-php">$liczby = [3, 420, 67, 69, 2137];
+</code></pre>
+<p>Wykonajmy na niej zsumowanie wartości czyli duża Sigma.  </p>
+<pre><code class="language-php">$wynik = $liczby[0] + $liczby[1] + $liczby[2] + $liczby[3] + $liczby[4];
+
+echo $wynik;
+</code></pre>
+<p>Dla pięcioelementowej tablicy robi się to już niewygodne, a przy jej wzroście to... To lepiej nie mówić.<br>Na szczęście istnieją pętle które pozwolą nam na wykonanie powtarzalnego kodu w elegancki sposób.</p>
+<p>Podstawową pętlą jest <code>for</code>:</p>
+<pre><code class="language-php">for ($iterator_z_wartością_początkową; warunek_kontynuacji_pętli; $zmien_wartość_iteratora_po_każdej_iteracji){
+    // ciało pętli
+}
+</code></pre>
+<p>Stosując ją w naszym przykładzie otrzymamy:</p>
+<pre><code class="language-php">$liczby = [3, 420, 67, 69, 2137];
+$wynik = 0;
+
+for ($i = 0; $i &lt; count($liczby); $i++){
+    $wynik += $liczby[$i];
+}
+
+echo $wynik;
+</code></pre>
+<blockquote>
+<p>W powyższym kodzie do poznania ilości elementów tablicy wykorzystano funkcję <code>count()</code>.</p>
+</blockquote>
+<p>Przekształćmy teraz ten strukturalny kod na funkcję:</p>
+<pre><code class="language-php">function sigma($liczby){
+    $wynik = 0;
+    
+    for ($i = 0; $i &lt; count($liczby); $i++){
+        $wynik += $liczby[$i];
+    }
+    return $wynik;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/suma-tablicy.webp" alt="suma-tablicy" width="1848" height="952" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Dopieszczanie funkcji z ścisłym typowaniem</h2>
+<p>Na początku pliku umieść ten kod:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+?&gt;
+</code></pre>
+<p>Oznacza to, że PHP przestaje wykonywać <span class="color-green">automatyczną konwersję (rzutowanie) typów</span> przy przekazywaniu argumentów do funkcji oraz zwracaniu wyników.</p>
+<p>Domyślnie PHP używa tzw. słabego typowania (ang. <span class="color-blue">weak typing</span>). Jeśli przekazałbyś ciąg znaków <code>"5"</code> do funkcji oczekującej liczby <code>int</code> lub <code>float</code>, PHP automatycznie spróbowałoby przekonwertować ten tekst na liczbę.</p>
+<p>Po włączeniu <code>declare(strict_types=1);</code>:</p>
+<ul>
+<li><span class="color-green">Ścisła kontrola typów</span>: Wywołania funkcji z pliku posiadającego tę deklarację wymagają przekazywania argumentów dokładnie takich typów, jakie zadeklarowano.</li>
+<li><span class="color-green">Wyjątek <code>TypeError</code></span>: Przekazanie błędnego typu danych (np. tekstu <code>"100"</code> zamiast <code>float</code> lub <code>int</code>) wyrzuci błąd typu <code>TypeError</code>, zamiast niejawnie dokonywać konwersji.</li>
+<li><span class="color-green">Sprawdzanie typu zwracanego</span>: Zwracana przez funkcję wartość musi być zgodna z wybranym typem zwracanym (np. <code>: float</code>).</li>
+</ul>
+<blockquote>
+<p>💡 <span class="color-green">Warto wiedzieć:</span> Jedynym odstępstwem od reguły w trybie ścisłym jest to, że w miejscu gdzie funkcja oczekuje typu <code>float</code>, możesz przekazać liczbę typu <code>int</code> – PHP w tym wypadku bezpiecznie przekształci ją na <code>float</code>.</p>
+</blockquote>
+<p>Dzięki temu unikamy trudno zauważalnych błędów związanych z cichym przekształcaniem danych i nasz kod staje się przewidywalny.</p>
+<p>Nadszedł czas doinstalować kolejne dwa rozszerzenia:</p>
+<ul>
+<li><span class="color-green">PHP DocBlocker</span> od <span class="color-blue">Neil Brayfield</span>: Wspomaga w szybkim utworzeniu struktury PHPDoc po wpisaniu <code>/**</code> i kliknięciu <kbd>Enter</kbd></li>
+<li><span class="color-green">PHP Intelephense</span> od <span class="color-blue">Intelephense</span>: Bardzo rozszerzone, ale na ten moment interesują nas funkcjonalności wyświetlania dokumentacji po najechaniu na funkcje oraz przechodzenie do definicji funkcji (<kbd>Ctrl</kbd> + kliknięcie na nazwę funkcji).</li>
+</ul>
+<h3>Określanie typów argumentów i zwracanej wartości</h3>
+<p>Zadeklarowaliśmy że jawnie bedziemy typować i pisać dokumentację funkcji, więc musimy poprawić naszą funkcję sigma: </p>
+<pre><code class="language-php">function sigma(array $liczby): float
+</code></pre>
+<p>Dopisaliśmy dwie frazy:</p>
+<ul>
+<li><code>array</code>: Oznacza że funkcja przyjmuje jeden argument jakim jest tablica.</li>
+<li><code>: float</code>: Oznacza że funkcja zwróci wartość zmiennoprzecinkową.</li>
+</ul>
+<p>Skoro zwracana wartość ma być typu float, to warto by było również zmienna $wynik miała taką wartość. Zatem musimy zainicjować jej wartość jako <code>0.0</code> zamiast <code>0</code>:</p>
+<pre><code class="language-php"> $wynik = 0.0;
+</code></pre>
+<h3>Dokumentacja funkcji</h3>
+<p>Teraz dzieki takiej strukturze możemy przejść do linii przed definicją funkcji i wpisać <code>/**</code> + <kbd>Enter</kbd>.<br>Otrzymamy szkielet dokumentacji:</p>
+<pre><code class="language-php">/**
+ * Undocumented function
+ *
+ * @param array $liczby
+ * @return float
+ */
+function sigma(array $liczby): float
+{
+     $wynik = 0.0;
+    
+    for ($i = 0; $i &lt; count($liczby); $i++){
+        $wynik += $liczby[$i];
+    }
+    return $wynik;
+}
+</code></pre>
+<ul>
+<li><code>Undocumented function</code>: Ten fragment zmieniasz na krótki opis przeznaczenia funkcji.</li>
+<li><code>@param array $liczby</code>: To informacja że ta funkcja przyjmuje jeden parametr który jest tablicą.  </li>
+<li><code>@return float</code>: To informacja o typie zwracanej wartości przez funkcję.</li>
+</ul>
+<p>Ciekawe przypadki użycia są z parametrami <code>array</code> i <code>mixed</code>, jeżeli przewidujesz różne typy danych to umieszczasz je pomiędzy <code>&lt;</code> i <code>&gt;</code> oraz rozdzielasz <code>|</code> np. <code>&lt;int|string|float|bool&gt;</code></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-vscode-dokumentacja-i-nowe-rozszerzenia.webp" alt="php-vscode-dokumentacja-i-nowe-rozszerzenia" width="1919" height="1034" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Iloczyn wartości w tablicy $\Pi$</h2>
+<p>Wracamy do pisania tym razem pięknych i czytelnych funkcji, które zadziałają w trybie ścisłym. </p>
+<p>Obliczymy teraz iloczyn wartości w tablicy czyli duże Pi.</p>
+<pre><code class="language-php">/**
+ * Zwraca iloczyn wszystkich elementów tablicy liczb.
+ *
+ * @param array&lt;int|float&gt; $liczby Tablica liczb (całkowitych lub zmiennoprzecinkowych).
+ * @return float Zwraca iloczyn elementów tablicy. Dla pustej tablicy zwraca 1.
+ */
+function iloczynPi(array $liczby): float
+{
+    $wynik = 1.0;
+    
+    foreach ($liczby as $liczba) {
+        $wynik *= $liczba;
+    }
+    
+    return $wynik;
+}
+
+$testLiczby = [2, 3, 5];
+$wynik = iloczynPi($testLiczby);
+
+echo $wynik; // Wyświetli: 30
+</code></pre>
+<p>Ta funkcja trochę różni się od poprzedniej ponieważ:</p>
+<ul>
+<li>Zadeklarowana zmienna ma zainicjalizowaną wartość <code>1.0</code>, a nie <code>0.0</code>.</li>
+<li>Iteracja po elementach jest za pomocą pętli <code>foreach</code>.</li>
+</ul>
+<p><code>foreach</code> to specjalna instrukcja iterowania po elementach kolekcji - najczęściej tablic.<br>Składnia jej wygląda tak: <code>foreach ($kolekcja as $element)</code>.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Obie implementacje funkcji sigma i iloczynPi realizują zadanie które już dawno w php stało się natywne i polegają na wbudowanych funkcjach <span class="color-gold"><code>array_sum()</code></span> oraz <span class="color-gold"><code>array_product()</code></span>.</p>
+
+</div>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/natywne_arry_sum_and_product.webp" alt="" width="1919" height="1036" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Odwracanie kolejności elementów w tablicy</h2>
+<p>Wracając do pierwszej tablicy owoców, przekrztałcimy ją tak by jej elementy były w odwrotnej kolejności.</p>
+<p>Z:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>"banan"</code></td>
+<td><code>"jabłko"</code></td>
+<td><code>"pomarańcza"</code></td>
+<td><code>"truskawka"</code></td>
+<td><code>"czereśnia"</code></td>
+</tr>
+</tbody></table>
+<p>Chcemy uzyskać:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>"czereśnia"</code></td>
+<td><code>"truskawka"</code></td>
+<td><code>"pomarańcza"</code></td>
+<td><code>"jabłko"</code></td>
+<td><code>"banan"</code></td>
+</tr>
+</tbody></table>
+<p>Posłużymy się do tego starą dobrą pętlą <code>for</code>. </p>
+<ul>
+<li>Jej wartością startową iteratora będzie <span class="color-blue">ilość elementów $-1$</span>.</li>
+<li>Warunkiem kontynuacji pętli będzie wartość iteratora większa bądź równa $0$.</li>
+<li>Wartość iteratora będzie zmniejszana o $1$.</li>
+</ul>
+<p>Posłużymy się zmienną pomocniczą typu tablica, będziemy do niej dodawać elementy oryginału począwszy od ostatniego.<br>Dodatkowo funkcja będzie typu <code>:void</code>, więc by zmodyfikować oryginał tablicy, przekażemy ją przez referencje (argument będzie miał prefix z znaku ampersanta <code>&amp;</code>)</p>
+<details>
+<summary>Rozwiązanie</summary>
+
+<pre><code class="language-php">/**
+ * Odwraca przekazaną tablicę. Przekazanie jej jako referencji `&amp;` modyfikuje oryginał.
+ *
+ * @param array $tablica o dowolnym rozmiarze i typie wartości elementów.
+ * @return void Modyfikowany jest oryginał.
+ */
+function odwracanie(array &amp;$tablica) : void {
+
+    $temp=[];
+
+    for ($i=count($tablica)-1; $i &gt;= 0; $i--) { 
+        $temp[]=$tablica[$i];
+    }
+    $tablica=$temp;
+}
+
+$owoce = array("banan", "jabłko", "pomarańcza", "truskawka", "czereśnia");
+print_r($owoce);
+odwracanie($owoce);
+print_r($owoce);
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/odwracanie_kolejności-elementó_tablicy.webp" alt="odwracanie_kolejności-elementó_tablicy" width="1910" height="1024" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Powyższa funkcjonalność jest natywnie zaimplementowana w języku PHP jako <span class="color-gold"><code>array_reverse()</code></span>.<br>Różnica polega na tym że natywna wersja nie modyfikuje oryginału przez referencję <code>&amp;</code> tylko zwraca nową tablicę.</p>
+
+</div>
+</div></details>
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Szukanie maksimum i minimum wartości w tablicy</h2>
+<p>Podzielimy to zadanie na dwie funkcje, które będą miały podobną strukturę.</p>
+<p>Zaczniemy od maksimum. Wartość startowa naszej zmiennej $max będzie pierwszą wartością z tablicy.<br>Następnie iterujemy po kolejnych elementach i porównujemy z max. Jeżeli element jest większy od aktualnego max, przypisujemy go do $max. W przeciwnym przypadku kontynuujemy iterację.</p>
+<p>Podobnie dla minimum $min$, tylko że będziemy szukać elementu mniejszego od aktualnego min.</p>
+<details>
+<summary>Rozwiązanie</summary>
+
+<pre><code class="language-php">/**
+ * Wyszukuje i zwraca największą wartość w tablicy
+ *
+ * @param array $tab
+ * @return float Zwraca największą wartość w tablicy
+ */
+function maksimum(array $tab) :float {
+    $max = $tab[0];    
+    foreach($tab as $el){
+        if($max &lt; $el){
+            $max=$el;
+        }
+    }
+    return $max;
+}
+/**
+ * Wyszukuje i zwraca najmniejszą wartość w tablicy
+ *
+ * @param array $tab
+ * @return float Zwraca najmniejszą wartość w tablicy
+ */
+function minimum(array $tab) :float {
+    $min = $tab[0];    
+    foreach($tab as $el){
+        if($min &gt; $el){
+            $min=$el;
+        }
+    }
+    return $min;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/tablice_max-min.webp" alt="szukanie_maximum_i_minimum_wartości_w_tablicy" width="1845" height="979" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Powyższe funkcjonalności są natywnie zaimplementowane w języku PHP jako <span class="color-gold"><code>max()</code></span> i <span class="color-gold"><code>min()</code></span>.</p>
+
+</div>
+</div></details>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Wyszukiwanie wartości w tablicy</h2>
+<p>Czesto będziemy chcieli sprawdzić czy dana wartość znajduje się w tablicy.<br>Jak najprościej wyszukać ją? Poprzez iterację po elementach tablicy i przerwaniu pętli w momencie znalezienia elementu przy użyciu <code>break</code>.</p>
+<p>Pamiętaj że tablice w php są fajne a ich struktura jest taka:</p>
+<pre><code class="language-php">Array
+(
+    [0] =&gt; wartość
+    [klucz] =&gt; wartość klucza
+    [index] =&gt; wartość
+)
+</code></pre>
+<p>Ta konstrukcja jest do odwzorowania w <code>foreach</code>:</p>
+<pre><code class="language-php">foreach ($tablica as $klucz =&gt; $wartosc)
+</code></pre>
+<details>
+<summary>Rozwiązanie</summary>
+
+<pre><code class="language-php">/**
+ * Wyszukuje wartość i zwraca jej index. 
+ * Jeżeli w tablicy nie ma podanej warości to zwraca `-1`
+ *
+ * @param mixed $wartosc Pojedyńcza o dowolnym typie
+ * @param array $tablica
+ * @return integer Zwraca index lub `-1`
+ */
+function wyszukaj(mixed $wartosc, array $tablica) : int {
+    $index = -1;
+
+    foreach($tablica as $key=&gt;$el){
+        if($el == $wartosc){
+            $index = $key;
+            break;
+        }
+    }
+    return $index;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/wyszukiwanie_wartości_w_tablicy.webp" alt="wyszukiwanie_wartości_w_tablicy" width="1832" height="831" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Funkcjonalność wyszukiwania wartości w tablicy jest natywnie dostępna w PHP jako <span class="color-gold"><code>array_search()</code></span>.<br>Zwraca ona klucz pierwszego dopasowania, a w przypadku braku wyniku: <code>false</code>.</p>
+
+</div>
+</div><blockquote>
+<p>W starszych wersjach niż PHP 8.0 zwrócenie przez funkcję indexu $0$ <span class="color-blue">mogło czasem</span> być zinterpretowane jako <code>false</code>.<br>Aktualnie problem może się dalej pojawiać, przez zwiekszoną sicłość typowania jest graniczny. Dlatego warto dopisywać trzeci parametr $strict, który wymusza porównanie typu i wartości (<code>===</code> zamiast <code>==</code>)</p>
+</blockquote>
+</details>
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Statystyka powtórzeń wartości w tablicy</h2>
+<p>Do przykładu posłuży nam następująca tablica:</p>
+<pre><code class="language-php">$dane = ['a', true, 'b', 'a', 'b', 9, 'a'];
+</code></pre>
+<p>Oczekiwany wynik:</p>
+<pre><code class="language-php">Array
+(
+    [a] =&gt; 3
+    [1] =&gt; 1
+    [b] =&gt; 2
+    [9] =&gt; 1
+)
+</code></pre>
+<details>
+<summary>Rozwiązanie</summary>
+
+<p>Lekko usprawniona funkcja z poprzedniej sekcji:</p>
+<pre><code class="language-php">/**
+ * Wyszukuje wartość i zwraca jej index. 
+ * Jeżeli w tablicy nie ma podanej warości to zwraca `-1`
+ *
+ * @param mixed $wartosc Pojedyńcza o dowolnym typie
+ * @param array $tablica
+ * @return integer Zwraca index lub `-1`
+ */
+function wyszukaj(mixed $wartosc, array $tablica): int
+{
+    foreach($tablica as $key=&gt;$el){
+        if($wartosc === $el){
+            return $key;
+        }
+    }
+    return -1;
+}
+</code></pre>
+<pre><code class="language-php">/**
+ * Zlicza wystąpienia wartości w tablicy.
+ * Wartości nie będące `intiger` lub `string` są na nie rzutowane.
+ *
+ * @param array $tablica elementów do zliczenia
+ * @return array tablica z elementem jako klucz i ilością wystąpień jako wartość
+ */
+function statystyki(array $tablica): array
+{
+    $tab_temp = [];
+    $tab_temp_count = [];
+    foreach ($tablica as $el) {
+       $key = wyszukaj($el, $tab_temp);
+       if($key == -1){
+            $tab_temp[]=$el;
+            $tab_temp_count[$el] = 1;
+       }else{
+        $tab_temp_count[$el] += 1;
+       }
+    }
+    return $tab_temp_count;
+}
+
+$dane = ['a', true, 'b', 'a', 'b', 9, 'a'];
+
+print_r($dane);
+
+print_r(statystyki($dane));
+
+print_r(array_count_values($dane));
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/tablice-statystyki-wystąpień-wartości.webp" alt="tablice-statystyki-wystąpień-wartości" width="1853" height="977" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Powyższa funkcjonalność jest natywnie zaimplementowana w języku PHP jako <span class="color-gold"><code>array_count_values()</code></span>.<br>Zwróć uwagę na <span class="color-blue">Warning</span> który ta funkcja zgłosiła. Chodzi o to że php w tablicach asocjacyjnych zezwala jedynie na wartości typu <span class="color-blue"><code>intiger</code></span> oraz <span class="color-blue"><code>string</code></span>. W naszej implementcji możesz zobaczyć że <span class="color-blue"><code>true</code></span> został zamieniony na <span class="color-blue"><code>intiger</code></span> $1$. W natywnej funkcji to też zachodzi ale tam taką wartość pomijają w końcowym wyniku.</p>
+<p>Aby to rozwiązać wystarczy zapisać wartość <span class="color-blue"><code>true</code></span> jako string <span class="color-blue"><code>"true"</code></span>. Wtedy obie implementacje wyświetlą poprawne statystyki:</p>
+<pre><code class="language-php">$stare_dane = ['a', true, 'b', 'a', 'b', 9, 'a']; /*=&gt;*/ $nowe_dane = ['a', "true", 'b', 'a', 'b', 9, 'a'];
+</code></pre>
+
+</div>
+</div></details>
+
+
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

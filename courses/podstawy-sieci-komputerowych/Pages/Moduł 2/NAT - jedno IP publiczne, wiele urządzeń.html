@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\NAT - jedno IP publiczne, wiele urządzeń - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>NAT - jedno IP publiczne, wiele urządzeń</h1>
+<p>Serwer zewnętrzny widzi połączenie z <code>203.0.113.5:62001</code>. W sieci lokalnej nie ma takiego hosta ani portu. Rzeczywisty klient używa <code>10.0.0.12:50000</code>.</p>
+<p>W tej lekcji odtworzysz mapowanie NAPT z dwóch śladów, przeprowadzisz pakiet powrotny i wskażesz miejsce, w którym kończy się dowód o translacji, a zaczyna pytanie o filtrowanie.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Porównaj pakiet przed i po translacji</h2>
+<p>Klient otwiera połączenie TCP do serwera HTTPS:</p>
+<pre><code>przed urządzeniem NAT
+TCP 10.0.0.12:50000 -&gt; 198.51.100.20:443
+
+po urządzeniu NAT
+TCP 203.0.113.5:62001 -&gt; 198.51.100.20:443
+</code></pre>
+<p>Zapisz pola, które się zmieniły, i pola, które pozostały takie same.</p>
+<p>Nie używaj jeszcze zdania „NAT przepuści odpowiedź”. Najpierw zbuduj wpis, który pozwoli ją rozpoznać.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Odtwórz mapowanie NAPT</h2>
+<p>Basic NAT tłumaczy adresy. NAPT rozszerza translację o identyfikator transportowy, zwykle port TCP lub UDP. Dzięki temu kilka wewnętrznych połączeń może współdzielić jeden adres zewnętrzny.</p>
+<p>Dla obserwowanego połączenia najważniejszy wpis ma postać:</p>
+<pre><code>protokół:          TCP
+wewnętrzne:        10.0.0.12:50000
+zewnętrzne:        203.0.113.5:62001
+zdalny cel śladu:  198.51.100.20:443
+</code></pre>
+<p>Pierwsze dwa końce tworzą mapowanie adresu i portu. Informacja o zdalnym celu pomaga powiązać je z obserwowanym połączeniem, ale szczegółowe zasady mapowania i filtrowania zależą od zachowania konkretnego NAT.</p>
+<p>W pakiecie wychodzącym urządzenie zmienia źródłowy adres oraz port:</p>
+<pre><code>10.0.0.12:50000 -&gt; 203.0.113.5:62001
+</code></pre>
+<p>Cel <code>198.51.100.20:443</code> pozostaje celem tego pakietu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>↩️ Przeprowadź odpowiedź po wpisie</h2>
+<p>Serwer odpowiada do źródła, które zobaczył:</p>
+<pre><code>TCP 198.51.100.20:443 -&gt; 203.0.113.5:62001
+</code></pre>
+<p>Urządzenie znajduje zewnętrzny koniec wpisu i tłumaczy cel pakietu:</p>
+<pre><code>TCP 198.51.100.20:443 -&gt; 10.0.0.12:50000
+</code></pre>
+<p>Adres i port serwera nie zmieniają się w tym przykładzie. Zmienia się docelowy adres oraz port odpowiedzi.</p>
+<p>Jeśli odpowiedź przyjdzie na <code>203.0.113.5:62002</code>, pokazany wpis nie pasuje. NAT nie może na jego podstawie wybrać <code>10.0.0.12:50000</code>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Rozdziel mapowanie i filtrowanie</h2>
+<p>Mapowanie odpowiada na pytanie:</p>
+<pre><code>który wewnętrzny adres i port odpowiadają zewnętrznemu adresowi i portowi?
+</code></pre>
+<p>Filtrowanie odpowiada na inne pytanie:</p>
+<pre><code>z których zdalnych adresów i portów wolno przyjąć pakiet dla tego mapowania?
+</code></pre>
+<p>Różne NAT mogą stosować różne zachowania filtrowania. Sam wpis mapowania nie dowodzi, że urządzenie zaakceptuje pakiet z dowolnego zdalnego źródła.</p>
+<p>Nie utożsamiaj też NAT z pełną polityką zapory. Translacja i decyzja o dopuszczeniu ruchu mogą być realizowane na tym samym urządzeniu, lecz odpowiadają na różne pytania. Brak pakietu po stronie wewnętrznej wymaga obserwacji zarówno wyniku wyszukania mapowania, jak i reguły filtrowania.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚪 Sprawdź ruch inicjowany z zewnątrz</h2>
+<p>Pakiet przychodzący do nowego portu nie zawiera informacji o prywatnym celu:</p>
+<pre><code>TCP 198.51.100.40:53000 -&gt; 203.0.113.5:8443
+</code></pre>
+<p>Statyczne przekierowanie może dostarczyć brakujące mapowanie:</p>
+<pre><code>TCP 203.0.113.5:8443 -&gt; 10.0.0.20:443
+</code></pre>
+<p>To nadal nie jest dowód, że ruch przejdzie. Osobno sprawdzasz protokół, zgodność portu, regułę filtrowania, trasę do hosta i to, czy usługa nasłuchuje na <code>10.0.0.20:443</code>.</p>
+<p>Jeśli przechwycenie na interfejsie zewnętrznym zawiera pakiet, a na wewnętrznym go nie ma, następny test powinien odczytać licznik trafień reguły translacji oraz decyzję filtra. Sam brak pakietu nie rozstrzyga, który mechanizm go zatrzymał.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪆 Uwzględnij drugi translator</h2>
+<p>Adres <code>100.64.0.0/10</code> jest przestrzenią współdzieloną używaną między klientem a operatorem stosującym CGN. Gdy interfejs zewnętrzny routera klienta ma na przykład <code>100.64.12.8</code>, droga może zawierać dwa mapowania:</p>
+<pre><code>10.0.0.20:443
+  translator klienta
+100.64.12.8:8443
+  CGN operatora
+203.0.113.200:53010
+</code></pre>
+<p>Przekierowanie skonfigurowane tylko na pierwszym urządzeniu nie tworzy automatycznie mapowania na CGN operatora. Zewnętrzny klient trafia do publicznego adresu i portu drugiego translatora.</p>
+<p>Nie wystarczy zobaczyć prefiks <code>100.64.0.0/10</code> na dowolnym interfejsie i ogłosić przyczynę. Potwierdź, że jest to adres po stronie operatora oraz porównaj adres widziany na interfejsie z adresem obserwowanym przez zewnętrzny serwer.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: odwróć mapowanie</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Wpis TCP wiąże <code>10.0.0.12:50000</code> z <code>203.0.113.5:62001</code> dla połączenia z <code>198.51.100.20:443</code>. Co powinien zrobić NAT z pasującą odpowiedzią skierowaną do <code>203.0.113.5:62001</code>?</p>
+</question>
+    <options>
+      <option><p>Zmienić źródło na <code>10.0.0.12:50000</code> i pozostawić cel publiczny.</p>
+</option>
+      <option correct=""><p>Zmienić cel na <code>10.0.0.12:50000</code> i zachować źródło <code>198.51.100.20:443</code>.</p>
+</option>
+      <option><p>Wysłać odpowiedź do wszystkich hostów w sieci lokalnej.</p>
+</option>
+      <option><p>Odrzucić ją, ponieważ odpowiedzi nigdy nie przechodzą przez NAPT.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>W odpowiedzi zewnętrzny adres i port są celem. Wyszukaj je w prawej stronie mapowania i odtwórz wewnętrzny cel.</p>
+</div>
+    <div data-hint="success"><p>Odpowiedź trafia na zewnętrzny koniec wpisu. Translacja odwraca docelowy adres i port do <code>10.0.0.12:50000</code>, a serwer pozostaje źródłem.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Prześledź cztery przypadki</h2>
+<p>Dla każdego przypadku przygotuj raport:</p>
+<pre><code>pakiet wejściowy
+pasujący wpis albo brak wpisu
+zmieniane pola
+pakiet po translacji
+osobna decyzja filtra, jeśli nie ma dowodu
+następny test
+</code></pre>
+<p>Przypadki:</p>
+<pre><code>A. istnieje mapowanie UDP 10.0.0.30:53000 &lt;-&gt; 203.0.113.5:63000;
+   wraca 198.51.100.53:53 -&gt; 203.0.113.5:63000
+
+B. istnieje tylko mapowanie TCP 10.0.0.12:50000 &lt;-&gt; 203.0.113.5:62001;
+   przychodzi TCP 198.51.100.20:443 -&gt; 203.0.113.5:62002
+
+C. skonfigurowano TCP 203.0.113.5:8443 -&gt; 10.0.0.20:443;
+   pakiet widać na zewnątrz, ale nie widać go na interfejsie wewnętrznym
+
+D. dwa hosty używają źródłowego portu 50000 do tego samego serwera;
+   NAT przydziela 203.0.113.5:62010 oraz 203.0.113.5:62011
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>w odpowiedzi zmieniasz cel, a nie źródło serwera;</li>
+<li>protokół i port są częścią wyszukania mapowania;</li>
+<li>brak wpisu nie prowadzi do losowego wyboru hosta wewnętrznego;</li>
+<li>mapowanie nie jest przedstawione jako dowód przepuszczenia przez filtr;</li>
+<li>dwa identyczne porty wewnętrzne pozostają rozróżnialne dzięki różnym końcom zewnętrznym.</li>
+</ul>
+<p>Zmień przypadek C: adres WAN routera to <code>100.64.12.8</code>, a zewnętrzny serwer widzi publiczny adres <code>203.0.113.200</code>. Wyjaśnij, której translacji nie kontroluje lokalna reguła przekierowania i gdzie trzeba zdobyć kolejny dowód.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W A wpis pasuje do protokołu UDP oraz celu <code>203.0.113.5:63000</code>. Po translacji pakiet ma postać <code>198.51.100.53:53 -&gt; 10.0.0.30:53000</code>. Sam wpis nie rozstrzyga jeszcze zachowania filtra wobec zdalnego źródła, jeśli nie znamy jego polityki.</p>
+<p>W B port <code>62002</code> nie pasuje do jedynego wpisu z portem <code>62001</code>. Na podstawie tej tablicy nie ma wewnętrznego celu. Następny test sprawdza, czy istnieje inne mapowanie statyczne lub dynamiczne dla TCP <code>62002</code>.</p>
+<p>W C reguła statyczna wskazuje zamierzoną translację celu do <code>10.0.0.20:443</code>, ale brak pakietu na interfejsie wewnętrznym nie dowodzi jej wykonania. Sprawdź licznik trafień tej reguły, wynik translacji i decyzję filtra dla tego samego pakietu.</p>
+<p>W D każdy host musi dostać rozróżnialny zewnętrzny koniec. Odpowiedź do <code>62010</code> może wrócić do pierwszego mapowania, a odpowiedź do <code>62011</code> do drugiego, mimo identycznych portów źródłowych po stronie wewnętrznej.</p>
+<p>Po zmianie C lokalne przekierowanie kończy się na adresie <code>100.64.12.8</code>, który nie jest adresem widzianym w publicznym Internecie. Drugie mapowanie należy do CGN operatora. Potrzebny jest dowód jego zewnętrznego adresu i portu oraz informacja, czy operator udostępnia mapowanie przychodzące. Reguła na routerze klienta nie konfiguruje CGN.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">NAPT wiąże wewnętrzny adres i port z zewnętrznym adresem i portem.</span> Protokół jest częścią kontekstu mapowania.</li>
+<li><span class="color-green">Pakiet wychodzący zmienia źródło, a pasująca odpowiedź zmienia cel.</span> Zdalny serwer pozostaje drugim końcem rozmowy.</li>
+<li><span class="color-green">Mapowanie i filtrowanie to dwie decyzje.</span> Istnienie wpisu nie dowodzi, że każde zdalne źródło zostanie dopuszczone.</li>
+<li><span class="color-green">Ruch inicjowany z zewnątrz potrzebuje znanego wewnętrznego celu.</span> Statyczne przekierowanie może go wskazać, lecz nie zastępuje kontroli filtra i usługi.</li>
+<li><span class="color-green">CGN dodaje drugi translator.</span> Lokalna reguła nie tworzy automatycznie publicznego mapowania po stronie operatora.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

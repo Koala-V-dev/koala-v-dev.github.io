@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Konfiguracja serwera DHCP (Kea) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26-server</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Adres i nazwa w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (Kea)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(Kea).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (Kea)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (isc-dhcp-server)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(isc-dhcp-server).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (isc-dhcp-server)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy serwera DNS (Bind9)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Podstawy%20serwera%20DNS%20(Bind9).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy serwera DNS (Bind9)</a></li><li class="module">Moduł 1: Pliki dla użytkowników</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Udostępnianie plików dla Windows - Serwer Samba"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Udost%C4%99pnianie%20plik%C3%B3w%20dla%20Windows%20-%20Serwer%20Samba.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Udostępnianie plików dla Windows - Serwer Samba</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Transfer plików - Serwer FTP (vsftpd)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Transfer%20plik%C3%B3w%20-%20Serwer%20FTP%20(vsftpd).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transfer plików - Serwer FTP (vsftpd)</a></li><li class="module">Moduł 2: Strony dostępne po nazwie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja serwera Apache2"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20serwera%20Apache2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja serwera Apache2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja Nginx (Wirtualne hosty)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20Nginx%20(Wirtualne%20hosty).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja Nginx (Wirtualne hosty)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/SSL TLS, HTTP oraz HTTP2 HTTP3"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/SSL%20TLS%2C%20HTTP%20oraz%20HTTP2%20HTTP3.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">SSL TLS, HTTP oraz HTTP2 HTTP3</a></li><li class="module">Moduł 3: Poczta w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Poczta w sieci lokalnej - Postfix"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%203/Poczta%20w%20sieci%20lokalnej%20-%20Postfix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Poczta w sieci lokalnej - Postfix</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Konfiguracja serwera DHCP (Kea)</h1>
+<p>Server <span class="color-green">DHCP</span> (<span class="color-blue">Dynamic Host Configuration Protocol</span>) to usługa sieciowa, która automatycznie przydziela adresy IP oraz parametry konfiguracyjne urządzeniom w sieci lokalnej.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Przygotowanie środowiska i instalacja Kea DHCP</h2>
+<p>Zaimportuj <span class="color-green">Ubuntu 26.04 Server</span> i przydziel mu dwie karty sieciowe:</p>
+<ol>
+<li>Pierwsza karta w trybie <code>NAT</code> (do wyjścia w świat / do Internetu).</li>
+<li>Druga karta w trybie <code>Sieć wewnętrzna</code> (do obsługi naszej sieci LAN).</li>
+</ol>
+<p>Do testów przydadzą się dwie maszyny klienckie podłączone do sieci wewnętrznej:<br><span class="color-green">Ubuntu 26.04 Desktop</span> oraz <span class="color-green">Windows 11</span>.</p>
+<p>Na początku zaktualizujmy repozytoria i zainstalujmy serwer <span class="color-green">Kea DHCP</span>:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install kea-dhcp4-server -y
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/update-and-bad-netplan.webp" alt="" width="1287" height="694" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Zauważ, że mimo podpięcia dwóch kart, tylko jedna ma narazie przydzielony adres IP. Zanim uruchomimy serwer DHCP, musimy skonfigurować drugi interfejs w Netplanie.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Konfiguracja interfejsu sieciowego w Netplan</h2>
+<p>Sprawdźmy zawartość <code>/etc/netplan/</code> za pomocą <code>ls -l</code>.<br>Znajdziesz tam domyślny plik z instalacji. Zamiast go modyfikować, stworzymy własny <code>00-net-conf.yaml</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nowy-plik-netplan.webp" alt="" width="569" height="357" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jego zawartość będzie wyglądać następująco:</p>
+<pre><code class="language-yaml">network:
+  version: 2
+  ethernets:
+    enp0s3:
+      dhcp4: true
+      dhcp6: false
+    enp0s8:
+      addresses:
+        - 192.168.0.1/24
+</code></pre>
+<p>Zapisz plik i zastosuj zmiany poleceniem:</p>
+<pre><code class="language-bash">sudo netplan apply
+</code></pre>
+<p>Sprawdźmy wynik przez <code>ip a</code> lub <code>ip -br address</code>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nowy-netplan-zweryfikowany.webp" alt="" width="850" height="589" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Poprawa czytelności pliku konfiguracyjnego w nano</h2>
+<p>Główny plik z ustawieniami usługi leży w <code>/etc/kea/kea-dhcp4.conf</code>. Podgląd zawartości w tym katalogu wymaga uprawnień <code>sudo</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/lokalizacja-pliku-konfiguracji-kea-dhcp.webp" alt="Kea DHCP - domyślny plik konfiguracyjny serwera Kea DHCP" width="507" height="147" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Otwórzmy go w edytorze <code>nano</code>:</p>
+<pre><code class="language-bash">sudo nano /etc/kea/kea-dhcp4.conf
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/paskudny-kea-dhcp4.conf.webp" alt="Domyślny plik konfiguracyjny serwera Kea DHCP" width="1279" height="799" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Tego się po prostu nie da czytać, a większość poradników robi kopiuj‑wklej z internetu. 😒</p>
+</blockquote>
+<p>Jednak jest sposób, żeby ten plik wyglądał o czytelniej. Zauważ, że zastosowany tu format to nic innego jak <code>JSONC</code> (<span class="color-blue">JSON with Comments</span>).</p>
+<p>Utwórzmy najpierw kopię zapasową oryginału, a następnie zmieńmy rozszerzenie z <code>.conf</code> na <code>.json</code>:</p>
+<pre><code class="language-bash">sudo cp /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.conf__ORI
+sudo mv /etc/kea/kea-dhcp4.conf /etc/kea/kea-dhcp4.json
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/kea-dhcp4-json.webp" alt="" width="619" height="261" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Teraz gdy otworzysz ten sam plik z nowym rozszerzeniem, <code>nano</code> od razu załapie, jakiej składni kolorystycznej użyć:</p>
+<pre><code class="language-bash">sudo nano /etc/kea/kea-dhcp4.json
+</code></pre>
+<p>No i z takim plikiem można się już bawić. 😎</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/kea-nano-json.webp" alt="Kea DHCP - plik konfiguracyjny w formacie JSONC" width="1280" height="800" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Czyszczenie kodu i praca w edytorze nano</h2>
+<p>Najlepiej będzie do tego podejść iteracyjnie.<br>Na początek usuń wszystkie komentarze (są to linie zaczynające się od <code>//</code>).</p>
+<p>W <code>nano</code> możesz łatwo usuwać linie przy pomocy <code>^K</code> <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>K</kbd></span>. W razie gdybyś niechcący usunął nie tę linię co trzeba, skorzystaj z <code>M-U</code> <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>U</kbd></span>.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Podczas tego procesu przydadzą ci się dwa protipy:</p>
+<ul>
+<li><code>^L</code> <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>L</kbd></span> przewinie stronę tak, by linia na której znajduje się kursor była na środku.</li>
+<li>Kolor kursora zmienia się z białego na błękitny, gdy jesteś w linii z komentarzem.</li>
+</ul>
+
+</div>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/tipy-dla-usuwania-komentarzy.webp" alt="Nano kursorem w linii z komentarzem" width="566" height="171" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Gdy pozbędziesz się całego szumu wywołanego komentarzami, zapisz plik <code>^O</code> <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>O</kbd></span> oraz wyjdź z edytora <code>^X</code> <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>X</kbd></span> i uruchom <code>nano</code> jeszcze raz z opcją <span class="color-green"><code>-l</code></span>. Da ci to numerowanie linii. 🤓</p>
+<pre><code class="language-bash">sudo nano -l /etc/kea/kea-dhcp4.json
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/czyste-kea-config-i-uruchomienie-nano-z-opcją--l.webp" alt="Czysty plik konfiguracyjny serwera Kea DHCP i uruchomienie nano z opcją -l" width="493" height="798" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Struktura formatu JSON</h2>
+<p><span class="color-green">JSON</span> (<span class="color-blue">JavaScript Object Notation</span>) to tekstowy format wymiany danych. By go w miarę sensownie ogarnąć, musisz znać parę zasad:</p>
+<ul>
+<li><code>{ }</code> : Klamry reprezentują strukturę obiektu. Plik JSON przechowuje tylko jeden obiekt, dlatego całość zawartości musi być otoczona klamrą (to jest <span class="color-blue">wrapper</span>). Taki obiekt ma klucze i wartości.<ul>
+<li><code>"klucz" : "wartość"</code> : Para klucz‑wartość. Klucz zawsze musi być w cudzysłowie <code>" "</code>, po dwukropku podajesz wartość tego klucza. Wartość może być:<ul>
+<li>tekstowa (<span class="color-blue">string</span>) i wtedy musi zostać zapisana w cudzysłowie.</li>
+<li>liczbowa: jest zapisywana bez żadnych wrapperów, tak po prostu.</li>
+<li>logiczna: w JSON są to <code>true</code> i <code>false</code> zapisywane bez cudzysłowu.</li>
+<li>kolejny obiekt: czyli znowu klamry <code>{ }</code> i tworzy nam się zagnieżdżona struktura w strukturze.</li>
+<li>tablica <code>[ ]</code>: czyli taki obiekt, ale zawierający tylko wartości bez kluczy.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Przykładzik:</p>
+<pre><code class="language-json">{
+  "imie": "Kamil",
+  "wiek": 27,
+  "czyKobieta": false,
+  "komputer": {
+    "procesor": "Intel Core i7-12700F",
+    "ram": { "pojemnosc_gb": 32, "typ": "DDR4" },
+    "dyski": [
+      { "typ": "SSD NVMe", "generacja": 3, "pojemnosc_tb": 2 },
+      { "typ": "SSD NVMe", "generacja": 4, "pojemnosc_tb": 4 }
+    ]
+  },
+  "ulubioneLiczby": [ 3, 2137, 420, 69 ]
+}
+</code></pre>
+<h3>Omówienie blokowe właściwości obiektu JSON z pliku <code>kea-dhcp4</code></h3>
+<p>W obiekcie JSON znajduje się tylko jedna właściwość <code>Dhcp4</code>, której wartością jest obiekt. Ten obiekt przechowuje w sobie $11$ wpisów typu klucz‑wartość:</p>
+<ol>
+<li><span class="color-gold"><code>"interfaces-config"</code></span>: to obiekt, który posiada jedynie klucz <code>"interfaces"</code>, a jego wartością jest tablica stringów. Wpisujemy tu jako string nazwę interfejsu, przez który będzie świadczona usługa DHCP.</li>
+</ol>
+<details><summary>Niewymagane klucze</summary>
+
+<ol start="2">
+<li><code>"control-socket"</code>: gniazdo kontrolne, czyli obiekt definiujący sposób komunikacji z usługą Kea DHCP (domyślnie przez gniazdo jądra UNIX). Zawarte tu pola zależą od wybranego typu gniazda.</li>
+<li><code>"lease-database"</code>: to z kolei obiekt, w którym definiujemy w jaki sposób serwer Kea ma przechowywać informacje o wypożyczonych adresach.<ul>
+<li><code>type: memfile</code> oznacza że te dane są w postaci pliku załadowanego do pamięci RAM.</li>
+<li><code>lfc-interval</code>: <span class="color-blue">lease file clean interval</span>, oznacza co ile sekund serwer będzie sprzątał.</li>
+</ul>
+</li>
+<li><code>"expired-leases-processing"</code>: to z kolei obiekt, w którym definiujemy właściwości:<ul>
+<li><code>"reclaim-timer-wait-time"</code>: czas jaki serwer ma czekać przed rozpoczęciem usuwania wygasłych dzierżaw.</li>
+<li><code>"flush-reclaimed-timer-wait-time"</code>: czas jaki serwer ma czekać przed usunięciem wygasłych dzierżaw.</li>
+<li><code>"hold-reclaimed-time"</code>: czas jaki serwer ma przechowywać wygasłe dzierżawy zanim je usunie.</li>
+<li><code>"max-reclaim-leases"</code>: maksymalna liczba dzierżaw do usunięcia w jednym cyklu.</li>
+<li><code>"max-reclaim-time"</code>: maksymalny czas jaki serwer ma przeznaczyć na usuwanie wygasłych dzierżaw.</li>
+<li><code>"unwarned-reclaim-cycles"</code>: liczba cykli usuwania wygasłych dzierżaw przed wysłaniem ostrzeżenia.</li>
+</ul>
+</li>
+</ol>
+</details>
+
+<hr>
+<ol start="5">
+<li><span class="color-gold"><code>"renew-timer"</code></span>: timer odnowienia dzierżawy (pół wartości czasu ważności).</li>
+<li><span class="color-gold"><code>"rebind-timer"</code></span>: timer ponowienia dzierżawy (całkowita wartość czasu ważności).</li>
+<li><span class="color-gold"><code>"valid-lifetime"</code></span>: czas ważności dzierżawy.</li>
+<li><span class="color-gold"><code>"option-data"</code></span>: to tablica obiektów, gdzie ciekawsze są dwa pierwsze:<ul>
+<li>Ustawienie adresów DNS:<ul>
+<li><code>"name"</code>: nazwa opcji.</li>
+<li><code>"data"</code>: adres serwera DNS w formacie dziesiętnym z kropkami (oktety).</li>
+</ul>
+</li>
+<li>Ustawienie nazwy domeny:<ul>
+<li><code>"code"</code>: kod $15$ w usłudze DHCP odnosi się do parametru o nazwie: <span class="color-blue">domain‑name</span>.</li>
+<li><code>"data"</code>: nazwa domeny.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<details><summary>Niewymagane klucze</summary>
+
+<ol start="9">
+<li><code>"client-classes"</code>: to tablica z jednym obiektem konfiguracji <span class="color-blue">VoIP</span> (protokołu do transmisji głosu przez IP).</li>
+</ol>
+</details>
+
+<hr>
+<ol start="10">
+<li><span class="color-gold"><code>"subnet4"</code></span>: ta tablica z jednym obiektem najbardziej Cię zainteresuje.<ul>
+<li><code>"id"</code>: identyfikator podsieci dla usługi KEA‑DHCP.</li>
+<li><code>"subnet"</code>: definicja podsieci z adresem i maską. Przykładowo dla maski <code>255.255.255.0</code> zapisanej w skróconej notacji <code>/24</code> podajesz adres IPv4 zmieniając ostatni oktet na $0$, np. <code>192.168.50.0/24</code>.</li>
+<li><code>"pools"</code>: tablica obiektów z pulami adresów do wypożyczenia. Standardowo jest to jeden obiekt z zakresem, ale możesz podać ich kilka, pamiętając, że wartość jest ciągiem tekstowym, więc musi znajdować się w cudzysłowie, np.:<pre><code class="language-json">  "pools": [
+    { "pool": "192.168.50.100 - 192.168.50.150" },
+    { "pool": "192.168.50.160 - 192.168.50.200" }
+  ]
+</code></pre>
+</li>
+<li><code>"option-data"</code>: ten sam klucz co w głównym <code>"Dhcp4"</code>. Domyślnie posiada jedynie obiekt do ustawienia bramy domyślnej:<pre><code class="language-json">{
+  "name": "routers",
+  "data": "192.168.50.1"
+}
+</code></pre>
+Możemy w nim zawrzeć też obiekty wspomniane w punkcie 8.</li>
+<li><code>"reservations"</code>: rezerwacje adresów IP dla konkretnych komputerów. Dla standardowego działania DHCP wystarczy posłużyć się pierwszym obiektem jako szablonem do przypisania adresu IP konkretnemu urządzeniu na zawsze. Często stosowane dla drukarek.<ul>
+<li><code>"hw-address"</code>: adres MAC karty sieciowej urządzenia. Podany w formacie <code>XX:XX:XX:XX:XX:XX</code>.</li>
+<li><code>"ip-address"</code>: adres IP, który ma zostać przypisany urządzeniu.<pre><code class="language-json">{
+  "hw-address": "1a:1b:1c:1d:1e:1f",
+  "ip-address": "192.0.2.201"
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<details><summary>Niewymagane klucze</summary>
+
+<ol start="11">
+<li><code>"loggers"</code>: to tablica obiektów definiująca logowanie zdarzeń serwera.</li>
+</ol>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⛓️‍💥 Przykładowa konfiguracja DHCP (Kea)</h2>
+<p>Gdy już mamy omówione klucze, to możemy jeszcze bardziej oczyścić/odchudzić konfigurację, pozbywając się niewymaganych kluczy (poza ostatnim <code>"loggers"</code>). Ten klucz za bardzo nie zaśmieca, a może mieć wpływ na możliwość zwracania błędów konfiguracji KEA‑DHCP.</p>
+<p>Pozwoliłem sobie na zmodyfikowanie kontrastu i balansu kolorów dla lepszej czytelności.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/kea-oczyszczony-konfig.webp" alt="kea-oczyszczony-konfig.png" width="575" height="960" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dobra, to lecimy z naszą konfiguracją. 🚀</p>
+<table>
+<thead>
+<tr>
+<th>Właściwość</th>
+<th>Wartość</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Interfejs nasłuchu</td>
+<td><span class="color-blue">enp0s8</span></td>
+</tr>
+<tr>
+<td>Czas ważności dzierżawy</td>
+<td><span class="color-green">$24$ godziny</span> ($86400$ s)</td>
+</tr>
+<tr>
+<td>Maska podsieci</td>
+<td><code>255.255.255.0</code> (<code>/24</code>)</td>
+</tr>
+<tr>
+<td>Brama domyślna</td>
+<td><code>192.168.0.1</code></td>
+</tr>
+<tr>
+<td>Serwery DNS</td>
+<td><code>192.168.0.1</code>, <code>8.8.8.8</code></td>
+</tr>
+<tr>
+<td>Nazwa domeny</td>
+<td><span class="color-red">koala.local</span></td>
+</tr>
+<tr>
+<td>Pula adresów IP</td>
+<td><code>192.168.0.100</code> - <code>192.168.0.150</code></td>
+</tr>
+<tr>
+<td>Rezerwacja IP (Windows 11)</td>
+<td><span class="color-gold"><code>192.168.0.99</code></span></td>
+</tr>
+</tbody></table>
+<p>Gotowy plik konfiguracyjny:</p>
+<pre><code class="language-json">{
+  "Dhcp4": {
+    "interfaces-config": {
+      "interfaces": [ "enp0s8" ]
+    },
+    "renew-timer": 43200,
+    "rebind-timer": 86400,
+    "valid-lifetime": 86400,
+    "subnet4": [
+      {
+        "id": 1,
+        "subnet": "192.168.0.0/24",
+        "pools": [
+          { "pool": "192.168.0.100 - 192.168.0.150" }
+        ],
+        "option-data": [
+          {
+            "name": "domain-name-servers",
+            "data": "192.168.0.1 8.8.8.8"
+          },
+          {
+            "name": "routers",
+            "data": "192.168.0.1"
+          },
+          {
+            "code": 15,
+            "data": "koala.local"
+          }
+        ],
+        "reservations": [
+          {
+            "hw-address": "08:00:27:83:92:BF",
+            "ip-address": "192.168.0.99",
+            "hostname": "windows11"
+          }
+        ]
+      }
+    ]
+  }
+}
+</code></pre>
+<p>Pamiętaj, że zrobiliśmy sztuczkę ze zmianą formatu pliku na <code>.json</code>. Przed restartem usługi przywróć końcówkę <code>.conf</code>:</p>
+<pre><code class="language-bash">sudo mv /etc/kea/kea-dhcp4.json /etc/kea/kea-dhcp4.conf
+sudo systemctl restart kea-dhcp4-server
+sudo systemctl status kea-dhcp4-server
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/zastosowanie-konfiguracji-kea-dhcp.webp" alt="Zastosowanie konfiguracji Kea DHCP i status usługi" width="1278" height="799" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Weryfikacja działania na klientach</h2>
+<p>Dokonajmy weryfikacji na klientach <span class="color-green">Windows 11</span> i <span class="color-green">Ubuntu 26.04 Desktop</span>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/adresy-ip-z-dhcp-na-windows11-i-ubuntu26.04.webp" alt="Adresy IP przydzielone przez DHCP klientom Windows 11 i Ubuntu 26.04" width="1919" height="1010" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Do pobrania na nowo adresu z puli DHCP:</p>
+<ul>
+<li><span class="color-green">Windows 11</span>:<pre><code class="language-cmd">ipconfig /release
+ipconfig /renew
+</code></pre>
+</li>
+<li><span class="color-green">Ubuntu 26.04 Desktop</span>:<pre><code class="language-bash">sudo netplan apply
+</code></pre>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>jak zapomnisz komendy no ponowne zaciągnięcie adresu z dhcp to wiedz że wystarczy zrestartować kartę sieciową albo po prostu cały komputer.</p>
+
+</div>
+</div><hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>W konfiguracji Kea definiujesz interfejs nasłuchu, podsieć, pulę wolnych adresów oraz opcje sieciowe (DNS, bramka domyślna).</li>
+<li>Klient potwierdza poprawne działanie DHCP poprzez automatyczne pobranie adresu IP z zdefiniowanego zakresu.</li>
+<li>Rezerwacja trwale wiąże adres MAC karty sieciowej ze stałym adresem IP w podsieci.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

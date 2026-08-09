@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\ICMP - ping i traceroute od kuchni - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>ICMP - ping i traceroute od kuchni</h1>
+<p>Brak odpowiedzi na ping bywa opisywany jako „host nie działa”. To tylko jedna z kilku możliwości. Żądanie mogło zginąć, odpowiedź mogła zostać odfiltrowana, a host mógł świadomie nie odpowiadać na Echo Request.</p>
+<p>W tej lekcji odczytasz, co naprawdę potwierdza Echo Reply, komunikat błędu i brak odpowiedzi. Potem wybierzesz sondę, która wnosi nowy dowód.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Zacznij od najsilniejszego wniosku</h2>
+<p>Otrzymujesz wynik:</p>
+<pre><code>Echo Request  id=42 seq=3 -&gt; 203.0.113.20
+Echo Reply    id=42 seq=3 &lt;- 203.0.113.20
+RTT 18 ms
+</code></pre>
+<p>Uzupełnij:</p>
+<pre><code>ten wynik potwierdza...
+ten wynik nie potwierdza...
+</code></pre>
+<p>Nie używaj ogólnego zdania „sieć działa”. Nazwij konkretny protokół, próbkę i kierunek odpowiedzi.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📬 Echo potwierdza jedną wymianę</h2>
+<p>ICMPv4 jest częścią mechanizmów IP. Echo Request oraz Echo Reply pozwalają sprawdzić, czy dla danej próbki odpowiedź wróciła do nadawcy.</p>
+<p>Identyfikator i numer sekwencyjny łączą odpowiedź z żądaniem:</p>
+<pre><code>id=42 seq=3 -&gt; id=42 seq=3
+</code></pre>
+<p>Echo Reply od <code>203.0.113.20</code> potwierdza, że żądanie dotarło do węzła odpowiadającego za ten adres oraz że odpowiedź wróciła. RTT jest czasem całej tej drogi tam i z powrotem dla jednej próbki.</p>
+<p>Nie potwierdza to, że usługa HTTPS działa, że kolejne pakiety wybiorą identyczną trasę ani że opóźnienie w jedną stronę wynosi połowę RTT.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕳️ Brak odpowiedzi jest słabym dowodem</h2>
+<p>Ślad zawiera Echo Request, ale nie zawiera pasującego Echo Reply ani błędu ICMP.</p>
+<pre><code>Echo Request id=43 seq=1 -&gt; 203.0.113.20
+timeout
+</code></pre>
+<p>Możesz powiedzieć tylko, że odpowiedź nie dotarła do miejsca obserwacji w oczekiwanym czasie.</p>
+<p>Taki wynik nie rozróżnia:</p>
+<pre><code>straty żądania
+braku odpowiedzi w węźle docelowym
+straty odpowiedzi
+filtrowania ICMP
+ograniczania częstotliwości odpowiedzi
+</code></pre>
+<p>Następna sonda powinna zmienić jeden warunek. Przykładowo sprawdź TCP do portu rzeczywistej usługi albo obserwuj żądanie bliżej celu. Powtórzenie identycznego ping bez planu daje więcej próbek, ale nie zawsze rozdziela przyczyny.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧾 Czytaj komunikat razem z cytowaną sondą</h2>
+<p>Komunikat ICMP Destination Unreachable zawiera fragment pierwotnego datagramu. Dzięki temu nadawca może połączyć błąd z właściwą sondą.</p>
+<p>Przykład:</p>
+<pre><code>wysłano UDP 192.0.2.10:53000 -&gt; 203.0.113.20:33450
+otrzymano ICMP Destination Unreachable, port unreachable
+cytowany pakiet: UDP 192.0.2.10:53000 -&gt; 203.0.113.20:33450
+źródło ICMP: 203.0.113.20
+</code></pre>
+<p>Najsilniejszy wniosek: węzeł pod adresem docelowym otrzymał tę sondę i zgłosił niedostępny port UDP. To nie znaczy, że wszystkie porty są zamknięte ani że aplikacja na innym protokole nie działa.</p>
+<p>Kod błędu jest użyteczny tylko z kontekstem cytowanego pakietu oraz źródłem komunikatu. Sam napis „unreachable” nie wystarcza do wskazania granicy.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪜 Traceroute zmienia TTL sondy</h2>
+<p>Router zmniejsza TTL pakietu IPv4 podczas przekazywania. Gdy TTL wygaśnie w tranzycie, router może odesłać ICMP Time Exceeded.</p>
+<p>Traceroute wysyła serie sond z rosnącym TTL:</p>
+<pre><code>TTL 1 -&gt; odpowiedź Time Exceeded od pierwszego routera
+TTL 2 -&gt; odpowiedź Time Exceeded od kolejnego routera
+TTL 3 -&gt; następny punkt lub odpowiedź końcowa
+</code></pre>
+<p>Klasyczny wariant używa sond UDP i kończy po ICMP port unreachable od celu. Inne implementacje mogą używać ICMP Echo albo TCP. Interpretując wynik, sprawdź rodzaj sondy i warunek zakończenia.</p>
+<p>Adres źródłowy Time Exceeded wskazuje urządzenie, które wygenerowało odpowiedź. Nie musi być jedynym routerem używanym przez zwykły ruch ani dowodem symetrycznej trasy powrotnej.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⭐ Nie zamieniaj gwiazdki w awarię</h2>
+<p>Wynik wygląda tak:</p>
+<pre><code>1  192.0.2.1
+2  *
+3  198.51.100.9
+4  203.0.113.20  cel osiągnięty
+</code></pre>
+<p>Brak odpowiedzi dla TTL 2 oznacza brak widocznego komunikatu dla tych sond. Późniejsze odpowiedzi dowodzą, że co najmniej niektóre sondy z większym TTL dotarły dalej.</p>
+<p>Węzeł na drugim etapie mógł przekazywać ruch, ale nie generować Time Exceeded, ograniczać jego częstotliwość albo wysyłać odpowiedź drogą, która nie wróciła. Przy wielu równoważnych trasach kolejne sondy mogą też przejść inną ścieżką.</p>
+<p>Wysoki RTT jednego środkowego wiersza również nie dowodzi samodzielnie przeciążenia przekazywania. Router może odpowiadać na ICMP z niskim priorytetem. Jeżeli późniejsze RTT są niższe, szukaj potwierdzenia w pomiarach końcowych i ruchu aplikacji.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: zinterpretuj brak w środku</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Traceroute pokazuje odpowiedź w kroku 1, <code>*</code> w kroku 2, odpowiedź routera w kroku 3 i osiągnięty cel w kroku 4. Który wniosek jest najlepiej uzasadniony?</p>
+</question>
+    <options>
+      <option><p>Router w kroku 2 nie przekazuje żadnych pakietów.</p>
+</option>
+      <option correct=""><p>Nie otrzymano widocznej odpowiedzi dla sond kroku 2, ale późniejsze sondy dotarły dalej; sama gwiazdka nie dowodzi awarii przekazywania.</p>
+</option>
+      <option><p>Krok 2 na pewno blokuje cały ICMP w obu kierunkach.</p>
+</option>
+      <option><p>Cel został osiągnięty bez żadnych routerów pośrednich.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Porównaj gwiazdkę z dowodami z późniejszych kroków. Brak komunikatu z jednego TTL nie może unieważnić odpowiedzi, które przyszły zza tego miejsca.</p>
+</div>
+    <div data-hint="success"><p>Gwiazda oznacza brak obserwowanej odpowiedzi dla tych sond. Późniejsze odpowiedzi ograniczają wniosek: przekazywanie co najmniej części sond było możliwe.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Oceń cztery wyniki</h2>
+<p>Dla każdego wyniku przygotuj raport:</p>
+<pre><code>rodzaj sondy
+pasująca odpowiedź lub jej brak
+najsilniejszy pozytywny dowód
+wniosek, którego nie wolno wyciągnąć
+następna sonda zmieniająca jeden warunek
+</code></pre>
+<p>Wyniki:</p>
+<pre><code>A. Echo Reply od 203.0.113.20 dla id=42 seq=3, RTT 18 ms
+B. ICMP port unreachable od 203.0.113.20 cytuje wysłaną sondę UDP
+   do portu 33450
+C. traceroute: odpowiedź w 1, gwiazda w 2, odpowiedź w 3, cel w 4
+D. brak Echo Reply od 203.0.113.20, ale połączenie TCP do portu 443
+   tego adresu kończy handshake
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>Echo Reply nie jest dowodem działania dowolnej aplikacji;</li>
+<li>timeout nie jest nazywany dowodem wyłączenia hosta;</li>
+<li>ICMP port unreachable jest wiązany z cytowaną sondą i konkretnym portem;</li>
+<li>gwiazdka w środku nie unieważnia późniejszej odpowiedzi;</li>
+<li>następna sonda wnosi inne dane, zamiast tylko powtarzać ten sam wniosek.</li>
+</ul>
+<p>Zmień D: TCP 443 również kończy się timeoutem, ale DNS zwraca oczekiwany adres, a lokalny router odpowiada na Echo. Zapisz, co zostało potwierdzone, czego nadal nie wiadomo i gdzie przesuniesz następny pomiar.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W A cel odpowiedział na konkretną sondę Echo, a odpowiedź wróciła w 18 ms. Nie wiadomo z tego, czy działa HTTPS ani jaka była droga w jedną stronę.</p>
+<p>W B źródło docelowe zgłosiło niedostępność portu UDP <code>33450</code> dla cytowanej sondy. To pozytywny dowód dotarcia tej sondy do stosu IP celu, ale nie ocena innych portów i protokołów.</p>
+<p>W C brak odpowiedzi w kroku 2 dotyczy tylko widoczności odpowiedzi dla tych sond. Kroki 3 i 4 pokazują, że sondy z większym TTL dotarły dalej i do celu.</p>
+<p>W D udany handshake TCP potwierdza ścieżkę potrzebną dla tej usługi, mimo braku Echo Reply. Najbardziej użyteczny wniosek to różnica w traktowaniu ICMP Echo i TCP 443, a nie „host nie działa”.</p>
+<p>Po zmianie D rozpoznanie DNS potwierdza mapowanie nazwy na oczekiwany adres, a odpowiedź routera lokalny odcinek do następnego kroku dla ICMP. Nie wiadomo, gdzie dalej giną sondy ani czy cel je odbiera. Uruchom śledzenie z jawnym rodzajem sondy TCP do portu 443 i porównaj przechwycenie przy wyjściu lokalnej sieci z kolejnym dostępnym punktem. Pierwszy brak odpowiedzi po drodze nie staje się automatycznie przyczyną bez potwierdzenia z drugiej strony.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Echo Reply potwierdza konkretną wymianę ICMP.</span> Nie jest testem każdej usługi na hoście.</li>
+<li><span class="color-green">Timeout mówi o braku widocznej odpowiedzi.</span> Nie rozstrzyga, gdzie zginęło żądanie lub odpowiedź.</li>
+<li><span class="color-green">Błąd ICMP czytasz z cytowaną sondą.</span> Port unreachable dotyczy konkretnego protokołu i portu.</li>
+<li><span class="color-green">Traceroute wykorzystuje rosnący TTL.</span> Rodzaj sondy i warunek zakończenia zależą od implementacji.</li>
+<li><span class="color-green">Gwiazdka jest brakiem danych dla danego kroku.</span> Późniejsze odpowiedzi mogą dowodzić, że ruch dotarł dalej.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -34,7 +34,7 @@ Po kliknięciu właściwego przycisku pobierzesz plik z rozszerzeniem `.iso`.
 
 ---
 
-## 🚀 Instalacja systemu Ubuntu
+## 💿 Instalacja systemu Ubuntu
 
 Uruchom maszynę wirtualną. VirtualBox wystartuje system z podłączonego pliku ISO.
 
@@ -281,7 +281,7 @@ Wskaż swoją lokalizację na mapie, na przykład region Polski. Instalator usta
 
 ![Wybór strefy czasowej](/public/courses/ubuntu-26/Images/instalacja-ubuntu-strefa-czasowa-i-podsumowanie-partycjonowania-sda1-i-sda2-dla-slash.png)
 
-### 💪 Gotowe do instalacji
+### 📋 Podsumowanie przed instalacją
 
 Przed zapisaniem zmian instalator pokaże podsumowanie.
 
@@ -317,7 +317,7 @@ Gdy rozpocznie się kopiowanie plików:
 
 ---
 
-## ✅ Pierwsze uruchomienie
+## 💻 Pierwsze uruchomienie
 
 Po restarcie zobaczysz ekran logowania **GDM** (*GNOME Display Manager*). Kliknij konto użytkownika, wpisz hasło ustawione podczas instalacji i zaloguj się do systemu.
 
@@ -330,7 +330,7 @@ Ponieważ instalacja odbyła się offline, system po pierwszym logowaniu może n
 
 ![Błędy DNS spowodowane trybem Link-Local Only](/public/courses/ubuntu-26/Images/ubuntu-aktualizacja-po-instalacji.png)
 
-### 🛠️ Naprawa konfiguracji sieci
+### 🔧 Naprawa konfiguracji sieci
 
 Samo podłączenie wirtualnego kabla może nie wystarczyć. Po instalacji offline _**NetworkManager**_ może zapisać profil interfejsu w trybie **Link-Local Only** zamiast **Automatic (DHCP)**.
 
@@ -338,7 +338,7 @@ W trybie Link-Local system dostaje adres z puli `169.254.x.x`. To adres lokalny,
 
 Próba wykonania `sudo apt update` albo `sudo apt-get update` zakończy się wtedy błędami DNS:
 
-```bash
+```shell
 Błąd:1 http://archive.ubuntu.com/ubuntu resolute InRelease
    Tymczasowy błąd przy tłumaczeniu "archive.ubuntu.com"
 Błąd:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
@@ -406,7 +406,7 @@ Plik `.ova` jest kompletnym obrazem maszyny. Możesz go później zaimportować 
 
 ---
 
-## 🛠️ Punkt Kontrolny: Instalacja
+## 💿 Punkt kontrolny: instalacja
 
 <data-gate>
   <data-quiz>

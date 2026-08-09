@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Warstwa sieciowa - IP i routing - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Warstwa sieciowa - IP i routing</h1>
+<p>Router otrzymuje pakiet dla <code>10.10.5.20</code>. W tablicy ma cztery wpisy i aż trzy z nich pasują do tego adresu. Kolejność wierszy nie rozstrzyga, którędy wysłać pakiet.</p>
+<p>W poprzedniej lekcji śledziłeś stan tablicy przełącznika. Teraz nauczysz się czytać prostą tablicę routingu: znajdziesz pasujące prefiksy, wybierzesz najbardziej szczegółowy i wskażesz następny krok pakietu.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw wybierz wpis</h2>
+<p>Router ma następujące wpisy:</p>
+<pre><code class="language-text">10.0.0.0/8       -&gt; przez router R1
+10.10.0.0/16     -&gt; przez router R2
+10.10.5.0/24     -&gt; bezpośrednio przez eth3
+0.0.0.0/0        -&gt; przez router R-domyślny
+</code></pre>
+<p>Adres docelowy pakietu to <code>10.10.5.20</code>.</p>
+<p>Zapisz, który wpis wybierasz i dlaczego. Nie poprawiaj odpowiedzi w trakcie czytania. Wrócisz do niej po poznaniu reguły.</p>
+<p>Jeśli wybrałeś pierwszy pasujący wiersz albo trasę domyślną, zachowaj swoje uzasadnienie. Za chwilę sprawdzisz je regułą, która wymaga znalezienia <span class="color-green">wszystkich</span> dopasowań.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Adres wskazuje cel, prefiks opisuje zbiór</h2>
+<p>Adres IPv4 ma 32 bity. Zapisuje się go jako cztery liczby od 0 do 255, nazywane oktetami:</p>
+<pre><code class="language-text">10.10.5.20
+</code></pre>
+<p>W tym kursie adres jest przypisany do logicznego interfejsu w określonej sieci. Nie traktuj go jako wiecznej nazwy całego komputera. Jeden komputer może mieć kilka interfejsów i kilka adresów IP.</p>
+<p>Wpis tablicy routingu nie opisuje zwykle jednego urządzenia. Opisuje zbiór adresów za pomocą <span class="color-green">prefiksu</span>. Liczba po ukośniku mówi, ile początkowych bitów musi być wspólnych.</p>
+<p>W tej lekcji pracujesz tylko z granicami pełnych oktetów:</p>
+<pre><code class="language-text">10.0.0.0/8       obejmuje 10.*.*.*
+10.10.0.0/16     obejmuje 10.10.*.*
+10.10.5.0/24     obejmuje 10.10.5.*
+</code></pre>
+<p>Gwiazdka jest tu wyłącznie zapisem dydaktycznym: w tym miejscu może wystąpić dowolny oktet. Nie jest częścią notacji CIDR.</p>
+<p>Sprawdź teraz <code>10.10.5.20</code> od lewej strony:</p>
+<pre><code class="language-text">10.*.*.*         pasuje
+10.10.*.*        pasuje
+10.10.5.*        pasuje
+</code></pre>
+<p>Nie musisz jeszcze przeliczać masek binarnych ani wyznaczać adresów podsieci. Te działania wymagają osobnego ćwiczenia. Tutaj uczysz się decyzji routingowej na prefiksach, których granice są widoczne między oktetami.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Wygrywa najdłuższy pasujący prefiks</h2>
+<p>Router porównuje docelowy adres IP z wpisami. Spośród pasujących wybiera wpis o najdłuższym prefiksie, czyli opisujący najbardziej szczegółowy zbiór.</p>
+<p>Dla <code>10.10.5.20</code> pasują trzy wpisy właściwe oraz trasa domyślna:</p>
+<pre><code class="language-text">/8       wspólne pierwsze 8 bitów
+/16      wspólne pierwsze 16 bitów
+/24      wspólne pierwsze 24 bity
+/0       brak wymaganych wspólnych bitów
+</code></pre>
+<p>Najdłuższe dopasowanie to <code>/24</code>. Router wybiera więc:</p>
+<pre><code class="language-text">10.10.5.0/24 -&gt; bezpośrednio przez eth3
+</code></pre>
+<p>Kolejność wpisów na ekranie nie jest kryterium. Sama obecność trasy domyślnej także nie daje jej pierwszeństwa.</p>
+<p>Prefiks <code>0.0.0.0/0</code> pasuje do każdego adresu, ponieważ nie wymaga zgodności żadnego początkowego bitu. Jest <span class="color-green">trasą domyślną</span>, lecz przegrywa z każdym bardziej szczegółowym dopasowaniem.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚪 Wpis wskazuje tylko następny krok</h2>
+<p>Tablica nie musi zawierać całej drogi do odbiorcy. Wynik wyszukania wskazuje następny krok oraz interfejs wyjściowy.</p>
+<p>Są dwa podstawowe przypadki:</p>
+<ol>
+<li><span class="color-green">Cel jest osiągalny bezpośrednio.</span> Następnym krokiem jest samo urządzenie docelowe na połączonej sieci.</li>
+<li><span class="color-green">Cel jest osiągalny przez inny router.</span> Następnym krokiem jest adres tego routera na sieci połączonej bezpośrednio.</li>
+</ol>
+<p>Rozważ wpis:</p>
+<pre><code class="language-text">10.20.0.0/16 -&gt; przez 192.0.2.2, interfejs eth1
+</code></pre>
+<p>Dla pakietu do <code>10.20.7.9</code> router nie twierdzi, że <code>192.0.2.2</code> jest końcowym odbiorcą. Przekazuje pakiet do sąsiedniego routera, który podejmie własną decyzję.</p>
+<p>Na każdym łączu potrzebna jest nowa ramka warstwy drugiej:</p>
+<pre><code class="language-text">łącze 1: ramka do następnego routera | pakiet IP do 10.20.7.9
+łącze 2: nowa ramka do kolejnego kroku | pakiet IP do 10.20.7.9
+</code></pre>
+<p>W tym uproszczonym przykładzie nie ma translacji adresów ani tunelu, więc docelowy adres IP pozostaje <code>10.20.7.9</code>. Adres docelowy ramki zmienia się wraz z następnym krokiem. Mechanizm ustalania tego lokalnego adresu poznasz w lekcji o ARP.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧯 Brak trasy też jest wynikiem</h2>
+<p>Trasa domyślna nie oznacza automatycznie „drogi do Internetu”. Jest zwykłym skonfigurowanym wpisem, który wybiera się dopiero wtedy, gdy nie ma dokładniejszego dopasowania.</p>
+<p>Jeśli tablica nie zawiera ani pasującego prefiksu, ani trasy domyślnej, router nie próbuje kolejno wszystkich interfejsów. Nie ma podstawy do przekazania pakietu i nie może go przesłać dalej.</p>
+<p>Komunikat o nieosiągalnej sieci nie dowodzi awarii przewodu. Może oznaczać, że urządzenie nie ma odpowiedniego wpisu routingowego.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: wybór dla nowego celu</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Tablica zawiera cztery wpisy: <code>10.0.0.0/8</code> przez R1, <code>10.10.0.0/16</code> przez R2, <code>10.10.5.0/24</code> przez eth3 oraz <code>0.0.0.0/0</code> przez R4. Który wpis zostanie wybrany dla celu <code>10.10.7.42</code>?</p>
+</question>
+    <options>
+      <option><p><code>10.10.5.0/24</code> przez eth3, ponieważ <code>/24</code> jest najdłuższym prefiksem w całej tablicy.</p>
+</option>
+      <option correct=""><p><code>10.10.0.0/16</code> przez R2, ponieważ cel pasuje do <code>/8</code>, <code>/16</code> i <code>/0</code>, ale nie do <code>10.10.5.*</code>.</p>
+</option>
+      <option><p><code>10.0.0.0/8</code> przez R1, ponieważ router zatrzymuje się na pierwszym pasującym wpisie.</p>
+</option>
+      <option><p><code>0.0.0.0/0</code> przez R4, ponieważ trasa domyślna ma pierwszeństwo przed trasami właściwymi.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Najpierw sprawdź zgodność każdego prefiksu z <code>10.10.7.42</code>. Długość porównuj dopiero wśród wpisów, które rzeczywiście pasują.</p>
+</div>
+    <div data-hint="success"><p><code>10.10.5.0/24</code> odpada, bo trzeci oktet celu to 7, a nie 5. Spośród pozostałych dopasowań <code>/16</code> jest najdłuższe.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Przeprowadź cztery cele przez tablicę</h2>
+<p>Pracujesz z routerem R. Jego tablica zawiera:</p>
+<pre><code class="language-text">10.0.0.0/8        -&gt; 192.0.2.2 przez eth1
+10.30.0.0/16      -&gt; 192.0.2.6 przez eth2
+10.30.8.0/24      -&gt; bezpośrednio przez eth3
+0.0.0.0/0         -&gt; 198.51.100.1 przez eth4
+</code></pre>
+<p>Przeanalizuj kolejno cztery adresy docelowe:</p>
+<pre><code class="language-text">A: 10.30.8.44
+B: 10.30.9.44
+C: 10.40.9.44
+D: 203.0.113.8
+</code></pre>
+<p>Dla każdego celu zapisz:</p>
+<ol>
+<li>wszystkie pasujące wpisy;</li>
+<li>wybrany prefiks;</li>
+<li>następny router albo informację <code>bezpośrednio</code>;</li>
+<li>interfejs wyjściowy;</li>
+<li>jednozdaniowe uzasadnienie oparte na najdłuższym dopasowaniu.</li>
+</ol>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>odrzucasz <code>/24</code> dla celu B, zamiast wybierać go tylko dlatego, że jest najdłuższy w tablicy;</li>
+<li>rozróżniasz następny router od końcowego adresu IP;</li>
+<li>dla celu D używasz trasy domyślnej dopiero po wykluczeniu innych wpisów;</li>
+<li>potrafisz przewidzieć skutek usunięcia trasy domyślnej.</li>
+</ul>
+<p>Zmień teraz stan tablicy: usuń <code>0.0.0.0/0</code> i dodaj wpis <code>203.0.113.0/24 -&gt; 192.0.2.10 przez eth2</code>. Ponownie rozstrzygnij tylko cel D. Wyjaśnij, dlaczego wynik nie jest już trasą domyślną.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>Cel A, <code>10.30.8.44</code>, pasuje do <code>/8</code>, <code>/16</code>, <code>/24</code> oraz <code>/0</code>. Najdłuższy prefiks to <code>10.30.8.0/24</code>. Cel jest osiągalny bezpośrednio przez <code>eth3</code>.</p>
+<p>Cel B, <code>10.30.9.44</code>, pasuje do <code>/8</code>, <code>/16</code> oraz <code>/0</code>. Nie pasuje do <code>10.30.8.0/24</code>, ponieważ trzeci oktet ma wartość 9. Wygrywa <code>10.30.0.0/16</code>, więc następnym routerem jest <code>192.0.2.6</code> przez <code>eth2</code>.</p>
+<p>Cel C, <code>10.40.9.44</code>, pasuje do <code>/8</code> oraz <code>/0</code>. Nie pasuje do <code>10.30.*.*</code>. Wygrywa <code>10.0.0.0/8</code>, więc następnym routerem jest <code>192.0.2.2</code> przez <code>eth1</code>.</p>
+<p>Cel D, <code>203.0.113.8</code>, nie pasuje do żadnego wpisu z początkiem <code>10</code>. Pasuje do <code>/0</code>, więc router wybiera <code>198.51.100.1</code> przez <code>eth4</code>.</p>
+<p>Po zmianie tablicy cel D pasuje do nowego wpisu <code>203.0.113.0/24</code>. Router wybiera <code>192.0.2.10</code> przez <code>eth2</code>. Nie korzysta z trasy domyślnej, ponieważ została usunięta, a nowy właściwy wpis sam wystarcza do podjęcia decyzji. Gdyby usunięto trasę domyślną bez dodania <code>/24</code>, router nie miałby trasy dla celu D.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Najpierw sprawdzasz dopasowanie, potem długość.</span> Najdłuższy wpis w tablicy nie wygra, jeśli nie pasuje do celu.</li>
+<li><span class="color-green">Najdłuższy pasujący prefiks jest najbardziej szczegółowy.</span> Trasa <code>/0</code> przegrywa z każdym pasującym prefiksem o większej długości.</li>
+<li><span class="color-green">Wynik wskazuje następny krok.</span> Może to być cel na sieci bezpośredniej albo sąsiedni router i interfejs wyjściowy.</li>
+<li><span class="color-green">Brak dopasowania i trasy domyślnej zatrzymuje przekazanie.</span> Nie jest to jeszcze dowód awarii warstwy fizycznej.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

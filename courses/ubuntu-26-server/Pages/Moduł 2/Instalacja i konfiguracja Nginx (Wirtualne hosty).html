@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Instalacja i konfiguracja Nginx (Wirtualne hosty) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26-server</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Adres i nazwa w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (Kea)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(Kea).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (Kea)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (isc-dhcp-server)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(isc-dhcp-server).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (isc-dhcp-server)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy serwera DNS (Bind9)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Podstawy%20serwera%20DNS%20(Bind9).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy serwera DNS (Bind9)</a></li><li class="module">Moduł 1: Pliki dla użytkowników</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Udostępnianie plików dla Windows - Serwer Samba"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Udost%C4%99pnianie%20plik%C3%B3w%20dla%20Windows%20-%20Serwer%20Samba.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Udostępnianie plików dla Windows - Serwer Samba</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Transfer plików - Serwer FTP (vsftpd)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Transfer%20plik%C3%B3w%20-%20Serwer%20FTP%20(vsftpd).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transfer plików - Serwer FTP (vsftpd)</a></li><li class="module">Moduł 2: Strony dostępne po nazwie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja serwera Apache2"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20serwera%20Apache2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja serwera Apache2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja Nginx (Wirtualne hosty)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20Nginx%20(Wirtualne%20hosty).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja Nginx (Wirtualne hosty)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/SSL TLS, HTTP oraz HTTP2 HTTP3"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/SSL%20TLS%2C%20HTTP%20oraz%20HTTP2%20HTTP3.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">SSL TLS, HTTP oraz HTTP2 HTTP3</a></li><li class="module">Moduł 3: Poczta w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Poczta w sieci lokalnej - Postfix"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%203/Poczta%20w%20sieci%20lokalnej%20-%20Postfix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Poczta w sieci lokalnej - Postfix</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Instalacja i konfiguracja Nginx (Wirtualne hosty)</h1>
+<p><span class="color-green">Nginx</span> to wydajny serwer WWW i reverse proxy. Potrafi udostępniać pliki statyczne, obsługiwać wiele domen na jednym adresie IP oraz bezpiecznie przekazywać żądania do wewnętrznych aplikacji.</p>
+<p>W przeciwieństwie do serwera Apache, który analizuje pliki <code>.htaccess</code> przy każdym żądaniu, Nginx przechowuje konfigurację centralnie. Obsługuje połączenia w modelu zdarzeniowym, dzięki czemu jeden proces roboczy z łatwością obsługuje tysiące równoległych klientów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Instalacja Nginx</h2>
+<p>Zainstaluj pakiet <code>nginx</code>:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install nginx
+</code></pre>
+<p>Po zakończeniu instalacji sprawdź stan usługi:</p>
+<pre><code class="language-bash">sudo systemctl status nginx
+</code></pre>
+<p>Otwórz w przeglądarce adres IP swojego serwera:</p>
+<pre><code class="language-text">http://192.168.0.1
+</code></pre>
+<p>Strona <span class="color-blue">„Welcome to nginx!”</span> już na start zniechęca wyglądając jak error w Firefox. 😅</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/welcome_nginx.webp" alt="welcome nginx" width="1960" height="861" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌐 Pierwszy wirtualny host</h2>
+<p>Utwórz katalog dla nowej witryny oraz prostą stronę testową:</p>
+<pre><code class="language-bash">sudo mkdir -p /var/www/test
+sudo nano /var/www/test/index.html
+</code></pre>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang="pl"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Nginx&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Nginx działa&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<hr>
+<p>Nginx dostarcza gotowy szablon w <code>/etc/nginx/sites-available/default</code>. Skopiuj go jako nowy plik konfiguracyjny:</p>
+<pre><code class="language-bash">sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/test
+sudo nano -l /etc/nginx/sites-available/test
+</code></pre>
+<p>W bloku <code>server</code> zmień trzy podstawowe dyrektywy:</p>
+<pre><code class="language-nginx">root /var/www/test;
+index index.html;
+server_name www.test.local;
+</code></pre>
+<p>Dyrektywa <code>server_name</code> określa domenę witryny, a <code>root</code> ścieżkę do plików.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginx-virtual-host.webp" alt="nginx virtual host" width="1279" height="799" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Aktywuj nową konfigurację:</p>
+<pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/test /etc/nginx/sites-enabled/test
+</code></pre>
+<p>Upewnij się, że dowiązanie symboliczne tworzone poleceniem <code>ln</code> wskazuje bezpośrednio na plik. W razie pomyłki użyj polecenia <code>unlink</code>.</p>
+<p>Przetestuj poprawność pliku konfiguracyjnego przed przeładowaniem usługi:</p>
+<pre><code class="language-bash">sudo nginx -t
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginix-złe-dowiązanie.webp" alt="Pokaz błędu z ln i jego naprawa" width="845" height="178" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+
+<p>Po uzyskaniu komunikatu <span class="color-green">syntax is ok</span> zrestartuj usługę:</p>
+<pre><code class="language-bash">sudo systemctl restart nginx
+sudo systemctl status nginx
+</code></pre>
+<hr>
+<p>Dodaj wpis domeny w pliku <code>hosts</code> na komputerze klienckim:</p>
+<ul>
+<li><span class="color-green">Ubuntu:</span> <code>/etc/hosts</code></li>
+<li><span class="color-green">Windows:</span> <code>C:\Windows\System32\drivers\etc\hosts</code></li>
+</ul>
+<pre><code class="language-text">192.168.0.1   www.test.local
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginix-test-stronki.webp" alt="Działanie testowej stronki hosta nginix na kliencie Ubuntu" width="1599" height="898" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐘 Obsługa PHP przez PHP-FPM</h2>
+<p>Nginx nie posiada modułu wykonującego PHP. Przekazuje taki plik do osobnej usługi <span class="color-green">PHP‑FPM</span>, a następnie wysyła klientowi otrzymaną odpowiedź.</p>
+<p>Zainstaluj PHP‑FPM:</p>
+<pre><code class="language-bash">sudo apt install php-fpm
+sudo systemctl status php8.5-fpm
+</code></pre>
+<p>Zmień rozszerzenie strony testowej i otwórz ją w edytorze:</p>
+<pre><code class="language-bash">sudo mv /var/www/test/index.html /var/www/test/index.php
+sudo nano /var/www/test/index.php
+</code></pre>
+<p>Dodaj do treści krótki fragment PHP:</p>
+<pre><code class="language-php">&lt;h1&gt;Nginx działa&lt;/h1&gt;
+
+&lt;?php
+echo "PHP wykonuje usługa " . php_sapi_name();
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginix-php-file.webp" alt="nginx php" width="380" height="248" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>Ponownie otwórz <code>/etc/nginx/sites-available/test</code>. W dyrektywie <code>index</code> dodaj <code>index.php</code>:</p>
+<pre><code class="language-nginx">index index.php index.html index.htm index.nginx-debian.html;
+</code></pre>
+<p>Templatka zawiera już blok <span class="color-blue">„pass PHP scripts to FastCGI server”</span> oraz dwa warianty dyrektywy <code>fastcgi_pass</code>.<br>PHP‑FPM w Ubuntu nasłuchuje domyślnie przez lokalne gniazdo Unix, dlatego odkomentuj ten wariant i zmień numer wersji PHP na <span class="color-green"><code>8.5</code></span>:</p>
+<pre><code class="language-nginx">location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php8.5-fpm.sock;
+}
+</code></pre>
+<p><code>location ~ \.php$</code> wybiera pliki z rozszerzeniem <code>.php</code>. <code>fastcgi_pass</code> wskazuje gniazdo usługi, która ma je wykonać.</p>
+<p>Drugi wariant <code>127.0.0.1:9000</code> to połączenie po sieci (TCP). Przydaje się wtedy, gdy PHP‑FPM stoi w osobnym kontenerze Docker albo na osobnym serwerze.</p>
+<p>Ponieważ u nas Nginx i PHP‑FPM działają na tej samej maszynie, lokalne gniazdo <code>/run/php/php8.5-fpm.sock</code> jest szybsze i w zupełności wystarczy.</p>
+<p>Pamiętaj, że w jednym bloku <code>location</code> ma być tylko jedna aktywna linijka <code>fastcgi_pass</code>. Odkomentowanie obu naraz wywali błąd zduplikowanej dyrektywy przy <code>sudo nginx -t</code>.</p>
+<hr>
+<p>Sprawdź konfigurację i przeładuj Nginx:</p>
+<pre><code class="language-bash">sudo nginx -t
+sudo systemctl reload nginx
+</code></pre>
+<p>Po odświeżeniu <code>http://www.test.local</code> przeglądarka powinna wyświetlić nazwę interfejsu <code>fpm-fcgi</code>. Oznacza to, że żądanie przeszło przez Nginx do PHP‑FPM i wróciło jako gotowa odpowiedź HTML.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginx-test-php.webp" alt="" width="1600" height="898" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗄️ MySQL i moduł PHP</h2>
+<pre><code class="language-bash">sudo apt install mysql-server php-mysql
+sudo systemctl status mysql
+sudo systemctl restart php8.5-fpm
+</code></pre>
+<p>Pakiet <code>php-mysql</code> daje PHP możliwość gadania z bazą danych (instaluje moduły <code>mysqli</code> oraz <code>pdo_mysql</code>). Pamiętaj o restarcie PHP‑FPM, żeby wczytał te nowe rozszerzenia.</p>
+<pre><code class="language-bash">sudo mysql
+</code></pre>
+<pre><code class="language-sql">CREATE DATABASE strapi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'strapi'@'localhost' IDENTIFIED BY 'KoalaStrapi2026!';
+GRANT ALL PRIVILEGES ON strapi.* TO 'strapi'@'localhost';
+EXIT;
+</code></pre>
+<hr>
+<h3>🔗 Sprawdzenie połączenia z PHP</h3>
+<p>Otwórz ponownie <code>/var/www/test/index.php</code> i dodaj po wcześniejszym kodzie:</p>
+<pre><code class="language-php">
+$mysqli = new mysqli("localhost", "strapi", "KoalaStrapi2026!");
+
+if ($mysqli-&gt;connect_error) {
+    echo "&lt;br&gt;Błąd połączenia z MySQL: " . $mysqli-&gt;connect_error;
+} else {
+    echo "&lt;br&gt;PHP połączyło się z MySQL";
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginix-php-mysqli-file.webp" alt="Zawartość pliku testowego index.php" width="690" height="480" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak widać mamy już obsługę PHP i bazy danych MySQL w Nginx.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginx-test-mysql.webp" alt="Test poprawności działania mysqli" width="741" height="344" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Czym jest Strapi?</h2>
+<p>Strapi to system CMS (Headless), który odpowiada wyłącznie za zarządzanie danymi i wystawianie ich przez <span class="color-green">API (JSON)</span>. W przeciwieństwie do klasycznego WordPressa nie generuje sam widoków frontonowych.</p>
+<p>Strapi działa jako samodzielna aplikacja w Node.js (na lokalnym porcie <code>1337</code>). Nginx bedzie pełnił rolę <span class="color-green">reverse proxy</span>: odbiera ruch z portu $80$/$443$ i przekazując żądania w tle do procesu Strapi.</p>
+<hr>
+<h3>🟢 Instalacja Node.js i Strapi</h3>
+<p>Doinstaluj Node.js i NPM:</p>
+<pre><code class="language-bash">sudo apt install nodejs npm
+node --version
+npm --version
+</code></pre>
+<p>Przygotuj katalog aplikacji:</p>
+<pre><code class="language-bash">sudo mkdir -p /var/www/strapi
+sudo chown egza:egza /var/www/strapi
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zamiast podawać nazwę użytkownika na którym jesteś zalogowany możesz skorzystać z zmiennej shell:</p>
+<pre><code class="language-bash">echo $USER
+sudo chown $USER:$USER /var/www/strapi
+</code></pre>
+
+</div>
+</div><hr>
+<p>Uruchom instalator Strapi:</p>
+<pre><code class="language-bash">npx create-strapi@latest /var/www/strapi --no-run --skip-cloud --use-npm --no-git-init
+</code></pre>
+<p>Znaczenie użytych parametrów:</p>
+<ul>
+<li><code>/var/www/strapi</code>: ścieżka do katalogu docelowego projektu.</li>
+<li><code>--no-run</code>: wyłącza automatyczne uruchomienie Strapi po zakończeniu instalacji (dzięki czemu możemy najpierw skonfigurować <code>.env</code>).</li>
+<li><code>--skip-cloud</code>: pomija krok logowania/rejestracji do usługi Strapi Cloud.</li>
+<li><code>--use-npm</code>: wymusza użycie menedżera pakietów <code>npm</code>.</li>
+<li><code>--no-git-init</code>: pomija automatyczną inicjalizację repozytorium Git.</li>
+</ul>
+<hr>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/inicjalizacja-strapi.webp" alt="Instalacja Strapi" width="823" height="330" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Podczas interaktywnej instalacji wybieramy poszczególne opcje:</p>
+<ul>
+<li><span class="color-green">Wybór bazy danych (<code>MySQL</code>):</span> Wybieramy MySQL zamiast domyślnego SQLite.</li>
+<li><span class="color-green">Host (<code>127.0.0.1</code>) i Port (<code>3306</code>):</span> Łączenie lokalne na serwerze.</li>
+<li><span class="color-green">Baza, użytkownik i hasło:</span> Podajemy dane utworzonego wcześniej konta <code>strapi</code>.</li>
+<li><span class="color-green">SSL connection (<code>No</code>):</span> Wyłączamy SSL dla lokalnego połączenia z bazą danych bo mamy ją na tej samej maszynie.</li>
+<li><span class="color-green">Przykładowa struktura i dane (<code>Yes</code>):</span> Wgrywa przykładowe dane testowe do bazy danych.</li>
+<li><span class="color-green">TypeScript (<code>Yes</code> / <code>No</code>):</span> Wybór języka (JavaScript lub TypeScript).</li>
+</ul>
+<hr>
+<h3>🕵🏼‍♂️ Naprawa błędów z bazą danych</h3>
+<p>Możesz napotkać błąd przy inicjalizacji. Wystarczy przeczytać komunikat.<br>Przykładowo tutaj wskazuje on na brak bazy danych:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-error-db-seed.webp" alt="Strapi error database" width="928" height="799" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Sprawdzamy jakie bazy danych istnieją w MySQLu:</p>
+<pre><code class="language-bash">sudo mysql
+</code></pre>
+<pre><code class="language-sql">SHOW DATABASES;
+EXIT;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-db-badname.webp" alt="MySQL databasy " width="214" height="204" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>No i się okazało że zrobiłem literówkę i zamiast <code>strapi</code>  baza danych nazywa się <code>starip</code>.<br>Możemy to naprawić na $2$ sposoby:</p>
+<data-tabs>
+    <tabs>
+        <b>Nowa baza danych</b>
+        <b>Dostosowanie <code>.env</code> i praw</b>
+    </tabs>
+<div><p>Usunąć bazę z literówką i utworzyć ją na nowo:</p>
+<pre><code class="language-bash">sudo mysql
+</code></pre>
+<pre><code class="language-sql">DROP DATABASE starip;
+CREATE DATABASE strapi;
+GRANT ALL PRIVILEGES ON strapi.* TO 'strapi'@'localhost';
+EXIT;
+</code></pre>
+<pre><code class="language-bash">cd /var/www/strapi
+npm run seed:example
+</code></pre></div>
+<div><p>W pliku <code>.env</code> zmień nazwę bazy danych:</p>
+<pre><code class="language-bash">cd /var/www/strapi
+nano .env
+</code></pre>
+<pre><code class="language-ini">DATABASE_NAME=starip
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-fix-.env.webp" alt="Zmiana nazwy bazy danych w .env" width="899" height="384" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Uruchom ponownie seeder:</p>
+<pre><code class="language-bash">npm run seed:example
+</code></pre>
+<p>Może się też okazać że baza danych <code>starip</code> nie ma uprawnień dla użytkownika <code>strapi</code>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-fix-.env-bad-db-perm.webp" alt="Brak uprawnień do bazy danych" width="792" height="369" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<pre><code class="language-bash">sudo mysql
+</code></pre>
+<pre><code class="language-sql">GRANT ALL PRIVILEGES ON starip.* TO 'strapi'@'localhost';
+EXIT;
+</code></pre>
+<p>No i ponownie:</p>
+<pre><code class="language-bash">npm run seed:example
+</code></pre></div>
+</data-tabs>
+
+
+<h3>🚀 Budowa i uruchomienie Strapi</h3>
+<p>Zbuduj panel administracyjny:</p>
+<pre><code class="language-bash">npm run build
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli podczas kompilacji panela (<code>npm run build</code>) wystąpi błąd <span class="color-red"><code>JavaScript heap out of memory</code></span>, oznacza to wyczerpanie domyślnego limitu pamięci RAM dla procesu Node.js. </p>
+<p>Uruchom budowanie ze zwiększonym limitem pamięci:</p>
+<pre><code class="language-bash">NODE_OPTIONS="--max-old-space-size=2048" npm run build
+</code></pre>
+
+</div>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-node-memory-low-fix.webp" alt="" width="1279" height="718" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Zmieńmy nasz plik testu <code>/etc/nginx/sites-available/test</code> na nową lokalizację <code>/var/www/strapi/</code>, a następnie uruchommy projekt w trybie deweloperskim:</p>
+<pre><code class="language-bash">npm run start
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-start.webp" alt="" width="1279" height="739" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Skoro jeszcze nie przekonfigurowaliśmy strapi na usługę systemową to do adresu url trzeba będzie dopisać <span class="color-gold">:1337</span>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/strapi-run-dev-on-kilent.webp" alt="Strapi started on client with port" width="1599" height="898" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Skrótem klawiszowym <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>C</kbd></span> zatrzymujemy działanie procesu npm.</p>
+</blockquote>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Strapi jako usługa systemowa</h2>
+<p>Utwórz konto przeznaczone tylko do działania CMS‑a:</p>
+<pre><code class="language-bash">sudo useradd --system --home /var/www/strapi --shell /usr/sbin/nologin strapi-cms
+sudo chown -R strapi-cms:strapi-cms /var/www/strapi
+</code></pre>
+<p>Konto <code>strapi-cms</code> nie ma powłoki logowania ani uprawnień administratora.</p>
+<p>Utwórz jednostkę systemd:</p>
+<pre><code class="language-bash">sudo nano /etc/systemd/system/strapi.service
+</code></pre>
+<pre><code class="language-systemd">[Unit]
+Description=Strapi CMS
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=strapi-cms
+Group=strapi-cms
+WorkingDirectory=/var/www/strapi
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+<p>Wczytaj nową jednostkę i uruchom CMS:</p>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl enable strapi
+sudo systemctl start strapi
+sudo systemctl status strapi
+</code></pre>
+<p>Stan <code>active (running)</code> potwierdza działanie procesu Strapi niezależnie od otwartego terminala.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔀 Nginx jako reverse proxy</h2>
+<p>Utwórz wirtualny host dla CMS‑a:</p>
+<pre><code class="language-bash">sudo nano /etc/nginx/sites-available/strapi
+</code></pre>
+<pre><code class="language-nginx">server {
+    listen 80;
+    listen [::]:80;
+
+    server_name cms.test.local;
+
+    location / {
+        proxy_pass http://127.0.0.1:1337;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+</code></pre>
+<p><code>proxy_pass</code> wskazuje usługę działającą na tej samej maszynie. </p>
+<p><code>proxy_http_version 1.1;</code> wymusza użycie HTTP/1.1 w komunikacji Nginx z lokalnym procesem Node.js (domyślnie Nginx używa przestarzałego HTTP/1.0). Wersja 1.1 jest wymagana m.in. do obsługi trwałego podtrzymywania połączeń (<code>keep-alive</code>) oraz połączeń WebSockets.</p>
+<p>Włącz konfigurację:</p>
+<pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/strapi /etc/nginx/sites-enabled/strapi
+sudo nginx -t
+sudo systemctl reload nginx
+</code></pre>
+<p>Otwórz:</p>
+<pre><code class="language-text">http://cms.test.local/admin
+</code></pre>
+<p>Utwórz konto administratora Strapi. Adres nie zawiera portu <code>1337</code>, ponieważ przeglądarka łączy się z Nginx na porcie <code>80</code>, a Nginx przekazuje ruch do CMS‑a.</p>
+<p>Jak widzisz na poniższym obrazku tym razem dałem dwa warianty statycznego DNS w <code>/etc/hosts</code> bo zapomniałem dopisać wcześniej w <code>/etc/nginx/sites-available/strapi</code> <span class="color-blue">www</span> i wyskakiwał mi <span class="color-red">błąd 404</span> 😒.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/nginix-on-klient-loaded.webp" alt="Wirtualne hosty na Nginx" width="1599" height="898" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Nginx obsługuje gotowe pliki oraz przekazuje żądania do innych usług;</li>
+<li><code>server_name</code> pozwala udostępnić kilka hostów przez jeden adres IP;</li>
+<li>Strapi działa jako oddzielna usługa aplikacyjna i udostępnia treść przez REST API;</li>
+<li>MySQL przechowuje dane CMS‑a na koncie ograniczonym do jednej bazy;</li>
+<li>reverse proxy ukrywa wewnętrzny port aplikacji i tworzy wspólny punkt wejścia.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

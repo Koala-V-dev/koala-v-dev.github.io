@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\Zarządzanie dyskami - parted i fstab - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwsze Kroki z Linuksem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest Linux"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Czym%20jest%20Linux.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest Linux</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Instalacja w VirtualBox"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Instalacja%20w%20VirtualBox.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja w VirtualBox</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Ustawienia GNOME"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Ustawienia%20GNOME.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Ustawienia GNOME</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Katalogi w Ubuntu"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%200/Katalogi%20w%20Ubuntu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Katalogi w Ubuntu</a></li><li class="module">Moduł 1: Podstawowa praca w terminalu</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Pliki i katalogi"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201/Pliki%20i%20katalogi.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pliki i katalogi</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wstępne informacje o systemie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201/Wst%C4%99pne%20informacje%20o%20systemie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wstępne informacje o systemie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kopie i odtwarzanie"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%201/Kopie%20i%20odtwarzanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kopie i odtwarzanie</a></li><li class="module">Moduł 2: Użytkownicy, sudo i uprawnienia</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Użytkownicy i sudo"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%202/U%C5%BCytkownicy%20i%20sudo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Użytkownicy i sudo</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Uprawnienia plików i katalogów"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%202/Uprawnienia%20plik%C3%B3w%20i%20katalog%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Uprawnienia plików i katalogów</a></li><li class="module">Moduł 3: Diagnostyka, potoki i dyski</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Diagnostyka wyników komend"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203/Diagnostyka%20wynik%C3%B3w%20komend.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Diagnostyka wyników komend</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Edycja plików i nano"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203/Edycja%20plik%C3%B3w%20i%20nano.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Edycja plików i nano</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Zarządzanie dyskami - parted i fstab"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%203/Zarz%C4%85dzanie%20dyskami%20-%20parted%20i%20fstab.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie dyskami - parted i fstab</a></li><li class="module">Moduł 4: Zdalne zarządzanie w sieci</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Netplan i NetworkManager"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204/Netplan%20i%20NetworkManager.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Netplan i NetworkManager</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Zdalny dostęp - SSH"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204/Zdalny%20dost%C4%99p%20-%20SSH.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdalny dostęp - SSH</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Zapora sieciowa - UFW"><a class="lesson-link" href="/courses/ubuntu-26/Pages/Modu%C5%82%204/Zapora%20sieciowa%20-%20UFW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zapora sieciowa - UFW</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Zarządzanie dyskami - parted i fstab</h1>
+<p>Jako administrator systemu Linux będziesz często stawać przed zadaniem podłączenia nowego dysku do serwera, podzielenia go na partycje, sformatowania oraz skonfigurowania tak, aby montował się automatycznie przy każdym uruchomieniu systemu.</p>
+<p>W tej lekcji nauczysz się, jak zrealizować ten proces krok po kroku i bezpiecznie przy użyciu nowoczesnego narzędzia <span class="color-green"><code>parted</code></span>, poleceń systemu plików oraz pliku konfiguracyjnego <span class="color-green"><code>/etc/fstab</code></span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💽 Przygotowanie środowiska: dodanie nowego dysku</h2>
+<p>Przed rozpoczęciem pracy w terminalu do maszyny wirtualnej Ubuntu w programie VirtualBox dodajemy dodatkowy wirtualny dysk twardy (np. plik w formacie VDI o rozmiarze $25\ \text{GB}$ podpięty pod kontroler SATA lub NVMe).</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/dodanie-nowego-dysku-w-vb-dla-ubuntu-vm.webp" alt="Dodanie nowego dysku w VirtualBox dla maszyny wirtualnej Ubuntu" width="962" height="698" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Po uruchomieniu systemu nowo podłączony nośnik będzie widoczny dla jądra Linux jako czysty, nieprzydzielony zasób pamięci masowej.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Identyfikacja dysków w systemie</h2>
+<p>W systemach typu Linux wszystkie urządzenia fizyczne i wirtualne reprezentowane są w postaci specjalnych plików urządzeń w katalogu <code>/dev/</code>:</p>
+<ul>
+<li><span class="color-green">Tradycyjne dyski twarde i SSD (SATA/SCSI/IDE)</span> oznaczane są nazwami <code>/dev/sda</code>, <code>/dev/sdb</code>, <code>/dev/sdc</code> itd.</li>
+<li><span class="color-green">Nowoczesne dyski NVMe</span> oznaczane są według schematu <code>/dev/nvme0n1</code>, <code>/dev/nvme0n2</code> itd.</li>
+<li><span class="color-green">Partycje na dyskach</span> oznaczane są numerem na końcu nazwy (np. <code>/dev/sda1</code>, <code>/dev/sdb1</code>) lub z prefiksem <code>p</code> w przypadku NVMe (np. <code>/dev/nvme0n1p1</code>).</li>
+</ul>
+<p>Aby wyświetlić drzewiastą strukturę podłączonych dysków i ich partycji, użyj narzędzia <code>lsblk</code>:</p>
+<pre><code class="language-bash">lsblk
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/lsblk-2ssd-1-nvme.webp" alt="Podgląd dysków za pomocą lsblk w tym dysków SATA sda sdb oraz NVMe nvme0n1" width="652" height="533" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Na powyższym wyjściu wyraźnie widać:</p>
+<ul>
+<li>Dysk systemowy <code>/dev/sda</code> ($25\ \text{GB}$) z partycją główną <code>/dev/sda2</code> zamontowaną w korzeniu <code>/</code>.</li>
+<li>Drugi, nowy dysk SATA <code>/dev/sdb</code> ($25\ \text{GB}$) – obecnie czysty i bez partycji.</li>
+<li>Dodatkowy dysk NVMe <code>/dev/nvme0n1</code> ($5\ \text{GB}$) – również bez założonej tablicy partycji.</li>
+</ul>
+<p>Aby wyświetlić szczegółowe informacje o tablicach partycji oraz wykryć dyski bez nagłówka, uruchom program <code>parted</code> z flagą <code>-l</code> (wymaga uprawnień administratora <code>sudo</code>):</p>
+<pre><code class="language-bash">sudo parted -l
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/parted-l.webp" alt="Wynik wykonania polecenia sudo parted -l z informacją o braku etykiety dysku" width="652" height="587" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Zauważ, że dla dysków <code>/dev/sdb</code> oraz <code>/dev/nvme0n1</code> program zgłasza komunikat:<br><code>Error: /dev/sdb: unrecognised disk label</code> oraz <code>Partition Table: unknown</code>. Informuje to administratora, że dysk nie posiada jeszcze utworzonej tablicy partycji (jest fabrycznie czysty).</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Partycjonowanie dysku za pomocą parted</h2>
+<p>Narzędzie <span class="color-green"><code>parted</code></span> (<span class="color-blue">partition editor</span>) to nowoczesny i potężny program CLI do zarządzania tablicami partycji i rozmiarem woluminów. Działa zarówno w trybie pojedynczych wydanych komend, jak i w interaktywnej powłoce.</p>
+<p>Przeprowadzimy proces podziału nowego dysku <code>/dev/sdb</code> na <span class="color-green">dwie równe partycje</span> po $50\%$ pojemności dysku z nowoczesną tablicą partycji <span class="color-green">GPT</span> (<span class="color-blue">GUID Partition Table</span>).</p>
+<h3>1. Uruchomienie programu dla wybranego dysku</h3>
+<pre><code class="language-bash">sudo parted /dev/sdb
+</code></pre>
+<p><span class="color-blue">Prompt terminala zmieni się na <code>(parted)</code>, co oznacza przejście do interaktywnej konsoli programu.</span></p>
+<h3>2. Utworzenie tablicy partycji (GPT vs MBR)</h3>
+<p>Do utworzenia etykiety i tablicy partycji na dysku służy polecenie <code>mklabel</code>. Program <code>parted</code> obsługuje dwa główne standardy tablic partycji:</p>
+<ul>
+<li><span class="color-green"><code>mklabel gpt</code></span> – tworzy nowoczesną tablicę <span class="color-green">GPT</span> (<span class="color-blue">GUID Partition Table</span>). Jest to obowiązujący standard wspierający dyski o pojemności powyżej $2\ \text{TB}$ oraz pozwalający na utworzenie domyślnie do $128$ partycji podstawowych. Wymagany dla nowoczesnych systemów uruchamianych w trybie UEFI.</li>
+<li><span class="color-green"><code>mklabel msdos</code></span> – tworzy tradycyjną tablicę <span class="color-green">MBR</span> (<span class="color-blue">Master Boot Record</span>, określaną w <code>parted</code> jako <code>msdos</code>). Klasyczny standard stosowany na starszych komputerach z systemem BIOS. Posiada ograniczenie: obsługuje dyski maksymalnie do $2\ \text{TB}$ oraz pozwala na utworzenie najwyżej $4$ partycji podstawowych (lub $3$ podstawowych i $1$ rozszerzonej).</li>
+</ul>
+<p>W naszym przykładzie tworzymy nowoczesną tablicę partycji <span class="color-green">GPT</span>:</p>
+<pre><code class="language-text">(parted) mklabel gpt
+</code></pre>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Polecenie <code>mklabel</code> natychmiast zapisuje nowy nagłówek na dysku, niszcząc dotychczasową tablicę partycji oraz odnośniki do znajdujących się tam danych!</p>
+
+</div>
+</div><h3>3. Utworzenie dwóch partycji</h3>
+<p>Tworzymy <span class="color-blue">pierwszą</span> partycję podstawową zajmującą pierwsze $50\%$ powierzchni dysku:</p>
+<pre><code class="language-text">(parted) mkpart primary ext4 0% 50%
+</code></pre>
+<p>Tworzymy <span class="color-blue">drugą</span> partycję podstawową zajmującą pozostałe $50\%$ powierzchni dysku:</p>
+<pre><code class="language-text">(parted) mkpart primary ext4 50% 100%
+</code></pre>
+<h3>4. Weryfikacja i wyjście z programu</h3>
+<p>Sprawdzamy układ partycji poleceniem <code>print</code>:</p>
+<pre><code class="language-text">(parted) print
+</code></pre>
+<p>Wychodzimy z programu klawiszem lub poleceniem <code>quit</code>:</p>
+<pre><code class="language-text">(parted) quit
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/parted-2-partition-on-disk-sdb.webp" alt="Tworzenie dwóch partycji na dysku sdb w interaktywnym programie parted" width="677" height="682" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Po wyjściu z <code>parted</code> system wyświetla informację: <code>Information: You may need to update /etc/fstab.</code> W tym momencie w plikach urządzeń pojawiły się dwie nowe partycje: <code>/dev/sdb1</code> oraz <code>/dev/sdb2</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎛️ Formatowanie partycji (System plików Ext4)</h2>
+<p>Samo utworzenie struktury partycji nie pozwala jeszcze na zapisywanie plików. Każda nowa partycja musi zostać sformatowana, czyli wyposażona w system plików. Standardowym systemem plików w dystrybucjach Linux jest <span class="color-green">Ext4</span>.</p>
+<p>Formatujemy obie partycje poleceniem <code>mkfs.ext4</code>, podając jako argument ścieżkę do partycji (np. <code>/dev/sdb1</code> i <code>/dev/sdb2</code>), a nie całego dysku:</p>
+<pre><code class="language-bash">sudo mkfs.ext4 /dev/sdb1
+sudo mkfs.ext4 /dev/sdb2
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/mkfs-i-podgląd-partycji-na-dysku-w-programi-disks.webp" alt="Formatowanie partycji sdb1 i sdb2 za pomocą mkfs.ext4 i podgląd w aplikacji Disks" width="980" height="954" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>W dolnej części powyższego zrzutu widać graficzną aplikację <span class="color-green">Disks</span> (<span class="color-blue">Dyski</span>), która potwierdza, że dysk <code>/dev/sdb</code> posiada dwie partycje typu <code>Linux Filesystem</code> o rozmiarze 13 GB każda z utworzonym systemem plików Ext4.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔌 Montowanie tymczasowe (<code>mount</code>) oraz podgląd w GUI</h2>
+<p>W środowisku graficznym Ubuntu Desktop kliknięcie ikonki dysku w menedżerze plików lub w aplikacji <span class="color-blue">Disks</span> powoduje jego automatyczne zamontowanie przez usługę <code>udisks2</code> w katalogu użytkownika: <code>/run/media/użytkownik/UUID/</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/sprawdzenie-katalogu-run-media-egzamin-gdzie-zamontował-się-dysk-i-go-odmontowanie+pokazanie-że-graficznie-też-się-odmontował.webp" alt="Sprawdzenie automatycznego montowania w run media i odmontowanie w konsoli oraz GUI" width="977" height="700" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Ręczne odmontowanie woluminu wykonuje się poleceniem <code>umount</code>:</p>
+<pre><code class="language-bash">umount /run/media/egzamin/8f73a89b-f317-45b9-a36c-e107d02b1af8
+</code></pre>
+<p>Po wykonaniu tego polecenia w aplikacji <span class="color-blue">Disks</span> status partycji zmienia się na <span class="color-blue">Not Mounted</span> (brak zamontowania), a przycisk odtwarzania ▶ zmienia się z kwadratu wymontowania.</p>
+<h3>Ręczne montowanie w katalogu systemowym <code>/mnt/dane</code></h3>
+<p>Na serwerach oraz w stabilnych środowiskach produkcyjnych partycje montuje się w stałych punktach montowania, np. w katalogu <code>/mnt/dane</code>.</p>
+<ol>
+<li><p>Utwórz nowy katalog dedykowany dla punktu montowania:</p>
+<pre><code class="language-bash">sudo mkdir /mnt/dane
+</code></pre>
+</li>
+<li><p>Zamontuj partycję <code>/dev/sdb1</code> we wskazanym folderze:</p>
+<pre><code class="language-bash">sudo mount /dev/sdb1 /mnt/dane
+</code></pre>
+</li>
+<li><p>Sprawdź dostępność i zajętość zamontowanego dysku poleceniem <code>df -h</code>:</p>
+<pre><code class="language-bash">df -h
+</code></pre>
+</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/zamontowanie-partycji-sb1-w-mnt-dane-i-pokazanie-że-tylko-jedna-partycja-jest-zaqmontowana.webp" alt="Zamontowanie partycji sdb1 w katalogu mnt dane i weryfikacja za pomocą df -h oraz Disks" width="976" height="806" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Od tej chwili pliki zapisywane w katalogu <code>/mnt/dane</code> fizycznie trafiają na pierwszą partycję drugiego dysku. Zauważ w aplikacji <span class="color-blue">Disks</span>, że tylko partycja 1 jest zamontowana w <code>/mnt/dane</code>, podczas gdy partycja 2 pozostaje niezamontowana.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💾 Automatyczne montowanie przy starcie: <code>/etc/fstab</code></h2>
+<p>Tymczasowe montowanie poleceniem <code>mount</code> wygasa po ponownym uruchomieniu komputera. Aby partycja montowała się automatycznie podczas startu systemu, należy dodać odpowiedni wpis w pliku konfiguracyjnym <span class="color-green"><code>/etc/fstab</code></span> (<span class="color-blue">File System Table</span>).</p>
+<h3>1. Pobranie unikalnego identyfikatora UUID (Spritny trick z poleceniem <code>tee</code>)</h3>
+<p>Zamiast nazwy urządzenia <code>/dev/sdb1</code> (która może ulec zmianie po podłączeniu nowych dysków), w pliku <code>fstab</code> zawsze stosujemy unikalny identyfikator <span class="color-green">UUID</span> partycji.</p>
+<p>Aby uniknąć ręcznego przepisywania skomplikowanego ciągu UUID z polecenia <code>blkid</code>, stosujemy sprytne przekierowanie strumienia za pomocą narzędzia <span class="color-green"><code>tee</code></span>:</p>
+<pre><code class="language-bash">sudo blkid /dev/sdb1 | sudo tee -a /etc/fstab
+</code></pre>
+<h4>💡 Dlaczego używamy <code>tee</code> zamiast zwykłego <code>&gt;&gt;</code>?</h4>
+<ul>
+<li><span class="color-green">Czym jest polecenie <code>tee</code>?</span><br>Narzędzie <code>tee</code> przyjmuje strumień tekstowy ze standardowego wejścia, wyświetla go na ekranie terminala i jednocześnie zapisuje go do wskazanego pliku (działa analogicznie do trójnika w instalacji hydraulicznej).</li>
+<li><span class="color-green">Flaga <code>-a</code> (<code>--append</code>)</span>:<br>Nakazuje poleceniu <code>tee</code> <span class="color-green">dopisywanie</span> nowych danych na samym końcu wskazanego pliku zamiast jego czyszczenia i nadpisywania.</li>
+<li><span class="color-green">Problem uprawnień przy przekierowaniu <code>&gt;&gt;</code></span>:<br>Gdy wykonasz polecenie <code>sudo blkid /dev/sdb1 &gt;&gt; /etc/fstab</code>, z uprawnieniami administratora uruchomi się wyłącznie komenda <code>blkid</code>. Przekierowanie <code>&gt;&gt;</code> jest interpretowane przez Twoją bieżącą powłokę użytkownika, co zakończy się błędem odmowy dostępu: <code>bash: /etc/fstab: Permission denied</code>.</li>
+<li><span class="color-green">Rozwiązanie z <code>sudo tee -a</code></span>:<br>Zastosowanie operatora potoku <code>|</code> i przekazanie wyjścia do <code>sudo tee -a /etc/fstab</code> sprawia, że samo zapisywanie do pliku wykonuje się z pełnymi uprawnieniami <code>sudo</code>. Wyjście z <code>blkid</code> zostanie z łatwością dopisane na samym końcu chronionego pliku <code>/etc/fstab</code>!</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/sprytne-dopisanie-uuid-do-etc-fstab.webp" alt="Przechwycenie identyfikatora UUID za pomocą blkid i tee -a do pliku fstab" width="1238" height="733" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>2. Edycja i struktura pliku <code>/etc/fstab</code></h3>
+<p>Otwórz plik <code>/etc/fstab</code> w edytorze <code>nano</code>:</p>
+<pre><code class="language-bash">sudo nano /etc/fstab
+</code></pre>
+<p>Na końcu pliku dopisana wcześniej linia z <code>blkid</code> posłuży Ci jako wzorzec. Sformatuj nową linię według ścisłego 6‑kolumnowego schematu:</p>
+<pre><code class="language-text">&lt;Urządzenie / UUID&gt; &lt;Punkt montowania&gt; &lt;Typ systemu plików&gt; &lt;Opcje montowania&gt; &lt;Dump&gt; &lt;Pass&gt;
+</code></pre>
+<p>Przykładowy poprawny wpis z identyfikatorem UUID:</p>
+<pre><code class="language-bash">UUID=8f73a89b-f317-45b9-a36c-e107d02b1af8 /mnt/dane ext4 defaults 0 2
+</code></pre>
+<p>Alternatywny zapis z tradycyjną ścieżką urządzenia:</p>
+<pre><code class="language-bash">/dev/sdb1 /mnt/dane ext4 defaults 0 2
+</code></pre>
+<h4>Szczegółowe znaczenie 6 kolumn w pliku `/etc/fstab`:</h4>
+<table>
+<thead>
+<tr>
+<th align="left">Kolumna</th>
+<th align="left">Nazwa</th>
+<th align="left">Opis i dopuszczalne wartości</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">1</span></td>
+<td align="left"><span class="color-green">Urządzenie / UUID</span></td>
+<td align="left">Identyfikator partycji (<code>UUID=...</code>) lub ścieżka pliku urządzenia (<code>/dev/sdb1</code>).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">2</span></td>
+<td align="left"><span class="color-green">Punkt montowania</span></td>
+<td align="left">Docelowa ścieżka katalogu w drzewie plików (np. <code>/mnt/dane</code>).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">3</span></td>
+<td align="left"><span class="color-green">Typ systemu plików</span></td>
+<td align="left">Format systemu plików (<code>ext4</code>, <code>xfs</code>, <code>vfat</code>, <code>ntfs</code>, <code>swap</code>).</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">4</span></td>
+<td align="left"><span class="color-green">Opcje montowania</span></td>
+<td align="left">Parametry montowania. Wartość <code>defaults</code> oznacza zestaw standardowy: <code>rw</code>, <code>suid</code>, <code>dev</code>, <code>exec</code>, <code>auto</code>, <code>nouser</code>, <code>async</code>.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">5</span></td>
+<td align="left"><span class="color-green">Dump (Kopia)</span></td>
+<td align="left">Flaga kopii zapasowej starym narzędziem <code>dump</code>: <br>• <code>0</code> – wyłączone (zalecane dla wszystkich współczesnych dysków). <br>• <code>1</code> – włączone.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">6</span></td>
+<td align="left"><span class="color-green">Pass (Sprawdzanie fsck)</span></td>
+<td align="left">Kolejność sprawdzania spójności plików przy starcie systemu przez program <code>fsck</code>: <br>• <code>0</code> – brak sprawdzania (dla wolumenów sieciowych, swap i partycji pomocniczych). <br>• <code>1</code> – najwyższy priorytet (zarejestrowany <span class="color-green">wyłącznie dla głównego systemu plików <code>/</code></span>). <br>• <code>2</code> – niższy priorytet (dla wszystkich pozostałych partycji dyskowych).</td>
+</tr>
+</tbody></table>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/modyfikacja-UUID-w-fstab-i-przeładowanie-usługi.webp" alt="Modyfikacja pliku fstab przeładowanie usług systemd i weryfikacja ikony gwiazdki w aplikacji Disks" width="1247" height="827" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Po zapisaniu pliku <code>/etc/fstab</code> w aplikacji <span class="color-blue">Disks</span> przy zamontowanej partycji pojawi się ikonka <span class="color-green">gwiazdki ★</span>, która jednoznacznie potwierdza, że wolumin jest skonfigurowany do automatycznego montowania przy starcie systemu.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Krytyczna procedura bezpieczeństwa (<code>mount -a</code> oraz <code>daemon-reload</code>)</h2>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Nigdy nie restartuj komputera bez wcześniejszej weryfikacji pliku fstab!</span></p>
+<p>Błąd składniowy w pliku <code>/etc/fstab</code> (np. literówka w UUID, nieistniejący katalog montowania lub błędna opcja) spowoduje, że system podczas uruchamiania utknie i przejdzie w tryb awaryjny (<span class="color-green">Emergency Mode</span>). Uniemożliwi to normalny start systemu do momentu ręcznej naprawy pliku w konsoli roota!</p>
+
+</div>
+</div><p>Aby bezpiecznie zweryfikować poprawność nowej konfiguracji przed uruchomieniem ponownym, wykonaj dwie komendy:</p>
+<h3>1. Przeładowanie generatorów systemd</h3>
+<p>Współczesne dystrybucje Linux (Ubuntu, Debian) wykorzystują pakiet <code>systemd</code> do automatycznego generowania jednostek montowania z pliku <code>/etc/fstab</code>. Po każdej edycji <code>/etc/fstab</code> przeładuj menedżer systemd:</p>
+<pre><code class="language-bash">sudo systemctl daemon-reload
+</code></pre>
+<h3>2. Weryfikacyjny test montowania (`mount -a`)</h3>
+<p>Najpierw odmontuj partycję, jeśli jest zamontowana:</p>
+<pre><code class="language-bash">sudo umount /mnt/dane
+</code></pre>
+<p>Następnie nakaż systemowi zamontować wszystkie systemy plików zdefiniowane w <code>/etc/fstab</code>:</p>
+<pre><code class="language-bash">sudo mount -a
+</code></pre>
+<p>Jeśli komenda <code>sudo mount -a</code> wykona się <span class="color-green">całkowicie bez komunikatów o błędach</span>, Twój wpis w pliku <code>/etc/fstab</code> jest w $100\%$ poprawny i bez obaw możesz zrestartować komputer!</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Punkt kontrolny: Montowanie dysków</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Jaki jest najbezpieczniejszy i zalecany sposób identyfikacji partycji w pliku <code>/etc/fstab</code>?</p>
+</question>
+    <options>
+      <item correct=""><p>Użycie unikalnego identyfikatora UUID partycji odczytanego za pomocą blkid.</p>
+</item>
+      <item><p>Użycie nazwy logicznej urządzenia, np. /dev/sdb1, ponieważ nigdy się ona nie zmienia.</p>
+</item>
+      <item><p>Użycie etykiety montowania wirtualnego dysku VDI z VirtualBox.</p>
+</item>
+      <item><p>Użycie nazwy montowania w katalogu /media.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Pomyśl, co się stanie, gdy podłączysz dysk do innego portu SATA lub kontrolera. Czy nazwa /dev/sdb1 pozostanie niezmienna? Co gwarantuje absolutną unikalność?</p>
+</div>
+    <div data-hint="success"><p>Wspaniale! UUID jest unikalny dla konkretnego systemu plików na partycji i chroni przed błędami montowania przy zmianie fizycznej konfiguracji sprzętu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Urządzenia jako pliki:</span> W systemie Linux dyski twarde i SSD to pliki w <code>/dev/</code> (np. <code>/dev/sda</code>, <code>/dev/sdb</code>, <code>/dev/nvme0n1</code>).</li>
+<li><span class="color-green">Narzędzie parted:</span> Służy do tworzenia i modyfikacji tablic partycji. Polecenie <code>mklabel gpt</code> tworzy nagłówek GPT, a <code>mkpart</code> wydziela partycje (np. <code>0% 50%</code> oraz <code>50% 100%</code>).</li>
+<li><span class="color-green">Formatowanie mkfs.ext4:</span> Tworzy system plików Ext4 na wybranej partycji (np. <code>/dev/sdb1</code>), umożliwiając zapis danych.</li>
+<li><span class="color-green">Punkt montowania:</span> Dedykowany katalog (np. <code>/mnt/dane</code>), w którym osadzany jest system plików partycji za pomocą polecenia <code>mount</code>.</li>
+<li><span class="color-green">Automatyzacja w /etc/fstab:</span> Trwałe montowanie po restarcie wymaga wpisu w <code>/etc/fstab</code> z wykorzystaniem stabilnego identyfikatora <code>UUID</code> uzyskanego z <code>blkid</code>.</li>
+<li><span class="color-green">Przechwytywanie z tee -a:</span> Polecenie <code>sudo blkid /dev/sdb1 | sudo tee -a /etc/fstab</code> pozwala bezpiecznie dopisać UUID do pliku systemowego bez błędu uprawnień.</li>
+<li><span class="color-green">Weryfikacja mount -a i systemctl daemon‑reload:</span> Obowiązkowa procedura sprawdzająca po edycji <code>/etc/fstab</code> chroniąca system przed wejściem w tryb awaryjny Emergency Mode.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

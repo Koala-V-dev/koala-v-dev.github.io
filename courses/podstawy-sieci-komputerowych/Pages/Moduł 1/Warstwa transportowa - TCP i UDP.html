@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Warstwa transportowa - TCP i UDP - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Warstwa transportowa - TCP i UDP</h1>
+<p>Program wysyła kolejno trzy pomiary: <code>41</code>, <code>42</code>, <code>43</code>. Pakiet z drugim pomiarem ginie, a trzeci dociera. Co zobaczy odbiorca: przerwę, opóźnienie czy dane w innej postaci?</p>
+<p>Sam adres IP doprowadził ruch do właściwego urządzenia. Teraz rozstrzygniesz, jak port kieruje dane do właściwego punktu komunikacji oraz co aplikacja dostaje od TCP i UDP po stracie danych.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw przewidź odbiór</h2>
+<p>Nadawca wykonuje trzy operacje wysłania:</p>
+<pre><code class="language-text">wyślij "41"
+wyślij "42"
+wyślij "43"
+</code></pre>
+<p>Sieć traci pakiet przenoszący <code>42</code>, a przepuszcza pakiet z <code>43</code>. W wariancie TCP transport spróbuje odzyskać brakujące bajty. W wariancie UDP nie ma wbudowanej retransmisji.</p>
+<p>Zapisz osobne przewidywania:</p>
+<ol>
+<li>Co aplikacja odbierająca może zobaczyć podczas użycia TCP?</li>
+<li>Co może zobaczyć podczas użycia UDP?</li>
+<li>Która warstwa musi zdecydować, czy pomiar <code>42</code> nadal ma wartość po opóźnieniu?</li>
+</ol>
+<p>Nie wystarczy odpowiedź „TCP jest pewne, UDP jest szybkie”. Potrzebujesz modelu danych widzianych przez aplikację.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚪 Port rozdziela punkty komunikacji</h2>
+<p>Na jednym urządzeniu wiele aplikacji korzysta równocześnie z sieci. TCP i UDP mają 16‑bitowe numery portów od 0 do 65535. Port docelowy pomaga systemowi skierować dane do właściwego punktu komunikacji.</p>
+<p>Port nie jest trwałym numerem procesu. Proces może otworzyć kilka punktów komunikacji, zakończyć się albo użyć numeru ustalonego dynamicznie. Ten sam numer ma też osobne znaczenie dla TCP i UDP.</p>
+<p>Sesję danego protokołu rozróżnia zestaw wartości:</p>
+<pre><code class="language-text">protokół transportowy
+adres IP źródła : port źródłowy
+adres IP celu   : port docelowy
+</code></pre>
+<p>Przykład:</p>
+<pre><code class="language-text">TCP 192.0.2.10:53000 -&gt; 198.51.100.7:443
+TCP 192.0.2.10:53001 -&gt; 198.51.100.7:443
+</code></pre>
+<p>Obie sesje trafiają do usługi nasłuchującej na porcie <code>443</code>, ale różne porty źródłowe pozwalają odróżnić ich ruch. Numer <code>443</code> jest powszechnie zarejestrowany dla HTTPS, lecz numer portu sam nie dowodzi, jaki protokół aplikacyjny rzeczywiście działa ani czy ruch jest bezpieczny.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌊 TCP przekazuje strumień bajtów</h2>
+<p>TCP udostępnia aplikacji niezawodny, uporządkowany strumień bajtów. Wykrywa straty za pomocą numerów sekwencji i odzyskuje brakujące dane przez retransmisję.</p>
+<p>Jeśli fragment zawierający <code>42</code> zaginie, odbiorca TCP może już mieć późniejsze bajty, lecz nie odda ich aplikacji przed uzupełnieniem luki. Aplikacja zobaczy dane we właściwej kolejności po odzyskaniu brakującego fragmentu.</p>
+<p>TCP nie zachowuje jednak granic operacji wysłania. Trzy wywołania nadawcy nie muszą dać trzech odczytów odbiorcy:</p>
+<pre><code class="language-text">nadawca:  "41" | "42" | "43"
+odbiorca: "414243"
+</code></pre>
+<p>Możliwy jest także podział jednego zapisu na kilka odczytów. Dlatego protokół aplikacyjny pracujący nad TCP musi sam określić granice wiadomości, na przykład długością albo jednoznacznym separatorem.</p>
+<p>W rozważanym przypadku TCP zapewni kolejność <code>41</code>, <code>42</code>, <code>43</code>, ale utrata <code>42</code> może opóźnić przekazanie późniejszych bajtów do aplikacji. To koszt wybranego kontraktu, nie dowód, że TCP jest zawsze wolne.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 UDP przekazuje osobne datagramy</h2>
+<p>UDP udostępnia aplikacji osobne datagramy. Jedna operacja wysłania odpowiada jednemu datagramowi, a odbiorca zachowuje jego granice.</p>
+<p>UDP nie gwarantuje jednak dostarczenia ani ochrony przed duplikatami. Datagramy mogą zginąć, dotrzeć poza kolejnością albo pojawić się ponownie.</p>
+<p>Dla początkowego przypadku aplikacja może otrzymać:</p>
+<pre><code class="language-text">datagram "41"
+datagram "43"
+</code></pre>
+<p>Sam UDP nie czeka na <code>42</code> i go nie odtwarza. Jeżeli kolejność ma znaczenie, aplikacja potrzebuje własnego numeru sekwencji. Jeżeli utracony pomiar trzeba odzyskać, potrzebuje potwierdzeń i retransmisji albo transportu, który już je zapewnia.</p>
+<p>Brak mechanizmów TCP nie oznacza zgody na wysyłanie bez ograniczeń. Aplikacja korzystająca z UDP w Internecie nadal musi reagować na przeciążenie i nie może zakładać dowolnej przepustowości.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ Wybierasz kontrakt, nie etykietę aplikacji</h2>
+<p>Nazwy zastosowań nie wystarczają do wyboru transportu. „Wideo używa UDP”, „HTTP używa TCP” i „UDP jest szybsze” to skróty, które zawodzą przy współczesnych protokołach.</p>
+<p>Zacznij od pytań:</p>
+<ol>
+<li>Czy odbiorca potrzebuje każdego bajtu i dokładnej kolejności?</li>
+<li>Czy spóźniona wiadomość nadal ma wartość?</li>
+<li>Czy aplikacja rozumie duplikaty, luki i zmianę kolejności?</li>
+<li>Czy potrzebuje strumienia bajtów, czy oddzielnych wiadomości?</li>
+<li>Kto zapewni kontrolę przeciążenia i bezpieczeństwo?</li>
+</ol>
+<p>Jeśli potrzebujesz niezawodnego, uporządkowanego strumienia, TCP daje taki kontrakt. Nadal musisz dodać granice wiadomości i reguły protokołu aplikacyjnego.</p>
+<p>Jeśli pojedyncze wiadomości mogą się zestarzeć, a aplikacja potrafi obsłużyć luki i duplikaty, UDP może być właściwą podstawą. Wtedy odpowiedzialność nie znika, tylko przechodzi wyżej.</p>
+<p>QUIC pokazuje granicę prostego porównania. Jest transportem opartym na UDP, ale sam dodaje bezpieczne połączenia, niezawodne strumienie i kontrolę przeciążenia. Wybór UDP na najniższym poziomie nie przesądza więc o właściwościach całej usługi.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: granice odczytu TCP</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Nadawca TCP wykonuje dwa zapisy: najpierw <code>ALA</code>, potem <code>MAK</code>. Odbiorca otrzymuje w jednym odczycie <code>ALAMAK</code>. Który wniosek jest poprawny?</p>
+</question>
+    <options>
+      <option><p>Sieć uszkodziła dane, ponieważ każdy zapis TCP powinien dać osobny odczyt.</p>
+</option>
+      <option correct=""><p>To poprawne zachowanie strumienia TCP. Aplikacja musi sama wyznaczać granice swoich wiadomości.</p>
+</option>
+      <option><p>TCP zamieniło dwa segmenty miejscami, ale ukryło błąd przed aplikacją.</p>
+</option>
+      <option><p>Port docelowy połączył wiadomości dwóch różnych sesji.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Porównaj strumień z datagramem. TCP chroni kolejność bajtów, lecz nie obiecuje zachowania granic poszczególnych operacji zapisu.</p>
+</div>
+    <div data-hint="success"><p>Bajty pozostały w kolejności, ale dwa zapisy zostały odczytane razem. Protokół aplikacyjny potrzebuje długości, separatora albo innej reguły ramkowania wiadomości.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Zaprojektuj odbiór dwóch usług</h2>
+<p>Projektujesz dwa niezależne kanały.</p>
+<p>Kanał A przesyła polecenia sterownika:</p>
+<pre><code class="language-text">SET temperatura 20
+SET temperatura 25
+</code></pre>
+<p>Każde polecenie musi dotrzeć, a kolejność zmienia wynik. Kanał B wysyła co sekundę aktualną pozycję obiektu. Pozycja sprzed pięciu sekund nie powinna zastąpić nowszej.</p>
+<p>Dla każdego kanału zapisz:</p>
+<ol>
+<li>wymagany kontrakt odbioru;</li>
+<li>wybór TCP albo UDP jako podstawy;</li>
+<li>informację, którą aplikacja musi dodać do danych;</li>
+<li>reakcję na stratę, duplikat i spóźnione dane;</li>
+<li>rolę portu docelowego.</li>
+</ol>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>dla kanału A uwzględniasz brak granic wiadomości w TCP;</li>
+<li>dla kanału B nie mylisz zachowania granic datagramu z gwarancją dostarczenia;</li>
+<li>wskazujesz, kto odpowiada za wykrywanie danych starych i zduplikowanych;</li>
+<li>nie przypisujesz szyfrowania automatycznie ani TCP, ani UDP;</li>
+<li>port służy do skierowania danych do punktu komunikacji, a nie do dowodzenia treści protokołu.</li>
+</ul>
+<p>Zmień teraz warunek kanału B: audyt wymaga późniejszego odtworzenia każdego pomiaru. Oceń ponownie wybór. Możesz zmienić transport albo rozbudować protokół nad UDP, ale nazwij koszt brakującego mechanizmu.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>Kanał A potrzebuje pełnej i uporządkowanej sekwencji. TCP zapewnia strumień o tych właściwościach. Aplikacja musi jednak dodać granice poleceń, na przykład długość lub separator końca wiersza. Utracone bajty są odzyskiwane przez TCP, a późniejsze czekają na uzupełnienie luki. Port docelowy kieruje strumień do usługi sterownika, ale sam nie potwierdza formatu polecenia ani szyfrowania.</p>
+<p>Kanał B może użyć UDP, ponieważ najnowszy stan ma większą wartość niż stan spóźniony. Każdy datagram powinien zawierać co najmniej numer sekwencji albo znacznik czasu oraz identyfikator obiektu. Aplikacja akceptuje nowszy stan, odrzuca duplikaty i dane starsze od już przyjętych, a lukę może zanotować bez czekania na retransmisję. Musi też kontrolować tempo wysyłania. Port docelowy kieruje datagram do odbiorcy tej usługi.</p>
+<p>Po dodaniu wymogu audytu sama strategia „pomiń lukę” przestaje wystarczać. Można użyć niezawodnego transportu i zdefiniować granice rekordów albo dodać nad UDP potwierdzenia, retransmisję, przechowywanie historii i kontrolę przeciążenia. Druga droga odtwarza wiele mechanizmów gotowego transportu, więc wymaga osobnego uzasadnienia oraz testów.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">TCP daje uporządkowany strumień bajtów.</span> Odzyskuje straty, ale nie zachowuje granic operacji wysłania.</li>
+<li><span class="color-green">UDP daje osobne datagramy bez gwarancji dostarczenia.</span> Obsługa luk, duplikatów i spóźnionych danych należy do aplikacji albo protokołu zbudowanego wyżej.</li>
+<li><span class="color-green">Port pomaga rozdzielać komunikację.</span> Nie jest trwałym numerem procesu ani dowodem użycia konkretnej aplikacji.</li>
+<li><span class="color-green">Transport wybiera się z wymagań odbioru.</span> Nazwa zastosowania i rozmiar nagłówka nie zastępują analizy skutków straty oraz opóźnienia.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Udostępnianie plików dla Windows - Serwer Samba - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26-server</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Adres i nazwa w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (Kea)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(Kea).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (Kea)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (isc-dhcp-server)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(isc-dhcp-server).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (isc-dhcp-server)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy serwera DNS (Bind9)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Podstawy%20serwera%20DNS%20(Bind9).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy serwera DNS (Bind9)</a></li><li class="module">Moduł 1: Pliki dla użytkowników</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Udostępnianie plików dla Windows - Serwer Samba"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Udost%C4%99pnianie%20plik%C3%B3w%20dla%20Windows%20-%20Serwer%20Samba.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Udostępnianie plików dla Windows - Serwer Samba</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Transfer plików - Serwer FTP (vsftpd)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Transfer%20plik%C3%B3w%20-%20Serwer%20FTP%20(vsftpd).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transfer plików - Serwer FTP (vsftpd)</a></li><li class="module">Moduł 2: Strony dostępne po nazwie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja serwera Apache2"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20serwera%20Apache2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja serwera Apache2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja Nginx (Wirtualne hosty)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20Nginx%20(Wirtualne%20hosty).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja Nginx (Wirtualne hosty)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/SSL TLS, HTTP oraz HTTP2 HTTP3"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/SSL%20TLS%2C%20HTTP%20oraz%20HTTP2%20HTTP3.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">SSL TLS, HTTP oraz HTTP2 HTTP3</a></li><li class="module">Moduł 3: Poczta w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Poczta w sieci lokalnej - Postfix"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%203/Poczta%20w%20sieci%20lokalnej%20-%20Postfix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Poczta w sieci lokalnej - Postfix</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Udostępnianie plików dla Windows (Samba)</h1>
+<p>Serwer <span class="color-green">Samba</span> umożliwia udostępnianie plików oraz drukarek w sieci lokalnej przy użyciu protokołu <span class="color-green">SMB/CIFS</span>. Pozwala to na bezproblemową wymianę danych pomiędzy serwerem z systemem Linux (Ubuntu Server) a komputerami w sieci lokalnej (systemy Windows 11 oraz Ubuntu Desktop).</p>
+<p>W tej lekcji skonfigurujemy serwer tak, aby udostępnił katalog <code>/srv/dane</code> pod nazwą zasobu <code>DANE</code>. Dostęp do pliku będzie zabezpieczony kontem użytkownika <code>labamba</code>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Instalacja Samby i konto użytkownika</h2>
+<p>Zainstalujmy pakiet serwera Samba:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install samba -y
+</code></pre>
+<p>Po instalacji usługi <code>smbd</code> (odpowiedzialna za transfer plików) uruchomią się automatycznie.</p>
+<h3>Dlaczego zwykłe konto w systemie nie wystarczy?</h3>
+<p>Samba nie korzysta bezpośrednio ze standardowych haseł zakodowanych w <code>/etc/shadow</code>. Posiada własną bazę kont i haseł (<code>passdb.tdb</code>). Aby użytkownik mógł zalogować się do udziału sieciowego, spełnione muszą być dwa warunki:</p>
+<ol>
+<li>Konto musi istnieć w systemie Linux (w pliku <code>/etc/passwd</code>).</li>
+<li>Konto musi zostać dodane do bazy danych Samby wraz z nadanym hasłem.</li>
+</ol>
+<p>Stwórzmy najpierw konto systemowe <code>labamba</code>:</p>
+<pre><code class="language-bash">sudo adduser labamba
+</code></pre>
+<p>Wypełnij hasło i przejdź przez domyślne zapytania edytora. Następnie dodaj to samo konto do bazy Samby i nadaj mu hasło dostępowe:</p>
+<pre><code class="language-bash">sudo smbpasswd -a labamba
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Polecenie <code>smbpasswd -a</code> służy do dodawania nowego użytkownika do bazy Samby. Jeśli w przyszłości będziesz chciał zmienić istniejące hasło w Sambie, użyj tego samego polecenia bez przełącznika <code>-a</code>: <code>sudo smbpasswd labamba</code>.</p>
+
+</div>
+</div><p>Możesz zweryfikować obecność użytkownika w obu bazach danych:</p>
+<pre><code class="language-bash"># Sprawdzenie bazy kont systemowych Linux
+getent passwd labamba
+
+# Sprawdzenie bazy kont Samby
+sudo pdbedit -L
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-add-user.webp" alt="" width="750" height="360" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📁 Przygotowanie katalogu udziału (<code>/srv/dane</code>)</h2>
+<p>Zanim przejdziemy do pliku konfiguracyjnego Samby, musimy przygotować folder na dysku, który będzie przechowywał udostępniane pliki.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Katalog <code>/srv/</code> w systemie Ubuntu służy do przechowywania danych specyficznych dla usług (serwisów) uruchomionych na komputerze, takich jak pliki stron WWW czy zasoby FTP. Nazwa katalogu pochodzi od angielskiego słowa <span class="color-green">service</span> (serwis/usługa).</p>
+
+</div>
+</div><pre><code class="language-bash">sudo mkdir -p /srv/dane
+sudo chown labamba:labamba /srv/dane
+sudo chmod 700 /srv/dane
+</code></pre>
+<p>Zauważ, że nadaliśmy katalogowi uprawnienia <code>700</code> (<code>drwx------</code>). Oznacza to, że z poziomu systemu operacyjnego tylko jego właściciel – użytkownik <code>labamba</code> – ma prawo do odczytu, zapisu i wykonywania w tym katalogu.</p>
+<p>Sprawdźmy wynik weryfikacji:</p>
+<pre><code class="language-bash">ls -l /srv
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-katalog-na-dane-w-srv.webp" alt="" width="442" height="117" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Pamiętaj! Prawa dostępu do plików w Sambie są wypadkową dwóch warstw: <span class="color-green">uprawnień systemu plików POSIX</span> (czyli <code>chmod</code>/<code>chown</code> w Ubuntu) oraz <span class="color-green">uprawnień zdefiniowanych w konfiguracji Samby</span>. Jeśli w Sambie zezwolisz na zapis, ale na poziomie katalogu w systemie zabronisz tego użytkownikowi, zapis się nie uda!</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📝 Konfiguracja pliku <code>/etc/samba/smb.conf</code></h2>
+<p>Główny plik konfiguracyjny usługi znajduje się w <code>/etc/samba/smb.conf</code>. Zanim zaczniemy w nim grzebać, zróbmy bezpieczną kopię zapasową pliku oryginalnego:</p>
+<pre><code class="language-bash">sudo cp /etc/samba/smb.conf /etc/samba/smb.conf.ori
+</code></pre>
+<p>Otwórzmy plik do edycji w <code>nano</code>:</p>
+<pre><code class="language-bash">sudo nano /etc/samba/smb.conf
+</code></pre>
+<p>No i znowu mamy plik wypełniony komentarzami. Są to dwa typy zakomentowanych linii: poprzez średnik <code>;</code> oraz hasztag <code>#</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-smb.conf.webp" alt="" width="1280" height="799" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>1. Domyślne ustawienia w sekcji globalnej (<code>[global]</code>)</h3>
+<p>W oryginalnym pliku <code>smb.conf</code> sekcja <code>[global]</code> zawiera już domyślne dyrektywy:</p>
+<ul>
+<li><code>workgroup = WORKGROUP</code> – nazwa grupy roboczej w sieci (domyślna dla Windows).</li>
+<li><code>server role = standalone server</code> – serwer działa niezależnie (poza domeną Active Directory).</li>
+<li><code>disable netbios = yes</code> – wyłączenie przestarzałego serwisu NetBIOS <code>nmbd</code>.</li>
+</ul>
+<p>Możemy dodatkowo wzmocnić bezpieczeństwo połączeń SMB, dodając dyrektywy określające wersje protokołu oraz wymuszenie cyfrowego podpisywania:</p>
+<pre><code class="language-ini">[global]
+   workgroup = WORKGROUP
+   server min protocol = SMB2_02
+   server max protocol = SMB3
+   server signing = mandatory
+</code></pre>
+<p><span class="color-green">Co oznaczają te dodane dyrektywy?</span></p>
+<ul>
+<li><code>server min protocol = SMB2_02</code>: wyłącza obsługę przestarzałego i niebezpiecznego protokołu <span class="color-red">SMB1</span> (podatnego na ataki ransomware, takie jak WannaCry).</li>
+<li><code>server max protocol = SMB3</code>: zezwala na nowoczesne, szybkie protokoły SMB2 oraz SMB3.</li>
+<li><code>server signing = mandatory</code>: wymusza cyfrowe podpisywanie pakietów SMB, chroniąc ruch przed przechwyceniem i modyfikacją w sieci.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-smb.conf-global.webp" alt="" width="686" height="242" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>2. Definiowanie udziału sieciowego <code>[DANE]</code></h3>
+<p>Przejdź na sam koniec pliku <code>smb.conf</code> i dopisz własną sekcję dla udziału <code>DANE</code>:</p>
+<pre><code class="language-ini">[DANE]
+    path = /srv/dane
+    valid users = labamba
+    guest ok = no
+    read only = no
+    browsable = yes
+    create mask = 0660
+    directory mask = 0770
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-smb.conf-udział.webp" alt="edytor z sekcją DANE w pliku smb.conf" width="631" height="655" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Rozłóżmy te opcje na czynniki pierwsze:</p>
+<ul>
+<li><code>[DANE]</code>: nazwa zasobu widoczna dla klientów podłączających się przez sieć (np. <code>\\192.168.0.1\DANE</code>).</li>
+<li><code>path = /srv/dane</code>: fizyczna ścieżka do katalogu na serwerze Ubuntu.</li>
+<li><code>valid users = labamba</code>: lista użytkowników uprawnionych do zalogowania się do tego udziału.</li>
+<li><code>guest ok = no</code>: blokuje dostęp anonimowy (bez podawania hasła).</li>
+<li><code>read only = no</code>: zezwala użytkownikowi na zapisywanie i tworzenie nowych plików/katalogów.</li>
+<li><code>browsable = yes</code>: udział będzie widoczny przy przeglądaniu zasobów serwera.</li>
+<li><code>create mask = 0660</code>: nowe pliki tworzone przez użytkowników otrzymają uprawnienia <code>rw-rw----</code>.</li>
+<li><code>directory mask = 0770</code>: nowe katalogi tworzone w udziale otrzymają uprawnienia <code>rwxrwx---</code>.</li>
+</ul>
+<p>Zapisz plik <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>O</kbd></span> i wyjdź <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>X</kbd></span>.</p>
+<hr>
+<h3>3. Weryfikacja składni i restart usług</h3>
+<p>Samba posiada wbudowane narzędzie walidujące plik konfiguracyjny – <code>testparm</code>. Uruchom je, aby sprawdzić, czy nie popełniłeś błędu składniowego:</p>
+<pre><code class="language-bash">sudo testparm -s
+</code></pre>
+<p><code>-s</code> jest zbędne, to zwykły skip na konieczność kliknięcia dodatkowego <kbd>Enter</kbd>.</p>
+<p><code>testparm</code> wypisze przetworzoną konfigurację czystych parametrów. Kluczowe jest pojawienie się komunikatu <code>Loaded services file OK.</code> na górze oraz sekcji <code>[DANE]</code> na dole tabeli.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-test-parm.webp" alt="testparm" width="1018" height="785" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jeśli <code>testparm</code> nie zgłasza żadnych błędów krytycznych, zrestartuj usługę Samby:</p>
+<pre><code class="language-bash">sudo systemctl restart smbd
+</code></pre>
+<p>Sprawdź jej status:</p>
+<pre><code class="language-bash">sudo systemctl status smbd
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐧 Połączenie z poziomu klienta Linux (Ubuntu Desktop)</h2>
+<p>Na maszynie klienckiej <span class="color-green">Ubuntu Desktop 26.04</span> podłączonej do tej samej sieci wewnętrznej (<code>192.168.0.0/24</code>) otwieranie udziałów SMB wykonuje się bezpośrednio w graficznym menedżerze plików (Pliki / Nautilus):</p>
+<ol>
+<li>Otwórz menedżer plików i w pasku nawigacji/adresu wpisz <code>smb://192.168.0.1/DANE</code> i zatwierdź <kbd>Enter</kbd>.</li>
+<li>W oknie logowania wybierz opcję <span class="color-green">Użytkownik zarejestrowany</span> (<span class="color-blue">Registered User</span>), wpisz nazwę użytkownika <code>labamba</code> oraz ustalone wcześniej hasło.</li>
+<li>Dla testu uprawnień utwórz w udziale katalog oraz plik.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-test-udziału-ubuntu-26-desktop.webp" alt="Menedżer plików Ubuntu Desktop połączony z udziałem Samba" width="923" height="1761" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Połączenie z poziomu klienta Windows 11</h2>
+<p>Przejdźmy na drugi komputer kliencki z systemem <span class="color-green">Windows 11</span>.</p>
+<ol>
+<li>Otwarcie udziału w Eksploratorze plików</li>
+</ol>
+<p>Naciśnij skrót klawiszowy <span style="white-space: nowrap;"><kbd>Win</kbd> + <kbd>E</kbd></span>, aby otworzyć okno <span class="color-blue">Eksplorator plików</span>, a następnie wpisz w pasku adresu ścieżkę do zasobu:</p>
+<pre><code class="language-text">\\192.168.0.1\DANE
+</code></pre>
+<ol start="2">
+<li>W oknie logowania <span class="color-green">Wprowadź poświadczenia sieciowe</span> wpisz nazwę użytkownika <code>labamba</code> oraz ustalone wcześniej hasło. <div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+Jeśli Twój komputer w Windows jest zalogowany do konta Microsoft, Windows może próbować wysłać błędny login (np. <code>TwojMail@outlook.com</code>). W takim przypadku w polu użytkownika wpisz <code>.\labamba</code> (kropka i ukośnik wymuszają logowanie na konto lokalne serwera).
+</div>
+</div></li>
+<li>Dla testu uprawnień utwórz w udziale katalog oraz plik.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-test-udziału-windows11.webp" alt="Eksplorator Windows 11 otwarty pod adresem DANE" width="1156" height="1889" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📊 Podgląd aktywnych połączeń SMB (<code>smbstatus</code>)</h2>
+<p>Gdy komputer klienta Windows 11 lub Ubuntu Desktop utrzymuje aktywne połączenie z udziałem, na serwerze możemy w każdej chwili zweryfikować stan sesji sieciowych.</p>
+<p>Służy do tego wbudowane polecenie:</p>
+<pre><code class="language-bash">sudo smbstatus
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/samba-statystyki.webp" alt="wynik smbstatus przy aktywnym połączeniu" width="1095" height="471" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Wynik tego polecenia dostarcza szczegółowych informacji:</p>
+<ul>
+<li><span class="color-green">Samba version</span>: wersja pakietu Samby na serwerze (<code>4.23.6</code>).</li>
+<li><span class="color-green">Username / Group</span>: zidentyfikowany użytkownik (<code>labamba:labamba</code>).</li>
+<li><span class="color-green">Machine</span>: adresy IP podłączonych klientów (np. <code>192.168.0.2</code> oraz <code>192.168.0.4</code>).</li>
+<li><span class="color-green">Protocol Version</span>: wynegocjowana wersja protokołu – w naszym przypadku nowoczesne <code>SMB3_11</code>.</li>
+<li><span class="color-green">Signing</span>: aktywne cyfrowe podpisywanie pakietów (<code>AES-128-GMAC</code>), wynikające z dyrektywy <code>server signing = mandatory</code>.</li>
+<li><span class="color-green">Service / Path</span>: nazwa podpiętego udziału (<code>DANE</code>) oraz ścieżka <code>/srv/dane</code>.</li>
+<li><span class="color-green">Locked files</span>: podgląd otwartych plików i zasobów na serwerze.</li>
+</ul>
+<p>Dodatkowo weryfikacja zawartości katalogu na serwerze przy użyciu <code>ls -l /srv/dane/</code> potwierdza poprawność utworzonych plików i folderów z obu systemów:</p>
+<pre><code class="language-bash">sudo ls -l /srv/dane/
+</code></pre>
+<p>W wyniku widać katalogi <code>test_katalogu_ubuntu</code> i <code>test_katalogu_windows</code> (uprawnienia <code>drwxrwx---+</code> z maski <code>0770</code>) oraz pliki <code>test_pliku_ubuntu.txt</code> i <code>test_pliku_windows.txt</code> (uprawnienia <code>-rw-rw---+</code> z maski <code>0660</code>).</p>
+<hr>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dlaczego unikamy udziałów publicznych (<code>guest ok = yes</code>)?</span><br>W starszych poradnikach często spotkasz się z konfiguracją udziałów anonimowych bez podawania hasła (<code>guest ok = yes</code>). We współczesnych systemach Windows 10/11 oraz nowszych wydaniach Samby anonimowy dostęp jest <span class="color-green">domyślnie zablokowany ze względów bezpieczeństwa</span> przez zasady grupy (<span class="color-blue">AllowInsecureGuestAuth = 0</span>).<br>Próba otwarcia takiego udziału z klienta Windows 11 zakończy się błędem odmowy dostępu. Oprócz całkowitego wycofania protokołu SMB1, Microsoft znacząco zaostrzył politykę bezpieczeństwa, wymuszając logowanie nazwanym kontem użytkownika i cyfrowe podpisywanie pakietów.</p>
+
+</div>
+</div><hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Użytkownik Samby musi posiadać dwa konta: konto w systemie Linux (<code>adduser</code>) oraz wpis w bazie haseł Samby (<code>smbpasswd -a</code>).</li>
+<li>Dostęp do plików jest kontrolowany dwupoziomowo: przez konfigurację udziału w <code>smb.conf</code> oraz przez uprawnienia systemu plików POSIX w Ubuntu.</li>
+<li>Zawsze wyłączaj przestarzałe protokoły, ustawiając <code>server min protocol = SMB2_02</code> w sekcji <code>[global]</code>.</li>
+<li>Pamiętaj, że najnowsze systemy Windows 11 blokują anonimowe połączenia gościa (<code>guest ok = yes</code>), wymagając uwierzytelniania kontem.</li>
+<li>Do testowania i diagnostyki używaj <code>testparm</code> (składnia) oraz <code>smbstatus</code> (aktywne sesje). Na klientach używaj menedżera plików GUI w Ubuntu Desktop lub <code>net use</code> / Eksploratora plików w Windows 11.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

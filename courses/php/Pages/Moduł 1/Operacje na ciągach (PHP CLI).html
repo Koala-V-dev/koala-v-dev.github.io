@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Operacje na ciągach (PHP CLI) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: PHP uruchomione w XAMPP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Algorytmy sortowania"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Algorytmy%20sortowania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy sortowania</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Operacje na ciągach (PHP CLI)</h1>
+<p>Zanim przejdziemy do ciągów, to czy wiedziałeś że PHP pozwala na wprowadzanie danych przez terminal?  </p>
+<p>Realizujemy to poprzez funkcję <code>readline()</code>:</p>
+<pre><code class="language-php">$input = readline("Jak się nazywasz?: ");
+echo 'Cześć, &lt;span class="wynik"&gt;' . $input . "&lt;/span&gt;!";
+</code></pre>
+<p>Gdy odświeżysz stronę na serwerze zobaczysz że coś się przetwarza. Przeglądarka wysłała zapytanie do serwera i czeka na odpowiedź. Natomiast na serwerze PHP wyświetlił komunikat z <code>readline()</code> i czeka aż wprowadzisz dane.<br>Gdy to nastąpi dopiero wtedy przeglądarka uzyska przetworzoną przez PHP odpowiedź.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-CLI-readline.webp" alt="Prezentacja działania readline" width="1851" height="986" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<section class="lesson-section" data-lesson-section="true"><h2>Czym jest ciąg</h2>
+<p>Ciąg to zestawienie danych jeden po drugim. Mamy wiele rodzaji ciągów:</p>
+<ul>
+<li><span class="color-gold">Ciąg znaków</span> czyli dobrze ci znany <span class="color-green"><code>string</code></span>. Wynik <span class="color-blue">"Halo!"</span> to zestawienie znaków <span class="color-blue">'H', 'a', 'l', 'o', '!'</span></li>
+<li><span class="color-gold">Ciąg liczb</span>:<ul>
+<li><span class="color-green">Ciąg arytmetyczny</span> to liczby które powstają poprzez dodawanie stałej wartości do poprzedniego elementu. Przykład: 1,2,3,4,5</li>
+<li><span class="color-green">Ciąg geometryczny</span> to liczby które powstają poprzez mnożenie stałej wartości przez poprzedni element. Przykład: 1,2,4,8,16</li>
+</ul>
+</li>
+<li><span class="color-gold">Ciąg fibbonaciego</span> to liczby które powstają poprzez dodawanie dwóch poprzednich elementów. Przykład: 1,1,2,3,5,8,13,21,34...</li>
+</ul>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Operacje na ciągach znaków</h2>
+<p>Wiedząc że <code>string</code> jest ciągiem znaków to możemy go potraktować jako tablicę elementów.</p>
+<p>Przepiszmy więc <code>"Memento mori"</code> jako tablicę. Przyda nam się poznać długość tego ciągu i z pomocą przychodzi nam funkcja <code>strlen()</code>:</p>
+<pre><code class="language-php">$word = "Memento mori";
+$tab = [];
+
+for($i = 0; $i &lt; strlen($word); $i++){
+    $tab[] = $word[$i];
+}
+
+print_r($tab);
+</code></pre>
+<p>No dobrze, skoro umiesz już poruszać się po znakach w ciągu to poznajmy wartość tego odwróconego zdania:<br><span class="color-blue">!oetaM ,tluv sueD .ątsimargorp ćatsoz zsisuM</span></p>
+<pre><code class="language-php">$word = "!oetaM ,tluv sueD .ątsimargorp ćatsoz zsisuM";
+$tab = [];
+$newWord = "";
+for($i = strlen($word)-1; $i &gt;=0; $i--){
+    $newWord .= $word[$i];
+}
+
+echo $newWord;
+</code></pre>
+<p>Jak widzisz na ponirzym obrazu coś poszło nie tak. Mimo że mamy zadeklarowane <code>&lt;meta charset="UTF-8"&gt;</code> to wynik posiada błędne znaczki dla polskich liter (<code>ć</code> i <code>ą</code>).</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/odwracanie_stringa.webp" alt="" width="1856" height="714" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Chodzi o to że znaki specjalne i emoji są deklarowane na kilku bitach i wychodzą poza standard <span class="color-green">ASCI</span> (<span class="color-blue">American Standard Code for Information Interchange</span>) które to pierwotnie miały tylko $8 \text{ bitów}$ ($256$ znaków). Dlatego do poprawnej zabawy stringami w polskim języku powinniśmy się posługiwać funkcjami <span class="color-green">MB</span> (<span class="color-blue">Multibyte</span>).</p>
+<h3>Biblioteka <code>mb_string</code></h3>
+<p>To moduł php pozwalający na poprawną interpretacją znaków wielobajtowych. Standardowe funkcje string operują nie tyle co na znakach a na bajtach co jest szybsze. Niestety wiąże się to z zwracaniem śmieciowych wartości gdy konwersji dokonamy na znakach diagretycznych lub z alfabetu chińskiego lub japońskiego albo arabskiego. Te specjalne nie amerykańskie znaki potrzebują do zapisu od $2$ do $4$ bajtów. To samo tyczy się emoji.</p>
+<h3>Wsparcie dla <code>mbstring</code></h3>
+<p>Zakomentuj na razie kod PHP i wywołaj przez <code>echo</code> funkcję <code>phpinfo()</code>. Następnie wyszukaj frazy <span class="color-blue">Multibyte decoding support using mbstring</span> i sprawdź czy jest włączona <span class="color-green"><code>enabled</code></span>:</p>
+<p>Gdy wartość bedzie tak jak na obrazku <span class="color-red"><code>disabled</code></span>, to bedziesz musiał dokonać modyfikacji w pliku <code>php.ini</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php_info_mbstring.webp" alt="" width="1827" height="658" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Przy standardowej instalacji XAMPP ten plik znajduje się w <code>C:/xampp/php/php.ini</code>.<br>Otwórz go w dowolnym edytorze i wyszukaj frazy <code>mbstring</code>.</p>
+<p>Tak jak na obrazku wystarczy usunąć średnik <code>;</code> na początku linii:</p>
+<pre><code class="language-ini">;extension=mbstring
+</code></pre>
+<p>do formy:</p>
+<pre><code class="language-ini">extension=mbstring
+</code></pre>
+<p>Następnie uruchom ponownie serwer Apache lub gdy pracujesz w lepszej formie, czyli zakończ działanie serwera PHP <span style="text-wrap: nowrap;"> <kbd>Ctrl</kbd> + <kbd>C</kbd> </span> w konsoli terminalu i uruchom go ponownie:</p>
+<pre><code class="language-ps">php -S 127.0.0.1:8080
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php.ini-mbstring-extension.webp" alt="" width="1075" height="250" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>Metody <code>mb_string</code></h3>
+<p>Skoro mamy włączone wsparcie dla biblioteki mbstring, możemy teraz poprawnie zrealizować odwracanie zdania:</p>
+<pre><code class="language-php">$word = "!oetaM ,tluv sueD .ątsimargorp ćatsoz zsisuM";
+$tab = [];
+$newWord = "";
+echo '$word ma w strlen: ' . strlen($word) . " znaków\n";
+echo '$word ma w mb_strlen: ' . mb_strlen($word) . " znaków\n";
+
+for ($i = mb_strlen($word) - 1; $i &gt;= 0; $i--) {
+    $newWord .= mb_substr($word, $i, 1);
+
+    echo "&lt;code&gt;" . mb_substr($word, $i, 1) . "&lt;/code&gt;";
+}
+echo "\n";
+echo $newWord;
+</code></pre>
+<p>Jak widać z pierwszego testu na $44$ znaki łącznie z spacjami standardowa funkcja <code>strlen()</code> zwróciła wartość $46$ znaków a bardziej $46 \text{ bajtów}$. Natomiast funkcja <code>mb_strlen()</code> zwróciła prawidłową wartość <span class="color-green">$44 \text{ znaki}$</span>.</p>
+<p>Drugą funkcją z biblioteki <code>mbstring</code> którą użyto to <code>mb_substr()</code>:</p>
+<pre><code class="language-php">mb_substr(
+    string $string, // Zmienna typu string
+    int $start, // Początkowa pozycja od której ma zostać wycięta i zwrócona fraza
+    ?int $length = null, // [?- Opcjonalnie] Długość frazy, domyślnie do końca stringa
+    ?string $encoding = null // [?- Opcjonalnie] Kodowanie znaków, domyślnie ustawione w pliku php.ini: default_charset="UTF-8"
+): string|false // Zwraca frazę lub false w przypadku błędu
+</code></pre>
+<p>W tym kodzie zostało użyte <code>mb_substr($word, $i, 1);</code>, co oznacza że z zmiennej <code>$word</code> zostaje wycięty znak o indeksie <code>$i</code> i długości $1$.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/mb_string_testy.webp" alt="" width="1852" height="948" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Ciąg arytmetyczny</h2>
+<p>Ciąg arytmetyczny to funkcja matematyczna która dla stałego $d$ (różnicy ciągu) definiuje się następująco:</p>
+<p>$$ x_n = x_0 + n \cdot d $$</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>W literaturze polskiej często używa się symbolu $r$ jako różnicy ciągu. Jednak zgodnie z notacją algorytmiczną, a co za tym idzie anglosaską bierzemy $d$ od słowa <span class="color-blue">difference</span>.</p>
+
+</div>
+</div><p>Na przykładzie ciągu z $x_0 = 1$ i $d = 2$ wygląda on tak:<br>$$\begin{align*}x_1 &amp;= 1 + 1 \cdot 2 = 3\\x_2 &amp;= 1 + 2 \cdot 2 = 5\\x_3 &amp;= 1 + 3 \cdot 2 = 7\\\end{align*}$$</p>
+<p>Napiszmy funkcję PHP, która przyjmuje parametry $a_0$, $d$ oraz $n$ i zwraca $n$ w formie listy nieuporządkowanej <code>&lt;ul&gt;</code>, działania i wynik kolejnych $n$ wyrazów ciągu arytmetycznego.<br>Dodatkowo parametry podamy w konsoli przy użyciu <code>readline()</code>: </p>
+<p>Przykładowe rozwiązanie może wyglądać tak:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/brak-rzutowania-stringa-na-float.webp" alt="" width="1849" height="945" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak pewnie widzisz na obrazku kod nie działa. Wywaliło error. Nasza funkcja oczekiwała wartości liczbowych:</p>
+<pre><code class="language-php">function ciagArytmetyczny(float $a, float $d, int $n) : void
+</code></pre>
+<p>Natomiast przy użyciu  <code>readline()</code> do zmiennych została przekazane wartości typu <span class="color-green">string</span>. To że to nie są liczby widać po tekście w konsoli: to słowa otoczone są apostrofami.</p>
+<pre><code class="language-ps">#0 C:\Projekty kursu\php\index.php(51): ciagArytmetyczny('.6', '2', '6')
+</code></pre>
+<p>Z pomocą przychodzi nam rzutowanie zmiennych. Oczekujemy wartości o określonym typie, wiec wystarczy ten typ zapisać w nawiasach przed zmienną lub funkcją. Rzutować możęmy na:</p>
+<ul>
+<li><code>(int)</code>: <code>$x = (int) '5';</code> → <code>$x = 5;</code></li>
+<li><code>(float)</code>: <code>$x = (float) '5.5';</code> → <code>$x = 5.5;</code></li>
+<li><code>(string)</code>: <code>$x = (string) 5;</code> → <code>$x = "5";</code></li>
+<li><code>(bool)</code>: <code>$x = (bool) 1;</code> → <code>$x = true;</code></li>
+<li><code>(array)</code>: <code>$x = (array) 1;</code> → <code>$x = [1];</code></li>
+<li><code>(object)</code>: <code>$x = (object) 1;</code> → <code>$x = (object) [1];</code></li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>W PHP 8+ zdepresjonowano pełne nazwy podstawowych typów zmiennych ( intiger, boolean) nie ma też sensu używać aliasów dla float czyli double czy real. Ponadto (unset) nie jest już wspierane (Wali SyntaxErrorem).</p>
+
+</div>
+</div><p>Gdy dodano poprawne rzutowanie na oczekiwane zmienne wszystko zadziałało:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/ciąg_arytmetyczny-w-php.webp" alt="" width="1852" height="952" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<pre><code class="language-php">/**
+ * Przyjmuje parametry i wyświetla n wyników działań arytmetycznych ciągu
+ *
+ * @param float $a Wartość bazowa ciągu
+ * @param float $d Różnica ciągu
+ * @param integer $n Ilość wyrazów ciągu do wyświetlenia
+ * @return void W miejscu wywołania pojawi się lista ul html 
+ */
+function ciagArytmetyczny(float $a, float $d, int $n) : void {
+    echo "&lt;ul&gt;";
+    for($i=0; $i &lt; $n; $i++){
+        echo "&lt;li&gt;x&lt;sub&gt;" . $i . "&lt;/sub&gt; = " . $a . " + " . $i . " &amp;#xD7 " . $d . " = ";
+        echo $a + $i * $d;
+        echo "&lt;/li&gt;";
+    }
+    echo "&lt;/ul&gt;";
+}
+$a = (float)readline("Podaj wartość pierwszego wyrazu ciągu arytmetycznego: ");
+$d = (float)readline("Podaj wartość różnicy ciągu: ");
+$n = (int)readline("Ile wyrazów chcesz by ci podać?: ");
+ciagArytmetyczny($a, $d, $n);
+</code></pre>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Ciąg geometryczny</h2>
+<p>Ciąg geometryczny to funkcja matematyczna która dla stałego $r$ (ilorazu ciągu) definiuje się następująco:</p>
+<p>$$ x_n = x_0 \cdot r^n $$</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zgodnie z notacją anglosaską i algorytmiczną, używamy symbolu $r$ od słowa <span class="color-blue">ratio</span> (stosunek/iloraz). W polskiej literaturze matematycznej w tym miejscu spotkasz literę $q$ (od łacińskiego <span class="color-blue">quotient</span> - iloraz). Pamiętaj, aby nie pomylić angielskiego <span class="color-green">$r$</span> (<span class="color-green">ratio</span> - stosunek) z polskim <span class="color-red">$r$</span> (<span class="color-red">różnica</span>) stosowanym przy ciągu arytmetycznym!</p>
+
+</div>
+</div><p>$$ \begin{align*} x_1 &amp;= 1 \cdot 2^1 = 2\\ x_2 &amp;= 1 \cdot 2^2 = 4\\ x_3 &amp;= 1 \cdot 2^3 = 8\\ \end{align*} $$</p>
+<pre><code class="language-php">/**
+ * Przyjmuje parametry i wyświetla n wyników działań geometrycznych ciągu
+ *
+ * @param float $a Wartość bazowa ciągu
+ * @param float $r Stosunek ciągu
+ * @param integer $n Ilość wyrazów ciągu do wyświetlenia
+ * @return void W miejscu wywołania pojawi się lista ul html 
+ */
+function ciagGeometryczny(float $a, float $r, int $n) : void {
+    echo "&lt;ul&gt;";
+    for($i=0; $i &lt; $n; $i++){
+        echo "&lt;li&gt;x&lt;sub&gt;" . $i . "&lt;/sub&gt; = " . $a . " &amp;#xD7 " . $r . "&lt;sup&gt;" . $i . "&lt;/sup&gt;" . " = ";
+        echo $a * $r**$i;
+        echo "&lt;/li&gt;";
+    }
+    echo "&lt;/ul&gt;";
+
+}
+
+$a = (float)readline("Podaj wartość pierwszego wyrazu ciągu geometrycznego: ");
+$r = (float)readline("Podaj stosunek ciągu: ");
+$n = (int)readline("Ile chcesz bym ci podał wyrazów?: ");
+
+ciagGeometryczny($a, $r, $n);
+</code></pre>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Ciąg fibonacciego</h2>
+<p>Rozgrzany? No to lecimy z klasyką, ciąg fibonacciego. Zdefiniujmy go najpierw matematycznie:</p>
+<p>$$ Fib = \begin{cases} x_0 = 0 \\ x_1 = 1 \\ x_n = x_{n-1} + x_{n-2} &amp; \text{dla } n \geq 2 \end{cases} $$</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>W literaturze istnieją dwa popularne sposoby definiowania początkowych wyrazów ciągu Fibonacciego:</p>
+<ul>
+<li><span class="color-green">$x_0 = 0,\; x_1 = 1$</span> — definicja algorytmiczna, powszechnie stosowana w informatyce.</li>
+<li><span class="color-blue">$x_1 = 1,\; x_2 = 1$</span> — definicja matematyczna, często spotykana w podręcznikach.<br>Często spotkasz się z zapisami jako wartości początkowe $[0, 1]$ lub $[1, 1]$ oznaczają to samo, ale ten sens pojawia się dopiero w odniesieniu do szeregu $x_n$.</li>
+</ul>
+
+</div>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/Fibonacci_Copilot_20260804_160311.webp" alt="" width="1536" height="1024" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<details>
+  <summary>Rozwiązanie</summary>
+
+<pre><code class="language-php">/**
+ * Zwraca tablicę n-elementowych z kolejnymi wartościami ciągu Fibonacciego
+ *
+ * @param integer $n Rozmiar tablicy / ilość wyrazów ciągu
+ * @return array Tablica z kolejnymi wyrazami ciągu
+ */
+function fib(int $n) : array {
+    $fib=[1,1];
+    for($i=1;$i&lt;$n-1;$i++){
+        $fib[]=$fib[$i]+$fib[$i-1];
+    }
+    return $fib;
+}
+
+$n = (int)readline("Podaj ile chcesz wyrazów ciągu Fibonacciego: ");
+
+foreach(fib($n) as $key =&gt; $el){
+    if($key % 5 == 0){
+        echo "\n";
+    }
+    echo $el . "\t";
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/fibonacci.webp" alt="" width="1850" height="904" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</details></section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

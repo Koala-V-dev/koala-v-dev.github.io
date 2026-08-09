@@ -1,52 +1,60 @@
-# M4-01 - Reguła testowa UFW
+# M4-01 - Wymiana reguły SSH bez utraty dostępu
 
 Typ: `terminal-mission`
 
-Cel: sprawdzić, czy uczeń rozumie cykl dodania, audytu i usunięcia reguły zapory.
+Cel: Zastąpić nieaktualną regułę SSH bez tworzenia przerwy w dostępie administracyjnym i bez naruszenia pozostałych reguł zapory.
 
-<data-terminal-mission-scenario id="m4-01-regula-testowa-ufw" title="Reguła testowa UFW">
+<data-terminal-mission-scenario id="m4-01-regula-testowa-ufw" title="Wymiana reguły SSH">
   <world user="egzamin" host="ubuntu" cwd="/home/egzamin" default-mtime="1999-05-30 21:37">
     <dir path="/home/egzamin"></dir>
+    <firewall enabled="true">
+      <rule action="allow" target="from 192.168.50.30 to any port 22 proto tcp"></rule>
+      <rule action="allow" target="443/tcp"></rule>
+    </firewall>
   </world>
 
-  <brief>Włącz zaporę UFW, dodaj regułę testową `allow 22/tcp`, potwierdź ją w statusie, a potem usuń. Na końcu zapora ma być aktywna bez reguły testowej.</brief>
+  <brief>VM1 otrzymała nowy adres `192.168.50.10`. Aktywna zapora VM2 nadal zezwala na SSH ze starego adresu `192.168.50.30`. Serwis HTTPS na `443/tcp` musi pozostać dostępny.<br><br>Zmień zakres dostępu SSH bez chwili, w której nie istnieje żadna poprawna reguła administracyjna. Usuń nieaktualny wpis po numerze z bieżącej listy.</brief>
 
-  <objective>Doprowadź system do stanu:
+  <objective>Doprowadź zaporę do stanu:
 
-- UFW jest aktywne,
-- reguła `allow 22/tcp` została dodana i była widoczna w terminalu,
-- reguła `allow 22/tcp` została usunięta,
-- końcowy status zapory został sprawdzony.</objective>
+- UFW pozostaje aktywne,
+- SSH jest dozwolone z `192.168.50.10`,
+- reguła SSH dla `192.168.50.30` nie istnieje,
+- reguła `443/tcp` pozostaje bez zmian,
+- stan końcowy został sprawdzony.</objective>
 
   <assessment min-evidence="2">
-    <evidence id="manual-or-status" label="Sprawdzono składnię albo stan początkowy UFW.">
-      <expect history-command-contains="ufw status"></expect>
-      <nudge after="45s">Zacznij od `sudo ufw status`, żeby wiedzieć, od jakiego stanu startujesz.</nudge>
+    <evidence id="initial-audit" label="Przed zmianą wyświetlono numerowaną listę wszystkich reguł.">
+      <expect history-command-order="ufw status numbered;ufw allow from 192.168.50.10"></expect>
     </evidence>
 
-    <evidence id="rule-observed" label="Reguła `22/tcp` była widoczna w statusie.">
-      <expect history-contains="22/tcp,ALLOW"></expect>
-      <nudge after="45s">Po dodaniu reguły uruchom `sudo ufw status`, żeby ją zobaczyć.</nudge>
+    <evidence id="safe-replacement" label="Nową regułę SSH dodano przed usunięciem starej.">
+      <expect history-command-order="ufw allow from 192.168.50.10 to any port 22 proto tcp;ufw delete"></expect>
     </evidence>
 
-    <condition id="firewall-enabled" label="Zapora UFW jest aktywna.">
+    <condition id="firewall-enabled" label="Zapora UFW pozostaje aktywna.">
       <expect ufw-enabled="true"></expect>
-      <nudge after="45s">Zapora ma być włączona przez `sudo ufw enable`.</nudge>
     </condition>
 
-    <condition id="test-rule-removed" label="Reguła testowa `allow 22/tcp` nie istnieje w stanie końcowym.">
-      <expect ufw-rule-missing="allow:22/tcp" history-command-contains="ufw delete allow 22/tcp"></expect>
-      <nudge after="45s">Regułę testową usuń przez `sudo ufw delete allow 22/tcp`.</nudge>
+    <condition id="new-ssh-rule" label="SSH jest dozwolone z nowego adresu VM1.">
+      <expect ufw-rule="allow:from 192.168.50.10 to any port 22 proto tcp"></expect>
     </condition>
 
-    <audit id="final-status" label="W terminalu widać końcowy status aktywnej zapory.">
-      <expect history-command-contains="ufw status" history-contains="Status: active"></expect>
-      <nudge after="45s">Po usunięciu reguły jeszcze raz sprawdź `sudo ufw status`.</nudge>
+    <condition id="old-ssh-rule-removed" label="Nieaktualna reguła SSH została usunięta.">
+      <expect ufw-rule-missing="allow:from 192.168.50.30 to any port 22 proto tcp" history-command-pattern="ufw delete"></expect>
+    </condition>
+
+    <condition id="https-preserved" label="Reguła HTTPS pozostała bez zmian.">
+      <expect ufw-rule="allow:443/tcp"></expect>
+    </condition>
+
+    <audit id="final-status" label="Po usunięciu starej reguły ponownie sprawdzono numerowaną listę.">
+      <expect history-command-order="ufw delete;ufw status numbered" history-contains="Status: active,22/tcp,192.168.50.10,443/tcp"></expect>
     </audit>
   </assessment>
 
   <summary>
-    <item>Misja zaliczona: UFW jest aktywne, a reguła testowa została usunięta po audycie.</item>
-    <item>Najważniejszy wzorzec: regułę zapory dodajesz, sprawdzasz i sprzątasz, jeżeli była tylko testem.</item>
+    <item>Misja zaliczona: nowy adres VM1 ma dostęp do SSH, a stary wpis został usunięty.</item>
+    <item>Reguła HTTPS pozostała bez zmian. Nowe zezwolenie SSH powstało przed usunięciem poprzedniego.</item>
   </summary>
 </data-terminal-mission-scenario>

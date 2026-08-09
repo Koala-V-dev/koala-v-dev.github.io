@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Warstwa fizyczna i łącza danych - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Warstwa fizyczna i łącza danych</h1>
+<p>Dioda portu świeci, ale komputer nadal nie odbiera danych. Czy przewód działa? Czy przełącznik wie, gdzie wysłać ramkę? A może te dwa pytania dotyczą innych dowodów?</p>
+<p>W poprzedniej lekcji model OSI pomagał ograniczyć wniosek. Teraz zastosujesz tę regułę na styku warstwy fizycznej i łącza danych. Po lekcji odróżnisz stan łącza od poprawnej wymiany ramek oraz przewidzisz decyzję przełącznika po każdej odebranej ramce.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw przewidź dwa skutki</h2>
+<p>Trzy komputery są podłączone do jednego przełącznika:</p>
+<pre><code class="language-text">port 1: komputer A, MAC A1:A1:A1:A1:A1:A1
+port 2: komputer B, MAC B2:B2:B2:B2:B2:B2
+port 3: komputer C, MAC C3:C3:C3:C3:C3:C3
+</code></pre>
+<p>Przełącznik ma tylko jeden wpis:</p>
+<pre><code class="language-text">A1:A1:A1:A1:A1:A1 -&gt; port 1
+</code></pre>
+<p>Komputer B wysyła z portu 2 ramkę do komputera A.</p>
+<p>Zapisz dwie odpowiedzi:</p>
+<ol>
+<li>Jaki wpis pojawi się w tablicy przełącznika?</li>
+<li>Którym portem ramka opuści przełącznik?</li>
+</ol>
+<p>Jeśli w obu odpowiedziach użyłeś adresu docelowego, połączyłeś dwie różne decyzje. Źródło zmienia tablicę, a cel wybiera dalszą drogę.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔌 Stan łącza nie jest stanem ramki</h2>
+<p>Warstwa fizyczna przenosi sygnał. Wcześniej rozdzieliłeś bit, symbol i mierzalne zjawisko fizyczne. Ethernet może wykorzystywać skrętkę, światłowód lub inne media. Jego część fizyczna, nazywana <span class="color-green">PHY</span>, określa sposób kodowania i odbioru sygnału.</p>
+<p>Warstwa łącza otrzymuje z niższego poziomu odtworzony strumień i rozpoznaje w nim <span class="color-green">ramki</span>. Ramka ma granice oraz informacje sterujące potrzebne do lokalnej wymiany.</p>
+<p>Dlatego obserwacje tworzą kolejne, coraz mocniejsze dowody:</p>
+<pre><code class="language-text">wykryty stan łącza
+    ↓
+odebrano strumień możliwy do zdekodowania
+    ↓
+rozpoznano poprawną ramkę
+    ↓
+wykonano decyzję przekazania
+</code></pre>
+<p>Czytaj sekwencję od góry. Każdy niższy krok wymaga czegoś więcej. Świecąca dioda nie potwierdza, że przełącznik odebrał poprawną ramkę. Poprawna ramka nie potwierdza z kolei działania IP ani aplikacji.</p>
+<p><strong><span class="color-green">Stan <code>link up</code> jest dowodem fizycznym o ograniczonym zakresie.</span></strong> Nie zamieniaj go w ogólne „połączenie działa”.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Ramka daje przełącznikowi dwa różne adresy</h2>
+<p>Do ćwiczenia z przełączaniem wystarczy uproszczony obraz ramki Ethernet:</p>
+<pre><code class="language-text">[ adres docelowy | adres źródłowy | typ/długość | dane | FCS ]
+</code></pre>
+<ul>
+<li><span class="color-green">Adres docelowy</span> mówi, do którego odbiorcy lub grupy jest skierowana ramka.</li>
+<li><span class="color-green">Adres źródłowy</span> wskazuje nadawcę tej ramki.</li>
+<li><span class="color-blue">Typ lub długość</span> pomaga zinterpretować dalszą zawartość zgodnie z użytym formatem.</li>
+<li><span class="color-green">FCS</span> zawiera wynik cyklicznej kontroli nadmiarowej, czyli CRC. Odbiornik wykonuje to samo obliczenie i może wykryć, że odebrane bity nie tworzą poprawnej ramki.</li>
+</ul>
+<p>FCS wykrywa uszkodzenie. Nie naprawia ramki i nie nakazuje Ethernetowi ponownej transmisji. Ewentualne odzyskanie danych zależy od innych mechanizmów.</p>
+<p>Adresy używane w typowym Ethernecie mają 48 bitów. Zapis <code>A1:A1:A1:A1:A1:A1</code> jest wygodny w symulacji, lecz nie służy do rozpoznawania producenta. Współczesne zasady przydziału obejmują różne długości prefiksów, adresy lokalnie administrowane oraz adresy zmieniane dla prywatności. Reguła „pierwsze trzy oktety zawsze oznaczają producenta” jest zbyt szeroka.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔀 Uczenie i przekazywanie to osobne kroki</h2>
+<p>Przełącznik odbiera ramkę na jednym porcie. Następnie wykonuje uproszczoną sekwencję:</p>
+<ol>
+<li>Sprawdza, czy ramka nadaje się do dalszego przetwarzania.</li>
+<li>Uczy się <span class="color-green">adresu źródłowego</span> i wiąże go z portem wejściowym.</li>
+<li>Szuka <span class="color-green">adresu docelowego</span> w tablicy przekazywania.</li>
+<li>Przekazuje, zalewa albo filtruje ramkę zależnie od wyniku wyszukiwania.</li>
+</ol>
+<p>W ćwiczeniach zakładamy jeden lokalny segment logiczny, wszystkie porty w stanie przekazywania i brak dodatkowych polityk. Prawdziwy przełącznik uwzględnia także podział na logiczne segmenty nazywane VLAN‑ami oraz stan portu.</p>
+<h3>🎯 Cel znany na innym porcie</h3>
+<p>Jeśli tablica wskazuje port celu, przełącznik wysyła ramkę przez ten port. Nie kopiuje jej bez potrzeby na pozostałe porty.</p>
+<pre><code class="language-text">ramka wchodzi portem 2: źródło B, cel A
+tablica przed: A -&gt; port 1
+
+uczenie: B -&gt; port 2
+wyszukanie celu: A -&gt; port 1
+działanie: przekaż portem 1
+</code></pre>
+<p>To rozwiązanie początkowego problemu. Adres źródłowy B zmienił tablicę. Adres docelowy A wybrał port wyjściowy.</p>
+<h3>🌊 Cel jeszcze nieznany</h3>
+<p><span class="color-green">Unicast</span> oznacza ramkę skierowaną do jednego odbiorcy. Jeśli jej docelowego adresu nie ma w tablicy, przełącznik nie zna jednego właściwego portu. W typowym działaniu wysyła kopię na uprawnione porty tego samego segmentu poza portem wejściowym. To <span class="color-green">zalewanie nieznanego unicastu</span>.</p>
+<p>Zalewanie nie oznacza awarii. Pozwala dotrzeć do celu, zanim przełącznik nauczy się jego położenia.</p>
+<pre><code class="language-text">ramka wchodzi portem 1: źródło A, cel B
+tablica przed: pusta
+
+uczenie: A -&gt; port 1
+wyszukanie celu: brak B
+działanie: wyślij kopie portami 2 i 3
+</code></pre>
+<p>Komputer B może przyjąć ramkę. Komputer C zobaczy ją na swoim łączu, lecz jego interfejs nie powinien przekazać wyżej ramki skierowanej wyłącznie do B.</p>
+<p>Przełącznik nie uczy się położenia B z pola docelowego. Nauczy się go dopiero po odebraniu ramki, w której B wystąpi jako źródło.</p>
+<h3>🚫 Cel znany na porcie wejściowym</h3>
+<p>Kilka urządzeń może znajdować się za tym samym portem, na przykład za kolejnym przełącznikiem. Jeśli cel i źródło są znane przez port wejściowy, wysłanie ramki z powrotem tym portem nie ma sensu. Przełącznik filtruje taką ramkę.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Tablica opisuje ostatnio zaobserwowane źródła</h2>
+<p>Dynamiczny wpis nie jest wieczystą prawdą o sieci. Urządzenie może zostać przepięte, a nieużywany wpis może się zestarzeć.</p>
+<p>Gdy przełącznik odbierze ramkę z już znanego źródła na innym porcie, aktualizuje powiązanie. Czas starzenia zależy od standardu, urządzenia i konfiguracji. Nie używaj liczby 300 sekund jako prawa Ethernetu.</p>
+<p>Adres rozgłoszeniowy <code>FF:FF:FF:FF:FF:FF</code> jest adresem docelowym grupy. Przełącznik nie uczy się go jako źródła przypisanego do portu. W uproszczonej sieci rozsyła ramkę rozgłoszeniową na pozostałe uprawnione porty.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: źródło zmienia port</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Tablica zawiera wpisy A → port 1 oraz B → port 2. Ramka ze źródłem A i celem B przychodzi teraz portem 3. Co zrobi przełącznik w opisanym uproszczonym modelu?</p>
+</question>
+    <options>
+      <option><p>Wyśle ramkę portem 1, ponieważ stary wpis A wskazuje ten port.</p>
+</option>
+      <option correct=""><p>Zaktualizuje A → port 3, a następnie wyśle ramkę do B portem 2.</p>
+</option>
+      <option><p>Zapisze B → port 3, ponieważ adres docelowy służy do uczenia tablicy.</p>
+</option>
+      <option><p>Zaleje wszystkie porty, ponieważ każda zmiana portu źródła usuwa całą tablicę.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Rozdziel dwa pola ramki. Źródło aktualizuje tablicę na podstawie portu wejściowego. Cel służy do wyboru portu wyjściowego.</p>
+</div>
+    <div data-hint="success"><p>Przełącznik obserwuje A jako źródło na porcie 3, więc aktualizuje wpis. Znany cel B nadal wskazuje port 2 i tam trafia ramka.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Przeprowadź trzy ramki przez przełącznik</h2>
+<p>Przełącznik ma pustą tablicę. Komputery A, B i C są podłączone odpowiednio do portów 1, 2 i 3. Wszystkie należą do jednego segmentu logicznego.</p>
+<p>Przetwórz kolejno:</p>
+<pre><code class="language-text">1. A wysyła ramkę do B.
+2. B odpowiada ramką do A.
+3. C wysyła ramkę do B.
+</code></pre>
+<p>Dla każdej ramki zapisz:</p>
+<ol>
+<li>port wejściowy;</li>
+<li>wpis dodany albo zaktualizowany na podstawie źródła;</li>
+<li>wynik wyszukania celu;</li>
+<li>port lub porty wyjściowe;</li>
+<li>pełną tablicę po wykonaniu decyzji.</li>
+</ol>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>po pierwszej ramce tablica zna A, ale jeszcze nie zna B;</li>
+<li>pierwsza ramka jest zalewana portami 2 i 3;</li>
+<li>odpowiedź B uczy przełącznik wpisu B i trafia tylko portem 1;</li>
+<li>trzecia ramka uczy wpisu C i trafia do znanego B tylko portem 2;</li>
+<li>potrafisz wyjaśnić, dlaczego odebranie ramki przez niezamierzony port podczas zalewania nie oznacza, że każdy host przyjmie ją do dalszego przetwarzania.</li>
+</ul>
+<p>Zmień teraz jeden warunek: przed trzecią ramką usuń wpis B wskutek starzenia. Oblicz ponownie tylko krok trzeci. Jeśli wynik się nie zmienił, wróć do różnicy między znanym i nieznanym celem.</p>
+<details>
+<summary>Sprawdź rozwiązanie po zapisaniu wszystkich stanów</summary>
+
+<ol>
+<li><code>A → B</code> wchodzi portem 1. Przełącznik zapisuje <code>A → 1</code>. Nie zna B, więc wysyła kopie portami 2 i 3.</li>
+<li><code>B → A</code> wchodzi portem 2. Przełącznik zapisuje <code>B → 2</code>. Zna A, więc wysyła ramkę tylko portem 1.</li>
+<li><code>C → B</code> wchodzi portem 3. Przełącznik zapisuje <code>C → 3</code>. Zna B, więc wysyła ramkę tylko portem 2.</li>
+</ol>
+<p>Po trzech krokach tablica zawiera <code>A → 1</code>, <code>B → 2</code> oraz <code>C → 3</code>.</p>
+<p>Jeżeli wpis B zestarzał się przed krokiem trzecim, cel jest ponownie nieznany. Ramka <code>C → B</code> zostaje wtedy wysłana portami 1 i 2, a tablica po tej ramce nadal nie odzyska wpisu B. B musi pojawić się jako źródło kolejnej odebranej ramki.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Stan łącza i poprawna ramka są różnymi dowodami.</span> <code>Link up</code> nie potwierdza dostarczenia danych do IP ani aplikacji.</li>
+<li><span class="color-green">Źródło służy do uczenia.</span> Przełącznik wiąże źródłowy adres MAC z portem wejściowym.</li>
+<li><span class="color-green">Cel służy do przekazywania.</span> Znany cel wybiera port, a nieznany unicast powoduje zalewanie uprawnionych portów poza wejściowym.</li>
+<li><span class="color-green">Tablica zmienia się z ruchem.</span> Wpis może zostać zaktualizowany po zmianie portu albo usunięty wskutek starzenia.</li>
+<li><span class="color-green">FCS wykrywa uszkodzenie ramki.</span> Nie naprawia jej i nie dowodzi działania protokołów wyższych warstw.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

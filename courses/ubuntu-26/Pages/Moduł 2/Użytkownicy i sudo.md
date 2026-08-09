@@ -117,12 +117,12 @@ sudo usermod -aG audyt technik
 
 Znaczenie poszczególnych opcji (flag):
 
-| Opcja      | Funkcja w poleceniu                                                                                 |
-| :--------- | :-------------------------------------------------------------------------------------------------- |
-| `-G audyt` | Wskazuje nazwę grupy dodatkowej, do której przypisujemy konto.                                      |
-| `-a`       | Skrót od *append* (dopisz). Dołącza wskazaną grupę do aktualnej listy grup dodatkowych użytkownika. |
+| Opcja      | Funkcja w poleceniu                                                                     |
+| :--------- | :-------------------------------------------------------------------------------------- |
+| `-G audyt` | Wskazuje nazwę grupy dodatkowej, do której przypisujemy konto.                          |
+| `-a`       | Skrót od *append* (dopisz). Dołącza wskazaną grupę do aktualnej listy grup użytkownika. |
 
-Pominięcie flagi `-a` w poleceniu `usermod -G` jest **_poważnym błędem konfiguracyjnym_**. Bez tej opcji system nadpisze dotychczasowe członkostwo użytkownika we wszystkich grupach dodatkowych, pozostawiając go wyłącznie w nowo wskazanej grupie.
+Pominięcie flagi `-a` w poleceniu `usermod -G` jest **_poważnym błędem konfiguracyjnym_**. Bez tej opcji system nadpisze dotychczasowe członkostwo użytkownika we wszystkich jego grupach, pozostawiając go wyłącznie w nowo wskazanej grupie.
 
 ## 🔎 Weryfikacja i audyt konfiguracji
 
@@ -149,7 +149,7 @@ Weryfikacja ta pozwala upewnić się, że tożsamości oraz uprawnienia sieciowe
 
 W misji przygotujesz inne konto niż w tutorze.
 
-Masz utworzyć użytkownika `operator`, utworzyć grupę `wsparcie` i dopisać użytkownika do tej grupy. Hasło zostaje ustawione podczas działania `adduser`.
+Masz utworzyć użytkownika `operator`, utworzyć grupę `wsparcie` i dopisać użytkownika do tej grupy. Hasło zostaje ustawione w tym przypadku za ciebie automatycznie przez system.
 
 Na końcu pokaż audyt. System ma mieć dowód, że konto istnieje i należy do właściwej grupy.
 

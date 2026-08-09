@@ -9,7 +9,7 @@ W Ubuntu zaczynasz od jednego drzewa katalogów. Początek tego drzewa to `/`, c
 ```
 
 Dysk, partycja, pendrive i konfiguracja systemu to pliki umieszczone w katalogach podpiętych pod jedno drzewo.   
-Ponieważ w linuksie wszystko jest plikiem! 
+Ponieważ w Linuksie wszystko jest plikiem! 
 
 ## 🧭 Katalog domowy
 
@@ -20,12 +20,12 @@ Po otwarciu aplikacji **Files** trafiasz zwykle do katalogu domowego użytkownik
 Dla użytkownika `egzamin` pełna ścieżka wygląda tak:
 
 ```text
-/home/egzamin
+/home/egzamin/
 ```
 
 To jest twoja przestrzeń robocza. Tu trafiają dokumenty, pobrane pliki, pulpit, obrazy i większość konfiguracji użytkownika.
 
-Aby dostać się do korzenia systemu `/` z poziomu menadżera plików kliknij w pasek lokalizacji i zmień jego zawartość.
+Aby dostać się do korzenia systemu `/` z poziomu menedżera plików kliknij w pasek lokalizacji i zmień jego zawartość.
 
 ![Ubuntu Files jak się dostać do Root](/public/courses/ubuntu-26/Images/ubuntu-files-jak-się-dostać-do-root.png)
 

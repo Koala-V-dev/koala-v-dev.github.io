@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\ARP - kto ma ten adres MAC - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>ARP - kto ma ten adres MAC</h1>
+<p>Host chce wysłać pakiet do <code>198.51.100.20</code>. Jego karta sieciowa nie potrzebuje jednak adresu MAC zdalnego serwera. Potrzebuje adresu MAC następnego kroku na lokalnym łączu.</p>
+<p>W tej lekcji wybierzesz właściwy adres IPv4 do rozwiązania przez ARP, odtworzysz ramkę i zatrzymasz diagnozę tam, gdzie kończy się dowód z lokalnego łącza.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw wybierz cel zapytania</h2>
+<p>Host ma konfigurację:</p>
+<pre><code>adres:          192.0.2.10/26
+trasa lokalna:  192.0.2.0/26 przez eth0
+trasa domyślna: 0.0.0.0/0 przez 192.0.2.1 na eth0
+cel pakietu:    198.51.100.20
+</code></pre>
+<p>Zapisz dwa osobne pola:</p>
+<pre><code>docelowy adres IPv4 pakietu
+adres IPv4 następnego kroku do rozwiązania przez ARP
+</code></pre>
+<p>Jeśli wpiszesz ten sam adres w obu polach, sprawdź najpierw wynik decyzji routingu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 ARP zaczyna się po decyzji o trasie</h2>
+<p>Tablica routingu wybiera interfejs oraz następny krok. Dopiero potem urządzenie szuka adresu sprzętowego potrzebnego do zbudowania ramki na tym łączu.</p>
+<p>Dla celu bezpośredniego:</p>
+<pre><code>cel IP należy do trasy lokalnej
+następny krok IP = cel IP
+ARP pyta o cel IP
+</code></pre>
+<p>Dla celu przez router:</p>
+<pre><code>cel IP pasuje do trasy przez router
+następny krok IP = adres routera
+ARP pyta o adres routera
+</code></pre>
+<p>W początkowym przypadku <code>198.51.100.20</code> nie należy do <code>192.0.2.0/26</code>. Trasa domyślna wybiera więc następny krok <code>192.0.2.1</code>.</p>
+<pre><code>cel pakietu IP:        198.51.100.20
+cel rozwiązania ARP:   192.0.2.1
+</code></pre>
+<p>To model zwykłego hosta bez jawnie skonfigurowanego proxy ARP. Specjalne mechanizmy mogą zmieniać zachowanie, ale wymagają osobnego dowodu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📣 Odczytaj żądanie ARP</h2>
+<p>Gdy pamięć sąsiadów nie zawiera potrzebnego wpisu, host wysyła ramkę rozgłoszeniową na lokalnym łączu.</p>
+<pre><code>Ethernet źródło:       02:00:00:00:00:10
+Ethernet cel:          ff:ff:ff:ff:ff:ff
+ARP operacja:          request
+ARP adres nadawcy IP:  192.0.2.10
+ARP MAC nadawcy:       02:00:00:00:00:10
+ARP szukany adres IP:  192.0.2.1
+</code></pre>
+<p>Broadcast dotyczy ramki z pytaniem. Nie staje się docelowym adresem MAC późniejszej ramki z pakietem IP.</p>
+<p>Urządzenie posiadające szukany adres odpowiada swoim adresem sprzętowym:</p>
+<pre><code>ARP operacja:          reply
+ARP adres nadawcy IP:  192.0.2.1
+ARP MAC nadawcy:       02:00:00:00:00:01
+ARP adres celu IP:     192.0.2.10
+ARP MAC celu:          02:00:00:00:00:10
+</code></pre>
+<p>Host może zapisać skojarzenie <code>192.0.2.1</code> z <code>02:00:00:00:00:01</code> w pamięci sąsiadów.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✉️ Zbuduj ramkę bez zmiany celu IP</h2>
+<p>Po rozwiązaniu następnego kroku ramka oraz pakiet mają różne cele:</p>
+<pre><code>Ethernet cel MAC:      02:00:00:00:00:01
+IPv4 cel:              198.51.100.20
+</code></pre>
+<p>Ramka dociera do routera na lokalnym łączu. Pakiet nadal wskazuje zdalny serwer. Router usuwa lokalny nagłówek łącza, wykonuje własną decyzję routingu i buduje nową ramkę na kolejnym łączu.</p>
+<p>Nie wyprowadzaj z tego reguły, że adres IPv4 nigdy nie może zmienić się po drodze. Wcześniejsza lekcja o NAT pokazała jawny wyjątek związany z translacją.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Diagnozuj pamięć i brak odpowiedzi</h2>
+<p>Wpis w pamięci sąsiadów pozwala użyć znanego MAC bez nowego broadcastu przy każdym pakiecie. Implementacja musi jednak usuwać albo ponownie sprawdzać nieaktualne dane.</p>
+<p>Nie zakładaj jednego uniwersalnego czasu życia ani nazw stanów dla wszystkich systemów. W raporcie wystarczą trzy pytania:</p>
+<pre><code>czy istnieje wpis dla następnego kroku?
+jaki MAC zawiera i kiedy został potwierdzony?
+czy nowa próba ARP otrzymuje odpowiedź?
+</code></pre>
+<p>Jeśli host wysyła żądania o <code>192.0.2.1</code> i nie otrzymuje odpowiedzi, pierwszy brak powodzenia dotyczy rozwiązania sąsiada na lokalnym łączu. Nie jest to jeszcze dowód awarii zdalnego serwera <code>198.51.100.20</code>.</p>
+<p>Następny test może sprawdzić ten sam broadcast i odpowiedź na porcie routera, zgodność VLAN oraz to, czy <code>192.0.2.1</code> jest skonfigurowany na właściwym interfejsie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Traktuj sprzeczne odpowiedzi jako sygnał</h2>
+<p>Dwie odpowiedzi przypisują <code>192.0.2.1</code> do różnych adresów MAC:</p>
+<pre><code>09:10:01  192.0.2.1 is-at 02:00:00:00:00:01
+09:10:02  192.0.2.1 is-at 02:00:00:00:00:99
+</code></pre>
+<p>To dowód sprzecznego mapowania na łączu. Nie jest jeszcze dowodem ataku. Możliwa jest błędna konfiguracja, konflikt adresu, awaryjne przełączenie urządzeń albo fałszywa odpowiedź.</p>
+<p>Kolejny test powinien powiązać oba MAC z portami przełącznika, sprawdzić konfigurację właściciela adresu i porównać czas z planowanym przełączeniem. Dopiero dodatkowe dowody pozwalają nazwać przyczynę.</p>
+<p>ARP Announcement może ogłosić, że host używa adresu, i pomóc odświeżyć stare wpisy. Mechanizm wykrywania konfliktów również używa ARP Probe i Announcement. Pojedynczy niezapowiedziany pakiet nie powinien automatycznie otrzymać etykiety „atak”.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: wybierz następny krok</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Host <code>192.0.2.10/26</code> wysyła pakiet do <code>198.51.100.20</code> przez trasę domyślną z routerem <code>192.0.2.1</code>. O który adres IPv4 powinien zapytać przez ARP?</p>
+</question>
+    <options>
+      <option><p><code>198.51.100.20</code>, ponieważ jest docelowym adresem pakietu.</p>
+</option>
+      <option correct=""><p><code>192.0.2.1</code>, ponieważ jest następnym krokiem na lokalnym łączu.</p>
+</option>
+      <option><p><code>255.255.255.255</code>, ponieważ każdy cel zdalny jest broadcastem.</p>
+</option>
+      <option><p><code>192.0.2.10</code>, ponieważ host najpierw rozwiązuje własny adres.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Najpierw zastosuj tablicę routingu. ARP rozwiązuje adres potrzebny na lokalnym łączu, a nie każdy końcowy adres pakietu.</p>
+</div>
+    <div data-hint="success"><p>Trasa wybiera router <code>192.0.2.1</code> jako następny krok. Jego MAC trafia do ramki, a <code>198.51.100.20</code> pozostaje celem pakietu IPv4.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Rozwiąż cztery przypadki</h2>
+<p>Dla każdego przypadku przygotuj raport:</p>
+<pre><code>wybrana trasa i interfejs
+końcowy cel IPv4
+następny krok IPv4
+wynik pamięci sąsiadów
+potrzebne działanie ARP
+docelowy MAC ramki albo pierwszy brak dowodu
+</code></pre>
+<p>Przypadki dla hosta <code>192.0.2.10/26</code> z routerem <code>192.0.2.1</code>:</p>
+<pre><code>A. cel 192.0.2.50; pamięć ma 192.0.2.50 -&gt; 02:00:00:00:00:50
+B. cel 198.51.100.20; brak wpisu dla 192.0.2.1; ARP Reply przychodzi
+C. cel 203.0.113.20; nie ma pasującej trasy ani trasy domyślnej
+D. cel 198.51.100.20; na pytanie o 192.0.2.1 przychodzą dwa różne MAC
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>decyzja routingu poprzedza działanie ARP;</li>
+<li>dla celu lokalnego rozwiązujesz adres celu, a dla zdalnego adres routera;</li>
+<li>brak trasy nie jest opisywany jako brak odpowiedzi ARP;</li>
+<li>cel MAC ramki i cel IPv4 pakietu pozostają osobnymi polami;</li>
+<li>dwa różne MAC prowadzą do weryfikacji konfliktu, a nie automatycznej etykiety ataku.</li>
+</ul>
+<p>Zmień D: o 09:10 administrator potwierdza planowane przełączenie routera na zapasowy MAC <code>02:00:00:00:00:99</code>. Zaktualizuj wniosek i zaproponuj dowód, że stary MAC nie odpowiada już jako właściciel <code>192.0.2.1</code>.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W A cel leży w lokalnym <code>/26</code>, więc następny krok to <code>192.0.2.50</code>. Istniejący wpis daje MAC <code>02:00:00:00:00:50</code>; nowy broadcast ARP nie jest potrzebny w tym momencie.</p>
+<p>W B celem pakietu pozostaje <code>198.51.100.20</code>, ale trasa wybiera <code>192.0.2.1</code>. Host pyta przez ARP o router. Po odpowiedzi używa MAC nadawcy odpowiedzi jako celu lokalnej ramki.</p>
+<p>W C proces zatrzymuje się przy wyborze trasy. Nie ma jeszcze następnego kroku ani uzasadnienia dla żądania ARP. Najpierw trzeba naprawić lub uzupełnić tablicę routingu.</p>
+<p>W D trasa oraz szukany adres są znane, lecz dwie odpowiedzi tworzą sprzeczny dowód własności. Sprawdź porty obu MAC, konfigurację urządzeń i zdarzenia zmiany stanu. Nie przypisuj przyczyny bez tej korelacji.</p>
+<p>Po zmianie D nowy MAC zgadza się z planowanym przełączeniem, więc najbardziej prawdopodobne staje się legalne przejęcie adresu przez zapasowy router. Nadal trzeba potwierdzić stan: przechwycić kolejne odpowiedzi, sprawdzić tablicę MAC przełącznika i wykazać, że stary port nie odpowiada już za <code>192.0.2.1</code>.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Najpierw wybierasz trasę i następny krok.</span> Dopiero potem ARP szuka jego adresu sprzętowego.</li>
+<li><span class="color-green">Cel zdalny nie jest celem ARP.</span> Dla trasy przez router rozwiązujesz lokalny adres routera.</li>
+<li><span class="color-green">Ramka i pakiet mają osobne cele.</span> MAC wskazuje następny krok na łączu, a IPv4 wskazuje końcowy cel pakietu.</li>
+<li><span class="color-green">Brak odpowiedzi ARP ogranicza diagnozę do lokalnego sąsiedztwa.</span> Nie dowodzi awarii zdalnej usługi.</li>
+<li><span class="color-green">Sprzeczne mapowania wymagają korelacji.</span> Konflikt, przełączenie i fałszywa odpowiedź rozróżniasz dodatkowymi dowodami.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

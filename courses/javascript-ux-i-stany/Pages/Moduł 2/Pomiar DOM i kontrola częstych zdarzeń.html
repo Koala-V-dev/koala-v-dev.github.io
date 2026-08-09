@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Pomiar DOM i kontrola częstych zdarzeń - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">javascript-ux-i-stany</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zdarzenia i niezawodna asynchroniczność</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kolejność zdarzeń i niezawodna asynchroniczność"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Kolejno%C5%9B%C4%87%20zdarze%C5%84%20i%20niezawodna%20asynchroniczno%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolejność zdarzeń i niezawodna asynchroniczność</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zdarzenia dynamicznego DOM i dostępny akordeon"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Zdarzenia%20dynamicznego%20DOM%20i%20dost%C4%99pny%20akordeon.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia dynamicznego DOM i dostępny akordeon</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Fetch bez wyścigów i czytelne stany UI"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Fetch%20bez%20wy%C5%9Bcig%C3%B3w%20i%20czytelne%20stany%20UI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Fetch bez wyścigów i czytelne stany UI</a></li><li class="module">Moduł 1: Stan aplikacji i kontrola przejść</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Czysty reducer i niezmienny stan"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Czysty%20reducer%20i%20niezmienny%20stan.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czysty reducer i niezmienny stan</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Reaktywność z Proxy i jej granice"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Reaktywno%C5%9B%C4%87%20z%20Proxy%20i%20jej%20granice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reaktywność z Proxy i jej granice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Maszyna stanów formularza i idempotencja"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Maszyna%20stan%C3%B3w%20formularza%20i%20idempotencja.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maszyna stanów formularza i idempotencja</a></li><li class="module">Moduł 2: Narzędzia, pomiar i ruch</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Node, npm i Vite z powtarzalną instalacją"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Node%2C%20npm%20i%20Vite%20z%20powtarzaln%C4%85%20instalacj%C4%85.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Node, npm i Vite z powtarzalną instalacją</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Pomiar DOM i kontrola częstych zdarzeń"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Pomiar%20DOM%20i%20kontrola%20cz%C4%99stych%20zdarze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pomiar DOM i kontrola częstych zdarzeń</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Animacje z requestAnimationFrame, FLIP i ograniczonym ruchem"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Animacje%20z%20requestAnimationFrame%2C%20FLIP%20i%20ograniczonym%20ruchem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Animacje z requestAnimationFrame, FLIP i ograniczonym ruchem</a></li><li class="module">Moduł 3: Dostępne i odporne komponenty</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dostępny dialog z natywnym elementem dialog"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Dost%C4%99pny%20dialog%20z%20natywnym%20elementem%20dialog.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dostępny dialog z natywnym elementem dialog</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Granice obsługi błędów i bezpieczny fallback"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Granice%20obs%C5%82ugi%20b%C5%82%C4%99d%C3%B3w%20i%20bezpieczny%20fallback.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Granice obsługi błędów i bezpieczny fallback</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Bezpieczny Web Component z Shadow DOM"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Bezpieczny%20Web%20Component%20z%20Shadow%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bezpieczny Web Component z Shadow DOM</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Pomiar DOM i kontrola częstych zdarzeń</h1>
+<p>Podczas przewijania panel odczytuje położenie elementu i natychmiast zmienia jego styl. Powtórzenie tego schematu dla wielu elementów miesza pomiary z zapisami i utrudnia kontrolę kosztu.</p>
+<p>Po tej lekcji rozdzielisz odczyty od zapisów oraz zredukujesz serię zdarzeń do jednej aktualizacji na klatkę.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw oznacz operacje</h2>
+<p>Przypisz każdej linii literę <code>R</code> jak odczyt albo <code>W</code> jak zapis.</p>
+<pre><code class="language-javascript">card.style.transform = 'translateX(10px)';
+const width = card.getBoundingClientRect().width;
+card.style.width = `${width + 20}px`;
+const nextWidth = card.getBoundingClientRect().width;
+</code></pre>
+<p>Powstaje sekwencja <code>W R W R</code>. Zanim przeglądarka odpowie na pomiar, może potrzebować uaktualnić informacje o układzie po wcześniejszym zapisie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Model: zbierz odczyty, potem wykonaj zapisy</h2>
+<p>Lepszy układ pracy ma dwie wyraźne fazy:</p>
+<pre><code class="language-text">READ
+├─ getBoundingClientRect pierwszego elementu
+└─ getBoundingClientRect drugiego elementu
+
+WRITE
+├─ zmiana stylu pierwszego elementu
+└─ zmiana stylu drugiego elementu
+</code></pre>
+<p>Nie każdy odczyt powoduje kosztowną pracę i nie da się określić czasu z samego kodu. Ten podział usuwa jednak przeplatanie, które może wymuszać powtarzane przeliczanie układu.</p>
+<p><code>getBoundingClientRect()</code> zwraca prostokąt elementu względem viewportu w chwili pomiaru. Po zmianie układu wcześniejszy wynik jest migawką, nie żywym obiektem planu aplikacji.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔬 Ogranicz serię zdarzeń do klatki</h2>
+<p><code>scroll</code> może pojawiać się wiele razy między kolejnymi aktualizacjami obrazu. Handler zapisuje najnowsze dane i planuje najwyżej jeden callback.</p>
+<pre><code class="language-javascript">let scheduled = false;
+let latestScrollY = 0;
+
+window.addEventListener('scroll', () =&gt; {
+  latestScrollY = window.scrollY;
+
+  if (scheduled) return;
+  scheduled = true;
+
+  requestAnimationFrame(() =&gt; {
+    scheduled = false;
+
+    const top = card.getBoundingClientRect().top; // READ
+    const active = top &lt; 80;
+
+    card.classList.toggle('is-sticky', active);  // WRITE
+    output.textContent = String(latestScrollY);  // WRITE
+  });
+}, { passive: true });
+</code></pre>
+<p>To nie jest debounce o określonym czasie. Callback jest powiązany z możliwością aktualizacji animacji przez przeglądarkę. Nadal trzeba zmierzyć koszt jego pracy w narzędziach wydajnościowych.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: znajdź aktualną wartość</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Pięć zdarzeń <code>scroll</code> wystąpiło przed zaplanowanym callbackiem. Którą pozycję powinien wykorzystać callback?</p>
+</question>
+    <options>
+      <option><p>Pierwszą, bo utworzyła callback.</p>
+</option>
+      <option correct=""><p>Najnowszą zapisaną wartość, bo opisuje stan w chwili wykonania.</p>
+</option>
+      <option><p>Średnią ze wszystkich pozycji.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Flaga ogranicza liczbę callbacków, ale dane mogą być aktualizowane przy każdym zdarzeniu.</p>
+</div>
+    <div data-hint="success"><p>Jeden callback obsługuje skumulowaną serię, używając najnowszego stanu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Zaplanuj fazy pracy</h2>
+<p>Otrzymujesz operacje <code>read</code> i <code>write</code> w kolejności zgłoszenia. Zwróć plan, w którym wszystkie odczyty tej klatki występują przed zapisami. Zachowaj kolejność wewnątrz każdej grupy.</p>
+<data-gate>
+  <data-code-runner language="javascript" title="Rozdziel odczyty od zapisów" data-code="ZnVuY3Rpb24gcGxhbkZyYW1lKG9wZXJhdGlvbnMpIHsKICByZXR1cm4gb3BlcmF0aW9uczsKfQ==" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJzZXBhcmF0ZS1waGFzZXMiLAogICAgICAgICAgInRleHQiOiAiT2Rjenl0eSBwb3ByemVkemFqxIUgemFwaXN5IiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInBsYW5GcmFtZSIsCiAgICAgICAgICAiaW5wdXQiOiBbW3sidHlwZSI6IndyaXRlIiwiaWQiOiJ3MSJ9LHsidHlwZSI6InJlYWQiLCJpZCI6InIxIn0seyJ0eXBlIjoid3JpdGUiLCJpZCI6IncyIn0seyJ0eXBlIjoicmVhZCIsImlkIjoicjIifV1dLAogICAgICAgICAgImV4cGVjdGVkIjogW3sidHlwZSI6InJlYWQiLCJpZCI6InIxIn0seyJ0eXBlIjoicmVhZCIsImlkIjoicjIifSx7InR5cGUiOiJ3cml0ZSIsImlkIjoidzEifSx7InR5cGUiOiJ3cml0ZSIsImlkIjoidzIifV0KICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJzdGFibGUtb3JkZXIiLAogICAgICAgICAgInRleHQiOiAiS29sZWpub8WbxIcgb3BlcmFjamkgdyBmYXppZSBwb3pvc3RhamUgc3RhYmlsbmEiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAicGxhbkZyYW1lIiwKICAgICAgICAgICJpbnB1dCI6IFtbeyJ0eXBlIjoicmVhZCIsImlkIjoicjIifSx7InR5cGUiOiJyZWFkIiwiaWQiOiJyMSJ9LHsidHlwZSI6IndyaXRlIiwiaWQiOiJ3MiJ9LHsidHlwZSI6IndyaXRlIiwiaWQiOiJ3MSJ9XV0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiBbeyJ0eXBlIjoicmVhZCIsImlkIjoicjIifSx7InR5cGUiOiJyZWFkIiwiaWQiOiJyMSJ9LHsidHlwZSI6IndyaXRlIiwiaWQiOiJ3MiJ9LHsidHlwZSI6IndyaXRlIiwiaWQiOiJ3MSJ9XQogICAgICAgIH0KICAgICAgXQ=="></data-code-runner>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po samodzielnej próbie</summary>
+
+<pre><code class="language-javascript">function planFrame(operations) {
+  const reads = operations.filter(operation =&gt; operation.type === 'read');
+  const writes = operations.filter(operation =&gt; operation.type === 'write');
+  return [...reads, ...writes];
+}
+</code></pre>
+<p>Ta funkcja modeluje kolejność. W kodzie DOM kolejka przechowywałaby funkcje do wykonania w zaplanowanym callbacku.</p>
+</details>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Zmierz zmieniony przypadek</h2>
+<p>Dodaj drugi element i świadomie ułóż callback: najpierw dwa wywołania <code>getBoundingClientRect()</code>, potem dwie zmiany klas.</p>
+<p>W panelu Performance nagraj przewijanie przed i po zmianie. Kryterium nie brzmi „zielony wykres”. Zapisz liczbę callbacków, czas najdłuższego callbacka i czy podczas testu pojawiło się widoczne zacięcie.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Oznaczaj operacje DOM jako odczyty lub zapisy przed optymalizacją.</li>
+<li>Grupuj odczyty przed zapisami w obrębie aktualizacji.</li>
+<li>Redukuj serię częstych zdarzeń do pracy o mierzalnym koszcie.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

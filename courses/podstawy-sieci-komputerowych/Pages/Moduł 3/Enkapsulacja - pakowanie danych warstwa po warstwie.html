@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\Enkapsulacja - pakowanie danych warstwa po warstwie - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Enkapsulacja - pakowanie danych warstwa po warstwie</h1>
+<p>Na lewym łączu widzisz ramkę do routera. Na prawym łączu widzisz inną ramkę do serwera. Obie przenoszą dane z tego samego połączenia TCP. Które pola powinny się zmienić, a które pozostać powiązane?</p>
+<p>W tej lekcji odtworzysz jedną wymianę z dwóch punktów pomiaru. Na końcu potrafisz wskazać, gdzie kończy się dowód z ramki, gdzie z datagramu IP i gdzie z segmentu TCP.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🗺️ Ustal topologię i założenia</h2>
+<p>Pracujesz w kontrolowanym laboratorium:</p>
+<pre><code>host A                    router R                    serwer B
+192.0.2.10/24             192.0.2.1/24               198.51.100.20/24
+MAC A                     MAC R-L    MAC R-P          MAC B
+   |---------- P0 ----------|            |------ P1 ------|
+                             198.51.100.1/24
+</code></pre>
+<p><code>P0</code> obserwuje lewe łącze. <code>P1</code> obserwuje prawe. Host A wysyła dane TCP do serwera B na port <code>8080</code>.</p>
+<p>W pierwszym przebiegu obowiązują założenia:</p>
+<pre><code>IPv4 i TCP
+brak NAT
+brak tunelu
+brak fragmentacji
+jeden obserwowany segment danych
+router nie przetrzymuje datagramu przez pełną sekundę
+</code></pre>
+<p>Te założenia są częścią zadania. Bez nich zmiana adresu IP, portu albo liczby pakietów mogłaby być poprawnym skutkiem dodatkowego mechanizmu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Zbuduj jednostki od środka</h2>
+<p>Aplikacja przekazuje do TCP bajty:</p>
+<pre><code>GET /health HTTP/1.1\r\nHost: lab.example\r\n\r\n
+</code></pre>
+<p>TCP dodaje informacje potrzebne do połączenia i porządkowania bajtów. W badanej próbce zapisujesz:</p>
+<pre><code>TCP
+src port: 51000
+dst port: 8080
+seq:      1001
+flags:    PSH, ACK
+payload:  43 bajty
+</code></pre>
+<p>Nagłówek TCP razem z danymi tworzy segment. IPv4 przenosi ten segment jako swoje dane:</p>
+<pre><code>IPv4
+src:      192.0.2.10
+dst:      198.51.100.20
+TTL:      64
+protocol: TCP
+payload:  segment TCP
+</code></pre>
+<p>Na konkretnym łączu datagram IPv4 staje się danymi ramki Ethernet:</p>
+<pre><code>Ethernet
+src MAC:   MAC A
+dst MAC:   MAC R-L
+EtherType: IPv4
+payload:   datagram IPv4
+</code></pre>
+<p>To jest enkapsulacja użyteczna w analizie: każde pole sterujące ma właściciela i zakres. Port docelowy należy do TCP. Docelowy adres IP należy do IPv4. Docelowy MAC należy do bieżącego łącza.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚪 Najpierw wybierz następny krok</h2>
+<p>Serwer B nie jest w lokalnym prefiksie hosta A. Tablica routingu wybiera więc router <code>192.0.2.1</code> jako następny krok.</p>
+<p>ARP rozwiązuje adres tego lokalnego następnego kroku na <code>MAC R-L</code>. Dlatego pierwsza ramka ma:</p>
+<pre><code>dst IP:  198.51.100.20
+dst MAC: MAC R-L
+</code></pre>
+<p>Te cele nie są sprzeczne. IP opisuje końcowy cel datagramu. MAC opisuje odbiorcę na jednym łączu. Host A nie pyta ARP o MAC zdalnego serwera B.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Router wymienia ramkę</h2>
+<p>Punkt <code>P0</code> rejestruje:</p>
+<pre><code>Ethernet: MAC A -&gt; MAC R-L
+IPv4:     192.0.2.10 -&gt; 198.51.100.20, TTL 64, protocol TCP
+TCP:      51000 -&gt; 8080, seq 1001, payload 43 B
+</code></pre>
+<p>Router odbiera ramkę przeznaczoną do jego lewego interfejsu. Wyodrębnia datagram IPv4, wybiera trasę według docelowego IP i zmniejsza TTL przed przekazaniem.</p>
+<p>Na prawym łączu tworzy nową ramkę dla następnego kroku. Punkt <code>P1</code> rejestruje:</p>
+<pre><code>Ethernet: MAC R-P -&gt; MAC B
+IPv4:     192.0.2.10 -&gt; 198.51.100.20, TTL 63, protocol TCP
+TCP:      51000 -&gt; 8080, seq 1001, payload 43 B
+</code></pre>
+<p>W tym kontrolowanym przebiegu:</p>
+<pre><code>zmienione:     źródłowy MAC, docelowy MAC, TTL, suma nagłówka IPv4
+zachowane:     źródłowy IP, docelowy IP, porty, seq, dane TCP
+nowe lokalnie: ramka prawego łącza i jej FCS
+</code></pre>
+<p>Suma nagłówka IPv4 zmienia się, ponieważ zmienił się TTL. Suma TCP nie obejmuje TTL. Obejmuje jednak segment oraz pseudonagłówek z adresami IP. W tym przebiegu adresy, porty i dane TCP są zachowane, więc router nie musi przebudowywać segmentu.</p>
+<p>FCS chroni ramkę na jednym łączu. Nowa ramka otrzymuje własny FCS. Nie każde miejsce przechwycenia pokazuje to pole, ponieważ sprzęt może je sprawdzić lub dodać poza punktem widocznym dla programu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Odbiorca rozdziela po polach</h2>
+<p>Serwer B odbiera ramkę skierowaną do <code>MAC B</code>. <code>EtherType</code> wskazuje IPv4, więc zawartość trafia do obsługi IPv4.</p>
+<p>Docelowy IP pasuje do serwera. Pole <code>protocol</code> wskazuje TCP. Docelowy port <code>8080</code> pozwala przekazać bajty do właściwego gniazda aplikacji.</p>
+<p>Dekapsulacja nie oznacza, że każdy nagłówek znika bez śladu w osobnym programie. To kolejne interpretacje granic danych i przekazywanie właściwej zawartości do następnego mechanizmu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔬 Punkt pomiaru ogranicza wniosek</h2>
+<p>Jeśli <code>P0</code> widzi ramkę, a <code>P1</code> jej nie widzi, możesz potwierdzić tylko obecność ramki w <code>P0</code> i brak pasującej obserwacji w <code>P1</code>.</p>
+<p>Nie rozstrzyga to automatycznie, że router odrzucił datagram. Przyczyną może być także:</p>
+<pre><code>inna trasa wyjściowa
+filtr przechwytywania
+błędne położenie punktu P1
+utrata danych pomiarowych
+faktyczne odrzucenie przed P1
+</code></pre>
+<p>Najpierw powiąż obserwacje za pomocą pól IP, TCP, długości i czasu. Potem sprawdź licznik odrzuceń lub wykonaj pomiar bliżej interfejsu wyjściowego. Brak w jednym pliku przechwycenia nie jest jeszcze dowodem przyczyny.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧾 Użyj raportu zmiany pól</h2>
+<p>Dla każdego przypadku zapisz:</p>
+<pre><code>założenia topologii
+punkt i kierunek pomiaru
+ramka: src MAC, dst MAC, EtherType
+IPv4: src, dst, TTL, protocol
+TCP: porty, seq, długość danych
+pola zachowane
+pola zmienione i mechanizm zmiany
+najsilniejszy wniosek
+brakujący dowód i następny pomiar
+</code></pre>
+<p>Raport nie wymaga zapamiętania nazw wszystkich jednostek danych. Wymaga przypisania pola do zakresu, porównania dwóch śladów i obrony wniosku.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: odtwórz prawą ramkę</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>W opisanym przebiegu bez NAT i tunelu punkt P0 widzi ramkę od <code>MAC A</code> do <code>MAC R-L</code>, datagram od <code>192.0.2.10</code> do <code>198.51.100.20</code>, TTL 64 oraz TCP z portu <code>51000</code> do <code>8080</code>, seq 1001. Co powinien zobaczyć P1 po poprawnym przekazaniu przez router?</p>
+</question>
+    <options>
+      <option><p>Te same adresy MAC i TTL 64, ponieważ router przekazuje całą ramkę bez zmian.</p>
+</option>
+      <option correct=""><p>Nową ramkę od <code>MAC R-P</code> do <code>MAC B</code>, te same adresy IP i pola TCP oraz TTL zmniejszony do 63.</p>
+</option>
+      <option><p>Adres IP serwera zastąpiony adresem routera, a docelowy port usunięty.</p>
+</option>
+      <option><p>Nową ramkę z docelowym <code>MAC A</code>, ponieważ odpowiedź będzie wracała do nadawcy.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Oddziel zakres łącza od zakresu datagramu. Router jest odbiorcą pierwszej ramki, ale serwer pozostaje celem IP.</p>
+</div>
+    <div data-hint="success"><p>Router kończy jedną ramkę i tworzy następną. W założonym przebiegu zachowuje cele IP oraz segment TCP, a zmienia pola lokalnego łącza i TTL.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Porównaj cztery przebiegi</h2>
+<p>Przygotuj raport zmiany pól dla każdego przypadku.</p>
+<pre><code>A. P0: MAC A -&gt; MAC R-L, IP A -&gt; IP B, TTL 64, TCP 51000 -&gt; 8080
+   P1: MAC R-P -&gt; MAC B, IP A -&gt; IP B, TTL 63, TCP 51000 -&gt; 8080
+
+B. Trasa hosta wskazuje router jako następny krok.
+   P0: dst MAC = MAC B, dst IP = IP B
+
+C. P0 widzi poprawną ramkę do MAC R-L.
+   P1 nie zawiera pasującej obserwacji.
+
+D. P0: IP A -&gt; IP B, TTL 1, TCP 51000 -&gt; 8080
+   P0 później widzi ICMP Time Exceeded od routera,
+   które cytuje nagłówek tej sondy.
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>ramka lokalna i datagram końcowy mają osobno nazwane cele;</li>
+<li>zmiana MAC na routerze nie jest nazywana zmianą celu IP;</li>
+<li>TTL jest zmniejszony przy przekazaniu, a datagram z wyczerpanym TTL nie pojawia się jako zwykły ruch na P1;</li>
+<li>brak obserwacji w P1 nie staje się automatycznie dowodem odrzucenia;</li>
+<li>przypadek B wykrywa niezgodność między trasą przez router a docelowym MAC;</li>
+<li>każdy wniosek wskazuje pole lub parę obserwacji, na której się opiera.</li>
+</ul>
+<p>Zmień założenia: router wykonuje NAPT i mapuje <code>192.0.2.10:51000</code> na <code>198.51.100.1:62000</code>. Zapisz oczekiwany ślad P1 oraz wyjaśnij, dlaczego suma TCP musi zostać dostosowana.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W A router poprawnie zastąpił ramkę lewego łącza ramką prawego łącza. Adresy IP, porty, sekwencja i dane wiążą oba ślady. TTL mniejszy o jeden potwierdza operację przekazania IPv4 między punktami.</p>
+<p>W B docelowy MAC nie pasuje do założonej decyzji routingu. Dla zdalnego IP host powinien zbudować ramkę do MAC lokalnego następnego kroku. Sprawdź prefiks, wybraną trasę i wpis ARP dla routera. Sam ślad nie wyjaśnia jeszcze, czy błędne jest założenie topologii, konfiguracja hosta czy opis punktu pomiaru.</p>
+<p>W C potwierdzono wysłanie ramki do routera, ale nie potwierdzono jej obecności w P1. Sprawdź interfejs wyjściowy wybrany przez trasę, filtr i liczniki punktu P1 oraz liczniki odrzuceń routera. Dopiero drugi dowód może odróżnić brak przekazania od braku obserwacji.</p>
+<p>W D router nie może przekazać zwykłego datagramu z TTL zmniejszonym do zera. Cytowany nagłówek w ICMP wiąże komunikat z badaną sondą. P1 nie powinien pokazać tej sondy jako poprawnie przekazanego datagramu do serwera.</p>
+<p>Po włączeniu NAPT oczekiwany P1 wygląda tak:</p>
+<pre><code>Ethernet: MAC R-P -&gt; MAC B
+IPv4:     198.51.100.1 -&gt; 198.51.100.20, TTL 63, protocol TCP
+TCP:      62000 -&gt; 8080, seq 1001, payload 43 B
+</code></pre>
+<p>Zmieniły się źródłowy adres IP i źródłowy port. Suma TCP obejmuje nagłówek, dane oraz pseudonagłówek zawierający adresy IP. Translator musi więc dostosować sumę TCP, a także sumę zmienionego nagłówka IPv4. Cel IP, port docelowy, sekwencja i dane pozostają powiązaniem z pierwotnym przepływem.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Pole ma właściciela i zakres.</span> MAC dotyczy łącza, IP datagramu, a port segmentu transportowego.</li>
+<li><span class="color-green">Router wymienia ramkę podczas przekazania.</span> W zwykłym przebiegu zachowuje cel IP i segment TCP, a zmniejsza TTL.</li>
+<li><span class="color-green">Następny krok nie jest końcowym celem.</span> Zdalny IP może być przenoszony w ramce do lokalnego MAC routera.</li>
+<li><span class="color-green">Dwa ślady łączysz po wielu polach.</span> Jedna zgodna wartość nie wystarcza do przypisania pakietów.</li>
+<li><span class="color-green">Brak obserwacji ma granicę.</span> Potwierdza brak danych w punkcie pomiaru, nie automatycznie przyczynę straty.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

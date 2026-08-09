@@ -1,16 +1,75 @@
-<h1>UI — Interfejsy i ich Odbiór</h1>
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\UI - interfejsy i ich odbiór - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">web-frontend</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: HTML i Architektura Informacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Architektura Sieci i Fundamenty"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Architektura%20Sieci%20i%20Fundamenty.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Architektura Sieci i Fundamenty</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwsza Strona"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Pierwsza%20Strona.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwsza Strona</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Struktura Semantyczna"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Struktura%20Semantyczna.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Struktura Semantyczna</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Tekst i Media"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Tekst%20i%20Media.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tekst i Media</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Osadzanie Treści i Media"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Osadzanie%20Tre%C5%9Bci%20i%20Media.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Osadzanie Treści i Media</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Tabele i Raporty"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Tabele%20i%20Raporty.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tabele i Raporty</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Elementy Natywnie Interaktywne"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Elementy%20Natywnie%20Interaktywne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Elementy Natywnie Interaktywne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Formularze i Dane Użytkownika"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%200/Formularze%20i%20Dane%20U%C5%BCytkownika.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Formularze i Dane Użytkownika</a></li><li class="module">Moduł 1: Architektura Stylu (CSS)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UI - interfejsy i ich odbiór"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%201/UI%20-%20interfejsy%20i%20ich%20odbi%C3%B3r.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UI - interfejsy i ich odbiór</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Kaskadowość i Specyficzność"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%201/Kaskadowo%C5%9B%C4%87%20i%20Specyficzno%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kaskadowość i Specyficzność</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Box Model i Jednostki"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%201/Box%20Model%20i%20Jednostki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Box Model i Jednostki</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Flexbox"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%201/Flexbox.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Flexbox</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/CSS Grid"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%201/CSS%20Grid.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">CSS Grid</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złota Era (Wstęp do RWD)"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%201/Z%C5%82ota%20Era%20(Wst%C4%99p%20do%20RWD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złota Era (Wstęp do RWD)</a></li><li class="module">Moduł 2: Dynamika (JavaScript)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/JS i DOM"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%202/JS%20i%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">JS i DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Eventy"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%202/Eventy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Eventy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Manipulacja Strukturą"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%202/Manipulacja%20Struktur%C4%85.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Manipulacja Strukturą</a></li><li class="module">Moduł 3: Inżynieria Doświadczeń</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Psychologia UX"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%203/Psychologia%20UX.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Psychologia UX</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Mikrointerakcje"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%203/Mikrointerakcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Mikrointerakcje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dark Mode i Dostępność"><a class="lesson-link" href="/courses/web-frontend/Pages/Modu%C5%82%203/Dark%20Mode%20i%20Dost%C4%99pno%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dark Mode i Dostępność</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>UI — Interfejsy i ich Odbiór</h1>
 <p>Przeglądarka to przestrzeń, w której użytkownik styka się z Twoim kodem. Jego mózg w ułamku sekundy ocenia układ ekranu – reaguje na światło, odległości i kolory. CSS pozwala Ci kontrolować tę pierwszą reakcję i zarządzać uwagą odbiorcy.</p>
 <p>Jako deweloper budujesz drogę między człowiekiem a bazą danych. Jeśli ten układ będzie chaotyczny, użytkownik po prostu zamknie stronę. Dlatego przed napisaniem pierwszej reguły stylu warto poznać podstawy ludzkiej percepcji.</p>
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>👁️ Psychologia Percepcji: Jak Mózg Oszczędza Energię</h2>
-<p>Mózg dąży do minimalizowania wydatku energii. W kontekście systemów komputerowych ten wysiłek nazywamy <span class="color-green">obciążeniem poznawczym</span> (cognitive load). To ilość pracy, jaką umysł musi włożyć w przetworzenie ekranu.</p>
+<p>Ludzki mózg dąży do minimalizowania wydatku energii. Ewolucja zaprogramowała nas tak, by oszczędzać siły na przetwarzaniu bodźców z otoczenia. W kontekście projektowania oprogramowania ten wysiłek umysłowy nazywamy <span class="color-green">obciążeniem poznawczym</span> (<span class="color-blue">cognitive load</span>). To całkowity nakład pracy, jaki użytkownik musi włożyć w odczytanie układu strony i wykonanie na niej zadania.</p>
 <p>Obciążenie to dzielimy na trzy rodzaje:</p>
 <ul>
-<li><span class="color-blue">Wysiłek wrodzony</span> (intrinsic) – wynika ze stopnia trudności samego tematu. Przykładem jest analiza skomplikowanego wykresu giełdowego. Deweloper ma na to minimalny wpływ.</li>
-<li><span class="color-red">Wysiłek zewnętrzny</span> (extraneous) – wynika ze złego sposobu prezentacji informacji. Powstaje przez nieczytelne czcionki, brak kontrastu czy chaos na stronie. Ten rodzaj obciążenia musisz zredukować do zera.</li>
-<li><span class="color-green">Wysiłek właściwy</span> (germane) – to energia potrzebna na przyswojenie wiedzy i zrozumienie logiki aplikacji. Dobry układ interfejsu ułatwia ten proces.</li>
+<li><span class="color-blue">Wysiłek wrodzony</span> (<i>intrinsic</i>) – wynika ze stopnia trudności samego tematu. Przykładem jest analiza skomplikowanego wykresu giełdowego. Deweloper ma na to minimalny wpływ.</li>
+<li><span class="color-red">Wysiłek zewnętrzny</span> (<i>extraneous</i>) – wynika ze złego sposobu prezentacji informacji. Powstaje przez nieczytelne czcionki, brak kontrastu czy chaos na stronie. Ten rodzaj obciążenia musisz zredukować do zera.</li>
+<li><span class="color-green">Wysiłek właściwy</span> (<i>germane</i>) – to energia potrzebna na przyswojenie wiedzy i zrozumienie logiki aplikacji. Dobry układ interfejsu ułatwia ten proces.</li>
 </ul>
+<blockquote>
 <p>Gdy zmuszasz czytelnika do domyślania się, gdzie ma kliknąć, jego mózg szybko się męczy. Wtedy użytkownik po prostu zamknie kartę.</p>
+</blockquote>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt Kontrolny: Rodzaje obciążenia</h2>
 <data-quiz>
     <question><p>Który rodzaj obciążenia poznawczego deweloper musi bezwzględnie zredukować do zera poprzez czytelny układ strony?</p>
@@ -30,36 +89,63 @@
 </data-quiz>
 
 <h3>📐 Prawa Gestalt: Naturalne Porządkowanie Przestrzeni</h3>
-<p>Mózg automatycznie organizuje chaos w spójne grupy. Zasady te – znane jako prawa Gestalt – wynikają bezpośrednio z mechanizmów ewolucyjnych. Na ekranie komputera podświadomie grupujemy obiekty według tych samych reguł:</p>
+<p>Mózg automatycznie organizuje chaos w spójne grupy. Zasady te, znane jako prawa Gestalt, wynikają bezpośrednio z mechanizmów ewolucyjnych. Na ekranie komputera podświadomie grupujemy obiekty według tych samych reguł:</p>
 <ul>
-<li><span class="color-green">Zasada Bliskości</span> (Proximity) – elementy leżące blisko siebie postrzegamy jako powiązane logicznie. W projektowaniu interfejsów wdrażasz to za pomocą marginesów. Margines pod nagłówkiem sekcji musi być znacznie mniejszy niż margines nad nim.<pre><code class="language-text">[Grupa A]    [Grupa B]
- ● ●  ● ●     ● ●  ● ●
- ● ●  ● ●     ● ●  ● ●
-</code></pre>
-</li>
-<li><span class="color-green">Zasada Podobieństwa</span> (Similarity) – obiekty o zbliżonym kształcie, kolorze lub rozmiarze traktujemy jako pełniące tę samą rolę. Przykładowo, zielony kolor przycisku akcji powinien konsekwentnie oznaczać zatwierdzenie.<pre><code class="language-text"> ● ▲ ● ▲
- ● ▲ ● ▲
- ● ▲ ● ▲
-</code></pre>
-</li>
-<li><span class="color-green">Zasada Ciągłości</span> (Continuity) – wzrok woli podążać wzdłuż gładkich, nieprzerwanych linii. Ułożenie pól formularza wzdłuż jednej osi ułatwia szybkie skanowanie wzrokiem.<pre><code class="language-text">     ●
-     ●
- ● ● ● ● ●
-     ●
-     ●
-</code></pre>
-</li>
-<li><span class="color-green">Zasada Domknięcia</span> (Closure) – mózg dąży do postrzegania niepełnych kształtów jako całości. Wykorzystujemy to przy poziomym przewijaniu karuzeli produktów – lekkie przycięcie ostatniej karty informuje, że lista ciągnie się dalej.<pre><code class="language-text"> ● ─── ●
- │     │
- │
- ● ─── ●
-</code></pre>
-</li>
-<li><span class="color-green">Zasada Wspólnego Losu</span> (Common Fate) – elementy poruszające się w tym samym kierunku i tempie uznajemy za grupę o wspólnej funkcji. Przykładem są spójnie rozwijające się panele menu harmonijkowego.<pre><code class="language-text"> ●➔  ●➔  ●➔   (Grupa 1)
- ●➘  ●➘  ●➘   (Grupa 2)
-</code></pre>
-</li>
+<li><span class="color-green">Zasada Bliskości</span> (<span class="color-blue">Proximity</span>) – elementy leżące blisko siebie postrzegamy jako powiązane logicznie. W projektowaniu interfejsów wdrażasz to za pomocą marginesów. Margines pod nagłówkiem sekcji musi być znacznie mniejszy niż margines nad nim.</li>
 </ul>
+<div aria-hidden="true" style="display: flex; background-color: var(--background-color); border: 3px solid var(--border-color); margin: -5px auto 20px; width: 300px; justify-content: center;">
+<p style="display: flex; flex-direction: column; margin: 10px 20px; align-items: center;"><span style="margin-bottom: -10px;">[Grupa A]</span>
+<span style="margin-bottom: -10px;">● ●  ● ●</span>
+<span>● ●  ● ●</span>
+</p>
+<p style="display: flex; flex-direction: column; margin: 10px 20px; align-items: center;"><span style="margin-bottom: -10px;">
+[Grupa B]</span>
+<span style="margin-bottom: -10px;">● ●  ● ●</span>
+<span>● ●  ● ●</span>
+</p>
+</div>
+
+<ul>
+<li><span class="color-green">Zasada Podobieństwa</span> (<span class="color-blue">Similarity</span>) – obiekty o zbliżonym kształcie, kolorze lub rozmiarze traktujemy jako pełniące tę samą rolę. Przykładowo, zielony kolor przycisku akcji powinien konsekwentnie oznaczać zatwierdzenie.</li>
+</ul>
+<div aria-hidden="true" style="display: flex; background-color: var(--background-color); border: 3px solid var(--border-color); margin: -5px auto 20px; width: 300px; height:100px; justify-content: center;">
+<span style="position: relative;bottom: 2px;left: 63px;transform: rotate(45deg);color: red;">◆</span> <span style="position: relative;bottom: 17px;left: 62px;transform: rotate(179deg);color: green;">▲</span> <span style="position: relative;bottom: -34px;left: 46px;transform: rotate(45deg);color: blue;">●</span> <span style="position: relative;bottom: -58px;left: 30px;transform: rotate(45deg);color: green;">▲</span>
+<span style="position: relative;bottom: -64px;left: 24px;transform: rotate(45deg);color: red;">◆</span> <span style="position: relative;bottom: -32px;left: 72px;transform: rotate(269deg);color: green;">▲</span> <span style="position: relative;bottom: -44px;left: -12px;transform: rotate(55deg);color: red;">◆</span> <span style="position: relative;bottom: -18px;left: -7px;transform: rotate(45deg);color: green;">▲</span>
+<span style="position: relative;bottom: -23px;left: -42px;transform: rotate(31deg);color: red;">◆</span> <span style="position: relative;bottom: -37px;left: -6px;transform: rotate(323deg);color: green;">▲</span> <span style="position: relative;bottom: -26px;left: -50px;transform: rotate(322deg);color: red;">◆</span> <span style="position: relative;bottom: 2px;left: -82px;transform: rotate(45deg);color: green;">▲</span>
+</div>
+
+<ul>
+<li><span class="color-green">Zasada Ciągłości</span> (<span class="color-blue">Continuity</span>) – wzrok woli podążać wzdłuż gładkich, nieprzerwanych linii. Ułożenie pól formularza wzdłuż jednej osi ułatwia szybkie skanowanie wzrokiem.</li>
+</ul>
+<div aria-hidden="true" style="display: flex; background-color: var(--background-color); border: 3px solid var(--border-color); margin: -5px auto 20px; width: 300px; height: 100px;flex-direction: column;align-items: center;justify-content: center;">
+<p style="margin: 0;padding: 0;line-height: 1;">●</p>
+<p style="margin: 0;padding: 0;line-height: 1;">●</p>
+<p style="margin: 0;padding: 0;line-height: 1;">● ● ● ● ●</p>
+<p style="margin: 0;padding: 0;line-height: 1;">●</p>
+<p style="margin: 0;padding: 0;line-height: 1;">●</p>
+</div>
+
+<ul>
+<li><span class="color-green">Zasada Domknięcia</span> (<span class="color-blue">Closure</span>) – mózg dąży do postrzegania niepełnych kształtów jako całości. Wykorzystujemy to przy poziomym przewijaniu karuzeli produktów – lekkie przycięcie ostatniej karty informuje, że lista ciągnie się dalej.</li>
+</ul>
+<div aria-hidden="true" style="display: flex;background-color: var(--background-color);border: 3px solid var(--border-color);margin: -5px auto 20px;width: 300px;height: 100px;flex-direction: column;align-items: center;justify-content: center;padding-top: 9px;overflow: hidden;">
+<p style="margin: 0;padding: 0;line-height: 1;">● ─── </p>
+<p style="margin: 0;padding: 0;line-height: 1;">● ─── </p>
+<p style="margin: 0;padding: 0;line-height: 1;">● ─── </p>
+<p style="margin: 0;padding: 0;line-height: 1;">● ─── </p>
+<p style="margin: 0;padding: 0;line-height: 1;">● ─── </p>
+<p style="margin: 0;padding: 0;line-height: 1;">● ─── </p>
+</div>
+
+<ul>
+<li><span class="color-green">Zasada Wspólnego Losu</span> (<span class="color-blue">Common Fate</span>) – elementy poruszające się w tym samym kierunku i tempie uznajemy za grupę o wspólnej funkcji. Przykładem są spójnie rozwijające się panele menu harmonijkowego.</li>
+</ul>
+<div aria-hidden="true" style="display: flex;background-color: var(--background-color);border: 3px solid var(--border-color);margin: auto;width: 300px;height: 100px;flex-direction: column;align-items: center;justify-content: center;">
+<p style="display: flex;justify-content: space-between;width: 200px;"><span>●➔  ●➔</span><span>(Grupa 1)</span></p>
+<p style="display: flex;justify-content: space-between;width: 200px;
+"><span>●➘  ●➘</span><span>(Grupa 2)</span></p>
+</div>
+
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz Pary: Prawa percepcji</h2>
 <data-connection-matcher title="Dopasuj Prawa Gestalt do ich praktycznych zastosowań w interfejsie">
     <div class="cmw-item" data-left="Zasada Bliskości" data-right="Mniejszy margines pod nagłówkiem sekcji niż nad nim."></div>
@@ -68,168 +154,286 @@
     <div class="cmw-item" data-left="Zasada Ciągłości" data-right="Ułożenie pól formularza wzdłuż jednej pionowej osi."></div>
 </data-connection-matcher>
 
-<h3>🧭 Prawa Decyzyjne w HCI</h3>
-<p>Poza prawami Gestalt, projektowanie interfejsów opiera się na matematycznych i psychologicznych prawach interakcji człowieka z komputerem (HCI). Te reguły pozwalają zoptymalizować przestrzeń pod kątem ludzkich ograniczeń:</p>
+<h3>⚙️ Prawa Decyzyjne w HCI</h3>
+<p>Projektowanie interfejsów to nie tylko estetyka. Opiera się ono na psychologicznych i matematycznych zasadach interakcji człowieka z komputerem (<span class="color-blue">Human‑Computer Interaction</span>, <span class="color-green">HCI</span>). Te reguły pozwalają dostosować przestrzeń ekranu do ograniczeń naszego umysłu. Warto poznać trzy najważniejsze z nich:</p>
 <ul>
-<li><span class="color-green">Prawo Millera (Miller's Law):</span> Przeciętny człowiek jest w stanie utrzymać w pamięci krótkotrwałej jedynie około 7 (plus minus 2) elementów jednocześnie. To dlatego menu nawigacyjne nie powinno zawierać 15 linków obok siebie. Jeśli masz tak skomplikowaną strukturę, musisz podzielić ją na logiczne kategorie lub ukryć rzadziej używane opcje, aby nie przeciążyć pamięci roboczej użytkownika.</li>
-<li><span class="color-green">Prawo Hicka (Hick's Law):</span> Czas potrzebny na podjęcie decyzji wzrasta logarytmicznie wraz z liczbą i złożonością dostępnych opcji. Im więcej pól wyboru, przycisków i linków rzucisz użytkownikowi na raz, tym dłużej będzie się zastanawiał. Dlatego nowoczesne formularze rejestracyjne dzieli się na kilka prostych kroków, zamiast pokazywać 30 pól na jednym ekranie.</li>
-<li><span class="color-green">Prawo Fittsa (Fitts's Law):</span> Czas potrzebny na szybkie przesunięcie się do celu zależy od odległości do niego oraz od jego rozmiaru. Im dalej znajduje się przycisk i im jest mniejszy, tym trudniej w niego trafić. W projektowaniu mobilnym oznacza to, że przyciski kciukowe (np. kup teraz, wyślij) muszą być odpowiednio duże (minimum 48 na 48 pikseli) i umieszczone w dolnej strefie ekranu, do której palec dosięga w naturalny sposób.</li>
+<li><span class="color-gold">Prawo Millera</span> mówi, że w pamięci krótkotrwałej potrafimy utrzymać jednocześnie tylko około $7$ ($+/-$ $2$) elementów. Z tego powodu menu nawigacyjne nie powinno wyświetlać 15 linków obok siebie. Zbyt rozbudowaną strukturę należy podzielić na kategorie lub ukryć rzadziej używane opcje, aby nie przeciążyć pamięci roboczej odbiorcy.</li>
 </ul>
-<h3>🧭 Trajektorie Wzroku: Wzorce F oraz Z</h3>
-<p>Badania okulograficzne (eye‑tracking), polegające na śledzeniu mikroruchów gałek ocznych na ekranie, dowodzą, że nie czytasz stron internetowych jak papierowej literatury. Wzrok wykonuje szybkie skoki, szukając słów kluczowych i punktów zaczepienia. Zidentyfikowano dwa główne wzorce tego skanowania:</p>
-<p>Wzorzec <span class="color-green">F (F‑Shape Pattern)</span> dominuje na stronach przeładowanych informacjami tekstowymi, takich jak blogi, artykuły prasowe, wyniki wyszukiwania czy dokumentacje techniczne. Użytkownik najpierw wykonuje szeroki ruch poziomy wzdłuż górnej krawędzi tekstu (górna kreska litery F). Następnie przesuwa wzrok nieco niżej i wykonuje krótszy ruch poziomy (środkowa kreska litery F). Na koniec zjeżdża wzrokiem pionowo wzdłuż lewej krawędzi akapitów, szukając słów kluczowych, wypunktowań lub grafik. Jeśli piszesz długi blok tekstu bez nagłówków, pogrubień i list, czytelnik przeskanuje tylko jego początek i lewy margines, całkowicie ignorując resztę treści.</p>
-<p>Wzorzec <span class="color-green">Z (Z‑Shape Pattern)</span> pojawia się na stronach o charakterze wizualnym, takich jak landing pages, strony główne czy ekrany powitalne aplikacji, gdzie ilość tekstu jest minimalna. Wzrok wędruje wtedy od lewego górnego rogu (zazwyczaj logo) do prawego górnego rogu (często przycisk logowania lub menu). Następnie przecina ekran po skosie w dół do lewego dolnego rogu, a na koniec przesuwa się w prawo wzdłuż dolnej sekcji. Projektując layout strony głównej, musisz umieścić najważniejsze wezwanie do akcji (CTA) na samym końcu tej ścieżki lub bezpośrednio na jej skosie, aby wzrok naturalnie na nie natrafił.</p>
+<div aria-hidden="true" style="display: flex; flex-direction: column; background-color: var(--background-color); border: 3px solid var(--border-color); margin: 10px auto 20px; width: 300px; padding: 12px; gap: 10px; font-size: 11px; align-items: center;">
+  <div style="display: flex; flex-wrap: wrap; gap: 4px; border: 1px dashed red; padding: 6px; width: 100%; justify-content: center;">
+    <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span> <span>[link]</span>
+  </div>
+  <div style="display: flex; gap: 10px; border: 1px dashed green; padding: 6px; width: 100%; justify-content: space-around;">
+    <div style="display: flex; flex-direction: column; gap: 2px; align-items: center;"><strong>Kat A</strong><span>[link]</span><span>[link]</span></div>
+    <div style="display: flex; flex-direction: column; gap: 2px; align-items: center;"><strong>Kat B</strong><span>[link]</span><span>[link]</span></div>
+    <div style="display: flex; flex-direction: column; gap: 2px; align-items: center;"><strong>Kat C</strong><span>[link]</span><span>[link]</span></div>
+  </div>
+</div>
+
+<ul>
+<li><span class="color-gold">Prawo Hicka</span> określa czas potrzebny na podjęcie decyzji. Rośnie on wraz z liczbą i złożonością dostępnych opcji. Im więcej przycisków i linków użytkownik widzi jednocześnie, tym dłużej zwleka z wyborem. Dlatego rozbudowane formularze rejestracyjne dzieli się na kilka prostych kroków. Wyświetlenie $30$ pól na jednym ekranie po prostu zniechęci odbiorcę.</li>
+</ul>
+<div aria-hidden="true" style="display: flex; background-color: var(--background-color); border: 3px solid var(--border-color); margin: 10px auto 20px; width: 300px; padding: 12px; gap: 20px; font-size: 11px; justify-content: center;">
+  <div style="border: 1px dashed red; padding: 6px; display: flex; flex-direction: column; gap: 4px; width: 45%; align-items: center;">
+    <span>9 opcji na raz:</span>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;">
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+      <span style="border: 1px solid var(--border-color); padding: 1px; text-align: center;">■</span>
+    </div>
+  </div>
+  <div style="border: 1px dashed green; padding: 6px; display: flex; flex-direction: column; gap: 4px; width: 45%; align-items: center; justify-content: center;">
+    <span>Krok 1 z 2:</span>
+    <div style="display: flex; gap: 6px;">
+      <span style="border: 1px solid var(--border-color); padding: 2px 4px;">TAK</span>
+      <span style="border: 1px solid var(--border-color); padding: 2px 4px;">NIE</span>
+    </div>
+  </div>
+</div>
+
+<ul>
+<li><span class="color-gold">Prawo Fittsa</span> – czas potrzebny na wskazanie celu zależy od jego odległości i rozmiaru. Im mniejszy i dalszy obiekt, tym trudniej w niego trafić. W projektowaniu mobilnym oznacza to, że <strong><span class="color-green">każdy</span> element klikalny musi mieć minimalny obszar interakcji wynoszący <code>48px</code> na <code>48px</code></strong>. Nie musisz powiększać całego interfejsu, wystarczy zadbać o strefę interakcji z elementem. Przyciski o krytycznym znaczeniu biznesowym takie jak „Kup teraz” powinny być fizycznie większe, aby kusić do kliknięcia i skracać czas decyzji.</li>
+</ul>
+<div aria-hidden="true" style="display: flex; flex-direction: column; background-color: var(--background-color); border: 3px solid var(--border-color); margin: 10px auto 20px; width: 300px; padding: 12px; gap: 12px; font-size: 11px;">
+  <!-- Zły układ -->
+  <div style="border: 1px dashed red; padding: 10px; border-radius: 6px; display: flex; flex-direction: column; gap: 6px; position: relative;">
+    <div style="font-weight: bold; color: red; font-size: 10px; margin-bottom: 2px;">Źle (Trudny wybór i ryzyko błędu)</div>
+    <span style="font-size: 9px; color: var(--text-muted);">Zapisz się do newslettera:</span>
+    <input type="text" value="email@przyklad.com" disabled="" style="background: var(--input-bg-color, #1e1e1e); color: var(--text-color, #ffffff); border: 1px solid var(--border-color); padding: 4px; font-size: 9px; width: 100%; border-radius: 3px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+      <button disabled="" style="background: #ef4444; color: white; border: none; padding: 8px 12px; font-size: 10px; font-weight: bold; border-radius: 4px; cursor: not-allowed; width: 65%;">ANULUJ (Wielkie)</button>
+      <button disabled="" style="background: #22c55e; color: white; border: none; padding: 2px 4px; font-size: 8px; border-radius: 2px; cursor: not-allowed;">Zapisz</button>
+    </div>
+  </div>
+
+  <!-- Dobry układ -->
+  <div style="border: 1px dashed green; padding: 10px; border-radius: 6px; display: flex; flex-direction: column; gap: 6px; position: relative;">
+    <div style="font-weight: bold; color: green; font-size: 10px; margin-bottom: 2px;">Dobrze (Intuicyjny i bezpieczny cel)</div>
+    <span style="font-size: 9px; color: var(--text-muted);">Zapisz się do newslettera:</span>
+    <input type="text" value="email@przyklad.com" disabled="" style="background: var(--input-bg-color, #1e1e1e); color: var(--text-color, #ffffff); border: 1px solid var(--border-color); padding: 4px; font-size: 9px; width: 100%; border-radius: 3px;">
+    <div style="display: flex; flex-direction: column; gap: 6px; align-items: center; margin-top: 4px; width: 100%;">
+      <button disabled="" style="background: #22c55e; color: white; border: none; padding: 10px; font-size: 11px; font-weight: bold; border-radius: 4px; cursor: not-allowed; width: 100%;">ZAPISZ SIĘ (Wielki cel)</button>
+      <span style="font-size: 8px; color: var(--text-muted); cursor: not-allowed; text-decoration: underline;">pomiń ten krok</span>
+    </div>
+  </div>
+</div>
+
+<h3>👁️ Trajektorie Wzroku: Wzorce F oraz Z</h3>
+<p>Badania okulograficzne (eye‑tracking) pokazują, że nie czytamy stron internetowych słowo w słowo jak tradycyjnej książki. Wzrok szybko skacze po ekranie w poszukiwaniu punktów zaczepienia. Projektanci wyróżniają dwa główne schematy tego ruchu:</p>
+<p>Wzorzec <span class="color-green">F</span> (<span class="color-blue">F‑Shape Pattern</span>) dominuje na stronach z dużą ilością tekstu, takich jak blogi czy dokumentacje techniczne. Użytkownik najpierw czyta górną linijkę poziomo, potem schodzi niżej i wykonuje krótszy ruch w bok, a na koniec omiata wzrokiem lewą krawędź akapitów pionowo w dół. Jednolity blok tekstu bez nagłówków, pogrubień i list zostanie w większości zignorowany.</p>
+<div aria-hidden="true" style="display: flex; flex-direction: column; background-color: var(--background-color); border: 3px solid var(--border-color); margin: 10px auto 20px; width: 300px; padding: 12px; gap: 8px; font-size: 10px; position: relative;">
+  
+  <div style="font-weight: bold; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; color: var(--text-muted);">Makieta artykułu (Wzorzec F)</div>
+  <div style="position: relative; display: flex; flex-direction: column; gap: 6px; padding: 4px 0;">
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <div style="background: #930000;height: 17px;width: 85%;border-radius: 2px;position: relative;">
+        <span style="position: absolute;right: 4px;top: -1px;font-size: 9px;color: #ffffff;font-weight: bold;font-family: var(--font-family-verdana);">[1] Główny nagłówek</span>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+      <div style="background: #935f00;height: 13px;width: 55%;border-radius: 2px;position: relative;">
+        <span style="position: absolute;right: 4px;top: -1.5px;font-size: 8.5px;color: white;font-weight: bold;font-family: var(--font-family-verdana);">[2] Podtytuł</span>
+      </div>
+    </div>
+    <div style="display: flex; gap: 6px; margin-top: 4px; position: relative;">
+      <div style="background: gold;width: 19px;height: 42px;border-radius: 2px;position: relative;">
+        <span style="position: absolute;bottom: 2px;left: 1px;font-size: 9px;color: black;font-weight: bold;font-family: var(--font-family-verdana);">[3]</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; width: 100%;">
+        <div style="background: var(--border-color); height: 5px; width: 80%;"></div>
+        <div style="background: var(--border-color); height: 5px; width: 75%;"></div>
+        <div style="background: var(--border-color); height: 5px; width: 90%;"></div>
+        <div style="background: var(--border-color); height: 5px; width: 40%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>Wzorzec <span class="color-green">Z</span> (<span class="color-blue">Z‑Shape Pattern</span>) pojawia się na stronach wizualnych i powitalnych (landing pages), gdzie ilość tekstu jest minimalna. Wzrok porusza się od lewego górnego rogu (zazwyczaj logo) do prawego (przycisk nawigacji), schodzi po skosie do dolnego lewego narożnika, a na koniec przesuwa się w prawo. Najważniejszy element akcji (przycisk <span class="color-green">CTA</span>) powinien znajdować się na końcu tej ścieżki.</p>
+<div aria-hidden="true" style="display: flex; flex-direction: column; background-color: var(--background-color); border: 3px solid var(--border-color); margin: 10px auto 20px; width: 300px; padding: 12px; gap: 8px; font-size: 10px; position: relative;">
+  <!-- Top Bar (Header) -->
+  <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 6px; position: relative; z-index: 2;">
+    <span style="font-weight: bold; background: var(--accent-color, #3b82f6); color: white; padding: 2px 6px; border-radius: 4px;">[1] LOGO</span>
+    <span style="color: var(--text-muted); background: var(--bg-layer-3, #334155); padding: 2px 6px; border-radius: 4px;">[2] Nawigacja</span>
+  </div>
+  <!-- Content Area (Diagonal path) -->
+  <div style="height: 65px; position: relative; z-index: 1; display: flex; justify-content: center; align-items: center;">
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"><defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="0" refY="3" orient="auto"><polygon points="0 0, 6 3, 0 6" fill="orange"></polygon></marker></defs><line x1="240" y1="5" x2="40" y2="55" stroke="orange" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrowhead)"></line>
+</svg>
+<span style="font-size: 9px; color: var(--text-muted); text-align: center; max-width: 60%; line-height: 1.2;">Skanowanie nagłówka i grafik po skosie</span>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 6px; position: relative; z-index: 2;">
+    <span style="color: var(--text-muted)">[3] Informacje pomocnicze</span>
+    <span style="background: green; color: white; padding: 4px 8px; font-weight: bold; border-radius: 4px;">[4] PRZYCISK CTA ➔</span>
+  </div>
+</div>
+
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Przycisk <span class="color-green">CTA</span> (<span class="color-blue">Call To Action</span>) powinien znajdować się na końcu ścieżki wzroku. Jest to element, który ma skłonić użytkownika do podjęcia określonej akcji, np. zakupu produktu, zapisania się do newslettera czy wypełnienia formularza.</p>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz Pary: Prawa HCI i trajektorie wzroku</h2>
+<data-connection-matcher title="Dopasuj Prawa HCI oraz wzorce wzrokowe do ich charakterystyki">
+    <div class="cmw-item" data-left="Prawo Millera" data-right="Podział 15 linków w menu na 3 logiczne grupy."></div>
+    <div class="cmw-item" data-left="Prawo Hicka" data-right="Podział długiego formularza rejestracji na 3 mniejsze kroki."></div>
+    <div class="cmw-item" data-left="Prawo Fittsa" data-right="Powiększenie przycisku Kup Teraz i umieszczenie go w zasięgu kciuka."></div>
+    <div class="cmw-item" data-left="Wzorzec F" data-right="Skanowanie długiego artykułu głównie po jego lewej krawędzi."></div>
+    <div class="cmw-item" data-left="Wzorzec Z" data-right="Ruch wzroku po skosie od prawego górnego rogu do dolnej sekcji strony."></div>
+</data-connection-matcher>
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🏛️ Ewolucja Estetyki: Cyfrowe Mosty i Trójwymiarowa Przestrzeń</h2>
-<p>Przejście od tradycyjnych, fizycznych narzędzi do wirtualnych interfejsów na płaskich taflach szkła wymagało ogromnej rewolucji w Twojej percepcji. Abyś mógł bez lęku i intuicyjnie korzystać z komputerów, projektanci musieli zbudować mosty łączące świat fizyczny z cyfrowym. Ta historia to ciągłe poszukiwanie balansu między naśladowaniem rzeczywistości a czystą funkcjonalnością.</p>
+<p>Przejście od tradycyjnych, fizycznych narzędzi do wirtualnych interfejsów wymagało rewolucji w naszej percepcji. Aby użytkownicy mogli intuicyjnie korzystać z komputerów, projektanci musieli zbudować pomosty łączące świat fizyczny z cyfrowym. Ta historia to ciągłe poszukiwanie równowagi między naśladowaniem rzeczywistości a czystą funkcjonalnością:</p>
 <ul>
-<li><span class="color-green">Skeuomorfizm (Skeuomorphism):</span> Dosłowne naśladowanie fizycznych materiałów i właściwości w przestrzeni ekranu.</li>
-<li><span class="color-green">Flat Design (Płaski design):</span> Skrajna redukcja trójwymiarowości na rzecz czystej geometrii i kolorów.</li>
-<li><span class="color-green">Semi‑Flat &amp; Elewacja:</span> Nowoczesny kompromis warstwowości i cieni ułatwiający orientację przestrzenną.</li>
+<li><span class="color-blue">Skeuomorfizm</span> to dosłowne naśladowanie fizycznych materiałów i właściwości w przestrzeni ekranu.</li>
+<li><span class="color-blue">Flat Design</span> (płaski design) to skrajna redukcja trójwymiarowości na rzecz czystej geometrii i kolorów.</li>
+<li><span class="color-gold">Semi‑Flat &amp; Elewacja</span> to nowoczesny kompromis warstwowości i cieni ułatwiający orientację przestrzenną.</li>
 </ul>
 <h3>🗃️ Era Skeuomorfizmu: Fizyczny Świat wewnątrz Ekranu</h3>
-<p>Przez pierwsze dwie dekady powszechnego internetu na ekranach panował skeuomorfizm. Nurt ten polegał na wiernym kopiowaniu tekstur, cieni i fizyki przedmiotów, które znasz z codziennego życia.</p>
-<p>Przyciski na stronach internetowych miały wyraźny połysk, plastikową wypukłość i głębokie cienie. Miało to sugerować Twoim palcom i oczom, że dany element można fizycznie wcisnąć. Aplikacje na telefonach wyglądały jak małe przedmioty leżące na biurku. Dyktafon udawał magnetofon szpulowy z metalowymi klawiszami, kalendarz miał fakturę przeszywanej skóry, a aplikacja do czytania prezentowała wirtualne, drewniane półki na książki.</p>
-<p>Skeuomorfizm nie był kaprysem ani brakiem wyobraźni u projektantów. Stanowił potężne narzędzie edukacyjne. W czasach, gdy ekrany dotykowe i systemy operacyjne były nowością, Twój mózg potrzebował wskazówek z fizycznego świata. W ten sposób uczyłeś się zasad działania cyfrowego środowiska. Te wizualne podpowiedzi nazywamy <span class="color-green">afordancjami</span> (affordances). Widząc cień pod przyciskiem i jego trójwymiarowość, podświadomie rozumiałeś, że ten element zareaguje na dotyk. Widząc ikonę papierowego kosza na śmieci, od razu wiedziałeś, gdzie lądują usuwane pliki.</p>
+<p>Przez pierwsze dwie dekady powszechnego internetu na ekranach panował skeuomorfizm. Nurt ten polegał na wiernym kopiowaniu tekstur, cieni i fizyki przedmiotów z codziennego życia.</p>
+<p>Przyciski na stronach miały wyraźny połysk, trójwymiarową wypukłość i głębokie cienie. Miało to sugerować, że element można fizycznie wcisnąć. Aplikacje na telefonach wyglądały jak małe przedmioty leżące na biurku. Dyktafon udawał magnetofon szpulowy z metalowymi klawiszami, kalendarz miał fakturę przeszywanej skóry, a aplikacja do czytania prezentowała wirtualne, drewniane półki na książki.</p>
+<p>Skeuomorfizm nie powstał z braku wyobraźni projektantów. Pełnił ważną rolę edukacyjną. W czasach, gdy ekrany dotykowe były nowością, nasz mózg potrzebował wskazówek z fizycznego świata. Te wizualne podpowiedzi nazywamy <span class="color-green">afordancjami</span> (<span class="color-blue">affordances</span>). Widząc cień pod przyciskiem, podświadomie rozumiałeś, że ten element zareaguje na kliknięcie. Widząc ikonę papierowego kosza na śmieci, od razu wiedziałeś, gdzie lądują usuwane pliki.</p>
 <iframe src="/public/resources/web-site-preview/skeuomorficzny.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu skeuomorficznego na przykładowej stronie" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <h3>🗺️ Flat Design: Brutalne Spłaszczenie i jego Konsekwencje</h3>
-<p>Gdy nauczyłeś się już obsługiwać ekrany, skeuomorfizm zaczął ciążyć. Tekstury skóry, drewna i metalu stały się wizualnym szumem. Niepotrzebnie odciągał on Twoją uwagę od samej treści strony. W okolicach 2013 roku nadeszła radykalna reakcja – Flat Design (płaski design), którego symbolem stały się systemy Windows 8 oraz iOS 7.</p>
-<p>Projektanci odrzucili wszelkie cienie, gradienty, zaokrąglenia i faktury. Interfejsy stały się płaskimi plakatami graficznymi złożonymi z czystych, ostrych kafelków, jaskrawych kolorów i minimalistycznej typografii. Wszystko miało być cyfrowe, bez udawania fizycznego świata.</p>
-<p>Nurt ten popełnił jednak ogromny błąd – poszedł w skrajność. Poprzez całkowite usunięcie cieni i głębi wizualnej interfejsy straciły czytelność. Użytkownicy zaczęli gubić się na stronach, ponieważ przyciski wyglądały dokładnie tak samo jak zwykłe nagłówki czy bloki tekstowe. Brak wskazówek przestrzennych sprawił, że interfejsy stały się chłodne i trudne w obsłudze. Usunięcie głębi doprowadziło do zjawiska zwanego <span class="color-green">mystery meat navigation</span> – musiałeś klikać na oślep w losowe napisy, aby sprawdzić, co jest linkiem, a co nie. E‑commerce odnotował wtedy drastyczne spadki konwersji, bo klienci po prostu nie potrafili znaleźć koszyka zakupowego ani przycisku finalizacji płatności.</p>
+<p>Gdy użytkownicy nauczyli się już obsługiwać ekrany, skeuomorfizm zaczął ciążyć. Tekstury skóry, drewna i metalu stały się wizualnym szumem, który odciągał uwagę od samej treści strony. W okolicach <time datetime="2013">$2013$</time> roku nadeszła radykalna reakcja. Czyli Flat Design (płaski design), którego symbolem stały się systemy Windows 8 oraz iOS 7.</p>
+<p>Projektanci odrzucili wszelkie cienie, gradienty, zaokrąglenia i faktury. Interfejsy stały się płaskimi plakatami graficznymi złożonymi z czystych kafelków, jaskrawych kolorów i minimalistycznej typografii. Wszystko miało być cyfrowe, bez udawania fizycznego świata.</p>
+<p>Nurt ten popadł jednak w skrajność. Przez całkowite usunięcie cieni i głębi interfejsy straciły czytelność. Użytkownicy zaczęli gubić się na stronach. Przyciski wyglądały tak samo jak zwykłe nagłówki czy bloki tekstowe. Brak wskazówek przestrzennych sprawił, że interfejsy stały się trudne w obsłudze.</p>
+<p>Usunięcie głębi doprowadziło do zjawiska zwanego <span class="color-gold">mystery meat navigation</span> (dosł. nawigacja po tajemniczym mięsie 😧) Trzeba było klikać na oślep w losowe napisy, aby sprawdzić, co jest linkiem. Sklepy internetowe odnotowały wtedy drastyczne spadki sprzedaży, ponieważ klienci nie potrafili znaleźć koszyka zakupowego ani przycisku finalizacji płatności.</p>
 <iframe src="/public/resources/web-site-preview/flat-design.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu Flat Design i interaktywna symulacja zakupów" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
-<h3>🔮 Współczesny Kompromis: Warstwy, Cienie i Światło</h3>
-<p>Dzisiejsze interfejsy to dojrzałe wyciągnięcie wniosków z obu tych skrajności. Współczesny web design nie próbuje już udawać drewna i metalu, ale też nie zmusza Cię do patrzenia na idealnie płaski świat. Zamiast tego traktujemy ekran jak przestrzeń architektoniczną.</p>
-<p>Głównym narzędziem projektanta stały się cienie i <span class="color-green">elewacja</span> (elevation). Elementy na stronie są czyste i płaskie, ale leżą na różnych wysokościach względem tła. Karty produktów, okna modalne czy panele boczne rzucają delikatne, rozproszone cienie. Dzięki temu Twój mózg natychmiast rozumie, że element położony „wyżej” (rzucający większy cień) jest ważniejszy, interaktywny i leży nad treścią pod spodem. Ta hierarchia przestrzenna, którą w kodzie kontrolujemy za pomocą osi <code>z-index</code>, pozwala oczom błyskawicznie uporządkować strukturę strony.</p>
-<p>Coraz chętniej stosuje się również efekty takie jak <span class="color-green">glassmorphism</span>, czyli symulację matowego, półprzezroczystego szkła. Pozwala to na wyświetlanie okien dialogowych bez całkowitego odcinania użytkownika od kontekstu strony pod spodem. Mózg widzi rozmyte kształty w tle i wie, gdzie się znajduje, co drastycznie zmniejsza dezorientację przestrzenną.</p>
+<h3>⚖️ Współczesny Kompromis: Warstwy, Cienie i Światło</h3>
+<p>Dzisiejsze interfejsy to dojrzałe podsumowanie obu tych skrajności. Współczesny web design nie naśladuje już drewna i metalu, ale nie zmusza nas też do patrzenia na idealnie płaski świat. Zamiast tego traktujemy ekran jak przestrzeń architektoniczną.</p>
+<p>Głównym narzędziem projektanta stały się cienie i <span class="color-green">elewacja</span> (<span class="color-blue">elevation</span>). Elementy na stronie są czyste i płaskie, ale leżą na różnych wysokościach względem tła. Karty produktów, okna modalne czy panele boczne rzucają delikatne, rozproszone cienie. Dzięki temu mózg natychmiast rozumie, że element położony „wyżej” (rzucający większy cień) jest ważniejszy, interaktywny i leży nad treścią pod spodem. Ta hierarchia przestrzenna, którą w kodzie kontrolujemy za pomocą osi <code>z-index</code>, pozwala oczom błyskawicznie uporządkować strukturę strony.</p>
+<p>Projektanci chętnie stosują również efekty takie jak <span class="color-green">glassmorphism</span>, czyli symulację matowego, półprzezroczystego szkła. Pozwala to na wyświetlanie okien dialogowych bez całkowitego odcinania użytkownika od kontekstu strony pod spodem. Mózg widzi rozmyte kształty w tle i wie, gdzie się znajduje, co zmniejsza dezorientację przestrzenną.</p>
 <iframe src="/public/resources/web-site-preview/material.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu semi-flat / Material Design z warstwami i cieniami" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Estetyka jako Język Emocji i Tożsamości</h2>
-<p>CSS pozwala Ci zdecydować, jaki charakter i duszę będzie miała Twoja strona. Wybór nurtu estetycznego to nie tylko sprawa wyglądu. To decyzja o tym, kogo chcesz przyciągnąć, jak bardzo profesjonalnie chcesz brzmieć i jakie emocje chcesz wywołać w użytkowniku.</p>
+<p>Za pomocą CSS decydujesz o charakterze i wyrazie swojej strony. Estetyka to nie tylko wygląd. To komunikat o tym, kogo chcesz przyciągnąć, jak bardzo profesjonalnie chcesz brzmieć i jakie emocje chcesz wywołać w użytkowniku.</p>
 <h3>📐 Minimalizm: Cisza Wizualna i Redukcja Szumu</h3>
-<p>Minimalizm to obecnie domyślny język nowoczesnego biznesu, systemów bankowych i narzędzi pracy typu SaaS. Wywodzi się bezpośrednio z założeń niemieckiej szkoły Bauhaus oraz szwajcarskiego projektowania modernistycznego.</p>
-<p>W minimalizmie głównym elementem projektu staje się <span class="color-green">wolna przestrzeń</span> (często nazywana <span class="color-blue">whitespace</span> lub <span class="color-blue">negative space</span>) oraz bardzo rygorystycznie dobierana typografia. Zamiast ilustracji, ozdobnych grafik i zbędnych linii dekoracyjnych, to krój pisma, jego grubość i czyste odległości między elementami budują cały interfejs.</p>
-<p>Projektując minimalistycznie, skracasz czas potrzebny na wykonanie zadania. Minimalizm wysyła jasny komunikat: „Twój czas i Twoje dane są tutaj najważniejsze, dlatego usunęliśmy wszystko, co mogłoby Cię rozpraszać”. Nurt ten wymaga jednak ogromnej precyzji projektowej. Przy braku ozdobników każdy błąd, nawet przesunięcie marginesu o dwa piksele, staje się od razu widoczny.</p>
+<p>Minimalizm to domyślny styl nowoczesnego biznesu, systemów bankowych i narzędzi pracy typu <span class="color-green">SaaS</span> (<span class="color-blue">Software as a Service</span>). Wywodzi się bezpośrednio z założeń niemieckiej szkoły Bauhaus oraz szwajcarskiego projektowania modernistycznego.</p>
+<p>W minimalizmie głównym elementem projektu staje się <span class="color-green">wolna przestrzeń</span> (tzw. <span class="color-blue">whitespace</span> lub <span class="color-blue">negative space</span>) oraz rygorystycznie dobierana typografia. Zamiast ilustracji, ozdobnych grafik i zbędnych linii dekoracyjnych, to krój pisma, jego grubość i czyste odległości między elementami budują cały interfejs.</p>
+<p>Projektując minimalistycznie, skracasz czas potrzebny na wykonanie zadania. Minimalizm wysyła jasny komunikat: „Twój czas i Twoje dane są tutaj najważniejsze, dlatego usunęliśmy wszystko, co mogłoby Cię rozpraszać”. Nurt ten wymaga jednak ogromnej precyzji. Przy braku ozdobników każdy błąd – nawet przesunięcie marginesu o dwa piksele – staje się od razu widoczny.</p>
 <iframe src="/public/resources/web-site-preview/minimalizm.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu minimalistycznego opartego o wolną przestrzeń i typografię" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <h3>🧱 Brutalizm: Surowy Głos Autentyczności</h3>
 <p>Brutalizm to bezkompromisowa reakcja na sterylną, powtarzalną estetykę korporacyjnych stron. Nazwa tego nurtu nawiązuje do architektury opartej na surowym, nieobrobionym betonie (<span class="color-blue">béton brut</span>) oraz do wczesnego, dzikiego wyglądu internetu z lat dziewięćdziesiątych.</p>
-<p>Strona brutalistyczna celowo odrzuca ugrzecznione i wygładzone zasady współczesnego projektowania. Zamiast zaokrągleń i miękkich cieni otrzymujesz tu grube, czarne obramowania o szerokości kilku pikseli. Kolory są jaskrawe i podstawowe, wyjęte prosto z domyślnej palety systemowej. Czcionki często mają stałą szerokość znaków (<span class="color-blue">monospace</span>), co kojarzy się z pisaniem kodu bezpośrednio w terminalu. Układ elementów celowo ignoruje symetrię siatki, sprawiając wrażenie niedokończonego lub wręcz topornego.</p>
-<p>Dlaczego deweloperzy i projektanci tak bardzo lubią brutalizm? Ponieważ bije z niego autentyczność. Pokazuje, że strona została napisana czystym, surowym kodem przez człowieka o wyrazistej tożsamości, a nie wygenerowana z gotowego szablonu marketingowego. Brutalizm doskonale sprawdza się na stronach artystów, festiwali, niezależnych projektów oraz w portfolio programistów, którzy chcą podkreślić swój charakter i techniczną niezależność.</p>
+<p>Strona brutalistyczna celowo odrzuca ugrzecznione zasady współczesnego projektowania. Zamiast zaokrągleń i miękkich cieni otrzymujesz tu grube, czarne obramowania o szerokości kilku pikseli. Kolory są jaskrawe i podstawowe, wyjęte prosto z domyślnej palety systemowej. Czcionki często mają stałą szerokość znaków (<span class="color-blue">monospace</span>), co kojarzy się z pisaniem kodu bezpośrednio w terminalu. Układ elementów celowo ignoruje symetrię siatki, sprawiając wrażenie niedokończonego lub wręcz topornego.</p>
+<p>Popularność brutalizmu wynika z jego autentyczności. Pokazuje, że strona została napisana czystym, surowym kodem przez człowieka o wyrazistej tożsamości, a nie wygenerowana z gotowego szablonu marketingowego. Brutalizm doskonale sprawdza się na stronach artystów, festiwali, niezależnych projektów oraz w portfolio programistów, którzy chcą podkreślić swój charakter i techniczną niezależność.</p>
 <iframe src="/public/resources/web-site-preview/brutalizm.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu brutalistycznego z surowymi ramkami i kontrastową kolorystyką" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <h3>🦾 Cyberpunk i Neon-Futurism: Świat Maszyn i Nocy</h3>
-<p>Cyberpunk i neonowy futuryzm to podróż do świata zaawansowanej technologii, dystopijnej przyszłości i cyfrowego podziemia. Styl ten opiera się na koncepcji technologii bliskiej człowiekowi, ale też surowej i bezwzględnej.</p>
-<p>Głównym motywem są tutaj głębokie czernie i ciemnoszare tła, które naśladują ekrany wojskowych konsol diagnostycznych lub klimat nocnego miasta. Akcenty kolorystyczne to wyłącznie jaskrawe, świecące neony – magnetyczny cyjan, agresywna magenta oraz toksyczna zieleń. Elementy interfejsu często otoczone są delikatnymi, rozświetlonymi poświatami (<span class="color-blue">neon glow</span>), a całe tło przecinają cienkie linie pomocnicze, siatki gridów oraz drobne znaczniki przypominające celowniki lub wykresy.</p>
-<p>Używając tego stylu, natychmiast budujesz atmosferę zaawansowania technicznego i cyfrowej dominacji. Jest to świetny wybór dla systemów monitorowania sieci, gier przeglądarkowych, paneli administratorskich oraz stron powiązanych z cyberbezpieczeństwem.</p>
+<p>Cyberpunk i neonowy futuryzm nawiązują do świata zaawansowanej technologii, dystopijnej przyszłości i cyfrowego podziemia. Styl ten opiera się na koncepcji technologii bliskiej człowiekowi, ale też surowej i bezwzględnej.</p>
+<p>Głównym motywem są tutaj głębokie czernie i ciemnoszare tła, które naśladują ekrany wojskowych konsol diagnostycznych lub klimat nocnego miasta. Akcenty kolorystyczne to wyłącznie jaskrawe, świecące neony: </p>
+<div style="
+    background-color: #05050a;
+    width: fit-content;
+    padding: 10px 25px 10px 10px;
+    border: 2px solid #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+    margin: 10px 0;
+">
+<ul style="
+    list-style: square;
+    margin-left: 15px;
+    font-family: monospace;
+">
+<li style="color: #00f2fe; text-shadow: 0 0 8px #00f2fe; font-weight: bold; margin-bottom: 4px;">magnetyczny cyjan</li>
+<li style="color: #ff007f; text-shadow: 0 0 8px #ff007f; font-weight: bold; margin-bottom: 4px;">agresywna magenta</li>
+<li style="color: #39ff14; text-shadow: 0 0 8px #39ff14; font-weight: bold;">toksyczna zieleń</li>
+</ul>
+</div>
+
+<p>Elementy interfejsu często otoczone są delikatnymi, rozświetlonymi poświatami (<span class="color-blue">neon glow</span>), a całe tło przecinają cienkie linie pomocnicze, siatki gridów oraz drobne znaczniki przypominające celowniki lub wykresy.</p>
+<p>Ten styl natychmiast buduje atmosferę zaawansowania technicznego i cyfrowej dominacji. Jest to świetny wybór dla systemów monitorowania sieci, gier przeglądarkowych, paneli administratorskich oraz stron powiązanych z cyberbezpieczeństwem.</p>
 <iframe src="/public/resources/web-site-preview/cyberpunk.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu cyberpunkowego z neonowymi akcentami" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ UI jako Narzędzie Immersji: Lekcje z Gier Wideo</h2>
-<p>Gry wideo to najbardziej zaawansowane laboratoria projektowania interfejsów na świecie. Tam UI (User Interface) nie służy tylko do suchego przekazywania danych. Jego głównym celem jest sprawienie, abyś całkowicie zapomniał o istnieniu monitora i wtopił się w wirtualną rzeczywistość. Sposób, w jaki twórcy gier zarządzają uwagą gracza, uczy nas, jak budować emocje za pomocą prostych układów graficznych.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎮 UI jako Narzędzie Immersji: Lekcje z Gier Wideo</h2>
+<p>Gry wideo to najbardziej rozwinięty obszar projektowania interfejsów. Tam <span class="color-gold">UI</span> (<span class="color-blue">User Interface</span>) nie służy tylko do suchego przekazywania danych. Jego głównym celem jest wciągnięcie gracza w wirtualny świat, aby zapomniał o istnieniu monitora. Sposób, w jaki twórcy gier zarządzają uwagą, uczy nas budowania emocji za pomocą układów graficznych.</p>
 <p>W projektowaniu gier interfejsy dzielimy na cztery główne kategorie:</p>
 <ul>
-<li><span class="color-green">Diegetyczne (Diegetic):</span> Elementy interfejsu, które fizycznie istnieją w świecie gry. Twoja postać widzi je i słyszy dokładnie tak samo jak Ty.</li>
-<li><span class="color-green">Niediegetyczne (Non‑diegetic):</span> Klasyczne paski zdrowia i liczniki nałożone płasko na ekran (tzw. HUD). Postać w grze nie ma pojęcia o ich istnieniu.</li>
-<li><span class="color-green">Przestrzenne (Spatial):</span> Informacje wyświetlane w przestrzeni 3D gry (np. linia trasy na asfalcie), ale niebędące fizycznymi obiektami. Postać ich nie widzi.</li>
-<li><span class="color-green">Meta (Meta UI):</span> Elementy nałożone na ekran, które naśladują stan postaci (np. krople krwi lub plamy błota na kamerze).</li>
+<li><span class="color-gold">Diegetyczne</span> (<span class="color-blue">diegetic</span>) – elementy, które fizycznie istnieją w świecie gry. Postać w grze widzi je i słyszy dokładnie tak samo jak gracz.</li>
+<li><span class="color-gold">Niediegetyczne</span> (<span class="color-blue">non‑diegetic</span>) – klasyczne paski zdrowia i liczniki nałożone płasko na ekran tzw. <span class="color-green">HUD</span> (<span class="color-blue">Head‑Up Display</span>). Postać w grze nie ma pojęcia o ich istnieniu.</li>
+<li><span class="color-gold">Przestrzenne</span> (<span class="color-blue">spatial</span>) – informacje wyświetlane w przestrzeni trójwymiarowej gry (np. strzałki nawigacji na asfalcie), ale niebędące fizycznymi obiektami. Postać ich nie widzi.</li>
+<li><span class="color-gold">Meta</span> (<span class="color-blue">meta UI</span>) – elementy nałożone na ekran, które naśladują stan bohatera (np. plamy krwi na ekranie przy braku zdrowia).</li>
 </ul>
 <h3>🎒 Interfejs Diegetyczny: Kiedy Ekran Znika</h3>
-<p>Interfejs diegetyczny to absolutny szczyt budowania klimatu. Zalicza się do niego każdy element informacyjny, który jest częścią wirtualnego świata. Postać w grze wchodzi z nim w interakcję w czasie rzeczywistym.</p>
-<p>Absolutnym wzorem takiego podejścia jest seria horrorów <span class="color-gold">Dead Space</span>. Twórcy całkowicie zrezygnowali z tradycyjnych pasków zdrowia czy liczników amunicji przyklejonych do rogów monitora. Poziom zdrowia bohatera, Isaaca Clarke'a, wyświetla się jako świecący pasek wbudowany bezpośrednio w kręgosłup jego kombinezonu. Poziom tlenu w próżni pokazuje się na plecach, a licznik pozostałych naboi to mały hologram wyświetlany bezpośrednio nad bronią, z której celujesz.</p>
-<p>Kiedy otwierasz ekwipunek, przed twarzą bohatera pojawia się fizyczny, świecący w trójwymiarze hologram. Co najważniejsze – gra nie zatrzymuje się wtedy. Isaac patrzy na ten hologram w czasie rzeczywistym, a Ty wraz z nim. Jeśli z ciemnego korytarza wyskoczy potwór, musisz walczyć, mając wciąż otwarte okno przedmiotów. Brak sztucznych ramek sprawia, że lęk przed zagrożeniem staje się namacalny. Interfejs przestaje być barierą między Tobą a grą.</p>
+<p>Interfejs diegetyczny stanowi szczyt budowania klimatu. Każdy element informacyjny jest częścią wirtualnego świata, a bohater wchodzi z nim w interakcję w czasie rzeczywistym.</p>
+<p>Absolutnym wzorem takiego podejścia jest seria horrorów <span class="color-blue">Dead Space</span>. Twórcy całkowicie zrezygnowali z tradycyjnych pasków zdrowia czy liczników amunicji w rogach monitora. Poziom zdrowia bohatera, Isaaca Clarke'a, wyświetla się jako świecący pasek wbudowany bezpośrednio w kręgosłup kombinezonu. Poziom tlenu w próżni pokazuje się na plecach, a licznik pozostałych naboi to mały hologram wyświetlany bezpośrednio nad celownikiem broni.</p>
+<p>Kiedy otwierasz ekwipunek, przed twarzą bohatera pojawia się fizyczny hologram. Co najważniejsze, gra nie zatrzymuje się wtedy. Bohater patrzy na ten hologram w czasie rzeczywistym, a gracz wraz z nim. Jeśli z ciemnego korytarza wyskoczy przeciwnik, trzeba walczyć, mając wciąż otwarte okno przedmiotów. Brak sztucznych ramek sprawia, że lęk przed zagrożeniem staje się namacalny.</p>
 <iframe src="/public/resources/web-site-preview/dead-space.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja diegetycznego interfejsu z gry Dead Space zintegrowanego z kombinezonem" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <h3>📟 Pip-Boy w Fallout: Fizyczność Informacji</h3>
-<p>W serii <span class="color-gold">Fallout</span> interfejs statystyk, mapy i zadań został zaprojektowany jako fizyczne urządzenie Pip‑Boy 3000. Jest to masywny komputer naręczny noszony przez Twojego bohatera.</p>
-<p>Kiedy wciskasz klawisz odpowiedzialny za menu, postać podnosi rękę przed twarz. Patrzysz wtedy na zakrzywiony, monochromatyczny ekran kineskopowy. Widzisz poziome linie odświeżania zielonego fosforu, delikatne migotanie światła przy przełączaniu zakładek i słyszysz mechaniczne kliknięcia starych przełączników.</p>
+<p>W serii <span class="color-blue">Fallout</span> interfejs statystyk, mapy i zadań został zaprojektowany jako fizyczne urządzenie <span class="color-blue">Pip‑Boy 3000</span>. Jest to masywny komputer naręczny noszony przez bohatera.</p>
+<p>Kiedy otwiera się menu, postać podnosi rękę przed twarz. Gracz patrzy wtedy na zakrzywiony, monochromatyczny ekran kineskopowy. Widoczne są poziome linie odświeżania zielonego fosforu, delikatne migotanie światła przy przełączaniu zakładek oraz słychać mechaniczne kliknięcia starych przełączników.</p>
 <p>Twórcy gry wzięli nudną bazę danych (listę przedmiotów i statystyk) i zamienili ją w fizyczny przedmiot. Ten interfejs nie jest idealnie czysty i przezroczysty. Jest toporny, ciężki i mechaniczny. Dzięki temu doskonale buduje atmosferę postapokaliptycznego świata, w którym technologia zatrzymała się w latach pięćdziesiątych ubiegłego wieku.</p>
 <iframe src="/public/resources/web-site-preview/pip-boy 3000.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja fizycznego urządzenia Pip-Boy z serii Fallout" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <h3>🎸 Persona 5: UI jako Serce Stylu</h3>
-<p>Studio Atlus przy projektowaniu gry <span class="color-gold">Persona 5</span> wybrało zupełnie inną drogę. Zamiast ukrywać interfejs w świecie gry, twórcy uczynili z niego główną atrakcję i wizualny motor napędowy całego tytułu.</p>
+<p>Studio Atlus przy projektowaniu gry <span class="color-blue">Persona 5</span> wybrało inną drogę. Zamiast ukrywać interfejs w świecie gry, uczyniło z niego główną atrakcję i wizualny motor napędowy całego tytułu.</p>
 <p>Interfejs w tej grze jest agresywny, dynamiczny i buntowniczy. Dominują w nim trzy kontrastowe kolory: głęboka czerń, czysta biel i krzykliwa czerwień. Przyciski menu nie leżą na prostej, nudnej siatce. Są porozrzucane pod różnymi kątami, zniekształcone i przypominające wycinki z anarchistycznych gazet lub punkowe plakaty z lat osiemdziesiątych. Każde przełączenie ekranu to płynna animacja, w której sylwetki postaci przecinają przestrzeń.</p>
-<p>Ten interfejs nie próbuje być skromnym. On krzyczy do Ciebie przy każdym ruchu. UI w Personie 5 buduje niesamowite tempo rozgrywki, podnosi tętno gracza i sprawia, że nawet proste wybieranie opcji w walce daje ogromną satysfakcję. Udowadnia to, że interfejs użytkownika może być samodzielnym dziełem sztuki.</p>
+<p>Ten interfejs krzyczy przy każdym ruchu. Buduje tempo rozgrywki, podnosi tętno gracza i sprawia, że nawet proste wybieranie opcji w walce daje ogromną satysfakcję. Udowadnia to, że interfejs użytkownika może być samodzielnym dziełem sztuki.</p>
 <iframe src="/public/resources/web-site-preview/persona-5.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja dynamicznego i agresywnego interfejsu z gry Persona 5" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 <h3>✍️ Disco Elysium: Melancholia Tekstu</h3>
-<p>Użyta tam typografia, stonowane kolory (beże, brązy, czernie) i akwarelowe portrety postaci w tle tworzą unikalny, melancholijny i refleksyjny nastrój. Interfejs nie rywalizuje z opowiadaną historią, lecz staje się jej fizyczną formą. Wpływa to na to, jak czytasz dialogi – wolniej, z większym skupieniem, chłonąc każde słowo niczym w klasycznej powieści kryminalnej.</p>
+<p>Użyta w tej grze typografia, stonowane kolory (beże, brązy, czernie) i akwarelowe portrety postaci w tle tworzą melancholijny i refleksyjny nastrój. Interfejs nie rywalizuje z opowiadaną historią, lecz staje się jej fizyczną formą. Wpływa to na to, jak gracz czyta dialogi – wolniej, z większym skupieniem, chłonąc każde słowo niczym w klasycznej powieści kryminalnej.</p>
 <iframe src="/public/resources/web-site-preview/disco-elysium.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja tekstopisarstwa i melancholijnego interfejsu z gry Disco Elysium" sandbox="allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz Pary: Kierunki w projektowaniu i rodzaje interfejsów</h2>
+<data-connection-matcher title="Dopasuj style estetyczne i rodzaje interfejsów do ich opisu">
+    <div class="cmw-item" data-left="Skeuomorfizm" data-right="Dosłowne naśladowanie faktury skóry, drewna oraz głębokich cieni fizycznych przycisków."></div>
+    <div class="cmw-item" data-left="Flat Design" data-right="Całkowite usunięcie cieni i gradientów, co może prowadzić do zjawiska mystery meat navigation."></div>
+    <div class="cmw-item" data-left="Elewacja (Material)" data-right="Traktowanie ekranu jako warstwowej przestrzeni architektonicznej z cieniem o różnej wielkości."></div>
+    <div class="cmw-item" data-left="Brutalizm" data-right="Surowy styl z grubymi czarnymi ramkami, czcionkami o stałej szerokości i jaskrawymi barwami systemowymi."></div>
+    <div class="cmw-item" data-left="Cyberpunk" data-right="Dominacja czerni i ciemnoszarych teł przecinanych liniami gridu oraz neonowymi kolorami z poświatą."></div>
+    <div class="cmw-item" data-left="Interfejs diegetyczny" data-right="Ręczny detektor ruchu, na który postać musi fizycznie spojrzeć, rozmywając widok na otoczenie."></div>
+</data-connection-matcher>
 
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🌊 Skąd pochodzi CSS i dlaczego to ma znaczenie</h2>
-<p>W 1991 roku Tim Berners‑Lee wydał HTML. Bez żadnego standardu wyglądu.</p>
-<p>Mosaic renderował nagłówki po swojemu. Netscape po swojemu. Internet Explorer po swojemu. Ten sam plik HTML wyglądał inaczej w każdej przeglądarce. Budowanie czegokolwiek spójnego było loterią.</p>
-<p>W 1994 roku Håkon Wium Lie i Bert Bos - znowu w CERN, tym samym ośrodku gdzie powstało WWW - zaproponowali rozwiązanie. Nazwali je <em><span class="color-gold">Cascading Style Sheets</span></em>.</p>
-<p>„Cascading" to nie przypadek. Kaskada oznacza, że style spływają z trzech źródeł jednocześnie:</p>
-<ul>
-<li>Przeglądarka ma własne domyślne style (<span class="color-gold">user agent stylesheet</span>). Zawsze. Zanim napiszesz jedną linię CSS.</li>
-<li>Użytkownik może mieć własne preferencje - większa czcionka, wysoki kontrast, ciemny motyw. System operacyjny przekazuje je do silnika renderującego.</li>
-<li>Deweloper pisze swoje reguły.</li>
-</ul>
-<p>Gdy trzy źródła zderzają się na jednym elemencie, kaskada rozstrzyga konflikty. To był celowy projekt: <strong>otwarty internet nie miał należeć wyłącznie do deweloperów</strong>.</p>
-<h3>🖥️ CSS to nie Photoshop</h3>
-<p>To największy błąd myślowy przy starcie.</p>
-<p>W CSS <span class="color-green">deklarujesz ograniczenia</span>, nie rysujesz piksele. Nie mówisz: „tekst ma być na pozycji X=148, Y=372". Mówisz: „ten element ma kolor niebieski i 60% szerokości rodzica". A silnik renderujący - Blink, Gecko lub WebKit, które znasz z poprzedniej lekcji - sam oblicza, jak narysować to na konkretnym ekranie.</p>
-<p>Dlatego jedna strona działa na 4‑calowym telefonie i na 32‑calowym monitorze. Ty opisujesz intencje. Silnik renderuje.</p>
-<p>Każdy z tych trzech silników implementuje specyfikację CSS opracowaną przez W3C trochę inaczej. Ta sama reguła może wyglądać nieznacznie różnie w Chrome (Blink), Firefox (Gecko) i Safari (WebKit). Stąd <span class="color-blue">Can I Use</span>.</p>
-<h3>📦 Każdy element to pudełko</h3>
-<p>Zanim napiszesz pierwszą regułę CSS, przyjmij jeden aksjomat:</p>
-<p><strong><span class="color-green">Każdy element HTML to prostokątne pudełko.</span></strong></p>
-<p>Akapit, nagłówek, przycisk, obraz, lista - wszystko to pudełka zagnieżdżone w innych pudełkach. Całą stronę w przeglądarce można opisać jako stos i siatkę prostokątów.</p>
-<p>Każde pudełko ma cztery warstwy, od środka na zewnątrz:</p>
-<ul>
-<li><span class="color-blue">content</span> - treść: tekst, obraz, zagnieżdżone elementy.</li>
-<li><span class="color-blue">padding</span> - wyściółka między treścią a krawędzią.</li>
-<li><span class="color-blue">border</span> - linia krawędziowa.</li>
-<li><span class="color-blue">margin</span> - przestrzeń między krawędzią a sąsiadami.</li>
-</ul>
-<p>To <span class="color-red">model pudełkowy</span> (box model). Cały CSS to operowanie na tych czterech warstwach.</p>
-<p>Flexbox? Rozkłada pudełka wzdłuż osi. Grid? Układa w siatce. <code>z-index</code>? Decyduje, które pudełko leży na wierzchu. <code>border-radius: 50%</code>? Wizualny okrąg - ale pod spodem nadal jest prostokąt.</p>
-<hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Przygotowanie do CSS: przełożenie percepcji na kod</h2>
-<p>Wszystkie te psychologiczne zasady, ewolucyjne kompromisy, style artystyczne i gamingowe doświadczenia będziesz wkrótce wdrażać na swoich stronach za pomocą arkuszy stylów CSS. Zanim jednak poznasz składnię, zobacz, jak te koncepcje przekładają się bezpośrednio na Twoje przyszłe decyzje w kodzie:</p>
-<ul>
-<li><p><span class="color-green">Zarządzanie uwagą i hierarchia:</span> W CSS będziesz kontrolować wagę elementów za pomocą właściwości określających rozmiar pisma (<code>font-size</code>), grubość czcionki (<code>font-weight</code>) oraz kontrasty kolorów. Dzięki temu najważniejszy element na stronie (np. główne wezwanie do akcji) od razu przykuje wzrok użytkownika, a mniej istotne szczegóły zejdą na dalszy plan.</p>
-</li>
-<li><p><span class="color-green">Zasada bliskości (Gestalt):</span> To precyzyjne operowanie marginesami zewnętrznymi (<code>margin</code>) i wewnętrznymi (<code>padding</code>). CSS pozwoli Ci określić odległości z dokładnością do jednego piksela. Dzięki temu powiązane elementy (np. podpis pod zdjęciem czy etykieta pola tekstowego) będą wizualnie „trzymać się razem”, tworząc spójne grupy logiczne.</p>
-</li>
-<li><p><span class="color-green">Iluzja głębi i elewacja:</span> Wdrożysz ją za pomocą cieniowania elementów (<code>box-shadow</code>) oraz zarządzania warstwami na osi pionowej za pomocą właściwości <code>z-index</code>. Stworzysz w ten sposób trójwymiarową strukturę strony. Menu nawigacyjne, paski boczne i wyskakujące okna będą unosić się nad głównym tłem, rzucając na nie naturalne cienie.</p>
-</li>
-<li><p><span class="color-green">Organizacja przestrzeni i oddech:</span> Będziesz ją kontrolować za pomocą nowoczesnych systemów układu stron, takich jak Flexbox i CSS Grid. Pozwalają one na równe rozłożenie elementów w oparciu o spójne siatki wymiarowania (np. wielokrotności 8 pikseli). Pozwoli Ci to uniknąć chaosu i dać projektowi niezbędny „oddech” wizualny.</p>
-</li>
-</ul>
-<p>Każda właściwość CSS, którą poznasz w kolejnych lekcjach, to tylko narzędzie inżynieryjne. Prawdziwą pracą front‑end dewelopera jest wiedzieć, dlaczego używasz danego narzędzia i jak wpłynie ono na emocje, zmęczenie oraz zachowanie człowieka po drugiej stronie szklanego ekranu.</p>
-<data-gate>
-  <data-quiz>
-    <question><p>Gotowy wywrócić ten system do góry nogami?</p>
-</question>
-    <options>
-      <option correct=""><p>Tak</p>
-</option>
-      <option><p>Nie</p>
-</option>
-    </options>
-
-<div data-hint="error"><p>Serio? 🤨</p>
-</div>
-<div data-hint="success"><p>Zatem do dzieła! Przejdź do pierwszej lekcji Modułu $0$! 😎</p>
-</div>
-  </data-quiz>
-</data-gate>
-
+<p>W <time datetime="1991-08-06">$1991$</time> roku Tim Berners‑Lee wydał HTML bez żadnego standardu wyglądu. Wczesne przeglądarki renderowały nagłówki i przyciski po swojemu, przez co ten sam plik HTML wyglądał inaczej w każdym programie. Budowanie spójnych interfejsów było loterią.</p>
+<p>W <time datetime="1994-12-17">1994</time> roku Håkon Wium Lie i Bert Bos zaproponowali rozwiązanie: <span class="color-green"><code>CSS</code></span> (<span class="color-blue">Cascading Style Sheets</span> – Kaskadowe Arkusze Stylów).</p>
+<p>Nazwa „kaskadowość” oznacza, że ostateczny wygląd strony spływa z trzech źródeł jednocześnie:</p>
+<ol>
+<li><span class="color-green">Domyślnych stylów przeglądarki</span> (<code>user agent stylesheet</code>), które są stosowane automatycznie do każdego elementu.</li>
+<li><span class="color-green">Preferencji użytkownika</span> (np. powiększona czcionka, wysoki kontrast, ciemny motyw systemowy).</li>
+<li><span class="color-green">Reguł napisanych przez dewelopera</span>.</li>
+</ol>
+<p>Gdy te źródła nakładają się na ten sam element, kaskada rozstrzyga konflikty według określonych priorytetów. To celowy projekt – otwarty internet miał nie należeć wyłącznie do deweloperów, lecz dopasowywać się do potrzeb czytelnika.</p>
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
-<li><span class="color-green">Stylizacja to inżynieria uwagi:</span> CSS służy do kontrolowania wysiłku umysłowego użytkownika. Dobrze zaprojektowany układ ułatwia szybkie skanowanie strony i oszczędza energię mózgu.</li>
-<li><span class="color-green">Mózg porządkuje przestrzeń instynktownie:</span> Naturalne mechanizmy bliskości i podobieństwa musisz odzwierciedlić w odległościach oraz w wyglądzie elementów na ekranie.</li>
-<li><span class="color-green">Hierarchia przestrzenna wymaga warstw:</span> Ewolucja od skeuomorfizmu przez płaski design uczy nas, że potrzebujesz cieni i warstwowości, aby intuicyjnie korzystać z interfejsu.</li>
-<li><span class="color-green">Estetyka to komunikat emocjonalny:</span> Minimalistyczna sterylność, brutalistyczna surowość czy cyberpunkowy neon to deklaracja charakteru Twojej aplikacji i obietnica dla użytkownika.</li>
-<li><span class="color-green">Interfejs tworzy klimat i immersję:</span> Gry wideo udowadniają, że dobrze zaprojektowany układ potrafi wywołać silne stany emocjonalne i wciągnąć nas w wirtualny świat bez reszty.</li>
-<li><span class="color-green">CSS to kaskada trzech źródeł:</span> Przeglądarka, użytkownik i deweloper - każdy wnosi swoje style. Ta hierarchia chroni dostępność i otwartość sieci.</li>
-<li><span class="color-green">Deklarujesz, nie rysujesz:</span> Ty opisujesz ograniczenia. Blink, Gecko i WebKit obliczają piksele. To trójstronny proces.</li>
-<li><span class="color-green">Każdy element to pudełko:</span> Model pudełkowy (content, padding, border, margin) to aksjomat całego CSS. Zapamiętaj go zanim napiszesz pierwszą regułę.</li>
+<li><span class="color-green">Zasady projektowania są święte (<span class="color-green"><span class="color-red">GIGA WAŻNE!</span></span>):</span> Prawa HCI (Hicka, Fittsa, Millera) oraz wzorce skanowania wzrokowego (F, Z) to twarde reguły psychologii percepcji, które musisz bezwzględnie zapamiętać i stosować na każdej stronie. Stylizacja to inżynieria uwagi i zarządzanie wysiłkiem umysłowym użytkownika.</li>
+<li><span class="color-green">Różnorodność stylów to narzędzie, nie reguła:</span> Estetyka (minimalizm, brutalizm, cyberpunk, skeuomorfizm) to sposób na budowanie tożsamości i emocjonalnej więzi z użytkownikiem. Nie musisz uczyć się cech tych stylów na pamięć – musisz jednak rozumieć, jak wpływają one na odbiór strony.</li>
+<li><span class="color-green">Hierarchia przestrzenna to podstawa UX:</span> Współczesne interfejsy opierają się na warstwowości, cieniach i elewacji, co pozwala mózgowi instynktownie porządkować informacje i odróżniać elementy interaktywne od statycznych.</li>
+<li><span class="color-green">CSS to kaskada:</span> Wygląd elementu zależy od przeglądarki, użytkownika i deweloperów. Ta struktura chroni dostępność i otwartość sieci dla każdego użytkownika.</li>
 </ul>
 </section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

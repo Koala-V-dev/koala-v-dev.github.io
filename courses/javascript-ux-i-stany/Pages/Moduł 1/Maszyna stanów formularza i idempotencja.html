@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Maszyna stanów formularza i idempotencja - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">javascript-ux-i-stany</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zdarzenia i niezawodna asynchroniczność</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kolejność zdarzeń i niezawodna asynchroniczność"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Kolejno%C5%9B%C4%87%20zdarze%C5%84%20i%20niezawodna%20asynchroniczno%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolejność zdarzeń i niezawodna asynchroniczność</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zdarzenia dynamicznego DOM i dostępny akordeon"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Zdarzenia%20dynamicznego%20DOM%20i%20dost%C4%99pny%20akordeon.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia dynamicznego DOM i dostępny akordeon</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Fetch bez wyścigów i czytelne stany UI"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%200/Fetch%20bez%20wy%C5%9Bcig%C3%B3w%20i%20czytelne%20stany%20UI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Fetch bez wyścigów i czytelne stany UI</a></li><li class="module">Moduł 1: Stan aplikacji i kontrola przejść</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Czysty reducer i niezmienny stan"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Czysty%20reducer%20i%20niezmienny%20stan.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czysty reducer i niezmienny stan</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Reaktywność z Proxy i jej granice"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Reaktywno%C5%9B%C4%87%20z%20Proxy%20i%20jej%20granice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reaktywność z Proxy i jej granice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Maszyna stanów formularza i idempotencja"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%201/Maszyna%20stan%C3%B3w%20formularza%20i%20idempotencja.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maszyna stanów formularza i idempotencja</a></li><li class="module">Moduł 2: Narzędzia, pomiar i ruch</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Node, npm i Vite z powtarzalną instalacją"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Node%2C%20npm%20i%20Vite%20z%20powtarzaln%C4%85%20instalacj%C4%85.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Node, npm i Vite z powtarzalną instalacją</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Pomiar DOM i kontrola częstych zdarzeń"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Pomiar%20DOM%20i%20kontrola%20cz%C4%99stych%20zdarze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pomiar DOM i kontrola częstych zdarzeń</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Animacje z requestAnimationFrame, FLIP i ograniczonym ruchem"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%202/Animacje%20z%20requestAnimationFrame%2C%20FLIP%20i%20ograniczonym%20ruchem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Animacje z requestAnimationFrame, FLIP i ograniczonym ruchem</a></li><li class="module">Moduł 3: Dostępne i odporne komponenty</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dostępny dialog z natywnym elementem dialog"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Dost%C4%99pny%20dialog%20z%20natywnym%20elementem%20dialog.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dostępny dialog z natywnym elementem dialog</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Granice obsługi błędów i bezpieczny fallback"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Granice%20obs%C5%82ugi%20b%C5%82%C4%99d%C3%B3w%20i%20bezpieczny%20fallback.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Granice obsługi błędów i bezpieczny fallback</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Bezpieczny Web Component z Shadow DOM"><a class="lesson-link" href="/courses/javascript-ux-i-stany/Pages/Modu%C5%82%203/Bezpieczny%20Web%20Component%20z%20Shadow%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bezpieczny Web Component z Shadow DOM</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Maszyna stanów formularza i idempotencja</h1>
+<p>Użytkownik klika „Zapłać” dwa razy. Wyłączenie przycisku ogranicza drugi klik w tym widoku, ale odświeżenie strony lub ponowienie żądania nadal może dotrzeć do serwera.</p>
+<p>Po tej lekcji zablokujesz niedozwolone przejścia interfejsu i odróżnisz tę ochronę od gwarancji transakcji po stronie serwera.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw oceń przejście</h2>
+<p>Formularz ma stany <code>editing</code>, <code>submitting</code>, <code>success</code> i <code>error</code>.</p>
+<p>Czy zdarzenie <code>SUBMIT</code> powinno zmienić stan <code>submitting</code> na kolejne <code>submitting</code>?</p>
+<p>Zapisz decyzję i jej skutek dla żądania sieciowego. Odpowiedź „przycisk będzie wyłączony” nie wystarcza, bo zdarzenie może wywołać także inny kod.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Model: przejście jest jawną decyzją</h2>
+<p>Maszyna stanów opisuje dozwolone pary:</p>
+<pre><code class="language-text">editing    + SUBMIT  -&gt; submitting
+error      + RETRY   -&gt; submitting
+submitting + RESOLVE -&gt; success
+submitting + REJECT  -&gt; error
+</code></pre>
+<p>Brak pary oznacza brak przejścia. Dzięki temu handler nie musi zgadywać na podstawie kilku flag.</p>
+<pre><code class="language-javascript">const next = transition(current, event);
+
+if (next === current) {
+  return;
+}
+
+render(next);
+</code></pre>
+<p>W stanie <code>submitting</code> przycisk powinien być nieaktywny, a komunikat stanu dostępny. To informacja i ograniczenie w interfejsie, nie dowód, że płatność wykona się tylko raz.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔬 Rozdziel dwie granice ochrony</h2>
+<pre><code class="language-text">klik użytkownika
+└─ maszyna UI odrzuca drugi SUBMIT
+   └─ pierwsze żądanie POST z kluczem operacji
+      └─ serwer rozpoznaje ponowienie tego samego klucza
+</code></pre>
+<p>Maszyna chroni logikę widoku przed niedozwolonym przejściem.</p>
+<p>Idempotencję operacji musi realizować serwer zgodnie z własnym kontraktem. Sam nagłówek lub losowy klucz wysłany przez klienta nie tworzy takiej gwarancji, jeśli serwer go nie obsługuje.</p>
+<p>Aktywny dokument roboczy IETF opisuje <code>Idempotency-Key</code> dla odporniejszego ponawiania żądań takich jak <code>POST</code> lub <code>PATCH</code>. To nadal Internet‑Draft, nie opublikowany RFC. W produkcji sprawdź dokumentację konkretnego API.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: wskaż właściciela gwarancji</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Przycisk został wyłączony po pierwszym kliknięciu. Co można na tej podstawie stwierdzić?</p>
+</question>
+    <options>
+      <option><p>Płatność na pewno wykona się na serwerze tylko raz.</p>
+</option>
+      <option correct=""><p>Ten widok ogranicza kolejne wysłanie przez tę kontrolkę, ale nie gwarantuje idempotencji serwera.</p>
+</option>
+      <option><p>Przeglądarka automatycznie dodała trwały klucz idempotencji.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Rozdziel stan kontrolki w przeglądarce od sposobu przetwarzania żądań przez serwer.</p>
+</div>
+    <div data-hint="success"><p>Interfejs i serwer mogą współpracować, lecz odpowiadają za inne granice systemu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Zaimplementuj dozwolone przejścia</h2>
+<p>Funkcja <code>transition(state, event)</code> zwraca następny stan. Dla niedozwolonego zdarzenia zwraca stan bieżący.</p>
+<data-gate>
+  <data-code-runner language="javascript" title="Odrzucaj niedozwolone przejścia" data-code="ZnVuY3Rpb24gdHJhbnNpdGlvbihzdGF0ZSwgZXZlbnQpIHsKICByZXR1cm4gc3RhdGU7Cn0=" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJzdWJtaXQiLAogICAgICAgICAgInRleHQiOiAiV3lzxYJhbmllIGZvcm11bGFyemEgcm96cG9jenluYSBvcGVyYWNqxJkiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAidHJhbnNpdGlvbiIsCiAgICAgICAgICAiaW5wdXQiOiBbImVkaXRpbmciLCJTVUJNSVQiXSwKICAgICAgICAgICJleHBlY3RlZCI6ICJzdWJtaXR0aW5nIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImR1cGxpY2F0ZS1zdWJtaXQiLAogICAgICAgICAgInRleHQiOiAiRHJ1Z2llIHd5c8WCYW5pZSBwb2RjemFzIG9wZXJhY2ppIG5pZSB0d29yenkgcHJ6ZWrFm2NpYSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJ0cmFuc2l0aW9uIiwKICAgICAgICAgICJpbnB1dCI6IFsic3VibWl0dGluZyIsIlNVQk1JVCJdLAogICAgICAgICAgImV4cGVjdGVkIjogInN1Ym1pdHRpbmciCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAicmVzb2x2ZSIsCiAgICAgICAgICAidGV4dCI6ICJTdWtjZXMgamVzdCBkb3p3b2xvbnkgcG8gcm96cG9jesSZY2l1IG9wZXJhY2ppIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInRyYW5zaXRpb24iLAogICAgICAgICAgImlucHV0IjogWyJzdWJtaXR0aW5nIiwiUkVTT0xWRSJdLAogICAgICAgICAgImV4cGVjdGVkIjogInN1Y2Nlc3MiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAicmV0cnkiLAogICAgICAgICAgInRleHQiOiAiUG9ub3dpZW5pZSBwbyBixYLEmWR6aWUgd3JhY2EgZG8gd3lzecWCYW5pYSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJ0cmFuc2l0aW9uIiwKICAgICAgICAgICJpbnB1dCI6IFsiZXJyb3IiLCJSRVRSWSJdLAogICAgICAgICAgImV4cGVjdGVkIjogInN1Ym1pdHRpbmciCiAgICAgICAgfQogICAgICBd"></data-code-runner>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po samodzielnej próbie</summary>
+
+<pre><code class="language-javascript">function transition(state, event) {
+  const transitions = {
+    editing: { SUBMIT: 'submitting' },
+    submitting: { RESOLVE: 'success', REJECT: 'error' },
+    error: { RETRY: 'submitting', EDIT: 'editing' },
+    success: {}
+  };
+
+  return transitions[state]?.[event] ?? state;
+}
+</code></pre>
+<p>Zwrócenie bieżącego stanu pozwala rozpoznać brak przejścia przez porównanie. W bardziej rozbudowanym systemie możesz zwrócić jawny wynik <code>{ accepted, state }</code>.</p>
+</details>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Połącz przejście z żądaniem</h2>
+<p>Napisz szkic handlera, który wysyła <code>POST</code> tylko wtedy, gdy <code>transition(current, 'SUBMIT')</code> zmieni stan.</p>
+<p>Następnie dodaj klucz operacji wygenerowany raz dla próby zakupu. Ponowienie tego samego żądania ma użyć tego samego klucza, nie nowego.</p>
+<p>Kryterium: w komentarzu zapisz, że zachowanie klucza musi być uzgodnione z API, a ostateczna deduplikacja należy do serwera. Dzięki temu kod nie obiecuje gwarancji, której nie posiada.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Modeluj dozwolone przejścia, zamiast składać zachowanie z luźnych flag.</li>
+<li>Odrzucaj drugie <code>SUBMIT</code> także w logice, nie tylko wyglądem przycisku.</li>
+<li>Oddzielaj ochronę interfejsu od idempotencji realizowanej przez serwer.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

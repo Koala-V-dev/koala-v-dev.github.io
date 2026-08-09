@@ -4,7 +4,7 @@ Rozpoczynając pracę na dowolnym serwerze lub stacji roboczej Linux, pierwszą 
 
 ## ⚙️ Anatomia poleceń w terminalu (CLI)
 
-Zanim zaczniesz wpisywać pierwsze komendy w terminalu, musisz zrozumieć, jak system interpretuje to, co piszesz. Każda instrukcja wprowadzana w CLI (Command Line Interface) budowana jest według ściśle określonej składni:
+Zanim zaczniesz wpisywać pierwsze poważniejsze komendy w terminalu, musisz zrozumieć, jak system interpretuje to, co piszesz. Każda instrukcja wprowadzana w **CLI** (*Command Line Interface*) budowana jest według ściśle określonej składni:
 
 $$\text{polecenie} \quad \text{[opcje]} \quad \text{[argumenty]}$$
 
@@ -16,13 +16,13 @@ Modyfikują zachowanie polecenia. Zazwyczaj zaczynają się od pojedynczego myś
 *Przykład:* komenda `df` pokazuje miejsce na dysku w bajtach, ale `df -h` (opcja *human-readable*) wyświetli te same dane w megabajtach i gigabajtach.
 
 ### 3. Argumenty (Arguments)
-To dane wejściowe dla polecenia - zazwyczaj wskazują pliki, katalogi lub teksty, na których program ma wykonać operację.  
+To dane wejściowe dla polecenia; zazwyczaj wskazują pliki, katalogi lub teksty, na których program ma wykonać operację.  
 *Przykład:* w komendzie `cat /etc/hostname` argumentem jest ścieżka do pliku `/etc/hostname`.
 
 > [!IMPORTANT]
 > **Separator spacji**  
-> W terminalu spacja jest **jedynym operatorem rozdzielającym** poszczególne elementy polecenia. Jeśli zapomnisz o spacji (np. wpiszesz `cat/etc/os-release`), system potraktuje to jako jedną nazwę polecenia i zgłosi błąd: `command not found`.  
-> Jeśli ścieżka lub nazwa pliku zawiera spację, należy ją ująć w cudzysłów (np. `"mój plik.txt"`) lub poprzedzić spację znakiem ucieczki (np. `mój\ plik.txt`), inaczej terminal uzna, że podajesz dwa osobne argumenty.
+> W terminalu spacja jest **jedynym operatorem rozdzielającym** poszczególne elementy polecenia. Jeśli zapomnisz o spacji (np. wpiszesz `cat/etc/os-release`), system potraktuje to jako jedną nazwę polecenia i zgłosi błąd: **_command not found_**.  
+> Jeśli ścieżka lub nazwa pliku zawiera spację, należy ją ująć w cudzysłów (np. „mój plik.txt”) lub poprzedzić spację znakiem ucieczki (np. `mój\ plik.txt`), inaczej terminal uzna, że podajesz dwa osobne argumenty.
 
 ---
 
@@ -58,7 +58,7 @@ W codziennej pracy administratora odczyt tego pliku jest kluczowy do określenia
 
 Typowy odczyt tego pliku wyświetla następujące informacje:
 
-```text
+```shell
 PRETTY_NAME="Ubuntu 26.04 LTS"
 NAME="Ubuntu"
 VERSION_ID="26.04"

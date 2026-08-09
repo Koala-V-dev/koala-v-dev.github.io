@@ -32,7 +32,7 @@ Ubuntu, Debian, Fedora i Arch Linux korzystają z tego samego typu jądra. Róż
 > [!TIP]
 > **Dlaczego nie budujemy systemu od zera?**
 > 
-> Teoretycznie możesz pobrać samo jądro ze strony [kernel.org](https://www.kernel.org/), skompilować programy, dobrać biblioteki systemowe, wybrać menedżer pakietów i złożyć pulpit. Tak działa między innymi projekt [Linux From Scratch](https://www.linuxfromscratch.org/)).
+> Teoretycznie możesz pobrać samo jądro ze strony [kernel.org](https://www.kernel.org/), skompilować programy, dobrać biblioteki systemowe, wybrać menedżer pakietów i złożyć pulpit. Tak działa między innymi projekt [Linux From Scratch](https://www.linuxfromscratch.org/).
 > 
 > W praktyce na początku kursu nie ma to sensu. Dystrybucja daje stabilny system bazowy. Dzięki temu możesz uczyć się administracji, terminala i konfiguracji bez ręcznego składania całego ekosystemu.
 
@@ -92,7 +92,7 @@ Przejście z Windowsa na Linuksa wymaga zmiany sposobu myślenia o systemie. Naj
 
 ---
 
-## 🛠️ Punkt Kontrolny: czym jest Linux?
+## 🐧 Punkt kontrolny: Czym jest Linux?
 
 <data-gate>
   <data-quiz>
@@ -113,6 +113,37 @@ Dlaczego poprawna nazwa systemu to „GNU/Linux”, a nie po prostu „Linux”?
 </div>
   </data-quiz>
 </data-gate>
+
+
+## 🌳 Rodziny dystrybucji i ich pochodne
+
+Wszystkie dystrybucje Linuksa korzystają z tego samego jądra (*Linux Kernel*), jednak różnią się organizacją systemową, menedżerem pakietów oraz narzędziami administracyjnymi.
+
+Dystrybucje dzielą się na **dystrybucje macierzyste** (rozwijane od podstaw) oraz ich **dystrybucje pochodne** (bazujące na rozwiązaniach macierzystych).
+
+![Drzewo genealogiczne dystrybucji Linux](/public/courses/ubuntu-26/Images/distro-mather.png)
+
+:::diagram
+Schemat przedstawia drzewo genealogiczne 5 głównych rodzin dystrybucji Linuksa wywodzących się z wspólnego jądra: rodziny Debian, Red Hat, Arch Linux, SUSE oraz Slackware, z wyróżnieniem ich charakterystycznych formatów pakietów oraz flagowych dystrybucji pochodnych.
+:::
+
+**Opis strukturalny diagramu**
+
+1. _**Rodzina Debian**_ (Dystrybucja Macierzysta: Debian GNU/Linux):
+   - *Charakterystyka:* Niezwykła stabilność, pakiety instalacyjne w formacie `.deb`, menedżery `dpkg` oraz `apt`.
+   - <b>Główne pochodne:</b> **Ubuntu** (rozwijane przez Canonical) oraz **Kali Linux** (dystrybucja do testów penetracyjnych).
+2. _**Rodzina Red Hat**_ (Dystrybucja Macierzysta: RHEL – Red Hat Enterprise Linux):
+   - *Charakterystyka:* Standard w środowiskach biznesowych i serwerowych, pakiety `.rpm`, menedżer `dnf` (dawniej `yum`).
+   - <b>Główne pochodne:</b> **Fedora** (poligon doświadczalny Red Hata) oraz **Rocky Linux** / **AlmaLinux** (darmowe zamienniki RHEL).
+3. _**Rodzina Arch Linux**_ (Dystrybucja Macierzysta: Arch Linux):
+   - *Charakterystyka:* Dystrybucja typu *Rolling Release* (ciągłe aktualizacje bez wydań numerowanych), menedżer pakietów `pacman`.
+   - <b>Główne pochodne:</b> **Manjaro** oraz **EndeavourOS**.
+4. _**Rodzina SUSE**_ (Dystrybucja Macierzysta: openSUSE / SLES):
+   - *Charakterystyka:* Popularna w Europie, korzysta z pakietyzacji `.rpm` oraz narzędzia konfiguracyjnego YaST i menedżera `zypper`.
+   - <b>Główne pochodne:</b> **SUSE Tumbleweed** oraz **openSUSE Leap**.
+5. _**Rodzina Slackware**_ (Dystrybucja Macierzysta: Slackware):
+   - *Najstarsza wciąż rozwijana dystrybucja* (od <time datetime="1993-07-04T00:00:00">$4$ lipca $1993$</time> roku). Cechuje się maksymalnym zbliżeniem do standardów UNIX bez automatycznego rozwiązywania zależności pakietów.
+
 
 ---
 

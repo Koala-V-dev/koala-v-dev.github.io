@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Maska podsieci i podział sieci (subnetting) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Maska podsieci i podział sieci (subnetting)</h1>
+<p>Masz pulę <code>192.0.2.0/24</code> i cztery zespoły o różnych potrzebach. Równy podział da części za małe albo niepotrzebnie duże.</p>
+<p>W poprzedniej lekcji wyznaczałeś granice gotowego prefiksu. Teraz zaprojektujesz kilka niepokrywających się podsieci, uzasadnisz ich rozmiary i zostawisz widoczną rezerwę.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Zacznij od decyzji, nie od maski</h2>
+<p>Wymagania są następujące:</p>
+<pre><code>studio:             50 hostów
+laboratorium:       20 hostów
+kamery:             10 hostów
+łącze punkt-punkt:   2 końce
+</code></pre>
+<p>Zapisz kolejność, w której przydzieliłbyś bloki. Obok każdego wymagania wpisz najmniejszy prefiks, który według ciebie wystarczy.</p>
+<p>Nie sprawdzaj jeszcze rozwiązania. Ważne jest, czy po obliczeniach zmienisz swoją pierwszą decyzję.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Dobierz rozmiar bloku</h2>
+<p>Zwykła podsieć z broadcastem potrzebuje dwóch adresów granicznych. Do liczby hostów dodaj więc <code>2</code>, a potem wybierz najmniejszą potęgę dwóch, która pomieści wynik.</p>
+<p>Dla studia:</p>
+<pre><code>50 hostów + 2 adresy graniczne = 52 adresy
+najmniejsza potęga dwóch nie mniejsza niż 52 = 64
+64 adresy = 2^6, więc prefiks ma 32 - 6 = /26
+</code></pre>
+<p>Tę samą decyzję wykonaj dla pozostałych zwykłych podsieci:</p>
+<pre><code>laboratorium: 20 + 2 = 22 -&gt; blok 32 adresów -&gt; /27
+kamery:       10 + 2 = 12 -&gt; blok 16 adresów -&gt; /28
+</code></pre>
+<p>Łącze punkt do punktu jest jawnym wyjątkiem. Jeśli oba urządzenia obsługują RFC 3021, blok <code>/31</code> daje dokładnie dwa adresy końców i nie używa broadcastu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Przydzielaj od największego</h2>
+<p>Najpierw ułóż wymagania malejąco według wielkości bloków. Duży blok ma mniej miejsc, w których może rozpocząć się poprawnie. Małe bloki łatwiej dopasować później.</p>
+<p>Początek puli <code>192.0.2.0/24</code> można wypełnić tak:</p>
+<pre><code>studio          192.0.2.0/26      .0  do .63
+laboratorium    192.0.2.64/27     .64 do .95
+kamery          192.0.2.96/28     .96 do .111
+łącze           192.0.2.112/31    .112 i .113
+wolne                                .114 do .255
+</code></pre>
+<p>Każdy kolejny blok zaczyna się na granicy zgodnej z jego rozmiarem:</p>
+<pre><code>/26: wielokrotność 64
+/27: wielokrotność 32
+/28: wielokrotność 16
+/31: liczba parzysta
+</code></pre>
+<p>Te wiersze nie są tabelą do zapamiętania. Wartość wynika z liczby adresów w wybranym bloku.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Sprawdź projekt trzema testami</h2>
+<p>Sam poprawny rozmiar nie wystarcza. Każdy przydział przechodzi trzy testy.</p>
+<p>Test pojemności:</p>
+<pre><code>czy liczba dostępnych końcówek spełnia wymaganie?
+</code></pre>
+<p>Test granicy:</p>
+<pre><code>czy adres sieci jest wielokrotnością rozmiaru bloku?
+</code></pre>
+<p>Test kolizji:</p>
+<pre><code>czy zakres od adresu sieci do końca bloku nie przecina innego przydziału?
+</code></pre>
+<p>Przykład błędu: <code>192.0.2.80/27</code> ma dobry rozmiar dla laboratorium, ale złą granicę. Operacja AND sprowadzi ten zapis do sieci <code>192.0.2.64/27</code>.</p>
+<p>Przykład drugiego błędu: <code>192.0.2.64/26</code> jest wyrównany i mieści 62 hosty, lecz obejmuje zakres <code>.64</code> do <code>.127</code>. Przeciąłby pokazane wcześniej bloki laboratorium, kamer i łącza.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧾 Zapisz rezerwę uczciwie</h2>
+<p>Wolny zakres <code>.114</code> do <code>.255</code> nie jest jednym prefiksem CIDR. Początek <code>.114</code> nie jest wyrównany do bloku obejmującego całą tę przestrzeń.</p>
+<p>W dokumentacji projektu zapisz więc wolny przedział albo rozłóż go na poprawnie wyrównane prefiksy. Nie zaokrąglaj go do większego bloku, bo taki zapis mógłby objąć już przydzielone adresy.</p>
+<p>Rezerwa ma znaczenie dopiero wtedy, gdy wiadomo, gdzie leży i które przyszłe bloki mogą się w niej zmieścić.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: wybierz poprawny plan</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Z puli <code>198.51.100.0/24</code> trzeba wydzielić zwykłe podsieci dla 70, 30 i 12 hostów. Który plan spełnia pojemność, wyrównanie i brak nakładania?</p>
+</question>
+    <options>
+      <option><p><code>198.51.100.0/26</code>, <code>198.51.100.64/27</code>, <code>198.51.100.96/28</code></p>
+</option>
+      <option correct=""><p><code>198.51.100.0/25</code>, <code>198.51.100.128/27</code>, <code>198.51.100.160/28</code></p>
+</option>
+      <option><p><code>198.51.100.0/25</code>, <code>198.51.100.120/27</code>, <code>198.51.100.152/28</code></p>
+</option>
+      <option><p><code>198.51.100.0/25</code>, <code>198.51.100.64/27</code>, <code>198.51.100.96/28</code></p>
+</option>
+    </options>
+    <div data-hint="error"><p>Najpierw sprawdź pojemność dla 70 hostów. Potem wyznacz koniec każdego bloku i zobacz, czy następny zaczyna się za nim na własnej granicy.</p>
+</div>
+    <div data-hint="success"><p>Blok <code>/25</code> mieści 126 hostów i kończy się na <code>.127</code>. <code>/27</code> zaczyna się na <code>.128</code> i kończy na <code>.159</code>. Następny wyrównany <code>/28</code> zaczyna się na <code>.160</code>.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Zaprojektuj plan i obsłuż zmianę</h2>
+<p>Pula projektu to <code>203.0.113.0/24</code>.</p>
+<pre><code>pracownia:          60 hostów
+biuro wsparcia:     28 hostów
+urządzenia pomiarowe: 12 hostów
+łącze punkt-punkt:   2 końce z obsługą RFC 3021
+</code></pre>
+<p>Przygotuj raport:</p>
+<pre><code>wymaganie
+wybrany prefiks i dowód pojemności
+adres sieci
+koniec bloku
+zakres końcówek
+sprawdzenie granicy
+sprawdzenie kolizji
+pozostała wolna przestrzeń
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>każdy blok mieści wymagane końcówki;</li>
+<li>żaden blok nie przecina innego;</li>
+<li>każdy adres sieci jest wyrównany do rozmiaru bloku;</li>
+<li><code>/31</code> stosujesz tylko do jawnie opisanego łącza punkt do punktu;</li>
+<li>wolnej przestrzeni nie przedstawiasz jako jednego prefiksu bez sprawdzenia granicy.</li>
+</ul>
+<p>Po wykonaniu projektu zmień wymaganie biura wsparcia z 28 na 40 hostów. Zaznacz wszystkie przydziały, które trzeba przenieść albo zmniejszyć. Nie wystarczy zmienić samego napisu <code>/27</code> na <code>/26</code>.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>Jedno poprawne rozmieszczenie zaczyna się od <code>203.0.113.0/26</code> dla pracowni. Blok obejmuje <code>.0</code> do <code>.63</code> i daje 62 adresy hostów.</p>
+<p>Biuro wsparcia otrzymuje <code>203.0.113.64/27</code>, czyli zakres <code>.64</code> do <code>.95</code> oraz hosty <code>.65</code> do <code>.94</code>. Urządzenia pomiarowe mieszczą się w <code>203.0.113.96/28</code>, od <code>.96</code> do <code>.111</code>, z hostami <code>.97</code> do <code>.110</code>. Łącze używa <code>203.0.113.112/31</code>, więc jego końce to <code>.112</code> i <code>.113</code>.</p>
+<p>Po wzroście biura do 40 hostów potrzebny jest blok <code>/26</code>. Zapis <code>203.0.113.64/26</code> jest wyrównany, ale obejmuje <code>.64</code> do <code>.127</code>. Przecina dotychczasowe bloki urządzeń pomiarowych i łącza. Możesz pozostawić pracownię na <code>.0/26</code>, rozszerzyć biuro do <code>.64/26</code>, a mniejsze przydziały przenieść za <code>.127</code>, na przykład urządzenia do <code>.128/28</code> i łącze do <code>.144/31</code>.</p>
+<p>Zmiana jednego wymagania wpływa na sąsiadów. Właśnie dlatego raport zawiera zakresy i test kolizji, a nie tylko nazwy działów oraz prefiksy.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Rozmiar wynika z wymaganej liczby końcówek.</span> Dla zwykłej podsieci uwzględniasz adres sieci i broadcast.</li>
+<li><span class="color-green">Największe bloki przydzielasz najpierw.</span> Potem dopasowujesz mniejsze do pozostałych granic.</li>
+<li><span class="color-green">Każdy przydział sprawdzasz pod kątem pojemności, wyrównania i kolizji.</span> Sam prefiks nie dowodzi poprawności planu.</li>
+<li><span class="color-green">Rezerwa musi mieć jawny zakres.</span> Nie nazywasz jej jednym prefiksem bez kontroli wyrównania.</li>
+<li><span class="color-green">Zmiana wymagania może przesunąć sąsiednie podsieci.</span> Dobry plan pokazuje zależności i pozwala je ponownie sprawdzić.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

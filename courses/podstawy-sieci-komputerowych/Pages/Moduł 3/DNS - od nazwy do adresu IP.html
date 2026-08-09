@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\DNS - od nazwy do adresu IP - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>DNS - od nazwy do adresu IP</h1>
+<p>Dwa zapytania o tę samą nazwę mogą zakończyć się pustą sekcją odpowiedzi. W jednym przypadku nazwa nie istnieje. W drugim istnieje, ale nie ma danych żądanego typu. Sam napis „brak odpowiedzi” zaciera tę różnicę.</p>
+<p>W tej lekcji odczytasz pytanie, status, łańcuch odpowiedzi i dane o pamięci podręcznej. Na tej podstawie wskażesz pierwszą granicę, którą warto sprawdzić dalej.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw nazwij pytanie</h2>
+<p>Resolver nie pyta po prostu o <code>api.example</code>. Pytanie zawiera trzy elementy:</p>
+<pre><code>QNAME:  api.example.
+QTYPE:  A
+QCLASS: IN
+</code></pre>
+<p><code>QNAME</code> to nazwa. <code>QTYPE</code> określa rodzaj szukanych danych. <code>A</code> dotyczy adresu IPv4, a <code>AAAA</code> adresu IPv6. <code>QCLASS</code> ma tutaj wartość <code>IN</code>.</p>
+<p>Odpowiedź na pytanie o <code>A</code> nie rozstrzyga, czy istnieje rekord <code>AAAA</code>. Zawsze przepisz całe pytanie przed interpretacją wyniku.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📩 Czytaj status razem z treścią</h2>
+<p>Porównaj trzy skrócone ślady.</p>
+<pre><code>A. pytanie: api.example. IN A
+   status: NOERROR
+   odpowiedź: api.example. 120 IN A 192.0.2.44
+
+B. pytanie: api.example. IN AAAA
+   status: NOERROR
+   odpowiedź: pusta
+   authority: example. 300 IN SOA ...
+
+C. pytanie: brak.example. IN A
+   status: NXDOMAIN
+   odpowiedź: pusta
+   authority: example. 300 IN SOA ...
+</code></pre>
+<p>W A rozwiązywanie zakończyło się pozytywną odpowiedzią dla żądanego typu.</p>
+<p>W B status <code>NOERROR</code> nie zgłasza braku nazwy. Pusta odpowiedź wraz z danymi strefy oznacza tutaj brak danych typu <code>AAAA</code> dla tej nazwy. Taki wynik bywa nazywany <code>NODATA</code>. Nazwa może nadal mieć rekord <code>A</code>.</p>
+<p>W C <code>NXDOMAIN</code> oznacza, że według autorytatywnej odpowiedzi pytana nazwa nie istnieje w tej przestrzeni nazw. To nie jest skrót od „serwer nie odpowiedział”.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Alias przedłuża rozwiązywanie</h2>
+<p>Odpowiedź może skierować resolver do kolejnej nazwy:</p>
+<pre><code>pytanie: api.example. IN A
+status: NOERROR
+
+api.example.   180 IN CNAME edge.example.
+edge.example.   90 IN A     192.0.2.44
+</code></pre>
+<p><code>CNAME</code> mówi, że <code>api.example</code> jest aliasem <code>edge.example</code>. Resolver kontynuuje rozwiązywanie dla nazwy docelowej. W tym śladzie łańcuch kończy się rekordem <code>A</code>, więc wynik jest pozytywny.</p>
+<p>W raporcie zachowaj oba kroki. Zapisanie wyłącznie <code>api.example = 192.0.2.44</code> ukrywa granicę, na której łańcuch mógłby się później przerwać.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Resolver wykonuje pracę za klienta</h2>
+<p>Klient zwykle wysyła pytanie do resolvera rekurencyjnego. Resolver może odpowiedzieć z pamięci podręcznej albo szukać danych, przechodząc przez delegacje do serwera autorytatywnego.</p>
+<pre><code>klient -&gt; resolver rekurencyjny -&gt; delegacje -&gt; serwer autorytatywny
+       &lt;- gotowa odpowiedź       &lt;-
+</code></pre>
+<p>Ten zapis pokazuje role, nie gwarantuje jednej fizycznej trasy. Dla diagnozy ważne jest, od którego serwera pochodzi obserwowana odpowiedź oraz czy resolver korzystał z pamięci.</p>
+<p><code>SERVFAIL</code> oznacza, że resolver nie zdołał ukończyć przetwarzania. Nie dowodzi, że pytana nazwa nie istnieje. Timeout mówi jeszcze mniej: w miejscu obserwacji nie pojawiła się odpowiedź w oczekiwanym czasie.</p>
+<p>Po <code>SERVFAIL</code> albo timeout sprawdź ten sam zestaw <code>QNAME</code>, <code>QTYPE</code>, <code>QCLASS</code> w innym punkcie. Porównanie lokalnego resolvera z innym resolverem lub odpowiedzią autorytatywną może zawęzić granicę awarii.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⏳ TTL opisuje pozostały czas pamięci</h2>
+<p>Resolver może zachować odpowiedź przez czas wynikający z TTL. Wartość widoczna w odpowiedzi z pamięci zwykle maleje.</p>
+<pre><code>09:00 resolver zapisuje: api.example. A 192.0.2.44, TTL 300
+09:02 administrator zmienia rekord na 192.0.2.55
+09:04 ten resolver nadal może zwrócić 192.0.2.44
+09:05 stary wpis osiąga granicę swojego czasu przechowywania
+</code></pre>
+<p>To nie jest globalne „rozchodzenie się” zmiany jednym zegarem. Różne resolvery mogły zapisać poprzednią odpowiedź w różnym czasie. Dlatego przy rozbieżnych adresach zapisz respondera i pozostały TTL, zamiast ogłaszać ogólny problem z propagacją.</p>
+<p>Także odpowiedzi negatywne mogą być przechowywane. Dane <code>SOA</code> w odpowiedzi negatywnej pomagają określić czas takiego przechowania. Powtórzenie pytania do tego samego resolvera nie musi więc ponownie dotrzeć do serwera autorytatywnego.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧾 Użyj stałego raportu</h2>
+<p>Dla każdego śladu wypełnij:</p>
+<pre><code>pytanie: nazwa, typ, klasa
+odpowiadający serwer i status
+łańcuch odpowiedzi
+dowód pamięci i pozostały TTL
+najsilniejszy wniosek
+wniosek, którego nie wolno wyciągnąć
+następny test zmieniający jeden warunek
+</code></pre>
+<p>Nie zaczynaj od czyszczenia pamięci. Najpierw zachowaj dowód: starą wartość, respondera i TTL. Dopiero potem wybierz test, który odróżni pamięć lokalnego resolvera od danych autorytatywnych.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: przejdź przez alias</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Zapytanie <code>api.example. IN A</code> otrzymało status <code>NOERROR</code> oraz odpowiedzi <code>api.example. 180 IN CNAME edge.example.</code> i <code>edge.example. 90 IN A 192.0.2.44</code>. Który wniosek jest najlepiej uzasadniony?</p>
+</question>
+    <options>
+      <option><p>Nazwa <code>api.example</code> nie istnieje, ponieważ nie ma bezpośredniego rekordu <code>A</code>.</p>
+</option>
+      <option correct=""><p>Rozwiązywanie zakończyło się adresem IPv4 przez alias; w raporcie trzeba zachować oba rekordy i ich TTL.</p>
+</option>
+      <option><p>Rekord <code>CNAME</code> dowodzi, że resolver ominął pamięć podręczną.</p>
+</option>
+      <option><p>Adres <code>192.0.2.44</code> będzie ważny przez 180 sekund.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Prześledź nazwę po rekordzie <code>CNAME</code>. Osobne TTL dotyczą osobnych danych i nie ujawniają same w sobie źródła odpowiedzi.</p>
+</div>
+    <div data-hint="success"><p>Łańcuch łączy pytaną nazwę z nazwą docelową i jej adresem. Zachowanie obu kroków pozwala później wskazać miejsce przerwania.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Zlokalizuj pierwszą niepewną granicę</h2>
+<p>Przygotuj stały raport dla każdego wyniku:</p>
+<pre><code>A. pytanie: www.example. IN A
+   status: NOERROR
+   odpowiedzi:
+   www.example. 120 IN CNAME edge.example.
+   edge.example. 60 IN A 192.0.2.80
+
+B. pytanie: www.example. IN AAAA
+   status: NOERROR
+   odpowiedź: pusta
+   authority: example. 300 IN SOA ...
+
+C. pytanie: missing.example. IN A
+   status: NXDOMAIN
+   odpowiedź: pusta
+   authority: example. 300 IN SOA ...
+
+D. pytanie: www.example. IN A
+   resolver lokalny: timeout
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>raport zawsze zawiera pełne pytanie;</li>
+<li><code>NOERROR</code> z pustą odpowiedzią dla <code>AAAA</code> nie staje się automatycznie <code>NXDOMAIN</code>;</li>
+<li><code>NXDOMAIN</code> nie jest opisywany jako timeout;</li>
+<li>alias i nazwa docelowa pozostają osobnymi krokami;</li>
+<li>TTL ogranicza czas przechowania danych, a nie obiecuje chwili globalnej aktualizacji;</li>
+<li>następny test zmienia jeden punkt obserwacji albo jeden typ pytania.</li>
+</ul>
+<p>Zmień D: inny resolver zwraca dla tego samego pytania <code>NOERROR</code> i adres <code>192.0.2.80</code>. Zaktualizuj hipotezę. Zapisz, co już potwierdzono, czego nadal nie wiadomo i jaki test rozdzieli problem lokalnego resolvera od drogi do jego serwerów nadrzędnych.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W A odpowiedź jest pozytywna. <code>www.example</code> prowadzi przez alias <code>edge.example</code> do adresu <code>192.0.2.80</code>. TTL aliasu i adresu są osobne. Ślad nie dowodzi, czy dane pochodziły z pamięci, jeśli nie ma dodatkowej informacji o responderze i sposobie uzyskania odpowiedzi.</p>
+<p>W B istnieje negatywna odpowiedź dla żądanego typu <code>AAAA</code>, ale status nie stwierdza braku nazwy. Najbliższy test to pytanie o <code>A</code> tej samej nazwy albo porównanie odpowiedzi autorytatywnej, zależnie od diagnozowanego objawu.</p>
+<p>W C autorytatywna odpowiedź <code>NXDOMAIN</code> stwierdza brak pytanej nazwy. Dane <code>SOA</code> pozwalają resolverowi przechować wynik negatywny. Nie wynika z tego niedostępność całej strefy ani wszystkich nazw pod <code>example</code>.</p>
+<p>W D timeout potwierdza tylko brak widocznej odpowiedzi od lokalnego resolvera w czasie próby. Trzeba sprawdzić, czy zapytanie dotarło do niego, czy resolver odpowiada na inne nazwy oraz czy potrafi skontaktować się z kolejnym punktem rozwiązywania.</p>
+<p>Po zmianie D poprawna odpowiedź z innego resolvera pokazuje, że dla tego pytania istnieje osiągalna droga do danych DNS poza lokalnym punktem. Zwiększa to prawdopodobieństwo problemu lokalnego resolvera, jego pamięci albo jego drogi do serwerów nadrzędnych. Nie rozstrzyga jeszcze której z tych przyczyn. Wyślij identyczne pytanie bezpośrednio do lokalnego resolvera, zachowaj log jego obsługi i porównaj jego zapytanie wychodzące z odpowiedzią od serwera nadrzędnego. Pierwsza granica, na której znika zgodna para pytanie i odpowiedź, staje się miejscem dalszego pomiaru.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">DNS odpowiada na dokładne pytanie.</span> Nazwa, typ i klasa wyznaczają znaczenie wyniku.</li>
+<li><span class="color-green">Status czytasz z sekcjami odpowiedzi.</span> <code>NOERROR</code> bez danych typu różni się od <code>NXDOMAIN</code>.</li>
+<li><span class="color-green">CNAME tworzy kolejny krok.</span> Zachowaj alias, nazwę docelową i osobne TTL.</li>
+<li><span class="color-green"><code>SERVFAIL</code> i timeout nie dowodzą braku nazwy.</span> Wymagają porównania punktów obserwacji.</li>
+<li><span class="color-green">TTL ogranicza przechowanie odpowiedzi.</span> Nie jest zegarem globalnej propagacji.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

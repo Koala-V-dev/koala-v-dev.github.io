@@ -1,5 +1,3 @@
-# Wprowadzenie
-
 ## Moduł 0: Pierwsze Kroki z Linuksem
 # Czym jest Linux
 # Instalacja w VirtualBox
@@ -15,10 +13,12 @@
 # Użytkownicy i sudo
 # Uprawnienia plików i katalogów
 
-## Moduł 3: Diagnostyka, tekst i potoki
+## Moduł 3: Diagnostyka, potoki i dyski
 # Diagnostyka wyników komend
+# Edycja plików i nano
+# Zarządzanie dyskami - parted i fstab
 
-## Moduł 4: Sieć i UFW
-# 00 - Zapora i ekspozycja usług
-# 01 - Zrzut komend UFW
-# 02 - Zapora w praktyce
+## Moduł 4: Zdalne zarządzanie w sieci
+# Netplan i NetworkManager
+# Zdalny dostęp - SSH
+# Zapora sieciowa - UFW

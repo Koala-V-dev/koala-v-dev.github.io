@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Transfer plików - Serwer FTP (vsftpd) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">ubuntu-26-server</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Adres i nazwa w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (Kea)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(Kea).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (Kea)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Konfiguracja serwera DHCP (isc-dhcp-server)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Konfiguracja%20serwera%20DHCP%20(isc-dhcp-server).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Konfiguracja serwera DHCP (isc-dhcp-server)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy serwera DNS (Bind9)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%200/Podstawy%20serwera%20DNS%20(Bind9).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy serwera DNS (Bind9)</a></li><li class="module">Moduł 1: Pliki dla użytkowników</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Udostępnianie plików dla Windows - Serwer Samba"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Udost%C4%99pnianie%20plik%C3%B3w%20dla%20Windows%20-%20Serwer%20Samba.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Udostępnianie plików dla Windows - Serwer Samba</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Transfer plików - Serwer FTP (vsftpd)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%201/Transfer%20plik%C3%B3w%20-%20Serwer%20FTP%20(vsftpd).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transfer plików - Serwer FTP (vsftpd)</a></li><li class="module">Moduł 2: Strony dostępne po nazwie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja serwera Apache2"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20serwera%20Apache2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja serwera Apache2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instalacja i konfiguracja Nginx (Wirtualne hosty)"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/Instalacja%20i%20konfiguracja%20Nginx%20(Wirtualne%20hosty).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja i konfiguracja Nginx (Wirtualne hosty)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/SSL TLS, HTTP oraz HTTP2 HTTP3"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%202/SSL%20TLS%2C%20HTTP%20oraz%20HTTP2%20HTTP3.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">SSL TLS, HTTP oraz HTTP2 HTTP3</a></li><li class="module">Moduł 3: Poczta w sieci lokalnej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Poczta w sieci lokalnej - Postfix"><a class="lesson-link" href="/courses/ubuntu-26-server/Pages/Modu%C5%82%203/Poczta%20w%20sieci%20lokalnej%20-%20Postfix.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Poczta w sieci lokalnej - Postfix</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Transfer plików – Serwer FTP (vsftpd)</h1>
+<p>Protokół <span class="color-green">FTP</span> (<span class="color-blue">File Transfer Protocol</span>) to jeden z najstarszych protokołów sieciowych służących do przesyłania plików między maszynami.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>FTP działą na portach 20 i 21.</p>
+<ul>
+<li>Port 20 służy do przesyłania danych.</li>
+<li>Port 21 służy do kontroli.</li>
+<li>FTP nie jest szyfrowanym protokołem.</li>
+</ul>
+
+</div>
+</div><blockquote>
+<p>Szyfrowanie jest możliwe dzieki TLS (FTPS) lub SSH (SFTP).</p>
+<ul>
+<li>FTPS - Port 21: TLS (Transport Layer Security) dynamicznie wybiera sobie porty do przesyłania danych.</li>
+<li>SFTP - Port 22: SSH (Secure Shell) transfer plików również odbywa się po porcie 22.</li>
+</ul>
+<p>FTPS jest troszkę mniej bezpieczny ale za to szybszy niż SFTP.</p>
+</blockquote>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Instalacja serwera FTP (vsftpd) i konto użytkownika</h2>
+<p>Zainstalujmy pakiet serwera <span class="color-green">vsftpd</span>:</p>
+<pre><code class="language-bash">sudo apt update
+sudo apt install vsftpd -y
+</code></pre>
+<hr>
+<h3>👤 Utworzenie konta użytkownika i struktury katalogów</h3>
+<p>Ze względów bezpieczeństwa serwer <code>vsftpd</code> nakłada surowe obostrzenie: <span class="color-green">katalog główny objęty mechanizmem <code>chroot</code> nie może być zapisywalny przez użytkownika</span>.</p>
+<p>Dlatego nasza konfiguracja FTP‑a bedzie następująca następującą strukturę:</p>
+<ul>
+<li><code>/home/karol</code> – katalog domowy należący do użytkownika <code>root</code> (brak prawa zapisu dla Karola).</li>
+<li><code>/home/karol/upload</code> – podkatalog należący do <code>karol</code>, wy którym użytkownik będzie mógł działać.</li>
+</ul>
+<p>Tworzymy użytkownika <code>karol</code>:</p>
+<pre><code class="language-bash">sudo adduser karol
+</code></pre>
+<p>Tworzymy katalog i ustawiamy odpowiednich właścicieli i uprawnienia:</p>
+<pre><code class="language-bash">sudo mkdir -p /home/karol/upload
+
+sudo chown karol:karol /home/karol/upload
+sudo chown root:root /home/karol
+
+sudo chmod 755 /home/karol
+</code></pre>
+<p>Sprawdźmy poprawność nadanych uprawnień:</p>
+<pre><code class="language-bash">ls -ld /home/karol /home/karol/upload
+</code></pre>
+<blockquote>
+<p>Dzieki opcji <code>-d</code> możesz wskazać konkretny katalog do sprawdzenia zamiast jego zawartości.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/vsftp_user_dir.webp" alt="" width="641" height="561" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📝 Konfiguracja serwera vsftpd (<code>/etc/vsftpd.conf</code>)</h2>
+<p>Ogólnie wiekszość roboty już zrobiliśmy w sekcji wyżej. Teraz pozostało jedynie odkomentować pare linii.</p>
+<p>Otwórz plik konfiguracyjny do edycji w edytorze <code>nano</code>:</p>
+<pre><code class="language-bash">sudo nano -l /etc/vsftpd.conf
+</code></pre>
+<p>Domyślnie powinny być odkomentowane:</p>
+<details>
+<summary>Własciwości usługi vsftpd</summary>
+
+<ul>
+<li><code>listen=NO</code>: wyłącza osobne nasłuchiwanie na gnieździe IPv4.</li>
+<li><code>listen_ipv6=YES</code>: uruchamia nasłuchiwanie na gnieździe IPv6, które domyślnie przyjmuje również połączenia IPv4.</li>
+<li><code>anonymous_enable=NO</code>: blokuje logowanie anonimowe.</li>
+<li><code>local_enable=YES</code>: pozwala logować się użytkownikom istniejącym w Ubuntu.</li>
+<li><code>dirmessage_enable=YES</code>: pozwala wyświetlić komunikat z pliku <code>.message</code> po wejściu do katalogu.</li>
+<li><code>use_localtime=YES</code>: pokazuje czas plików zgodnie z lokalną strefą czasową serwera.</li>
+<li><code>xferlog_enable=YES</code>: zapisuje informacje o wysyłaniu i pobieraniu plików.</li>
+<li><code>connect_from_port_20=YES</code>: w trybie aktywnym wysyła dane z portu <code>20</code> serwera.</li>
+<li><code>secure_chroot_dir=/var/run/vsftpd/empty</code>: wskazuje pusty katalog używany przez <code>vsftpd</code> podczas izolowania części procesu.</li>
+<li><code>pam_service_name=vsftpd</code>: wybiera reguły logowania PAM z pliku <code>/etc/pam.d/vsftpd</code>.</li>
+<li><code>rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</code>: wskazuje certyfikat TLS dostarczony z systemem.</li>
+<li><code>rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</code>: wskazuje klucz prywatny pasujący do certyfikatu.</li>
+<li><code>ssl_enable=NO</code>: pozostawia szyfrowanie TLS wyłączone.</li>
+</ul>
+</details>
+
+<p>Na początek zainteresuje nas następująca konfiguracja do odkomentowania:</p>
+<ul>
+<li><code>write_enable=YES</code>: pozwala zalogowanym użytkownikom wysyłać, usuwać i zmieniać nazwy plików.</li>
+<li><code>chroot_local_user=YES</code>: ogranicza użytkownika do jego katalogu domowego.</li>
+</ul>
+<p>Pozostało ci tylko zrestartować i sprawdzić status.</p>
+<pre><code class="language-bash">sudo systemctl restart vsftpd
+sudo systemctl status vsftpd
+</code></pre>
+<p>aby połączyć się z udziałem FTP wystarczy podobnie jak w przypadku Samby i protokołu smb wpisać adres w eksploratorze plików:</p>
+<pre><code class="language-bash">ftp://192.168.0.1
+</code></pre>
+<p>Podajemy dane uwierzytelniające użytkownika <code>karol</code> i hasło.<br>Jak widać na udziale jest katalog <code>upload</code> i obok niego nie można nic utworzyć. Natomiast wewnątrz katalogu <code>upload</code> mamy pełne prawa do zapisu i tworzenia plików. </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/FTP_ubuntu_26_desktop_test.webp" alt="" width="909" height="1993" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Podobnie ma się sytuacja w Windows 11:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/FTP_windows11_test.webp" alt="" width="1142" height="2104" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Co tak naprawdę skonfigurowaliśmy?</h2>
+<p>Trzy dyrektywy odpowiadają za najważniejsze zachowanie serwera:</p>
+<ul>
+<li><code>local_enable=YES</code> – zezwala lokalnym użytkownikom Ubuntu, takim jak <code>karol</code>, na logowanie do usługi FTP.</li>
+<li><code>write_enable=YES</code> – zezwala na polecenia zmieniające zawartość systemu plików, między innymi wysyłanie, usuwanie i zmianę nazw plików.</li>
+<li><code>chroot_local_user=YES</code> – zamyka użytkownika w jego katalogu domowym. Dla Karola katalog <code>/home/karol</code> staje się najwyższym widocznym poziomem i klient FTP pokazuje go jako <code>/</code>.</li>
+</ul>
+<p>Dlatego katalog <code>upload</code> widziany w kliencie FTP jest w rzeczywistości katalogiem <code>/home/karol/upload</code> na serwerze.</p>
+<p>FTP używa dwóch połączeń. Połączenie sterujące na porcie TCP <code>21</code> przenosi login, hasło oraz polecenia. Osobnym połączeniem przesyłana jest lista katalogów i zawartość plików.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔓 Szyfrowane warianty FTP</h2>
+<p>Zwykły FTP nie szyfruje logowania ani przesyłanych plików.<br>Można to zmienić wykorzystując jedną z dwóch wariacji:</p>
+<ul>
+<li><span class="color-green">FTPS</span> (<span class="color-blue">FTP Secure - jawny FTP szyfrowany TLS</span>):<ul>
+<li><code>vsftpd</code> jest w stanie go obsłużyć,</li>
+<li>port <code>21</code>,</li>
+</ul>
+</li>
+<li><span class="color-green">SFTP</span> (<span class="color-blue">SSH File Transfer Protocol</span>):<ul>
+<li>działa na <code>OpenSSH</code>,</li>
+<li>port <code>22</code>,</li>
+</ul>
+</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 FTPS poprzez TLS</h2>
+<p>Do obsługi FTPS wymagany jest certyfikat który vsftpd dostarcza domyślnie przy instalacji. Oczywiście jest to cert samopodpisany więc każde oprogramowanie które się bedzie z nim łączyć zgłosi ostrzeżenie że certyfikat jest niewiarygodny. </p>
+<p>Jedyne co musisz zrobić to ponownie wejść to poliku <code>/etc/vsftpd.conf</code> i na samym końcu zmienić wpis:</p>
+<pre><code class="language-ini">ssl_enable=NO
+</code></pre>
+<p>na:</p>
+<pre><code class="language-ini">ssl_enable=YES
+</code></pre>
+<p>Po czym restartujesz usługę:</p>
+<pre><code class="language-bash">sudo systemctl restart vsftpd
+sudo systemctl status vsftpd
+</code></pre>
+<h3>🔐 SFTP poprzez SSH</h3>
+<p>Chcąc skorzystać z połączenia SFTP wystarczy że na serwerze jest zainstalowane openssh.<br>Zweryfikuj czuy u ciebie działa:</p>
+<pre><code class="language-bash">sudo systemctl status ssh
+</code></pre>
+<p>Jeżeli nie to doinstaluj i uruchom usługę:</p>
+<pre><code class="language-bash">sudo apt install openssh
+sudo systemctl enable --now ssh
+</code></pre>
+<h3>💻 Połączenie szyfrowanym FTP na Windows 11</h3>
+<p>Tym razem eksplorator plików nie wystarczy i bedzie potrzebny dodatkowy program.</p>
+<ul>
+<li>Windows 11: <span class="color-red">FileZilla</span> lub <span class="color-green">Cyberduck</span>.</li>
+</ul>
+<p>W programie <span class="color-green">Cyberduck</span> utwórz nowe połączenie:</p>
+<ul>
+<li>Otwórz połączenie</li>
+<li>Wybierz <span class="color-green">FTP‑SSL (Explicit AUTH TLS)</span></li>
+<li>Wpisz adres <code>192.168.0.1</code></li>
+<li>Wpisz użytkownika i hasło</li>
+<li>Kliknij Połącz</li>
+</ul>
+<blockquote>
+<p>Oczywiście zobaczysz ostrzeżenie że cert jest trefny i łączysz się z serwerem podszywającym się pod inny.<br>Możesz podejrzeć sobie ten cert a potem kliknąć kontynuuj, wszak to twój serwer. 😉</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/ftps-windows11.webp" alt="" width="1524" height="2467" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>W cyberduck wystarczy zmienić typ połączenia na <span class="color-green">SFTP (bezpieczny transfer plików SSH)</span></p>
+<p>Wtedy zamiast powiadomienia o trefnym certyfikacie bedziesz pyanay o pozwolenie na każdą akcję wyrażoną kluczem:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/sftp-windows11.webp" alt="" width="394" height="302" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>🐧 Połączenie szyfrowanym FTP na Ubuntu Desktop</h3>
+<p>W tym przypadku skorzystamy z FileZilli.<br>Zainstaluj ją poprzez terminal:</p>
+<pre><code class="language-bash">sudo apt install filezilla
+</code></pre>
+<p>Filezilla domyślnie jeżeli wskarzesz jej port 21 to bedzie próbowała połączyć się z TLS a jak się nie uda to połączy się nieszyfrowanym FTP:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/ftps-ubuntu.webp" alt="" width="1199" height="2665" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Możesz zaóważyć że plik z windowsa ma dziwne znaczki zamiast polskich. Spowodowane jest to kodowaniem znaków typowym dla windowsa: <span class="color-green">Windows‑1250</span>.</p>
+</blockquote>
+<p>Chcąc skorzystać z SFTP wystarczy podać port 22 zamiast 21 i wtedy zobaczysz następujący komunikat:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26-server/Images/sftp-ubuntu.webp" alt="" width="655" height="300" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Protokoły i usługi</span>: <code>vsftpd</code> obsługuje nieszyfrowany FTP oraz FTPS (FTP Secure). <span class="color-green">SFTP to nie FTP</span> – opiera się na protokole SSH i usłudze OpenSSH (<code>ssh</code>).</li>
+<li><span class="color-green">Różnice w portach i działaniu</span>:<ul>
+<li><span class="color-green">FTP</span>: Działa na portach <code>21</code> (sterowanie) i <code>20</code> (dane); brak szyfrowania (dane i logowanie jawne).</li>
+<li><span class="color-green">FTPS (Explicit)</span>: Łączy się na porcie <code>21</code>, po czym włącza szyfrowanie TLS poleceniem <code>AUTH TLS</code>.</li>
+<li><span class="color-green">SFTP</span>: Wszystkie operacje i dane przesyła w jednym szyfrowanym kanale SSH na porcie <code>22</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Wymogi bezpieczeństwa <code>chroot</code></span>: Katalog domowy użytkownika objęty <code>chroot</code> (np. <code>/home/karol</code>) nie może mieć praw zapisu i musi należeć do <code>root:root</code>. Prawa zapisu nadajemy w wybranym podkatalogu (np. <code>/home/karol/upload</code>).</li>
+<li><span class="color-green">Kluczowa konfiguracja (<code>/etc/vsftpd.conf</code>)</span>:<ul>
+<li><code>local_enable=YES</code> – zezwala na logowanie użytkowników systemowych.</li>
+<li><code>write_enable=YES</code> – włącza uprawnienia zapisu, wgrywania i usuwania plików.</li>
+<li><code>chroot_local_user=YES</code> – izoluje użytkownika w jego katalogu domowym (widocznym jako <code>/</code>).</li>
+<li><code>ssl_enable=YES</code> – aktywuje obsługę szyfrowania FTPS.</li>
+</ul>
+</li>
+<li><span class="color-green">Aplikacje klienckie</span>: O ile z niekodowanym FTP poradzi sobie Eksplorator plików, o tyle połączenia FTPS i SFTP wymagają klientów GUI takich jak FileZilla lub Cyberduck.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

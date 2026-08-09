@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Reprezentacja wzorów brył (arytmetyka) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: PHP uruchomione w XAMPP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Algorytmy sortowania"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Algorytmy%20sortowania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy sortowania</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Reprezentacja wzorów brył (arytmetyka)</h1>
+<p>Poprzednio obliczyliśmy BMI. Kod wykonał się linia po linii. Co nazywamy w nomenklaturze <span class="color-blue">programowaniem strukturalnym</span>. Mieliśmy jeden problem do rozwiązania i bardzo szybko oraz prosto się z nim uporaliśmy.  </p>
+<p>Tym razem zajmiemy się pracą nad najlepszą dziedziną nauki czyli matematyką. Jednak podejdziemy do tego w stylu <span class="color-green">programowania funkcyjnego</span>.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>Czym jest funkcja?</h2>
+<p>Funkcja to wydzielony blok kodu zawierający rozwiązanie danego małego problemu. Taki fragmencik jest wielokrotnie używany w programie do zrealizowania wiekszej pracy. Możesz to sobie porównać do budowlanki.</p>
+<ul>
+<li>Murarz stawia ściany z cegieł</li>
+<li>Glazurnik kładzie płytki</li>
+<li>Elektryk układa kable</li>
+<li>Hydraulik zakłada rury</li>
+</ul>
+<p>Każdy z nich specjalizuje się w jednym zadaniu, a wykorzystanie ich pracy pozwala rozwiązać problem braku domu.</p>
+<blockquote>
+<p>Dodatkowym aspektem przemawiającym za programowaniem funkcjonalnym zamiast strukturalnym jest czytelność kodu i szybkość zmiany działania, a co za tym idzie brak konieczności poprawiania błędu w wielu miejscach zdublowanego kodu.</p>
+</blockquote>
+<h3>Definicja i użycie funkcji</h3>
+<p>Funkcje definiujemy następującą strukturą:</p>
+<pre><code class="language-php">function nazwa_funkcji(){
+    // ciało funkcji
+}
+</code></pre>
+<p>Definicja funkcji jest poprzedzona słowem kluczowym <code>function</code>, zawiera nazwę oraz nawiasy okrągłe.<br>Chcąc odwołać się do funkcji czyli wywołać jej działanie w innym miejscu skryptu używamy jej nazwy oraz nawiasów okrągłych:</p>
+<pre><code class="language-php">// Wywołanie funkcji:
+nazwa_funkcji();
+</code></pre>
+<p>Funkcja maże przyjmować argumenty w nawiasach okrągłych, ale nie musi. Podobnie z zwracaniem wartości. Jeżeli nie zawrzesz w ciele funkcji na sam koniec instrukcji <code>return</code> to funkcja bedzie typu <span class="color-blue">void</span> i jeżeli byś ją chciał wykorzystać jako wartość to uzyskasz <code>NULL</code>: <span class="color-blue">Wskazano na nie istniejącą wartość o nieznanym typie w pamięci RAM.</span></p>
+<pre><code class="language-php">function test(){}
+
+var_dump(test());
+
+
+function add($a, $b){
+    return $a + $b;
+}
+
+var_dump(add(2,2));
+</code></pre>
+<p>Powyżej zdefiniowaliśmy dwie funkcje <span class="color-blue">void</span> oraz <span class="color-blue">intiger</span>. Gdy wywołamy je w <code>var_dump()</code> uzyskamy dwa oczekiwane wyniki:</p>
+<ul>
+<li><code>NULL</code> dla test(), który jest typu <span class="color-blue">void</span></li>
+<li><code>int(4)</code> dla add(), który prwidłowo okazał się typem <span class="color-blue">intiger</span></li>
+</ul>
+<h3>Wykorzystanie funkcji w praktyce.</h3>
+<p>Mamy zdefiniowaną funkcje dodawania i teraz możemy ją wykorzystać na wiele sposobów:</p>
+<ul>
+<li>dokleić jej wynik konkatenacją do zwracanego stringa przez echo</li>
+<li>użyć jako wartość zmiennej, która potem będzie wykorzystana do kolejnych obliczeń</li>
+<li>przekazać wartość zmiennych jako argumenty wywołania funkcji zamiast jawnych wartości.</li>
+<li>przekazać wynik funkcji jako argument w kolejnym wywołaniu funkcji</li>
+</ul>
+<pre><code class="language-php">function add($a, $b){
+    return $a + $b;
+}
+
+echo "2 + 4 = " . add(2, 4);
+$c = add(2, 4);
+echo "\nc = " . $c;
+
+echo "\nc + 5 = " . add($c, 5);
+
+echo "\n\n&lt;hr&gt;";
+
+echo "\n2 + 3 + 7 + 9 = " . add(2, 3) + add(7, 9);
+echo "\n2 + 3 + 7 + 9 = " . add(add(2, 3), add(7, 9));
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/wykorzystanie-funkcji.webp" alt="" width="1837" height="821" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Parametry stożka</h2>
+<p>Stożek składa się z dwóch części. Koła jako podstawy i siatki podobnej do trójkąta równoramiennego.</p>
+<p>By móc wszystko policzyć musimy posiadać $3$ parametry:</p>
+<ul>
+<li>$r$ - promień podstawy (odcinek łączący środek z krawędzią okręgu)</li>
+<li>$h$ - wysokość stożka (odcinek od podstawy do czubka stożka gdzie z podstawą tworzy kąt prosty)</li>
+<li>$l$ - długość tworzącej stożka (odcinek od czubka stożka do krawędzi okręgu podstawy)</li>
+</ul>
+<h3>Wzory</h3>
+<p>Poniżej przedstawiam wzory na potrzebne wartości, które pozwolą Ci liczyć w języku PHP:</p>
+<ul>
+<li>objetość ($V$):<br>$$V=\frac{1}{3}\pi r^2h$$</li>
+<li>pole powierzchni całkowitej ($P_c$):<br>$$P_c=\pi r^2 + \pi r l$$</li>
+<li>pole powierzchni bocznej ($P_b$):<br>$$P_b = \pi r l$$</li>
+<li>pole powierzchni podstawy ($P_p$):<br>$$P_p = \pi r^2$$</li>
+<li>długość tworzącej ($l$):<br>$$l = \sqrt{r^2 + h^2}$$</li>
+</ul>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Definicje funkcji dla wzorów stożka</h2>
+<p>Załóżmy że posiadamy tylko $2$ parametry stożka:</p>
+<ul>
+<li>$r = 4$</li>
+<li>$h = 6$<br>Brakuje nam długości tworzącej $l$.</li>
+</ul>
+<h3>Funkcja wyprowadzająca $l$ z $r$ i $h$</h3>
+<p>Wiemy że w php możemy potęgować przy pomocy operatora <code>**</code>, ale jak wykonać operację pierwiastkowania?<br>Tu z pomocą przychodzi nam jak zwykle matematyka.<br>Przeanalizujmy przykład:</p>
+<p>$$5^2 = 25$$<br>$$\sqrt{25} = 5$$</p>
+<p>Jak widzisz pierwiastkowanie to odwrotność podnoszenia do potęgi.<br>Teraz przypomnij sobie jak zapisać liczbę $5$ jako ułamek:</p>
+<p>$$5 = \frac{5}{1}$$<br>Więc chcąc uzyskać odwrotność liczby $5$ zapiszemy ją w postaci ułamka jako:</p>
+<p>$$\frac{1}{5}$$</p>
+<p>Jak będzie więc wyglądać pierwiastek stopnia drugiego zapisany w php przy użyciu potęgowania?  </p>
+<p>$$\sqrt{25} = 25^{\frac{1}{2}}$$</p>
+<p>Nasza funkcja do pozyskania $l$ z $r$ i $h$ wygląda następująco:</p>
+<pre><code class="language-php">function get_l($r, $h){
+    return ($r**2 + $h**2)**(1/2);
+}
+</code></pre>
+<p>Zamiast działania <code>(1/2)</code> możesz od razu zapisać <code>0.5</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/parametry-stożka.webp" alt="" width="1850" height="351" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Super! Właśnie zdefiniowaliśmy od zera natywną funkcję php do pierwiastkowania, czyli <code>sqrt()</code>:</p>
+<pre><code class="language-php">sqrt(liczba_do_spierwiastkowania);
+</code></pre>
+<h3>Określenie liczby $\pi$</h3>
+<p>Jak znowu popatrzymy na wzory to brakuje nam tylko jednej niewiadomej. Dokładniej liczby $\pi$.</p>
+<p>Jest to stała matematyczna, więc to idealny moment na wprowadzenie <span class="color-green">zmiennych stałych</span> (<span class="color-blue">constants variables</span>).</p>
+<p>W php aby określić stałą używamy funkcji <code>define</code>:</p>
+<pre><code class="language-php">define("nazwa_stalej", "wartosc");
+</code></pre>
+<p>W naszym przypadku zapiszmy:</p>
+<pre><code class="language-php">define("PI", 3.141);
+</code></pre>
+<p>Po co w ogóle nam stałe skoro mamy zmienne i krócej się je zapisuje?<br>Kluczem jest właśnie stałość. Jeżeli zdefiniujemy dla stałej jakąś wartość to mamy pewność że nie zostanie ona przypadkowo nadpisana gdzieś dalej w kodzie. Dodatkowo IDE oraz interpreter PHP odrazu zgłoszą sytucję nadpisania jako błąd i wskarzą lokalizację tego precedensu:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/syntax-error_unexpected-token-=-in-define-const-PI.webp" alt="" width="1851" height="657" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>Definicje i wyniki funkcji wzorów stożka</h3>
+<p>Znając parametry $r$ i $h$ oraz definiując stałą $\pi$, w przybliżeniu $3.141$ jesteś wstanie poprawnie poznać wszystkie parametry stożka:</p>
+<ul>
+<li>Promień podstawy: $r$</li>
+<li>Wysokość stożka: $h$</li>
+<li>Długość tworzącej stożka: $l = \sqrt{r^2 + h^2}$</li>
+<li>Objętość stożka: $V = \frac{1}{3}\pi r^2h$</li>
+<li>Pole powierzchni całkowitej: $P_c = \pi r^2 + \pi r l$</li>
+<li>Pole powierzchni bocznej: $P_b = \pi r l$</li>
+<li>Pole powierzchni podstawy: $P_p = \pi r^2$</li>
+</ul>
+<pre><code class="language-php">$r= 4; $h=6;
+
+function get_l($r, $h){
+    return ($r**2 + $h**2)**0.5;
+}
+echo "Parametry stożka: r=" . $r .", h=" . $h . ", l=" . get_l($r, $h);
+
+define("PI",3.141);
+
+function stozek_get_V($r, $h){
+    return (1/3) * PI * $r**2 * $h;
+}
+echo "\nObjętość stożka (V): " . stozek_get_V($r, $h);
+function stozek_get_Pc($r, $h){
+    return PI * $r**2 + PI * $r * get_l($r, $h); 
+}
+echo "\nPole powierzchni całkowitej (Pc): " . stozek_get_Pc($r, $h);
+function stozek_get_Pb($r, $h){
+    return PI * $r * get_l($r, $h);
+}
+echo "\nPole powierzchni bocznej (Pb): " . stozek_get_Pb($r, $h);
+function stozek_get_Pp($r){
+    return PI * $r**2;
+}
+echo "\nPole powierzchni podstawy (Pp): " .stozek_get_Pp($r);
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/funkcje-obliczające-wzory-stożka.webp" alt="" width="1852" height="843" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>PS w PHP już zdefiniowano stałą PI jako <code>M_PI</code> i wynosi ona w przybliżeniu $3.1415926535898$.<br>Mało tego, ze względu na czestość występownia zdefiniowane zostały też <code>M_PI_2</code> ($\frac{\pi}{2}$), <code>M_PI_4</code> ($\frac{\pi}{4}$) oraz <code>M_1_PI</code> ($\frac{1}{\pi}$) i <code>M_2_PI</code> ($\frac{2}{\pi}$).</p>
+
+</div>
+</div><p>&lt;img src="<a href="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php_sta%C5%82e-warto%C5%9Bci_z_pi_M_PI.webp">https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php_stałe-wartości_z_pi_M_PI.webp</a>" alt=""M_PI constant"" width="1852" height="471" class="lazy‑image" loading="lazy" decoding="async"&gt;</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Rozszerz kalkulacje o walec i kulę</h2>
+<p><span class="color-green">Walec</span> to bryła obrotowa, która powstaje przez obrót prostokąta wokół jednej z jego boków.<br><span class="color-green">Kula</span> to bryła obrotowa, która powstaje przez obrót koła wokół jego średnicy.</p>
+<h3>Wzory na walec</h3>
+<ul>
+<li>objetość walca:<br>$$V = \pi r^2 h$$</li>
+<li>pole powierzchni całkowitej walca:<br>$$P_c = 2 \pi r^2 + 2 \pi r h$$</li>
+<li>pole powierzchni bocznej walca:<br>$$P_b = 2 \pi r h$$</li>
+<li>pole powierzchni podstawy walca:<br>$$P_p = \pi r^2$$</li>
+</ul>
+<h3>Wzory na kulę</h3>
+<ul>
+<li>objetość kuli:<br>$$V = \frac{4}{3}\pi r^3$$</li>
+<li>pole powierzchni całkowitej kuli:<br>$$P_c = 4 \pi r^2$$</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

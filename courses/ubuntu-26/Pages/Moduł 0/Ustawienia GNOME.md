@@ -59,7 +59,7 @@ Jeżeli denerwuje Cię wpisywanie hasła do zablokowanego ekranu po kilku minuta
 ![Ubuntu widok karty ustawiania Privacy & Security (prywatność i bezpieczeństwo)](/public/courses/ubuntu-26/Images/ubuntu-wygaszacz-ekranu-karta-power-i-karta-Prvacy-and-Security.png)
 
 
-> W sekcji <kbd class="ubuntu-menu-btn">Power</kbd> możesz też przełączyć tryb zasilania na oszczędny lub zbilansowany. Nie szukaj tu jednak zaawansowanych planów zasilania znanych z systemu Windows – GNOME oferuje tylko absolutne minimum 😒.
+> W sekcji <kbd class="ubuntu-menu-btn">Power</kbd> możesz też przełączyć tryb zasilania na oszczędny lub zbilansowany. Nie szukaj tu jednak zaawansowanych planów zasilania znanych z systemu Windows – GNOME oferuje tylko podstawowe minimum.
 
 ## 🌐 Ustawienia sieciowe
 
@@ -77,10 +77,10 @@ W zakładce <kbd class="ubuntu-menu-btn">IPv4</kbd> decydujesz, czy system ma po
 
 ![Ubuntu widok karty ustawiania Network (sieć) po kliknięciu koła zebatego i wybraniu zakładki Details](/public/courses/ubuntu-26/Images/ubuntu-ustawienia-network-ustawienia-ip-interfejsu.png)
 
-| Nazwa ustawienia | Przykładowa konfiguracja                                                                                | Opis                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------- | ------------------------ |
-| IPv4             | <ul><li>Address: `192.168.0.5`</li><li>Netmask:`255.255.255.0`</li><li>Gateway: `192.168.0.1`</li></ul> | Ręczna konfiguracja IPv4 |
-| DNS              | `8.8.8.8` lub kilka oddzielonych przecinkiem np.: `8.8.8.8, 1.1.1.1`                                    | Ręczna konfiguracja DNS  |
+| Nazwa ustawienia | Przykładowa konfiguracja                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| IPv4             | <ul><li>Address: `192.168.0.5`</li><li>Netmask:`255.255.255.0`</li><li>Gateway: `192.168.0.1`</li></ul> |
+| DNS              | `8.8.8.8` lub kilka oddzielonych przecinkiem np.: `8.8.8.8, 1.1.1.1`                                    |
 
 
 ### 🔌 Konfiguracja komunikacji statycznej IPv4
@@ -93,7 +93,7 @@ Teraz zaimportuj lub stwórz drugą maszynę z Ubuntu. Obie muszą być podpięt
 > [!WARNING]
 > Upewnij się, że adresy **MAC** (*Media Access Control*) są różne dla obu maszyn,inaczej karty sieciowe będą się gryźć.
 
-Gdy to już ogarniesz dokonajmy przykładowej konfiguracji, gdzie zastosujemy następujące ustawienia adresacji IP:
+Po poprawnej konfiguracji wirtualnych kart sieciowych możemy przystąpić do przykładowej konfiguracji, w której zastosujemy następujące ustawienia adresacji IP:
 
 | Maszyna            | IPv4          | Netmask         | Gateway       | DNS       |
 | ------------------ | ------------- | --------------- | ------------- | --------- |
@@ -119,7 +119,7 @@ Co się stanie, gdy spróbujesz wysłać `ping` między maszynami z różnych po
 
 Na zrzucie jedna maszyna wyświetliła komunikat **_Destination Host Unreachable_**, a druga **_ping: connect: Network is unreachable_**. Oba błędy oznaczają brak trasy do celu. Bez fizycznego lub wirtualnego routera, maszyny z różnych podsieci nie nawiążą kontaktu.
 
-## 🔗 Połącz Pary: Ustawienia GNOME
+## 🔗 Połącz pary: Ustawienia GNOME
 
 Przetestuj, czy kojarzysz najważniejsze ustawienia z tej lekcji.
 
@@ -136,7 +136,12 @@ Przetestuj, czy kojarzysz najważniejsze ustawienia z tej lekcji.
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-Głównie to jak dokonać ustawień interfejsu sieciowego. 😉
+- **Odzyskiwanie przestrzeni ekranu:** Domyślny układ GNOME marnuje sporo pikseli. Przeniesienie doku na dół ekranu i zmniejszenie ikon do $28\text{ px}$ pozwala efektywniej wykorzystać przestrzeń roboczą.
+- **Konfiguracja kont w GUI:** Zarządzanie kontami użytkowników z poziomu ustawień systemowych (zakładka *System > Users*) wymaga wcześniejszego kliknięcia przycisku *Unlock* i uwierzytelnienia hasłem administratora (`sudo`).
+- **Ustawienia zasilania i blokady:** Blokadę ekranu oraz automatyczne wygaszanie konfiguruje się na kartach *Power* oraz *Privacy & Security*.
+- **Konfiguracja sieci w GUI:** Panel *Network* pozwala na diagnozowanie kart sieciowych, restart interfejsów (w celu odnowienia dzierżawy DHCP) oraz ręczne wpisywanie adresacji IPv4 i DNS.
+- **Sieć wewnętrzna w maszynach wirtualnych:** Tryb *Internal Network* w VirtualBox umożliwia bezpośrednie łączenie wirtualnych maszyn w izolowaną sieć LAN, co wymaga unikalnych adresów MAC i ręcznej konfiguracji tej samej podsieci IP (np. `192.168.0.x`).
+- **Narzędzie ping:** Służy do badania łączności sieciowej. Działa w nieskończoność, dopóki nie zostanie przerwane skrótem `Ctrl + C`.
 
 ---
 

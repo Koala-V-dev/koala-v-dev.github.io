@@ -14,7 +14,7 @@
 
 ## Moduł 2: Model TCP/IP w praktyce
 
-# TCP/IP vs OSI - co naprawdę działa
+# TCP-IP vs OSI - co naprawdę działa
 # Adresowanie IPv4 - budowa i klasy
 # Maska podsieci i podział sieci (subnetting)
 # Adresowanie IPv6 - przyszłość jest teraz

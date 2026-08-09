@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Adresowanie IPv4 - budowa i klasy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Komunikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Czym jest sieć komputerowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FCzym%20jest%20sie%C4%87%20komputerowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Czym jest sieć komputerowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Transmisja danych - analogowa i cyfrowa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FTransmisja%20danych%20-%20analogowa%20i%20cyfrowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Transmisja danych - analogowa i cyfrowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Media transmisyjne - kable i fale"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200%2FMedia%20transmisyjne%20-%20kable%20i%20fale.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Media transmisyjne - kable i fale</a></li><li class="module">Moduł 1: Model warstwowy OSI</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Siedem warstw - wielki obraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FSiedem%20warstw%20-%20wielki%20obraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Siedem warstw - wielki obraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa fizyczna i łącza danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20fizyczna%20i%20%C5%82%C4%85cza%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa fizyczna i łącza danych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa sieciowa - IP i routing"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20sieciowa%20-%20IP%20i%20routing.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa sieciowa - IP i routing</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwa transportowa - TCP i UDP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwa%20transportowa%20-%20TCP%20i%20UDP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwa transportowa - TCP i UDP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Warstwy sesji, prezentacji i aplikacji"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201%2FWarstwy%20sesji%2C%20prezentacji%20i%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Warstwy sesji, prezentacji i aplikacji</a></li><li class="module">Moduł 2: Model TCP/IP w praktyce</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/TCP-IP vs OSI - co naprawdę działa"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FTCP-IP%20vs%20OSI%20-%20co%20naprawd%C4%99%20dzia%C5%82a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">TCP-IP vs OSI - co naprawdę działa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv4 - budowa i klasy"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv4%20-%20budowa%20i%20klasy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4 - budowa i klasy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Maska podsieci i podział sieci (subnetting)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FMaska%20podsieci%20i%20podzia%C5%82%20sieci%20(subnetting).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maska podsieci i podział sieci (subnetting)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Adresowanie IPv6 - przyszłość jest teraz"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FAdresowanie%20IPv6%20-%20przysz%C5%82o%C5%9B%C4%87%20jest%20teraz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv6 - przyszłość jest teraz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/DHCP - automatyczne przydzielanie adresów"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FDHCP%20-%20automatyczne%20przydzielanie%20adres%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DHCP - automatyczne przydzielanie adresów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/NAT - jedno IP publiczne, wiele urządzeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202%2FNAT%20-%20jedno%20IP%20publiczne%2C%20wiele%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">NAT - jedno IP publiczne, wiele urządzeń</a></li><li class="module">Moduł 3: Protokoły i komunikacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ARP - kto ma ten adres MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FARP%20-%20kto%20ma%20ten%20adres%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ARP - kto ma ten adres MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/ICMP - ping i traceroute od kuchni"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FICMP%20-%20ping%20i%20traceroute%20od%20kuchni.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">ICMP - ping i traceroute od kuchni</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/DNS - od nazwy do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FDNS%20-%20od%20nazwy%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">DNS - od nazwy do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/HTTP i HTTPS - jak działa sieć WWW"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FHTTP%20i%20HTTPS%20-%20jak%20dzia%C5%82a%20sie%C4%87%20WWW.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">HTTP i HTTPS - jak działa sieć WWW</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Enkapsulacja - pakowanie danych warstwa po warstwie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203%2FEnkapsulacja%20-%20pakowanie%20danych%20warstwa%20po%20warstwie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja - pakowanie danych warstwa po warstwie</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Adresowanie IPv4 - budowa i klasy</h1>
+<p>Na interfejsie widzisz <code>192.0.2.130/26</code>. Ktoś patrzy tylko na pierwszy oktet i mówi: „to dawna klasa C, więc sieć ma <code>/24</code>”. Taka odpowiedź zmieniłaby zakres z 64 do 256 adresów.</p>
+<p>Cel jest praktyczny: wyznaczyć granice konkretnego prefiksu i sprawdzić, czy podany adres może należeć do hosta. Tabela klas nie jest do tego potrzebna.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Najpierw przewidź zakres</h2>
+<p>Bez liczenia odpowiedz:</p>
+<pre><code>interfejs A: 192.0.2.130/26
+interfejs B: 192.0.2.190/26
+</code></pre>
+<p>Czy oba adresy mogą znajdować się w tej samej podsieci?</p>
+<p>Zapisz <code>tak</code> albo <code>nie</code> i podaj granicę, której jeszcze nie znasz. Po obliczeniu wrócisz do tej prognozy.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Adres i prefiks tworzą jedną informację</h2>
+<p>IPv4 ma 32 bity zapisane zwykle jako cztery oktety. Każdy oktet mieści wartość od <code>0</code> do <code>255</code>.</p>
+<p>Sam adres <code>192.0.2.130</code> nie wyznacza granicy sieci. Robi to dopiero prefiks <code>/26</code>:</p>
+<pre><code>26 bitów prefiksu | 6 bitów części lokalnej
+</code></pre>
+<p>Pierwsze 24 bity obejmują trzy pełne oktety. W ostatnim oktecie do prefiksu należą jeszcze dwa bity.</p>
+<pre><code>adres:  130 = 10000010
+maska:  192 = 11000000
+                 ^^------ 2 bity prefiksu
+</code></pre>
+<p>Nie zmieniaj prefiksu na podstawie pierwszego oktetu. To zapis <code>/26</code> jest częścią danych wejściowych.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔬 Wyznacz adres sieci</h2>
+<p>Adres sieci otrzymujesz przez operację logiczną AND między adresem a maską. Bit wyniku ma wartość <code>1</code> tylko wtedy, gdy oba bity wejściowe mają wartość <code>1</code>.</p>
+<pre><code>adres:  10000010   130
+maska:  11000000   192
+AND:    10000000   128
+</code></pre>
+<p>Trzy wcześniejsze oktety maski mają same jedynki, więc pozostają bez zmiany.</p>
+<pre><code>adres interfejsu: 192.0.2.130/26
+adres sieci:      192.0.2.128/26
+</code></pre>
+<p>To pierwszy adres bloku. Opisuje cały prefiks, a nie pojedynczy interfejs.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📡 Wyznacz koniec bloku</h2>
+<p>W części lokalnej ustaw wszystkie bity na <code>1</code>. Otrzymasz ostatni adres tradycyjnej podsieci, czyli adres rozgłoszeniowy skierowany do tego prefiksu.</p>
+<pre><code>adres sieci:      10000000   128
+bity lokalne:     00111111    63
+wynik OR:         10111111   191
+</code></pre>
+<p>Pełny zakres wygląda tak:</p>
+<pre><code>sieć:             192.0.2.128
+pierwszy host:    192.0.2.129
+adres A:          192.0.2.130
+adres B:          192.0.2.190
+ostatni host:     192.0.2.190
+broadcast:        192.0.2.191
+</code></pre>
+<p>Pierwsza prognoza powinna teraz brzmieć <code>tak</code>. Oba adresy leżą między początkiem i końcem tego samego bloku, a żaden nie jest adresem sieci ani broadcastem.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Użyj stałej procedury</h2>
+<p>Dla zwykłej podsieci wykonuj zawsze te same cztery działania:</p>
+<ol>
+<li>zapisz adres razem z prefiksem;</li>
+<li>wykonaj <code>adres AND maska</code>, aby znaleźć adres sieci;</li>
+<li>ustaw bity lokalne na <code>1</code>, aby znaleźć broadcast;</li>
+<li>sprawdź, czy adres interfejsu nie jest pierwszym ani ostatnim adresem bloku.</li>
+</ol>
+<p>Wzór <code>2^(32 - prefiks)</code> podaje liczbę wszystkich adresów w bloku. Dla <code>/26</code> jest to <code>2^6</code>, czyli <code>64</code>.</p>
+<p>W zwykłej podsieci z broadcastem dwa adresy pełnią role graniczne, więc pozostają <code>62</code> adresy dla hostów. Nie traktuj jednak odejmowania dwóch jako prawa dla każdego prefiksu. Na łączu punkt do punktu <code>/31</code> oba adresy mogą identyfikować końce łącza. <code>/32</code> opisuje pojedynczy adres.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕰️ Klasa nie zastępuje prefiksu</h2>
+<p>Dawny system klasowy wiązał początkowe bity adresu ze stałą granicą sieci. Adres zaczynający się od <code>192</code> kojarzono z klasą C i granicą <code>/24</code>.</p>
+<p>CIDR zastąpił takie domysły jawną długością prefiksu. Dlatego <code>192.0.2.130/26</code> należy analizować jako <code>/26</code>, nawet jeśli ktoś rozpoznaje w nim historyczny zakres klasy C.</p>
+<p>Znajomość nazw klas pomaga czytać stare materiały. Nie pomaga wyznaczyć współczesnej podsieci bez prefiksu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Punkt kontrolny: znajdź granice</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Interfejs ma adres <code>198.51.100.77/27</code>. Który zestaw poprawnie opisuje zwykłą podsieć z broadcastem?</p>
+</question>
+    <options>
+      <option><p>Sieć <code>.0</code>, broadcast <code>.255</code>, hosty <code>.1</code> do <code>.254</code>.</p>
+</option>
+      <option correct=""><p>Sieć <code>.64</code>, broadcast <code>.95</code>, hosty <code>.65</code> do <code>.94</code>.</p>
+</option>
+      <option><p>Sieć <code>.64</code>, broadcast <code>.96</code>, hosty <code>.65</code> do <code>.95</code>.</p>
+</option>
+      <option><p>Sieć <code>.77</code>, broadcast <code>.108</code>, hosty <code>.78</code> do <code>.107</code>.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Dla <code>/27</code> pozostaje 5 bitów lokalnych, więc blok ma 32 adresy. Znajdź wielokrotność 32 nie większą niż 77, a potem ostatni adres tego bloku.</p>
+</div>
+    <div data-hint="success"><p>Adres 77 leży w bloku od 64 do 95. Pierwszy adres opisuje sieć, ostatni jest broadcastem, a środek pozostaje dla hostów.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Oceń trzy konfiguracje</h2>
+<p>Dla każdej konfiguracji wypełnij ten sam raport:</p>
+<pre><code>adres i prefiks
+adres sieci
+broadcast
+zakres hostów
+adres interfejsu: poprawny albo graniczny
+dowód w bitach ostatniego oktetu
+</code></pre>
+<p>Przypadki:</p>
+<pre><code>A. 203.0.113.14/28
+B. 203.0.113.16/28
+C. 198.51.100.130/26
+</code></pre>
+<p>Kryteria ukończenia:</p>
+<ul>
+<li>każdy wynik wynika z podanego prefiksu, a nie z dawnej klasy;</li>
+<li>pokazujesz operację AND dla adresu sieci;</li>
+<li>osobno nazywasz cały blok i adres skonfigurowany na interfejsie;</li>
+<li>rozpoznajesz adres, którego nie wolno przypisać zwykłemu hostowi w tym modelu.</li>
+</ul>
+<p>Zmień przypadek A na łącze punkt do punktu <code>203.0.113.10/31</code>, którego drugi koniec ma adres <code>203.0.113.11/31</code>. Wyjaśnij, dlaczego reguła „odejmij sieć i broadcast” dałaby tu błędny wynik.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>W A prefiks <code>/28</code> zostawia cztery bity lokalne. Blok ma 16 adresów: sieć <code>203.0.113.0</code>, broadcast <code>203.0.113.15</code>, hosty od <code>.1</code> do <code>.14</code>. Adres <code>.14</code> jest poprawnym adresem hosta.</p>
+<p>W B granice są następne: sieć <code>203.0.113.16</code>, broadcast <code>203.0.113.31</code>, hosty od <code>.17</code> do <code>.30</code>. Adres <code>.16</code> opisuje sieć, więc w zwykłej podsieci z broadcastem nie jest adresem hosta.</p>
+<p>W C maska <code>/26</code> ma w ostatnim oktecie postać <code>11000000</code>. Operacja <code>10000010 AND 11000000</code> daje <code>10000000</code>, czyli <code>128</code>. Sieć to <code>198.51.100.128</code>, broadcast <code>.191</code>, a hosty mieszczą się od <code>.129</code> do <code>.190</code>. Adres <code>.130</code> jest poprawny.</p>
+<p>Na łączu punkt do punktu <code>/31</code> pozostaje jeden bit lokalny. RFC 3021 każe interpretować oba adresy jako adresy końców: <code>.10</code> i <code>.11</code>. Takie łącze nie potrzebuje adresu broadcast. Mechaniczne odjęcie dwóch pozostawiłoby zero adresów i zniszczyłoby poprawny model.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Adres bez prefiksu nie wyznacza podsieci.</span> Analizujesz zawsze parę <code>adres/prefiks</code>.</li>
+<li><span class="color-green">Operacja AND wyznacza początek bloku.</span> Ustawienie bitów lokalnych na <code>1</code> wyznacza jego koniec.</li>
+<li><span class="color-green">Adres sieci, adres hosta i broadcast mają inne role.</span> Sam fakt przynależności do bloku nie wystarcza do poprawnej konfiguracji interfejsu.</li>
+<li><span class="color-green">Klasy A, B i C są pojęciem historycznym.</span> Współczesną granicę wyznacza jawna długość prefiksu.</li>
+<li><span class="color-green">Reguła o dwóch adresach granicznych ma wyjątki.</span> <code>/31</code> może opisywać dwa końce łącza punkt do punktu, a <code>/32</code> pojedynczy adres.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>
