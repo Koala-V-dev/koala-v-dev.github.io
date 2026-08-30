@@ -12,16 +12,4 @@
 # UI - interfejsy i ich odbiór
 # Kaskadowość i Specyficzność
 # Box Model i Jednostki
-# Flexbox
-# CSS Grid
-# Złota Era (Wstęp do RWD)
 
-## Moduł 2: Dynamika (JavaScript)
-# JS i DOM
-# Eventy
-# Manipulacja Strukturą
-
-## Moduł 3: Inżynieria Doświadczeń
-# Psychologia UX
-# Mikrointerakcje
-# Dark Mode i Dostępność
