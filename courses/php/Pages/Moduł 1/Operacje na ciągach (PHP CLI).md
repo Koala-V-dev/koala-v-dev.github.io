@@ -8,20 +8,24 @@ $input = readline("Jak się nazywasz?: ");
 echo 'Cześć, <span class="wynik">' . $input . "</span>!";
 ```
 Gdy odświeżysz stronę na serwerze zobaczysz że coś się przetwarza. Przeglądarka wysłała zapytanie do serwera i czeka na odpowiedź. Natomiast na serwerze PHP wyświetlił komunikat z `readline()` i czeka aż wprowadzisz dane.  
-Gdy to nastąpi dopiero wtedy przeglądarka uzyska przetworzoną przez PHP odpowiedź.
+Dopiero wtedy gdy to nastąpi przeglądarka uzyska przetworzoną przez PHP odpowiedź.
 
 ![Prezentacja działania readline](/public/courses/php/Images/php-CLI-readline.png)
 
-## Czym jest ciąg
+---
 
-Ciąg to zestawienie danych jeden po drugim. Mamy wiele rodzaji ciągów:
+## ⛓️ Czym jest ciąg
+
+Ciąg to zestawienie danych jeden po drugim. Mamy wiele rodzajów ciągów:
 - _**Ciąg znaków**_ czyli dobrze ci znany **`string`**. Wynik *"Halo!"* to zestawienie znaków *'H', 'a', 'l', 'o', '!'*
 - _**Ciąg liczb**_:
   - **Ciąg arytmetyczny** to liczby które powstają poprzez dodawanie stałej wartości do poprzedniego elementu. Przykład: 1,2,3,4,5
   - **Ciąg geometryczny** to liczby które powstają poprzez mnożenie stałej wartości przez poprzedni element. Przykład: 1,2,4,8,16
-- _**Ciąg fibbonaciego**_ to liczby które powstają poprzez dodawanie dwóch poprzednich elementów. Przykład: 1,1,2,3,5,8,13,21,34...
+- _**Ciąg fibonacciego**_ to liczby które powstają poprzez dodawanie dwóch poprzednich elementów. Przykład: 1,1,2,3,5,8,13,21,34...
 
-## Operacje na ciągach znaków
+---
+
+## ⛓️‍💥 Operacje na ciągach znaków
 
 Wiedząc że `string` jest ciągiem znaków to możemy go potraktować jako tablicę elementów.
 
@@ -56,19 +60,23 @@ Jak widzisz na ponirzym obrazu coś poszło nie tak. Mimo że mamy zadeklarowane
 
 Chodzi o to że znaki specjalne i emoji są deklarowane na kilku bitach i wychodzą poza standard **ASCI** (*American Standard Code for Information Interchange*) które to pierwotnie miały tylko $8 \text{ bitów}$ ($256$ znaków). Dlatego do poprawnej zabawy stringami w polskim języku powinniśmy się posługiwać funkcjami **MB** (*Multibyte*).
 
-### Biblioteka <code>mb_string</code>
+---
 
-To moduł php pozwalający na poprawną interpretacją znaków wielobajtowych. Standardowe funkcje string operują nie tyle co na znakach a na bajtach co jest szybsze. Niestety wiąże się to z zwracaniem śmieciowych wartości gdy konwersji dokonamy na znakach diagretycznych lub z alfabetu chińskiego lub japońskiego albo arabskiego. Te specjalne nie amerykańskie znaki potrzebują do zapisu od $2$ do $4$ bajtów. To samo tyczy się emoji.
+### 📚 Biblioteka <code>mb_string</code>
 
-### Wsparcie dla <code>mbstring</code>
+To moduł php pozwalający na poprawną interpretacją znaków wielobajtowych. Standardowe funkcje string operują nie tyle co na znakach, a na bajtach. Jest to szybsze. Niestety wiąże się to z zwracaniem śmieciowych wartości gdy konwersji dokonamy na znakach diakrytycznych lub z alfabetu chińskiego lub japońskiego albo arabskiego. Te specjalne nie amerykańskie znaki potrzebują do zapisu od $2$ do $4$ bajtów. To samo tyczy się emoji.
+
+---
+
+### 🧰 Wsparcie dla <code>mbstring</code>
 
 Zakomentuj na razie kod PHP i wywołaj przez `echo` funkcję `phpinfo()`. Następnie wyszukaj frazy *Multibyte decoding support using mbstring* i sprawdź czy jest włączona **`enabled`**:
 
-Gdy wartość bedzie tak jak na obrazku **_`disabled`_**, to bedziesz musiał dokonać modyfikacji w pliku `php.ini`.
+Gdy wartość okaże się tak jak na obrazku **_`disabled`_**, to bedziesz musiał dokonać modyfikacji w pliku `php.ini`.
 
 ![](/public/courses/php/Images/php_info_mbstring.png)
 
-Przy standardowej instalacji XAMPP ten plik znajduje się w `C:/xampp/php/php.ini`.  
+Przy standardowej instalacji XAMPP ten plik znajduje się w `C:/ramp/php/php.ini`.  
 Otwórz go w dowolnym edytorze i wyszukaj frazy `mbstring`.
 
 Tak jak na obrazku wystarczy usunąć średnik `;` na początku linii:
@@ -83,14 +91,16 @@ do formy:
 extension=mbstring
 ```
 
-Następnie uruchom ponownie serwer Apache lub gdy pracujesz w lepszej formie, czyli zakończ działanie serwera PHP <span style="text-wrap: nowrap;"> <kbd>Ctrl</kbd> + <kbd>C</kbd> </span> w konsoli terminalu i uruchom go ponownie:
+Następnie uruchom ponownie serwer Apache lub gdy pracujesz w lepszej formie, to w konsoli terminalu zakończ działanie serwera PHP <span style="text-wrap: nowrap;"> <kbd>Ctrl</kbd> + <kbd>C</kbd> </span> i uruchom go ponownie:
 ```ps
 php -S 127.0.0.1:8080
 ```
 
 ![](/public/courses/php/Images/php.ini-mbstring-extension.png)
 
-### Metody <code>mb_string</code>
+---
+
+### 🔧 Metody <code>mb_string</code>
 
 Skoro mamy włączone wsparcie dla biblioteki mbstring, możemy teraz poprawnie zrealizować odwracanie zdania:
 
@@ -110,7 +120,7 @@ echo "\n";
 echo $newWord;
 ```
 
-Jak widać z pierwszego testu na $44$ znaki łącznie z spacjami standardowa funkcja `strlen()` zwróciła wartość $46$ znaków a bardziej $46 \text{ bajtów}$. Natomiast funkcja `mb_strlen()` zwróciła prawidłową wartość **$44 \text{ znaki}$**.
+Jak widać z pierwszego testu na $44$ znaki łącznie z spacjami standardowa funkcja `strlen()` zwróciła wartość $46$ znaków, a bardziej $46 \text{ bajtów}$. Natomiast funkcja `mb_strlen()` zwróciła prawidłową wartość **$44 \text{ znaki}$**.
 
 Drugą funkcją z biblioteki `mbstring` którą użyto to `mb_substr()`:
 
@@ -127,7 +137,9 @@ W tym kodzie zostało użyte `mb_substr($word, $i, 1);`, co oznacza że z zmienn
 
 ![](/public/courses/php/Images/mb_string_testy.png)
 
-## Ciąg arytmetyczny
+---
+
+## 🔢 Ciąg arytmetyczny
 
 Ciąg arytmetyczny to funkcja matematyczna która dla stałego $d$ (różnicy ciągu) definiuje się następująco:
 
@@ -150,11 +162,11 @@ Jak pewnie widzisz na obrazku kod nie działa. Wywaliło error. Nasza funkcja oc
 ```php
 function ciagArytmetyczny(float $a, float $d, int $n) : void
 ```
-Natomiast przy użyciu  `readline()` do zmiennych została przekazane wartości typu **string**. To że to nie są liczby widać po tekście w konsoli: to słowa otoczone są apostrofami.
+Natomiast przy użyciu  `readline()` do zmiennych została przekazane wartości typu **string**. To że to nie są liczby widać po tekście w konsoli: to znaki otoczone są apostrofami.
 ```ps
 #0 C:\Projekty kursu\php\index.php(51): ciagArytmetyczny('.6', '2', '6')
 ```
-Z pomocą przychodzi nam rzutowanie zmiennych. Oczekujemy wartości o określonym typie, wiec wystarczy ten typ zapisać w nawiasach przed zmienną lub funkcją. Rzutować możęmy na:
+Z pomocą przychodzi nam rzutowanie zmiennych. Oczekujemy wartości o określonym typie, wiec wystarczy ten typ zapisać w nawiasach przed zmienną lub funkcją. Rzutować możemy na:
 - `(int)`: `$x = (int) '5';` → `$x = 5;`
 - `(float)`: `$x = (float) '5.5';` → `$x = 5.5;`
 - `(string)`: `$x = (string) 5;` → `$x = "5";`
@@ -163,7 +175,7 @@ Z pomocą przychodzi nam rzutowanie zmiennych. Oczekujemy wartości o określony
 - `(object)`: `$x = (object) 1;` → `$x = (object) [1];`
 
 > [!WARNING]
-> W PHP 8+ zdepresjonowano pełne nazwy podstawowych typów zmiennych ( intiger, boolean) nie ma też sensu używać aliasów dla float czyli double czy real. Ponadto (unset) nie jest już wspierane (Wali SyntaxErrorem).
+> W PHP 8+ zdeprecjonowano pełne nazwy podstawowych typów zmiennych (integer, boolean) nie ma też sensu używać aliasów dla float czyli double czy real. Ponadto (unset) nie jest już wspierane (Wali SyntaxErrorem).
 
 
 Gdy dodano poprawne rzutowanie na oczekiwane zmienne wszystko zadziałało:
@@ -194,7 +206,9 @@ $n = (int)readline("Ile wyrazów chcesz by ci podać?: ");
 ciagArytmetyczny($a, $d, $n);
 ```
 
-## Ciąg geometryczny
+---
+
+## 📉 Ciąg geometryczny
 
 Ciąg geometryczny to funkcja matematyczna która dla stałego $r$ (ilorazu ciągu) definiuje się następująco:
 
@@ -232,7 +246,9 @@ $n = (int)readline("Ile chcesz bym ci podał wyrazów?: ");
 ciagGeometryczny($a, $r, $n);
 ```
 
-## Ciąg fibonacciego
+---
+
+## 🏵️ Ciąg fibonacciego
 
 Rozgrzany? No to lecimy z klasyką, ciąg fibonacciego. Zdefiniujmy go najpierw matematycznie:
 

@@ -1,7 +1,9 @@
 # PHP twoja personalna strona
 
 **PHP** (początkowo *Personal Home Page Tools*, obecnie *PHP: Hypertext Preprocessor*) zaczął w <time datetime="1994">1994 roku</time> jako zestaw narzędzi Rasmusa Lerdorfa do śledzenia odwiedzin jego internetowego CV. Później rozwinął się w narzędzie do tworzenia dynamicznych stron.  
-Za chwilę wykorzystamy dokładnie tę cechę: jeden plik PHP utworzy stronę na podstawie zapisanych w nim danych.
+Za chwilę wykorzystamy dokładnie tę cechę: jeden plik PHP, który na podstawie zapisanych w nim danych utworzy stronę.
+
+---
 
 Na start potrzebujesz **IDE** (*Integrated Development Environment*) - np.: [VS Code](https://code.visualstudio.com/download).  
 Oraz z racji że PHP jest językiem backendowym działającym po stronie serwera to potrzebujesz oprogramowania które obsłuży ci to środowisko w systemie desktopowym. Na początek spoko rozwiązaniem jest [XAMPP](https://www.apachefriends.org/download.html).
@@ -13,7 +15,8 @@ Możesz też przejść szybko do katalogu `htdocs` z poziomu okna XAMPPa klikaj�
 
 ![Uruchomienie usługi apache w xampp](/public/courses/php/Images/xampp-apache-run.png)
 
-My jednak na start zrobimy to trochę inaczej. Zainstalowaliśmy XAMPP, aby mieć kompletne środowisko, lecz teraz potrzebujemy jedynie interpretera PHP. XAMPP dostarcza PHP najwyżej w wersji 8.2, podczas gdy produkcyjnie dostępne są stabilne PHP 8.4 oraz najnowsze PHP 8.5.9.
+My jednak na start zrobimy to trochę inaczej. Zainstalowaliśmy XAMPP, aby mieć kompletne środowisko, lecz teraz potrzebujemy jedynie interpretera PHP.  
+XAMPP dostarcza PHP najwyżej w wersji $8.2$, podczas gdy produkcyjnie dostępne są stabilne PHP $8.4$ oraz najnowsze PHP $8.5.9$.
 
 
 ![Strona PHP.net z informacjami o wersji PHP](/public/courses/php/Images/php-released.png)
@@ -22,7 +25,7 @@ My jednak na start zrobimy to trochę inaczej. Zainstalowaliśmy XAMPP, aby mie�
 
 ## 🧰 IDE i server PHP
 
-Zamiast się bawić w podkatalogi w htdocs,  uruchomimy server bezpośrednio w dowolnym katalogu z kodem projektu. Chodzi o to żęby lepiej zarządzać URL. Jeżeli tworzysz podkatalog w htdocs to adres do uruchomienia strony bedzie taki: 
+Zamiast się bawić w podkatalogi w htdocs,  uruchomimy server bezpośrednio w dowolnym katalogu z kodem projektu. Chodzi o to żeby lepiej zarządzać URL. Jeżeli tworzysz podkatalog w htdocs to adres do uruchomienia strony bedzie taki: 
 ```
 http://localhost/nazwa-folderu/
 ```
@@ -31,13 +34,14 @@ Natomiast jak tworzysz w dowolnym katalogu to adres bedzie taki:
 http://localhost:xxxx/
 ```
 
-Popatrz na końcówkę adresów - w obu przypadkach jest `/`. Natomiast w pierwszym URL mowa o podstronie gdzie w naszym wariancie operujemy na bezpośredniej domenie co przy deploy projektu na product... hehe.  
+Popatrz na końcówkę adresów - w obu przypadkach jest `/`. Natomiast w pierwszym URL mowa o podstronie gdzie w naszym wariancie operujemy na bezpośredniej domenie co przy *deploy projektu na product...* hehe.  
+
 Wrzucenie tego nad czym pracowaliśmy lokalnie na server nie spowoduje że linki będą błędnie się odnosić do zasobów strony.  
 
 
 Na poniższym zrzucie przedstawiam ci punkt startowy pracy z PHP.  
 Na początek doinstaluj sobie rozszerzenie **Live Preview** od *Microsoft*.  
-Potem utwórz plik `index.php`. Rozszerzenie `.php` jest informacją że ten plik nalerzy przekazać do interpretera PHP by ten przeanalizował go pod kątem znalezienia operacji do wykonania, które zamieszcza się pomiędzy `<?php` a `?>`. Na koniec zwracany jest zwykły plik tekstowy który domyślnie posiada typ `text/html`. Czyli dokładnie taki sam jak pliki z rozszerzeniem `.html`.
+Potem utwórz plik `index.php`. Rozszerzenie `.php` jest informacją że ten plik należy przekazać do interpretera PHP by ten przeanalizował go pod kątem znalezienia operacji do wykonania, które zamieszcza się pomiędzy `<?php` a `?>`. Na koniec zwracany jest zwykły plik tekstowy który domyślnie posiada typ `text/html`. Czyli dokładnie taki sam jak pliki z rozszerzeniem `.html`.
 
 ![Uruchomienie php-hello-world](/public/courses/php/Images/php-hello-world!.png)
 
@@ -46,7 +50,7 @@ W terminalu zanim wpiszesz widoczną komendę to napisz pierw:
 ```powershell
 php -v
 ```
-Poznasz wersję PHP, którą uruchamiasz. Potem użyj komendy z obrazka:
+Poznasz wersję PHP, którą uruchamiasz (u mnie to PHP $8.2.12$). Potem użyj komendy z obrazka:
 
 ```powershell
 php -S 127.0.0.1:8080
@@ -68,6 +72,8 @@ W czerwonej obramówce masz klasykę gatunku przy nauce jakiegokolwiek języka p
 ```
 Kod php może znajdować się tylko wewnątrz znacznika otwierającego `<?php` i zamykającego `?>`. W każdym innym przypadku bedzie to zwykłym tekstem na stronie html. Oraz vice versa. Zapis "tekstu" musi odbywać się w apostrofach lub cudzysłowach. Tego typu wartość nazywa się string-iem. Nie możesz od tak wpisać kodu html w obrębie znacznika `<?php` i `?>`. 
 
+---
+
 ## 📔 HTML zwracany przez PHP
 
 Jeżeli potrzebujesz struktury html by przedstawić dane w bardziej czytelny sposób, to php umożliwia to na kilka sposobów.
@@ -79,12 +85,14 @@ Jeżeli potrzebujesz struktury html by przedstawić dane w bardziej czytelny spo
 
 No to użyjmy tych sposobów w praktyce, ale do tego przydadzą nam się zmienne.  
 
+---
+
 ## 📊 Zmienne: typy i struktury danych
 
 Nazwy zmiennych w PHP zaczynają się znakiem dolara `$`. Pierwszym znakiem właściwej nazwy może być litera albo `_`, ale nie cyfra. PHP jest językiem dynamicznie typowanym: typ należy do aktualnej wartości i może zmienić się po kolejnym przypisaniu.
 
 Zmienna może przechowywać między innymi pojedynczą wartość, tablicę albo obiekt:
-- Zmienna przechowująca pojedyńczą wartość:
+- Zmienna przechowująca pojedynczą wartość:
   ```php
   $imie = "Kamil"; // String - ciąg znaków
   $wiek = 27; // Integer - liczba całkowita
@@ -104,6 +112,7 @@ Zmienna może przechowywać między innymi pojedynczą wartość, tablicę albo 
   
 ![](/public/courses/php/Images/tablice-i-obiekty-print_r.png)
 
+---
 
 ## 💻 Weryfikacja BMI
 
@@ -118,7 +127,9 @@ Natomiast klasyfikacja jest taka:
 | :------ | :--------- | :------------ | :---------- | :---------------- | :---------------- | :---------------- |
 | Wartość | $\le 18.5$ | $18.5 - 24.9$ | $25 - 29.9$ | $30 - 34.9$       | $35 - 39.9$       | $\ge 40$          |
 
-Do wcześniejszych zmiennych brakuje nam wagi, więc ją dopiszmy.
+> Do wcześniejszych zmiennych brakuje nam wagi, więc ją dopiszmy.
+
+---
 
 Do zapisania wzoru potrzebujemy operatorów arytmetycznych PHP.
 
@@ -134,7 +145,7 @@ Do zapisania wzoru potrzebujemy operatorów arytmetycznych PHP.
 
 Na zrzucie poniżej widać użycie tych operatorów. Zapis `\n` oznacza nową linię. Przeglądarka zachowa ją, gdy wynik znajdzie się wewnątrz znacznika `<pre>`.
 
-Znaki `#` i `//` rozpoczynają komentarz jednoliniowy, który interpreter PHP pomija.
+Znaki `#` i `//` rozpoczynają komentarz jedno-liniowy, który interpreter PHP pomija.
 
 ![](/public/courses/php/Images/php-arytmetyka.png)
 
@@ -166,6 +177,7 @@ printf("%.2f", $bmi);
 
 </details>
 
+---
 
 ### 🔀 Instrukcje warunkowe <code>if</code>, <code>elseif</code>, <code>else</code>
 
@@ -201,6 +213,7 @@ if($bmi >= $bmi_stat[4]){
 
 Na koniec pozwoliłem sobie przedstawić działanie `var_dump` i tu ciekawostka nie można tej funkcji sklejać konkatenacją (`.`).
 
+---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 

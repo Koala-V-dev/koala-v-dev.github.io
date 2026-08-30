@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Funkcje - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">logika-i-algorytmy-pseudokod</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Algorytmiki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Algorytmy i Sekwencje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Algorytmy%20i%20Sekwencje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy i Sekwencje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Schematy blokowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Schematy%20blokowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Schematy blokowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pseudokod"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Pseudokod.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pseudokod</a></li><li class="module">Moduł 1: Logika i Pamięć</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Typy danych i pamięć"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Typy%20danych%20i%20pami%C4%99%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy danych i pamięć</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operatory arytmetyczne i logiczne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Operatory%20arytmetyczne%20i%20logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operatory arytmetyczne i logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Instrukcje warunkowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Instrukcje%20warunkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje warunkowe</a></li><li class="module">Moduł 2: Sterowanie Przepływem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instrukcje iteracyjne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Instrukcje%20iteracyjne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje iteracyjne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Tablice"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Tablice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Funkcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Funkcje (Podprogramy): Level Up!</h1>
+<p>Wiesz już, że kod wykonywany jest liniowo, a maszyna bezwzględnie przestrzega sekwencji instrukcji. W module o pętlach poznałeś zasadę <span class="color-gold">DRY</span> (<span class="color-blue">Don't Repeat Yourself</span>), która zabrania duplikacji bloków kodu.</p>
+<p>Pętle są jednak niewystarczające, gdy określony wzorzec obliczeniowy musi zostać wywołany w wielu różnych, oddalonych od siebie miejscach dużego programu.</p>
+<p>W tej lekcji wkraczamy na kolejny poziom względem <span class="color-green">programowania strukturalnego</span> (którego fundamenty poznałeś przy okazji omawiania pętli i rezygnacji z instrukcji <code>GOTO</code>). Dowiesz się, jak dzielić program na mniejsze, niezależne bloki zwane <span class="color-green">funkcjami</span> (podprogramami), aby skutecznie zapanować nad czytelnością i strukturą kodu.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧮 Problem powtarzalności kodu</h2>
+<p>Zanim zbudujesz własną funkcję, musisz zrozumieć problem, który wymusił jej powstanie. Wyobraź sobie, że tworzysz grę RPG w stylu <span class="color-gold">World of Warcraft</span> lub <span class="color-gold">Path of Exile</span>. </p>
+<p>Bohater posiada na pasku skrótów (w GUI - <span class="color-blue">Graphical User Interface</span>) ikony różnych czarów (np. Kula Ognia, Lodowy Pocisk, Wyładowanie). Kiedy gracz naciska przycisk skrótu, gra musi:</p>
+<ol>
+<li>Sprawdzić, czy gracz ma odpowiednią ilość Many.</li>
+<li>Obliczyć obrażenia czaru uwzględniając statystyki bohatera (np. Inteligencji).</li>
+</ol>
+<pre><code class="language-php">Obrażenia = ObrażeniaBazowe + Inteligencja * Skalowanie
+</code></pre>
+<ol start="3">
+<li>Wyrenderować efekt i wypisać informacje w konsoli.</li>
+</ol>
+<p>Początkujący programista napisze obsługę każdego czaru osobno, powielając ten sam schemat:</p>
+<pre><code class="language-php">// --- Kod Kuli Ognia (Przycisk 1) ---
+JEŻELI Mana &gt;= 20 TO
+    Mana = Mana - 20
+    Obrazenia = 50 + Inteligencja * 1.5
+    WYPISZ "Rzucono Kulę Ognia! Obrażenia: " + Obrazenia
+KONIEC JEŻELI
+
+// --- Kod Lodowego Pocisku (Przycisk 2) ---
+JEŻELI Mana &gt;= 15 TO
+    Mana = Mana - 15
+    Obrazenia = 40 + Inteligencja * 1.2
+    WYPISZ "Rzucono Lodowy Pocisk! Obrażenia: " + Obrazenia
+KONIEC JEŻELI
+
+// --- Kod Wyładowania (Przycisk 3) ---
+JEŻELI Mana &gt;= 30 TO
+    Mana = Mana - 30
+    Obrazenia = 60 + Inteligencja * 1.8
+    WYPISZ "Rzucono Wyładowanie! Obrażenia: " + Obrazenia
+KONIEC JEŻELI
+</code></pre>
+<p> Ten kod działa. Jednak wyobraź sobie, że podczas rozwoju gry decydujesz się dodać nowy mechanizm: <span class="color-green">miksturę wzmocnienia czarów</span>, która zwiększa wszystkie obrażenia magiczne o $20\%$ </p>
+<pre><code class="language-php">Obrazenia = Obrazenia * 1.2
+</code></pre>
+<p>Więc teraz musisz do każdego czaru doklikać taką linijkę sprawdzającą, czy mikstura została zażyta oraz czy dalej działa, i wtedy ewentualnie wzmocnić wynik obrażeń o $20\%$:</p>
+<pre><code class="language-php">JEŻELI wzmocnienie TO
+    Obrazenia = Obrazenia * 1.2
+KONIEC JEŻELI
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Redundancja (Nadmiarowość)</span><br>Redundancją w programowaniu nazywamy powielanie tej samej logiki lub kodu w wielu różnych miejscach. Sprawia to, że kod staje się podatny na błędy: każda najmniejsza zmiana wymaga odnalezienia i ręcznej edycji wszystkich skopiowanych fragmentów. Jeśli zapomnisz o jednym z nich, w aplikacji powstanie błąd logiczny.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Koncepcja podprogramu: Definicja a Wywołanie</h2>
+<p>Rozwiązaniem problemu redundancji jest wyodrębnienie powtarzalnego bloku kodu do tzw. <span class="color-green">podprogramu</span>, powszechnie zwanego <span class="color-green">funkcją</span>.</p>
+<p>Z punktu widzenia komputera, używanie funkcji opiera się na dwóch odrębnych krokach:</p>
+<ol>
+<li><span class="color-green">Definicja (Zadeklarowanie):</span> To stworzenie szablonu (przepisu) na daną czynność i zapisanie go w pamięci. Definiując funkcję, opisujemy krok po kroku co ma się wydarzyć, ale <span class="color-green">nie uruchamiamy</span> jeszcze tych instrukcji. To jak wpisanie nowego czaru do księgi zaklęć.</li>
+<li><span class="color-green">Wywołanie (Uruchomienie):</span> To nakazanie procesorowi, aby fizycznie wykonał instrukcje z zapisanego szablonu. Wskaźnik instrukcji (<span class="color-blue">Program Counter</span>) przerywa wtedy czytanie głównego kodu, wykonuje skok pod adres funkcji w pamięci RAM, wykonuje cały zapisany tam algorytm, a po jego zakończeniu wraca do wcześniejszej linii głównego programu.</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚪 Budowa funkcji: Parametry i argumenty (Interfejs komunikacyjny)</h2>
+<p>Aby funkcja mogła obsługiwać różne przypadki (np. różne czary o innych kosztach many i obrażeniach), nie może opierać się na sztywno wpisanych wartościach. Uelastyczniamy ją, wprowadzając zmienne wejściowe.</p>
+<p>W programowaniu bardzo wyraźnie odróżniamy puste szablony od rzeczywistych danych:</p>
+<ul>
+<li><span class="color-green">Parametry (Definicja):</span> To nazwy zmiennych zadeklarowane w nawiasach podczas tworzenia funkcji. Reprezentują one puste miejsca, które dopiero zostaną wypełnione. To jak puste otwory w maszynie.</li>
+<li><span class="color-green">Argumenty (Wywołanie):</span> To konkretne wartości (np. liczby lub teksty), które przesyłasz do funkcji w momencie jej wywołania. To surowiec, który wrzucasz do maszyny.</li>
+</ul>
+<p>Spójrz na ostateczną, scentralizowaną wersję systemu rzucania czarów w naszym pseudokodzie:</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>// DEKLARACJA (Definiujemy cztery parametry wejściowe)
+FUNKCJA RzucCzar(nazwaCzaru, kosztMany, obrazeniaBazowe, skalowanie)
+    JEŻELI mana &gt;= kosztMany TO
+        mana = mana - kosztMany
+        obrazenia = obrazeniaBazowe + inteligencja * skalowanie
+        JEŻELI wzmocnienie TO
+            obrazenia = obrazenia * 1.2
+        KONIEC JEŻELI
+        WYPISZ "Użyto: " + nazwaCzaru + "! Obrażenia: " + obrazenia
+    KONIEC JEŻELI
+KONIEC FUNKCJI
+
+<p>// Bohater</p>
+<p>mana = 50</p>
+<p>inteligencja = 10</p>
+<p>wzmocnienie = true</p>
+<p>&nbsp;</p>
+<p>// WYWOŁANIE (Przekazujemy konkretne argumenty jako dane)</p>
+<p>RzucCzar("Kula Ognia", 20, 50, 1.5)</p>
+<p>RzucCzar("Lodowy Pocisk", 15, 40, 1.2)</p>
+<p>RzucCzar("Wyładowanie", 30, 60, 1.8)<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>Dzięki takiemu podejściu uzyskaliśmy <span class="color-green">jedno scentralizowane źródło prawdy</span>. Jeśli w przyszłości zechcesz dodać efekt działania nowej mikstury wzmacniającej, dopiszesz tę logikę wyłącznie wewnątrz jednej, małej funkcji <code>RzucCzar()</code>. Zmiana ta automatycznie obejmie wszystkie czary na pasku skrótów!</p>
+<data-gate>
+  <data-connection-matcher title="Usystematyzuj wiedzę o interfejsach funkcji:">
+    <div class="cmw-item" data-left="Parametry" data-right="Puste szablony zmiennych (np. `KosztMany`, `ObrazeniaBazowe`) określające, jakich danych potrzebuje funkcja."></div>
+    <div class="cmw-item" data-left="Argumenty" data-right="Konkretne pakiety danych (np. `20`, `50`), przesyłane do funkcji w momencie jej uruchomienia."></div>
+    <div class="cmw-item" data-left="Definicja" data-right="Skonstruowanie schematu funkcji i zapisanie go w pamięci (przepis, który jeszcze nie działa)."></div>
+    <div class="cmw-item" data-left="Wywołanie" data-right="Fizyczne nakazanie procesorowi wykonania kodu zapisanego pod adresem funkcji."></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Zasięg zmiennych (Scope) i Kopiowanie Wartości</h2>
+<p>Uruchamiając powyższy kod w symulacji krok po kroku, na pewno zauważysz dziwne zachowanie: chociaż na ekranie wypisywane są kolejne użycia czarów, to nasza globalna zmienna <code>mana</code> cały czas wynosi <code>50</code> i nie ulega zmniejszeniu!</p>
+<p>To nie błąd Krokera – to fundamentalna zasada bezpieczeństwa w programowaniu. Działają tu dwa powiązane ze sobą mechanizmy: <span class="color-green">zbieżność nazw</span> (<span class="color-blue">shadowing</span>) oraz <span class="color-green">kopiowanie wartości</span> (<span class="color-blue">pass‑by-value</span>).</p>
+<h3>1. Zbieżność nazw (Shadowing)</h3>
+<p>W programie głównym zdefiniowaliśmy zmienną <code>mana = 50</code>. Wewnątrz funkcji również użyliśmy słowa <code>mana</code>. Dla komputera są to jednak <span class="color-green">dwie całkowicie inne zmienne</span>, leżące w innych szufladach pamięci RAM:</p>
+<ul>
+<li><span class="color-green">Zmienna globalna (<code>mana</code>):</span> Żyje w głównym programie i jest widoczna wszędzie.</li>
+<li><span class="color-green">Zmienna lokalna (<code>mana</code>):</span> Zostaje stworzona wewnątrz funkcji <code>RzucCzar</code> wyłącznie na potrzeby jej wywołania. Istnienie zmiennej lokalnej tymczasowo „zasłania” zmienną globalną o tej samej nazwie.</li>
+</ul>
+<h3>2. Kopiowanie wartości (Pass by Value)</h3>
+<p>Języki programowania domyślnie przekazują argumenty liczbowe lub tekstowe jako kopie. Funkcja <code>RzucCzar</code> nie dostała dostępu do oryginalnej komórki pamięci, w której leży globalna <code>mana</code>. Dostała jedynie jej kserokopię o wartości <code>50</code>. Modyfikując ją (<code>mana = mana - kosztMany</code>), funkcja zmienia swoją własną, lokalną kopię, podczas gdy oryginał w programie głównym pozostaje nietknięty. Jest to zachowanie bezpieczne, bo chroni program przed przypadkowym zniszczeniem danych.</p>
+<h3>3. Czas życia zmiennych lokalnych</h3>
+<p>Zmienne lokalne i parametry żyją wyłącznie w trakcie wykonywania funkcji. Po napotkaniu instrukcji <code>KONIEC FUNKCJI</code> cała lokalna szuflada pamięci zostaje natychmiast opróżniona i usunięta z pamięci RAM. W symulacji Krokera możesz zaobserwować to na własne oczy: po zakończeniu czaru, lokalne zmienne po prostu znikają ze stosu!</p>
+<p>Dzięki tej izolacji programiści mogą bezpiecznie używać tych samych popularnych nazw (jak <code>i</code> czy <code>wynik</code>) w różnych funkcjach bez ryzyka, że kod jednego programu nadpisze zmienne drugiego.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖨️ Procedury (Void) kontra Funkcje Zwracające</h2>
+<p>Skoro funkcja pracuje jedynie na kopiach i niszczy swoje zmienne lokalne po zakończeniu pracy, jak możemy przekazać zmieniony stan (np. nową wartość many) z powrotem do głównego programu?</p>
+<p>Do tego służy podział podprogramów na dwie klasy:</p>
+<ol>
+<li><p><span class="color-green">Procedury bez zwrotu (Typ Void)</span><br>Są to sekwencje instrukcji wywołujące w systemie zmianę stanu (np. usunięcie pliku, nawiązanie połączenia, lub wypisanie czegoś na ekranie za pomocą <code>WYPISZ</code>). Procedura kończy pracę i ginie – nie generuje na swoim końcu żadnej wartości wyjściowej, którą program mógłby wykorzystać do dalszych obliczeń. Nasza funkcja <code>RzucCzar</code> w obecnej formie jest właśnie taką procedurą.</p>
+</li>
+<li><p><span class="color-green">Funkcje Zwracające (Typ Return)</span><br>Działają jak linie produkcyjne, które mają przetworzyć surowiec i wypluć gotowy produkt. Na ich końcu zawsze widnieje instrukcja <span class="color-green"><code>ZWRÓĆ</code></span>. Przekazuje ona obliczoną wartość (np. liczbę lub tekst) z powrotem do programu głównego.</p>
+</li>
+</ol>
+<p>Największym błędem początkujących programistów jest utożsamianie instrukcji wyjścia wizualnego (<code>WYPISZ</code>) ze zwrotem wartości (<code>ZWRÓĆ</code>). </p>
+<ul>
+<li><code>WYPISZ</code> to wysłanie paczki na ekran monitora. Procesor nigdy już jej nie odzyska i nie wykorzysta do dalszych obliczeń.</li>
+<li><code>ZWRÓĆ</code> to dostarczenie wyliczonej wartości dokładnie w to miejsce w pamięci, z którego wywołano funkcję.</li>
+</ul>
+<p>Jeśli chcielibyśmy zaktualizować manę bohatera po rzuceniu czaru, musielibyśmy napisać funkcję zwracającą nową wartość many i przypisać ją w programie głównym:</p>
+<pre><code class="language-php">FUNKCJA ObliczNowaMane(aktualnaMana, koszt)
+    ZWRÓĆ aktualnaMana - koszt
+KONIEC FUNKCJI
+
+// Użycie w programie głównym:
+mana = ObliczNowaMane(mana, 20)
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Dekompozycja i Jedna Odpowiedzialność (SOLID)</h2>
+<p>W profesjonalnym środowisku inżynierowie kierują się zbiorem zasad znanych jako <span class="color-green">SOLID</span>. Pierwsza litera tego akronimu to <span class="color-gold">Single Responsibility Principle</span> (Zasada Jednej Odpowiedzialności). </p>
+<p>Reguła ta głosi, że każda funkcja powinna odpowiadać wyłącznie za jeden, ściśle zdefiniowany mechanizm. Modułowość kodu to nie tylko redukcja duplikatów, ale przede wszystkim unikanie nierozerwalnych, monstrualnych zrostów logicznych, których nie da się testować w izolacji.</p>
+<p>Wyobraź sobie, że ktoś zaprojektował następujący podprogram:  </p>
+<pre><code class="language-php">FUNKCJA PobierzUzytkownika_SprawdzHaslo_IWyslijEmail(ID)
+</code></pre>
+<p>Złamał on całkowicie zasadę jednej odpowiedzialności. Ten kod jest nieweryfikowalny i wysoce niebezpieczny dla integralności systemu:</p>
+<ul>
+<li>Jeśli zewnętrzny serwer pocztowy ulegnie awarii (zgłaszając <span class="color-red">błąd wykonania</span>), cała funkcja zawiesi się i zablokuje proces logowania, mimo że hasło klienta było całkowicie poprawne!</li>
+<li>Nie możemy ponownie użyć tego mechanizmu w sytuacji, w której chcemy jedynie poprosić użytkownika o potwierdzenie hasła przed usunięciem konta.</li>
+</ul>
+<p>Stosując modułową atomizację, rozdziela się te zadania na oddzielne kroki:</p>
+<pre><code class="language-php">DaneKonta = PobierzUzytkownika(ID)
+CzyZgodne = ZweryfikujHaslo(DaneKonta, "sekretne_haslo")
+
+JEŻELI CzyZgodne TO
+    WyslijPowiadomienie(DaneKonta)
+KONIEC JEŻELI
+</code></pre>
+<p>Każda z tych trzech funkcji wykonuje w systemie perfekcyjnie tylko jedno zadanie. W przypadku awarii sieci, błąd wyrzuci wyłącznie procedura pocztowa, co pozwala aplikacji bezpiecznie sfinalizować uwierzytelnienie klienta.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📚 Anatomia Stosu Wywołań (Call Stack)</h2>
+<p>Skoro funkcje tworzą hermetyczne bańki, czy możemy wywołać kolejną funkcję z wnętrza aktualnie działającej funkcji? </p>
+<p>Tak. Architektura procesora obsługuje tzw. zagnieżdżenia za pomocą zaawansowanej struktury zwanej stosem wywołań (<span class="color-blue">Call Stack</span>). Zasada działania przypomina układanie brudnych talerzy w zlewie (mechanizm <b>LIFO</b> – <span class="color-blue">Last In, First Out</span>).</p>
+<ul>
+<li>System wykonuje główny program (stół). Nagle napotyka rozkaz wywołania <span class="color-green">Funkcji A</span>.</li>
+<li>Usypia stół, zapisuje zakładkę w pamięci, a na górze układa pierwszy talerz (<span class="color-green">Funkcja A</span>). </li>
+<li>Jeśli <span class="color-green">Funkcja A</span> zawoła w środku <span class="color-gold">Funkcję B</span>, to procesor usypia również <span class="color-green">Funkcję A</span>, a na samą górę stosu dokłada nowy talerz (<span class="color-gold">Funkcja B</span>).</li>
+<li>Ponieważ maszyna potrafi czytać tylko to, co leży na samym wierzchu – bezwzględnie musi zakończyć i zniszczyć <span class="color-gold">Funkcję B</span>, zrzucić ją ze stosu, i dopiero wtedy odsłania uśpioną <span class="color-green">Funkcję A</span>, do której przesyła wyliczony wynik.</li>
+</ul>
+<p>Przeanalizuj z bliska poniższą symulację. Zwróć szczególną uwagę na panel Pamięci RAM. Gdy maszyna skacze w głąb struktury, zmienne powołane w programie głównym znikają z wokandy roboczej. Na ich miejsce rodzą się parametryczne zmienne izolowane ze specjalną etykietą <code>(Lokalna)</code>.</p>
+<data-gate>
+<data-pseudocode-runner expected-output="Ostateczny wynik wynosi:">
+<pre>
+<p>FUNKCJA Podwoj(Wartosc)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;WynikLokalny = Wartosc * 2</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;ZWRÓĆ WynikLokalny</p>
+<p>KONIEC FUNKCJI</p>
+<p>FUNKCJA Dodaj_i_Podwoj(X, Y)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;SumaTymczasowa = X + Y</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Ostatecznie = Podwoj(SumaTymczasowa)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;ZWRÓĆ Ostatecznie</p>
+<p>KONIEC FUNKCJI</p>
+<p>// Program główny:</p>
+<p>Baza = 10</p>
+<p>Modyfikator = 5</p>
+<p>Rezultat = Dodaj_i_Podwoj(Baza, Modyfikator)</p>
+<p>WYPISZ "Ostateczny wynik wynosi:"</p>
+<p>WYPISZ Rezultat<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<data-gate>
+  <data-sortable-list title="Ułóż prawidłowo etapy cyklu życia Call Stacka dla powyższego algorytmu:">
+    <item data-correct="2">Rozbudzona funkcja *`Dodaj_i_Podwoj`* wylicza sumę na swoich lokalnych zmiennych i wywołuje Funkcję **`Podwoj`**, ponownie usypiając samą siebie.</item>
+    <item data-correct="4">Z najwyższego punktu stosu, ukończona Funkcja **`Podwoj`** zwalnia całą swoją pamięć lokalną, a maszyna cofa się powracając w głąb do *`Dodaj_i_Podwoj`*.</item>
+    <item data-correct="1">Główny program inicjuje wywołanie zewnętrznej funkcji *`Dodaj_i_Podwoj`* i natychmiast zostaje wstrzymany (uśpiony) przez maszynę na samym dole stosu.</item>
+    <item data-correct="5">Funkcja *`Dodaj_i_Podwoj`* wykonuje komendę _**`ZWRÓĆ`**_, ulega całkowitemu zniszczeniu i zrzuca finałową liczbę wprost do rozbudzonego programu głównego.</item>
+    <item data-correct="3">Umieszczona na samym szczycie nowa Funkcja **`Podwoj`** jest przetwarzana przez procesor wewnątrz własnej, hermetycznej bańki pamięci.</item>
+  </data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ Fotokopia kontra Dokument (Wartość a Referencja)</h2>
+<p>Mechanizmy wstrzykiwania argumentów do wnętrza funkcji stanowią jeden z najważniejszych etapów nauki oprogramowania. Musisz zawsze odpowiedzieć sobie na pytanie: czy moja funkcja dostała do ręki oryginał, czy jedynie kopię danych?</p>
+<p>Jak dowiedziałeś się z sekcji o zasięgu zmiennych, domyślne zachowanie komputera dla typów prostych to <span class="color-green">kopiowanie wartości</span> (<span class="color-blue">Pass‑by-Value</span>). Aby lepiej zrozumieć różnicę między kopiowaniem a referencją, porównajmy oba podejścia:</p>
+<ol>
+<li><p><span class="color-green">Typy proste (Przekazywanie przez Wartość):</span><br>Zmienne przechowujące pojedyncze liczby czy teksty ważą bardzo mało. Podczas wywołania funkcji procesor po prostu wykonuje ich szybką <span class="color-green">kserokopię</span>. Jeśli funkcja zmodyfikuje tę wartość, oryginał w programie głównym pozostaje nietknięty i bezpieczny.</p>
+</li>
+<li><p><span class="color-green">Typy złożone (Przekazywanie przez Referencję / <span class="color-blue">Pass‑by-Reference</span>):</span><br>Wyobraź sobie tablicę złożoną z miliona wpisów. Tworzenie jej kopii przy każdym wywołaniu funkcji zabiło by wydajność i szybko zapchało pamięć RAM. Dlatego typy złożone (jak tablice czy obiekty) nie są kopiowane. Zamiast tego funkcja otrzymuje <span class="color-green">referencję</span> – czyli wskaźnik (link) do oryginalnego miejsca w pamięci.<br>Przypomina to udostępnienie komuś linku do dokumentu na Dysku Google. Funkcja nie traci czasu na kopiowanie danych. Pamiętaj jednak: jeśli funkcja za pomocą tego linku usunie lub zmodyfikuje jakiś wpis, zmiana ta natychmiast dotknie Twój oryginalny zbiór danych!</p>
+</li>
+</ol>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔬 Dowód empiryczny (Wartość a Referencja)</h2>
+<p>Aby zobaczyć ten proces w praktyce, przeanalizuj poniższą symulację. Tworzymy w niej funkcję <code>ZniszczDane</code>, która przypisuje swoim dwóm parametrom wartość <code>999</code>. </p>
+<p>Do funkcji przesyłamy:</p>
+<ul>
+<li>Zwykłą zmienną liczbową (<code>TestLiczby = 5</code>) – przekazywaną jako <span class="color-green">kopia wartości</span> (<span class="color-blue">Pass‑by-Value</span>).</li>
+<li>Tablicę (<code>TestTablicy = [100, 200, 300]</code>) – przekazywaną jako <span class="color-green">referencja</span> (<span class="color-blue">Pass‑by-Reference</span>).</li>
+</ul>
+<p>Uruchom Krokera krok po kroku i zaobserwuj stan pamięci oraz wyjście w konsoli. Zwróć uwagę, że:</p>
+<ul>
+<li>Zmienna <code>TestLiczby</code> opiera się destrukcji i zachowuje wartość <code>5</code> (ponieważ funkcja zmodyfikowała jedynie jej tymczasową fotokopię).</li>
+<li>Z tablicy <code>TestTablicy</code> trwale znika pierwsza wartość <code>100</code> i zostaje zastąpiona przez <code>999</code> (ponieważ funkcja otrzymała bezpośredni link do oryginalnego adresu w pamięci).</li>
+</ul>
+<data-gate>
+<data-pseudocode-runner>
+<pre>FUNKCJA ZniszczDane(ZwyklaLiczba, CiezkaTablica)
+    ZwyklaLiczba = 999
+    CiezkaTablica[0] = 999
+KONIEC FUNKCJI
+
+<p>TestLiczby = 5</p>
+<p>TestTablicy = [100, 200, 300]</p>
+<p>ZniszczDane(TestLiczby, TestTablicy)</p>
+<p>WYPISZ "Liczba chroniona fotokopią:"</p>
+<p>WYPISZ TestLiczby</p>
+<p>WYPISZ "Pierwszy indeks tablicy po modyfikacji linku:"</p>
+<p>WYPISZ TestTablicy[0]<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Unikanie duplikacji (Zasada DRY):</span> Funkcje są rozwinięciem zasady <span class="color-blue">Don't Repeat Yourself</span>. Centralizują kod w jednym miejscu, dzięki czemu ewentualna zmiana mechaniki (np. dodanie mikstury wzmacniającej czary) wymaga modyfikacji tylko jednego szablonu zamiast dziesiątek rozproszonych przycisków.</li>
+<li><span class="color-green">Definicja a Wywołanie:</span> Samo zadeklarowanie funkcji (definicja) to tylko zapisanie przepisu w pamięci. Dopiero wywołanie funkcji (podanie jej nazwy z argumentami) zmusza procesor do skoku pod jej adres i wykonania obliczeń.</li>
+<li><span class="color-green">Odizolowany Zasięg (Scope):</span> Każda funkcja to zamknięty obszar pamięci. Zmienne lokalne i parametry żyją tylko w trakcie jej działania i znikają ze stosu po zakończeniu obliczeń, co chroni program przed kolizjami nazw zmiennych.</li>
+<li><span class="color-green">Wypisanie a Zwrot (Void a Return):</span> Procedury bez zwrotu (<span class="color-blue">Void</span>) tylko zmieniają stan lub wypisują dane na ekranie (<code>WYPISZ</code>), natomiast funkcje zwracające (<span class="color-blue">Return</span>) przesyłają wyliczoną wartość (<code>ZWRÓĆ</code>) z powrotem do programu głównego, umożliwiając dalsze operacje matematyczne.</li>
+<li><span class="color-green">Kserokopia kontra Link:</span> Typy proste są przekazywane jako kopia wartości, więc ich modyfikacja w funkcji nie wpływa na zmienne na zewnątrz. Typy złożone (jak tablice) przekazujemy przez referencję (link do pamięci), przez co funkcja może trwale zmienić ich zawartość.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

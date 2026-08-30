@@ -22,7 +22,7 @@ Pokażę Ci teraz, w jaki sposób podstawowe figury ze schematów blokowych zami
 
 ## 📦 Filar 1: Sekwencja i Pamięć Operacyjna
 
-Zamiast rysować prostokąt, w tekście przypisanie wartości do pamięci realizujemy używając znaku równości `=`. Wartość po prawej stronie jest obliczana, a wynik trafia do pamięci RAM pod nazwę podaną po lewej stronie.
+Zamiast rysować prostokąt, w tekście przypisanie wartości do pamięci realizujemy używając znaku równości `=`. Wartość po prawej stronie jest obliczana, a wynik trafia do pamięci RAM pod nazwę podaną po lewej stronie. (_**Deklaracja i Inicjalizacja**_)
 
 Z kolei równoległobok (reprezentujący operacje wejścia/wyjścia) zamieniamy na proste polecenia `WYPISZ` lub `POBIERZ`.
 
@@ -36,16 +36,20 @@ b = 5
 c = 15
 
 suma = a + b + c
+
 srednia = suma / 3
 
 WYPISZ "Obliczanie statystyk zakonczone."
+
 WYPISZ "Calkowita suma wynosi: " + suma
+
 WYPISZ "Srednia z pomiarow to: " + srednia
+
 </pre>
 </data-pseudocode-runner>
 </data-gate>
 
-Zauważ, jak wskaźnik instrukcji wykonuje kod linijka po linijce, tworząc krok po kroku _**Stan**_ Twojego programu. W schemacie blokowym wymagałoby to narysowania pięciu osobnych bloków.
+Zauważ, jak wskaźnik instrukcji wykonuje kod linijka po linijce, tworząc krok po kroku _**Stan**_ Twojego programu. W schemacie blokowym wymagałoby to narysowania jedenastu osobnych bloków.
 
 ---
 
@@ -68,9 +72,13 @@ liczbaB = 103
 WYPISZ "Rozpoczynam analize maksimum..."
 
 JEŻELI liczbaA > liczbaB TO
-    maksimum = liczbaA
+
+&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaA
+
 W PRZECIWNYM RAZIE
-    maksimum = liczbaB
+
+&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaB
+
 KONIEC JEŻELI
 
 WYPISZ "Najwieksza liczba w zbiorze to: " + maksimum
@@ -96,11 +104,14 @@ Przetestuj algorytm odliczania w Krokerze. Wykonuj kolejne kroki i obserwuj mome
 odliczanie = 3
 czasOpoznienia = 1
 
-WYPISZ "Inicjalizacja ladunku..."
+WYPISZ "Inicjalizacja ładunku..."
 
 DOPÓKI odliczanie > 0
-    WYPISZ "Czas do eksplozji: " + odliczanie
-    odliczanie = odliczanie - czasOpoznienia
+
+&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Czas do eksplozji: " + odliczanie
+
+&nbsp;&nbsp;&nbsp;&nbsp;odliczanie = odliczanie - czasOpoznienia
+
 KONIEC DOPÓKI
 
 WYPISZ "BOOM!"
@@ -134,20 +145,20 @@ WYPISZ x
 
 Tabela Śledzenia obrazuje krok po kroku aktualne stany przypisane do pamięci (Zmienna *`x`* oraz Zmienna *`y`*). Zobaczmy przebieg algorytmu w praktyce:
 
-| Numer kroku | Zdarzenie | *`x`* | *`y`* | Wynik logiki i decyzja pętli |
-| :--- | :--- | :--- | :--- | :--- |
-| **Start** | Przypisanie `x` | `2` | Puste | Uruchomienie programu. |
-| **Start** | Przypisanie `y` | `2` | `5` | Obie zmienne są gotowe. |
-| **Cykl 1** | Sprawdzenie `y > 1` | `2` | `5` | $5 > 1$ to **Prawda**. Wejście do pętli. |
-| **Cykl 1** | Aktualizacja `x` | `2 + 5 = 7` | `5` | `x` otrzymuje wartość $7$. |
-| **Cykl 1** | Aktualizacja `y` | `7` | `5 - 2 = 3` | `y` otrzymuje wartość $3$. |
-| **Cykl 1** | KONIEC DOPÓKI | `7` | `3` | Powrót na początek pętli. |
-| **Cykl 2** | Sprawdzenie `y > 1` | `7` | `3` | $3 > 1$ to **Prawda**. Wejście do pętli. |
-| **Cykl 2** | Aktualizacja `x` | `7 + 3 = 10` | `3` | `x` otrzymuje wartość $10$. |
-| **Cykl 2** | Aktualizacja `y` | `10` | `3 - 2 = 1` | `y` zostaje zmniejszone do $1$. |
-| **Cykl 2** | KONIEC DOPÓKI | `10` | `1` | Powrót na początek pętli. |
-| **Wyjście** | Sprawdzenie `y > 1` | `10` | `1` | $1 > 1$ daje **_Fałsz_**. Zakończenie pętli. |
-| **Koniec** | WYPISZ `x` | `10` | `1` | Program wypisuje wynik **10**. |
+| Numer kroku  | Zdarzenie           | *`x`*        | *`y`*       | Wynik logiki i decyzja pętli                 |
+| :----------- | :------------------ | :----------- | :---------- | :------------------------------------------- |
+| **Start**    | Przypisanie `x`     | `2`          | Puste       | Uruchomienie programu.                       |
+| *Start*      | Przypisanie `y`     | `2`          | `5`         | Obie zmienne są gotowe.                      |
+| *Cykl 1*     | Sprawdzenie `y > 1` | `2`          | `5`         | $5 > 1$ to **Prawda**. Wejście do pętli.     |
+| **Cykl 1**   | Aktualizacja `x`    | `2 + 5 = 7`  | `5`         | `x` otrzymuje wartość $7$.                   |
+| *Cykl 1*     | Aktualizacja `y`    | `7`          | `5 - 2 = 3` | `y` otrzymuje wartość $3$.                   |
+| _**Cykl 1**_ | KONIEC DOPÓKI       | `7`          | `3`         | Powrót na początek pętli.                    |
+| *Cykl 2*     | Sprawdzenie `y > 1` | `7`          | `3`         | $3 > 1$ to **Prawda**. Wejście do pętli.     |
+| **Cykl 2**   | Aktualizacja `x`    | `7 + 3 = 10` | `3`         | `x` otrzymuje wartość $10$.                  |
+| *Cykl 2*     | Aktualizacja `y`    | `10`         | `3 - 2 = 1` | `y` zostaje zmniejszone do $1$.              |
+| _**Cykl 2**_ | KONIEC DOPÓKI       | `10`         | `1`         | Powrót na początek pętli.                    |
+| *Wyjście*    | Sprawdzenie `y > 1` | `10`         | `1`         | $1 > 1$ daje **_Fałsz_**. Zakończenie pętli. |
+| **Koniec**   | WYPISZ `x`          | `10`         | `1`         | Program wypisuje wynik **$10$**.             |
 
 Udało nam się bez zgadywania ustalić, że pętla wykona się dokładnie dwa razy, a na końcu program wyświetli liczbę $10$. Tabela śledzenia to proste i sprawdzone narzędzie ułatwiające analizę działania kodu przed jego właściwym uruchomieniem.
 

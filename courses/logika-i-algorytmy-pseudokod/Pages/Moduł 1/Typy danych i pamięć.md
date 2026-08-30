@@ -59,6 +59,15 @@ Diagram zestawia architekturę działania języków kompilowanych (np. C++) oraz
 > W językach takich jak PHP czy JavaScript typowanie jest dynamiczne oraz słabe. Oznacza to, że interpreter potrafi automatycznie konwertować typy (np. dodać liczbę do tekstu).
 > Użycie dyrektyw `use strict;` w JavaScript lub `declare(strict_types=1);` w PHP ogranicza te automatyczne konwersje, lecz nie zmienia tych języków w statycznie typowane. Typy są nadal sprawdzane w trakcie działania programu.
 
+
+> [!TIP]
+> Kompilacja nie musi być od razu ostateczna. Języki C# i Java dzielą ten proces na dwa etapy: 
+> 1. kompilację do kodu pośredniego bajtowego (ang. *Intermediate Language*, **IL**) 
+> 2. finalną kompilację do kodu maszynowego (binarnego CPU) w trakcie działania programu (ang. *Just-in-Time Compilation*, **JIT**).
+> Podobny mechanizm stosuje się przy shaderach w grach gdzie przy pierwszym uruchomieniu kodu pośredni jest kompilowany do maszynowego GPU.
+> 
+> To rozwiązanie minimalizuje konieczność dostosowywania kodu pod każdą możliwą konfigurację sprzętu klienta i zainstalowanych na nich sterownikach. 
+
 ---
 
 ## 🏗️ Prymitywne Typy Danych
@@ -77,7 +86,8 @@ Reprezentują liczby ułamkowe, na przykład `3.14`, `-0.5`, `100.0`. W informat
 
 ### ⚖️ 3. Wartości Logiczne (Boolean)
 
-Najmniejsza jednostka informacji. Przyjmuje wyłącznie jeden z dwóch stanów: prawda (`true` / `1`) lub fałsz (`false` / `0`).
+Najmniejsza jednostka informacji. Przyjmuje wyłącznie jeden z dwóch stanów:  
+**prawda (`true` / `1`)** lub **_fałsz (`false` / `0`)_**.
 
 > [!IMPORTANT]
 > **Konwersje typów w warunkach logicznych**
@@ -90,7 +100,9 @@ Najmniejsza jednostka informacji. Przyjmuje wyłącznie jeden z dwóch stanów: 
 >    Pozwala na automatyczną konwersję na typ logiczny dla typów liczbowych (wartość `0` jest traktowana jako fałsz, inne jako prawda) oraz wskaźników (brak adresu `nullptr` to fałsz). Wprowadzenie pustego tekstu `if (std::string(""))` wywoła błąd kompilacji.
 > 
 > 3. <b>Języki o dynamicznym typowaniu (JavaScript, Python, PHP):</b>
->    Interpretery konwertują wartości na fałsz (**_Falsy_**) lub prawdę (**Truthy**) podczas wykonywania programu. Różnice między językami przedstawia poniższa tabela:
+>    Interpretery konwertują wartości na fałsz (**_Falsy_**) lub prawdę (**Truthy**) podczas wykonywania programu. 
+> 
+> Różnice między językami przedstawia poniższa tabela:
 > 
 > | Wartość w warunku `if` | JavaScript (JS) | Python | PHP | C++ (Niejawna konwersja) | Java / C# |
 > | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -146,7 +158,7 @@ Konkatenacja to strukturalne wiązanie tablic znaków. Różne staki technologic
 * W JS, C++, Java oraz Pseudokodzie jest to `+`.
 * W PHP rolę sklejania pełni kropka `.`, a operator `+` wymusza twardą matematykę, przez co próba dodania `"5" + 5` w PHP zadziała jak dodawanie.
 > [!CAUTION]
-> Konkatenacja kropką w PHP musi być oddzielona spacją gdy występuje bezpośrednio po cyfrze, aby interpreter nie pomylił jej z kropką dziesiętną. Zapis `4.5` oznacza liczbę ($4.5$), natomiast zapis `4 . 5` generuje tekst `"45"`.
+> Konkatenacja kropką w PHP musi być oddzielona spacją gdy występuje bezpośrednio przy cyfrze, aby interpreter nie pomylił jej z kropką dziesiętną. Zapis `4.5` oznacza liczbę ($4.5$), natomiast zapis `4 . 5` generuje tekst `"45"`.
 
 <data-gate>
 <data-pseudocode-runner>
@@ -156,15 +168,21 @@ b = 5
 czyGotowy = PRAWDA
 
 WYPISZ "Obliczanie a + b (String + Number):"
+
 c = a + b
+
 WYPISZ "To klasyczna Konkatenacja! Wynik:"
+
 WYPISZ c
 
 WYPISZ "---"
 
 WYPISZ "Obliczanie b + b + 0.4 (Number + Number + Float):"
+
 d = b + b + 0.4
+
 WYPISZ "Twarda arytmetyka! Wynik:"
+
 WYPISZ d
 </pre>
 </data-pseudocode-runner>

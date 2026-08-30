@@ -39,9 +39,11 @@ WYPISZ "Tworzymy tablicę trzech elementów:"
 T = [10, 20, 30]
 
 WYPISZ "Zmieniamy element o indeksie 1:"
+
 T[1] = 99
 
 WYPISZ "Teraz w indeksie 1 znajduje się:"
+
 WYPISZ T[1]
 </pre>
 </data-pseudocode-runner>
@@ -67,6 +69,9 @@ Z tego powodu pierwszy element tablicy `T` adresujemy jako `T[0]`.
 > [!NOTE]
 > **Uproszczenie obliczeń matematycznych**
 > Indeksowanie od zera ułatwia wykonywanie wielu operacji matematycznych. Przykładem jest zapętlanie indeksów za pomocą operatora modulo `%`. Pozwala to na łatwe przechodzenie po elementach w nieskończonej pętli. Indeksowanie od zera upraszcza także przeliczanie współrzędnych dwuwymiarowych na jednowymiarowy ciąg pamięci za pomocą wzoru `y * szerokość + x`. Liczenie od 1 wymagałoby dodawania sztucznych przesunięć `- 1`.
+
+> [!IMPORTANT]
+> Nie traktuj indeksu jako pozycji elementu, lecz jako matematyczny **bias** czyli przesunięcie względem startowej pozycji. 
 
 ---
 
@@ -96,16 +101,18 @@ Ceny = [100, 50, 20, 10]
 Suma = 0
 
 rozmiar = DŁUGOŚĆ(Ceny)
+
 DLA i OD 0 DO rozmiar - 1
+
     Suma = Suma + Ceny[i]
 KONIEC DLA
 
 WYPISZ "Łączny koszt wynosi:"
+
 WYPISZ Suma
 </pre>
 </data-pseudocode-runner>
 </data-gate>
-*(Przeanalizuj wykonanie programu krok po kroku. Zwróć uwagę, dlaczego pętla wykonuje się do wartości `rozmiar - 1`. Pierwszy element to `Ceny[0]`, a czwarty to `Ceny[3]`.)*
 
 ### 🔁 Pętla do Zadań Specjalnych: Foreach
 
@@ -216,8 +223,8 @@ Dzięki tablicy obiektów nie musisz pisać osobnego kodu dla każdego z pięciu
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **Ciągły blok pamięci:** Tablica to struktura danych leżących bezpośrednio obok siebie w pamięci RAM. Zapewnia to mechanizm **Cache Locality** i gwarantuje wysoką wydajność obliczeń.
+- **Ciągły blok pamięci:** Tablica to struktura danych leżących bezpośrednio obok siebie w pamięci RAM. Zapewnia to mechanizm _**Cache Locality**_ i gwarantuje wysoką wydajność obliczeń.
 - **Statyczność i dynamika:** Tablice statyczne mają niezmienny rozmiar określony podczas kompilacji. Tablice dynamiczne potrafią automatycznie zwiększać swoją pojemność w trakcie działania programu.
-- **Zasada indeksu zero:** Indeks reprezentuje przesunięcie (offset) względem początku tablicy. Pierwszy element ma indeks `T[0]`, a ostatni `T[DŁUGOŚĆ(T) - 1]`.
+- **Zasada indeksu zero:** Indeks reprezentuje _**bias**_, czyli przesunięcie (*offset*) względem początku tablicy. Pierwszy element ma indeks `T[0]`, a ostatni `T[DŁUGOŚĆ(T) - 1]`.
 - **Sposoby iteracji:** Dane w tablicy odczytujemy sekwencyjnie za pomocą pętli `FOR` z indeksem lub uproszczonej pętli `FOREACH`.
 - **Wielowymiarowość:** Przechowywanie tablic wewnątrz innych tablic pozwala tworzyć macierze 2D (obrazy) oraz przestrzenie 3D. Operacje matematyczne na macierzach stanowią podstawę grafiki komputerowej i uczenia maszynowego.

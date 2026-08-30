@@ -1,10 +1,10 @@
 # Funkcje (Podprogramy): Level Up!
 
-Wiesz już, że kod wykonywany jest liniowo, a maszyna bezwzględnie przestrzega sekwencji instrukcji. W module o pętlach poznałeś zasadę _**DRY**_ (*Don't Repeat Yourself*), która chroni Cię przed powtarzaniem operacji w jednym, konkretnym miejscu pliku.
+Wiesz już, że kod wykonywany jest liniowo, a maszyna bezwzględnie przestrzega sekwencji instrukcji. W module o pętlach poznałeś zasadę _**DRY**_ (*Don't Repeat Yourself*), która zabrania duplikacji bloków kodu.
 
 Pętle są jednak niewystarczające, gdy określony wzorzec obliczeniowy musi zostać wywołany w wielu różnych, oddalonych od siebie miejscach dużego programu.
 
-W tej lekcji wkraczamy na kolejny poziom **programowania strukturalnego** (którego fundamenty poznałeś przy okazji omawiania pętli i rezygnacji z instrukcji `GOTO`). Dowiesz się, jak dzielić program na mniejsze, niezależne bloki zwane **funkcjami** (podprogramami), aby skutecznie zapanować nad czytelnością i strukturą kodu.
+W tej lekcji wkraczamy na kolejny poziom względem **programowania strukturalnego** (którego fundamenty poznałeś przy okazji omawiania pętli i rezygnacji z instrukcji `GOTO`). Dowiesz się, jak dzielić program na mniejsze, niezależne bloki zwane **funkcjami** (podprogramami), aby skutecznie zapanować nad czytelnością i strukturą kodu.
 
 ---
 
@@ -45,12 +45,12 @@ JEŻELI Mana >= 30 TO
 KONIEC JEŻELI
 ```
 
- Ten kod działa. Jednak wyobraź sobie, że podczas rozwoju gry decydujesz się dodać nowy mechanizm: **miksturę wzmocnienia czarów**, która zwiększa wszystkie obrażenia magiczne o $20\\%$ 
+ Ten kod działa. Jednak wyobraź sobie, że podczas rozwoju gry decydujesz się dodać nowy mechanizm: **miksturę wzmocnienia czarów**, która zwiększa wszystkie obrażenia magiczne o $20\%$ 
 ```php
 Obrazenia = Obrazenia * 1.2
 ```
 
-Więc teraz musisz do każdego czaru doklikać taką linijkę sprawdzającą, czy mikstura została zażyta oraz czy dalej działa, i wtedy ewentualnie wzmocnić wynik obrażeń o $20\\%$:
+Więc teraz musisz do każdego czaru doklikać taką linijkę sprawdzającą, czy mikstura została zażyta oraz czy dalej działa, i wtedy ewentualnie wzmocnić wynik obrażeń o $20\%$:
 ```php
 JEŻELI wzmocnienie TO
     Obrazenia = Obrazenia * 1.2
@@ -65,7 +65,7 @@ KONIEC JEŻELI
 
 ## 🎯 Koncepcja podprogramu: Definicja a Wywołanie
 
-Rozwiązaniem problemu redundancji jest wyodrębnienie powtarzalnego bloku kodu do tzw. **podprogramu**, powszechnie nazywanego **funkcją**.
+Rozwiązaniem problemu redundancji jest wyodrębnienie powtarzalnego bloku kodu do tzw. **podprogramu**, powszechnie zwanego **funkcją**.
 
 Z punktu widzenia komputera, używanie funkcji opiera się na dwóch odrębnych krokach:
 
@@ -100,13 +100,21 @@ FUNKCJA RzucCzar(nazwaCzaru, kosztMany, obrazeniaBazowe, skalowanie)
 KONIEC FUNKCJI
 
 // Bohater
+
 mana = 50
+
 inteligencja = 10
+
 wzmocnienie = true
 
+&nbsp;
+
 // WYWOŁANIE (Przekazujemy konkretne argumenty jako dane)
+
 RzucCzar("Kula Ognia", 20, 50, 1.5)
+
 RzucCzar("Lodowy Pocisk", 15, 40, 1.2)
+
 RzucCzar("Wyładowanie", 30, 60, 1.8)
 </pre>
 </data-pseudocode-runner>
@@ -127,9 +135,9 @@ Dzięki takiemu podejściu uzyskaliśmy **jedno scentralizowane źródło prawdy
 
 ## 🛡️ Zasięg zmiennych (Scope) i Kopiowanie Wartości
 
-Uruchamiając powyższy kod w symulacji krok po kroku, na pewno zauważysz dziwne zachowanie: chociaż na ekranie wypisywane są kolejne użycia czarów, to nasza globalna zmienna `mana` na samym dole cały czas wynosi `50` i nie ulega zmniejszeniu!
+Uruchamiając powyższy kod w symulacji krok po kroku, na pewno zauważysz dziwne zachowanie: chociaż na ekranie wypisywane są kolejne użycia czarów, to nasza globalna zmienna `mana` cały czas wynosi `50` i nie ulega zmniejszeniu!
 
-To nie błąd Krokera – to fundamentalna zasada bezpieczeństwa w programowaniu. Działają tu dwa powiązane ze sobą mechanizmy: **zbieżność nazw (shadowing)** oraz **kopiowanie wartości (pass-by-value)**.
+To nie błąd Krokera – to fundamentalna zasada bezpieczeństwa w programowaniu. Działają tu dwa powiązane ze sobą mechanizmy: **zbieżność nazw** (*shadowing*) oraz **kopiowanie wartości** (*pass-by-value*).
 
 ### 1. Zbieżność nazw (Shadowing)
 W programie głównym zdefiniowaliśmy zmienną `mana = 50`. Wewnątrz funkcji również użyliśmy słowa `mana`. Dla komputera są to jednak **dwie całkowicie inne zmienne**, leżące w innych szufladach pamięci RAM:
@@ -220,22 +228,35 @@ Przeanalizuj z bliska poniższą symulację. Zwróć szczególną uwagę na pane
 <data-gate>
 <data-pseudocode-runner expected-output="Ostateczny wynik wynosi:">
 <pre>
+
 FUNKCJA Podwoj(Wartosc)
-    WynikLokalny = Wartosc * 2
-    ZWRÓĆ WynikLokalny
+
+&nbsp;&nbsp;&nbsp;&nbsp;WynikLokalny = Wartosc * 2
+
+&nbsp;&nbsp;&nbsp;&nbsp;ZWRÓĆ WynikLokalny
+
+KONIEC FUNKCJI
+  
+FUNKCJA Dodaj_i_Podwoj(X, Y)
+
+&nbsp;&nbsp;&nbsp;&nbsp;SumaTymczasowa = X + Y
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;Ostatecznie = Podwoj(SumaTymczasowa)
+
+&nbsp;&nbsp;&nbsp;&nbsp;ZWRÓĆ Ostatecznie
+
 KONIEC FUNKCJI
 
-FUNKCJA Dodaj_i_Podwoj(X, Y)
-    SumaTymczasowa = X + Y
-    Ostatecznie = Podwoj(SumaTymczasowa)
-    ZWRÓĆ Ostatecznie
-KONIEC FUNKCJI
+// Program główny:
 
 Baza = 10
+
 Modyfikator = 5
+
 Rezultat = Dodaj_i_Podwoj(Baza, Modyfikator)
 
 WYPISZ "Ostateczny wynik wynosi:"
+
 WYPISZ Rezultat
 </pre>
 </data-pseudocode-runner>
@@ -263,7 +284,7 @@ Jak dowiedziałeś się z sekcji o zasięgu zmiennych, domyślne zachowanie komp
 Zmienne przechowujące pojedyncze liczby czy teksty ważą bardzo mało. Podczas wywołania funkcji procesor po prostu wykonuje ich szybką **kserokopię**. Jeśli funkcja zmodyfikuje tę wartość, oryginał w programie głównym pozostaje nietknięty i bezpieczny.
 
 2. **Typy złożone (Przekazywanie przez Referencję / *Pass-by-Reference*):**
-Wyobraź sobie tablicę złożoną z miliona wpisów. Tworzenie jej kopii przy każdym wywołaniu funkcji zabiłoby wydajność i szybko zapchało pamięć RAM. Dlatego typy złożone (jak tablice czy obiekty) nie są kopiowane. Zamiast tego funkcja otrzymuje **referencję** – czyli wskaźnik (link) do oryginalnego miejsca w pamięci.
+Wyobraź sobie tablicę złożoną z miliona wpisów. Tworzenie jej kopii przy każdym wywołaniu funkcji zabiło by wydajność i szybko zapchało pamięć RAM. Dlatego typy złożone (jak tablice czy obiekty) nie są kopiowane. Zamiast tego funkcja otrzymuje **referencję** – czyli wskaźnik (link) do oryginalnego miejsca w pamięci.
 Przypomina to udostępnienie komuś linku do dokumentu na Dysku Google. Funkcja nie traci czasu na kopiowanie danych. Pamiętaj jednak: jeśli funkcja za pomocą tego linku usunie lub zmodyfikuje jakiś wpis, zmiana ta natychmiast dotknie Twój oryginalny zbiór danych!
 
 ## 🔬 Dowód empiryczny (Wartość a Referencja)
@@ -287,14 +308,17 @@ FUNKCJA ZniszczDane(ZwyklaLiczba, CiezkaTablica)
 KONIEC FUNKCJI
 
 TestLiczby = 5
+
 TestTablicy = [100, 200, 300]
 
 ZniszczDane(TestLiczby, TestTablicy)
 
 WYPISZ "Liczba chroniona fotokopią:"
+
 WYPISZ TestLiczby
 
 WYPISZ "Pierwszy indeks tablicy po modyfikacji linku:"
+
 WYPISZ TestTablicy[0]
 </pre>
 </data-pseudocode-runner>

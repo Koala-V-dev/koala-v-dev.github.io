@@ -4,21 +4,24 @@ Poprzednio obliczyliśmy BMI. Kod wykonał się linia po linii. Co nazywamy w no
 
 Tym razem zajmiemy się pracą nad najlepszą dziedziną nauki czyli matematyką. Jednak podejdziemy do tego w stylu **programowania funkcyjnego**.
 
-## Czym jest funkcja?
+---
+
+## 👷🏼Czym jest funkcja?
 
 Funkcja to wydzielony blok kodu zawierający rozwiązanie danego małego problemu. Taki fragmencik jest wielokrotnie używany w programie do zrealizowania wiekszej pracy. Możesz to sobie porównać do budowlanki.
 
-- Murarz stawia ściany z cegieł
-- Glazurnik kładzie płytki
-- Elektryk układa kable
-- Hydraulik zakłada rury
+- 🧱 Murarz stawia ściany z cegieł
+- ⬜ Glazurnik kładzie płytki
+- ⚡ Elektryk układa kable
+- 🌊 Hydraulik zakłada rury
 
 Każdy z nich specjalizuje się w jednym zadaniu, a wykorzystanie ich pracy pozwala rozwiązać problem braku domu.
 
 > Dodatkowym aspektem przemawiającym za programowaniem funkcjonalnym zamiast strukturalnym jest czytelność kodu i szybkość zmiany działania, a co za tym idzie brak konieczności poprawiania błędu w wielu miejscach zdublowanego kodu.
 
+---
 
-### Definicja i użycie funkcji
+### 🏗️ Definicja i użycie funkcji
 
 Funkcje definiujemy następującą strukturą:
 ```php
@@ -48,11 +51,13 @@ function add($a, $b){
 var_dump(add(2,2));
 
 ```
-Powyżej zdefiniowaliśmy dwie funkcje *void* oraz *intiger*. Gdy wywołamy je w `var_dump()` uzyskamy dwa oczekiwane wyniki:
+Powyżej zdefiniowaliśmy dwie funkcje *void* oraz *integer*. Gdy wywołamy je w `var_dump()` uzyskamy dwa oczekiwane wyniki:
 - `NULL` dla test(), który jest typu *void*
-- `int(4)` dla add(), który prwidłowo okazał się typem *intiger*
+- `int(4)` dla add(), który prawidłowo okazał się typem *integer*
 
-### Wykorzystanie funkcji w praktyce.
+---
+
+### 🧑🏼‍💼 Wykorzystanie funkcji w praktyce.
 
 Mamy zdefiniowaną funkcje dodawania i teraz możemy ją wykorzystać na wiele sposobów:
 - dokleić jej wynik konkatenacją do zwracanego stringa przez echo
@@ -80,7 +85,9 @@ echo "\n2 + 3 + 7 + 9 = " . add(add(2, 3), add(7, 9));
 
 ![](/public/courses/php/Images/wykorzystanie-funkcji.png)
 
-## Parametry stożka
+---
+
+## 🏔️ Parametry stożka
 
 Stożek składa się z dwóch części. Koła jako podstawy i siatki podobnej do trójkąta równoramiennego.
 
@@ -89,11 +96,12 @@ By móc wszystko policzyć musimy posiadać $3$ parametry:
 - $h$ - wysokość stożka (odcinek od podstawy do czubka stożka gdzie z podstawą tworzy kąt prosty)
 - $l$ - długość tworzącej stożka (odcinek od czubka stożka do krawędzi okręgu podstawy)
 
+---
 
-### Wzory
+### 📐 Wzory
 
-Poniżej przedstawiam wzory na potrzebne wartości, które pozwolą Ci liczyć w języku PHP:
-- objetość ($V$):
+Poniżej przedstawiam wzory na potrzebne wartości do obliczenia:
+- objętość ($V$):
 $$V=\frac{1}{3}\pi r^2h$$
 - pole powierzchni całkowitej ($P_c$):
 $$P_c=\pi r^2 + \pi r l$$
@@ -104,15 +112,18 @@ $$P_p = \pi r^2$$
 - długość tworzącej ($l$):
 $$l = \sqrt{r^2 + h^2}$$
 
+---
 
-## Definicje funkcji dla wzorów stożka
+## 📋 Definicje funkcji dla wzorów stożka
 
 Załóżmy że posiadamy tylko $2$ parametry stożka:
 - $r = 4$
 - $h = 6$
 Brakuje nam długości tworzącej $l$.
 
-### Funkcja wyprowadzająca $l$ z $r$ i $h$
+---
+
+### 📏 Funkcja wyprowadzająca $l$ z $r$ i $h$
 
 Wiemy że w php możemy potęgować przy pomocy operatora `**`, ale jak wykonać operację pierwiastkowania?  
 Tu z pomocą przychodzi nam jak zwykle matematyka.  
@@ -129,7 +140,7 @@ Więc chcąc uzyskać odwrotność liczby $5$ zapiszemy ją w postaci ułamka ja
 
 $$\frac{1}{5}$$
 
-Jak będzie więc wyglądać pierwiastek stopnia drugiego zapisany w php przy użyciu potęgowania?  
+Jak będzie więc wyglądać pierwiastek stopnia drugiego zapisany przy użyciu potęgowania?  
 
 $$\sqrt{25} = 25^{\frac{1}{2}}$$
 
@@ -151,7 +162,9 @@ Super! Właśnie zdefiniowaliśmy od zera natywną funkcję php do pierwiastkowa
 sqrt(liczba_do_spierwiastkowania);
 ```
 
-### Określenie liczby $\pi$
+---
+
+### 🧮 Określenie liczby $\pi$
 
 Jak znowu popatrzymy na wzory to brakuje nam tylko jednej niewiadomej. Dokładniej liczby $\pi$.
 
@@ -170,15 +183,26 @@ define("PI", 3.141);
 ```
 
 Po co w ogóle nam stałe skoro mamy zmienne i krócej się je zapisuje?  
-Kluczem jest właśnie stałość. Jeżeli zdefiniujemy dla stałej jakąś wartość to mamy pewność że nie zostanie ona przypadkowo nadpisana gdzieś dalej w kodzie. Dodatkowo IDE oraz interpreter PHP odrazu zgłoszą sytucję nadpisania jako błąd i wskarzą lokalizację tego precedensu:
+Kluczem jest właśnie stałość. Jeżeli zdefiniujemy dla stałej jakąś wartość to mamy pewność że nie zostanie ona przypadkowo nadpisana gdzieś dalej w kodzie. Dodatkowo IDE oraz interpreter PHP od razu zgłoszą sytuację nadpisania jako błąd i wskażą lokalizację tego precedensu:
 
 ![](/public/courses/php/Images/syntax-error_unexpected-token-=-in-define-const-PI.png)
 
-### Definicje i wyniki funkcji wzorów stożka
+> [!WARNING]
+> `define()` jest traktowany jako element **_legacy_** i nie jest zalecany do użycia w nowych projektach. Jednak mało prawdopodobne że zostanie zdeprecjonowany ze względu na dużą integralność w języku PHP. Jest wygodny, elastyczny i dostępny globalnie w dowolnego miejsca projektu. Co o dziwo jest wadą i antywzorcem dla nowoczesnej filozofii programowania i **enkapsulacji** (zamknięcie struktury i jej składowych przed dostępem zewnętrznym).
+> Nowocześniejsza alternatywa to `const`. Dlatego gdy zobaczysz u mnie zastosowane `define()` to twoim celem bedzie szybka refaktoryzacja i przeimplementowanie go na nowocześniejszą formę `const`:
+> 
+> ```php
+> // define("PI", 3.141); // Legacy
+> const PI = 3.141;
+> ```
 
-Znając parametry $r$ i $h$ oraz definiując stałą $\pi$, w przybliżeniu $3.141$ jesteś wstanie poprawnie poznać wszystkie parametry stożka:
-- Promień podstawy: $r$
-- Wysokość stożka: $h$
+--- 
+
+### 🖥️ Definicje i wyniki funkcji wzorów stożka
+
+Znając parametry $r$ i $h$ oraz definiując stałą $\pi$, w przybliżeniu $3.141$ jesteś w stanie poprawnie poznać wszystkie parametry stożka:
+- *Promień podstawy: $r$*
+- *Wysokość stożka: $h$*
 - Długość tworzącej stożka: $l = \sqrt{r^2 + h^2}$
 - Objętość stożka: $V = \frac{1}{3}\pi r^2h$
 - Pole powierzchni całkowitej: $P_c = \pi r^2 + \pi r l$
@@ -218,19 +242,22 @@ echo "\nPole powierzchni podstawy (Pp): " .stozek_get_Pp($r);
 
 > [!TIP]
 > PS w PHP już zdefiniowano stałą PI jako `M_PI` i wynosi ona w przybliżeniu $3.1415926535898$.
-> Mało tego, ze względu na czestość występownia zdefiniowane zostały też `M_PI_2` ($\frac{\pi}{2}$), `M_PI_4` ($\frac{\pi}{4}$) oraz `M_1_PI` ($\frac{1}{\pi}$) i `M_2_PI` ($\frac{2}{\pi}$).
+> Mało tego, ze względu na częstość występowania zdefiniowane zostały też:
+>  `M_PI_2` ($\frac{\pi}{2}$), `M_PI_4` ($\frac{\pi}{4}$) oraz `M_1_PI` ($\frac{1}{\pi}$) i `M_2_PI` ($\frac{2}{\pi}$).
 > !["M_PI constant"](/public/courses/php/Images/php_stałe-wartości_z_pi_M_PI.png)
 
+---
 
 ## Rozszerz kalkulacje o walec i kulę
 
 **Walec** to bryła obrotowa, która powstaje przez obrót prostokąta wokół jednej z jego boków.  
 **Kula** to bryła obrotowa, która powstaje przez obrót koła wokół jego średnicy.
 
+---
 
-### Wzory na walec
+### 📐 Wzory na walec
 
-- objetość walca:
+- objętość walca:
 $$V = \pi r^2 h$$
 - pole powierzchni całkowitej walca:
 $$P_c = 2 \pi r^2 + 2 \pi r h$$
@@ -239,9 +266,11 @@ $$P_b = 2 \pi r h$$
 - pole powierzchni podstawy walca:
 $$P_p = \pi r^2$$
 
-### Wzory na kulę
+---
 
-- objetość kuli:
+### 📐 Wzory na kulę
+
+- objętość kuli:
 $$V = \frac{4}{3}\pi r^3$$
 - pole powierzchni całkowitej kuli:
 $$P_c = 4 \pi r^2$$

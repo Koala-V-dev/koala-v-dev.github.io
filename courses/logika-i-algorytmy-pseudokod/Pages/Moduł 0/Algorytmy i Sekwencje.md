@@ -2,7 +2,8 @@
 
 Początki nauki programowania bywają trudne. Największą barierą nie jest obcy język, skomplikowana składnia ani matematyka. Pierwszym największym wrogiem jest Twój własny, zoptymalizowany mózg. 
 
-Przez całe życie uczyłeś się polegać na intuicji, wyłapywać podteksty i zakładać, że rozmówca domyśli się reszty. W świecie maszyn i algorytmów musisz być precyzyjny w każdym najmniejszym aspekcie.
+Przez całe życie uczyłeś się polegać na intuicji, wyłapywać podteksty i zakładać, że rozmówca domyśli się reszty.  
+W świecie maszyn i algorytmów musisz być precyzyjny w każdym najmniejszym aspekcie.
 
 > [!NOTE]
 > **Złudzenie komunikacji:**  
@@ -11,7 +12,7 @@ Przez całe życie uczyłeś się polegać na intuicji, wyłapywać podteksty i 
 > - podejdź do drzwi, 
 > - wyciągnij rękę, 
 > - chwyć klamkę, 
-> - pociągnij.
+> - pociągnij/pchnij.
 > 
 > Twój rozmówca sam uzupełnia brakujące kroki, korzystając z kontekstu kulturowego i fizycznego.
 > Komputer jest tego kontekstu całkowicie pozbawiony.
@@ -32,8 +33,9 @@ Co zrobi maszyna z tą instrukcją? Ponieważ nie posiada zdrowego rozsądku, za
 - Następnie maszyna przejdzie do polecenia *„Zalej wrzątkiem”*. Skoro nie zdefiniowałeś użycia miski, robot może wylać wrzącą wodę prosto na podłogę. **Krok wykonany**. 👍
 - Na koniec odczeka $3$ minuty i spróbuje skonsumować rozlany płyn z paneli. **Krok wykonany**. 👍
 
-Robot wykonał kod w stu procentach bezbłędnie. To Twoje instrukcje były tragicznie nieprecyzyjne.  
-Programowanie to sztuka przewidywania każdego, nawet najbardziej trywialnego stanu rzeczywistości.
+Robot wykonał kod w stu procentach bezbłędnie. To Twoje instrukcje były tragicznie nieprecyzyjne.
+
+> Programowanie to sztuka przewidywania każdego, nawet najbardziej trywialnego stanu rzeczywistości.
 
 ---
 
@@ -201,12 +203,12 @@ Kod jest poprawny pod każdym względem, ale program nie radzi sobie z warunkami
 
 Odpowiada on czterem warstwom, które poznasz w pseudokodzie, a później w prawdziwych językach programowania:
 
-| Warstwa | Typ błędu | Co się psuje |
-|:---|:---|:---|
-| Język | Składniowy (*syntax*) | Kod nie może zostać zinterpretowany. |
-| Konstrukcja | Strukturalny (*structural*) | Program jest błędnie zbudowany. |
-| Algorytm | Logiczny (*logical*) | Program wykonuje niepożądane obliczenia. |
-| Wykonanie | Wykonania (*runtime*) | Program nie radzi sobie z rzeczywistością. |
+| Warstwa     | Typ błędu                   | Co się psuje                               |
+| :---------- | :-------------------------- | :----------------------------------------- |
+| Język       | Składniowy (*syntax*)       | Kod nie może zostać zinterpretowany.       |
+| Konstrukcja | Strukturalny (*structural*) | Program jest błędnie zbudowany.            |
+| Algorytm    | Logiczny (*logical*)        | Program wykonuje niepożądane obliczenia.   |
+| Wykonanie   | Wykonania (*runtime*)       | Program nie radzi sobie z rzeczywistością. |
 
 Dzięki temu od początku rozumiesz, gdzie szukać problemu, zamiast modyfikować kod losowo.
 
@@ -218,7 +220,8 @@ Napisanie gry lub systemu operacyjnego od zera jest niewykonalne jako pojedyncze
 
 Dekompozycja polega na rozbijaniu dużego tematu na coraz mniejsze, elementarne części. Robimy to tak długo, aż każdy pojedynczy element sprowadzimy do jego logicznej i matematycznej reprezentacji, którą komputer potrafi bezpośrednio przetworzyć.
 
-Wyobraź sobie ruch bohatera w grze platformowej 2D. Na pewno nie będzie to hydraulik z włoskim imieniem. Aby zakodować poruszanie się tą postacią, musimy przetworzyć cztery podstawowe operacje:
+Wyobraź sobie ruch bohatera w grze platformowej 2D. Na pewno nie będzie to hydraulik z włoskim imieniem.  
+Aby zakodować poruszanie się tą postacią, musimy przetworzyć cztery podstawowe operacje:
 1. **Odczyt danych (Input)**: Pobranie stanu klawiatury w celu sprawdzenia, czy gracz wcisnął klawisz <kbd>W</kbd> albo <kbd>  SPACJA  </kbd>.
 2. **Aktualizacja stanu (Proces)**: Zwiększenie współrzędnej $y$, czyli wysokości gracza w pamięci RAM.
 3. **Weryfikacja reguł (Warunek)**: Sprawdzenie, czy nowa pozycja gracza nie przecina geometrii ściany.
@@ -248,9 +251,9 @@ Złota zasada optymalizacji mówi, że najlepszy kod to ten, który realizuje ce
 
 ---
 
-### 🗼 Brama logiczna: wyzwanie Wież Hanoi
+### 🗼 Wyzwanie: Wieże Hanoi
 
-Wieże Hanoi to klasyczny problem logiczno-matematyczny. Stanowi on idealny sprawdzian Twojej zdolności do projektowania optymalnych rozwiązań. Zadanie polega na przeniesieniu całej wieży z lewego słupka na prawy.
+Wieże Hanoi to klasyczny problem logiczno-matematyczny. Stanowi on idealny sprawdzian Twojej zdolności do projektowania optymalnych rozwiązań. Zadanie polega na przeniesieniu całej wieży z lewego słupka na skrajnie prawy.
 
 Ta łamigłówka to bezpośrednia symulacja pracy procesora:
 - **Każdy ruch to instrukcja**: Jeśli przekładasz krążki chaotycznie w tę i z powrotem, marnujesz ruchy. Twój algorytm wykonuje puste operacje, które zmieniają stan gry, ale nie przybliżają do celu.

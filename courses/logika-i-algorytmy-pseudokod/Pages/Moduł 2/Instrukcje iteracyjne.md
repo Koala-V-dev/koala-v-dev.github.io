@@ -25,12 +25,12 @@ GOTO START
 
 Konstrukcja ta była bardzo zbliżona do fizycznego działania procesora (instrukcji `JMP` w asemblerze). Jednak nadużywanie `GOTO` prowadziło do powstawania kodu o skomplikowanej strukturze, w której przepływ sterowania był trudny do prześledzenia. Zjawisko to określa się jako **_spaghetti code_**.
 
-W $1968$ roku *Edsger W. Dijkstra* opublikował słynny artykuł [„Go To Statement Considered Harmful”](https://bioinfo.uib.es/~joemiro/teach/material/escritura/gotoharmfulCol.pdf). Publikacja ta zapoczątkowała powszechne przejście na paradygmat **programowania strukturalnego**. Wprowadzono zamknięte, czytelne pętle, które całkowicie wyparły instrukcję `GOTO`.
+W <time datetime="1968-03-01">1968 roku</time> *Edsger W. Dijkstra* opublikował słynny artykuł [„Go To Statement Considered Harmful”](https://bioinfo.uib.es/~joemiro/teach/material/escritura/gotoharmfulCol.pdf). Publikacja ta zapoczątkowała powszechne przejście na paradygmat **programowania strukturalnego**. Wprowadzono zamknięte, czytelne pętle, które całkowicie wyparły instrukcję `GOTO`.
 
 <details>
 <summary><b>Dla dociekliwych: Manifest Dijkstry – dlaczego GOTO musiało zginąć?</b></summary>
 
-Poniżej znajdziesz opracowanie słynnego listu **„Go To Statement Considered Harmful”** opublikowanego w marcu $1968$ roku w „Communications of the ACM”. Ten krótki tekst zmienił na zawsze historię programowania i dał początek programowaniu strukturalnemu.
+Poniżej znajdziesz opracowanie słynnego listu **„Go To Statement Considered Harmful”** opublikowanego w <time datetime="1968-03-01">marcu 1968 roku</time> w „Communications of the ACM”. Ten krótki tekst zmienił na zawsze historię programowania i dał początek programowaniu strukturalnemu.
 
 ---
 
@@ -100,6 +100,7 @@ Licznik `i` jest modyfikowany automatycznie przy każdym obiegu.
 WYPISZ "Zaczynamy odliczanie!"
 
 DLA i OD 1 DO 5
+
     WYPISZ "Obieg pętli numer:"
     WYPISZ i
 KONIEC DLA
@@ -123,6 +124,7 @@ Należy pamiętać o ręcznym aktualizowaniu warunku wewnątrz pętli, aby zapob
 punktyZycia = 3
 
 DOPÓKI punktyZycia > 0
+
     WYPISZ "Gracz jest w trakcie walki..."
     WYPISZ "Gracz otrzymuje obrażenia! (-1)"
     punktyZycia = punktyZycia - 1
@@ -153,16 +155,16 @@ Języki oparte na czytelności oraz szkolne pseudokody realizują podejście typ
 
 Zobacz zestawienie tych dwóch światów programistycznych:
 
-| Klasa „DOPÓKI Prawda” (Do-While / While) | Klasa „AŻ Prawda / DOPÓKI Fałsz” (Repeat-Until / Until) |
-| :--- | :--- |
-| **Pętla kręci się, gdy warunek = `true`.**<br>*Kończy bieg, gdy warunek = `false`.* | **Pętla kręci się, gdy warunek = `false`.**<br>*Kończy bieg, gdy warunek = `true`.* |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" width="24" height="24" class="logo"> **C++** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/delphi/delphi-original.svg" width="24" height="24" class="logo"> **Pascal / Delphi** |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="24" height="24" class="logo"> **JavaScript (JS)** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg" width="24" height="24" class="logo"> **Ruby** |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" width="24" height="24" class="logo"> **PHP** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" width="24" height="24" class="logo"> **Lua** |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" width="24" height="24" class="logo"> **C#** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" width="24" height="24" class="logo"> **Bash (Linux shell)** |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="24" height="24" class="logo"> **Java** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/perl/perl-original.svg" width="24" height="24" class="logo"> **Perl** |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg" width="24" height="24" class="logo"> **Swift** | <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/VB.NET_Logo.svg" width="24" height="24" class="logo"> **Visual Basic** |
-| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width="24" height="24" class="logo"> **Go (Golang)** | <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="24" height="24" style="vertical-align: middle;"><path d="M30 40 L10 64 L30 88 M98 40 L118 64 L98 88 M75 25 L53 103" stroke="#2563eb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg> **Pseudokod szkolny** |
+| Klasa „DOPÓKI Prawda” (Do-While / While)                                                                                                                         | Klasa „AŻ Prawda / DOPÓKI Fałsz” (Repeat-Until / Until)                                                                                                                                                                                                                                                                           |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Pętla kręci się, gdy warunek = `true`.**<br>*Kończy bieg, gdy warunek = `false`.*                                                                              | **Pętla kręci się, gdy warunek = `false`.**<br>*Kończy bieg, gdy warunek = `true`.*                                                                                                                                                                                                                                               |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" width="24" height="24" class="logo"> **C++**               | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/delphi/delphi-original.svg" width="24" height="24" class="logo"> **Pascal / Delphi**                                                                                                                                                                          |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="24" height="24" class="logo"> **JavaScript (JS)** | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg" width="24" height="24" class="logo"> **Ruby**                                                                                                                                                                                         |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" width="24" height="24" class="logo"> **PHP**                           | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" width="24" height="24" class="logo"> **Lua**                                                                                                                                                                                            |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" width="24" height="24" class="logo"> **C#**                      | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" width="24" height="24" class="logo"> **Bash (Linux shell)**                                                                                                                                                                           |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="24" height="24" class="logo"> **Java**                        | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/perl/perl-original.svg" width="24" height="24" class="logo"> **Perl**                                                                                                                                                                                         |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg" width="24" height="24" class="logo"> **Swift**                     | <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/VB.NET_Logo.svg" width="24" height="24" class="logo"> **Visual Basic**                                                                                                                                                                                              |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width="24" height="24" class="logo"> **Go (Golang)**                     | <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="24" height="24" style="vertical-align: middle;"><path d="M30 40 L10 64 L30 88 M98 40 L118 64 L98 88 M75 25 L53 103" stroke="#2563eb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg> **Pseudokod szkolny** |
 
 > [!CAUTION]
 > **Pułapka dla programistów C++, PHP, Java oraz JavaScript!**
@@ -174,6 +176,7 @@ Zobacz zestawienie tych dwóch światów programistycznych:
 proby = 5
 
 POWTARZAJ
+
     WYPISZ "Próba logowania..."
     proby = proby + 1
 AŻ proby >= 3
@@ -198,4 +201,4 @@ WYPISZ "Logowanie zakończone (sukces lub blokada konta)."
 - **Modyfikacja licznika:** Pętle wymagają kontrolowania zmiany stanu licznika, aby zapobiec zablokowaniu programu w pętli nieskończonej.
 - **Pętla DLA (FOR):** Służy do realizacji z góry określonej liczby powtórzeń.
 - **Pętla DOPÓKI (WHILE):** Wykonuje się dopóki określony warunek logiczny jest spełniony.
-- **Pętla z warunkiem na końcu:** Gwarantuje przynajmniej jedno wykonanie bloku kodu. W językach C-podobnych działa dopóki warunek jest spełniony (`do-while`), natomiast w pseudokodzie i Pascalu kończy bieg w momencie spełnienia warunku (`repeat-until`).
+- **Pętla z warunkiem na końcu:** Gwarantuje przynajmniej jedno wykonanie bloku kodu. W językach C-podobnych działa dopóki warunek jest spełniony (`do-while`), natomiast w pseudokodzie i bash kończy bieg w momencie spełnienia warunku (`repeat-until`).

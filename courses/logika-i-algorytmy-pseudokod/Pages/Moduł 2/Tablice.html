@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Tablice - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">logika-i-algorytmy-pseudokod</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Algorytmiki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Algorytmy i Sekwencje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Algorytmy%20i%20Sekwencje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy i Sekwencje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Schematy blokowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Schematy%20blokowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Schematy blokowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pseudokod"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Pseudokod.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pseudokod</a></li><li class="module">Moduł 1: Logika i Pamięć</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Typy danych i pamięć"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Typy%20danych%20i%20pami%C4%99%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy danych i pamięć</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operatory arytmetyczne i logiczne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Operatory%20arytmetyczne%20i%20logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operatory arytmetyczne i logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Instrukcje warunkowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Instrukcje%20warunkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje warunkowe</a></li><li class="module">Moduł 2: Sterowanie Przepływem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instrukcje iteracyjne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Instrukcje%20iteracyjne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje iteracyjne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Tablice"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Tablice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Funkcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Tablice: Najważniejsza struktura w programowaniu</h1>
+<p>Znasz już pojęcie zmiennej jako pojedynczej komórki w pamięci RAM. Co zrobisz, gdy musisz przechować oceny $30$ uczniów ze sprawdzianu? Tworzenie zmiennych od <code>ocena1</code> do <code>ocena30</code> jest nieefektywne. Sytuacja komplikuje się jeszcze bardziej przy tysiącu uczniów.</p>
+<p>Do zarządzania dużymi zbiorami danych służą <span class="color-green">tablice</span> (ang. <span class="color-blue">Arrays</span>). Koncepcja ta wywodzi się bezpośrednio z matematycznego pojęcia ciągu: $x_1, x_2, x_3...$. W kodzie programistycznym dolne indeksy zapisujemy w nawiasach kwadratowych, na przykład <code>x[0]</code> lub <code>x[1]</code>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🗄️ Budowa Tablicy: Koncepcja i Wydajność</h2>
+<p>Wyobraź sobie tablicę jako blok szuflad ułożonych obok siebie w pamięci RAM. Cały segment otrzymuje jedną wspólną nazwę, na przykład <code>T</code>. Do konkretnej szuflady odwołujemy się za pomocą liczby całkowitej. Liczbę tę nazywamy <span class="color-green">indeksem</span>.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Wydajność tablic w pamięci</span> (<span class="color-blue">Cache Locality</span>)<br>Wiadomo, że tablica ułatwia zapis kodu. Czy przekłada się to jednak na rzeczywistą wydajność?</p>
+<p>Tak. Wynika to z faktu, że wszystkie elementy tablicy leżą w pamięci fizycznie obok siebie. Procesor po odczytaniu pierwszego z nich automatycznie przesyła do szybkiej pamięci podręcznej kolejne jej elementy. Mechanizm ten nazywamy <span class="color-green">lokalnością pamięci podręcznej</span> (<span class="color-blue">Cache Locality</span>). Sprawia on, że iterowanie po tablicach jest jedną z najszybszych operacji w komputerze.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Poziomy pamięci podręcznej</span> (<span class="color-gold">Cache CPU</span>)<br>Pamięć podręczna procesora dzieli się na trzy główne poziomy. Każdy kolejny poziom jest większy, ale ma dłuższy czas dostępu.</p>
+<ul>
+<li><span class="color-gold">L1 Cache</span>: Najmniejsza i najszybsza pamięć wbudowana bezpośrednio w każdy rdzeń.</li>
+<li><span class="color-gold">L2 Cache</span>: Większa pamięć pośrednia, przypisana do pojedynczych rdzeni lub ich grup.</li>
+<li><span class="color-gold">L3 Cache</span>: Największa pamięć współdzielona przez wszystkie rdzenie procesora.</li>
+</ul>
+<p>Zobacz porównanie rzeczywistych rozmiarów pamięci podręcznej dla wybranych procesorów:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Poziom Cache</th>
+<th align="left">Intel Core i7‑12700F</th>
+<th align="left">AMD Ryzen 7 7800X3D (3D V‑Cache)</th>
+<th align="left">Apple M2 (ARM SoC)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-gold">L1 Cache</span></td>
+<td align="left"><span class="color-blue">$80\text{ KB}$</span> (rdzeń P) / <span class="color-blue">$96\text{ KB}$</span> (rdzeń E)</td>
+<td align="left"><span class="color-blue">$64\text{ KB}$</span> na rdzeń (łącznie <span class="color-blue">$512\text{ KB}$</span>)</td>
+<td align="left"><span class="color-blue">$320\text{ KB}$</span> (rdzeń P) / <span class="color-blue">$192\text{ KB}$</span> (rdzeń E)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">L2 Cache</span></td>
+<td align="left"><span class="color-blue">$10\text{ MB}$</span> (rdzenie P) + <span class="color-blue">$2\text{ MB}$</span> (rdzenie E)</td>
+<td align="left"><span class="color-blue">$1\text{ MB}$</span> na rdzeń (łącznie <span class="color-blue">$8\text{ MB}$</span>)</td>
+<td align="left"><span class="color-blue">$16\text{ MB}$</span> (rdzenie P) + <span class="color-blue">$4\text{ MB}$</span> (rdzenie E)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">L3 Cache</span></td>
+<td align="left"><span class="color-blue">$25\text{ MB}$</span> (współdzielona)</td>
+<td align="left"><span class="color-blue">$96\text{ MB}$</span> (współdzielona)</td>
+<td align="left"><span class="color-blue">$8\text{ MB}$</span> (System Level Cache)</td>
+</tr>
+</tbody></table>
+
+</div>
+</div><data-gate>
+<data-pseudocode-runner>
+<pre>WYPISZ "Tworzymy tablicę trzech elementów:"
+T = [10, 20, 30]
+
+<p>WYPISZ "Zmieniamy element o indeksie 1:"</p>
+<p>T[1] = 99</p>
+<p>WYPISZ "Teraz w indeksie 1 znajduje się:"</p>
+<p>WYPISZ T[1]<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>Zwróć uwagę na panel RAM! Nasza tablica <code>T</code> składa się z elementów: <code>[10, 99, 30]</code>. Dlaczego podmiana elementu <code>T[1]</code> podmieniła w tablicy <span class="color-blue">środkową liczbę</span> ($20$), a nie <span class="color-blue">pierwszą</span> ($10$)?</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Indeksowanie od Zera: Rola Offsetu</h2>
+<p>W polskim programie szkolnym pierwszy element tablicy często otrzymuje indeks 1. W tym kursie stosujemy indeksowanie od zera. Pozwoli to uniknąć popularnych błędów przesunięcia o jeden (ang. <span class="color-blue">off‑by-one error</span>) podczas nauki rzeczywistych języków programowania.</p>
+<p>W językach takich jak C++, PHP, Java czy Python pierwszy element tablicy zawsze posiada indeks <code>0</code>.</p>
+<p>Wynika to z architektury sprzętowej komputera:</p>
+<ul>
+<li><span class="color-green">Indeks jako offset:</span> Indeks określa przesunięcie (ang. <span class="color-blue">offset</span>) w pamięci fizycznej.</li>
+<li><span class="color-green">Adres początkowy:</span> Pierwszy element leży dokładnie na początku zarezerwowanego obszaru. Jego przesunięcie względem adresu startowego wynosi <code>0</code>.</li>
+<li><span class="color-green">Kolejne komórki:</span> Drugi element leży o jeden blok pamięci dalej, co daje przesunięcie równe <code>1</code>.</li>
+</ul>
+<p>Z tego powodu pierwszy element tablicy <code>T</code> adresujemy jako <code>T[0]</code>.</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Uproszczenie obliczeń matematycznych</span><br>Indeksowanie od zera ułatwia wykonywanie wielu operacji matematycznych. Przykładem jest zapętlanie indeksów za pomocą operatora modulo <code>%</code>. Pozwala to na łatwe przechodzenie po elementach w nieskończonej pętli. Indeksowanie od zera upraszcza także przeliczanie współrzędnych dwuwymiarowych na jednowymiarowy ciąg pamięci za pomocą wzoru <code>y * szerokość + x</code>. Liczenie od 1 wymagałoby dodawania sztucznych przesunięć <code>- 1</code>.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Nie traktuj indeksu jako pozycji elementu, lecz jako matematyczny <span class="color-green">bias</span> czyli przesunięcie względem startowej pozycji. </p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Zarządzanie Pamięcią: Klasyfikacja Tablic</h2>
+<p>Współczesne języki programowania różnią się podejściem do deklarowania rozmiaru oraz typu elementów w tablicy.</p>
+<h3>📊 Rozmiar: Tablice Statyczne i Dynamiczne</h3>
+<ul>
+<li><span class="color-green">Tablice statyczne (C++, C#, Java):</span> Wymagają określenia stałego rozmiaru podczas kompilacji, na przykład <code>int T[10]</code>. Rozmiar ten nie może ulec zmianie podczas działania programu. System operacyjny rezerwuje w pamięci RAM ciągły obszar na określoną liczbę elementów. Dodanie kolejnych elementów wymaga utworzenia nowej, większej tablicy i skopiowania dotychczasowych danych.</li>
+<li><span class="color-green">Tablice dynamiczne (Python, PHP, JavaScript):</span> Potrafią automatycznie zmieniać swój rozmiar w trakcie działania programu. Nowe elementy dodaje się za pomocą dedykowanych instrukcji. Zmiana rozmiaru odbywa się automatycznie w pamięci. Jest to rozwiązanie bardzo wygodne, lecz z reguły wolniejsze od tablic statycznych.</li>
+</ul>
+<h3>🔒 Bezpieczeństwo: Typowanie Elementów</h3>
+<p>W językach silnie typowanych wszystkie elementy tablicy muszą mieć ten sam typ. Tablica typu <code>int[]</code> przechowuje wyłącznie liczby całkowite i nie pozwoli na zapisanie tekstu. Języki o dynamicznym typowaniu pozwalają na przechowywanie różnych typów danych w jednej tablicy, na przykład <code>T = [15, "Słowo", true]</code>. Taka praktyka utrudnia jednak późniejszą analizę kodu i sprzyja powstawaniu błędów.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Odczyt Danych: Iteracja po Tablicy</h2>
+<p>Indeksy tablic są kolejnymi liczbami całkowitymi. Dzięki temu struktury te można efektywnie przetwarzać za pomocą pętli. W pętli stosujemy zmienną sterującą <code>i</code> jako indeks. Rozmiar tablicy odczytujemy za pomocą funkcji <code>DŁUGOŚĆ(T)</code>.</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>Ceny = [100, 50, 20, 10]
+Suma = 0
+
+<p>rozmiar = DŁUGOŚĆ(Ceny)</p>
+<p>DLA i OD 0 DO rozmiar - 1</p>
+<pre><code>Suma = Suma + Ceny[i]
+</code></pre>
+<p>KONIEC DLA</p>
+<p>WYPISZ "Łączny koszt wynosi:"</p>
+<p>WYPISZ Suma<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<h3>🔁 Pętla do Zadań Specjalnych: Foreach</h3>
+<p>Klasyczna pętla <code>FOR</code> wymaga ręcznego kontrolowania indeksu za pomocą zmiennej sterującej. Często jednak nie interesuje nas sam numer indeksu, a jedynie wykonanie operacji na każdym elemencie po kolei.</p>
+<p>W tym celu w językach programowania wprowadzono uproszczoną instrukcję <span class="color-green">Foreach</span>. Przechodzi ona automatycznie przez całą strukturę. Chroni to programistę przed popełnieniem błędu wyjścia poza zakres tablicy.</p>
+<p>Oto jak wygląda porównanie tej logiki w różnych językach:</p>
+<p><span class="color-green">W języku C++ (pętla zakresowa):</span></p>
+<pre><code class="language-cpp">int ceny[] = {100, 50, 20, 10};
+for (int cena : ceny) {
+    std::cout &lt;&lt; cena &lt;&lt; std::endl;
+}
+</code></pre>
+<p><span class="color-green">W języku PHP (konstrukcja <code>foreach</code>):</span></p>
+<pre><code class="language-php">$ceny = [100, 50, 20, 10];
+foreach ($ceny as $cena) {
+    echo $cena;
+}
+</code></pre>
+<p><span class="color-green">W języku JavaScript (pętla <code>for...of</code> oraz metoda <code>forEach</code>):</span><br>JavaScript pozwala na użycie tradycyjnej pętli warunkowej lub metody wbudowanej. Druga opcja pozwala dodatkowo na łatwy dostęp do indeksu elementu.</p>
+<pre><code class="language-javascript">let ceny = [100, 50, 20, 10];
+
+// Pętla for...of:
+for (let cena of ceny) {
+    console.log(cena);
+}
+
+// Metoda forEach:
+ceny.forEach((cena, indeks) =&gt; {
+    console.log("Wartość: " + cena + " na pozycji: " + indeks);
+});
+</code></pre>
+<p>Taki zapis zwiększa czytelność kodu. Jeśli jednak potrzebujesz pełnej kontroli nad krokiem iteracji (np. odczytywania co drugiej wartości), klasyczny <code>FOR</code> z licznikiem pozostaje niezastąpiony.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧊 Struktury Wielowymiarowe: Macierze</h2>
+<p>Dotychczas omawialiśmy tablice jednowymiarowe. Reprezentują one pojedynczą linię danych. Wewnątrz komórek tablicy możemy jednak przechowywać kolejne tablice. W ten sposób powstają struktury wielowymiarowe. Znajdują one zastosowanie w grafice komputerowej, analizie danych oraz przetwarzaniu obrazów.</p>
+<p>Możemy je sklasyfikować następująco:</p>
+<ol>
+<li><span class="color-green">Tablice jednowymiarowe (1D):</span> Reprezentują pojedynczy wektor danych. Dostęp do elementu uzyskujemy za pomocą jednego indeksu, np. <code>T[x]</code>.</li>
+<li><span class="color-green">Tablice dwuwymiarowe (2D):</span> Reprezentują siatkę danych (macierz). Dostęp wymaga podania rzędu oraz kolumny w postaci dwóch indeksów, np. <code>T[y][x]</code>. Przykładem takiej struktury jest obraz cyfrowy, gdzie komórki odpowiadają pikselom.</li>
+<li><span class="color-green">Tablice trójwymiarowe (3D):</span> Reprezentują przestrzeń. Wymagają podania trzech współrzędnych, np. <code>T[z][y][x]</code>. Używa się ich do przechowywania modeli przestrzennych lub danych medycznych.</li>
+</ol>
+<p>Możliwe jest tworzenie tablic o jeszcze większej liczbie wymiarów, na przykład tablic 4D reprezentujących dane przestrzenne zmieniające się w czasie.</p>
+<h3>⚙️ Zastosowanie Praktyczne: Operacje na Macierzach</h3>
+<p>Macierze są strukturami danych, na których wykonuje się operacje matematyczne. Do najczęściej stosowanych należą:</p>
+<ol>
+<li><span class="color-green">Mnożenie przez skalar:</span> Polega na przemnożeniu każdego elementu macierzy przez stałą liczbę. Operację tę stosuje się np. przy rozjaśnianiu zdjęć cyfrowych, gdzie wartość każdego piksela jest zwiększana o określony współczynnik.</li>
+<li><span class="color-green">Dodawanie macierzy:</span> Wykonuje się je na macierzach o takich samych wymiarach poprzez dodanie wartości na odpowiadających pozycjach. Służy np. do nakładania filtrów graficznych na obrazy.</li>
+<li><span class="color-green">Mnożenie dwóch macierzy:</span> Przemnożenie dużego zbioru punktów (np. trójwymiarowego obiektu w grze) przez macierz transformacji pozwala na jego obrót lub skalowanie w przestrzeni. Procesory kart graficznych (GPU) są zoptymalizowane pod kątem wykonywania milionów takich operacji jednocześnie. Ta sama matematyka stanowi podstawę działania sieci neuronowych i sztucznej inteligencji.</li>
+</ol>
+<details>
+<summary><b>Dla dociekliwych: Jak te operacje wyglądają w praktyce? (To prostsze niż myślisz!)</b></summary>
+
+<p>Matematyka na macierzach jest niezwykle intuicyjna. Oto proste przykłady dla macierzy dwuwymiarowych ($2 \times 2$):</p>
+<p><b>1. Mnożenie przez skalar (stałą liczbę)</b><br>Mnożymy każdy element macierzy z osobna przez naszą liczbę (np. przez $2$):</p>
+<p>$$2 \cdot \begin{bmatrix} \textcolor{#ff0001}{1} &amp; \textcolor{#ff0002}{2} \\\\ \textcolor{#ff0003}{3} &amp; \textcolor{#ff0004}{4} \end{bmatrix} = \begin{bmatrix} 2 \cdot \textcolor{#ff0001}{1} &amp; 2 \cdot \textcolor{#ff0002}{2} \\\\ 2 \cdot \textcolor{#ff0003}{3} &amp; 2 \cdot \textcolor{#ff0004}{4} \end{bmatrix} = \begin{bmatrix} \textcolor{#ff0001}{2} &amp; \textcolor{#ff0002}{4} \\\\ \textcolor{#ff0003}{6} &amp; \textcolor{#ff0004}{8} \end{bmatrix}$$</p>
+<p><b>2. Dodawanie macierzy</b><br>Dodajemy do siebie liczby, które leżą na dokładnie tych samych pozycjach:</p>
+<p>$$\begin{bmatrix} \textcolor{#ff0001}{1} &amp; \textcolor{#ff0002}{2} \\\\ \textcolor{#ff0003}{3} &amp; \textcolor{#ff0004}{4} \end{bmatrix} + \begin{bmatrix} \textcolor{#ff0001}{5} &amp; \textcolor{#ff0002}{6} \\\\ \textcolor{#ff0003}{7} &amp; \textcolor{#ff0004}{8} \end{bmatrix} = \begin{bmatrix} \textcolor{#ff0001}{1}+\textcolor{#ff0001}{5} &amp; \textcolor{#ff0002}{2}+\textcolor{#ff0002}{6} \\\\ \textcolor{#ff0003}{3}+\textcolor{#ff0003}{7} &amp; \textcolor{#ff0004}{4}+\textcolor{#ff0004}{8} \end{bmatrix} = \begin{bmatrix} \textcolor{#ff0001}{6} &amp; \textcolor{#ff0002}{8} \\\\ \textcolor{#ff0003}{10} &amp; \textcolor{#ff0004}{12} \end{bmatrix}$$</p>
+<p><b>3. Mnożenie dwóch macierzy</b><br>Tutaj stosujemy zasadę <i>„wiersz razy kolumna”</i>. Aby obliczyć wartość w nowej macierzy, mnożymy elementy z wiersza pierwszej macierzy przez elementy z kolumny drugiej macierzy i dodajemy wyniki:</p>
+<p>$$\begin{bmatrix} \textcolor{#ff0001}{1} &amp; \textcolor{#ff0001}{2} \\\\ \textcolor{#ff0003}{3} &amp; \textcolor{#ff0003}{4} \end{bmatrix} \cdot \begin{bmatrix} \textcolor{#ff0002}{5} &amp; \textcolor{#ff0004}{6} \\\\ \textcolor{#ff0002}{7} &amp; \textcolor{#ff0004}{8} \end{bmatrix} = \begin{bmatrix} (\textcolor{#ff0001}{1} \cdot \textcolor{#ff0002}{5} + \textcolor{#ff0001}{2} \cdot \textcolor{#ff0002}{7}) &amp; (\textcolor{#ff0001}{1} \cdot \textcolor{#ff0004}{6} + \textcolor{#ff0001}{2} \cdot \textcolor{#ff0004}{8}) \\\\ (\textcolor{#ff0003}{3} \cdot \textcolor{#ff0002}{5} + \textcolor{#ff0003}{4} \cdot \textcolor{#ff0002}{7}) &amp; (\textcolor{#ff0003}{3} \cdot \textcolor{#ff0004}{6} + \textcolor{#ff0003}{4} \cdot \textcolor{#ff0004}{8}) \end{bmatrix} = \begin{bmatrix} 19 &amp; 22 \\\\ 43 &amp; 50 \end{bmatrix}$$</p>
+<p>Na przykład lewy górny róg ($19$) powstał z pomnożenia pierwszego wiersza $[\textcolor{#ff0001}{1}, \textcolor{#ff0001}{2}]$ pierwszej macierzy przez pierwszą kolumnę $[\textcolor{#ff0002}{5}, \textcolor{#ff0002}{7}]$ drugiej macierzy: </p>
+<p>$$\textcolor{#ff0001}{1} \cdot \textcolor{#ff0002}{5} + \textcolor{#ff0001}{2} \cdot \textcolor{#ff0002}{7} = 5 + 14 = 19$$</p>
+<hr>
+</details>
+
+<hr>
+<h3>👑 Zaawansowane Struktury: Tablice Obiektów</h3>
+<p>W programowaniu obiektowym tablice mogą przechowywać złożone obiekty (np. postacie w grze, przyciski interfejsu, konta użytkowników) zamiast samych liczb czy pojedynczych tekstów. Rozwiązanie to nazywamy <span class="color-green">tablicą obiektów</span>.</p>
+<p>Pozwala to kontrolować całe grupy elementów jednym prostym algorytmem. Wyobraź sobie sytuację z gry komputerowej:</p>
+<ul>
+<li><span class="color-green">Wyzwalacz (Trigger):</span> Gracz wchodzi w obszar wykrywania <span class="color-blue">jednego</span> ze strażników należących do pięcioosobowego patrolu.</li>
+<li><span class="color-green">Pobranie obiektów:</span> Silnik gry natychmiast pobiera całą powiązaną grupę i zapisuje wszystkich pięciu strażników z tego patrolu w tablicy o nazwie <code>Przeciwnicy</code>.</li>
+<li><span class="color-green">Iteracja i rozkaz:</span> Za pomocą pętli przechodzimy kolejno po każdym strażniku z patrolu, wydając mu polecenie namierzenia oraz zaatakowania gracza: <code>Przeciwnicy[i].ZlokalizujGracza()</code> oraz <code>Przeciwnicy[i].Zaatakuj()</code>.</li>
+</ul>
+<p>Dzięki tablicy obiektów nie musisz pisać osobnego kodu dla każdego z pięciu strażników. Cały patrol reaguje wspólnie i automatycznie.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Ciągły blok pamięci:</span> Tablica to struktura danych leżących bezpośrednio obok siebie w pamięci RAM. Zapewnia to mechanizm <span class="color-gold">Cache Locality</span> i gwarantuje wysoką wydajność obliczeń.</li>
+<li><span class="color-green">Statyczność i dynamika:</span> Tablice statyczne mają niezmienny rozmiar określony podczas kompilacji. Tablice dynamiczne potrafią automatycznie zwiększać swoją pojemność w trakcie działania programu.</li>
+<li><span class="color-green">Zasada indeksu zero:</span> Indeks reprezentuje <span class="color-gold">bias</span>, czyli przesunięcie (<span class="color-blue">offset</span>) względem początku tablicy. Pierwszy element ma indeks <code>T[0]</code>, a ostatni <code>T[DŁUGOŚĆ(T) - 1]</code>.</li>
+<li><span class="color-green">Sposoby iteracji:</span> Dane w tablicy odczytujemy sekwencyjnie za pomocą pętli <code>FOR</code> z indeksem lub uproszczonej pętli <code>FOREACH</code>.</li>
+<li><span class="color-green">Wielowymiarowość:</span> Przechowywanie tablic wewnątrz innych tablic pozwala tworzyć macierze 2D (obrazy) oraz przestrzenie 3D. Operacje matematyczne na macierzach stanowią podstawę grafiki komputerowej i uczenia maszynowego.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

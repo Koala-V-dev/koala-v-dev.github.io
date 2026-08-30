@@ -27,7 +27,7 @@ Czas na macierze i tablice wielowymiarowe.
 
 ---
 
-## Macierze w matematyce
+## 🔡 Macierze w matematyce
 
 Macierz to prostokątna tablica liczb, symboli lub wyrażeń, rozmieszczonych w wierszach i kolumnach. Najprostszy przykład macierzy: 
 
@@ -41,8 +41,10 @@ $tab2D = [
 ];
 ```
 
-Spróbujmy ją wyświetlić na stronie. Jaka struktura HTML pozwala na wyświetlanie tabelarycznych danych?  
-Na sam początek zapiszmy ręcznie kod html z danymi powyrzszej macierzy:
+Spróbujmy ją wyświetlić na stronie.  
+> Jaka struktura HTML pozwala na wyświetlanie tabelarycznych danych?
+
+Na sam początek zapiszmy ręcznie kod html z danymi powyższej macierzy:
 
 ```html
 <table>
@@ -56,16 +58,16 @@ Na sam początek zapiszmy ręcznie kod html z danymi powyrzszej macierzy:
     </tr>
 </table>
 ```
-Teraz zastanówmy się jak umieścić liczby z `$tab2$` w strukturę kodu HTML. Można to zrobić przy pomocy pętli `foreach`.
+Teraz zastanówmy się jak umieścić liczby z `$tab2D` w strukturę kodu HTML. Można to zrobić przy pomocy pętli `foreach`.
 
 ```php
-$tab2 = [
+$tab2D = [
     [1, 2],
     [3, 4]
 ];
 
 echo "<table>";
-foreach ($tab2 as $wiersz) {
+foreach ($tab2D as $wiersz) {
     echo "<tr>";
     foreach ($wiersz as $kolumna) {
         echo "<td>" . $kolumna . "</td>";
@@ -79,7 +81,9 @@ Lub przypisując ciało tabeli html jako string do zmiennej i wyświetlając dop
 
 ![Wizualizacja kodu](/public/courses/php/Images/macierz-w-tabeli-z-tablicy-2D.png)
 
-## Dodawanie wartości do macierzy
+---
+
+## ↔️ Dodawanie wartości do macierzy
 
 Uczyńmy teraz ten fragment kodu do wizualizacji macierzy jako funkcję:
 
@@ -106,7 +110,7 @@ function wizualizatorMacierzy(array $tablica2D): string
 }
 ```
 
-Przygotujmy przestrzń do wizualizacji dalszych działań na maciarzach.
+Przygotujmy przestrzeń do wizualizacji dalszych działań na macierzach.
 Potrzebujemy wrapera (może być to `div` z klasą *obliczenia*) i wstawimy do niego znaczniki tabeli oraz kodu php:
 
 ```html
@@ -191,9 +195,11 @@ foreach ($macierzA as $i => $wiersz) {
 
 > 🌟 Wykonaj samodzielnie odejmowanie macierzy.
 
-## Skalowanie macierzy
+---
 
-Macierz pomnożona przez pojedynczą liczbę zwaną skalerem jest niczym innym jak pomnożeniem każdego elementu macierzy przez tę daną liczbę.
+## ↗️ Skalowanie macierzy
+
+Macierz pomnożona przez pojedynczą liczbę zwaną skalarem jest niczym innym jak pomnożeniem każdego elementu macierzy przez tę daną liczbę.
 
 
 Przykład skalowania pięciokrotnego macierzy:
@@ -203,19 +209,19 @@ $$\begin{bmatrix} \textcolor{#ff0001}{a_{11}} & \textcolor{#ff0002}{a_{12}} \\\t
 Przy skalowaniu macierzy można wykorzystać dokładnie ten samo kod co przy dodawaniu z małą modyfikacją 
 
 ```php
-$skaler = 5;
+$skalar = 5;
 $macierzC = [];
 foreach ($macierzA as $i => $wiersz) {
     foreach ($wiersz as $j => $kolumna) {
-        $macierzC[$i][$j] = $kolumna * $skaler;
+        $macierzC[$i][$j] = $kolumna * $skalar;
     }
 }
 
 ```
 
-## Mnożenie macierzy przez macierz 
+## 🔃 Mnożenie macierzy przez macierz 
 
-Skaler okazał się banalny, ale co gdy zastąpimy go inną macierzą?
+Skalar okazał się banalny, ale co gdy zastąpimy go inną macierzą?
 
 By móc pomnożyć macierz przez macierz, liczba kolumn pierwszej macierzy musi być równa liczbie wierszy drugiej macierzy.
 
@@ -227,10 +233,10 @@ $$\begin{bmatrix}\textcolor{#ff0001}{a_{11}} & \textcolor{#ff0002}{a_{12}} \\\te
 
 Jak to oprogramować?  
 Na pewno skoro są to macierze to musimy mić pętlę zagnieżdżoną w pętli.  
-Różnica miedzy tym co pisaliśmy wcześniej czyli operacja przez pojedynczy skaler na każdej wartości lub arytmetyka wartości elementów dwóch tablic o tych samych pozycjach to za mało.
+Różnica miedzy tym co pisaliśmy wcześniej czyli operacja przez pojedynczy skalar na każdej wartości lub arytmetyka wartości elementów dwóch tablic o tych samych pozycjach to za mało.
 
 W powyższym widgecie aby uzyskać wynik $19$ musimy wziąć:
-*Macierz A* i pomnożyć jej wartość z pozycji `A[0][0]` przez *macierz B* i wartość z pozycji `B[0][0]`. Następnie w tym samym kroku wziąć kolejną wartość `A[0][1]` i pomnożyć ją przez *macierz B* i wartość z pozycji `B[1][0]`. Sumując te wyniki otrzymujemy wartość pierwszego elementu *macierzy C* w pierwszym wierszu.
+*Macierz A* i pomnożyć jej wartość z pozycji `A[0][0]` przez *macierz B* i wartość z pozycji `B[0][0]`. Następnie w tym samym kroku wziąć kolejną wartość `A[0][1]` i pomnożyć ją przez *macierz B* i wartość z pozycji `B[1][0]`. Sumując te wyniki otrzymujemy wartość pierwszego elementu *macierzy C*.
 
 Patrzymy co jeszcze można obliczyć bez zmiany wiersza operacyjnego *macierzy A*.  
 Jest to wartość $22$ w *macierzy C*.  
@@ -246,9 +252,6 @@ Pewnie już zauważyłeś że proces jest powtarzalny więc warto się posłuży
 1. Pętla główna (zawiera wiersze macierzy)
 2. Pierwsze zagnieżdżenie pętli (zawiera kolumny: elementy z danego wiersza)
 3. Kolejne zagnieżdżenie pętli (wykonuje działania ilorazu i sumuje wyniki dla każdego elementu danej kolumny w wierszu)
-
-
-
 
 Przygotujmy sobie podstawową strukturę do dalszego rozkminiania:
 
@@ -272,13 +275,15 @@ W powyższym kodzie, pierwsza pętla $i$ przechodzi przez wiersze *macierzy A*.
 Druga pętla $j$ przechodzi przez kolumny *macierzy B*.  
 Potem mamy kolejną zagnieżdżoną pętlę która ma się wykonać tyle razy ile w wierszu jest wartości. 
 
+---
+
 Jakie dać referencje i gdzie użyć wartości `$i`, `$j`, `$k`? Najlepszą metodą jest metoda prób i błędów.
 
 Zastanawiałem się dłuższą chwilę aż postanowiłem uruchomić painta i sobie to rozrysować:
 
 ![Mnożenie macierzy rozkminianie problematyki rysowaniem bazgrołów w paincie](/public/courses/php/Images/macierze-paint.png)
 
-Do zagnieżdżonej trzecie pętli wprowadziłem kod do wypisywania sobie wartości które będą mi potrzebne do obliczeń:
+Do zagnieżdżonej trzeciej pętli wprowadziłem kod do wypisywania sobie wartości które będą mi potrzebne do obliczeń:
 
 ```php
 echo "<pre>";
@@ -294,6 +299,8 @@ Gdy udało mi się znaleźć odpowiednie umiejscowienie iteratorów w tablicach 
 
 ![Wyszukiwanie odpowiednich pozycji](/public/courses/php/Images/macierze-wyszukiwanie-odpowiednich-pozycji.png)
 
+---
+
 Utworzyłem zmienną pomocniczą `$tempValue` i zainicjalizowałem jej wartość jako $0$. Umieszczając ją przed pętlą `for` a już w samej pętli `for` dodawałem do zmiennej `$tempValue` wyniki mnożenia kolejnych par. 
 ```php
 $tempValue += $macierzA[$i][$k] * $macierzB[$k][$j];
@@ -308,6 +315,8 @@ $macierzC[$i][$j] = $tempValue;
 Koniec końców udało mi się zrealizować postawiony cel mnożenia macierzy przez drugą macierz:
 
 ![Mnożenie macierzy przez macierz](/public/courses/php/Images/funkcja-ilorazu-dwóch-macierzy.png)
+
+---
 
 Jednak ten kod nie jest idealny. Twoim zadaniem bedzie poprawić go.
 - Zmienna `$kolumna` jest zadeklarowana lecz nigdy nie używana. Zapisz tą pętlę bez potrzeby deklaracji zbędnej zmiennej np.: jako `for`.

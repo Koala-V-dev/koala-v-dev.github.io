@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Typy danych i pamięć - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">logika-i-algorytmy-pseudokod</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Algorytmiki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Algorytmy i Sekwencje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Algorytmy%20i%20Sekwencje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy i Sekwencje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Schematy blokowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Schematy%20blokowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Schematy blokowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pseudokod"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Pseudokod.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pseudokod</a></li><li class="module">Moduł 1: Logika i Pamięć</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Typy danych i pamięć"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Typy%20danych%20i%20pami%C4%99%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy danych i pamięć</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operatory arytmetyczne i logiczne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Operatory%20arytmetyczne%20i%20logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operatory arytmetyczne i logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Instrukcje warunkowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Instrukcje%20warunkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje warunkowe</a></li><li class="module">Moduł 2: Sterowanie Przepływem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instrukcje iteracyjne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Instrukcje%20iteracyjne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje iteracyjne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Tablice"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Tablice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Funkcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Typy Danych i Pamięć Fizyczna: Świadomość danych i zasobów</h1>
+<p>Z poprzedniego modułu wiesz, że zmienna to zarezerwowany obszar w pamięci RAM, do którego odwołujemy się za pomocą etykiety. Komputer to jednak urządzenie w pełni inżynieryjne – nie potrafi zgadywać. Jeśli zapiszesz w pamięci sygnał, musisz jednoznacznie zadeklarować maszynie, w jaki sposób ma go interpretować. Do tego służą <span class="color-green">Typy Danych</span>.</p>
+<p>Wszystko w komputerze to ciąg zer i jedynek. Ten sam fizyczny ciąg bitów może być na ekranie wyświetlony jako liczba <code>65</code>, a w innym przypadku jako litera <code>"A"</code>. Zrozumienie różnicy pomiędzy typami pozwala uniknąć katastrofalnych błędów już na poziomie pisania kodu.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Czym fizycznie jest Pamięć RAM?</h2>
+<p>Zanim przejdziemy do typów, musimy zdefiniować samo zjawisko <span class="color-green">Pamięci</span>. Zmienna nie unosi się w magicznej chmurze. Pamięć RAM (Random Access Memory) to fizyczna siatka miliardów mikroskopijnych kondensatorów i tranzystorów na płycie głównej. </p>
+<p>Kiedy w pseudokodzie piszesz <code>wiek = 18</code>, system operacyjny:</p>
+<ol>
+<li>Szuka wolnego bloku w tej siatce krzemu.</li>
+<li>Rezerwuje go dla Twojego programu.</li>
+<li>Fizycznie ładuje wybrane kondensatory prądem (stan $1$), a inne rozładowuje (stan $0$), aby zapisać binarną formę liczby 18.</li>
+<li>Zwraca Ci <span class="color-green">Adres Pamięci</span> (np. <code>0x1A4F</code>), który kompilator ukrywa pod przyjazną dla Ciebie nazwą <code>wiek</code>.</li>
+</ol>
+<p>Każda komórka ma swój z góry określony rozmiar. Jeśli chcesz przechować w niej znak, procesor musi wiedzieć, ile dokładnie kondensatorów ma do dyspozycji. Dlatego właśnie system musi znać <span class="color-green">Typ Danych</span>.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Wyrównanie danych w pamięci</span><br>Pamięć RAM jest podzielona na komórki o rozmiarze $1\text{ bajta}$. Współczesne procesory $64\text{-bitowe}$ odczytują pamięć blokami po $8\text{ bajtów}$. Kompilatory automatycznie wyrównują zmienne w pamięci. Brak wyrównania sprawiłby, że np. $4\text{-bajtowa}$ liczba mogłaby zostać podzielona na dwa bloki, co wymusiłoby na procesorze wykonanie dwóch odczytów zamiast jednego.</p>
+
+</div>
+</div><p>Poniżej znajdziesz reprezentację ułożenia danych w RAM (od lewej do prawej), gdzie jeden kwadrat to $1\text{ bajt}$:</p>
+<figure>
+<img aria-describedby="diagram-schemat-wizualizujacy-ulo" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/logika-i-algorytmy-pseudokod/Images/Rozmieszczenie-zmiennych-w-komórkach-pamięci-RAM.webp" alt="Schemat wizualizujący ułożenie zmiennych w komórkach pamięci RAM o szerokości 8 bajtów z uwzględnieniem dopełnienia (paddingu) i wyrównania." width="1102" height="621" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-schemat-wizualizujacy-ulo">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Diagram ilustruje różne sposoby alokacji zmiennych w pamięci RAM, która jest zorganizowana w 8‑bajtowe wiersze. Zestawia ze sobą poprawne i błędne ułożenie danych (ang. memory alignment), ukazując zjawiska dopełnienia (paddingu) oraz wyrównania strukturalnego.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Struktura pamięci RAM (wiersze 8‑bajtowe)</span>: legenda rozmiarów typów danych: <code>bool</code> zajmuje 1 bajt (niebieski), <code>int</code> 4 bajty (zielony), <code>float</code> 4 bajty (czerwony), <code>double</code> 8 bajtów (pomarańczowy), a <code>char</code> 1 bajt (fioletowy).</li>
+<li><span class="color-green">Dobre rozmieszczenie z zastosowanym dopełnieniem</span>: ukazuje 1‑bajtowy <code>bool</code> oraz 1‑bajtowy <code>char</code> na początku pierwszego wiersza. Ponieważ 4‑bajtowy <code>int</code> wymaga adresacji podzielnej przez 4, dodano 2 puste bajty dopełnienia (paddingu), a <code>int</code> rozpoczyna się od indeksu 4. Następnie w nowym wierszu znajduje się 4‑bajtowy <code>float</code> oraz 8‑bajtowy <code>double</code> w całości zajmujący trzeci wiersz.</li>
+<li><span class="color-green">Złe rozmieszczenie</span>: ukazuje zmienne ułożone bezpośrednio po sobie bez dopełnienia. 4‑bajtowy <code>int</code> zaczyna się natychmiast po 1‑bajtowym <code>bool</code>, co powoduje, że 4‑bajtowy <code>float</code> zostaje podzielony: dwa bajty znajdują się na końcu pierwszego wiersza, a dwa pozostałe na początku drugiego wiersza. Wymusza to na procesorze wykonanie dwóch odczytów.</li>
+<li><span class="color-green">Wyrównanie optymalne</span>: prezentuje optymalizację struktury danych. Największa zmienna (8‑bajtowy <code>double</code>) zajmuje w całości pierwszy wiersz. Drugi wiersz w pełni wypełniają 4‑bajtowy <code>int</code> oraz 4‑bajtowy <code>float</code>. Zmienne 1‑bajtowe (<code>bool</code> i <code>char</code>) zostały zgrupowane razem w trzecim wierszu, eliminując potrzebę pustego dopełnienia.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Schemat wizualizujący ułożenie zmiennych w komórkach pamięci RAM o szerokości 8 bajtów z uwzględnieniem dopełnienia (paddingu) i wyrównania.",
+  "description": "Diagram ilustruje różne sposoby alokacji zmiennych w pamięci RAM, która jest zorganizowana w 8-bajtowe wiersze. Zestawia ze sobą poprawne i błędne ułożenie danych (ang. memory alignment), ukazując zjawiska dopełnienia (paddingu) oraz wyrównania strukturalnego.",
+  "keywords": "Schemat, wizualizujący, ułożenie, zmiennych, komórkach, pamięci, szerokości"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Kompilator i Interpreter: Weryfikacja Typu</h2>
+<p>Języki programowania różnią się sposobem zarządzania pamięcią dla danych.</p>
+<ul>
+<li><span class="color-green">Języki statycznie typowane (C++, C#, Java):</span> Typ zmiennej musisz zadeklarować bezpośrednio w kodzie. Przed uruchomieniem programu <span class="color-green">kompilator</span> analizuje strukturę kodu i precyzyjnie planuje układ danych (nie rezerwuje fizycznego RAM‑u, lecz określa, ile bajtów będzie na co potrzebne). Gdy deklarujesz <code>int wiek = 18;</code>, kompilator rezerwuje dla tej zmiennej dokładnie $4\text{ bajty}$ w strukturze programu. Fizyczną pamięć przydzieli dopiero <span class="color-green">system operacyjny</span> w momencie uruchomienia aplikacji. Ponieważ typ i rozmiar są z góry zablokowane, próba przypisania tekstu do liczby wywoła błąd kompilacji.</li>
+<li><span class="color-green">Języki dynamicznie typowane (JavaScript, PHP, Python):</span> Nie wymagają deklarowania typów. <span class="color-green">Interpreter</span> analizuje kod linijka po linijce w trakcie działania programu. Dopiero w momencie wykonania instrukcji <code>wiek = 18</code> interpreter prosi system operacyjny o przydzielenie pamięci na liczbę. Zapisanie w kolejnym kroku <code>wiek = "osiemnaście"</code> sprawia, że interpreter alokuje nowy obszar pamięci na tekst i przepina tam etykietę zmiennej. Nieużywana komórka zostanie później usunięta przez automatyczny mechanizm oczyszczania pamięci (ang. <span class="color-blue">Garbage Collector</span>).</li>
+</ul>
+<figure>
+<img aria-describedby="diagram-schemat-porownujacy-cykl" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/logika-i-algorytmy-pseudokod/Images/kompilator-vs-Interpreter.webp" alt="Schemat porównujący cykl życia kodu w językach kompilowanych i interpretowanych." width="932" height="491" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-schemat-porownujacy-cykl">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Diagram zestawia architekturę działania języków kompilowanych (np. C++) oraz interpretowanych (np. JS, PHP, Python). Zobrazowano na nim, jak kod źródłowy przekształca się w proces uruchomiony w pamięci w obu środowiskach.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Języki kompilowane np.: C++ (górna sekcja)</span>: proces składa się z dwóch etapów. Plik źródłowy poddawany jest kompilacji przez kompilator, który generuje plik binarny zapisywany na dysku. Uruchomienie tego pliku tworzy proces w pamięci.</li>
+<li><span class="color-green">Języki interpretowane np.: JS, PHP, Python (dolna sekcja)</span>: proces jest bezpośredni. Plik źródłowy podlega interpretacji w locie. Interpreter czyta kod i wykonuje instrukcje bezpośrednio w pamięci RAM bez tworzenia pliku binarnego.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Schemat porównujący cykl życia kodu w językach kompilowanych i interpretowanych.",
+  "description": "Diagram zestawia architekturę działania języków kompilowanych (np. C++) oraz interpretowanych (np. JS, PHP, Python). Zobrazowano na nim, jak kod źródłowy przekształca się w proces uruchomiony w pamięci w obu środowiskach.",
+  "keywords": "Schemat, porównujący, cykl, życia, kodu, językach, kompilowanych"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>W językach takich jak PHP czy JavaScript typowanie jest dynamiczne oraz słabe. Oznacza to, że interpreter potrafi automatycznie konwertować typy (np. dodać liczbę do tekstu).<br>Użycie dyrektyw <code>use strict;</code> w JavaScript lub <code>declare(strict_types=1);</code> w PHP ogranicza te automatyczne konwersje, lecz nie zmienia tych języków w statycznie typowane. Typy są nadal sprawdzane w trakcie działania programu.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Kompilacja nie musi być od razu ostateczna. Języki C# i Java dzielą ten proces na dwa etapy: </p>
+<ol>
+<li>kompilację do kodu pośredniego bajtowego (ang. <span class="color-blue">Intermediate Language</span>, <span class="color-green">IL</span>) </li>
+<li>finalną kompilację do kodu maszynowego (binarnego CPU) w trakcie działania programu (ang. <span class="color-blue">Just‑in-Time Compilation</span>, <span class="color-green">JIT</span>).<br>Podobny mechanizm stosuje się przy shaderach w grach gdzie przy pierwszym uruchomieniu kodu pośredni jest kompilowany do maszynowego GPU.</li>
+</ol>
+<p>To rozwiązanie minimalizuje konieczność dostosowywania kodu pod każdą możliwą konfigurację sprzętu klienta i zainstalowanych na nich sterownikach. </p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Prymitywne Typy Danych</h2>
+<p>Prymitywne typy danych są wbudowane bezpośrednio w architekturę sprzętową procesorów i stanowią fundament zapisu informacji.</p>
+<h3>🔢 1. Liczby Całkowite (Integer)</h3>
+<p>Przeznaczone są do precyzyjnych obliczeń arytmetycznych bez ułamków, na przykład <code>0</code>, <code>5</code>, <code>-42</code>.</p>
+<ul>
+<li><span class="color-green">Zastosowanie:</span> Stosowane jako liczniki w pętlach, indeksy tablic oraz do zliczania obiektów.</li>
+</ul>
+<h3>🎚️ 2. Liczby Zmiennoprzecinkowe (Float / Double)</h3>
+<p>Reprezentują liczby ułamkowe, na przykład <code>3.14</code>, <code>-0.5</code>, <code>100.0</code>. W informatyce ułamki zawsze oddzielamy kropką.</p>
+<ul>
+<li><span class="color-green">Zastosowanie:</span> Obliczenia fizyczne, wektory współrzędnych, systemy finansowe. Reprezentacja zmiennoprzecinkowa ma ograniczoną precyzję (np. operacja $0.1 + 0.2$ w wielu językach daje wynik <code>0.30000000000000004</code>).</li>
+</ul>
+<h3>⚖️ 3. Wartości Logiczne (Boolean)</h3>
+<p>Najmniejsza jednostka informacji. Przyjmuje wyłącznie jeden z dwóch stanów:<br><span class="color-green">prawda (<code>true</code> / <code>1</code>)</span> lub <span class="color-red">fałsz (<code>false</code> / <code>0</code>)</span>.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Konwersje typów w warunkach logicznych</span><br>Przekazywanie wartości liczbowych lub pustych jako warunek instrukcji warunkowej <code>if</code> zależy od reguł wybranego języka programowania.</p>
+<ol>
+<li><p><b>Języki o ścisłym typowaniu (Java, C#):</b><br>Nie obsługują pojęcia wartości niejawnie prawdziwych lub fałszywych (ang. <span class="color-blue">truthy/falsy values</span>). Warunek instrukcji <code>if</code> musi być wyrażeniem logicznym. Wprowadzenie instrukcji <code>if (0)</code> wywoła błąd kompilacji.</p>
+</li>
+<li><p><b>Język C++:</b><br>Pozwala na automatyczną konwersję na typ logiczny dla typów liczbowych (wartość <code>0</code> jest traktowana jako fałsz, inne jako prawda) oraz wskaźników (brak adresu <code>nullptr</code> to fałsz). Wprowadzenie pustego tekstu <code>if (std::string(""))</code> wywoła błąd kompilacji.</p>
+</li>
+<li><p><b>Języki o dynamicznym typowaniu (JavaScript, Python, PHP):</b><br>Interpretery konwertują wartości na fałsz (<span class="color-red">Falsy</span>) lub prawdę (<span class="color-green">Truthy</span>) podczas wykonywania programu.</p>
+</li>
+</ol>
+<p>Różnice między językami przedstawia poniższa tabela:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Wartość w warunku <code>if</code></th>
+<th align="left">JavaScript (JS)</th>
+<th align="left">Python</th>
+<th align="left">PHP</th>
+<th align="left">C++ (Niejawna konwersja)</th>
+<th align="left">Java / C#</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-gold"><code>0</code></span> (Liczba zero)</td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>""</code></span> (Pusty tekst)</td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>"0"</code></span> (Tekst z cyfrą zero)</td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span> <span class="color-blue">(Quirk PHP!)</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>null</code> / <code>None</code> / <code>nullptr</code></span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>NaN</code></span> (Not a Number)</td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>[]</code></span> (Pusta tablica)</td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>{}</code></span> (Pusty obiekt)</td>
+<td align="left">✅ <span class="color-green">Truthy</span></td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left"><span class="color-green">✅ Truthy</span> <span class="color-blue">(stdClass)</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+<td align="left"><span class="color-blue">Błąd (Wymaga bool)</span></td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold"><code>undefined</code></span> (Brak wartości)</td>
+<td align="left">❌ <span class="color-red">Falsy</span></td>
+<td align="left">(Brak typu)</td>
+<td align="left">(Brak typu)</td>
+<td align="left">(Brak typu)</td>
+<td align="left">(Brak typu)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Różnice interpretacji:</span></p>
+<ul>
+<li><span class="color-green">JavaScript (JS):</span> Pusta tablica <code>[]</code> oraz pusty obiekt <code>{}</code> są traktowane jako prawda (<span class="color-green">Truthy</span>).</li>
+<li><span class="color-green">Python:</span> Pusta lista <code>[]</code> oraz pusty słownik <code>{}</code> są traktowane jako fałsz (<span class="color-green">Falsy</span>).</li>
+<li><span class="color-green">PHP (ciąg tekstowy <code>"0"</code>):</span> Ciąg znaków zawierający pojedyncze zero jest fałszem (<span class="color-green">Falsy</span>). Wynika to z obsługi danych z formularzy HTML.</li>
+<li><span class="color-green">PHP (klasa <code>stdClass</code>):</span> Pusty obiekt klasy <code>stdClass</code> jest zawsze traktowany jako prawda (<span class="color-green">Truthy</span>), mimo że pusta tablica <code>[]</code> jest fałszem.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><h3>🔤 4. Łańcuchy Znaków (String)</h3>
+<p>Tekst reprezentuje sekwencję liter, cyfr lub symboli. Łańcuch znaków zapisujemy w cudzysłowach, na przykład <code>"Ala ma kota"</code>, <code>"5"</code>. Wartość <code>"5"</code> nie jest liczbą, lecz znakiem i nie można na niej wykonywać operacji arytmetycznych.</p>
+<p>W ujęciu technicznym string jest tablicą znaków <code>Char[]</code>. Każdy znak jest reprezentowany jako liczba całkowita zgodna z wybranym standardem kodowania (np. ASCII lub UTF‑8). Oznacza to, że:</p>
+<ul>
+<li>Każdy znak posiada przypisany numer kodowy.</li>
+<li>Każdy znak zajmuje komórkę pamięci o stałym rozmiarze.</li>
+<li>Cały tekst jest przechowywany jako ciąg bajtów leżących obok siebie w pamięci RAM.</li>
+</ul>
+<p>Przykład:<br>W napisie <code>"Hasło"</code> litera <code>H</code> znajduje się w pierwszej komórce tablicy, <code>a</code> w drugiej, <code>s</code> w trzeciej itd.<br>Każdy z tych znaków jest fizycznie reprezentowany jako liczba (np. <code>H = 72</code> w ASCII), a cały <code>String</code> jest liniową strukturą pamięci.</p>
+<hr>
+<data-gate>
+  <data-connection-matcher title="Dopasuj konkretną wartość do jej typu">
+    <div class="cmw-item" data-left="`5`" data-right="liczba całkowita (`Integer`)"></div>
+    <div class="cmw-item" data-left="`&quot;100&quot;`" data-right="tablica znaków (`String`)"></div>
+    <div class="cmw-item" data-left="`True`" data-right="wartość logiczna (`Boolean`)"></div>
+    <div class="cmw-item" data-left="`3.14`" data-right="liczba zmiennoprzecinkowa (`Float`)"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Mutacje: Konkatenacja i Sklejanie Typów</h2>
+<p>Słabe typowanie pozwala na automatyczne mieszanie typów danych w obliczeniach. Częstym źródłem błędów jest próba łączenia liczby z tekstem.</p>
+<p>Zjawisko to nosi nazwę <span class="color-green">konkatenacji</span>. Przy poleceniu <code>5 + "5"</code> kompilator lub interpreter nie wykona dodawania arytmetycznego. Przekształci on liczbę w tekst i połączy oba ciągi, generując napis <code>"55"</code>.</p>
+<p>Konkatenacja to strukturalne wiązanie tablic znaków. Różne staki technologiczne posiadają do tego różne operatory:</p>
+<ul>
+<li>W JS, C++, Java oraz Pseudokodzie jest to <code>+</code>.</li>
+<li>W PHP rolę sklejania pełni kropka <code>.</code>, a operator <code>+</code> wymusza twardą matematykę, przez co próba dodania <code>"5" + 5</code> w PHP zadziała jak dodawanie.<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+Konkatenacja kropką w PHP musi być oddzielona spacją gdy występuje bezpośrednio przy cyfrze, aby interpreter nie pomylił jej z kropką dziesiętną. Zapis <code>4.5</code> oznacza liczbę ($4.5$), natomiast zapis <code>4 . 5</code> generuje tekst <code>"45"</code>.
+</div>
+</div></li>
+</ul>
+<data-gate>
+<data-pseudocode-runner>
+<pre>a = "5"
+b = 5
+czyGotowy = PRAWDA
+
+<p>WYPISZ "Obliczanie a + b (String + Number):"</p>
+<p>c = a + b</p>
+<p>WYPISZ "To klasyczna Konkatenacja! Wynik:"</p>
+<p>WYPISZ c</p>
+<p>WYPISZ "---"</p>
+<p>WYPISZ "Obliczanie b + b + 0.4 (Number + Number + Float):"</p>
+<p>d = b + b + 0.4</p>
+<p>WYPISZ "Twarda arytmetyka! Wynik:"</p>
+<p>WYPISZ d<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>Kontrola nad typami danych jest kluczowa dla stabilności oprogramowania. Niewłaściwa konwersja typów w trakcie działania programu prowadzi do błędów logicznych.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">RAM to fizyczny nośnik:</span> Zmienne są przechowywane w komórkach pamięci składających się z kondensatorów. Typ danych informuje procesor, jak interpretować te bity.</li>
+<li><span class="color-green">Kompilator a interpreter:</span> Języki statyczne wymagają sztywnej deklaracji przed uruchomieniem. Języki dynamiczne dopasowują typy w locie.</li>
+<li><span class="color-green">Wartości logiczne i rzutowanie:</span> Zero, pusty tekst oraz brak wartości mogą być rzutowane na fałsz (Falsy). Zasady te różnią się między językami (np. quirk z <code>"0"</code> w PHP).</li>
+<li><span class="color-green">Struktura tekstu:</span> String jest tablicą znaków <code>Char[]</code>, w której każda litera odpowiada konkretnemu indeksowi i numerowi w standardzie kodowania.</li>
+<li><span class="color-green">Konkatenacja:</span> Łączenie tekstu z liczbą powoduje automatyczną konwersję na typ tekstowy. Należy kontrolować ten proces w zależności od stosowanego języka.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

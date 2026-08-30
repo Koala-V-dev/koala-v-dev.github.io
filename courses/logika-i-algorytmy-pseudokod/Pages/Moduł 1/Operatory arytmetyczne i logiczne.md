@@ -23,9 +23,9 @@ Operator Modulo zwraca **resztę z dzielenia całkowitego**. W kodzie zapisujemy
 
 Oto najważniejsze zastosowania tego operatora:
 
-1. **Badanie parzystości:** Jeśli wyrażenie `X \\% 2` daje wynik `0`, liczba jest parzysta. Wynik `1` oznacza liczbę nieparzystą. Służy to do filtrowania zbiorów danych.
-2. **Kontrola cykliczności:** Pozwala ograniczyć wartości do stałego przedziału. Przykładowo, po dodaniu godzin do czasu dobowego stosujemy Modulo $24$. Wynik `37 \\% 24` da poprawną godzinę `13`.
-3. **Pętle w grach:** Służy do zapętlania ruchu obiektów. Przykładem jest wywoływanie animacji podczas przemieszczania postaci w przestrzeni.
+1. **Badanie parzystości:** Jeżeli wyrażenie `x % 2` daje wynik `0`, liczba jest parzysta. Wynik `1` oznacza liczbę nieparzystą. Służy to do filtrowania zbiorów danych.
+2. **Kontrola cykliczności:** Pozwala ograniczyć wartości do stałego przedziału. Przykładowo, po dodaniu godzin do czasu dobowego stosujemy Modulo $24$. Wynik `37 % 24` da poprawną godzinę `13`.
+3. **Pętle w grach:** Służy do zapętlania ruchu obiektów. Przykładem jest wywoływanie animacji zatrzymania się postaci tak by nie było klatkowego przeskoku pomiędzy animacją `RUN` a `IDLE`. 
 
 Zbadaj działanie Modulo w poniższym symulatorze. Klikaj przycisk <kbd>⏭ Krok</kbd> i obserwuj, jak maszyna wylicza czas po przekroczeniu pełnej doby.
 
@@ -36,10 +36,12 @@ czasObecny = 14
 czasTrwania = 15
 
 WYPISZ "Obliczanie czasu przy uzyciu Modulo 24:"
+
 czasDostawy = (czasObecny + czasTrwania) % 24
 
 WYPISZ "Kurier bedzie o godzinie:"
-WYPISZ czasDostawy
+
+WYPISZ czasDostawy + ":00"
 </pre>
 </data-pseudocode-runner>
 </data-gate>
@@ -67,7 +69,7 @@ Gdy modyfikujesz wartość o inną wielkość niż 1, możesz połączyć znak d
 * `x *= 2` zastępuje pełny zapis `x = x * 2`.
 * `x /= 10` zastępuje pełny zapis `x = x / 10`.
 
-Taki zapis ułatwia optymalizację kodu. Informuje kompilator, że operacja jest wykonywana bezpośrednio na tym samym adresie w pamięci RAM.
+Taki zapis pozwala czasem na prostszy zapis kodu maszynowego, ale nie zawsze. Po prostu krótsza forma jest przyjemniejsza w późniejszym czytaniu kodu. 
 
 ---
 
@@ -88,7 +90,7 @@ Główna zasada działania: porównanie zawsze zwraca wynik w postaci typu logic
 Przeanalizuj poniższy przykład:
 `wynikTestu = (5 > 10)`
 
-Zmienna `wynikTestu` otrzyma wartość **_FAŁSZ_**, ponieważ liczba 5 nie jest większa od 10.
+Zmienna `wynikTestu` otrzyma wartość **_FAŁSZ_**, ponieważ liczba $5$ nie jest większa od $10$.
 
 ---
 
@@ -125,14 +127,15 @@ Operator logiczny `NOT` odwraca wartość logiczną. Zmienia stan **PRAWDA** na 
 
 ---
 
-## ⚡ Optymalizacja Obliczeń: Short-Circuit Evaluation
+## ⚡ Optymalizacja Obliczeń
 
 Współczesne kompilatory i procesory optymalizują wykonywanie testów logicznych. Korzystają z mechanizmu określanego jako **leniwe wartościowanie (Short-Circuit Evaluation)**.
 
 Rozważmy następujące wyrażenie:
 `(A == 5) OR (B == 10) OR (C == 100)`
 
-Co zrobi procesor, jeśli zmienna `A` ma wartość `5`? 
+> Co zrobi procesor, jeśli zmienna `A` ma wartość `5`? 
+
 Bramka `OR` daje wynik prawdziwy, jeśli przynajmniej jeden element jest spełniony. Ponieważ procesor analizuje kod od lewej do prawej, kończy sprawdzanie od razu po potwierdzeniu pierwszego warunku. System nie traci czasu na odczytywanie z pamięci RAM wartości zmiennych `B` oraz `C`.
 
 Podobna optymalizacja zachodzi dla operatora `AND`. Jeśli pierwszy warunek od lewej daje wynik **_FAŁSZ_**, całe wyrażenie na pewno będzie fałszywe. Procesor natychmiast przerywa dalsze sprawdzanie.
@@ -154,8 +157,6 @@ Maszyna stosuje następującą hierarchię priorytetów:
 > [!TIP]
 > **Dobra praktyka programistyczna:** Nawet jeśli znasz priorytety operatorów, w kodzie komercyjnym zaleca się stosowanie nawiasów. Zapis `((A + B) > C) AND (D == 5)` jest znacznie czytelniejszy i eliminuje ryzyko pomyłek przy interpretacji logiki programu.
 
-Opanowanie tego dokumentu to zamknięcie bram przed wejściem w Instrukcje Warunkowe. Stajesz się architektem. Znasz typy prądu (Zmienne) i narzędzia do ich spawania (Operatory). Czas zbudować z tego mosty, czyli tzw. Control Flow.
-
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
@@ -164,4 +165,4 @@ Opanowanie tego dokumentu to zamknięcie bram przed wejściem w Instrukcje Warun
 - **Przypisanie to nie porównanie.** Pojedynczy znak `=` zapisuje dane pod wskazany adres w pamięci RAM. Podwójny znak `==` to operator porównania, który zawsze zwraca wartość logiczną.
 - **Optymalizacja Short-Circuit.** Bramki logiczne `AND` oraz `OR` są sprawdzane od lewej do prawej. Procesor natychmiast przerywa badanie warunku, gdy końcowy wynik logiczny jest już pewny.
 - **Stosowanie nawiasów.** Używanie nawiasów okrągłych eliminuje potrzebę domyślania się hierarchii operatorów. Chroni to kod przed powstawaniem błędów logicznych.
-- **Mutacje stanu.** Operatory takie jak `++`, `--` oraz przypisania łączne (np. `+=`) pozwalają na wydajniejszą modyfikację komórek pamięci.
+- **Mutacje stanu.** Operatory takie jak `++`, `--` oraz przypisania łączne (np. `+=`) pozwalają na czytelniejszy i krótszy zapis kodu.

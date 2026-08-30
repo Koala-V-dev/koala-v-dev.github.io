@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Instrukcje iteracyjne - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">logika-i-algorytmy-pseudokod</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Algorytmiki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Algorytmy i Sekwencje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Algorytmy%20i%20Sekwencje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy i Sekwencje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Schematy blokowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Schematy%20blokowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Schematy blokowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pseudokod"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Pseudokod.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pseudokod</a></li><li class="module">Moduł 1: Logika i Pamięć</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Typy danych i pamięć"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Typy%20danych%20i%20pami%C4%99%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy danych i pamięć</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operatory arytmetyczne i logiczne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Operatory%20arytmetyczne%20i%20logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operatory arytmetyczne i logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Instrukcje warunkowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Instrukcje%20warunkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje warunkowe</a></li><li class="module">Moduł 2: Sterowanie Przepływem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instrukcje iteracyjne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Instrukcje%20iteracyjne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje iteracyjne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Tablice"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Tablice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Funkcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Instrukcje Iteracyjne: Czystrzy przepływ</h1>
+<p>Programowanie opiera się na automatyzacji. Jeśli musisz wykonać tę samą czynność wielokrotnie, nie powtarzasz tych samych linijek kodu. Komputer doskonale radzi sobie z powtarzalnymi zadaniami. Służą do tego <span class="color-green">instrukcje iteracyjne</span>, powszechnie nazywane pętlami.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Zasada DRY (Don't Repeat Yourself)</span><br>Unikaj powielania tych samych fragmentów kodu metodą kopiuj‑wklej. Wyobraź sobie, że po napisaniu takiego zduplikowanego kodu klient nagle zażąda zmiany jednej funkcji. Czeka Cię wtedy skrajnie upierdliwe poprawianie kodu w $100$, $200$, a nawet $1000$ miejscach jednocześnie. 😫<br>Powtarzające się bloki kodu należy zawsze wydzielać do osobnych struktur.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Pojęcie refaktoryzacji</span> (<span class="color-gold">Refactoring</span>)<br>Refaktoryzacja to proces modyfikacji kodu źródłowego, który poprawia jego strukturę, czytelność oraz wydajność bez zmiany zewnętrznego działania programu. Pomaga to utrzymać czystość i łatwość rozbudowy aplikacji w przyszłości.</p>
+
+</div>
+</div><hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🕰️ Prehistoria Pętli: Instrukcja skoku (<code>GOTO</code>)</h2>
+<p>Przed wprowadzeniem nowoczesnych pętli strukturalnych programiści stosowali instrukcję skoku bezwarunkowego: <code>GOTO</code> (<span class="color-blue">idź do</span>). Wymagała ona zdefiniowania w kodzie etykiety, do której program natychmiast przenosił wykonywanie instrukcji.</p>
+<pre><code class="language-cmd">etykieta START:
+WYPISZ "Wykonujemy krok!"
+GOTO START
+</code></pre>
+<p>Konstrukcja ta była bardzo zbliżona do fizycznego działania procesora (instrukcji <code>JMP</code> w asemblerze). Jednak nadużywanie <code>GOTO</code> prowadziło do powstawania kodu o skomplikowanej strukturze, w której przepływ sterowania był trudny do prześledzenia. Zjawisko to określa się jako <span class="color-red">spaghetti code</span>.</p>
+<p>W <time datetime="1968-03-01">1968 roku</time> <span class="color-blue">Edsger W. Dijkstra</span> opublikował słynny artykuł <a href="https://bioinfo.uib.es/~joemiro/teach/material/escritura/gotoharmfulCol.pdf">„Go To Statement Considered Harmful”</a>. Publikacja ta zapoczątkowała powszechne przejście na paradygmat <span class="color-green">programowania strukturalnego</span>. Wprowadzono zamknięte, czytelne pętle, które całkowicie wyparły instrukcję <code>GOTO</code>.</p>
+<details>
+<summary><b>Dla dociekliwych: Manifest Dijkstry – dlaczego GOTO musiało zginąć?</b></summary>
+
+<p>Poniżej znajdziesz opracowanie słynnego listu <span class="color-green">„Go To Statement Considered Harmful”</span> opublikowanego w <time datetime="1968-03-01">marcu 1968 roku</time> w „Communications of the ACM”. Ten krótki tekst zmienił na zawsze historię programowania i dał początek programowaniu strukturalnemu.</p>
+<hr>
+<blockquote>
+<p>Przez lata obserwowałem, że jakość programistów maleje wraz z rosnącym zagęszczeniem instrukcji <code>GOTO</code> w ich kodzie. Doszedłem do wniosku, że instrukcja skoku ma katastrofalne skutki i powinna zostać usunięta ze wszystkich języków wysokiego poziomu.</p>
+</blockquote>
+<p>Dijkstra zauważył, że ludzki mózg doskonale radzi sobie ze zrozumieniem rzeczy statycznych (jak tekst na kartce), ale jest bardzo słaby w wyobrażaniu sobie procesów dynamicznych, czyli tego, jak program zmienia się w czasie, gdy jest wykonywany przez procesor.</p>
+<p>Dlatego jako mądrzy programiści powinniśmy zrobić wszystko, aby zniwelować przepaść między <span class="color-green">statycznym kodem</span> (tym, co widzimy w edytorze) a <span class="color-green">dynamicznym procesem</span> (tym, co robi komputer). Im łatwiej z kodu wywnioskować, w którym momencie czasu znajduje się program, tym lepiej.</p>
+<p><span class="color-green">Problem lokalizacji:</span><br>Jeśli program nie ma <code>GOTO</code>, śledzenie jego stanu jest banalne. Wiemy dokładnie, w której linijce jesteśmy. Gdy wchodzimy do funkcji, możemy śledzić to na stosie wywołań. Gdy wchodzimy w pętlę, dodajemy po prostu „indeks dynamiczny”, co oznacza, że wiemy np. o „czwartym powtórzeniu pętli”. Dzięki temu dokładnie wiemy, co program w danej chwili robi i dlaczego.</p>
+<blockquote>
+<p>Rozumiemy wartość zmiennej tylko w kontekście tego, jak przebiegał proces. Jeśli liczymy ludzi w pokoju zwiększając zmienną <code>n</code>, to wartość <code>n</code> ma sens tylko wtedy, gdy wiemy, na jakim etapie programu jesteśmy. </p>
+</blockquote>
+<p><span class="color-green">Niszczycielska siła GOTO:</span><br>Dijkstra udowadnia, że nieokiełznane używanie instrukcji <code>GOTO</code> niszczy ten porządek. Przez możliwość skoku z dowolnego miejsca do dowolnego miejsca, całkowicie tracimy pojęcie o tym, <span class="color-blue">jak program dotarł do tego punktu</span>. Znalezienie „współrzędnych” określających, gdzie w czasie znajduje się proces, staje się potwornie trudne.</p>
+<p>To właśnie z powodu tego listu branża IT porzuciła <code>GOTO</code> i wprowadziła konstrukcje strukturalne, takie jak znane Ci pętle <code>WHILE</code> i <code>FOR</code>, które w sposób bezpieczny zamykają kod w przewidywalnych ramach.</p>
+<hr>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Anatomia Pętli i Warunki Kontrolne</h2>
+<p>Każda prawidłowo zaprojektowana pętla musi opierać się na trzech podstawowych elementach:</p>
+<ol>
+<li><span class="color-green">Inicjalizacja (stan początkowy):</span> Ustalenie wartości startowej zmiennej sterującej, na przykład <code>Krok = 1</code>.</li>
+<li><span class="color-green">Warunek stopu:</span> Warunek logiczny sprawdzany przed każdym cyklem pętli. Jeśli warunek staje się fałszywy, pętla kończy działanie.</li>
+<li><span class="color-green">Modyfikacja stanu (inkrementacja lub dekrementacja):</span> Zmiana wartości licznika wewnątrz pętli. Brak modyfikacji licznika uniemożliwi osiągnięcie warunku stopu. Modyfikację wykonujemy poprzez:<ul>
+<li><span class="color-green">Inkrementację</span> (zwiększanie wartości): <code>Krok = Krok + 1</code> lub <code>Krok++</code>.</li>
+<li><span class="color-green">Dekrementację</span> (zmniejszanie wartości): <code>Krok = Krok - 1</code> lub <code>Krok--</code>.</li>
+</ul>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Po raz kolejny wspomnę o <span class="color-red">Nieskończonej pętli (Infinite Loop)</span> (to jeden z najpoważniejszych błędów logicznych, skutkujący zablokowaniem wątku aplikacji lub przepełnieniem pamięci). Najczęściej wynika z braku <span class="color-green">degradacji stanu</span> lub z wiecznie prawdziwego warunku stopu, na przykład <code>1 &gt; 0</code>.</p>
+<p>Możliwe, że już to pojąłeś, ale <span class="color-gold">infinite loop</span> zdarza się każdemu, więc warto o nim przypominać! 😅</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔠 Konwencja indeksowania: Tajemnica zmiennych <code>i</code>, <code>j</code>, <code>k</code></h2>
+<p>Z pewnością spotkasz się z tym, że zmienna sterująca (licznik) w pętli nazywa się po prostu literą <code>i</code>.<br>Dlaczego nie <code>licznik</code>, <code>krok</code> czy <code>x</code>?</p>
+<p>Jest to powszechna <span class="color-green">konwencja programistyczna</span>, mająca swoje korzenie w:</p>
+<ul>
+<li><span class="color-green">Słowie</span> <span class="color-blue">„Index”</span> / <span class="color-blue">„Iterator”</span>: Litera <code>i</code> jest po prostu skrótem od tych pojęć.</li>
+<li><span class="color-green">Historii</span> (język Fortran): W jednym z najstarszych języków o nazwie Fortran, istniała zasada, według której zmienne zaczynające się od liter <code>I, J, K, L, M, N</code> były <span class="color-blue">domyślnie</span> traktowane przez kompilator jako liczby całkowite (Integer), bez konieczności deklaracji!</li>
+</ul>
+<p>Skoro główna pętla wykorzystuje <code>i</code>, co w przypadku, gdy wewnątrz jednej pętli chcemy stworzyć drugą (tzw. zagnieżdżenie)? Zgodnie z tradycją bierze się po prostu kolejne litery z alfabetu:</p>
+<ul>
+<li>Zewnętrzna pętla: <code>i</code><ul>
+<li>Pętla zagnieżdżona wewnątrz niej: <code>j</code><ul>
+<li>Głębokie zagnieżdżenie (rzadko używane): <code>k</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔢 Pętla DLA (<code>FOR</code>)</h2>
+<p>Pętlę <code>DLA</code> stosujemy wtedy, gdy przed uruchomieniem iteracji <span class="color-green">znamy dokładną liczbę powtórzeń</span>. Wszystkie trzy elementy (inicjalizacja, warunek stopu oraz modyfikacja stanu) są zapisane w jednej linijce nagłówka pętli.</p>
+<p>Licznik <code>i</code> jest modyfikowany automatycznie przy każdym obiegu.</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>WYPISZ "Zaczynamy odliczanie!"
+
+<p>DLA i OD 1 DO 5</p>
+<pre><code>WYPISZ "Obieg pętli numer:"
+WYPISZ i
+</code></pre>
+<p>KONIEC DLA</p>
+<p>WYPISZ "Koniec pętli DLA"<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⏳ Pętla DOPÓKI (<code>WHILE</code>)</h2>
+<p>Pętlę <code>DOPÓKI</code> wykorzystujemy wtedy, gdy <span class="color-green">nie znamy z góry liczby powtórzeń</span>. Wykonywanie kodu jest uzależnione od spełnienia określonego warunku (np. dopóki plik nie zostanie pobrany lub dopóki użytkownik nie kliknie przycisku).</p>
+<p>Należy pamiętać o ręcznym aktualizowaniu warunku wewnątrz pętli, aby zapobiec pętli nieskończonej.</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>punktyZycia = 3
+
+<p>DOPÓKI punktyZycia &gt; 0</p>
+<pre><code>WYPISZ "Gracz jest w trakcie walki..."
+WYPISZ "Gracz otrzymuje obrażenia! (-1)"
+punktyZycia = punktyZycia - 1
+</code></pre>
+<p>KONIEC DOPÓKI</p>
+<p>WYPISZ "Koniec gry! Brak punktów życia."<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Pętla z Warunkiem na Końcu: Dwie Interpretacje</h2>
+<p>W tradycyjnej pętli <code>DOPÓKI</code> warunek sprawdzany jest na samym początku. Jeśli jest on fałszywy przed pierwszym uruchomieniem, kod wewnątrz pętli nie wykona się ani razu.</p>
+<p>Gdy jednak przenosimy sprawdzenie warunku na <span class="color-green">sam koniec</span> pętli, świat programowania dzieli się na dwie zupełnie odmienne filozofie logiczne. Ta sama pętla z warunkiem na końcu posiada dwie wykluczające się interpretacje:</p>
+<h3>1. Klasa „Do-While” (Wykonuj DOPÓKI)</h3>
+<p>Większość współczesnych języków programowania (z rodziny C) realizuje podejście typu <span class="color-green">„do‑while”</span> (wykonuj, dopóki...).</p>
+<ul>
+<li><span class="color-green">Logika:</span> Pętla powtarza się tak długo, jak warunek jest <span class="color-green">prawdziwy</span> (<code>true</code>). Kończy działanie, gdy warunek stanie się fałszywy (<code>false</code>).</li>
+<li><span class="color-green">Język naturalny:</span> „Pij wodę, dopóki jesteś spragniony”.</li>
+</ul>
+<h3>2. Klasa „Repeat-Until” (Powtarzaj AŻ)</h3>
+<p>Języki oparte na czytelności oraz szkolne pseudokody realizują podejście typu <span class="color-green">„repeat‑until”</span> (powtarzaj, aż...).</p>
+<ul>
+<li><span class="color-green">Logika:</span> Pętla powtarza się tak długo, jak warunek jest <span class="color-green">fałszywy</span> (<code>false</code>). Kończy działanie, gdy warunek zostanie spełniony i stanie się prawdziwy (<code>true</code>).</li>
+<li><span class="color-green">Język naturalny:</span> „Pij wodę, aż ugasisz pragnienie”.</li>
+</ul>
+<p>Zobacz zestawienie tych dwóch światów programistycznych:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Klasa „DOPÓKI Prawda” (Do‑While / While)</th>
+<th align="left">Klasa „AŻ Prawda / DOPÓKI Fałsz” (Repeat‑Until / Until)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Pętla kręci się, gdy warunek = <code>true</code>.</span><br><span class="color-blue">Kończy bieg, gdy warunek = <code>false</code>.</span></td>
+<td align="left"><span class="color-green">Pętla kręci się, gdy warunek = <code>false</code>.</span><br><span class="color-blue">Kończy bieg, gdy warunek = <code>true</code>.</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" width="24" height="24" class="logo"> <span class="color-green">C++</span></td>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/delphi/delphi-original.svg" width="24" height="24" class="logo"> <span class="color-green">Pascal / Delphi</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="24" height="24" class="logo"> <span class="color-green">JavaScript (JS)</span></td>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ruby/ruby-original.svg" width="24" height="24" class="logo"> <span class="color-green">Ruby</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" width="24" height="24" class="logo"> <span class="color-green">PHP</span></td>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-original.svg" width="24" height="24" class="logo"> <span class="color-green">Lua</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" width="24" height="24" class="logo"> <span class="color-green">C#</span></td>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" width="24" height="24" class="logo"> <span class="color-green">Bash (Linux shell)</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="24" height="24" class="logo"> <span class="color-green">Java</span></td>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/perl/perl-original.svg" width="24" height="24" class="logo"> <span class="color-green">Perl</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg" width="24" height="24" class="logo"> <span class="color-green">Swift</span></td>
+<td align="left"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/VB.NET_Logo.svg" width="24" height="24" class="logo"> <span class="color-green">Visual Basic</span></td>
+</tr>
+<tr>
+<td align="left"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" width="24" height="24" class="logo"> <span class="color-green">Go (Golang)</span></td>
+<td align="left"><svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="24" height="24" style="vertical-align: middle;"><path d="M30 40 L10 64 L30 88 M98 40 L118 64 L98 88 M75 25 L53 103" stroke="#2563eb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg> <span class="color-green">Pseudokod szkolny</span></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Pułapka dla programistów C++, PHP, Java oraz JavaScript!</span><br>W pseudokodzie instrukcja <code>AŻ</code> (ang. <span class="color-blue">Until</span>) jest bezpośrednim zaprzeczeniem logiki <code>do-while</code>. Pętla zakończy działanie w momencie, gdy warunek po słowie <code>AŻ</code> da wynik prawdziwy (zostanie spełniony). Różnica ta jest tak nieintuicyjna dla osób z nawykami z języków C‑podobnych, że mylą się w tym punkcie nawet deweloperzy z wieloletnim stażem!</p>
+
+</div>
+</div><data-gate>
+<data-pseudocode-runner>
+<pre>proby = 5
+
+<p>POWTARZAJ</p>
+<pre><code>WYPISZ "Próba logowania..."
+proby = proby + 1
+</code></pre>
+<p>AŻ proby &gt;= 3</p>
+<p>WYPISZ "Logowanie zakończone (sukces lub blokada konta)."<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p><span class="color-green">Dlaczego pętla wykonała się tylko raz? Prześledźmy to krok po kroku:</span></p>
+<ul>
+<li><span class="color-green">Inicjalizacja:</span> Zmienna <code>proby</code> na starcie otrzymuje wartość <code>5</code>.</li>
+<li><span class="color-green">Pierwsze uruchomienie:</span> Kod wewnątrz pętli wykonuje się bez sprawdzania warunku. Wypisuje komunikat i zwiększa wartość <code>proby</code> do <code>6</code>.</li>
+<li><span class="color-green">Sprawdzenie warunku:</span> Dopiero po wykonaniu instrukcji program sprawdza warunek <code>AŻ proby &gt;= 3</code> (czyli <code>AŻ 6 &gt;= 3</code>).</li>
+<li><span class="color-green">Zakończenie:</span> Ponieważ warunek <code>6 &gt;= 3</code> daje wynik prawdziwy (cel został osiągnięty), pętla natychmiast kończy swoje działanie.</li>
+</ul>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Ewolucja struktur:</span> Instrukcja <code>GOTO</code> została zastąpiona przez nowoczesne pętle, co zapobiega powstawaniu nieczytelnego kodu typu <span class="color-red">spaghetti code</span>.</li>
+<li><span class="color-green">Nazewnictwo iteratorów:</span> Nazwy <code>i</code>, <code>j</code>, <code>k</code> to tradycyjny skrót od słów <span class="color-blue">Index</span> i <span class="color-blue">Iterator</span>, wywodzący się z reguł języka Fortran.</li>
+<li><span class="color-green">Modyfikacja licznika:</span> Pętle wymagają kontrolowania zmiany stanu licznika, aby zapobiec zablokowaniu programu w pętli nieskończonej.</li>
+<li><span class="color-green">Pętla DLA (FOR):</span> Służy do realizacji z góry określonej liczby powtórzeń.</li>
+<li><span class="color-green">Pętla DOPÓKI (WHILE):</span> Wykonuje się dopóki określony warunek logiczny jest spełniony.</li>
+<li><span class="color-green">Pętla z warunkiem na końcu:</span> Gwarantuje przynajmniej jedno wykonanie bloku kodu. W językach C‑podobnych działa dopóki warunek jest spełniony (<code>do-while</code>), natomiast w pseudokodzie i bash kończy bieg w momencie spełnienia warunku (<code>repeat-until</code>).</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

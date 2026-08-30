@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Pseudokod - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">logika-i-algorytmy-pseudokod</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty Algorytmiki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Algorytmy i Sekwencje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Algorytmy%20i%20Sekwencje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytmy i Sekwencje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Schematy blokowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Schematy%20blokowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Schematy blokowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pseudokod"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%200/Pseudokod.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pseudokod</a></li><li class="module">Moduł 1: Logika i Pamięć</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Typy danych i pamięć"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Typy%20danych%20i%20pami%C4%99%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy danych i pamięć</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operatory arytmetyczne i logiczne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Operatory%20arytmetyczne%20i%20logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operatory arytmetyczne i logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Instrukcje warunkowe"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%201/Instrukcje%20warunkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje warunkowe</a></li><li class="module">Moduł 2: Sterowanie Przepływem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Instrukcje iteracyjne"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Instrukcje%20iteracyjne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instrukcje iteracyjne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Tablice"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Tablice.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje"><a class="lesson-link" href="/courses/logika-i-algorytmy-pseudokod/Pages/Modu%C5%82%202/Funkcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Od rysunku do kodu: Pseudokod i potęga abstrakcji</h1>
+<p>W poprzednich lekcjach projektowaliśmy logikę przy użyciu schematów blokowych. Wizualna reprezentacja dobrze obrazuje przepływ programu, pokazując jak wskaźnik instrukcji wędruje przez węzły, przydzielając pamięć RAM i decydując o dalszej ścieżce.</p>
+<p>Grafika ma jednak ograniczenia. Nawet prosta aplikacja użytkowa składa się z tysięcy operacji. Schemat blokowy o takiej skali szybko zamieniłby się w nieczytelną pajęczynę przecinających się linii.</p>
+<p>Aby sprawnie zarządzać tak dużą liczbą instrukcji, korzystamy z kodu tekstowego. Pozwala on na zapisanie ogromnej ilości rozkazów dla procesora w zwartej i czytelnej formie. Zanim przejdziesz do konkretnych języków programowania, warto poznać uniwersalny pomost pomiędzy światem rysunku a kodem – <span class="color-green">Pseudokod</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🗜️ Dekodowanie Schematu: Architektura Pseudokodu</h2>
+<p>Pseudokod to uproszczony zapis przypominający język programowania, ale pozbawiony jego ścisłych reguł składniowych. Nie musisz stawiać średników na końcu linii ani definiować bibliotek.</p>
+<p>Służy on dwóm kluczowym zadaniom:</p>
+<ol>
+<li>Pozwala naszkicować logikę algorytmu na papierze, bez tracenia czasu na poprawianie błędów składniowych.</li>
+<li>Przyzwyczaja umysł do przejścia z myślenia przestrzennego (grafy 2D) na liniowe, gdzie kod czytany jest z góry na dół.</li>
+</ol>
+<p>Pokażę Ci teraz, w jaki sposób podstawowe figury ze schematów blokowych zamieniają się w polecenia tekstowe.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Filar 1: Sekwencja i Pamięć Operacyjna</h2>
+<p>Zamiast rysować prostokąt, w tekście przypisanie wartości do pamięci realizujemy używając znaku równości <code>=</code>. Wartość po prawej stronie jest obliczana, a wynik trafia do pamięci RAM pod nazwę podaną po lewej stronie. (<span class="color-gold">Deklaracja i Inicjalizacja</span>)</p>
+<p>Z kolei równoległobok (reprezentujący operacje wejścia/wyjścia) zamieniamy na proste polecenia <code>WYPISZ</code> lub <code>POBIERZ</code>.</p>
+<p>Wykorzystaj poniższy „Kroker Kodowy”. Przeanalizujmy algorytm, który sumuje i uśrednia trzy wartości. Klikaj przycisk <kbd>⏭ Krok</kbd> i obserwuj, jak procesor sekwencyjnie rezerwuje pamięć w panelu <span class="color-green">(RAM) Zmienne</span>. Zwróć uwagę, jak instrukcja <code>WYPISZ</code> wyświetla te wartości na ekranie.</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>a = 10
+b = 5
+c = 15
+
+<p>suma = a + b + c</p>
+<p>srednia = suma / 3</p>
+<p>WYPISZ "Obliczanie statystyk zakonczone."</p>
+<p>WYPISZ "Calkowita suma wynosi: " + suma</p>
+<p>WYPISZ "Srednia z pomiarow to: " + srednia</p>
+<p></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>Zauważ, jak wskaźnik instrukcji wykonuje kod linijka po linijce, tworząc krok po kroku <span class="color-gold">Stan</span> Twojego programu. W schemacie blokowym wymagałoby to narysowania jedenastu osobnych bloków.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔀 Filar 2: Architektura Skoków i Instrukcja JEŻELI</h2>
+<p>Największa zmiana następuje przy rombach decyzyjnych. Na schemacie blokowym ścieżka rozwidla się na <span class="color-green">TAK</span> oraz <span class="color-red">NIE</span>. Kod tekstowy zapisujemy liniowo, więc nie mamy możliwości stworzenia dwóch oddzielnych kolumn poleceń.</p>
+<p>Aby to rozwiązać, stosujemy instrukcję <code>JEŻELI ... TO</code> (ang. <code>IF</code>). Używamy tu również wcięć (tabulacji), aby pogrupować instrukcje. Każda linia przesunięta o jedno wcięcie w prawo należy do danego bloku logicznego.</p>
+<p>Jeśli warunek jest oceniony jako <span class="color-green">Prawda</span>, program wchodzi do bloku i wykonuje wcięte instrukcje. Jeśli sygnał to <span class="color-red">Fałsz</span>, procesor przeskakuje ten wcięty blok i przechodzi od razu do sekcji <code>W PRZECIWNYM RAZIE</code> (ang. <code>ELSE</code>).</p>
+<p>Przeanalizujmy klasyczny algorytm wybierający większą z dwóch liczb. Zobacz, jak wskaźnik wykonawczy całkowicie omija ten blok kodu, który nie spełnia warunku.</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>liczbaA = 74
+liczbaB = 103
+
+<p>WYPISZ "Rozpoczynam analize maksimum..."</p>
+<p>JEŻELI liczbaA &gt; liczbaB TO</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaA</p>
+<p>W PRZECIWNYM RAZIE</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaB</p>
+<p>KONIEC JEŻELI</p>
+<p>WYPISZ "Najwieksza liczba w zbiorze to: " + maksimum<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>Zapis <code>KONIEC JEŻELI</code> jest kluczowy. Jasno informuje komputer, gdzie kończy się rozwidlenie i w którym miejscu obie ścieżki zbiegają się we wspólny ciąg instrukcji.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Filar 3: Pętla DOPÓKI</h2>
+<p>Pętla iteracyjna (ang. <code>WHILE</code>) pozwala na wielokrotne powtarzanie tego samego kodu. Na schemacie blokowym była to strzałka, która wracała z powrotem do rombu decyzyjnego. </p>
+<p>W dokumencie tekstowym osiągamy ten efekt stosując strukturę <code>DOPÓKI ... WYKONUJ</code> wraz z domknięciem <code>KONIEC DOPÓKI</code>. Kiedy procesor dociera do linii zamknięcia, wraca do samego początku pętli. Tam ponownie sprawdza warunek i decyduje, czy rozpocząć kolejny cykl.</p>
+<p>Przetestuj algorytm odliczania w Krokerze. Wykonuj kolejne kroki i obserwuj moment, w którym aktualizacja zmiennej <span class="color-blue"><code>odliczanie</code></span> sprawia, że warunek staje się fałszywy, a pętla ulega zakończeniu.</p>
+<data-gate>
+<data-pseudocode-runner>
+<pre>odliczanie = 3
+czasOpoznienia = 1
+
+<p>WYPISZ "Inicjalizacja ładunku..."</p>
+<p>DOPÓKI odliczanie &gt; 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Czas do eksplozji: " + odliczanie</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;odliczanie = odliczanie - czasOpoznienia</p>
+<p>KONIEC DOPÓKI</p>
+<p>WYPISZ "BOOM!"<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>Gdybyś pominął aktualizację zmiennej wewnątrz pętli, warunek zawsze pozostałby spełniony. Stworzyłoby to <span class="color-red">Nieskończoną pętlę</span>, która zawiesiłaby działanie programu.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Kompilator w Mózgu i Tabela Śledzenia</h2>
+<p>Na egzaminach z programowania często spotkasz się z gotowym kodem, a Twoim zadaniem będzie odgadnąć, jaki wynik ostatecznie wygeneruje program. </p>
+<p>W takiej sytuacji stosuje się Tabelę Śledzenia (<span class="color-blue">Trace Table</span>). Pozwala ona na papierze prześledzić zmiany poszczególnych zmiennych krok po kroku, dokładnie tak, jak robi to komputer.</p>
+<p>Rozwiążmy wspólnie prosty przykład iteracyjny. Spójrz na poniższy kod:</p>
+<pre><code class="language-yaml">x = 2
+y = 5
+
+DOPÓKI y &gt; 1
+    x = x + y
+    y = y - 2
+KONIEC DOPÓKI
+
+WYPISZ x
+</code></pre>
+<p>Tabela Śledzenia obrazuje krok po kroku aktualne stany przypisane do pamięci (Zmienna <span class="color-blue"><code>x</code></span> oraz Zmienna <span class="color-blue"><code>y</code></span>). Zobaczmy przebieg algorytmu w praktyce:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Numer kroku</th>
+<th align="left">Zdarzenie</th>
+<th align="left"><span class="color-blue"><code>x</code></span></th>
+<th align="left"><span class="color-blue"><code>y</code></span></th>
+<th align="left">Wynik logiki i decyzja pętli</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Start</span></td>
+<td align="left">Przypisanie <code>x</code></td>
+<td align="left"><code>2</code></td>
+<td align="left">Puste</td>
+<td align="left">Uruchomienie programu.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Start</span></td>
+<td align="left">Przypisanie <code>y</code></td>
+<td align="left"><code>2</code></td>
+<td align="left"><code>5</code></td>
+<td align="left">Obie zmienne są gotowe.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Cykl 1</span></td>
+<td align="left">Sprawdzenie <code>y &gt; 1</code></td>
+<td align="left"><code>2</code></td>
+<td align="left"><code>5</code></td>
+<td align="left">$5 &gt; 1$ to <span class="color-green">Prawda</span>. Wejście do pętli.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Cykl 1</span></td>
+<td align="left">Aktualizacja <code>x</code></td>
+<td align="left"><code>2 + 5 = 7</code></td>
+<td align="left"><code>5</code></td>
+<td align="left"><code>x</code> otrzymuje wartość $7$.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Cykl 1</span></td>
+<td align="left">Aktualizacja <code>y</code></td>
+<td align="left"><code>7</code></td>
+<td align="left"><code>5 - 2 = 3</code></td>
+<td align="left"><code>y</code> otrzymuje wartość $3$.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">Cykl 1</span></td>
+<td align="left">KONIEC DOPÓKI</td>
+<td align="left"><code>7</code></td>
+<td align="left"><code>3</code></td>
+<td align="left">Powrót na początek pętli.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Cykl 2</span></td>
+<td align="left">Sprawdzenie <code>y &gt; 1</code></td>
+<td align="left"><code>7</code></td>
+<td align="left"><code>3</code></td>
+<td align="left">$3 &gt; 1$ to <span class="color-green">Prawda</span>. Wejście do pętli.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Cykl 2</span></td>
+<td align="left">Aktualizacja <code>x</code></td>
+<td align="left"><code>7 + 3 = 10</code></td>
+<td align="left"><code>3</code></td>
+<td align="left"><code>x</code> otrzymuje wartość $10$.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Cykl 2</span></td>
+<td align="left">Aktualizacja <code>y</code></td>
+<td align="left"><code>10</code></td>
+<td align="left"><code>3 - 2 = 1</code></td>
+<td align="left"><code>y</code> zostaje zmniejszone do $1$.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-gold">Cykl 2</span></td>
+<td align="left">KONIEC DOPÓKI</td>
+<td align="left"><code>10</code></td>
+<td align="left"><code>1</code></td>
+<td align="left">Powrót na początek pętli.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-blue">Wyjście</span></td>
+<td align="left">Sprawdzenie <code>y &gt; 1</code></td>
+<td align="left"><code>10</code></td>
+<td align="left"><code>1</code></td>
+<td align="left">$1 &gt; 1$ daje <span class="color-red">Fałsz</span>. Zakończenie pętli.</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Koniec</span></td>
+<td align="left">WYPISZ <code>x</code></td>
+<td align="left"><code>10</code></td>
+<td align="left"><code>1</code></td>
+<td align="left">Program wypisuje wynik <span class="color-green">$10$</span>.</td>
+</tr>
+</tbody></table>
+<p>Udało nam się bez zgadywania ustalić, że pętla wykona się dokładnie dwa razy, a na końcu program wyświetli liczbę $10$. Tabela śledzenia to proste i sprawdzone narzędzie ułatwiające analizę działania kodu przed jego właściwym uruchomieniem.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Przewaga tekstu nad grafiką:</span> Gdy algorytm rozrasta się do dużych rozmiarów, tekstowa lista instrukcji jest znacznie czytelniejsza niż rozbudowany schemat graficzny.</li>
+<li><span class="color-green">Wcięcia i skoki:</span> Słowa takie jak <code>JEŻELI</code> czy <code>DOPÓKI</code> nie tylko pełnią funkcje czytelnych instrukcji dla człowieka. Mówią one programowi, które konkretnie wcięte bloki kodu ma wykonać, a które powinien przeskoczyć.</li>
+<li><span class="color-green">Znaczenie analizy ręcznej:</span> Zanim spróbujesz rozwiązać problem w edytorze kodu, warto przetestować własną logikę zapisując na kartce poszczególne iteracje zmiennych. Pozwala to na wczesne wykrycie wielu pomyłek.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

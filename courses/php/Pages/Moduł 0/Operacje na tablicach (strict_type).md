@@ -30,7 +30,9 @@ echo $produkt_5;
 
 No i tyle wstępu.
 
-## Wyświetlanie danych z tablicy
+---
+
+## 🎰 Wyświetlanie danych z tablicy
 
 Jeżeli chcemy wyświetlić jeden element z tablicy, podajemy jego indeks (numer pozycji) w nawiasach kwadratowych.
 ```php
@@ -51,8 +53,9 @@ Tak naprawdę index to nic innego jak wartość biasu czyli informacja o ile kom
 | bias = $0$ | bias = $1$ | bias = $2$     | bias = $3$    | bias = $4$    |
 | `"banan"`  | `"jabłko"` | `"pomarańcza"` | `"truskawka"` | `"czereśnia"` |
 
+---
 
-## Suma wartości w tablicy $\Sigma$
+## ➕ Suma wartości w tablicy $\Sigma$
 
 Potrzebujemy tablicy z całkowicie losowymi liczbami np.:
 
@@ -108,7 +111,9 @@ function sigma($liczby){
 
 ![suma-tablicy](/public/courses/php/Images/suma-tablicy.png)
 
-## Dopieszczanie funkcji z ścisłym typowaniem
+---
+
+## ✨ Dopieszczanie funkcji z ścisłym typowaniem
 
 Na początku pliku umieść ten kod:
 ```php
@@ -133,7 +138,9 @@ Nadszedł czas doinstalować kolejne dwa rozszerzenia:
 - **PHP DocBlocker** od *Neil Brayfield*: Wspomaga w szybkim utworzeniu struktury PHPDoc po wpisaniu `/**` i kliknięciu <kbd>Enter</kbd>
 - **PHP Intelephense** od *Intelephense*: Bardzo rozszerzone, ale na ten moment interesują nas funkcjonalności wyświetlania dokumentacji po najechaniu na funkcje oraz przechodzenie do definicji funkcji (<kbd>Ctrl</kbd> + kliknięcie na nazwę funkcji).
 
-### Określanie typów argumentów i zwracanej wartości
+---
+
+### 🔧 Określanie typów argumentów i zwracanej wartości
 
 Zadeklarowaliśmy że jawnie bedziemy typować i pisać dokumentację funkcji, więc musimy poprawić naszą funkcję sigma: 
 
@@ -150,7 +157,9 @@ Skoro zwracana wartość ma być typu float, to warto by było również zmienna
  $wynik = 0.0;
 ```
 
-### Dokumentacja funkcji
+---
+
+### 📖 Dokumentacja funkcji
 
 Teraz dzieki takiej strukturze możemy przejść do linii przed definicją funkcji i wpisać `/**` + <kbd>Enter</kbd>.   
 Otrzymamy szkielet dokumentacji:
@@ -182,8 +191,11 @@ Ciekawe przypadki użycia są z parametrami `array` i `mixed`, jeżeli przewiduj
 
 ![php-vscode-dokumentacja-i-nowe-rozszerzenia](/public/courses/php/Images/php-vscode-dokumentacja-i-nowe-rozszerzenia.png)
 
-## Iloczyn wartości w tablicy $\Pi$
-Wracamy do pisania tym razem pięknych i czytelnych funkcji, które zadziałają w trybie ścisłym. 
+---
+
+## ✖️ Iloczyn wartości w tablicy $\Pi$
+
+Wracamy do pisania. Tym razem pięknych i czytelnych funkcji, które zadziałają w trybie ścisłym. 
 
 
 Obliczymy teraz iloczyn wartości w tablicy czyli duże Pi.
@@ -220,12 +232,14 @@ Ta funkcja trochę różni się od poprzedniej ponieważ:
 Składnia jej wygląda tak: `foreach ($kolekcja as $element)`.
 
 > [!NOTE]
-> Obie implementacje funkcji sigma i iloczynPi realizują zadanie które już dawno w php stało się natywne i polegają na wbudowanych funkcjach _**`array_sum()`**_ oraz _**`array_product()`**_.
+> Obie implementacje funkcji sigma i iloczynPi realizują zadania, które już dawno w PHP stały się natywne i polegają na wbudowanych funkcjach _**`array_sum()`**_ oraz _**`array_product()`**_.
 > ![](/public/courses/php/Images/natywne_arry_sum_and_product.png)
 
-## Odwracanie kolejności elementów w tablicy
+---
 
-Wracając do pierwszej tablicy owoców, przekrztałcimy ją tak by jej elementy były w odwrotnej kolejności.
+## 🔄 Odwracanie kolejności elementów w tablicy
+
+Wracając do pierwszej tablicy owoców, przekształcimy ją tak by jej elementy były w odwrotnej kolejności.
 
 Z:
 
@@ -246,7 +260,11 @@ Posłużymy się do tego starą dobrą pętlą `for`.
 - Wartość iteratora będzie zmniejszana o $1$.
 
 Posłużymy się zmienną pomocniczą typu tablica, będziemy do niej dodawać elementy oryginału począwszy od ostatniego.
-Dodatkowo funkcja będzie typu `:void`, więc by zmodyfikować oryginał tablicy, przekażemy ją przez referencje (argument będzie miał prefix z znaku ampersanta `&`)
+Dodatkowo funkcja będzie typu `:void`, więc by zmodyfikować oryginał tablicy, przekażemy ją przez referencje (argument będzie miał prefix z znaku ampersandu `&`)
+```php
+function odwracanie(array &$tablica) : void {}
+```
+
 
 <details>
 <summary>Rozwiązanie</summary>
@@ -282,15 +300,16 @@ print_r($owoce);
 
 </details>
 
+---
 
-## Szukanie maksimum i minimum wartości w tablicy
+## 📈 Szukanie maksimum i minimum wartości w tablicy
 
 Podzielimy to zadanie na dwie funkcje, które będą miały podobną strukturę.
 
-Zaczniemy od maksimum. Wartość startowa naszej zmiennej $max będzie pierwszą wartością z tablicy.  
-Następnie iterujemy po kolejnych elementach i porównujemy z max. Jeżeli element jest większy od aktualnego max, przypisujemy go do $max. W przeciwnym przypadku kontynuujemy iterację.
+Zaczniemy od `maksimum()`. Wartość startowa naszej zmiennej `$max` będzie pierwszą wartością z tablicy.  
+Następnie iterujemy po kolejnych elementach i porównujemy z max. Jeżeli element jest większy od aktualnego max, przypisujemy go do `$max`. W przeciwnym przypadku kontynuujemy iterację.
 
-Podobnie dla minimum $min$, tylko że będziemy szukać elementu mniejszego od aktualnego min.
+Podobnie dla `minimum()`: `$min`, tylko że będziemy szukać elementu mniejszego od aktualnego min.
 
 <details>
 <summary>Rozwiązanie</summary>
@@ -335,12 +354,16 @@ function minimum(array $tab) :float {
 
 </details>
 
-## Wyszukiwanie wartości w tablicy
+---
+
+## 🔎 Wyszukiwanie wartości w tablicy
 
 Czesto będziemy chcieli sprawdzić czy dana wartość znajduje się w tablicy.
-Jak najprościej wyszukać ją? Poprzez iterację po elementach tablicy i przerwaniu pętli w momencie znalezienia elementu przy użyciu `break`.
+Jak najprościej ją wyszukać?
 
-Pamiętaj że tablice w php są fajne a ich struktura jest taka:
+Poprzez iterację po elementach tablicy i przerwaniu pętli w momencie znalezienia elementu przy użyciu `break`.
+
+> Pamiętaj że tablice w PHP są fajne, a ich struktura jest taka:
 
 ```php
 Array
@@ -363,9 +386,9 @@ foreach ($tablica as $klucz => $wartosc)
 ```php
 /**
  * Wyszukuje wartość i zwraca jej index. 
- * Jeżeli w tablicy nie ma podanej warości to zwraca `-1`
+ * Jeżeli w tablicy nie ma podanej wartości to zwraca `-1`
  *
- * @param mixed $wartosc Pojedyńcza o dowolnym typie
+ * @param mixed $wartosc Pojedyncza o dowolnym typie
  * @param array $tablica
  * @return integer Zwraca index lub `-1`
  */
@@ -390,13 +413,13 @@ function wyszukaj(mixed $wartosc, array $tablica) : int {
 > Zwraca ona klucz pierwszego dopasowania, a w przypadku braku wyniku: `false`.
 >
 > W starszych wersjach niż PHP 8.0 zwrócenie przez funkcję indexu $0$ *mogło czasem* być zinterpretowane jako `false`.
-> Aktualnie problem może się dalej pojawiać, przez zwiekszoną sicłość typowania jest graniczny. Dlatego warto dopisywać trzeci parametr $strict, który wymusza porównanie typu i wartości (`===` zamiast `==`)
+> Aktualnie problem może się dalej pojawiać, przez zwiększoną ścisłość typowania jest graniczny. Dlatego warto dopisywać trzeci parametr $strict, który wymusza porównanie typu i wartości (`===` zamiast `==`)
 
 </details>
 
+---
 
-
-## Statystyka powtórzeń wartości w tablicy
+## 📊 Statystyka powtórzeń wartości w tablicy
 
 Do przykładu posłuży nam następująca tablica:
 
@@ -421,9 +444,9 @@ Lekko usprawniona funkcja z poprzedniej sekcji:
 ```php
 /**
  * Wyszukuje wartość i zwraca jej index. 
- * Jeżeli w tablicy nie ma podanej warości to zwraca `-1`
+ * Jeżeli w tablicy nie ma podanej wartości to zwraca `-1`
  *
- * @param mixed $wartosc Pojedyńcza o dowolnym typie
+ * @param mixed $wartosc Pojedyncza o dowolnym typie
  * @param array $tablica
  * @return integer Zwraca index lub `-1`
  */
@@ -441,7 +464,7 @@ function wyszukaj(mixed $wartosc, array $tablica): int
 ```php
 /**
  * Zlicza wystąpienia wartości w tablicy.
- * Wartości nie będące `intiger` lub `string` są na nie rzutowane.
+ * Wartości nie będące `integer` lub `string` są na nie rzutowane.
  *
  * @param array $tablica elementów do zliczenia
  * @return array tablica z elementem jako klucz i ilością wystąpień jako wartość
@@ -475,7 +498,7 @@ print_r(array_count_values($dane));
 
 > [!NOTE]
 > Powyższa funkcjonalność jest natywnie zaimplementowana w języku PHP jako _**`array_count_values()`**_.
-> Zwróć uwagę na *Warning* który ta funkcja zgłosiła. Chodzi o to że php w tablicach asocjacyjnych zezwala jedynie na wartości typu *`intiger`* oraz *`string`*. W naszej implementcji możesz zobaczyć że *`true`* został zamieniony na *`intiger`* $1$. W natywnej funkcji to też zachodzi ale tam taką wartość pomijają w końcowym wyniku.
+> Zwróć uwagę na *Warning* który ta funkcja zgłosiła. Chodzi o to że php w tablicach asocjacyjnych zezwala jedynie na wartości typu *`integer`* oraz *`string`*. W naszej implementacji możesz zobaczyć że *`true`* został zamieniony na *`integer`* $1$. W natywnej funkcji to też zachodzi ale tam taką wartość jest pomijana w końcowym wyniku.
 > 
 > Aby to rozwiązać wystarczy zapisać wartość *`true`* jako string *`"true"`*. Wtedy obie implementacje wyświetlą poprawne statystyki:
 > 

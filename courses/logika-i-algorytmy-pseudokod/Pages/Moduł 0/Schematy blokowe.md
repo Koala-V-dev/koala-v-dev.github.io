@@ -9,7 +9,7 @@ Doskonałym i niedocenianym pozornie narzędziem do tego jest _**paint**_. Dzię
 **Schemat blokowy** to uniwersalny wzorzec projektowy, swoisty *blueprint* (plan budowy), za pomocą którego mapujemy fizyczny przepływ prądu przez układy logiczne procesora. Dla elektroniki i oprogramowania nie ma znaczenia, czy na końcu przetłumaczysz ten diagram na język <span style="text-wrap: nowrap;">C++</span>, Pythona, czy JavaScript. Logika pozostaje ta sama.
 
 
-Za chwilę przedstawię Ci fundamentalne instrukcje stosowane w programowaniu i realizowane przez procesor (*`CPU`*).
+> Za chwilę przedstawię Ci fundamentalne instrukcje stosowane w programowaniu i realizowane przez procesor (*`CPU`*).
 
 ---
 
@@ -18,7 +18,7 @@ Za chwilę przedstawię Ci fundamentalne instrukcje stosowane w programowaniu i 
 Komputer to fizyczna maszyna, która pomimo całej swojej złożoności, operuje zaledwie w kilku podstawowych trybach. Te instrukcje są oparte na bazie tranzystorów i bramek logicznych, dzięki czemu procesor jest w stanie wykonać 4 fundamentalne operacje. W schemacie blokowym reprezentujemy je figurami geometrycznymi.
 
 1.  **`[Owal]`** (*Start / Koniec*)
-    *Fizyczny obwód maszyny musi zostać wybudzony i zgaszony.* Program nie istnieje w próżni. Kiedy klikasz ikonę aplikacji dwukrotnie, system operacyjny przekazuje sterowanie do węzła `START`. Potem realizowane są poszczególne instrukcje programu, aż dojdzie do węzła `KONIEC`. Potem wszelkie zarezerwowane zasoby są zwracane do systemu operacyjnego.
+    *Fizyczny obwód maszyny musi zostać wybudzony i zgaszony.* Program nie istnieje w próżni. Kiedy klikasz ikonę aplikacji dwukrotnie, system operacyjny przekazuje sterowanie do węzła `START`. Potem realizowane są poszczególne instrukcje programu, aż dojdzie do węzła `KONIEC`. Na koniec wszelkie zarezerwowane zasoby są zwracane do systemu operacyjnego.
 
 2.  **`[Równoległobok]`** (*Wejście / Wyjście*)
     *Procesor sam w sobie jest głuchy i ślepy.* Potrafi on przyjąć na wejściu (`input`) dane, przetwarzać miliardy liczb w swoim krzemowym wnętrzu, ale nikt się o tym nie dowie, dopóki nie zostanie wywołana instrukcja wyjścia (`output`). Ten pochyły prostokąt symbolizuje interakcję `I/O` z pozostałymi elementami układu / podzespołami urządzenia.
@@ -29,7 +29,7 @@ Komputer to fizyczna maszyna, która pomimo całej swojej złożoności, operuje
     *Miejsce zarządzania pamięcią i operacjami arytmetyczno-logicznymi na zaalokowanych danych.* To w tym klocku fizyczna Jednostka Arytmetyczno-Logiczna (**ALU** - *Arithmetic Logic Unit*) wewnątrz procesora wykonuje operacje (np. `x = x + 10`). To również ten kształt służy do rezerwowania podpisanych szufladek w szybkiej pamięci RAM, czyli tzw. _**Zmiennych**_. Każdy prostokąt to zmiana stanu w układzie nerwowym maszyny.
 
 4.  **`[Romb]`** (*Węzeł Decyzyjny i Ewaluacja*)
-    *Fundament tak zwanej sztucznej inteligencji.* To jedyne miejsce na całym diagramie, w którym nasza maszyna wydaje się „myśleć”. Zadaje zamknięte pytanie logiczne (np. „Czy użytkownik ma więcej niż 18 lat?”). Procesor ocenia stan pamięci i wypluwa tylko jedną z dwóch wartości: $1$ (`Prawda` / **TAK**) lub $0$ (`Fałsz` / **_NIE_**). W tym miejscu prąd rozgałęzia się, a oprogramowanie wybiera jedną z dostępnych ścieżek.
+    *Fundament tak zwanej sztucznej inteligencji.* To jedyne miejsce na całym diagramie, w którym nasza maszyna wydaje się „myśleć”. Zadaje zamknięte pytanie logiczne (np. „Czy użytkownik ma więcej niż $18$ lat?”). Procesor ocenia stan pamięci i wypluwa tylko jedną z dwóch wartości: **$1$** (`Prawda` / **TAK**) lub **_$0$_** (`Fałsz` / **_NIE_**). W tym miejscu prąd rozgałęzia się, a oprogramowanie wybiera jedną z dostępnych ścieżek.
 
 Zanim przejdziesz dalej, upewnij się, że ten „alfabet” płynie w Twojej krwi. Połącz pojęcia w odpowiednie pary:
 
@@ -56,17 +56,17 @@ Jednak aby cokolwiek obliczyć, maszyna musi posiadać robocze „brudnopisy”.
   Adresy w pamięci RAM nie bez powodu zapisujemy w formacie zaczynającym się od **`0x`** (np. `0x2137BACA`). 
   
   **Co oznacza ten zapis?**
-  - _**`0x`**_: To standardowy prefiks informujący procesor i programistę: *„Uwaga, liczba za mną jest zapisana w systemie szesnastkowym (heksadecymalnym), a nośnikiem wartości nie jest system dziesiętny”*.
-  - **`2137BACA`**: To konkretna liczba w systemie szesnastkowym (gdzie cyfry to od `0` do `9` oraz litery od `A` do `F`, odpowiadające wartościom $10 – 15$).
+  - _**`0x`**_: To standardowy prefiks informujący procesor i programistę: *„Uwaga, liczba za mną jest zapisana w systemie szesnastkowym (heksadecymalnym)”*.
+  - **`2137BACA`**: To konkretna liczba w systemie szesnastkowym (gdzie cyfry to od `0` do `9` oraz litery od `A` do `F`, które są odpowiednikiem wartości $10 – 15$).
 
   **Dlaczego system szesnastkowy, a nie dziesiętny lub dwójkowy?**
-  Komputer pod maską myśli wyłącznie w systemie binarnym (zera i jedynki). Zapisywanie adresów binarnie (np. `00100001001101111011101011001010`) byłoby nieczytelne dla człowieka. Z kolei system szesnastkowy idealnie kompresuje dane binarne: **jedna cyfra szesnastkowa odpowiada dokładnie 4 bitom (półbajtowi)**. Dzięki temu długi ciąg zer i jedynek możemy zapisać jako krótki, 8-znakowy kod dla architektury 32-bitowej (lub 16-znakowy dla 64-bitowej).
+  Komputer pod maską myśli wyłącznie w systemie binarnym (zera i jedynki). Zapisywanie adresów binarnie (np. `00100001001101111011101011001010`) byłoby nieczytelne dla człowieka. Z kolei system szesnastkowy idealnie kompresuje dane binarne: **jeden znak szesnastkowy odpowiada dokładnie 4 bitom (półbajtowi)**. Dzięki temu długi ciąg zer i jedynek możemy zapisać jako krótki, $8$-znakowy kod dla architektury $32$-bitowej (lub $16$-znakowy dla $64$-bitowej).
 
   **Szufladki i adresy**
   Wyobraź sobie pamięć RAM jako gigantyczny regał z miliardami ponumerowanych szufladek:
-  1. Każda szufladka (komórka pamięci) mieści dokładnie **$1'-\text{ bajt}$** ($8\text{ bitów}$) danych.
+  1. Każda szufladka (komórka pamięci) mieści dokładnie **$1-\text{ bajt}$** ($8\text{ bitów}$) danych.
   2. Każda szufladka ma swój unikalny, niezmienny numer – to jest właśnie **adres pamięci** (np. `0x2137BACA`).
-  3. Kiedy tworzysz w programie zmienną `a = 10`, system operacyjny przydziela jej wolną szufladkę (lub kilka sąsiednich, jeśli typ danych wymaga więcej miejsca), zapisuje tam wartość `10` za pomocą stanów napięcia elektrycznego (odpowiednika zer i jedynek) i wiąże Twoją ludzką etykietę `a` z tym konkretnym adresem. Od tej pory nie musisz pamiętać adresu `0x2137BACA` – za każdym razem, gdy używasz zmiennej `a`, komputer wie, do której szufladki ma zajrzeć!
+  3. Kiedy tworzysz w programie zmienną `a = 10`, system operacyjny przydziela jej wolną szufladkę (lub kilka sąsiednich, jeśli typ danych wymaga więcej miejsca), zapisuje tam wartość `10` za pomocą stanów napięcia elektrycznego (odpowiednika zer i jedynek) i wiąże Twoją ludzką etykietę `a` z tym konkretnym adresem. Od tej pory nie musisz pamiętać adresu `0x2137BACA` – za każdym razem, gdy używasz zmiennej `a`, komputer wie, do której szufladki ma zajrzeć.
 </details>
 
 
@@ -96,7 +96,7 @@ Poniższy schemat _**deklaruje**_ dwie zmienne `a` oraz `b` i _**inicjalizuje**_
 
 Zwykłe operatory arytmetyczne są niezwykle potężne, ale linearne. Nie potrafią one modyfikować kierunku ruchu logiki w zależności od otoczenia. Maszyna staje na intelektualnym rozdrożu *wyłącznie* wtedy, gdy w układzie ALU procesora napotka instrukcję węzła decyzyjnego. 
 
-W kodowaniu nazywamy tę strukturę instrukcją `IF` (_**Jeżeli**_). To moment, w którym komputer zagląda do pamięci RAM, bierze zapisaną tam wartość, przeprowadza weryfikację (np. nierówność algebraiczna) i mechanicznie wypuszcza prąd jedną z dwóch wykluczających się dróg: **TAK** albo **NIE**.
+W kodowaniu nazywamy tę strukturę instrukcją warunkową `IF` (_**Jeżeli**_). To moment, w którym komputer zagląda do pamięci RAM, bierze zapisaną tam wartość, przeprowadza weryfikację (np. nierówność algebraiczna) i mechanicznie wypuszcza prąd jedną z dwóch wykluczających się dróg: **TAK** albo **NIE**.
 
 W poniższym schemacie blokowym zadeklarowano zmienną wiek i od razu zainicjalizowano jej wartość jako $15$. W kolejnym kroku napotyka węzeł warunkowy, który decyduje, czy zadeklarowany warunek w tym momencie jest prawdziwy czy fałszywy.  
 Dla $15 \geq 18$ warunek jest fałszywy, dlatego dalszy krok działania algorytmu przejdzie po węźle fałszu (**_NIE_**) do instrukcji wyświetlenia komunikatu o treści *„Odmowa dostępu. Masz tylko {wiek} lat.”*.
@@ -188,12 +188,12 @@ Poniżej znajdziesz wymagania, które musi spełniać poprawny układ:
    To jest warunek sterujący pętlą.
 
 3. **Aktualizacja stanu:**  
-   Jeśli warunek jest prawdziwy (`TAK`), wykonaj operację zmniejszającą wartość zmiennej:  
+   Jeżeli warunek jest prawdziwy (`TAK`), wykonaj operację zmniejszającą wartość zmiennej:  
    `odliczanie = odliczanie - 1`  
    Następnie wróć ścieżką do warunku, tworząc pełny cykl iteracyjny.
 
 4. **Wyjście z pętli:**  
-   Jeśli warunek jest fałszywy (`NIE`), przejdź do węzła wyjścia (równoległobok) i wypisz komunikat:  
+   Jeżeli warunek jest fałszywy (`NIE`), przejdź do węzła wyjścia (równoległobok) i wypisz komunikat:  
    `"BOOM!"`  
    (dokładnie taki, bez dodatkowych znaków).
 

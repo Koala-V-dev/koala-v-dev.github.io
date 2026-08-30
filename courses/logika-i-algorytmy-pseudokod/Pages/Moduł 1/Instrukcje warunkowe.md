@@ -35,7 +35,7 @@ WYPISZ "Koniec programu."
 </data-pseudocode-runner>
 </data-gate>
 
-Przeklikaj ten program przyciskiem **Krok**. Zaobserwujesz, że instrukcja po słowie kluczowym `W PRZECIWNYM RAZIE` zostanie całkowicie pominięta przez układ ALU!
+Przeklikując ten program przyciskiem **Krok**. Zaobserwujesz, że instrukcja po słowie kluczowym `W PRZECIWNYM RAZIE` zostanie całkowicie pominięta przez układ ALU!
 
 ---
 
@@ -57,10 +57,14 @@ Dobrą praktyką jest grupowanie poszczególnych warunków w nawiasy okrągłe `
 punktyWidza = 45
 czyVIP = PRAWDA
 
-JEŻELI (punktyWidza >= 100) OR (czyVIP == PRAWDA) TO
-    WYPISZ "Wstęp do loży VIP otwarty!"
+JEŻELI (czyVIP == PRAWDA) OR (punktyWidza >= 100) TO
+
+&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Wstęp do loży VIP otwarty!"
+
 W PRZECIWNYM RAZIE
-    WYPISZ "Pozostań w sektorze standardowym."
+
+&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Pozostań w sektorze standardowym."
+
 KONIEC JEŻELI
 </pre>
 </data-pseudocode-runner>
@@ -82,16 +86,16 @@ wiek = 22
 bilet = FAŁSZ
 
 JEŻELI wiek >= 18 TO
-    WYPISZ "[V] Wiek OK"
+    WYPISZ "[✅] Wiek OK"
     
     JEŻELI bilet == PRAWDA TO
-        WYPISZ "[V] Bilet OK. Wejdz."
+        WYPISZ "[✅] Bilet OK. Wejdz."
     W PRZECIWNYM RAZIE
-        WYPISZ "[X] Brak biletu. Skieruj do kasy."
+        WYPISZ "[❌] Brak biletu. Skieruj do kasy."
     KONIEC JEŻELI
     
 W PRZECIWNYM RAZIE
-    WYPISZ "[X] Odrzucony - za mlody. Nie sprawdzam nawet biletu."
+    WYPISZ "[❌] Odrzucony - za mlody. Nie sprawdzam nawet biletu. xD"
 KONIEC JEŻELI
 </pre>
 </data-pseudocode-runner>
@@ -109,9 +113,9 @@ Interpreter analizuje warunki po kolei, od góry do dołu. Wykonuje on wyłączn
 
 Przeanalizujmy błędną próbę przyznawania rang na podstawie zebranych punktów:
 
-* **Od 10 punktów:** Ranga Brązowa.
-* **Od 50 punktów:** Ranga Srebrna.
-* **Od 100 punktów:** Ranga Złota.
+- **Od $10$ punktów:** Ranga Brązowa.
+- **Od $50$ punktów:** Ranga Srebrna.
+- **Od $100$ punktów:** Ranga Złota.
 
 <data-gate>
 <data-pseudocode-runner>
@@ -136,7 +140,7 @@ KONIEC JEŻELI
 </data-pseudocode-runner>
 </data-gate>
 
-Dlaczego gracz mający 150 punktów otrzymał rangę Brązową? 
+> Dlaczego gracz mający $150$ punktów otrzymał rangę Brązową? 
 
 Program sprawdził pierwszy warunek od góry: `150 >= 10`. Wynik tego porównania to prawda. Została wykonana instrukcja wypisania rangi Brązowej, a cały pozostały blok warunkowy został pominięty.
 
@@ -172,9 +176,9 @@ Taka konstrukcja odpowiada strukturze `ELSE IF` w tradycyjnych językach program
 
 ---
 
-## 🎛️ Instrukcja Wyboru: WYBIERZ ZMIENNĄ
+## 🪜 Instrukcja Wyboru: WYBIERZ ZMIENNĄ
 
-Drabinki warunkowe zbudowane z wielu instrukcji `JEŻELI` bywają nieczytelne. Gdy chcesz wykonać określone działania na podstawie konkretnej wartości jednej zmiennej, lepszym wyborem architektonicznym jest użycie instrukcji wyboru (tzw. `switch` z języków programowania).
+Drabinki warunkowe zbudowane z wielu instrukcji `JEŻELI` bywają nieczytelne. Gdy chcesz wykonać określone działania na podstawie konkretnej wartości jednej zmiennej, zdecydowanie lepszym wyborem architektonicznym jest użycie instrukcji wyboru (`switch`).
 
 W polskim pseudokodzie instrukcja ta nazywa się `WYBIERZ`. Jej działanie polega na dopasowaniu wartości danej zmiennej do jednego z podanych przypadków (`PRZYPADEK`). Jeśli żaden przypadek nie pasuje, wykonywany jest blok zastępczy (`INACZEJ`).
 
@@ -184,6 +188,7 @@ W polskim pseudokodzie instrukcja ta nazywa się `WYBIERZ`. Jej działanie poleg
 wybórMenu = 2
 
 WYBIERZ wybórMenu
+
     PRZYPADEK 1:
         WYPISZ "Wybrano: Rozpocznij nową grę."
     PRZYPADEK 2:

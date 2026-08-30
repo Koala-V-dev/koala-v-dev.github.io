@@ -1,0 +1,101 @@
+:root {
+    --color-text: #ebebeb;
+    --muted-text: #ccc;
+    --bg-layer-0: #111;
+    --bg-layer-1: #474747;
+    --table-border: #383838;
+    --thead-tr: #383838;
+    --tbody-tr-hover: #141414;
+    --tbody-td-hover: #181818;
+    --success: #296c29;
+    --info: #315a72;
+    --danger: #8d2121;
+}
+
+* {
+    -webkit-text-stroke: 0.4px rgb(0 0 0 / 20%);
+}
+
+body {
+    background-color: var(--bg-layer-0);
+    color: var(--color-text);
+}
+
+#new-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table {
+    box-sizing: border-box;
+    margin: 15px auto;
+}
+
+th,
+td {
+    border: 1px solid var(--table-border);
+    padding: 5px 10px;
+}
+
+th {
+    font-family: system-ui;
+    color: var(--muted-text);
+}
+
+th:nth-child(2) {
+    width: 250px;
+}
+
+button {
+    cursor: pointer;
+    border: 2px solid #fff2;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: monospace;
+    color: #fff;
+    background-color: var(--success);
+}
+
+td button:first-child {
+    background-color: var(--info);
+}
+
+td button:last-child {
+    background-color: var(--danger);
+}
+
+thead tr {
+    background-color: var(--thead-tr);
+}
+
+tbody tr:hover {
+    background-color: var(--tbody-tr-hover);
+}
+
+tbody td:hover {
+    background-color: var(--tbody-td-hover);
+}
+
+.hit-area,
+.hit-area input[type="checkbox"] {
+    margin: auto;
+    display: block;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    padding: 5px 10px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 2px;
+    color: var(--color-text);
+    background-color: var(--bg-layer-1);
+    display: block;
+    min-width: 210px;
+}
+
+button:hover,
+input[type="text"]:hover {
+    filter: brightness(.9);
+}
