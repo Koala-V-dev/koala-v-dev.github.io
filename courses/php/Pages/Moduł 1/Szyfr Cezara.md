@@ -1,4 +1,4 @@
-# 🏛️ Szyfr Cezara
+# Szyfr Cezara
 
 Szyfr Cezara to jeden z najprostszych algorytmów szyfrowania, polegający na zamianie każdej litery tekstu jawnego na literę oddaloną od niej w alfabecie o stałą liczbę pozycji.
 

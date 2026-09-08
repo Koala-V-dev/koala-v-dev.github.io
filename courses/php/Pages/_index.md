@@ -15,6 +15,7 @@
 
 # Lista zadań (CRUD)
 # Rejestracja i logowanie
+# Refaktoryzacja aplikacji
 # Akcje użytkowników i role
 
 

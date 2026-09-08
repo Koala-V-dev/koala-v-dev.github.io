@@ -1,4 +1,4 @@
-# 🔐 Szyfr Vigenère’a
+# Szyfr Vigenère’a
 
 Szyfr Cezara przesuwał każdą literę o stałą wartość (np. o $3$ pozycje). Szyfr monoalfabetyczny mieszał cały alfabet jednym stałym kluczem przetasowanego alfabetu. Oba miały jedną ogromną wadę: **analizę częstotliwościową**. Skoro w języku polskim najczęściej występuje litera **A** lub **E**, to najczęstszy znak w szyfrogramie od razu zdradzał podstawienie.
 

@@ -321,6 +321,7 @@ header {
 }
 
 .post {
+    width: 100%;
     max-width: 800px;
     margin: auto;
     background-color: var(--bg-layer-1);
