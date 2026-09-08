@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Lista zadań (CRUD) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Lista zadań (CRUD)</h1>
+<p>Dotychczas pracowaliśmy na danych ulotnych lub statycznie umieszczonych w kodzie pliku. Czas na zmiany. Zaimplementujmy prostą listę zadań z opcją dodawania, odczytu, aktualizacji i usunięcia czyli mechanizm <span class="color-gold">CRUD</span>.</p>
+<blockquote>
+<p><span class="color-blue">Create</span> - twórz, <span class="color-blue">Read</span> - czytaj, <span class="color-blue">Update</span> - aktualizuj, <span class="color-blue">Delete</span> - usuń.</p>
+</blockquote>
+<p>By nie tracić czas na budowanie struktury HTML i stylowanie go CSSem skopiuj zawartość obu plików:</p>
+<details>
+<summary>Lista zadań (CRUD)</summary>
+
+<p><small>index.html</small></p>
+<pre><code class="language-html">&lt;?php
+
+declare(strict_types=1);
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;PHP&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;form method="POST" id="new-task"&gt;
+        &lt;label for="new_task_name"&gt;Nazwa zadania&lt;/label&gt;
+        &lt;input type="text" name="new_task_name" id="new_task_name"&gt;
+        &lt;button name="action" value="create"&gt;Utwórz nowe zadanie&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;th&gt;Nr.&lt;/th&gt;
+            &lt;th&gt;Nazwa zadania&lt;/th&gt;
+            &lt;th&gt;Status zadania&lt;/th&gt;
+            &lt;th&gt;Akcje&lt;/th&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;form method="POST"&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;1.&lt;/td&gt;
+                    &lt;td&gt; &lt;input type="text" name="new_task_name" id="new_task_name" value="Wypić kawę"&gt;&lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;label class="hit-area"&gt;
+                            &lt;input type="checkbox" name="done" id="task_1" checked&gt;
+                        &lt;/label&gt;
+                    &lt;/td&gt;
+                    &lt;td&gt;
+                        &lt;button name="action" value="update"&gt;Aktualizuj&lt;/button&gt;
+                        &lt;button name="action" value="delete"&gt;Usuń&lt;/button&gt;
+                    &lt;/td&gt;
+                    &lt;input type="hidden" name="id" value="1"&gt;
+                &lt;/tr&gt;
+            &lt;/form&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+<p><small>style.css</small></p>
+<pre><code class="language-css">:root {
+    --color-text: #ebebeb;
+    --muted-text: #ccc;
+    --bg-layer-0: #111;
+    --bg-layer-1: #474747;
+    --table-border: #383838;
+    --thead-tr: #383838;
+    --tbody-tr-hover: #141414;
+    --tbody-td-hover: #181818;
+    --success: #296c29;
+    --info: #315a72;
+    --danger: #8d2121;
+}
+
+* {
+    -webkit-text-stroke: 0.4px rgb(0 0 0 / 20%);
+}
+
+body {
+    background-color: var(--bg-layer-0);
+    color: var(--color-text);
+}
+
+#new-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table {
+    box-sizing: border-box;
+    margin: 15px auto;
+}
+
+th,
+td {
+    border: 1px solid var(--table-border);
+    padding: 5px 10px;
+}
+
+th {
+    font-family: system-ui;
+    color: var(--muted-text);
+}
+
+th:nth-child(2) {
+    width: 250px;
+}
+
+button {
+    cursor: pointer;
+    border: 2px solid #fff2;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: monospace;
+    color: #fff;
+    background-color: var(--success);
+}
+
+td button:first-child {
+    background-color: var(--info);
+}
+
+td button:last-child {
+    background-color: var(--danger);
+}
+
+thead tr {
+    background-color: var(--thead-tr);
+}
+
+tbody tr:hover {
+    background-color: var(--tbody-tr-hover);
+}
+
+tbody td:hover {
+    background-color: var(--tbody-td-hover);
+}
+
+.hit-area,
+.hit-area input[type="checkbox"] {
+    margin: auto;
+    display: block;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    padding: 5px 10px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 2px;
+    color: var(--color-text);
+    background-color: var(--bg-layer-1);
+    display: block;
+    min-width: 210px;
+}
+
+button:hover,
+input[type="text"]:hover {
+    filter: brightness(.9);
+}
+</code></pre>
+</details>
+
+
+
+
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/wygląd-listy-zadań-do-crud-php.webp" alt="" width="675" height="144" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Teraz potrzebujesz w końcu bazy danych i tu przychodzi ponownie z pomocą oprogramowanie XAMPP.<br>Uruchom w panelu moduł usługi MySQL i opcjonalnie Apache:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/XAMPP-Apache-MySQL.webp" alt="" width="668" height="434" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<section class="lesson-section" data-lesson-section="true"><h2>🗄️ Baza danych MySQL</h2>
+<p>Standardowo przeszli byśmy do klikania w phpMyAdmin (<code>http://localhost/phpmyadmin/</code>). Jednak my zrealizujemy obsługę bazy danych z poziomu kodu PHP.  </p>
+<p>W pliku <code>index.php</code> zapisz $3$ stałe, które posłużą nam do połączenia z serwerem:</p>
+<pre><code class="language-php">const host = "localhost"; // Adres pod którym działa usługa MySQL (localhost == 127.0.0.1)
+const user = "root"; // Nazwa użytkownika MySQL (w XAMPP domyślnie root)
+const password = ""; // Hasło do MySQL (w XAMPP domyślnie brak hasła)
+</code></pre>
+<p>Ten serwer MySQL jest typem <span class="color-blue">MariaDB</span>. U mnie Wersja serwera: <span class="color-blue"><code>10.4.32-MariaDB</code></span>.<br>Dlaczego o tym wspominam?<br>Chodzi o to jakiej metody bedziesz używać do komunikacji z bazami danych (PDO vs MySQLi).<br>Te pierwsze ma wiekszy narzut abstrakcji dziki czemu obsłuży każdy liczący się rodzaj serwera baz danych, drugie jest dedykowane dla MySQL i przez to bardziej wydajne.</p>
+<h3>☎️ Połączenie z bazą danych</h3>
+<p>Do połączenia z serwerem baz danych używamy obiektu <code>mysqli</code>:</p>
+<pre><code class="language-php">$db = new mysqli(host, user, password);
+</code></pre>
+<p>Podajemy tylko $3$ parametry: adres hosta, użytkownika oraz hasło. Czwarty parametr (nazwę bazy) pomijamy, bo baza jeszcze nie istnieje na serwerze.</p>
+<p>Wtedy początek pliku będzie następujący:</p>
+<pre><code class="language-php">declare(strict_types=1);
+
+const host = "localshot"; // Literóka
+const user = "root";
+const password = "";
+
+$db = new mysqli(host, user, password);
+
+echo "&lt;br&gt;&lt;br&gt;===================================&lt;br&gt;&lt;br&gt;";
+
+if($db-&gt;errno !== 0){
+    echo "Numer błędu: " . $db-&gt;errno;
+    exit();
+}
+
+echo "&lt;br&gt;&lt;br&gt;===================================&lt;br&gt;&lt;br&gt;";
+
+if(!$db){
+    echo "Numer błędu: " . $db-&gt;errno;
+    exit();
+}
+</code></pre>
+<p>Jak widzisz żaden z <span class="color-gold"><code>if</code></span>-ów się nie wykonał. Są to stare metody chwytania błędów, które w wersjach PHP &gt;= 8.1 nie mają szans się wywołać ze względu na zmianę domyślnych parametrów klasy <code>mysqli</code>:</p>
+<pre><code class="language-php">mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/stare-nieaktualne-chwytanie-error-db-con.webp" alt="" width="1598" height="650" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Więc jak do tego podejść poprawnie?<br>Zamiast stosować instrukcję warunkową <code>if</code> w celu chwytania błędów, należy użyć bloku <code>try</code> <code>catch</code>:</p>
+<blockquote>
+<p><code>try</code>: spróbuj wykonać ten fragment kodu, a gdy rzuci on obiektem błędu to przekaż go do bloku <code>catch</code>. Jeżeli nie pojawi się żaden obiekt błędu z wykonywania tego fragmentu kodu to pomiń ciało <code>catch</code> i kontynuuj działanie programu.<br><code>catch</code>: przechwytuje obiekt błędu wyrzucony w bloku <code>try</code> i może wykonać awaryjne działanie dla tej okoliczności bez zmuszania programu do <span class="color-red">CRASHA</span>.</p>
+</blockquote>
+<pre><code class="language-php">try {
+    $db = @new mysqli(host, user, password);
+} catch (Exception $e) {
+    echo "Błąd bazy danych: " . $e-&gt;getMessage();
+}
+</code></pre>
+<p>W ciele <span class="color-gold"><code>try</code></span> Przed <code>new mysqli()</code> dopisano znak małpy <code>@</code> by interpreter PHP nie zwracał standardowego ostrzeżenia:</p>
+<pre><code>Warning: mysqli::__construct(): php_network_getaddresses: getaddrinfo for localshot failed: Nieznany host. in C:\Projekty kursu\php\index.php on line 12
+</code></pre>
+<p>Natomiast w bloku <span class="color-gold"><code>catch</code></span> zainicjalizowano zmienną <code>$e</code> o typie klasy <code>Exception</code>, do której w większości języków programowania rzuca się błędy (taki standardzik w branży 😉). Następnie w ciele <span class="color-gold"><code>catch</code></span> został wyświetlony przez <code>echo</code> wyciągnięty komunikat z obiektu <code>$e</code> przy pomocy metody <code>getMessage()</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/db-conn-trycatch.webp" alt="" width="1600" height="431" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🦭 Wstęp do SQL</h2>
+<p><span class="color-green">SQL</span> (<span class="color-blue">Structured Query Language</span>) to język bardzo wysokiego poziomu (deklaratywny), zbliżony do naturalnego języka człowieka. Używamy go do pracy z danymi przechowywanymi w bazach danych.</p>
+<blockquote>
+<p>Czym są bazy danych i dlaczego nie używamy plików tekstowych?</p>
+</blockquote>
+<p>Plik tekstowy to zwykły ciąg znaków, który trzeba czytać linia po linii. Nie ma w nim typów danych, relacji, kluczy ani mechanizmów kontroli dostępu. Baza danych to natomiast <span class="color-green">uporządkowany zbiór informacji</span>, którym zarządza specjalny system: <span class="color-gold">DBMS</span> (<span class="color-blue">Database Management System</span>).</p>
+<p>DBMS działa w oparciu o <span class="color-green">relacyjny model danych</span>, korzystający z teorii zbiorów i logiki matematycznej. Dzięki temu możemy wykonywać operacje takie jak filtrowanie, grupowanie, łączenie tabel czy agregacje, czyli wszystko w sposób szybki i przewidywalny.</p>
+<blockquote>
+<p>Dlaczego DBMS jest lepszy niż pliki tekstowe?</p>
+</blockquote>
+<ul>
+<li><span class="color-green">Struktura danych</span> — tabele, typy, klucze, relacje.</li>
+<li><span class="color-green">Wydajność</span> — indeksy pozwalają wyszukiwać dane błyskawicznie.</li>
+<li><span class="color-green">Bezpieczeństwo</span> — role, uprawnienia, szyfrowanie, backupy.</li>
+<li><span class="color-green">Transakcje (ACID)</span> — albo zapisze się wszystko, albo nic.</li>
+<li><span class="color-green">Współbieżność</span> — wielu użytkowników może pracować jednocześnie.</li>
+<li><span class="color-green">Optymalizacja zapytań</span> — DBMS tworzy statystyki i cache’uje plany zapytań.</li>
+<li><span class="color-green">Skalowalność</span> — rosnąca ilość danych nie powoduje liniowego spadku wydajności.</li>
+</ul>
+<p>Dlatego każda poważna aplikacja, strona internetowa, system operacyjny, aplikacja mobilna czy narzędzia analityczne korzysta z baz danych. SQL jest fundamentem pracy z danymi, również w nowoczesnych systemach analitycznych i Big Data.</p>
+<hr>
+<h3>🏗️ Utworzenie bazy danych</h3>
+<p>Gdy jesteśmy połączeni już z serwerem baz danych to przy pomocy metody <code>query()</code> możemy do niego wysyłać zapytania.</p>
+<p>Pierwsze co zrobimy to utworzymy bazę danych o nazwie <code>todo_db</code>:</p>
+<pre><code class="language-sql">CREATE DATABASE todo_db;
+</code></pre>
+<blockquote>
+<p>Proste prawda?</p>
+</blockquote>
+<p>Możemy do tego podejść na dwa sposoby </p>
+<data-tabs>
+    <tabs>
+        <b>Zapytanie w metodzie</b>
+        <b>Zapytanie w zmiennej</b>
+    </tabs>
+    <div><p>Pozornie mniej linii kodu i do tego ciężka w dynamicznej modyfikacji.</p>
+<pre><code class="language-php">$result = $db-&gt;query("CREATE DATABASE todo_db");
+echo $result;
+</code></pre></div>
+<div><p>Dodatkowa zmienna może przechowywać dynamiczniejsze zapytania modyfikowane względem zapotrzebowania.</p>
+<pre><code class="language-php">$sql = 'CREATE DATABASE todo_db';
+$result = $db-&gt;query($sql);
+echo $result;
+</code></pre></div>
+</data-tabs>
+
+<p>Gdy wykonamy cały ten kod to za pierwszym razem zostanie zwrócona przez <code>echo</code> wartość logiczna <code>true</code> rzutowana na int $1$, ale ponowne odświeżenie strony wywala nam fatalny błąd.</p>
+<p><span class="color-blue">Baza danych o tej nazwie już istnieje więc nie można jej utworzyć</span></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/stworzenie-bazy-danych.webp" alt="" width="1582" height="1409" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak się przed tym zabezpieczyć bez ciągłego zmieniania zapytania w kodzie?<br>Tu z pomocą przychodzi klauzula <code>IF NOT EXISTS</code> czyli <span class="color-blue">wykonaj jeżeli jeszcze nie istnieje...</span>.</p>
+<pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS todo_db;
+</code></pre>
+<p>Dobrze, skoro baza danych już utworzona a zapytanie zabezpieczone przed nadmiarowym wykonywaniem to czas sprawdzić jakie bazy danych są dostępne na serwerze. </p>
+<p>Stwórzmy kolejną zmienną <code>$sql_1</code> o wartości:</p>
+<pre><code>SHOW DATABASES;
+</code></pre>
+<p>Tym razem wynik bedzie posiadał strukturę, a nie pojedynczą wartość dlatego php musi ją przetworzyć na coś co bardzo dobrze znamy. Tablicę asocjacyjną.</p>
+<p>Na obiekcie klasy <code>mysqli_result</code> wykonamy metodę <code>fetch_assoc()</code> która przetwarza wynik zapytania do tablicy tablic asocjacyjnych tworząc stos z którego zdejmuje i zwraca pierwszy element (tablicę asocjacyjną pierwszego wiersza). Gdy na stosie nie bedzie już wierszy do zwrócenia jako tablice asocjacyjne to zostanie zwrócona wartość null. Każde wywołanie metody <code>fetch_assoc()</code> zdejmuje kolejny element ze stosu a następnie go zwraca.</p>
+<p>Dlatego idealnie bedzie tu pasować pętla <code>while</code> która wykonuje się do puki warunek jest prawdziwy, a przecież <code>null</code> jest nieprawdziwe 😉</p>
+<pre><code class="language-php">echo "&lt;pre&gt;";
+$sql_1 = "SHOW DATABASES";
+$result = $db-&gt;query($sql_1);
+
+while($row = $result-&gt;fetch_assoc()){
+    print_r($row);
+}
+echo "&lt;/pre&gt;";
+</code></pre>
+<p>Jak widać tym razem fatalnego erroru nie było. Znowu mamy jedynkę a następnie $7$ tablic asocjacyjnych z kluczem <code>[Database]</code> wskazujących na nazwy istniejących w BDMS baz danych. Ostatnia z nich to własnie ta przez naz utworzona w kodzie. </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/show-databases.webp" alt="" width="1589" height="920" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>📋 Utworzenie tabeli</h3>
+<p>Sama baza danych to kontener na tabele które beda przechowywac faktyczne dane. Dlatego warto poznać ich kilka właściwości:<br>Typy danych:</p>
+<ul>
+<li><span class="color-green"><code>INT</code></span> - liczba całkowita.</li>
+<li><span class="color-blue"><code>VARCHAR(255)</code></span> - tekst, który tu określono na maksymalną długość $255$ znaków. Każdy kolejny znak zostanie obcięty.</li>
+<li><span class="color-gold"><code>DATE</code></span> - data w formacie <code>rrrr</code>-<code>mm</code>-<code>dd</code>.</li>
+<li><span class="color-gold"><code>DATETIME</code></span> - data i czas w formacie <code>rrrr</code>-<code>mm</code>-<code>dd</code> <code>hh</code>:<code>mm</code>:<code>ss</code>.</li>
+<li><span class="color-blue"><code>TEXT</code></span> - tekst o nieokreślonej długości, ale maksymalnie $2^{16} - 1 = 65,535$ znaków.</li>
+<li><span class="color-red"><code>ENUM("a", "b", "c")</code></span> - lista wartości, z których jedna może być przypisana do danego pola.</li>
+<li><span class="color-red"><code>SET("a", "b", "c")</code></span> - lista wartości, z których wiele może być przypisana do danego pola.</li>
+<li><span class="color-green"><code>TINYINT</code></span> - liczba całkowita o maksymalnej wartości $127$. Reprezentuje ona prawdę/fałsz.</li>
+<li><span class="color-green"><code>BOOLEAN</code></span> - domyślnie traktowana jak <code>TINYINT</code>.</li>
+</ul>
+<hr>
+<p>By stworzyć tabelę przy pomocy zapytania SQL musisz posłużyć się <code>CREATE TABLE</code> i dla bezpieczeństwa dodać jeszcze dobrze Ci znaną klauzulę <code>IF NOT EXISTS</code>:</p>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS nazwa_tabeli ( info_o_jej_kolumnach );
+</code></pre>
+<p>Pamiętamy że podczas tworzenia instancji obiektu <code>mysqli</code> nie podaliśmy nazwy bazy danych, więc DBMS nie domyśli się w której bazie danych ma stworzyć tą tabelę. Podczas tworzenia i innych działań na tabelach bedzie trzeba do jej nazwy dopisać prefiks <code>nazwa_bazy_danych.</code>:</p>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS todo_db.tasks (
+
+);
+</code></pre>
+<p>Każdy wiersz powinien mieć niepowtarzalną wartość kolumny. Tak właściwie to w nomenklaturze baz danych nazywamy to <span class="color-green">kluczem głównym</span>. Dodatkowo zamiast mówić kolumna mówimy <span class="color-green">atrybut</span>, zamiast wartości w wierszu dla danego atrybutu mówimy <span class="color-green">pole</span> a zamiast wiersz/rekord mówimy <span class="color-green">krotka</span>. xD</p>
+<p>Wracając. Kluczem głównym bardzo czesto jest wartość identyfikatora (<code>id</code>), chodź może to być np.: pesel lub numer paszportu. Dziwnym było by podawanie peselu w aplikacji do zarządzania zadaniami więc klasycznie bedziemy generować ID.</p>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS todo_db.tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+);
+</code></pre>
+<p>Określamy że atrybut <code>id</code> bedzie typu <code>INT</code> który przy każdym nowej krotce samoczynnie się zwiększy o $1$ czyli nastąpi inkrementacja. Dodatkowo oznaczamy go jako klucz główny i żaden inny atrybut w tej tabeli nie bedzie mógł mieć tej etykiety.</p>
+<p>Patrząc na nagłówki tabeli CRUD z początku lekcji widzimy że są tam:</p>
+<ul>
+<li>Nr: jakaś liczba</li>
+<li>Nazwa zadania: tekst edytowalny</li>
+<li>Status zadania: input typu checkbox</li>
+<li>Akcje: dwa przyciski (aktualizacja, usuwanie)</li>
+</ul>
+<p>Dlatego tabelę musimy jeszcze wzbogacić o atrybuty nazwy i statusu zadania.</p>
+<pre><code class="language-sql">CREATE TABLE IF NOT EXISTS todo_db.tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    is_done BOOLEAN DEFAULT 0
+);
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Długość ciągu tekstowego w <code>VARCHAR</code> musi być podana bo bez tego MySQL nie wie ile pamięci zaalokować na dany wpis.</p>
+
+</div>
+</div><p>Skoro mamy już utworzoną tabelę to wykonajmy to samo co zrobiliśmy po stworzeniu bazy danych. Sprawdżmy czy ona faktycznie istnieje.</p>
+<p>Wcześniej posłużyliśmy się zapytaniem <code>SHOW DATABASES</code>, więc logicznie teraz posłużymy się zapytaniem <code>SHOW TABLES</code>.<br>Jednak jest tu pewna nieścisłość. Gdy wyświetlaliśmy bazy danych to robiliśmy to na konkretnym serwerze, więc wiadomo skąd te nazwy miały być brane. Dlatego w <code>SHOW TABLES</code> brakuje nam wskazanie w której bazie danych tabele mają być wyświetlone. By tego dokonać należy dopisać słówko <code>FROM</code> i podać nazwę bazy danych:</p>
+<pre><code class="language-sql">SHOW TABLES FROM todo_db
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/show-tables.webp" alt="Wyświetlanie tabel po zapytaniu SHOW TABLES FROM todo_db" width="1591" height="905" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Więc po uproszczeniu uzyskujemy taki stan kodu php:</p>
+<pre><code class="language-php">declare(strict_types=1);
+
+const host = "localhost";
+const user = "root";
+const password = "";
+
+$db = null;
+
+try {
+    $db = @new mysqli(host, user, password);
+} catch (Exception $e) {
+    echo "Błąd bazy danych: " . $e-&gt;getMessage();
+}
+
+$sql = 'CREATE DATABASE IF NOT EXISTS todo_db;
+        CREATE TABLE IF NOT EXISTS todo_db.tasks (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255),
+            is_done BOOLEAN DEFAULT 0
+        )';
+
+$result = $db-&gt;query($sql);
+</code></pre>
+<p>Ale to nie zadziała i zobaczysz fatalny błąd:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/multi-query-send-use-sinngle-query-metod.webp" alt="" width="777" height="119" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Chodzi o to że aktualnie zmienna <code>$sql</code> przechowuje dwa zapytania a metoda <code>query()</code> przyjmuje tylko jedno zapytanie na raz. By rozwiązać ten problem należy zastąpić <code>query()</code> metodą <code>multi_query()</code>:</p>
+<pre><code class="language-php">$result = $db-&gt;multi_query($sql);
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Metoda <code>multi_query()</code> wykonuje wiele zapytań SQL naraz, ale pozostawia w pamięci wyniki tych zapytań.<br>Jeśli po jej użyciu nie odbierzesz wszystkich wyników, kolejne wywołanie <code>query()</code> lub <code>multi_query()</code> może zakończyć się błędem:</p>
+<pre><code>Fatal error:  Uncaught mysqli_sql_exception: Commands out of sync; you can't run this command now in ...
+</code></pre>
+<p>Aby temu zapobiec, po wykonaniu <code>multi_query()</code> należy odebrać wszystkie wyniki. Najwygodniej zrobić to w pętli <code>do...while</code>, która wykona się co najmniej raz. W tym celu używa się trzech metod:</p>
+<ul>
+<li><code>store_result()</code>: pobiera wynik bieżącego zapytania (np. <code>SELECT</code>). Zwraca obiekt <code>mysqli_result</code>, albo false, jeśli zapytanie nie zwraca danych (np. <code>CREATE TABLE</code>).</li>
+<li><code>more_results()</code>: zwraca true, jeśli w buforze są jeszcze kolejne wyniki zapytań wykonanych przez <code>multi_query()</code>.</li>
+<li><code>next_result()</code>: przełącza połączenie na następny wynik w kolejce. Zwraca true, jeśli kolejny wynik istnieje, false jeśli nie.</li>
+</ul>
+<p>Przykład poprawnego odbierania wyników:</p>
+<pre><code class="language-php">do {
+   if ($result = $db-&gt;store_result()) {
+       while($row = $result-&gt;fetch_row()){
+           //...
+       }
+       $result-&gt;free();
+   }
+} while ($db-&gt;more_results() &amp;&amp; $db-&gt;next_result());
+</code></pre>
+<p>Alternatywnie możesz po prostu zamknąć połączenie, co automatycznie czyści bufor wyników, a następnie połączyć się ponownie:</p>
+<pre><code class="language-php">$result = $db-&gt;multi_query($sql);
+$db-&gt;close();
+$db = new mysqli(host, user, password, 'todo_db');
+</code></pre>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📨 GET vs POST</h2>
+<p>Dwie podstawowe metody komunikacji strony WWW z serwerem to HTTP <span class="color-blue"><code>GET</code></span> oraz <span class="color-green"><code>POST</code></span>. Dla uproszczenia możesz uznać że metodą <span class="color-blue"><code>GET</code></span> udostępniasz zasoby i dane publicznie natomiast metodą <span class="color-green"><code>POST</code></span> pobierasz prywatne dane oraz wykonujesz akcje na serwerze i chcesz to autoryzować.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Kryterium</th>
+<th align="left">Metoda <span class="color-blue"><code>GET</code></span></th>
+<th align="left">Metoda <span class="color-green"><code>POST</code></span></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Główne przeznaczenie</span></td>
+<td align="left">Pobieranie i odczyt danych (<code>Read</code>), filtrowanie, wyszukiwanie</td>
+<td align="left">Tworzenie, modyfikacja i usuwanie danych (<code>Create</code>, <code>Update</code>, <code>Delete</code>)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Lokalizacja danych</span></td>
+<td align="left">W pasku adresu URL jako Query String (<code>?klucz=wartosc</code>)</td>
+<td align="left">W ciele żądania HTTP (<span class="color-blue">Request Body</span>) – niewidoczne w adresie URL</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Poufność danych</span></td>
+<td align="left"><span class="color-green">Niska</span> – dane widać na ekranie, w historii przeglądarki i logach serwera</td>
+<td align="left"><span class="color-green">Wyższa</span> – dane nie trafiają do adresu URL ani historii (do pełnego bezpieczeństwa wymaga HTTPS)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Limit rozmiaru</span></td>
+<td align="left">Ścisły limit długości adresu URL (zależny od przeglądarki/serwera, zazwyczaj <span style="text-wrap: nowrap;">$\approx 2048$</span> znaków)</td>
+<td align="left">Brak limitu URL (ograniczony jedynie konfiguracją serwera, np. w <code>php.ini</code> jest $40MB$ <code>post_max_size=40M</code>)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Obsługiwane typy</span></td>
+<td align="left">Wyłącznie ciągi znaków ASCII (format URL‑encoded)</td>
+<td align="left">Dowolne typy danych: tekst, JSON, XML oraz pliki binarne (<span class="color-blue">multipart/form‑data</span>)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Pamięć podręczna i historia</span></td>
+<td align="left">Zapisywane w historii przeglądarki, mogą być buforowane (<span class="color-gold">cache</span>) i dodawane do zakładek</td>
+<td align="left">Nie są zapisywane w historii ani domyślnie cachowane; ponowne wysłanie wymaga potwierdzenia</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wpływ na stan (Idempotentność)</span></td>
+<td align="left">Idempotentne – wielokrotne wywołanie nie powinno zmieniać stanu zasobów na serwerze</td>
+<td align="left">Nieidempotentne – kolejne wywołanie może utworzyć kolejny rekord lub powtórzyć akcję</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Idempotentność</span> to cecha działania, które daje taki sam wynik, niezależnie od tego, czy zrobisz je raz, czy wiele razy.</p>
+
+</div>
+</div><h3>📇 Formularze HTML</h3>
+<p>Do podstawowych sposobów komunikacji przeglądarki z serwerem należą:</p>
+<ul>
+<li><span class="color-blue"><code>GET</code></span> pobieranie zasobów, najczęściej poprzez hiperłącza (linki).</li>
+<li><span class="color-green"><code>POST</code></span> wysyłanie danych, najczęściej poprzez formularze HTML.</li>
+</ul>
+<p>Formularze mogą korzystać zarówno z <span class="color-blue"><code>GET</code></span>, jak i <span class="color-green"><code>POST</code></span>.<br><span class="color-blue"><code>GET</code></span> stosujemy wtedy, gdy użytkownik wybiera lub filtruje zasób, a wynik powinien być widoczny w URL (np. wyszukiwarki, filtry, sortowanie, paginacja, konfiguratory).<br><span class="color-green"><code>POST</code></span> stosujemy wtedy, gdy formularz modyfikuje dane na serwerze (np. dodawanie, edycja, usuwanie). Dodatkowo gdy dane przesyłane są wrażliwe np.: hasło logowania.</p>
+<hr>
+<p>Przed tabelką mamy następujący formularz:</p>
+<pre><code class="language-html">&lt;form method="POST" id="new-task"&gt;
+    &lt;label for="new_task_name"&gt;Nazwa zadania&lt;/label&gt;
+    &lt;input type="text" name="new_task_name" id="new_task_name"&gt;
+    &lt;button name="action" value="create"&gt;Utwórz nowe zadanie&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Etykieta opisująca i wskazująca atrybutem <code>for</code> na pole <code>&lt;input&gt;</code> typu <code>text</code> i jego atrybut <code>id</code> oraz przycisk akcji do utworzenia nowego zadania. Atrybuty <code>name</code> pól formularza określają klucze, za pomocą których odczytamy dane w PHP. Dodatkowo przycisk ma zdefiniowany atrybut <code>value</code> do określenia rodzaju akcji.</p>
+<p>Gdzy zbadasz stronę (<kbd>F12</kbd>) i przejdziesz do zakładki sieć/network, a następnie uzupełnisz input i klikniesz przycisk "Utwórz nowe zadanie" zobaczysz że storna się odświeżyła a przeglądarka wykonała $3$ zapytania:</p>
+<ul>
+<li><span class="color-green"><code>200</code></span> <span class="color-green"><code>POST</code></span> <code>/</code> pobierając plik <code>index.php</code> i ustawiając nagłówek <span class="color-blue"><code>Content-Type: text/html</code></span> w którym mamy dane żądania:<ul>
+<li>O nazwie <code>new_task_name</code> i wartości <code>"test"</code></li>
+<li>O nazwie <code>action</code> i wartości <code>"create"</code></li>
+</ul>
+</li>
+<li><span class="color-green"><code>200</code></span> <span class="color-blue"><code>GET</code></span> <code>style.css</code> pobierając plik <code>style.css</code> i ustawiając nagłówek <span class="color-blue"><code>Content-Type: text/css</code></span></li>
+<li><span class="color-gold"><code>404</code></span>  <span class="color-blue"><code>GET</code></span> <code>favicon.ico</code> to klasyczny błąd $404$ oznaczający że pod podaną ścieżką nie odnaleziono pliku <code>favicon.ico</code>. Favicon to ikonka przeglądarki widoczna w zakładce obok tytułu strony.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/dane-formularza-post.webp" alt="" width="1134" height="351" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>By móc się odwołać do tych danych formularza wysyłanych w zapytaniu (<span class="color-blue">request</span>), PHP udostępnia zmienną <span class="color-gold">SUPERGLOBALNĄ</span> <code>$_POST</code>:</p>
+<pre><code class="language-php">$_POST["wartość name z kontrolki formularza"]
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-gold">SUPERGLOBALNYCH</span> w PHP jest ich $9$: </p>
+<ol>
+<li><span class="color-gold"><code>$GLOBALS</code></span> Tablica zawierająca wszystkie zmienne globalne.</li>
+<li><span class="color-gold"><code>$_SERVER</code></span> Informacje o serwerze, nagłówkach, ścieżkach, requestach.</li>
+<li><span class="color-blue"><code>$_GET</code></span> Dane z zapytań GET.</li>
+<li><span class="color-green"><code>$_POST</code></span> Dane z zapytań POST.</li>
+<li><span class="color-red"><code>$_FILES</code></span> Informacje o uploadowanych plikach.</li>
+<li><span class="color-gold"><code>$_COOKIE</code></span> Dane z ciasteczek.</li>
+<li><span class="color-gold"><code>$_SESSION</code></span> Dane sesji.</li>
+<li><span class="color-gold"><code>$_REQUEST</code></span> Mieszanka GET/POST/COOKIE (zależnie od request_order).</li>
+<li><span class="color-gold"><code>$_ENV</code></span> Zmienne środowiskowe.</li>
+</ol>
+
+</div>
+</div><hr>
+<p>Chcąc podejrzeć wartości zmiennych <span class="color-green"><code>$_POST</code></span> przy pomocy <code>echo</code> możesz napotkać na ostrzeżenie o niezdefiniowanych kluczach.  </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/niezdefiniowane-klucze-POST.webp" alt="" width="1583" height="926" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>By zapobiec wyświetlaniu tego rodzaju ostrzeżeń można by było wyciszyć małpą <code>@</code>. Jednak to mały plaster na dużą ranę. Zamiast tego lepiej posłóżyć się instrukcjami warunkowymi sprawdzających czy w tabeli assocjacyjnej istnieje ten konkretny klucz:</p>
+<pre><code class="language-php">if (isset($_POST['new_task_name'])) {
+    echo $_POST['new_task_name'];
+    echo "\n";
+}
+if (isset($_POST['action'])) {
+    echo $_POST['action'];
+    echo "\n";
+}
+</code></pre>
+<p>Zobacz że teraz na pierwsze wyświetlenie tablicy <code>print_r($_POST);</code> i jej elementy. To jest dokładnie to samo co było w requeście <code>/</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/isset-post-data-form.webp" alt="" width="1598" height="932" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>➕ Zapisywanie zadania do bazy (INSERT)</h2>
+<p>W SQL do wstawiania nowych rekordów służy polecenie <code>INSERT INTO</code>:</p>
+<pre><code class="language-sql">INSERT INTO nazwa_tabeli 
+    (atrybuty) 
+VALUES 
+    ('pola');
+</code></pre>
+<blockquote>
+<p>[!REMINDER]</p>
+<ul>
+<li>Nagłówkowe nazwy kolumn w tabeli w bazach danych nazywamy <span class="color-green">atrybutami</span></li>
+<li><span class="color-green">Pole</span> to konkretna wartość w danej kolumnie na danym wierszu.</li>
+<li>Wiersze w tabelach baz danych nazywamy <span class="color-green">krotkami</span></li>
+</ul>
+</blockquote>
+<p>Teraz musimy zbudować zapytanie insertu z wykorzystaniem wartości przesłanej z formularza o <code>name</code> <code>new_task_name</code> do atrybutu <code>name</code> tabeli tasks. Posłużymy się tu konkatenacją i musimy pamiętać że <code>name</code> w tabeli zdefiniowaliśmy jako <code>VARCHAR(255)</code> co oznacza że jest to tekst i musi być ujęty w apostrofy <code>''</code> albo w cudzysłów <code>""</code>. </p>
+<blockquote>
+<p>Apostrofy są mocniejsze od cudzysłów. To oznacza że jako string może być przesłąny cudzysłów który opakujesz w apaostrofy. Natomiast nie działa to na odwrót. Dlatego ja preferuję zapisywać zapytania SQL w apostrofach.</p>
+</blockquote>
+<pre><code class="language-php">if (isset($_POST['new_task_name'])) {
+    $insertSQL = 'INSERT INTO tasks
+                    (name)
+                VALUES
+                    ("' . $_POST['new_task_name'] . '")
+    ';
+
+    echo $db-&gt;query($insertSQL);
+}
+</code></pre>
+<p>W ten sposób mamy zrealizowaną pierwszą literkę <span class="color-green">CRUD</span> - <span class="color-green">Create</span>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📖 Pobieranie zadań z bazy (SELECT) i wyświetlenie w tabeli</h2>
+<p>Do pobrania danych z bazy służy polecenie <code>SELECT</code>:</p>
+<pre><code class="language-sql">SELECT * FROM tasks;
+</code></pre>
+<p>Gwiazdka <code>*</code> oznacza pobranie wszystkich kolumn z tabeli, ale zamiast niej można podać konkretne atrybuty do uwzględnienia w wyniku, np.:</p>
+<pre><code class="language-sql">SELECT id, name FROM tasks;
+</code></pre>
+<p>Zamiast modyfikować konkatenacją html danymi z bazy dokonamy separacji komponentu formularza.</p>
+<p>Wyekstrachuj zawartość <code>&lt;tbody&gt;</code> do odzielnego pliku <code>form.html</code>:</p>
+<pre><code class="language-html">&lt;form method="POST"&gt;
+    &lt;tr&gt;
+        &lt;td&gt;1.&lt;/td&gt;
+        &lt;td&gt; &lt;input type="text" name="new_task_name" id="new_task_name" value="Wypić kawę"&gt;&lt;/td&gt;
+        &lt;td&gt;
+            &lt;label class="hit-area"&gt;
+                &lt;input type="checkbox" name="done" id="task_1" checked&gt;
+            &lt;/label&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+            &lt;button name="action" value="update"&gt;Aktualizuj&lt;/button&gt;
+            &lt;button name="action" value="delete"&gt;Usuń&lt;/button&gt;
+        &lt;/td&gt;
+        &lt;input type="hidden" name="id" value="1"&gt;
+    &lt;/tr&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Zmodyfikuj wymagane pozycje z zachowaniem przykładowo skałdni dwóch peocentów jako wraperów np:</p>
+<ul>
+<li><code>%%index%%</code>: numer wyświetlany zadania</li>
+<li><code>%%name%%</code>: nazwa zadania</li>
+<li><code>%%is_done%%</code>: status zadania (zrobione/nie zrobione)</li>
+<li><code>%%id%%</code>: id zadania w ukrytej kontrolce <code>type="hidden"</code></li>
+</ul>
+<p>Przy pomocy <code>file_get_contents("form.html")</code> wczytujemy plik do zmiennej.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/przygotowanie-pierwszej-preparacji-reuse-html.webp" alt="" width="1848" height="921" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Gdy templatka jest poprawnie zaciągana i zwracana jako render html to czas zacząć ją preparować.<br>Funkcja <code>str_replace()</code> Przyjmuje kolejno $3$ argumenty:</p>
+<ul>
+<li>Szukana fraza np.: <code>"%%name%%"</code></li>
+<li>Wartość zastępująca szukaną frazę np.: <code>$row["name"]</code></li>
+<li>Zmienna zawierająca tekst do przeszukania (<code>string</code>)</li>
+</ul>
+<p>Poniżej gotowy fragment kodu który w pętli przechodzi po krotkach (wierszach) tabeli tasks zaciąga zawartość pliku <code>form.html</code>, wyszukuje odpowiednie frazy i zastępuje je polami z krotek zgodnych z podanym atrybutem. Na koniec wyświetlany jest gotowy HTML w miejscu gdzie umieścimy wywołanie pętli:</p>
+<pre><code class="language-php">$select_sql = 'SELECT * FROM tasks';
+$result = $db-&gt;query($select_sql);
+
+$nr = 0;
+while ($row = mysqli_fetch_assoc($result)) {
+    $nr++;
+    $form = file_get_contents("form.html");
+
+    $form = str_replace("%%name%%", $row["name"], $form);
+    $form = str_replace("%%id%%", $row["id"], $form);
+    $form = str_replace("%%index%%", (string)$nr, $form);
+
+    $checked = $row["is_done"] ? "checked" : "";
+    $form = str_replace("%%is_done%%", $checked, $form);
+
+    echo $form;
+}
+</code></pre>
+<blockquote>
+<p>PS.: Numer w tabelce na froncie nie powinien jawnie odzwierciedlać wartości <code>id</code> z tabeli bazodanowej.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/gotowa-tabela-crud-z-preparcji.webp" alt="" width="1839" height="924" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✏️ Aktualizacja zadania (UPDATE)</h2>
+<p>Zobaczmy co się stanie gdy teraz wciśniemy przycisk <kbd class="win-menu-btn">Aktualizuj</kbd>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/crud-update-analize-button.webp" alt="" width="1546" height="815" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<ul>
+<li>Widzimy że dane są przesyłane metodą <span class="color-green"><code>POST</code></span> a nie <span class="color-blue"><code>GET</code></span>.</li>
+<li>Jeżeli checkbox jest zaznaczony to jest przesyłana jego wartość, a jeżeli jest odznaczony, to nie ma go wcale w przesłanych danych.</li>
+<li>Aktualnie <code>if (isset($_POST['new_task_name']))</code> z formularza dodawania koliduje z akcją aktualizacji. Dlatego że sprawdza tylko istnienie klucza w tablicy asocjacyjnej <code>$_POST</code>, który jest obecny w obu przypadkach.</li>
+</ul>
+<p>Rozdzielmy dostępne akcje w instrukcji warunkowej <code>switch</code> bazując na wartości <code>action</code> z formularza:</p>
+<pre><code class="language-php">if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case "create":
+            $insertSQL = 'INSERT INTO tasks
+                            (name)
+                        VALUES
+                            ("' . $_POST['new_task_name'] . '")
+            ';
+
+            $db-&gt;query($insertSQL);
+            break;
+        case "update":
+
+            break;
+        case "delete":
+
+            break;
+    }
+}
+</code></pre>
+<p>Teraz wysłanie zapytania o typie akcji innym niż <code>create</code> nie spowoduje insertu nowych danych.</p>
+<p>Aby zaktualizować istniejącą krotkę w bazie danych należy się posłużyć poleceniem <code>UPDATE</code>:</p>
+<pre><code class="language-sql">UPDATE nazwa_tabeli
+SET atrybut1 = nowa_wartość_pola, atrybut2 = nowa_wartość_pola, ... 
+WHERE warunek_określający_krotkę_do_zmiany
+</code></pre>
+<p>Przykładowo:</p>
+<pre><code class="language-sql">UPDATE tasks SET name = 'Nowa nazwa', done = 1 WHERE id = 1;
+</code></pre>
+<p>Uzupełnijmy przypadek <code>case "update":</code> w instrukcji warunkowej <code>switch</code> przygotowując zapytanie aktualizacji w SQL.<br>Posłużymy się tu zmienną pomocniczą do zapisu aktualizowanego atrybutu <code>is_done</code> a resztę danych przesłanych metodą <span class="color-green"><code>POST</code></span> umieścimy bezpośrednio konkatenacją w treści zapytania SQL:</p>
+<pre><code class="language-php">case "update":
+    $is_done = isset($_POST['done']) ? 1 : 0;
+    $update_sql = 'UPDATE tasks SET
+                name="' . $_POST['new_task_name'] . '",
+                is_done=' . $is_done . '
+                WHERE id=' . $_POST["id"] . ' 
+                        ';
+    $db-&gt;query($update_sql);
+    break;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/uzupełnienie-przypadku-case-w-switchu-dla-aktualizacji-crud.webp" alt="" width="1573" height="898" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗑️ Usuwanie zadania (DELETE)</h2>
+<p>Do pełnego zrealizowania <span class="color-green">CRUD</span> pozostała nam jeszcze tylko ostatnia literka <span class="color-red">Delete</span> (Usuwanie).</p>
+<p>Do usunięcia rekordu z bazy służy polecenie <code>DELETE FROM</code> gdzie za pomocą <code>WHERE</code> określamy które krotki usunąć:</p>
+<pre><code class="language-sql">DELETE FROM tasks WHERE id = 1;
+</code></pre>
+<p>Uzupełni switch o finalną operację usunięcia wiersza z tabeli <code>tasks</code>:</p>
+<pre><code class="language-php">case "delete":
+    $db-&gt;query("DELETE FROM tasks WHERE id = " . $_POST["id"]);
+    break;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/finalny-switch-crud.webp" alt="" width="1847" height="803" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗂️ Paginacja i LIMIT oraz OFFSET</h2>
+<p>Na razie w tabeli <code>tasks</code> mamy tylko $4$ krotki (wiersze). Pomyślmy jednak co jeśli mielibyśmy ich ponad $10\text{ }000$? Wyświetlenie takiej tabeli mocno obciąży render przeglądarki i nie będzie wygodne w przeglądaniu przez odbiorcę. </p>
+<p>Aby zaradzić temu problemowi możemy w zapytaniu <code>SELECT</code> użyć klauzuli <code>LIMIT</code> pozwalającą na ograniczenie liczby zwracanych krotek:</p>
+<pre><code class="language-sql">SELECT * FROM tasks LIMIT 5;
+</code></pre>
+<p>Jednak do paginacji potrzebujemy jeszcze klauzuli <code>OFFSET</code>, która pozwala na określenie, od której krotki mają być zwracane wyniki:</p>
+<pre><code class="language-sql">SELECT * FROM tasks LIMIT 5 OFFSET 10;
+</code></pre>
+<p>Standardowo MySQL do wykonania tej operacji zgrupuje i posortuje tabelę na podstawie pierwszej kolumny: <code>id</code>, a następnie zwróci $5$ kolejnych krotek.</p>
+<hr>
+<p>Implementację komponentu paginacji rozpoczniemy od jego struktury html i stylu css.</p>
+<p>Kontener który wykorzystamy do zwrapowania elementów hiperłączy powinien być tagiem <code>&lt;nav&gt;</code>, ponieważ zachodzi zmiana URL od której to zależy co na stronie zostanie wyświetlone. Popatrz na zawartość atrybutu <code>href</code>. Zamieszczono w niej zmienną przesyłaną linkiem czyli metodą <span class="color-blue"><code>GET</code></span>:</p>
+<pre><code class="language-html">&lt;nav class="paginacja"&gt;
+    &lt;a href="?offset=1" class="active"&gt;1&lt;/a&gt;
+    &lt;a href="?offset=2"&gt;2&lt;/a&gt;
+    &lt;a href="?offset=3"&gt;3&lt;/a&gt;
+    &lt;a href="?offset=4"&gt;4&lt;/a&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>Masz tu gotowy styl aby komponet wyglądał jak faktyczna paginacja:</p>
+<pre><code class="language-css">.paginacja{
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+}
+.paginacja a{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-color: var(--info);
+    color: var(--color-text);
+    text-align: center;
+    font-size: 25px;
+    margin: 0 3px;
+    border-radius: 2px;
+}
+.paginacja a:hover{
+    background-color: var(--success);
+}
+.paginacja a.active{
+    background-color: var(--danger);
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/styl-paginacji.webp" alt="" width="1845" height="688" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>Zmodyfikujmy zapytanie <code>SELECT</code> w miejscu gdzie renderują się wiersze tabeli.<br>Do zmiennej pomocniczej <code>$offset</code> przypisujemy wartość zmiennej <span class="color-blue"><code>GET</code></span> o ile istnieje, w przeciwnym wypadku $1$, a dlaczego nie zero? Ponieważ zakładamy że jeżeli zmienna <span class="color-blue"><code>GET</code></span> nie istnieje lub użytkownik klikną na pierwszą stronę to chcemy mu wyświetlić początkowe dane.</p>
+<p>Zapytanie <code>SELECT</code> zostanie wzbogacone o klauzulę <code>LIMIT 2</code> a paginacja bedzie wyliczana arytmetycznie względem wartości zmiennej <span class="color-blue"><code>GET</code></span>:</p>
+<ul>
+<li>dla <code>?offset=1</code>: $(1 - 1 ) \times 2 = 0 \rightarrow$ <code>LIMIT 2 OFFSET 0</code></li>
+<li>dla <code>?offset=2</code>: $(2 - 1 ) \times 2 = 2 \rightarrow$ <code>LIMIT 2 OFFSET 2</code></li>
+<li>dla <code>?offset=3</code>: $(3 - 1 ) \times 2 = 4 \rightarrow$ <code>LIMIT 2 OFFSET 4</code></li>
+</ul>
+<blockquote>
+<p>Wartość ilorazu i limitu powinna być taka sama.</p>
+</blockquote>
+<pre><code class="language-php">$offset = $_GET["offset"] ?? 1;
+$select_sql = 'SELECT * FROM tasks LIMIT 2 OFFSET ' . ($offset - 1) * 2;
+$result = $db-&gt;query($select_sql);
+</code></pre>
+<hr>
+<p>By wiedzieć ile elementów paginacji musimy wygenerować to potrzebujemy informacji ile w ogóle tabela zawiera krotek.<br>Zapytaniem zliczającym elementy w SQL jest funkcja <code>COUNT(*)</code>:</p>
+<pre><code class="language-sql">SELECT COUNT(*) FROM tasks;
+</code></pre>
+<p>Jej wynik pozwoli na określenie ile stron danych uzyskamy w odniesieniu do limitu.</p>
+<pre><code class="language-php">$select_sql = 'SELECT COUNT(*) FROM tasks';
+$result = $db-&gt;query($select_sql);
+$rows = $result-&gt;fetch_array();
+
+$paginationElements = $rows[0] / 2;
+</code></pre>
+<p>Z racji że w zapytaniu wybrano <code>COUNT(*)</code> to wynik bedzie posiadał tylko jeden atrybut, pole i krotkę.</p>
+<p>Wynik zapytania posłuży nam do pętli for i przygotowaniu struktury html do wyświetlenia:</p>
+<pre><code class="language-php">$paginationHTML = '&lt;nav class="paginacja"&gt;';
+
+for($i=1; $i&lt;=$paginationElements;$i++){
+    if($i == $offset){
+    $paginationHTML .= '&lt;a href="?offset=' . $i . '" class="active"&gt;' . $i . '&lt;/a&gt;';
+    }else{
+    $paginationHTML .= '&lt;a href="?offset=' . $i . '"&gt;' . $i . '&lt;/a&gt;';
+    }
+}
+$paginationHTML .= '&lt;/nav&gt;';
+
+echo $paginationHTML;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/paginacja-crud-prawie-gotowa.webp" alt="" width="1841" height="933" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Wydaje się że wszystko jest już zrobione. Jednak istnieje mały problem.</p>
+<p>Dla limitu $2$ ilość elementów paginacji jest źle wyliczana.<br>Gdy krotek bedzie $5$ to wynik da nam $2,5$ jednak pętla nie przyjmie wartości zmiennoprzecinkowej (<code>float</code>) jako iterator. $2,5$ zostanie ona zrzutowana na <code>int</code>, więc pominie się wartość po przecinku. Pętla faktycznie wykona się $2$ razy. </p>
+<p>Możesz to zauważyć jeżeli ręcznie zmienisz wartość zmiennej <code>?offset</code> w URL na $3$:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/ręczna-zmiana-offsetu.webp" alt="" width="751" height="321" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>W PHP mamy dwa sposoby zaokrąglania:</p>
+<ul>
+<li><code>ceil(float $value): int</code>: Zaokrągla <b>w górę</b> do najbliższej liczby całkowitej.</li>
+<li><code>floor(float $value): int</code>: Zaokrągla <b>w dół</b> do najbliższej liczby całkowitej.</li>
+<li><code>round(float $value, int $precision = 0): float</code>: Zaokrągla <b>do najbliższej wartości</b> o danej precyzji po przecinku. Domyślnie działa jak „połówki w górę”, ale można zmienić tryb zaokrąglania:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Tryb</th>
+<th align="left">Opis</th>
+<th align="left">Przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>PHP_ROUND_HALF_UP</code> (domyślny)</td>
+<td align="left">Zaokrągla połówki w górę</td>
+<td align="left"><code>round(2.5)</code> daje <code>3</code></td>
+</tr>
+<tr>
+<td align="left"><code>PHP_ROUND_HALF_DOWN</code></td>
+<td align="left">Zaokrągla połówki w dół</td>
+<td align="left"><code>round(2.5)</code> daje <code>2</code></td>
+</tr>
+<tr>
+<td align="left"><code>PHP_ROUND_HALF_EVEN</code></td>
+<td align="left">Zaokrągla połówki do najbliższej parzystej (metoda bankierska)</td>
+<td align="left"><code>round(2.5)</code> daje <code>2</code>, <code>round(3.5)</code> daje <code>4</code></td>
+</tr>
+<tr>
+<td align="left"><code>PHP_ROUND_HALF_ODD</code></td>
+<td align="left">Zaokrągla połówki do najbliższej nieparzystej</td>
+<td align="left"><code>round(2.5)</code> daje <code>3</code>, <code>round(3.5)</code> daje <code>3</code></td>
+</tr>
+</tbody></table>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/finalny-crud.webp" alt="" width="1842" height="896" class="lazy-image" loading="lazy" decoding="async">
+
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

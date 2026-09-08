@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Szyfrowanie XOR i Binarka (OOP) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Szyfrowanie XOR i Binarka (OOP)</h1>
+<p>Pisząc kod, robimy to strukturalnie realizując by rozwiązać problem. Gdy problem można rozłożyć na wiele podproblemów, to wydzielamy wcześniej napisany kod w funkcje jako naszych pracowników by potem je wykorzystać do rozwiązania większego problemu. Mamy wtedy klarownie wydzielony kod bez konieczności większego powtarzania go. Przy wiekszej złożoności i szybkim rozroście oprogramowania napotykamy ponownie na problem, który funkcje miały rozwiązać. Tworzą nam się specjaliści którzy mają identyczne lub bardzo zbliżone fragmenty kodu bez którego nie zrealizują swojej roboty.</p>
+<p>Co powiesz na mechanizm polegający na stworzeniu takiej funkcji bazowej zawierającej część wspólną tych wszystkich pozostałych specjalistów? Tu z pomocą przychodzi programowanie zorientowane obiektowo <span class="color-green">OOP</span> (<span class="color-blue">Object Oriented Programming</span>).</p>
+<p>Weźmy na warsztat smartphone. Ma on swoje właściwości fizyczne i funkcjonalności:</p>
+<ul>
+<li>Grubość</li>
+<li>Wysokość</li>
+<li>Szerokość</li>
+<li>Producent</li>
+<li>Model</li>
+<li>Waga</li>
+<li>Pojemność baterii</li>
+<li>Pojemność pamięci RAM</li>
+</ul>
+<p>Jego funkcjonalnością jest uruchomienie systemu operacyjnego i zasilenie podzespołów.</p>
+<pre><code class="language-php">$OS = new Android($bateria, $pamiecRAM, $głośnik, $procesor, $matryca, $mikrofon, $czujniki);
+</code></pre>
+<p>System to natomiast główna instancja <span class="color-green">Klasy</span> operacyjnej czyli zdefiniowanych przepisów na metody i właściwości:</p>
+<pre><code class="language-php">class Android {
+    private $bateria;
+    private $pamiecRAM;
+    private $głośnik;
+    private $procesor;
+    private $matryca;
+    private $mikrofon;
+    private $czujniki;
+
+    public function __construct($bateria, $pamiecRAM, $głośnik, $procesor, $matryca, $mikrofon, $czujniki) {
+        $this-&gt;bateria = $bateria;
+        $this-&gt;pamiecRAM = $pamiecRAM;
+        $this-&gt;głośnik = $głośnik;
+        $this-&gt;procesor = $procesor;
+        $this-&gt;matryca = $matryca;
+        $this-&gt;mikrofon = $mikrofon;
+        $this-&gt;czujniki = $czujniki;
+    }
+
+    public function uruchomAplikację($NazwaAplikacji) {
+        //...
+    }
+
+    public function getStatusBaterii(): int {
+        $poziomBaterii = $this-&gt;bateria;
+        //... Analiza wskaźników i komunikatów fizycznych komponentu
+        return $poziomBaterii;
+    }
+}
+</code></pre>
+<p>Gdy uruchomisz smartphone i powstanie główna instancja klasy systemowej, która jest tak zwanym <span class="color-gold">singletonem</span>, to jako użytkownik będziesz się do niej zwracać by wywołać metodę publiczną np. uruchomienia aplikacji:</p>
+<pre><code class="language-php">$OS-&gt;uruchomAplikację('Galeria');
+</code></pre>
+<blockquote>
+<p>Dodatkowo na pasku statusowym cały czas widzisz stan baterii czyli wynik wywoływania co $0.5s$ funkcji publicznej <span class="color-green"><code>getStatusBaterii()</code></span> z klasy Android.</p>
+</blockquote>
+<p>Gdy zostanie uruchomiona aplikacja <span class="color-blue">Galeria</span> to  tak naprawde powstanie kolejna instancja klasy którą bedzie przechowywać <span class="color-blue"><code>$OS</code></span>. To właśnie w tym momencie ujawnia się główny atut programowania obiektowego...</p>
+<hr>
+<p>Uruchamiając jakąkolwiek aplikację można wyróżnić ich elementy wspólne np.: to że każda ma <span class="color-green">UI</span> (<span class="color-blue">User interface</span> - interfejs użytkownika). Dlatego zamiast implementować tę funkcjonalność w każdej klasie osobno tworzymy jedną klasę bazową z funkcjonalnością interfejsu użytkownika i dziedziczymy z niej dla każdej aplikacji.</p>
+<pre><code class="language-php">class AplikacjaBazowa {
+    private $ui;
+
+    public function __construct() {
+        $this-&gt;ui = new UI();
+    }
+
+    public function getUI(): UI {
+        return $this-&gt;ui;
+    }
+}
+</code></pre>
+<p>Wtedy każda uruchomiona aplikacja dziedziczy z klasy bazowej i ją rozszerza o własne właściwości i metody:</p>
+<pre><code class="language-php">class Galeria extends AplikacjaBazowa {
+    //...
+}
+</code></pre>
+<hr>
+<p>Dlaczego to podejście jest takie fajne?</p>
+<ul>
+<li><span class="color-green">Separacja odpowiedzialności</span>: Naturalnym jest to by klasy zapisywać jako oddzielne pliki zawierające tylko to co dana klasa ma realizować. Ani więcej ani mniej.</li>
+<li><span class="color-green">Czytelność kodu</span>: Klasy plików są krótkie bo nie trzeba ich $x$ czasu scrollować, a przez to czytelniejsze (Ja osobiście stosuję zasadę klas o maksymalnej długości około $600$ linii 😎).</li>
+<li><span class="color-green">Łatwość pracy w zespołach</span>: Dzieki pracy na oddzielnych plikach, łatwiej podzielić się obowiązkami. Ktoś zrobi $Router$, ktoś $Validator$.</li>
+<li><span class="color-green">Nowe możliwości które dają nam wzorce projektowe</span>: Wzorce projektowe to przepisy na rozwiazania typowych problemów programistycznych, które wielokrotnie pojawiły się w innych projektach. Programiści by je rozwiązać tworzyli intuicyjnie kod, który okazywał się niezależnie jako bardzo zbliżony do siebie. Przykładem jest wcześniej wspomniany  <span class="color-gold">Singleton</span>, wzorzec który rozwiązuje poniższy problem:</li>
+</ul>
+<hr>
+<p>Mamy klasę prawdy, która ma przechowywać stany gry i graczy. Mamy też klasy elementów gry i samych postaci graczy. Załóżmy że jest to strzelanka i jeden z graczy trafił drugiego. Jeżeli ta informacja ma  zostać odnotowana w klasie prawdy to napotykamy na problem możliwości tworzenia każdorazowo nowej instancji i dopiero wtedy zmiana jej stanu.</p>
+<p>Widzisz problem? Wiele instancji i każda ma inny stan.<br>Dlatego by to rozwiązać to metody rejestrujące obrażenia zanim stworzą nową instancję klasy prawdy sprawdzają czy taka klasa już istnieje i jeżeli istnieje to do swojego pojemnika (zmiennej) przypiszą nie nową instancję, a referencję do istniejącego obiektu w przestrzeni programu gry.</p>
+<pre><code class="language-php">//singleton
+
+class Singleton {
+    private static $instance = null;
+    private function __construct() {
+        //...
+    }
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new Singleton();
+        }
+        return self::$instance;
+    }
+}
+</code></pre>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎪 Własna klasa w oddzielnym pliku</h2>
+<p>Ok, skoro już zapoznałeś się z ideą OOP to czas ją wdrożyć. Są pewne zasady, których należy przestrzegać.</p>
+<ul>
+<li>Klasy piszemy z dużej litery np. <ul>
+<li>Klasa $User$</li>
+<li>Klasa $Product$</li>
+<li>Klasa $ProductCategory$</li>
+</ul>
+</li>
+<li>Funkcje w klasach nazywamy metodami.</li>
+<li>Plik zawierający definicję klasy musi mieć taką samą nazwę jak sama klasa.</li>
+<li>Przestrzeń nazw powinna reprezentować strukturę katalogową</li>
+</ul>
+<p>Budowę klasy w php zaczynamy oczywiście od rozpoczęcia znacznika <code>&lt;?php</code>, którego nie trzeba kończyć zamykającym <code>?&gt;</code> gdy w pliku bedzie tylko sam kod PHP.<br>Następnie zapisujemy deklarację że bedziemy pisać z ścisłym typowaniem.<br>Kolejnym krokiem bedzie określenie przestrzeni nazw (<span class="color-gold"><code>namespace</code></span>). To pozwoli na separację i pisania metod o tej samej nazwie co natywnie dostępne w PHP np. <span class="color-blue"><code>sort()</code></span>. Dla przypadków gdy faktycznie chcemy skorzystać w klasie z natywnej metody PHP odwołujemy się do niej z prefiksem <span class="color-green"><code>\</code></span> np. <span class="color-green"><code>\sort()</code></span>.  </p>
+<hr>
+<p>Dopiero teraz możemy zacząć pisać deklarację klasy:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+namespace App;
+
+class Binarka {
+    // ...
+}
+</code></pre>
+<p>By skorzystać z tej klasy w innym pliku musimy dołączyć do niego zawartość jej definicji. Możemy to zrobić na $4$ sposoby:</p>
+<ol>
+<li><span class="color-green"><code>require</code></span> - Wymusza wykonanie pliku i wyrzuca błąd fatalny jeśli nie uda się go dokleić do kodu.</li>
+<li><span class="color-green"><code>require_once</code></span> - Działa jak <code>require</code> ale dodatkowo sprawdza czy plik nie został już dołączony.</li>
+<li><span class="color-green"><code>include</code></span> - Wymusza wykonanie pliku i zwraca ostrzeżenie jeśli nie uda się go dokleić do kodu.</li>
+<li><span class="color-green"><code>include_once</code></span> - Działa jak <code>include</code> ale dodatkowo sprawdza czy plik nie został już dołączony.</li>
+</ol>
+<blockquote>
+<p>Dlatego tak ważne jest nazywanie pliku klasy tą samą nazwą co sama klasa, ułatwia to rozeznanie się w kodzie.</p>
+</blockquote>
+<p>Weźmy na początek taką definicję pliku <code>Binarka.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+namespace App;
+
+class Binarka {
+    /**
+     * @var int
+     */
+    public $liczba1;
+    /**
+     * @var int
+     */
+    private $liczba2;
+    /**
+     * @var int
+     */
+    protected $liczba3;
+
+    public function __construct(int $liczba2)
+    {
+        $this-&gt;liczba1=11;
+        $this-&gt;liczba2=$liczba2;
+        $this-&gt;liczba3=33;
+        echo $this-&gt;liczba2 . "\n";
+    }
+}
+</code></pre>
+<p>Mamy zadeklarowane trzy zmienne o różnym stopniu dostępności oraz metodę konstruktora <span class="color-gold"><code>__construct()</code></span>, która jest automatycznie wykonywana podczas tworzenia nowej instancji klasy.</p>
+<ul>
+<li><span class="color-blue"><code>public</code></span> - Dostępna wszędzie</li>
+<li><span class="color-green"><code>private</code></span> - Dostępna tylko w klasie</li>
+<li><span class="color-gold"><code>protected</code></span> - Dostępna w klasie i klasach dziedziczących</li>
+</ul>
+<p>Aby lepiej zrozumieć te klauzule dostępności załóżmy że jesteś klasą pochodną rodzica, a rodzic coś zamówił w internecie.</p>
+<ul>
+<li><span class="color-blue">Zmienna publiczna to nr. telefonu rodzica.</span> Ty go znasz, rodzic go zna i kurier też go zna.</li>
+<li><span class="color-green">Zmienna prywatna to informacja co rodzic zamówił.</span> Ty i kurier tego nie wiecie, a rodzic już tak.</li>
+<li><span class="color-gold">Zmienna chroniona to PIN do telefonu twojego rodzica.</span> Ty i rodzic go znacie, ale kurier juz nie.</li>
+</ul>
+<p>Popatrz na poniższy zrzut ekranu.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-oop-klasa-i-zmienne-dostepu.webp" alt="" width="1855" height="930" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Mamy $2$ pliki:</p>
+<ul>
+<li><code>index.php</code>: pierwszy główny plik uruchamiany przez server.</li>
+<li><code>Binarka.php</code>: klasa z której korzystamy i która jest przechowywana w katalogu <code>Core\</code>.</li>
+</ul>
+<p>By móc się odwołać do zmiennej lub metody klasy <code>Binarka</code> musisz wskazać zmienną zawierającą instancję tej klasy lub w przypadku gdy chcesz odwołać się sam do siebie np.: wewnątrz klasy to stosujesz specjalną zmienną <code>$this</code>.</p>
+<p>Jeżeli klasa od samego początku istnienia potrzebuje jakiś danych to zapisujesz je w metodzie konstruktora. Wtedy bez tych danych przy budowie instancji PHP zwróci error.</p>
+<p>W podglądzie działania zobaczysz że PHP zwrócił echo z konstruktora:</p>
+<pre><code class="language-php">echo $this-&gt;liczba2 . "\n";
+</code></pre>
+<p>Następnie echo z indexu w którym odwołano się do zmiennej publicznej <code>$liczba1</code>:</p>
+<pre><code class="language-php">echo "Publiczna z instancji klasy: " . $bin-&gt;liczba1;
+</code></pre>
+<p>Oraz Fatalny Error ze względów na próbę dostępu do zmiennej prywatnej. Tak samo by było dla przykładu zmiennej chronionej <code>$liczba3</code>. Ponieważ index nie dziedziczy po klasie <code>Binarka</code>. Dodatkowo IDE (<span class="color-blue">Integrated Development Environment</span>) podkreśliło na czerwono obie te zmienne.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Operacje Binarne</h2>
+<p>Zapewne znasz procedurę na przekształcenie wartości dziesiętnej do systemu dwójkowego/binarnego. Przypomnijmy ją sobie na przykładzie liczby $22$:</p>
+<p>Wartość dziesiętną dzielimy przez $2$ i zapisujemy resztę. Potem z wyniku pozbywamy się wartości po przecinuku $\frac{1}{2}$ i znowu dzielimy przez dwa powtarzając proces. Gdy napotkamy $0$ zatrzymujemy działanie i przepisujemy reszty od końca do początku. W ten sposób otrzymamy $22_{10}$ = $10110_2$.</p>
+<pre><code>22 | 0
+11 | 1
+ 5 | 1
+ 2 | 0
+ 1 | 1
+ 0 | 
+</code></pre>
+<p>Zapisując to w kodzie php otrzymamy:</p>
+<pre><code class="language-php">$liczba = 22;
+$bin = "";
+while ($liczba!=0){
+    $bin = $liczba % 2 . $bin;
+    $liczba = ($liczba - $liczba % 2) / 2;
+}
+echo "Liczba " . $liczba . " w zapisie binarnym to: " . $bin;
+</code></pre>
+<p>Podobnie będą wyglądać operacje konwersji dziesiętnego na octalny (ósemkowy) i heksadecymalny (szesnastkowy).</p>
+<p>Przykład konwersji heksadecymalnego na dziesiętny w PHP:</p>
+<pre><code class="language-php">$liczba = 22;
+$bin = "";
+while ($liczba!=0){
+    $wynik = $liczba % 16;
+    $liczba =($liczba - $liczba % 16) / 16;
+    switch($wynik){
+        case 10: $bin = "A" . $bin; break;
+        case 11: $bin = "B" . $bin; break;
+        case 12: $bin = "C" . $bin; break;
+        case 13: $bin = "D" . $bin; break;
+        case 14: $bin = "E" . $bin; break;
+        case 15: $bin = "F" . $bin; break;
+        default: $bin = $wynik . $bin;
+    }
+}
+echo $bin;
+</code></pre>
+<blockquote>
+<p>Zapisz samodzielnie implementację konwersji z dziesiętnego na oktalny (ósemkowy).</p>
+</blockquote>
+<hr>
+<h3>🏗️ Budowa klasy Binarka</h3>
+<p>Zapełnijmy naszą klasę <code>Binarka</code> metodami konwersji miedzy systemami:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App;
+
+/**
+ * Klasa metod do przeprowadzania działań binarnych
+ */
+class Binarka
+{
+
+    /**
+     * Konwersja dziesiętnego na binarny
+     * @param int $decimal
+     * @return array&lt;int&gt; Zwraca tablicę liczb będących binarną reprezentacją podanej liczby,
+     * zapisaną w prawidłowej kolejności (od potęgi $n$ do $0$)
+     */
+    function decToBin(int $decimal): array
+    {
+        $bin = [];
+        while ($decimal != 0) {
+            array_unshift($bin, $decimal % 2);
+            $decimal = ($decimal - $decimal % 2) / 2;
+        }
+
+        return $bin;
+    }
+
+    /**
+     * Konwersja binarny na dziesiętny
+     * @param array&lt;int&gt; $binary Tablica poszczególnych cyfr zapisana w prawidłowej kolejności
+     * (od potęgi $n$ do $0$)
+     * @return int Zwraca liczbę dziesiętną będącą wynikiem konwersji
+     */
+    function binToDec(array $binary): int
+    {
+        $dec = 0;
+        $counter = count($binary);
+        foreach ($binary as $bin) {
+            $counter--;
+            $dec += $bin * (2 ** $counter);
+        }
+
+        return $dec;
+    }
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/Klasa-Binarka-bin-metody.webp" alt="" width="1850" height="924" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>⊕ Metoda operacyjna XOR</h3>
+<p>Nie bez powodu metoda <code>decToBin()</code> zwraca wartości w tablicy. Będziemy mogli przekazać każdy jej bit i podać go operacji bramki XOR.</p>
+<p>Tabela logiczna bramki XOR:</p>
+<table>
+<thead>
+<tr>
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">XOR</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span class="color-blue">0</span></td>
+<td align="center"><span class="color-red">0</span></td>
+<td align="center"><span class="color-gold">0</span></td>
+</tr>
+<tr>
+<td align="center"><span class="color-blue">0</span></td>
+<td align="center"><span class="color-red">1</span></td>
+<td align="center"><span class="color-gold">1</span></td>
+</tr>
+<tr>
+<td align="center"><span class="color-blue">1</span></td>
+<td align="center"><span class="color-red">0</span></td>
+<td align="center"><span class="color-gold">1</span></td>
+</tr>
+<tr>
+<td align="center"><span class="color-blue">1</span></td>
+<td align="center"><span class="color-red">1</span></td>
+<td align="center"><span class="color-gold">0</span></td>
+</tr>
+</tbody></table>
+<p><data-logic-gate type="XOR" id="xor-gate"></data-logic-gate></p>
+<p>Metoda po obserwacji tablicy logicznej bramki XOR jest bardzo prosta. Gdy $A$ oraz $B$ są takie same to wynikiem jest $0$, w przeciwnym wypadku wynikiem jest $1$.</p>
+<pre><code class="language-php">/**
+ * Wykonuje operację XOR na dwóch podanych bitach
+ *
+ * @param integer $A Pierwszy bit
+ * @param integer $B Drugi bit
+ * @return integer Wynik opercji XOR
+ */
+function calculateXOR(int $A, int $B): int{
+    if($A === $B){
+        return 0;
+    }
+    return 1;
+}
+</code></pre>
+<p>Test przypadków:</p>
+<pre><code class="language-php">$bin = new App\Binarka();
+
+echo "0 ⊕ 0 : " . $bin-&gt;calculateXOR(0,0) . "\n";
+echo "1 ⊕ 0 : " . $bin-&gt;calculateXOR(1,0) . "\n";
+echo "0 ⊕ 1 : " . $bin-&gt;calculateXOR(0,1) . "\n";
+echo "1 ⊕ 1 : " . $bin-&gt;calculateXOR(1,1) . "\n";
+</code></pre>
+<p>Jak widać na poniższym obrazku wyniki zgadzają się z tabelą logiczną bramki XOR.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/metoda-xor-w-klasie-binarka.webp" alt="" width="1830" height="630" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>↔️ Metoda konwersji pomiędzy binarnym a heksadecymalnym</h3>
+<p>Jeden znak systemu binarnego odpowiada zapisowi $4$ znaków w systemie dwójkowym:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Hex</th>
+<th>Bin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$0$</td>
+<td>0000</td>
+</tr>
+<tr>
+<td align="center">$1$</td>
+<td>0001</td>
+</tr>
+<tr>
+<td align="center">$2$</td>
+<td>0010</td>
+</tr>
+<tr>
+<td align="center">$3$</td>
+<td>0011</td>
+</tr>
+<tr>
+<td align="center">$4$</td>
+<td>0100</td>
+</tr>
+<tr>
+<td align="center">$5$</td>
+<td>0101</td>
+</tr>
+<tr>
+<td align="center">$6$</td>
+<td>0110</td>
+</tr>
+<tr>
+<td align="center">$7$</td>
+<td>0111</td>
+</tr>
+<tr>
+<td align="center">$8$</td>
+<td>1000</td>
+</tr>
+<tr>
+<td align="center">$9$</td>
+<td>1001</td>
+</tr>
+<tr>
+<td align="center">$A$</td>
+<td>1010</td>
+</tr>
+<tr>
+<td align="center">$B$</td>
+<td>1011</td>
+</tr>
+<tr>
+<td align="center">$C$</td>
+<td>1100</td>
+</tr>
+<tr>
+<td align="center">$D$</td>
+<td>1101</td>
+</tr>
+<tr>
+<td align="center">$E$</td>
+<td>1110</td>
+</tr>
+<tr>
+<td align="center">$F$</td>
+<td>1111</td>
+</tr>
+</tbody></table>
+<p>Na pierwszy rzut oka kusi użycie <span class="color-gold"><code>switcha</code></span>. Jednak podejdźmy do tego trochę inaczej.<br>Z góry znamy wszystkie przypadki, mamy je w tabelce powyżej. Przygotujmy więc tak zwaną mapę przypadków zapisaną w strukturze tablicy assocjacyjnej:</p>
+<pre><code class="language-php">$mapHexBin = [
+    "0" =&gt; "0000",
+    "1" =&gt; "0001",
+    "2" =&gt; "0010",
+    "3" =&gt; "0011",
+    "4" =&gt; "0100",
+    "5" =&gt; "0101",
+    "6" =&gt; "0110",
+    "7" =&gt; "0111",
+    "8" =&gt; "1000",
+    "9" =&gt; "1001",
+    "A" =&gt; "1010",
+    "B" =&gt; "1011",
+    "C" =&gt; "1100",
+    "D" =&gt; "1101",
+    "E" =&gt; "1110",
+    "F" =&gt; "1111",
+];
+</code></pre>
+<p>Pozostańmy przy typie <code>string</code> dla obu metod konwersji. Pozwoli nam to na skorzystanie z mapy i napisanie bardzo krótkich metod:</p>
+<ol>
+<li>Konwersja heksadecymalnego na binarny przy użyciu mapy polega na zwruceniu wartości z mapy dla danego klucza znaku heksadecymalnego przekazanego jako paraqmetr metody:<pre><code class="language-php">function hexToBin(string $hex): string{
+    return (string)$this-&gt;mapHexBin[$hex];
+}
+</code></pre>
+</li>
+<li>Konwersja binarna na heksadecymalny przy użyciu mapy polega na wyszukaniu i zwruceniu klucza wskazującego na wartość przekazaną jako parametr metody:<pre><code class="language-php">function binToHex(string $bin): string{
+    return (string)array_search($bin, $this-&gt;mapHexBin);
+}
+</code></pre>
+</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/konwersja-hex-bin-z-mapowaniem.webp" alt="" width="1839" height="738" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Szyfr XOR</h2>
+<p>Zbudujmy kolejną klasę nazwaną <code>XORCrypt</code> dziedziczącą z klasy <code>Binarka</code> i przetestujmy cechę dziedziczenia.<br>Skoro nowa klasa jest potomną po <code>Binarka</code> to zachodzi podobna sytuacja jak w biologii. Dzieci mogą mieć ten sam kolor oczu co ich rodzice. Więc klasa <code>XORCrypt</code> będzie posiadała w swoim asortymencie odziedziczone zmienne publiczne i chronione oraz metody rodzica:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+namespace App\Core;
+require_once 'Binarka.php';
+use App\Binarka;
+
+class XORCrypt extends Binarka{
+
+    function test(string $hex){
+        return $this-&gt;hexToBin($hex);
+    }
+}
+</code></pre>
+<p>Jak widzisz na poniższym obrazku klasa <code>XORCrypt</code> może od tak sobie korzystać z metody <code>hexToBin()</code> z klasy <code>Binarka</code>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/dziedziczenie-metod-z-binarka.webp" alt="" width="1842" height="671" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zwróć uwagę na obie linie <code>require_once</code>. W <code>XORCrypt</code> jest tam sama nazwa z rozszerzeniem pliku zawierającym klasę Binarka ponieważ oba pliki znajdują się w tym samym katalogu. Czyli są na tym samym poziomie struktury katalogowej. Natomiast względem indexu oba pliki z klasami są w podfolderze: <code>Core\</code> dlatego w <code>index.php</code> musi być <code>Core\Binarka.php</code>. Natomiast to rze u mnie istnieje prefix <code>./</code> to wynika z tego że mam większą pewność użycia relatywnego odniesienia względem lokalizacji pliku w którym to zapisałem. Jeżeli chciałbym z jakiegoś powodu w którejś z klas zaimportować <code>index.php</code> zapisałbym to tak: <code>../index.php</code>, gdzie dwie kropki i slesz wskazują na konieczność wejścia na wyższy poziom struktury katalogów.</p>
+
+</div>
+</div><p>OK, popatrz na poniższy widget prezentujący działanie algorytmu szyfrowania XOR:<br><data-xor-cipher text="TAJNE" key="KOD"></data-xor-cipher></p>
+<p>Jak widzisz w algorytmie szyfrowania XOR dochodzi do następującej procedury:</p>
+<ol>
+<li>Konwersja znaku tekstu jawnego na dziesiętny zgodnie z ASCII</li>
+<li>Konwersja znaku klucza na dziesiętny zgodnie z ASCII</li>
+<li>Wynik w zapisie bajtowym, heksadecymalnym. To oznacza $2$ znaki hex, ponieważ pojedynczy znak heksadecymalny to połowa bajta czyli nibble.</li>
+</ol>
+<p>Punkt trzeci wskazuje na konieczność zmodyfikowania zawartości klasy <code>Binarka</code>. Musimy zadbać o wyrównanie bajtowe czyli zawsze działać na $8 \text{ bitach}$.</p>
+<p>Dopiszmy więc kolejną metodę wyrównania do Bajta:</p>
+<pre><code class="language-php">/**
+ * Wyrównanie zapisu binarnego do bajta
+ * 
+ * @param string $bin Zapis binarny do wyrównania
+ * @return string Wyrównany zapis binarny do bajta
+ */
+function alignmentToBajt(string $bin): string{
+    $alignment = "";
+    for($i = 0; $i &lt; 8 - strlen($bin); $i++){
+        $alignment.="0";
+    }
+    return $alignment . $bin;
+}
+</code></pre>
+<p>Przemianujemy też metodę <code>binToHex()</code> na wariant pomocniczy. Dużo poza nazwą się nie zmieni:</p>
+<pre><code class="language-php">function binToHexHelper(string $bin): string
+{
+    return (string)array_search($bin, $this-&gt;mapHexBin);
+}
+</code></pre>
+<p>Teraz możemy napisać nową metodę <code>binToHex()</code>, która bedzie przyjmować tylko i wyłącznie string zapisu binarnego o długości $8$ znaków by uzyskać pełen bajt.<br>Przy pomocy <code>str_split($bin, 4)</code> dokonamy podziału tego stringa na równej długości czteroznakowe teksty.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/str_split-na-4.webp" alt="" width="871" height="392" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Każdy z otrzymanych tekstów, czyli 4‑bitowy zapis binarny, będzie przekazywany do metody $binToHexHelper()$, która nam poda odpowiadający znak heksadecymalny.  </p>
+<p>Na koniec zwracamy konkatenację tych wyników:</p>
+<pre><code class="language-php">function binToHex(string $bin): string
+{
+    if(strlen($bin)!=8){
+        return "Podano zapis binarny o innej długości niż 8 bitów (0/1)";
+    }
+    $hex0 = $this-&gt;binToHexHelper(\str_split($bin, 4)[0]);
+    $hex1 = $this-&gt;binToHexHelper(\str_split($bin, 4)[1]);
+
+    return $hex0 . $hex1;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/wyrównanie-bajtowe-binarki-i-poprawny-hex.webp" alt="" width="1492" height="923" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>🔒 Metoda szyfrowania XOR</h3>
+<p>Teraz gdy klasa <code>Binarka</code> wygląda na działającą poprawnie możemy przejść do faktycznej implementacji algorytmu szyfrowania XOR.</p>
+<p>Klasycznie metoda przyjmuje tekst oraz klucz. Następnie przygotowujemy sobie pojemnik do przechowywania zaszyfrowanego tekstu:</p>
+<pre><code class="language-php">function encrypt(string $text, string $key): string
+{
+    $encrypted = "";
+    //TODO:  Szyfrowanko 
+    return $encrypted;
+}
+</code></pre>
+<p>Każdy znak tekstu i klucza musi zostać przetworzony kolejno na dziesiętną reprezentację ASCII a potem na zapis binarny i do tego wyrównany do bajta.<br>Klucz musi być powtarzany cyklicznie by nie zabrakło znaków do operacji. </p>
+<pre><code class="language-php">$keyLength = \strlen($key);
+
+foreach (\str_split($text) as $index =&gt; $char) {
+    $binChar = $this-&gt;alignmentToBajt(\implode('', $this-&gt;decToBin(\ord($char))));
+    $binKey  = $this-&gt;alignmentToBajt(\implode('', $this-&gt;decToBin(\ord($key[$index % $keyLength]))));
+}
+</code></pre>
+<p>W powyższym kodzie tworzymy zmienną pomocniczą do przechowywania długości klucza <code>$keyLength</code> tak samo jak realizowane to było w poprzednich algorytmach szyfrowania. Posłuży nam on w operacji modulo i zapętlaniu klucza względem długości tekstu.</p>
+<p>Następnie w pętli <code>foreach</code> przechodzimy po każdym znaku z tekstu i przygotowujemy binarną reprezentację. To znaczy bierzemy znak i poddajemy go operacjom: </p>
+<ol>
+<li><code>\ord($char)</code> - konwersja na dziesiętny</li>
+<li><code>$this-&gt;decToBin()</code> - konwersja na binarny</li>
+<li><code>\implode('', ...)</code> - złączenie tablicy 1D w stringa</li>
+<li><code>$this-&gt;alignmentToBajt(...)</code> - wyrównanie do bajta.</li>
+</ol>
+<p>Analogiczne operacje wykonujemy na kolejnym znaku klucza. Z tą różnicą że zamiast brać kolejno znaki z tekstu to indeks znaku klucza obliczamy przy pomocy operatora modulo <code>$index % $keyLength</code>. Pozwala nam to na cykliczne zapętlanie klucza.</p>
+<p>Uzyskaliśmy w ten sposób bajtowe reprezentacje znaków które teraz bedziemy chcieli bajt po bajcie potraktować bramką XOR np.:</p>
+<pre><code>01010100 tekst "T"
+01001011 klucz "K"
+-------- XOR
+00011111 
+</code></pre>
+<p>Uzyskany wynik na koniec przetwarzamy metodą $binToHex()$ i dodajemy konkatenacją do wynikowej zmiennej <code>$encrypted</code>.</p>
+<pre><code class="language-php">$resultXOR = "";
+for ($i = 0; $i &lt; 8; $i++) {
+    $resultXOR .= $this-&gt;calculateXOR((int)$binChar[$i], (int)$binKey[$i]);
+}
+$encrypted .= $this-&gt;binToHex($resultXOR);
+</code></pre>
+<p>W efekcie końcowym uzyskaliśmy w pełni działającą klasę implementującą algorytm szyfrowania XOR.</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Core;
+
+require_once 'Binarka.php';
+
+use App\Binarka;
+
+class XORCrypt extends Binarka
+{
+
+    function encrypt(string $text, string $key): string
+    {
+        $encrypted = "";
+        $keyLength = \strlen($key);
+
+        foreach (\str_split($text) as $index =&gt; $char) {
+            $binChar = $this-&gt;alignmentToBajt(\implode('', $this-&gt;decToBin(\ord($char))));
+            $binKey  = $this-&gt;alignmentToBajt(\implode('', $this-&gt;decToBin(\ord($key[$index % $keyLength]))));
+
+            $resultXOR = "";
+            for ($i = 0; $i &lt; 8; $i++) {
+                $resultXOR .= $this-&gt;calculateXOR((int)$binChar[$i], (int)$binKey[$i]);
+            }
+            $encrypted .= $this-&gt;binToHex($resultXOR);
+        }
+        return $encrypted;
+    }
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/XORCrypt.webp" alt="" width="1847" height="897" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>🔓 Metoda odszyfrowywania XOR</h3>
+<p>Dobrze to teraz zapiszmy metodę odszyfrowywania. Tym razem musimy uwzględnić to że $2$ znaki heksadecymalne składają się na jeden znak tekstu jawnego. Co za tym idzie główna pętla powinna iterować co $2$ znaki. jednocześnie pozwalać na iterację po każdym znaku w kluczu.</p>
+<p>Zmienimy więc pętlę <code>foreach</code> na klasyczny <code>for</code> zwiekszany o $2$ a nie o $1$ i dodamy zmienną pomocniczą do iteracji po kluczu:</p>
+<pre><code class="language-php">function decrypt(string $text, string $key): string
+{
+    $decrypted = "";
+    $keyLength = \strlen($key);
+    $k = 0;
+    for($i=0; $i&lt;strlen($text); $i+=2){
+        //..
+    }
+    return $decrypted;
+}
+</code></pre>
+<p>Z racji że operacja będzie wykonywana na znakach heksadecymalnych a nie zwykłym tekście to należy zmodyfikować zmienną <code>$binChar</code> zastępując ją nową <code>$binHex</code>:</p>
+<pre><code class="language-php">$binHex = $this-&gt;hexToBin($text[$i]) . $this-&gt;hexToBin($text[$i+1]);
+</code></pre>
+<p>Do zmiennej <code>$binHex</code> wpisujemy sklejone wyniki działania metod <code>hexToBin()</code>. Skoro główna pętla operuje na co drugim indeksie to powinniśmy uzyskać następujący wynik:<br><code>$i=0</code>, więc pierwszy znak $1$ da nam wynik $0001_2$ a drugi $F$ da nam wynik $1111_2$.<br><code>$i=2</code> bo tak iteruje główna pętla <code>$i+=2</code> więc oczekiwane wyniki to dla $0$: $0000_2$ i dla $E$: $1110_2$.</p>
+<p>Kolejnym krokiem bedzie lekka modyfikacja zmiennej <code>$binKey</code> gdzie zamiast <code>$index</code> podaję <code>$k</code> i po inicjalizacji jej nowej wartości inkrementuję pomocniczą <code>$k</code>:</p>
+<pre><code class="language-php">$binKey  = $this-&gt;alignmentToBajt(\implode('', $this-&gt;decToBin(\ord($key[$k % $keyLength]))));
+$k++;
+</code></pre>
+<p>Na koniec zamiast zwracać wynik operacji XOR na system szesnastkowy metodą <code>binToHex()</code> posłużymy się <code>binToDec()</code> i z racji że ta metoda wymaga jako argumentu podania tablicy to wysyłamy do niej <code>str_split($resultXOR)</code>.</p>
+<pre><code class="language-php">function decrypt(string $text, string $key): string
+{
+    $decrypted = "";
+    $keyLength = \strlen($key);
+    $k = 0;
+     for($i=0; $i&lt;strlen($text); $i+=2){
+        $binHex = $this-&gt;hexToBin($text[$i]) . $this-&gt;hexToBin($text[$i+1]);
+        $binKey  = $this-&gt;alignmentToBajt(\implode('', $this-&gt;decToBin(\ord($key[$k % $keyLength]))));
+        $k++;
+
+        $resultXOR = "";
+        for ($j = 0; $j &lt; 8; $j++) {
+            $resultXOR .= $this-&gt;calculateXOR((int)$binHex[$j], (int)$binKey[$j]);
+        }
+
+        $decrypted .= \chr($this-&gt;binToDec(str_split($resultXOR)));
+    }
+
+    return $decrypted;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/gotowa-klasa-szyfrowania-xor.webp" alt="" width="1845" height="917" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Zagadka</h2>
+<p>Na sam koniec tej lekcji zostawiam cię z poniższą zagadką 😉.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>WHAT THE 00 2D 00 3A 00 27 00 20 00?<br>Ten klucz rozszyfruje ten tekst 🤨:<br>1B 20 64 28 20 64 3F 36 64 3F 20 64 39 20 3E 38 35 3D 2D 3D 2B 3C 3A 2E 2E 3C 3E 74</p>
+
+</div>
+</div></section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

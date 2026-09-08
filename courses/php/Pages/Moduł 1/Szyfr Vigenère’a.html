@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Szyfr Vigenère’a - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Szyfr Vigenère’a</h1>
+<p>Szyfr Cezara przesuwał każdą literę o stałą wartość (np. o $3$ pozycje). Szyfr monoalfabetyczny mieszał cały alfabet jednym stałym kluczem przetasowanego alfabetu. Oba miały jedną ogromną wadę: <span class="color-green">analizę częstotliwościową</span>. Skoro w języku polskim najczęściej występuje litera <span class="color-green">A</span> lub <span class="color-green">E</span>, to najczęstszy znak w szyfrogramie od razu zdradzał podstawienie.</p>
+<p><span class="color-blue">Blaise de Vigenère</span> (a tak naprawdę <span class="color-blue">Giovan Battista Bellaso</span> w <time datetime="1553">1553</time> roku) rozwiązał ten problem wprowadzając <span class="color-green">szyfr polialfabetyczny</span>. Zamiast jednego stałego przesunięcia, każda kolejna litera tekstu ma <span class="color-gold">inne</span> przesunięcie, definiowane przez kolejne litery powtarzanego słowa‑klucza.</p>
+<p>Przez niemal <time>300</time> lat nazywano go <span class="color-blue">le chiffre indéchiffrable</span> (szyfr nie do złamania).</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎛️ Tabula Recta</h2>
+<p>Do ręcznego szyfrowania używano kwadratowej tablicy $26 \times 26$ zwanej <span class="color-green">Tabula Recta</span> (Kwadrat Vigenère’a). Każdy kolejny wiersz to alfabet przesunięty o $1$ pozycję w lewo (czyli $26$ kolejnych wariantów Szyfru Cezara).</p>
+<ul>
+<li><span class="color-green">Kolumna</span> = litera tekstu jawnego</li>
+<li><span class="color-green">Wiersz</span> = litera powtarzanego klucza</li>
+<li><span class="color-green">Przecięcie</span> = litera zaszyfrowana</li>
+</ul>
+<p><data-vigenere-cipher text="LCN GOIOGP" key="KOALA" mode="decode"><br></data-vigenere-cipher></p>
+<p>Zauważ, co dzieje się przy szyfrowaniu słowem‑kluczem <span class="color-green">KOALA</span>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Tekst jawny:</th>
+<th align="center">B</th>
+<th align="center">o</th>
+<th align="center">n</th>
+<th align="center">·</th>
+<th align="center">v</th>
+<th align="center">o</th>
+<th align="center">y</th>
+<th align="center">a</th>
+<th align="center">g</th>
+<th align="center">e</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Klucz:</td>
+<td align="center">K</td>
+<td align="center"><span class="color-blue">O</span></td>
+<td align="center">A</td>
+<td align="center">·</td>
+<td align="center">L</td>
+<td align="center"><span class="color-blue">A</span></td>
+<td align="center">K</td>
+<td align="center"><span class="color-blue">O</span></td>
+<td align="center">A</td>
+<td align="center">L</td>
+</tr>
+<tr>
+<td align="left">Szyfrogram:</td>
+<td align="center">L</td>
+<td align="center"><span class="color-gold">C</span></td>
+<td align="center">N</td>
+<td align="center">·</td>
+<td align="center">G</td>
+<td align="center"><span class="color-gold">O</span></td>
+<td align="center">I</td>
+<td align="center"><span class="color-gold">O</span></td>
+<td align="center">G</td>
+<td align="center">P</td>
+</tr>
+</tbody></table>
+<p>Litera <span class="color-green">O</span> w słowie <span class="color-blue">Bon</span> (pod kluczem <span class="color-blue">O</span>) stała się <span class="color-gold">C</span>, ale ta sama litera <span class="color-green">O</span> w słowie <span class="color-blue">voyage</span> (pod kluczem <span class="color-blue">A</span>) stała się <span class="color-gold">O</span>. Co więcej, zupełnie inna litera <span class="color-green">A</span> (pod kluczem <span class="color-blue">O</span>) również stała się <span class="color-gold">O</span>!</p>
+<p>Ta sama litera tekstu jawnego daje różne litery w szyfrogramie, a różne litery mogą dać ten sam znak w szyfrze. To całkowicie niszczy prostą analizę częstotliwościową.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Generowanie Tabula Recta</h2>
+<p>Przygotujmy tabelę html, która bedzie prezentowała nam Tabula Recte z widgetu.</p>
+<p>Przygotowałem styl CSS, który ładnie rozłoży składowe:</p>
+<pre><code class="language-css">body {
+    background-color: #151515;
+    color: #ebebeb;
+}
+
+th,
+td {
+    border: 1px solid #3D3D3D;
+    min-width: 20px;
+    min-height: 20px;
+    text-align: center;
+}
+
+td:first-child {
+    background-color: #0e3b63;
+}
+
+th {
+    background-color: #470e63;
+}
+
+th:first-child {
+    background-color: #630e0e;
+}
+</code></pre>
+<p>Dalej w HTML‑u wywołamy wcześniej przygotowany kod z rozkładem zawartości przesuwanych alfabetów:</p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;?php echo $thead; ?&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;?php echo $tbody; ?&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+<p>Klasycznie tak jak wcześniej do zdobycia liter alfabetu łacińskiego wykorzystamy kodowanie ASCII i funkcję <code>chr()</code>:</p>
+<pre><code class="language-php">$thead = "&lt;tr&gt;";
+$tbody = "";
+
+for ($i = 65; $i &lt;= 90; $i++) {
+    $thead .= "&lt;th&gt;" . chr($i) . "&lt;/th&gt;";
+}
+$thead .= "&lt;/tr&gt;";
+</code></pre>
+<p>Jednak jak sam widzisz pierwszy element w tabula recta powinien być pusty albo zawierać jakiś losowy znaczek.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/alfabet-w-thead-tebeli.webp" alt="" width="1837" height="547" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dlatego musimy cofnąć iterator startu o jeden i dla tego elementu wpisać np.: znak <code>✕</code>, który możesz użyć korzystając z windowsowego panelu emoji <kbd class="Win"></kbd> + <kbd>.</kbd> i przejdź do zakładki z symbolami.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/emoji-symbole.webp" alt="" width="467" height="448" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<pre><code class="language-php">for ($i = 64; $i &lt;= 90; $i++) {
+    if ($i == 64) {
+        $thead .= "&lt;th&gt; ✕ &lt;/th&gt;";
+        continue;
+    }
+    $thead .= "&lt;th&gt;" . chr($i) . "&lt;/th&gt;";
+}
+</code></pre>
+<p>Tym krótkim fragmentem kodu uzyskaliśmy estetyczny nagłówek tabeli:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/nagłówek-tabula-recta.webp" alt="" width="1841" height="470" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Tabula Recta w każdym kolejnym wierszu zaczyna się od litery z przesunieciem o $1$. Dla pierwszego wiersza zaczynamy od <span class="color-green">$A$</span>, dla drugiego od <span class="color-green">$B$</span> i tak dalej aż do ostatniego z literą <span class="color-green">$Z$</span>. Utworzy nam się macierz czyli tablica dwuwymiarowa, a co za tym idzie skorzystamy z zagnieżdżonej pętli w pętli. </p>
+<pre><code class="language-php">for ($i = 65; $i &lt;= 90; $i++) {
+    $tbody .= "&lt;tr&gt;";
+    for ($j = 0; $j &lt;= 25; $j++) {
+        $tbody .= "&lt;td&gt;" . chr($i + $j) . "&lt;/td&gt;";
+    }
+    $tbody .= "&lt;/tr&gt;";
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/pierwsza-wersja-tabula-recta.webp" alt="" width="1832" height="913" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Powyższy wynik ma dwa problemy:</p>
+<ul>
+<li>Po znaku <span class="color-green">$Z$</span> nie wracamy do litery <span class="color-green">$A$</span>.</li>
+<li>Ilość elementów wierszy nie zgadza się z ilością elementów w nagłówku.</li>
+</ul>
+<p>Chcąc zapętlić wypisywanie liter alfabetu wykonamy podobny trik jak w poprzednich szyfrowaniach.<br>Gdy suma iteratorów <code>$i</code> oraz <code>$j</code> przekroczy wartość $90$ (kod ASCII dla litery '<span class="color-green">$Z$</span>'), musimy od tej sumy odjąć $26$, aby powrócić do wartości $65$ (kod ASCII dla litery '<span class="color-green">$A$</span>').</p>
+<p>Zmienimy nasz fragment pętli na poniższy:</p>
+<pre><code class="language-php">for ($i = 65; $i &lt;= 90; $i++) {
+    $tbody .= "&lt;tr&gt;";
+
+    for ($j = 0; $j &lt;= 25; $j++) {
+        if ($i + $j &gt; 90) {
+            $k = ($i + $j) - 26;
+        } else {
+            $k = $i + $j;
+        }
+        $tbody .= "&lt;td&gt;" . chr($k) . "&lt;/td&gt;";
+        
+    }
+    $tbody .= "&lt;/tr&gt;";
+}
+</code></pre>
+<p>Zastosowano tu dodatkową zmienną pomocniczą <code>$k</code> by uniknąć sytuacji nadpisywania wartości dla zmiennych iteratorów <code>$i</code> lub <code>$j</code>.</p>
+<p>By ilość elementów w wierszach zgadzała się z ilością kolumn w nagłówku musimy spojrzeć na konstrukcję Tabula Recty i zaważyć że każdy wiersz dla elementów $0$ i $1$ ma dokładnie tą samą wartość. Dlatego na koniec pętli wystarczy powtórzyć przypisanie elementu <code>&lt;td&gt;</code> gdy index <code>$j</code> jest równy $0$:</p>
+<pre><code class="language-php">if ($j == 0) {
+    $tbody .= "&lt;td&gt;" . chr($k) . "&lt;/td&gt;";
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/tabula-recta.webp" alt="" width="1817" height="920" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔩 Przekształcenie tabula recta na wzór matematyczny</h2>
+<p>Wszystko co istnieje i wszystkie koncepcje jesteśmy wstanie opisać matematyką. Dlatego spróbujmy przekształcić Tabula Recta w formułę matematyczną. </p>
+<p>Dla przykładu bierzemy dwa zestawy $PC$ i $CD$.<br>Możemy na tą tablicę dwuwymiarową spojrzeć jak na rzut punktów w kartezjańskim układzie współrzędnych $OXY$ i uzyskać współrzędne odległości od przeciecia:</p>
+<table>
+<thead>
+<tr>
+<th align="left">X</th>
+<th align="left">Y</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$17$</td>
+<td align="left">$4$</td>
+</tr>
+<tr>
+<td align="left">$4$</td>
+<td align="left">$5$</td>
+</tr>
+</tbody></table>
+<p>Weźmy pierwsze współrzędne dla $PC$ by uzyskać $R$:</p>
+<ul>
+<li>Suma tych współrzędnych to: $17 + 4 = 21$</li>
+<li>Dodając ją do $65$ (bazowa wartość ASCII dla litery $\text{A}$), otrzymamy wartość $86$ (kod ASCII dla litery $\text{V}$).</li>
+<li>Miedzy oczekiwanym $R$, a uzyskanym $V$ znajdują się $3$ litery $S, T, U$</li>
+<li>Wszystkich liter jest $26$, więc $26 - 21 = 5$.</li>
+<li>By uzyskać $R$ $82$ to od $V$ $86$ musimy odjąć $4$. Gdy uznamy 5 za ilość a nie pozycję liczoną od zera to $- 1$ może okazać się rozwiązaniem</li>
+<li>Na koniec uzyskujemy wzór: $65 + (17 + 4) - (26 - (17 + 4) -1) = 82$</li>
+<li>Można go uprościć widząc że $(17 + 4)$ się zniwelują.</li>
+<li>lecz końcowy wynik $65 - 27$ nie ma sensu, bo nie idzie go pod nic podstawić. Uzyskaliśmy stałą $39$ 🙄.</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/błędna-analiza-Vigenere.webp" alt="" width="2272" height="1356" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Spróbuj może poprawić odległości $XY$ dla $PC$:</p>
+<p>Pomijamy pierwszy wiersz i nagłówek czyli od obu wartości odejmujemy 1:</p>
+<ul>
+<li>$X = 16$</li>
+<li>$Y = 3$</li>
+</ul>
+<p>$65 + (16 + 3) = 84 \implies$ kod ASCII dla litery $\text{T}$</p>
+<p>Zamiast pozycji potraktujmy te nowe współrzędne jako bias więc zamiast liczyć od $1$ to bedziemy liczyć od $0$</p>
+<ul>
+<li>$X = 15$</li>
+<li>$Y = 2$</li>
+</ul>
+<p>$65 + (15 + 2) = 82 \implies$ kod ASCII dla litery $\text{R}$</p>
+<p>Teraz udało nam się uzyskać oczekiwaną wartość dla $PC \implies R$, więc przetestujmy też $CD$:</p>
+<ul>
+<li>$X = 4 \implies 2$</li>
+<li>$Y = 5 \implies 3$</li>
+</ul>
+<p>$65 + (2 + 3) = 70 \implies$ kod ASCII dla litery $\text{F}$</p>
+<p>Krótko to implementując uzyskamy następujący kod:</p>
+<pre><code class="language-php">$test_word = "CD";
+$value = "";
+
+$alphabet = [];
+
+for($i = 65; $i&lt;=90; $i++){
+    $alphabet[]=chr($i);
+}
+
+print_r($alphabet);
+
+$xy = 0;
+for($i=0; $i &lt; strlen($test_word); $i++){
+    $xy += array_search($test_word[$i], $alphabet, true);
+}
+
+$value = chr(65+$xy);
+
+echo "value: " . $value;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/wyszukiwanie-wartości-przekątnej-x-y-w-tabula-recta.webp" alt="" width="1824" height="753" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Implementacja szyfru Vigenère’a</h2>
+<p>Skoro udało nam się wygenerować Tabula Recta i przy pomocy matematyki zaszyfrować z współrzędnych $xy$ wartość na prawidłową literę w przekątnej to nadszedł czas by stworzyć wreszcie algorytm szyfrowania. </p>
+<p>Przygotujmy zmienne:</p>
+<pre><code class="language-php">$tekst = "TESTOWY"; // 7 znaków
+$key = "KLUCZ"; // 5 znaków
+$encrypt = "";
+</code></pre>
+<p>Z komentarzy możesz już zauważyć pierwszy problem. Tekst jest dłuższy niż klucz.<br>By każdy znak tekstu $P_i$ miał swój odpowiednik w kluczu $K_i$ klucz powinien być powtarzany.</p>
+<p>Rozwiązanie jest relatywnie proste gdy skorzystamy z matematyki i operacji modulo (<code>%</code> - reszta z dzielenia).</p>
+<pre><code class="language-php">for($i = 0; $i &lt; strlen($tekst); $i++){
+    echo $tekst[$i] . " &lt;=&gt; " . $key[$i % strlen($key)] . "\n";
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/powtarzanie-klucza-wzgledem-dłógości-tekstu.webp" alt="" width="1845" height="423" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Wykorzystajmy wszystkie nasze odkrycia i złóżmy je w gotowy kod szyfrujący Vigenère’m.<br>W alfabecie wyszukujemy pozycję zgodną z literą tekstu i przypisujemy ją do zmiennej $x$.<br>Podobnie postępujemy z literą powtarzanego klucza i przypisujemy ją do $y$.  </p>
+<p>By uzyskać zaszyfrowaną wartość sumujemy <code>$x</code>, <code>$y</code> i $65$, które w ASCII odpowiada literze $A$.<br>Na koniec przekształcamy uzyskany wynik z powrotem na literę z pomocą funkcji <code>chr()</code>.</p>
+<pre><code class="language-php">$alphabet = [];
+
+for ($i = 65; $i &lt;= 90; $i++) {
+    $alphabet[] = chr($i);
+}
+
+$tekst = "TESTOWY"; // 7 znaków
+$key = "KLUCZ"; // 5 znaków
+$encrypt = "";
+
+$key_length = strlen($key);
+
+for ($i = 0; $i &lt; strlen($tekst); $i++) {
+
+    $x = array_search($tekst[$i], $alphabet, true);
+    $y = array_search($key[$i % $key_length], $alphabet, true);
+
+    $encrypt .= chr(65 + $x + $y);
+
+    echo $tekst[$i] . " &lt;=&gt; " . $key[$i % $key_length] . " ==&gt; " . $encrypt . "\n";
+}
+
+echo $encrypt;
+</code></pre>
+<p>Uzyskany wynik nie jest poprawny poza dwoma pozycjami $2$ i $4$.  </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/początkowa-implementacja-vigenera.webp" alt="" width="1844" height="1234" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Wynika to z tego że, przekraczamy ciągle zakres $65 - 90$ dużych liter alfabetu:<br>$T (19) + K (10) + 65 = 94 ($^$)$</p>
+<p>Możemy to prosto naprawić modyfikując wartość <code>$encrypt</code>.</p>
+<p>Gdzie początkowo <code>$x</code> i <code>$y</code> dawały sumę $T (19) + K (10) = 29$</p>
+<pre><code class="language-php">$encrypt .= chr(65 + $x + $y);
+</code></pre>
+<p>Natomiast gdy tą sumę potraktujemy przez modulo $26$ uzyskamy: $T (19) + K (10) = 29 \quad| \bmod 26 = 3 \implies D$</p>
+<pre><code class="language-php">$encrypt .= chr(65 + ($x + $y) % 26);
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛞 Analiza działania na przypadkach brzegowych</h2>
+<p>Lecz można zauważyć kolejny problem z algorytmem gdy tekst do zaszyfrowania nie bedzie dużymi literami:</p>
+<pre><code class="language-php">$tekst = "TESTOWY test";
+$key = "KLUCZ";
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="center">Powinniśmy uzyskać:</th>
+<th align="center">D</th>
+<th align="center">P</th>
+<th align="center">M</th>
+<th align="center">V</th>
+<th align="center">N</th>
+<th align="center">G</th>
+<th align="center">J</th>
+<th align="center">·</th>
+<th align="center">n</th>
+<th align="center">g</th>
+<th align="center">r</th>
+<th align="center">d</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Jednak uzyskaliśmy:</td>
+<td align="center">D</td>
+<td align="center">P</td>
+<td align="center">M</td>
+<td align="center">V</td>
+<td align="center">N</td>
+<td align="center">G</td>
+<td align="center">J</td>
+<td align="center">U</td>
+<td align="center">C</td>
+<td align="center">Z</td>
+<td align="center">K</td>
+<td align="center">L</td>
+</tr>
+</tbody></table>
+<p>Aby tą problematykę rozwiązać to musimy zadziałać podobnie jak w wcześniejszych algorytmach szyfrowania.<br>Stworzyć flagi sprawdzające czy dany znak na którym operujemy z tekstu jest małą albo dużą literą:</p>
+<pre><code class="language-php">$is_upper = ctype_upper($tekst[$i]);
+$is_lower = ctype_lower($tekst[$i]);
+</code></pre>
+<p>Dodatkowo w szyfrowaniu Vigenère'a znak w kluczu nie może być nieprzerwanym ciągiem. Dla pozycji w tekście, która nie jest literałem wartość z klucza musi być pominięta. Dlatego potrzebujemy do tego zmienną zliczającą te przypadki i będącą zadeklarowaną poza pętlami:</p>
+<pre><code class="language-php">$key_length = strlen($key);
+$key_skip = 0;
+</code></pre>
+<p>Następnie tą nową zmienną należy modyfikować inkrementacją tylko dla przypadków nie literalnych.<br>Dlatego potrzebujemy instrukcji warunkowej <span class="color-gold"><code>if</code></span> sprawdzającej negację na bramce $AND$</p>
+<p>Bramka AND zwróci <code>true</code> tylko gdy obie wartości są <code>true</code>.<br>Jeżeli trafimy na dużą literę to <code>$is_upper</code> będzie $1$ a jego negacja (<code>!</code>) da $0$:</p>
+<p>$0 \text{ AND } 1 \quad \rightarrow \quad \textbf{0}$</p>
+<p>Znak nie może być jednocześnie dużą i małą literą więc $1$ $1$ nie wystąpią, a raczej ich negacja nie wystąpi. Co za tym idzie negując to dla przypadku gdy znak nie jest ani dużą ani małą literą uzyskamy:</p>
+<p>$1 \text{ AND } 1 \quad \rightarrow \quad \textbf{1}$</p>
+<p>i wtedy wykonujemy <code>continue</code> by tą iterację po stringu pominąć i pozostawić bez zmian.  </p>
+<blockquote>
+<p>Dodatkowo inkrementujemy zmienną <code>$key_skip</code> (zwiększamy ją o $1$).</p>
+</blockquote>
+<pre><code class="language-php">if (!$is_upper &amp;&amp; !$is_lower) {
+    $encrypt .= $tekst[$i];
+    $key_skip++;
+    continue;
+}
+</code></pre>
+<p>Musimy jeszcze uwzglęnić w obliczeniach pozycji <code>$y</code> zmienną <code>$key_skip</code>:</p>
+<pre><code class="language-php">$y = array_search($key[$i % $key_length], $alphabet, true);
+</code></pre>
+<p>Zmieniamy na:</p>
+<pre><code class="language-php">$y = array_search(strtoupper($key[($i - $key_skip) % $key_length]), $alphabet, true);
+</code></pre>
+<p>W ten sposób rozwiązaliśmy problem z przesunięciem i przygotowaliśmy większość kodu pod uwzględnienie dużych i małych liter.<br>Pozostało nam tylko na bazie jednej z flag zwrócić zaszyfrowany znak z odpowiedniego zakresu ASCI:</p>
+<ul>
+<li>Duża litera: $65 - 90$</li>
+<li>Mała litera: $97 - 122$</li>
+</ul>
+<pre><code class="language-php">if ($is_upper) {
+    $encrypt .= chr(65 + ($x + $y) % 26);
+} else {
+    $encrypt .= chr(97 + ($x + $y) % 26);
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/szyfrowanie-vigenerem.webp" alt="" width="1840" height="922" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>✨ Dopieszczanie i refaktoryzacja funkcji</h2>
+<p>Jak zauważyłeś cały kod już został zamieszczony w funkcji:</p>
+<blockquote>
+<p>PS.: Tu już jest poprawiona literówka gdzie w <code>$isEncrypt</code> zamiast <code>y</code> było <code>i</code></p>
+</blockquote>
+<pre><code class="language-php">function vigenere(string $tekst, string $key, bool $isEncrypt = false): string {}
+</code></pre>
+<p>Zanim napiszemy instrukcję warunkową <span class="color-gold"><code>if</code></span> to czy pamiętasz jej skróconą wersję zapisu?</p>
+<pre><code class="language-php">$zmienna = (warunek) ? "wartość jeśli true" : "wartość jeśli false";
+</code></pre>
+<p>Mając zapis strukturalny tej instrukcji warunkowej <span class="color-gold"><code>if</code></span>:</p>
+<pre><code class="language-php">if ($is_upper) {
+    $encrypt .= chr(65 + ($x + $y) % 26);
+} else {
+    $encrypt .= chr(97 + ($x + $y) % 26);
+}
+</code></pre>
+<p>Można bardzo łatwo przekształcić ją na jednolinijkową bo zarówno <span class="color-gold"><code>if</code></span> jak i <span class="color-gold"><code>else</code></span> wykonują tylko jedną operację w swoich ciałach.</p>
+<pre><code class="language-php">$encrypt .= $is_upper ? chr(65 + ($x + $y) % 26) : chr(97 + ($x + $y) % 26);
+</code></pre>
+<blockquote>
+<p>Dopiszmy ostatnią brakującą funkcjonalność.</p>
+</blockquote>
+<p>Dla $i$-tej litery tekstu $P_i$ i odpowiadającej jej litery klucza $K_i$:</p>
+<ul>
+<li><span class="color-green">Szyfrowanie:</span><br>$$C_i = (P_i + K_i) \bmod 26$$</li>
+<li><span class="color-green">Deszyfrowanie:</span><br>$$P_i = (C_i - K_i + 26) \bmod 26$$</li>
+</ul>
+<p>Dodanie $+26$ przy deszyfrowaniu zapobiega ujemnym wynikom przed wykonaniem operacji modulo (tzw. problem przesunięcia w lewo w arytmetyce reszt).</p>
+<p>Znowu więc zmodyfikujemy wynik przypisywany do zmiennej <code>$encrypt</code>. Tym razem zamiast pisać na sztywno formułę szyfrowania Vigenère'a (<code>($x + $y) % 26</code>) to przygotujemy zmienna przesunięcia <code>$shift</code>, która w zależności czy mowa o szyfrowaniu czy deszyfrowaniu przyjmie wartość albo <code>($x + $y) % 26</code> albo <code>($x - $y + 26) % 26</code>.</p>
+<pre><code class="language-php">$shift = $isEncrypt ? ($x - $y + 26) % 26 : ($x + $y) % 26;
+$encrypt .= $is_upper ? chr(65 + $shift) : chr(97 + $shift);
+</code></pre>
+<p>W efekcie końcowym uzyskujemy następującą postać kodu:</p>
+<pre><code class="language-php">/**
+ * Funkcja szyfrująca i deszyfrująca tekst przy pomocy Vigenera.
+ *
+ * @param string $tekst Ciąg znaków do zaszyfrowania lub odszyfrowania
+ * @param string $key Klucz do procesu szyfrowania/deszyfrowania
+ * @param boolean $isEncrypt czy tekst jest zaszyfrowany?
+ * @return string Zwraca podany tekst w formie zaszyfrowanej lub odszyfrowanej
+ */
+function vigenere(string $tekst, string $key, bool $isEncrypt = false): string
+{
+    $alphabet = [];
+    for ($i = 65; $i &lt;= 90; $i++) {
+        $alphabet[] = chr($i);
+    }
+    $encrypt = "";
+    $key_length = strlen($key);
+    $key_skip = 0;
+    for ($i = 0; $i &lt; strlen($tekst); $i++) {
+        $is_upper = ctype_upper($tekst[$i]);
+        $is_lower = ctype_lower($tekst[$i]);
+
+        if (!$is_upper &amp;&amp; !$is_lower) {
+            $encrypt .= $tekst[$i];
+            $key_skip++;
+            continue;
+        }
+        $x = array_search(strtoupper($tekst[$i]), $alphabet, true);
+        $y = array_search(strtoupper($key[($i - $key_skip) % $key_length]), $alphabet, true);
+        $shift = $isEncrypt ? ($x - $y + 26) % 26 : ($x + $y) % 26;
+        $encrypt .= $is_upper ? chr(65 + $shift) : chr(97 + $shift);
+    }
+    return $encrypt;
+}
+$tekst = "TESTOWY test"; $key = "KLUCZ";
+echo vigenere($tekst, $key,);
+echo "\n";
+echo vigenere("DPMVNGJ ngrd", $key, $isEncrypt = true);
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/finalna-funkcja-szyfru-vigenera.webp" alt="" width="1849" height="933" class="lazy-image" loading="lazy" decoding="async">
+
+
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

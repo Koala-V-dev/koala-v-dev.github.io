@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Akcje użytkowników i role - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Akcje użytkowników i role</h1>
+<p>Platforma zrefaktoryzowana ale dalej jedynymi funkcjonalnościami dla klienta są rejestracja i logowanie. Czas w końcu ukończyć ten mini projekcik. </p>
+<p>Dodaj nową trasę w <code>routes.php</code>, a <code>all-posts.html</code> przekształć na <code>all-posts.php</code> i dodaj ukrytą kontrolkę do dokena CSRF.</p>
+<p>Pierwszym krokiem bedzie tak jak w <span class="color-green">CRUD</span> czyli insertujemy dane do tabeli <span class="color-blue">posts</span>:</p>
+<pre><code class="language-sql"> CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `author` int(11) DEFAULT NULL,
+  `content` varchar(255) DEFAULT NULL
+)
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/przygotowanie-plików-pod-korntroler-wpisów.webp" alt="" width="1584" height="885" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>Dodajemy kolejną trasę do routera:</p>
+<p><small>routes.php</small></p>
+<pre><code class="language-php">$router-&gt;post(
+    "/new-user-post",
+    [UserPostController::class, "insertUserPost"]
+);
+</code></pre>
+<p>Kontroler wpisów użytkownika rozszerzamy o <code>BaseController</code> by odziedziczyć metody zabezpieczania przed XSS oraz walidacji tokenu CSRF. Przesyłane dane z formularza to token oraz treść wpisu. Brakuje tylko autora i uzyskamy go z superglobalnej zmiennej sesji by nie ufać danym, które mogły by się podszyć pod użytkownika.</p>
+<p><small>UserPostController.php</small></p>
+<pre><code class="language-php">class UserPostController extends BaseController
+{
+
+    public function insertUserPost(): void{
+        $this-&gt;validateCSRFToken("new-post_msg","/all-posts");
+
+
+        $content = $this-&gt;unsetXSS($_POST["new_post"]);
+        if(!isset($_SESSION["user"])){
+            $_SESSION["post_msg"] = "Sesja wygasła. Zaloguj się ponownie.";
+            header("Location: /all-posts");
+            exit();
+        }
+        $author = (int)$_SESSION["user"]["id"];
+
+        UserPostRepository::addNewPost($author, $content);
+    }
+}
+</code></pre>
+<p>Na koniec przesyłamy gotowe dane do dedykowanego repozytorium by zostały zapisane w bazie danych:</p>
+<p><small>UserPostRepository.php</small></p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Core\Repositories;
+
+use App\Core\Services\Database;
+
+class UserPostRepository{
+
+    public static function addNewPost(int $author, string $content): int {
+        $sql = 'INSERT INTO posts
+            (author, content)
+            VALUES(?, ?)
+            ';
+        $stmt = Database::getConnection()-&gt;prepare($sql);
+
+        $stmt-&gt;execute([$author, $content]);
+        return $stmt-&gt;affected_rows;
+    }
+}
+</code></pre>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>Podstrona wszystkich wpisów</h2>
+<p>By przetestować poprawność odrzucenia wpisu bez aktywnej sesji, konieczne jest dopisanie na tym etapie trasy by w ogóle móc wyświetlić tą podstronę.</p>
+<p>Metoda w kontrolerze bedzie identyczna jak w przypadku <code>HomeController.php</code>:</p>
+<p>Trasa oczywiście powinna obsługiwać jedynie metodę GET:</p>
+<p><small>routes.php</small></p>
+<pre><code class="language-php">$router-&gt;get(
+    "/all-posts",
+    [UserPostController::class, "render"]
+);
+</code></pre>
+<p>Możesz przejść na tą podstronę bezpośrednio podając adres URL jednak warto już poprawić linki w widokach <code>login.php</code> i <code>all-posts.php</code>:</p>
+<ul>
+<li>Hiperłącze nazwy serwisu <span class="color-blue">Platforma</span> powinno przekierowywać na domenowy url strony głownej czyli <span class="color-green"><code>/</code></span>/</li>
+<li>Element nawigacji „Mało?” zamiast podania pliku <code>all-posts</code> z jego rozszerzeniem zastąp na ładniejszą formę trasy URL <span class="color-green"><code>/all-posts</code></span>.</li>
+</ul>
+<p>Jeżeli już raz wystąpił błąd braku sesji to po odświeżeniu nie powinien się ponownie wyświetlić. Możemy to zrealizować przez odłączenie elementu na danym indeksie tablicy assocjacyjnej w superglobalu <code>$_SESSION</code>:</p>
+<pre><code class="language-php">if(isset($_SESSION["post_msg"])){
+    echo "&lt;p&gt;" . $_SESSION["post_msg"] ."&lt;/p&gt;";
+    unset($_SESSION["post_msg"]);
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/dodanie-trasy-renderu-i-test-error-non-session.webp" alt="" width="1582" height="969" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Wyświetlanie wpisów użytkowników</h2>
+<p>Na samym początku dopiszmy nową metodę do <code>UserPostRepository.php</code>, wywołajmy ją w kontrolerze i wynik przekarzmy do vidoku jako tablicę do wyświetlenia w <code>print_r()</code>:</p>
+<p><small>UserPostRepository.php</small></p>
+<pre><code class="language-php">public static function getAllPosts() : ?array {
+    $sql = 'SELECT * FROM posts';
+    $stmt= Database::getConnection()-&gt;prepare($sql);
+    $result = $stmt-&gt;execute();
+    $result = $stmt-&gt;get_result();
+    $row = $result-&gt;fetch_assoc();
+    return $row ?: null;
+}
+</code></pre>
+<p><small>UserPostController.php</small></p>
+<pre><code class="language-php">public function render(): void
+{
+  $posts = UserPostRepository::getAllPosts();
+
+  $user = $this-&gt;session-&gt;getUser();
+  View::render("all-posts.php", ["posts" =&gt; $posts, "user" =&gt; $user]);
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/przekazanie-danych-o-wpisach-z-bd-na-widok-strony.webp" alt="" width="1591" height="951" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Część wspólna dwóch zbiorów (INNER JOIN)</h2>
+<p>By uzyskać wszelkie niezbędne nam dane musimy się odwołać do dwóch tabel. W jednej przechowujemy treść wpisów a w drugiej dane o autorze. Dlatego początkowo struktura <code>posts</code> zawarła w sobie atrybut <span class="color-blue"><code>author</code></span> z typem <span class="color-blue">intiger</span> to nasz nieoficjalny klucz obcy. Wykorzystujemy go do porównania z kluczem głównym innych tabel a uzyskana zależność jest relacją. Aby wyciągnąć dane z dwóch zbiorów zachowując powiązaną relację należy skorzystać z klauzuli <code>JOIN</code>.</p>
+<data-gate>
+<data-venn-diagram sets="2" task="A \cap B"></data-venn-diagram>
+</data-gate>
+
+<p>Standardowo zapisujemy <code>SELECT</code> wskazując konkretne atrybuty lub wszystko (<code>*</code>) co chcemy wyciągnąć z <code>FROM</code> tabeli. Następnie deklarujemy że chcemy część wspólną <code>INNER JOIN</code> drugiej tabeli, ale tylko te krotki, które pasują do klauzuli <code>ON</code> określającej warunek dla części wspólnej, gdzie klucz główny jednej tabeli jest równy wartością z kluczem obcym drugiej tabeli.</p>
+<pre><code class="language-sql">SELECT * FROM posts INNER JOIN users ON posts.author=users.id;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/inner-join-wpisy-usera.webp" alt="" width="1032" height="273" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jednak zastosowanie gwiazdki nie jest optymalnym podejściem. To przekazanie nadmiaru danych, gdzie dla bezpieczeństwa zawsze należy podawać ich per minimum i w razie konieczności dosyłać kolejne. Dodatkowo nie potrzebnie zwiekszymy ich rozmiar co w przypadku gdy usługa bazy danych i interpreter php będą na różnych serwerach zwieksza opóźnienie.</p>
+<pre><code class="language-sql">SELECT posts.id, author AS user_id, username, avatar, role, content 
+FROM posts INNER JOIN users ON posts.author=users.id;
+</code></pre>
+<blockquote>
+<p>Zwróć uwagę na dwa pierwsze atrybuty.</p>
+<ul>
+<li><code>posts.id</code>: z racji że atrybut <code>id</code> występuje w obu tabelach to należy jawnie wskazać o który atrybut nam chodzi.</li>
+<li><code>author AS user_id</code>: nadajemy nową nazwę atrybutowi <code>author</code> w wyniku zapytania. Jest to tzw. <span class="color-green">alias</span>.</li>
+</ul>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/minimalizacaj-select-w-inner-join-user-posts.webp" alt="" width="902" height="274" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Podmień teraz zapytanie SQL w metodzie <code>getAllPosts()</code> klasy <code>UserPostRepository</code>.</p>
+<p>Przygotuj komponent postu <code>user-post.php</code>:</p>
+<pre><code class="language-html">&lt;?php
+declare(strict_types=1);
+/** @var array|null $user
+ * @var string $username
+ * @var string $avatar
+ * @var string $content
+ */
+?&gt;
+
+
+&lt;div class="post"&gt;
+    &lt;div class="author"&gt;
+        &lt;img src="./images/&lt;?php echo $avatar; ?&gt;" 
+        alt="Awatar użytkownika &lt;?php echo $username; ?&gt;"&gt;
+        &lt;small&gt;&lt;?php echo $username; ?&gt;&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;p&gt;
+        &lt;?php echo $content ?&gt;
+    &lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Natomiast w <code>all-posts.php</code>  napisz pętlę która wskarze komponet i przekarze potrzebne dane do jego prepacaji by klasa rendera (<code>View</code>) przygotowała gotowy element html do wyświetlenia. Nie zapomnij o wskazaniu jej lokalizacji na początku pliku za pomocą dyrektywy: <code>use App\Core\View;</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/warrning-dla-wykorzystania-foreach-w-jednej-krotce-zamiast-całości-wyniku-zapytania.webp" alt="" width="1584" height="959" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Jak widzisz mamy ostrzeżenia dotyczące próby uzyskania danych z tablicy o niepoprawnym offsecie. Wynika to z tego że metoda <code>getAllPosts()</code> w <code>UserPostRepository</code> zwraca pojedynczy wynik krotki zamiast całości wyniku.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/fetch_all-MYSQLI_ASSOC.webp" alt="" width="685" height="232" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<pre><code class="language-php"> $row = $result-&gt;fetch_all(MYSQLI_ASSOC);
+</code></pre>
+</blockquote>
+<p>Po tej małej zmianie problem został rozwiązany:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/poprawne-wyświetlanie-postów.webp" alt="" width="1585" height="956" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Skrypt oczyszczający i losowy avatar nowych użytkowników</h2>
+<p>Trochę już zasyfiliśmy bazę danych testowymi krotkami. Takiego czegoś na produkcję nie podamy. Mamy więc dwie opcje:</p>
+<ul>
+<li>Dropnoąć całość i ponownie stworzyć bazę danych i tabele:<pre><code class="language-sql">DROP TABLE platforma.users;
+DROP TABLE platforma.posts;
+</code></pre>
+</li>
+<li>Oczyścić tabele z wszystkich danych i zrestartować <code>AUTO_INCREMENT</code>:<pre><code class="language-sql">TRUNCATE TABLE platforma.posts;
+</code></pre>
+</li>
+</ul>
+<p>Utwórz dedykowany plik skryptu o następującej zawartości</p>
+<p><small>clean_table.php</small></p>
+<pre><code class="language-php">&lt;?php
+
+const host = "localhost";
+const user = "root";
+const password = "";
+const db_name = "platforma";
+
+$db = null;
+try {
+    $db = @new mysqli(host, user, password, db_name);
+} catch (Exception $e) {
+    echo "Błąd bazy danych: " . $e-&gt;getMessage();
+}
+
+$sql ='TRUNCATE TABLE platforma.posts;
+        TRUNCATE TABLE platforma.users;
+        ';
+$db-&gt;multi_query($sql);
+$db-&gt;close();
+</code></pre>
+<p>następnie podłącz go w <code>index.php</code> i odśwież stronę:</p>
+<pre><code class="language-php">require "clean_table.php";
+</code></pre>
+<p>Interpreter zgłosi ostrzeżenie że nie ma danych więc zakomentuj dopięcie skryptu aby już nie oczyszczał tabel.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/Oczyszczenie-bazy-danych.webp" alt="" width="1871" height="920" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>W klasie <code>RegisterController</code> tóż przed insertem nowego użytkownika Zapisz fragment losujący jeden z czterech obrazków jako nową wartość atrybutu <code>avatar</code> i przekaż ją do bazy danych.</p>
+<pre><code class="language-php">$avatar = "AI_avatar_" . random_int(1,4) . ".png";
+</code></pre>
+<p><code>user-post.php</code> jak i <code>login.php</code> wymagają poprawy ścieżki do źródła obrazka, więc zmień:</p>
+<pre><code>./images/
+</code></pre>
+<p>na</p>
+<pre><code>/resources/images/
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/dodanie-losowych-avatraów-dla-userów.webp" alt="" width="1585" height="960" class="lazy-image" loading="lazy" decoding="async">
+
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

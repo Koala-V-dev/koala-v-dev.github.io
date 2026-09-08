@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Refaktoryzacja aplikacji - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Refaktoryzacja aplikacji</h1>
+<p>W poprzedniej lekcji <span class="color-blue">Rejestracja i logowanie</span>, zrealizowaliśmy mechanizmy logowania i rejestracji. Nasza aplikacja posiada już fundamenty uwierzytelniania, obsługę sesji oraz bazowe mechanizmy bezpieczeństwa (<span class="color-blue">Argon2id</span>, zabezpieczenie przed <span class="color-blue">XSS</span> i tokeny <span class="color-blue">CSRF</span>). Zanim jednak przejdziemy do implementacji akcji użytkowników (dodawanie i usuwanie wpisów, przypisywanie awatarów) oraz systemu ról (<code>user</code> vs <code>admin</code>), musimy dokonać rzetelnej <span class="color-gold">analizy stanu projektu</span> i zaplanować jego <span class="color-green">wstępną refaktoryzację</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🗺️ Mapa architektury obecnego stanu projektu</h2>
+<p>Poniższy diagram przedstawia przepływ danych, powiązania między plikami oraz zidentyfikowane obszary długu technologicznego, które wymagają uporządkowania przed dodaniem nowych funkcjonalności:</p>
+<figure>
+<img aria-describedby="diagram-schemat-zaleynocci-i-pows" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/zalążek-architektury.webp" alt="Schemat zależności i powstająca architektura" width="1522" height="1368" class="lazy-image" loading="lazy" decoding="async">
+<figcaption id="diagram-schemat-zaleynocci-i-pows">
+<details class="diagram-meta">
+<summary>Opis obrazka</summary>
+<p>Diagram architektury przedstawia pełny obieg żądania HTTP w aplikacji po module „Rejestracja i logowanie” – od momentu wysłania żądania przez przeglądarkę użytkownika, przez reguły serwera Apache (.htaccess), warstwę logiki i danych (router.php, Auth.php, MySQL, sesja PHP), aż po warstwę prezentacji (szablony HTML, wstrzykiwanie komponentów i podmianę znaczników) oraz zwrot wyrenderowanego kodu HTML do klienta.</p>
+<section aria-label="Opis strukturalny diagramu">
+<ol>
+<li><span class="color-green">Przeglądarka / Użytkownik</span> – inicjuje żądanie HTTP metodą <code>GET</code> lub <code>POST</code> i oczekuje na odpowiedź w postaci wyrenderowanego kodu HTML.</li>
+<li><span class="color-green">Serwer Apache (<code>.htaccess</code>)</span> – weryfikuje adres URL i dokonuje przepisania żądań:<ul>
+<li><span class="color-green">Dostęp bezpośredni</span> kieruje do katalogu <code>/resources/</code> (arkusz <code>style.css</code>, obrazy, awatary).</li>
+<li><span class="color-green">Przekierowanie do wejścia</span> kieruje ruch aplikacji do pliku startowego <code>index.php</code> (bootstrap bazy danych i schemat tabel <code>users</code> oraz <code>posts</code>).</li>
+</ul>
+</li>
+<li><span class="color-green">Warstwa Logiki i Danych (kontener pomarańczowy)</span>:<ul>
+<li><span class="color-green"><code>backend/core/router.php</code></span> – punkt wejścia analizujący trasę URL za pomocą instrukcji <code>switch</code> (brak dedykowanych kontrolerów).</li>
+<li><span class="color-green"><code>backend/core/Auth.php</code></span> – klasa odpowiedzialna za obsługę uwierzytelniania, filtry XSS, tokeny CSRF, operacje SQL oraz zarządzanie sesją.</li>
+<li><span class="color-green">Algorytm Argon2id</span> – realizuje haszowanie (<code>password_hash</code>) oraz weryfikację haseł (<code>password_verify</code>).</li>
+<li><span class="color-green">Baza MySQL (<code>platforma</code>)</span> – przechowuje tabele <code>users</code> (pola: <code>id</code>, <code>login</code>, <code>pass</code>, <code>role</code>) oraz <code>posts</code> (pola: <code>id</code>, <code>author</code>, <code>content</code>), z którymi <code>Auth</code> komunikuje się przez zapytania <code>mysqli</code>.</li>
+<li><span class="color-green">Sesja PHP (<code>$_SESSION</code>)</span> – przechowuje dane zalogowanego klienta (<code>user data</code>) oraz token <code>csrf_token</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Warstwa Prezentacji: Szablony HTML (kontener niebieski)</span>:<ul>
+<li><span class="color-green"><code>backend/views/</code></span> – statyczne pliki widoków (<code>login.html</code>, <code>all-posts.html</code>, <code>error404.html</code>) odczytywane za pomocą <code>file_get_contents</code>.</li>
+<li><span class="color-green"><code>register_login_section.html</code></span> – pod‑komponent formularzy logowania i rejestracji wstrzykiwany do głównego szablonu.</li>
+<li><span class="color-green">Manualny rendering widoku</span> – operacja <code>str_replace()</code> na markerach szablonu, podstawiająca komunikaty błędów, wygenerowany token CSRF oraz widok zależny od stanu zalogowania.</li>
+</ul>
+</li>
+<li><span class="color-green">Zwrócenie wyrenderowanego HTML</span> – sklejony finalny dokument HTML trafia z powrotem do przeglądarki użytkownika.</li>
+<li><span class="color-green">Podział kontenerów</span>: zielony = konfiguracja serwera WWW, pomarańczowy = warstwa logiki i danych backendu, niebieski = warstwa prezentacji i szablonów HTML.</li>
+</ol>
+</section>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": "Schemat zależności i powstająca architektura",
+  "description": "Diagram architektury przedstawia pełny obieg żądania HTTP w aplikacji po module „Rejestracja i logowanie” – od momentu wysłania żądania przez przeglądarkę użytkownika, przez reguły serwera Apache (.htaccess), warstwę logiki i danych (router.php, Auth.php, MySQL, sesja PHP), aż po warstwę prezentacji (szablony HTML, wstrzykiwanie komponentów i podmianę znaczników) oraz zwrot wyrenderowanego kodu HTML do klienta.",
+  "keywords": "reguły bezpieczeństwa, ruch sieciowy, Schemat, zależności, powstająca, architektura"
+}
+</script>
+</details>
+</figcaption>
+</figure>
+
+ 
+<hr>
+<h3>🔍 Wnioski z analizy stanu projektu (Co wymaga refaktoryzacji?)</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Obszar / Komponent</th>
+<th align="left">Stan obecny</th>
+<th align="left">Problem / Zagrożenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green"><code>router.php</code></span></td>
+<td align="left">Monolityczny <code>switch($uri)</code> z obsługą bazy, logiki i widoków w jednym pliku</td>
+<td align="left">Złamanie zasady pojedynczej odpowiedzialności (<span class="color-blue">SRP</span>), trudne skalowanie przy nowych akcjach</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>Auth.php</code></span></td>
+<td align="left">Klasa łączy rejestrację, logowanie, czyszczenie XSS, sprawdzanie CSRF i operacje bazodanowe</td>
+<td align="left">„Boski obiekt” (<span class="color-blue">God Object</span>), mieszanie walidacji HTTP z logiką domenową</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Zapytania SQL</span></td>
+<td align="left">Konkatenacja ciągów w zapytaniach SQL (<code>'SELECT ... WHERE login="' . $login . '"'</code>)</td>
+<td align="left"><span class="color-red">Podatność na SQL Injection</span> mimo stosowania encji HTML. Aktualne formularze są odporne dopóki wykorzystujemy prymitywne zapytania SQL</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Szablony widoków</span></td>
+<td align="left">Ręczne zastępowanie <code>%%placeholder%%</code> za pomocą wielokrotnego <code>str_replace()</code></td>
+<td align="left">Ogromne ryzyko powstania chaotycznego i wymieszanego kodu przy rozbudowie UI, brak dynamicznych pętli dla postów i ról</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Planowanie nowej architektury</h2>
+<p>Na wykresie jest bardzo dużo strzałek i miejsc w których zawsze można zrobić coś lepiej. Spróbujmy to uporządkować.</p>
+<p>Nasza aplikacja:</p>
+<ol>
+<li>Przyjmuje żądania:</li>
+</ol>
+<ul>
+<li><span class="color-blue"><code>GET</code></span> z linku URL by wyświetlić daną stronę</li>
+<li><span class="color-green"><code>POST</code></span> z formularza wysyłającego dane i oczekującego na odpowiedź</li>
+</ul>
+<ol start="2">
+<li>Zapamiętuje zalogowanego użytkownika</li>
+<li>Przetwarza dane wejściowe by zapobiec atakom XSS</li>
+<li>Stosuje tokeny CSRF jako dodatkową warstwę bezpieczeństwa że dalej prowadzi dialog z poprawnym klientem</li>
+<li>Utajnia hasło</li>
+<li>Komunikuje błędnie wprowadzone dane przez użytkownika</li>
+<li>Zapisuje informacje do bazy danych</li>
+<li>Odczytuje informacje z bazy danych</li>
+</ol>
+<blockquote>
+<p>Zastosujmy się do podstawowej zasady programistów czyli <span class="color-blue">pojedyncza odpowiedzialność, reużywalność oraz nie blokownie rozwoju</span>.</p>
+</blockquote>
+<p><code>router.php</code> aktualnie robi za dużo, inicjalizuje bezpiecznie sesję, połączenie z bazą danych, sprawdzenie URI i wywołanie w <span class="color-gold"><code>switch</code></span> masy kodu. W procesie refaktoryzacji powinny powstać dedykowane klasy by sam plik <code>router.php</code> stał się tylko prostym zbiorem mapowania URI na na jakąś klasę.</p>
+<p>Powstaną nam wtedy:</p>
+<ul>
+<li><code>SessionManager</code>: Klasa której odpowiedzialnością bedzie zarządzanie sesją.</li>
+<li><code>Database</code>: Klasa przez którą bedziemy się komunikować z bazą danych.</li>
+<li><code>Router</code>: Faktyczna klasa do której bedziemy tylko przekazywać mapę zależności URI z pliku <code>routes.php</code>.</li>
+</ul>
+<p>Mamy też klasę w pliku <code>Auth</code>, która świadczy dwa cele czyli rejestracja i logowanie reszta to pomocnicze walidacje danych i ich zabezpieczanie. Ponadto mieszamy tu logikę i zapytania SQL czyli pracę wykonywaną na preprocesorze PHP i komunikację z silnikiem bazodanowym DBMS.</p>
+<p>Rozdzielimy te drogi czyli rejestrację użytkownika od jego logowania do platformy, a na dodatek separacji potraktujemy też warstwy logiki i repozytoriów zapytań:</p>
+<ul>
+<li><code>RegisterController</code> i <code>LoginController</code>: Główni nadzorcy procesów logiki i walidacji danych.</li>
+<li><code>UserRepository</code>: Baza metod statycznych zawierająca zapytania dotyczące użytkowników.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Composer</h2>
+<p>Dobra mamy za sobą lekki projekcik rejestracji i logowania. Wiemy co w nim jest nie tak i mamy plan by to naprawić.<br>To właśnie początek myślenia architektonicznego, a nie kolepacza kodu. W tym momencie doskonałym będzie wykorzystanie cudu takiego jak <span class="color-green">menedżer pakietów Composer</span>.  </p>
+<p>Przechodząc na stronę pobierania <a href="https://getcomposer.org/download/">https://getcomposer.org/download/</a> masz dwie opcje:</p>
+<ul>
+<li>instalator <code>.exe</code> w którym decydujesz czy instalujesz tylko dla siebie LUB dla wszystkich użytkowników ale wtedy musisz być adminem.</li>
+<li>Pobrać plik <code>.phar</code> na którym uruchamiasz komendy kompozytora przy użyciu PHP np. <code>php composer.phar</code>:</li>
+</ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/composer.phar.webp" alt="Kompozytor zarządza zależnościami PHP" width="847" height="358" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<p>Zainicjuj kreator projektu:</p>
+<pre><code class="language-bash">php composer.phar init
+</code></pre>
+<p>Pierwsze pytanie dotyczy nazwy projektu zazwyczaj <code>nazwa-firmy/nazwa-kodowa-projektu</code> np.</p>
+<pre><code class="language-bash">rudek/platforma
+</code></pre>
+<p>W kolejnym pytaniu decydujesz czy dołączyć autora. Wpisujesz <code>n</code> by pominąć.<br>Następnie określasz, które poziomy stabilności pakietów mają być akceptowane podczas instalacji w projekcie.</p>
+<table>
+<thead>
+<tr>
+<th>Poziom rozwoju</th>
+<th>Znaczenie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>dev</code></td>
+<td>Najbardziej liberalny i nieblokujący możliwości instalacji jakichkolwiek paczek</td>
+</tr>
+<tr>
+<td><code>stable</code></td>
+<td>Tylko stabilne wersje typowe dla środowiska produkcyjnego</td>
+</tr>
+<tr>
+<td><code>rc</code></td>
+<td><span class="color-blue">release candidate</span> (prawie stabilne) 😉</td>
+</tr>
+<tr>
+<td><code>beta</code></td>
+<td>Wersje testowe i zapoznawcze</td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>Bardzo wczesne wersje</td>
+</tr>
+</tbody></table>
+<p>Dla ułatwienia możesz uznać że <code>minimum-stability</code> ma dwie opcje:</p>
+<ul>
+<li><code>stable</code>: piszesz gdy realnie jesteś w pracy i już dużo ogarniasz.</li>
+<li><code>dev</code>: uczysz się, eksperymentujesz poznajesz nowości.</li>
+</ul>
+<p>Następne pytanie dotyczy typu tego co bedziesz robić. Podpowiem żę na start tworzysz <span class="color-green">projekty</span>.</p>
+<blockquote>
+<p>Pozostałe typy nie będę omawiał. Ponieważ gdy bedziesz na nie gotów, to bedziesz wiedział już co znaczą.</p>
+</blockquote>
+<p>Licencję daj standardowo jako <span class="color-gold">MIT</span>.</p>
+<p>Bibliotek jeszcze rzadnych nie znamy więc dla obu pytań o zależności napisz <span class="color-red"><code>no</code></span>.</p>
+<p>Teraz najważniejsze. Na którym katalogu ma działąć <span class="color-green">PSR‑4 autoloader</span>? Standardowo jest to katalog <span class="color-green">src</span>, ale ja tam lubię wpisać <code>backend/</code> albo <code>core/</code>.</p>
+<p>W ostatnim pytaniu wyświetli ci się konfiguracja i gdy klikniesz <kbd>Enter</kbd> to composer utworzy plik <code>composer.json</code> i katalog <code>vendor</code> do przechowywania wszystkich zależnych pakietów dla twojego projektu.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/composer-init-platforma.webp" alt="" width="1126" height="937" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Małą poprawka wartości obiektu <code>psr-4</code> (i literówki w opisie):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "name": "rudek/platforma",
+    "description": "Platforma z wpisami użytkowników",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "backend/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Klasa Router</h2>
+<p>Przygotujmy pierw bazę. Zobacz że w <code>backend\</code> powstał nowy dedykowany plik <code>routes.php</code> do mapowania tras i aktualnie tworzy instancję klasy <code>Router()</code>.<br>Katalogi <code>core\</code> i <code>views\</code> mają poprawione nazwy i zaczynają się z dużej litery.<br>W <code>index.php</code> zakomentowano fragment inicjalizacyjny tworzący bazę danych wraz z tabelami jeżeli czegoś brakuje oraz zmieniono lokalizację względną z:</p>
+<pre><code class="language-php">require_once("./backend/core/router.php");
+</code></pre>
+<p>na:</p>
+<pre><code class="language-php">require_once("./backend/routes.php");
+</code></pre>
+<p>Czasami autoloader może się nie ogarnąć samoistnie nowe pliki i katalogi, więc warto wywołać poniższą komendę:</p>
+<pre><code class="language-bash">php composer.phar dump-autoload
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/przygotowanie-do-budowy-Routera.webp" alt="" width="1851" height="942" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Zobacz że teraz mamy nie musimy zapisywać <code>require_once</code> ale za to musimy skorzystać z <code>use</code> oraz <code>namespace</code>.</p>
+</blockquote>
+<p>Założenie jest takie, tworzymy kontener będący tablicą do przechowywania macierzy powiązań URI i metody na konkretne klasy i ich metody.</p>
+<pre><code class="language-php">/**
+ * Kontener na zmapowane trasy URL
+ *
+ * @var array
+ */
+private array $routes = [];
+</code></pre>
+<p>Instancja klasy <span class="color-green">Router</span> przechowuje te zmapowania, więc musi udostępniać publicznie tak zwaną metodę setera do dodawania nowych elementów w kontenerze tras. </p>
+<pre><code class="language-php">/**
+ * Dodawanie mapowania na trasy  metody GET
+ *
+ * @param string $uri trasa URI
+ * @param array $action Tablica dwuelementowa z klasą i metodą
+ * @return void
+ */
+public function get(string $uri, array $action): void {
+    $this-&gt;routes['GET'][$uri] = $action;
+}
+</code></pre>
+<p>Odrazu dodamy też metodę <code>post</code>, która bedzie działać analogicznie ale dla metod POST.</p>
+<pre><code class="language-php">/**
+ * Dodawanie mapowania na trasy  metody POST
+ *
+ * @param string $uri trasa URI
+ * @param array $action Tablica dwuelementowa z klasą i metodą
+ * @return void
+ */
+public function post(string $uri, array $action): void {
+    $this-&gt;routes['POST'][$uri] = $action;
+}
+</code></pre>
+<p>Dodatkową metodą publiczną bedzie uruchomienie sprawdzenia istnienia danej trasy, wywołania metody przypisanej trasie klasy oraz w razie nie znalezienia trasy wywołanie strony z komunikatem błędu $404$.</p>
+<pre><code class="language-php">/**
+ * Uruchomienie Routera i wyszukiwania trasy.
+ * Jeżeli nie znajdzie trasy zgodnej z Metodą i URI to zwraca HTTP Error 404
+ *
+ * @return void
+ */
+public function run(): void {
+    $method = $_SERVER['REQUEST_METHOD'];
+
+    $uri = \explode("?", (string)$_SERVER["REQUEST_URI"])[0];
+
+    if(!isset($this-&gt;routes[$method][$uri])){
+        \http_response_code(404);
+        echo "ERORR 404: Nie znaleziono strony";
+        return;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Jak widzisz wykorzystano tu wcześniej zapisaną metodę <code>explode</code>.<br>Dodatkowo jest też <code>return;</code>, który nic nie zwraca bo metoda jest <code>void</code> i jego jedynym celem jest przerwanie wykonywania dalszego kodu tej metody.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/Pierwszy-etap-klasy-Router.webp" alt="" width="1856" height="944" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Pamiętaj aby dopisać też $2$ jedyne lecz bardzo ważne <code>require_once</code> w pliku <code>index.php</code>:<br><small>index.php</small></p>
+<pre><code class="language-php">require_once ('./vendor/autoload.php');
+require_once("./backend/routes.php");
+</code></pre>
+<p>Dodatkowo masz $2$ możliwe sposoby uruchomienia Routera:</p>
+<ul>
+<li>Możesz to zrobić bezpośrednio w <code>routes.php</code></li>
+<li>Możesz to zrobić w <code>index.php</code> z racji że <code>require_once</code> to tak naprawde doklejenie zawartości pliku w miejscu jego wywołania.</li>
+</ul>
+<hr>
+<h3>Pierwsza trasa dla Routera</h3>
+<p>Gdy popatrzymy na seter w klasie Router czyli metodę <code>get()</code> to wysuwamy wniosek że musimy jej przekazać adres URI w stringu oraz jakąś tablicę. Wcześniejsze założenia nakierowują nas na konieczność podania klasy i metody z tej klasy która ma zostać uruchomiona.</p>
+<p>Zatem wywołajmy metodę <code>get()</code> klasy Router z argumentami <code>/</code> oraz tablicą z nazwą klasy <code>HomeController::class</code> oraz metodą <code>render</code>.</p>
+<p><small>routes.php</small></p>
+<pre><code class="language-php">$router-&gt;get("/", [HomeController::class, "render"]);
+</code></pre>
+<p>Dlaczego akurat w taki sposób?<br>Zacznijmy od metody. Jeżeli w tablicy zapisane zostało by po prostu <code>render()</code> to interpreter PHP spróbował by wywołać te funkcję i zwróciło by błąd braku jej definicji. Natomiast zapisanie samej nazwy oznaczało by że jest to stała, której też nie zdefiniowano.<br>Dlaczego więc nazwa klasy nie jest zapisana jako string?<br>Popatrz na te dwa dwukropki <code>::</code>. Standardowo w PHP używamy ich do odwoływania się abstrakcji stałych. Najczęściej zobaczysz zapis: <code>Klasa::metoda_statyczna()</code> lub <code>Klasa::STALA_KLASY</code>. Natomiast my zamiast brać element klasy to bierzemy całą jej definicję dlatego jest <code>::class</code>.</p>
+<hr>
+<h3>Home controller</h3>
+<p>Napiszmy więc naszego pierwszego nadzorcę kontrolującego procesy związane z widokiem strony głównej.</p>
+<p>W katalogu <code>backend\Core\</code> Utwórz katalog <code>Controllers</code> i utwórz w nim plik <code>HomeController.php</code>.</p>
+<p>Definicja całej klasy jest bardzo banalna. Tak jak w wcześniejszej wersji zwrócimy przy pomocy <code>echo</code> zawartość pliku <code>login.php</code>:</p>
+<p><small>backend\Core\Controllers\HomeController.php</small></p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+// namespace powinien być zgodny z katalogiem w którym znajduje się plik gdzie zamiast backend\ piszemy App\.
+namespace App\Core\Controllers;
+
+class HomeController {
+    public function render():void {
+        echo \file_get_contents("./backend/Views/login.html");
+    }
+}
+</code></pre>
+<hr>
+<h3>Uruchomienie metody render klasy HomeController na trasie "/"</h3>
+<p>Mamy trasę i mamy klasę kontrolera, ale Router jeszcze ich nie jej nie wywołuje.</p>
+<p>Przy pomocy <code>$method</code> i <code>$uri</code> musimy odnajdziemy odpowiednią tablicę w kontenerze <code>$routes</code> (<code>:array</code>). Zmapować na zmienne i wykorzystać je w procesie inicjalizacji instancji klasy i wywołania z niej metody.</p>
+<p>Zmapowanie wartości elementów tablicy na zmienne wygląda tak:</p>
+<pre><code class="language-php"> [$controllerClass, $controllerMethod] = $this-&gt;routes[$method][$uri];
+</code></pre>
+<p>Potem wykorzystujemy je tak jakbyśmy po prostu pisali standardową instancję i wywołanie:</p>
+<pre><code class="language-php">$controller = new $controllerClass();
+$controller-&gt;$controllerMethod();
+</code></pre>
+<p>Dlaczego tak można? Ponieważ PHP podczas interpretacji zastępuje zmienne ich wartościami i w drugiej kolejności wykonuje kolejne kroki kodu. Wyobraź to sobie tak:</p>
+<pre><code class="language-php">$controller = new class HomeController{...}();
+$controller-&gt;render();
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/wywołanie-metody-klasy-przez-Router.webp" alt="Router - wywołanie metody klasy przez Router" width="1856" height="946" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Menadżer sesji</h2>
+<p>Skoro Router już działa, czas zająć się za mechanizmami sesji. Logicznie nie bedzie to tym razem kontroler. Bo to właśnie kontrolery będą chciały komunikować się z <code>SessionManager</code>, więc ta klasa ma świadczyć usługę. Co za tym idzie w <code>backend\Core\</code> powinien powstać dedykowany katalog <code>Services\</code>.  </p>
+<p>W poprzedniej wersji fragment kodu odpowiedzialny za sesję wyglądał tak:</p>
+<pre><code class="language-php">session_set_cookie_params([
+    'lifetime' =&gt; 0,
+    'path' =&gt; '/',
+    'domain' =&gt; '',
+    'secure' =&gt; true,
+    'httponly' =&gt; true,
+    'samesite' =&gt; 'Lax'
+]);
+session_start();
+
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+</code></pre>
+<p>Będziemy musieli to samo zaimplementować w klasie <code>SessionManager</code>. Powyższy kod jest traktowany jako element startowy, bez którego dalsza praca z sesją nie ma sensu. Dlatego przy tworzeniu instancji naszej klasy <code>SessionManager</code> musimy je wywołać.<br>Odpowiednie dla nich miejsce to konstruktor, ale nie wkleimy ich tak po prostu. Stworzymy $3$ prywatne metody, które konstruktor wywoła.</p>
+<p>Konfiguracja parametrów ciasteczka <span class="color-green">PHPSESSID</span> i zapewnienie istnienia tokenu CSRF jest praktycznie bez zmian ale z zastosowaną separacją do dedykowanych metod prywatnych.</p>
+<pre><code class="language-php">private function configure(): void
+{
+    session_set_cookie_params([
+        'lifetime' =&gt; 0,
+        'path' =&gt; '/',
+        'domain' =&gt; '',
+        'secure' =&gt; true,
+        'httponly' =&gt; true,
+        'samesite' =&gt; 'Lax'
+    ]);
+}
+
+private function ensureCsrfToken(): void
+{
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+}
+</code></pre>
+<p>Startując sesję wydajniej będzie sprawdzić najpierw czy nie jest już ona aktywna. Pomijamy w ten sposób niepotrzebne wysyłanie nagłówka HTTP. Wartość <code>PHP_SESSION_ACTIVE</code> jest stałą języka PHP i to do niej należy porównać wartość struktury obiektu sesji. </p>
+<pre><code class="language-php">private function start(): void
+{
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+}
+</code></pre>
+<p>Wtedy konstruktor bedzie wyglądał następująco:</p>
+<pre><code class="language-php">public function __construct()
+{
+    $this-&gt;configure();
+    $this-&gt;start();
+    $this-&gt;ensureCsrfToken();
+}
+</code></pre>
+<p>Co za tym idzie w <code>HomeController</code> podpinamy <code>use</code> klasy menadżera sesji, tworzymy zmienną prywatną typu tej klasy <code>SessionManager</code> by przechowywać w niej instancję tej klasy do przyszłego odwoływania się w innych metodach. </p>
+<p>Standardowo samą instancję inicjalizujemy w konstruktorze kontrolera.</p>
+<pre><code class="language-php">private SessionManager $session;
+
+public function __construct()
+{
+    $this-&gt;session = new SessionManager();
+}
+</code></pre>
+<p>Jak widać w danych strony po odświeżeniu  powstało ciasteczko <span class="color-green">PHPSESSID</span>:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/sesja-z-SessionManager.webp" alt="" width="1866" height="943" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>Token CSRF Menadżera sesji</h3>
+<p>Dodajmy dwie metody dotyczące tokenu CSRF który się wygenerował przy inicjalizacji klasy <code>SessionManager</code>.</p>
+<ul>
+<li>Dostęp do wartości tokenu:<pre><code class="language-php"> public function getTokenCSRF(): string
+{
+    return $_SESSION['csrf_token'];
+}
+</code></pre>
+</li>
+<li>Sprawdzenie czy otrzymany token jest taki sam jak przechowywany w sesji: <pre><code class="language-php">public function validateCSRF(string $token): bool
+{
+    return hash_equals($this-&gt;getTokenCSRF(), $token);
+}
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3>Sesja użytkownika</h3>
+<p>W sesji też wcześniej przechowywaliśmy użytkownika po udanym zalogowaniu.  </p>
+<ul>
+<li>metoda <span class="color-blue">setera</span> ustawiająca wartość na kluczu user w tablicy asocjacyjnej superglobalnej <code>$_SESSION</code>:<pre><code class="language-php">public function setUser(array $user): void
+{
+    $_SESSION['user'] = $user;
+}
+</code></pre>
+</li>
+<li>metoda <span class="color-blue">getera</span> pobierająca użytkownika z sesji:<pre><code class="language-php">public function getUser(): array
+{
+    return $_SESSION['user'] ?? [];
+}
+</code></pre>
+</li>
+<li>funkcjonalność dla wylogowania, czyli usunięcia klucza <code>user</code> z sesji<pre><code class="language-php">public function logout(): void
+{
+    unset($_SESSION['user']);
+}
+</code></pre>
+</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>W sumie metodę <code>getUser()</code> można już na tym etapie zapisać lepiej. Aktualnie zwraca ona tablicę asocjacyjną danych użytkownika z BD albo pustą tablicę. To oznacza że bedziemy musieli tworzyć takiego ifa:</p>
+<pre><code class="language-php">if(empty($session-&gt;getUser())){...}
+</code></pre>
+<p>A małą poprawką mogli byśmy pisać tak:</p>
+<pre><code class="language-php">if($session-&gt;getUser()){...}
+</code></pre>
+<p>Wystarczyło by zadeklarować że metoda nie zwraca tablicy, tylko <u>może opcjonalnie</u> ją zwrócić <code>: ?array</code>.<br>Wtedy zamiast zwracać <code>[]</code> to zwracamy <code>null</code>, który jest tańszy jako wartość/typ niż pusta struktura tablicy.</p>
+<pre><code class="language-php">public function getUser(): ?array
+{
+   return $_SESSION['user'] ?? null;
+}
+</code></pre>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>Renderowanie Widoków i zasiewanie ich danymi</h2>
+<p>W tym momencie refaktoryzacji projektu musimy się zatrzymać.</p>
+<ul>
+<li>Strony mogą mieć różnego rodzaju konfiguracje sektorów składających się na gotowy wynik. Często są to konkretne wartości takie jak nazwa użytkownika lub np.: decyzja o wyświetleniu formularza rejestracji lub logowania zależna od stanu zalogowania użytkownika w sesji.  </li>
+<li>Jest to też ostatni moment przed wysłaniem odpowiedzi do klienta. Tu musimy dokładnie pilnować jakie dane od nas opuszczają serwer.  </li>
+<li>Dany widok może być wielokrotnie użyty w pętli albo kilka kontrolerów będzie chciało daną templatke użyć.</li>
+</ul>
+<p>Przydał by nam się pośrednik który sprawdzi istnienie pliku templatki i przekaże jej dane które od nas otrzyma. </p>
+<p>W <code>backend\Core\</code> musimy stworzyć nową klasę <code>View.php</code>. Tym razem bedzie się ona różnić od poprzednich.</p>
+<p>Mianowicie jej jedyną metodą będzie <code>public static function render()</code>. Zwróć uwagę na słowo kluczowe <span class="color-red"><code>static</code></span>, oznacza to że nie tworzymy jej instancji lecz chcąc wywołać jej metodę odwołujemy się bezpośrednio do definicji klasy:</p>
+<pre><code class="language-php">View::render();
+</code></pre>
+<p>W tym momencie też warto przejść z stosowania ścieżek bezwzględnych do ścieżek względnych. W PHP można skorzystać z stałej <code>__DIR__</code> która zwroci lokalizację wykonywalnego pliku względem głównego katalogu dysku np.:</p>
+<ul>
+<li><span class="color-blue">Windows</span>: <code>C:\xampp\htdocs\backend\Core\View.php</code></li>
+<li><span class="color-blue">Linux</span>: <code>/var/www/html/backend/Core/View.php</code></li>
+</ul>
+<p>Wtedy patrzysz gdzie leży plik z daną templatką i gdzie w strukturze projektu wywołasz <code>__DIR__</code>. Wtedy doklejasz kolejne katalogi, a gdy musisz przejść do katalogu wyżej to zapisujesz <code>/../</code>, bo to właśnie te dwie kropki znaczą (<code>cd ..</code> przejdź do katalogu wyżej).</p>
+<pre><code>./backend
+    └── Core/
+    |   └── /plik.php
+    └── Views/
+        └── /plik.html
+    
+-------------------------------------------------
+
+./backend  /Core/Plik_w_którym_jestesmy.php
+   └── /..
+       └── /Views/Plik_do_którego_się_chcemy_odnieść.html
+</code></pre>
+<p>Dlatego stabilniej i przewidywalniej jest zapisywać tak:</p>
+<pre><code class="language-php">public static function render(string $view, array $data = []): void
+{
+    $path = __DIR__ . '/../Views/' . $view;
+}
+</code></pre>
+<p>Jest jeszcze jedno miejsce gdzie powinniśmy poprawić bezwzględne ścieżki:</p>
+<p><small>index.php</small></p>
+<pre><code class="language-php">require_once ('./vendor/autoload.php');
+require_once("./backend/routes.php");
+</code></pre>
+<blockquote>
+<p>Tak w ogóle to <code>require_once</code> nie wymaga nawiasów.</p>
+</blockquote>
+<pre><code class="language-php">require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . "/backend/routes.php";
+</code></pre>
+<hr>
+<p>Dobra mamy ścieżkę do templatki ale nie mamy pojęcia czy ona tam istnieje. Zapiszmy instrukcję warunkową <span class="color-gold"><code>if</code></span> z negacją wywołania funkcji <code>file_exists</code> i w razie co rzucimy wyjątkiem. </p>
+<pre><code class="language-php">if (!\file_exists($path)) {
+    throw new \Exception("Nie znaleziono widoku w " . $view);
+}
+</code></pre>
+<p>Wywołajmy metodę render w <code>HomeController</code>:</p>
+<pre><code class="language-php">View::render("xd.html",[]);
+</code></pre>
+<p>Jak widzisz fatalny błąd poprawnie się ukazał przerywając dalszą pracę preprocesora PHP. </p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/templatka-w-danej-lokalizacji-nie-istnieje.webp" alt="" width="1854" height="675" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Gdy zmienisz wartość wywołania na plik który faktycznie istnieje w <code>backend\Views\</code> to zobaczysz biały ekran w przeglądarce.</p>
+</blockquote>
+<p>Dopisując do statycznej metody <code>render</code> w klasie <code>View</code> linię: <code>include $path;</code> widok znów będzie dostępny, tak jak był w przypadku <code>echo file_get_contents()</code>.</p>
+<p>Pewnie się teraz zastanawiasz, <span class="color-blue">po co było tyle pisać skoro jedna linijka daje ten sam efekt?</span><br>Mamy teraz możliwość siania danych 😎...</p>
+<p>W <code>HomeController</code> w metodzie <code>render()</code> pobierzmy użytkownika i przekażmy go do pośrednika <code>View</code>:</p>
+<pre><code class="language-php">public function render(): void
+{
+    $user = $this-&gt;session-&gt;getUser();
+    View::render("login.html", ["user" =&gt; $user]);
+}
+</code></pre>
+<p>Natomiast w samym renderze użyjemy nowej funkcji jaką jest <code>extract()</code>, która tworzy zmienne o nazwie klucza tablicy asocjacyjnej i inicjuje ich wartości zgodnie z tym na co wskazuje jej klucz.</p>
+<p><small>backend\Core\View.php</small></p>
+<pre><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace App\Core;
+
+class View
+{
+    /**
+     * Weryfikuje istnienie widoku w `backend/Views/`, rzuca wyjątek gdy go nie ma.
+     * W przeciwnym wypadku rozpakowuje i przekazuje zmienne z tablicy asocjacyjnej do pliku z templatką.
+     *
+     * @param string $view Nazwa widoku
+     * @param array $data Dane przekazywane do widoku format: `["user" =&gt; $user, "token" =&gt; $token, ...]`
+     */
+    public static function render(string $view, array $data = []): void
+    {
+        $path = __DIR__ . '/../Views/' . $view;
+
+        if (!\file_exists($path)) {
+            throw new \Exception("Nie znaleziono widoku w " . $view);
+        }
+
+        \extract($data);
+
+        include $path;
+    }
+}
+</code></pre>
+<p>Natomiast plik <code>login.html</code>  zmianiamy na rozszerzenie <code>.php</code> i zastępujemy „haczyk” <code>%%register_login_section%%</code> poniższą instrukcją warunkową:</p>
+<pre><code class="language-php">&lt;?php
+if ($user) {
+    echo "Witaj " . $user["username"] . "!";
+} else {
+    include __DIR__ . "/register_login_section.html";
+}
+?&gt;
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/widok-zależny-od-wartości-zmiennej-user.webp" alt="" width="1858" height="944" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Jak widzisz wszystko działa poprawnie. Nie zalogowaliśmy się więc widzimy formularze rejestracji i logowania. Mimo to IDE zgłasza jakiś problem z niezdefiniowaną zmienną <code>$user</code>.<br>To dlatego że <code>intelephense</code> analizuje kod statycznie i nie kuma że w <code>View</code> wyekstrahowaliśmy tą zmienną.<br>Jest na to bardzo łatwy sposób, a przy okazji da nam lepiej udokumentowany kod. Na początku pliku z widokiem zapisujemy PHPDocs zmiennych z których widok korzysta:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+/** @var array|null $user
+* @var string $csrf
+* @var string $register_msg
+* @var string $login_msg 
+*/
+?&gt;
+</code></pre>
+</blockquote>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Klasa dostępu do bazy danych</h2>
+<p>No i tu robi się ciekawie. Od lat są dwa podejścia:</p>
+<ul>
+<li>Dla MySQL/MariaDB dedykowany sterownik <code>ext-mysqli</code></li>
+<li>Dla każdego innego np.: PostgreSQL, SQLite, Microsoft SQL Server itd. używamy <code>ext-pdo</code> (PHP Data Objects).</li>
+</ul>
+<p>Dużo jest gadane że <code>PDO</code> to jedyna słuszna droga bo jest w pełni obiektowe a <code>mysqli</code> możesz zapisać proceduralnie i obiektowo. Zazwyczaj się też zaczyna od <code>mysqli</code> a potem wraz z pisaniem bardziej obiektowo przechodzi do <code>PDO</code>. Stąd ta gatka że <code>PDO</code> jest lepsze od <code>mysqli</code>.</p>
+<p>My w <code>Database</code> obsłużymy oba sterowniki a wybór pozostawiamy konfiguracji w pliku <code>.env</code>. No właśnie <code>.env</code>. Co to jest za plik?</p>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Plik <span class="color-green">ENV</span> zapisywany w dwóch wariantach:</p>
+<ul>
+<li><code>.env</code>: używany przez projekt i ściśle tajny nie może wyciec bo zawiera hasła i klucze do baz danych, API itd.</li>
+<li><code>.env.example</code>: publiczny wzorzec z nazwami zmiennych z których korzysta aplikacja ale bez wartości.</li>
+</ul>
+
+</div>
+</div><p>Przejdź teraz do terminala i wpisz:</p>
+<pre><code class="language-bash">php .\composer.phar search env 
+</code></pre>
+<p>Zobaczysz wszystkie pakiety zawierające frazę <code>env</code>, ale nie wszystkie dotyczą pliku <code>.env</code>. Na ten moment interesuje nas <code>vlucas/phpdotenv</code> bo naszym celem jest załadować zmienne z <code>.env</code> do kodu PHP. Nic więcej. Zero bajerów.</p>
+<p>Zaktualizujmy zależność w <code>composer.json</code> poprzez terminal</p>
+<pre><code class="language-bash">php .\composer.phar require vlucas/phpdotenv
+</code></pre>
+<p>Po wykonaniu komendy plik <code>composer.json</code> się zaktualizował ale w konsoli mamy error:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/compozer-error-none-extension-zip.webp" alt="" width="1637" height="946" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Pamiętasz jak używaliśmy <code>mb_string</code>? Tam też domyślnie było to wyłączone. Powtórzymy ten sam proceder lecz tym razem dla rozszerzenia zip:</p>
+<p>Przejdź do <code>C:/xampp/php/</code> i edytuj <code>php.ini</code>. W nim wyszukaj frazy:</p>
+<pre><code>;extension=zip
+</code></pre>
+<p>I zmień na wersję bez średnika:</p>
+<pre><code>extension=zip
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/php-ini-zip.webp" alt="" width="595" height="706" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Teraz możemy wrócić do terminala w VS Code ale nie powtarzajmy komendy. Zależność jest już w <code>composer.json</code> więc wystarczy tylko wykonać komendę <code>install</code>.</p>
+<p>Zatem wpisz:</p>
+<pre><code class="language-bash">php .\composer.phar install
+</code></pre>
+<p>Zobacz jakiej wersji ci się zainstalował i w <code>composer.json</code> zmień <code>*</code> na tą wersję u mnie to <code>5.7</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/composer-install.webp" alt="" width="820" height="933" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<blockquote>
+<p>Dlaczego nie zapisałem całej wersji <code>5.7.0</code>?<br>Te numeracje odzielone kropkami decydują o poziomie różnic miedzy wersjami:</p>
+<ul>
+<li>Pierwsza liczba to <span class="color-green">Major</span> (duże zmiany, często niekompatybilne z poprzednią wersją)</li>
+<li>Druga liczba to <span class="color-green">Minor</span> (mniejsze zmiany, które nie psują kompatybilności wstecznej)</li>
+<li>Trzecia liczba to <span class="color-green">Patch</span> (drobne zmiany, poprawki błędów)<br>Dlatego stwierdziłem że małe zmiany poprawiające bezpieczeństwo i wydajność zawsze na propsie 🔥.</li>
+</ul>
+</blockquote>
+<p>Utwórz w katalogu głównym projektu plik <code>.env</code> i dodaj do niego poniższe wpisy:</p>
+<pre><code class="language-env">DB_HOST=localhost
+DB_USERNAME=root
+DB_PASSWORD=
+DB_DATABASE=platforma
+</code></pre>
+<p>Potem skopiuj plik, usuń wartości i zmień nazwę na <code>.env.example</code>. </p>
+<p>Teraz przygotujemy tak zwany <code>bootstrap</code> w <code>backend/</code> bo to właśnie na tym katalogu operuje autoloader. Utwórz plik <code>backend/bootstrap.php</code> o następującej zawartości:</p>
+<pre><code class="language-php">&lt;?php
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv-&gt;load();
+</code></pre>
+<p>Doklej go w <code>index.php</code> pomiędzy autoladerem i <code>routes.php</code>:</p>
+<pre><code class="language-php">require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/backend/bootstrap.php';
+
+require_once __DIR__ . "/backend/routes.php";
+
+$router-&gt;run();
+</code></pre>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">BootStrap</span> to skrypt który konfiguruje aplikację. To właśnie w nim między innymi ładujemy pliki konfiguracyjne i rozpoczynamy inicjalizację różnych modułów które się pomiędzy sobą komunikują ale w żadnym innym miejscu intuicyjnie ich nie instancjonujemy.</p>
+
+</div>
+</div><p>Gdy <code>bootstrap.php</code> i <code>index.php</code> masz ogarnięte to dla testów tymczasowo wpisz do metody <code>render()</code> w <code>HomeController</code>:</p>
+<pre><code class="language-php">print_r($_ENV);
+</code></pre>
+<p>Po odświeżeniu strony powinna się pokazać tablica asocjacyjna zawierająca dane z pliku <code>.env</code>.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/test-działania-dotenv.webp" alt="" width="1855" height="759" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Dlaczego w ogóle ścieżka w <code>Dotenv\Dotenv::createImmutable()</code> przyjmuje parametr do folderu a nie pliku <code>.env</code>?</p>
+<ol>
+<li>Gdyby metoda miała domyślny argument jako stałą <code>__DIR__</code> to zamiast zwrócić twój katalog projektu to by się odnosiła do lakalizacji w <code>vendor</code> gdzie ją zainstalowaliśmy</li>
+<li>Biblioteka wymusza standardową konwencję nazewnictwa plików <code>.env</code></li>
+<li>jako drugi parametr możesz podać w tablicy nazwy plików które zostą sklejone jako wspólny obiekt w pamięci RAM.<ul>
+<li><code>immutable</code> gdy w kolejnym pliku powtórzy się zmienna to jej wartość <span class="color-green">nie nadpisze poprzedniej</span></li>
+<li><code>mutable</code> gdy w kolejnym pliku powtórzy się zmienna to jej wartość <span class="color-red">nadpisze poprzednią</span></li>
+</ul>
+</li>
+</ol>
+<h3>Klasa Database</h3>
+<p>W <code>backend/Core/Services/</code> utwórz plik klasy <code>Database</code>. Bedziemy go używać w repozytoriach zapytań SQL, wiec warto sobie ułatwić do niej dostęp robiąc ja statyczną. Jej jedyną odpowiedzialnością bedzie udostępnianie połączenia z bazą danych i w razie niepowodzenia zgłoszenie fatalnego błędu.</p>
+<p>Tworzymy więc standardową strukturę klasy jak każdą inną:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Core\Services;
+
+class Database{
+    private static ?\mysqli $connection = null;
+}
+</code></pre>
+<blockquote>
+<p>W zmienna prywatna statyczna ma za zadanie przechowywać obiekt <code>mysqli</code> albo pozostać na wartości <code>null</code>. dlatego jej typ ma na początku dopisany znak zapytani <code>?</code>.<br>Bedziemy tworzyć z niej singletona aby uniknąć niezliczonych duplikacji połączeń.<br><code>\</code> przed <code>mysqli</code> wymusza na interpreterze aby szukał tej klasy globalnie jako natywnej PHP, a nie w namespace <code>App\Core\Services</code>.</p>
+</blockquote>
+<p>Dodajmy teraz funkcję która najpierw sprawdzi czy <code>$connection</code> dalej ma wartość <code>null</code> i jeżeli tak to podejmie próbę połącznia z bazą danych wykorzystując zmienne z <code>.env</code>. W razie nie powodzenia umrze zwracając komunikat błędu fatalnego.<br>Jeżeli próba połączenia się powiedzie lub <code>$connection</code> nie posiadał wartości <code>null</code> to zwracamy obiekt <code>mysqli</code> z zmiennej <code>$connection</code>.</p>
+<pre><code class="language-php">public static function getConnection(): \mysqli{
+        if(self::$connection === null){
+            try{
+                self::$connection = new \mysqli(
+                        $_ENV["DB_HOST"],
+                        $_ENV["DB_USERNAME"],
+                        $_ENV["DB_PASSWORD"],
+                        $_ENV["DB_DATABASE"]
+                    );
+            }catch(\Exception $e){
+                die("Błąd połączenia z bazą danych: " . $e-&gt;getMessage());
+            }
+            
+        }
+        return self::$connection;
+    }
+</code></pre>
+<p>Dla testu działania wprowadziłem błędną nazwę użytkownika w pliku <code>.env</code> i w <code>HomeController</code> wywołałem metodę statyczną <code>getConnection()</code> klasy <code>Database</code>. Jak widać wyjątek przechwycony i fatalny błąd rzucony:</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/test-błędu-połączenia-z-bazą-danych-statycznej-instancji-klasy.webp" alt="" width="1860" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>Logowanie i rejestracja</h2>
+<p>Mamy już wszystkie elementy bazowe do dalszego rozwoju projektu:</p>
+<ul>
+<li>Zarządzanie trasami URI z wywołaniem odpowiedniego kontrolera</li>
+<li>Silnik renderujący widoki</li>
+<li>Menadżer sesji</li>
+<li>Statyczna klasa udostępniająca połączenie z bazą danych</li>
+</ul>
+<p>Teraz nadszedł czas na implementację kontrolerów logowania i rejestracji oraz wspólnego dla nich repozytorium zapytań bazodanowych. W katalogu <code>Controllers/</code> utwórz dwa pliki:</p>
+<ol>
+<li><code>LoginController.php</code></li>
+<li><code>RegisterController.php</code></li>
+</ol>
+<p>W katalogu <code>Repositories/</code> utwórz plik <code>UserRepository.php</code>.</p>
+<h3>Klasa UserRepository</h3>
+<p>W starym <code>Auth.php</code> wykorzystywaliśmy $2$ zapytania SQL, wiec teraz przepiszemy je jako statyczne metody w <code>UserRepository.php</code> i po preparacji wyślemy je do bazy danych korzystając z naszego serwisu <code>Database</code>:</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Core\Repositories;
+
+use App\Core\Services\Database;
+
+class UserRepository{
+    public static function getUserAsLogin(string $login): ?array{
+    }
+    public static function addNewUser(string $login, string $pass, string $username): int{
+    }
+}
+</code></pre>
+<p>Jak wygląda preparowanie zapytań SQL na połączeniu <code>mysqli</code>?<br>Zamiast doklejać konkatenacją zmienne do zapytania SQL wpisujemy tylko placeholder <code>?</code> a następnie wywołujemy metodę <code>bind_param()</code> na przygotowanym zapytaniu. W nim podajemy typy zmiennych które zamierzamy wysłać do bazy danych oraz same wartości.  </p>
+<ul>
+<li>Dla <code>string</code> jest to typ <code>s</code>.  Wartości tekstowe.</li>
+<li>Dla <code>int</code> jest to typ <code>i</code>. Liczby całkowite. Lub boolean jako tinyint.</li>
+<li>Dla <code>double</code> jest to typ <code>d</code>.  Liczby zmiennoprzecinkowe</li>
+<li>Dla <code>blob</code>/<code>binary</code> jest to typ <code>b</code>.</li>
+</ul>
+<p>Przekazujemy do metody <code>bind_param()</code> w zmiennej referencyjnej to, co ma być wstawione w miejsce placeholdera <code>?</code>:</p>
+<pre><code class="language-php">public static function getUserAsLogin(string $login): ?array
+{
+    $sql = 'SELECT * FROM users WHERE login = ?';
+    $stmt = Database::getConnection()-&gt;prepare($sql);
+    $stmt-&gt;bind_param("s", $login);
+}
+</code></pre>
+<blockquote>
+<p>Tak spreparowane zapytanie chroni nas przed wstrzykiwaniem SQL.</p>
+</blockquote>
+<p>Następnie na <code>$stmt</code> wywoujemy <code>execute()</code> która wyśle zapytanie do bazy danych i bedzie przechowywać w sobie obiekt <code>mysqli_stmt</code> np.:</p>
+<pre><code>object(mysqli_stmt)#26 (10) { ["affected_rows"]=&gt; int(-1) ["insert_id"]=&gt; int(0) ["num_rows"]=&gt; int(0) ["param_count"]=&gt; int(1) ["field_count"]=&gt; int(6) ["errno"]=&gt; int(0) ["error"]=&gt; string(0) "" ["error_list"]=&gt; array(0) { } ["sqlstate"]=&gt; string(5) "00000" ["id"]=&gt; int(1) } 
+</code></pre>
+<p>Przy zapytaniach <code>INSERT</code>, <code>UPDATE</code> i <code>DELETE</code> często odwołamy się do wartości <code>affected_rows</code>, która przechowuje informację ile krotek dodano/zmieniono/usunięto wykonując zapytanie SQL.</p>
+<pre><code class="language-php">$stmt-&gt;execute();
+$result = $stmt-&gt;get_result();
+$row = $result-&gt;fetch_assoc();
+return $row ?: null;
+</code></pre>
+<blockquote>
+<p>W przypadku metody <code>getUserAsLogin</code> bedziemy chcieli uzuskać dane z tabeli więc wyciągamy je za pomocą <code>get_result()</code> i przekształcamy na tablicę asocjacyjną.</p>
+</blockquote>
+<p>Metoda <code>getUserAsLogin</code> ma zadeklarowane że może zwrócić tablicę (<code>: ?array</code>). Pamiętamy że w PHP pusta tablica to fałsz więc zapis <code>$row ?: null</code>...:</p>
+<ul>
+<li>zwróci <code>$row</code> - <code>?</code>, jeżeli w <code>$row</code> tablica bedzie zawierać jakieś wartości</li>
+<li>zwróci <code>null</code> - <code>: null</code>, jeżeli w <code>$row</code> tablica bedzie pusta</li>
+</ul>
+<p>ALE... Od PHP 8.1 nie ma konieczności ręcznego bindowania parametrów z określeniem ich typów. Możesz odrazu przekazać zmienne jako elementy tablicy wprost do metody <code>execute()</code>:</p>
+<pre><code class="language-php">    public static function getUserAsLogin(string $login): ?array
+    {
+        $sql = 'SELECT * FROM users WHERE login = ?';
+        
+        $stmt = Database::getConnection()-&gt;prepare($sql);
+        $stmt-&gt;execute([$login]);
+
+        $result = $stmt-&gt;get_result();
+        $row = $result-&gt;fetch_assoc();
+        return $row ?: null;
+    }
+</code></pre>
+<p>Podobnie ma się sprawa z metodą <code>addNewUser</code> z tą różnicą że że zwracamy właściwość <code>affected_rows</code> obiektu <code>mysqli_stmt</code>:</p>
+<pre><code class="language-php">public static function addNewUser(string $login, string $pass, string $username): int
+{
+    $sql = 'INSERT INTO users 
+        (login, password, username, role)
+        VALUES(?, ?, ?, "user")';
+    $stmt = Database::getConnection()-&gt;prepare($sql);
+    
+    $stmt-&gt;execute([$login, $pass, $username]);
+    return $stmt-&gt;affected_rows;
+}
+</code></pre>
+<p>W ten sposób mamy gotową i bezpieczną klasę repozytorium użytkownika. Przechodzimy teraz do stworzenia kontrolera rejestracji.</p>
+<h3>Klasa RegisterController</h3>
+<p>Kontroler bedzie potrzebował użyć dwóch klas:</p>
+<ul>
+<li><code>UserRepository</code> by komunikować się z serwerem bazy danych MariaDB.</li>
+<li><code>SessionManager</code> ponieważ bedziemy chcieli porównywać token CSRF z tym co mamy w sesji.</li>
+</ul>
+<p>Standardowo tworzymy zmienną do przechowania instancji <code>SessionManager</code> i za pomocą konstruktora wstrzykniemy do niej inicjalizację obiektu <code>SessionManager()</code>. Metodę <code>unsetXSS</code> możemy skopiować w całości z starego <code>Auth.php</code> z lekką modyfikacją że zamiast referencji i typu void to metoda bedzie zwracać wartość string.</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Core\Controllers;
+
+use App\Core\Repositories\UserRepository;
+use App\Core\Services\SessionManager;
+
+
+class RegisterController {
+
+    private SessionManager $session;
+
+    public function __construct()
+    {
+        $this-&gt;session = new SessionManager();
+    }
+
+    private function unsetXSS(string $value): string {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+}
+</code></pre>
+<p>Teraz stworzymy metodę <span class="color-gold">void</span> <code>register()</code>. W pierwszym kroku sprawdzamy czy token CSRF jest zgodny:</p>
+<ul>
+<li>Jeżeli <span class="color-red">nie</span> to do klucza <code>register_msg</code> w superglobalnej <code>$_SESSION</code> przypisujemy komunikat dla klienta. Następnie zmieniamy nagłówek odpowiedzi z serwera na typ przekierowania z powrotem do strony głównej (<code>header("Location: /");</code>) i przerywamy działanie metody za pomocą <code>exit()</code> by dalszy kod się nie wykonał.</li>
+<li>Jeżeli <span class="color-green">tak</span>, to wyciągamy dane z superglobalnej tablicy <code>$_POST</code> i przypisujemy je przez metodę <code>unsetXSS()</code> zapisując oczyszczone wartości do zmiennych lokalnych.</li>
+</ul>
+<pre><code class="language-php">public function register(): void{
+    if($this-&gt;session-&gt;getTokenCSRF() !== $_POST["csrf_token"]){
+        $_SESSION["register_msg"] = "Niezgodność autoryzacji tokenu CSRF.";
+        header("Location: /");
+        exit();
+    }
+
+    $username = $this-&gt;unsetXSS($_POST["username"]);
+    $login = $this-&gt;unsetXSS($_POST["login"]);
+    $pass = $this-&gt;unsetXSS($_POST["pass"]);
+    $repass = $this-&gt;unsetXSS($_POST["repass"]);
+}
+</code></pre>
+<p>Token CSRF się zgadza, dane oczyszczone To czas je zweryfikować czy spełniają nasze wymagania platformy.  </p>
+<p>Takie podstawowe weryfikacje to oczywiście sprawdzenia:</p>
+<ul>
+<li>Czy hasła są takie same</li>
+<li>Czy wszystkie pola zostały uzupełnione oraz nie przekazano nam $x$ spacji (białych znaków).</li>
+<li>Czy zakresy długości wartości pól mieszczą się w naszych przedziałach.</li>
+<li>Czy podany login jest nie jest już zajęty.</li>
+</ul>
+<pre><code class="language-php">private function validateFormData(string $username, string $login, string $pass, string $repass): ?string{
+    if($pass !== $repass){
+        return "Podane hasła nie są takie same.";
+    }
+
+    $username = \trim($username);
+    $login = \trim($login);
+    $pass = \trim($pass);
+    if($username === "" || $login === "" || $pass === ""){
+        return "Proszę uzupełnić wszystkie dane";
+    }
+
+    if(\strlen($username) &gt; 30 &amp;&amp; \strlen($username) &lt; 3){
+        return "Długość nazwy użytkownika jest nie poprawna. Powinno mieć minimum 3 a maksimum 20 znaków";
+    }
+    if(\strlen($login) &gt; 20 &amp;&amp; \strlen($login) &lt; 3){
+        return "Długość loginu jest nie poprawna. Powinno mieć minimum 3 a maksimum 20 znaków";
+    }
+    
+    if(\strlen($pass) &lt; 12){
+        return "Hasło jest za krótkie. Powinno mieć minimum 12 znaków";
+    } else if(\strlen($pass) &gt; 255){
+        return "Hasło jest za długie. Powinno mieć maksimum 255 znaków";
+    }
+
+
+    $userData = UserRepository::getUserAsLogin($login);
+    if($userData){
+        return "Użytkownik o tym loginie już istnieje";
+    }
+    return null;
+}
+</code></pre>
+<p>Wtedy pamiętamy że <code>null</code> w PHP to fałsz i uzupełniamy metodę register o kolejny fragment kodu:</p>
+<pre><code class="language-php">$validateFormData = $this-&gt;validateFormData($username, $login, $pass, $repass);
+if (is_string($validateFormData)) {
+    $_SESSION["register_msg"] = $validateFormData;
+    header("Location: /");
+    exit();
+}
+</code></pre>
+<p>Pozostało nam już tylko skopiować i wydzielić z starego <code>Auth.php</code> fragment hashowania hasła do osobnej metody i dokończyć metodę register.</p>
+<pre><code class="language-php">private function passwordHashed(string $pass): string
+{
+    $options = [
+        'memory_cost' =&gt; PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+        'threads' =&gt; PASSWORD_ARGON2_DEFAULT_THREADS,
+        'time_cost' =&gt; PASSWORD_ARGON2_DEFAULT_TIME_COST
+    ];
+    return password_hash($pass, PASSWORD_ARGON2ID, $options);
+}
+</code></pre>
+<pre><code class="language-php">if (!UserRepository::addNewUser($login, $this-&gt;passwordHashed($pass), $username)) {
+    $_SESSION["register_msg"] = "Coś poszło nie tak. :/";
+    header("Location: /");
+    exit();
+}
+
+$_SESSION["register_msg"] = "Rejestracja przebiegła pomyślnie. Możesz się zalogować.";
+header("Location: /");
+</code></pre>
+<hr>
+<p>Od razu ruszajmy za ciosem i uzupełnijmy klasę <code>LoginController</code>:</p>
+<pre><code class="language-php">&lt;?php
+
+declare(strict_types=1);
+
+namespace App\Core\Controllers;
+
+use App\Core\Repositories\UserRepository;
+use App\Core\Services\SessionManager;
+
+
+
+class LoginController
+{
+
+    private SessionManager $session;
+    public function __construct()
+    {
+        $this-&gt;session = new SessionManager();
+    }
+
+    private function unsetXSS(string $value): string
+    {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+
+    public function login(): void
+    {
+        if ($this-&gt;session-&gt;getTokenCSRF() !== $_POST["csrf_token"]) {
+            $_SESSION["login_msg"] = "Niezgodność autoryzacji tokenu CSRF.";
+            header("Location: /");
+            exit();
+        }
+
+        $login = $this-&gt;unsetXSS($_POST["login"]);
+        $pass = $this-&gt;unsetXSS($_POST["pass"]);
+
+        $user = UserRepository::getUserAsLogin($login);
+        if($this-&gt;validatePasswordHash($pass, $user["password"])){
+            $_SESSION["user"] = $user;
+            header("Location: /");
+        }else{
+            $_SESSION["login_msg"] = "Podano nieprawidłowe dane.";
+            header("Location: /");
+        }
+
+    }
+    private function validatePasswordHash(string $passInput, string $passHash): bool
+    {
+        return password_verify($passInput, $passHash);
+    }
+}
+</code></pre>
+<p>Można by powiedzieć że skończyliśmy pracę nad kontrolerami logowania i rejestracji, ale nic bardziej mylnego. Tym fragmentem łamiemy zasadę <span class="color-green">DRY</span> (<span class="color-blue">Don't Repeat Yourself</span>):</p>
+<pre><code class="language-php">private SessionManager $session;
+public function __construct()
+{
+    $this-&gt;session = new SessionManager();
+}
+
+private function unsetXSS(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+}
+</code></pre>
+<p>Wydzielmy ją do do klasy dziedzictwa <code>BaseController</code>.</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+namespace App\Core\Controllers;
+
+use App\Core\Services\SessionManager;
+
+class BaseController{
+    
+    protected SessionManager $session;
+
+    public function __construct()
+    {
+        $this-&gt;session = new SessionManager();
+    }
+
+    protected function unsetXSS(string $value): string
+    {
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+}
+</code></pre>
+<blockquote>
+<p>Zwróć uwagę że klauzule dostępności zmieniłem z private na protected, dzięki czemu można je odziedziczyć i dalej nie ma do nich dostępu nikt spoza potomków.</p>
+</blockquote>
+<p>Następnie  w <code>LoginController</code> i <code>RegisterController</code> zastępujemy <code>use</code> Menadżera sesji na bazę dziedzictwa i wskazujemy że nasze klasy kontrolerów rozszerzają to co zapoczątkował <code>BaseController</code>.  </p>
+<pre><code class="language-php">use App\Core\Controllers\BaseController;
+
+class LoginController extends BaseController
+{//...
+}
+</code></pre>
+<p>Adekwatnie bedzie z weryfikacją tokenów CSRF. Dlatego je też należy wyseparować do odzielnej metody protected i wywoływać jako odziedziczoną:</p>
+<pre><code class="language-php">protected function validateCSRFToken(string $key, string $location): void{
+    $isValid = $this-&gt;session-&gt;getTokenCSRF() === $this-&gt;unsetXSS($_POST["csrf_token"]);
+    if(!$isValid){
+        $_SESSION[$key] = "Niezgodność autoryzacji tokenu CSRF.";
+        header("Location: /" . $location);
+        exit();
+    }
+}
+</code></pre>
+<blockquote>
+<p>Wtedy w metodzie <code>login</code> i <code>register</code> będzie to teraz wyglądać tak:</p>
+<pre><code class="language-php">   $this-&gt;validateCSRFToken("login_msg", "/");
+</code></pre>
+</blockquote>
+<p>Uzupełnij jeszcze <code>register_login_section.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+    if (isset($_SESSION["csrf_token"]))
+    echo '&lt;input type="hidden" name="csrf_token" value="' . $_SESSION["csrf_token"]. '"&gt;';
+?&gt;
+</code></pre>
+<pre><code class="language-php">if(isset($_SESSION["register_msg"]))
+    echo '&lt;p&gt;' . $_SESSION["register_msg"] . '&lt;/p&gt;';
+?&gt;
+</code></pre>
+<pre><code class="language-php">if(isset($_SESSION["login_msg"]))
+    echo '&lt;p&gt;' . $_SESSION["login_msg"] . '&lt;/p&gt;';
+?&gt;
+</code></pre>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Końcowe spojrzenie</h2>
+<p>Dodaj nowy katalog <code>Archive</code> i umieść w nim <code>CRUD</code> i pliki <code>Auth.php</code> oraz <code>OLD_router.php</code>. Nie ma sensu ich usuwać, zostawiasz sobie odniesienie.</p>
+<p>Zobacz jak z dwóch plików wyklarowała się już ciekawa architektura. Chodź może się wydawać to przerostem formy nad treścią i faktycznie dla zwykłego rejestrowania i logowani tak jest. Jednak ta forma owocuje łatwiejszym rozrostem platformy i pozwala uniknąć przeciążenia poznawczego w chaosie setek plików skryptowych.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/platforma-po-pierwszej-refaktoryzacji.webp" alt="" width="270" height="835" class="lazy-image" loading="lazy" decoding="async">
+
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

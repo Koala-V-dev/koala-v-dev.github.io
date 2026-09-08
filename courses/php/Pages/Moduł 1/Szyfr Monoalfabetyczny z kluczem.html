@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Szyfr Monoalfabetyczny z kluczem - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Szyfr Monoalfabetyczny z kluczem</h1>
+<p>Jak szyfr Cezara opierał się o przesunieci pozycji każdej litery alfabetu łacińskiego tak monoalabetyczne szyfrowanie wprowadza klucz z losowo ułożonymi literami tego samego alfabetu. Dlatego bez klucza lub częściowo rozszyfrowanego tekstu złamanie szyfru jest bardzo utrudnione.</p>
+<p>Korzystając z wcześniejszego badania funkcji <code>chr()</code> przygotujmy tablicę alfabetu łacińskiego:</p>
+<pre><code class="language-php">$alphabet = [];
+
+for($i=65; $i&lt;=90; $i++){
+    $alphabet[]=chr($i);
+}
+print_r($alphabet);
+</code></pre>
+<p>Teraz skopiujemy ją jako tablicę do kolejnej zmiennej, która posłuży nam jako pula do losowo wybieranych liter dla nowej tablicy klucza.</p>
+<pre><code class="language-php">$alphabet = [];
+$temp_alphabet = $alphabet;
+$key = [];
+</code></pre>
+<section class="lesson-section" data-lesson-section="true"><h2>🎫 Losowy klucz i Randomizer</h2>
+<p>Większość popularnych funkcji w PHP do generowania liczb losowych jest przestarzała:</p>
+<table>
+<thead>
+<tr>
+<th>Funkcja</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rand()</code></td>
+<td><span class="color-red">DEPRECATED</span></td>
+</tr>
+<tr>
+<td><code>srand()</code></td>
+<td><span class="color-red">DEPRECATED</span></td>
+</tr>
+<tr>
+<td><code>mt_rand()</code></td>
+<td><span class="color-red">DEPRECATED</span></td>
+</tr>
+<tr>
+<td><code>mt_srand()</code></td>
+<td><span class="color-red">DEPRECATED</span></td>
+</tr>
+<tr>
+<td><code>lcg_value()</code></td>
+<td><span class="color-red">DEPRECATED</span></td>
+</tr>
+<tr>
+<td><span class="color-blue"><code>MT_RAND_PHP</code></span></td>
+<td><span class="color-red">DEPRECATED</span></td>
+</tr>
+</tbody></table>
+<p>W PHP 8+ wyróżniamy $5$ sposobów na losowanie liczb pseudolosowych:</p>
+<ol>
+<li><code>random_int()</code>: zwraca liczbę całkowitą losową z podanego zakresu</li>
+<li><code>random_bytes()</code>: zwraca losowe bajty</li>
+<li><code>random_float()</code>: zwraca liczbę zmiennoprzecinkową losową z podanego zakresu</li>
+<li>Klasa <code>\Random\Randomizer</code>: tworzy nowy obiekt generujący liczby losowe</li>
+<li>Klasa <code>\Random\Engine\Secure</code>: tworzy nowy obiekt generatora liczb pseudolosowych o wysokim stopniu losowości</li>
+</ol>
+<p>Pierwszy raz skorzystamy z klasy w PHP. Nie bedziemy jej jeszcze tworzyć. Na razie tylko skorzystajmy z tego co jest już nam dane.</p>
+<p>Klasa <code>\Random\Randomizer</code> to oddzielny plik, taki przepis na stworzenie pomocnika dla głównego kodu zawierający zestaw metod i własności skupionych wokół generowania liczb pseudolosowych. </p>
+<p>By móc z tego pomocnika skorzystać to musimy pierw przygotować zmienną która go przechowa. Taki obiekt nazywa się instancją klasy, a zainicjalizowanie tej instancji poprzedzamy słowem kluczowym <code>new</code> następnie wskazujemy gdzie przepis czyli ta klasa się znajduje:</p>
+<pre><code class="language-php">$randomizer = new \Random\Randomizer();
+</code></pre>
+<blockquote>
+<p>Końcówka lokalizacji <code>\Random\Randomizer</code> składa się z nawiasów do których można wpisać argumenty inicjalizujące dla konstruktora który bedzie wywołany przy tworzeniu instancji.</p>
+</blockquote>
+<p>Teraz chcąc skorzystać z jednej z umiejętności/funkcjonalności (metody/funkcji) pomocnika (obiektu instancji klasy) wypisujemy zmienną która go przechowuje i zapisem strzałki w prawo <code>-&gt;</code> uzyskujemy dostęp do wszystkich jego metod.</p>
+<p>Nas bedzie interesować metoda <code>getInt()</code>, która przyjmuje dwa argumenty:</p>
+<ul>
+<li>Dolną granicę losowania (<code>int $min</code>)</li>
+<li>Górną granicę losowania (<code>int $max</code>)</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔑 Pseudolosowe przepisanie alfabetu na klucz</h2>
+<p>Założenie jest następujące:</p>
+<ul>
+<li>Mamy tablicę tymczasową z elementami zawierającymi wszystkie litery alfabetu łacińskiego <code>$temp_alphabet</code>.</li>
+<li>Będziemy iterować po tej tablicy dopóki nie będzie ona pusta <code>while (!empty($temp_alphabet))</code>.</li>
+<li>Przy każdej iteracji wykonamy $4$ kroki:<ol>
+<li>przy pomocy <code>$randomizer-&gt;getInt(0, count($temp_alphabet) - 1)</code> wylosujemy liczbę którą wykorzystamy jako <span class="color-green"><code>index</code></span>.</li>
+<li>do tablicy klucza przypiszemy literę alfabetu z wylosowanego indexu.</li>
+<li>By litery się nigdy nie powtórzyły będą anihilowane przy pomocy funkcji <code>unset()</code> i wskazaniu danej wartości <code>$temp_alphabet[$index]</code>.</li>
+<li>Z racji że funkcja <code>unset()</code> dokonuje anihilacji, czyli z tablicy znika index wraz z wartością, ale cała tablica nie zostaje przebudowana nowymi indexami (pozostają puste przerwy i indexy mogą wyglądać tak <code>[0, 1, 4, 5, ...])</code>) Dlatego przy wykorzystaniu metody <code>array_values()</code> do tymczasowej tablicy przepisujemy tylko wartości co naprawia luki w indexach.</li>
+</ol>
+</li>
+</ul>
+<details>
+<summary> Cały kod </summary>
+
+<p>Zamiast każdorazowo generować tablicę alfabetu w funkcji możesz zrobić to tylko raz a wynik przypisać do zmiennej. Oszczedzasz w ten sposób zasoby komputera.</p>
+<pre><code class="language-php">for ($i = 65; $i &lt;= 90; $i++) {
+    echo chr($i) .", ";
+}
+</code></pre>
+<pre><code class="language-php">/**
+ * Generuje losowe ułożenie liter alfabetu jako klucz do szyfrowania monoalfabetycznego
+ *
+ * @return string Ciąg losowo ułożonych znaków alfabetu bez powtórzeń
+ */
+function monoalphabetKeyGen(): string
+{
+    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    $key = "";
+    $randomizer = new \Random\Randomizer();
+
+    while (!empty($alphabet)) {
+        $random_index = $randomizer-&gt;getInt(0, count($alphabet) - 1);
+
+        $key .= $alphabet[$random_index];
+
+        unset($alphabet[$random_index]);
+        $temp_alphabet = array_values($alphabet);
+    }
+    return $key;
+}
+</code></pre>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/losowy-klucz-z-przetasowaniem-tablicy-alfabetu.webp" alt="" width="1821" height="945" class="lazy-image" loading="lazy" decoding="async">
+
+
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Budowa szyfrowania i deszyfrowania monoalfabetycznego</h2>
+<p>Mając jakiś tekst oraz dwie tablice:</p>
+<ul>
+<li>alfabet łaciński</li>
+<li>klucz, czyli losowo przetworzony alfabet łaciński</li>
+</ul>
+<p>Szyfrowanie polega na znalezieniu w pierwszej tablicy danego znaku, a następnie zakodowanie w tekście znaku z klucza drugiej tablicy na tej samej pozycji (indexie).</p>
+<p><data-monoalphabetic-substitution text="TAJNA WIADOMOSC" key="QWERTYUIOPASDFGHJKLZXCVBNM"><br></data-monoalphabetic-substitution></p>
+<p>Bierzemy naszą zmienną <code>$alphabet</code> i skoro szyfrowanie polega na operacji miedzy dwoma tablicami to musimy przetworzyć <code>$key</code>, który jest stringiem na tablicę:</p>
+<pre><code class="language-php">$key_array = [];
+for ($i = 0; $i &lt; strlen($key); $i++) {
+    $key_array[] = $key[$i];
+}
+$key = $key_array;
+</code></pre>
+<p>Ale zamiast pisać własną implementację w PHP skorzystamy z natywnej implementacji którą przygotowano w C więc na pewno będzie wydajniejsza.</p>
+<pre><code class="language-php">$key = str_split($key);
+</code></pre>
+<p>Lub z <code>mb_str_split()</code>, gdy operujemy na znakach <span class="color-blue">UTF‑8</span>.</p>
+<pre><code class="language-php">$key = mb_str_split($key, 1, "UTF-8");
+</code></pre>
+<p>Nasza funkcja szyfrująca bedzie dość podobna do tej z caesara:</p>
+<pre><code class="language-php">function monoalphabet(string $text, string $key, bool $isEncrypted = true): string {}
+</code></pre>
+<p>Klasycznie całość zapiszemy iteracyjnie czyli w pętli:</p>
+<pre><code class="language-php">for ($i = 0; $i &lt; strlen($text); $i++) {}
+</code></pre>
+<p>Musimy uzyskać pozycję (index) litery w tablicy alfabetu i na jej podstawie pobrać znak z tablicy klucza i przypisać ją do nowej zmiennej.</p>
+<p>Z pomocą przychodzi nam natywna funkcja PHP <code>array_search()</code>:</p>
+<pre><code class="language-php">array_search(mixed $needle, array $haystack, bool $strict = false): int|string|false
+</code></pre>
+<ul>
+<li><code>$needle</code>: szukany element</li>
+<li><code>$haystack</code>: tablica do przeszukania</li>
+<li><code>$strict</code>: czy szukać z uwzględnieniem typu danych</li>
+</ul>
+<p>Jej wynik bedziemy przechowywać w zmiennej mapującej pozycję <code>$mapped</code>:</p>
+<pre><code class="language-php">$mapped = array_search($chart, $alphabet);
+</code></pre>
+<p>Potem do zmiennej zadeklarowanej i zainicjalizowanej jako string <code>$output_text</code>  przed pętlą <code>for</code> bedziemy dopisywać w każdej iteracji literę z drugiej tablicy stosując znalezioną pozycję z <code>$mapped</code></p>
+<pre><code class="language-php">$output_text .= $key[$mapped];
+</code></pre>
+<p>Uzyskujemy następującą funkcję szyfrującą monoalfabetycznie:</p>
+<pre><code class="language-php">function monoalphabet(string $text, string $key, bool $isEncrypted = true): string {
+    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    $key = str_split($key);
+    $output_text="";
+
+if ($isEncrypted) {
+     for ($i = 0; $i &lt; strlen($text); $i++) {
+        $mapped = array_search($text[$i], $key);
+        $output_text .= $alphabet[$mapped];
+    }
+}else{
+    for ($i = 0; $i &lt; strlen($text); $i++) {
+        $mapped = array_search($text[$i], $alphabet);
+        $output_text .= $key[$mapped];
+    }
+}
+    
+    return $output_text;
+}
+
+
+echo "TEST łatwy: &lt;hr&gt;";
+echo monoalphabet("ZTBZ", "QWERTYUIOPASDFGHJKLZXCVBNM", true);
+echo "\n";
+echo monoalphabet("TEXT", "QWERTYUIOPASDFGHJKLZXCVBNM", false);
+
+echo "\n\n\nTest pełniejszy: &lt;hr&gt;";
+echo monoalphabet("Q qZT BZ", "QWERTYUIOPASDFGHJKLZXCVBNM", true);
+echo "\n";
+echo monoalphabet("A aTE XT", "QWERTYUIOPASDFGHJKLZXCVBNM", false);
+</code></pre>
+<p>Z testów wynika że funkcja ma $3$ główne problemy:</p>
+<ol>
+<li>Nie ma małych liter</li>
+<li>Brak zachowania spacji</li>
+<li><code>Q</code> oraz <code>A</code> mają index $0$ co może kolidować z <code>false</code> i dawać dziwne efekty.</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/pierwsza-wersja-monoalphabetic-crypt.webp" alt="" width="1847" height="946" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>1. Wsparcie dla małych liter</h3>
+<p>Tu skorzystamy z $3$ natywnych funkcji PHP:</p>
+<ul>
+<li><code>ctype_lower()</code> - Sprawdza czy znak jest małą literą.</li>
+<li><code>strtolower()</code> - Zamienia string na małe litery.</li>
+<li><code>strtoupper()</code> - Zamienia string na duże litery.</li>
+</ul>
+<pre><code class="language-php">for ($i = 0; $i &lt; strlen($text); $i++) {
+            $isLower = ctype_lower($text[$i]); // Flaga czy litera jest mała
+
+            if ($isLower) {
+                $text[$i] = strtoupper($text[$i]); // Zamiana na dużą literę
+            }
+
+            $mapped = array_search($text[$i], $k); // Szukamy pozycji wystąpienia dużej litery w tablicy dużych liter
+
+            if ($isLower) {
+                $output_text .= strtolower($a[$mapped]); // Dodajemy do wyniku małą literę z drugiej tablicy
+            } else {
+                $output_text .= $a[$mapped]; // Dodajemy do wyniku dużą literę z drugiej tablicy
+            }
+}
+</code></pre>
+<blockquote>
+<p>Adekwatnie dla deszyfrowania.</p>
+</blockquote>
+<hr>
+<h3>2. Pozostawienie bez zmian wartości nie zawartych w tablicach</h3>
+<p>Tą funkcjonalność dość łatwo dodać. wystarczy po uzyskaniu wyniku z <code>array_search</code> sprawdzić czy jest on wartością <code>false</code> i dodatkowo czy jest to typ <span class="color-gold"><code>boolean</code></span>, aby uniknąć wykonania dla rzutowanego integer $0$ do <span class="color-gold"><code>bool</code></span> <code>false</code>.</p>
+<pre><code class="language-php">$mapped = array_search($text[$i], $k);
+if ($mapped === false) {
+    $output_text .= $text[$i];
+    continue;
+}
+</code></pre>
+<blockquote>
+<p>Tym jednym fragmentem kodu rozwiązano też problem z literkami <code>Q</code> oraz <code>A</code>, które miały index $0$ i kolidowały z <code>false</code>.</p>
+</blockquote>
+<hr>
+<h3>🔐 Działająca implementacja szyfru monoalfabetycznego</h3>
+<pre><code class="language-php">function monoalphabet(string $text, string $key, bool $isEncrypted = true): string
+{
+    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    $key = str_split($key);
+
+
+    $output_text = "";
+    if ($isEncrypted) {
+        for ($i = 0; $i &lt; strlen($text); $i++) {
+            $isLower = ctype_lower($text[$i]);
+            if ($isLower) {
+                $text[$i] = strtoupper($text[$i]);
+            }
+            $mapped = array_search($text[$i], $key);
+            if ($mapped === false) {
+                $output_text .= $text[$i];
+                continue;
+            }
+            if ($isLower) {
+                $output_text .= strtolower($alphabet[$mapped]);
+            } else {
+                $output_text .= $alphabet[$mapped];
+            }
+         }
+     } else {
+         for ($i = 0; $i &lt; strlen($text); $i++) {
+             $isLower = ctype_lower($text[$i]);
+             if ($isLower) {
+                 $text[$i] = strtoupper($text[$i]);
+             }
+             $mapped = array_search($text[$i], $alphabet, true);
+             if ($mapped === false) {
+                 $output_text .= $text[$i];
+                 continue;
+             }
+             if ($isLower) {
+                 $output_text .= strtolower($key[$mapped]);
+             } else {
+                 $output_text .= $key[$mapped];
+             }
+         }
+    }
+
+    return $output_text;
+}
+</code></pre>
+<blockquote>
+<p>Funkcja działa poprawnie, ale nie jest idealna.</p>
+</blockquote>
+<h3>🏭 Refaktoryzacja kodu</h3>
+<p><span class="color-green">Refaktoryzacja</span> to proces uproszczenia i optymalizacji fragmentu kodu bez zmiany <span class="color-blue">wejścia</span> i <span class="color-blue">wyjścia</span>. Funkcja dalej musi działać tak samo jak przed refaktoryzacją.</p>
+<p>Redukcja kodu.<br>W <code>if</code> <code>else</code> mamy bardzo podobny kod. Jego jedną różnicą jest odwrotne wykorzystanie tablic <code>$alphabet</code> oraz <code>$key</code>.<br>Wyseparujmy to zachowanie do oddzielnego kodu:</p>
+<pre><code class="language-php">if ($isEncrypted) {
+    $a = $alphabet;
+    $k = $key;
+} else {
+    $a =$key;
+    $k =$alphabet;
+}
+</code></pre>
+<p>Teraz wystarczy wyciągnąć zawartość <code>if</code> albo <code>else</code> i podmienić wywołania <code>$alphabet</code> oraz <code>$key</code> na <code>$a</code> i <code>$k</code>.</p>
+<p>Podmieniona zawartość <code>if</code>:</p>
+<pre><code class="language-php">for ($i = 0; $i &lt; strlen($text); $i++) {
+    $isLower = ctype_lower($text[$i]);
+    if ($isLower) {
+        $text[$i] = strtoupper($text[$i]);
+    }
+    $mapped = array_search($text[$i], $k);
+    if ($mapped === false) {
+        $output_text .= $text[$i];
+        continue;
+    }
+    if ($isLower) {
+        $output_text .= strtolower($a[$mapped]);
+    } else {
+        $output_text .= $a[$mapped];
+    }
+}
+</code></pre>
+<p>Funkcja po redukcji jest o wiele krótsza i dalej działa tak samo:</p>
+<pre><code class="language-php">function monoalphabet(string $text, string $key, bool $isEncrypted = true): string
+{
+    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    $key = str_split($key);
+
+    $output_text = "";
+    if ($isEncrypted) {
+        $a = $alphabet;
+        $k = $key;
+    } else {
+        $a = $key;
+        $k = $alphabet;
+    }
+
+    for ($i = 0; $i &lt; strlen($text); $i++) {
+        $isLower = ctype_lower($text[$i]);
+        if ($isLower) {
+            $text[$i] = strtoupper($text[$i]);
+        }
+        $mapped = array_search($text[$i], $k);
+        if ($mapped === false) {
+            $output_text .= $text[$i];
+            continue;
+        }
+        if ($isLower) {
+            $output_text .= strtolower($a[$mapped]);
+        } else {
+            $output_text .= $a[$mapped];
+        }
+    }
+
+    return $output_text;
+}
+</code></pre>
+<blockquote>
+<p>Zauważ że w pętli <code>for</code> odwołujemy się tylko do aktualnej wartości, więc index (<code>$i</code>) do niczego nam nie jest potrzebny. Dlatego możemy zastąpić klasyczną pętlę <code>for</code> na <code>foreach</code>: </p>
+</blockquote>
+<pre><code class="language-php">foreach (str_split($text) as $chart) {
+    $isLower = ctype_lower($chart);
+    if ($isLower) {
+        $chart = strtoupper($chart);
+    }
+    $mapped = array_search($chart, $k);
+    if ($mapped === false) {
+        $output_text .= $chart;
+        continue;
+    }
+    if ($isLower) {
+        $output_text .= strtolower($a[$mapped]);
+    } else {
+        $output_text .= $a[$mapped];
+    }
+}
+</code></pre>
+<p>Skoro mamy bloki kodu <code>if</code> <code>else</code>, które wykonują lustrzaną i trywialną akcję to można je zapisać krócej, przy okazji poprawiając nazewnictwo zmiennych:</p>
+<pre><code class="language-php">if ($isEncrypted) {
+    $a = $alphabet;
+    $k = $key;
+} else {
+    $a = $key;
+    $k = $alphabet;
+}
+</code></pre>
+<pre><code class="language-php">$from = $isEncrypted ? $alphabet : $key;
+$to = $isEncrypted ? $key : $alphabet;
+</code></pre>
+<blockquote>
+<p>Jeżeli zmienna <code>$isEncrypted</code> jest prawdziwa to <span class="color-green"><code>$from</code></span> przyjmuje pierwszą wartość po operatorze <code>?</code> (<span class="color-blue"><code>$alphabet</code></span>), w przeciwnym wypadku drugą wartość po operatorze <code>:</code> (<span class="color-blue"><code>$key</code></span>). Adekwatnie dla zmiennej <span class="color-green"><code>$to</code></span>.</p>
+</blockquote>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/padanie-operatora-znaku-zapytania-i-dwókropka.webp" alt="" width="1849" height="948" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p>Istnieje też podobny zapis dla zabezpieczania kodu przed null‑em:</p>
+<pre><code class="language-php">$wynik = $wynik ?? "Nie udało się uzyskać wyniku.";
+</code></pre>
+<p>Tu gdy wartość bedzie <code>null</code> zmienna $wynik$ przyjmie wartość po operatorze <code>??</code> (czyli "Nie udało się uzyskać wyniku.").</p>
+<p>Warto w każdym języku programowania przetestować operator <code>??</code> czy działa tylko dla wartości null tak jak w PHP.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/php/Images/badanie-operatora-powdójnego-znaku-zapytania.webp" alt="" width="1845" height="951" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
+<h3>👑 Finalna wersja szyfru monoalfabetycznego</h3>
+<p>Czy widzisz coś co jeszcze można zrefaktoryzować w tej funkcji?</p>
+<pre><code class="language-php">function monoalphabet(string $text, string $key, bool $isEncrypted = true): string
+{
+    $alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    $key = str_split($key);
+
+    $output_text = "";
+    $from = $isEncrypted ? $alphabet : $key;
+    $to = $isEncrypted ? $key : $alphabet;
+
+    foreach (str_split($text) as $chart) {
+        $isLower = ctype_lower($chart);
+        if ($isLower) {
+            $chart = strtoupper($chart);
+        }
+        $mapped = array_search($chart, $to);
+        if ($mapped === false) {
+            $output_text .= $chart;
+            continue;
+        }
+        if ($isLower) {
+            $output_text .= strtolower($from[$mapped]);
+        } else {
+            $output_text .= $from[$mapped];
+        }
+    }
+
+    return $output_text;
+}
+</code></pre>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>
