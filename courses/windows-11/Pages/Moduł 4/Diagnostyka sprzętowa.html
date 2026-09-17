@@ -366,22 +366,33 @@
 
 
   
-<blockquote>
-<p>[!IMPORTANT]<br>Test działa w nieskończonej pętli, bo ma stale obciążać kartę podczas diagnostyki. Gdy zobaczysz, że <code>Bus Interface</code> zmieniło się na docelową wartość (np. <code>@ x16 4.0</code>), możesz po prostu zamknąć okno testowe.</p>
-</blockquote>
-<blockquote>
-<p>[!TIP]<br><span class="color-green">Co jeśli karta nie osiąga nominalnej prędkości?</span></p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Test działa w nieskończonej pętli, bo ma stale obciążać kartę podczas diagnostyki. Gdy zobaczysz, że <code>Bus Interface</code> zmieniło się na docelową wartość (np. <code>@ x16 4.0</code>), możesz po prostu zamknąć okno testowe.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Co jeśli karta nie osiąga nominalnej prędkości?</span></p>
 <ol>
 <li><span class="color-blue">Zły slot PCIe:</span> Karta trafiła do dolnego slotu płyty głównej, który ma mniej linii (np. x4 zamiast x16) lub obsługuje starszą wersję PCIe. Kartę zawsze montuj w najwyższym slocie, najbliżej procesora.</li>
 <li><span class="color-blue">Dzielenie linii (Lane Sharing):</span> Szybki dysk SSD M.2 NVMe współdzieli linie z gniazdem karty, co obcina pasmo GPU o połowę (np. do x8).</li>
 <li><span class="color-blue">Opadanie karty (GPU Sag) lub zabrudzenie styków:</span> Ciężka karta mogła delikatnie wysunąć się ze złącza i stracić kontakt na skrajnych pinach. Wyjmij ją, przeczyść styki alkoholem izopropylowym (IPA) i zamontuj ponownie, najlepiej z podpórką."</li>
 </ol>
-</blockquote>
-<ul>
-<li><p><span class="color-green">Resizable BAR (ReBAR):</span> Daje procesorowi bezpośredni dostęp do całej pamięci VRAM karty graficznej.</p>
-<ul>
-<li><span class="color-green">Jak to działa:</span> Bez ReBAR procesor komunikuje się z pamięcią karty przez małe bloki o wielkości $256\text{ MB}$ (Base Address Register). Resizable BAR znosi ten limit. Tekstury i geometria przesyłane są szybciej, co w grach daje dodatkowe $5 - 15\\%$ wydajności i zmniejsza przycięcia (stuttering).</li>
+
+</div>
+</div><ul>
+<li><span class="color-green">Resizable BAR (ReBAR):</span> Daje procesorowi bezpośredni dostęp do całej pamięci VRAM karty graficznej.<ul>
+<li><span class="color-green">Jak to działa:</span> Bez ReBAR procesor komunikuje się z pamięcią karty przez małe bloki o wielkości $256\text{ MB}$ (Base Address Register). Resizable BAR znosi ten limit. Tekstury i geometria przesyłane są szybciej, co w grach daje dodatkowe $5 - 15\%$ wydajności i zmniejsza przycięcia (stuttering).</li>
 <li><span class="color-green">Stan na zrzucie:</span> Pole <span class="color-green">Resizable BAR</span> pokazuje <span class="color-green">Disabled</span> (Wyłączone). Aby je włączyć, musisz w BIOS‑ie płyty aktywować <span class="color-gold">Above 4G Decoding</span> oraz <span class="color-gold">ReBAR Support</span> (u AMD ta funkcja nazywa się <span class="color-blue">SAM</span> – <span class="color-blue">Smart Access Memory</span>).</li>
+</ul>
+</li>
 </ul>
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
@@ -411,17 +422,16 @@
 </ol>
 
 </div>
-</div></li>
-</ul>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_ResizableBAR_Włączenie.webp" alt="GPU-Z Resizable BAR Enabled" width="388" height="655" class="lazy-image" loading="lazy" decoding="async">
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_ResizableBAR_Włączenie.webp" alt="GPU-Z Resizable BAR Enabled" width="388" height="655" class="lazy-image" loading="lazy" decoding="async">
 
 
 
 <ul>
-<li><p><span class="color-green">Memory Size &amp; Bus Width (Pojemność i szyna pamięci):</span></p>
-<ul>
+<li><span class="color-green">Memory Size &amp; Bus Width (Pojemność i szyna pamięci):</span><ul>
 <li><span class="color-green">Memory Size (Pojemność):</span> Karta ma $12288\text{ MB}$ ($12\text{ GB}$) pamięci wideo (VRAM).</li>
 <li><span class="color-green">Bus Width (Szerokość szyny pamięci):</span> Szyna danych między rdzeniem GPU a pamięcią VRAM ma szerokość <span class="color-green">$192\text{ bit}$</span>. Dla kości GDDR6 od Hynixa daje to przepustowość (<span class="color-blue">Bandwidth</span>) rzędu <span class="color-green">$360.0\text{ GB/s}$</span>.</li>
+</ul>
+</li>
 </ul>
 <div class="markdown-alert markdown-alert--note">
 <p class="markdown-alert-title">
@@ -431,9 +441,7 @@
 <p><span class="color-green">Przepustowość pamięci (Bandwidth):</span><br>Szerokość szyny to jak liczba pasów na drodze, a taktowanie pamięci – jak prędkość aut. Karta z wąską szyną (np. <span class="color-green">$128\text{-bit}$</span>) bywa wąskim gardłem w rozdzielczościach <span class="color-green">$1440p/4K$</span>. Nawet duża pojemność (np. <span class="color-green">$16\text{ GB}$</span> VRAM) nie pomoże, jeśli szyna nie nadąży z przesyłaniem danych.</p>
 
 </div>
-</div></li>
-</ul>
-<hr>
+</div><hr>
 <h3>🌡️ Czujniki temperatury i pracy (zakładka Sensors)</h3>
 <img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/GPU-Z_Sensors.webp" alt="GPU-Z Sensors" width="388" height="539" class="lazy-image" loading="lazy" decoding="async">
 
@@ -462,9 +470,9 @@
 </tr>
 </tbody></table>
 </li>
-<li><p><span class="color-green">Fan Speed (prędkość wentylatorów):</span> Prędkość obrotowa wentylatorów (w $\\%$ i RPM).</p>
+<li><p><span class="color-green">Fan Speed (prędkość wentylatorów):</span> Prędkość obrotowa wentylatorów (w $\%$ i RPM).</p>
 <ul>
-<li>Zrzut podaje <span class="color-green">$0\\%$ (0 RPM)</span> dla obu wentylatorów. Dzisiejsze karty chłodzone są <span class="color-green">półpasywnie</span> – wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55-60^\circ\text{C}$ na rdzeniu.</li>
+<li>Zrzut podaje <span class="color-green">$0\%$ (0 RPM)</span> dla obu wentylatorów. Dzisiejsze karty chłodzone są <span class="color-green">półpasywnie</span> – wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55-60^\circ\text{C}$ na rdzeniu.</li>
 </ul>
 </li>
 <li><p><span class="color-green">Board Power Draw (pobór prądu karty):</span> Całkowity pobór mocy przez całą konstrukcję w watach ($\text{W}$).</p>
@@ -495,8 +503,8 @@
 
 <ul>
 <li><span class="color-green">Power Limit (limit mocy):</span> W sekcji <span class="color-blue">General</span> program pokazuje fabryczne i dopuszczalne limity zasilania rdzenia GPU.<ul>
-<li>Zrzut pokazuje wartość domyślną <span class="color-green">Default ($100.0\\%$)</span> oraz maksymalną <span class="color-green">Maximum ($124.7\\%$)</span>. W programach do podkręcania (np. MSI Afterburner) limit mocy można zwiększyć o te <span class="color-green">$24.7\\%$</span> ponad fabrykę (zakres regulacji sięga od $-41\\%$ do $+25\\%$).</li>
-<li><span class="color-green">Tuning:</span> Obniżenie limitu mocy (np. do $85\\%$) to prosty sposób na redukcję temperatur i poboru prądu.</li>
+<li>Zrzut pokazuje wartość domyślną <span class="color-green">Default ($100.0\%$)</span> oraz maksymalną <span class="color-green">Maximum ($124.7\%$)</span>. W programach do podkręcania (np. MSI Afterburner) limit mocy można zwiększyć o te <span class="color-green">$24.7\%$</span> ponad fabrykę (zakres regulacji sięga od $-41\%$ do $+25\%$).</li>
+<li><span class="color-green">Tuning:</span> Obniżenie limitu mocy (np. do $85\%$) to prosty sposób na redukcję temperatur i poboru prądu.</li>
 <li><span class="color-green">Temperature Limit:</span> Domyślny próg temperatury wynosi <span class="color-green">Current $83.0^\circ\text{C}$</span>. Po jego przekroczeniu karta zacznie spowalniać taktowanie rdzenia (<span class="color-blue">thermal throttling</span>), żeby się nie przegrzać. Maksymalny próg, jaki można ustawić, to <span class="color-green">$90.0^\circ\text{C}$</span>.</li>
 </ul>
 </li>
@@ -548,7 +556,15 @@
 <li><span class="color-green">CrystalDiskInfo:</span> Szybko odczytuje parametry <span class="color-gold">S.M.A.R.T.</span>, ogólny stan zdrowia dysku oraz jego temperaturę.</li>
 <li><span class="color-green">CrystalDiskMark:</span> Testuje prędkości odczytu i zapisu (sekwencyjne oraz losowe).</li>
 </ol>
-<hr>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Głównym twórcą i programistą tego niezwykle popularnego narzędzia open‑source jest japoński programista <span class="color-gold">Noriyuki Miyazaki</span>, znany w sieci pod pseudonimem <span class="color-blue">hiyohiyo</span>. </p>
+
+</div>
+</div><hr>
 <h3>📥 1. Wybór wersji i pobieranie</h3>
 <p>Na stronie pobierania (<a href="https://crystalmark.info/en/download/#CrystalDiskInfo">crystalmark.info</a>) znajdziesz kilka wariantów programu:</p>
 <ul>
@@ -572,14 +588,14 @@
 <ul>
 <li><p><span class="color-green">Stan zdrowia (Health Status):</span></p>
 <ul>
-<li><span class="color-blue">Lexar (Dysk C):</span> Pokazuje <span class="color-green">Good ($100\\%$)</span>. Dysk jest świeży i zapisał niewiele terabajtów.</li>
-<li><span class="color-blue">Goodram (Dysk D):</span> Wskazuje <span class="color-green">Good ($92\\%$)</span>. Komórki pamięci flash w dyskach SSD zużywają się przy każdym zapisie danych. Te $8\\%$ ubytku to normalny ślad użytkowania. Wartości powyżej $80-90\\%$ nie powinny martwić. Kopię zapasową i wymianę dysku planuj dopiero wtedy, gdy stan spadnie poniżej <span class="color-green">$50\\%$</span> lub program zgłosi status <span class="color-red">„Coution”</span> lub <span class="color-red">„Bad”</span>.</li>
+<li><span class="color-blue">Lexar (Dysk C):</span> Pokazuje <span class="color-green">Good ($100\%$)</span>. Dysk jest świeży i zapisał niewiele terabajtów.</li>
+<li><span class="color-blue">Goodram (Dysk D):</span> Wskazuje <span class="color-green">Good ($92\%$)</span>. Komórki pamięci flash w dyskach SSD zużywają się przy każdym zapisie danych. Te $8\%$ ubytku to normalny ślad użytkowania. Wartości powyżej $80-90\%$ nie powinny martwić. Kopię zapasową i wymianę dysku planuj dopiero wtedy, gdy stan spadnie poniżej <span class="color-green">$50\%$</span> lub program zgłosi status <span class="color-red">„Coution”</span> lub <span class="color-red">„Bad”</span>.</li>
 </ul>
 </li>
 <li><p><span class="color-green">Suma zapisów hosta (Total Host Writes):</span> Pokazuje łączną ilość danych zapisaną od nowości.</p>
 <ul>
 <li><span class="color-blue">Lexar:</span> Zapisał <span class="color-green">$5660\text{ GB}$</span> (ok. $5.6\text{ TB}$) w ciągu <span class="color-green">$1351$</span> godzin pracy.</li>
-<li><span class="color-blue">Goodram:</span> Przetworzył już <span class="color-green">$45620\text{ GB}$</span> (ok. $45.6\text{ TB}$) przez <span class="color-green">$9627$</span> godzin (czyli ponad rok ciągłego działania). Ta różnica w zużyciu tłumaczy spadek zdrowia starszego Goodrama do <span class="color-green">$92\\%$</span>.</li>
+<li><span class="color-blue">Goodram:</span> Przetworzył już <span class="color-green">$45620\text{ GB}$</span> (ok. $45.6\text{ TB}$) przez <span class="color-green">$9627$</span> godzin (czyli ponad rok ciągłego działania). Ta różnica w zużyciu tłumaczy spadek zdrowia starszego Goodrama do <span class="color-green">$92\%$</span>.</li>
 </ul>
 </li>
 <li><p><span class="color-green">Wersja standardu i szyny (Transfer Mode):</span><br>Pokazuje interfejs, z którego aktualnie korzysta dysk, w formacie: <code>Bieżący tryb | Tryb maksymalny</code>.</p>
@@ -613,8 +629,9 @@
 <li><span class="color-blue">Goodram (Dysk D):</span> Działa w trybie <span class="color-green">PCIe 3.0 x4</span>. Umieszczono go w dolnym slocie M.2 obsługiwanym przez chipset płyty głównej. Złącze to idealnie pasuje do możliwości tej generacji dysku.</li>
 </ul>
 </li>
-<li><p><span class="color-green">Temperatura i fizyczny radiator:</span></p>
+</ul>
 <ul>
+<li><span class="color-green">Temperatura i fizyczny radiator:</span><ul>
 <li><span class="color-blue">Lexar (Dysk <code>C:</code>):</span> Wskazuje <span class="color-green">$56^{\circ}\text{C}$</span> w spoczynku. Dyski PCIe Gen4 z protokołem NVMe 2.0 pobierają więcej prądu i mocno się grzeją. Na płycie głównej z naszego przykładu (<span class="color-blue">Gigabyte B660 Gaming X</span>) producent dodał fabryczny radiator (<span class="color-blue">M.2 Thermal Guard</span>) na najwyższym slocie M.2 pod procesorem. To tam siedzi dysk <span class="color-blue"><code>C:</code></span>. Radiator trzyma temperatury w ryzach – bez niego dysk z Windowsem w tle szybko dobijałby do $65 - 70^{\circ}\text{C}$ już w spoczynku.</li>
 <li><span class="color-blue">Goodram (Dysk <code>D:</code>):</span> Trzyma chłodne <span class="color-green">$30^{\circ}\text{C}$</span>. Starsze konstrukcje Gen3 nie generują tyle ciepła. Zazwyczaj lądują w dolnych slotach płyty głównej, które bywają zasłonięte przez kartę graficzną i często nie mają fabrycznych radiatorów. Przy tak niskiej emisji ciepła brak dodatkowego chłodzenia w niczym nie przeszkadza. 😎</li>
 </ul>

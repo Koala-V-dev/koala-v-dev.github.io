@@ -24,15 +24,15 @@ Ta zakładka pokazuje dokładny model procesora oraz gniazdo (**Socket**), w kt�
 
 - **Core Voltage (napięcie rdzenia):** Pokazuje aktualne napięcie zasilające rdzenie procesora w woltach ($\text{V}$). Płyta główna i system operacyjny regulują je dynamicznie pod wpływem obciążenia.
 
-| Stan napięcia | Co oznacza? | Zachowanie systemu |
-| :--- | :--- | :--- |
-| **Niskie (w spoczynku)** | Poniżej $1.0 \text{ V} – 1.2 \text{ V}$. Procesor oszczędza energię. | Komputer działa cicho i wydziela mało ciepła. |
-| **Wysokie (pod obciążeniem)** | $1.2 \text{ V} – 1.45 \text{ V}$. Procesor potrzebuje więcej mocy do szybszych obliczeń. | Temperatury rosną, a wentylatory przyspieszają. |
-| **Zbyt niskie (Vdroop)** | Spadek napięcia przy nagłym skoku obciążenia. | Błędy systemu, nagłe restarty lub niebieski ekran (*BS***_OD_**). |
-| **Zbyt wysokie (przevoltowanie)** | Złe ustawienia w BIOS-ie lub zbyt agresywny **_overclocking_**. | Ryzyko przegrzania procesora i skrócenia jego żywotności. |
+| Stan napięcia                     | Co oznacza?                                                                              | Zachowanie systemu                                                |
+| :-------------------------------- | :--------------------------------------------------------------------------------------- | :---------------------------------------------------------------- |
+| **Niskie (w spoczynku)**          | Poniżej $1.0 \text{ V} – 1.2 \text{ V}$. Procesor oszczędza energię.                     | Komputer działa cicho i wydziela mało ciepła.                     |
+| **Wysokie (pod obciążeniem)**     | $1.2 \text{ V} – 1.45 \text{ V}$. Procesor potrzebuje więcej mocy do szybszych obliczeń. | Temperatury rosną, a wentylatory przyspieszają.                   |
+| **Zbyt niskie (Vdroop)**          | Spadek napięcia przy nagłym skoku obciążenia.                                            | Błędy systemu, nagłe restarty lub niebieski ekran (*BS***_OD_**). |
+| **Zbyt wysokie (przevoltowanie)** | Złe ustawienia w BIOS-ie lub zbyt agresywny **_overclocking_**.                          | Ryzyko przegrzania procesora i skrócenia jego żywotności.         |
 
 - **Stepping i Revision (wersje procesora):** Określają wersję fizycznego układu krzemowego.
-  * Te parametry to odpowiednik numeru wersji oprogramowania (jak przejście z 1.0 na 1.1). Producent usuwa w ten sposób błędy konstrukcyjne (w mikrokodzie) w kolejnych partiach produkcyjnych, co poprawia stabilność lub bezpieczeństwo bez zmiany nazwy modelu. Zrzut pokazuje rewizję `C0` (typowe dla 12. generacji).
+  - Te parametry to odpowiednik numeru wersji oprogramowania (jak przejście z 1.0 na 1.1). Producent usuwa w ten sposób błędy konstrukcyjne (w mikrokodzie) w kolejnych partiach produkcyjnych, co poprawia stabilność lub bezpieczeństwo bez zmiany nazwy modelu. Zrzut pokazuje rewizję `C0` (typowe dla 12. generacji).
  
 > [!TIP]
 > **Sortowanie krzemu (Binning):** Selekcja gotowych układów w fabryce. Wbrew niektórym opiniom, fabryka stara się wyprodukować wafle krzemowe o najwyższym standardzie (np. dążąc do Core i9). Po testach okazuje się jednak, że część rdzeni ma wady lub nie radzi sobie ze stabilną pracą na wysokim taktowaniu. Zamiast wyrzucać taki układ, producent blokuje uszkodzone rdzenie i sprzedaje go jako niższy model (np. Core i7 lub Core i5).
@@ -72,15 +72,15 @@ Zakładka **Mainboard** pokazuje parametry płyty głównej oraz połączenia mi
 
 - **Manufacturer & Model (producent i model):** Marka i model płyty głównej (na zrzucie: `Gigabyte B660 GAMING X AX DDR4`). Te dane ułatwią Ci pobranie sterowników i nowego BIOS-u ze strony producenta.
 - **Chipset & Southbridge (Alder Lake / B660):** Układy zarządzające przepływem danych na płycie głównej:
-  * _**Mostek północny (Northbridge):**_ Znajduje się w procesorze (tutaj: Alder Lake). Łączy najszybsze komponenty: pamięć RAM i kartę graficzną.
-  * _**Mostek południowy (Southbridge):**_ Chipset na płycie głównej (tutaj: B660). Odpowiada za wolniejsze połączenia: porty USB, dyski SATA, karty sieciowe i dźwiękowe.
+  - _**Mostek północny (Northbridge):**_ Znajduje się w procesorze (tutaj: Alder Lake). Łączy najszybsze komponenty: pamięć RAM i kartę graficzną.
+  - _**Mostek południowy (Southbridge):**_ Chipset na płycie głównej (tutaj: B660). Odpowiada za wolniejsze połączenia: porty USB, dyski SATA, karty sieciowe i dźwiękowe.
 - **LPCIO (Super I/O):** Układ na płycie głównej (tutaj: ITE IT8689). Monitoruje wentylatory, temperatury i napięcia. Z tego układu aplikacje diagnostyczne czerpią informacje o pracy komputera.
 - **BIOS Version (wersja BIOS), Date (data) i CPU Microcode (mikrokod procesora):**
-  * _**BIOS Version (F34) i Date (12/02/2025):**_ Wersja oprogramowania sterującego płytą główną oraz data jego wydania. Aktualizacja BIOS-u eliminuje błędy stabilności i kompatybilności, np. z pamięcią RAM.
-  * _**CPU Microcode (0x3A):**_ Mikropoprawki błędów wczytywane do procesora przy uruchamianiu komputera. Działa to jak łatka usuwająca fabryczne niedociągnięcia krzemu. Nowy mikrokod jest zazwyczaj częścią aktualizacji BIOS-u.
+  - _**BIOS Version (F34) i Date (12/02/2025):**_ Wersja oprogramowania sterującego płytą główną oraz data jego wydania. Aktualizacja BIOS-u eliminuje błędy stabilności i kompatybilności, np. z pamięcią RAM.
+  - _**CPU Microcode (0x3A):**_ Mikropoprawki błędów wczytywane do procesora przy uruchamianiu komputera. Działa to jak łatka usuwająca fabryczne niedociągnięcia krzemu. Nowy mikrokod jest zazwyczaj częścią aktualizacji BIOS-u.
 - **Graphic Interface (Interfejs graficzny):**
-  * _**Link Width (szerokość złącza):**_ Liczba aktywnych linii dla karty graficznej. Zrzut pokazuje `x16` (aktualna) / `x16` (maksymalna). Karta korzysta z pełnej szerokości złącza.
-  * _**Link Speed (prędkość złącza):**_ Aktualna prędkość magistrali to `2.5 GT/s` (PCIe 1.1), mimo że maksymalna wynosi `16.0 GT/s` (PCIe 4.0). Płyta główna spowalnia złącze na pulpicie, żeby oszczędzać prąd. Pełna prędkość powróci automatycznie, gdy tylko uruchomisz grę.
+  - _**Link Width (szerokość złącza):**_ Liczba aktywnych linii dla karty graficznej. Zrzut pokazuje `x16` (aktualna) / `x16` (maksymalna). Karta korzysta z pełnej szerokości złącza.
+  - _**Link Speed (prędkość złącza):**_ Aktualna prędkość magistrali to `2.5 GT/s` (PCIe 1.1), mimo że maksymalna wynosi `16.0 GT/s` (PCIe 4.0). Płyta główna spowalnia złącze na pulpicie, żeby oszczędzać prąd. Pełna prędkość powróci automatycznie, gdy tylko uruchomisz grę.
 
 ---
 
@@ -96,20 +96,20 @@ Pamięć RAM bywa ustawiona wolniej, niż pozwalają na to jej parametry fabrycz
   *Uwaga: W sklepach ta wartość jest często błędnie oznaczana jako $\text{MHz}$.*
 - **CAS# Latency (CL):** Opóźnienie pamięci, czyli czas (w cyklach zegara) od żądania danych do rozpoczęcia ich wysyłania. Na zrzucie to $16$ cykli.
 
-| Standard RAM | <span style="text-wrap: nowrap;">Szybkość ($\text{MT/s}$)</span> | Ocena opóźnienia CAS Latency (CL) | Komentarz |
-|:-:|---|---|---|
-| _**DDR4**_ | <span style="text-wrap: nowrap;">$2133 - 4000$</span> | <span style="text-wrap: nowrap;">CL14 - CL16: **Bardzo dobre**</span> <br>CL18 - CL19: *Standardowe* <br>CL22 i więcej: **_Słabe_** | Najpopularniejszy standard. Wartości powyżej $3200\text{ MT/s}$ wymagają włączenia drugiego profilu XMP/EXPO. |
-| _**DDR5**_ | <span style="text-wrap: nowrap;">$4800 - 8400$</span> | <span style="text-wrap: nowrap;">CL28 - CL32: **Bardzo dobre**</span> <br>CL36 - CL40: *Standardowe* <br>CL46 i więcej: **_Słabe_** | Najnowsza generacja. Wyższe opóźnienia CL są równoważone przez znacznie wyższe taktowanie. |
+| Standard RAM | <span style="text-wrap: nowrap;">Szybkość ($\text{MT/s}$)</span> | Ocena opóźnienia CAS Latency (CL)                                                                                                   | Komentarz                                                                                                     |
+| :----------: | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+|  _**DDR4**_  | <span style="text-wrap: nowrap;">$2133 - 4000$</span>            | <span style="text-wrap: nowrap;">CL14 - CL16: **Bardzo dobre**</span> <br>CL18 - CL19: *Standardowe* <br>CL22 i więcej: **_Słabe_** | Najpopularniejszy standard. Wartości powyżej $3200\text{ MT/s}$ wymagają włączenia drugiego profilu XMP/EXPO. |
+|  _**DDR5**_  | <span style="text-wrap: nowrap;">$4800 - 8400$</span>            | <span style="text-wrap: nowrap;">CL28 - CL32: **Bardzo dobre**</span> <br>CL36 - CL40: *Standardowe* <br>CL46 i więcej: **_Słabe_** | Najnowsza generacja. Wyższe opóźnienia CL są równoważone przez znacznie wyższe taktowanie.                    |
 
 <details>
 <summary>Tabela porównawcza CL dla pozostałych standardów RAM</summary>
 
-| Standard RAM | <span style="text-wrap: nowrap;">Szybkość ($\text{MT/s}$)</span> | Ocena opóźnienia CAS Latency (CL) | Komentarz techniczny |
-|---|---|---|---|
-| _**SDRAM**_ | $66 - 133$ | CL2: **Bardzo dobre** <br> CL3: *Standardowe* | Przesyła dane raz na cykl zegara. Wyższe wartości CL wtedy nie istniały. |
-| _**DDR**_ (DDR1) | $200 - 400$ | CL2 - CL2.5: **Bardzo dobre** <br> CL3: *Standardowe* | Pierwsza generacja podwajająca transfer (Double Data Rate). |
-| _**DDR2**_ | $400 - 1066$ | CL3 - CL4: **Bardzo dobre** <br> CL5 - CL6: *Standardowe* <br> CL7 i więcej: **_Słabe_** | Wzrost taktowań kosztem wyższych opóźnień CL. |
-| _**DDR3**_ | <span style="text-wrap: nowrap;">$800 - 2133$</span> | <span style="text-wrap: nowrap;">CL7 - CL9: **Bardzo dobre**</span> <br> CL10 - CL11: *Standardowe* <br> CL13 i więcej: **_Słabe_** | Standard używany m.in. w procesorach Intel Core od 2. do 4. generacji. |
+| Standard RAM     | <span style="text-wrap: nowrap;">Szybkość ($\text{MT/s}$)</span> | Ocena opóźnienia CAS Latency (CL)                                                                                                   | Komentarz techniczny                                                     |
+| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| _**SDRAM**_      | $66 - 133$                                                       | CL2: **Bardzo dobre** <br> CL3: *Standardowe*                                                                                       | Przesyła dane raz na cykl zegara. Wyższe wartości CL wtedy nie istniały. |
+| _**DDR**_ (DDR1) | $200 - 400$                                                      | CL2 - CL2.5: **Bardzo dobre** <br> CL3: *Standardowe*                                                                               | Pierwsza generacja podwajająca transfer (Double Data Rate).              |
+| _**DDR2**_       | $400 - 1066$                                                     | CL3 - CL4: **Bardzo dobre** <br> CL5 - CL6: *Standardowe* <br> CL7 i więcej: **_Słabe_**                                            | Wzrost taktowań kosztem wyższych opóźnień CL.                            |
+| _**DDR3**_       | <span style="text-wrap: nowrap;">$800 - 2133$</span>             | <span style="text-wrap: nowrap;">CL7 - CL9: **Bardzo dobre**</span> <br> CL10 - CL11: *Standardowe* <br> CL13 i więcej: **_Słabe_** | Standard używany m.in. w procesorach Intel Core od 2. do 4. generacji.   |
 
 </details>
 
@@ -117,14 +117,14 @@ Pamięć RAM bywa ustawiona wolniej, niż pozwalają na to jej parametry fabrycz
 ![CPU-Z Zakładka SPD](/public/courses/windows-11/Images/CPU-Z_SPD.png)
 
 - **Timings Table (tabela opóźnień):** Pokazuje gotowe profile działania zapisane przez producenta w pamięci kości RAM. Zrzut prezentuje 4 profile:
-  * **JEDEC #8 i JEDEC #9:** Bezpieczne, standardowe profile o szybkości $2400\text{ MT/s}$ ($1200\text{ MHz} \times 2$) przy niskim napięciu $1.20 \text{ V}$. Bez włączonego profilu XMP w BIOS-ie pamięć zwolniłaby do tych wartości.
-  * **XMP-3204:** Profil XMP o szybkości **$3200\text{ MT/s}$** ($1602\text{ MHz} \times 2$) przy napięciu $1.350 \text{ V}$ i opóźnieniu CL16. Z tego profilu korzysta teraz testowany komputer (co potwierdza zakładka Memory).
-  * **XMP-3602:** Maksymalny profil XMP o szybkości **$3600\text{ MT/s}$** ($1801\text{ MHz} \times 2$) przy napięciu $1.350 \text{ V}$ i opóźnieniu CL18.
+  - **JEDEC #8 i JEDEC #9:** Bezpieczne, standardowe profile o szybkości $2400\text{ MT/s}$ ($1200\text{ MHz} \times 2$) przy niskim napięciu $1.20 \text{ V}$. Bez włączonego profilu XMP w BIOS-ie pamięć zwolniłaby do tych wartości.
+  - **XMP-3204:** Profil XMP o szybkości **$3200\text{ MT/s}$** ($1602\text{ MHz} \times 2$) przy napięciu $1.350 \text{ V}$ i opóźnieniu CL16. Z tego profilu korzysta teraz testowany komputer (co potwierdza zakładka Memory).
+  - **XMP-3602:** Maksymalny profil XMP o szybkości **$3600\text{ MT/s}$** ($1801\text{ MHz} \times 2$) przy napięciu $1.350 \text{ V}$ i opóźnieniu CL18.
 
 #### ❓ Czym różnią się profile RAM?
-* **JEDEC:** Standardowe, bezpieczne ustawienia. Zapewniają bezproblemowy rozruch komputera zaraz po złożeniu.
-* **XMP (Extreme Memory Profile):** Profile szybsze (fabryczne podkręcanie) stworzone przez Intela. Trzeba je włączyć w BIOS-ie. Działają przy wyższym napięciu (np. $1.35\text{ V}$ zamiast $1.20\text{ V}$).
-* **EXPO:** Odpowiednik profilu XMP opracowany przez AMD.
+- **JEDEC:** Standardowe, bezpieczne ustawienia. Zapewniają bezproblemowy rozruch komputera zaraz po złożeniu.
+- **XMP (Extreme Memory Profile):** Profile szybsze (fabryczne podkręcanie) stworzone przez Intela. Trzeba je włączyć w BIOS-ie. Działają przy wyższym napięciu (np. $1.35\text{ V}$ zamiast $1.20\text{ V}$).
+- **EXPO:** Odpowiednik profilu XMP opracowany przez AMD.
 
 #### ⚠️ Dlaczego szybsza praca pamięci nie jest włączona domyślnie?
 1. **Stabilny rozruch:** Płyta główna przy pierwszym włączeniu zawsze uruchamia kości w podstawowym trybie **JEDEC**. Chodzi o to, by komputer w ogóle wystartował.
@@ -141,24 +141,24 @@ Schemat poniżej przedstawia fizyczny układ połączeń (magistralę Daisy Chai
 #### Sposób podłączenia a stabilność systemu:
 
 1. **Zalecana konfiguracja (2 kości w slotach 2 i 4):**
-   * Kości instaluje się w gniazdach **A2** i **B2** (na samym końcu linii sygnałowej, tuż przed fizycznymi terminatorami).
-   * Sygnał elektryczny z procesora (IMC) płynie przez puste sloty A1/B1 (które działają wtedy jedynie jako pasywne „przelotki” na ścieżce) bezpośrednio do kości w A2/B2.
-   * Na końcu linii znajduje się odbiornik (kości RAM), a zaraz za nim rezystor terminujący. Dzięki temu terminator w pełni pochłania resztki energii sygnału. Unikamy w ten sposób odbić (echa i szumu), co gwarantuje stabilną pracę pamięci na ich maksymalnym taktowaniu.
+   - Kości instaluje się w gniazdach **A2** i **B2** (na samym końcu linii sygnałowej, tuż przed fizycznymi terminatorami).
+   - Sygnał elektryczny z procesora (IMC) płynie przez puste sloty A1/B1 (które działają wtedy jedynie jako pasywne „przelotki” na ścieżce) bezpośrednio do kości w A2/B2.
+   - Na końcu linii znajduje się odbiornik (kości RAM), a zaraz za nim rezystor terminujący. Dzięki temu terminator w pełni pochłania resztki energii sygnału. Unikamy w ten sposób odbić (echa i szumu), co gwarantuje stabilną pracę pamięci na ich maksymalnym taktowaniu.
 
 2. **Błędna konfiguracja (2 kości w slotach 1 i 3):**
-   * Kości trafiają do gniazd **A1** i **B1** (w środku linii), a gniazda końcowe A2 i B2 pozostają puste.
-   * Sygnał dociera do kości w A1/B1, ale biegnie też wolnymi ścieżkami na płycie w kierunku pustych gniazd.
-   * Brak aktywnego odbiornika na końcu pogarsza dopasowanie impedancji – terminator nie pochłania fali w całości. Część sygnału odbija się od pustego końca i wraca jako echo, nakładając się na oryginalny sygnał w slotach A1/B1 oraz na kontrolerze (IMC). Prowadzi to do zakłóceń i niestabilności pamięci przy wyższych częstotliwościach.
+   - Kości trafiają do gniazd **A1** i **B1** (w środku linii), a gniazda końcowe A2 i B2 pozostają puste.
+   - Sygnał dociera do kości w A1/B1, ale biegnie też wolnymi ścieżkami na płycie w kierunku pustych gniazd.
+   - Brak aktywnego odbiornika na końcu pogarsza dopasowanie impedancji – terminator nie pochłania fali w całości. Część sygnału odbija się od pustego końca i wraca jako echo, nakładając się na oryginalny sygnał w slotach A1/B1 oraz na kontrolerze (IMC). Prowadzi to do zakłóceń i niestabilności pamięci przy wyższych częstotliwościach.
 
 > [!NOTE]
 > **Impedancja (opór pozorny)** – to odpowiednik oporu elektrycznego, ale dla sygnałów szybkozmiennych.
 > Choć zasilacz dostarcza prąd stały (DC), to sygnały przesyłające dane (np. zegar magistrali RAM) są ciągiem impulsów o częstotliwościach rzędu gigaherców ($\text{GHz}$). Przy takich prędkościach ścieżki na płycie głównej zachowują się jak linie transmisyjne, a prąd przybiera charakterystykę fali wysokiej częstotliwości. Dlatego zamiast zwykłego oporu (rezystancji) musimy brać pod uwagę **impedancję**, która uwzględnia również pojemność i indukcyjność przewodów.
 
 3. **Konfiguracja z 4 kośćmi (wszystkie sloty zajęte):**
-   * Sygnał w każdym kanale biegnie szeregowo przez oba moduły (z IMC przez A1 do A2).
-   * Dwa aktywne odbiorniki na jednej linii oznaczają dwukrotny wzrost obciążenia pojemnościowego dla kontrolera pamięci (IMC). Impulsy cyfrowe narastają i opadają wolniej (to tzw. diagram oczkowy).
-   * Dodatkowo każda kość stanowi punkt skoku impedancji, co wywołuje kolejne odbicia sygnału (echo) krążące między gniazdem A1 a A2.
-   * Przy takich zakłóceniach kontroler IMC ma problem z zachowaniem stabilności przy wysokich częstotliwościach (np. $3600\text{ MT/s}$).
+   - Sygnał w każdym kanale biegnie szeregowo przez oba moduły (z IMC przez A1 do A2).
+   - Dwa aktywne odbiorniki na jednej linii oznaczają dwukrotny wzrost obciążenia pojemnościowego dla kontrolera pamięci (IMC). Impulsy cyfrowe narastają i opadają wolniej (to tzw. diagram oczkowy).
+   - Dodatkowo każda kość stanowi punkt skoku impedancji, co wywołuje kolejne odbicia sygnału (echo) krążące między gniazdem A1 a A2.
+   - Przy takich zakłóceniach kontroler IMC ma problem z zachowaniem stabilności przy wysokich częstotliwościach (np. $3600\text{ MT/s}$).
 
 #### Wniosek dla naszego przykładu:
 Kości z przykładu mają fabryczny profil XMP na **$3600\text{ MT/s}$** (XMP-3602). Ponieważ jednak komputer ma zajęte wszystkie 4 sloty ($4 \times 8 \text{ GB}$), stabilne działanie z tą prędkością byłoby loterią.
@@ -193,43 +193,43 @@ W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204
 ![GPU-Z Graphics Card](/public/courses/windows-11/Images/GPU-Z_Graphics_Card.png)
 
 - **Bus Interface (interfejs magistrali):** Pokazuje wersję i szerokość linii magistrali PCI-Express (PCIe), z których korzysta karta.
-  * **W spoczynku:** Zrzut pokazuje `PCIe x16 4.0 @ x16 1.1`. Karta obsługuje standard PCIe 4.0, ale na pulpicie przełącza się w tryb 1.1, żeby oszczędzać energię.
-  * **Pod obciążeniem:** Kliknij znak zapytania (`?`) obok tej opcji i uruchom wbudowany `Render Test`. Wartość powinna skoczyć do nominalnej (np. `@ x16 4.0`).  
+  - **W spoczynku:** Zrzut pokazuje `PCIe x16 4.0 @ x16 1.1`. Karta obsługuje standard PCIe 4.0, ale na pulpicie przełącza się w tryb 1.1, żeby oszczędzać energię.
+  - **Pod obciążeniem:** Kliknij znak zapytania (`?`) obok tej opcji i uruchom wbudowany `Render Test`. Wartość powinna skoczyć do nominalnej (np. `@ x16 4.0`).  
   **_nie zaznaczaj tego checkboxa:_** _**Render in full-screen (for CrossFire / SLI)**_. Te opcje dotyczą starych systemów łączenia kilku kart w jeden układ.
 
-  ![GPU-Z okno Render Test](/public/courses/windows-11/Images/GPU-Z_render_test.png)
+![GPU-Z okno Render Test](/public/courses/windows-11/Images/GPU-Z_render_test.png)
   
-  > [!IMPORTANT]
-  > Test działa w nieskończonej pętli, bo ma stale obciążać kartę podczas diagnostyki. Gdy zobaczysz, że `Bus Interface` zmieniło się na docelową wartość (np. `@ x16 4.0`), możesz po prostu zamknąć okno testowe.
+> [!IMPORTANT]
+> Test działa w nieskończonej pętli, bo ma stale obciążać kartę podczas diagnostyki. Gdy zobaczysz, że `Bus Interface` zmieniło się na docelową wartość (np. `@ x16 4.0`), możesz po prostu zamknąć okno testowe.
   
-  > [!TIP]
-  > **Co jeśli karta nie osiąga nominalnej prędkości?**
-  > 1. *Zły slot PCIe:* Karta trafiła do dolnego slotu płyty głównej, który ma mniej linii (np. x4 zamiast x16) lub obsługuje starszą wersję PCIe. Kartę zawsze montuj w najwyższym slocie, najbliżej procesora.
-  > 2. *Dzielenie linii (Lane Sharing):* Szybki dysk SSD M.2 NVMe współdzieli linie z gniazdem karty, co obcina pasmo GPU o połowę (np. do x8).
-  > 3. *Opadanie karty (GPU Sag) lub zabrudzenie styków:* Ciężka karta mogła delikatnie wysunąć się ze złącza i stracić kontakt na skrajnych pinach. Wyjmij ją, przeczyść styki alkoholem izopropylowym (IPA) i zamontuj ponownie, najlepiej z podpórką."
+> [!TIP]
+> **Co jeśli karta nie osiąga nominalnej prędkości?**
+> 1. *Zły slot PCIe:* Karta trafiła do dolnego slotu płyty głównej, który ma mniej linii (np. x4 zamiast x16) lub obsługuje starszą wersję PCIe. Kartę zawsze montuj w najwyższym slocie, najbliżej procesora.
+> 2. *Dzielenie linii (Lane Sharing):* Szybki dysk SSD M.2 NVMe współdzieli linie z gniazdem karty, co obcina pasmo GPU o połowę (np. do x8).
+> 3. *Opadanie karty (GPU Sag) lub zabrudzenie styków:* Ciężka karta mogła delikatnie wysunąć się ze złącza i stracić kontakt na skrajnych pinach. Wyjmij ją, przeczyść styki alkoholem izopropylowym (IPA) i zamontuj ponownie, najlepiej z podpórką."
 
 - **Resizable BAR (ReBAR):** Daje procesorowi bezpośredni dostęp do całej pamięci VRAM karty graficznej.
-  * **Jak to działa:** Bez ReBAR procesor komunikuje się z pamięcią karty przez małe bloki o wielkości $256\text{ MB}$ (Base Address Register). Resizable BAR znosi ten limit. Tekstury i geometria przesyłane są szybciej, co w grach daje dodatkowe $5 - 15\\%$ wydajności i zmniejsza przycięcia (stuttering).
+  * **Jak to działa:** Bez ReBAR procesor komunikuje się z pamięcią karty przez małe bloki o wielkości $256\text{ MB}$ (Base Address Register). Resizable BAR znosi ten limit. Tekstury i geometria przesyłane są szybciej, co w grach daje dodatkowe $5 - 15\%$ wydajności i zmniejsza przycięcia (stuttering).
   * **Stan na zrzucie:** Pole **Resizable BAR** pokazuje **Disabled** (Wyłączone). Aby je włączyć, musisz w BIOS-ie płyty aktywować _**Above 4G Decoding**_ oraz _**ReBAR Support**_ (u AMD ta funkcja nazywa się *SAM* – *Smart Access Memory*).
   
-  > [!WARNING]
-  > **Czyste UEFI i pułapka z trybem CSM (MBR vs GPT):**
-  > ReBAR ruszy tylko w czystym trybie UEFI. Funkcja **CSM (Compatibility Support Module) / Legacy Boot** musi być wyłączona.
-  > 
-  > **Uwaga na blokadę startu systemu:**
-  > Jeśli Windows był instalowany ze starym trybem CSM, Twój dysk ma układ partycji **MBR** zamiast nowszego **GPT**. Gdy po prostu wyłączysz CSM w BIOS-ie, **komputer nie wykryje dysku startowego i Windows się nie uruchomi**.
-  > 
-  > Jak bezpiecznie odpalić ReBAR:
-  > 1. Sprawdź w *Zarządzaniu dyskami*, czy dysk systemowy ma styl **GPT**.
-  > 2. Jeśli widzisz **MBR**, zrób najpierw konwersję do GPT narzędziem `mbr2gpt` (z poziomu wiersza poleceń) lub najlepiej zainstaluj system na nowo w trybie UEFI.
-  > 3. Dopiero gdy system działa w czystym trybie UEFI (GPT), wejdź do BIOS-u, **wyłącz CSM** i włącz **Above 4G Decoding** oraz **Resizable BAR**.
+> [!WARNING]
+> **Czyste UEFI i pułapka z trybem CSM (MBR vs GPT):**
+> ReBAR ruszy tylko w czystym trybie UEFI. Funkcja **CSM (Compatibility Support Module) / Legacy Boot** musi być wyłączona.
+> 
+> **Uwaga na blokadę startu systemu:**
+> Jeśli Windows był instalowany ze starym trybem CSM, Twój dysk ma układ partycji **MBR** zamiast nowszego **GPT**. Gdy po prostu wyłączysz CSM w BIOS-ie, **komputer nie wykryje dysku startowego i Windows się nie uruchomi**.
+> 
+> Jak bezpiecznie odpalić ReBAR:
+> 1. Sprawdź w *Zarządzaniu dyskami*, czy dysk systemowy ma styl **GPT**.
+> 2. Jeśli widzisz **MBR**, zrób najpierw konwersję do GPT narzędziem `mbr2gpt` (z poziomu wiersza poleceń) lub najlepiej zainstaluj system na nowo w trybie UEFI.
+> 3. Dopiero gdy system działa w czystym trybie UEFI (GPT), wejdź do BIOS-u, **wyłącz CSM** i włącz **Above 4G Decoding** oraz **Resizable BAR**.
 
-  > [!NOTE]
-  > **Efekt poprawnej konfiguracji w BIOS-ie:**
-  > Poniższy zrzut pokazuje system po zmianach:
-  > 1. W BIOS-ie włączono _**Above 4G Decoding**_, _**Above 4GB MMIO BIOS assignment** _oraz _**Re-Size BAR Support**_.
-  > 2. GPU-Z pokazuje status **Resizable BAR: Enabled** (Włączone).
-  > 3. Na zrzucie (zrobionym podczas testu obciążeniowego) magistrala działa z pełną prędkością **PCIe x16 4.0 @ x16 4.0**.
+> [!NOTE]
+> **Efekt poprawnej konfiguracji w BIOS-ie:**
+> Poniższy zrzut pokazuje system po zmianach:
+> 1. W BIOS-ie włączono _**Above 4G Decoding**_, _**Above 4GB MMIO BIOS assignment** _oraz _**Re-Size BAR Support**_.
+> 2. GPU-Z pokazuje status **Resizable BAR: Enabled** (Włączone).
+> 3. Na zrzucie (zrobionym podczas testu obciążeniowego) magistrala działa z pełną prędkością **PCIe x16 4.0 @ x16 4.0**.
 
   ![GPU-Z Resizable BAR Enabled](/public/courses/windows-11/Images/GPU-Z_ResizableBAR_Włączenie.png)
 
@@ -237,9 +237,9 @@ W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204
   * **Memory Size (Pojemność):** Karta ma $12288\text{ MB}$ ($12\text{ GB}$) pamięci wideo (VRAM).
   * **Bus Width (Szerokość szyny pamięci):** Szyna danych między rdzeniem GPU a pamięcią VRAM ma szerokość **$192\text{ bit}$**. Dla kości GDDR6 od Hynixa daje to przepustowość (*Bandwidth*) rzędu **$360.0\text{ GB/s}$**.
   
-  > [!NOTE]
-  > **Przepustowość pamięci (Bandwidth):**
-  > Szerokość szyny to jak liczba pasów na drodze, a taktowanie pamięci – jak prędkość aut. Karta z wąską szyną (np. **$128\text{-bit}$**) bywa wąskim gardłem w rozdzielczościach **$1440p/4K$**. Nawet duża pojemność (np. **$16\text{ GB}$** VRAM) nie pomoże, jeśli szyna nie nadąży z przesyłaniem danych.
+> [!NOTE]
+> **Przepustowość pamięci (Bandwidth):**
+> Szerokość szyny to jak liczba pasów na drodze, a taktowanie pamięci – jak prędkość aut. Karta z wąską szyną (np. **$128\text{-bit}$**) bywa wąskim gardłem w rozdzielczościach **$1440p/4K$**. Nawet duża pojemność (np. **$16\text{ GB}$** VRAM) nie pomoże, jeśli szyna nie nadąży z przesyłaniem danych.
 
 ---
 
@@ -251,13 +251,13 @@ W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204
   * *GPU Temperature:* Średnia z czujników w rdzeniu. Zrzut pokazuje **$46.0^\circ\text{C}$** w spoczynku. Tę wartość zobaczysz w Menedżerze zadań Windows.
   * *GPU Hot Spot Temperature:* Temperatura z najgorętszego punktu rdzenia krzemowego. Na zrzucie to **$56.1^\circ\text{C}$**.
   
-  | Różnica (GPU vs Hot Spot) | Co oznacza? |
-  | :--- | :--- |
-  | **Do $15^\circ\text{C}$ – $20^\circ\text{C}$**<br><span style="font-size: 0.8em; text-wrap: nowrap">*(na zrzucie: $10.1^\circ\text{C}$)*</span> | Chłodzenie dolega prawidłowo, pasta działa bez zarzutu. |
-  | <span style="text-wrap: nowrap">**Powyżej $25^\circ\text{C}$ - $30^\circ\text{C}$**</span> | Słaby odbiór ciepła. Pasta mogła wyschnąć, ulec wypompowaniu (*pump-out effect*) albo docisk radiatora jest nierównomierny. Czas na wymianę pasty i termopadów. |
+  | Różnica (GPU vs Hot Spot)                                                                                                                       | Co oznacza?                                                                                                                                                     |
+  | :---------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | **Do $15^\circ\text{C}$ – $20^\circ\text{C}$**<br><span style="font-size: 0.8em; text-wrap: nowrap">*(na zrzucie: $10.1^\circ\text{C}$)*</span> | Chłodzenie dolega prawidłowo, pasta działa bez zarzutu.                                                                                                         |
+  | <span style="text-wrap: nowrap">**Powyżej $25^\circ\text{C}$ - $30^\circ\text{C}$**</span>                                                      | Słaby odbiór ciepła. Pasta mogła wyschnąć, ulec wypompowaniu (*pump-out effect*) albo docisk radiatora jest nierównomierny. Czas na wymianę pasty i termopadów. |
 
-- **Fan Speed (prędkość wentylatorów):** Prędkość obrotowa wentylatorów (w $\\%$ i RPM).
-  * Zrzut podaje **$0\\%$ (0 RPM)** dla obu wentylatorów. Dzisiejsze karty chłodzone są **półpasywnie** – wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55-60^\circ\text{C}$ na rdzeniu.
+- **Fan Speed (prędkość wentylatorów):** Prędkość obrotowa wentylatorów (w $\%$ i RPM).
+  * Zrzut podaje **$0\%$ (0 RPM)** dla obu wentylatorów. Dzisiejsze karty chłodzone są **półpasywnie** – wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55-60^\circ\text{C}$ na rdzeniu.
 
 - **Board Power Draw (pobór prądu karty):** Całkowity pobór mocy przez całą konstrukcję w watach ($\text{W}$).
   * Zrzut pokazuje **$19.5\text{ W}$** w spoczynku, z czego sam rdzeń (**GPU Chip Power Draw**) bierze tylko **$5.6\text{ W}$**. Reszta idzie na VRAM, wentylatory, podświetlenie i sekcję zasilania. Ta wartość pozwala ocenić zapas mocy zasilacza.
@@ -278,9 +278,9 @@ W zakładce **Advanced** sprawdzisz parametry sterownika, limity sprzętowe i sz
 ![GPU-Z Advanced - Limity](/public/courses/windows-11/Images/GPU-Z_Advanced_1.png)
 
 - **Power Limit (limit mocy):** W sekcji *General* program pokazuje fabryczne i dopuszczalne limity zasilania rdzenia GPU.
-  * Zrzut pokazuje wartość domyślną **Default ($100.0\\%$)** oraz maksymalną **Maximum ($124.7\\%$)**. W programach do podkręcania (np. MSI Afterburner) limit mocy można zwiększyć o te **$24.7\\%$** ponad fabrykę (zakres regulacji sięga od $-41\\%$ do $+25\\%$).
-  * **Tuning:** Obniżenie limitu mocy (np. do $85\\%$) to prosty sposób na redukcję temperatur i poboru prądu.
-  * **Temperature Limit:** Domyślny próg temperatury wynosi **Current $83.0^\circ\text{C}$**. Po jego przekroczeniu karta zacznie spowalniać taktowanie rdzenia (*thermal throttling*), żeby się nie przegrzać. Maksymalny próg, jaki można ustawić, to **$90.0^\circ\text{C}$**.
+  - Zrzut pokazuje wartość domyślną **Default ($100.0\%$)** oraz maksymalną **Maximum ($124.7\%$)**. W programach do podkręcania (np. MSI Afterburner) limit mocy można zwiększyć o te **$24.7\%$** ponad fabrykę (zakres regulacji sięga od $-41\%$ do $+25\%$).
+  - **Tuning:** Obniżenie limitu mocy (np. do $85\%$) to prosty sposób na redukcję temperatur i poboru prądu.
+  - **Temperature Limit:** Domyślny próg temperatury wynosi **Current $83.0^\circ\text{C}$**. Po jego przekroczeniu karta zacznie spowalniać taktowanie rdzenia (*thermal throttling*), żeby się nie przegrzać. Maksymalny próg, jaki można ustawić, to **$90.0^\circ\text{C}$**.
 
 #### 🖥️ 2. Parametry podłączonych monitorów (sekcja General / Monitor)
 Przewijając sekcję *General*, sprawdzisz parametry podłączonych ekranów:
@@ -323,6 +323,9 @@ Do sprawdzania i testowania dysków SSD lub HDD służą dwa bezpłatne programy
 1. **CrystalDiskInfo:** Szybko odczytuje parametry _**S.M.A.R.T.**_, ogólny stan zdrowia dysku oraz jego temperaturę.
 2. **CrystalDiskMark:** Testuje prędkości odczytu i zapisu (sekwencyjne oraz losowe).
 
+> [!TIP]
+> Głównym twórcą i programistą tego niezwykle popularnego narzędzia open-source jest japoński programista _**Noriyuki Miyazaki**_, znany w sieci pod pseudonimem *hiyohiyo*. 
+
 ---
 
 ### 📥 1. Wybór wersji i pobieranie
@@ -345,22 +348,22 @@ Jako przykładu użyjemy dwóch dysków NVMe pracujących w tym samym komputerze
 
 Program wyciąga parametry _**S.M.A.R.T.**_ (*Self-Monitoring, Analysis and Reporting Technology*) bezpośrednio z wbudowanego kontrolera. Zestawienie tych dwóch modeli dobrze pokazuje różnice technologiczne:
 
-* **Stan zdrowia (Health Status):**
-  * *Lexar (Dysk C):* Pokazuje **Good ($100\\%$)**. Dysk jest świeży i zapisał niewiele terabajtów.
-  * *Goodram (Dysk D):* Wskazuje **Good ($92\\%$)**. Komórki pamięci flash w dyskach SSD zużywają się przy każdym zapisie danych. Te $8\\%$ ubytku to normalny ślad użytkowania. Wartości powyżej $80-90\\%$ nie powinny martwić. Kopię zapasową i wymianę dysku planuj dopiero wtedy, gdy stan spadnie poniżej **$50\\%$** lub program zgłosi status **_„Coution”_** lub **_„Bad”_**.
-* **Suma zapisów hosta (Total Host Writes):** Pokazuje łączną ilość danych zapisaną od nowości.
-  * *Lexar:* Zapisał **$5660\text{ GB}$** (ok. $5.6\text{ TB}$) w ciągu **$1351$** godzin pracy.
-  * *Goodram:* Przetworzył już **$45620\text{ GB}$** (ok. $45.6\text{ TB}$) przez **$9627$** godzin (czyli ponad rok ciągłego działania). Ta różnica w zużyciu tłumaczy spadek zdrowia starszego Goodrama do **$92\\%$**.
-* **Wersja standardu i szyny (Transfer Mode):**
+- **Stan zdrowia (Health Status):**
+  - *Lexar (Dysk C):* Pokazuje **Good ($100\%$)**. Dysk jest świeży i zapisał niewiele terabajtów.
+  - *Goodram (Dysk D):* Wskazuje **Good ($92\%$)**. Komórki pamięci flash w dyskach SSD zużywają się przy każdym zapisie danych. Te $8\%$ ubytku to normalny ślad użytkowania. Wartości powyżej $80-90\%$ nie powinny martwić. Kopię zapasową i wymianę dysku planuj dopiero wtedy, gdy stan spadnie poniżej **$50\%$** lub program zgłosi status **_„Coution”_** lub **_„Bad”_**.
+- **Suma zapisów hosta (Total Host Writes):** Pokazuje łączną ilość danych zapisaną od nowości.
+  - *Lexar:* Zapisał **$5660\text{ GB}$** (ok. $5.6\text{ TB}$) w ciągu **$1351$** godzin pracy.
+  - *Goodram:* Przetworzył już **$45620\text{ GB}$** (ok. $45.6\text{ TB}$) przez **$9627$** godzin (czyli ponad rok ciągłego działania). Ta różnica w zużyciu tłumaczy spadek zdrowia starszego Goodrama do **$92\%$**.
+- **Wersja standardu i szyny (Transfer Mode):**
   Pokazuje interfejs, z którego aktualnie korzysta dysk, w formacie: `Bieżący tryb | Tryb maksymalny`.
   
   Tabela poniżej przedstawia maksymalne realne prędkości dla konfiguracji z czterema liniami (x4) w zależności od generacji złącza:
 
-  | Generacja magistrali | Maksymalny odczyt | Maksymalny zapis |
-  |:-:|---|---|
-  | **PCIe 3.0 x4** | ok. $3500\text{ MB/s}$ | ok. $3000\text{ MB/s}$ |
-  | **PCIe 4.0 x4** | ok. $7500\text{ MB/s}$ | ok. $7000\text{ MB/s}$ |
-  | **PCIe 5.0 x4** | ok. $14000\text{ MB/s}$ | ok. $12000\text{ MB/s}$ |
+  | Generacja magistrali | Maksymalny odczyt       | Maksymalny zapis        |
+  | :------------------: | ----------------------- | ----------------------- |
+  |   **PCIe 3.0 x4**    | ok. $3500\text{ MB/s}$  | ok. $3000\text{ MB/s}$  |
+  |   **PCIe 4.0 x4**    | ok. $7500\text{ MB/s}$  | ok. $7000\text{ MB/s}$  |
+  |   **PCIe 5.0 x4**    | ok. $14000\text{ MB/s}$ | ok. $12000\text{ MB/s}$ |
 
   * *Lexar (Dysk C):* Działa w trybie **PCIe 4.0 x4**. Został zamontowany w pierwszym, górnym slocie M.2 podłączonym bezpośrednio do linii procesora (CPU), co pozwala na pełne wykorzystanie przepustowości Gen4.
   * *Goodram (Dysk D):* Działa w trybie **PCIe 3.0 x4**. Umieszczono go w dolnym slocie M.2 obsługiwanym przez chipset płyty głównej. Złącze to idealnie pasuje do możliwości tej generacji dysku.
