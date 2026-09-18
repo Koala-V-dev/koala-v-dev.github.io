@@ -1,0 +1,505 @@
+version: 1
+course: ubuntu-26
+purpose: >
+  Dane merytoryczne dla TerminalLab. To nie jest lista do pokazania uczniowi jako tabela.
+  To zaplecze do budowy scenariuszy, walidacji i progresji komend.
+
+groups:
+  orientation:
+    label: Orientacja w systemie
+    introduce_in: module-0
+    commands:
+      - name: pwd
+        skill: Ustalenie bieżącego katalogu roboczego.
+        tests:
+          - cwd_equals
+          - output_equals_cwd
+        risk: none
+      - name: ls
+        skill: Podejrzenie zawartości katalogu.
+        variants: ["ls", "ls -l", "ls -a", "ls -la", "ls PATH"]
+        tests:
+          - output_contains
+          - output_has_hidden
+          - output_long_format
+        risk: none
+      - name: cd
+        skill: Zmiana katalogu roboczego.
+        variants: ["cd", "cd PATH", "cd ..", "cd -", "cd ~", "cd /"]
+        tests:
+          - cwd_equals
+        risk: low
+      - name: whoami
+        skill: Sprawdzenie aktualnego użytkownika.
+        tests:
+          - output_equals_user
+        risk: none
+      - name: hostname
+        skill: Sprawdzenie nazwy hosta.
+        tests:
+          - output_equals_host
+        risk: none
+      - name: clear
+        skill: Czyszczenie widoku terminala.
+        tests:
+          - screen_cleared
+        risk: none
+
+  files:
+    label: Pliki i katalogi
+    introduce_in: module-0
+    commands:
+      - name: mkdir
+        skill: Tworzenie katalogów.
+        variants: ["mkdir NAME", "mkdir -p PATH", "mkdir \"NAME WITH SPACES\""]
+        tests:
+          - directory_exists
+          - directory_count_changed
+          - argument_split_observed
+        risk: low
+      - name: touch
+        skill: Tworzenie pustego pliku albo aktualizacja czasu modyfikacji.
+        tests:
+          - file_exists
+        risk: low
+      - name: cp
+        skill: Kopiowanie plików i katalogów.
+        variants: ["cp SRC DST", "cp -r DIR DST"]
+        tests:
+          - file_exists
+          - file_content_equals
+          - directory_tree_equals
+        risk: medium
+      - name: mv
+        skill: Przenoszenie i zmiana nazwy.
+        tests:
+          - path_exists
+          - old_path_missing
+        risk: medium
+      - name: rm
+        skill: Usuwanie plików i drzew katalogów.
+        variants: ["rm FILE", "rm -r DIR", "rm -i FILE"]
+        tests:
+          - path_missing
+        risk: high
+      - name: rmdir
+        skill: Usuwanie pustych katalogów.
+        tests:
+          - directory_missing
+          - error_when_not_empty
+        risk: medium
+      - name: ln
+        skill: Tworzenie linków twardych i symbolicznych.
+        variants: ["ln SRC LINK", "ln -s TARGET LINK"]
+        tests:
+          - link_points_to
+        risk: medium
+
+  reading_text:
+    label: Czytanie plików tekstowych
+    introduce_in: module-1
+    commands:
+      - name: cat
+        skill: Szybkie wypisanie zawartości krótkiego pliku.
+        tests:
+          - output_contains_file_content
+        risk: low
+      - name: less
+        skill: Przeglądanie dłuższego pliku.
+        tests:
+          - pager_opened
+        risk: low
+      - name: head
+        skill: Podejrzenie początku pliku.
+        tests:
+          - output_first_lines
+        risk: low
+      - name: tail
+        skill: Podejrzenie końca pliku lub logu.
+        variants: ["tail FILE", "tail -f FILE", "tail -n N FILE"]
+        tests:
+          - output_last_lines
+        risk: low
+      - name: wc
+        skill: Liczenie linii, słów i bajtów.
+        tests:
+          - output_count_matches
+        risk: low
+
+  search_and_filter:
+    label: Szukanie i filtrowanie
+    introduce_in: module-1
+    commands:
+      - name: grep
+        skill: Szukanie tekstu i wzorców.
+        variants: ["grep PATTERN FILE", "grep -r PATTERN DIR", "grep -i PATTERN FILE"]
+        tests:
+          - output_contains_matches
+        risk: low
+      - name: find
+        skill: Szukanie plików po nazwie, typie i czasie.
+        variants: ["find DIR -name PATTERN", "find DIR -type f", "find DIR -mtime -N"]
+        tests:
+          - output_paths_match
+        risk: low
+      - name: sort
+        skill: Sortowanie linii.
+        tests:
+          - output_sorted
+        risk: low
+      - name: uniq
+        skill: Usuwanie sąsiadujących duplikatów.
+        tests:
+          - output_unique_adjacent
+        risk: low
+      - name: cut
+        skill: Wycinanie kolumn.
+        tests:
+          - output_field_matches
+        risk: low
+      - name: awk
+        skill: Proste przetwarzanie kolumn i warunków.
+        tests:
+          - output_program_matches
+        risk: low
+      - name: sed
+        skill: Strumieniowa zamiana tekstu.
+        tests:
+          - output_replacement_matches
+        risk: medium
+
+  pipes_redirection:
+    label: Potoki i przekierowania
+    introduce_in: module-1
+    commands:
+      - name: pipe
+        literal: "|"
+        skill: Przekazanie wyjścia jednej komendy do wejścia kolejnej.
+        tests:
+          - pipeline_output_matches
+        risk: low
+      - name: redirect_out
+        literal: ">"
+        skill: Zapisanie wyniku do pliku z nadpisaniem.
+        tests:
+          - file_content_equals
+        risk: medium
+      - name: append_out
+        literal: ">>"
+        skill: Dopisanie wyniku na końcu pliku.
+        tests:
+          - file_content_appended
+        risk: medium
+      - name: redirect_in
+        literal: "<"
+        skill: Podanie pliku jako wejścia komendy.
+        tests:
+          - command_used_stdin
+        risk: low
+
+  identity:
+    label: Tożsamość lokalna
+    introduce_in: module-2
+    commands:
+      - name: whoami
+        skill: Sprawdzenie nazwy aktualnego użytkownika.
+        tests:
+          - output_equals_user
+        risk: none
+      - name: id
+        skill: Sprawdzenie UID, GID i grup użytkownika.
+        variants: ["id", "id USER"]
+        tests:
+          - output_contains_uid
+          - output_contains_groups
+        risk: none
+      - name: groups
+        skill: Sprawdzenie grup użytkownika w krótszej formie.
+        variants: ["groups", "groups USER"]
+        tests:
+          - output_contains_group
+        risk: none
+      - name: getent
+        skill: Odczyt bazy kont i grup widzianej przez system.
+        variants: ["getent passwd USER", "getent group GROUP"]
+        tests:
+          - output_contains_account_record
+        risk: low
+      - name: adduser
+        skill: Utworzenie lokalnego konta użytkownika wraz z katalogiem domowym.
+        variants: ["sudo adduser USER"]
+        tests:
+          - user_exists
+          - home_exists
+        risk: high
+      - name: useradd
+        skill: Niskopoziomowe utworzenie lokalnego konta uzytkownika; w Ubuntu katalog domowy wymaga zwykle opcji -m.
+        variants: ["sudo useradd USER", "sudo useradd -m USER"]
+        tests:
+          - user_exists
+          - home_exists_when_m_used
+        risk: high
+      - name: passwd
+        skill: Ustawienie albo zmiana hasła użytkownika.
+        variants: ["sudo passwd USER"]
+        tests:
+          - password_state_changed
+        risk: high
+      - name: groupadd
+        skill: Utworzenie lokalnej grupy.
+        variants: ["sudo groupadd GROUP"]
+        tests:
+          - group_exists
+        risk: high
+      - name: addgroup
+        skill: Debianowy kreator tworzenia lokalnej grupy.
+        variants: ["sudo addgroup GROUP"]
+        tests:
+          - group_exists
+        risk: high
+      - name: deluser
+        skill: Usuniecie lokalnego konta uzytkownika, opcjonalnie razem z katalogiem domowym.
+        variants: ["sudo deluser USER", "sudo deluser --remove-home USER"]
+        tests:
+          - user_missing
+          - home_missing_when_requested
+        risk: high
+      - name: groupdel
+        skill: Usuniecie lokalnej grupy.
+        variants: ["sudo groupdel GROUP"]
+        tests:
+          - group_missing
+        risk: high
+      - name: usermod
+        skill: Zmiana właściwości konta, w tym dopisanie do grupy.
+        variants: ["sudo usermod -aG GROUP USER"]
+        tests:
+          - user_group_membership
+        risk: high
+
+  permissions:
+    label: Uprawnienia
+    introduce_in: module-2
+    commands:
+      - name: chmod
+        skill: Zmiana uprawnień.
+        variants: ["chmod 750 DIR", "chmod 640 FILE"]
+        tests:
+          - mode_equals
+        risk: high
+      - name: chown
+        skill: Zmiana właściciela.
+        variants: ["chown USER:GROUP PATH", "chown USER PATH"]
+        tests:
+          - owner_equals
+          - group_equals
+        risk: high
+      - name: chgrp
+        skill: Zmiana grupy.
+        variants: ["chgrp GROUP PATH"]
+        tests:
+          - group_equals
+        risk: high
+      - name: umask
+        skill: Domyślne uprawnienia nowych plików.
+        tests:
+          - default_mode_matches
+        risk: medium
+      - name: sudo
+        skill: Uruchomienie komendy z uprawnieniami administratora.
+        tests:
+          - command_requires_privilege
+          - privilege_boundary_observed
+        risk: high
+
+  packages_services:
+    label: Pakiety i usługi
+    introduce_in: module-3
+    commands:
+      - name: apt
+        skill: Instalacja, aktualizacja i wyszukiwanie pakietów.
+        variants: ["apt update", "apt search NAME", "apt install NAME", "apt remove NAME"]
+        tests:
+          - package_state_matches
+        risk: high
+      - name: snap
+        skill: Obsługa pakietów snap.
+        tests:
+          - snap_state_matches
+        risk: medium
+      - name: systemctl
+        skill: Sprawdzenie i kontrola usług systemd.
+        variants: ["systemctl status UNIT", "systemctl start UNIT", "systemctl enable UNIT"]
+        tests:
+          - service_state_matches
+        risk: high
+      - name: journalctl
+        skill: Czytanie dziennika systemd.
+        variants: ["journalctl -u UNIT", "journalctl -xe", "journalctl -f"]
+        tests:
+          - log_query_matches
+        risk: low
+
+  diagnostics:
+    label: Diagnostyka systemu
+    introduce_in: module-3
+    commands:
+      - name: ps
+        skill: Lista procesów.
+        tests:
+          - process_visible
+        risk: low
+      - name: top
+        skill: Interaktywny podgląd procesów.
+        tests:
+          - process_view_opened
+        risk: low
+      - name: kill
+        skill: Wysłanie sygnału do procesu.
+        tests:
+          - process_state_changed
+        risk: high
+      - name: df
+        skill: Zajętość systemów plików.
+        variants: ["df", "df -h"]
+        tests:
+          - filesystem_usage_output
+        risk: low
+      - name: du
+        skill: Rozmiar katalogów i plików.
+        tests:
+          - directory_usage_output
+        risk: low
+      - name: free
+        skill: Pamięć RAM i swap.
+        variants: ["free", "free -h"]
+        tests:
+          - memory_output
+        risk: low
+      - name: lsblk
+        skill: Rozpoznanie dyskow, partycji, systemow plikow i punktow montowania.
+        variants: ["lsblk", "lsblk -f"]
+        tests:
+          - block_devices_output
+          - mountpoints_visible
+        risk: low
+      - name: lshw
+        skill: Rozpoznanie sprzetu widzianego przez system.
+        variants: ["sudo lshw", "sudo lshw -short"]
+        tests:
+          - hardware_output
+        risk: low
+      - name: htop
+        skill: Czytelny podglad procesow i obciazenia systemu.
+        tests:
+          - process_view_opened
+        risk: low
+      - name: uname
+        skill: Informacje o jądrze.
+        tests:
+          - kernel_output
+        risk: low
+
+  network:
+    label: Sieć
+    introduce_in: server-bridge
+    commands:
+      - name: ip
+        skill: Adresy, interfejsy i trasy.
+        variants: ["ip a", "ip route"]
+        tests:
+          - network_state_output
+        risk: medium
+      - name: ping
+        skill: Podstawowy test osiągalności hosta.
+        tests:
+          - host_reachable
+        risk: low
+      - name: ss
+        skill: Gniazda sieciowe i nasłuchujące porty.
+        variants: ["ss -tulpn"]
+        tests:
+          - socket_visible
+        risk: low
+      - name: curl
+        skill: Pobieranie HTTP i test API.
+        tests:
+          - http_response_matches
+        risk: medium
+      - name: ssh
+        skill: Zdalna sesja shell.
+        tests:
+          - remote_login_simulated
+        risk: high
+      - name: scp
+        skill: Kopiowanie przez SSH.
+        tests:
+          - remote_file_state_matches
+        risk: high
+
+  firewall:
+    label: Zapora lokalna
+    introduce_in: desktop-bridge
+    commands:
+      - name: ufw
+        skill: Sprawdzenie i podstawowa kontrola zapory Ubuntu.
+        variants: ["sudo ufw status", "sudo ufw enable", "sudo ufw disable", "sudo ufw allow 22/tcp", "sudo ufw delete allow 22/tcp"]
+        tests:
+          - firewall_status_output
+          - firewall_enabled
+          - firewall_rule_state
+        risk: high
+
+  archives:
+    label: Archiwa
+    introduce_in: module-2
+    commands:
+      - name: tar
+        skill: Pakowanie i rozpakowywanie katalogów.
+        variants: ["tar -cf ARCHIVE DIR", "tar -xf ARCHIVE", "tar -czf ARCHIVE DIR"]
+        tests:
+          - archive_contains
+          - extracted_tree_matches
+        risk: medium
+      - name: zip
+        skill: Tworzenie archiwow ZIP, szczegolnie do wymiany z innymi systemami.
+        variants: ["zip ARCHIVE.zip FILE", "zip -r ARCHIVE.zip DIR"]
+        tests:
+          - archive_contains
+        risk: medium
+      - name: unzip
+        skill: Rozpakowywanie archiwow ZIP.
+        variants: ["unzip ARCHIVE.zip"]
+        tests:
+          - extracted_tree_matches
+        risk: medium
+      - name: gzip
+        skill: Kompresja pojedynczego strumienia lub pliku.
+        tests:
+          - compressed_file_exists
+        risk: medium
+
+  help:
+    label: Pomoc i introspekcja
+    introduce_in: module-0
+    commands:
+      - name: man
+        skill: Czytanie manuala komendy.
+        tests:
+          - man_page_opened
+        risk: none
+      - name: "--help"
+        skill: Szybka pomoc z programu.
+        tests:
+          - help_output_visible
+        risk: none
+      - name: which
+        skill: Ustalenie ścieżki programu.
+        tests:
+          - executable_path_output
+        risk: none
+      - name: type
+        skill: Rozpoznanie aliasu, funkcji, builtina lub programu.
+        tests:
+          - shell_resolution_output
+        risk: none
