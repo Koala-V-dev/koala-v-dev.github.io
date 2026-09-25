@@ -115,7 +115,7 @@ Tu sprawa jest prosta i być może już to robiłeś przy instalacji systemu prz
 ## 🛠️ Konfiguracja Historii plików
 
 <data-gate>
-  <data-hotspot image="/public/courses/windows-11/Images/panel-sterowania-historia-plików.png">
+  <data-hotspot image="/courses/windows-11/Images/panel-sterowania-historia-plików.png">
 <hotspot x="1" y="45" title="Przywróć pliki osobiste">
 
 Jeżeli została już utworzona kopia zapasowa, to w tym miejscu możesz przywracać pliki z wykorzystaniem **UI**  

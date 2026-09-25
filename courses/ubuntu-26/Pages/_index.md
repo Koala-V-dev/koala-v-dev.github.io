@@ -2,7 +2,6 @@
 # Czym jest Linux
 # Instalacja w VirtualBox
 # Ustawienia GNOME
-# Katalogi w Ubuntu
 
 ## Moduł 1: Podstawowa praca w terminalu
 # Pliki i katalogi
