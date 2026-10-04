@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // Odczytujemy parametr 'widget' z adresu URL i dynamicznie generujemy tag meta viewport
+        const params = new URLSearchParams(window.location.search);
+        const widgetBehavior = params.get('widget') || 'resizes-content';
+        
+        const metaTag = document.createElement('meta');
+        metaTag.name = 'viewport';
+        metaTag.content = `width=device-width, initial-scale=1.0, interactive-widget=${widgetBehavior}`;
+        document.head.appendChild(metaTag);
+    </script>
+    <title>Eksperyment Viewport & Klawiatura</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-color: #f1f5f9;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            height: 100%;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+            box-sizing: border-box;
+        }
+
+        .meta-badge {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid var(--accent-blue);
+            border-radius: 4px;
+            padding: 6px;
+            margin: 8px 0;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .config-btn-group {
+            margin: 8px 0;
+        }
+
+        .config-btn-group a {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 3px;
+            background: #334155;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .config-btn-group a.active {
+            background: var(--accent-blue);
+        }
+
+        .unit-selector {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin: 8px 0;
+        }
+
+        .unit-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .unit-btn.active {
+            background: var(--accent-green);
+        }
+
+        .test-input {
+            width: 90%;
+            max-width: 350px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 2px solid #475569;
+            background: #0f172a;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        /* Główny kontener testowy o dynamicznie zmienianej jednostce wysokości */
+        .test-wrapper {
+            box-sizing: border-box;
+            border: 4px solid var(--accent-blue);
+            background: rgba(30, 41, 59, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin: 15px auto;
+            position: relative;
+        }
+
+        .target-btn {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+        }
+
+        .target-btn:active {
+            background: #dc2626;
+        }
+
+        .info-panel {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h4 style="margin: 0 0 5px 0;">Tester Dostępności (Klawiatura vs Viewport)</h4>
+        
+        <div class="meta-badge">
+            interactive-widget: <span style="color: var(--accent-blue);">${widgetBehavior}</span>
+        </div>
+
+        <div class="config-btn-group">
+            <a href="?widget=resizes-content" id="btn-resizes">Zmień na: resizes-content</a>
+            <a href="?widget=overlays-content" id="btn-overlays">Zmień na: overlays-content</a>
+        </div>
+
+        <div class="unit-selector">
+            <button class="unit-btn active" onclick="changeUnit('vh')">100vh</button>
+            <button class="unit-btn" onclick="changeUnit('svh')">100svh</button>
+            <button class="unit-btn" onclick="changeUnit('lvh')">100lvh</button>
+            <button class="unit-btn" onclick="changeUnit('dvh')">100dvh</button>
+        </div>
+
+        <input type="text" class="test-input" placeholder="Kliknij tutaj, aby wysunąć klawiaturę...">
+    </header>
+
+    <!-- Kontener o testowanej wysokości -->
+    <div id="test-container" class="test-wrapper" style="height: 100vh;">
+        <div class="info-panel">
+            <strong style="color: var(--accent-blue);">Jednostka:</strong> <span id="current-unit-name">100vh</span><br>
+            <strong style="color: var(--accent-blue);">Wysokość px:</strong> <span id="current-unit-height">0px</span>
+            <p style="margin: 5px 0 0 0; font-size: 11px; color: #94a3b8;">
+                Ten kontener ma wysokość ustawioną w CSS. Czerwony przycisk znajduje się na samym dole tego kontenera.
+            </p>
+        </div>
+
+        <!-- Przycisk docelowy na samym dole kontenera -->
+        <button class="target-btn" onclick="alert('SUKCES! Przycisk został kliknięty!')">
+            🎯 KLIKNIJ MNIE (Jestem na dole)
+        </button>
+    </div>
+
+    <script>
+        // Podświetlanie aktywnych linków konfiguracyjnych
+        document.getElementById('btn-resizes').classList.toggle('active', widgetBehavior === 'resizes-content');
+        document.getElementById('btn-overlays').classList.toggle('active', widgetBehavior === 'overlays-content');
+
+        let activeUnit = 'vh';
+
+        function changeUnit(unit) {
+            activeUnit = unit;
+            
+            // Aktualizacja aktywnych przycisków
+            document.querySelectorAll('.unit-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === `100${unit}`) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Zmiana wysokości kontenera testowego
+            const container = document.getElementById('test-container');
+            container.style.height = `100${unit}`;
+            
+            document.getElementById('current-unit-name').textContent = `100${unit}`;
+            updateLiveMetrics();
+        }
+
+        function updateLiveMetrics() {
+            const container = document.getElementById('test-container');
+            const heightLabel = document.getElementById('current-unit-height');
+            if (container && heightLabel) {
+                const rect = container.getBoundingClientRect();
+                heightLabel.textContent = `${Math.round(rect.height)}px`;
+            }
+        }
+
+        // Śledzenie na bieżąco
+        window.addEventListener('resize', updateLiveMetrics);
+        window.addEventListener('scroll', updateLiveMetrics);
+        setInterval(updateLiveMetrics, 200);
+    </script>
+</body>
+</html>

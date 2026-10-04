@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewport Units Visualizer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Atkinson+Hyperlegible&family=Fira+Code&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --panel-bg: #111827;
+            --border-color: #1e293b;
+            --text-color: #e2e8f0;
+            --text-muted: #64748b;
+            --accent-color: #0077c9;
+            --accent-glow: rgba(0, 119, 201, 0.2);
+            --color-fit: #10b981;
+            --color-cutoff: #ef4444;
+            --color-gap: #f59e0b;
+
+            --font-main: 'Outfit', sans-serif;
+            --font-text: 'Atkinson Hyperlegible', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+        }
+
+        .app-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+
+        .window-container {
+            width: 100%;
+            max-width: 960px;
+            background: rgba(13, 17, 28, 0.75);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            overflow: visible;
+            margin-bottom: 8px;
+            box-sizing: border-box;
+        }
+
+        .window-header {
+            background: rgba(20, 26, 38, 0.9);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            height: 42px;
+            box-sizing: border-box;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-red {
+            background-color: #ff5f56;
+        }
+
+        .dot-yellow {
+            background-color: #ffbd2e;
+        }
+
+        .dot-green {
+            background-color: #27c93f;
+        }
+
+        .window-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            flex-grow: 1;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .logo-span {
+            font-size: 11px;
+            color: #64748b;
+            font-family: monospace;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .app-content {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 16px;
+            padding: 16px;
+            flex-grow: 1;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .app-content {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .controls-panel {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .btn-toggle {
+            display: flex;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-main);
+        }
+
+        .btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn.active {
+            background: var(--accent-color);
+            color: #ffffff;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-toggle .btn {
+            flex-grow: 1;
+            padding: 6px;
+        }
+
+        .explain-box {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+            font-family: var(--font-text);
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+
+        .explain-box strong {
+            color: #ffffff;
+        }
+
+        /* Phone visualizer panel */
+        .visualizer-panel {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 480px;
+        }
+
+        .phone-mockup {
+            width: 230px;
+            background: #000000;
+            border: 8px solid #1e293b;
+            border-radius: 36px;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding-top: 10px;
+        }
+
+        /* Phone notch */
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 14px;
+            background: #1e293b;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            z-index: 10;
+        }
+
+        /* Status bar */
+        .phone-status-bar {
+            height: 18px;
+            background: #000000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 9px;
+            color: #94a3b8;
+            font-weight: 500;
+            z-index: 9;
+        }
+
+        .phone-screen {
+            height: 320px;
+            width: 100%;
+            position: relative;
+            background: #030712;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Simulated Web View */
+        .web-view {
+            width: 100%;
+            position: relative;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            transition: height 0.3s ease;
+        }
+
+        /* Sized Viewport Element */
+        .viewport-element {
+            width: 100%;
+            background: rgba(59, 130, 246, 0.15);
+            border: 2px dashed var(--accent-color);
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: height 0.3s ease;
+            z-index: 2;
+        }
+
+        .viewport-element-label {
+            font-size: 11px;
+            font-weight: 700;
+            font-family: var(--font-code);
+            color: var(--accent-color);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        /* Simulated address bar */
+        .phone-address-bar {
+            height: 36px;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            z-index: 5;
+            transition: all 0.3s ease;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .address-bar-input {
+            width: 80%;
+            height: 22px;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        /* Simulated keyboard */
+        .phone-keyboard {
+            height: 0;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(6px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            z-index: 6;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .phone-keyboard.visible {
+            height: 110px;
+            padding: 6px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 3px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .key {
+            background: rgba(71, 85, 105, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            height: 18px;
+            border-radius: 3px;
+            flex-grow: 1;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .key-space {
+            flex-grow: 5;
+        }
+
+        /* Indicator Overlays */
+        .status-indicator {
+            position: absolute;
+            top: 24px;
+            right: 8px;
+            z-index: 8;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .status-fit {
+            background: var(--color-fit);
+            color: #ffffff;
+        }
+
+        .status-cutoff {
+            background: var(--color-cutoff);
+            color: #ffffff;
+        }
+
+        .status-gap {
+            background: var(--color-gap);
+            color: #000000;
+        }
+
+        /* Cut-off hatch */
+        .cutoff-overlay {
+            position: absolute;
+            width: 100%;
+            background: repeating-linear-gradient(45deg,
+                    rgba(239, 68, 68, 0.25),
+                    rgba(239, 68, 68, 0.25) 10px,
+                    rgba(239, 68, 68, 0.15) 10px,
+                    rgba(239, 68, 68, 0.15) 20px);
+            border-top: 1px solid var(--color-cutoff);
+            border-bottom: 1px solid var(--color-cutoff);
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        /* Gap hatch */
+        .gap-overlay {
+            position: absolute;
+            width: 100%;
+            background: repeating-linear-gradient(-45deg,
+                    rgba(245, 158, 11, 0.25),
+                    rgba(245, 158, 11, 0.25) 10px,
+                    rgba(245, 158, 11, 0.15) 10px,
+                    rgba(245, 158, 11, 0.15) 20px);
+            border-top: 1px dashed var(--color-gap);
+            border-bottom: 1px dashed var(--color-gap);
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .web-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            box-sizing: border-box;
+            scrollbar-width: none;
+        }
+        .web-canvas::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scroll-spacer {
+            height: 250px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            color: #64748b;
+            text-align: center;
+            box-sizing: border-box;
+            border-top: 1px dashed #334155;
+            transition: margin-top 0.3s ease;
+        }
+
+        .mock-input-container {
+            width: 85%;
+            margin-bottom: 15px;
+            z-index: 3;
+        }
+        .mock-input-container input {
+            width: 100%;
+            padding: 5px 8px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 4px;
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .mock-page-btn {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            padding: 8px 0;
+            background: var(--color-fit);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+            z-index: 3;
+        }
+
+        .metrics-badge {
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: var(--font-code);
+            font-size: 11px;
+            margin-top: 12px;
+            width: 100%;
+            max-width: 230px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            box-sizing: border-box;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+        }
+
+        .metric-val {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <div class="window-container">
+            <div class="window-header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="window-title">Jednostki Viewportu CSS na Urządzeniach Mobilnych</div>
+                <span class="logo-span">Koala-V</span>
+            </div>
+
+            <div class="app-content">
+                <!-- Lewy Panel Kontrolny -->
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <div class="section-title">Wybierz jednostkę CSS</div>
+                        <div class="btn-grid">
+                            <button class="btn active" onclick="setUnit('vh')">100vh</button>
+                            <button class="btn" onclick="setUnit('svh')">100svh</button>
+                            <button class="btn" onclick="setUnit('lvh')">100lvh</button>
+                            <button class="btn" onclick="setUnit('dvh')">100dvh</button>
+                        </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <div class="section-title">Pozycja paska adresu</div>
+                        <div class="btn-toggle">
+                            <button id="btn-pos-bottom" class="btn active" onclick="setAddressBarPosition('bottom')">Na dole (Safari iOS)</button>
+                            <button id="btn-pos-top" class="btn" onclick="setAddressBarPosition('top')">Na górze (Android Chrome/FF)</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="section-title">Wirtualna klawiatura mobilna</div>
+                        <div class="btn-toggle">
+                            <button id="btn-kb-closed" class="btn active"
+                                onclick="setKeyboard(false)">Zamknięta</button>
+                            <button id="btn-kb-open" class="btn" onclick="setKeyboard(true)">Otwarta</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="section-title">Zachowanie klawiatury (interactive-widget)</div>
+                        <div class="btn-toggle">
+                            <button id="btn-widget-overlays" class="btn active"
+                                onclick="setInteractiveWidget('overlays')">overlays-content</button>
+                            <button id="btn-widget-resizes" class="btn"
+                                onclick="setInteractiveWidget('resizes')">resizes-content</button>
+                        </div>
+                    </div>
+
+                    <div class="explain-box" id="explanation-text">
+                        Wybierz jednostki, by zobaczyć jak zachowują się na smartfonie.
+                    </div>
+                </div>
+
+                <!-- Prawy Panel Wizualny -->
+                <div class="visualizer-panel">
+                    <div class="phone-mockup">
+                        <div class="phone-notch"></div>
+                        <div class="phone-status-bar">
+                            <span>09:41</span>
+                            <span>LTE 🔋</span>
+                        </div>
+
+                        <div class="phone-screen">
+                            <!-- Status indicators inside the screen -->
+                            <div id="status-badge" class="status-indicator status-fit">Idealne</div>
+
+                            <!-- Web View containing the viewport element -->
+                            <div class="web-view" id="web-view-el" style="height: 100%;">
+                                <div class="web-canvas" id="web-canvas-el">
+                                    <div class="viewport-element" id="vp-element-el">
+                                        <div class="mock-input-container">
+                                            <input type="text" id="mock-page-input" placeholder="🔍 Kliknij by pisać..." readonly>
+                                        </div>
+                                        <span class="viewport-element-label" id="vp-element-label">100vh</span>
+                                        <button class="mock-page-btn" id="mock-page-btn-el" onclick="alert('SUKCES! Kliknięto przycisk na dole strony!')">
+                                            🎯 Kup Teraz
+                                        </button>
+                                        
+                                        <!-- Overlays to show cut-off and gap -->
+                                        <div id="cutoff-indicator" class="cutoff-overlay" style="display: none;"></div>
+                                    </div>
+                                    <div id="gap-indicator" class="gap-overlay" style="display: none;"></div>
+                                    
+                                    <!-- Spacer for scrolling -->
+                                    <div class="scroll-spacer" id="scroll-spacer-el">
+                                        📜 Dalsza zawartość strony (Obszar przewijania)
+                                    </div>
+                                </div>
+
+                                <div class="phone-address-bar" id="phone-address-bar-el">
+                                    <div class="address-bar-input">🔒 koala-v.pl/nauka</div>
+                                </div>
+                            </div>
+
+                            <!-- Keyboard container outside the active webview -->
+                            <div class="phone-keyboard" id="phone-keyboard-el">
+                                <div class="keyboard-row">
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                </div>
+                                <div class="keyboard-row">
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                    <div class="key"></div>
+                                </div>
+                                <div class="keyboard-row">
+                                    <div class="key key-space"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics -->
+                    <div class="metrics-badge">
+                        <div class="metric-row">
+                            <span class="metric-label">Wysokość okna (viewport):</span>
+                            <span class="metric-val" id="metric-vp-h">0px</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Wysokość elementu CSS:</span>
+                            <span class="metric-val" id="metric-el-h">0px</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Stan widoczności:</span>
+                            <span class="metric-val" id="metric-status" style="color: var(--color-fit);">OK</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedUnit = 'vh';
+        let addressBarVisible = true;
+        let addressBarPosition = 'bottom'; // 'bottom' lub 'top'
+        let keyboardOpen = false;
+        let interactiveWidget = 'overlays'; // 'overlays' lub 'resizes'
+
+        // Stałe wysokości na ekranie mockupu smartfona
+        const screenHeight = 320; // Wysokość ekranu pod statusem bar
+        const addressBarHeight = 36;
+        const keyboardHeight = 110;
+
+        function setUnit(unit) {
+            selectedUnit = unit;
+            document.querySelectorAll('.btn-grid .btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === `100${unit}`) btn.classList.add('active');
+            });
+            updateVisualizer();
+        }
+
+        function setAddressBar(visible) {
+            addressBarVisible = visible;
+            document.getElementById('btn-addr-visible').classList.toggle('active', visible);
+            document.getElementById('btn-addr-hidden').classList.toggle('active', !visible);
+            updateVisualizer();
+        }
+
+        function setAddressBarPosition(position) {
+            addressBarPosition = position;
+            document.getElementById('btn-pos-bottom').classList.toggle('active', position === 'bottom');
+            document.getElementById('btn-pos-top').classList.toggle('active', position === 'top');
+            updateVisualizer();
+        }
+
+        function setKeyboard(open) {
+            keyboardOpen = open;
+            document.getElementById('btn-kb-open').classList.toggle('active', open);
+            document.getElementById('btn-kb-closed').classList.toggle('active', !open);
+            updateVisualizer();
+        }
+
+        function setInteractiveWidget(behavior) {
+            interactiveWidget = behavior;
+            document.getElementById('btn-widget-overlays').classList.toggle('active', behavior === 'overlays');
+            document.getElementById('btn-widget-resizes').classList.toggle('active', behavior === 'resizes');
+            updateVisualizer();
+        }
+
+        function updateVisualizer() {
+            const keyboardEl = document.getElementById('phone-keyboard-el');
+            const addressBarEl = document.getElementById('phone-address-bar-el');
+            const webViewEl = document.getElementById('web-view-el');
+            const webCanvasEl = document.getElementById('web-canvas-el');
+            const scrollSpacerEl = document.getElementById('scroll-spacer-el');
+            const vpElementEl = document.getElementById('vp-element-el');
+            const vpElementLabel = document.getElementById('vp-element-label');
+            const statusBadge = document.getElementById('status-badge');
+            const cutoffIndicator = document.getElementById('cutoff-indicator');
+            const gapIndicator = document.getElementById('gap-indicator');
+
+            const explanationText = document.getElementById('explanation-text');
+            const metricVpH = document.getElementById('metric-vp-h');
+            const metricElH = document.getElementById('metric-el-h');
+            const metricStatus = document.getElementById('metric-status');
+
+            // 1. Zmiana widoczności klawiatury
+            if (keyboardOpen) {
+                keyboardEl.classList.add('visible');
+                if (interactiveWidget === 'overlays') {
+                    keyboardEl.style.position = 'absolute';
+                    keyboardEl.style.bottom = '0';
+                    keyboardEl.style.left = '0';
+                    keyboardEl.style.width = '100%';
+                } else {
+                    keyboardEl.style.position = 'relative';
+                    keyboardEl.style.bottom = 'auto';
+                    keyboardEl.style.left = 'auto';
+                    keyboardEl.style.width = '100%';
+                }
+            } else {
+                keyboardEl.classList.remove('visible');
+                keyboardEl.style.position = 'relative';
+            }
+
+            // 2. Zmiana paska adresu
+            if (addressBarVisible) {
+                addressBarEl.style.height = `${addressBarHeight}px`;
+                addressBarEl.style.opacity = '1';
+                
+                if (addressBarPosition === 'top') {
+                    addressBarEl.style.top = '0';
+                    addressBarEl.style.bottom = 'auto';
+                    addressBarEl.style.borderTop = 'none';
+                    addressBarEl.style.borderBottom = '1px solid rgba(255, 255, 255, 0.15)';
+                    addressBarEl.style.transform = 'translateY(0)';
+                } else {
+                    addressBarEl.style.top = 'auto';
+                    addressBarEl.style.bottom = '0';
+                    addressBarEl.style.borderTop = '1px solid rgba(255, 255, 255, 0.15)';
+                    addressBarEl.style.borderBottom = 'none';
+                    if (keyboardOpen && interactiveWidget === 'overlays') {
+                        addressBarEl.style.transform = `translateY(-${keyboardHeight}px)`;
+                    } else {
+                        addressBarEl.style.transform = 'translateY(0)';
+                    }
+                }
+            } else {
+                addressBarEl.style.height = '0px';
+                addressBarEl.style.opacity = '0';
+                addressBarEl.style.transform = 'translateY(10px)';
+            }
+
+            // 3. Obliczanie wysokości okna przeglądarki (Web View) w zależności od zachowania klawiatury
+            let currentWebViewHeight = screenHeight;
+
+            if (keyboardOpen && interactiveWidget === 'resizes') {
+                // Klawiatura zmniejsza dostępną wysokość strony internetowej
+                currentWebViewHeight = screenHeight - keyboardHeight;
+            } else {
+                // Klawiatura nakłada się na wierzch (overlays) lub jest zamknięta
+                currentWebViewHeight = screenHeight;
+            }
+
+            webViewEl.style.height = `${currentWebViewHeight}px`;
+
+            // Dynamiczne pozycjonowanie i skalowanie płótna strony (.web-canvas)
+            if (webCanvasEl) {
+                if (addressBarVisible && addressBarPosition === 'top') {
+                    webCanvasEl.style.top = `${addressBarHeight}px`;
+                    webCanvasEl.style.height = `${currentWebViewHeight - addressBarHeight}px`;
+                } else {
+                    webCanvasEl.style.top = '0px';
+                    webCanvasEl.style.height = `${currentWebViewHeight}px`;
+                }
+            }
+
+            // 4. Obliczanie wartości jednostek Viewportu w pikselach
+            // Wartość bazowa viewportu bez klawiatury:
+            let largeVpVal = screenHeight; // lvh
+            let smallVpVal = screenHeight - addressBarHeight; // svh
+            let traditionalVhVal = screenHeight; // vh (tradycyjne vh działa zazwyczaj jak lvh na iOS/Android)
+
+            // Jeśli klawiatura zmniejsza rozmiar viewportu (interactive-widget = resizes-content):
+            if (keyboardOpen && interactiveWidget === 'resizes') {
+                largeVpVal = screenHeight - keyboardHeight;
+                smallVpVal = (screenHeight - keyboardHeight) - addressBarHeight;
+                traditionalVhVal = screenHeight - keyboardHeight;
+            }
+
+            // Obliczenie aktualnej dynamicznej jednostki dvh
+            let dynamicVpVal = addressBarVisible ? smallVpVal : largeVpVal;
+
+            // Wybór aktualnej wysokości elementu na podstawie wybranej jednostki
+            let elementHeight = 0;
+            if (selectedUnit === 'vh') elementHeight = traditionalVhVal;
+            else if (selectedUnit === 'svh') elementHeight = smallVpVal;
+            else if (selectedUnit === 'lvh') elementHeight = largeVpVal;
+            else if (selectedUnit === 'dvh') elementHeight = dynamicVpVal;
+
+            // Ustawienie wysokości fizycznej elementu na ekranie
+            vpElementEl.style.height = `${elementHeight}px`;
+            vpElementLabel.textContent = `100${selectedUnit} (${elementHeight}px)`;
+
+            if (scrollSpacerEl) {
+                scrollSpacerEl.style.marginTop = `${elementHeight}px`;
+            }
+
+            // 5. Analiza widoczności i nakładania się (Cutoff / Gap)
+            // Obszar roboczy, który nie jest fizycznie przesłonięty przez elementy UI
+            let visibleHeight = screenHeight;
+
+            if (addressBarVisible) {
+                visibleHeight -= addressBarHeight;
+            }
+
+            if (keyboardOpen) {
+                visibleHeight -= keyboardHeight;
+            }
+
+            // Czyszczenie wskaźników
+            cutoffIndicator.style.display = 'none';
+            gapIndicator.style.display = 'none';
+            statusBadge.className = 'status-indicator';
+
+            let hasCutoff = false;
+
+            // Sprawdzenie dolnego ucięcia (zawsze u dołu okna widocznego, niezależnie od tego czy pasek jest u góry czy u dołu)
+            if (elementHeight > visibleHeight) {
+                const cutoffAmt = elementHeight - visibleHeight;
+                cutoffIndicator.style.display = 'flex';
+                cutoffIndicator.style.top = `${visibleHeight}px`;
+                cutoffIndicator.style.bottom = 'auto';
+                cutoffIndicator.style.height = `${cutoffAmt}px`;
+                cutoffIndicator.textContent = `Zasłonięte dół: ${cutoffAmt}px`;
+                hasCutoff = true;
+            }
+
+            // Sprawdzenie pustej przestrzeni (gap)
+            let hasGap = false;
+            if (elementHeight < visibleHeight) {
+                const gapAmt = visibleHeight - elementHeight;
+                gapIndicator.style.display = 'flex';
+                gapIndicator.style.top = `${elementHeight}px`;
+                gapIndicator.style.bottom = 'auto';
+                gapIndicator.style.height = `${gapAmt}px`;
+                gapIndicator.textContent = `Pusta przestrzeń: ${gapAmt}px`;
+                hasGap = true;
+            }
+
+            // Aktualizacja plakietek statusu
+            if (hasCutoff) {
+                statusBadge.textContent = 'Zasłonięty';
+                statusBadge.classList.add('status-cutoff');
+
+                metricStatus.textContent = 'Zasłonięty dół strony';
+                metricStatus.style.color = 'var(--color-cutoff)';
+            } else if (hasGap) {
+                statusBadge.textContent = 'Puste miejsce';
+                statusBadge.classList.add('status-gap');
+
+                metricStatus.textContent = 'Niewykorzystana przestrzeń';
+                metricStatus.style.color = 'var(--color-gap)';
+            } else {
+                statusBadge.textContent = 'Idealne';
+                statusBadge.classList.add('status-fit');
+
+                metricStatus.textContent = 'Idealne dopasowanie';
+                metricStatus.style.color = 'var(--color-fit)';
+            }
+
+            // Aktualizacja metryk
+            metricVpH.textContent = `${visibleHeight}px`;
+            metricElH.textContent = `${elementHeight}px`;
+
+            // Aktualizacja opisu merytorycznego
+            updateExplanation();
+        }
+
+        function updateExplanation() {
+            const explanationText = document.getElementById('explanation-text');
+
+            let unitDesc = '';
+            if (selectedUnit === 'vh') {
+                unitDesc = '<strong>vh (Viewport Height):</strong> Tradycyjna jednostka. Większość mobilnych przeglądarek blokuje ją na stałe na maksymalną wysokość ekranu (jak <code>lvh</code>), aby zapobiec skokom strony przy chowaniu paska adresu. Wadą jest to, że część strony zostaje ucięta pod paskiem menu (na dole w Safari iOS, na górze w Chrome/Firefox na Androidzie).';
+            } else if (selectedUnit === 'svh') {
+                unitDesc = '<strong>svh (Small Viewport Height):</strong> Względna wysokość przy <strong>maksymalnie rozciągniętym pasku adresu</strong>. Dzięki temu element <code>100svh</code> nigdy nie zostanie ucięty pod paskiem adresu (niezależnie czy jest na dole na iOS, czy na górze na Androidzie), ale po przewinięciu strony w dół i schowaniu paska, powstanie pusta przestrzeń (gap).';
+            } else if (selectedUnit === 'lvh') {
+                unitDesc = '<strong>lvh (Large Viewport Height):</strong> Względna wysokość przy <strong>maksymalnie schowanym pasku adresu</strong>. Kiedy pasek adresu jest widoczny, część elementu <code>100lvh</code> jest zasłonięta i niewidoczna (dół na iOS Safari, góra na Android Chrome/Firefox).';
+            } else if (selectedUnit === 'dvh') {
+                unitDesc = '<strong>dvh (Dynamic Viewport Height):</strong> Reaguje na bieżąco. Zmniejsza się, gdy pasek adresu jest wysunięty, i zwiększa do maksimum, gdy pasek się chowa. Eliminuje puste przestrzenie i ucięcia tekstu (w Safari iOS oraz Chrome/Firefox na Androidzie), lecz dynamiczne zmiany rozmiaru podczas przewijania mogą powodować skoki układu.';
+            }
+
+            let kbDesc = '';
+            if (keyboardOpen) {
+                if (interactiveWidget === 'overlays') {
+                    kbDesc = '<br><br>⚠️ <strong>Wirtualna klawiatura (overlays-content):</strong> Domyślne zachowanie na iOS Safari. Otwarcie klawiatury <b>nakłada ją na wierzch strony</b> bez zmiany wartości jednostek Viewportu. Twoje <code>100dvh</code> lub <code>100vh</code> wciąż ma pełny wymiar, przez co dolne przyciski lub pola formularza lądują pod klawiaturą (są ucięte i niewidoczne).';
+                } else {
+                    kbDesc = '<br><br>🚀 <strong>Klawiatura z resizes-content:</strong> Domyślne zachowanie na Androidzie (Chrome / Firefox) oraz przy użyciu deklaracji <code>interactive-widget=resizes-content</code> w znaczniku <code>meta viewport</code>. Przeglądarka dynamicznie zmniejsza wysokość okna (viewportu) o wysokość klawiatury. Wtedy jednostki typu <code>100dvh</code> adaptują się i cały widok mieści się idealnie nad klawiaturą, dając pełną kontrolę!';
+                }
+            } else {
+                kbDesc = '<br><br>💡 <strong>Wskazówka:</strong> Kliknij wyszukiwarkę na ekranie telefonu, aby wysunąć klawiaturę. <b>Możesz też skrolować ekran telefonu w dół i w górę</b>, aby chować lub wysuwać pasek adresu!';
+            }
+
+            explanationText.innerHTML = unitDesc + kbDesc;
+        }
+
+        // Obsługa interaktywności w makiecie smartfona (scrollowanie i kliknięcie inputa)
+        const webCanvas = document.getElementById('web-canvas-el');
+        const mockPageInput = document.getElementById('mock-page-input');
+        const keyboardEl = document.getElementById('phone-keyboard-el');
+
+        if (webCanvas) {
+            webCanvas.addEventListener('scroll', () => {
+                if (webCanvas.scrollTop > 15) {
+                    if (addressBarVisible) {
+                        addressBarVisible = false;
+                        document.getElementById('btn-addr-visible').classList.remove('active');
+                        document.getElementById('btn-addr-hidden').classList.add('active');
+                        updateVisualizer();
+                    }
+                } else {
+                    if (!addressBarVisible) {
+                        addressBarVisible = true;
+                        document.getElementById('btn-addr-visible').classList.add('active');
+                        document.getElementById('btn-addr-hidden').classList.remove('active');
+                        updateVisualizer();
+                    }
+                }
+            });
+        }
+
+        if (mockPageInput) {
+            mockPageInput.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setKeyboard(!keyboardOpen);
+            });
+        }
+
+        if (keyboardEl) {
+            keyboardEl.addEventListener('click', () => {
+                setKeyboard(false);
+            });
+        }
+
+        // Uruchomienie na start
+        updateVisualizer();
+    </script>
+</body>
+
+</html>

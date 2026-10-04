@@ -36,7 +36,7 @@ Style krytyczne chronią użytkownika przed nagłym rozbłyskiem ekranu, czyli z
 > Nie zamieszczaj wszystkich stylów jako krytycznych bo z reguły mogą nimi nie być. Jedyne co spowodujesz to wzrost rozmiaru pliku html co może spowodować wydłużenie czasu dostępu przez wolniejszy internet odbiorcy. Dodatkowo mieszasz w ten sposób warstwę struktury z prezentacją.
 
 
-<iframe src="/public/resources/web-site-preview/critical-css-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulacja ładowania Critical CSS vs Flashlight" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/critical-css-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulacja ładowania Critical CSS vs Flashlight" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 
@@ -157,7 +157,7 @@ Kombinatory łączą selektory, tworząc relacje w drzewie dokumentu:
 
 Dzięki kombinatorom precyzyjnie zaadresujesz elementy bez konieczności nadawania im osobnych klas.
 
-<iframe src="/public/resources/web-site-preview/combinators-visualizer.html" width="600" height="450" style="border: 3px solid #ccc;width: 100%;" title="Wizualizator kombinatorów CSS" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/combinators-visualizer.html" width="600" height="450" style="border: 3px solid #ccc;width: 100%;" title="Wizualizator kombinatorów CSS" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 
@@ -184,7 +184,7 @@ Wartości poszczególnych kolumn obliczamy następująco:
 **Elementy, pseudo-elementy:** Tagi HTML (np. `p`) oraz pseudo-elementy (np. `::before`) dają $1$ punkt w czwartej kolumnie: `(0, 0, 0, 1)`.</li>
 </ol>
 
-<iframe src="/public/resources/web-site-preview/cascade-visualizer.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Wizualizator kaskady i specyficzności CSS" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/cascade-visualizer.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Wizualizator kaskady i specyficzności CSS" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 
@@ -403,7 +403,7 @@ Osoby z dysleksją mają trudności z płynnym odczytywaniem i rozróżnianiem p
 
 Zwiększaj odstęp między wierszami za pomocą wysokości linii ustawionej w przedziale **od $1.5$ do $1.8$**, np. `line-height: 1.7`. Unikaj przekraczania wartości 1.8 – zbyt duże odległości pionowe rozpraszają tekst i tworzą białe plamy na ekranie, co utrudnia skupienie wzroku osobom z astygmatyzmem. Pod żadnym pozorem nie stosuj pełnego wyjustowania tekstu (`text-align: justify`). Tworzy ono nieregularne pionowe korytarze pustej przestrzeni między słowami, które skutecznie rozpraszają czytelnika.
 
-<iframe src="/public/resources/web-site-preview/dyslexia-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulacja typografii dla dysleksji" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/dyslexia-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulacja typografii dla dysleksji" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### 🌗 Kontrast i czytelność tekstu
 
@@ -563,7 +563,7 @@ Zaburzenia rozpoznawania barw uniemożliwiają poprawne rozróżnianie niektóry
 
 Podstawowa zasada dostępności cyfrowej mówi, że nie wolno przekazywać ważnych informacji wyłącznie za pomocą barwy. Jeśli pole formularza zawiera błąd, nie zaznaczaj go tylko czerwoną ramką. Dodaj ikonę ostrzeżenia oraz czytelny komunikat tekstowy. Gdy umieszczasz odsyłacz w bloku tekstu, nie wyróżniaj go tylko kolorem, lecz zastosuj również podkreślenie.
 
-<iframe src="/public/resources/web-site-preview/color-blindness-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulator daltonizmu w interfejsach" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/color-blindness-simulation.html" width="600" height="620" style="border: 3px solid #ccc;width: 100%;" title="Symulator daltonizmu w interfejsach" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ## 🔗 Połącz Pary: Dostępność i ślepota barw
 <data-connection-matcher title="Dopasuj zaburzenia widzenia barw i zasady projektowania do ich charakterystyki">

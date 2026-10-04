@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podgląd: Pip-Boy 3000</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        body {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: #1a1c18;
+            color: #1ff755;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .pipboy-frame {
+            background-color: #2f332a;
+            border: 8px solid #1c1f19;
+            border-radius: 16px;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.9),
+                inset 0 2px 5px rgba(255, 255, 255, 0.1),
+                inset 0 -6px 12px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .pipboy-screen {
+            background-color: #0c1008;
+            border: 4px solid #1c1f19;
+            border-radius: 8px;
+            flex: 1;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(31, 247, 85, 0.3);
+            transform: perspective(800px) rotateX(1deg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Scanlines */
+        .pipboy-screen::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            z-index: 10;
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        /* Flicker */
+        .pipboy-screen::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(31, 247, 85, 0.015);
+            opacity: 0;
+            z-index: 11;
+            pointer-events: none;
+            animation: crt-flicker 0.15s infinite;
+        }
+
+        header {
+            border-bottom: 2px solid #1ff755;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .pipboy-tabs {
+            display: flex;
+            gap: 15px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .tab-active {
+            background-color: #1ff755;
+            color: #0c1008;
+            padding: 1px 4px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #1ff755;
+            text-shadow: 0 0 8px rgba(31, 247, 85, 0.7);
+        }
+
+        .pipboy-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* Statystyki postaci */
+        .char-stats {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #1ff755;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 0.8rem;
+        }
+
+        .stat-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* EKWIPUNEK */
+        .inventory-list {
+            border: 1px solid #1ff755;
+            padding: 12px;
+            background-color: rgba(31, 247, 85, 0.03);
+            margin-bottom: 15px;
+        }
+
+        .inv-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .inv-item:hover {
+            background-color: #1ff755;
+            color: #0c1008;
+        }
+
+        .hardware-dials {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .hardware-knob {
+            width: 35px;
+            height: 18px;
+            background: #1c1f19;
+            border-radius: 3px;
+            border: 2px solid #3d4237;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes crt-flicker {
+            0% {
+                opacity: 0.27;
+            }
+
+            50% {
+                opacity: 0.96;
+            }
+
+            100% {
+                opacity: 0.32;
+            }
+        }
+
+        /* Custom scrollbar */
+        .pipboy-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .pipboy-content::-webkit-scrollbar-track {
+            background: #0c1008;
+        }
+
+        .pipboy-content::-webkit-scrollbar-thumb {
+            background: #1ff755;
+            box-shadow: 0 0 6px #1ff755;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="pipboy-frame">
+        <div class="pipboy-screen">
+            <header>
+                <div class="pipboy-tabs">
+                    <span class="tab-active">STAT</span>
+                    <span>INV</span>
+                    <span>DATA</span>
+                    <span>MAP</span>
+                </div>
+                <h1>📟 Pip-Boy 3000</h1>
+            </header>
+
+            <div class="pipboy-content">
+                <div class="char-stats">
+                    <div class="stat-group">
+                        <span>POZIOM: 24</span>
+                        <span>HP: 240/240</span>
+                    </div>
+                    <div class="stat-group" style="text-align: right;">
+                        <span>AP: 90/90</span>
+                        <span>RAD: 0%</span>
+                    </div>
+                </div>
+
+                <div class="inventory-list">
+                    <div style="font-size: 0.75rem; margin-bottom: 8px; opacity: 0.8;">[EKWIPUNEK KRYPTY 101]</div>
+                    <div class="inv-item" tabindex="-1"><span>Nuka-Cola Quantum</span> <span>x2</span></div>
+                    <div class="inv-item" tabindex="-1"><span>Stimpak</span> <span>x14</span></div>
+                    <div class="inv-item" tabindex="-1"><span>RadAway</span> <span>x5</span></div>
+                    <div class="inv-item" tabindex="-1"><span>Laser wycelowany</span> <span>100%</span></div>
+                    <div class="inv-item" tabindex="-1"><span>Pancerz bojowy T-51b</span> <span>88%</span></div>
+                </div>
+
+                <p style="font-size: 0.75rem; line-height: 1.4; color: #1ff755; opacity: 0.85;">
+                    * Wojskowa konsola naręczna. Zakrzywienie kineskopu, monochromatyczny luminofor i szum CRT to cechy
+                    fizycznego realizmu interfejsu.
+                </p>
+            </div>
+        </div>
+
+        <div class="hardware-dials">
+            <div class="hardware-knob"></div>
+            <div class="hardware-knob"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>

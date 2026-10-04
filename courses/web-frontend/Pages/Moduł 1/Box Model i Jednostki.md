@@ -121,7 +121,7 @@ Twoim zadaniem jest zmiana modelu pudełkowego na `border-box` w klasie `.card` 
 
 Sprawdź, jak parametry `box-sizing` oraz `display` wpływają na zachowanie i rzeczywiste wymiary elementu:
 
-<iframe src="/public/resources/web-site-preview/box-model-visualizer.html" width="600" height="620" style="border: 3px solid #ccc; width: 100%; border-radius: 12px; background-color: #0c0f16;" title="Wizualizator Box Modelu CSS" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/box-model-visualizer.html" width="600" height="620" style="border: 3px solid #ccc; width: 100%; border-radius: 12px; background-color: #0c0f16;" title="Wizualizator Box Modelu CSS" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 
@@ -251,7 +251,7 @@ Poniższa tabela pomoże Ci w podjęciu decyzji projektowej:
 
 Przeanalizuj interaktywny symulator, aby zobaczyć, jak te ustawienia wpływają na dopasowanie ekranu:
 
-<iframe src="/public/resources/web-site-preview/viewport-units-visualizer.html" width="600" height="620" style="border: 3px solid #ccc; width: 100%; border-radius: 12px; background-color: #0c0f16;" title="Wizualizator jednostek Viewportu" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/viewport-units-visualizer.html" width="600" height="620" style="border: 3px solid #ccc; width: 100%; border-radius: 12px; background-color: #0c0f16;" title="Wizualizator jednostek Viewportu" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 

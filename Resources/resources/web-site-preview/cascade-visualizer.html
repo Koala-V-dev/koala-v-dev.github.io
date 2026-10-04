@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascade Visualizer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .app-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-bottom: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-red {
+            background: #ef4444;
+        }
+
+        .dot-yellow {
+            background: #facc15;
+        }
+
+        .dot-green {
+            background: #22c55e;
+        }
+
+        .title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 1px;
+            background: #334155;
+        }
+
+        @media (max-width: 700px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .left-col {
+            background: #1e293b;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .right-col {
+            background: #182235;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px solid #334155;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .rule-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .rule-card:hover {
+            border-color: #475569;
+        }
+
+        .rule-card.active {
+            border-color: #3b82f6;
+            background: #1e293b;
+        }
+
+        .rule-card.active.hoverElement {
+            border-color: #923bf6;
+        }
+
+        .rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .rule-selector {
+            font-family: monospace;
+            font-size: 12px;
+            color: #60a5fa;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        .rule-badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #334155;
+            color: #94a3b8;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .rule-card.active .rule-badge {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .rule-body {
+            font-family: monospace;
+            font-size: 11px;
+            color: #cbd5e1;
+            padding-left: 10px;
+            line-height: 1.4;
+        }
+
+        .preview-box {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 32px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 180px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .preview-box:hover {
+            background-color: #111827;
+        }
+
+        .preview-box::after {
+            content: "Najechanie kursorem myszy symuluje stan :hover";
+            position: absolute;
+            bottom: 8px;
+            font-size: 9px;
+            color: #475569;
+        }
+
+        .preview-html {
+            font-family: monospace;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .preview-element {
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            color: #e2e8f0;
+        }
+
+        .math-box {
+            width: 100%;
+            margin-top: 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .math-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: #94a3b8;
+            transition: opacity 0.2s ease;
+            gap: 8px;
+        }
+
+        .math-line.winner {
+            color: #22c55e;
+            font-weight: 700;
+        }
+
+        .math-value {
+            font-family: monospace;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .status-bar {
+            padding: 12px 24px;
+            background: #0f172a;
+            border-top: 1px solid #334155;
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.4;
+            min-height: 56px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="title">Wizualizator Kaskady i Obliczania Specyficzności CSS</div>
+                <span
+                    style="font-size: 11px; color: #64748b; font-family: monospace; white-space: nowrap;">Koala-V</span>
+            </div>
+
+            <div class="main-layout">
+                <!-- Lewa kolumna: Dostępne reguły -->
+                <div class="left-col">
+                    <h3 class="section-title">Reguły w arkuszu stylów CSS (Klikaj aby włączać/wyłączać)</h3>
+
+                    <div class="rule-card active" id="rule-1" onclick="toggleRule(1)">
+                        <div class="rule-header">
+                            <span class="rule-selector">p</span>
+                            <span class="rule-badge" id="badge-1">Waga: (0,0,0,1) = 1</span>
+                        </div>
+                        <div class="rule-body">
+                            color: <span style="color:#60a5fa">#60a5fa</span>; <span style="color:#64748b">/* Kolumna D
+                                - Element */</span>
+                        </div>
+                    </div>
+
+                    <div class="rule-card active" id="rule-2" onclick="toggleRule(2)">
+                        <div class="rule-header">
+                            <span class="rule-selector">.card p</span>
+                            <span class="rule-badge" id="badge-2">Waga: (0,0,1,1) = 11</span>
+                        </div>
+                        <div class="rule-body">
+                            color: <span style="color:#34d399">#34d399</span>; <span style="color:#64748b">/* Kolumny
+                                C+D - Klasa + Element */</span>
+                        </div>
+                    </div>
+
+                    <div class="rule-card hoverElement active" id="rule-3" onclick="toggleRule(3)">
+                        <div class="rule-header">
+                            <span class="rule-selector">#main-content .active:hover</span>
+                            <span class="rule-badge" id="badge-3">Waga: (0,1,2,0) = 120</span>
+                        </div>
+                        <div class="rule-body">
+                            color: <span style="color:#a855f7">#a855f7</span>; <span style="color:#64748b">/* Kolumny
+                                B+C - ID + Klasy */</span>
+                        </div>
+                    </div>
+
+                    <div class="rule-card" id="rule-4" onclick="toggleRule(4)">
+                        <div class="rule-header">
+                            <span class="rule-selector">style="..."</span>
+                            <span class="rule-badge" id="badge-4">Waga: (1,0,0,0) = 1000</span>
+                        </div>
+                        <div class="rule-body">
+                            color: <span style="color:#f43f5e">#f43f5e</span>; <span style="color:#64748b">/* Kolumna A
+                                - Styl wbudowany */</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prawa kolumna: Podgląd elementu HTML -->
+                <div class="right-col">
+                    <h3 class="section-title">Wynik renderowania w przeglądarce</h3>
+
+                    <div class="preview-box" id="preview-box">
+                        <span class="preview-html" id="preview-html-start">&lt;div id="main-content"
+                            class="card"&gt;<br>&nbsp;&nbsp;&lt;p class="active"&gt;</span>
+                        <span class="preview-element" id="preview-text">Tekst testowy</span>
+                        <span class="preview-html"
+                            style="margin-top:16px; margin-bottom:0">&nbsp;&nbsp;&lt;/p&gt;<br>&lt;/div&gt;</span>
+                    </div>
+
+                    <div class="math-box">
+                        <h4 class="section-title" style="margin-bottom:8px; font-size:11px">Kalkulator Kaskady</h4>
+                        <div class="math-line" id="math-1">
+                            <span>p (Element)</span>
+                            <span class="math-value">(0, 0, 0, 1) = 1</span>
+                        </div>
+                        <div class="math-line" id="math-2">
+                            <span>.card p (Klasa + Element)</span>
+                            <span class="math-value">(0, 0, 1, 1) = 11</span>
+                        </div>
+                        <div class="math-line" id="math-3">
+                            <span>#main-content .active:hover (ID + Klasy)</span>
+                            <span class="math-value" id="val-3">(0, 1, 2, 0) = 120</span>
+                        </div>
+                        <div class="math-line" id="math-4">
+                            <span>style="..." (Styl wbudowany)</span>
+                            <span class="math-value">(1, 0, 0, 0) = 1000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-bar" id="status-bar">
+                Klikaj w karty reguł CSS po lewej stronie, aby zobaczyć w czasie rzeczywistym, jak wyłączenie lub
+                włączenie reguły zmienia kolor elementu HTML i jak obliczana jest waga zwycięzcy.
+            </div>
+        </div>
+
+        <script>
+            const activeRules = {
+                1: true,
+                2: true,
+                3: true,
+                4: false
+            };
+
+            const colors = {
+                1: '#60a5fa', // blue
+                2: '#34d399', // green
+                3: '#a855f7', // purple
+                4: '#f43f5e'  // red
+            };
+
+            let isHovered = false;
+
+            const previewBox = document.getElementById('preview-box');
+            previewBox.addEventListener('mouseenter', () => {
+                isHovered = true;
+                calculateWinner();
+            });
+            previewBox.addEventListener('mouseleave', () => {
+                isHovered = false;
+                calculateWinner();
+            });
+
+            function toggleRule(id) {
+                activeRules[id] = !activeRules[id];
+                document.getElementById(`rule-${id}`).classList.toggle('active', activeRules[id]);
+                calculateWinner();
+            }
+
+            function calculateWinner() {
+                const text = document.getElementById('preview-text');
+                const statusBar = document.getElementById('status-bar');
+                const math3Value = document.getElementById('val-3');
+                const htmlStart = document.getElementById('preview-html-start');
+
+                // Aktualizacja atrybutu style w podglądzie HTML
+                if (activeRules[4]) {
+                    htmlStart.innerHTML = `&lt;div id="main-content" class="card"&gt;<br>&nbsp;&nbsp;&lt;p class="active" style="color: #f43f5e;"&gt;`;
+                } else {
+                    htmlStart.innerHTML = `&lt;div id="main-content" class="card"&gt;<br>&nbsp;&nbsp;&lt;p class="active"&gt;`;
+                }
+
+                // Aktualizacja wyglądu linii kalkulatora
+                for (let i = 1; i <= 4; i++) {
+                    const line = document.getElementById(`math-${i}`);
+                    line.classList.remove('winner');
+
+                    // Reguła 3 wymaga najechania myszą
+                    if (i === 3) {
+                        if (!activeRules[3]) {
+                            line.style.opacity = '0.3';
+                            math3Value.innerText = '(0, 1, 2, 0) = 120';
+                        } else if (!isHovered) {
+                            line.style.opacity = '0.5';
+                            math3Value.innerText = '(0, 1, 2, 0) = 120';
+                        } else {
+                            line.style.opacity = '1';
+                            math3Value.innerText = '(0, 1, 2, 0) = 120';
+                        }
+                    } else {
+                        line.style.opacity = activeRules[i] ? '1' : '0.3';
+                    }
+                }
+
+                let winnerId = null;
+
+                // 1. Sprawdzamy styl wbudowany (Kolumna A)
+                if (activeRules[4]) {
+                    winnerId = 4;
+                }
+                // 2. ID + Class + Pseudo-class (120) - pasuje tylko przy hover!
+                else if (activeRules[3] && isHovered) {
+                    winnerId = 3;
+                }
+                // 3. Class + Element (11)
+                else if (activeRules[2]) {
+                    winnerId = 2;
+                }
+                // 4. Element (1)
+                else if (activeRules[1]) {
+                    winnerId = 1;
+                }
+
+                if (winnerId !== null) {
+                    text.style.color = colors[winnerId];
+                    document.getElementById(`math-${winnerId}`).classList.add('winner');
+
+                    let label = "";
+                    if (winnerId === 4) {
+                        label = "<strong>Zwycięzca: Styl wbudowany (czerwony) - Kolumna A</strong>. Zapisany bezpośrednio w atrybucie <code>style</code> w pliku HTML. Posiada najwyższy priorytet (waga 1000) i automatycznie nadpisuje wszystkie reguły z pliku CSS.";
+                    } else if (winnerId === 3) {
+                        label = "<strong>Zwycięzca: #main-content .active:hover (fioletowy) - Kolumny B+C</strong>. Posiada 1 ID (waga 100) oraz 2 klasy/pseudo-klasy (waga 20), co daje siłę 120. Dopasowany dzięki najechaniu myszą.";
+                    } else if (winnerId === 2) {
+                        label = "<strong>Zwycięzca: .card p (zielony) - Kolumny C+D</strong>. Waga wynosi 11 (1 klasa + 1 tag elementu). Wygrywa z pojedynczym tagiem elementu.";
+                    } else if (winnerId === 1) {
+                        label = "<strong>Zwycięzca: p (niebieski) - Kolumna D</strong>. Aktywna jest tylko najsłabsza reguła o wadze (0,0,0,1) = 1 punkt.";
+                    }
+                    statusBar.innerHTML = label;
+                } else {
+                    text.style.color = '#e2e8f0'; // Domyślny kolor
+                    if (activeRules[3] && !isHovered) {
+                        statusBar.innerHTML = "Reguła <strong>#main-content .active:hover</strong> jest aktywna, ale dopóki nie najedziesz myszą na obszar w podglądzie to tekst pozostanie w domyślnym kolorze przeglądarki.";
+                    } else {
+                        statusBar.innerHTML = "Wszystkie pasujące reguły są wyłączone. Przeglądarka renderuje element przy użyciu swoich własnych domyślnych stylów.";
+                    }
+                }
+            }
+
+            window.onload = () => {
+                calculateWinner();
+            };
+        </script>
+</body>
+
+</html>

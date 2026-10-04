@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podgląd: Persona 5</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        body {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            background-color: #0f0f0f;
+            background-image: repeating-linear-gradient(45deg, #000 0px, #000 20px, #141414 20px, #141414 40px);
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .persona-app {
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            border: 6px solid #ffffff;
+            box-shadow: -12px 12px 0px #dc143c;
+            transform: rotate(-1deg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #dc143c;
+            padding: 15px;
+            margin: 15px;
+            transform: rotate(2deg) skewX(-10deg);
+            box-shadow: 6px 6px 0px #ffffff;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            color: #ffffff;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 0px #000000;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #000000;
+            background-color: #ffffff;
+            display: inline-block;
+            padding: 1px 6px;
+            font-weight: 900;
+            margin-top: 5px;
+            transform: rotate(-3deg);
+        }
+
+        .persona-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Statystyki Jokera */
+        .character-panel {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 12px;
+            border: 3px solid #000000;
+            transform: rotate(1deg) skewX(-5deg);
+            margin-bottom: 25px;
+            box-shadow: 4px 4px 0px #dc143c;
+        }
+
+        .char-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+        }
+
+        .bar-group {
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+        }
+
+        .stat-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border: 1px solid #000;
+            position: relative;
+        }
+
+        .bar-fill-hp {
+            width: 75%;
+            background-color: #dc143c;
+        }
+
+        .bar-fill-sp {
+            width: 50%;
+            background-color: #000000;
+        }
+
+        /* Anarchistyczne menu walki */
+        .battle-commands {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+            margin-top: 15px;
+            transform: rotate(-2deg);
+        }
+
+        .menu-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #ffffff;
+            background-color: #000000;
+            border: 2px solid #dc143c;
+            padding: 2px 8px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .persona-btn {
+            display: block;
+            font-family: 'Impact', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            color: #000000;
+            background-color: #ffffff;
+            padding: 8px 30px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            outline: none;
+        }
+
+        .btn-1 {
+            transform: rotate(-3deg) skewX(-15deg);
+        }
+
+        .btn-2 {
+            transform: rotate(2deg) skewX(10deg);
+            margin-left: 20px;
+        }
+
+        .btn-3 {
+            transform: rotate(-1deg) skewX(-5deg);
+            margin-left: 10px;
+        }
+
+        .btn-4 {
+            transform: rotate(3deg) skewX(8deg);
+            margin-left: 30px;
+        }
+
+        .persona-btn:hover {
+            background-color: #dc143c;
+            color: #ffffff;
+            transform: scale(1.08) rotate(5deg) skewX(-20deg);
+            box-shadow: -4px 4px 0px #ffffff;
+        }
+
+        /* Custom scrollbar */
+        .persona-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .persona-content::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        .persona-content::-webkit-scrollbar-thumb {
+            background: #dc143c;
+            border: 2px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="persona-app">
+        <header>
+            <h1>🎸 Persona 5</h1>
+            <div class="subtitle">Agresywna i dynamiczna ekspresja UI</div>
+        </header>
+
+        <div class="persona-content">
+            <div class="character-panel">
+                <div class="char-header">
+                    <span>JOKER (PROTAGONISTA)</span>
+                    <span>Poziom 45</span>
+                </div>
+                <div class="bar-group">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 2px;"><span>HP</span>
+                        <span>256/340</span></div>
+                    <div class="stat-bar">
+                        <div class="bar-fill-hp" style="height:100%;"></div>
+                    </div>
+                </div>
+                <div class="bar-group">
+                    <div style="display:flex; justify-content:space-between; margin-bottom: 2px;"><span>SP</span>
+                        <span>102/204</span></div>
+                    <div class="stat-bar">
+                        <div class="bar-fill-sp" style="height:100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="battle-commands">
+                <div class="menu-label">WYBIERZ KOMENDĘ WALKI (Hover):</div>
+                <button class="persona-btn btn-1" tabindex="-1">⚔️ ATTAK (Miecz)</button>
+                <button class="persona-btn btn-2" tabindex="-1">🔮 SKILL (Magia)</button>
+                <button class="persona-btn btn-3" tabindex="-1">🎒 ITEM (Przedmiot)</button>
+                <button class="persona-btn btn-4" tabindex="-1">🛡️ GUARD (Obrona)</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

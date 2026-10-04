@@ -247,7 +247,7 @@ Przyciski na stronach miały wyraźny połysk, trójwymiarową wypukłość i g�
 
 Skeuomorfizm nie powstał z braku wyobraźni projektantów. Pełnił ważną rolę edukacyjną. W czasach, gdy ekrany dotykowe były nowością, nasz mózg potrzebował wskazówek z fizycznego świata. Te wizualne podpowiedzi nazywamy **afordancjami** (*affordances*). Widząc cień pod przyciskiem, podświadomie rozumiałeś, że ten element zareaguje na kliknięcie. Widząc ikonę papierowego kosza na śmieci, od razu wiedziałeś, gdzie lądują usuwane pliki.
 
-<iframe src="/public/resources/web-site-preview/skeuomorficzny.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu skeuomorficznego na przykładowej stronie" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/skeuomorficzny.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu skeuomorficznego na przykładowej stronie" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### 🗺️ Flat Design: Brutalne Spłaszczenie i jego Konsekwencje
 
@@ -259,7 +259,7 @@ Nurt ten popadł jednak w skrajność. Przez całkowite usunięcie cieni i głę
 
 Usunięcie głębi doprowadziło do zjawiska zwanego _**mystery meat navigation**_ (dosł. nawigacja po tajemniczym mięsie 😧) Trzeba było klikać na oślep w losowe napisy, aby sprawdzić, co jest linkiem. Sklepy internetowe odnotowały wtedy drastyczne spadki sprzedaży, ponieważ klienci nie potrafili znaleźć koszyka zakupowego ani przycisku finalizacji płatności.
 
-<iframe src="/public/resources/web-site-preview/flat-design.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu Flat Design i interaktywna symulacja zakupów" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/flat-design.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu Flat Design i interaktywna symulacja zakupów" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### ⚖️ Współczesny Kompromis: Warstwy, Cienie i Światło
 
@@ -269,7 +269,7 @@ Głównym narzędziem projektanta stały się cienie i **elewacja** (*elevation*
 
 Projektanci chętnie stosują również efekty takie jak **glassmorphism**, czyli symulację matowego, półprzezroczystego szkła. Pozwala to na wyświetlanie okien dialogowych bez całkowitego odcinania użytkownika od kontekstu strony pod spodem. Mózg widzi rozmyte kształty w tle i wie, gdzie się znajduje, co zmniejsza dezorientację przestrzenną.
 
-<iframe src="/public/resources/web-site-preview/material.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu semi-flat / Material Design z warstwami i cieniami" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/material.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu semi-flat / Material Design z warstwami i cieniami" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 
@@ -285,7 +285,7 @@ W minimalizmie głównym elementem projektu staje się **wolna przestrzeń** (tz
 
 Projektując minimalistycznie, skracasz czas potrzebny na wykonanie zadania. Minimalizm wysyła jasny komunikat: „Twój czas i Twoje dane są tutaj najważniejsze, dlatego usunęliśmy wszystko, co mogłoby Cię rozpraszać”. Nurt ten wymaga jednak ogromnej precyzji. Przy braku ozdobników każdy błąd – nawet przesunięcie marginesu o dwa piksele – staje się od razu widoczny.
 
-<iframe src="/public/resources/web-site-preview/minimalizm.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu minimalistycznego opartego o wolną przestrzeń i typografię" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/minimalizm.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu minimalistycznego opartego o wolną przestrzeń i typografię" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### 🧱 Brutalizm: Surowy Głos Autentyczności
 
@@ -295,7 +295,7 @@ Strona brutalistyczna celowo odrzuca ugrzecznione zasady współczesnego projekt
 
 Popularność brutalizmu wynika z jego autentyczności. Pokazuje, że strona została napisana czystym, surowym kodem przez człowieka o wyrazistej tożsamości, a nie wygenerowana z gotowego szablonu marketingowego. Brutalizm doskonale sprawdza się na stronach artystów, festiwali, niezależnych projektów oraz w portfolio programistów, którzy chcą podkreślić swój charakter i techniczną niezależność.
 
-<iframe src="/public/resources/web-site-preview/brutalizm.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu brutalistycznego z surowymi ramkami i kontrastową kolorystyką" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/brutalizm.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu brutalistycznego z surowymi ramkami i kontrastową kolorystyką" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### 🦾 Cyberpunk i Neon-Futurism: Świat Maszyn i Nocy
 
@@ -326,7 +326,7 @@ Elementy interfejsu często otoczone są delikatnymi, rozświetlonymi poświatam
 
 Ten styl natychmiast buduje atmosferę zaawansowania technicznego i cyfrowej dominacji. Jest to świetny wybór dla systemów monitorowania sieci, gier przeglądarkowych, paneli administratorskich oraz stron powiązanych z cyberbezpieczeństwem.
 
-<iframe src="/public/resources/web-site-preview/cyberpunk.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu cyberpunkowego z neonowymi akcentami" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/cyberpunk.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Wizualna prezentacja stylu cyberpunkowego z neonowymi akcentami" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ---
 
@@ -349,7 +349,7 @@ Absolutnym wzorem takiego podejścia jest seria horrorów *Dead Space*. Twórcy 
 
 Kiedy otwierasz ekwipunek, przed twarzą bohatera pojawia się fizyczny hologram. Co najważniejsze, gra nie zatrzymuje się wtedy. Bohater patrzy na ten hologram w czasie rzeczywistym, a gracz wraz z nim. Jeśli z ciemnego korytarza wyskoczy przeciwnik, trzeba walczyć, mając wciąż otwarte okno przedmiotów. Brak sztucznych ramek sprawia, że lęk przed zagrożeniem staje się namacalny.
 
-<iframe src="/public/resources/web-site-preview/dead-space.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja diegetycznego interfejsu z gry Dead Space zintegrowanego z kombinezonem" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/dead-space.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja diegetycznego interfejsu z gry Dead Space zintegrowanego z kombinezonem" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### 📟 Pip-Boy w Fallout: Fizyczność Informacji
 
@@ -359,7 +359,7 @@ Kiedy otwiera się menu, postać podnosi rękę przed twarz. Gracz patrzy wtedy 
 
 Twórcy gry wzięli nudną bazę danych (listę przedmiotów i statystyk) i zamienili ją w fizyczny przedmiot. Ten interfejs nie jest idealnie czysty i przezroczysty. Jest toporny, ciężki i mechaniczny. Dzięki temu doskonale buduje atmosferę postapokaliptycznego świata, w którym technologia zatrzymała się w latach pięćdziesiątych ubiegłego wieku.
 
-<iframe src="/public/resources/web-site-preview/pip-boy 3000.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja fizycznego urządzenia Pip-Boy z serii Fallout" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/pip-boy 3000.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja fizycznego urządzenia Pip-Boy z serii Fallout" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### 🎸 Persona 5: UI jako Serce Stylu
 
@@ -369,14 +369,14 @@ Interfejs w tej grze jest agresywny, dynamiczny i buntowniczy. Dominują w nim t
 
 Ten interfejs krzyczy przy każdym ruchu. Buduje tempo rozgrywki, podnosi tętno gracza i sprawia, że nawet proste wybieranie opcji w walce daje ogromną satysfakcję. Udowadnia to, że interfejs użytkownika może być samodzielnym dziełem sztuki.
 
-<iframe src="/public/resources/web-site-preview/persona-5.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja dynamicznego i agresywnego interfejsu z gry Persona 5" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/persona-5.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja dynamicznego i agresywnego interfejsu z gry Persona 5" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ### ✍️ Disco Elysium: Melancholia Tekstu
 
 Użyta w tej grze typografia, stonowane kolory (beże, brązy, czernie) i akwarelowe portrety postaci w tle tworzą melancholijny i refleksyjny nastrój. Interfejs nie rywalizuje z opowiadaną historią, lecz staje się jej fizyczną formą. Wpływa to na to, jak gracz czyta dialogi – wolniej, z większym skupieniem, chłonąc każde słowo niczym w klasycznej powieści kryminalnej.
 
 
-<iframe src="/public/resources/web-site-preview/disco-elysium.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja tekstopisarstwa i melancholijnego interfejsu z gry Disco Elysium" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
+<iframe src="/resources/web-site-preview/disco-elysium.html" width="600" height="1100" style="border: 3px solid #ccc;width: 100%;" title="Prezentacja tekstopisarstwa i melancholijnego interfejsu z gry Disco Elysium" sandbox="allow-same-origin allow-scripts" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe>
 
 ## 🔗 Połącz Pary: Kierunki w projektowaniu i rodzaje interfejsów
 <data-connection-matcher title="Dopasuj style estetyczne i rodzaje interfejsów do ich opisu">

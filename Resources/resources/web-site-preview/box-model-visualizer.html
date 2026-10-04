@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizualizator Modelu Pudełkowego CSS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0c0f16;
+            --panel-bg: rgba(20, 26, 38, 0.6);
+            --border-color: #222e43;
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+
+            /* NOWE KOLORY PODESŁANE PRZEZ UŻYTKOWNIKA */
+            --margin-color: rgb(51, 26, 1);
+            --margin-stroke: #ff8200;
+            --margin-text: #ff8f1b;
+
+            --border-box-color: rgb(87, 68, 9);
+            --border-stroke: #ffc000;
+            --border-text: #ffdc6f;
+
+            --padding-color: rgb(18, 53, 3);
+            --padding-stroke: #5cb536;
+            --padding-text: #4dd519;
+
+            --content-color: rgb(0, 42, 51);
+            --content-stroke: #45818e;
+            --content-text: #0ac2e7;
+
+            --accent-color: #77abff;
+            --accent-glow: rgba(59, 130, 246, 0.3);
+
+            --font-main: 'Outfit', sans-serif;
+            --font-text: 'Atkinson Hyperlegible', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 6px;
+            border: 1px solid #090d16;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777777;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+        }
+
+        .app-wrapper {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+
+        .window-container {
+            width: 100%;
+            max-width: 1024px;
+            background: rgba(13, 17, 28, 0.75);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            overflow: visible;
+            margin-bottom: 8px;
+        }
+
+        .window-header {
+            background: rgba(20, 26, 38, 0.9);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            height: 42px;
+            box-sizing: border-box;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-red {
+            background-color: #ff5f56;
+        }
+
+        .dot-yellow {
+            background-color: #ffbd2e;
+        }
+
+        .dot-green {
+            background-color: #27c93f;
+        }
+
+        .window-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            flex-grow: 1;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .logo-span {
+            font-size: 11px;
+            color: #64748b;
+            font-family: monospace;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .app-content {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+            gap: 16px;
+            padding: 16px;
+            flex-grow: 1;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        .controls-panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 580px;
+            overflow-y: auto;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .control-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-label span.val-badge {
+            color: var(--accent-color);
+            font-family: var(--font-code);
+            background: rgba(39, 84, 160, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #182235;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        select {
+            background-color: #111827;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-family: var(--font-main);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .code-container {
+            position: relative;
+        }
+
+        .code-box {
+            background-color: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            font-family: var(--font-code);
+            font-size: 11.5px;
+            line-height: 1.5;
+            color: #d1d5db;
+        }
+
+        .code-box span.property {
+            color: #f472b6;
+        }
+
+        .code-box span.value {
+            color: #60a5fa;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(34, 46, 67, 0.7);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .visualizer-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .viewport-preview {
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 380px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+
+        .box-fieldset {
+            box-sizing: border-box;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: width 0.05s ease, height 0.05s ease;
+            border-radius: 6px;
+        }
+
+        .box-fieldset legend {
+            font-family: var(--font-code);
+            font-size: 9.5px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background-color: #090d16;
+            /* Pasuje do głębi panelu podglądu */
+        }
+
+        /* INTEGRACJA NOWEJ PALETY KOLORYSTYCZNEJ */
+        .margin-field {
+            background-color: var(--margin-color);
+            border: 1px dashed var(--margin-stroke);
+        }
+
+        .margin-field legend {
+            color: var(--margin-text);
+            border: 1px solid var(--margin-stroke);
+        }
+
+        .border-field {
+            background-color: var(--border-box-color);
+            border: 1px solid var(--border-stroke);
+        }
+
+        .border-field legend {
+            color: var(--border-text);
+            border: 1px solid var(--border-stroke);
+        }
+
+        .padding-field {
+            background-color: var(--padding-color);
+            border: 1px dashed var(--padding-stroke);
+        }
+
+        .padding-field legend {
+            color: var(--padding-text);
+            border: 1px solid var(--padding-stroke);
+        }
+
+        .content-box-inner {
+            background-color: var(--content-color);
+            border: 1px solid var(--content-stroke);
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-code);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--content-text);
+            border-radius: 4px;
+        }
+
+        .content-label-static {
+            font-size: 9px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .dimension-info-badge {
+            background: rgba(17, 24, 39, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px;
+            font-family: var(--font-code);
+            font-size: 10px;
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            pointer-events: none;
+        }
+
+        .dim-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .dim-name {
+            color: var(--text-muted);
+        }
+
+        .dim-value {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .dim-calc {
+            color: #f472b6;
+            font-size: 9.5px;
+        }
+
+        .native-element-sandbox {
+            background: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: var(--font-text);
+            font-size: 13px;
+            max-width: 100%;
+            overflow-x: auto;
+            box-sizing: border-box;
+        }
+
+        .sandbox-header {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        .sandbox-link {
+            background-color: #e11d48;
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 820px) {
+            .app-content {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .controls-panel {
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-wrapper">
+        <div class="window-container">
+            <div class="window-header">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <div class="window-title">Interaktywny Model Pudełkowego CSS</div>
+                <span class="logo-span">Koala-V</span>
+            </div>
+
+            <div class="app-content">
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <label class="control-label" for="box-sizing-select">
+                            box-sizing
+                            <span class="val-badge" id="box-sizing-badge">border-box</span>
+                        </label>
+                        <select id="box-sizing-select">
+                            <option value="content-box">content-box (Domyślny)</option>
+                            <option value="border-box" selected>border-box (Rekomendowany)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="display-select">
+                            display
+                            <span class="val-badge" id="display-badge">inline-block</span>
+                        </label>
+                        <select id="display-select">
+                            <option value="block">block (Blokowy)</option>
+                            <option value="inline-block" selected>inline-block (Liniowo-blokowy)</option>
+                            <option value="inline">inline (Liniowy)</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="width-slider">
+                            width
+                            <span class="val-badge" id="width-val">140px</span>
+                        </label>
+                        <input type="range" id="width-slider" min="90" max="290" value="180">
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="height-slider">
+                            height
+                            <span class="val-badge" id="height-val">80px</span>
+                        </label>
+                        <input type="range" id="height-slider" min="80" max="190" value="110">
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="padding-slider">
+                            padding (odstęp wewn.)
+                            <span class="val-badge" id="padding-val">15px</span>
+                        </label>
+                        <input type="range" id="padding-slider" min="0" max="40" value="15">
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="border-slider">
+                            border-width (ramka)
+                            <span class="val-badge" id="border-val">5px</span>
+                        </label>
+                        <input type="range" id="border-slider" min="0" max="25" value="5">
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="margin-slider">
+                            margin (odstęp zewn.)
+                            <span class="val-badge" id="margin-val">15px</span>
+                        </label>
+                        <input type="range" id="margin-slider" min="0" max="40" value="15">
+                    </div>
+
+                    <div class="control-group code-container">
+                        <button class="copy-btn" onclick="copyCSS()">Kopiuj</button>
+                        <div class="code-box" id="css-preview"></div>
+                    </div>
+                </div>
+
+                <div class="visualizer-panel">
+                    <div class="viewport-preview">
+
+                        <fieldset class="box-fieldset margin-field" id="box-margin-el">
+                            <legend id="lbl-margin">margin</legend>
+
+                            <fieldset class="box-fieldset border-field" id="box-border-el">
+                                <legend id="lbl-border">border</legend>
+
+                                <fieldset class="box-fieldset padding-field" id="box-padding-el">
+                                    <legend id="lbl-padding">padding</legend>
+
+                                    <div class="content-box-inner" id="box-content-el">
+                                        <span class="content-label-static">content</span>
+                                        <span id="lbl-content-dim">0 × 0</span>
+                                    </div>
+                                </fieldset>
+                            </fieldset>
+                        </fieldset>
+
+                        <div class="dimension-info-badge">
+                            <div class="dim-item">
+                                <span class="dim-name">Rozmiar renderu:</span>
+                                <span class="dim-value" id="rendered-size">0 x 0 px</span>
+                            </div>
+                            <div class="dim-item"
+                                style="border-top: 1px solid #1e293b; padding-top: 3px; margin-top: 3px;">
+                                <span class="dim-name">Szerokość:</span>
+                                <span class="dim-calc" id="calc-width-formula">0px</span>
+                            </div>
+                            <div class="dim-item">
+                                <span class="dim-name">Wysokość:</span>
+                                <span class="dim-calc" id="calc-height-formula">0px</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="native-element-sandbox">
+                        <div class="sandbox-header">Zachowanie elementu natywnego w tekście (link &lt;a&gt;)</div>
+                        <div style="color: #9ca3af; font-size: 11px; margin-bottom: 4px;">Akapit przed elementem.</div>
+                        <div style="margin: 4px 0;">
+                            <a href="#" class="sandbox-link" id="native-link-el">Kliknij mnie (&lt;a&gt;)</a>
+                        </div>
+                        <div style="color: #9ca3af; font-size: 11px; margin-top: 4px;">Akapit po elemencie linku. Zwróć
+                            uwagę na nakładanie w pionie.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const boxSizingSelect = document.getElementById('box-sizing-select');
+            const displaySelect = document.getElementById('display-select');
+            const widthSlider = document.getElementById('width-slider');
+            const heightSlider = document.getElementById('height-slider');
+            const paddingSlider = document.getElementById('padding-slider');
+            const borderSlider = document.getElementById('border-slider');
+            const marginSlider = document.getElementById('margin-slider');
+
+            const widthVal = document.getElementById('width-val');
+            const heightVal = document.getElementById('height-val');
+            const paddingVal = document.getElementById('padding-val');
+            const borderVal = document.getElementById('border-val');
+            const marginVal = document.getElementById('margin-val');
+
+            const boxSizingBadge = document.getElementById('box-sizing-badge');
+            const displayBadge = document.getElementById('display-badge');
+            const cssPreview = document.getElementById('css-preview');
+
+            const boxMarginEl = document.getElementById('box-margin-el');
+            const boxBorderEl = document.getElementById('box-border-el');
+            const boxPaddingEl = document.getElementById('box-padding-el');
+            const boxContentEl = document.getElementById('box-content-el');
+
+            const lblMargin = document.getElementById('lbl-margin');
+            const lblBorder = document.getElementById('lbl-border');
+            const lblPadding = document.getElementById('lbl-padding');
+            const lblContentDim = document.getElementById('lbl-content-dim');
+
+            const renderedSize = document.getElementById('rendered-size');
+            const calcWidthFormula = document.getElementById('calc-width-formula');
+            const calcHeightFormula = document.getElementById('calc-height-formula');
+            const nativeLinkEl = document.getElementById('native-link-el');
+
+            function updateVisuals() {
+                const boxSizing = boxSizingSelect.value;
+                const display = displaySelect.value;
+
+                const w = parseInt(widthSlider.value);
+                const h = parseInt(heightSlider.value);
+                const p = parseInt(paddingSlider.value);
+                const b = parseInt(borderSlider.value);
+                const m = parseInt(marginSlider.value);
+
+                boxSizingBadge.textContent = boxSizing;
+                displayBadge.textContent = display;
+                widthVal.textContent = w + 'px';
+                heightVal.textContent = h + 'px';
+                paddingVal.textContent = p + 'px';
+                borderVal.textContent = b + 'px';
+                marginVal.textContent = m + 'px';
+
+                if (display === 'inline') {
+                    widthSlider.disabled = true; heightSlider.disabled = true;
+                    widthVal.style.textDecoration = 'line-through'; heightVal.style.textDecoration = 'line-through';
+                } else {
+                    widthSlider.disabled = false; heightSlider.disabled = false;
+                    widthVal.style.textDecoration = 'none'; heightVal.style.textDecoration = 'none';
+                }
+
+                cssPreview.innerHTML = `.box {<br>` +
+                    `  <span class="property">box-sizing</span>: <span class="value">${boxSizing}</span>;<br>` +
+                    `  <span class="property">display</span>: <span class="value">${display}</span>;<br>` +
+                    `  <span class="property">width</span>: <span class="value">${w}px</span>;<br>` +
+                    `  <span class="property">height</span>: <span class="value">${h}px</span>;<br>` +
+                    `  <span class="property">padding</span>: <span class="value">${p}px</span>;<br>` +
+                    `  <span class="property">border</span>: <span class="value">${b}px solid #f1c232</span>;<br>` +
+                    `  <span class="property">margin</span>: <span class="value">${m}px</span>;<br>` +
+                    `}`;
+
+                let contentW, contentH, totalW, totalH;
+
+                if (display === 'inline') {
+                    contentW = 90; contentH = 24;
+                    totalW = contentW + (2 * p) + (2 * b);
+                    totalH = contentH + (2 * p) + (2 * b);
+                    renderedSize.textContent = `ok. ${totalW} x ${totalH} px`;
+                    calcWidthFormula.textContent = `content(${contentW}px) + p(${2 * p}px) + b(${2 * b}px)`;
+                    calcHeightFormula.textContent = `content(${contentH}px) + p(${2 * p}px) + b(${2 * b}px)`;
+                } else {
+                    if (boxSizing === 'content-box') {
+                        contentW = w; contentH = h;
+                        totalW = w + (2 * p) + (2 * b);
+                        totalH = h + (2 * p) + (2 * b);
+                        calcWidthFormula.textContent = `w(${w}px) + p(${2 * p}px) + b(${2 * b}px) = ${totalW}px`;
+                        calcHeightFormula.textContent = `h(${h}px) + p(${2 * p}px) + b(${2 * b}px) = ${totalH}px`;
+                    } else {
+                        totalW = w; totalH = h;
+                        contentW = Math.max(0, w - (2 * p) - (2 * b));
+                        contentH = Math.max(0, h - (2 * p) - (2 * b));
+                        calcWidthFormula.textContent = `width: ${w}px (content: ${contentW}px)`;
+                        calcHeightFormula.textContent = `height: ${h}px (content: ${contentH}px)`;
+                    }
+                    renderedSize.textContent = `${totalW} x ${totalH} px`;
+                }
+
+                lblContentDim.textContent = `${contentW} × ${contentH}`;
+
+                // Fizyczne przeliczanie kontenera nadrzędnego
+                const marginOuterW = totalW + (2 * m);
+                const marginOuterH = totalH + (2 * m);
+
+                // Dynamiczne skalowanie rysunku do szerokości okna podglądu na urządzeniach mobilnych
+                const previewEl = document.querySelector('.viewport-preview');
+                const availableW = previewEl ? Math.max(100, previewEl.clientWidth - 40) : 280;
+
+                let scale = 1;
+                if (marginOuterW > availableW && availableW > 0) {
+                    scale = availableW / marginOuterW;
+                }
+
+                boxMarginEl.style.width = (marginOuterW * scale) + 'px';
+                boxMarginEl.style.height = (marginOuterH * scale) + 'px';
+
+                // Zagnieżdżone dopełnienia idealnie odwzorowują odległości między ramkami fieldset
+                boxMarginEl.style.padding = `${m * scale}px`;
+                boxBorderEl.style.padding = `${b * scale}px`;
+                boxPaddingEl.style.padding = `${p * scale}px`;
+
+                // USUNIĘTO BLOKADĘ (display/visibility: hidden) — TEKST JEST ZAWSZE WIDOCZNY
+                lblMargin.textContent = `margin: ${m}px`;
+                lblBorder.textContent = `border: ${b}px`;
+                lblPadding.textContent = `padding: ${p}px`;
+
+                // Obsługa elementu w piaskownicy
+                nativeLinkEl.style.display = display;
+                nativeLinkEl.style.padding = `${p}px ${p * 1.5}px`;
+                nativeLinkEl.style.border = `${b}px solid #ffffff`;
+
+                if (display === 'inline') {
+                    nativeLinkEl.style.margin = `0px ${m}px`;
+                    nativeLinkEl.style.width = 'auto'; nativeLinkEl.style.height = 'auto';
+                } else {
+                    nativeLinkEl.style.margin = `${m}px`;
+                    if (display === 'block') {
+                        nativeLinkEl.style.width = 'auto'; nativeLinkEl.style.height = 'auto';
+                    } else {
+                        nativeLinkEl.style.width = `${w}px`;
+                        nativeLinkEl.style.height = (boxSizing === 'border-box') ? `${h}px` : 'auto';
+                    }
+                }
+            }
+
+            function copyCSS() {
+                const codeText = cssPreview.innerText;
+                navigator.clipboard.writeText(codeText).then(() => {
+                    const btn = document.querySelector('.copy-btn');
+                    btn.textContent = 'Skopiowano!';
+                    setTimeout(() => btn.textContent = 'Kopiuj', 2000);
+                });
+            }
+
+            [boxSizingSelect, displaySelect, widthSlider, heightSlider, paddingSlider, borderSlider, marginSlider].forEach(element => {
+                element.addEventListener('input', updateVisuals);
+                element.addEventListener('change', updateVisuals);
+            });
+
+            window.addEventListener('resize', updateVisuals);
+
+            updateVisuals();
+        </script>
+    </div>
+    </div>
+</body>
+
+</html>

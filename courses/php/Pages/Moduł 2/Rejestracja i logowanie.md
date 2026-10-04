@@ -9,19 +9,19 @@ Kolejną po **CRUD** funkcjonalnością backendową realizowaną w oparciu o sys
         <p>Avatary</p>
         <div style="display: flex;">
             <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
-                <img src="/public/Resources/php-files/awatary/AI_avatar_1.png" alt="Awatar wytworzony przez AI nr 1" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <img src="/resources/php-files/awatary/AI_avatar_1.png" alt="Awatar wytworzony przez AI nr 1" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
                 <code>AI_avatar_1.png</code>
             </div>
             <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
-                <img src="/public/Resources/php-files/awatary/AI_avatar_2.png" alt="Awatar wytworzony przez AI nr 2" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <img src="/resources/php-files/awatary/AI_avatar_2.png" alt="Awatar wytworzony przez AI nr 2" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
                 <code>AI_avatar_2.png</code>
             </div>
             <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
-                <img src="/public/Resources/php-files/awatary/AI_avatar_3.png" alt="Awatar wytworzony przez AI nr 3" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <img src="/resources/php-files/awatary/AI_avatar_3.png" alt="Awatar wytworzony przez AI nr 3" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
                 <code>AI_avatar_3.png</code>
             </div>
             <div style="display: flex;flex-direction: column;align-items: center;margin: 5px;">
-                <img src="/public/Resources/php-files/awatary/AI_avatar_4.png" alt="Awatar wytworzony przez AI nr 4" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
+                <img src="/resources/php-files/awatary/AI_avatar_4.png" alt="Awatar wytworzony przez AI nr 4" style="height: 65px;width: 65px;border-radius: 50%;object-fit: cover;border: 2px solid #8d2121;">
                 <code>AI_avatar_4.png</code>
             </div>
         </div>

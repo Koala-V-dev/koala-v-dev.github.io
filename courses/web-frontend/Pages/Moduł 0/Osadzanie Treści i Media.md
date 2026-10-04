@@ -13,7 +13,7 @@ Przeglądarki potrafią <strong>natywnie odtwarzać multimedia oraz osadzać zew
 Do wstawienia filmu na stronę służy znacznik `<video>`. Posiada on zestaw atrybutów sterujących odtwarzaczem:
 
 ```html
-<video src="public/resources/media-course-preview/koala.mp4" autoplay loop width="640" height="360">
+<video src="/resources/media-course-preview/koala.mp4" autoplay loop width="640" height="360">
     Twoja przeglądarka nie wspiera natywnego odtwarzania wideo.
 </video>
 ```
@@ -31,13 +31,13 @@ Do wstawienia filmu na stronę służy znacznik `<video>`. Posiada on zestaw atr
 
 Poniżej znajduje się przykładowe wideo z wbudowanymi napisami, `autoplay` (automatyczne odtwarzanie), `loop` (odtwarzanie w zapętleniu) i bez `controls` (pozbawione standardowego interfejsu sterowania):
 
-<video src="/public/resources/media-course-preview/koala.mp4"
+<video src="/resources/media-course-preview/koala.mp4"
     autoplay
     loop
     width="360"
     height="640"
     style="width: unset; display: block; margin: auto;">
-    <track src="/public/resources/media-course-preview/koala.vtt"
+    <track src="/resources/media-course-preview/koala.vtt"
         kind="subtitles"
         srclang="pl"
         label="Polskie napisy"
