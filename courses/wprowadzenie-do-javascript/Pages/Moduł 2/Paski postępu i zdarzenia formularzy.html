@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Paski postępu i zdarzenia formularzy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Paski postępu i zdarzenia formularzy</h1>
+<p>Gdy formularz rejestracyjny lub proces składania zamówienia ma kilka kroków, użytkownik musi wiedzieć, ile pracy ma już za sobą, a ile jeszcze przed nim. Brak wizualnej informacji zwrotnej jest jednym z głównych powodów porzucania formularzy w sieci. Odpowiedzią na ten problem jest interaktywny pasek postępu (progress bar).</p>
+<p>W tej lekcji zaczniemy od formularza rejestracyjnego z paskiem postępu, zrozumiemy zdarzenia cyklu życia kontrolek (<code>focus</code>, <code>blur</code>, <code>input</code>), zbadamy matematykę skali procentowej i dynamiczną zmianę szerokości w CSS, rozwiążemy wyzwanie w edytorze kodu na przykładzie wskaźnika poziomu zbiornika, a na koniec samodzielnie zaprogramujemy reaktywny pasek postępu.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Punkt wyjścia: Formularz rejestracyjny z paskiem postępu</h2>
+<p>Oto kod HTML formularza rejestracji konta:</p>
+<pre><code class="language-html">&lt;section id="rejestracja"&gt;
+  &lt;h2&gt;Kreator nowego konta&lt;/h2&gt;
+  
+  &lt;label for="imie"&gt;Imię:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="imie" class="krok-formularza"&gt;&lt;br&gt;
+
+  &lt;label for="nazwisko"&gt;Nazwisko:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="nazwisko" class="krok-formularza"&gt;&lt;br&gt;
+
+  &lt;label for="miasto"&gt;Miasto:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="miasto" class="krok-formularza"&gt;&lt;br&gt;
+
+  &lt;div id="ramka-postepu" style="background: #e0e0e0; width: 100%; height: 24px; border-radius: 4px; overflow: hidden; margin-top: 15px;"&gt;
+    &lt;div id="pasek-postepu" style="background: #28a745; width: 0%; height: 100%; transition: width 0.3s;"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p id="opis-postepu"&gt;Postęp rejestracji: 0%&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Założenia działania:</p>
+<ul>
+<li>Pasek postępu składa się z zewnętrznej szarej ramki oraz zielonego paska wewnętrznego (<code>#pasek-postepu</code>) o szerokości początkowej <code>0%</code>.</li>
+<li>Każde pomyślnie wypełnione pole ma zwiększać szerokość paska o równy ułamek całości (np. przy 3 polach o około 33.3%).</li>
+<li>Skrypt powinien reagować w momencie, gdy użytkownik kończy edycję danego pola i przechodzi do następnego.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔔 Cykl życia pola tekstowego: focus, blur i input</h2>
+<p>Większość interakcji kojarzy się ze zdarzeniem <code>click</code>. Jednak pola edycyjne żyją własnym rytmem i generują dedykowane zdarzenia:</p>
+<ol>
+<li><span class="color-green"><code>focus</code></span> - uruchamia się w chwili, gdy kontrolka staje się aktywna (użytkownik kliknie w pole lub przejdzie do niego klawiszem <kbd>Tab</kbd>).</li>
+<li><span class="color-green"><code>input</code></span> - uruchamia się natychmiast przy każdej zmianie treści (wpisanie litery, usunięcie znaku klawiszem Backspace, wklejenie tekstu).</li>
+<li><span class="color-green"><code>blur</code></span> - uruchamia się w chwili, gdy kontrolka traci skupienie (użytkownik kliknie poza polem lub przejdzie do kolejnej kontrolki).</li>
+</ol>
+<pre><code class="language-javascript">const poleImie = document.querySelector("#imie");
+
+poleImie.addEventListener("blur", () =&gt; {
+  console.log("Użytkownik zakończył wypełnianie tego pola!");
+});
+</code></pre>
+<p>Zdarzenie <span class="color-green"><code>blur</code></span> jest idealnym momentem na zaktualizowanie paska postępu, ponieważ oznacza, że użytkownik zakończył pracę z danym polem.</p>
+<data-gate>
+  <data-quiz>
+    <question>Kiedy przeglądarka wywołuje zdarzenie blur na elemencie formularza?</question>
+    <options>
+      <option correct="">W momencie, gdy pole traci fokus (użytkownik klika poza pole lub przechodzi dalej)</option>
+      <option>W momencie, gdy użytkownik wciska klawisz Enter wewnątrz edytowanego pola tekstowego</option>
+      <option>W momencie, gdy kursor myszy znajdzie się nad obszarem edycyjnym danej kontrolki</option>
+      <option>W momencie, gdy treść pola zostanie całkowicie usunięta przez użytkownika formularza</option>
+    </options>
+    <div data-hint="error"><p>Pomyśl o angielskim słowie blur (rozmycie/utrata ostrości). Oznacza ono przeciwieństwo skupienia uwagi (focus).</p>
+</div>
+    <div data-hint="success"><p>Znakomicie! Zdarzenie blur następuje w momencie utraty skupienia. To standardowy moment na weryfikację poprawności danych i odświeżenie wskaźników postępu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📊 Matematyka szerokości w CSS i funkcja Math.min()</h2>
+<p>W CSS szerokość paska definiujemy za pomocą właściwości <code>width</code>. W JavaScript modyfikujemy ją przez obiekt stylów:</p>
+<pre><code class="language-javascript">const pasek = document.querySelector("#pasek-postepu");
+let procent = 50;
+
+pasek.style.width = procent + "%";
+</code></pre>
+<h3>⚠️ Pułapka braku jednostki</h3>
+<p>W pliku CSS napisanie <code>width: 50</code> jest błędem składniowym - przeglądarka odrzuci taką regułę, bo nie wie, czy chodzi o piksele, procenty czy remy. Dokładnie to samo dotyczy JavaScriptu! Zapis <code>pasek.style.width = 50</code> nie zadziała. Zawsze musisz dokleić jednostkę jako string: <code>procent + "%"</code>.</p>
+<h3>🛡️ Ochrona przed przekroczeniem 100%: Math.min()</h3>
+<p>Jeśli formularz rozrasta się lub użytkownik wielokrotnie opuszcza kontrolki, wyliczona wartość mogłaby osiągnąć np. $125\%$. Wtedy zielony pasek „wylałby się” poza kontener!</p>
+<p>Aby zabezpieczyć wartość przed przekroczeniem maksimum, używamy funkcji <span class="color-green"><code>Math.min()</code></span>:</p>
+<pre><code class="language-javascript">const wyliczonaWartosc = 125;
+const bezpiecznyProcent = Math.min(100, wyliczonaWartosc);
+
+console.log(bezpiecznyProcent); // Wypisze 100!
+</code></pre>
+<p>Funkcja <code>Math.min(a, b)</code> zwraca mniejszą z dwóch wartości. Jeśli wyliczony postęp przekroczy 100, funkcja zwróci sztywny limit 100.</p>
+<data-gate>
+  <data-connection-matcher title="Zdarzenia formularza i ich przeznaczenie">
+    <div class="cmw-item" data-left="focus" data-right="Uruchamia się w chwili aktywacji pola (kliknięcie lub przejście Tab)"></div>
+    <div class="cmw-item" data-left="blur" data-right="Uruchamia się w chwili opuszczenia kontrolki i utraty skupienia"></div>
+    <div class="cmw-item" data-left="input" data-right="Uruchamia się na żywo przy każdej modyfikacji pojedynczego znaku"></div>
+    <div class="cmw-item" data-left="Math.min(100, x)" data-right="Zabezpiecza wartość liczbową przed przekroczeniem górnego limitu 100"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Wyzwanie w edytorze: Wskaźnik zapełnienia zbiornika buforowego</h2>
+<p>Zastosujmy obliczenia procentowe i zabezpieczenia limitów na niezależnym problemie inżynierskim: wskaźniku napełnienia zbiornika w stacji uzdatniania wody.</p>
+<p>Do zbiornika o określonej pojemności maksymalnej dopływa woda z dodatkowej dolewki.</p>
+<p>Twoim celem jest oprogramowanie funkcji <code>obliczPoziomZbiornika</code>.</p>
+<p>Wymagania biznesowe:</p>
+<ul>
+<li>Parametry: <code>pojemnoscMaks</code>, <code>aktualnyStan</code>, <code>dolewka</code> (wszystkie jako liczby).</li>
+<li>Jeśli <code>pojemnoscMaks &lt;= 0</code> lub któraś z wartości jest <code>isNaN</code> $\to$ zwróć <code>0</code>.</li>
+<li>Oblicz nową objętość: $\text{nowaObjetosc} = \text{aktualnyStan} + \text{dolewka}$.</li>
+<li>Jeśli nowa objętość jest ujemna $\to$ przyjmij <code>0</code>.</li>
+<li>Wylicz procent zapełnienia względem pojemności maksymalnej:<br>$$\text{procent} = \left(\frac{\text{nowaObjetosc}}{\text{pojemnoscMaks}}\right) \cdot 100$$</li>
+<li>Zbiornik posiada przelew bezpieczeństwa - wynik <span class="color-green">nigdy nie może przekroczyć 100%</span> (<code>Math.min(100, ...)</code>).</li>
+<li>Zwracana wartość: zaokrąglona liczba całkowita procentów: <code>Math.round(procent)</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" title="Wskaźnik napełnienia zbiornika" data-code="ZnVuY3Rpb24gb2JsaWN6UG96aW9tWmJpb3JuaWthKHBvamVtbm9zY01ha3MsIGFrdHVhbG55U3RhbiwgZG9sZXdrYSkgewogIC8vIFRPRE86IFphaW1wbGVtZW50dWogc3Vtb3dhbmllLCB3eWxpY3plbmllIHByb2NlbnR1IG9yYXogb2dyYW5pY3plbmllIGRvIDEwMCUuCiAgLy8gUGFtacSZdGFqOiB3eW5payBtdXNpIGJ5xIcgemFva3LEhWdsb27EhSBsaWN6YsSFIGNhxYJrb3dpdMSFIHogcHJ6ZWR6aWHFgnUgMCAtIDEwMCEKICAKICByZXR1cm4gbnVsbDsKfQ==" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXBvbG93YSIsCiAgICAgICAgICAidGV4dCI6ICJaYmlvcm5payAxMDAwTDogc3RhbiAzMDBMICsgZG9sZXdrYSAyMDBMICg1MDBMKSBkYWplIGRva8WCYWRuaWUgNTAlIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogIm9ibGljelBvemlvbVpiaW9ybmlrYSIsCiAgICAgICAgICAiaW5wdXQiOiBbMTAwMCwgMzAwLCAyMDBdLAogICAgICAgICAgImV4cGVjdGVkIjogNTAKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXByemVsZXctbWFrcyIsCiAgICAgICAgICAidGV4dCI6ICJaYmlvcm5payAxMDAwTDogc3RhbiA4MDBMICsgZG9sZXdrYSA1MDBMICgxMzAwTCkgem9zdGFqZSBvZ3Jhbmljem9ueSBkbyAxMDAlIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogIm9ibGljelBvemlvbVpiaW9ybmlrYSIsCiAgICAgICAgICAiaW5wdXQiOiBbMTAwMCwgODAwLCA1MDBdLAogICAgICAgICAgImV4cGVjdGVkIjogMTAwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC16YW9rcmFnbGVuaWUtdcWCYW1rYSIsCiAgICAgICAgICAidGV4dCI6ICJaYmlvcm5payAzMDBMOiBzdGFuIDEwMEwgYmV6IGRvbGV3a2kgZGFqZSAzMyUgKDMzLjMzIC0+IDMzKSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pQb3ppb21aYmlvcm5pa2EiLAogICAgICAgICAgImlucHV0IjogWzMwMCwgMTAwLCAwXSwKICAgICAgICAgICJleHBlY3RlZCI6IDMzCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1ibGVkbmEtcG9qZW1ub3NjIiwKICAgICAgICAgICJ0ZXh0IjogIlBvamVtbm/Fm8SHIDAgbHViIHVqZW1uYSB6d3JhY2EgMCIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pQb3ppb21aYmlvcm5pa2EiLAogICAgICAgICAgImlucHV0IjogWzAsIDEwMCwgNTBdLAogICAgICAgICAgImV4cGVjdGVkIjogMAogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInRlc3QtdWplbW5hLWRvbGV3a2EtcG9kLXplcm8iLAogICAgICAgICAgInRleHQiOiAiVWJ5dGVrIHByemV3ecW8c3phasSFY3kgc3RhbiAobnAuIHN0YW4gNTBMIC0gdWJ5dGVrIDEwMEwpIG5pZSBkYWplIHVqZW1uZWdvIHByb2NlbnR1LCBsZWN6IDAiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAib2JsaWN6UG96aW9tWmJpb3JuaWthIiwKICAgICAgICAgICJpbnB1dCI6IFsxMDAwLCA1MCwgLTEwMF0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiAwCiAgICAgICAgfQogICAgICBd"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📈 Projekt końcowy: Ożywiamy pasek postępu formularza</h2>
+<p>Wracamy do naszego formularza rejestracyjnego z początku lekcji:</p>
+<pre><code class="language-html">&lt;label for="imie"&gt;Imię:&lt;/label&gt;&lt;br&gt;
+&lt;input type="text" id="imie" class="krok-formularza"&gt;&lt;br&gt;
+
+&lt;label for="nazwisko"&gt;Nazwisko:&lt;/label&gt;&lt;br&gt;
+&lt;input type="text" id="nazwisko" class="krok-formularza"&gt;&lt;br&gt;
+
+&lt;label for="miasto"&gt;Miasto:&lt;/label&gt;&lt;br&gt;
+&lt;input type="text" id="miasto" class="krok-formularza"&gt;&lt;br&gt;
+
+&lt;div id="ramka-postepu" style="background: #e0e0e0; width: 100%; height: 24px; border-radius: 4px; overflow: hidden; margin-top: 15px;"&gt;
+  &lt;div id="pasek-postepu" style="background: #28a745; width: 0%; height: 100%; transition: width 0.3s;"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p id="opis-postepu"&gt;Postęp rejestracji: 0%&lt;/p&gt;
+</code></pre>
+<p>Zasady działania:</p>
+<ul>
+<li>Posiadamy 3 pola z klasą <code>.krok-formularza</code>.</li>
+<li>Każde niepuste pole zwiększa postęp o $1/3$ (około 33.33%).</li>
+<li>Gdy użytkownik opuszcza pole (<code>blur</code>), skrypt sprawdza ile z tych 3 pól ma wpisaną niepustą treść (<code>pole.value.trim() !== ""</code>).</li>
+<li>Nowy procent przypisujemy do właściwości <code>style.width</code> wewnętrznego paska oraz wypisujemy w akapicie <code>#opis-postepu</code>.</li>
+</ul>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li>Pobierz wszystkie pola formularza za pomocą <code>document.querySelectorAll(".krok-formularza")</code>.</li>
+<li>Pobierz referencję do paska <code>#pasek-postepu</code> oraz akapitu <code>#opis-postepu</code>.</li>
+<li>Napisz funkcję pomocniczą <code>aktualizujPostep()</code>:<ul>
+<li>Zlicz ile pól ma wpisaną treść różną od pustego napisu.</li>
+<li>Wylicz procent: <code>Math.round((wypelnione / pola.length) * 100)</code>.</li>
+<li>Zabezpiecz wartość za pomocą <code>Math.min(100, ...)</code>.</li>
+<li>Zaktualizuj styl: <code>pasek.style.width = procent + "%"</code>.</li>
+<li>Zaktualizuj tekst: <code>opis.textContent = Postęp rejestracji: ${procent}%</code>.</li>
+</ul>
+</li>
+<li>Przejdź pętlą <code>forEach</code> po wszystkich polach i zarejestruj na każdym z nich zdarzenie <code>"blur"</code> wywołujące funkcję aktualizacji.</li>
+</ol>
+<p>Spróbuj napisać ten kod samodzielnie. Dopiero po zakończeniu próby sprawdź poniższy kod referencyjny.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">// 1. Pobieramy elementy z DOM
+const pola = document.querySelectorAll(".krok-formularza");
+const pasek = document.querySelector("#pasek-postepu");
+const opis = document.querySelector("#opis-postepu");
+
+// 2. Funkcja przeliczająca postęp na podstawie wypełnionych pól
+function aktualizujPostep() {
+  let wypelnione = 0;
+
+  pola.forEach(pole =&gt; {
+    // Sprawdzamy czy pole nie jest puste po obcięciu spacji
+    if (pole.value.trim() !== "") {
+      wypelnione++;
+    }
+  });
+
+  // 3. Wyliczenie procentu i zabezpieczenie przed przekroczeniem 100
+  const procent = Math.min(100, Math.round((wypelnione / pola.length) * 100));
+
+  // 4. Aktualizacja szerokości paska w CSS oraz tekstu informacyjnego
+  pasek.style.width = procent + "%";
+  opis.textContent = `Postęp rejestracji: ${procent}%`;
+}
+
+// 5. Podpinamy zdarzenie blur pod każde pole formularza
+pola.forEach(pole =&gt; {
+  pole.addEventListener("blur", aktualizujPostep);
+});
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Zdarzenie <code>blur</code> uruchamia się natychmiast po opuszczeniu kontrolki formularza przez użytkownika, co czyni je idealnym momentem na walidację.</li>
+<li>Przy modyfikacji szerokości przez <code>element.style.width</code> zawsze pamiętamy o doklejeniu jednostki tekstowej (np. <code>procent + "%"</code>).</li>
+<li>Wartości procentowe zabezpieczamy przed przekroczeniem maksimum za pomocą funkcji <code>Math.min(100, wartosc)</code>.</li>
+<li>Metoda <code>document.querySelectorAll()</code> w połączeniu z pętlą <code>forEach()</code> pozwala na eleganckie podpięcie zdarzeń pod całą grupę powiązanych pól naraz.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

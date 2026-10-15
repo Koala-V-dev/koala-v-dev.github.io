@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 4\Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">sql</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Selekcja i filtrowanie rekordów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy zapytania SELECT i filtrowanie WHERE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Podstawy%20zapytania%20SELECT%20i%20filtrowanie%20WHERE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy zapytania SELECT i filtrowanie WHERE</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wyszukiwanie wzorców LIKE i zakresy wartości"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Wyszukiwanie%20wzorc%C3%B3w%20LIKE%20i%20zakresy%20warto%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyszukiwanie wzorców LIKE i zakresy wartości</a></li><li class="module">Moduł 1: Relacje i złączenia tabel</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Relacje jeden do wielu i kluczowe złączenie INNER JOIN"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Relacje%20jeden%20do%20wielu%20i%20kluczowe%20z%C5%82%C4%85czenie%20INNER%20JOIN.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Relacje jeden do wielu i kluczowe złączenie INNER JOIN</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złączenia zewnętrzne LEFT JOIN i brakujące powiązania"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Z%C5%82%C4%85czenia%20zewn%C4%99trzne%20LEFT%20JOIN%20i%20brakuj%C4%85ce%20powi%C4%85zania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</a></li><li class="module">Moduł 2: Agregacja i analityka danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje agregujące i sortowanie ORDER BY"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Funkcje%20agreguj%C4%85ce%20i%20sortowanie%20ORDER%20BY.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje agregujące i sortowanie ORDER BY</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Grupowanie danych GROUP BY i filtrowanie grup HAVING"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Grupowanie%20danych%20GROUP%20BY%20i%20filtrowanie%20grup%20HAVING.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupowanie danych GROUP BY i filtrowanie grup HAVING</a></li><li class="module">Moduł 3: Modyfikacja danych w tabelach</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%203/Modyfikacja%20rekord%C3%B3w%20za%20pomoc%C4%85%20INSERT%20UPDATE%20i%20DELETE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</a></li><li class="module">Moduł 4: Definiowanie struktur bazodanowych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Projektowanie tabel CREATE TABLE i więzy integralności"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Projektowanie%20tabel%20CREATE%20TABLE%20i%20wi%C4%99zy%20integralno%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie tabel CREATE TABLE i więzy integralności</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Modyfikacja%20schematu%20tabeli%20ALTER%20TABLE%20i%20indeksy%20wydajno%C5%9Bciowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</a></li><li class="module">Moduł 5: Zaawansowane operacje zbiorowe i administracja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Podzapytania i łączenie wyników za pomocą UNION"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Podzapytania%20i%20%C5%82%C4%85czenie%20wynik%C3%B3w%20za%20pomoc%C4%85%20UNION.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podzapytania i łączenie wyników za pomocą UNION</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Zarządzanie użytkownikami i uprawnienia bazy danych"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Zarz%C4%85dzanie%20u%C5%BCytkownikami%20i%20uprawnienia%20bazy%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie użytkownikami i uprawnienia bazy danych</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</h1>
+<p>W cyklu życia aplikacji struktura bazy danych nieustannie ewoluuje. Dodawanie nowych funkcjonalności wymaga rozszerzania istniejących tabel o nowe kolumny lub modyfikacji typów danych bez utraty zgromadzonych rekordów. Ponadto w miarę wzrostu bazy ze 100 do 1 000 000 wierszy proste zapytania zaczynają drastycznie zwalniać. Rozwiązaniem obu tych wyzwań są polecenia <code>ALTER TABLE</code> oraz tworzenie indeksów wydajnościowych <code>CREATE INDEX</code>.</p>
+<p>Pracujemy na bazie danych stacji ważenia pojazdów ciężarowych, optymalizując czas wyszukiwania numerów rejestracyjnych i rozszerzając schemat ewidencji.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💾 Struktura bazy danych i plik źródłowy</h2>
+<p>Pobierz plik bazy danych stacji kontroli i ważenia pojazdów:</p>
+<p><a href="/resources/sql-files/wazenie-pojazdow.sql" download="wazenie-pojazdow.sql" class="download-btn">Pobierz plik bazy danych ważenia pojazdów (.sql)</a></p>
+<p>Tabela <code>wagi</code> zawiera rejestr pomiarów:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT)</th>
+<th align="left">rejestracja (VARCHAR)</th>
+<th align="left">waga (INT)</th>
+<th align="left">data_wazenia (DATE)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">WZ1234A</td>
+<td align="left">18500</td>
+<td align="left">2026‑06-01</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">KR9988B</td>
+<td align="left">24200</td>
+<td align="left">2026‑06-01</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">GD4433C</td>
+<td align="left">12100</td>
+<td align="left">2026‑06-02</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">PO7711D</td>
+<td align="left">31500</td>
+<td align="left">2026‑06-03</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Ewolucja schematu za pomocą ALTER TABLE</h2>
+<p>Polecenie <code>ALTER TABLE</code> modyfikuje strukturę istniejącej tabeli z zachowaniem wszystkich dotychczas zapisanych danych:</p>
+<h3>➕ Dodawanie nowej kolumny (ADD COLUMN)</h3>
+<pre><code class="language-sql">ALTER TABLE wagi 
+ADD COLUMN przeciazenie TINYINT(1) DEFAULT 0;
+</code></pre>
+<p>Nowo dodana kolumna <code>przeciazenie</code> przyjmie w każdym istniejącym wierszu wartość domyślną <code>0</code>.</p>
+<h3>✏️ Modyfikacja typu danych (MODIFY COLUMN)</h3>
+<p>Gdy okazuje się, że kolumna na numer rejestracyjny jest zbyt krótka:</p>
+<pre><code class="language-sql">ALTER TABLE wagi 
+MODIFY COLUMN rejestracja VARCHAR(20) NOT NULL;
+</code></pre>
+<h3>❌ Usuwanie kolumny (DROP COLUMN)</h3>
+<pre><code class="language-sql">ALTER TABLE wagi 
+DROP COLUMN data_wazenia;
+</code></pre>
+<data-quiz>
+  <question>Co stanie się z danymi zapisanymi w tabeli po wykonaniu polecenia <code>ALTER TABLE wagi ADD COLUMN uwagi TEXT;</code>?</question>
+  <options>
+    <option correct="">Dotychczasowe rekordy zostaną zachowane, a w nowej kolumnie otrzymają wartość NULL lub domyślną</option>
+    <option>Wszystkie wiersze w tabeli zostaną bezpowrotnie usunięte w trakcie przebudowy</option>
+    <option>Silnik zablokuje operację, wymagając uprzedniego wyczyszczenia tabeli przez TRUNCATE</option>
+    <option>Nowa kolumna zostanie dodana wyłącznie do wierszy wstawianych w przyszłości</option>
+  </options>
+</data-quiz>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚡ Indeksy bazodanowe i eliminacja Full Table Scan</h2>
+<p>Domyślnie przy wykonaniu zapytania <code>SELECT * FROM wagi WHERE rejestracja = 'KR9988B'</code> silnik bazy danych musi przeczytać każdy wiersz tabeli od początku do końca. Nazywa się to <span class="color-green">pełnym skanowaniem tabeli (Full Table Scan)</span>. Przy milionie wierszy oznacza to miliony odczytów z dysku.</p>
+<h3>🌲 Struktura B-Tree i polecenie CREATE INDEX</h3>
+<p>Indeks działa jak skorowidz na końcu książki technicznej. Silnik buduje zbalansowane drzewo poszukiwań (B‑Tree), w którym odnalezienie dowolnego rekordu zajmuje ułamek milisekundy ($O(\log n)$ zamiast $O(n)$):</p>
+<pre><code class="language-sql">CREATE INDEX idx_rejestracja ON wagi(rejestracja);
+</code></pre>
+<p>Złożony indeks na kilku kolumnach przyspiesza zapytania wielowarunkowe:</p>
+<pre><code class="language-sql">CREATE INDEX idx_data_waga ON wagi(data_wazenia, waga);
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kiedy indeksować?</span> Indeksujemy kolumny często występujące w klauzulach <code>WHERE</code>, <code>JOIN ... ON</code> oraz <code>ORDER BY</code>. Nie należy indeksować każdej kolumny bez umiaru, ponieważ każdy indeks spowalnia operacje <code>INSERT</code>, <code>UPDATE</code> oraz <code>DELETE</code> (drzewo indeksu musi być aktualizowane przy każdym zapisie).</p>
+
+</div>
+</div><data-connection-matcher title="Dopasuj operację schematu do jej zastosowania">
+  <div class="cmw-item" data-left="`ALTER TABLE ... ADD`" data-right="Rozszerza schemat tabeli o nową kolumnę bez utraty danych"></div>
+  <div class="cmw-item" data-left="`ALTER TABLE ... MODIFY`" data-right="Zmienia typ danych lub ograniczenia istniejącej kolumny"></div>
+  <div class="cmw-item" data-left="`CREATE INDEX ... ON`" data-right="Buduje strukturę B-Tree przyspieszającą filtrowanie i złączenia"></div>
+  <div class="cmw-item" data-left="`DROP INDEX ... ON`" data-right="Usuwa indeks zmniejszając narzut wydajnościowy przy zapisie"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Modyfikacja tabeli i indeksowanie</h2>
+<p>Rozszerz tabelę <code>pomiary</code> o nową kolumnę tekstową <code>kierowca</code> (TEXT) z wartością domyślną <code>'Nieznany'</code>. Następnie utwórz indeks <code>idx_kierowca</code> na nowo utworzonej kolumnie i pobierz wszystkie wiersze.</p>
+<data-gate>
+<data-code-runner language="sql" title="Dodanie kolumny i utworzenie indeksu" data-code="LS0gMS4gRG9kYWoga29sdW1uxJkga2llcm93Y2EgKFRFWFQgREVGQVVMVCAnTmllem5hbnknKSBkbyB0YWJlbGkgcG9taWFyeQotLSBUT0RPOiBBTFRFUiBUQUJMRSBwb21pYXJ5IEFERCBDT0xVTU4gLi4uCgotLSAyLiBVdHfDs3J6IGluZGVrcyBpZHhfa2llcm93Y2EgbmEga29sdW1uaWUga2llcm93Y2EgdyB0YWJlbGkgcG9taWFyeQotLSBUT0RPOiBDUkVBVEUgSU5ERVggLi4uCgotLSAzLiBQb2JpZXJ6IHJla29yZHkgdGFiZWxpIHphIHBvbW9jxIUgU0VMRUNUIChrb2x1bW55OiBpZCwgcmVqZXN0cmFjamEsIHdhZ2EsIGtpZXJvd2NhKQotLSBUT0RPOiBTRUxFQ1QgaWQsIHJlamVzdHJhY2phLCB3YWdhLCBraWVyb3djYSBGUk9NIHBvbWlhcnk7" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgcG9wcmF3bmllIHp3cmFjYSB3aWVyc3plIHogbm93xIUga29sdW1uxIUga2llcm93Y2EgaSB3YXJ0b8WbY2nEhSBkb215xZtsbsSFIiwKICAgICAgICAidHlwZSI6ICJzcWwtZXhlY3V0ZSIsCiAgICAgICAgInNjaGVtYSI6ICJDUkVBVEUgVEFCTEUgcG9taWFyeSAoaWQgSU5UIFBSSU1BUlkgS0VZLCByZWplc3RyYWNqYSBURVhULCB3YWdhIElOVCk7IElOU0VSVCBJTlRPIHBvbWlhcnkgVkFMVUVTICgxLCAnV1oxMjM0QScsIDE4NTAwKSwgKDIsICdLUjk5ODhCJywgMjQyMDApOyIsCiAgICAgICAgImV4cGVjdGVkQ291bnQiOiAyLAogICAgICAgICJleHBlY3RlZENvbHVtbnMiOiBbImlkIiwgInJlamVzdHJhY2phIiwgIndhZ2EiLCAia2llcm93Y2EiXQogICAgICB9LAogICAgICB7CiAgICAgICAgImlkIjogInN5bnRheC1hbHRlciIsCiAgICAgICAgInRleHQiOiAiWmFzdG9zb3dhbm8gcG9sZWNlbmllIEFMVEVSIFRBQkxFIEFERCBDT0xVTU4gb3JheiBDUkVBVEUgSU5ERVgiLAogICAgICAgICJ0eXBlIjogImNvbnRhaW5zIiwKICAgICAgICAicGF0dGVybiI6ICJBTFRFUiBUQUJMRSIKICAgICAgfQogICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie praktyczne - Rozbudowa systemu ważenia pojazdów</h2>
+<p>Wykonaj zadania administracji bazą na bazie <code>wazenie-pojazdow.sql</code>.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Flaga przeciążenia</span>: Napisz polecenie <code>ALTER TABLE</code>, które doda do tabeli <code>wagi</code> kolumnę <code>kara</code> o typie <code>DECIMAL(8, 2)</code> z wartością domyślną <code>0.00</code>.</li>
+<li><span class="color-green">Naliczenie kary za przeciążenie</span>: Zaktualizuj (<code>UPDATE</code>) kolumnę <code>kara</code> na kwotę <code>500.00</code> dla pojazdów o masie (<code>waga</code>) przekraczającej 20000 kg.</li>
+<li><span class="color-green">Optymalizacja kwerend wyszukiwawczych</span>: Utwórz indeks <code>idx_waga</code> na kolumnie <code>waga</code>, aby przyspieszyć raportowanie pojazdów przekraczających dopuszczalny tonaż.</li>
+</ol>
+<p>Spróbuj napisać polecenia samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy blok.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-sql">-- Kwerenda 1: Dodanie kolumny kary
+ALTER TABLE wagi 
+ADD COLUMN kara DECIMAL(8, 2) DEFAULT 0.00;
+
+-- Kwerenda 2: Naliczenie kary dla przeciążonych aut
+UPDATE wagi 
+SET kara = 500.00 
+WHERE waga &gt; 20000;
+
+-- Kwerenda 3: Utworzenie indeksu na masie
+CREATE INDEX idx_waga ON wagi(waga);
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li><code>ALTER TABLE</code> umożliwia dodawanie (<code>ADD</code>), zmianę typu (<code>MODIFY</code>) oraz usuwanie (<code>DROP</code>) kolumn w istniejącej tabeli.</li>
+<li>Indeksy (<code>CREATE INDEX</code>) eliminują konieczność pełnego skanowania tabeli (Full Table Scan), przyspieszając wyszukiwanie do złożoności logarytmicznej $O(\log n)$.</li>
+<li>Nadmiar indeksów zwiększa narzut czasowy operacji zapisu (<code>INSERT</code>, <code>UPDATE</code>), dlatego indeksujemy wyłącznie kolumny często odpytywane w <code>WHERE</code> i <code>JOIN</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

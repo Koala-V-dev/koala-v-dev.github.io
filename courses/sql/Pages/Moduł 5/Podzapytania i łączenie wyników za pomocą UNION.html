@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 5\Podzapytania i łączenie wyników za pomocą UNION - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">sql</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Selekcja i filtrowanie rekordów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy zapytania SELECT i filtrowanie WHERE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Podstawy%20zapytania%20SELECT%20i%20filtrowanie%20WHERE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy zapytania SELECT i filtrowanie WHERE</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wyszukiwanie wzorców LIKE i zakresy wartości"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Wyszukiwanie%20wzorc%C3%B3w%20LIKE%20i%20zakresy%20warto%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyszukiwanie wzorców LIKE i zakresy wartości</a></li><li class="module">Moduł 1: Relacje i złączenia tabel</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Relacje jeden do wielu i kluczowe złączenie INNER JOIN"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Relacje%20jeden%20do%20wielu%20i%20kluczowe%20z%C5%82%C4%85czenie%20INNER%20JOIN.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Relacje jeden do wielu i kluczowe złączenie INNER JOIN</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złączenia zewnętrzne LEFT JOIN i brakujące powiązania"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Z%C5%82%C4%85czenia%20zewn%C4%99trzne%20LEFT%20JOIN%20i%20brakuj%C4%85ce%20powi%C4%85zania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</a></li><li class="module">Moduł 2: Agregacja i analityka danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje agregujące i sortowanie ORDER BY"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Funkcje%20agreguj%C4%85ce%20i%20sortowanie%20ORDER%20BY.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje agregujące i sortowanie ORDER BY</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Grupowanie danych GROUP BY i filtrowanie grup HAVING"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Grupowanie%20danych%20GROUP%20BY%20i%20filtrowanie%20grup%20HAVING.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupowanie danych GROUP BY i filtrowanie grup HAVING</a></li><li class="module">Moduł 3: Modyfikacja danych w tabelach</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%203/Modyfikacja%20rekord%C3%B3w%20za%20pomoc%C4%85%20INSERT%20UPDATE%20i%20DELETE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</a></li><li class="module">Moduł 4: Definiowanie struktur bazodanowych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Projektowanie tabel CREATE TABLE i więzy integralności"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Projektowanie%20tabel%20CREATE%20TABLE%20i%20wi%C4%99zy%20integralno%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie tabel CREATE TABLE i więzy integralności</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Modyfikacja%20schematu%20tabeli%20ALTER%20TABLE%20i%20indeksy%20wydajno%C5%9Bciowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</a></li><li class="module">Moduł 5: Zaawansowane operacje zbiorowe i administracja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Podzapytania i łączenie wyników za pomocą UNION"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Podzapytania%20i%20%C5%82%C4%85czenie%20wynik%C3%B3w%20za%20pomoc%C4%85%20UNION.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podzapytania i łączenie wyników za pomocą UNION</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Zarządzanie użytkownikami i uprawnienia bazy danych"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Zarz%C4%85dzanie%20u%C5%BCytkownikami%20i%20uprawnienia%20bazy%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie użytkownikami i uprawnienia bazy danych</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Podzapytania i łączenie wyników za pomocą UNION</h1>
+<p>Gdy kryteria wyszukiwania zależą od wyników innego zapytania (np. poszukiwanie produktów droższych od średniej ceny całego magazynu), pojedyncze zapytanie SQL nie wystarcza. W takich scenariuszach stosujemy <span class="color-green">podzapytania (subqueries)</span>. Z kolei gdy zachodzi potrzeba połączenia w jeden raport rekordów pochodzących z dwóch różnych tabel lub odrębnych zapytań o tej samej strukturze kolumn, wykorzystujemy operację sumy zbiorów <code>UNION</code>.</p>
+<p>Pracujemy na bazie danych hurtowni wielobranżowej, badając produkty o ponadprzeciętnych cenach i łącząc dane z różnych działów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💾 Struktura bazy danych i plik źródłowy</h2>
+<p>Pobierz plik bazy danych hurtowni:</p>
+<p><a href="/resources/sql-files/hurtownia.sql" download="hurtownia.sql" class="download-btn">Pobierz plik bazy danych hurtowni (.sql)</a></p>
+<p>Tabela <code>towary</code> przechowuje asortyment hurtowni:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT)</th>
+<th align="left">nazwa (VARCHAR)</th>
+<th align="left">kategoria (VARCHAR)</th>
+<th align="left">cena (DECIMAL)</th>
+<th align="left">stan (INT)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Wiertarka udarowa</td>
+<td align="left">Narzędzia</td>
+<td align="left">340.00</td>
+<td align="left">15</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Zestaw kluczy</td>
+<td align="left">Narzędzia</td>
+<td align="left">180.00</td>
+<td align="left">40</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Farba akrylowa biała</td>
+<td align="left">Malarstwo</td>
+<td align="left">85.00</td>
+<td align="left">60</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Drabina aluminiowa</td>
+<td align="left">Budownictwo</td>
+<td align="left">290.00</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Pędzel płaski</td>
+<td align="left">Malarstwo</td>
+<td align="left">12.00</td>
+<td align="left">150</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Podzapytania nieskorelowane w klauzuli WHERE</h2>
+<p>Podzapytanie (subquery) to zapytanie <code>SELECT</code> zagnieżdżone wewnątrz innego zapytania w nawiasach okrągłych <code>()</code>. Silnik bazodanowy wykonuje najpierw podzapytanie wewnętrzne, a jego wynik przekazuje do zapytania zewnętrznego:</p>
+<pre><code class="language-sql">-- Wybierz towary, których cena jest wyższa niż średnia cena wszystkich towarów w bazie:
+SELECT nazwa, cena 
+FROM towary 
+WHERE cena &gt; (SELECT AVG(cena) FROM towary);
+</code></pre>
+<p>Silnik oblicza najpierw wartość <code>AVG(cena)</code> (np. 181.40 zł), a następnie wykonuje filtrowanie zewnętrzne <code>WHERE cena &gt; 181.40</code>.</p>
+<h3>📋 Podzapytania z operatorem IN</h3>
+<p>Gdy podzapytanie zwraca całą listę wartości (jedną kolumnę z wieloma wierszami), stosujemy operator <code>IN</code>:</p>
+<pre><code class="language-sql">SELECT nazwa, cena 
+FROM towary 
+WHERE id IN (SELECT id_towaru FROM promocje);
+</code></pre>
+<data-quiz>
+  <question>Jaki warunek musi spełniać podzapytanie użyte po operatorze porównania <code>&gt;</code> lub <code>=</code> w klauzuli <code>WHERE</code>?</question>
+  <options>
+    <option correct="">Musi zwrócić dokładnie jedną wartość skalarną (jeden wiersz i jedną kolumnę)</option>
+    <option>Musi zwrócić pełną tabelę z identyczną liczbą kolumn co zapytanie zewnętrzne</option>
+    <option>Musi być zapytaniem z klauzulą <code>GROUP BY</code> oraz <code>HAVING</code></option>
+    <option>Musi odwoływać się do dokładnie tej samej tabeli co zapytanie główne</option>
+  </options>
+</data-quiz>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔀 Teoria mnogości i suma zbiorów UNION</h2>
+<p>Operacja <code>UNION</code> odpowiada sumie zbiorów $A \cup B$. Łączy ona wyniki dwóch zapytań <code>SELECT</code> w jeden jednolity zbiór wynikowy:</p>
+<data-gate>
+<data-venn-diagram sets="2" task="A \cup B"></data-venn-diagram>
+</data-gate>
+
+<h3>⚖️ UNION a UNION ALL</h3>
+<ul>
+<li><code>UNION</code> - łączy zbiory i automatycznie usuwa powtarzające się duplikaty (wymaga kosztownego sortowania).</li>
+<li><code>UNION ALL</code> - łączy zbiory bez eliminacji duplikatów (operacja znacznie szybsza).</li>
+</ul>
+<p>Warunki konieczne dla <code>UNION</code>:</p>
+<ol>
+<li>Oba zapytania muszą zwracać <span class="color-green">dokładnie taką samą liczbę kolumn</span>.</li>
+<li>Odpowiadające sobie kolumny muszą posiadać <span class="color-green">zgodne typy danych</span>.</li>
+</ol>
+<pre><code class="language-sql">SELECT nazwa, cena, 'Promocja' AS status 
+FROM towary 
+WHERE cena &lt; 50.00
+
+UNION
+
+SELECT nazwa, cena, 'Bestseller' AS status 
+FROM towary 
+WHERE stan &gt; 100;
+</code></pre>
+<data-connection-matcher title="Dopasuj operację na zbiorach do jej właściwości">
+  <div class="cmw-item" data-left="`UNION`" data-right="Łączy wyniki zapytań i automatycznie eliminuje powtarzające się duplikaty"></div>
+  <div class="cmw-item" data-left="`UNION ALL`" data-right="Błyskawicznie łączy wyniki bez sprawdzania i usuwania duplikatów"></div>
+  <div class="cmw-item" data-left="`WHERE cena > (SELECT ...)`" data-right="Filtruje rekordy na podstawie dynamicznie wyliczonej wartości skalarnej"></div>
+  <div class="cmw-item" data-left="`WHERE id IN (SELECT ...)`" data-right="Weryfikuje przynależność klucza do listy zwróconej przez podzapytanie"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Kwerenda towarów powyżej średniej</h2>
+<p>Napisz zapytanie wybierające nazwę (<code>nazwa</code>) oraz cenę (<code>cena</code>) z tabeli <code>towary</code> dla artykułów, których cena jednostkowa przewyższa średnią cenę towarów w całej hurtowni, posortowane malejąco po cenie.</p>
+<data-gate>
+<data-code-runner language="sql" title="Towary droższe od średniej ceny magazynowej" data-code="LS0gV3liaWVyejogbmF6d2EsIGNlbmEgeiB0YWJlbGkgdG93YXJ5Ci0tIGRsYSB0b3dhcsOzdyBvIGNlbmllID4gxZtyZWRuaWEgY2VuYSB3IGh1cnRvd25pCi0tIHBvc29ydHVqIG1hbGVqxIVjbyBwbyBjZW5pZQpTRUxFQ1Q=" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgcG9wcmF3bmllIHp3cmFjYSAyIG5hamRyb8W8c3plIHRvd2FyeSB6IGtvbHVtbmFtaSBuYXp3YSBvcmF6IGNlbmEiLAogICAgICAgICJ0eXBlIjogInNxbC1leGVjdXRlIiwKICAgICAgICAic2NoZW1hIjogIkNSRUFURSBUQUJMRSB0b3dhcnkgKGlkIElOVCBQUklNQVJZIEtFWSwgbmF6d2EgVEVYVCwga2F0ZWdvcmlhIFRFWFQsIGNlbmEgUkVBTCwgc3RhbiBJTlQpOyBJTlNFUlQgSU5UTyB0b3dhcnkgVkFMVUVTICgxLCAnV2llcnRhcmthIHVkYXJvd2EnLCAnTmFyesSZZHppYScsIDM0MC4wMCwgMTUpLCAoMiwgJ1plc3RhdyBrbHVjenknLCAnTmFyesSZZHppYScsIDE4MC4wMCwgNDApLCAoMywgJ0RyYWJpbmEgYWx1bWluaW93YScsICdCdWRvd25pY3R3bycsIDI5MC4wMCwgOCksICg0LCAnUMSZZHplbCBwxYJhc2tpJywgJ01hbGFyc3R3bycsIDEyLjAwLCAxNTApOyIsCiAgICAgICAgImV4cGVjdGVkQ291bnQiOiAyLAogICAgICAgICJleHBlY3RlZENvbHVtbnMiOiBbIm5hendhIiwgImNlbmEiXQogICAgICB9LAogICAgICB7CiAgICAgICAgImlkIjogInN5bnRheC1zdWJxdWVyeSIsCiAgICAgICAgInRleHQiOiAiV3lrb3J6eXN0YW5vIHBvZHphcHl0YW5pZSB6IGZ1bmtjasSFIEFWRyB3IGtsYXV6dWxpIFdIRVJFIiwKICAgICAgICAidHlwZSI6ICJjb250YWlucyIsCiAgICAgICAgInBhdHRlcm4iOiAiQVZHIgogICAgICB9CiAgICBd"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie praktyczne - Analiza asortymentu w hurtowni</h2>
+<p>Sformułuj zapytania analityczne dla kierownika hurtowni na bazie <code>hurtownia.sql</code>.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Towary powyżej średniej w dziale Narzędzia</span>: Napisz kwerendę zwracającą <code>nazwa</code> oraz <code>cena</code> towarów z kategorii <code>'Narzędzia'</code>, których cena jest wyższa niż średnia cena w tej samej kategorii.</li>
+<li><span class="color-green">Najtańszy i najdroższy artykuł</span>: Użyj operacji <code>UNION</code>, aby w jednym raporcie zestawić towar o minimalnej cenie oraz towar o maksymalnej cenie.</li>
+<li><span class="color-green">Produkty z krytycznym zapasem</span>: Napisz kwerendę z podzapytaniem, która wyłoni nazwy towarów, których stan magazynowy jest mniejszy niż średni stan towarów w hurtowni.</li>
+</ol>
+<p>Spróbuj napisać zapytania samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy blok.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-sql">-- Kwerenda 1: Artykuły powyżej średniej w kategorii Narzędzia
+SELECT nazwa, cena 
+FROM towary 
+WHERE kategoria = 'Narzędzia' 
+  AND cena &gt; (SELECT AVG(cena) FROM towary WHERE kategoria = 'Narzędzia');
+
+-- Kwerenda 2: Skrajne towary za pomocą UNION
+SELECT nazwa, cena, 'Najtanszy' AS typ 
+FROM towary 
+ORDER BY cena ASC 
+LIMIT 1
+
+UNION
+
+SELECT nazwa, cena, 'Najdrozszy' AS typ 
+FROM towary 
+ORDER BY cena DESC 
+LIMIT 1;
+
+-- Kwerenda 3: Towary z zapasem poniżej średniej
+SELECT nazwa, stan 
+FROM towary 
+WHERE stan &lt; (SELECT AVG(stan) FROM towary);
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li>Podzapytania w <code>WHERE</code> pozwalają dynamicznie obliczać wartości progowe (np. średnie, minima) bez konieczności hardkodowania liczb.</li>
+<li><code>UNION</code> sumuje zbiory ($A \cup B$) i usuwa duplikaty; <code>UNION ALL</code> zachowuje powtórzenia i działa szybciej.</li>
+<li>Wszystkie zapytania łączone przez <code>UNION</code> muszą posiadać taką samą liczbę kolumn o zgodnych typach danych.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

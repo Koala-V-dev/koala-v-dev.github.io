@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Wyszukiwanie wzorców LIKE i zakresy wartości - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">sql</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Selekcja i filtrowanie rekordów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy zapytania SELECT i filtrowanie WHERE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Podstawy%20zapytania%20SELECT%20i%20filtrowanie%20WHERE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy zapytania SELECT i filtrowanie WHERE</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wyszukiwanie wzorców LIKE i zakresy wartości"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Wyszukiwanie%20wzorc%C3%B3w%20LIKE%20i%20zakresy%20warto%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyszukiwanie wzorców LIKE i zakresy wartości</a></li><li class="module">Moduł 1: Relacje i złączenia tabel</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Relacje jeden do wielu i kluczowe złączenie INNER JOIN"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Relacje%20jeden%20do%20wielu%20i%20kluczowe%20z%C5%82%C4%85czenie%20INNER%20JOIN.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Relacje jeden do wielu i kluczowe złączenie INNER JOIN</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złączenia zewnętrzne LEFT JOIN i brakujące powiązania"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Z%C5%82%C4%85czenia%20zewn%C4%99trzne%20LEFT%20JOIN%20i%20brakuj%C4%85ce%20powi%C4%85zania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</a></li><li class="module">Moduł 2: Agregacja i analityka danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje agregujące i sortowanie ORDER BY"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Funkcje%20agreguj%C4%85ce%20i%20sortowanie%20ORDER%20BY.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje agregujące i sortowanie ORDER BY</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Grupowanie danych GROUP BY i filtrowanie grup HAVING"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Grupowanie%20danych%20GROUP%20BY%20i%20filtrowanie%20grup%20HAVING.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupowanie danych GROUP BY i filtrowanie grup HAVING</a></li><li class="module">Moduł 3: Modyfikacja danych w tabelach</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%203/Modyfikacja%20rekord%C3%B3w%20za%20pomoc%C4%85%20INSERT%20UPDATE%20i%20DELETE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</a></li><li class="module">Moduł 4: Definiowanie struktur bazodanowych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Projektowanie tabel CREATE TABLE i więzy integralności"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Projektowanie%20tabel%20CREATE%20TABLE%20i%20wi%C4%99zy%20integralno%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie tabel CREATE TABLE i więzy integralności</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Modyfikacja%20schematu%20tabeli%20ALTER%20TABLE%20i%20indeksy%20wydajno%C5%9Bciowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</a></li><li class="module">Moduł 5: Zaawansowane operacje zbiorowe i administracja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Podzapytania i łączenie wyników za pomocą UNION"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Podzapytania%20i%20%C5%82%C4%85czenie%20wynik%C3%B3w%20za%20pomoc%C4%85%20UNION.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podzapytania i łączenie wyników za pomocą UNION</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Zarządzanie użytkownikami i uprawnienia bazy danych"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Zarz%C4%85dzanie%20u%C5%BCytkownikami%20i%20uprawnienia%20bazy%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie użytkownikami i uprawnienia bazy danych</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Wyszukiwanie wzorców LIKE i zakresy wartości</h1>
+<p>Dokładne dopasowanie operatorem <code>=</code> jest niewystarczające, gdy użytkownik wyszukuje produkty po fragmencie nazwy, filtruje towary w przedziale cenowym lub wybiera kilka konkretnych kategorii. Język SQL udostępnia operatory wzorców tekstowych oraz operatory zbiorów, które optymalizują filtrowanie rekordów.</p>
+<p>Pracujemy na bazie danych salonu meblowego, konstruując zapytania wyszukiwarki produktów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💾 Struktura bazy danych i plik źródłowy</h2>
+<p>Pobierz plik zrzutu bazy danych, aby zaimportować schemat tabeli mebli do lokalnego serwera:</p>
+<p><a href="/resources/sql-files/sklep-meblowy.sql" download="sklep-meblowy.sql" class="download-btn">Pobierz plik bazy danych sklepu meblowego (.sql)</a></p>
+<p>Tabela <code>meble</code> zawiera pozycje katalogowe sklepu:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT)</th>
+<th align="left">nazwa (VARCHAR)</th>
+<th align="left">kategoria (VARCHAR)</th>
+<th align="left">cena (DECIMAL)</th>
+<th align="left">dostepnosc (INT)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Fotel biurowy Ergonom</td>
+<td align="left">fotele</td>
+<td align="left">480.00</td>
+<td align="left">12</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Fotel uszak Velvet</td>
+<td align="left">fotele</td>
+<td align="left">620.00</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Biurko dębowe Loft</td>
+<td align="left">biurka</td>
+<td align="left">850.00</td>
+<td align="left">8</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Szafa przesuwna Nordic</td>
+<td align="left">szafy</td>
+<td align="left">1490.00</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Krzesło drewniane Classic</td>
+<td align="left">krzesla</td>
+<td align="left">180.00</td>
+<td align="left">25</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔤 Dopasowywanie wzorców tekstowych operatorem LIKE</h2>
+<p>Operator <code>LIKE</code> pozwala wyszukiwać ciągi znaków pasujące do określonego szablonu. W szablonie wykorzystujemy dwa znaki wieloznaczne:</p>
+<ol>
+<li>Znak procenta (<code>%</code>) - zastępuje dowolną liczbę znaków (w tym zero znaków).</li>
+<li>Znak podkreślenia (<code>_</code>) - zastępuje dokładnie jeden dowolny znak.</li>
+</ol>
+<pre><code class="language-sql">-- Wszystkie meble, których nazwa zaczyna się od słowa "Fotel"
+SELECT nazwa, cena FROM meble WHERE nazwa LIKE 'Fotel%';
+
+-- Wszystkie meble zawierające w nazwie słowo "Loft" w dowolnym miejscu
+SELECT nazwa, cena FROM meble WHERE nazwa LIKE '%Loft%';
+
+-- Kategorie 6-literowe kończące się na 'e'
+SELECT nazwa, kategoria FROM meble WHERE kategoria LIKE '_____e';
+</code></pre>
+<data-quiz>
+  <question>Który wzorzec w operatorze <code>LIKE</code> dopasuje wyłącznie napisy zaczynające się od litery B i mające dokładnie 4 znaki?</question>
+  <options>
+    <option correct=""><code>LIKE 'B___'</code> - litera B plus dokładnie trzy znaki podkreślenia</option>
+    <option><code>LIKE 'B%'</code> - dopasuje każdy wyraz na literę B o dowolnej długości</option>
+    <option><code>LIKE 'B{4}'</code> - składnia wyrażeń regularnych niewspierana w standardowym LIKE</option>
+    <option><code>LIKE 'B*??'</code> - składnia masek plików powłoki systemowej zamiast SQL</option>
+  </options>
+</data-quiz>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📏 Zakresy BETWEEN, zbiory IN oraz obsługa wartości NULL</h2>
+<h3>📐 Sprawdzanie przedziałów domkniętych klauzulą BETWEEN</h3>
+<p>Klauzula <code>BETWEEN min AND max</code> weryfikuje, czy wartość kolumny mieści się w zadanym zakresie numerycznym lub datowym. Zakres ten jest <span class="color-green">obustronnie domknięty</span> (wartości graniczne są wliczane):</p>
+<pre><code class="language-sql">SELECT nazwa, cena 
+FROM meble 
+WHERE cena BETWEEN 400.00 AND 900.00;
+</code></pre>
+<p>Zapytanie to jest logicznie tożsame z zapisem: <code>WHERE cena &gt;= 400.00 AND cena &lt;= 900.00</code>.</p>
+<h3>📋 Przynależność do zbioru operatorem IN</h3>
+<p>Gdy chcemy sprawdzić, czy wartość pola pasuje do jednej z wielu dopuszczalnych opcji, operator <code>IN</code> zastępuje ciąg powtarzających się warunków <code>OR</code>:</p>
+<pre><code class="language-sql">SELECT nazwa, kategoria, cena 
+FROM meble 
+WHERE kategoria IN ('fotele', 'biurka');
+</code></pre>
+<p>Negacja <code>NOT IN ('szafy')</code> wyklucza wskazane grupy z wyniku.</p>
+<h3>❓ Weryfikacja braków danych operatorem IS NULL</h3>
+<p>Wartość <code>NULL</code> reprezentuje brak danych i nie może być porównywana tradycyjnym operatorem <code>=</code>. W języku SQL stosujemy dedykowane operatory <code>IS NULL</code> oraz <code>IS NOT NULL</code>:</p>
+<pre><code class="language-sql">SELECT nazwa FROM meble WHERE opis IS NOT NULL;
+</code></pre>
+<data-connection-matcher title="Dopasuj konstrukcję SQL do jej właściwości">
+  <div class="cmw-item" data-left="`LIKE '%sofa%'`" data-right="Wyszukuje podany ciąg znaków w dowolnej pozycji kolumny"></div>
+  <div class="cmw-item" data-left="`BETWEEN 100 AND 300`" data-right="Filtruje przedział domknięty wraz z wartościami brzegowymi"></div>
+  <div class="cmw-item" data-left="`IN ('A', 'B', 'C')`" data-right="Sprawdza przynależność wartości do podanej listy elementów"></div>
+  <div class="cmw-item" data-left="`IS NOT NULL`" data-right="Wybiera wyłącznie wiersze z uzupełnioną zawartością"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Selekcja mebli po wzorcu i cenie</h2>
+<p>Sformułuj zapytanie wybierające nazwę (<code>nazwa</code>) oraz cenę (<code>cena</code>) z tabeli <code>meble</code> dla wszystkich foteli (<code>nazwa</code> zaczyna się od słowa <code>'Fotel'</code>), których cena mieści się w przedziale od 450.00 do 700.00 zł.</p>
+<data-gate>
+<data-code-runner language="sql" title="Filtrowanie mebli tapicerowanych z ceną w przedziale" data-code="LS0gV3liaWVyeiBrb2x1bW55IG5hendhIG9yYXogY2VuYSB6IHRhYmVsaSBtZWJsZQotLSBkbGEgbWVibGkgemFjenluYWrEhWN5Y2ggc2nEmSBvZCAnRm90ZWwnIG8gY2VuaWUgb2QgNDUwIGRvIDcwMCB6xYIKU0VMRUNU" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgcG9wcmF3bmllIHp3cmFjYSAyIHdpZXJzemUgeiBrb2x1bW5hbWkgbmF6d2Egb3JheiBjZW5hIiwKICAgICAgICAidHlwZSI6ICJzcWwtZXhlY3V0ZSIsCiAgICAgICAgInNjaGVtYSI6ICJDUkVBVEUgVEFCTEUgbWVibGUgKGlkIElOVCBQUklNQVJZIEtFWSwgbmF6d2EgVEVYVCwga2F0ZWdvcmlhIFRFWFQsIGNlbmEgUkVBTCwgZG9zdGVwbm9zYyBJTlQpOyBJTlNFUlQgSU5UTyBtZWJsZSBWQUxVRVMgKDEsICdGb3RlbCBiaXVyb3d5IEVyZ29ub20nLCAnZm90ZWxlJywgNDgwLjAwLCAxMiksICgyLCAnRm90ZWwgdXN6YWsgVmVsdmV0JywgJ2ZvdGVsZScsIDYyMC4wMCwgNCksICgzLCAnQml1cmtvIGTEmWJvd2UgTG9mdCcsICdiaXVya2EnLCA4NTAuMDAsIDgpLCAoNCwgJ1N6YWZhIHByemVzdXduYSBOb3JkaWMnLCAnc3phZnknLCAxNDkwLjAwLCAyKSwgKDUsICdLcnplc8WCbyBkcmV3bmlhbmUgQ2xhc3NpYycsICdrcnplc2xhJywgMTgwLjAwLCAyNSk7IiwKICAgICAgICAiZXhwZWN0ZWRDb3VudCI6IDIsCiAgICAgICAgImV4cGVjdGVkQ29sdW1ucyI6IFsibmF6d2EiLCAiY2VuYSJdCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiaWQiOiAic3ludGF4LWxpa2UiLAogICAgICAgICJ0ZXh0IjogIld5a29yenlzdGFubyBvcGVyYXRvciBMSUtFIHogc3ltYm9sZW0gd2llbG96bmFjem55bSAlIiwKICAgICAgICAidHlwZSI6ICJjb250YWlucyIsCiAgICAgICAgInBhdHRlcm4iOiAiTElLRSIKICAgICAgfQogICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie praktyczne - Wyszukiwarka asortymentu meblowego</h2>
+<p>Zbuduj kwerendy filtrujące ofertę salonu meblowego.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Fotele w ofercie</span>: Napisz zapytanie zwracające kolumny <code>nazwa</code> oraz <code>cena</code> dla mebli z kategorii <code>'fotele'</code> posortowane alfabetycznie według nazwy.</li>
+<li><span class="color-green">Przedział cenowy średniej półki</span>: Napisz zapytanie zwracające wszystkie dane mebli o cenie od 400.00 do 1000.00 zł z użyciem operatora <code>BETWEEN</code>.</li>
+<li><span class="color-green">Produkty z wyprzedaży</span>: Wybierz nazwę i cenę mebli należących do kategorii <code>'fotele'</code> lub <code>'krzesla'</code>, których dostępność w magazynie jest mniejsza niż 10 sztuk.</li>
+</ol>
+<p>Spróbuj napisać zapytania samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy blok.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-sql">-- Kwerenda 1: Fotele alfabetycznie
+SELECT nazwa, cena 
+FROM meble 
+WHERE kategoria = 'fotele';
+
+-- Kwerenda 2: Meble od 400 do 1000 zł
+SELECT id, nazwa, kategoria, cena, dostepnosc 
+FROM meble 
+WHERE cena BETWEEN 400.00 AND 1000.00;
+
+-- Kwerenda 3: Wyprzedaż foteli i krzeseł z małym stanem
+SELECT nazwa, cena 
+FROM meble 
+WHERE kategoria IN ('fotele', 'krzesla') AND dostepnosc &lt; 10;
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li>Operator <code>LIKE</code> obsługuje znaki wieloznaczne <code>%</code> (ciąg znaków) oraz <code>_</code> (pojedynczy znak).</li>
+<li>Klauzula <code>BETWEEN</code> tworzy domknięty przedział wartości, wliczając wartości brzegowe.</li>
+<li>Operator <code>IN</code> upraszcza wielokrotne alternatywy <code>OR</code> i współpracuje z negacją <code>NOT IN</code>.</li>
+<li>Brakujące wartości <code>NULL</code> weryfikujemy wyłącznie za pomocą <code>IS NULL</code> lub <code>IS NOT NULL</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

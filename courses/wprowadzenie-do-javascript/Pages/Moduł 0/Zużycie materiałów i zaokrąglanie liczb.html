@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Zużycie materiałów i zaokrąglanie liczb - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Zużycie materiałów i zaokrąglanie liczb</h1>
+<p>W programowaniu aplikacji dla handlu, logistyki i budownictwa nieustannie zderzamy się z ograniczeniami fizycznego świata. W matematyce teoretycznej wynikiem dzielenia $25$ przez $4$ jest $6{,}25$. Jednak w markecie budowlanym nikt nie sprzeda klientowi ćwiartki puszki farby ani rozciętej paczki kafelków. Towary sprzedawane są w dyskretnych opakowaniach.</p>
+<p>W tej lekcji zaczniemy od formularza kalkulatora remontowego, poznamy dogłębnie mechanikę zaokrągleń w obiekcie <code>Math</code>, rozwiążemy wyzwanie w edytorze kodu na przykładzie paczek paneli z naddatkiem na ścinki, a na koniec samodzielnie zaprogramujemy logikę zużycia farby.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Punkt wyjścia: Formularz zapotrzebowania na farbę</h2>
+<p>Wyobraź sobie interfejs kalkulatora dla ekipy malarskiej:</p>
+<pre><code class="language-html">&lt;section id="kalkulator-farby"&gt;
+  &lt;h2&gt;Zapotrzebowanie na farbę&lt;/h2&gt;
+  
+  &lt;label for="powierzchnia"&gt;Powierzchnia malowania (m²):&lt;/label&gt;&lt;br&gt;
+  &lt;input type="number" id="powierzchnia"&gt;&lt;br&gt;
+
+  &lt;button id="btn-policz"&gt;Policz&lt;/button&gt;
+  &lt;p id="wynik-puszki"&gt;&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Założenia techniczne:</p>
+<ul>
+<li>Jedna puszka zawiera 1 litr farby.</li>
+<li>1 litr farby wystarcza dokładnie na pokrycie $4\ \text{m}^2$ powierzchni.</li>
+<li>Jeśli ściana ma $6\ \text{m}^2$, to dzielenie $6 / 4$ daje $1{,}5$ puszki.</li>
+</ul>
+<p>Gdybyśmy użyli standardowego zaokrąglenia w dół lub obcięli ułamek, klient kupiłby 1 puszkę. Pomalowałby $4\ \text{m}^2$, a pozostałe $2\ \text{m}^2$ ściany pozostałyby surowym tynkiem! Musimy wymusić zaokrąglenie w górę do 2 pełnych puszek.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Obiekt Math: sufit, podłoga i zaokrąglenie szkolne</h2>
+<p>Wbudowany w JavaScript obiekt <code>Math</code> dostarcza zestaw metod do przekształcania liczb zmiennoprzecinkowych w liczby całkowite. Każda z nich realizuje zupełnie inną strategię:</p>
+<h3>📐 1. Math.ceil(x) - sufit (zawsze w górę)</h3>
+<p>Zaokrągla liczbę do najbliższej większej lub równej liczby całkowitej (w stronę plus nieskończoności):</p>
+<pre><code class="language-javascript">Math.ceil(4.01); // 5
+Math.ceil(4.99); // 5
+Math.ceil(4.00); // 4 (dla równej liczby nie dodaje nic)
+</code></pre>
+<p>To jest metoda dedykowana do wyliczania towarów niepodzielnych, paczek, biletów i liczby stron w paginacji.</p>
+<h3>🧱 2. Math.floor(x) - podłoga (zawsze w dół)</h3>
+<p>Zaokrągla liczbę w stronę minus nieskończoności (odcina nadmiar ułamkowy dla liczb dodatnich):</p>
+<pre><code class="language-javascript">Math.floor(4.99); // 4
+Math.floor(4.01); // 4
+</code></pre>
+<p>Stosujemy ją, gdy interesują nas wyłącznie w pełni ukończone jednostki (np. pełne przepracowane godziny, ukończone okrążenia na torze).</p>
+<h3>⚖️ 3. Math.round(x) - zaokrąglenie arytmetyczne</h3>
+<p>Stosuje tradycyjną zasadę szkolną: od części ułamkowej $0{,}5$ zaokrągla w górę, a poniżej w dół:</p>
+<pre><code class="language-javascript">Math.round(4.49); // 4
+Math.round(4.50); // 5
+</code></pre>
+<p>Używamy jej do przybliżeń statystycznych oraz zaokrąglania kwot pieniężnych do groszy:</p>
+<pre><code class="language-javascript">const kwota = 12.3456;
+const grosze = Math.round(kwota * 100) / 100; // 12.35
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Sprawdź swoje zrozumienie zaokrągleń</h2>
+<p>Sprawdź, czy potrafisz dobrać właściwą funkcję do realnego problemu logistycznego.</p>
+<data-gate>
+  <data-quiz>
+    <question>Organizujesz transport dla 45 pracowników. Każdy bus mieści maksymalnie 10 osób. Które wyrażenie poprawnie wyliczy liczbę busów?</question>
+    <options>
+      <option correct="">Math.ceil(45 / 10) - da 5 busów, dzięki czemu nikt nie zostanie na przystanku</option>
+      <option>Math.floor(45 / 10) - da 4 busy, co w zupełności wystarczy dla większości załogi</option>
+      <option>Math.round(45 / 10) - da 4 busy, ponieważ ułamek 0.5 zaokrągla się w stronę zera</option>
+      <option>parseInt(45 / 10, 10) - da 4 busy, obcinając nadmiar osób bez wywoływania błędów</option>
+    </options>
+    <div data-hint="error"><p>Zastanów się: jeśli zamówisz 4 busy, zabierzesz 40 osób. Co stanie się z pozostałymi 5 pracownikami?</p>
+</div>
+    <div data-hint="success"><p>Doskonale! Dzielenie 45 / 10 daje 4.5. Tylko Math.ceil zaokrągli tę wartość do 5, zapewniając miejsce dla każdego pasażera.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Dopasuj metody zaokrąglania do wyników</h2>
+<p>Przetestuj działanie poszczególnych metod obiektu <code>Math</code> na wartościach brzegowych.</p>
+<data-gate>
+  <data-connection-matcher title="Dopasuj funkcję Math do jej wyniku">
+    <div class="cmw-item" data-left="Math.ceil(8.01)" data-right="Zwraca 9 (najmniejsza całkowita większa od ułamka)"></div>
+    <div class="cmw-item" data-left="Math.floor(8.99)" data-right="Zwraca 8 (największa całkowita mniejsza od ułamka)"></div>
+    <div class="cmw-item" data-left="Math.ceil(8.00)" data-right="Zwraca 8 (wartość całkowita pozostaje nienaruszona)"></div>
+    <div class="cmw-item" data-left="Math.round(8.49)" data-right="Zwraca 8 (część ułamkowa poniżej 0.5 ściąga w dół)"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Wyzwanie w edytorze: Kalkulator paczek paneli z naddatkiem</h2>
+<p>W budownictwie panele podłogowe układa się z docinkami przy ścianach. Dlatego do powierzchni pomieszczenia zawsze dolicza się tzw. <span class="color-green">naddatek na ścinki</span> (zazwyczaj 10% lub 15%), a dopiero potem przelicza na paczki.</p>
+<p>Twoim zadaniem jest oprogramowanie funkcji <code>obliczPaczkiPaneli</code>.</p>
+<p>Wymagania biznesowe:</p>
+<ul>
+<li>Parametry: <code>dlugoscStr</code>, <code>szerokoscStr</code>, <code>m2PaczkaStr</code>, <code>naddatekProcentStr</code> (wszystkie przychodzą jako tekst z formularza).</li>
+<li>Zrzutuj wartości na liczby zmiennoprzecinkowe.</li>
+<li>Jeżeli którekolwiek pole ma wartość mniejszą lub równą zero bądź <code>isNaN</code> $\to$ zwróć <code>0</code>.</li>
+<li>Oblicz pole powierzchni pokoju: $\text{pole} = \text{dlugosc} \cdot \text{szerokosc}$.</li>
+<li>Dolicz naddatek na docinki: $\text{poleZCieciem} = \text{pole} \cdot \left(1 + \frac{\text{naddatek}}{100}\right)$.</li>
+<li>Wylicz liczbę paczek, dzieląc powierzchnię z naddatkiem przez wydajność paczki.</li>
+<li>Pamiętaj, że paczek nie można dzielić - zaokrąglij wynik w górę do pełnej paczki za pomocą <code>Math.ceil()</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" title="Kalkulator paczek paneli" data-code="ZnVuY3Rpb24gb2JsaWN6UGFjemtpUGFuZWxpKGRsdWdvc2NTdHIsIHN6ZXJva29zY1N0ciwgbTJQYWN6a2FTdHIsIG5hZGRhdGVrUHJvY2VudFN0cikgewogIC8vIFRPRE86IFphaW1wbGVtZW50dWogcnp1dG93YW5pZSwgd2FsaWRhY2rEmSwgb2JsaWN6ZW5pZSBwb3dpZXJ6Y2huaSB6IG5hZGRhdGtpZW0gaSB6YW9rcsSFZ2xlbmllIHcgZ8OzcsSZLgogIC8vIFBhbWnEmXRhajogd3luaWsgbXVzaSBiecSHIGxpY3pixIUgY2HFgmtvd2l0xIUgYsSZZMSFY8SFIG1pbmltYWxuxIUgbGljemLEhSBwYWN6ZWsgZG8gemFrdXB1IQogIAogIHJldHVybiBudWxsOwp9" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXN0YW5kYXJkLWJlei1uYWRkYXRrdSIsCiAgICAgICAgICAidGV4dCI6ICJQb2vDs2ogNHg1bSAoMjAgbTIpIHByenkgcGFjemNlIDIgbTIgYmV6IG5hZGRhdGt1IGRhamUgZG9rxYJhZG5pZSAxMCBwYWN6ZWsiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAib2JsaWN6UGFjemtpUGFuZWxpIiwKICAgICAgICAgICJpbnB1dCI6IFsiNCIsICI1IiwgIjIiLCAiMCJdLAogICAgICAgICAgImV4cGVjdGVkIjogMTAKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXotbmFkZGF0a2llbS16YW9rcmFnbGVuaWUiLAogICAgICAgICAgInRleHQiOiAiUG9rw7NqIDR4NW0gKDIwIG0yKSB6IG5hZGRhdGtpZW0gMTAlICgyMiBtMikgcHJ6eSBwYWN6Y2UgMi41IG0yIHd5bWFnYSA5IHBhY3playAoMjIvMi41ID0gOC44IC0+IDkpIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogIm9ibGljelBhY3praVBhbmVsaSIsCiAgICAgICAgICAiaW5wdXQiOiBbIjQiLCAiNSIsICIyLjUiLCAiMTAiXSwKICAgICAgICAgICJleHBlY3RlZCI6IDkKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LW1hbHktdcWCYW1lay13LWdvcmUiLAogICAgICAgICAgInRleHQiOiAiV3ltaWFyIDMuMng0bSAoMTIuOCBtMikgYmV6IG5hZGRhdGt1IHByenkgcGFjemNlIDIgbTIgKDYuNCBwYWN6a2kpIHd5bWFnYSA3IHBhY3playIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pQYWN6a2lQYW5lbGkiLAogICAgICAgICAgImlucHV0IjogWyIzLjIiLCAiNCIsICIyIiwgIjAiXSwKICAgICAgICAgICJleHBlY3RlZCI6IDcKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LWJsZWRuZS1kYW5lIiwKICAgICAgICAgICJ0ZXh0IjogIlB1c3RhIGx1YiB6ZXJvd2EgZMWCdWdvxZvEhyAoJycpIHp3cmFjYSAwIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogIm9ibGljelBhY3praVBhbmVsaSIsCiAgICAgICAgICAiaW5wdXQiOiBbIiIsICI1IiwgIjIiLCAiMTAiXSwKICAgICAgICAgICJleHBlY3RlZCI6IDAKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXVqZW1uZS13eW1pYXJ5IiwKICAgICAgICAgICJ0ZXh0IjogIlVqZW1uYSBzemVyb2tvxZvEhyB6d3JhY2EgMCIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pQYWN6a2lQYW5lbGkiLAogICAgICAgICAgImlucHV0IjogWyI0IiwgIi01IiwgIjIiLCAiMTAiXSwKICAgICAgICAgICJleHBlY3RlZCI6IDAKICAgICAgICB9CiAgICAgIF0="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Projekt końcowy: Ożywiamy kalkulator zużycia farby</h2>
+<p>Wracamy do naszego formularza malarskiego z początku lekcji:</p>
+<pre><code class="language-html">&lt;label for="powierzchnia"&gt;Powierzchnia malowania (m²):&lt;/label&gt;&lt;br&gt;
+&lt;input type="number" id="powierzchnia"&gt;&lt;br&gt;
+
+&lt;button id="btn-policz"&gt;Policz&lt;/button&gt;
+&lt;p id="wynik-puszki"&gt;&lt;/p&gt;
+</code></pre>
+<p>Założenia logiki:</p>
+<ul>
+<li>Jedna puszka zawiera 1 litr farby i wystarcza na $4\ \text{m}^2$.</li>
+<li>Wynik ma zostać wyświetlony w akapicie <code>#wynik-puszki</code> w formacie: <code>Liczba potrzebnych puszek: X</code>.</li>
+</ul>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li>Pobierz referencje do pola <code>#powierzchnia</code>, przycisku <code>#btn-policz</code> oraz akapitu <code>#wynik-puszki</code>.</li>
+<li>Zarejestruj nasłuchiwanie kliknięcia na przycisku (<code>addEventListener("click", ...)</code>).</li>
+<li>Wewnątrz zdarzenia odczytaj wartość z pola i sparsuj ją do liczby zmiennoprzecinkowej za pomocą <code>parseFloat()</code>.</li>
+<li>Sprawdź, czy powierzchnia jest poprawna (nie jest <code>isNaN</code> i jest większa od zera). Jeśli nie, wpisz <code>Liczba potrzebnych puszek: 0</code> i zakończ działanie.</li>
+<li>Podziel powierzchnię przez wydajność (4) i zaokrąglij wynik w górę za pomocą <code>Math.ceil()</code>.</li>
+<li>Wstaw sformatowany tekst do właściwości <code>textContent</code> akapitu wynikowego.</li>
+</ol>
+<p>Spróbuj napisać ten kod samodzielnie. Dopiero po zakończeniu próby sprawdź poniższe rozwiązanie wzorcowe.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">// 1. Pobieramy elementy z DOM
+const inputPowierzchnia = document.querySelector("#powierzchnia");
+const btnPolicz = document.querySelector("#btn-policz");
+const paragrafWynik = document.querySelector("#wynik-puszki");
+
+// Stała określająca wydajność 1 puszki (4 m2)
+const WYDAJNOSC_PUSZKI_M2 = 4;
+
+// 2. Podpinamy nasłuchiwanie zdarzenia click
+btnPolicz.addEventListener("click", () =&gt; {
+  // 3. Rzutujemy wartość wejściową
+  const powierzchnia = parseFloat(inputPowierzchnia.value);
+
+  // 4. Walidacja danych wejściowych
+  if (isNaN(powierzchnia) || powierzchnia &lt;= 0) {
+    paragrafWynik.textContent = "Liczba potrzebnych puszek: 0";
+    return;
+  }
+
+  // 5. Wyliczenie zapotrzebowania z zaokrągleniem w górę
+  const liczbaPuszek = Math.ceil(powierzchnia / WYDAJNOSC_PUSZKI_M2);
+
+  // 6. Wyświetlenie sformatowanego wyniku w DOM
+  paragrafWynik.textContent = `Liczba potrzebnych puszek: ${liczbaPuszek}`;
+});
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><code>Math.ceil()</code> służy do bezwzględnego zaokrąglania liczb ułamkowych w górę do najbliższej liczby całkowitej.</li>
+<li>Do obliczeń fizycznego zapotrzebowania na towary pakowane (puszki, paczki, kafle) zawsze stosujemy <code>Math.ceil()</code>, aby nie zabrakło materiału.</li>
+<li><code>Math.floor()</code> zaokrągla w dół (przydatne do pełnych ukończonych jednostek), a <code>Math.round()</code> stosuje zaokrąglenie arytmetyczne do najbliższej wartości.</li>
+<li>Rozwiązanie problemu zawsze dzielimy na fazę walidacji wejścia, kalkulację matematyczną i formatowanie wyjścia do DOM.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Kalkulator kosztów i rzutowanie typów - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Kalkulator kosztów i rzutowanie typów</h1>
+<p>Zanim napiszesz choćby jedną linijkę logiki w JavaScript, musisz wiedzieć, z czym pracujesz. W aplikacjach internetowych JavaScript niemal nigdy nie działa w próżni - jego zadaniem jest ożywienie statycznego dokumentu HTML, przechwycenie akcji użytkownika i zaktualizowanie widoku strony.</p>
+<p>W tej lekcji zaczniemy od gotowego szablonu formularza HTML, zrozumiemy model zdarzeń w przeglądarce, zgłębimy mechanizm konwersji typów w pamięci silnika JavaScript, rozwiążemy wyzwanie w edytorze kodu, a na koniec samodzielnie ożywimy formularz stacji paliw.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Punkt wyjścia: Szablon HTML i problem martwego interfejsu</h2>
+<p>Oto kod HTML formularza stacji paliw, który posłuży nam za cel wdrożeniowy:</p>
+<pre><code class="language-html">&lt;section id="stacja"&gt;
+  &lt;h2&gt;Orientacyjny koszt paliwa&lt;/h2&gt;
+  
+  &lt;label for="rodzaj"&gt;Rodzaj paliwa (1-benzyna, 2-olej napędowy):&lt;/label&gt;&lt;br&gt;
+  &lt;input type="number" id="rodzaj"&gt;&lt;br&gt;
+
+  &lt;label for="litry"&gt;Ile litrów?&lt;/label&gt;&lt;br&gt;
+  &lt;input type="number" id="litry"&gt;&lt;br&gt;
+
+  &lt;button id="btn-oblicz"&gt;OBLICZ&lt;/button&gt;
+  &lt;p id="wynik"&gt;&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Gdy otworzysz ten plik w przeglądarce, zobaczysz dwa pola liczbowe, przycisk i pusty obszar na wynik. Jednak bez względu na to, co wpiszesz i ile razy klikniesz przycisk, strona nie zareaguje.</p>
+<p>Dlaczego? Ponieważ HTML opisuje wyłącznie <span class="color-green">strukturę i wygląd</span>, ale nie posiada własnego mechanizmu obliczeniowego. Aby formularz zaczął działać, potrzebujemy skryptu JavaScript. Zanim jednak przejdziemy do obliczeń, musimy zrozumieć, w jaki sposób przeglądarka dowiaduje się, że użytkownik w ogóle kliknął przycisk.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔌 Jak JavaScript słucha użytkownika: model zdarzeń i addEventListener</h2>
+<p>W tradycyjnych programach konsolowych (np. w C++ czy Pythonie) program zatrzymuje wykonywanie kodu na instrukcji wejścia (np. <code>cin &gt;&gt; x</code> lub <code>input()</code>) i czeka, aż użytkownik coś wpisze.</p>
+<p>W przeglądarce internetowej takie podejście jest niedopuszczalne. Gdyby skrypt zatrzymał się i czekał, cała strona natychmiast by zamarzła - nie dałoby się przewijać tekstu, zaznaczać linków ani renderować animacji.</p>
+<p>Dlatego przeglądarki działają w <span class="color-green">architekturze sterowanej zdarzeniami</span> (<span class="color-blue">Event‑Driven Architecture</span>). Oznacza to, że skrypt uruchamia się, rejestruje dyspozytorów i natychmiast kończy pracę, pozostawiając przeglądarkę w stanie czuwania.</p>
+<p>Głównym narzędziem do rejestrowania reakcji na działania człowieka jest metoda <span class="color-green"><code>addEventListener</code></span>:</p>
+<pre><code class="language-javascript">const przycisk = document.querySelector("#btn-oblicz");
+
+przycisk.addEventListener("click", () =&gt; {
+  console.log("Przycisk został kliknięty!");
+});
+</code></pre>
+<p>Przeanalizujmy anatomię tego wywołania:</p>
+<ol>
+<li><span class="color-green">Cel zdarzenia (<code>przycisk</code>)</span>: Węzeł DOM, na którym chcemy nasłuchiwać.</li>
+<li><span class="color-green">Nazwa zdarzenia (<code>"click"</code>)</span>: Ciąg znaków określający rodzaj akcji (np. <code>"click"</code> dla kliknięcia myszą, <code>"input"</code> dla zmiany tekstu, <code>"submit"</code> dla wysłania formularza).</li>
+<li><span class="color-green">Funkcja zwrotna (<span class="color-blue">callback</span>)</span>: Blok kodu przekazywany jako argument. Ta funkcja <span class="color-green">nie wykonuje się od razu</span>! Przeglądarka zapisuje ją w pamięci i uruchomi dopiero wtedy, gdy użytkownik faktycznie kliknie w dany element.</li>
+</ol>
+<h3>⚠️ Najczęstszy błąd początkujących: pułapka nawiasów ()</h3>
+<p>Zwróć uwagę na różnicę między przekazaniem funkcji a jej wywołaniem:</p>
+<pre><code class="language-javascript">// ❌ KATASTROFALNY BŁĄD:
+przycisk.addEventListener("click", obliczKoszt()); 
+
+// ✅ PRAWIDŁOWO:
+przycisk.addEventListener("click", obliczKoszt);
+// LUB:
+przycisk.addEventListener("click", () =&gt; {
+  obliczKoszt();
+});
+</code></pre>
+<p>Dopisanie nawiasów <code>()</code> powoduje, że funkcja wykonuje się <span class="color-green">natychmiast podczas wczytywania strony</span>, a do nasłuchiwania zostaje przypisana wartość zwrócona przez funkcję (najczęściej <code>undefined</code>). W efekcie po kliknięciu przycisku nic się nie wydarzy!</p>
+<data-gate>
+  <data-quiz>
+    <question>Co się stanie, gdy zarejestrujesz zdarzenie w taki sposób: przycisk.addEventListener("click", wyswietlKomunikat()); ?</question>
+    <options>
+      <option correct="">Funkcja wykona się natychmiast przy starcie, a po kliknięciu nic się nie stanie</option>
+      <option>Przeglądarka zgłosi błąd składniowy i natychmiast przerwie wykonywanie całego skryptu</option>
+      <option>Kod zadziała w pełni poprawnie, ponieważ nawiasy są wymagane po każdej nazwie funkcji</option>
+      <option>Funkcja zostanie zarejestrowana prawidłowo, lecz uruchomi się dopiero po resecie strony</option>
+    </options>
+    <div data-hint="error"><p>Zwróć uwagę na to, co robi operator nawiasów () w języku JavaScript: wywołuje funkcję w miejscu zapisu i zwraca jej wynik do metody addEventListener.</p>
+</div>
+    <div data-hint="success"><p>Brawo! Nawiasy () natychmiast uruchamiają funkcję. Aby funkcja czekała na kliknięcie, musimy przekazać referencję do niej (samą nazwę bez nawiasów) lub opakować ją w funkcję strzałkową.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕳️ Wnętrze drzewa DOM: dlaczego właściwość .value to zawsze string?</h2>
+<p>Gdy już potrafimy nasłuchiwać kliknięcia, chcemy odczytać dane z pól wejściowych:</p>
+<pre><code class="language-javascript">const inputLitry = document.querySelector("#litry");
+const litry = inputLitry.value;
+</code></pre>
+<p>Tutaj kryje się największa pułapka języka JavaScript: <span class="color-green">zawartość właściwości <code>.value</code> jest zawsze ciągiem znaków (<code>string</code>)</span>, bez względu na to, czy w kodzie HTML użyłeś <code>&lt;input type="number"&gt;</code>, <code>&lt;input type="text"&gt;</code> czy <code>&lt;input type="range"&gt;</code>.</p>
+<p>Drzewo DOM jest reprezentacją dokumentu tekstowego. Przeglądarka przechowuje wartości pól jako sekwencje znaków Unicode.</p>
+<p>Dlaczego to takie groźne? Ponieważ operator <code>+</code> w JavaScript jest przeciążony:</p>
+<ul>
+<li>Dla dwóch liczb wykonuje <span class="color-green">dodawanie arytmetyczne</span> ($10 + 5 = 15$).</li>
+<li>Jeśli chociaż jeden operand jest tekstem, wykonuje <span class="color-green">konkatenację</span> (skleja napisy: <code>"10" + "5" = "105"</code>).</li>
+</ul>
+<pre><code class="language-javascript">const litryZBaku = "40";
+const litryZKanistra = "10";
+
+console.log(litryZBaku + litryZKanistra); // Wypisze "4010", a nie 50!
+</code></pre>
+<p>Co jeszcze bardziej mylące, pozostałe operatory arytmetyczne (<code>-</code>, <code>*</code>, <code>/</code>) nie mają odpowiednika tekstowego, więc silnik JavaScript próbuje po cichu przekonwertować tekst na liczbę:</p>
+<pre><code class="language-javascript">console.log("10" * "5"); // 50 (silnik wymusił konwersję na liczbę)
+console.log("10" - "5"); // 5  (silnik wymusił konwersję na liczbę)
+console.log("10" + "5"); // "105" (silnik potraktował to jako tekst!)
+</code></pre>
+<p>Poleganie na takim niejawnym zachowaniu prowadzi do aplikacji, które w jednym miejscu liczą poprawnie, a w innym dopisują zera i niszczą wyliczenia finansowe.</p>
+<data-gate>
+  <data-quiz>
+    <question>Jaki wynik wyświetli w konsoli poniższa operacja: console.log("100" - "20" + "10"); ?</question>
+    <options>
+      <option correct="">"8010" - odejmowanie daje liczbę 80, a plus dokleja tekst "10"</option>
+      <option>90 - wszystkie trzy wartości zostaną automatycznie sparsowane na liczby</option>
+      <option>"100‑2010" - silnik zachowa operacje na stringach jako jeden długi tekst</option>
+      <option>NaN - próba odjęcia liczby od napisu natychmiast wygeneruje błąd typu</option>
+    </options>
+    <div data-hint="error"><p>Przeanalizuj kolejność działań od lewej do prawej: najpierw wykonuje się ("100" - "20"), a do wyniku tego działania dodawany jest ciąg "10".</p>
+</div>
+    <div data-hint="success"><p>Znakomicie! Działania wykonują się od lewej do prawej: ("100" - "20") daje liczbę 80. Następnie 80 + "10" napotyka tekst i wykonuje konkatenację, tworząc napis "8010". To jaskrawy dowód na to, dlaczego niejawna konwersja jest niebezpieczna.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Jawne rzutowanie: Number, parseFloat i parseInt od środka</h2>
+<p>Aby mieć pełną kontrolę nad kodem, profesjonalny programista nigdy nie pozwala silnikowi na domysły. Każdą wartość pochodzącą z formularza rzutujemy jawnie na typ liczbowy.</p>
+<p>Silnik JavaScript oferuje do tego trzy różne mechanizmy. Różnią się one sposobem parsowania znaków:</p>
+<h3>🔢 1. Funkcja Number(wartość)</h3>
+<p>Wymaga, aby <span class="color-green">cały ciąg znaków</span> był poprawną liczbą. Jeśli w tekście pojawi się choćby jedna litera, spacja wewnątrz lub znak waluty, natychmiast zwraca <code>NaN</code> (<span class="color-blue">Not a Number</span>):</p>
+<pre><code class="language-javascript">Number("120.50");    // 120.5
+Number("120.50 zł"); // NaN (błąd przez tekst "zł")
+Number("");          // 0 (pusty ciąg traktuje jako zero)
+</code></pre>
+<h3>🌊 2. Funkcja parseFloat(tekst)</h3>
+<p>Działa jak czytnik: zaczyna od lewej strony i parsuje cyfry oraz kropkę dziesiętną. Gdy natrafi na pierwszy niedozwolony znak (np. literę lub spację), <span class="color-green">przerywa czytanie i zwraca to, co udało się odczytać</span>:</p>
+<pre><code class="language-javascript">parseFloat("120.50 zł"); // 120.5 (odczytał liczbę, zignorował "zł")
+parseFloat("paliwo 120"); // NaN (bo zaczyna się od liter)
+parseFloat("");          // NaN
+</code></pre>
+<h3>🎯 3. Funkcja parseInt(tekst, podstawa)</h3>
+<p>Działa podobnie jak <code>parseFloat</code>, ale odrzuca część ułamkową i parsuje wyłącznie liczby całkowite. Jako drugi parametr <span class="color-green">zawsze podajemy liczbę 10</span> (system dziesiętny):</p>
+<pre><code class="language-javascript">parseInt("120.99 zł", 10); // 120 (odciął ułamek!)
+parseInt("42", 10);        // 42
+</code></pre>
+<h3>🛡️ Wykrywanie błędów: funkcja isNaN()</h3>
+<p>Do sprawdzenia, czy rzutowanie zakończyło się powodzeniem, służy funkcja <code>isNaN(wartość)</code>:</p>
+<pre><code class="language-javascript">const litry = parseFloat(inputLitry.value);
+
+if (isNaN(litry)) {
+  console.log("Użytkownik nie wpisał poprawnej liczby!");
+}
+</code></pre>
+<data-gate>
+  <data-connection-matcher title="Dopasuj zachowanie metod konwersji">
+    <div class="cmw-item" data-left="Number('45.90 zł')" data-right="Zwraca NaN, ponieważ wymaga czystej liczby w całym napisie"></div>
+    <div class="cmw-item" data-left="parseFloat('45.90 zł')" data-right="Zwraca 45.9, czytając ułamek od lewej i ignorując jednostkę"></div>
+    <div class="cmw-item" data-left="parseInt('45.90 zł', 10)" data-right="Zwraca 45, obcinając część po kropce dziesiętnej"></div>
+    <div class="cmw-item" data-left="Number('')" data-right="Zwraca 0 w przypadku pustego ciągu tekstowego"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Wyzwanie w edytorze: Rozliczanie zamówienia z napiwkiem</h2>
+<p>Sprawdźmy twoje zrozumienie rzutowania typów i bezpiecznych operacji matematycznych na praktycznym problemie biznesowym: kalkulatorze rachunku w lokalu gastronomicznym.</p>
+<p>Klient podaje kwotę rachunku, oczekiwany procent napiwku dla kelnera oraz kodowy rabat kwotowy. Wszystkie te dane przychodzą do funkcji jako ciągi znaków (tak jak z kontrolek formularza).</p>
+<p>Twoim celem jest oprogramowanie funkcji <code>rozliczRachunek</code>.</p>
+<p>Zasady biznesowe:</p>
+<ul>
+<li>Wartości wejściowe: <code>kwotaStr</code>, <code>napiwekProcentStr</code>, <code>rabatStr</code> (wszystkie typu <code>string</code>).</li>
+<li>Skonwertuj kwotę, napiwek i rabat na liczby zmiennoprzecinkowe.</li>
+<li>Jeżeli po konwersji kwota zamówienia jest mniejsza lub równa zero, albo któraś z wartości jest <code>NaN</code> $\to$ funkcja musi zwrócić <code>0</code>.</li>
+<li>Do kwoty netto należy doliczyć napiwek: $\text{kwota} \cdot \frac{\text{napiwek}}{100}$.</li>
+<li>Od sumy należy odjąć rabat kwotowy. Pamiętaj, że rachunek nie może stać się ujemny (jeśli rabat przewyższa kwotę, wynikiem jest <code>0</code>).</li>
+<li>Wynik końcowy zaokrąglij do dwóch miejsc po przecinku: <code>Math.round(wynik * 100) / 100</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" title="Kalkulator rachunku z napiwkiem" data-code="ZnVuY3Rpb24gcm96bGljelJhY2h1bmVrKGt3b3RhU3RyLCBuYXBpd2VrUHJvY2VudFN0ciwgcmFiYXRTdHIpIHsKICAvLyBUT0RPOiBOYXBpc3ogbG9naWvEmSByenV0b3dhbmlhLCB3YWxpZGFjamkgaSBrYWxrdWxhY2ppIHJhY2h1bmt1LgogIC8vIFBhbWnEmXRhajogZGFuZSBwcnp5Y2hvZHrEhSBqYWtvIHRla3N0LCBhIG9wZXJhdG9yICsgYmV6IGtvbndlcnNqaSBza2xlaSBzdHJpbmdpIQogIAogIHJldHVybiBudWxsOwp9" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXN0YW5kYXJkIiwKICAgICAgICAgICJ0ZXh0IjogIlJhY2h1bmVrIDEwMCB6xYIgeiBuYXBpd2tpZW0gMTAlIGkgcmFiYXRlbSAwIGRhamUgMTEwIHrFgiIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJyb3psaWN6UmFjaHVuZWsiLAogICAgICAgICAgImlucHV0IjogWyIxMDAiLCAiMTAiLCAiMCJdLAogICAgICAgICAgImV4cGVjdGVkIjogMTEwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC16ZS16bml6a2EiLAogICAgICAgICAgInRleHQiOiAiUmFjaHVuZWsgMjAwIHrFgiB6IG5hcGl3a2llbSAxMCUgKDIyMCB6xYIpIGkgcmFiYXRlbSAzMCB6xYIgZGFqZSAxOTAgesWCIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInJvemxpY3pSYWNodW5layIsCiAgICAgICAgICAiaW5wdXQiOiBbIjIwMCIsICIxMCIsICIzMCJdLAogICAgICAgICAgImV4cGVjdGVkIjogMTkwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC11bGFta2kiLAogICAgICAgICAgInRleHQiOiAiUmFjaHVuZWsgNDUuNTAgesWCIHogbmFwaXdraWVtIDUlIGRhamUgNDcuNzggesWCIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInJvemxpY3pSYWNodW5layIsCiAgICAgICAgICAiaW5wdXQiOiBbIjQ1LjUwIiwgIjUiLCAiMCJdLAogICAgICAgICAgImV4cGVjdGVkIjogNDcuNzgKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXB1c3R5LWJsYWQiLAogICAgICAgICAgInRleHQiOiAiUHVzdGEgbHViIGLFgsSZZG5hIGt3b3RhICgnJykgendyYWNhIDAiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAicm96bGljelJhY2h1bmVrIiwKICAgICAgICAgICJpbnB1dCI6IFsiIiwgIjEwIiwgIjAiXSwKICAgICAgICAgICJleHBlY3RlZCI6IDAKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXJhYmF0LXByemV3eXpzemEiLAogICAgICAgICAgInRleHQiOiAiUmFiYXQgd2nEmWtzenkgb2Qga3dvdHkgbmllIGRhamUgd2FydG/Fm2NpIHVqZW1uZWosIGxlY3ogMCIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJyb3psaWN6UmFjaHVuZWsiLAogICAgICAgICAgImlucHV0IjogWyI1MCIsICIwIiwgIjEwMCJdLAogICAgICAgICAgImV4cGVjdGVkIjogMAogICAgICAgIH0KICAgICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⛽ Projekt końcowy: Ożywiamy kalkulator kosztu paliwa</h2>
+<p>Wracamy do naszego formularza stacji paliw z początku lekcji:</p>
+<pre><code class="language-html">&lt;label for="rodzaj"&gt;Rodzaj paliwa (1-benzyna, 2-olej napędowy):&lt;/label&gt;&lt;br&gt;
+&lt;input type="number" id="rodzaj"&gt;&lt;br&gt;
+
+&lt;label for="litry"&gt;Ile litrów?&lt;/label&gt;&lt;br&gt;
+&lt;input type="number" id="litry"&gt;&lt;br&gt;
+
+&lt;button id="btn-oblicz"&gt;OBLICZ&lt;/button&gt;
+&lt;p id="wynik"&gt;&lt;/p&gt;
+</code></pre>
+<p>Twoim zadaniem jest samodzielne napisanie skryptu JavaScript podpinającego ten formularz.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Pobierz elementy</span>: Użyj <code>document.querySelector</code>, aby pobrać referencje do pól <code>#rodzaj</code>, <code>#litry</code>, przycisku <code>#btn-oblicz</code> oraz paragrafu <code>#wynik</code>.</li>
+<li><span class="color-green">Zarejestruj zdarzenie</span>: Podepnij pod przycisk nasłuchiwanie zdarzenia <code>"click"</code> za pomocą <code>addEventListener</code>.</li>
+<li><span class="color-green">Odczytaj i zrzutuj dane</span>: Wewnątrz funkcji zwrotnej odczytaj właściwość <code>.value</code> z obu pól. Użyj <code>parseInt</code> dla rodzaju paliwa oraz <code>parseFloat</code> dla liczby litrów.</li>
+<li><span class="color-green">Zastosuj Guard Clause (walidację brzegową)</span>: Jeśli któraś wartość jest <code>isNaN</code> lub liczba litrów $\le 0$, ustaw treść akapitu na <code>koszt paliwa: 0 zł</code> i natychmiast przerwij działanie funkcji instrukcją <code>return</code>.</li>
+<li><span class="color-green">Wylicz stawkę</span>:<ul>
+<li>Dla rodzaju <code>1</code> (benzyna) stawka wynosi <code>4.0 zł/l</code>.</li>
+<li>Dla rodzaju <code>2</code> (olej napędowy) stawka wynosi <code>3.5 zł/l</code>.</li>
+<li>Dla każdego innego numeru stawka wynosi <code>0 zł/l</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Oblicz koszt i wstaw do DOM</span>: Pomnóż liczbę litrów przez stawkę, zaokrąglij do dwóch miejsc po przecinku i przypisz sformatowany tekst do właściwości <code>textContent</code> akapitu: <code>koszt paliwa: XX zł</code>.</li>
+</ol>
+<p>Spróbuj napisać ten kod samodzielnie w swoim edytorze kodu. Dopiero po zakończeniu próby rozwiń poniższy blok, aby porównać swoje rozwiązanie z kodem wzorcowym.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">// 1. Pobieramy elementy z drzewa DOM
+const inputRodzaj = document.querySelector("#rodzaj");
+const inputLitry = document.querySelector("#litry");
+const btnOblicz = document.querySelector("#btn-oblicz");
+const paragrafWynik = document.querySelector("#wynik");
+
+// 2. Rejestrujemy nasłuchiwanie kliknięcia
+btnOblicz.addEventListener("click", () =&gt; {
+  // 3. Jawnie rzutujemy dane wejściowe
+  const rodzaj = parseInt(inputRodzaj.value, 10);
+  const litry = parseFloat(inputLitry.value);
+
+  // 4. Walidacja wstępna (Guard Clause)
+  if (isNaN(rodzaj) || isNaN(litry) || litry &lt;= 0) {
+    paragrafWynik.textContent = "koszt paliwa: 0 zł";
+    return;
+  }
+
+  // 5. Ustalenie stawki na podstawie wybranego typu paliwa
+  let cenaZaLitr = 0;
+  if (rodzaj === 1) {
+    cenaZaLitr = 4.0;
+  } else if (rodzaj === 2) {
+    cenaZaLitr = 3.5;
+  } else {
+    cenaZaLitr = 0;
+  }
+
+  // 6. Obliczenie kosztu i wyświetlenie sformatowanego tekstu w DOM
+  const lacznyKoszt = Math.round(litry * cenaZaLitr * 100) / 100;
+  paragrafWynik.textContent = `koszt paliwa: ${lacznyKoszt} zł`;
+});
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Przeglądarka działa w architekturze sterowanej zdarzeniami - <code>addEventListener("click", callback)</code> rejestruje funkcję, która czeka na działanie użytkownika.</li>
+<li>Do <code>addEventListener</code> przekazujemy referencję do funkcji lub funkcję strzałkową, nigdy wywołanie z nawiasami <code>()</code>.</li>
+<li>Wartość <code>.value</code> z pola formularza jest zawsze ciągiem znaków (<code>string</code>), co przy użyciu operatora <code>+</code> powoduje sklejenie tekstu zamiast dodawania.</li>
+<li><code>parseFloat()</code> wyciąga liczbę zmiennoprzecinkową od początku tekstu, a <code>parseInt(x, 10)</code> parsuje liczbę całkowitą w systemie dziesiętnym.</li>
+<li>Po rzutowaniu zawsze sprawdzamy poprawność danych funkcją <code>isNaN()</code>, a bezpieczny wynik wstawiamy do DOM za pomocą <code>textContent</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

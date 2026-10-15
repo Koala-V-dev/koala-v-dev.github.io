@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Analiza tekstu i dynamiczne style CSS - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Analiza tekstu i dynamiczne style CSS</h1>
+<p>Aplikacje internetowe stają się naprawdę angażujące wtedy, gdy natychmiast reagują wizualnie na to, co wpisuje użytkownik. Wskaźniki jakości hasła, weryfikatory kodów pocztowych czy dynamiczne podświetlenia błędów w formularzach dają użytkownikowi natychmiastową informację zwrotną za pomocą koloru tekstu i obramowania.</p>
+<p>W tej lekcji zaczniemy od formularza weryfikatora hasła, zrozumiemy jak JavaScript analizuje ciągi znaków w pamięci i jak działa obiekt <code>style</code>, rozwiążemy wyzwanie w edytorze kodu na przykładzie walidatora kodów promocyjnych, a na koniec samodzielnie zaprogramujemy pełną logikę analizy hasła z kolorowaniem statusu.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Punkt wyjścia: Formularz weryfikacji hasła</h2>
+<p>Oto kod HTML formularza sprawdzania jakości hasła:</p>
+<pre><code class="language-html">&lt;section id="panel-hasla"&gt;
+  &lt;h2&gt;Weryfikator jakości hasła&lt;/h2&gt;
+  
+  &lt;label for="input-haslo"&gt;Podaj hasło:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="password" id="input-haslo"&gt;&lt;br&gt;
+  
+  &lt;button id="btn-weryfikuj"&gt;Weryfikuj&lt;/button&gt;
+  &lt;p id="tekst-wynik"&gt;&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Założenia logiki:</p>
+<ul>
+<li>Jeśli pole jest puste $\to$ tekst <span class="color-green"><code>WPISZ HASŁO</code></span>, kolor czcionki <span class="color-green">czerwony</span> (<code>red</code>).</li>
+<li>Jeśli długość $\ge 7$ znaków i zawiera przynajmniej jedną cyfrę $\to$ tekst <span class="color-green"><code>DOBRE</code></span>, kolor czcionki <span class="color-green">zielony</span> (<code>green</code>).</li>
+<li>Jeśli długość od 4 do 6 znaków i zawiera przynajmniej jedną cyfrę $\to$ tekst <span class="color-green"><code>ŚREDNIE</code></span>, kolor czcionki <span class="color-green">niebieski</span> (<code>blue</code>).</li>
+<li>W pozostałych przypadkach (np. brak cyfry lub długość $&lt; 4$) $\to$ tekst <span class="color-green"><code>SŁABE</code></span>, kolor czcionki <span class="color-green">żółty</span> (<code>yellow</code>).</li>
+</ul>
+<p>Aby to osiągnąć, nasz skrypt musi rozwiązać dwa problemy: zbadać zawartość tekstu oraz dynamicznie zmienić styl CSS akapitu w drzewie DOM.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Wnętrze stringa: długość i wykrywanie cyfr</h2>
+<p>Ciąg znaków w JavaScript jest indeksowaną sekwencją znaków. Liczbę znaków odczytujemy za pomocą właściwości <span class="color-green"><code>.length</code></span>:</p>
+<pre><code class="language-javascript">const haslo = "Sekret123";
+console.log(haslo.length); // 9
+</code></pre>
+<p>Do pojedynczych znaków mamy dostęp za pomocą nawiasów kwadratowych: <code>haslo[0]</code> to <code>"S"</code>, a <code>haslo[haslo.length - 1]</code> to ostatni znak (<code>"3"</code>).</p>
+<h3>🔁 Pętla po znakach a kody ASCII</h3>
+<p>Możemy przejść po całym tekście pętlą <code>for</code> i porównać znaki:</p>
+<pre><code class="language-javascript">let maCyfre = false;
+
+for (let i = 0; i &lt; haslo.length; i++) {
+  const znak = haslo[i];
+  if (znak &gt;= "0" &amp;&amp; znak &lt;= "9") {
+    maCyfre = true;
+    break; // Przerywamy pętlę w momencie znalezienia pierwszej cyfry
+  }
+}
+</code></pre>
+<h3>⚡ Nowoczesny zapis: wyrażenie regularne</h3>
+<p>Zamiast pisać pętlę, możemy użyć zwięzłego wyrażenia regularnego:</p>
+<pre><code class="language-javascript">const maCyfre = /\d/.test(haslo);
+</code></pre>
+<p>Symbol <code>\d</code> oznacza dowolną cyfrę (od 0 do 9). Metoda <code>.test()</code> sprawdza, czy wzorzec występuje w zadanym tekście i zwraca <code>true</code> lub <code>false</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Obiekt style i zasada camelCase</h2>
+<p>Gdy pobierzesz element z drzewa DOM, przeglądarka udostępnia obiekt <span class="color-green"><code>element.style</code></span>, który reprezentuje jego style inline:</p>
+<pre><code class="language-javascript">const akapit = document.querySelector("#tekst-wynik");
+
+akapit.textContent = "DOBRE";
+akapit.style.color = "green";
+</code></pre>
+<h3>⚠️ Reguła camelCase w JavaScript</h3>
+<p>W pliku CSS właściwości wielowyrazowe rozdzielamy myślnikiem (np. <code>background-color</code>, <code>font-size</code>, <code>border-radius</code>).</p>
+<p>Jednak w JavaScript myślnik <code>-</code> jest operatorem odejmowania! Zapis <code>akapit.style.background-color</code> zostałby zinterpretowany jako próba odjęcia zmiennej <code>color</code> od właściwości <code>background</code>.</p>
+<p>Dlatego w JavaScript wszystkie właściwości CSS zapisujemy w notacji <span class="color-green">camelCase</span>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Styl w CSS</th>
+<th align="left">Właściwość w JavaScript</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>color</code></td>
+<td align="left"><code>element.style.color</code></td>
+</tr>
+<tr>
+<td align="left"><code>background-color</code></td>
+<td align="left"><code>element.style.backgroundColor</code></td>
+</tr>
+<tr>
+<td align="left"><code>font-size</code></td>
+<td align="left"><code>element.style.fontSize</code></td>
+</tr>
+<tr>
+<td align="left"><code>font-weight</code></td>
+<td align="left"><code>element.style.fontWeight</code></td>
+</tr>
+</tbody></table>
+<data-gate>
+  <data-quiz>
+    <question>Jak poprawnie zmienić kolor tła elementu w JavaScript za pomocą właściwości style?</question>
+    <options>
+      <option correct="">element.style.backgroundColor = "red" (zapis w notacji camelCase)</option>
+      <option>element.style.background‑color = "red" (zapis z tradycyjnym myślnikiem CSS)</option>
+      <option>element.style.background_color = "red" (zapis w notacji ze znakiem podkreślenia)</option>
+      <option>element.style["background color"] = "red" (zapis ze spacją oddzielającą słowa)</option>
+    </options>
+    <div data-hint="error"><p>Pamiętaj, że w JavaScript myślnik jest operatorem matematycznym odejmowania, dlatego właściwości CSS pisane z myślnikiem zastępujemy notacją camelCase z wielką literą.</p>
+</div>
+    <div data-hint="success"><p>Doskonale! Notacja camelCase (np. backgroundColor, fontSize) to jedyny poprawny sposób bezpośredniego odwoływania się do wielowyrazowych stylów CSS przez obiekt style.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Dopasuj metody operacji na stringach</h2>
+<p>Sprawdź swoją wiedzę o metodach i właściwościach ciągów znaków w JavaScript.</p>
+<data-gate>
+  <data-connection-matcher title="Właściwości i metody ciągów znaków">
+    <div class="cmw-item" data-left="tekst.length" data-right="Zwraca całkowitą liczbę znaków w danym ciągu tekstowym"></div>
+    <div class="cmw-item" data-left="/\d/.test(tekst)" data-right="Sprawdza, czy w tekście znajduje się przynajmniej jedna cyfra"></div>
+    <div class="cmw-item" data-left="tekst.toUpperCase()" data-right="Zwraca nową kopię napisu zapisaną wyłącznie wielkimi literami"></div>
+    <div class="cmw-item" data-left="tekst[0]" data-right="Umożliwia bezpośredni odczyt pierwszego znaku w danym ciągu"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Wyzwanie w edytorze: Walidator kodów promocyjnych</h2>
+<p>Zastosujmy analizę tekstu i zwracanie stylów na niezależnym problemie biznesowym: weryfikatorze kodów rabatowych w sklepie internetowym.</p>
+<p>Klient wpisuje kod promocyjny, a system weryfikuje jego strukturę i zwraca obiekt ze statusem oraz kolorem komunikatu.</p>
+<p>Twoim celem jest oprogramowanie funkcji <code>sprawdzKodPromocyjny</code>.</p>
+<p>Zasady poprawności kodu:</p>
+<ul>
+<li>Parametr <code>kodStr</code>: ciąg znaków wpisany przez użytkownika.</li>
+<li>Jeśli <code>kodStr</code> jest pusty (<code>""</code>) $\to$ zwróć <code>{ poprawny: false, status: "WPISZ KOD", kolor: "red" }</code>.</li>
+<li>Kod musi mieć długość <span class="color-green">dokładnie 8 znaków</span>. Jeśli ma inną długość $\to$ zwróć <code>{ poprawny: false, status: "ZŁA DŁUGOŚĆ", kolor: "red" }</code>.</li>
+<li>Kod musi zaczynać się od litery <code>"P"</code> lub <code>"R"</code> (np. <code>kodStr[0] === "P" || kodStr[0] === "R"</code>).</li>
+<li>Kod musi zawierać przynajmniej jedną cyfrę (<code>/\d/.test(kodStr)</code>).</li>
+<li>Jeśli kod ma 8 znaków, poprawny prefiks i zawiera cyfrę $\to$ zwróć <code>{ poprawny: true, status: "KOD AKTYWNY", kolor: "green" }</code>.</li>
+<li>W pozostałych przypadkach (np. zły prefiks lub brak cyfry przy 8 znakach) $\to$ zwróć <code>{ poprawny: false, status: "BŁĘDNY FORMAT", kolor: "orange" }</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" title="Walidator kodów rabatowych" data-code="ZnVuY3Rpb24gc3ByYXdkektvZFByb21vY3lqbnkoa29kU3RyKSB7CiAgLy8gVE9ETzogWmFpbXBsZW1lbnR1aiB3YWxpZGFjasSZIGTFgnVnb8WbY2ksIHByZWZpa3N1IG9yYXogb2JlY25vxZtjaSBjeWZyeS4KICAvLyBad3LDs8SHIG9iaWVrdCB7IHBvcHJhd255OiBib29sZWFuLCBzdGF0dXM6IHN0cmluZywga29sb3I6IHN0cmluZyB9LgogIAogIHJldHVybiBudWxsOwp9" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXBvcHJhd255LXAiLAogICAgICAgICAgInRleHQiOiAiS29kICdQUk9NTzEyMycgbWEgOCB6bmFrw7N3LCB6YWN6eW5hIHNpxJkgb2QgUCBpIG1hIGN5ZnJ5IC0+IEtPRCBBS1RZV05ZIChncmVlbikiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAic3ByYXdkektvZFByb21vY3lqbnkiLAogICAgICAgICAgImlucHV0IjogWyJQUk9NTzEyMyJdLAogICAgICAgICAgImV4cGVjdGVkIjogeyJwb3ByYXdueSI6IHRydWUsICJzdGF0dXMiOiAiS09EIEFLVFlXTlkiLCAia29sb3IiOiAiZ3JlZW4ifQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInRlc3QtcG9wcmF3bnktciIsCiAgICAgICAgICAidGV4dCI6ICJLb2QgJ1JBQkFUMDAxJyBtYSA4IHpuYWvDs3csIHphY3p5bmEgc2nEmSBvZCBSIGkgbWEgY3lmcnkgLT4gS09EIEFLVFlXTlkgKGdyZWVuKSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJzcHJhd2R6S29kUHJvbW9jeWpueSIsCiAgICAgICAgICAiaW5wdXQiOiBbIlJBQkFUMDAxIl0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiB7InBvcHJhd255IjogdHJ1ZSwgInN0YXR1cyI6ICJLT0QgQUtUWVdOWSIsICJrb2xvciI6ICJncmVlbiJ9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1wdXN0eSIsCiAgICAgICAgICAidGV4dCI6ICJQdXN0eSBjacSFZyB6d3JhY2Egc3RhdHVzIFdQSVNaIEtPRCAocmVkKSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJzcHJhd2R6S29kUHJvbW9jeWpueSIsCiAgICAgICAgICAiaW5wdXQiOiBbIiJdLAogICAgICAgICAgImV4cGVjdGVkIjogeyJwb3ByYXdueSI6IGZhbHNlLCAic3RhdHVzIjogIldQSVNaIEtPRCIsICJrb2xvciI6ICJyZWQifQogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInRlc3QtemxhLWRsdWdvc2MiLAogICAgICAgICAgInRleHQiOiAiS29kIG8gZMWCdWdvxZtjaSBpbm5laiBuacW8IDggKCdQUk9NTzEnKSB6d3JhY2EgWsWBQSBExYFVR0/FmsSGIChyZWQpIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInNwcmF3ZHpLb2RQcm9tb2N5am55IiwKICAgICAgICAgICJpbnB1dCI6IFsiUFJPTU8xIl0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiB7InBvcHJhd255IjogZmFsc2UsICJzdGF0dXMiOiAiWsWBQSBExYFVR0/FmsSGIiwgImtvbG9yIjogInJlZCJ9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC16bHktZm9ybWF0IiwKICAgICAgICAgICJ0ZXh0IjogIktvZCA4LXpuYWtvd3kgYmV6IGN5ZnIgKCdQUk9NT1hZWicpIHp3cmFjYSBCxYHEmEROWSBGT1JNQVQgKG9yYW5nZSkiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAic3ByYXdkektvZFByb21vY3lqbnkiLAogICAgICAgICAgImlucHV0IjogWyJQUk9NT1hZWiJdLAogICAgICAgICAgImV4cGVjdGVkIjogeyJwb3ByYXdueSI6IGZhbHNlLCAic3RhdHVzIjogIkLFgcSYRE5ZIEZPUk1BVCIsICJrb2xvciI6ICJvcmFuZ2UifQogICAgICAgIH0KICAgICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Projekt końcowy: Ożywiamy weryfikator hasła</h2>
+<p>Wracamy do naszego początkowego formularza hasła:</p>
+<pre><code class="language-html">&lt;label for="input-haslo"&gt;Podaj hasło:&lt;/label&gt;&lt;br&gt;
+&lt;input type="password" id="input-haslo"&gt;&lt;br&gt;
+
+&lt;button id="btn-weryfikuj"&gt;Weryfikuj&lt;/button&gt;
+&lt;p id="tekst-wynik"&gt;&lt;/p&gt;
+</code></pre>
+<p>Kryteria weryfikacji:</p>
+<ol>
+<li>Puste pole $\to$ tekst <code>"WPISZ HASŁO"</code>, kolor <code>red</code>.</li>
+<li>Długość $\ge 7$ i ma cyfrę $\to$ tekst <code>"DOBRE"</code>, kolor <code>green</code>.</li>
+<li>Długość od 4 do 6 i ma cyfrę $\to$ tekst <code>"ŚREDNIE"</code>, kolor <code>blue</code>.</li>
+<li>W pozostałych sytuacjach $\to$ tekst <code>"SŁABE"</code>, kolor <code>yellow</code>.</li>
+</ol>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li>Pobierz referencje do pola hasła <code>#input-haslo</code>, przycisku <code>#btn-weryfikuj</code> oraz akapitu <code>#tekst-wynik</code>.</li>
+<li>Zarejestruj nasłuchiwanie kliknięcia na przycisku.</li>
+<li>Wewnątrz funkcji odczytaj wpisany tekst z właściwości <code>.value</code>.</li>
+<li>Zbadaj długość napisu (<code>haslo.length</code>) oraz obecność cyfry (<code>/\d/.test(haslo)</code>).</li>
+<li>Zbuduj drabinkę warunków <code>if / else if / else</code> według powyższych kryteriów. Pamiętaj, aby warunek pustego pola sprawdzić jako pierwszy!</li>
+<li>Ustaw właściwość <code>textContent</code> akapitu na wyliczony status oraz przypisz odpowiedni kolor do właściwości <code>style.color</code>.</li>
+</ol>
+<p>Spróbuj napisać ten kod samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy kod referencyjny.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">// 1. Pobieramy elementy z drzewa DOM
+const inputHaslo = document.querySelector("#input-haslo");
+const btnWeryfikuj = document.querySelector("#btn-weryfikuj");
+const tekstWynik = document.querySelector("#tekst-wynik");
+
+// 2. Rejestrujemy zdarzenie click
+btnWeryfikuj.addEventListener("click", () =&gt; {
+  // 3. Pobieramy wpisany ciąg znaków
+  const haslo = inputHaslo.value;
+  const dlugosc = haslo.length;
+  const maCyfre = /\d/.test(haslo);
+
+  // 4. Drabinka decyzyjna weryfikująca jakość hasła
+  if (dlugosc === 0) {
+    tekstWynik.textContent = "WPISZ HASŁO";
+    tekstWynik.style.color = "red";
+  } else if (dlugosc &gt;= 7 &amp;&amp; maCyfre) {
+    tekstWynik.textContent = "DOBRE";
+    tekstWynik.style.color = "green";
+  } else if (dlugosc &gt;= 4 &amp;&amp; dlugosc &lt;= 6 &amp;&amp; maCyfre) {
+    tekstWynik.textContent = "ŚREDNIE";
+    tekstWynik.style.color = "blue";
+  } else {
+    tekstWynik.textContent = "SŁABE";
+    tekstWynik.style.color = "yellow";
+  }
+});
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Długość ciągu tekstowego w JavaScript sprawdzamy za pomocą właściwości <code>.length</code>.</li>
+<li>Wyszukiwanie cyfry w tekście najwygodniej realizować zwięzłym wyrażeniem regularnym <code>/\d/.test(tekst)</code>.</li>
+<li>Właściwości stylów w obiekcie <code>element.style</code> zapisujemy w konwencji camelCase (np. <code>backgroundColor</code>, <code>fontSize</code>).</li>
+<li>W drabinkach walidacyjnych zawsze w pierwszej kolejności badamy stan pustego pola wejściowego, co zapobiega błędnemu zaliczeniu pustego tekstu do innych reguł.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

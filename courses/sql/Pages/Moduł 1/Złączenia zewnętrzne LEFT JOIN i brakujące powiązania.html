@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Złączenia zewnętrzne LEFT JOIN i brakujące powiązania - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">sql</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Selekcja i filtrowanie rekordów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy zapytania SELECT i filtrowanie WHERE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Podstawy%20zapytania%20SELECT%20i%20filtrowanie%20WHERE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy zapytania SELECT i filtrowanie WHERE</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wyszukiwanie wzorców LIKE i zakresy wartości"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Wyszukiwanie%20wzorc%C3%B3w%20LIKE%20i%20zakresy%20warto%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyszukiwanie wzorców LIKE i zakresy wartości</a></li><li class="module">Moduł 1: Relacje i złączenia tabel</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Relacje jeden do wielu i kluczowe złączenie INNER JOIN"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Relacje%20jeden%20do%20wielu%20i%20kluczowe%20z%C5%82%C4%85czenie%20INNER%20JOIN.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Relacje jeden do wielu i kluczowe złączenie INNER JOIN</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złączenia zewnętrzne LEFT JOIN i brakujące powiązania"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Z%C5%82%C4%85czenia%20zewn%C4%99trzne%20LEFT%20JOIN%20i%20brakuj%C4%85ce%20powi%C4%85zania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</a></li><li class="module">Moduł 2: Agregacja i analityka danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje agregujące i sortowanie ORDER BY"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Funkcje%20agreguj%C4%85ce%20i%20sortowanie%20ORDER%20BY.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje agregujące i sortowanie ORDER BY</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Grupowanie danych GROUP BY i filtrowanie grup HAVING"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Grupowanie%20danych%20GROUP%20BY%20i%20filtrowanie%20grup%20HAVING.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupowanie danych GROUP BY i filtrowanie grup HAVING</a></li><li class="module">Moduł 3: Modyfikacja danych w tabelach</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%203/Modyfikacja%20rekord%C3%B3w%20za%20pomoc%C4%85%20INSERT%20UPDATE%20i%20DELETE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</a></li><li class="module">Moduł 4: Definiowanie struktur bazodanowych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Projektowanie tabel CREATE TABLE i więzy integralności"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Projektowanie%20tabel%20CREATE%20TABLE%20i%20wi%C4%99zy%20integralno%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie tabel CREATE TABLE i więzy integralności</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Modyfikacja%20schematu%20tabeli%20ALTER%20TABLE%20i%20indeksy%20wydajno%C5%9Bciowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</a></li><li class="module">Moduł 5: Zaawansowane operacje zbiorowe i administracja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Podzapytania i łączenie wyników za pomocą UNION"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Podzapytania%20i%20%C5%82%C4%85czenie%20wynik%C3%B3w%20za%20pomoc%C4%85%20UNION.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podzapytania i łączenie wyników za pomocą UNION</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Zarządzanie użytkownikami i uprawnienia bazy danych"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Zarz%C4%85dzanie%20u%C5%BCytkownikami%20i%20uprawnienia%20bazy%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie użytkownikami i uprawnienia bazy danych</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</h1>
+<p>Złączenie wewnętrzne <code>INNER JOIN</code> usuwa z raportu wszystkie rekordy, które nie posiadają swojego odpowiednika w powiązanej tabeli. W praktyce inżynierskiej niezwykle często potrzebujemy jednak pełnego zestawienia (np. listy wszystkich czytelników, nawet jeśli nic jeszcze nie wypożyczyli) lub chcemy zidentyfikować wyłącznie rekordy bez powiązań (np. nieaktywne konta czy niesprzedane towary). Do tego celu służy złączenie lewostronne <code>LEFT JOIN</code>.</p>
+<p>Pracujemy na bazie danych biblioteki miejskiej, analizując aktywność czytelników i wypożyczenia książek.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💾 Struktura relacyjna bazy i plik źródłowy</h2>
+<p>Pobierz plik zrzutu bazy biblioteki:</p>
+<p><a href="/resources/sql-files/biblioteka.sql" download="biblioteka.sql" class="download-btn">Pobierz plik bazy danych biblioteki (.sql)</a></p>
+<p>Tabela <code>czytelnicy</code>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT - PK)</th>
+<th align="left">imie (VARCHAR)</th>
+<th align="left">nazwisko (VARCHAR)</th>
+<th align="left">kod (VARCHAR)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Anna</td>
+<td align="left">Kowalska</td>
+<td align="left">KOW01</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Piotr</td>
+<td align="left">Nowak</td>
+<td align="left">NOW02</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Ewa</td>
+<td align="left">Wiśniewska</td>
+<td align="left">WIS03</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Jan</td>
+<td align="left">Zieliński</td>
+<td align="left">ZIE04</td>
+</tr>
+</tbody></table>
+<p>Tabela <code>wypozyczenia</code>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT - PK)</th>
+<th align="left">id_czytelnika (INT - FK)</th>
+<th align="left">id_ksiazki (INT)</th>
+<th align="left">data (DATE)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">10</td>
+<td align="left">1</td>
+<td align="left">5</td>
+<td align="left">2026‑05-10</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">3</td>
+<td align="left">12</td>
+<td align="left">2026‑05-12</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left">1</td>
+<td align="left">8</td>
+<td align="left">2026‑05-14</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⬅️ Złączenie lewostronne LEFT JOIN i teoria zbiorów</h2>
+<p>W teorii mnogości operacja <code>LEFT JOIN</code> zachowuje cały zbiór lewy $A$ bez względu na to, czy dla danego elementu istnieje para w zbiorze prawym $B$:</p>
+<data-gate>
+<data-venn-diagram sets="2" task="A"></data-venn-diagram>
+</data-gate>
+
+<p>Jeśli rekord z tabeli lewej ($A$) nie posiada powiązania w tabeli prawej ($B$), silnik nie odrzuca go, lecz wypełnia kolumny prawej tabeli wartościami specjalnymi <code>NULL</code>:</p>
+<pre><code class="language-sql">SELECT c.imie, c.nazwisko, w.id AS nr_wypozyczenia, w.data 
+FROM czytelnicy AS c 
+LEFT JOIN wypozyczenia AS w ON c.id = w.id_czytelnika;
+</code></pre>
+<p>Dla Piotra Nowaka i Jana Zielińskiego kolumny <code>nr_wypozyczenia</code> oraz <code>data</code> przyjmą wartość <code>NULL</code>.</p>
+<data-quiz>
+  <question>Co zwróci zapytanie <code>tabelaA LEFT JOIN tabelaB</code> dla wiersza z tabeli A, który nie ma żadnego odpowiednika w tabeli B?</question>
+  <options>
+    <option correct="">Wiersz z tabeli A pojawi się w wyniku, a kolumny z tabeli B przyjmą wartości <code>NULL</code></option>
+    <option>Wiersz zostanie pominięty, a zapytanie zwróci pusty zbiór danych</option>
+    <option>Silnik SQL zduplikuje wiersz z tabeli A dla każdej kolumny tabeli B</option>
+    <option>Zostanie natychmiast wygenerowany błąd naruszenia spójności klucza obcego</option>
+  </options>
+</data-quiz>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚫 Wzorzec Anti-Join: identyfikacja brakujących powiązań</h2>
+<p>Wzorzec <span class="color-green">Anti‑Join</span> odpowiada różnicy zbiorów $A \setminus B$. Pozwala wyłowić wyłącznie te rekordy tabeli lewej, które <span class="color-green">nie posiadają</span> żadnego powiązania w tabeli prawej:</p>
+<data-gate>
+<data-venn-diagram sets="2" task="A \setminus B"></data-venn-diagram>
+</data-gate>
+
+<p>Aby zrealizować różnicę zbiorów w języku SQL, łączymy <code>LEFT JOIN</code> z filtrem sprawdzającym brak klucza głównego tabeli prawej: <code>WHERE prawa_tabela.id IS NULL</code>:</p>
+<pre><code class="language-sql">SELECT c.imie, c.nazwisko 
+FROM czytelnicy AS c 
+LEFT JOIN wypozyczenia AS w ON c.id = w.id_czytelnika 
+WHERE w.id IS NULL;
+</code></pre>
+<p>To zapytanie natychmiast odfiltruje Annę i Ewę, zwracając wyłącznie rekordy Piotra Nowaka i Jana Zielińskiego.</p>
+<data-connection-matcher title="Dopasuj rodzaj złączenia do zachowania wobec powiązań">
+  <div class="cmw-item" data-left="`INNER JOIN`" data-right="Odrzuca wszystkie rekordy niemające odpowiednika w obu tabelach"></div>
+  <div class="cmw-item" data-left="`LEFT JOIN`" data-right="Zachowuje wszystkie wiersze lewej tabeli wypełniając braki wartością NULL"></div>
+  <div class="cmw-item" data-left="`WHERE p.id IS NULL`" data-right="Wzorzec wybierający wyłącznie rekordy bez powiązań w prawej tabeli"></div>
+  <div class="cmw-item" data-left="`RIGHT JOIN`" data-right="Zachowuje wszystkie wiersze tabeli prawej w stosunku do tabeli lewej"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Wykrywanie nieaktywnych kont</h2>
+<p>Napisz kwerendę złączenia lewostronnego, która odnajdzie imiona i nazwiska czytelników (<code>czytelnicy.imie</code>, <code>czytelnicy.nazwisko</code>), którzy nie posiadają ani jednego zarejestrowanego wypożyczenia (<code>wypozyczenia.id IS NULL</code>).</p>
+<data-gate>
+<data-code-runner language="sql" title="Identyfikacja czytelników bez wypożyczeń" data-code="LS0gV3liaWVyeiBrb2x1bW55IGltaWUgb3JheiBuYXp3aXNrbyBjenl0ZWxuaWvDs3cgYmV6IHd5cG/FvHljemXFhAotLSBVxbx5aiBMRUZUIEpPSU4gb3JheiB3YXJ1bmt1IElTIE5VTEwKU0VMRUNU" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgendyYWNhIDIgbmllYWt0eXdueWNoIGN6eXRlbG5pa8OzdyB6IGtvbHVtbmFtaSBpbWllIG9yYXogbmF6d2lza28iLAogICAgICAgICJ0eXBlIjogInNxbC1leGVjdXRlIiwKICAgICAgICAic2NoZW1hIjogIkNSRUFURSBUQUJMRSBjenl0ZWxuaWN5IChpZCBJTlQgUFJJTUFSWSBLRVksIGltaWUgVEVYVCwgbmF6d2lza28gVEVYVCk7IENSRUFURSBUQUJMRSB3eXBvenljemVuaWEgKGlkIElOVCBQUklNQVJZIEtFWSwgaWRfY3p5dGVsbmlrYSBJTlQsIGRhdGEgVEVYVCk7IElOU0VSVCBJTlRPIGN6eXRlbG5pY3kgVkFMVUVTICgxLCAnQW5uYScsICdLb3dhbHNrYScpLCAoMiwgJ1Bpb3RyJywgJ05vd2FrJyksICgzLCAnRXdhJywgJ1dpxZtuaWV3c2thJyksICg0LCAnSmFuJywgJ1ppZWxpxYRza2knKTsgSU5TRVJUIElOVE8gd3lwb3p5Y3plbmlhIFZBTFVFUyAoMTAsIDEsICcyMDI2LTA1LTEwJyksICgxMSwgMywgJzIwMjYtMDUtMTInKTsiLAogICAgICAgICJleHBlY3RlZENvdW50IjogMiwKICAgICAgICAiZXhwZWN0ZWRDb2x1bW5zIjogWyJpbWllIiwgIm5hendpc2tvIl0KICAgICAgfSwKICAgICAgewogICAgICAgICJpZCI6ICJzeW50YXgtbGVmdC1qb2luIiwKICAgICAgICAidGV4dCI6ICJaYXN0b3Nvd2FubyBrbGF1enVsxJkgTEVGVCBKT0lOIHogZmlsdHJlbSBJUyBOVUxMIiwKICAgICAgICAidHlwZSI6ICJjb250YWlucyIsCiAgICAgICAgInBhdHRlcm4iOiAiTEVGVCBKT0lOIgogICAgICB9CiAgICBd"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie praktyczne - Audyt czytelników i wypożyczeń w bibliotece</h2>
+<p>Przeprowadź audyt aktywności czytelników na bazie <code>biblioteka.sql</code>.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Pełne zestawienie czytelników z historią</span>: Napisz kwerendę <code>LEFT JOIN</code>, która wyświetli <code>imie</code>, <code>nazwisko</code> każdego czytelnika oraz datę jego wypożyczeń (<code>wypozyczenia.data</code>).</li>
+<li><span class="color-green">Identyfikacja nieaktywnych kont</span>: Zmodyfikuj zapytanie z punktu 1, aby wyłonić wyłącznie tych czytelników, którzy nigdy nie dokonali żadnego wypożyczenia.</li>
+<li><span class="color-green">Katalog książek bez wypożyczeń</span>: Wykonaj analogiczne zapytanie łączące tabelę książek <code>ksiazki</code> z tabelą <code>wypozyczenia</code>, aby odnaleźć tytuły książek, po które nikt jeszcze nie sięgnął (<code>wypozyczenia.id IS NULL</code>).</li>
+</ol>
+<p>Spróbuj napisać zapytania samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy blok.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-sql">-- Kwerenda 1: Wszyscy czytelnicy z historią
+SELECT czytelnicy.imie, czytelnicy.nazwisko, wypozyczenia.data 
+FROM czytelnicy 
+LEFT JOIN wypozyczenia ON czytelnicy.id = wypozyczenia.id_czytelnika;
+
+-- Kwerenda 2: Nieaktywni czytelnicy (Anti-Join)
+SELECT czytelnicy.imie, czytelnicy.nazwisko 
+FROM czytelnicy 
+LEFT JOIN wypozyczenia ON czytelnicy.id = wypozyczenia.id_czytelnika 
+WHERE wypozyczenia.id IS NULL;
+
+-- Kwerenda 3: Książki nigdy niewypożyczone
+SELECT ksiazki.tytul 
+FROM ksiazki 
+LEFT JOIN wypozyczenia ON ksiazki.id = wypozyczenia.id_ksiazki 
+WHERE wypozyczenia.id IS NULL;
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li><code>LEFT JOIN</code> zachowuje cały zbiór tabeli lewej ($A$), wstawiając <code>NULL</code> w miejscach brakujących powiązań z tabeli prawej.</li>
+<li>Wzorzec Anti‑Join ($A \setminus B$) pozwala wykrywać rekordy osierocone za pomocą warunku <code>WHERE prawa_tabela.id IS NULL</code>.</li>
+<li>Brakujące wartości <code>NULL</code> nie są równe pustemu ciągowi znaków ani zeru - oznaczają całkowity brak powiązanego wiersza.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 4\Obliczenia biznesowe i dynamiczne formatowanie raportów - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li><li class="module">Moduł 3: Skrypty egzaminacyjne i procedury bazodanowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Obsługa bazy mysqli i dynamiczne generowanie widoków"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%203/Obs%C5%82uga%20bazy%20mysqli%20i%20dynamiczne%20generowanie%20widok%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa bazy mysqli i dynamiczne generowanie widoków</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Przetwarzanie formularzy POST i wstawianie rekordów INSERT"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%203/Przetwarzanie%20formularzy%20POST%20i%20wstawianie%20rekord%C3%B3w%20INSERT.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Przetwarzanie formularzy POST i wstawianie rekordów INSERT</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dynamiczne listy rozwijane SELECT i filtrowanie raportów"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%203/Dynamiczne%20listy%20rozwijane%20SELECT%20i%20filtrowanie%20raport%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy rozwijane SELECT i filtrowanie raportów</a></li><li class="module">Moduł 4: Zaawansowane mechanizmy webowe w arkuszach CKE</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Ciasteczka Cookies i zapamiętywanie stanu użytkownika"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%204/Ciasteczka%20Cookies%20i%20zapami%C4%99tywanie%20stanu%20u%C5%BCytkownika.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Ciasteczka Cookies i zapamiętywanie stanu użytkownika</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Obsługa przesyłania plików i walidacja danych Upload"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%204/Obs%C5%82uga%20przesy%C5%82ania%20plik%C3%B3w%20i%20walidacja%20danych%20Upload.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa przesyłania plików i walidacja danych Upload</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Obliczenia biznesowe i dynamiczne formatowanie raportów"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%204/Obliczenia%20biznesowe%20i%20dynamiczne%20formatowanie%20raport%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obliczenia biznesowe i dynamiczne formatowanie raportów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Obliczenia biznesowe i dynamiczne formatowanie raportów</h1>
+<p>W zaawansowanych zadaniach INF.03 skrypt backendowy nie tylko pobiera krotki z bazy MySQL, lecz także wykonuje obliczenia arytmetyczne dla każdego wiersza (kary, opłaty, marże, sumy narastające), agreguje statystyki globalne i dynamicznie aplikuje klasy CSS wyróżniające rekordy przekraczające założone normy.</p>
+<p><a href="/resources/sql-files/wazenie-pojazdow.sql" download="wazenie-pojazdow.sql" class="download-btn">Pobierz plik bazy danych wazenie‑pojazdow.sql</a></p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>⚖️ Przetwarzanie danych liczbowych i funkcja <code>number_format</code></h2>
+<p>CKE w arkuszach wymaga prezentowania wartości zmiennoprzecinkowych w standardzie europejskim: z przecinkiem jako separatorem dziesiętnym oraz spacją jako separatorem tysięcy. Służy do tego funkcja <code>number_format()</code>.</p>
+<pre><code class="language-php">&lt;?php
+// Składnia: number_format(liczba, miejsca_po_przecinku, sep_dziesietny, sep_tysiecy)
+$waga_tony = 12.456;
+$oplata    = 3450.8;
+
+echo number_format($waga_tony, 2, ',', ' ') . " t";   // Wynik: "12,46 t"
+echo number_format($oplata, 2, ',', ' ') . " PLN";    // Wynik: "3 450,80 PLN"
+?&gt;
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Warunkowe formatowanie wierszy tabeli HTML</h2>
+<p>Podczas iterowania po wynikach kwerendy <code>mysqli_fetch_row()</code> skrypt bada warunek progowy. Jeśli wartość przekracza dopuszczalną normę (np. tonaż powyżej 5 ton), wiersz otrzymuje specjalną klasę CSS (np. <code>class="przeciazenie"</code>), a skrypt wylicza karę za każdą tonę nadwyżki.</p>
+<pre><code class="language-php">&lt;?php
+$conn = mysqli_connect("localhost", "root", "", "wazenietirow");
+$sql  = "SELECT rejestracja, waga, dzien, czas FROM wagi ORDER BY id ASC";
+$res  = mysqli_query($conn, $sql);
+
+echo "&lt;table&gt;";
+echo "&lt;tr&gt;&lt;th&gt;Rejestracja&lt;/th&gt;&lt;th&gt;Waga&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Kara&lt;/th&gt;&lt;/tr&gt;";
+
+while ($row = mysqli_fetch_row($res)) {
+    $nr_rej = htmlspecialchars($row[0]);
+    $waga   = (float)$row[1];
+    
+    // Warunek biznesowy: dopuszczalna masa całkowita wynosi 5.0 ton
+    if ($waga &gt; 5.0) {
+        $nadwyzka = $waga - 5.0;
+        $kara     = $nadwyzka * 200; // 200 PLN za każdą tonę ponad normę
+        $klasa    = "przeciazenie";
+        $status   = "Przekroczenie DMC";
+    } else {
+        $kara     = 0.0;
+        $klasa    = "norma";
+        $status   = "W normie";
+    }
+
+    echo "&lt;tr class='$klasa'&gt;";
+    echo "&lt;td&gt;$nr_rej&lt;/td&gt;";
+    echo "&lt;td&gt;" . number_format($waga, 1, ',', ' ') . " t&lt;/td&gt;";
+    echo "&lt;td&gt;$status&lt;/td&gt;";
+    echo "&lt;td&gt;" . number_format($kara, 2, ',', ' ') . " zł&lt;/td&gt;";
+    echo "&lt;/tr&gt;";
+}
+echo "&lt;/table&gt;";
+?&gt;
+</code></pre>
+<h3>📈 Agregacja w pętli: sumy, średnie i liczniki</h3>
+<p>Równolegle z generowaniem widoku HTML skrypt gromadzi statystyki podsumowujące raport. Zmienne akumulacyjne inicjalizuje się wartością <code>0</code> przed pętlą, a po jej zakończeniu umieszcza w sekcji <code>&lt;tfoot&gt;</code> tabeli.</p>
+<pre><code class="language-php">$suma_ton = 0.0;
+$licznik_pojazdow = 0;
+
+while ($row = mysqli_fetch_row($res)) {
+    $suma_ton += (float)$row[1];
+    $licznik_pojazdow++;
+    // generowanie kolejnych &lt;tr&gt;...
+}
+
+$srednia_waga = ($licznik_pojazdow &gt; 0) ? ($suma_ton / $licznik_pojazdow) : 0;
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Sprawdzenie wiedzy: Obliczenia i raportowanie w PHP</h2>
+<data-quiz>
+  <div class="quiz-question" data-title="Europejski format number_format">Które wywołanie funkcji number_format poprawnie sformatuje liczbę 1520.5 do postaci "1 520,50 zł"?</div>
+  <div class="quiz-answer" data-correct="true">number_format(1520.5, 2, ',', ' ') . " zł"</div>
+  <div class="quiz-answer">number_format(1520.5, 2, '.', ',') . " zł"</div>
+  <div class="quiz-answer">number_format(1520.5, 0, ',', ' ') . " zł"</div>
+  <div class="quiz-answer">number_format(1520.5, 2) . " zł"</div>
+</data-quiz>
+
+<data-connection-matcher>
+  <div class="cmw-item" data-left="`number_format`" data-right="Formatuje liczbę z precyzją miejsc po przecinku i separatorami"></div>
+  <div class="cmw-item" data-left="`$suma += $wartosc`" data-right="Akumuluje bieżącą wartość wiersza do sumy całkowitej raportu"></div>
+  <div class="cmw-item" data-left="`<tfoot>`" data-right="Semantyczna sekcja stopki tabeli podsumowująca kolumny danych"></div>
+  <div class="cmw-item" data-left="`floatval / (float)`" data-right="Rzutowanie odczytanego z kwerendy ciągu znaków na typ zmiennoprzecinkowy"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Tabela z wyróżnieniem progowym</h2>
+<p>Napisz pętlę <code>while</code>, która odczytuje rekordy z <code>$result</code> (<code>$row[0]</code> to nazwa, <code>$row[1]</code> to cena). Oblicz sumę wszystkich cen w zmiennej <code>$suma</code>. Jeśli cena przekracza 100 zł, oznacz wiersz klasą <code>drogi</code>, w przeciwnym razie <code>tani</code>. Sformatuj cenę za pomocą <code>number_format</code> z dwoma miejscami po przecinku.</p>
+<data-gate>
+<data-code-runner language="php" title="Warunkowe generowanie wierszy raportu" data-code="JHN1bWEgPSAwOwplY2hvICI8dGFibGU+IjsKLy8gMS4gVE9ETzogTmFwaXN6IHDEmXRsxJkgd2hpbGUgaSBwb2JpZXJhaiB3aWVyc3plIHByemV6IG15c3FsaV9mZXRjaF9yb3coJHJlc3VsdCkKLy8gICAgLSAkcm93WzBdIHRvIG5hendhIHRvd2FydSwgJHJvd1sxXSB0byBjZW5hICh6cnp1dHVqIG5hIGZsb2F0KQovLyAgICAtIGFrdW11bHVqIHN1bcSZIHcgem1pZW5uZWo6ICRzdW1hICs9ICRjZW5hOwovLyAgICAtIGplxZtsaSBjZW5hID4gMTAwLCBwcnp5cGlzeiBrbGFzxJkgJGtsYXNhID0gImRyb2dpIiwgdyBwcnplY2l3bnltIHJhemllICJ0YW5pIgovLyAgICAtIHd5xZt3aWV0bCB3aWVyc3ogdGFiZWxpOiBlY2hvICI8dHIgY2xhc3M9JyRrbGFzYSc+PHRkPiRuYXp3YTwvdGQ+PHRkPiIgLiBudW1iZXJfZm9ybWF0KCRjZW5hLCAyLCAnLCcsICcgJykgLiAiIHrFgjwvdGQ+PC90cj4iOwoKCmVjaG8gIjwvdGFibGU+IjsKLy8gMi4gVE9ETzogV3nFm3dpZXRsIHNmb3JtYXRvd2FuZSBwb2RzdW1vd2FuaWUgc3VteSB6YSBwb21vY8SFIG51bWJlcl9mb3JtYXQ6Ci8vIGVjaG8gIjxwIGNsYXNzPSdzdW1hJz5TdW1hOiAiIC4gbnVtYmVyX2Zvcm1hdCgkc3VtYSwgMiwgJywnLCAnICcpIC4gIiB6xYI8L3A+Ijs=" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInJlcS13aGlsZSIsCiAgICAgICAgInRleHQiOiAiUMSZdGxhIHdoaWxlIHBvYmllcmFqxIVjYSB3aWVyc3plIHphIHBvbW9jxIUgbXlzcWxpX2ZldGNoX3JvdyIsCiAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICJwYXR0ZXJuIjogIndoaWxlXFxzKlxcKFxccypcXCRyb3dcXHMqPVxccypteXNxbGlfZmV0Y2hfcm93IgogICAgICB9LAogICAgICB7CiAgICAgICAgImlkIjogInJlcS1zdW0iLAogICAgICAgICJ0ZXh0IjogIkFrdW11bGFjamEgc3VteSB3IHDEmXRsaSAoJHN1bWEgKz0gLi4uKSIsCiAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICJwYXR0ZXJuIjogIlxcJHN1bWFcXHMqXFwrPSIKICAgICAgfSwKICAgICAgewogICAgICAgICJpZCI6ICJyZXEtZm9ybWF0IiwKICAgICAgICAidGV4dCI6ICJTZm9ybWF0b3dhbmllIGt3b3R5IHphIHBvbW9jxIUgbnVtYmVyX2Zvcm1hdCIsCiAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICJwYXR0ZXJuIjogIm51bWJlcl9mb3JtYXRcXHMqXFwoIgogICAgICB9LAogICAgICB7CiAgICAgICAgImlkIjogInJlcS1jbGFzcyIsCiAgICAgICAgInRleHQiOiAiWmFzdG9zb3dhbmllIHdhcnVua293ZWoga2xhc3kgdyB3aWVyc3p1IHRyIiwKICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgInBhdHRlcm4iOiAiPHRyIGNsYXNzPSIKICAgICAgfQogICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏆 Krok po kroku: Arkusz CKE Ważenie pojazdów</h2>
+<p>W arkuszu egzaminacyjnym skrypt łączy dane o pomiarach ze stacji wagowych z nazwami ulic i generuje zestawienie pojazdów:</p>
+<ol>
+<li>Nawiąż połączenie z bazą <code>wazenietirow</code> na koncie <code>root</code> bez hasła.</li>
+<li>Zdefiniuj kwerendę z klauzulą złączenia: <code>SELECT wagi.rejestracja, wagi.waga, wagi.dzien, wagi.czas, lokalizacje.ulica FROM wagi JOIN lokalizacje ON wagi.lokalizacje_id = lokalizacje.id ORDER BY wagi.waga DESC</code>.</li>
+<li>Przed pętlą zadeklaruj zmienne: <code>$laczna_masa = 0;</code> oraz <code>$liczba_przeciazen = 0;</code>.</li>
+<li>W pętli <code>while</code> pobieraj kolejne krotki:<ul>
+<li>Dodaj masę pojazdu do <code>$laczna_masa</code>.</li>
+<li>Jeśli masa pojazdu przekracza <code>5 ton</code>, zwiększ <code>$liczba_przeciazen</code> o 1 i nadaj wierszowi klasę <code>czerwony</code>.</li>
+<li>Jeśli masa nie przekracza <code>5 ton</code>, nadaj wierszowi klasę <code>zielony</code>.</li>
+</ul>
+</li>
+<li>Wygeneruj komórki tabeli: numer rejestracyjny, masę sformatowaną do 1 miejsca po przecinku z dopiskiem <code>t</code>, ulicę punktu ważenia oraz datę i godzinę.</li>
+<li>Pod tabelą wyświetl podsumowanie: łączną masę wszystkich pojazdów oraz liczbę pojazdów ze stwierdzonym przeciążeniem.</li>
+<li>Zamknij połączenie z bazą funkcją <code>mysqli_close()</code>.</li>
+</ol>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-php">&lt;!DOCTYPE html&gt;
+&lt;html lang="pl"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Stacja kontroli tonażu&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styl.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Dziennik ważeń pojazdów ciężarowych&lt;/h1&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;table&gt;
+            &lt;thead&gt;
+                &lt;tr&gt;
+                    &lt;th&gt;Nr rejestracyjny&lt;/th&gt;
+                    &lt;th&gt;Masa pojazdu&lt;/th&gt;
+                    &lt;th&gt;Punkt kontroli&lt;/th&gt;
+                    &lt;th&gt;Data i godzina&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;?php
+                $conn = mysqli_connect("localhost", "root", "", "wazenietirow");
+                
+                if (!$conn) {
+                    die("Błąd połączenia: " . mysqli_connect_error());
+                }
+
+                $sql = "SELECT wagi.rejestracja, wagi.waga, wagi.dzien, wagi.czas, lokalizacje.ulica 
+                        FROM wagi 
+                        JOIN lokalizacje ON wagi.lokalizacje_id = lokalizacje.id 
+                        ORDER BY wagi.waga DESC";
+                $result = mysqli_query($conn, $sql);
+
+                $laczna_masa = 0.0;
+                $liczba_przeciazen = 0;
+
+                while ($row = mysqli_fetch_row($result)) {
+                    $rejestracja = htmlspecialchars($row[0]);
+                    $waga        = (float)$row[1];
+                    $dzien       = htmlspecialchars($row[2]);
+                    $czas        = htmlspecialchars($row[3]);
+                    $ulica       = htmlspecialchars($row[4]);
+
+                    $laczna_masa += $waga;
+
+                    if ($waga &gt; 5.0) {
+                        $klasa = "czerwony";
+                        $liczba_przeciazen++;
+                    } else {
+                        $klasa = "zielony";
+                    }
+
+                    echo "&lt;tr class='$klasa'&gt;";
+                    echo "&lt;td&gt;$rejestracja&lt;/td&gt;";
+                    echo "&lt;td&gt;" . number_format($waga, 1, ',', ' ') . " t&lt;/td&gt;";
+                    echo "&lt;td&gt;ul. $ulica&lt;/td&gt;";
+                    echo "&lt;td&gt;$dzien $czas&lt;/td&gt;";
+                    echo "&lt;/tr&gt;";
+                }
+
+                mysqli_free_result($result);
+                mysqli_close($conn);
+                ?&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;section class="podsumowanie"&gt;
+            &lt;h3&gt;Statystyka dnia:&lt;/h3&gt;
+            &lt;p&gt;Łączna zważona masa: &lt;strong&gt;&lt;?php echo number_format($laczna_masa, 2, ',', ' '); ?&gt; ton&lt;/strong&gt;&lt;/p&gt;
+            &lt;p&gt;Liczba pojazdów przeciążonych (&amp;gt; 5 t): &lt;strong class="alarm"&gt;&lt;?php echo $liczba_przeciazen; ?&gt;&lt;/strong&gt;&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+</details>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

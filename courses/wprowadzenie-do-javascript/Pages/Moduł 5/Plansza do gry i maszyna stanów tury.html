@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 5\Plansza do gry i maszyna stanów tury - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Plansza do gry i maszyna stanów tury</h1>
+<p>Tworzenie gier komputerowych oraz interaktywnych aplikacji biznesowych wymaga precyzyjnego kontrolowania kolejności zdarzeń. W grach turowych, systemach rezerwacji biletów czy kreatorach wieloetapowych kluczowym pojęciem architektonicznym jest <span class="color-green">maszyna stanów</span> (ang. <span class="color-blue">state machine</span>). Odpowiada ona za śledzenie, czyja tura aktualnie trwa, jakie akcje są w danym momencie dozwolone oraz jak interfejs reaguje na kliknięcia użytkowników.</p>
+<p>W tej lekcji stworzymy w pełni funkcjonalny silnik planszowy dla dwóch graczy oparty na klasycznej rozgrywce kółko i krzyżyk.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎮 Makieta planszy i paneli graczy</h2>
+<p>Interfejs gry składa się z siatki 3x3 reprezentowanej przez tabelę (lub kontener CSS Grid) oraz dwóch paneli informacyjnych wskazujących, który gracz powinien wykonać kolejny ruch:</p>
+<pre><code class="language-html">&lt;main class="game-wrapper"&gt;
+  &lt;aside id="panel-player-o" class="player-card active"&gt;
+    &lt;h2&gt;Gracz 1: Kółko (O)&lt;/h2&gt;
+    &lt;p class="status-badge"&gt;Twój ruch!&lt;/p&gt;
+  &lt;/aside&gt;
+
+  &lt;section class="board-container"&gt;
+    &lt;table id="game-board"&gt;
+      &lt;tr&gt;
+        &lt;td data-index="0"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+        &lt;td data-index="1"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+        &lt;td data-index="2"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td data-index="3"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+        &lt;td data-index="4"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+        &lt;td data-index="5"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td data-index="6"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+        &lt;td data-index="7"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+        &lt;td data-index="8"&gt;&lt;img src="nic.png" alt="Puste pole" /&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+
+    &lt;div class="controls"&gt;
+      &lt;button id="btn-reset-board" type="button"&gt;Zresetuj grę&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;aside id="panel-player-x" class="player-card hidden"&gt;
+    &lt;h2&gt;Gracz 2: Krzyżyk (X)&lt;/h2&gt;
+    &lt;p class="status-badge"&gt;Oczekiwanie...&lt;/p&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Maszyna stanów w grach turowych</h2>
+<h3>🔄 Zmienna stanu i deterministyczna zmiana tury</h3>
+<p>Sercem gry turowej jest pojedyncza zmienna reprezentująca aktualnego gracza. Na początku rozgrywki inicjalizujemy stan początkowy:</p>
+<pre><code class="language-javascript">let currentPlayer = "o"; // Dopuszczalne stany: "o" oraz "x"
+</code></pre>
+<p>Za każdym razem, gdy gracz wykona poprawny ruch, stan musi przełączyć się na drugiego gracza:</p>
+<pre><code class="language-javascript">function switchTurn() {
+  if (currentPlayer === "o") {
+    currentPlayer = "x";
+  } else {
+    currentPlayer = "o";
+  }
+}
+</code></pre>
+<p>Dzięki temu zmiana tury jest deterministyczna - niemożliwe jest wykonanie dwóch ruchów z rzędu przez tego samego gracza.</p>
+<h3>🔒 Blokada kliknięć i ochrona przed nadpisaniem pola</h3>
+<p>W grach planszowych pole raz zajęte nie może zostać zmienione. Jednym z najczęstszych błędów początkujących programistów jest brak walidacji zawartości komórki przed nałożeniem symbolu.</p>
+<p>Możemy to zrealizować badając atrybut <code>src</code> obrazu wewnątrz komórki lub sprawdzając atrybut <code>dataset</code>:</p>
+<pre><code class="language-javascript">function handleCellClick(cell) {
+  const image = cell.querySelector("img");
+
+  // Jeśli w komórce nie ma grafiki pustego pola 'nic.png', pole jest już zajęte!
+  if (!image.src.endsWith("nic.png")) {
+    // Przerywamy wykonanie funkcji - nic nie robimy
+    return;
+  }
+
+  // Wstawiamy symbol aktualnego gracza
+  if (currentPlayer === "o") {
+    image.src = "o.png";
+    image.alt = "Kółko";
+  } else {
+    image.src = "x.png";
+    image.alt = "Krzyżyk";
+  }
+
+  // Po poprawnym ruchu przełączamy stan
+  switchTurn();
+}
+</code></pre>
+<h3>👁️ Synchronizacja wskaźników interfejsu użytkownika</h3>
+<p>Użytkownik musi w czytelny sposób widzieć, do kogo należy ruch. Synchronizujemy wygląd paneli bocznych przełączając klasy CSS lub modyfikując właściwość <code>style.display</code>:</p>
+<pre><code class="language-javascript">function updateTurnPanels() {
+  const panelO = document.querySelector("#panel-player-o");
+  const panelX = document.querySelector("#panel-player-x");
+
+  if (currentPlayer === "o") {
+    panelO.classList.remove("hidden");
+    panelO.classList.add("active");
+
+    panelX.classList.remove("active");
+    panelX.classList.add("hidden");
+  } else {
+    panelX.classList.remove("hidden");
+    panelX.classList.add("active");
+
+    panelO.classList.remove("active");
+    panelO.classList.add("hidden");
+  }
+}
+</code></pre>
+<h3>🔄 Czyszczenie planszy i reset maszyny stanów</h3>
+<p>Reset rozgrywki wymaga wykonania dwóch operacji:</p>
+<ol>
+<li>Przywrócenia stanu zmiennych logicznych (<code>currentPlayer = "o"</code>).</li>
+<li>Przywrócenia stanu wyjściowego wszystkich węzłów DOM (zamiana wszystkich grafik na <code>nic.png</code> i zaktualizowanie paneli).</li>
+</ol>
+<pre><code class="language-javascript">function resetGame() {
+  currentPlayer = "o";
+
+  const allImages = document.querySelectorAll("#game-board img");
+  allImages.forEach((img) =&gt; {
+    img.src = "nic.png";
+    img.alt = "Puste pole";
+  });
+
+  updateTurnPanels();
+}
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Sprawdź swoją wiedzę</h2>
+<data-quiz>
+  <question>W jaki sposób najskuteczniej zapobiec nadpisaniu komórki, w której gracz postawił już swój znak?</question>
+  <options>
+    <option correct="">Sprawdzić przed zmianą grafiki, czy źródło obrazu wskazuje na puste pole <code>nic.png</code></option>
+    <option>Usunąć całą tabelę z drzewa DOM i zbudować ją na nowo po każdym kliknięciu</option>
+    <option>Wywołać funkcję <code>switchTurn()</code> przed wstawieniem nowego symbolu graficznego</option>
+    <option>Ustawić styl <code>pointer-events: none</code> na całym nadrzędnym elemencie tabeli</option>
+  </options>
+</data-quiz>
+
+<data-connection-matcher title="Dopasuj zdarzenie w grze do operacji na stanie lub modelu DOM">
+  <div class="cmw-item" data-left="Kliknięcie w pole z `nic.png` przy turze `o`" data-right="Podmiana na `o.png` i przekazanie tury graczowi `x`"></div>
+  <div class="cmw-item" data-left="Kliknięcie w pole z `o.png` lub `x.png`" data-right="Zignorowanie akcji i brak jakichkolwiek zmian na planszy"></div>
+  <div class="cmw-item" data-left="Przełączenie tury na gracza `x`" data-right="Ukrycie lewego panelu gracza `o` i aktywacja panelu `x`"></div>
+  <div class="cmw-item" data-left="Kliknięcie przycisku `Zresetuj grę`" data-right="Przywrócenie `nic.png` we wszystkich komórkach i tury gracza `o`"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Kontroler tury w pojedynku bitewnym</h2>
+<p>Napisz funkcję <code>executeTurnMove(currentTurn, cellState)</code>, która przetwarza próbę wykonania ruchu na pojedynczym polu gry.</p>
+<p>Wymagania:</p>
+<ol>
+<li><code>currentTurn</code> to string <code>"O"</code> lub <code>"X"</code>.</li>
+<li><code>cellState</code> to aktualny stan pola: <code>"empty"</code>, <code>"O"</code> lub <code>"X"</code>.</li>
+<li>Jeżeli <code>cellState</code> nie jest równe <code>"empty"</code>, ruch jest niedozwolony. Funkcja powinna zwrócić obiekt:<br><code>{ valid: false, nextTurn: currentTurn, newCell: cellState }</code>.</li>
+<li>Jeżeli pole było <code>"empty"</code>, ruch jest poprawny: pole przyjmuje wartość <code>currentTurn</code>, tura zmienia się na przeciwną (<code>"O"</code> przechodzi w <code>"X"</code>, a <code>"X"</code> w <code>"O"</code>), a funkcja zwraca:<br><code>{ valid: true, nextTurn: nextPlayer, newCell: currentTurn }</code>.</li>
+</ol>
+<data-gate>
+  <data-code-runner language="javascript" title="Kontroler tury w pojedynku kółko i krzyżyk" data-code="Ly8gMS4gTG9naWthIHByemVqxZtjaWEgc3RhbnUgdHVyeSAod3ltYWdhbmUgcHJ6ZXogYXNlcmNqZSB0ZXN0b3dlKQpmdW5jdGlvbiBleGVjdXRlVHVybk1vdmUoY3VycmVudFR1cm4sIGNlbGxTdGF0ZSkgewogIC8vIFRPRE86IFphaW1wbGVtZW50dWogd2FsaWRhY2rEmSBpIG5hcHJ6ZW1pZW5uxIUgem1pYW7EmSB0dXJ5OgogIC8vIDEuIEplxZtsaSBjZWxsU3RhdGUgIT09ICJlbXB0eSIgLT4gendyw7PEhyB7IHZhbGlkOiBmYWxzZSwgbmV4dFR1cm46IGN1cnJlbnRUdXJuLCBuZXdDZWxsOiBjZWxsU3RhdGUgfQogIC8vIDIuIEplxZtsaSBjZWxsU3RhdGUgPT09ICJlbXB0eSIgLT4gdHVyYSBwcnplY2hvZHppIG5hIHByemVjaXduxIUgKE8gLT4gWCwgWCAtPiBPKQogIC8vICAgIGkgendyw7PEhyB7IHZhbGlkOiB0cnVlLCBuZXh0VHVybjogbmV4dFBsYXllciwgbmV3Q2VsbDogY3VycmVudFR1cm4gfQogIAogIHJldHVybiBudWxsOwp9CgovLyAyLiBPYnPFgnVnYSBpbnRlcmFrdHl3bmVqIHBsYW5zenkgZ3J5ICh6YWvFgmFka2Eg8J+OriBJbnRlcmFrdHl3bmEgUGxhbnN6YSBHcnkpCmZ1bmN0aW9uIGluaXRUaWNUYWNUb2VVSSgpIHsKICBsZXQgYWN0aXZlUGxheWVyID0gIk8iOwogIGNvbnN0IGNlbGxzID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgiLnRpY3RhY3RvZS1jZWxsIik7CiAgY29uc3QgcGxheWVyRGlzcGxheSA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ0dHQtY3VycmVudC1wbGF5ZXIiKTsKICBjb25zdCBtc2dEaXNwbGF5ID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInR0dC1tZXNzYWdlIik7CgogIGNlbGxzLmZvckVhY2goY2VsbCA9PiB7CiAgICBjZWxsLmFkZEV2ZW50TGlzdGVuZXIoImNsaWNrIiwgKCkgPT4gewogICAgICBjb25zdCBjdXJyZW50U3RhdGUgPSBjZWxsLmRhdGFzZXQuc3RhdGU7CiAgICAgIGNvbnN0IGRlY2lzaW9uID0gZXhlY3V0ZVR1cm5Nb3ZlKGFjdGl2ZVBsYXllciwgY3VycmVudFN0YXRlKTsKCiAgICAgIGlmIChkZWNpc2lvbiAmJiBkZWNpc2lvbi52YWxpZCkgewogICAgICAgIGNlbGwudGV4dENvbnRlbnQgPSBkZWNpc2lvbi5uZXdDZWxsOwogICAgICAgIGNlbGwuZGF0YXNldC5zdGF0ZSA9IGRlY2lzaW9uLm5ld0NlbGw7CiAgICAgICAgY2VsbC5jbGFzc0xpc3QuYWRkKGRlY2lzaW9uLm5ld0NlbGwgPT09ICJPIiA/ICJjZWxsLW8iIDogImNlbGwteCIsICJ0YWtlbiIpOwoKICAgICAgICBhY3RpdmVQbGF5ZXIgPSBkZWNpc2lvbi5uZXh0VHVybjsKICAgICAgICBpZiAocGxheWVyRGlzcGxheSkgewogICAgICAgICAgcGxheWVyRGlzcGxheS50ZXh0Q29udGVudCA9IGFjdGl2ZVBsYXllcjsKICAgICAgICAgIHBsYXllckRpc3BsYXkuc3R5bGUuY29sb3IgPSBhY3RpdmVQbGF5ZXIgPT09ICJPIiA/ICIjM2I4MmY2IiA6ICIjZWY0NDQ0IjsKICAgICAgICB9CiAgICAgICAgaWYgKG1zZ0Rpc3BsYXkpIHsKICAgICAgICAgIG1zZ0Rpc3BsYXkuY2xhc3NOYW1lID0gImthbmJhbi1zdGF0dXMtYmFubmVyIHN0YXR1cy1zdWNjZXNzIjsKICAgICAgICAgIG1zZ0Rpc3BsYXkuaW5uZXJIVE1MID0gYDxzcGFuIGNsYXNzPSJzdGF0dXMtaWNvbiI+4pyFPC9zcGFuPiA8c3BhbiBjbGFzcz0ic3RhdHVzLXRleHQiPlJ1Y2ggcG9wcmF3bnkhIFRlcmF6IHJ1Y2ggZ3JhY3phOiAke2FjdGl2ZVBsYXllcn08L3NwYW4+YDsKICAgICAgICB9CiAgICAgIH0gZWxzZSB7CiAgICAgICAgY29uc3QgZXJyb3JNc2cgPSBkZWNpc2lvbiA/ICJQb2xlIGplc3QganXFvCB6YWrEmXRlISIgOiAiWmFpbXBsZW1lbnR1aiBleGVjdXRlVHVybk1vdmUsIGFieSB3eWtvbmHEhyBydWNoISI7CiAgICAgICAgY2VsbC5jbGFzc0xpc3QuYWRkKCJjZWxsLWVycm9yIik7CiAgICAgICAgc2V0VGltZW91dCgoKSA9PiBjZWxsLmNsYXNzTGlzdC5yZW1vdmUoImNlbGwtZXJyb3IiKSwgNDAwKTsKCiAgICAgICAgaWYgKG1zZ0Rpc3BsYXkpIHsKICAgICAgICAgIG1zZ0Rpc3BsYXkuY2xhc3NOYW1lID0gImthbmJhbi1zdGF0dXMtYmFubmVyIHN0YXR1cy1ibG9ja2VkIjsKICAgICAgICAgIG1zZ0Rpc3BsYXkuaW5uZXJIVE1MID0gYDxzcGFuIGNsYXNzPSJzdGF0dXMtaWNvbiI+4puUPC9zcGFuPiA8c3BhbiBjbGFzcz0ic3RhdHVzLXRleHQiPiR7ZXJyb3JNc2d9PC9zcGFuPmA7CiAgICAgICAgfQogICAgICB9CiAgICB9KTsKICB9KTsKfQoKaW5pdFRpY1RhY1RvZVVJKCk7" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LW1vdmUtbyIsCiAgICAgICAgICAidGV4dCI6ICJQcmF3aWTFgm93eSBydWNoIGvDs8WCa2EgbmEgcHVzdGUgcG9sZTogeyB2YWxpZDogdHJ1ZSwgbmV4dFR1cm46ICdYJywgbmV3Q2VsbDogJ08nIH0iLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAiZXhlY3V0ZVR1cm5Nb3ZlIiwKICAgICAgICAgICJpbnB1dCI6IFsiTyIsICJlbXB0eSJdLAogICAgICAgICAgImV4cGVjdGVkIjogewogICAgICAgICAgICAidmFsaWQiOiB0cnVlLAogICAgICAgICAgICAibmV4dFR1cm4iOiAiWCIsCiAgICAgICAgICAgICJuZXdDZWxsIjogIk8iCiAgICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1tb3ZlLXgiLAogICAgICAgICAgInRleHQiOiAiUHJhd2lkxYJvd3kgcnVjaCBrcnp5xbx5a2EgbmEgcHVzdGUgcG9sZTogeyB2YWxpZDogdHJ1ZSwgbmV4dFR1cm46ICdPJywgbmV3Q2VsbDogJ1gnIH0iLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAiZXhlY3V0ZVR1cm5Nb3ZlIiwKICAgICAgICAgICJpbnB1dCI6IFsiWCIsICJlbXB0eSJdLAogICAgICAgICAgImV4cGVjdGVkIjogewogICAgICAgICAgICAidmFsaWQiOiB0cnVlLAogICAgICAgICAgICAibmV4dFR1cm4iOiAiTyIsCiAgICAgICAgICAgICJuZXdDZWxsIjogIlgiCiAgICAgICAgICB9CiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1ibG9ja2VkLW1vdmUiLAogICAgICAgICAgInRleHQiOiAiUHLDs2JhIGtsaWtuacSZY2lhIHphasSZdGVnbyBwb2xhIGJsb2t1amUgcnVjaDogeyB2YWxpZDogZmFsc2UsIG5leHRUdXJuOiAnTycsIG5ld0NlbGw6ICdYJyB9IiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogImV4ZWN1dGVUdXJuTW92ZSIsCiAgICAgICAgICAiaW5wdXQiOiBbIk8iLCAiWCJdLAogICAgICAgICAgImV4cGVjdGVkIjogewogICAgICAgICAgICAidmFsaWQiOiBmYWxzZSwKICAgICAgICAgICAgIm5leHRUdXJuIjogIk8iLAogICAgICAgICAgICAibmV3Q2VsbCI6ICJYIgogICAgICAgICAgfQogICAgICAgIH0KICAgICAgXQ==" data-html="PGRpdiBjbGFzcz0idGljdGFjdG9lLWJvYXJkLWNvbnRhaW5lciIgc3R5bGU9ImRpc3BsYXk6IGZsZXg7IGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47IGFsaWduLWl0ZW1zOiBjZW50ZXI7IGdhcDogMTRweDsgcGFkZGluZzogMTZweDsgYm94LXNpemluZzogYm9yZGVyLWJveDsiPgogIDxkaXYgY2xhc3M9InRpY3RhY3RvZS1zdGF0dXMiIGlkPSJ0dHQtc3RhdHVzIiBzdHlsZT0iZm9udC1zaXplOiAxNHB4OyBmb250LXdlaWdodDogNzAwOyBwYWRkaW5nOiA4cHggMThweDsgYm9yZGVyLXJhZGl1czogMjBweDsgYm9yZGVyOiAycHggc29saWQgdmFyKC0tYm9yZGVyLWNvbG9yKTsgYmFja2dyb3VuZDogdmFyKC0tYmctbGF5ZXItMik7IGNvbG9yOiB2YXIoLS10ZXh0LWNvbG9yKTsiPgogICAgQWt0dWFsbmEgdHVyYSBncmFjemE6IDxzcGFuIGlkPSJ0dHQtY3VycmVudC1wbGF5ZXIiIHN0eWxlPSJjb2xvcjogIzNiODJmNjsgZm9udC1zaXplOiAxNnB4OyBmb250LXdlaWdodDogODAwOyI+Tzwvc3Bhbj4KICA8L2Rpdj4KICA8ZGl2IGNsYXNzPSJ0aWN0YWN0b2UtZ3JpZCIgaWQ9InR0dC1ncmlkIiBzdHlsZT0iZGlzcGxheTogZ3JpZCAhaW1wb3J0YW50OyBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgzLCA4MHB4KSAhaW1wb3J0YW50OyBncmlkLXRlbXBsYXRlLXJvd3M6IHJlcGVhdCgzLCA4MHB4KSAhaW1wb3J0YW50OyBnYXA6IDEwcHggIWltcG9ydGFudDsgd2lkdGg6IDI2MHB4ICFpbXBvcnRhbnQ7IG1hcmdpbjogMTJweCBhdXRvICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjAiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjEiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjIiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjMiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjQiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjUiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjYiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjciIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogICAgPGRpdiBjbGFzcz0idGljdGFjdG9lLWNlbGwiIGRhdGEtaW5kZXg9IjgiIGRhdGEtc3RhdGU9ImVtcHR5IiBzdHlsZT0id2lkdGg6IDgwcHggIWltcG9ydGFudDsgaGVpZ2h0OiA4MHB4ICFpbXBvcnRhbnQ7IGJvcmRlcjogMnB4IHNvbGlkIHZhcigtLWJvcmRlci1jb2xvcikgIWltcG9ydGFudDsgYm9yZGVyLXJhZGl1czogOHB4ICFpbXBvcnRhbnQ7IGJhY2tncm91bmQ6IHZhcigtLWJnLWxheWVyLTEpICFpbXBvcnRhbnQ7IGRpc3BsYXk6IGZsZXggIWltcG9ydGFudDsgYWxpZ24taXRlbXM6IGNlbnRlciAhaW1wb3J0YW50OyBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlciAhaW1wb3J0YW50OyBmb250LXNpemU6IDM2cHggIWltcG9ydGFudDsgZm9udC13ZWlnaHQ6IDgwMCAhaW1wb3J0YW50OyBjb2xvcjogdmFyKC0tdGV4dC1jb2xvcikgIWltcG9ydGFudDsgY3Vyc29yOiBwb2ludGVyICFpbXBvcnRhbnQ7IHVzZXItc2VsZWN0OiBub25lICFpbXBvcnRhbnQ7IGJveC1zaXppbmc6IGJvcmRlci1ib3ggIWltcG9ydGFudDsiPjwvZGl2PgogIDwvZGl2PgogIDxkaXYgY2xhc3M9ImthbmJhbi1zdGF0dXMtYmFubmVyIiBpZD0idHR0LW1lc3NhZ2UiIHN0eWxlPSJ3aWR0aDogMTAwJTsgbWF4LXdpZHRoOiAzMjBweDsgdGV4dC1hbGlnbjogY2VudGVyOyBwYWRkaW5nOiA4cHggMTJweDsgYm9yZGVyLXJhZGl1czogOHB4OyBmb250LXNpemU6IDEyLjVweDsgZm9udC13ZWlnaHQ6IDYwMDsgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tYm9yZGVyLWNvbG9yKTsgYmFja2dyb3VuZDogdmFyKC0tYmctbGF5ZXItMik7IGNvbG9yOiB2YXIoLS10ZXh0LWNvbG9yKTsiPgogICAg8J+RiSBLbGlrbmlqIGRvd29sbmUgcG9sZSwgYWJ5IHd5a29uYcSHIHJ1Y2gKICA8L2Rpdj4KPC9kaXY+"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie projektowe - Plansza do gry w kółko i krzyżyk</h2>
+<p>Zaimplementuj kompletny skrypt obsługujący planszę do gry opisaną w makiecie HTML. Postępuj zgodnie z poniższym planem działania.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Definicja stanu i pobranie elementów</span>: Utwórz zmienną stanu <code>let currentPlayer = "o"</code>. Pobierz referencje do paneli <code>#panel-player-o</code>, <code>#panel-player-x</code>, przycisku <code>#btn-reset-board</code> oraz wszystkich komórek tabeli <code>document.querySelectorAll("#game-board td")</code>.</li>
+<li><span class="color-green">Obsługa kliknięcia komórki tabeli</span>: Przypisz nasłuchiwacz zdarzenia <code>click</code> do każdej komórki <code>&lt;td&gt;</code>:<ul>
+<li>Pobierz element <code>&lt;img&gt;</code> wewnątrz komórki.</li>
+<li>Sprawdź, czy <code>img.src</code> kończy się na <code>"nic.png"</code>. Jeśli nie - natychmiast przerwij działanie funkcji (<code>return</code>).</li>
+<li>Jeśli pole jest puste, a <code>currentPlayer === "o"</code>, zmień grafikę na <code>"o.png"</code> i ustaw turę na <code>"x"</code>.</li>
+<li>Jeśli pole jest puste, a tura należy do <code>"x"</code>, zmień grafikę na <code>"x.png"</code> i ustaw turę na <code>"o"</code>.</li>
+<li>Zaktualizuj stan paneli bocznych.</li>
+</ul>
+</li>
+<li><span class="color-green">Synchronizacja widoczności paneli</span>: Zaimplementuj funkcję przełączającą widoczność paneli bocznych graczy (<code>hidden</code> / <code>active</code>), informując o tym, czyj ruch następuje.</li>
+<li><span class="color-green">Resetowanie stanu gry</span>: Przypisz do przycisku <code>#btn-reset-board</code> przywrócenie tury gracza <code>"o"</code>, ustawienie grafiki <code>"nic.png"</code> dla wszystkich 9 komórek oraz odświeżenie paneli.</li>
+</ol>
+<p>Spróbuj napisać rozwiązanie samodzielnie w edytorze kodu. Dopiero po zakończeniu próby rozwiń poniższy blok, aby porównać swoje rozwiązanie z kodem wzorcowym.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">let currentPlayer = "o";
+
+const panelO = document.querySelector("#panel-player-o");
+const panelX = document.querySelector("#panel-player-x");
+const cells = document.querySelectorAll("#game-board td");
+const btnReset = document.querySelector("#btn-reset-board");
+
+function updatePanels() {
+  if (currentPlayer === "o") {
+    panelO.classList.remove("hidden");
+    panelO.classList.add("active");
+    panelX.classList.remove("active");
+    panelX.classList.add("hidden");
+  } else {
+    panelX.classList.remove("hidden");
+    panelX.classList.add("active");
+    panelO.classList.remove("active");
+    panelO.classList.add("hidden");
+  }
+}
+
+cells.forEach((cell) =&gt; {
+  cell.addEventListener("click", () =&gt; {
+    const img = cell.querySelector("img");
+    if (!img) return;
+
+    // Sprawdzenie czy pole jest puste
+    if (!img.src.endsWith("nic.png")) {
+      return; // Pole zajęte - brak akcji
+    }
+
+    if (currentPlayer === "o") {
+      img.src = "o.png";
+      img.alt = "Kółko";
+      currentPlayer = "x";
+    } else {
+      img.src = "x.png";
+      img.alt = "Krzyżyk";
+      currentPlayer = "o";
+    }
+
+    updatePanels();
+  });
+});
+
+btnReset.addEventListener("click", () =&gt; {
+  currentPlayer = "o";
+  cells.forEach((cell) =&gt; {
+    const img = cell.querySelector("img");
+    if (img) {
+      img.src = "nic.png";
+      img.alt = "Puste pole";
+    }
+  });
+  updatePanels();
+});
+
+// Inicjalizacja widoku na start
+updatePanels();
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li>Maszyna stanów w grze turowej opiera się na zmiennej kontrolnej, która deterministycznie przełącza się pomiędzy dopuszczalnymi wartościami po każdej poprawnej akcji.</li>
+<li>Ochrona przed nadpisaniem stanu polega na wczesnej weryfikacji zawartości komórki i wywołaniu instrukcji <code>return</code>, co zapobiega nieuprawnionym zmianom.</li>
+<li>Zmiana tury wymaga jednoczesnej aktualizacji modelu logicznego w pamięci skryptu oraz synchronizacji wskaźników wizualnych w drzewie DOM.</li>
+<li>Przycisk resetowania przywraca wyjściowy stan logiczny zmiennych oraz iteracyjnie odświeża wszystkie węzły interfejsu.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

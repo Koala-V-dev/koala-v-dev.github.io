@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Nóż i fazowanie – Krzesło laboratoryjne (Bevel i pętle podtrzymujące) - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="lesson-item lesson" tabindex="0" data-path="Wprowadzenie"><a class="lesson-link" href="/courses/blender/Pages/Wprowadzenie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wprowadzenie</a></li><li class="module">Moduł 0: Pierwszy model – Od bryły do mebla (Podstawy edycji i błędy skali)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwsza bryła – Prosty stół warsztatowy (Ekstruzja i skala obiektu)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwsza%20bry%C5%82a%20%E2%80%93%20Prosty%20st%C3%B3%C5%82%20warsztatowy%20(Ekstruzja%20i%20skala%20obiektu).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwsza bryła – Prosty stół warsztatowy (Ekstruzja i skala obiektu)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Nóż i fazowanie – Krzesło laboratoryjne (Bevel i pętle podtrzymujące)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/N%C3%B3%C5%BC%20i%20fazowanie%20%E2%80%93%20Krzes%C5%82o%20laboratoryjne%20(Bevel%20i%20p%C4%99tle%20podtrzymuj%C4%85ce).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Nóż i fazowanie – Krzesło laboratoryjne (Bevel i pętle podtrzymujące)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Precyzyjne łączenie – Szafka z szufladami (Grid snap i punkty zaczepienia)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Precyzyjne%20%C5%82%C4%85czenie%20%E2%80%93%20Szafka%20z%20szufladami%20(Grid%20snap%20i%20punkty%20zaczepienia).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Precyzyjne łączenie – Szafka z szufladami (Grid snap i punkty zaczepienia)</a></li><li class="module">Moduł 1: Formy toczone i naczynia – Butelka i szkło (Modyfikatory i grubość)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Profil 2D – Szklana butelka (Modyfikator Screw i osie obrotu)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Profil%202D%20%E2%80%93%20Szklana%20butelka%20(Modyfikator%20Screw%20i%20osie%20obrotu).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Profil 2D – Szklana butelka (Modyfikator Screw i osie obrotu)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grubość ścianki – Fiolka eliksiru (Solidify i czystość ścianek)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Grubo%C5%9B%C4%87%20%C5%9Bcianki%20%E2%80%93%20Fiolka%20eliksiru%20(Solidify%20i%20czysto%C5%9B%C4%87%20%C5%9Bcianek).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grubość ścianki – Fiolka eliksiru (Solidify i czystość ścianek)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Gwint i zamknięcie – Słój z zakrętką (Spirala i czyszczenie wierzchołków)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Gwint%20i%20zamkni%C4%99cie%20%E2%80%93%20S%C5%82%C3%B3j%20z%20zakr%C4%99tk%C4%85%20(Spirala%20i%20czyszczenie%20wierzcho%C5%82k%C3%B3w).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Gwint i zamknięcie – Słój z zakrętką (Spirala i czyszczenie wierzchołków)</a></li><li class="module">Moduł 2: Elementy mechaniczne – Skrzynia i oporządzenie (Hard-Surface i Boolean)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Cięcie brył – Skrzynia pancerna (Boolean i naprawa siatki)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Ci%C4%99cie%20bry%C5%82%20%E2%80%93%20Skrzynia%20pancerna%20(Boolean%20i%20naprawa%20siatki).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Cięcie brył – Skrzynia pancerna (Boolean i naprawa siatki)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Powtarzalność – Modułowy panel z nitami (Modyfikator Array i instancje)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Powtarzalno%C5%9B%C4%87%20%E2%80%93%20Modu%C5%82owy%20panel%20z%20nitami%20(Modyfikator%20Array%20i%20instancje).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtarzalność – Modułowy panel z nitami (Modyfikator Array i instancje)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Kable i przewody – Zasilacz polowy (Krzywe Beziera i profile)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Kable%20i%20przewody%20%E2%80%93%20Zasilacz%20polowy%20(Krzywe%20Beziera%20i%20profile).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kable i przewody – Zasilacz polowy (Krzywe Beziera i profile)</a></li><li class="module">Moduł 3: Pipeline Game-Ready – Wypalanie detali High-to-Low (Bake i Cage)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Model High-Poly – Detalowanie krawędzi pod wypalenie"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%203/Model%20High-Poly%20%E2%80%93%20Detalowanie%20kraw%C4%99dzi%20pod%20wypalenie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Model High-Poly – Detalowanie krawędzi pod wypalenie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Model Low-Poly – Optymalizacja sylwetki i budżet trójkątów"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%203/Model%20Low-Poly%20%E2%80%93%20Optymalizacja%20sylwetki%20i%20bud%C5%BCet%20tr%C3%B3jk%C4%85t%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Model Low-Poly – Optymalizacja sylwetki i budżet trójkątów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Wypalanie mapy – Normal mapa i klatka Cage (Eliminacja błędów wypalania)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%203/Wypalanie%20mapy%20%E2%80%93%20Normal%20mapa%20i%20klatka%20Cage%20(Eliminacja%20b%C5%82%C4%99d%C3%B3w%20wypalania).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wypalanie mapy – Normal mapa i klatka Cage (Eliminacja błędów wypalania)</a></li><li class="module">Moduł 4: Rozwijanie UV i Teksturowanie PBR (Mapy i Pakiety ORM)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Cięcie geometrii – Szwy UV i rozwijanie rekwizytu bez rozciągania"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%204/Ci%C4%99cie%20geometrii%20%E2%80%93%20Szwy%20UV%20i%20rozwijanie%20rekwizytu%20bez%20rozci%C4%85gania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Cięcie geometrii – Szwy UV i rozwijanie rekwizytu bez rozciągania</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Gęstość tekseli – Pakowanie UV pod silnik gry"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%204/G%C4%99sto%C5%9B%C4%87%20tekseli%20%E2%80%93%20Pakowanie%20UV%20pod%20silnik%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Gęstość tekseli – Pakowanie UV pod silnik gry</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Materiał PBR – Nakładanie farby, metalu i rdzy na model"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%204/Materia%C5%82%20PBR%20%E2%80%93%20Nak%C5%82adanie%20farby%2C%20metalu%20i%20rdzy%20na%20model.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiał PBR – Nakładanie farby, metalu i rdzy na model</a></li><li class="module">Moduł 5: Rzeźbienie organiczne – Anatomia i postać (Sculpting)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Blokowanie głowy – Proporcje czaszki i baza pod rzeźbę"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%205/Blokowanie%20g%C5%82owy%20%E2%80%93%20Proporcje%20czaszki%20i%20baza%20pod%20rze%C5%BAb%C4%99.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Blokowanie głowy – Proporcje czaszki i baza pod rzeźbę</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Rzeźbienie twarzy – Formy nadrzędne i detal (Oczy, nos, usta)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%205/Rze%C5%BAbienie%20twarzy%20%E2%80%93%20Formy%20nadrz%C4%99dne%20i%20detal%20(Oczy%2C%20nos%2C%20usta).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rzeźbienie twarzy – Formy nadrzędne i detal (Oczy, nos, usta)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Dłoń i palce – Budowanie anatomii kończyn"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%205/D%C5%82o%C5%84%20i%20palce%20%E2%80%93%20Budowanie%20anatomii%20ko%C5%84czyn.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dłoń i palce – Budowanie anatomii kończyn</a></li><li class="module">Moduł 6: Retopologia postaci – Siatka pod deformację (Deformation Topology)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Pętle twarzy – Retopologia mimiczna (Oko i usta pod animację)"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%206/P%C4%99tle%20twarzy%20%E2%80%93%20Retopologia%20mimiczna%20(Oko%20i%20usta%20pod%20animacj%C4%99).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle twarzy – Retopologia mimiczna (Oko i usta pod animację)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Stawy i kończyny – Pętle pod zginanie łokci i kolan"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%206/Stawy%20i%20ko%C5%84czyny%20%E2%80%93%20P%C4%99tle%20pod%20zginanie%20%C5%82okci%20i%20kolan.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Stawy i kończyny – Pętle pod zginanie łokci i kolan</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Optymalizacja korpusu – Łączenie i zamykanie siatki"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%206/Optymalizacja%20korpusu%20%E2%80%93%20%C5%81%C4%85czenie%20i%20zamykanie%20siatki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Optymalizacja korpusu – Łączenie i zamykanie siatki</a></li><li class="module">Moduł 7: Szkielet i wdrożenie do silnika gier (Rigging, Skinning i UE5)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 7/Struktura kości – Budowa szkieletu postaci zgodnego z UE5"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%207/Struktura%20ko%C5%9Bci%20%E2%80%93%20Budowa%20szkieletu%20postaci%20zgodnego%20z%20UE5.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Struktura kości – Budowa szkieletu postaci zgodnego z UE5</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 7/Malowanie wag – Skinning i eliminacja zniekształceń w stawach"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%207/Malowanie%20wag%20%E2%80%93%20Skinning%20i%20eliminacja%20zniekszta%C5%82ce%C5%84%20w%20stawach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Malowanie wag – Skinning i eliminacja zniekształceń w stawach</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 7/Eksport i test – Przeniesienie assetu do silnika gry"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%207/Eksport%20i%20test%20%E2%80%93%20Przeniesienie%20assetu%20do%20silnika%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Eksport i test – Przeniesienie assetu do silnika gry</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Nóż i fazowanie – Krzesło laboratoryjne (Bevel i pętle podtrzymujące)</h1>
+<p>W świecie rzeczywistym nie istnieją idealnie ostre krawędzie o promieniu $0\text{ mm}$. Nawet ostrze skalpela pod mikroskopem posiada mikroskopijne zaokrąglenie. W grafice 3D krawędź bez fazowania nie odbija światła (<span class="color-green">brak specular highlight</span>), przez co model wygląda płasko i sztucznie.</p>
+<p>W tej lekcji zbudujesz <span class="color-green">krzesło laboratoryjne z zaokrąglonym siedziskiem i metalowym stelażem</span>, poznając narzędzia fazowania (<code>Bevel</code>), cięcia swobodnego (<code>Knife</code>) oraz reguły cieniowania powierzchni.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>⚠️ Błędna metodyka: Pozostawianie ostrych krawędzi i dzikie N-gony</h2>
+<p>Początkujący popełniają dwa skrajne błędy:</p>
+<ol>
+<li><span class="color-green">Brak fazowania:</span> zostawiają surowe, prostopadłe narożniki. Krawędź na renderze znika, bo nie łapie bliku świetlnego.</li>
+<li><span class="color-green">Niekontrolowane cięcia nożem:</span> używają narzędzia Knife (<kbd>K</kbd>), klikają w losowych miejscach ściany i zostawiają wielokąty o 12 wierzchołkach (tzw. <span class="color-green">N‑gons</span>). Taka siatka deformuje się i tworzy czarne artefakty cieniowania.</li>
+</ol>
+<h3>Zasada produkcyjna (PRO):</h3>
+<ul>
+<li>Każda twarda krawędź produkcyjna otrzymuje kontrolowaną fazę (<span class="color-green">Bevel</span>).</li>
+<li>Każde cięcie nożem musi łączyć się z istniejącym wierzchołkiem lub krawędzią, tworząc czworokąty (<span class="color-green">Quads</span>) lub trójkąty (<span class="color-green">Tris</span>).</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Budowa krzesła laboratoryjnego krok po kroku</h2>
+<p>Krzesło składa się z okrągłego siedziska z zaokrąglonym rantem, centralnej kolumny, 4 nóg i wyprofilowanego oparcia.</p>
+<h3>Krok 1: Tworzenie siedziska</h3>
+<ol>
+<li>W <code>Object Mode</code> usuń poprzedni obiekt (<kbd>X</kbd> $\rightarrow$ <span class="color-blue">Delete</span>).</li>
+<li>Dodaj cylinder: <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>A</kbd></span> $\rightarrow$ <code>Mesh</code> $\rightarrow$ <span class="color-green">Cylinder</span>.</li>
+<li>W lewym dolnym rogu ekranu rozwiń panel <span class="color-green">Add Cylinder</span> i ustaw:<ul>
+<li><code>Vertices</code>: <span class="color-green">16</span> (zaczynamy od oszczędnej, kontrolowanej siatki)</li>
+<li><code>Radius</code>: <span class="color-green">0.25 m</span> (średnica 50 cm)</li>
+<li><code>Depth</code>: <span class="color-green">0.06 m</span> (grubość 6 cm)</li>
+</ul>
+</li>
+<li>Podnieś cylinder w osi Z na wysokość siedziska: <kbd>G</kbd> $\rightarrow$ <kbd>Z</kbd> $\rightarrow$ <code>0.5</code> $\rightarrow$ <kbd>Enter</kbd>.</li>
+<li>Zastosuj transformacje: <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>A</kbd></span> $\rightarrow$ <span class="color-green">All Transforms</span>.</li>
+</ol>
+<h3>Krok 2: Fazowanie krawędzi siedziska (Bevel)</h3>
+<ol>
+<li>Wejdź w <code>Edit Mode</code> (<kbd>Tab</kbd>) i przełącz się na tryb wyboru krawędzi (<kbd>2</kbd>).</li>
+<li>Zaznacz górną pętlę krawędzi siedziska: przytrzymaj <kbd>Alt</kbd> i kliknij <kbd>LPM</kbd> na jednej z górnych poziomych krawędzi. Blender zaznaczy całą pętlę dookoła.</li>
+<li>Trzymając <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>Shift</kbd></span>, kliknij na dolną pętlę krawędzi, aby dodać ją do zaznaczenia.</li>
+<li>Uruchom narzędzie Bevel: wciśnij <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>B</kbd></span>.</li>
+<li>Przesuń lekko myszkę, aby nadać szerokość fazowania, a następnie <span class="color-green">zakręć kółkiem myszy w górę</span>, aby dodać <span class="color-green">2 segmenty</span> (uzyskując gładkie zaokrąglenie).</li>
+<li>Kliknij <kbd>LPM</kbd>, aby zatwierdzić.</li>
+</ol>
+<h3>Krok 3: Wcięcie ergonomiczne (Inset) i cięcie nożem (Knife)</h3>
+<ol>
+<li>Przełącz na tryb wyboru ścian (<kbd>3</kbd>) i zaznacz górną powierzchnię siedziska.</li>
+<li>Wciśnij <kbd>I</kbd> (<span class="color-blue">Inset Faces</span>) i przesuń kursor do środka, tworząc margines 3 cm.</li>
+<li>Lekko opuść wewnętrzną ściankę: <kbd>G</kbd> $\rightarrow$ <kbd>Z</kbd> $\rightarrow$ <code>-0.015</code>. Utworzyłeś ergonomiczne zagłębienie.</li>
+<li>Użycie noża do wyznaczenia mocowania oparcia:<ul>
+<li>Wciśnij <kbd>K</kbd> (<span class="color-blue">Knife Tool</span>).</li>
+<li>Kliknij na krawędź z tyłu siedziska, przetnij geometrię do sąsiedniego wierzchołka i wciśnij <kbd>Spacja</kbd> lub <kbd>Enter</kbd>, aby zatwierdzić cięcie.</li>
+</ul>
+</li>
+</ol>
+<h3>Krok 4: Wytłaczanie stelaża i oparcia</h3>
+<ol>
+<li>Zaznacz dolną ścianę siedziska (<kbd>3</kbd>).</li>
+<li>Zastosuj Inset (<kbd>I</kbd>) do średnicy kolumny centralnej (promień ok. 3 cm).</li>
+<li>Wytłocz kolumnę w dół: <kbd>E</kbd> $\rightarrow$ <code>Z</code> $\rightarrow$ <code>-0.45</code>.</li>
+<li>Wyciągnij nogi: z bocznych ścianek dolnego segmentu kolumny zaznacz 4 przeciwległe ścianki i wytłocz je na zewnątrz: <kbd>E</kbd>, wpisując <code>0.25 m</code>.</li>
+<li>Wyciągnij oparcie z tylnej wydzielonej ścianki blatu: zaznacz ściankę, wciśnij <kbd>E</kbd> w osi Z na wysokość <code>0.35 m</code>, a następnie kolejnym <kbd>E</kbd> zagnij oparcie w przód.</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💡 Cieniowanie: Shade Smooth i Auto Smooth</h2>
+<p>Wróć do <code>Object Mode</code> (<kbd>Tab</kbd>). Domyślnie obiekt wygląda kanciasto (<span class="color-green">Shade Flat</span>).</p>
+<ol>
+<li>Kliknij na krzesło <kbd>PPM</kbd> i wybierz <span class="color-green">Shade Smooth</span>.</li>
+<li>Zauważ problem: krawędzie cylindra i kolumny stały się rozmyte i wyglądają jak „zrobione z gumy”.</li>
+<li><span class="color-green">Poprawa cieniowania (Auto Smooth):</span><ul>
+<li>W panelu właściwości po prawej stronie wejdź w zakładkę zielonego trójkąta (<span class="color-green">Data</span> / <span class="color-blue">Mesh Data</span>).</li>
+<li>Rozwiń sekcję <span class="color-green">Normals</span> i zaznacz opcję <span class="color-green">Auto Smooth</span> (w Blenderze 5.x: modyfikator <code>Smooth by Angle</code> lub kąt ostrości $30^\circ$).</li>
+<li>Płaskie powierzchnie pozostają idealnie płaskie, a zaokrąglone fazowania blatu stają się gładkie.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Samodzielna próba</h2>
+<p>Wyposaż stelaż krzesła w okrągłą obręcz podtrzymującą stopy (podnóżek):</p>
+<ol>
+<li>W <code>Edit Mode</code> przełącz na krawędzie (<kbd>2</kbd>).</li>
+<li>Na 4 wyciągniętych nogach krzesła dodaj pętle nacięć (<span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>R</kbd></span>) na równej odległości 15 cm od podstawy.</li>
+<li>Wytłocz ścianki naprzeciwko siebie i połącz je narzędziem <code>Bridge Edge Loops</code> lub dodaj osobny pierścień z obiektu Torus (<span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>A</kbd></span> $\rightarrow$ <code>Mesh</code> $\rightarrow$ <code>Torus</code>).</li>
+<li>Upewnij się, że promień podnóżka jest sfazowany narzędziem <code>Bevel</code>.</li>
+</ol>
+<details>
+<summary>Wskazówki kontrolne</summary>
+
+<p>Sprawdź, czy po fazowaniu nie powstały nachodzące na siebie wierzchołki. Jeśli faza jest zbyt szeroka i wierzchołki zaczynają się przecinać (tzw. clamping), cofnij operację (<span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span>) i wykonaj Bevel z mniejszym promieniem lub wciśnij klawisz <kbd>C</kbd> podczas fazowania, aby włączyć blokadę nakładania (<span class="color-blue">Clamp Overlap</span>).</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Umiejętność kontrolowania fazowania krawędzi (<kbd>Ctrl + B</kbd>) wraz z regulacją liczby segmentów.</li>
+<li>Prawidłowe posługiwanie się nożem (<kbd>K</kbd>) bez pozostawiania porzuconych wierzchołków.</li>
+<li>Zrozumienie różnicy między cieniowaniem płaskim (<span class="color-blue">Flat</span>) a cieniowaniem wygładzonym z kątem progowym (<span class="color-blue">Smooth by Angle / Auto Smooth</span>).</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

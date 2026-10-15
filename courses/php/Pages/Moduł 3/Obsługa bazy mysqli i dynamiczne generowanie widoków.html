@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\Obsługa bazy mysqli i dynamiczne generowanie widoków - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">php</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Start z PHP</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/PHP twoja personalna strona (BMI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/PHP%20twoja%20personalna%20strona%20(BMI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">PHP twoja personalna strona (BMI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Reprezentacja wzorów brył (arytmetyka)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Reprezentacja%20wzor%C3%B3w%20bry%C5%82%20(arytmetyka).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Reprezentacja wzorów brył (arytmetyka)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Operacje na tablicach (strict_type)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%200/Operacje%20na%20tablicach%20(strict_type).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na tablicach (strict_type)</a></li><li class="module">Moduł 1: Algorytmy szyfrujące</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Macierze (tablice wielowymiarowe)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Macierze%20(tablice%20wielowymiarowe).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze (tablice wielowymiarowe)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Operacje na ciągach (PHP CLI)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Operacje%20na%20ci%C4%85gach%20(PHP%20CLI).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Operacje na ciągach (PHP CLI)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Cezara"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Cezara.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Cezara</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Monoalfabetyczny z kluczem"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Monoalfabetyczny%20z%20kluczem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Monoalfabetyczny z kluczem</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfr Vigenère’a"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfr%20Vigen%C3%A8re%E2%80%99a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfr Vigenère’a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Szyfrowanie XOR i Binarka (OOP)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%201/Szyfrowanie%20XOR%20i%20Binarka%20(OOP).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szyfrowanie XOR i Binarka (OOP)</a></li><li class="module">Moduł 2: Komunikacja z bazą danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Lista zadań (CRUD)"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Lista%20zada%C5%84%20(CRUD).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Lista zadań (CRUD)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Rejestracja i logowanie"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Rejestracja%20i%20logowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestracja i logowanie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Refaktoryzacja aplikacji"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Refaktoryzacja%20aplikacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Refaktoryzacja aplikacji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Akcje użytkowników i role"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%202/Akcje%20u%C5%BCytkownik%C3%B3w%20i%20role.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Akcje użytkowników i role</a></li><li class="module">Moduł 3: Skrypty egzaminacyjne i procedury bazodanowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Obsługa bazy mysqli i dynamiczne generowanie widoków"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%203/Obs%C5%82uga%20bazy%20mysqli%20i%20dynamiczne%20generowanie%20widok%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa bazy mysqli i dynamiczne generowanie widoków</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Przetwarzanie formularzy POST i wstawianie rekordów INSERT"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%203/Przetwarzanie%20formularzy%20POST%20i%20wstawianie%20rekord%C3%B3w%20INSERT.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Przetwarzanie formularzy POST i wstawianie rekordów INSERT</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dynamiczne listy rozwijane SELECT i filtrowanie raportów"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%203/Dynamiczne%20listy%20rozwijane%20SELECT%20i%20filtrowanie%20raport%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy rozwijane SELECT i filtrowanie raportów</a></li><li class="module">Moduł 4: Zaawansowane mechanizmy webowe w arkuszach CKE</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Ciasteczka Cookies i zapamiętywanie stanu użytkownika"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%204/Ciasteczka%20Cookies%20i%20zapami%C4%99tywanie%20stanu%20u%C5%BCytkownika.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Ciasteczka Cookies i zapamiętywanie stanu użytkownika</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Obsługa przesyłania plików i walidacja danych Upload"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%204/Obs%C5%82uga%20przesy%C5%82ania%20plik%C3%B3w%20i%20walidacja%20danych%20Upload.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa przesyłania plików i walidacja danych Upload</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Obliczenia biznesowe i dynamiczne formatowanie raportów"><a class="lesson-link" href="/courses/php/Pages/Modu%C5%82%204/Obliczenia%20biznesowe%20i%20dynamiczne%20formatowanie%20raport%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obliczenia biznesowe i dynamiczne formatowanie raportów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Obsługa bazy mysqli i dynamiczne generowanie widoków</h1>
+<p>Większość arkuszy egzaminacyjnych INF.03 z zakresu backendu weryfikuje umiejętność proceduralnej komunikacji ze środowiskiem MySQL/MariaDB za pomocą rozszerzenia <code>mysqli</code>. Standardowy skrypt pobiera dane i generuje z nich strukturę HTML bezpośrednio w pętli.</p>
+<p><a href="/resources/sql-files/wedkarstwo.sql" download="wedkarstwo.sql" class="download-btn">Pobierz plik bazy danych wedkarstwo.sql</a></p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔌 Ustanawianie połączenia <code>mysqli_connect</code></h2>
+<p>Proceduralna funkcja <code>mysqli_connect</code> przyjmuje cztery podstawowe argumenty: adres serwera, nazwę użytkownika, hasło oraz nazwę bazy danych. W środowisku lokalnym (XAMPP/WAMP) domyślnym użytkownikiem jest <code>root</code> z pustym hasłem.</p>
+<pre><code class="language-php">&lt;?php
+// Parametry połączenia z serwerem bazodanowym
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "wedkarstwo";
+
+// Nawiązanie połączenia
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+// Weryfikacja stanu połączenia
+if (!$conn) {
+    die("Błąd połączenia z bazą: " . mysqli_connect_error());
+}
+</code></pre>
+<p>Zawsze należy sprawdzić, czy zmienna połączenia <code>$conn</code> nie ma wartości <code>false</code>. W przypadku awarii serwera funkcja <code>mysqli_connect_error()</code> zwraca techniczny opis przyczyny odmowy dostępu.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚡ Wykonywanie zapytań <code>mysqli_query</code> i pobieranie wierszy</h2>
+<p>Wysłanie kwerendy do otwartego połączenia odbywa się za pomocą <code>mysqli_query</code>. Wynikiem dla zapytań <code>SELECT</code> jest obiekt typu <code>mysqli_result</code>, z którego krotki pobierane są w pętli.</p>
+<pre><code class="language-php">$sql = "SELECT id, nazwa, wystepowanie FROM Ryby WHERE styl_zycia = 1";
+$result = mysqli_query($conn, $sql);
+
+if ($result) {
+    echo "&lt;ul&gt;";
+    // mysqli_fetch_row zwraca tablicę indeksowaną numerycznie (0, 1, 2...)
+    while ($row = mysqli_fetch_row($result)) {
+        echo "&lt;li&gt;&lt;strong&gt;" . htmlspecialchars($row[1]) . "&lt;/strong&gt; (występowanie: " . htmlspecialchars($row[2]) . ")&lt;/li&gt;";
+    }
+    echo "&lt;/ul&gt;";
+    
+    // Zwolnienie zasobów pamięci podręcznej wyniku
+    mysqli_free_result($result);
+}
+
+// Zawsze zamykaj aktywne połączenie po wykonaniu operacji
+mysqli_close($conn);
+</code></pre>
+<h3>📊 Różnica między fetch_row a fetch_assoc</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Funkcja</th>
+<th align="left">Typ zwracanej tablicy</th>
+<th align="left">Dostęp do pól</th>
+<th align="left">Zaleta / Zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green"><code>mysqli_fetch_row</code></span></td>
+<td align="left">Numeryczna</td>
+<td align="left"><code>$row[0]</code>, <code>$row[1]</code></td>
+<td align="left">Oszczędność pamięci, standard w arkuszach CKE</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>mysqli_fetch_assoc</code></span></td>
+<td align="left">Asocjacyjna</td>
+<td align="left"><code>$row['nazwa']</code>, <code>$row['cena']</code></td>
+<td align="left">Czytelność kodu przy wielu kolumnach</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green"><code>mysqli_fetch_array</code></span></td>
+<td align="left">Hybrydowa</td>
+<td align="left"><code>$row[0]</code> oraz <code>$row['nazwa']</code></td>
+<td align="left">Podwójna reprezentacja (często domyślna)</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Sprawdzenie wiedzy: Mechanizm mysqli</h2>
+<data-quiz>
+  <div class="quiz-question" data-title="Kolejność funkcji">Jaka jest poprawna kolejność wywołań funkcji proceduralnego mysqli przy generowaniu raportu?</div>
+  <div class="quiz-answer" data-correct="true">mysqli_connect -&gt; mysqli_query -&gt; mysqli_fetch_row -&gt; mysqli_close</div>
+  <div class="quiz-answer">mysqli_query -&gt; mysqli_connect -&gt; mysqli_fetch_assoc -&gt; mysqli_close</div>
+  <div class="quiz-answer">mysqli_connect -&gt; mysqli_fetch_row -&gt; mysqli_query -&gt; mysqli_free_result</div>
+  <div class="quiz-answer">mysqli_query -&gt; mysqli_connect -&gt; mysqli_close -&gt; mysqli_fetch_array</div>
+</data-quiz>
+
+<data-connection-matcher>
+  <div class="cmw-item" data-left="`mysqli_connect`" data-right="Ustanawia fizyczny socket połączenia z instancją serwera MySQL"></div>
+  <div class="cmw-item" data-left="`mysqli_query`" data-right="Wysyła polecenie SQL i zwraca obiekt wynikowy lub status boolean"></div>
+  <div class="cmw-item" data-left="`mysqli_fetch_row`" data-right="Pobiera bieżącą krotkę jako tablicę indeksowaną numerycznie od 0"></div>
+  <div class="cmw-item" data-left="`mysqli_close`" data-right="Zwalnia deskryptor połączenia i zamyka sesję z serwerem baz danych"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Generowanie listy kwerendy w pętli</h2>
+<p>Sformułuj skrypt pobierający rekordy z zasobu bazodanowego. Użyj połączenia <code>$conn</code>, wykonaj zapytanie wybierające <code>id</code>, <code>nazwa</code> oraz <code>cena</code> z tabeli <code>towary</code>, a następnie w pętli <code>while</code> wygeneruj elementy <code>&lt;li&gt;</code> z formatowaniem <code>nazwa: cena zł</code>.</p>
+<data-gate>
+<data-code-runner language="php" title="Generowanie listy HTML z bazy danych" data-code="Ly8gUG/FgsSFY3plbmllIGJhem9kYW5vd2UgJGNvbm4gamVzdCBqdcW8IGFrdHl3bmUKLy8gMS4gWmRlZmluaXVqIGt3ZXJlbmTEmSBwb2JpZXJhasSFY8SFIGlkLCBuYXp3YSwgY2VuYSB6IHRhYmVsaSAndG93YXJ5JwokcXVlcnkgPSAiU0VMRUNUIGlkLCBuYXp3YSwgY2VuYSBGUk9NIHRvd2FyeSI7CgovLyAyLiBUT0RPOiBXecWbbGlqIHphcHl0YW5pZSBkbyBiYXp5IGRhbnljaCB6YSBwb21vY8SFIG15c3FsaV9xdWVyeQoKCmVjaG8gIjx1bD4iOwovLyAzLiBUT0RPOiBaYnVkdWogcMSZdGzEmSB3aGlsZSBwb2JpZXJhasSFY8SFIHJla29yZHkgemEgcG9tb2PEhSBteXNxbGlfZmV0Y2hfcm93KCRyZXN1bHQpCi8vICAgIFd5cGlzeiBrYcW8ZHkgdG93YXIgamFrbyBlbGVtZW50IGxpc3R5OiBlY2hvICI8bGk+IiAuICRyb3dbMV0gLiAiOiAiIC4gJHJvd1syXSAuICIgesWCPC9saT4iOwoKCmVjaG8gIjwvdWw+IjsKCi8vIDQuIFRPRE86IFphbWtuaWogYWt0eXduZSBwb8WCxIVjemVuaWUgeiBiYXrEhSB6YSBwb21vY8SFIG15c3FsaV9jbG9zZQ==" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInJlcS1xdWVyeSIsCiAgICAgICAgInRleHQiOiAiVcW8eXRvIGZ1bmtjamkgbXlzcWxpX3F1ZXJ5IGRvIHd5c8WCYW5pYSBrd2VyZW5keSIsCiAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICJwYXR0ZXJuIjogIm15c3FsaV9xdWVyeVxccypcXCgiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiaWQiOiAicmVxLWZldGNoIiwKICAgICAgICAidGV4dCI6ICJQb2JpZXJhbmllIHdpZXJzenkgdyBwxJl0bGkgemEgcG9tb2PEhSBteXNxbGlfZmV0Y2hfcm93IGx1YiBmZXRjaF9hc3NvYyIsCiAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICJwYXR0ZXJuIjogIm15c3FsaV9mZXRjaF8ocm93fGFzc29jfGFycmF5KVxccypcXCgiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiaWQiOiAicmVxLWNsb3NlIiwKICAgICAgICAidGV4dCI6ICJQcmF3aWTFgm93ZSB6YW1rbmnEmWNpZSBwb8WCxIVjemVuaWEgemEgcG9tb2PEhSBteXNxbGlfY2xvc2UiLAogICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAicGF0dGVybiI6ICJteXNxbGlfY2xvc2VcXHMqXFwoIgogICAgICB9CiAgICBd"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie egzaminacyjne - Karta łowiska wędkarskiego</h2>
+<p>Zbuduj skrypt PHP generujący zestawienie ryb drapieżnych w oparciu o bazę <code>wedkarstwo.sql</code>.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Utworzenie połączenia</span>: Połącz się z serwerem <code>localhost</code>, użytkownik <code>root</code>, bez hasła, baza <code>wedkarstwo</code>.</li>
+<li><span class="color-green">Formułowanie kwerendy</span>: Napisz zapytanie wybierające <code>nazwa</code>, <code>akwen</code> oraz <code>wojewodztwo</code> dla ryb drapieżnych (gdzie <code>styl_zycia = 1</code>).</li>
+<li><span class="color-green">Konstrukcja tabeli HTML</span>:<ul>
+<li>Wypisz nagłówek tabeli: <code>Lp.</code>, <code>Gatunek ryby</code>, <code>Akwen</code>, <code>Województwo</code>.</li>
+<li>W pętli <code>while</code> wypisz każdy wiersz w znacznikach <code>&lt;tr&gt;&lt;td&gt;</code>.</li>
+<li>Zaimplementuj licznik wierszy <code>$lp</code>, inkrementowany w każdej iteracji.</li>
+</ul>
+</li>
+<li><span class="color-green">Zwolnienie zasobów</span>: Zamknij połączenie z bazą funkcją <code>mysqli_close</code>.</li>
+</ol>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-php">&lt;?php
+// 1. Połączenie z bazą
+$conn = mysqli_connect("localhost", "root", "", "wedkarstwo");
+
+if (!$conn) {
+    die("Błąd połączenia: " . mysqli_connect_error());
+}
+
+// 2. Zapytanie SQL (ryby drapieżne)
+$sql = "SELECT Ryby.nazwa, Lowisko.akwen, Lowisko.wojewodztwo 
+        FROM Ryby 
+        INNER JOIN Lowisko ON Ryby.id = Lowisko.Ryby_id 
+        WHERE Ryby.styl_zycia = 1";
+
+$result = mysqli_query($conn, $sql);
+
+// 3. Generowanie tabeli HTML
+echo "&lt;table border='1'&gt;";
+echo "&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Lp.&lt;/th&gt;&lt;th&gt;Gatunek ryby&lt;/th&gt;&lt;th&gt;Akwen&lt;/th&gt;&lt;th&gt;Województwo&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;";
+echo "&lt;tbody&gt;";
+
+$lp = 1;
+while ($row = mysqli_fetch_row($result)) {
+    echo "&lt;tr&gt;";
+    echo "&lt;td&gt;" . $lp . "&lt;/td&gt;";
+    echo "&lt;td&gt;" . htmlspecialchars($row[0]) . "&lt;/td&gt;";
+    echo "&lt;td&gt;" . htmlspecialchars($row[1]) . "&lt;/td&gt;";
+    echo "&lt;td&gt;" . htmlspecialchars($row[2]) . "&lt;/td&gt;";
+    echo "&lt;/tr&gt;";
+    $lp++;
+}
+
+echo "&lt;/tbody&gt;";
+echo "&lt;/table&gt;";
+
+// 4. Zamknięcie zasobów
+mysqli_free_result($result);
+mysqli_close($conn);
+?&gt;
+</code></pre>
+</details>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

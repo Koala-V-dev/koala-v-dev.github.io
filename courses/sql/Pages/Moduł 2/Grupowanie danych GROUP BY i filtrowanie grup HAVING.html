@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Grupowanie danych GROUP BY i filtrowanie grup HAVING - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">sql</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Selekcja i filtrowanie rekordów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy zapytania SELECT i filtrowanie WHERE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Podstawy%20zapytania%20SELECT%20i%20filtrowanie%20WHERE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy zapytania SELECT i filtrowanie WHERE</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wyszukiwanie wzorców LIKE i zakresy wartości"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Wyszukiwanie%20wzorc%C3%B3w%20LIKE%20i%20zakresy%20warto%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyszukiwanie wzorców LIKE i zakresy wartości</a></li><li class="module">Moduł 1: Relacje i złączenia tabel</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Relacje jeden do wielu i kluczowe złączenie INNER JOIN"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Relacje%20jeden%20do%20wielu%20i%20kluczowe%20z%C5%82%C4%85czenie%20INNER%20JOIN.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Relacje jeden do wielu i kluczowe złączenie INNER JOIN</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złączenia zewnętrzne LEFT JOIN i brakujące powiązania"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Z%C5%82%C4%85czenia%20zewn%C4%99trzne%20LEFT%20JOIN%20i%20brakuj%C4%85ce%20powi%C4%85zania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</a></li><li class="module">Moduł 2: Agregacja i analityka danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje agregujące i sortowanie ORDER BY"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Funkcje%20agreguj%C4%85ce%20i%20sortowanie%20ORDER%20BY.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje agregujące i sortowanie ORDER BY</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Grupowanie danych GROUP BY i filtrowanie grup HAVING"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Grupowanie%20danych%20GROUP%20BY%20i%20filtrowanie%20grup%20HAVING.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupowanie danych GROUP BY i filtrowanie grup HAVING</a></li><li class="module">Moduł 3: Modyfikacja danych w tabelach</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%203/Modyfikacja%20rekord%C3%B3w%20za%20pomoc%C4%85%20INSERT%20UPDATE%20i%20DELETE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</a></li><li class="module">Moduł 4: Definiowanie struktur bazodanowych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Projektowanie tabel CREATE TABLE i więzy integralności"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Projektowanie%20tabel%20CREATE%20TABLE%20i%20wi%C4%99zy%20integralno%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie tabel CREATE TABLE i więzy integralności</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Modyfikacja%20schematu%20tabeli%20ALTER%20TABLE%20i%20indeksy%20wydajno%C5%9Bciowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</a></li><li class="module">Moduł 5: Zaawansowane operacje zbiorowe i administracja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Podzapytania i łączenie wyników za pomocą UNION"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Podzapytania%20i%20%C5%82%C4%85czenie%20wynik%C3%B3w%20za%20pomoc%C4%85%20UNION.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podzapytania i łączenie wyników za pomocą UNION</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Zarządzanie użytkownikami i uprawnienia bazy danych"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Zarz%C4%85dzanie%20u%C5%BCytkownikami%20i%20uprawnienia%20bazy%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie użytkownikami i uprawnienia bazy danych</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Grupowanie danych GROUP BY i filtrowanie grup HAVING</h1>
+<p>Funkcje agregujące z poprzedniej lekcji podsumowywały całą tabelę w jeden wynik. W rzeczywistych analizach biznesowych potrzebujemy jednak podsumowań w podziale na kategorie: np. średniej ceny wycieczki w każdym kraju z osobna, liczby zamówień dla poszczególnych klientów czy sumy wydatków na poszczególne działy firmy. Do tego celu służy klauzula <code>GROUP BY</code>, a do filtrowania jej wyników - klauzula <code>HAVING</code>.</p>
+<p>Pracujemy na bazie danych biura podróży, generując raporty popularności i rentowności kierunków wycieczkowych.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💾 Struktura bazy danych i plik źródłowy</h2>
+<p>Pobierz plik bazy danych biura podróży:</p>
+<p><a href="/resources/sql-files/wyprawy.sql" download="wyprawy.sql" class="download-btn">Pobierz plik bazy danych biura podróży (.sql)</a></p>
+<p>Tabela <code>wycieczki</code> zawiera ofertę wyjazdów zagranicznych:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT)</th>
+<th align="left">kraj (VARCHAR)</th>
+<th align="left">cel (VARCHAR)</th>
+<th align="left">cena (DECIMAL)</th>
+<th align="left">miejsca (INT)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">Włochy</td>
+<td align="left">Rzym</td>
+<td align="left">2400.00</td>
+<td align="left">20</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">Hiszpania</td>
+<td align="left">Barcelona</td>
+<td align="left">2800.00</td>
+<td align="left">25</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">Włochy</td>
+<td align="left">Wenecja</td>
+<td align="left">2100.00</td>
+<td align="left">15</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">Grecja</td>
+<td align="left">Ateny</td>
+<td align="left">1950.00</td>
+<td align="left">30</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">Hiszpania</td>
+<td align="left">Madryt</td>
+<td align="left">3100.00</td>
+<td align="left">18</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">Włochy</td>
+<td align="left">Florencja</td>
+<td align="left">2600.00</td>
+<td align="left">12</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗂️ Podział na kategorie klauzulą GROUP BY</h2>
+<p>Klauzula <code>GROUP BY</code> dzieli wiersze na grupy o identycznej wartości w podanej kolumnie. Następnie funkcje agregujące są uruchamiane niezależnie dla każdej z tych grup:</p>
+<pre><code class="language-sql">SELECT 
+  kraj,
+  COUNT(*) AS liczba_wycieczek,
+  ROUND(AVG(cena), 2) AS srednia_cena,
+  SUM(miejsca) AS laczna_liczba_miejsc
+FROM wycieczki 
+GROUP BY kraj;
+</code></pre>
+<p>Silnik utworzy trzy odrębne grupy (<span class="color-blue">Włochy</span>, <span class="color-blue">Hiszpania</span>, <span class="color-blue">Grecja</span>) i dla każdej z nich wyliczy liczbę ofert, średnią cenę oraz sumę miejsc.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Złota reguła SQL GROUP BY</span>: Każda kolumna znajdująca się w sekcji <code>SELECT</code>, która <span class="color-green">nie jest</span> objęta funkcją agregującą (np. <code>COUNT</code>, <code>SUM</code>), <span class="color-green">musi</span> znaleźć się w klauzuli <code>GROUP BY</code>.</p>
+
+</div>
+</div><data-quiz>
+  <question>Która klauzula jest poprawnym miejscem na odfiltrowanie grup posiadających łącznie więcej niż 50 zarezerwowanych miejsc?</question>
+  <options>
+    <option correct=""><code>HAVING SUM(miejsca) &gt; 50</code> - filtruje zagregowane grupy po podziale</option>
+    <option><code>WHERE SUM(miejsca) &gt; 50</code> - odrzuci zapytanie ze względu na funkcję w WHERE</option>
+    <option><code>GROUP BY SUM(miejsca) &gt; 50</code> - składnia niedozwolona w klauzuli podziału</option>
+    <option><code>ORDER BY SUM(miejsca) &gt; 50</code> - służy wyłącznie do określenia kolejności</option>
+  </options>
+</data-quiz>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚦 Różnica między WHERE a HAVING w cyklu przetwarzania</h2>
+<p>Kolejność wykonywania klauzul w silniku relacyjnym:</p>
+<ol>
+<li><code>FROM</code> - wybór źródła tabeli.</li>
+<li><code>WHERE</code> - filtrowanie pojedynczych wierszy <span class="color-green">przed</span> ich podziałem na grupy.</li>
+<li><code>GROUP BY</code> - podział przefiltrowanych wierszy na grupy.</li>
+<li><code>HAVING</code> - filtrowanie zagregowanych grup <span class="color-green">po</span> wykonaniu obliczeń.</li>
+<li><code>SELECT</code> - generowanie ostatecznych kolumn i aliasów.</li>
+<li><code>ORDER BY</code> - sortowanie zbioru wynikowego.</li>
+</ol>
+<pre><code class="language-sql">-- Filtrujemy wycieczki droższe niż 2000 zł, grupujemy według krajów,
+-- a następnie pozostawiamy tylko kraje z co najmniej 2 takimi ofertami:
+SELECT kraj, COUNT(*) AS oferty_premium, ROUND(AVG(cena), 2) AS srednia
+FROM wycieczki 
+WHERE cena &gt; 2000.00 
+GROUP BY kraj 
+HAVING COUNT(*) &gt;= 2 
+ORDER BY srednia DESC;
+</code></pre>
+<data-connection-matcher title="Dopasuj klauzulę SQL do jej momentu w cyklu przetwarzania">
+  <div class="cmw-item" data-left="`WHERE`" data-right="Filtruje pojedyncze wiersze przed ich pogrupowaniem"></div>
+  <div class="cmw-item" data-left="`GROUP BY`" data-right="Dzieli przefiltrowany zbiór na grupy o wspólnej wartości"></div>
+  <div class="cmw-item" data-left="`HAVING`" data-right="Filtruje utworzone grupy na podstawie wyników agregacji"></div>
+  <div class="cmw-item" data-left="`ORDER BY`" data-right="Sortuje ostateczny zbiór wynikowy na samym końcu"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Analityka wycieczek z filtrem HAVING</h2>
+<p>Napisz zapytanie, które pogrupuje tabelę <code>wycieczki</code> według kolumny <code>kraj</code>. Zwróć nazwę kraju (<code>kraj</code>) oraz liczbę dostępnych wycieczek (<code>COUNT(*) AS liczba</code>), ograniczając wynik wyłącznie do krajów oferujących więcej niż 1 wycieczkę (<code>HAVING COUNT(*) &gt; 1</code>), posortowane alfabetycznie według nazwy kraju.</p>
+<data-gate>
+<data-code-runner language="sql" title="Liczba wycieczek w podziale na kraje z filtrem HAVING" data-code="LS0gWndyw7PEhzoga3JhaiwgQ09VTlQoKikgQVMgbGljemJhCi0tIFBvZ3J1cHVqIHBvIGtyYWp1LCBvZGZpbHRydWogZ3J1cHkgbyBsaWN6YmllID4gMSBpIHBvc29ydHVqIGFsZmFiZXR5Y3puaWUKU0VMRUNU" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgcG9wcmF3bmllIHp3cmFjYSAyIGdydXB5IChXxYJvY2h5IGkgSGlzenBhbmlhKSB6IG9jemVraXdhbnltaSBrb2x1bW5hbWkiLAogICAgICAgICJ0eXBlIjogInNxbC1leGVjdXRlIiwKICAgICAgICAic2NoZW1hIjogIkNSRUFURSBUQUJMRSB3eWNpZWN6a2kgKGlkIElOVCBQUklNQVJZIEtFWSwga3JhaiBURVhULCBjZWwgVEVYVCwgY2VuYSBSRUFMLCBtaWVqc2NhIElOVCk7IElOU0VSVCBJTlRPIHd5Y2llY3praSBWQUxVRVMgKDEsICdXxYJvY2h5JywgJ1J6eW0nLCAyNDAwLjAwLCAyMCksICgyLCAnSGlzenBhbmlhJywgJ0JhcmNlbG9uYScsIDI4MDAuMDAsIDI1KSwgKDMsICdXxYJvY2h5JywgJ1dlbmVjamEnLCAyMTAwLjAwLCAxNSksICg0LCAnR3JlY2phJywgJ0F0ZW55JywgMTk1MC4wMCwgMzApLCAoNSwgJ0hpc3pwYW5pYScsICdNYWRyeXQnLCAzMTAwLjAwLCAxOCk7IiwKICAgICAgICAiZXhwZWN0ZWRDb3VudCI6IDIsCiAgICAgICAgImV4cGVjdGVkQ29sdW1ucyI6IFsia3JhaiIsICJsaWN6YmEiXQogICAgICB9LAogICAgICB7CiAgICAgICAgImlkIjogInN5bnRheC1oYXZpbmciLAogICAgICAgICJ0ZXh0IjogIld5a29yenlzdGFubyBrbGF1enVsZSBHUk9VUCBCWSBvcmF6IEhBVklORyIsCiAgICAgICAgInR5cGUiOiAiY29udGFpbnMiLAogICAgICAgICJwYXR0ZXJuIjogIkhBVklORyIKICAgICAgfQogICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie praktyczne - Raport popularności kierunków turystycznych</h2>
+<p>Sformułuj zapytania analityczne dla dyrekcji biura podróży na bazie <code>wyprawy.sql</code>.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Liczba wycieczek w podziale na kraje</span>: Napisz zapytanie zwracające kolumnę <code>kraj</code> oraz liczbę oferowanych wycieczek do tego kraju posortowaną malejąco.</li>
+<li><span class="color-green">Kraje ze średnią ceną powyżej 2500 zł</span>: Użyj klauzuli <code>GROUP BY</code> oraz <code>HAVING</code>, aby wyświetlić kraje, w których średnia cena wycieczki przekracza 2500.00 zł.</li>
+<li><span class="color-green">Pojemność kierunków</span>: Zbuduj zapytanie zwracające kraj oraz sumę dostępnych miejsc (<code>SUM(miejsca)</code>), uwzględniając tylko kraje z łączną liczbą miejsc powyżej 35.</li>
+</ol>
+<p>Spróbuj napisać zapytania samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy blok.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-sql">-- Kwerenda 1: Liczba ofert per kraj
+SELECT kraj, COUNT(*) AS liczba_wycieczek 
+FROM wycieczki 
+GROUP BY kraj 
+ORDER BY liczba_wycieczek DESC;
+
+-- Kwerenda 2: Kraje ze średnią ceną &gt; 2500 zł
+SELECT kraj, ROUND(AVG(cena), 2) AS srednia_cena 
+FROM wycieczki 
+GROUP BY kraj 
+HAVING AVG(cena) &gt; 2500.00;
+
+-- Kwerenda 3: Kraje z łączną liczbą miejsc &gt; 35
+SELECT kraj, SUM(miejsca) AS suma_miejsc 
+FROM wycieczki 
+GROUP BY kraj 
+HAVING SUM(miejsca) &gt; 35;
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li><code>GROUP BY</code> dzieli rekordy na logiczne grupy, dla których obliczane są funkcje agregujące.</li>
+<li>Klauzula <code>WHERE</code> filtruje wiersze przed agregacją, natomiast <code>HAVING</code> filtruje wyliczone grupy po agregacji.</li>
+<li>W klauzuli <code>HAVING</code> można używać funkcji agregujących (<code>COUNT</code>, <code>AVG</code>, <code>SUM</code>), co jest niedozwolone w <code>WHERE</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

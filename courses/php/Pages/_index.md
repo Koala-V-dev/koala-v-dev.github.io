@@ -18,5 +18,12 @@
 # Refaktoryzacja aplikacji
 # Akcje użytkowników i role
 
+## Moduł 3: Skrypty egzaminacyjne i procedury bazodanowe
+# Obsługa bazy mysqli i dynamiczne generowanie widoków
+# Przetwarzanie formularzy POST i wstawianie rekordów INSERT
+# Dynamiczne listy rozwijane SELECT i filtrowanie raportów
 
-<!-- # Algorytmy sortowania -->
+## Moduł 4: Zaawansowane mechanizmy webowe w arkuszach CKE
+# Ciasteczka Cookies i zapamiętywanie stanu użytkownika
+# Obsługa przesyłania plików i walidacja danych Upload
+# Obliczenia biznesowe i dynamiczne formatowanie raportów

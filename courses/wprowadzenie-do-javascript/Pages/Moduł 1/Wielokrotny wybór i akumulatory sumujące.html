@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Wielokrotny wybór i akumulatory sumujące - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Wielokrotny wybór i akumulatory sumujące</h1>
+<p>W aplikacjach e‑commerce, konfiguratorach sprzętu czy panelach rezerwacyjnych rzadko kiedy klient wybiera tylko jedną pozycję. Najczęściej ma możliwość zaznaczenia dowolnego zestawu opcji dodatkowych: od braku jakichkolwiek dodatków, przez jedną lub dwie pozycje, aż po zaznaczenie wszystkich. Służą do tego pola wyboru typu checkbox (<code>&lt;input type="checkbox"&gt;</code>).</p>
+<p>W tej lekcji zaczniemy od formularza wyboru usług pielęgnacyjnych, zrozumiemy działanie właściwości <code>.checked</code> w pamięci DOM, poznamy wzorzec akumulatora sumującego i wyeliminujemy niebezpieczny błąd wycieku sumy w zasięgu globalnym, rozwiążemy wyzwanie w edytorze kodu na przykładzie konfiguratora komputera, a na koniec samodzielnie zaprogramujemy sumator zabiegów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Punkt wyjścia: Formularz wielokrotnego wyboru</h2>
+<p>Oto kod HTML formularza wyceny zabiegów:</p>
+<pre><code class="language-html">&lt;form id="form-zabiegi"&gt;
+  &lt;h2&gt;Wybierz zabiegi pielęgnacyjne&lt;/h2&gt;
+  
+  &lt;label&gt;&lt;input type="checkbox" id="chk-strzyzenie"&gt; Strzyżenie (25 zł)&lt;/label&gt;&lt;br&gt;
+  &lt;label&gt;&lt;input type="checkbox" id="chk-czesanie"&gt; Czesanie (30 zł)&lt;/label&gt;&lt;br&gt;
+  &lt;label&gt;&lt;input type="checkbox" id="chk-koloryzacja"&gt; Koloryzacja (50 zł)&lt;/label&gt;&lt;br&gt;
+  
+  &lt;button type="button" id="btn-cena"&gt;Odkryj cenę&lt;/button&gt;
+  &lt;p id="wynik-cena"&gt;&lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Wymagania biznesowe:</p>
+<ul>
+<li>Klient może zaznaczyć dowolną kombinację usług lub nie wybrać żadnej.</li>
+<li>Po kliknięciu przycisku skrypt ma zsumować ceny wszystkich zaznaczonych pozycji.</li>
+<li>Jeśli żadne pole nie zostało zaznaczone, cena wynosi <code>0 zł</code>.</li>
+<li>Wynik ma pojawić się w akapicie w formacie: <code>Cena zabiegów: XX zł</code>.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>☑️ Odczyt stanu checkboxa: właściwość .checked</h2>
+<p>W przypadku pól tekstowych odpytujemy właściwość <code>.value</code>. Jednak dla pól typu checkbox właściwość <code>.value</code> kryje niebezpieczną pułapkę: domyślnie zwraca ona napis <code>"on"</code> <span class="color-green">niezależnie od tego, czy pole jest zaznaczone, czy puste</span>!</p>
+<p>Do badania faktycznego stanu zaznaczenia służy właściwość <span class="color-green"><code>.checked</code></span>, która zwraca czystą wartość logiczną typu boolean:</p>
+<ul>
+<li><span class="color-green"><code>true</code></span> - gdy użytkownik postawił w polu ptaszek.</li>
+<li><span class="color-green"><code>false</code></span> - gdy pole pozostało odznaczone.</li>
+</ul>
+<pre><code class="language-javascript">const chkStrzyzenie = document.querySelector("#chk-strzyzenie");
+
+if (chkStrzyzenie.checked) {
+  console.log("Klient wybrał strzyżenie!");
+} else {
+  console.log("Pole strzyżenia jest puste.");
+}
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Wzorzec akumulatora i pułapka pamięci globalnej</h2>
+<p>Gdy musimy zsumować wartości z kilku niezależnych warunków, stosujemy zmienną zwaną <span class="color-green">akumulatorem</span>. Akumulator zbiera cząstkowe kwoty i przechowuje bieżącą sumę.</p>
+<p>Oto kardynalny błąd projektowy, który regularnie pojawia się w kodzie początkujących programistów:</p>
+<pre><code class="language-javascript">// ❌ KATASTROFALNY BŁĄD ZASIEGU ZMIENNEJ:
+let cenaCalkowita = 0; // Zmienna zadeklarowana poza funkcją w zasięgu globalnym!
+
+btnCena.addEventListener("click", () =&gt; {
+  if (chkStrzyzenie.checked) cenaCalkowita += 25;
+  if (chkCzesanie.checked) cenaCalkowita += 30;
+  
+  wynik.textContent = `Cena zabiegów: ${cenaCalkowita} zł`;
+});
+</code></pre>
+<p>Co się stanie przy uruchomieniu tego kodu w przeglądarce?</p>
+<ol>
+<li>Użytkownik zaznacza strzyżenie (25 zł) i czesanie (30 zł). Klika przycisk. Wynik wynosi <span class="color-green">55 zł</span> (wygląda poprawnie).</li>
+<li>Użytkownik decyduje się sprawdzić cenę jeszcze raz i klika przycisk ponownie. Ponieważ zmienna <code>cenaCalkowita</code> wisi w zasięgu globalnym i ma wartość 55, funkcja dodaje kwoty <span class="color-green">ponownie do starej sumy</span>! Wynik: <span class="color-green">110 zł</span>!</li>
+<li>Każde kolejne kliknięcie powiększa rachunek o kolejne 55 zł!</li>
+</ol>
+<p>Zmienna sumująca <span class="color-green">musi być zawsze deklarowana i zerowana wewnątrz funkcji obsługującej zdarzenie</span>:</p>
+<pre><code class="language-javascript">// ✅ PRAWIDŁOWO:
+btnCena.addEventListener("click", () =&gt; {
+  let cenaCalkowita = 0; // Świeży reset przy każdym pojedynczym kliknięciu!
+
+  if (chkStrzyzenie.checked) cenaCalkowita += 25;
+  if (chkCzesanie.checked) cenaCalkowita += 30;
+  if (chkKoloryzacja.checked) cenaCalkowita += 50;
+
+  wynik.textContent = `Cena zabiegów: ${cenaCalkowita} zł`;
+});
+</code></pre>
+<p>Dzięki temu każde wywołanie funkcji tworzy nową zmienną na stosie pamięci, zaczyna liczenie od czystego zera i niszczy zmienną po zakończeniu funkcji.</p>
+<data-gate>
+  <data-quiz>
+    <question>Gdzie należy zadeklarować i wyzerować zmienną akumulatora sumującego opcje po kliknięciu przycisku?</question>
+    <options>
+      <option correct="">Wewnątrz funkcji obsługującej kliknięcie, aby każda kalkulacja startowała od zera</option>
+      <option>Poza funkcją w zasięgu globalnym, aby zachować wartość sumy między przeładowaniami</option>
+      <option>W osobnym pliku konfiguracyjnym, aby zapobiec modyfikacji wartości przez przeglądarkę</option>
+      <option>Bezpośrednio w atrybucie znacznika HTML, aby uniknąć tworzenia zmiennych w pamięci</option>
+    </options>
+    <div data-hint="error"><p>Zastanów się: co stanie się z wartością zmiennej, gdy użytkownik kliknie przycisk kilkukrotnie bez odświeżania strony?</p>
+</div>
+    <div data-hint="success"><p>Wspaniale! Zmienna lokalna wewnątrz funkcji jest tworzona na nowo przy każdym kliknięciu. Gwarantuje to, że wielokrotne wciskanie przycisku nie będzie dublować naliczonego rachunku.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Dopasuj zachowania kontrolek checkbox</h2>
+<p>Sprawdź, jak przeglądarka i silnik JavaScript reagują na właściwości pól wielokrotnego wyboru.</p>
+<data-gate>
+  <data-connection-matcher title="Właściwości pól wyboru checkbox">
+    <div class="cmw-item" data-left="checkbox.checked" data-right="Zwraca wartość boolean true lub false w zależności od zaznaczenia"></div>
+    <div class="cmw-item" data-left="checkbox.value" data-right="Zwraca wartość atrybutu (domyślnie 'on'), niezależnie od zaznaczenia"></div>
+    <div class="cmw-item" data-left="Akumulator wewnątrz funkcji" data-right="Gwarantuje bezpieczne zerowanie sumy przed każdym przeliczeniem"></div>
+    <div class="cmw-item" data-left="Akumulator w zasięgu globalnym" data-right="Powoduje błędne kumulowanie kwot przy wielokrotnych kliknięciach"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Wyzwanie w edytorze: Konfigurator komputera gamingowego</h2>
+<p>Zastosujmy wzorzec akumulatora na niezależnym problemie biznesowym: konfiguratorze podzespołów komputerowych w sklepie ze sprzętem IT.</p>
+<p>Klient kupuje jednostkę bazową komputera i zaznacza wybrane ulepszenia za pomocą pól checkbox.</p>
+<p>Twoim zadaniem jest oprogramowanie funkcji <code>obliczCeneKomputera</code>.</p>
+<p>Wymagania biznesowe:</p>
+<ul>
+<li>Parametr <code>cenaBazowa</code>: liczba reprezentująca cenę jednostki podstawowej.</li>
+<li>Parametry logiczne: <code>czyDyskSSD</code>, <code>czyDodatkowyRAM</code>, <code>czySystemWin</code> (wartości typu <code>boolean</code>).</li>
+<li>Cennik ulepszeń:<ul>
+<li>Dysk SSD $\to$ dopłata 250 zł.</li>
+<li>Dodatkowy RAM $\to$ dopłata 400 zł.</li>
+<li>System Windows $\to$ dopłata 550 zł.</li>
+</ul>
+</li>
+<li>Jeśli <code>cenaBazowa &lt;= 0</code> lub <code>isNaN(cenaBazowa)</code> $\to$ funkcja musi zwrócić <code>0</code>.</li>
+<li>Zwracana wartość: łączny koszt komputera jako liczba całkowita (np. 3000 zł bazy + 250 zł SSD = 3250 zł).</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" title="Konfigurator zestawu PC" data-code="ZnVuY3Rpb24gb2JsaWN6Q2VuZUtvbXB1dGVyYShjZW5hQmF6b3dhLCBjenlEeXNrU1NELCBjenlEb2RhdGtvd3lSQU0sIGN6eVN5c3RlbVdpbikgewogIC8vIFRPRE86IFphaW1wbGVtZW50dWogd2FsaWRhY2rEmSBjZW55IGJhem93ZWogb3JheiBha3VtdWxhdG9yIHN1bXVqxIVjeSB3eWJyYW5lIGRvZGF0a2kuCiAgLy8gUGFtacSZdGFqOiBrYcW8ZGEgb3BjamEgbW/FvGUgYnnEhyB6YXpuYWN6b25hIG5pZXphbGXFvG5pZSBvZCBwb3pvc3RhxYJ5Y2ghCiAgCiAgcmV0dXJuIG51bGw7Cn0=" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXNhbWEtYmF6YSIsCiAgICAgICAgICAidGV4dCI6ICJCYXphIDMwMDAgesWCIGJleiBkb2RhdGvDs3cgZGFqZSAzMDAwIHrFgiIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pDZW5lS29tcHV0ZXJhIiwKICAgICAgICAgICJpbnB1dCI6IFszMDAwLCBmYWxzZSwgZmFsc2UsIGZhbHNlXSwKICAgICAgICAgICJleHBlY3RlZCI6IDMwMDAKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LXdzenlzdGtpZS1kb2RhdGtpIiwKICAgICAgICAgICJ0ZXh0IjogIkJhemEgMzAwMCB6xYIgemUgd3N6eXN0a2ltaSBkb2RhdGthbWkgZGFqZSA0MjAwIHrFgiAoMzAwMCArIDI1MCArIDQwMCArIDU1MCkiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAib2JsaWN6Q2VuZUtvbXB1dGVyYSIsCiAgICAgICAgICAiaW5wdXQiOiBbMzAwMCwgdHJ1ZSwgdHJ1ZSwgdHJ1ZV0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiA0MjAwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1yYW0tc3lzdGVtIiwKICAgICAgICAgICJ0ZXh0IjogIkJhemEgMjUwMCB6xYIgeiBSQU0tZW0gaSBzeXN0ZW1lbSBkYWplIDM0NTAgesWCICgyNTAwICsgNDAwICsgNTUwKSIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pDZW5lS29tcHV0ZXJhIiwKICAgICAgICAgICJpbnB1dCI6IFsyNTAwLCBmYWxzZSwgdHJ1ZSwgdHJ1ZV0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiAzNDUwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1iYXphLXplcm93YSIsCiAgICAgICAgICAidGV4dCI6ICJDZW5hIGJhem93YSAwIHrFgiB6d3JhY2EgMCB6xYIgbmllemFsZcW8bmllIG9kIGRvZGF0a8OzdyIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJvYmxpY3pDZW5lS29tcHV0ZXJhIiwKICAgICAgICAgICJpbnB1dCI6IFswLCB0cnVlLCB0cnVlLCBmYWxzZV0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiAwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1iYXphLXVqZW1uYSIsCiAgICAgICAgICAidGV4dCI6ICJVamVtbmEgY2VuYSBiYXpvd2EgendyYWNhIDAgesWCIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogIm9ibGljekNlbmVLb21wdXRlcmEiLAogICAgICAgICAgImlucHV0IjogWy0xMDAwLCB0cnVlLCBmYWxzZSwgZmFsc2VdLAogICAgICAgICAgImV4cGVjdGVkIjogMAogICAgICAgIH0KICAgICAgXQ=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💇 Projekt końcowy: Ożywiamy sumator usług salonu</h2>
+<p>Wracamy do naszego formularza usług pielęgnacyjnych z początku lekcji:</p>
+<pre><code class="language-html">&lt;label&gt;&lt;input type="checkbox" id="chk-strzyzenie"&gt; Strzyżenie (25 zł)&lt;/label&gt;&lt;br&gt;
+&lt;label&gt;&lt;input type="checkbox" id="chk-czesanie"&gt; Czesanie (30 zł)&lt;/label&gt;&lt;br&gt;
+&lt;label&gt;&lt;input type="checkbox" id="chk-koloryzacja"&gt; Koloryzacja (50 zł)&lt;/label&gt;&lt;br&gt;
+
+&lt;button type="button" id="btn-cena"&gt;Odkryj cenę&lt;/button&gt;
+&lt;p id="wynik-cena"&gt;&lt;/p&gt;
+</code></pre>
+<p>Cennik usług:</p>
+<ul>
+<li>Strzyżenie: 25 zł</li>
+<li>Czesanie: 30 zł</li>
+<li>Koloryzacja: 50 zł</li>
+<li>Format wyniku pod przyciskiem: <code>Cena zabiegów: XX zł</code>.</li>
+</ul>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li>Pobierz referencje do trzech pól wyboru, przycisku <code>#btn-cena</code> oraz akapitu <code>#wynik-cena</code>.</li>
+<li>Zarejestruj nasłuchiwanie kliknięcia na przycisku.</li>
+<li>Wewnątrz funkcji zainicjalizuj zmienną akumulatora <code>let suma = 0;</code>.</li>
+<li>Sprawdź właściwość <code>.checked</code> dla każdego z trzech checkboxów. Za każdy zaznaczony element dodaj odpowiednią kwotę do zmiennej <code>suma</code>.</li>
+<li>Wstaw sformatowany tekst <code>Cena zabiegów: ${suma} zł</code> do właściwości <code>textContent</code> akapitu wynikowego.</li>
+</ol>
+<p>Spróbuj zaimplementować ten kod samodzielnie. Dopiero po zakończeniu próby sprawdź poniższy kod referencyjny.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">// 1. Pobieramy elementy interfejsu
+const chkStrzyzenie = document.querySelector("#chk-strzyzenie");
+const chkCzesanie = document.querySelector("#chk-czesanie");
+const chkKoloryzacja = document.querySelector("#chk-koloryzacja");
+const btnCena = document.querySelector("#btn-cena");
+const wynikAkapit = document.querySelector("#wynik-cena");
+
+// 2. Podpinamy zdarzenie click
+btnCena.addEventListener("click", () =&gt; {
+  // 3. Akumulator lokalny - zerowany przy każdym kliknięciu!
+  let suma = 0;
+
+  // 4. Badanie stanu każdego checkboxa
+  if (chkStrzyzenie.checked) {
+    suma += 25;
+  }
+  if (chkCzesanie.checked) {
+    suma += 30;
+  }
+  if (chkKoloryzacja.checked) {
+    suma += 50;
+  }
+
+  // 5. Wyświetlenie sformatowanego wyniku w DOM
+  wynikAkapit.textContent = `Cena zabiegów: ${suma} zł`;
+});
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Pola checkbox pozwalają na niezależny wybór wielu opcji naraz.</li>
+<li>Stan zaznaczenia pola checkbox sprawdzamy przez właściwość <code>.checked</code>, która zwraca wartość logiczną <code>true</code> lub <code>false</code>.</li>
+<li>Zmienną akumulatora sumującego zawsze tworzymy i zerujemy wewnątrz funkcji obsługującej zdarzenie, aby wielokrotne kliknięcia nie kumulowały sumy.</li>
+<li>Wzorzec niezależnych instrukcji <code>if (warunek) suma += kwota;</code> pozwala na obsłużenie dowolnej kombinacji zaznaczeń.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

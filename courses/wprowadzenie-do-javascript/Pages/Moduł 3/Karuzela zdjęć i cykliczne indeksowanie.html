@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\Karuzela zdjęć i cykliczne indeksowanie - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 1: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 2: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 3: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 4: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 5: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 6: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Karuzela zdjęć i cykliczne indeksowanie</h1>
+<p>Większość serwisów internetowych - od portali informacyjnych, przez sklepy online, po aplikacje społecznościowe - prezentuje treści w formie interaktywnych karuzel (sliderów). Użytkownik przegląda kolejne slajdy za pomocą strzałek w lewo i w prawo, a interfejs płynnie wymienia grafikę bez odświeżania całej strony.</p>
+<p>W tej lekcji zaczniemy od szkieletu galerii zdjęć, zrozumiemy model pamięciowy tablic w JavaScript i przyczynę indeksowania od zera, zbadamy algorytm cyklicznego zawijania indeksów w obu kierunkach, rozwiążemy wyzwanie w edytorze kodu na przykładzie odtwarzacza muzycznego, a na koniec samodzielnie ożywimy karuzelę zdjęć.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Punkt wyjścia: Szkielet HTML karuzeli zdjęć</h2>
+<p>Oto kod HTML prostej galerii z centralnym zdjęciem i przyciskami nawigacyjnymi:</p>
+<pre><code class="language-html">&lt;section id="galeria"&gt;
+  &lt;h2&gt;Zwiedzamy Polskę&lt;/h2&gt;
+  
+  &lt;div class="kontener-karuzeli"&gt;
+    &lt;button id="btn-prev" aria-label="Poprzednie zdjęcie"&gt;&amp;lt;&lt;/button&gt;
+    &lt;img id="obraz-glowny" src="1.jpg" alt="Aktywne zdjęcie"&gt;
+    &lt;button id="btn-next" aria-label="Następne zdjęcie"&gt;&amp;gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Wymagania biznesowe:</p>
+<ul>
+<li>Posiadamy 7 plików graficznych: od <code>1.jpg</code> do <code>7.jpg</code>.</li>
+<li>Początkowo wyświetlane jest zdjęcie pierwsze (<code>1.jpg</code>).</li>
+<li>Kliknięcie przycisku <code>&gt;</code> (następny) przełącza zdjęcie na kolejne (<code>2.jpg</code>, <code>3.jpg</code> itd.).</li>
+<li>Gdy wyświetla się ostatnie zdjęcie (<code>7.jpg</code>), kliknięcie <code>&gt;</code> ma zapętlić galerię i wrócić do zdjęcia pierwszego (<code>1.jpg</code>).</li>
+<li>Kliknięcie przycisku <code>&lt;</code> (poprzedni) cofa zdjęcie, a z pierwszego (<code>1.jpg</code>) przeskakuje na ostatnie (<code>7.jpg</code>).</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗃️ Tablice w JavaScript: dlaczego indeksujemy od zera?</h2>
+<p>Gdy chcemy przechować uporządkowaną listę elementów, tworzymy <span class="color-green">tablicę</span> (<code>Array</code>):</p>
+<pre><code class="language-javascript">const zdjecia = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg"];
+</code></pre>
+<p>W języku JavaScript elementy tablicy są indeksowane od <span class="color-green">zera</span>, a nie od jedynki. Wynika to z historii architektury komputerowej: indeks nie jest numerem porządkowym, lecz <span class="color-green">przesunięciem (offsetem) w pamięci RAM</span> względem początku tablicy:</p>
+<ul>
+<li><code>zdjecia[0]</code> oznacza: <span class="color-blue">weź element z zerowym przesunięciem</span> (pierwszy element: <code>"1.jpg"</code>).</li>
+<li><code>zdjecia[1]</code> oznacza: <span class="color-blue">przesuń się o jeden krok w pamięci</span> (drugi element: <code>"2.jpg"</code>).</li>
+<li>Ostatni poprawny element ma indeks <span class="color-green"><code>zdjecia.length - 1</code></span> (dla 7 elementów jest to indeks <code>6</code>).</li>
+</ul>
+<h3>⚠️ Pułapka wyjścia poza zakres</h3>
+<p>Co się stanie, gdy odpytasz tablicę o indeks równy jej długości?</p>
+<pre><code class="language-javascript">console.log(zdjecia[7]); // undefined!
+</code></pre>
+<p>W przeciwieństwie do innych języków (np. C++ czy Javy), JavaScript nie wyrzuci błędu krytycznego, lecz po cichu zwróci wartość <span class="color-green"><code>undefined</code></span>. W efekcie przeglądarka spróbuje załadować obrazek o adresie <code>undefined</code> i wyświetli ikonę uszkodzonego pliku!</p>
+<data-gate>
+  <data-quiz>
+    <question>Co zwróci wyrażenie zdjecia[zdjecia.length] dla 7‑elementowej tablicy w JavaScript?</question>
+    <options>
+      <option correct="">Zwróci wartość undefined, ponieważ ostatni poprawny indeks to length - 1</option>
+      <option>Zwróci ostatni element tablicy, ponieważ długość wskazuje na koniec kolekcji</option>
+      <option>Zgłosi błąd IndexError i natychmiast zatrzyma wykonywanie całego skryptu</option>
+      <option>Zwróci pierwszy element z tablicy, automatycznie zawijając indeks do zera</option>
+    </options>
+    <div data-hint="error"><p>Pamiętaj o przesunięciu: tablica o 7 elementach ma indeksy od 0 do 6. Indeks o numerze 7 leży już poza granicami tablicy.</p>
+</div>
+    <div data-hint="success"><p>Świetnie! Tablica o długości 7 posiada elementy pod indeksami 0, 1, 2, 3, 4, 5, 6. Indeks o numerze 7 nie istnieje i odpytanie go zwraca wartość undefined.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Algorytm bufora cyklicznego (Circular Buffer)</h2>
+<p>Aby nasza karuzela działała w nieskończoność bez wychodzenia poza zakres tablicy, musimy zaimplementować cykliczne zawijanie indeksu.</p>
+<p>Wyobraź sobie tablicę wygiętą w pierścień: za ostatnim elementem znajduje się pierwszy, a przed pierwszym - ostatni.</p>
+<pre><code>       [0] 1.jpg
+      /         \
+ [6] 7.jpg     [1] 2.jpg
+    |             |
+ [5] 6.jpg     [2] 3.jpg
+      \         /
+       [4] 5.jpg --- [3] 4.jpg
+</code></pre>
+<h3>⏩ Ruch w prawo (następny slajd)</h3>
+<p>Zwiększamy indeks o 1. Jeśli osiągnie wartość równą długości tablicy, natychmiast zerujemy licznik:</p>
+<pre><code class="language-javascript">aktualnyIndeks = aktualnyIndeks + 1;
+
+if (aktualnyIndeks &gt;= zdjecia.length) {
+  aktualnyIndeks = 0; // Wracamy na start
+}
+</code></pre>
+<h3>⏪ Ruch w lewo (poprzedni slajd)</h3>
+<p>Zmniejszamy indeks o 1. Jeśli spadnie poniżej zera, przeskakujemy na ostatni indeks:</p>
+<pre><code class="language-javascript">aktualnyIndeks = aktualnyIndeks - 1;
+
+if (aktualnyIndeks &lt; 0) {
+  aktualnyIndeks = zdjecia.length - 1; // Przeskakujemy na sam koniec
+}
+</code></pre>
+<data-gate>
+  <data-connection-matcher title="Operacje indeksowania na tablicach">
+    <div class="cmw-item" data-left="tablica[0]" data-right="Odczytuje pierwszy element znajdujący się na początku kolekcji"></div>
+    <div class="cmw-item" data-left="tablica[tablica.length - 1]" data-right="Bezpiecznie odczytuje ostatni istniejący element w tablicy"></div>
+    <div class="cmw-item" data-left="indeks >= tablica.length" data-right="Warunek wykrywający przekroczenie prawego krańca tablicy"></div>
+    <div class="cmw-item" data-left="indeks < 0" data-right="Warunek wykrywający spadek poniżej pierwszego elementu tablicy"></div>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Wyzwanie w edytorze: Nawigator playlisty muzycznej</h2>
+<p>Zastosujmy mechanizm cyklicznego indeksowania na niezależnym problemie inżynierskim: odtwarzaczu muzycznym (Music Player).</p>
+<p>Odtwarzacz posiada listę utworów i pozwala przełączać piosenki przyciskami „Następna” oraz „Poprzednia”.</p>
+<p>Twoim celem jest oprogramowanie funkcji <code>zmienUtwor</code>.</p>
+<p>Wymagania biznesowe:</p>
+<ul>
+<li>Parametr <code>liczbaUtworow</code>: całkowita liczba utworów na playliście (liczba dodatnia).</li>
+<li>Parametr <code>aktualnyIndeks</code>: numer aktualnie odtwarzanego utworu (od 0 do <code>liczbaUtworow - 1</code>).</li>
+<li>Parametr <code>kierunek</code>: ciąg znaków <code>"next"</code> lub <code>"prev"</code>.</li>
+<li>Jeśli <code>liczbaUtworow &lt;= 0</code> $\to$ zwróć <code>0</code>.</li>
+<li>Dla kierunku <code>"next"</code>: zwiększ indeks o 1. Jeśli indeks osiągnie lub przekroczy <code>liczbaUtworow</code>, funkcja musi zwrócić <code>0</code> (zapętlenie na start).</li>
+<li>Dla kierunku <code>"prev"</code>: zmniejsz indeks o 1. Jeśli indeks spadnie poniżej 0, funkcja musi zwrócić <code>liczbaUtworow - 1</code> (zapętlenie na koniec).</li>
+<li>Zwracana wartość: nowy poprawny indeks utworu jako liczba całkowita.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" title="Nawigator utworów odtwarzacza" data-code="ZnVuY3Rpb24gem1pZW5VdHdvcihsaWN6YmFVdHdvcm93LCBha3R1YWxueUluZGVrcywga2llcnVuZWspIHsKICAvLyBUT0RPOiBaYWltcGxlbWVudHVqIGN5a2xpY3puxIUgem1pYW7EmSBpbmRla3N1IHcgcHJhd28gaSB3IGxld28uCiAgLy8gUGFtacSZdGFqOiB3eW5payBtdXNpIHphd3N6ZSBtaWXFm2NpxIcgc2nEmSB3IHByemVkemlhbGUgb2QgMCBkbyBsaWN6YmFVdHdvcm93IC0gMSEKICAKICByZXR1cm4gbnVsbDsKfQ==" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LW5leHQtc3JvZGVrIiwKICAgICAgICAgICJ0ZXh0IjogIk5hc3TEmXBueSB6ZSDFm3JvZGthICh1dHfDs3IgMiBwcnp5IDUgdXR3b3JhY2ggLT4gMykiLAogICAgICAgICAgInR5cGUiOiAidGVzdC1jYXNlIiwKICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAiem1pZW5VdHdvciIsCiAgICAgICAgICAiaW5wdXQiOiBbNSwgMiwgIm5leHQiXSwKICAgICAgICAgICJleHBlY3RlZCI6IDMKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0ZXN0LW5leHQtemFwZXRsZW5pZSIsCiAgICAgICAgICAidGV4dCI6ICJOYXN0xJlwbnkgeiBvc3RhdG5pZWdvIHV0d29ydSAoaW5kZWtzIDQgcHJ6eSA1IHV0d29yYWNoKSB6YXDEmXRsYSBuYSAwIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInptaWVuVXR3b3IiLAogICAgICAgICAgImlucHV0IjogWzUsIDQsICJuZXh0Il0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiAwCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1wcmV2LXNyb2RlayIsCiAgICAgICAgICAidGV4dCI6ICJQb3ByemVkbmkgemUgxZtyb2RrYSAodXR3w7NyIDMgcHJ6eSA1IHV0d29yYWNoIC0+IDIpIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInptaWVuVXR3b3IiLAogICAgICAgICAgImlucHV0IjogWzUsIDMsICJwcmV2Il0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiAyCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAidGVzdC1wcmV2LXphcGV0bGVuaWUiLAogICAgICAgICAgInRleHQiOiAiUG9wcnplZG5pIHogcGllcndzemVnbyB1dHdvcnUgKGluZGVrcyAwIHByenkgNSB1dHdvcmFjaCkgemFwxJl0bGEgbmEgNCIsCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLAogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJ6bWllblV0d29yIiwKICAgICAgICAgICJpbnB1dCI6IFs1LCAwLCAicHJldiJdLAogICAgICAgICAgImV4cGVjdGVkIjogNAogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInRlc3QtcHVzdGEtcGxheWxpc3RhIiwKICAgICAgICAgICJ0ZXh0IjogIkJyYWsgdXR3b3LDs3cgKDApIHp3cmFjYSAwIiwKICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsCiAgICAgICAgICAiZnVuY3Rpb25OYW1lIjogInptaWVuVXR3b3IiLAogICAgICAgICAgImlucHV0IjogWzAsIDAsICJuZXh0Il0sCiAgICAgICAgICAiZXhwZWN0ZWQiOiAwCiAgICAgICAgfQogICAgICBd"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖼️ Projekt końcowy: Ożywiamy karuzelę zdjęć</h2>
+<p>Wracamy do naszego szablonu galerii z początku lekcji:</p>
+<pre><code class="language-html">&lt;button id="btn-prev"&gt;&amp;lt;&lt;/button&gt;
+&lt;img id="obraz-glowny" src="1.jpg" alt="Aktywne zdjęcie"&gt;
+&lt;button id="btn-next"&gt;&amp;gt;&lt;/button&gt;
+</code></pre>
+<p>Struktura danych:</p>
+<pre><code class="language-javascript">const zdjecia = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg"];
+let aktualnyIndeks = 0;
+</code></pre>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li>Pobierz referencje do obrazka <code>#obraz-glowny</code> oraz przycisków <code>#btn-prev</code> i <code>#btn-next</code>.</li>
+<li>Zadeklaruj tablicę z nazwami plików oraz zmienną <code>let aktualnyIndeks = 0</code>.</li>
+<li>Napisz funkcję <code>wyswietlZdjecie()</code>, która ustawi właściwość <code>obraz.src = zdjecia[aktualnyIndeks]</code>.</li>
+<li>Podepnij zdarzenie click pod <code>#btn-next</code>:<ul>
+<li>Zwiększ <code>aktualnyIndeks</code> o 1.</li>
+<li>Jeśli indeks przekroczy zakres tablicy (<code>&gt;= zdjecia.length</code>), ustaw go na 0.</li>
+<li>Wywołaj <code>wyswietlZdjecie()</code>.</li>
+</ul>
+</li>
+<li>Podepnij zdarzenie click pod <code>#btn-prev</code>:<ul>
+<li>Zmniejsz <code>aktualnyIndeks</code> o 1.</li>
+<li>Jeśli indeks spadnie poniżej 0, ustaw go na <code>zdjecia.length - 1</code>.</li>
+<li>Wywołaj <code>wyswietlZdjecie()</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Spróbuj napisać ten kod samodzielnie. Po zakończeniu próby sprawdź poniższy kod referencyjny.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">// 1. Definiujemy tablicę zasobów i stan początkowy
+const zdjecia = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg"];
+let aktualnyIndeks = 0;
+
+// 2. Pobieramy elementy z DOM
+const obraz = document.querySelector("#obraz-glowny");
+const btnPrev = document.querySelector("#btn-prev");
+const btnNext = document.querySelector("#btn-next");
+
+// 3. Funkcja pomocnicza aktualizująca atrybut src w DOM
+function odswiezWidok() {
+  obraz.src = zdjecia[aktualnyIndeks];
+}
+
+// 4. Obsługa przejścia do następnego zdjęcia
+btnNext.addEventListener("click", () =&gt; {
+  aktualnyIndeks++;
+  if (aktualnyIndeks &gt;= zdjecia.length) {
+    aktualnyIndeks = 0; // Zapętlenie na początek
+  }
+  odswiezWidok();
+});
+
+// 5. Obsługa przejścia do poprzedniego zdjęcia
+btnPrev.addEventListener("click", () =&gt; {
+  aktualnyIndeks--;
+  if (aktualnyIndeks &lt; 0) {
+    aktualnyIndeks = zdjecia.length - 1; // Zapętlenie na koniec
+  }
+  odswiezWidok();
+});
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Elementy tablicy w JavaScript są indeksowane od 0 do <code>length - 1</code>.</li>
+<li>Odpytanie nieistniejącego indeksu zwraca <code>undefined</code>, co przy adresach URL grafik prowadzi do błędu ładowania obrazu.</li>
+<li>Algorytm zapętlenia w prawo weryfikujemy warunkiem <code>indeks &gt;= length</code> i przypisaniem <code>0</code>.</li>
+<li>Algorytm zapętlenia w lewo weryfikujemy warunkiem <code>indeks &lt; 0</code> i przypisaniem <code>length - 1</code>.</li>
+<li>Dynamiczną podmianę grafiki na stronie realizujemy poprzez przypisanie nowej ścieżki do właściwości <code>img.src</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

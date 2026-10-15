@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 3\Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">sql</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Selekcja i filtrowanie rekordów</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy zapytania SELECT i filtrowanie WHERE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Podstawy%20zapytania%20SELECT%20i%20filtrowanie%20WHERE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy zapytania SELECT i filtrowanie WHERE</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wyszukiwanie wzorców LIKE i zakresy wartości"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%200/Wyszukiwanie%20wzorc%C3%B3w%20LIKE%20i%20zakresy%20warto%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyszukiwanie wzorców LIKE i zakresy wartości</a></li><li class="module">Moduł 1: Relacje i złączenia tabel</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Relacje jeden do wielu i kluczowe złączenie INNER JOIN"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Relacje%20jeden%20do%20wielu%20i%20kluczowe%20z%C5%82%C4%85czenie%20INNER%20JOIN.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Relacje jeden do wielu i kluczowe złączenie INNER JOIN</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Złączenia zewnętrzne LEFT JOIN i brakujące powiązania"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%201/Z%C5%82%C4%85czenia%20zewn%C4%99trzne%20LEFT%20JOIN%20i%20brakuj%C4%85ce%20powi%C4%85zania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Złączenia zewnętrzne LEFT JOIN i brakujące powiązania</a></li><li class="module">Moduł 2: Agregacja i analityka danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Funkcje agregujące i sortowanie ORDER BY"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Funkcje%20agreguj%C4%85ce%20i%20sortowanie%20ORDER%20BY.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje agregujące i sortowanie ORDER BY</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Grupowanie danych GROUP BY i filtrowanie grup HAVING"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%202/Grupowanie%20danych%20GROUP%20BY%20i%20filtrowanie%20grup%20HAVING.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupowanie danych GROUP BY i filtrowanie grup HAVING</a></li><li class="module">Moduł 3: Modyfikacja danych w tabelach</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%203/Modyfikacja%20rekord%C3%B3w%20za%20pomoc%C4%85%20INSERT%20UPDATE%20i%20DELETE.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</a></li><li class="module">Moduł 4: Definiowanie struktur bazodanowych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Projektowanie tabel CREATE TABLE i więzy integralności"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Projektowanie%20tabel%20CREATE%20TABLE%20i%20wi%C4%99zy%20integralno%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie tabel CREATE TABLE i więzy integralności</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%204/Modyfikacja%20schematu%20tabeli%20ALTER%20TABLE%20i%20indeksy%20wydajno%C5%9Bciowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Modyfikacja schematu tabeli ALTER TABLE i indeksy wydajnościowe</a></li><li class="module">Moduł 5: Zaawansowane operacje zbiorowe i administracja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Podzapytania i łączenie wyników za pomocą UNION"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Podzapytania%20i%20%C5%82%C4%85czenie%20wynik%C3%B3w%20za%20pomoc%C4%85%20UNION.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podzapytania i łączenie wyników za pomocą UNION</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Zarządzanie użytkownikami i uprawnienia bazy danych"><a class="lesson-link" href="/courses/sql/Pages/Modu%C5%82%205/Zarz%C4%85dzanie%20u%C5%BCytkownikami%20i%20uprawnienia%20bazy%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie użytkownikami i uprawnienia bazy danych</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Modyfikacja rekordów za pomocą INSERT UPDATE i DELETE</h1>
+<p>Operacje odczytu danych stanowią tylko połowę pracy programisty z bazą relacyjną. Druga połowa to modyfikacja danych w ramach operacji DML (Data Manipulation Language): dodawanie nowych rekordów (<code>INSERT</code>), aktualizowanie istniejących wartości (<code>UPDATE</code>) oraz bezpieczne usuwanie zbędnych danych (<code>DELETE</code>).</p>
+<p>Pracujemy na bazie danych przychodni lekarskiej, rejestrując i realizując recepty pacjentów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>💾 Struktura bazy danych i plik źródłowy</h2>
+<p>Pobierz plik bazy danych przychodni medycznej:</p>
+<p><a href="/resources/sql-files/recepty.sql" download="recepty.sql" class="download-btn">Pobierz plik bazy danych przychodni (.sql)</a></p>
+<p>Tabela <code>recepty</code> przechowuje status dokumentów medycznych:</p>
+<table>
+<thead>
+<tr>
+<th align="left">id (INT)</th>
+<th align="left">pesel (VARCHAR)</th>
+<th align="left">kod (INT)</th>
+<th align="left">zrealizowana (TINYINT)</th>
+<th align="left">data_wystawienia (DATE)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">02231201928</td>
+<td align="left">1012</td>
+<td align="left">0</td>
+<td align="left">2026‑06-01</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">89100412890</td>
+<td align="left">4421</td>
+<td align="left">0</td>
+<td align="left">2026‑06-03</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">78010219827</td>
+<td align="left">9031</td>
+<td align="left">1</td>
+<td align="left">2026‑06-05</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">95051508212</td>
+<td align="left">8901</td>
+<td align="left">0</td>
+<td align="left">2026‑06-10</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>➕ Wstawianie rekordów za pomocą INSERT INTO</h2>
+<p>Polecenie <code>INSERT INTO</code> tworzy nowe wiersze w tabeli:</p>
+<pre><code class="language-sql">INSERT INTO recepty (pesel, kod, zrealizowana, data_wystawienia) 
+VALUES ('04251209876', 7712, 0, '2026-06-12');
+</code></pre>
+<p>Zaleca się jawne wymienianie nazw kolumn w nawiasach. Pozwala to pominąć kolumnę klucza głównego <code>id</code>, jeśli posiada ona atrybut <code>AUTO_INCREMENT</code>.</p>
+<h3>📦 Wstawianie wielu wierszy w jednym zapytaniu</h3>
+<p>Możemy wstawić wiele krotek w jednej operacji, oddzielając zestawy wartości przecinkami:</p>
+<pre><code class="language-sql">INSERT INTO recepty (pesel, kod, zrealizowana, data_wystawienia) VALUES 
+('91021408761', 3120, 0, '2026-06-14'),
+('83091104329', 5590, 0, '2026-06-14');
+</code></pre>
+<data-quiz>
+  <question>Co nastąpi po uruchomieniu zapytania <code>UPDATE recepty SET zrealizowana = 1;</code> bez klauzuli <code>WHERE</code>?</question>
+  <options>
+    <option correct="">Wszystkie wiersze w całej tabeli zostaną bezwarunkowo oznaczone jako zrealizowane</option>
+    <option>Silnik bazy danych zgłosi błąd składniowy i odmówi wykonania operacji</option>
+    <option>Zostanie zaktualizowany wyłącznie pierwszy wiersz o najniższym identyfikatorze</option>
+    <option>Operacja zostanie wstrzymana w oczekiwaniu na potwierdzenie transakcji</option>
+  </options>
+</data-quiz>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✏️ Aktualizacja i usuwanie danych: UPDATE oraz DELETE</h2>
+<h3>🔄 Modyfikacja danych klauzulą UPDATE</h3>
+<p>Polecenie <code>UPDATE</code> zmienia wartości we wskazanych kolumnach dla wierszy spełniających warunek <code>WHERE</code>:</p>
+<pre><code class="language-sql">UPDATE recepty 
+SET zrealizowana = 1 
+WHERE kod = 4421;
+</code></pre>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Zasada bezpieczeństwa</span>: Brak klauzuli <code>WHERE</code> w poleceniach <code>UPDATE</code> oraz <code>DELETE</code> spowoduje modyfikację lub skasowanie <span class="color-green">wszystkich wierszy w całej tabeli</span>.</p>
+
+</div>
+</div><h3>🗑️ Usuwanie rekordów klauzulą DELETE i czyszczenie TRUNCATE</h3>
+<p>Polecenie <code>DELETE</code> usuwa wybrane wiersze:</p>
+<pre><code class="language-sql">DELETE FROM recepty 
+WHERE zrealizowana = 1 AND data_wystawienia &lt; '2026-01-01';
+</code></pre>
+<p>Do całkowitego wyczyszczenia tabeli i zresetowania licznika <code>AUTO_INCREMENT</code> do zera służy instrukcja:</p>
+<pre><code class="language-sql">TRUNCATE TABLE recepty;
+</code></pre>
+<data-connection-matcher title="Dopasuj operację SQL do jej przeznaczenia">
+  <div class="cmw-item" data-left="`INSERT INTO ... VALUES`" data-right="Wstawia jeden lub więcej nowych wierszy do tabeli"></div>
+  <div class="cmw-item" data-left="`UPDATE ... SET ... WHERE`" data-right="Zmienia wartości wybranych kolumn w określonych wierszach"></div>
+  <div class="cmw-item" data-left="`DELETE FROM ... WHERE`" data-right="Trwale usuwa wiersze spełniające warunek logiczny"></div>
+  <div class="cmw-item" data-left="`TRUNCATE TABLE`" data-right="Błyskawicznie czyści całą tabelę i resetuje licznik auto-increment"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Realizacja recepty w aptece</h2>
+<p>Napisz polecenie aktualizacji, które zmieni status recepty o kodzie <code>1012</code> na zrealizowaną (<code>zrealizowana = 1</code>). Następnie pobierz ten zaktualizowany rekord (<code>SELECT * FROM recepty WHERE kod = 1012;</code>), aby potwierdzić zmianę.</p>
+<data-gate>
+<data-code-runner language="sql" title="Aktualizacja statusu realizacji recepty" data-code="LS0gMS4gWmFrdHVhbGl6dWogcmVjZXB0xJkgbyBrb2R6aWUgMTAxMiB1c3Rhd2lhasSFYyB6cmVhbGl6b3dhbmEgPSAxCi0tIFRPRE86IE5hcGlzeiBwb2xlY2VuaWUgVVBEQVRFIHoga2xhdXp1bMSFIFNFVCBvcmF6IHdhcnVua2llbSBXSEVSRQoKLS0gMi4gUG9iaWVyeiB0ZW4gcmVrb3JkIHphIHBvbW9jxIUgU0VMRUNUIChrb2x1bW55OiBpZCwgcGVzZWwsIGtvZCwgenJlYWxpem93YW5hKQotLSBUT0RPOiBOYXBpc3oga3dlcmVuZMSZIFNFTEVDVCBkbGEga29kdSAxMDEy" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgcG9wcmF3bmllIHp3cmFjYSB6YWt0dWFsaXpvd2FueSByZWtvcmQgeiBwb2xlbSB6cmVhbGl6b3dhbmEgPSAxIiwKICAgICAgICAidHlwZSI6ICJzcWwtZXhlY3V0ZSIsCiAgICAgICAgInNjaGVtYSI6ICJDUkVBVEUgVEFCTEUgcmVjZXB0eSAoaWQgSU5UIFBSSU1BUlkgS0VZLCBwZXNlbCBURVhULCBrb2QgSU5ULCB6cmVhbGl6b3dhbmEgSU5UKTsgSU5TRVJUIElOVE8gcmVjZXB0eSBWQUxVRVMgKDEsICcwMjIzMTIwMTkyOCcsIDEwMTIsIDApLCAoMiwgJzg5MTAwNDEyODkwJywgNDQyMSwgMCk7IiwKICAgICAgICAiZXhwZWN0ZWRDb3VudCI6IDEsCiAgICAgICAgImV4cGVjdGVkQ29sdW1ucyI6IFsiaWQiLCAia29kIiwgInpyZWFsaXpvd2FuYSJdCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiaWQiOiAic3ludGF4LXVwZGF0ZSIsCiAgICAgICAgInRleHQiOiAiV3lrb3J6eXN0YW5vIHBvbGVjZW5pZSBVUERBVEUgeiBrbGF1enVsxIUgU0VUIGkgV0hFUkUiLAogICAgICAgICJ0eXBlIjogImNvbnRhaW5zIiwKICAgICAgICAicGF0dGVybiI6ICJVUERBVEUiCiAgICAgIH0KICAgIF0="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie praktyczne - Zarządzanie receptami pacjentów w przychodni</h2>
+<p>Zrealizuj zadania modyfikacji bazy danych dla panelu lekarza na bazie <code>recepty.sql</code>.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Wystawienie nowej recepty</span>: Napisz polecenie <code>INSERT INTO</code>, które doda do tabeli <code>recepty</code> nowy dokument dla pacjenta o numerze PESEL <code>'03251209876'</code>, z kodem recepty <code>9922</code>, statusem <code>0</code> (niezrealizowana) oraz dzisiejszą datą wystawienia.</li>
+<li><span class="color-green">Realizacja w aptece</span>: Napisz polecenie <code>UPDATE</code>, które zmieni status recepty o kodzie <code>8901</code> na zrealizowaną (<code>zrealizowana = 1</code>).</li>
+<li><span class="color-green">Usunięcie starych dokumentów</span>: Napisz polecenie <code>DELETE</code>, które skasuje wszystkie recepty zrealizowane (<code>zrealizowana = 1</code>), których data wystawienia jest wcześniejsza niż <code>'2026-06-05'</code>.</li>
+</ol>
+<p>Spróbuj napisać polecenia samodzielnie. Dopiero po zakończeniu próby rozwiń poniższy blok.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-sql">-- Kwerenda 1: Wstawienie nowej recepty
+INSERT INTO recepty (pesel, kod, zrealizowana, data_wystawienia) 
+VALUES ('03251209876', 9922, 0, '2026-06-15');
+
+-- Kwerenda 2: Realizacja recepty
+UPDATE recepty 
+SET zrealizowana = 1 
+WHERE kod = 8901;
+
+-- Kwerenda 3: Usunięcie starych zrealizowanych recept
+DELETE FROM recepty 
+WHERE zrealizowana = 1 AND data_wystawienia &lt; '2026-06-05';
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li><code>INSERT INTO</code> dodaje nowe rekordy; warto jawnie wymieniać kolumny docelowe.</li>
+<li><code>UPDATE</code> oraz <code>DELETE</code> bezwzględnie wymagają klauzuli <code>WHERE</code>, aby uniknąć przypadkowego zniszczenia bazy.</li>
+<li><code>TRUNCATE TABLE</code> błyskawicznie czyści całą tabelę i resetuje licznik <code>AUTO_INCREMENT</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>
