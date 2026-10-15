@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poligon Edukacyjny</title>
+
+  <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+
+  <script>
+    (function () {
+      try {
+        var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+        var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+        if (t === 'dark') {
+          document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <style>
+    html,
+    body {
+      background-color: #0b0f19;
+      color: #e1e1e1;
+    }
+  </style>
+  <link rel="stylesheet" href="/css/course-style.css">
+  <script type="module" src="/js/poligon-app.js"></script>
+  <link id="hljs-light" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-light.min.css" disabled="">
+  <link id="hljs-dark" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+  <div id="app-main-content">
+    <header class="scrolled">
+      <p class="site-logo medievalsharp-regular">
+        <a href="/" aria-label="Koala-V — strona główna">
+          <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+          <span class="logo-text">Koala-V</span>
+        </a>
+      </p>
+      <div class="header-actions" id="header-actions"></div>
+    </header>
+
+    <main style="width: 1100px;margin: auto;height: 100%;">
+      <div id="course-lesson-content"
+        style="width: 100%; margin: 0 auto; padding: 120px 10px 100px 10px; overflow-y: auto; height: calc(100dvh - 105px);">
+        <div style="text-align: center; padding: 50px;">
+          <h2>Ładowanie dzisiejszego poligonu...</h2>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+  </div>
+</body>
+
+</html>

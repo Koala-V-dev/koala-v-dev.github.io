@@ -62,7 +62,7 @@
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>🎬 Odtwarzanie wideo: znacznik <code>&lt;video&gt;</code></h2>
 <p>Do wstawienia filmu na stronę służy znacznik <code>&lt;video&gt;</code>. Posiada on zestaw atrybutów sterujących odtwarzaczem:</p>
-<pre><code class="language-html">&lt;video src="/resources/media-course-preview/koala.mp4" autoplay loop width="640" height="360"&gt;
+<pre><code class="language-html">&lt;video src="/Resources/media-course-preview/koala.mp4" autoplay loop width="640" height="360"&gt;
     Twoja przeglądarka nie wspiera natywnego odtwarzania wideo.
 &lt;/video&gt;
 </code></pre>
@@ -81,7 +81,7 @@
 </li>
 </ul>
 <p>Poniżej znajduje się przykładowe wideo z wbudowanymi napisami, <code>autoplay</code> (automatyczne odtwarzanie), <code>loop</code> (odtwarzanie w zapętleniu) i bez <code>controls</code> (pozbawione standardowego interfejsu sterowania):</p>
-<p><video src="/resources/media-course-preview/koala.mp4" autoplay="" loop="" width="360" height="640" style="width: unset; display: block; margin: auto;"><br>    <track src="/resources/media-course-preview/koala.vtt" kind="subtitles" srclang="pl" label="Polskie napisy" default=""><br>    Twoja przeglądarka nie wspiera natywnego odtwarzania wideo.<br></video></p>
+<p><video src="/Resources/media-course-preview/koala.mp4" autoplay="" loop="" width="360" height="640" style="width: unset; display: block; margin: auto;"><br>    <track src="/Resources/media-course-preview/koala.vtt" kind="subtitles" srclang="pl" label="Polskie napisy" default=""><br>    Twoja przeglądarka nie wspiera natywnego odtwarzania wideo.<br></video></p>
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
 <span class="alert-icon">🚧</span> Uwaga
@@ -402,21 +402,16 @@
 <p>W praktyce do osadzania zewnętrznych witryn wybieramy ramki. Przy plikach PDF można jednak nadal spotkać te historyczne rozwiązania.</p>
 <data-gate>
   <data-quiz>
-    <question><p>Wklejasz na stronę zewnętrzny widżet w elemencie <code>&lt;iframe&gt;</code>. Chcesz ograniczyć jego możliwości, ale nadal świadomie oddać mu tylko te funkcje, których naprawdę potrzebuje. Które podejście jest najlepsze?</p>
-</question>
+    <question>Wklejasz na stronę zewnętrzny widżet w elemencie <iframe title="Osadzona treść zewnętrzna" sandbox="" referrerpolicy="strict-origin-when-cross-origin" loading="lazy">. Chcesz ograniczyć jego możliwości, ale nadal świadomie oddać mu tylko te funkcje, których naprawdę potrzebuje. Które podejście jest najlepsze?</iframe></question>
     <options>
-<item correct=""><p>Dodajesz <code>sandbox</code>, sprawdzasz co przestało działać, a potem dopisujesz tylko konkretne zezwolenia, np. <code>allow‑scripts</code> albo <code>allow‑forms</code>.</p>
-</item>
-<item><p>Dodajesz długą listę w <code>allow</code>, bo każdy oficjalny generator widżetu zawsze wie lepiej, jakie uprawnienia są potrzebne Twojej stronie.</p>
-</item>
-<item><p>Dodajesz <code>X‑Frame-Options</code> jako atrybut HTML do ramki, aby przeglądarka zablokowała skrypty w osadzonej stronie.</p>
-</item>
-<item><p>Usuwasz <code>title</code>, bo użytkownik i tak widzi zawartość ramki, więc opis nie ma znaczenia.</p>
-</item>
+<item correct="">Dodajesz sandbox, sprawdzasz co przestało działać, a potem dopisujesz tylko konkretne zezwolenia, np. allow‑scripts albo allow‑forms.</item>
+<item>Dodajesz długą listę w allow, bo każdy oficjalny generator widżetu zawsze wie lepiej, jakie uprawnienia są potrzebne Twojej stronie.</item>
+<item>Dodajesz X‑Frame-Options jako atrybut HTML do ramki, aby przeglądarka zablokowała skrypty w osadzonej stronie.</item>
+<item>Usuwasz title, bo użytkownik i tak widzi zawartość ramki, więc opis nie ma znaczenia.</item>
 </options>
     <div data-hint="error"><p>Pomyśl o zasadzie minimalnych uprawnień. Najpierw ograniczasz ramkę, a potem oddajesz tylko to, bez czego widżet faktycznie nie działa.</p>
 </div>
-    <div data-hint="success"><p>Dokładnie. <code>sandbox</code> tworzy izolację, a konkretne tokeny pozwalają świadomie przywrócić wybrane możliwości ramki.</p>
+    <div data-hint="success"><p>Dokładnie. sandbox tworzy izolację, a konkretne tokeny pozwalają świadomie przywrócić wybrane możliwości ramki.</p>
 </div>
   </data-quiz>
 </data-gate>
