@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Wkrętak - retopologia, UV i poziomy LOD - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Wkrętak - retopologia, UV i poziomy LOD</h1>
+<p>Mały wkrętak nie musi mieć wszystkich rowków w geometrii. Zbudujemy dwa warianty i porównamy je w tym samym kadrze: 472 trójkąty z rowkami oraz 280 bez rowków, które odtworzymy normal mapą. Dopiero widoczna różnica przy danej wielkości na ekranie rozstrzygnie, którego użyć.</p>
+<p>Otwórz <a href="/courses/blender/Resources/wkretak-04-high-materialy.blend">high poly z materiałami</a>. HIGH zostaje źródłem, z edytowalnymi modyfikatorami. Źródło i cel bake pozostawimy w tym samym miejscu. Wypalanie będzie szukać powierzchni HIGH nad odpowiadającymi im fragmentami LOW.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🎯 Retopologia jest decyzją o kształcie</h2>
+<p><span class="color-green">Retopologia</span> oznacza przygotowanie siatki odpowiadającej zastosowaniu. Przy skanie lub rzeźbie często budujemy ją od nowa na powierzchni high poly. Tutaj wykorzystamy istniejącą siatkę sterującą, a dla prostszego chwytu wrócimy do czterech przekrojów.</p>
+<p>Normal mapa zmienia kierunek odbijania światła. Nie zmienia obrysu, nie wycina otworów i nie odtwarza rzeczywistego zasłaniania powierzchni. Z bliska może więc być widać różnicę głębokości, choć sam zarys rowka wygląda poprawnie. Gdy narzędzie zajmuje kilkadziesiąt pikseli, wiele takich różnic przestaje mieć znaczenie.</p>
+<table>
+<thead>
+<tr>
+<th>Część</th>
+<th>Wariant dokładniejszy</th>
+<th>Wariant prostszy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Korpus, bark i szyjka</td>
+<td>Geometria</td>
+<td>Geometria</td>
+</tr>
+<tr>
+<td>Duże narożniki chwytu</td>
+<td>Proste fazy w geometrii</td>
+<td>Proste fazy w geometrii</td>
+</tr>
+<tr>
+<td>Rowki</td>
+<td>Geometria i drobne zaokrąglenia z mapy</td>
+<td>Cały relief z normal mapy</td>
+</tr>
+<tr>
+<td>Mikrofazy stali i ziarno powierzchni</td>
+<td>Normal mapa</td>
+<td>Normal mapa</td>
+</tr>
+</tbody></table>
+<p>O przydatności uproszczenia decyduje widoczny efekt. Jeżeli usunięta krawędź psuje widoczny obrys, mapa jej nie odda. Jeżeli szczegół znika po oddaleniu, kilka dodatkowych pasów ścian może już nie dawać korzyści.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪚 Wariant z rowkami: uprość wynik modyfikatorów</h2>
+<h3>🗂️ Zrób kopie robocze</h3>
+<p>W Object Mode zaznacz rękojeść i grot. Wykonaj <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>, następnie <kbd>PPM</kbd>, aby anulować przesuwanie. Kopie pozostają na źródle. Z nadal zaznaczonymi kopiami wybierz <kbd>M</kbd> → New Collection i nazwij kolekcję <code>LOW</code>.</p>
+<p>W Outlinerze nazwij kopie <code>LOW_Rekojesc</code> i <code>LOW_Grot</code>. Kliknij oko przy HIGH. W widoku mają pozostać tylko części LOW.</p>
+<p>Zaznacz LOW_Rekojesc. W zakładce z kluczem rozwiń Bevel i zmień Segments z <code>6</code> na <code>1</code>. Zamiast kilku pasów opisujących łuk zostanie pojedynczy pas fazy. Zachowamy go na głównych narożnikach; drobne fazy rowków przeniesiemy do normal mapy.</p>
+<h3>📐 Wyłącz fazy obrzeży rowków</h3>
+<p>Bevel nadal ma Limit Method: Weight. Przypomnij sobie grupy z modelowania: waga <code>1</code> na głównych narożnikach, <code>0.2</code> na obrzeżach rowków i <code>0</code> na podziałach płaszczyzn. Waga mnoży szerokość fazy; nie usuwa samego rowka.</p>
+<ol>
+<li>Wejdź w Edit Mode, wybierz krawędzie klawiszem <kbd>2</kbd> i odznacz wszystko przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span>.</li>
+<li>Wybierz jedną krawędź na styku dna rowka i jego bocznej ścianki.</li>
+<li>Otwórz <kbd>N</kbd> → Item → Edges Data. W Mean Bevel Weight odczytaj <code>0.2</code>. Jeśli widzisz <code>1</code> albo <code>0</code>, sprawdź, którą krawędź wybrałeś.</li>
+</ol>
+<p><img src="/courses/blender/Images/wkretak-wagi.png" alt="Pole Mean Bevel Weight w sekcji Edges Data i modyfikator Bevel ograniczony wagami"></p>
+<p>Zrzut pokazuje miejsce odczytu. Zaznaczono na nim główne narożniki, więc wartość wynosi <code>1.00</code>. Dla obrzeża rowka odczytujesz <code>0.20</code>. Używaj pola w Edges Data, nie podobnego pola w Vertices Data.</p>
+<p>Z kursorem nad modelem otwórz <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>G</kbd></span> → Bevel. Blender wybierze krawędzie o podobnej wadze. Obróć model: mają zaznaczyć się obrzeża rowków, a główne narożniki pozostać poza wyborem.</p>
+<p>W Item → Edges Data → Mean Bevel Weight wpisz <code>0</code>. Wróć do Object Mode. Rowki mają pozostać, a zniknąć ich drobne fazy. Duże narożniki nadal powinny mieć pojedynczy pas fazy. Jeśli zniknął również ten pas, cofnij zmianę i sprawdź zaznaczenie.</p>
+<p>Na LOW_Grot usuń Bevel przez X w nagłówku modyfikatora. Ośmiokątny trzpień i płaskie ostrze pozostają; usuwasz mikrofazy. Sprawdź obrys z bliska i przy widoku całego narzędzia.</p>
+<h3>🔺 Utrwal siatkę LOW</h3>
+<p>Apply w menu modyfikatora zapisuje jego wynik w siatce. HIGH zachowujemy z edytowalnym stosem, żeby móc wrócić do szerokości i segmentów fazy.</p>
+<p>Na LOW_Rekojesc, w Object Mode, otwórz strzałkę w dół w nagłówku Bevel i wybierz Apply. To menu w zakładce z kluczem; <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>A</kbd></span> otwiera inne menu, dotyczące transformacji obiektu.</p>
+<p>Na obu częściach LOW usuń dotychczasowy Weighted Normal przez X. Ustalimy normalne ponownie po ostatecznym podziale ścian. Dodaj przez Add Modifier → Triangulate, ustaw Quad Method: Fixed i wybierz Apply. W Edit Mode zobaczysz przekątne dzielące czworokąty na trójkąty.</p>
+<p><img src="/courses/blender/Images/wkretak-siatki-lod.png" alt="High poly i dwa docelowe warianty siatki rękojeści"></p>
+<p>Normal mapa w przestrzeni tangent zapisuje kierunek względem powierzchni LOW: jej normalnej i kierunków biegnących wzdłuż UV. Triangulujemy przed bake, bo taki zapis zależy od interpolacji konkretnych trójkątów, normalnych i UV. Zmiana przekątnej po wypalaniu może ujawnić ukośny ślad na tej samej pozornie płaskiej ścianie. Silnik i tak użyje trójkątów; ustalamy ten podział, zamiast oddawać go przypadkowi.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Wariant bez rowków: nie modeluj niewidocznych zagłębień</h2>
+<p>Zapisz drugi plik przez File → Save As. W nim zachowaj HIGH i uproszczony LOW_Grot. W Outlinerze wybierz wyłącznie LOW_Rekojesc i usuń ją przez X. Zbudujemy nową rękojeść: korpus, zwężenie przy grocie i krótką szyjkę, bez podziałów potrzebnych wcześniej do rowków.</p>
+<p>W Object Mode dodaj <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>A</kbd></span> → Mesh → Cylinder i od razu otwórz <kbd>F9</kbd>. Ustaw Vertices 8, Radius 14 mm, Depth 80 mm oraz Location Z 40 mm, X i Y pozostaw 0.</p>
+<p>Cylinder powstaje wokół swojego środka, dlatego podnosimy środek o połowę wysokości: dół ma trafić na Z=0, a góra na 80 mm. Osiem boków odtwarza szerokie pola chwytu; gęsty walec nie jest tu potrzebny. Nazwij obiekt LOW_Rekojesc i przenieś go przez <kbd>M</kbd> → LOW do kolekcji kopii.</p>
+<p>Wybierz Object → Snap → Cursor to World Origin, a potem Object → Set Origin → Origin to 3D Cursor. Punkt odniesienia nowego chwytu znajdzie się przy podstawie, tak jak w HIGH; sama bryła nie zmieni położenia.</p>
+<p>Wejdź w Edit Mode, zaznacz całość i wykonaj <kbd>R</kbd>, <kbd>Z</kbd>, <code>22.5</code>, <kbd>Enter</kbd>. Obracamy siatkę wokół jej środka, żeby płaskie pola ustawiły się tak jak w HIGH. Przełącz wybór na ściany klawiszem <kbd>3</kbd>, odznacz wszystko, a przez <kbd>Numpad 7</kbd> spójrz z góry i wybierz górną pokrywę. Zaznaczona ma być tylko ta jedna ściana. Teraz:</p>
+<ol>
+<li><kbd>E</kbd>, <kbd>Z</kbd>, <code>10mm</code>, <kbd>Enter</kbd> wyciąga kolejny przekrój do wysokości 90 mm.</li>
+<li><kbd>S</kbd>, <code>0.65</code>, <kbd>Enter</kbd> zwęża ten przekrój, tworząc bark przechodzący w szyjkę. Zwężenie dotyczy nowej pokrywy, a nie całego korpusu.</li>
+<li><kbd>E</kbd>, <kbd>Z</kbd>, <code>6mm</code>, <kbd>Enter</kbd> przedłuża węższy przekrój, tworząc szyjkę do wysokości 96 mm.</li>
+</ol>
+<p>Obróć widok i porównaj obrys z HIGH, włączając na chwilę jego widoczność w Outlinerze. Szerokość korpusu, bark i koniec szyjki powinny się pokrywać. Brakujące zagłębienia są celowym uproszczeniem; przesunięty bark lub inna szerokość chwytu byłyby błędem kształtu. Po kontroli ukryj HIGH.</p>
+<p>Wróć do Object Mode. W zakładce z kluczem dodaj Bevel, ustaw Amount 1.5 mm, Segments 1, Limit Method: Angle i Angle 20°. Tym razem nie używamy wag: Angle wybiera krawędzie według kąta między ścianami. Dzięki temu faza powstaje na narożnikach nowej bryły, mimo że nie przypisaliśmy im wag.</p>
+<p>Faza ma zbliżyć obrys narożników LOW do zaokrąglonego HIGH. Oceń efekt na modelu; sama zgodność wpisanej szerokości nie gwarantuje zgodności obrysu.</p>
+<p>Wybierz Object → Shade Smooth. Wygładzanie zmienia cieniowanie, a nie liczbę boków cylindra. Zastosuj Bevel, dodaj i zastosuj Triangulate tak samo jak w poprzednim wariancie. Za chwilę wskażemy też granice, które mają pozostać ostre.</p>
+<p>Na szerokich polach chwytu nie ma już zagłębień. Ich wygląd przeniesiemy z HIGH na tę płaską powierzchnię, zachowując geometrię potrzebną do obrysu narzędzia.</p>
+<p><img src="/courses/blender/Images/wkretak-lod1-siatka.png" alt="Gładka siatka wariantu prostszego; zagłębień nie ma w jej geometrii"></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Ustal normalne, zanim zaczniesz wypalać</h2>
+<p>Zaznacz rękojeść LOW. Wejdź klawiszem <kbd>Tab</kbd> w Edit Mode, włącz wybór krawędzi klawiszem <kbd>2</kbd> i odznacz wszystko przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span>. Z kursorem nad widokiem 3D naciśnij <kbd>F3</kbd>, wyszukaj Select Sharp Edges i zatwierdź. Od razu naciśnij <kbd>F9</kbd>, aby otworzyć ustawienia tej operacji, i wpisz próg około 50°.</p>
+<p>Blender zaznaczy krawędzie, przy których ściany spotykają się pod dostatecznie dużym kątem. Oznacz je <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>E</kbd></span> → Mark Sharp. Po odznaczeniu zobaczysz oznaczenia ostrych krawędzi. Mark Sharp określa granicę wygładzania; nie rozcina siatki. Na grocie użyj około 35°, aby zachować płaskie pola ośmiokątnego trzpienia.</p>
+<p>Sprawdź wynik: wybór kątem jest narzędziem selekcji, nie automatycznym projektem wszystkich twardych przejść.</p>
+<p>Wróć do Object Mode. W zakładce z kluczem użyj Add Modifier, wyszukaj Weighted Normal, zaznacz w nim Keep Sharp, a potem wybierz Apply z menu nagłówka. Zrób to na obu częściach LOW, już po ich triangulacji.</p>
+<p>Weighted Normal koryguje kierunki używane do cieniowania: szerokie pola powinny odbijać światło jak płaskie powierzchnie, zamiast wyglądać na napompowane. Keep Sharp zachowuje oznaczone przed chwilą ostre granice. Ostre przejścia nie powinny uśredniać normalnych płaskiego dna i bocznej ścianki. Duże fazy pozostają wygładzane. Nie zastępuj tego Shade Flat na całym przedmiocie.</p>
+<p>Od tej chwili nie zmieniaj normalnych przypadkowo. Mapa zostanie zapisana względem tej konkretnej bazy. Wygładzenie całej siatki po bake może zepsuć efekt, mimo że sam obraz normal mapy się nie zmieni.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✂️ Wspólny atlas nie oznacza nakładających się części</h2>
+<p>Obie części mają otrzymać jeden materiał i jeden atlas, ale na czas wypalania pozostaną osobnymi obiektami. Dla każdej części LOW otwórz Object Data Properties (zielony trójkąt) i rozwiń UV Maps. Jeżeli na liście jest UV_Szlif, zaznacz ten wpis i kliknij minus obok listy.</p>
+<p>Usuwasz mapę z kopii LOW, nie z HIGH. Kliknij plus, aby utworzyć mapę docelową, i dwuklikiem nazwij ją UV_Asset. Kliknij jej wiersz, a następnie ikonę aparatu przy nim: ta mapa ma być wybrana do edycji i używana domyślnie przez materiał.</p>
+<p>Jeśli obiekt ma już inne, niepotrzebne mapy, usuń je z LOW, pozostawiając jedną UV_Asset. Dzięki temu obrazy materiału docelowego nie pobiorą przypadkowo źródłowego układu szlifu.</p>
+<p>Na każdej ostrej krawędzi low poly rozdziel także UV. Obie strony potrzebują własnych kierunków normal mapy i marginesu. Szew UV nie musi jednak tworzyć ostrej normalnej: można przeciąć łagodną powierzchnię, zachowując płynne cieniowanie.</p>
+<p>Na każdej części wejdź w Edit Mode i wybór krawędzi. Odznacz wszystko, użyj <kbd>F3</kbd> → Select Sharp Edges, a w <kbd>F9</kbd> ustaw około 35°. Z zaznaczonymi krawędziami wybierz <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>E</kbd></span> → Mark Seam. Po odznaczeniu zobaczysz czerwone linie: to miejsca cięcia UV, nie fizyczne szczeliny modelu.</p>
+<p>Na rękojeści część dodatkowych cięć rozdzieli powierzchnie, które dla cieniowania pozostawiliśmy gładkie. Dodaj podłużne cięcie z tyłu: wybierz pierwszą krawędź przy dolnej granicy korpusu, z <kbd>Ctrl</kbd> wybierz końcową przy górnej, a wybranej ścieżce nadaj <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>E</kbd></span> → Mark Seam.</p>
+<p>Przy <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>LPM</kbd></span> wybierającym najkrótszą ścieżkę sprawdzaj przebieg, żeby zaznaczenie nie skręciło do rowka.</p>
+<p>Na grocie rozdziel pętlę przy początku spłaszczenia, około Z=190 mm. W Edit Mode zaznacz z <kbd>Shift</kbd> krawędzie tej poprzecznej granicy i wybierz <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>E</kbd></span> → Mark Seam. Następnie zaznacz osiem podłużnych ścieżek pomiędzy polami trzpienia, kontynuując każdą przez odpowiadające jej krawędzie końcówki. Im również nadaj Mark Seam.</p>
+<p>Krótki fragment ostrza nie może być osobno rozciągnięty na cały atlas tak samo jak długi trzpień.</p>
+<p>Wróć do Object Mode, zaznacz obie części LOW i tymczasowo połącz je <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>J</kbd></span>. Nie spawaj wierzchołków: rękojeść i grot pozostają rozłącznymi fragmentami tej samej siatki. W Edit Mode zaznacz całość i użyj <kbd>U</kbd> → Unwrap, metodą Angle Based.</p>
+<p>Przenieś kursor nad UV Editor, naciśnij <kbd>A</kbd>, aby zaznaczyć wszystkie wyspy, i wybierz UV → Average Islands Scale. Rękojeść i grot mają teraz dostać podobną ilość pikseli na podobny rozmiar powierzchni. Następnie wybierz UV → Pack Islands.</p>
+<p>W ustawieniach pakowania włącz Rotate, ustaw Margin Method: Fraction i Margin 0.008 dla mastera 2048. Pack Islands układa wyspy w kwadracie tekstury i zostawia między nimi odstępy; nie poprawia kształtu rozciągniętej wyspy.</p>
+<p>Praca na jednej siatce pozwala porównać powierzchnie rękojeści i grotu w tej samej operacji wyrównywania skali. Samo osobne rozłożenie każdej części może dać inne rozmiary kratek, mimo poprawnych proporcji w obrębie poszczególnych wysp.</p>
+<p>Po pakowaniu przenieś kursor nad widok 3D, nadal w Edit Mode zaznacz całość klawiszem <kbd>A</kbd> i użyj <kbd>P</kbd> → By Loose Parts. Wróć przez <kbd>Tab</kbd> do Object Mode i nazwij części ponownie LOW_Rekojesc oraz LOW_Grot. UV pozostaje wspólne i na swoich miejscach.</p>
+<p>Rozdzielamy części wyłącznie po to, żeby wypalać je parami.</p>
+<p>Do kontroli utwórz nowy materiał LOW_Checker. W Image Texture wybierz New, rozmiar 1024 i Generated Type: Color Grid. Połącz Color z Base Color i przypisz ten sam materiał obu częściom LOW. Materiały HIGH zachowują swoje dotychczasowe węzły.</p>
+<p><img src="/courses/blender/Images/wkretak-lod0-uv.png" alt="Checker i wspólny atlas wariantu z rowkami"></p>
+<p><img src="/courses/blender/Images/wkretak-lod1-uv.png" alt="Checker i osobny atlas porównawczego wariantu bez rowków"></p>
+<p>Sprawdź checker na polach chwytu, ściankach i ostrzu. Average Islands Scale wyrównuje skalę wysp względem powierzchni, ale nie usuwa rozciągnięcia wewnątrz źle rozłożonej wyspy. Jeśli kratki są ściśnięte tylko na początku ostrza, wróć do jego cięć i Unwrap. Samo zwiększenie obrazu nie przywróci prawidłowych proporcji.</p>
+<p>Nie pakuj obu części niezależnie na całe 0‑1. Nadpisałyby sobie piksele przy bake. Źródłowy UV_Szlif materiału stali i docelowy UV_Asset mają różne zadania; kierunek szlifu przeniesiemy z materiału HIGH, nie będziemy ustawiać go obrotem całego atlasu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔭 LOD wybiera szczegół według wielkości na ekranie</h2>
+<p>LOD, Level of Detail, to wersja modelu o określonym poziomie szczegółowości. W zestawie porównawczym LOD0 zachowuje rowki, LOD1 ma gładki chwyt i ich wypalony relief. High poly jest źródłem produkcyjnym, a nie kolejnym LOD ładowanym do gry.</p>
+<p><img src="/courses/blender/Images/wkretak-lod-odleglosc.png" alt="Oba warianty po wypalaniu: z bliska oraz przy małej wielkości na ekranie"></p>
+<p>Porównaj te same narożniki i zakończenia rowków. Z bliska sprawdzaj obrys, zasłanianie powierzchni i zachowanie refleksu. Po oddaleniu sprawdź, które różnice rzeczywiście zostały. Dla narzędzia leżącego w tle sam wariant 280 trójkątów może wystarczyć, bez utrzymywania dokładniejszego poziomu. Do inspekcji przedmiotu przy kamerze warto zachować wariant dokładniejszy.</p>
+<p>Nie ustalamy jednej odległości przełączenia w metrach dla każdej gry. Znaczenie mają rozmiar na ekranie, pole widzenia, rozdzielczość i sposób oglądania. Przełączenie powinno nastąpić, zanim zmiana geometrii zacznie rzucać się w oczy. Silnik może stopniowo mieszać widoczność dwóch poziomów, aby złagodzić przełączenie. Nie zastąpi to zgodności obrysu; konfigurację takiego przejścia wykonuje się w silniku.</p>
+<p>W tym porównaniu każdy LOD ma własny bake i atlas, aby poprawnie pokazać skutki zmiany topologii i bazy normalnych. To ma koszt tekstur. W produkcji często projektuje się LOD pod współdzielone UV i materiały. Nie można obiecać, że samo usunięcie ścian zachowa poprawność starej tangent normal mapy. Przy tak małym narzędziu oszczędność 192 trójkątów należy zestawić także z kosztem kolejnego materiału, map i przełączenia.</p>
+<p>Pobierz <a href="/courses/blender/Resources/wkretak-LOD0-uv.blend">wariant z rowkami i UV</a> albo <a href="/courses/blender/Resources/wkretak-LOD1-uv.blend">wariant bez rowków i UV</a>. W obu zachowano HIGH jako źródło. Teraz wypalimy mapy i ocenimy, ile wyglądu rzeczywiście przeszło na prostsze siatki.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<p>W LOW zachowuj geometrię potrzebną do obrysu i bliskich ujęć. Szczegół odbicia możesz przenieść do normal mapy. Przed bake ustal trójkąty, normalne i UV; oceniaj oszczędność geometrii razem z kosztem dodatkowych map.</p>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

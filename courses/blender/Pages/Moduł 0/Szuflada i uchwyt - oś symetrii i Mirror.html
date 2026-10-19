@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Szuflada i uchwyt - oś symetrii i Mirror - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Szuflada i uchwyt - oś symetrii i Mirror</h1>
+<p>Otwórz <code>stol_v02.blend</code> z poprzedniej lekcji lub <a href="/courses/blender/Resources/stol-04-polka.blend">stół z półką</a>. Przez <kbd class="win-menu-btn">File</kbd> → <kbd class="win-menu-btn">Save As</kbd> zapisz kopię jako <code>stol_v03.blend</code>.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Ustaw korpus szuflady</h2>
+<p>W Object Mode dodaj kostkę przez <kbd class="win-menu-btn">Add</kbd> → <kbd class="win-menu-btn">Mesh</kbd> → <kbd class="win-menu-btn">Cube</kbd>. Nazwij ją <code>Korpus_szuflady</code>.</p>
+<p>W panelu Item ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.8 m</code></td>
+<td><code>0.6 m</code></td>
+<td><code>0.16 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0 m</code></td>
+<td><code>-0.1 m</code></td>
+<td><code>0.7 m</code></td>
+</tr>
+</tbody></table>
+<p>Zastosuj <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>.</p>
+<p>Bryła powinna znaleźć się pod blatem, pośrodku między lewymi i prawymi nogami. Ma 16 cm wysokości. Jej góra wypada na 78 cm, więc do spodu blatu zostają 4 cm.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕳️ Wydrąż wnętrze</h2>
+<p>Z zaznaczonym korpusem włącz Local View przez <kbd>Numpad /</kbd>. Wejdź w Edit Mode przez <kbd>Tab</kbd> i przełącz wybór na ściany klawiszem <kbd>3</kbd> nad literami.</p>
+<p>Odznacz wszystko przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span>. Ustaw widok z góry, <kbd>Numpad 7</kbd>, i wybierz górną ścianę. Użyj poznanej przy półce pary operacji:</p>
+<ol>
+<li><span class="color-green">Inset Faces</span>: <kbd>I</kbd>, <code>0.015</code>, <kbd>Enter</kbd>. Powstaje obwódka o szerokości 1.5 cm.</li>
+<li><span class="color-green">Extrude Faces</span>: <kbd>E</kbd>, <code>-0.14</code>, <kbd>Enter</kbd>. Zaznaczony środek opada o 14 cm, tworząc wnętrze szuflady.</li>
+</ol>
+<p><img src="/courses/blender/Images/szuflada-korpus.png" alt="Wydrążony korpus szuflady w Local View"></p>
+<p>Obróć widok i zajrzyj do środka. Obwódka Inset wyznacza grubość bocznych ścianek. Między dnem wnętrza a spodem korpusu zostały 2 cm materiału: bryła miała 16 cm wysokości, a wnętrze zagłębiliśmy na 14 cm.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪵 Dodaj front</h2>
+<p>Wróć do Object Mode i wyłącz Local View. Dodaj kolejną kostkę, nazwij ją <code>Front_szuflady</code> i ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.84 m</code></td>
+<td><code>0.04 m</code></td>
+<td><code>0.18 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0 m</code></td>
+<td><code>-0.42 m</code></td>
+<td><code>0.7 m</code></td>
+</tr>
+</tbody></table>
+<p>Zastosuj <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>.</p>
+<p>Front jest szerszy od korpusu o 2 cm z każdej strony. U góry i u dołu wystaje po 1 cm. W widoku z prawej strony, <kbd>Numpad 3</kbd>, sprawdź styk: tylna powierzchnia frontu ma dochodzić do przedniej ściany korpusu.</p>
+<p><img src="/courses/blender/Images/szuflada-front.png" alt="Front szuflady pod blatem, przed korpusem"></p>
+<p><a href="/courses/blender/Resources/stol-05-szuflada.blend">Punkt kontrolny z korpusem i frontem</a> pozwala wrócić do tego etapu.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔩 Ustaw prawe mocowanie uchwytu</h2>
+<p>Dodaj kostkę i nazwij ją <code>Mocowania_uchwytu</code>. Na razie będzie tylko jedna, po prawej stronie frontu.</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.025 m</code></td>
+<td><code>0.07 m</code></td>
+<td><code>0.04 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0.12 m</code></td>
+<td><code>-0.475 m</code></td>
+<td><code>0.7 m</code></td>
+</tr>
+</tbody></table>
+<p>Zastosuj Scale. Mocowanie ma przylegać do frontu i wystawać przed niego. Na nim oprze się poprzeczka uchwytu.</p>
+<p>Żeby przybliżyć tę część, zaznacz mocowanie i dodaj front do zaznaczenia z przytrzymanym <kbd>Shift</kbd>. Włącz Local View przez <kbd>Numpad /</kbd>. W widoku zostaną oba obiekty.</p>
+<p><img src="/courses/blender/Images/szuflada-mocowanie.png" alt="Pojedyncze mocowanie przed dodaniem odbicia"></p>
+<p>Po przybliżeniu kliknij samo mocowanie. <span class="color-gold">Modyfikator dodamy do mocowania</span>, front szuflady posłuży tylko do ustawienia symetrii.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪞 Dodaj Mirror</h2>
+<p>Po prawej, w Properties, otwórz zakładkę z kluczem. Kliknij <kbd class="win-menu-btn">Add Modifier</kbd>, wyszukaj <code>Mirror</code> i dodaj go do zaznaczonego mocowania.</p>
+<p><span class="color-green">Modyfikator</span> to operacja wykonywana na siatce obiektu. Jej ustawienia pozostają dostępne w panelu. Mirror oblicza odbicie siatki, dlatego możemy modelować jedno mocowanie i otrzymywać drugie o takim samym kształcie.</p>
+<p>W <span class="color-blue">Axis</span> pozostaw włączone tylko <span class="color-blue">X</span> (1 na zrzucie poniżej). Uchwyt ma być symetryczny lewo‑prawo. Wysokość obu mocowań oraz ich odległość od frontu szuflady mają pozostać takie same.</p>
+<h3>📍 Dlaczego nie widać drugiego mocowania</h3>
+<p>Domyślnie Mirror korzysta z punktu odniesienia własnego obiektu, czyli <span class="color-green">origin</span>. W Object Mode widać go jako małą pomarańczową kropkę. W naszej kostce leży pośrodku mocowania.</p>
+<p>Odbicie kostki względem jej środka pokrywa się z nią samą. Dlatego po dodaniu Mirror możesz nadal widzieć tylko jedno mocowanie. Potrzebujemy odbicia względem środka całego frontu.</p>
+<h3>🎯 Wskaż środek symetrii</h3>
+<p>W modyfikatorze znajdź <span class="color-blue">Mirror Object</span> (2). Kliknij pipetę obok tego pola, a potem wskaż <code>Front_szuflady</code> w Outlinerze. W polu powinna pojawić się jego nazwa.</p>
+<p><img src="/courses/blender/Images/szuflada-mirror.png" alt="Mirror: 1 włączona oś X, 2 front jako obiekt wyznaczający płaszczyznę odbicia"></p>
+<p>Mirror używa teraz położenia i obrotu frontu do wyznaczenia odbicia. Front nie jest obrócony, a jego środek ma X = 0. Pionowa płaszczyzna symetrii przechodzi więc przez środek szuflady.</p>
+<p>Źródłowe mocowanie stoi 12 cm na prawo od środka. Odbicie pojawia się 12 cm na lewo. Oba powinny przylegać do frontu na tej samej wysokości.</p>
+<p>Jeśli mocowania nie stoją po przeciwnych stronach frontu, sprawdź włączone osie. Jeśli <span class="color-red">odbicie pokrywa się ze źródłem</span>, sprawdź, czy Mirror Object wskazuje front szuflady, a nie samo mocowanie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>↔️ Zmień jedno mocowanie i sprawdź odbicie</h2>
+<p>Spójrz do Outlinera. Nadal jest tam jeden obiekt <code>Mocowania_uchwytu</code>. Lewa część jest wynikiem działania Mirror, a nie niezależną kopią utworzoną przez Shift+D.</p>
+<p>Z zaznaczonym mocowaniem wejdź w Edit Mode i zaznacz całą siatkę przez <kbd>A</kbd>. Uruchom <span class="color-green">Move</span> klawiszem <kbd>G</kbd>. Znajdziesz je też w menu <kbd class="win-menu-btn">Mesh</kbd> → <kbd class="win-menu-btn">Transform</kbd> → <kbd class="win-menu-btn">Move</kbd>.</p>
+<p>Naciśnij <kbd>X</kbd>, wpisz <code>0.02</code> i zatwierdź <kbd>Enter</kbd>. Przesuwasz zaznaczoną siatkę mocowania o 2 cm w osi X.</p>
+<p>Prawe mocowanie odsunie się o 2 cm od środka, a lewe odbicie odsunie się o 2 cm w przeciwną stronę. Odstęp między nimi wzrośnie łącznie o 4 cm.</p>
+<p>Cofnij ten ruch przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span> i wróć do Object Mode przez <kbd>Tab</kbd>. Mocowania mają ponownie stać po 12 cm od środka.</p>
+<p><span class="color-gold">Edytujesz źródło, Mirror aktualizuje odbicie</span>. Dotyczy to także zmiany kształtu. Przy dwóch niezależnych kopiach poprawkę trzeba byłoby wykonać na obu. Pozostaw Mirror w panelu, żeby zachować wspólną edycję.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Połącz mocowania poprzeczką</h2>
+<p>Wyłącz Local View. Dodaj kostkę <code>Poprzeczka_uchwytu</code> i ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.26 m</code></td>
+<td><code>0.025 m</code></td>
+<td><code>0.025 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0 m</code></td>
+<td><code>-0.5 m</code></td>
+<td><code>0.7 m</code></td>
+</tr>
+</tbody></table>
+<p>Zastosuj Scale. Poprzeczka ma zachodzić końcami na oba mocowania. Pomiędzy nią a frontem zostaje miejsce na palce.</p>
+<p>Zaznacz poprzeczkę, mocowania i front, dodając obiekty z przytrzymanym <kbd>Shift</kbd>. Włącz Local View, aby obejrzeć połączenia z boku i od góry.</p>
+<p><img src="/courses/blender/Images/szuflada-uchwyt.png" alt="Uchwyt z poprzeczką i dwoma symetrycznymi mocowaniami"></p>
+<p>Wyłącz Local View i zapisz projekt przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>.</p>
+<p><img src="/courses/blender/Images/szuflada-wynik.png" alt="Ten sam stół po dodaniu szuflady i uchwytu"></p>
+<p>Korpus, front i uchwyt nadal są osobnymi obiektami. Szuflada nie ma jeszcze podparcia. W następnej lekcji dołożysz prowadnice i połączysz ruch jej części.</p>
+<p><a href="/courses/blender/Resources/stol-06-uchwyt.blend">Plik wynikowy z aktywnym Mirror</a> pozwala porównać ustawienia odbicia i dopasowanie uchwytu.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<p>Mirror tworzy odbicie siatki i aktualizuje je przy edycji źródła. Axis określa kierunek symetrii, a Mirror Object pozwala wyznaczyć jej położenie i orientację innym obiektem. Odbicie wokół środka własnej, symetrycznej kostki może pokrywać się ze źródłem.</p>
+<p>Nowe działanie to przesuwanie siatki w Edit Mode:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót lub sekwencja</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><kbd>G</kbd>, następnie <kbd>X</kbd>, <kbd>Y</kbd> lub <kbd>Z</kbd></td>
+<td>Rozpoczyna przesuwanie i ogranicza je do wskazanej osi. Potem wpisujesz odległość i zatwierdzasz <kbd>Enter</kbd>. <br> - <kbd>Shift</kbd> + klawisz danej osi wyklucza ją z działania np.: <kbd>Shift</kbd> + <kbd>Z</kbd>  pozwala przesunąć zaznaczenie w osiach <span class="color-red">X</span> i <span class="color-green">Y</span> bez zmiany wysokości <span class="color-blue">Z</span>.</td>
+</tr>
+</tbody></table>
+<p>Skróty wykorzystane ponownie:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><kbd>N</kbd></td>
+<td>Otwiera panel boczny widoku 3D z zakładką Item.</td>
+</tr>
+<tr>
+<td><kbd>F2</kbd></td>
+<td>Zmienia nazwę zaznaczonego obiektu.</td>
+</tr>
+<tr>
+<td><kbd>Tab</kbd></td>
+<td>Przełącza Object Mode i Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>3</kbd> nad literami</td>
+<td>W Edit Mode włącza wybór ścian.</td>
+</tr>
+<tr>
+<td><kbd>A</kbd> / <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span></td>
+<td>Zaznacza wszystko / odznacza wszystko.</td>
+</tr>
+<tr>
+<td><kbd>I</kbd> / <kbd>E</kbd></td>
+<td>Inset Faces / Extrude Faces na zaznaczonych ścianach.</td>
+</tr>
+<tr>
+<td><kbd>Numpad /</kbd></td>
+<td>Włącza lub wyłącza Local View.</td>
+</tr>
+<tr>
+<td><kbd>Numpad 3</kbd> / <kbd>Numpad 7</kbd></td>
+<td>Widok z prawej strony / z góry.</td>
+</tr>
+<tr>
+<td><kbd>Shift</kbd> + kliknięcie</td>
+<td>Dodaje obiekt do zaznaczenia w widoku 3D.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span></td>
+<td>Cofa zmianę, np. próbne rozsunięcie mocowań.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span></td>
+<td>Zapisuje projekt.</td>
+</tr>
+</tbody></table>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

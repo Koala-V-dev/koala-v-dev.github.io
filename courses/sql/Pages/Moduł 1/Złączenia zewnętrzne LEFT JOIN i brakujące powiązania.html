@@ -174,7 +174,7 @@ WHERE w.id IS NULL;
 </section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Wykrywanie nieaktywnych kont</h2>
 <p>Napisz kwerendę złączenia lewostronnego, która odnajdzie imiona i nazwiska czytelników (<code>czytelnicy.imie</code>, <code>czytelnicy.nazwisko</code>), którzy nie posiadają ani jednego zarejestrowanego wypożyczenia (<code>wypozyczenia.id IS NULL</code>).</p>
 <data-gate>
-<data-code-runner language="sql" title="Identyfikacja czytelników bez wypożyczeń" data-code="LS0gV3liaWVyeiBrb2x1bW55IGltaWUgb3JheiBuYXp3aXNrbyBjenl0ZWxuaWvDs3cgYmV6IHd5cG/FvHljemXFhAotLSBVxbx5aiBMRUZUIEpPSU4gb3JheiB3YXJ1bmt1IElTIE5VTEwKU0VMRUNU" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaYXB5dGFuaWUgendyYWNhIDIgbmllYWt0eXdueWNoIGN6eXRlbG5pa8OzdyB6IGtvbHVtbmFtaSBpbWllIG9yYXogbmF6d2lza28iLAogICAgICAgICJ0eXBlIjogInNxbC1leGVjdXRlIiwKICAgICAgICAic2NoZW1hIjogIkNSRUFURSBUQUJMRSBjenl0ZWxuaWN5IChpZCBJTlQgUFJJTUFSWSBLRVksIGltaWUgVEVYVCwgbmF6d2lza28gVEVYVCk7IENSRUFURSBUQUJMRSB3eXBvenljemVuaWEgKGlkIElOVCBQUklNQVJZIEtFWSwgaWRfY3p5dGVsbmlrYSBJTlQsIGRhdGEgVEVYVCk7IElOU0VSVCBJTlRPIGN6eXRlbG5pY3kgVkFMVUVTICgxLCAnQW5uYScsICdLb3dhbHNrYScpLCAoMiwgJ1Bpb3RyJywgJ05vd2FrJyksICgzLCAnRXdhJywgJ1dpxZtuaWV3c2thJyksICg0LCAnSmFuJywgJ1ppZWxpxYRza2knKTsgSU5TRVJUIElOVE8gd3lwb3p5Y3plbmlhIFZBTFVFUyAoMTAsIDEsICcyMDI2LTA1LTEwJyksICgxMSwgMywgJzIwMjYtMDUtMTInKTsiLAogICAgICAgICJleHBlY3RlZENvdW50IjogMiwKICAgICAgICAiZXhwZWN0ZWRDb2x1bW5zIjogWyJpbWllIiwgIm5hendpc2tvIl0KICAgICAgfSwKICAgICAgewogICAgICAgICJpZCI6ICJzeW50YXgtbGVmdC1qb2luIiwKICAgICAgICAidGV4dCI6ICJaYXN0b3Nvd2FubyBrbGF1enVsxJkgTEVGVCBKT0lOIHogZmlsdHJlbSBJUyBOVUxMIiwKICAgICAgICAidHlwZSI6ICJjb250YWlucyIsCiAgICAgICAgInBhdHRlcm4iOiAiTEVGVCBKT0lOIgogICAgICB9CiAgICBd"></data-code-runner>
+<data-code-runner language="sql" title="Identyfikacja czytelników bez wypożyczeń" data-code="LS0gV3liaWVyeiBrb2x1bW55IGltaWUgb3JheiBuYXp3aXNrbyBjenl0ZWxuaWvDs3cgYmV6IHd5cG/FvHljemXFhAotLSBVxbx5aiBMRUZUIEpPSU4gb3JheiB3YXJ1bmt1IElTIE5VTEwKU0VMRUNU" data-requirements="WwogICAgICB7CiAgICAgICAgImlkIjogInNxbC1leGVjIiwKICAgICAgICAidGV4dCI6ICJaZXN0YXdpZW5pZSB3eW9kcsSZYm5pYSB3ecWCxIVjem5pZSBjenl0ZWxuaWvDs3cgbmllcG9zaWFkYWrEhWN5Y2ggxbxhZG55Y2ggd3lwb8W8eWN6ZcWEIHcgaGlzdG9yaWkiLAogICAgICAgICJ0eXBlIjogInNxbC1leGVjdXRlIiwKICAgICAgICAic2NoZW1hIjogIkNSRUFURSBUQUJMRSBjenl0ZWxuaWN5IChpZCBJTlQgUFJJTUFSWSBLRVksIGltaWUgVEVYVCwgbmF6d2lza28gVEVYVCk7IENSRUFURSBUQUJMRSB3eXBvenljemVuaWEgKGlkIElOVCBQUklNQVJZIEtFWSwgaWRfY3p5dGVsbmlrYSBJTlQsIGRhdGEgVEVYVCk7IElOU0VSVCBJTlRPIGN6eXRlbG5pY3kgVkFMVUVTICgxLCAnQW5uYScsICdLb3dhbHNrYScpLCAoMiwgJ1Bpb3RyJywgJ05vd2FrJyksICgzLCAnRXdhJywgJ1dpxZtuaWV3c2thJyksICg0LCAnSmFuJywgJ1ppZWxpxYRza2knKSwgKDUsICdNYXJlaycsICdXw7NqY2lrJyk7IElOU0VSVCBJTlRPIHd5cG96eWN6ZW5pYSBWQUxVRVMgKDEwLCAxLCAnMjAyNi0wNS0xMCcpLCAoMTEsIDMsICcyMDI2LTA1LTEyJyksICgxMiwgMSwgJzIwMjYtMDUtMTUnKSwgKDEzLCA1LCAnMjAyNi0wNS0yMCcpOyIsCiAgICAgICAgImV4cGVjdGVkQ291bnQiOiAyLAogICAgICAgICJleHBlY3RlZENvbHVtbnMiOiBbImltaWUiLCAibmF6d2lza28iXSwKICAgICAgICAiZXhwZWN0ZWRSb3dzIjogWwogICAgICAgICAgeyAiaW1pZSI6ICJQaW90ciIsICJuYXp3aXNrbyI6ICJOb3dhayIgfSwKICAgICAgICAgIHsgImltaWUiOiAiSmFuIiwgIm5hendpc2tvIjogIlppZWxpxYRza2kiIH0KICAgICAgICBdCiAgICAgIH0KICAgIF0="></data-code-runner>
 </data-gate>
 
 <hr>
@@ -225,7 +225,9 @@ WHERE wypozyczenia.id IS NULL;
 
     <footer>
       <p>
-        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">⬆</button>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
         <span class="important-font">©</span> 2026 Koala-V
       </p>
       <p>kamil.zbrzezniak@teb.edu.pl</p>

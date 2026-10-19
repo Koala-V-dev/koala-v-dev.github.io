@@ -127,17 +127,16 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 1 wolny pokój spełniający kryteria cenowe",
+        "text": "Zwrócono wyłącznie wolne pokoje w cenie do 300 zł za dobę, uszeregowane w kolejności rosnącej ceny",
         "type": "sql-execute",
-        "schema": "CREATE TABLE pokoje (id INT PRIMARY KEY, numer INT, standard TEXT, cena_za_dobe REAL, dostepny INT); INSERT INTO pokoje VALUES (1, 101, 'Standard', 180.00, 1), (2, 102, 'Standard', 180.00, 0), (3, 201, 'Apartament', 350.00, 1), (4, 202, 'Deluxe', 420.00, 1);",
-        "expectedCount": 1,
-        "expectedColumns": ["numer", "standard", "cena_za_dobe"]
-      },
-      {
-        "id": "syntax-where",
-        "text": "Zastosowano klauzulę WHERE z filtrem dostępności i ceny",
-        "type": "contains",
-        "pattern": "WHERE"
+        "schema": "CREATE TABLE pokoje (id INT PRIMARY KEY, numer INT, standard TEXT, cena_za_dobe REAL, dostepny INT); INSERT INTO pokoje VALUES (1, 101, 'Standard', 180.00, 1), (2, 102, 'Standard', 180.00, 0), (3, 201, 'Apartament', 350.00, 1), (4, 202, 'Deluxe', 420.00, 1), (5, 103, 'Studio', 240.00, 1), (6, 104, 'Ekonomiczny', 160.00, 0), (7, 105, 'Standard Plus', 315.00, 1);",
+        "expectedCount": 2,
+        "expectedColumns": ["numer", "standard", "cena_za_dobe"],
+        "exactOrder": true,
+        "expectedRows": [
+          { "numer": 101, "cena_za_dobe": 180.00 },
+          { "numer": 103, "cena_za_dobe": 240.00 }
+        ]
       }
     ]
   </template>

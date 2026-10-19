@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Deski, prowadnice i wspólny ruch szuflady - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Deski, prowadnice i wspólny ruch szuflady</h1>
+<p>Otwórz <code>stol_v03.blend</code> lub <a href="/courses/blender/Resources/stol-06-uchwyt.blend">stół z szufladą i uchwytem</a>. Przez <kbd class="win-menu-btn">File</kbd> → <kbd class="win-menu-btn">Save As</kbd> zapisz kopię jako <code>stol_v04.blend</code>.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🪵 Zastąp płytę blatu deskami</h2>
+<p>W Object Mode wybierz w Outlinerze sam <code>Blat</code>. Usuń go przez <kbd>X</kbd> i potwierdź Delete. Nogi, półka i szuflada pozostają na miejscu.</p>
+<p>Dodaj kostkę przez <kbd class="win-menu-btn">Add</kbd> → <kbd class="win-menu-btn">Mesh</kbd> → <kbd class="win-menu-btn">Cube</kbd>. Nazwij ją <code>Deska_blatu_01</code>. W panelu Item ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>2 m</code></td>
+<td><code>0.196 m</code></td>
+<td><code>0.08 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0 m</code></td>
+<td><code>-0.402 m</code></td>
+<td><code>0.86 m</code></td>
+</tr>
+</tbody></table>
+<p>Deska biegnie przez całą szerokość stołu. Ma tę samą grubość i wysokość co usunięty blat. Zastosuj <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>.</p>
+<p>Zetnij jej krawędzie tak jak w pierwszej lekcji: <kbd>Tab</kbd>, wybór krawędzi <kbd>2</kbd>, zaznaczenie całości <kbd>A</kbd>. Uruchom Bevel przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>B</kbd></span>, wpisz <code>0.005</code> i zatwierdź <kbd>Enter</kbd>. Przez <kbd>F9</kbd> ustaw <span class="color-blue">Segments</span> na <code>2</code>. Wróć do Object Mode.</p>
+<h3>↔️ Powtórz deskę ze stałym odstępem</h3>
+<p>Powiel ją przez <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>, następnie <kbd>Y</kbd>, <code>0.201</code>, <kbd>Enter</kbd>.</p>
+<p>Deska ma 19.6 cm szerokości, a kopię przesunąłeś o 20.1 cm. Różnica daje <span class="color-green">5 mm szczeliny</span> między nimi.</p>
+<p>Od razu, z kursorem nadal w widoku 3D, naciśnij trzy razy <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>R</kbd></span>. To <span class="color-green">Repeat Last</span>, dostępne też w menu <kbd class="win-menu-btn">Edit</kbd> → <kbd class="win-menu-btn">Repeat Last</kbd>. Każde naciśnięcie ponawia utworzenie kopii i przesunięcie jej o ten sam odcinek.</p>
+<p>Nie zmieniaj nazw między powieleniem a Repeat Last. Blender powtarza ostatnią operację, więc inna czynność może zastąpić zapamiętane powielenie.</p>
+<p><img src="/courses/blender/Images/ruch-deski.png" alt="Pięć desek zamiast jednolitej płyty blatu"></p>
+<p>W widoku z góry powinieneś zobaczyć pięć desek z równymi szczelinami. Razem zajmują tyle miejsca co poprzedni blat. Pierwsza ma pozostać nazwana <span class="color-gold"><code>Deska_blatu_01</code></span>. Użyjemy jej jako odniesienia dla Mirror.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Zamocuj wsporniki pod blatem</h2>
+<p>Dodaj kostkę <code>Wsporniki_prowadnic</code> i ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.04 m</code></td>
+<td><code>0.60 m</code></td>
+<td><code>0.20 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0.435 m</code></td>
+<td><code>-0.09 m</code></td>
+<td><code>0.72 m</code></td>
+</tr>
+</tbody></table>
+<p>Zastosuj Scale. Powstała pionowa deska po prawej stronie szuflady. Górą dochodzi do spodu blatu. Między nią a korpusem zostaje 1.5 cm miejsca na prowadnicę i ruchomą listwę.</p>
+<p>W zakładce z kluczem dodaj Mirror. Pozostaw tylko <span class="color-blue">Axis X</span>, a w <span class="color-blue">Mirror Object</span> wskaż <span class="color-gold"><code>Deska_blatu_01</code></span>.</p>
+<p>Środek tej deski leży przy X = 0, więc odbicie wspornika powstaje po drugiej stronie szuflady. Jej przesunięcie wzdłuż Y nie przeszkadza: potrzebujemy pionowej płaszczyzny przechodzącej przez środek stołu w osi X.</p>
+<p>Zaznacz wsporniki, korpus i front. Włącz Local View przez <kbd>Numpad /</kbd> i obejrzyj odstępy po obu stronach szuflady.</p>
+<p><img src="/courses/blender/Images/ruch-wsporniki.png" alt="Wsporniki po obu stronach korpusu, z pozostawionym miejscem na prowadnice"></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛤️ Zbuduj nieruchome prowadnice</h2>
+<p>Wyłącz Local View. Prowadnica będzie miała przekrój litery L. Pionowy bok przylega do wspornika, a pozioma półka wchodzi pod dno szuflady.</p>
+<p>Dodaj dwie kostki i ustaw je według tabeli.</p>
+<table>
+<thead>
+<tr>
+<th>Obiekt</th>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green"><code>Boki_prowadnic</code></span></td>
+<td>Dimensions</td>
+<td><code>0.01 m</code></td>
+<td><code>0.58 m</code></td>
+<td><code>0.08 m</code></td>
+</tr>
+<tr>
+<td><span class="color-green"><code>Boki_prowadnic</code></span></td>
+<td>Location</td>
+<td><code>0.410 m</code></td>
+<td><code>-0.10 m</code></td>
+<td><code>0.65 m</code></td>
+</tr>
+<tr>
+<td><span class="color-red"><code>Polki_prowadnic</code></span></td>
+<td>Dimensions</td>
+<td><code>0.03 m</code></td>
+<td><code>0.58 m</code></td>
+<td><code>0.01 m</code></td>
+</tr>
+<tr>
+<td><span class="color-red"><code>Polki_prowadnic</code></span></td>
+<td>Location</td>
+<td><code>0.400 m</code></td>
+<td><code>-0.10 m</code></td>
+<td><code>0.615 m</code></td>
+</tr>
+</tbody></table>
+<p>Na każdej zastosuj Scale i dodaj Mirror: tylko <span class="color-blue">Axis X</span>, <span class="color-blue">Mirror Object</span> = <span class="color-gold"><code>Deska_blatu_01</code></span>. Po lewej stronie mają powstać odbicia obu części prowadnicy.</p>
+<p>Zaznacz wsporniki i prowadnice, po czym włącz Local View. Na zbliżeniu rozpoznaj trzy części:</p>
+<ol>
+<li>Wspornik podwieszony pod blatem.</li>
+<li>Pionowy bok prowadnicy.</li>
+<li>Poziomą półkę podtrzymującą szufladę.</li>
+</ol>
+<p><img src="/courses/blender/Images/ruch-prowadnice.png" alt="Nieruchome prowadnice z widocznym przekrojem L i podparciem"></p>
+<p>Górna powierzchnia poziomej półki znajduje się na wysokości 62 cm. To wysokość spodu korpusu szuflady. Dzięki temu korpus ma na czym się oprzeć. <span class="color-gold">Wsporniki i prowadnice pozostaną przy stole</span>, gdy szuflada się wysunie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>↔️ Dodaj listwy do boków szuflady</h2>
+<p>Między bokiem korpusu a wspornikiem zostawiliśmy 1.5 cm miejsca. Nieruchomy bok prowadnicy zajmuje 1 cm. W pozostałych 5 mm umieścimy <span class="color-green">listwę poruszającą się z szufladą</span>.</p>
+<p>Wyłącz Local View i dodaj kostkę <code>Listwy_szuflady</code>. W panelu Item ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.005 m</code></td>
+<td><code>0.58 m</code></td>
+<td><code>0.05 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0.4025 m</code></td>
+<td><code>-0.10 m</code></td>
+<td><code>0.65 m</code></td>
+</tr>
+</tbody></table>
+<p>Listwa ma <span class="color-green">5 mm grubości</span>, 58 cm długości i 5 cm wysokości. Biegnie wzdłuż dolnej części boku korpusu. Jej wewnętrzna powierzchnia styka się z korpusem, a zewnętrzna z pionowym bokiem prowadnicy.</p>
+<p>Zastosuj Scale i dodaj Mirror z osią X. W <span class="color-blue">Mirror Object</span> wskaż <code>Korpus_szuflady</code>, żeby druga listwa powstała po przeciwnej stronie korpusu.</p>
+<p>Zaznacz korpus, listwy, wsporniki i obie części prowadnic. Włącz Local View. Na zrzucie szerokie płyty wystające ponad korpus to nadal <span class="color-gold">nieruchome wsporniki</span>. Dodane listwy są cienkimi pasami przy bokach korpusu, poniżej jego górnej krawędzi.</p>
+<p><img src="/courses/blender/Images/ruch-listwy.png" alt="Szuflada w prowadnicach. Szerokie zewnętrzne płyty to wsporniki, a cienkie listwy przylegają do boków korpusu"></p>
+<h3>🔎 Sprawdź, co znajduje się pomiędzy częściami</h3>
+<p>Poniższy przekrój pokazuje prawą stronę tego samego modelu. Patrzymy od przodu, wzdłuż kierunku wysuwania. Numery 1, 2 i 3 oznaczają te same nieruchome części co na wcześniejszym zbliżeniu prowadnicy.</p>
+<p><img src="/courses/blender/Images/ruch-listwa-przekroj.svg" alt="Przekrój prawego boku: listwa 4 o grubości 5 mm mieści się między korpusem 5 a nieruchomym bokiem prowadnicy 2. Półka 3 podpiera dno, a wspornik 1 łączy prowadnicę ze stołem"></p>
+<p>Prześledź układ od wnętrza szuflady na zewnątrz: korpus <span class="color-green">5</span>, listwa <span class="color-green">4</span>, bok prowadnicy <span class="color-green">2</span>, wspornik <span class="color-green">1</span>. Poniżej znajduje się pozioma półka <span class="color-green">3</span>, na której opiera się dno korpusu.</p>
+<p>Korpus i listwa mają wysuwać się razem. Szare elementy pozostają przy stole. Wskazanie korpusu w Mirror Object ustawia tylko odniesienie odbicia. Żeby cały obiekt listew podążał za korpusem, dodamy go za chwilę do jego dzieci.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz ruch części przez parenting</h2>
+<p>Szuflada składa się z kilku obiektów. Gdy przesuniesz sam korpus, pozostałe części nie muszą za nim podążyć. <span class="color-green">Parenting</span> tworzy relację rodzic‑dziecko: dzieci przejmują ruch, obrót i skalowanie rodzica. Te zmiany położenia, obrotu i skali nazywamy transformacjami.</p>
+<p>Rodzicem będzie <code>Korpus_szuflady</code>. Jego dziećmi mają zostać front, mocowania uchwytu, poprzeczka uchwytu i listwy boczne. Prowadnice oraz wsporniki muszą pozostać poza tą grupą.</p>
+<h3>🎯 Wybierz dzieci, a rodzica na końcu</h3>
+<p>Wyłącz Local View. Z kursorem w widoku 3D odznacz wszystko przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span>.</p>
+<p>Teraz w Outlinerze kliknij <code>Front_szuflady</code>. Przytrzymując <kbd>Ctrl</kbd>, dodaj do zaznaczenia:</p>
+<ul>
+<li><code>Mocowania_uchwytu</code>.</li>
+<li><code>Poprzeczka_uchwytu</code>.</li>
+<li><code>Listwy_szuflady</code>.</li>
+</ul>
+<p>Na końcu, nadal z <kbd>Ctrl</kbd>, kliknij <code>Korpus_szuflady</code>. To on ma być <span class="color-green">obiektem aktywnym</span>, czyli wskazanym jako ostatni. W tej operacji kolejność decyduje, kto zostanie rodzicem.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>W widoku 3D dodawałeś obiekty do zaznaczenia z Shift. Tutaj wybierasz nazwy w Outlinerze i używasz Ctrl, aby dodawać pojedyncze pozycje.</p>
+
+</div>
+</div><h3>🔗 Utwórz zależność bez przesuwania części</h3>
+<p>Przenieś kursor myszki do widoku 3D. Naciśnij <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>P</kbd></span> i wybierz <kbd class="win-menu-btn">Object (Keep Transform)</kbd>. To samo polecenie znajdziesz w <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Parent</kbd>.</p>
+<p><span class="color-green">Keep Transform</span> zachowuje obecne położenie, obrót i skalę części przy tworzeniu zależności. Po zatwierdzeniu front i uchwyt mają pozostać na swoich miejscach.</p>
+<p><img src="/courses/blender/Images/ruch-parent.png" alt="Hierarchia szuflady: korpus jest rodzicem czterech obiektów"></p>
+<p>W Outlinerze rozwiń strzałkę przy <code>Korpus_szuflady</code>. Cztery obiekty powinny znajdować się pod nim, z wcięciem jak na zrzucie. Rozwijane wpisy siatek i modyfikatorów mogą być widoczne dodatkowo. Wsporniki i prowadnice nie mogą należeć do tej gałęzi.</p>
+<p>Siatki nadal pozostają osobne. Możesz edytować sam front albo poprzeczkę uchwytu. Przesunięcie dziecka nie przesuwa rodzica ani pozostałych dzieci.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧰 Wysuń szufladę</h2>
+<p>Odznacz wszystko i wybierz tylko <code>Korpus_szuflady</code>. Przenieś kursor nad widok 3D i wykonaj <kbd>G</kbd>, <kbd>Y</kbd>, <code>-0.25</code>, <kbd>Enter</kbd>.</p>
+<p>Korpus wysunie się o 25 cm w stronę użytkownika stołu. Front, uchwyt i listwy mają podążyć za nim. Wsporniki i prowadnice zostają na miejscu.</p>
+<p><img src="/courses/blender/Images/ruch-wynik.png" alt="Stół z częściowo wysuniętą szufladą. Zaznaczony jest tylko korpus, a front i uchwyt podążają za nim dzięki parentingowi."></p>
+<p>Obróć widok i zajrzyj pod blat. Po wysunięciu tył korpusu nadal opiera się na prowadnicach. W rzeczywistym stole takie podparcie utrzymuje szufladę. Zbyt duży wysuw pozbawiłby ją oparcia.</p>
+<p><span class="color-green">Odwzorowujemy rzeczywistość, ale nie symulujemy jeszcze fizyki.</span> Blender nadal pozwala przesunąć szufladę w dowolnej osi i przenikać nią przez inne obiekty. Parenting sprawia tylko, że jej części poruszają się razem. To wymodelowane podparcie, miejsce na ruch i dopasowanie części sprawiają, że konstrukcja wygląda wiarygodnie.</p>
+<p>Zapisz projekt przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>. Żeby zamknąć szufladę, przesuń sam korpus przez <kbd>G</kbd>, <kbd>Y</kbd>, <code>0.25</code>, <kbd>Enter</kbd>.</p>
+<p>Do porównania masz <a href="/courses/blender/Resources/stol-07-prowadnice.blend">punkt kontrolny z zamkniętą szufladą</a> i <a href="/courses/blender/Resources/stol-08-szuflada-otwarta.blend">wynik z wysuniętą szufladą</a>.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<p>Repeat Last ponawia ostatnią operację, np. powielenie z przesunięciem. Parenting wiąże transformacje osobnych obiektów. Przy jego ustawianiu najpierw wybierasz dzieci, a rodzica jako ostatni obiekt. Keep Transform zachowuje ich bieżące ustawienie.</p>
+<p>Nowe skróty:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>R</kbd></span></td>
+<td>Repeat Last: ponawia ostatnią operację.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>P</kbd></span></td>
+<td>Otwiera menu ustawienia rodzica w widoku 3D. W tej lekcji wybierasz Object (Keep Transform).</td>
+</tr>
+<tr>
+<td><kbd>Ctrl</kbd> + kliknięcie w Outlinerze</td>
+<td>Dodaje lub usuwa pojedynczą pozycję z zaznaczenia.</td>
+</tr>
+</tbody></table>
+<p>Skróty wykorzystane ponownie:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót lub sekwencja</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><kbd>X</kbd> w Object Mode</td>
+<td>Otwiera usunięcie zaznaczonego obiektu.</td>
+</tr>
+<tr>
+<td><kbd>N</kbd></td>
+<td>Otwiera panel boczny z zakładką Item.</td>
+</tr>
+<tr>
+<td><kbd>Tab</kbd></td>
+<td>Przełącza Object Mode i Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>2</kbd>, następnie <kbd>A</kbd> w Edit Mode</td>
+<td>Włącza wybór krawędzi i zaznacza całą siatkę.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>B</kbd></span></td>
+<td>Bevel zaznaczonych krawędzi w Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>F9</kbd></td>
+<td>Ustawienia ostatniej operacji.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>, następnie <kbd>Y</kbd></td>
+<td>Powiela zaznaczenie i ogranicza ruch kopii do osi Y.</td>
+</tr>
+<tr>
+<td><kbd>Numpad /</kbd> / <kbd>Numpad 7</kbd></td>
+<td>Local View / widok z góry.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span></td>
+<td>Odznacza wszystko.</td>
+</tr>
+<tr>
+<td><kbd>G</kbd>, następnie <kbd>Y</kbd></td>
+<td>Przesuwa zaznaczenie w osi Y. Potem wpisujesz odległość i zatwierdzasz <kbd>Enter</kbd>.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span> / <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span></td>
+<td>Cofnięcie operacji / zapis projektu.</td>
+</tr>
+</tbody></table>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

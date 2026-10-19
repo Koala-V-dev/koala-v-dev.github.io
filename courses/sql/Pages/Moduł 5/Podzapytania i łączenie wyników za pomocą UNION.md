@@ -115,17 +115,17 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 2 najdroższe towary z kolumnami nazwa oraz cena",
+        "text": "Zwrócono wyłącznie towary o cenie przewyższającej średnią magazynową, uszeregowane od najdroższego",
         "type": "sql-execute",
-        "schema": "CREATE TABLE towary (id INT PRIMARY KEY, nazwa TEXT, kategoria TEXT, cena REAL, stan INT); INSERT INTO towary VALUES (1, 'Wiertarka udarowa', 'Narzędzia', 340.00, 15), (2, 'Zestaw kluczy', 'Narzędzia', 180.00, 40), (3, 'Drabina aluminiowa', 'Budownictwo', 290.00, 8), (4, 'Pędzel płaski', 'Malarstwo', 12.00, 150);",
-        "expectedCount": 2,
-        "expectedColumns": ["nazwa", "cena"]
-      },
-      {
-        "id": "syntax-subquery",
-        "text": "Wykorzystano podzapytanie z funkcją AVG w klauzuli WHERE",
-        "type": "contains",
-        "pattern": "AVG"
+        "schema": "CREATE TABLE towary (id INT PRIMARY KEY, nazwa TEXT, kategoria TEXT, cena REAL, stan INT); INSERT INTO towary VALUES (1, 'Wiertarka udarowa', 'Narzędzia', 340.00, 15), (2, 'Zestaw kluczy', 'Narzędzia', 180.00, 40), (3, 'Drabina aluminiowa', 'Budownictwo', 290.00, 8), (4, 'Pędzel płaski', 'Malarstwo', 12.00, 150), (5, 'Młotowiertarka SDS', 'Elektronarzędzia', 520.00, 5), (6, 'Taśma malarska', 'Malarstwo', 8.50, 200), (7, 'Kielnia nierdzewna', 'Budownictwo', 35.00, 60);",
+        "expectedCount": 3,
+        "expectedColumns": ["nazwa", "cena"],
+        "exactOrder": true,
+        "expectedRows": [
+          { "nazwa": "Młotowiertarka SDS", "cena": 520.00 },
+          { "nazwa": "Wiertarka udarowa", "cena": 340.00 },
+          { "nazwa": "Drabina aluminiowa", "cena": 290.00 }
+        ]
       }
     ]
   </template>

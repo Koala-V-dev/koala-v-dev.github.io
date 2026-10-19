@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 2\Wkrętak - przekroje i Subdivision Surface - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Wkrętak - przekroje i Subdivision Surface</h1>
+<p>Zbudujemy płaski wkrętak z wielokątną rękojeścią i ośmioma podłużnymi zagłębieniami. Na chwycie zostaną szerokie pola, a między nimi zaokrąglone żebra. To ważne rozróżnienie: zaokrąglona krawędź nie oznacza, że cała powierzchnia ma być wypukła.</p>
+<p><img src="/courses/blender/Images/wkretak-forma.png" alt="Wkrętak z płaskimi polami chwytu, rowkami i osadzonym trzpieniem"></p>
+<p>W tej pracy porównasz dwa sposoby prowadzenia powierzchni: <span class="color-green">Subdivision</span>, który przelicza całą bryłę, i Bevel, który buduje fazy przy wybranych krawędziach. Wybór oprzemy na kształcie i odbiciach. Materiał dodamy do oceny powierzchni, zanim zajmiemy się teksturami.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧱 Najpierw przekrój i proporcje</h2>
+<p>Wybierz File → New → General i ustaw Scene → Units: Metric, Unit Scale <code>1</code>. Zaznacz domyślne obiekty, przenieś je przez <kbd>M</kbd> → New Collection do kolekcji <code>Wkretak</code>, a następnie usuń. Kursor 3D pozostaw w początku świata. W tej kolekcji dodamy części narzędzia.</p>
+<p>Rękojeść będzie miała około 10 cm długości i 28 mm szerokości, a cały przedmiot około 21 cm. Długi chwyt powinien mieścić dłoń; krótsza szyjka osadza stalowy trzpień. Rowki nie powinny dochodzić do samych końców chwytu: zostawimy tam pełne pasy tworzywa.</p>
+<p>Z kursorem nad widokiem 3D wybierz Add → Mesh → Cylinder. Od razu po dodaniu cylindra otwórz <kbd>F9</kbd> i ustaw Vertices 8, Radius 0.014 m, Depth 0.08 m, Location Z 0.04 m. Dolna pokrywa wypada na Z=0: wysokość cylindra wynosi 80 mm, więc jego środek ustawiamy 40 mm nad początkiem świata. Osiem boków odpowiada ośmiu polom chwytowym; nie wybieramy tej liczby jako uniwersalnej jakości cylindrów.</p>
+<p>Nazwij obiekt Rekojesc. Ustaw Object → Set Origin → Origin to 3D Cursor. W Edit Mode zaznacz wszystko i obróć siatkę <kbd>R</kbd>, <kbd>Z</kbd>, <code>22.5</code>. Dzięki obrotowi płaskie boki są ustawione symetrycznie względem osi. Origin pozostaje przy podstawie, więc wysokości w panelu Item można odczytywać od stołu.</p>
+<p>Przejdź do wyboru ścian (<kbd>3</kbd> nad literami). Odznacz wszystko i wybierz górną pokrywę. Wykonaj <kbd>E</kbd>, <kbd>Z</kbd>, <code>0.01</code>, <kbd>Enter</kbd>, następnie <kbd>S</kbd>, <code>0.65</code>, <kbd>Enter</kbd>. Powstaje zwężenie. Jeszcze <kbd>E</kbd>, <kbd>Z</kbd>, <code>0.006</code>, <kbd>Enter</kbd> tworzy krótką szyjkę. Obejrzyj obrys z przodu i z boku: korpus ma być prosty, bark zwężać się do szyjki, a szyjka zachowywać stałą szerokość.</p>
+<p><img src="/courses/blender/Images/wkretak-przekroje.png" alt="Przekroje korpusu, barku i szyjki przed zaokrąglaniem"></p>
+<p>Te przekroje opisują zmianę formy. Dodatkowe podziały na prostym odcinku nie poprawią jego proporcji. Jeżeli rękojeść wygląda jak butelka, popraw długość szyjki i stosunek jej szerokości do korpusu teraz, gdy przesunięcie jednego pierścienia zmienia cały obrys.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🫧 Dlaczego Subdivision zmienia projekt</h2>
+<p>W Object Mode otwórz zakładkę z kluczem i przez Add Modifier wyszukaj Subdivision Surface. Pozostaw Catmull‑Clark, ustaw Levels Viewport 2 i Render 2. W Object Mode wybierz Object → Shade Smooth. W panelu modyfikatora wyłączaj i włączaj ikonę monitora, patrząc na sam obrys.</p>
+<p>Shade Smooth interpoluje kierunki normalnych używane do cieniowania. Sąsiednie ściany wyglądają na płynnie połączone, ale nie pojawiają się nowe punkty na obrysie. Subdivision dodaje geometrię i zmienia jej położenie. Dlatego potrafi rzeczywiście zaokrąglić ośmiokąt, ale też zwęzić korpus i rozmyć bark. To nie jest filtr usuwający błędy modelowania.</p>
+<p>Siatka sterująca to prostsza siatka, którą edytujesz w Edit Mode. Modyfikator oblicza z niej gęstszą powierzchnię wynikową. Każdy poziom podziału ponownie dzieli powierzchnię. Wyższy Levels dokładniej opisuje wynikową krzywiznę; nie przywraca płaszczyzny, którą siatka sterująca zamieniła w łuk. Na chwilę zmień 2 na 3. Jeżeli kształt jest zły przy 2, po zwiększeniu poziomu pozostanie zły, tylko gęściej podzielony.</p>
+<p>Żeby zobaczyć rolę pętli, w Edit Mode dodaj <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>R</kbd></span> na długim korpusie. Kliknij, następnie <kbd>PPM</kbd>, aby zostawić cięcie w środku. Uruchom Edge → Edge Slide lub naciśnij kolejno <kbd>G</kbd>, <kbd>G</kbd> i przesuń pierścień blisko dolnego końca, ale nie na samą krawędź.</p>
+<p>Obserwuj, jak dolne zaokrąglenie staje się węższe. Cofnij samo przesunięcie i odsuń pętlę: przejście ponownie się rozszerza. Pętla podtrzymująca ogranicza obszar zmiany krzywizny, nie nadaje automatycznie „poprawnej ostrości”.</p>
+<p><img src="/courses/blender/Images/wkretak-subdivision-porownanie.png" alt="Wpływ pętli na tę samą bryłę przy tym samym poziomie Subdivision, przed wykonaniem rowków"></p>
+<p>Przy obłym chwycie można rozwijać tę konstrukcję pętlami podtrzymującymi. Tutaj chcemy zachować płaskie pola, dlatego dalszą rękojeść wykonamy przez Bevel. Cofnij próbne dodanie pętli, usuń Subdivision przyciskiem X w jego nagłówku. Nie wybieraj Apply: Apply utrwaliłoby gęstą siatkę zamiast powrotu do prostych przekrojów.</p>
+<p>Jeżeli potrzebujesz wrócić do bryły użytej w tym porównaniu, <a href="/courses/blender/Resources/wkretak-01-przed-petlami.blend">plik przed pętlami</a> zawiera korpus, bark i szyjkę z aktywnym Subdivision. To stan demonstracji, nie finalny model z rowkami.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✋ Rowek potrzebuje dna, ścianek i miejsca na żebro</h2>
+<p>Wróć do Edit Mode i sprawdź, czy po próbie Subdivision została pierwotna siatka: dolna i górna granica korpusu, bark oraz szyjka. Próbnej pętli podtrzymującej nie powinno być. Jeżeli została, cofnij jej dodanie, zanim wyznaczysz granice rowków.</p>
+<p>Przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>R</kbd></span> dodaj na korpusie dwa poziome Loop Cut, po jednym na operację. Najedź na długą pionową krawędź; podgląd ma okrążać korpus. Po każdym cięciu kliknij i <kbd>PPM</kbd>, a przy zaznaczonym pierścieniu ustaw w <kbd>N</kbd> → Item → Median Z odpowiednio 0.004 m i 0.076 m. Wyznaczają dolną i górną granicę rowków. Czteromilimetrowe pasy na końcach pozostaną pełne.</p>
+<p>Wybierz ściany, włącz prześwietlenie <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>Z</kbd></span> i odznacz wszystko. Ramką <code>B</code> obejmij środki ośmiu długich ścian pomiędzy nowymi pierścieniami. Nie obejmuj środków krótkich pasów. Wyłącz prześwietlenie i obróć widok, sprawdzając tył: zaznaczonych ma być osiem długich pól.</p>
+<p>Naciśnij <kbd>I</kbd>, a podczas operacji ponownie <kbd>I</kbd>, aby przełączyć na Inset Individual. Ustaw wstawienie około 2.2 mm (<code>0.0022</code>). Każda ściana dostaje własne obrzeże. Zwykły Inset traktowałby sąsiadujące zaznaczenie jako wspólny obszar; potrzebujemy ośmiu oddzielnych den.</p>
+<p>Zaznaczone środki cofnij przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>E</kbd></span> → Extrude Individual Faces, około -1.2 mm (<code>-0.0012</code>). Każde dno porusza się wzdłuż własnej normalnej, czyli kierunku prostopadłego do swojej ściany. Zatwierdź klawiszem <kbd>Enter</kbd>. Przez <kbd>F9</kbd> sprawdź wartość przesunięcia, jeśli podczas przeciągania trudno było ją odczytać.</p>
+<p>Zwykłe G przesunęłoby wszystkie pola w jednym kierunku świata. Zwykłe skalowanie zmieniłoby też ich szerokość, zamiast utworzyć ścianki o zadanej głębokości.</p>
+<p><img src="/courses/blender/Images/wkretak-rowki-siatka.png" alt="Siatka chwytu: pełne pasy na końcach, obrzeża, boczne ścianki i cofnięte dna"></p>
+<p>Spójrz na rowek z boku, nie tylko na wprost. Wstawienie określa szerokość otaczającego żebra, a wyciągnięcie głębokość zagłębienia. To niezależne decyzje. Zbyt wąskie żebro zniknie po zaokrągleniu, zbyt głęboki rowek da cienkie, agresywne krawędzie. W podanych wymiarach zostaje miejsce na oba promienie.</p>
+<p>Nie dodawaj kolejnego wąskiego Inset przy dnie ani cięć Bisect. W tej konstrukcji za promienie odpowiada Bevel. Dodatkowe ciasne pasy ograniczałyby fazę, a nie poprawiały kształt automatycznie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Dwa promienie w jednym Bevel</h2>
+<p>Bevel w trybie Weight odczytuje wagę każdej krawędzi. Waga <code>1</code> oznacza pełną ustawioną szerokość fazy, <code>0.2</code> jedną piątą, a <code>0</code> pominięcie krawędzi. Przy włączonym Clamp Overlap faza może zostać dodatkowo ograniczona przez sąsiednią geometrię.</p>
+<h3>🧮 Znajdź pole wag</h3>
+<ol>
+<li>Pozostań w Edit Mode. Włącz wybór krawędzi klawiszem <kbd>2</kbd> i zaznacz całość przez <kbd>A</kbd>.</li>
+<li>Otwórz panel boczny klawiszem <kbd>N</kbd>. W zakładce Item rozwiń Edges Data.</li>
+<li>W Mean Bevel Weight wpisz <code>1</code>. Na razie wszystkie krawędzie mają tę samą wagę. Zmienimy ją tam, gdzie potrzebujemy mniejszego promienia lub braku fazy.</li>
+</ol>
+<p>W tym panelu jest też podobne pole w Vertices Data. Pozostań przy Edges Data: modyfikator ma korzystać z wag krawędzi, nie wierzchołków.</p>
+<h3>🪚 Oddziel obrzeża rowków od narożników chwytu</h3>
+<p>Przełącz wybór na ściany i odznacz wszystko. Zaznacz osiem den rowków. Obróć widok i dodawaj brakujące dna z przytrzymanym <kbd>Shift</kbd>, zamiast ponownie obejmować ramką całą rękojeść.</p>
+<p>Nad widokiem 3D naciśnij <kbd>F3</kbd>, wyszukaj Select More i wykonaj tę operację dwa razy. Pierwsze rozszerzenie dołącza ścianki rowków, drugie ich obrzeża. Bark i szyjka mają pozostać poza zaznaczeniem.</p>
+<p>Przełącz na wybór krawędzi i wpisz w Item → Edges Data → Mean Bevel Weight <code>0.2</code>. Drobne krawędzie otrzymają mniejszą fazę, ale w zaznaczeniu mogły znaleźć się również zewnętrzne narożniki. Przywrócimy im większą wagę:</p>
+<ol>
+<li>Odznacz wszystko i wybierz jedną długą krawędź między sąsiednimi polami korpusu, poza zagłębieniem.</li>
+<li>Otwórz <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>G</kbd></span> → Length. Przez <kbd>F9</kbd> zmniejsz Threshold, jeśli dołączyły krótsze krawędzie rowków. To tolerancja podobieństwa długości.</li>
+<li>Sprawdź osiem długich narożników dookoła chwytu. Wpisz im wagę <code>1</code> w tym samym polu Edges Data.</li>
+</ol>
+<p>Length porównuje długości. Nie rozpoznaje funkcji narożnika. Na innym modelu może zaznaczyć także krawędzie, które mają przypadkowo ten sam rozmiar.</p>
+<p><img src="/courses/blender/Images/wkretak-wagi.png" alt="Osiem długich narożników i pole Edges Data, z którego korzysta Bevel w trybie Weight"></p>
+<p>W panelu Item występuje też Bevel Weight dla wierzchołków. Korzystamy z Edges Data, ponieważ fazujemy krawędzie. Pole w sekcji Vertices Data nie steruje tym trybem modyfikatora.</p>
+<p>Ta metoda zaznaczania działa tutaj, bo osiem narożników ma jednakową długość. Nie jest poleceniem „wybierz narożniki” i na innym modelu może wskazać dodatkowe krawędzie. Rozpoznajesz wynik po położeniu zaznaczenia, nie po tym, że polecenie się wykonało.</p>
+<h3>🧩 Pomiń podziały płaskich pól</h3>
+<p>Na obrzeżu rowka są skośne krawędzie łączące narożniki z krawędziami wstawienia. Po obu stronach takiej krawędzi ściany leżą w jednej płaszczyźnie. Nie ma tam załamania powierzchni, więc nie potrzebujemy fazy.</p>
+<p>Odznacz wszystko i wybierz jeden taki odcinek. Użyj <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>G</kbd></span> → Face Angles, przez <kbd>F9</kbd> ustaw mały Threshold, np. <code>0.001</code>. Zaznaczenie ma obejmować podziały płaskich pól; krawędzie dna i zewnętrzne narożniki mają pozostać niezaznaczone.</p>
+<p>W Item → Edges Data wpisz wagę <code>0</code>. Podziały pozostają w siatce, lecz Bevel nie utworzy na nich dodatkowych pasów. Na końcu sprawdź po jednej krawędzi każdej grupy: zewnętrzny narożnik <code>1</code>, obrzeże rowka <code>0.2</code>, podział płaszczyzny <code>0</code>.</p>
+<h3>✨ Ustaw szerokość fazy i sprawdź obrys</h3>
+<p>W Object Mode dodaj Bevel. Ustaw Affect Edges, Width Type Offset, Amount 0.0015 m, Segments 4, Limit Method Weight. Przy wadze 1 narożniki korpusu, barku i szyjki otrzymują większą fazę; przy 0.2 krawędzie rowków dostają nominalnie jedną piątą tej szerokości. Offset mierzy odsunięcie od starej krawędzi po sąsiednich ścianach, nie średnicę zaokrąglenia.</p>
+<p>Zmień na chwilę Segments z 4 na 1. Powstaje płaski pasek fazy. Przy 4 kilka ścian opisuje łuk. To inna decyzja niż Amount: segmenty opisują gładkość łuku, a szerokość określa, ile miejsca on zajmuje. Przywróć 4 i zostaw Clamp Overlap włączone.</p>
+<p>Jeżeli dalsze zwiększanie Amount przestaje zmieniać wynik, sprawdź, czy fazy nie zbliżyły się do sąsiednich krawędzi. Blender ogranicza ich szerokość, aby nie nakładały się na siebie; nie oznacza to osiągnięcia dobrego promienia.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💡 Oddziel kształt od cieniowania</h2>
+<p>W Object Mode wybierz Object → Shade Smooth. Dodaj Weighted Normal po Bevel, z Keep Sharp włączonym. W Bevel rozwiń Shading i włącz Harden Normals. Teraz wyłączaj i włączaj sam Weighted Normal, pozostawiając fazy aktywne.</p>
+<p>Zwykłe wygładzanie uwzględnia normalne sąsiadujących ścian. W pobliżu małej fazy może sprawić, że duże płaskie pole wygląda jak napompowane. Weighted Normal zmienia udział ścian w obliczaniu normalnych: większe pola mogą mocniej określać kierunek cieniowania. Nie prostuje geometrii i nie zmienia obrysu. Keep Sharp zachowuje istniejące rozdzielenia normalnych na ostrych krawędziach; samo nie wybiera za ciebie, gdzie mają być ostre przejścia.</p>
+<p>Kolejność jest celowa: Bevel najpierw tworzy powierzchnie faz, a Weighted Normal pracuje na otrzymanej siatce. Przesunięty przed Bevel nie oceniałby tych nowych ścian. Harden Normals ogranicza niepożądane zmiany cieniowania przy fazie. Te ustawienia wspierają konstrukcję; nie naprawią wklęsłego dna, skręconego czworokąta ani nakładających się ścian.</p>
+<p><img src="/courses/blender/Images/wkretak-modyfikatory.png" alt="Kolejność modyfikatorów rękojeści"></p>
+<p>Do oceny ustaw jednolity szary materiał o Roughness około 0.2‑0.3. W Material Preview obracaj oświetlenie przez Lighting → Rotation w rozwijanym panelu przy kulkach cieniowania. Kamera i model mogą pozostać nieruchome. Przesuwający się jasny pas powinien przechodzić przez fazę płynnie, a na płaskim dnie nie tworzyć przypadkowej falistej plamy.</p>
+<p><img src="/courses/blender/Images/porownanie-odbic.png" alt="Porównanie starej i zmienionej konstrukcji w pięciu położeniach tego samego źródła światła"></p>
+<p>Jeśli błąd zmienia obrys, szukaj go w geometrii. Jeśli obrys pozostaje poprawny, ale płaskie pole wygląda na wybrzuszone, porównaj Shade Flat i Shade Smooth oraz wpływ Weighted Normal. Jeżeli kształt jest dobry, a refleks zbyt ostry lub za szeroki na całej powierzchni, wtedy oceniaj Roughness i oświetlenie. Tekstura nie naprawia złego prowadzenia powierzchni; może jedynie utrudnić zauważenie błędu w jednym kadrze.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🪛 Trzpień i płaska końcówka</h2>
+<p>Dodaj osobny cylinder: 8 wierzchołków, Radius 0.003 m, Depth 0.102 m, Location Z 0.139 m. Nazwij Grot. Dolny koniec wypada na Z=88 mm, czyli wchodzi około 8 mm w rękojeść. W Edit Mode obróć całość <kbd>R</kbd>, <kbd>Z</kbd>, <code>22.5</code>, tak jak chwyt. Trzpień jest tu ośmiokątny; jeśli chcesz uzyskać gładki okrąg w zbliżeniu, potrzebujesz większej liczby boków, a nie samego Shade Smooth.</p>
+<p>Wybierz górną pokrywę. <kbd>E</kbd>, <kbd>Z</kbd>, <code>0.008</code>, <kbd>Enter</kbd>, następnie <kbd>S</kbd>, <kbd>Y</kbd>, <code>0.18</code>, <kbd>Enter</kbd> i <kbd>S</kbd>, <kbd>X</kbd>, <code>0.98</code>, <kbd>Enter</kbd> budują przejście do płaskiego ostrza. Osiem punktów poprzedniego pierścienia pozostaje połączonych z odpowiadającymi im punktami kolejnego. Obejrzyj to z boku: spłaszczenie ma wynikać z geometrii, nie ze światła.</p>
+<p>Jeszcze <kbd>E</kbd>, <kbd>Z</kbd>, <code>0.008</code>, <kbd>Enter</kbd>, potem <kbd>S</kbd>, <kbd>Y</kbd>, <code>0.667</code>, <kbd>Enter</kbd> zwęża grubość końca. Z przodu końcówka pozostaje szeroka, z boku staje się cienka. Nie skaluj do zera: potrzebujemy zamkniętego, cienkiego ostrza, a nie nakładających się krawędzi.</p>
+<p><img src="/courses/blender/Images/wkretak-grot.png" alt="Przekroje przejścia z trzpienia do płaskiej końcówki"></p>
+<p>Dodaj Bevel z Limit Method Angle, progiem 30°, szerokością około 0.15 mm, Segments 2, potem Weighted Normal z Keep Sharp i Shade Smooth. Tutaj Angle wybiera krawędzie na podstawie kąta między ścianami. Nie wykorzystuje wag, które ustawialiśmy na rękojeści. Przy małym ostrzu faza musi być znacznie mniejsza niż na chwycie; inaczej zje jego płaskie powierzchnie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Tworzywo ma własny kolor</h2>
+<p>Rękojeści przypisz materiał Tworzywo, a grotowi osobny Stal. Dla tworzywa ustaw Metallic 0 i Roughness około 0.48; dla stali Metallic 1 i Roughness około 0.34. To jednolite materiały kontrolne, przed przygotowaniem map. Stal w podglądzie powinna odbijać otoczenie, nie tylko wyglądać jak ciemnoszary plastik.</p>
+<p>Zmień Base Color Tworzywa na czerwony. Stal musi pozostać bez zmian. Jeśli też zmieniła kolor, sprawdź przypisanie materiałów: dwa różne obiekty mogą korzystać z tego samego materiału. Jego nazwę odczytasz u góry Material Properties. Zmiana współdzielonego materiału obejmie wszystkich jego użytkowników.</p>
+<p>Nie potrzebujemy osobnej mapy koloru wyłącznie po to, żeby oddzielić tworzywo od stali. Przy późniejszym wspólnym atlasie możemy użyć maski tworzywa i parametru koloru w shaderze, zachowując stal poza obszarem tintowania.</p>
+<p>Na koniec zaznacz grot, potem rękojeść jako aktywną i wybierz <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>P</kbd></span> → Object (Keep Transform). Przesunięcie rękojeści ma przenosić cały przedmiot. Zapisz z aktywnymi, niezaaplikowanymi modyfikatorami. <a href="/courses/blender/Resources/wkretak-02-model.blend">Model po lekcji</a> zawiera edytowalne rowki, dwie wagi faz i oddzielne materiały. W <a href="/courses/blender/modul-2/wkretak-krzyzowy-wariant-wspolnej-konstrukcji">następnej lekcji</a> wykorzystamy ten chwyt, zmieniając konstrukcję końcówki.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<p>Najpierw ustal przekroje i obrys. Subdivision zmienia całą powierzchnię, Bevel fazuje wybrane krawędzie, a Weighted Normal porządkuje cieniowanie. Sprawdzaj ich wpływ osobno; materiał nie wyrówna skręconej ściany.</p>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

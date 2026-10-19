@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Rama i półka - Inset i Extrude - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Rama i półka - Inset i Extrude</h1>
+<p>Otwórz swój <code>stol_v01.blend</code> z poprzedniej lekcji lub <a href="/courses/blender/Resources/stol-02-wynik.blend">stół po fazowaniu blatu</a>. Przez <kbd class="win-menu-btn">File</kbd> → <kbd class="win-menu-btn">Save As</kbd> zapisz kopię jako <code>stol_v02.blend</code>.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🪵 Połącz nogi poprzeczkami</h2>
+<p>W Object Mode dodaj kostkę przez <kbd class="win-menu-btn">Add</kbd> → <kbd class="win-menu-btn">Mesh</kbd> → <kbd class="win-menu-btn">Cube</kbd>. Nazwij ją <code>Poprzeczka_P</code>.</p>
+<p>Otwórz panel Item klawiszem <kbd>N</kbd>. Ustaw wymiary i położenie:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions (2 na zrzucie)</td>
+<td><code>0.1 m</code></td>
+<td><code>0.62 m</code></td>
+<td><code>0.08 m</code></td>
+</tr>
+<tr>
+<td>Location (1)</td>
+<td><code>0.86 m</code></td>
+<td><code>0 m</code></td>
+<td><code>0.22 m</code></td>
+</tr>
+</tbody></table>
+<p>Powstaje belka łącząca przednią i tylną nogę po prawej stronie stołu. Jej końce mają dochodzić do wewnętrznych powierzchni nóg. Sprawdź połączenie w widoku z prawej strony, <kbd>Numpad 3</kbd>.</p>
+<p><img src="/courses/blender/Images/polka-poprzeczka.png" alt="Poprzeczka między nogami: 1 jej położenie, 2 wymiary"></p>
+<p>Zastosuj <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>, tak jak przy nogach.</p>
+<p>Powiel zaznaczoną poprzeczkę przez <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>, następnie <kbd>X</kbd>, <code>-1.72</code>, <kbd>Enter</kbd>. To takie samo przesunięcie na drugą stronę stołu jak w poprzedniej lekcji. Kopię nazwij <code>Poprzeczka_L</code>.</p>
+<p><img src="/courses/blender/Images/polka-rama.png" alt="Dwie poprzeczki przy dolnych częściach nóg"></p>
+<p>Spójrz od przodu przez <kbd>Numpad 1</kbd>. Poprzeczki powinny być na tej samej wysokości. Będą podtrzymywać półkę, dlatego ich górne powierzchnie muszą leżeć równo.</p>
+<p><a href="/courses/blender/Resources/stol-03-rama.blend">Punkt kontrolny z poprzeczkami</a> pozwala rozpocząć od tego miejsca.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Oprzyj półkę na poprzeczkach</h2>
+<p>Dodaj kolejną kostkę i nazwij ją <code>Polka</code>. W Item ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>1.72 m</code></td>
+<td><code>0.62 m</code></td>
+<td><code>0.04 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0 m</code></td>
+<td><code>0 m</code></td>
+<td><code>0.28 m</code></td>
+</tr>
+</tbody></table>
+<p>Zastosuj <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>.</p>
+<p>Półka ma 4 cm grubości. Jej środek jest na wysokości 28 cm, więc spód wypada na 26 cm. Na tej samej wysokości znajduje się góra poprzeczek. W widoku od przodu sprawdź, czy półka leży na belkach. Każdy jej koniec opiera się na poprzeczce na szerokości 5 cm.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔎 Odsłoń górną powierzchnię półki</h2>
+<p>Blat zasłania półkę od góry. Zaznacz samą <code>Polka</code> i w widoku 3D naciśnij <kbd>Numpad /</kbd>. To <span class="color-green">Local View</span>, czyli widok ograniczony do zaznaczonych obiektów.</p>
+<p>Pozostałe części stołu znikną z widoku. Nie zostały usunięte. Tym samym skrótem przywrócisz widok całej sceny.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Bez klawiatury numerycznej wybierz <kbd class="win-menu-btn">View</kbd> → <kbd class="win-menu-btn">Local View</kbd> → <kbd class="win-menu-btn">Toggle Local View</kbd>.</p>
+
+</div>
+</div><p>Wejdź w Edit Mode przez <kbd>Tab</kbd>. Naciśnij <kbd>3</kbd> nad literami, aby wybierać ściany (1 na zrzucie). Odznacz wszystko przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span>.</p>
+<p>Ustaw widok z góry, <kbd>Numpad 7</kbd>, i kliknij górną ścianę półki. Tylko ona ma być zaznaczona. Obróć widok środkowym przyciskiem myszy, żeby zobaczyć również bok płyty.</p>
+<p><img src="/courses/blender/Images/polka-sciana.png" alt="Półka w Local View: 1 tryb zaznaczania ścian, 2 wybrana górna powierzchnia"></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔲 Wydziel miejsce na zagłębienie</h2>
+<p>Górna powierzchnia jest teraz jedną ścianą. Żeby zrobić zagłębienie otoczone płaskim brzegiem, trzeba najpierw oddzielić ten brzeg od środka.</p>
+<p>Z kursorem myszki w widoku 3D naciśnij <kbd>I</kbd>, wpisz <code>0.02</code> i zatwierdź <kbd>Enter</kbd>. Ta operacja to <span class="color-green">Inset Faces</span>. Znajdziesz ją również w menu <kbd class="win-menu-btn">Face</kbd> → <kbd class="win-menu-btn">Inset Faces</kbd>.</p>
+<p>Na powierzchni pojawi się wewnętrzny obrys odsunięty o 2 cm od brzegów. Między nim a zewnętrzną krawędzią powstaną cztery ściany obwódki (1). Duża ściana pośrodku pozostanie zaznaczona (2).</p>
+<p><img src="/courses/blender/Images/polka-inset.png" alt="Po Inset: 1 obwódka, 2 zaznaczona ściana środkowa"></p>
+<p><span class="color-gold">Rozmiar półki się nie zmienił</span>. Inset dodał podziały na jej górnej powierzchni. Dzięki temu możesz zmienić sam środek, pozostawiając zewnętrzny brzeg na miejscu.</p>
+<p>Skalowanie górnej ściany przez <kbd>S</kbd> dałoby inny wynik. Przesunęłoby jej dotychczasowe narożniki do środka i pochyliło boczne ściany płyty. Nie utworzyłoby dodatkowej obwódki.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⬇️ Wytłocz zagłębienie</h2>
+<p>Pozostaw zaznaczoną środkową ścianę. Naciśnij <kbd>E</kbd>, wpisz <code>-0.015</code> i zatwierdź <kbd>Enter</kbd>. <span class="color-green">Extrude Faces</span> znajdziesz też w menu <kbd class="win-menu-btn">Face</kbd> → <kbd class="win-menu-btn">Extrude Faces</kbd>.</p>
+<p>Środek opadnie o 1.5 cm. Wzdłuż jego obrysu powstaną nowe, pionowe ścianki. Łączą górną obwódkę z dnem zagłębienia.</p>
+<p><img src="/courses/blender/Images/polka-extrude.png" alt="Po Extrude: 1 wewnętrzna ścianka, 2 opuszczone dno zagłębienia"></p>
+<p>Spójrz na zbliżenia po prawej. Po Inset środek i obwódka leżały na jednej wysokości. Po Extrude oddziela je pionowy stopień wskazany numerem 1. Ściana zaznaczona numerem 2 stała się dnem wnęki.</p>
+<p>Dlaczego wartość jest ujemna? Przy wytłaczaniu tej ściany Blender domyślnie prowadzi ruch w górę, prostopadle do jej powierzchni. Wartość dodatnia utworzyłaby podwyższenie. Ujemna cofa ścianę w głąb półki.</p>
+<p><span class="color-gold">Extrude dodaje ściany, Move je przesuwa</span>. Gdybyś zamiast wytłaczania przesunął środek w dół przez <kbd>G</kbd>, obwódka pochyliłaby się razem z nim. Extrude zachowuje górny brzeg i dodaje ścianki zagłębienia.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Po uruchomieniu Extrude klawisz <kbd>Esc</kbd> anuluje samo przesuwanie. <span class="color-red">Nowe ściany mogą pozostać</span> w miejscu poprzednich. Jeśli chcesz wycofać całe wytłoczenie, użyj <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span>, zanim spróbujesz ponownie. (By ponowić cofnięto operację użyj <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd></span>)</p>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Sprawdź dno i podparcie</h2>
+<p>Obróć półkę i obejrzyj ją od spodu. Spód powinien pozostać płaski. Płyta miała 4 cm grubości, a zagłębienie ma 1.5 cm głębokości. Pod jego dnem zostało więc 2.5 cm materiału.</p>
+<p>Wróć do Object Mode przez <kbd>Tab</kbd>, a następnie wyłącz Local View przez <kbd>Numpad /</kbd> lub <kbd class="win-menu-btn">View</kbd> → <kbd class="win-menu-btn">Local View</kbd> → <kbd class="win-menu-btn">Toggle Local View</kbd>.</p>
+<p><img src="/courses/blender/Images/polka-wynik.png" alt="Stół po dodaniu poprzeczek i półki"></p>
+<p>Sprawdź półkę od przodu i z boku. Ma nadal opierać się na obu poprzeczkach. Wnęka zmieniła jej górną powierzchnię, a nie położenie całej półki.</p>
+<p>Zapisz projekt przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>. <a href="/courses/blender/Resources/stol-04-polka.blend">Plik wynikowy z półką</a> służy do porównania ułożenia części i kształtu wnęki.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<p>Inset wydziela środek powierzchni i otaczającą go obwódkę. Extrude pozwala zmienić głębokość tego środka, dodając ścianki. Tą samą parą operacji możesz budować wnęki w obudowie lub podwyższone panele. O tym, czy powstanie zagłębienie, czy wypukłość, decyduje kierunek wytłaczania.</p>
+<p>Nowe skróty z tej lekcji:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><kbd>I</kbd></td>
+<td>Inset Faces: tworzy obwódkę wewnątrz zaznaczonej ściany w Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>E</kbd></td>
+<td>Extrude Faces: wytłacza zaznaczoną ścianę, dodając łączące ścianki.</td>
+</tr>
+<tr>
+<td><kbd>Numpad /</kbd></td>
+<td>Włącza lub wyłącza Local View, czyli izoluje zaznaczone obiekty.</td>
+</tr>
+</tbody></table>
+<p>Przy wytłaczaniu <kbd>Esc</kbd> anuluje ruch, ale może pozostawić nową geometrię. Do wycofania całego Extrude użyj <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span>.</p>
+<p>Skróty powtarzane przy budowie półki:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><kbd>N</kbd></td>
+<td>Panel boczny widoku 3D z wymiarami i położeniem.</td>
+</tr>
+<tr>
+<td><kbd>Tab</kbd>, następnie <kbd>3</kbd></td>
+<td>Wejście w Edit Mode, następnie wybór ścian.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span></td>
+<td>Odznacza wszystko.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>, następnie <kbd>X</kbd></td>
+<td>Powiela zaznaczenie i ogranicza ruch kopii do osi X.</td>
+</tr>
+<tr>
+<td><kbd>Numpad 1</kbd>, <kbd>Numpad 3</kbd>, <kbd>Numpad 7</kbd></td>
+<td>Widok od przodu, z prawej strony i z góry.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span></td>
+<td>Cofa całą operację, także nieudane wytłoczenie.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span></td>
+<td>Zapisuje projekt.</td>
+</tr>
+</tbody></table>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

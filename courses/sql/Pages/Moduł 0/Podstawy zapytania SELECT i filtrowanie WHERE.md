@@ -109,17 +109,15 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 2 wiersze z kolumnami nazwa oraz cena",
+        "text": "Zapytanie zwraca wyłącznie pozycje w przedziale cenowym od 6.00 do 7.00 zł o stanie magazynu powyżej 4000 l",
         "type": "sql-execute",
-        "schema": "CREATE TABLE stacja (id INT PRIMARY KEY, nazwa TEXT, cena REAL, stan_magazynu INT); INSERT INTO stacja VALUES (1, 'Benzyna 95', 6.55, 12500), (2, 'Benzyna 98', 7.15, 4200), (3, 'Olej Napędowy', 6.49, 18000), (4, 'LPG', 2.95, 3100);",
+        "schema": "CREATE TABLE stacja (id INT PRIMARY KEY, nazwa TEXT, cena REAL, stan_magazynu INT); INSERT INTO stacja VALUES (1, 'Benzyna 95', 6.55, 12500), (2, 'Benzyna 98', 7.15, 4200), (3, 'Olej Napędowy', 6.49, 18000), (4, 'LPG', 2.95, 3100), (5, 'E85 Bioetanol', 6.20, 2500), (6, 'Biodiesel B100', 5.80, 9500);",
         "expectedCount": 2,
-        "expectedColumns": ["nazwa", "cena"]
-      },
-      {
-        "id": "syntax-where",
-        "text": "Wykorzystano klauzulę WHERE z operatorem logicznym AND",
-        "type": "contains",
-        "pattern": "WHERE"
+        "expectedColumns": ["nazwa", "cena"],
+        "expectedRows": [
+          { "nazwa": "Benzyna 95" },
+          { "nazwa": "Olej Napędowy" }
+        ]
       }
     ]
   </template>

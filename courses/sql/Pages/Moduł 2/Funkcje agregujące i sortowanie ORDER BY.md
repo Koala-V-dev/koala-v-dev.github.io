@@ -107,17 +107,16 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 2 najdroższe rowery MTB z oczekiwanymi kolumnami",
+        "text": "Zwrócono 2 najdroższe rowery górskie MTB uszeregowane w kolejności od najwyższej ceny",
         "type": "sql-execute",
-        "schema": "CREATE TABLE rowery (id INT PRIMARY KEY, marka TEXT, model TEXT, typ TEXT, cena REAL, ilosc INT); INSERT INTO rowery VALUES (1, 'Trek', 'Marlin 7', 'MTB', 3299.00, 5), (2, 'Giant', 'Roam 2', 'Cross', 2799.00, 3), (3, 'Kross', 'Hexagon 5', 'MTB', 1999.00, 8), (4, 'Scott', 'Aspect 940', 'MTB', 2899.00, 4);",
+        "schema": "CREATE TABLE rowery (id INT PRIMARY KEY, marka TEXT, model TEXT, typ TEXT, cena REAL, ilosc INT); INSERT INTO rowery VALUES (1, 'Trek', 'Marlin 7', 'MTB', 3299.00, 5), (2, 'Giant', 'Roam 2', 'Cross', 2799.00, 3), (3, 'Kross', 'Hexagon 5', 'MTB', 1999.00, 8), (4, 'Scott', 'Aspect 940', 'MTB', 2899.00, 4), (5, 'Specialized', 'Sirrus 3', 'Szosa', 4999.00, 2), (6, 'Cannondale', 'Topstone', 'Gravel', 4200.00, 3), (7, 'Romet', 'Mustang M1', 'MTB', 1599.00, 6);",
         "expectedCount": 2,
-        "expectedColumns": ["marka", "model", "cena"]
-      },
-      {
-        "id": "syntax-order",
-        "text": "Wykorzystano ORDER BY z klauzulą DESC oraz LIMIT",
-        "type": "contains",
-        "pattern": "ORDER BY"
+        "expectedColumns": ["marka", "model", "cena"],
+        "exactOrder": true,
+        "expectedRows": [
+          { "marka": "Trek", "model": "Marlin 7", "cena": 3299.00 },
+          { "marka": "Scott", "model": "Aspect 940", "cena": 2899.00 }
+        ]
       }
     ]
   </template>

@@ -102,17 +102,15 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 2 złączone wiersze z oczekiwanymi kolumnami",
+        "text": "Poprawnie połączono zamówienia z potrawami, zwracając wyłącznie pozycje dla stolików o numerze większym niż 2",
         "type": "sql-execute",
-        "schema": "CREATE TABLE dania (id INT PRIMARY KEY, nazwa TEXT, cena REAL); CREATE TABLE zamowienia (id INT PRIMARY KEY, id_dania INT, stolik INT); INSERT INTO dania VALUES (1, 'Gazpacho', 22.00), (2, 'Lasagne', 34.00), (3, 'Tarta szpinakowa', 28.00); INSERT INTO zamowienia VALUES (101, 2, 4), (102, 1, 2), (103, 3, 5);",
+        "schema": "CREATE TABLE dania (id INT PRIMARY KEY, nazwa TEXT, cena REAL); CREATE TABLE zamowienia (id INT PRIMARY KEY, id_dania INT, stolik INT); INSERT INTO dania VALUES (1, 'Gazpacho', 22.00), (2, 'Lasagne', 34.00), (3, 'Tarta szpinakowa', 28.00), (4, 'Krem z borowików', 26.00); INSERT INTO zamowienia VALUES (101, 2, 4), (102, 1, 2), (103, 3, 5), (104, 4, 1), (105, 2, 2);",
         "expectedCount": 2,
-        "expectedColumns": ["id", "stolik", "nazwa", "cena"]
-      },
-      {
-        "id": "syntax-join",
-        "text": "Wykorzystano klauzulę INNER JOIN z warunkiem ON",
-        "type": "contains",
-        "pattern": "JOIN"
+        "expectedColumns": ["id", "stolik", "nazwa", "cena"],
+        "expectedRows": [
+          { "id": 101, "stolik": 4, "nazwa": "Lasagne" },
+          { "id": 103, "stolik": 5, "nazwa": "Tarta szpinakowa" }
+        ]
       }
     ]
   </template>

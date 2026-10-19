@@ -104,17 +104,15 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie zwraca 2 nieaktywnych czytelników z kolumnami imie oraz nazwisko",
+        "text": "Zestawienie wyodrębnia wyłącznie czytelników nieposiadających żadnych wypożyczeń w historii",
         "type": "sql-execute",
-        "schema": "CREATE TABLE czytelnicy (id INT PRIMARY KEY, imie TEXT, nazwisko TEXT); CREATE TABLE wypozyczenia (id INT PRIMARY KEY, id_czytelnika INT, data TEXT); INSERT INTO czytelnicy VALUES (1, 'Anna', 'Kowalska'), (2, 'Piotr', 'Nowak'), (3, 'Ewa', 'Wiśniewska'), (4, 'Jan', 'Zieliński'); INSERT INTO wypozyczenia VALUES (10, 1, '2026-05-10'), (11, 3, '2026-05-12');",
+        "schema": "CREATE TABLE czytelnicy (id INT PRIMARY KEY, imie TEXT, nazwisko TEXT); CREATE TABLE wypozyczenia (id INT PRIMARY KEY, id_czytelnika INT, data TEXT); INSERT INTO czytelnicy VALUES (1, 'Anna', 'Kowalska'), (2, 'Piotr', 'Nowak'), (3, 'Ewa', 'Wiśniewska'), (4, 'Jan', 'Zieliński'), (5, 'Marek', 'Wójcik'); INSERT INTO wypozyczenia VALUES (10, 1, '2026-05-10'), (11, 3, '2026-05-12'), (12, 1, '2026-05-15'), (13, 5, '2026-05-20');",
         "expectedCount": 2,
-        "expectedColumns": ["imie", "nazwisko"]
-      },
-      {
-        "id": "syntax-left-join",
-        "text": "Zastosowano klauzulę LEFT JOIN z filtrem IS NULL",
-        "type": "contains",
-        "pattern": "LEFT JOIN"
+        "expectedColumns": ["imie", "nazwisko"],
+        "expectedRows": [
+          { "imie": "Piotr", "nazwisko": "Nowak" },
+          { "imie": "Jan", "nazwisko": "Zieliński" }
+        ]
       }
     ]
   </template>

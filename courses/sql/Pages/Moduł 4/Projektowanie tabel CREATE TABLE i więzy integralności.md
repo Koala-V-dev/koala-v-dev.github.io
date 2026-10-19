@@ -103,17 +103,14 @@ Napisz polecenie `CREATE TABLE sale`, która stworzy tabelę sal kinowych z kolu
     [
       {
         "id": "sql-exec",
-        "text": "Tabela została utworzona i poprawnie zwraca wstawiony rekord z domyślną liczbą 120 miejsc",
+        "text": "Tabela została poprawnie zdefiniowana w schemacie bazy i zwraca wstawiony rekord z domyślną wartością 120 miejsc",
         "type": "sql-execute",
         "schema": "",
         "expectedCount": 1,
-        "expectedColumns": ["id", "nazwa", "miejsca"]
-      },
-      {
-        "id": "syntax-create",
-        "text": "Zastosowano instrukcję CREATE TABLE z ograniczeniem PRIMARY KEY",
-        "type": "contains",
-        "pattern": "CREATE TABLE"
+        "expectedColumns": ["id", "nazwa", "miejsca"],
+        "expectedRows": [
+          { "id": 1, "nazwa": "Sala Premierowa", "miejsca": 120 }
+        ]
       }
     ]
   </template>

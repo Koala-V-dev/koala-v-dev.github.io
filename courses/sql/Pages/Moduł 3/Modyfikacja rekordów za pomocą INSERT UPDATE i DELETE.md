@@ -115,17 +115,17 @@ Napisz polecenie aktualizacji, które zmieni status recepty o kodzie `1012` na z
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca zaktualizowany rekord z polem zrealizowana = 1",
+        "text": "Status recepty o kodzie 1012 został zmieniony na zrealizowany bez naruszenia pozostałych rekordów",
         "type": "sql-execute",
-        "schema": "CREATE TABLE recepty (id INT PRIMARY KEY, pesel TEXT, kod INT, zrealizowana INT); INSERT INTO recepty VALUES (1, '02231201928', 1012, 0), (2, '89100412890', 4421, 0);",
+        "schema": "CREATE TABLE recepty (id INT PRIMARY KEY, pesel TEXT, kod INT, zrealizowana INT); INSERT INTO recepty VALUES (1, '02231201928', 1012, 0), (2, '89100412890', 4421, 0), (3, '75021104512', 3319, 0);",
         "expectedCount": 1,
-        "expectedColumns": ["id", "kod", "zrealizowana"]
-      },
-      {
-        "id": "syntax-update",
-        "text": "Wykorzystano polecenie UPDATE z klauzulą SET i WHERE",
-        "type": "contains",
-        "pattern": "UPDATE"
+        "expectedColumns": ["id", "kod", "zrealizowana"],
+        "expectedRows": [
+          { "kod": 1012, "zrealizowana": 1 }
+        ],
+        "assertQuery": "SELECT COUNT(*) FROM recepty WHERE zrealizowana = 1;",
+        "assertExpected": 1,
+        "assertMessage": "Modyfikacja objęła nieprawidłową liczbę rekordów w tabeli recepty"
       }
     ]
   </template>

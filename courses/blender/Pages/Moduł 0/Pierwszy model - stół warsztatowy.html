@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Pierwszy model - stół warsztatowy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Pierwszy model - stół warsztatowy</h1>
+<p>Otwórz Blender i wybierz <span class="color-green">General</span> na ekranie startowym. Jeśli masz już otwarty projekt, nową scenę utworzysz przez <kbd class="win-menu-btn">File</kbd> → <kbd class="win-menu-btn">New</kbd> → <kbd class="win-menu-btn">General</kbd>.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🖥️ Gdzie pracujesz</h2>
+<p>W zakładce <span class="color-green">Layout</span> znajdziesz układ widoczny na zrzucie. Numery wskazują poszczególne części okna:</p>
+<p><img src="/courses/blender/Images/m00-ui.png" alt="Układ Blendera: 1 widok 3D, 2 Outliner, 3 Properties, 4 Timeline, 5 Workspaces"></p>
+<ol>
+<li><span class="color-green">3D Viewport</span> - widok 3D. Tutaj zaznaczasz, oglądasz i modelujesz obiekty.</li>
+<li><span class="color-green">Outliner</span> - lista obiektów sceny. Pozwala wybrać obiekt po nazwie, nawet gdy zasłania go inny obiekt.</li>
+<li><span class="color-green">Properties</span> - ustawienia. Ikony wzdłuż lewej krawędzi tej sekcji przełączają ustawienia sceny, obiektu, materiałów i innych elementów.</li>
+<li><span class="color-green">Timeline</span> - oś czasu używana przy animacji.</li>
+<li><span class="color-green">Workspaces</span> - zakładki z różnymi układami pracy. Na razie pozostań w Layout.</li>
+</ol>
+<p>Okno jest podzielone na <span class="color-gold">obszary</span>, czyli sekcje wyświetlające różne typy edytorów. Przykładowo w miejscu Timeline możesz wyświetlić drugi widok 3D. Typ zmieniasz przyciskiem w lewym górnym rogu danej sekcji. W tej lekcji pozostaw domyślny układ.</p>
+<p>Dodatkowo klikając <kbd>PPM</kbd> na krawędź możesz dzielić sekcje vertykalnie lub horyzontalnie albo je scalać w jedno.</p>
+<p><img src="/courses/blender/Images/tryby-okien-i-zarz%C4%85dzanie-sekcjami.png" alt=""></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Zmień kostkę w blat</h2>
+<p>Kliknij kostkę lewym przyciskiem myszy. Zaznaczony obiekt dostaje pomarańczowy obrys. Możesz też kliknąć jego nazwę <code>Cube</code> w Outlinerze.</p>
+<p>W Properties otwórz <span class="color-blue">Scene</span> (1 na zrzucie), rozwiń <span class="color-blue">Units</span> (2) i ustaw:</p>
+<ul>
+<li>Unit System: <code>Metric</code>.</li>
+<li>Unit Scale: <code>1</code>.</li>
+</ul>
+<p>Blender będzie wyświetlał wymiary w jednostkach metrycznych. Przy wpisywaniu wartości możesz używać zarówno <code>m</code>, jak i <code>cm</code>.</p>
+<p><img src="/courses/blender/Images/m00-units.png" alt="Ustawienia jednostek: 1 wskazuje zakładkę Scene, 2 pola Metric i Unit Scale"></p>
+<p>Najedź kursorem na widok 3D i naciśnij <kbd>N</kbd>. Przy prawej krawędzi widoku otworzy się panel boczny. Wybierz w nim zakładkę <span class="color-blue">Item</span>.</p>
+<p>W sekcji <span class="color-green">Dimensions</span> (3 na następnym zrzucie) ustaw rozmiar blatu:</p>
+<table>
+<thead>
+<tr>
+<th>Pole</th>
+<th>Wpisz</th>
+<th>Co zmieniasz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>X</td>
+<td><code>2 m</code></td>
+<td>Szerokość</td>
+</tr>
+<tr>
+<td>Y</td>
+<td><code>1 m</code></td>
+<td>Głębokość</td>
+</tr>
+<tr>
+<td>Z</td>
+<td><code>8 cm</code></td>
+<td>Grubość</td>
+</tr>
+</tbody></table>
+<p>Kliknij dwukrotnie wartość w danym polu, wpisz nową i zatwierdź <kbd>Enter</kbd>. Kostka spłaszczy się w płytę.</p>
+<p>W <span class="color-blue">Location Z</span> (1) wpisz <code>0.86 m</code>. To wysokość środka tej kostki. Blat ma 8 cm grubości, więc jego spód znajdzie się 4 cm niżej, na wysokości 82 cm. Górna powierzchnia będzie na 90 cm.</p>
+<p><img src="/courses/blender/Images/stol-blat-skala.png" alt="Blat: 1 położenie środka, 2 skala obiektu, 3 wymiary"></p>
+<p>Z kursorem nad widokiem 3D naciśnij <kbd>F2</kbd> i zmień nazwę <code>Cube</code> na <code>Blat</code>. Nową nazwę zobaczysz w Outlinerze.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Obejrzyj blat z kilku stron</h2>
+<p>Przytrzymaj środkowy przycisk myszy i przeciągnij. Obrócisz widok wokół obiektu. Kółkiem myszy przybliżysz lub oddalisz widok.</p>
+<p>Przytrzymaj <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>ŚPM</kbd></span> i przeciągnij, aby przesunąć widok na bok. </p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Skrót ŚPM oznacza środkowy przycisk myszy.</p>
+
+</div>
+</div><p>Obejrzyj blat od spodu. Jego położenie w scenie pozostaje takie samo - zmieniasz miejsce, z którego na niego patrzysz.</p>
+<p>Do sprawdzenia ustawienia nóg przydadzą się widoki prostopadłe do osi:</p>
+<ul>
+<li><kbd>Numpad 1</kbd> - widok od przodu. <span class="color-green"><code>-Y</code></span></li>
+<li><kbd>Numpad 3</kbd> - widok z prawej strony. <span class="color-red"><code>+X</code></span></li>
+<li><kbd>Numpad 7</kbd> - widok z góry. <span class="color-blue"><code>+Z</code></span></li>
+</ul>
+<p>To klawisze na klawiaturze numerycznej, nie cyfry nad literami. Jeśli nie masz numpada, te same widoki wybierzesz w menu View → Viewpoint lub klikając na odpowiednie ikony w orbicie widoku 3D.</p>
+<p>Gdy zgubisz blat poza kadrem, wybierz <code>Blat</code> w Outlinerze i użyj <kbd class="win-menu-btn">View</kbd> → <kbd class="win-menu-btn">Frame Selected</kbd> lub <kbd>Numpad .</kbd>. Blender ustawi widok na zaznaczonym obiekcie.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Zastosuj skalę blatu</h2>
+<p>W panelu Item spójrz na <span class="color-blue">Scale</span> (2 na zrzucie blatu). Kostka została mocno rozciągnięta w X i spłaszczona w Z, dlatego wartości skali są różne.</p>
+<p><span class="color-gold">Dimensions i Scale opisują coś innego</span>: Dimensions podaje obecny rozmiar, a Scale informuje o przeskalowaniu obiektu. Przy fazowaniu nierównomierna skala może dać różną szerokość faz na różnych krawędziach.</p>
+<p>Z zaznaczonym blatem, w Object Mode, wybierz <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>. Możesz też otworzyć menu Apply przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>A</kbd></span> i wybrać Scale.</p>
+<p>Blat nie powinien zmienić rozmiaru. <span class="color-blue">Scale</span> wraca do <code>1, 1, 1</code>, a <span class="color-blue">Dimensions</span> pozostaje bez zmian. Blender uwzględnił przeskalowanie w siatce obiektu.</p>
+<p><img src="/courses/blender/Images/stol-blat-apply.png" alt="Po Apply Scale: 1 skala jednostkowa, 2 zachowane wymiary blatu"></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🦵 Ustaw pierwszą nogę</h2>
+<p>W Object Mode wybierz <kbd class="win-menu-btn">Add</kbd> → <kbd class="win-menu-btn">Mesh</kbd> → <kbd class="win-menu-btn">Cube</kbd> (<kbd>Shift</kbd> + <kbd>A</kbd>). Nowa kostka będzie osobnym obiektem. Nadaj jej nazwę <code>Noga_PP</code> przez <kbd>F2</kbd>.</p>
+<p>W panelu <span class="color-blue">Item</span> ustaw:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>X</th>
+<th>Y</th>
+<th>Z</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dimensions</td>
+<td><code>0.1 m</code></td>
+<td><code>0.1 m</code></td>
+<td><code>0.82 m</code></td>
+</tr>
+<tr>
+<td>Location</td>
+<td><code>0.86 m</code></td>
+<td><code>-0.36 m</code></td>
+<td><code>0.41 m</code></td>
+</tr>
+</tbody></table>
+<p>Noga ma przekrój 10 × 10 cm i wysokość 82 cm. Jej środek znajduje się na 41 cm, więc dół wypada na wysokości 0, a góra dochodzi do spodu blatu.</p>
+<p>Zastosuj <kbd class="win-menu-btn">Object</kbd> → <kbd class="win-menu-btn">Apply</kbd> → <kbd class="win-menu-btn">Scale</kbd>, tak jak przy blacie (<span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>A</kbd></span>).</p>
+<p><img src="/courses/blender/Images/stol-pierwsza-noga.png" alt="Pierwsza noga: 1 położenie, 2 jej wymiary; blat pozostaje na miejscu"></p>
+<p>Sprawdź nogę od przodu i z prawej strony. Jej góra ma stykać się z blatem. W widoku z góry zobaczysz, że jest odsunięta od jego brzegów.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>↔️ Powiel nogę na drugą stronę</h2>
+<p>Pozostaw zaznaczoną nogę. Z kursorem myszki w widoku 3D naciśnij <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>. Powstaje kopia i od razu zaczyna podążać za myszą.</p>
+<p>Naciśnij <kbd>X</kbd>, żeby ograniczyć jej ruch do osi X. Wpisz <code>-1.72</code> i zatwierdź <kbd>Enter</kbd>. Kopia przejdzie z X = 86 cm na X = -86 cm, na przeciwną stronę blatu. Nazwij ją <code>Noga_LP</code>.</p>
+<p>Teraz kliknij jedną nogę, a drugą dodaj do zaznaczenia z przytrzymanym <kbd>Shift</kbd>. Obie mają być zaznaczone.</p>
+<p>Powiel parę przez <span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span>. Tym razem naciśnij <kbd>Y</kbd>, wpisz <code>0.72</code> i zatwierdź <kbd>Enter</kbd>. Powstanie drugi rząd nóg. Nazwij nowe obiekty <code>Noga_PT</code> i <code>Noga_LT</code>.</p>
+<p><img src="/courses/blender/Images/stol-cztery-nogi.png" alt="Cztery nogi pod tym samym blatem"></p>
+<p>Obejrzyj stół z góry. Przy każdym narożniku ma być jedna noga. Jeśli przesunął się <span class="color-red">blat zamiast nogi</span>, cofnij operację przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span> i wybierz właściwy obiekt w Outlinerze.</p>
+<p><a href="/courses/blender/Resources/stol-01-blat-i-noga.blend">Punkt kontrolny z blatem i pierwszą nogą</a> pozwala powtórzyć ten etap bez ponownego ustawiania części.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕸️ Zetnij ostre krawędzie blatu</h2>
+<p>Wybierz sam <code>Blat</code>. Dotąd zmieniałeś rozmiar i położenie całych obiektów w <span class="color-green">Object Mode</span>. Teraz naciśnij <kbd>Tab</kbd>, aby wejść w <span class="color-green">Edit Mode</span> i pracować na siatce blatu.</p>
+<p>Siatka składa się z wierzchołków, krawędzi i ścian. Wierzchołki to punkty. Krawędzie łączą punkty, a ściany tworzą powierzchnię między krawędziami. Ich wybór przełączasz cyframi nad literami:</p>
+<ul>
+<li><kbd>1</kbd> - wierzchołki (vertex).</li>
+<li><kbd>2</kbd> - krawędzie (edges).</li>
+<li><kbd>3</kbd> - ściany (face).</li>
+</ul>
+<p>Naciśnij <kbd>2</kbd>, a potem <kbd>A</kbd>, aby zaznaczyć wszystkie krawędzie blatu.<br>Tryb wyboru krawędzi wskazano numerem 1 na zrzucie poniżej.</p>
+<p>Uruchom <span class="color-green">Bevel</span> przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>B</kbd></span>, wpisz <code>0.005</code> i zatwierdź <kbd>Enter</kbd>. Krawędzie zostaną ścięte o 5 mm.</p>
+<p>Od razu otwórz <kbd>F9</kbd>, czyli ustawienia ostatniej operacji. Ustaw <span class="color-blue">Segments</span> na <code>2</code>. Dwa wąskie pasy ścian utworzą łagodniejsze przejście niż pojedyncze ścięcie. Na rancie (2 na zrzucie) powinieneś zobaczyć nowe krawędzie.</p>
+<p><img src="/courses/blender/Images/stol-edit-bevel.png" alt="Edit Mode: 1 wybór krawędzi, 2 siatka blatu po fazowaniu"></p>
+<p>Zmieniła się <span class="color-gold">topologia siatki</span>, czyli układ jej wierzchołków, krawędzi i ścian. Przy zmianie Dimensions kostka zachowywała sześć ścian. Bevel dodał nowe ściany w miejscu ostrych kantów.</p>
+<p>Naciśnij <kbd>Tab</kbd>, aby wrócić do Object Mode.<br>Przybliż narożnik i obejrzyj fazę z boku.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💾 Zapisz projekt</h2>
+<p>Wybierz <span style="white-space: nowrap;"><kbd class="win-menu-btn">File</kbd> → <kbd class="win-menu-btn">Save As</kbd></span> i zapisz plik jako <code>stol_v01.blend</code> (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> / <kbd>Ctrl</kbd> + <kbd>S</kbd>). Kolejna lekcja zaczyna się od tego stołu.</p>
+<p><a href="/courses/blender/Resources/stol-02-wynik.blend">Plik wynikowy po fazowaniu</a> służy do porównania ustawienia części i krawędzi blatu.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<p>W Object Mode pracujesz na całych obiektach. W Edit Mode możesz zmieniać wybrane fragmenty ich siatki. Przesunięcie wierzchołka zmienia kształt, a dodanie krawędzi lub ścian zmienia także topologię.</p>
+<p>Skróty warte zapamiętania:</p>
+<table>
+<thead>
+<tr>
+<th>Skrót</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><kbd>N</kbd></td>
+<td>Otwiera lub zamyka panel boczny widoku 3D, m.in. z zakładką Item.</td>
+</tr>
+<tr>
+<td><kbd>F2</kbd></td>
+<td>Zmienia nazwę zaznaczonego obiektu.</td>
+</tr>
+<tr>
+<td><kbd>Tab</kbd></td>
+<td>Przełącza Object Mode i Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd></td>
+<td>W Edit Mode: wybór wierzchołków, krawędzi i ścian. Cyfry nad literami.</td>
+</tr>
+<tr>
+<td><kbd>A</kbd></td>
+<td>Zaznacza wszystkie obiekty lub całą edytowaną siatkę, zależnie od trybu.</td>
+</tr>
+<tr>
+<td><kbd>Shift</kbd> + kliknięcie</td>
+<td>Dodaje kolejny obiekt do zaznaczenia w widoku 3D.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>D</kbd></span></td>
+<td>Powiela zaznaczenie i rozpoczyna przesuwanie kopii.</td>
+</tr>
+<tr>
+<td><kbd>X</kbd> lub <kbd>Y</kbd> podczas przesuwania</td>
+<td>Ogranicza ruch do wybranej osi.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>A</kbd></span> → Scale</td>
+<td>Otwiera menu Apply. Wybranie Scale stosuje skalę obiektu.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>B</kbd></span></td>
+<td>Uruchamia Bevel na zaznaczonych krawędziach w Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>F9</kbd></td>
+<td>Otwiera ustawienia ostatniej operacji, np. Segments po Bevel.</td>
+</tr>
+<tr>
+<td><kbd>Numpad 1</kbd>, <kbd>Numpad 3</kbd>, <kbd>Numpad 7</kbd></td>
+<td>Widok od przodu, z prawej strony i z góry.</td>
+</tr>
+<tr>
+<td><kbd>Numpad .</kbd></td>
+<td>Ustawia widok na zaznaczonym obiekcie.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Shift</kbd> + <kbd>ŚPM</kbd></span> i przeciąganie</td>
+<td>Przesuwa widok na bok.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Z</kbd></span></td>
+<td>Cofa ostatnią operację.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span> / <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></span></td>
+<td>Save / Save As: zapisuje projekt lub otwiera zapis pod inną nazwą.</td>
+</tr>
+</tbody></table>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

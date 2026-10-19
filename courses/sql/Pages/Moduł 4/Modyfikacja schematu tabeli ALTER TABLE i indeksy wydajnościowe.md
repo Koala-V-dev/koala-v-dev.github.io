@@ -117,17 +117,17 @@ Rozszerz tabelę `pomiary` o nową kolumnę tekstową `kierowca` (TEXT) z warto�
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca wiersze z nową kolumną kierowca i wartością domyślną",
+        "text": "Struktura tabeli została rozszerzona o nową kolumnę z wartością domyślną, a w bazie utworzono indeks wydajnościowy",
         "type": "sql-execute",
-        "schema": "CREATE TABLE pomiary (id INT PRIMARY KEY, rejestracja TEXT, waga INT); INSERT INTO pomiary VALUES (1, 'WZ1234A', 18500), (2, 'KR9988B', 24200);",
-        "expectedCount": 2,
-        "expectedColumns": ["id", "rejestracja", "waga", "kierowca"]
-      },
-      {
-        "id": "syntax-alter",
-        "text": "Zastosowano polecenie ALTER TABLE ADD COLUMN oraz CREATE INDEX",
-        "type": "contains",
-        "pattern": "ALTER TABLE"
+        "schema": "CREATE TABLE pomiary (id INT PRIMARY KEY, rejestracja TEXT, waga INT); INSERT INTO pomiary VALUES (1, 'WZ1234A', 18500), (2, 'KR9988B', 24200), (3, 'GD5566C', 19800);",
+        "expectedIndex": "idx_kierowca",
+        "expectedCount": 3,
+        "expectedColumns": ["id", "rejestracja", "waga", "kierowca"],
+        "expectedRows": [
+          { "rejestracja": "WZ1234A", "kierowca": "Nieznany" },
+          { "rejestracja": "KR9988B", "kierowca": "Nieznany" },
+          { "rejestracja": "GD5566C", "kierowca": "Nieznany" }
+        ]
       }
     ]
   </template>

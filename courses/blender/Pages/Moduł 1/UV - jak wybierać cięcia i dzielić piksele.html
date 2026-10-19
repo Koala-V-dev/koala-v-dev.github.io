@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\UV - jak wybierać cięcia i dzielić piksele - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Pierwszy model</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Pierwszy model - stół warsztatowy"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Pierwszy%20model%20-%20st%C3%B3%C5%82%20warsztatowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy model - stół warsztatowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rama i półka - Inset i Extrude"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Rama%20i%20p%C3%B3%C5%82ka%20-%20Inset%20i%20Extrude.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rama i półka - Inset i Extrude</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Szuflada i uchwyt - oś symetrii i Mirror"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Szuflada%20i%20uchwyt%20-%20o%C5%9B%20symetrii%20i%20Mirror.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Szuflada i uchwyt - oś symetrii i Mirror</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Deski, prowadnice i wspólny ruch szuflady"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Deski%2C%20prowadnice%20i%20wsp%C3%B3lny%20ruch%20szuflady.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Deski, prowadnice i wspólny ruch szuflady</a></li><li class="module">Moduł 1: Siatka i pierwszy samodzielny asset</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Młotek - siatka, Bevel i oddzielny asset"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/M%C5%82otek%20-%20siatka%2C%20Bevel%20i%20oddzielny%20asset.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Młotek - siatka, Bevel i oddzielny asset</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Materiały młotka - drewno, metal i światło"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Materia%C5%82y%20m%C5%82otka%20-%20drewno%2C%20metal%20i%20%C5%9Bwiat%C5%82o.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Materiały młotka - drewno, metal i światło</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV - jak wybierać cięcia i dzielić piksele"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20-%20jak%20wybiera%C4%87%20ci%C4%99cia%20i%20dzieli%C4%87%20piksele.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV - jak wybierać cięcia i dzielić piksele</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UV młotka - szwy, wyspy i checker"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/UV%20m%C5%82otka%20-%20szwy%2C%20wyspy%20i%20checker.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UV młotka - szwy, wyspy i checker</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Drewno trzonka - obraz, kierunek i chropowatość"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Drewno%20trzonka%20-%20obraz%2C%20kierunek%20i%20chropowato%C5%9B%C4%87.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drewno trzonka - obraz, kierunek i chropowatość</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Własna mapa trzonka - bake między UV"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/W%C5%82asna%20mapa%20trzonka%20-%20bake%20mi%C4%99dzy%20UV.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własna mapa trzonka - bake między UV</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Texture Paint - przekrój drewna i retusz szwu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Texture%20Paint%20-%20przekr%C3%B3j%20drewna%20i%20retusz%20szwu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Texture Paint - przekrój drewna i retusz szwu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Detal powierzchni - geometria, Bump i Roughness"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%201/Detal%20powierzchni%20-%20geometria%2C%20Bump%20i%20Roughness.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Detal powierzchni - geometria, Bump i Roughness</a></li><li class="module">Moduł 2: Asortyment warsztatu i sprawne modelowanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - przekroje i Subdivision Surface"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20przekroje%20i%20Subdivision%20Surface.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - przekroje i Subdivision Surface</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak krzyżowy - wariant wspólnej konstrukcji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20krzy%C5%BCowy%20-%20wariant%20wsp%C3%B3lnej%20konstrukcji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak krzyżowy - wariant wspólnej konstrukcji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - stal i tworzywo z bliska"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20stal%20i%20tworzywo%20z%20bliska.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - stal i tworzywo z bliska</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - retopologia, UV i poziomy LOD"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20retopologia%2C%20UV%20i%20poziomy%20LOD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - retopologia, UV i poziomy LOD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wkrętak - bake i porównanie game assetu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%202/Wkr%C4%99tak%20-%20bake%20i%20por%C3%B3wnanie%20game%20assetu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wkrętak - bake i porównanie game assetu</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>UV - jak wybierać cięcia i dzielić piksele</h1>
+<p>Trzonek ma już brązowy materiał, ale jego powierzchnia wszędzie wygląda tak samo. Słoje wymagają zmiennego wzoru. Możemy odczytać go z obrazu, jeśli określimy, który fragment obrazu ma trafić na każdą część modelu. Ten układ przypisania to <span class="color-green">mapa UV</span>.</p>
+<p>Zanim rozłożysz młotek w Blenderze, przyjrzyj się kilku gotowym porównaniom. Pozwolą ci zrozumieć, gdzie poprowadzić cięcia, co sprawdzać kolorową kratką i jak przydzielić miejsce na szczegóły. W kolejnej lekcji wykonasz te operacje na swoim modelu.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🗺️ Odczytaj związek obrazu z modelem</h2>
+<p><span class="color-green">Model</span> określa kształt, a materiał sposób reagowania powierzchni na światło. Tekstura pozwala zmieniać właściwości materiału w poszczególnych miejscach, np. narysować ciemny napis na jasnym trzonku.</p>
+<p>Teksturą może być zapisany obraz albo wzór obliczany przez Blender, np. szum tworzący plamki. Taki obliczany wzór nazywamy teksturą proceduralną.</p>
+<p>Spójrz na bok głowicy po prawej: widać na nim kolejno pola A4, B4, C4 i D4. Po lewej odnajdziesz je pod długą wyspą w dolnej części obrazu. Jej obrys określa, który fragment kratki trafia na ten bok. Gdybyś przesunął tę wyspę o kolumnę w prawo, na głowicy pojawiłyby się pola A5, B5, C5 i D5. Kształt głowicy pozostałby taki sam.</p>
+<p><img src="/courses/blender/Images/uv-zasady-wyspy.png" alt="Rozłożone ściany głowicy na obrazie oraz odpowiadający im wzór na modelu"></p>
+<p>Kratka to <span class="color-green">checker</span>, obraz kontrolny podłączany do materiału. Znamy kształt jego pól, więc po nałożeniu na model widzimy, gdzie wzór się rozciąga lub ściska. Litery pomagają odnaleźć odpowiadające sobie miejsca w obu widokach. Tego samego rozłożenia UV można później użyć do odczytania obrazu drewna albo metalu.</p>
+<p>Połączony fragment rozłożenia nazywamy <span class="color-green">wyspą UV</span>. Może obejmować jedną ścianę albo większy obszar modelu. Wyspy rozmieszczasz na obrazie, którego kierunki oznaczamy jako U i V: poziomy i pionowy.</p>
+<p>Cały obraz mieści się w zakresie od <code>0</code> do <code>1</code> w obu osiach UV, niezależnie od liczby jego pikseli. Środek obrazu ma UV <code>(0.5, 0.5)</code> zarówno przy rozdzielczości 1024 × 1024, jak i 2048 × 2048.</p>
+<p>Ten sam układ UV może służyć do odczytywania osobnego obrazu koloru i osobnego obrazu chropowatości. Oba trafią w te same miejsca modelu. To pozwala umieścić na drewnie plamę, która jednocześnie zmienia barwę i połysk.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✂️ Otwórz powierzchnię w odpowiednich miejscach</h2>
+<p>Spójrz na trzonek jak na papierową owijkę. Jego boki tworzą zamknięty obwód, więc do rozłożenia potrzebują podłużnego otwarcia. Końcówki można oddzielić, aby rozłożyły się obok pasa bocznego. Właśnie taki podział pokazują czerwone krawędzie na zrzucie.</p>
+<p><img src="/courses/blender/Images/uv-szwy-trzonek.png" alt="Podłużny szew otwierający boki trzonka oraz szwy oddzielające obie końcówki"></p>
+<p>Te krawędzie oznaczamy jako <span class="color-green">szwy UV</span>. Podczas operacji <span class="color-green">Unwrap</span> Blender rozkłada powierzchnię zgodnie z podziałem. Siatka 3D zachowuje połączone ściany, a ich brzegi w UV mogą zajmować różne miejsca na obrazie. Jedna krawędź modelu odpowiada wtedy dwóm oddzielnym brzegom wysp.</p>
+<p>Gdy planujesz szwy na nowym modelu, najpierw rozpoznaj jego części. Bok prostego walca potrzebuje otwarcia wzdłuż i oddzielenia denek. Pudełko można otworzyć jak karton, pozostawiając część ścian połączoną. W obłym uchwycie wygodnie zachować ciągły obszar chwytu, a cięcie poprowadzić po mniej widocznej stronie.</p>
+<p>Po oznaczeniu szwów wykonujesz Unwrap. Blender oblicza położenie ścian w UV, pozostawiając połączone te brzegi, których nie rozdzieliłeś. Gdy zmienisz szwy, ponowne Unwrap obliczy nowe rozłożenie. Dopiero na tym wyniku oceniasz, czy wybrany podział wystarczył.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔨 Popraw podział, gdy sąsiednie ściany się ograniczają</h2>
+<p>Głowica młotka ma płaskie boki, ale zwęża się przy końcach. Połączone w jedną owijkę ściany utrudniają sobie rozłożenie: ich brzegi muszą pozostać razem, choć poszczególne trapezy potrzebują innego układu. Na górnym obrazie widać, jak wygina się przez to kratka.</p>
+<p><img src="/courses/blender/Images/uv-glowica-porownanie.png" alt="U góry boki głowicy połączone w jedną owijkę, u dołu rozłożone osobno po dodaniu szwów na narożnikach"></p>
+<p>Po dodaniu szwów na podłużnych narożnikach każdy bok może rozłożyć się niezależnie. Kratka na dolnym obrazie zachowuje proporcje znacznie lepiej. Wyspy dopasowują się do kształtów ścian, więc zwężający się bok zachowuje trapezowy obrys w UV.</p>
+<p>Gdybyś wyprostował zwężenie takiej wyspy do prostokąta, węższy koniec głowicy musiałby odczytywać równie szeroki pas obrazu jak jej środek. Wzór ścisnąłby się na końcu. Dlatego przy płaskim boku zachowujesz w UV jego proporcje i zwężenia. Prostokątna wyspa pasuje do prostokątnej powierzchni.</p>
+<p>Jeśli rozłożenie jednej płaskiej części wyraźnie psuje sąsiednią, sprawdź podział na ich wspólnej krawędzi. Po zmianie szwów ponownie wykonujesz Unwrap i porównujesz to samo miejsce na modelu. Nowy szew warto zachować wtedy, gdy usuwa widoczne ściśnięcie, a wzór na granicy części da się dopasować.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ Rozłóż odkształcenia na obłej powierzchni</h2>
+<p>Bok prostego walca można po jednym cięciu rozwinąć w prostokąt, bo zakrzywia się tylko wokół obwodu. Policzki, czoło i nos tworzą powierzchnię zakrzywioną w wielu kierunkach. Przy rozpłaszczaniu taki płat musi się miejscami rozciągnąć albo ścisnąć. Podobny problem wystąpi na metalowej kuli.</p>
+<p>Dlatego jedna duża wyspa obejmująca twarz będzie miała odkształcenia. Możesz zmieniać ich rozkład albo dodać cięcia, żeby mniejsze płaty rozłożyły się swobodniej. Każde kolejne cięcie tworzy jednak brzegi obrazu do dopasowania i wymaga odstępu między wyspami.</p>
+<p>Na poniższym fragmencie półkuli widać dwa możliwe wyniki. Lewy układ lepiej zachowuje lokalne proporcje wzoru, kosztem zmiennej skali na powierzchni. Prawy przydziela podobną ilość obrazu podobnym powierzchniom w 3D, kosztem proporcji pól. Model, obraz i ujęcie są w obu przypadkach takie same.</p>
+<p><img src="/courses/blender/Images/uv-polkula-fragment.png" alt="Ten sam fragment półkuli: po lewej odwzorowanie zachowujące lokalne kąty, po prawej względną powierzchnię"></p>
+<p>Na obłej powierzchni sprawdzaj małe pola kratki w obrębie jednego fragmentu, np. policzka. Duże pole z literą może przechodzić przez bok nosa i policzek, więc obejmuje kilka różnych kierunków powierzchni. Jego wygięcie samo w sobie niewiele mówi o jakości UV. Najpierw obróć model tak, by patrzeć możliwie na wprost ocenianego miejsca. Tak ograniczysz zwężenie wzoru wynikające z kąta patrzenia.</p>
+<p>Potem porównaj szerokość i wysokość drobnych pól oraz ich rozmiar na sąsiednich fragmentach. Pola podobne do kwadratów, które stopniowo zmieniają wielkość, wskazują głównie zmianę przydziału pikseli. Długie, wąskie pola ujawniają rozciągnięcie w jednym kierunku. Szczególnie uważaj na nagłe przejście od regularnej kratki do ciasnego pasma przy nozdrzu lub kąciku ust: tam szczegół może stracić ostrość.</p>
+<p>Na głowicy można było rozdzielić płaskie boki i prawie usunąć ten problem. Na głowie oceniasz, gdzie pozostawić łagodne odkształcenie, żeby zachować ciągłość skóry. Drobna kratka pomaga znaleźć miejscowe ściśnięcia także wtedy, gdy duże litery wyglądają na całej twarzy krzywo.</p>
+<p>Planując UV głowy, zachowaj oba policzki, nos i czoło w jednym płacie, a otwarcie poprowadź z tyłu, od szyi ku czubkowi. Po rozłożeniu sprawdź okolice oczu, nosa i ust. Jeżeli przy połączeniu ucha z głową powstaje mocne ściśnięcie, spróbuj wydzielić ucho szwem u jego nasady i rozłożyć je osobno. Jeśli szyja ciągnie rozłożenie twarzy w długi, wąski fragment, porównaj wynik po oddzieleniu jej od głowy.</p>
+<p>Po każdej takiej próbie wróć do tych samych miejsc z checkerem. Zachowaj zmianę, która poprawia problematyczny obszar bez pogorszenia ważniejszych części. Unikaj dzielenia policzka na drobne wyspy tylko po to, żeby wyprostować każdą kratkę: granice tych wysp przecinałyby widoczną skórę, a odstępy zabierałyby miejsce na jej szczegóły.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Przygotuj miejsce na potrzebne szczegóły</h2>
+<p>Tekstura skóry pokazuje, dlaczego ciągłość twarzy jest przydatna. Brwi, usta i zarost na płaskim obrazie mają układ dopasowany do UV tego modelu. Po odczytaniu obrazu trafiają na swoje miejsca, a oba policzki mają osobne miejsca na obrazie.</p>
+<p>Pieprzyk namalowany na jednym policzku pojawi się tylko na nim. Gdy obie połowy twarzy współdzielą ten sam fragment obrazu, dostają też te same namalowane szczegóły.</p>
+<p><img src="/courses/blender/Images/uv-twarz-tekstura-model.png" alt="Pełna tekstura koloru skóry obok głowy korzystającej z tego obrazu"></p>
+<p>Na tym samym obrazie poniżej widać krawędzie UV. Odszukaj obszar nosa i ust: trójkąty wskazują, z których miejsc obrazu korzystają ich ściany. Gęsta siatka wokół ust opisuje kształt modelu. Przydział pikseli zależy od powierzchni, którą te trójkąty zajmują na obrazie.</p>
+<p><img src="/courses/blender/Images/uv-twarz-uklad-model.png" alt="Ten sam obraz skóry z nałożonymi krawędziami UV oraz model odczytujący go w Blenderze"></p>
+<p>Zwróć uwagę na różnicę między tym obrazem a checkerem. Kratka ma z góry ustalone, regularne pola. Obraz skóry przygotowano pod konkretne UV: po lewej rysy twarzy są rozłożone tak, aby po nałożeniu odtworzyły właściwy wygląd po prawej. Malując po modelu 3D, prowadzisz pędzel po policzku, a program zapisuje ślad w odpowiadających mu miejscach obrazu. Ślad na płaskim obrazie może przez to mieć inne proporcje.</p>
+<p>Tak można dopasować wygląd skóry do rozłożenia, ale nadal trzeba zapewnić jej miejsce na szczegół. Jeżeli na szerokość znamienia przypadają zaledwie dwa piksele, dokładniejszy ruch pędzla nie doda kolejnych. Z tego powodu oprócz kształtu pól checkera oceniasz też ich wielkość.</p>
+<p>Przy zbliżeniach twarz powinna dostać więcej miejsca niż jednolity, rzadko widoczny spód popiersia. Gdy zaczyna brakować przestrzeni na obrazie, zmniejsz wyspę spodu i przeznacz odzyskane miejsce na twarz. Podobnie napis na małej tabliczce może wymagać większej gęstości niż duży bok skrzyni. <span class="color-green">Wielkość wysp dobierasz do potrzebnego detalu i sposobu oglądania modelu.</span></p>
+<p>Powiększając całą wyspę, zachowuj jej proporcje. Dwukrotnie większa szerokość i wysokość daje cztery razy więcej miejsca na piksele, więc ten przydział odbywa się kosztem pozostałych części. Ostatecznie sprawdź detal z odległości, z której model ma być oglądany w grze. To pozwala ocenić, czy dodatkowe miejsce poprawia coś, co gracz rzeczywiście zobaczy.</p>
+<p>Model i obraz: Lee Perry‑Smith / Infinite‑Realities, <a href="https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf/LeePerrySmith">pliki źródłowe</a>, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📏 Rozpoznaj, którą zmianę wykonać</h2>
+<p>Poniżej trzy warianty tej samej głowicy z tym samym obrazem. W B zmniejszono UV w obu osiach, a w C tylko w jednej. Porównaj, co stało się z polami wzoru.</p>
+<p><img src="/courses/blender/Images/uv-zasady-piksele.png" alt="A: punkt odniesienia; B: mniej miejsca na obrazie przy zachowanych proporcjach; C: wydłużony wzór po ściśnięciu UV w jednej osi"></p>
+<p>W B kratki zachowują kształt, ale jest ich mniej na tej samej powierzchni. Powiększenie wyspy przydzieli głowicy większy fragment obrazu i pozwoli zmieścić drobniejszy detal. W C trzeba poprawić proporcje UV: zwiększenie rozdzielczości dałoby tylko więcej pikseli do narysowania wydłużonego wzoru.</p>
+<p>Piksel tekstury to <span class="color-green">teksel</span>. Gęstość tekseli mówi, ile pikseli przypada na jednostkę długości powierzchni modelu. Jeśli 10 cm trzonka otrzyma 100 pikseli, ma 10 pikseli na centymetr. Przy 200 pikselach ma ich 20 na centymetr.</p>
+<p>Przy tym samym obrazie checkera większe pola na modelu oznaczają mniej pikseli na centymetr. Dlatego porównując części modelu, korzystasz z jednej kratki o niezmienionej skali w materiale.</p>
+<p>Własne rozłożenie poprawiaj według objawu:</p>
+<table>
+<thead>
+<tr>
+<th>Co widzisz na modelu?</th>
+<th>Co zmienić w UV?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Pola zachowują proporcje, ale na ważnym detalu są dużo większe niż obok.</td>
+<td>Powiększ całą wyspę tego detalu i odzyskaj miejsce na mniej ważnych częściach.</td>
+</tr>
+<tr>
+<td>Cała płaska powierzchnia ma pola wydłużone w jednym kierunku.</td>
+<td>Przywróć wyspie proporcje powierzchni. Sprawdź, czy jej zwężenia nie zostały wymuszone do prostokąta.</td>
+</tr>
+<tr>
+<td>Tylko przy przewężeniu lub nasadzie występuje ciasne pasmo zdeformowanych pól.</td>
+<td>Sprawdź podział w tym miejscu. Porównaj rozłożenie po dodaniu szwu uwalniającego tę część.</td>
+</tr>
+<tr>
+<td>Pola na obłej powierzchni zmieniają się łagodnie, a szczegóły pozostają czytelne.</td>
+<td>Oceń ciągłość wzoru i przydział pikseli przed dodaniem następnych cięć.</td>
+</tr>
+</tbody></table>
+<p>Na młotku zaczniemy od zbliżonej gęstości na drewnie i stali. Przy postaci priorytet można nadać twarzy. Sam równo wypełniony kwadrat UV nie pokaże, czy podział miejsca odpowiada tym potrzebom.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧵 Połącz wzór na brzegach wysp</h2>
+<p>Oddzielne wyspy nadal spotykają się na modelu. Na schemacie żółte brzegi odpowiadają jednemu narożnikowi, więc punkt <code>1</code> łączy się z <code>1</code>, a <code>2</code> z <code>2</code>. Niebieski pas przechodzi przez narożnik płynnie, gdy dochodzi do obu brzegów na odpowiadającej sobie wysokości.</p>
+<p><img src="/courses/blender/Images/uv-szew-dopasowanie.svg" alt="Dopasowany i przesunięty pas na oddzielnych wyspach oraz wynik na wspólnym narożniku modelu"></p>
+<p>Dolny wariant pokazuje koszt niedopasowania: pas urywa się i zaczyna ponownie niżej. W ten sam sposób może pojawić się granica koloru skóry albo połysku. Umieszczenie szwu z tyłu modelu ułatwia ukrycie przejścia, a malowanie po powierzchni 3D pomaga dopasować jego strony.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Ułóż przygotowane wyspy</h2>
+<p>Głowica i trzonek mogą pozostać osobnymi obiektami, korzystając ze wspólnego obrazu. Ich wyspy zajmują wtedy różne obszary tej tekstury.</p>
+<p>Po sprawdzeniu rozłożenia i ustaleniu skali części możesz je spakować. Zachowaj osobne miejsce dla powierzchni, na których chcesz malować różne szczegóły. Nakładające się wyspy będą odczytywać ten sam fragment obrazu, co przydaje się przy identycznych częściach, lecz ogranicza różnicowanie ich wyglądu.</p>
+<p>Zostaw też odstępy między wyspami. Podczas malowania lub wypalania tekstury trzeba wypełnić je przedłużeniem koloru znad brzegu wyspy. Dzięki temu przy filtrowaniu i pomniejszaniu obrazu do powierzchni nie zacznie przenikać kolor sąsiedniej części. Samo odsunięcie wysp pozostawia tylko miejsce na taki zapas.</p>
+<p>Pakując wyspy, zachowaj ich wzajemną skalę ustaloną według ważności detalu. Po ułożeniu wróć do modelu i sprawdź ważne miejsca z checkerem, a potem z właściwym obrazem. Zmiana UV po namalowaniu skóry lub słojów przesunie odczytywany wzór względem modelu. Dlatego rozłożenie i przydział pikseli przygotowujesz przed szczegółowym teksturowaniem.</p>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Szwy dobieraj do powierzchni.</span> Otwórz zamknięte obwody i oddziel części, które utrudniają sobie rozłożenie.</li>
+<li><span class="color-green">Po Unwrap sprawdzaj skutek na modelu.</span> Płaski bok może zachować swój kształt, a ciągły obły płat wymaga rozłożenia odkształceń.</li>
+<li><span class="color-green">Dobierz poprawkę do objawu.</span> Zmiana proporcji UV wpływa na kształt wzoru, a wielkość wyspy na przydział pikseli.</li>
+<li><span class="color-green">Pakuj po ustaleniu priorytetów.</span> Ważny detal, ciągłość wzoru i widoczność części decydują o ich miejscu na teksturze.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

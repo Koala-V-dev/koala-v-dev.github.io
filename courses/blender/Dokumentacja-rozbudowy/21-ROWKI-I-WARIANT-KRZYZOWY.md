@@ -1,0 +1,13 @@
+# Rowki chwytu i wariant krzyżowy
+
+Poprawiono lekcję Wkrętak - przekroje i Subdivision Surface. Dodano Inset Individual, Extrude Individual Faces i kontrolę zakończeń rowków dwiema płaszczyznami Bisect. Osiem zagłębień 1.2 mm, obrzeże 1.2 mm, pas przy dnie .35 mm, cięcia Z=7.5/72.5 mm. Wariant bez cięć przy końcach odrzucono, bo Subdivision wyciągał zakończenia w szpic. Rękojeść ma teraz 288 bazowych wierzchołków i 282 ściany; 4544 wynikowe ściany przy Subdivision 2. Materiały nadal podglądowe, etap modelowania przed UV.
+
+Dodano osobną, bezpośrednio następującą lekcję Wkrętak krzyżowy - wariant wspólnej konstrukcji. Wykorzystuje istniejący chwyt i nowy cylinder 12 wierzchołków. Obrót 15 stopni, cofnięcie czterech przekątnych punktów przez S .35. Przekroje 190/197/204.5/206 mm, cztery zwężające się ramiona. Nie jest to certyfikowany wymiarowo model konkretnego rozmiaru PH. Grot krzyżowy: 60 bazowych wierzchołków, 50 ścian, Bevel .04 mm i Weighted Normal. Dwie kolekcje, niezależne siatki chwytów, współdzielone materiały i poprawne relacje rodzic-dziecko. Nie modyfikowano pliku użytkownika w Downloads.
+
+Sprawdzono zamknięcie, dodatnią objętość i niezerową powierzchnię wszystkich bazowych ścian oraz zamknięcie siatek po modyfikatorach. Osiem dużych den rowków ma odległość 1.2 mm od pierwotnych płaszczyzn chwytu. Przekrój krzyżaka ma 12 punktów, cztery cofnięte, symetrię obrotową 90 stopni. Ponowne otwarcie w osobnym folderze poprawne; wszystkie cztery obiekty widoczne, modyfikatory aktywne. Plik 02 zastępuje poprzedni gładki wynik, plik 03 dodaje oba warianty. Kopia poprzedniej lekcji, zasobów i indeksu w Przed-rowkami-i-krzyzakiem-v16.
+
+Ilustracje: natywne zrzuty Blendera 5.2.2 oraz rendery, kadrowanie i adnotacje PIL. Przekrój od czoła wyodrębniono z rzeczywistych współrzędnych pierścienia Z197 do tymczasowego obiektu bez ścian, żeby nie zasłaniały go pozostałe wysokości. Nie ma tego pomocnika w dostarczonym projekcie. Do zrzutów siatki grotu wyłączono podgląd faz, przywrócony w zapisanym modelu. Porównanie końcówek ma tę samą kamerę i światło po wycentrowaniu obu grotów w tym samym miejscu.
+
+Referencje: zrzuty użytkownika pokazujące wyraźne podłużne podziały chwytu. Pomocniczo przejrzano katalog producenta https://www.wera.de/pl/narzedzia/rodzaje-narzedzi/wkretaki i https://www.wera.de/en/tools/tool-types/bits-holders-adapters/bits/ (2026-10-17). W kursie nie redystrybuowano zdjęć producenta ani nie deklarowano wymiarów normatywnych.
+
+Przebudowa offline poprawna, metadane współdzielone bez zmian. Audyt 14 lekcji: 0 błędów i 0 ostrzeżeń. Dwie strony sprawdzone na desktop 1440 i mobile 390: 8+4 obrazy, po 2 działające odnośniki pobierania, brak błędów JS i poziomego przepełnienia. Raport i zrzuty w Weryfikacja-M02-v16.

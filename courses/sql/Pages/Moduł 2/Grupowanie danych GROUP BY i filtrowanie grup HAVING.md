@@ -103,17 +103,16 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 2 grupy (Włochy i Hiszpania) z oczekiwanymi kolumnami",
+        "text": "Wynik poprawnie grupuje wycieczki według krajów i zawiera wyłącznie kraje z więcej niż jedną ofertą, ułożone alfabetycznie",
         "type": "sql-execute",
-        "schema": "CREATE TABLE wycieczki (id INT PRIMARY KEY, kraj TEXT, cel TEXT, cena REAL, miejsca INT); INSERT INTO wycieczki VALUES (1, 'Włochy', 'Rzym', 2400.00, 20), (2, 'Hiszpania', 'Barcelona', 2800.00, 25), (3, 'Włochy', 'Wenecja', 2100.00, 15), (4, 'Grecja', 'Ateny', 1950.00, 30), (5, 'Hiszpania', 'Madryt', 3100.00, 18);",
+        "schema": "CREATE TABLE wycieczki (id INT PRIMARY KEY, kraj TEXT, cel TEXT, cena REAL, miejsca INT); INSERT INTO wycieczki VALUES (1, 'Włochy', 'Rzym', 2400.00, 20), (2, 'Hiszpania', 'Barcelona', 2800.00, 25), (3, 'Włochy', 'Wenecja', 2100.00, 15), (4, 'Grecja', 'Ateny', 1950.00, 30), (5, 'Hiszpania', 'Madryt', 3100.00, 18), (6, 'Portugalia', 'Lizbona', 2600.00, 12), (7, 'Norwegia', 'Oslo', 4200.00, 8), (8, 'Chorwacja', 'Split', 2300.00, 22);",
         "expectedCount": 2,
-        "expectedColumns": ["kraj", "liczba"]
-      },
-      {
-        "id": "syntax-having",
-        "text": "Wykorzystano klauzule GROUP BY oraz HAVING",
-        "type": "contains",
-        "pattern": "HAVING"
+        "expectedColumns": ["kraj", "liczba"],
+        "exactOrder": true,
+        "expectedRows": [
+          { "kraj": "Hiszpania", "liczba": 2 },
+          { "kraj": "Włochy", "liczba": 2 }
+        ]
       }
     ]
   </template>

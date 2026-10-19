@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 0\Nawigacja i odzyskiwanie widoku - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">blender</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="lesson-item lesson" tabindex="0" data-path="Wprowadzenie"><a class="lesson-link" href="/courses/blender/Pages/Wprowadzenie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wprowadzenie</a></li><li class="module">Moduł 0: Pierwsze kroki i kontrola nad projektem</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Start i mapa interfejsu"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Start%20i%20mapa%20interfejsu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Start i mapa interfejsu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Nawigacja i odzyskiwanie widoku"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Nawigacja%20i%20odzyskiwanie%20widoku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Nawigacja i odzyskiwanie widoku</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Obiekt i siatka - dwa poziomy edycji"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Obiekt%20i%20siatka%20-%20dwa%20poziomy%20edycji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obiekt i siatka - dwa poziomy edycji</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Wymiary i pierwsza półka warsztatowa"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Wymiary%20i%20pierwsza%20p%C3%B3%C5%82ka%20warsztatowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wymiary i pierwsza półka warsztatowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Zapis projektu i obrazy bez znikania"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Zapis%20projektu%20i%20obrazy%20bez%20znikania.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zapis projektu i obrazy bez znikania</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Samodzielny stół - pierwsza kontrola jakości"><a class="lesson-link" href="/courses/blender/Pages/Modu%C5%82%200/Samodzielny%20st%C3%B3%C5%82%20-%20pierwsza%20kontrola%20jako%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Samodzielny stół - pierwsza kontrola jakości</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Nawigacja i odzyskiwanie widoku</h1>
+<p>Podczas oglądania modelu łatwo oddalić się tak, że zostaje sama siatka podłoża. To nie znaczy, że obiekt zniknął. Nauczysz się obracać widok, sprawdzać rzuty i wracać do zaznaczonego obiektu bez przesuwania samego modelu.</p>
+<p>Możesz pracować na domyślnym sześcianie albo <a href="/courses/blender/Resources/m00-01-start.blend">pliku startowym</a>. Plik kontrolny ma ustawione jednostki metryczne. Przed jego otwarciem zapisz własną pracę, jeśli chcesz do niej wrócić.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧭 Widok to nie transformacja modelu</h2>
+<p>Zaznacz <code>Cube</code> przez Outliner. Otwórz Item klawiszem <kbd>N</kbd> i odczytaj Location. Zapamiętaj wartości albo zrób zrzut. Teraz wykonaj trzy ruchy nad 3D Viewport:</p>
+<table>
+<thead>
+<tr>
+<th>Czynność</th>
+<th>Sterowanie myszą</th>
+<th>Co obserwujesz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Obrót widoku</td>
+<td>Przytrzymaj środkowy przycisk i przeciągnij</td>
+<td>Inne strony tej samej bryły</td>
+</tr>
+<tr>
+<td>Przesunięcie widoku</td>
+<td>Shift i środkowy przycisk, przeciągnięcie</td>
+<td>Przesunięcie kadru</td>
+</tr>
+<tr>
+<td>Przybliżenie</td>
+<td>Kółko myszy</td>
+<td>Większy lub mniejszy obraz obiektu</td>
+</tr>
+</tbody></table>
+<p>Po każdym ruchu sprawdź Location. Wartości obiektu pozostają takie same. <strong>Zmiana kadru nie zmienia położenia modelu w scenie.</strong> Nie myl tego z operacją Move, którą wprowadzimy później.</p>
+<p>Mysz nie ma środkowego przycisku? Skorzystaj z przycisków po prawej stronie widoku: lupa służy do przybliżania, dłoń do przesuwania. Przeciąganie manipulatora osi w narożniku obraca widok. Na ilustracji zaznaczono miejsca tych elementów.</p>
+<p><img src="/courses/blender/Images/m00-navigation.png" alt="Prawy narożnik widoku: manipulator osi, lupa i dłoń do nawigacji"></p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📏 Sprawdź model bez perspektywicznego skrótu</h2>
+<p>Naciśnij <kbd>Numpad 1</kbd>, aby ustawić widok od przodu. <kbd>Numpad 3</kbd> ustawia widok z prawej, a <kbd>Numpad 7</kbd> z góry. To klawisze bloku numerycznego, nie cyfry nad literami.</p>
+<p><img src="/courses/blender/Images/m00-front.png" alt="Widok Front Orthographic, podpis widoku i kierunki osi zaznaczone na rzeczywistym zrzucie"></p>
+<p>W rzucie od przodu oglądasz płaszczyznę XZ i patrzysz wzdłuż osi Y. W prawym rzucie oglądasz YZ, a z góry XY. Przód obiektu artystycznego może być umówiony inaczej; nazwa widoku mówi o układzie sceny.</p>
+<p>Rzut ortogonalny nie pomniejsza dalekich fragmentów tak jak perspektywa. Dlatego pomaga porównywać obrys z rysunkiem technicznym. Perspektywa przydaje się do oceny przestrzennej bryły. <kbd>Numpad 5</kbd> przełącza te sposoby projekcji.</p>
+<p>Bez numpada wybierz <span class="color-green">View → Viewpoint → Front</span>, Right lub Top w menu nad widokiem. Możesz również klikać odpowiednie końce osi manipulatora. Nie musisz włączać Emulate Numpad: zmienia ono znaczenie cyfr, których użyjemy do wyboru części siatki.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛟 Zgub obiekt i znajdź go ponownie</h2>
+<ol>
+<li>Przesuń widok tak, aby sześcian znalazł się poza kadrem. Nie usuwaj obiektu.</li>
+<li>W Outlinerze wybierz <code>Cube</code>.</li>
+<li>Najedź nad 3D Viewport i wybierz <span class="color-green">View → Frame Selected</span> albo <kbd>Numpad .</kbd>.</li>
+<li>Sprawdź, czy wrócił sześcian oraz czy jego Location pozostało bez zmian.</li>
+</ol>
+<p>Frame Selected kadruje zaznaczenie. Jeżeli zaznaczyłeś kilka obiektów odległych od siebie, program próbuje zmieścić je wszystkie. Wtedy wróć do wyboru samego <code>Cube</code>.</p>
+<p><span class="color-green">Frame All</span>, zwykle pod <kbd>Home</kbd>, obejmuje wszystkie obiekty. To inna operacja. Daleki obiekt pomocniczy może sprawić, że właściwy model wygląda po niej na bardzo mały.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Samodzielna próba</h2>
+<p>Wybierz kamerę w Outlinerze i wykadruj ją przez Frame Selected. Obejrzyj ją z dwóch stron, potem wróć do sześcianu i ustaw rzut z góry. Sprawdź, czy ruch widoku zmienił Location któregokolwiek obiektu.</p>
+<p>Warunki ukończenia: potrafisz wrócić do obiektu z listy, rozpoznać podpis widoku i uzyskać rzut z góry również przez menu. Nie oceniaj tempa tej próby.</p>
+<details>
+<summary>Sprawdź wynik i typowy problem</summary>
+
+<p>Nawigacja nie zmienia transformacji. Jeśli model naprawdę się przesunął, mogłeś uruchomić Move zamiast Pan. Cofnij tę zmianę przez Ctrl+Z i spróbuj ponownie. Jeśli Frame Selected nie działa, sprawdź zaznaczenie oraz obszar pod kursorem. Wyłączony Num Lock może wpływać na działanie klawiatury numerycznej.</p>
+</details>
+
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Oglądasz obiekt bez zmieniania jego położenia.</li>
+<li>Używasz rzutów do kontroli proporcji i perspektywy do oceny bryły.</li>
+<li>Odzyskujesz widok przez zaznaczenie w Outlinerze i Frame Selected.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -114,17 +114,15 @@ SELECT
     [
       {
         "id": "sql-exec",
-        "text": "Zapytanie poprawnie zwraca 2 wiersze z kolumnami nazwa oraz cena",
+        "text": "Wynik zawiera wyłącznie fotele o nazwie rozpoczynającej się od 'Fotel' w zadanym przedziale cenowym 450-700 zł",
         "type": "sql-execute",
-        "schema": "CREATE TABLE meble (id INT PRIMARY KEY, nazwa TEXT, kategoria TEXT, cena REAL, dostepnosc INT); INSERT INTO meble VALUES (1, 'Fotel biurowy Ergonom', 'fotele', 480.00, 12), (2, 'Fotel uszak Velvet', 'fotele', 620.00, 4), (3, 'Biurko dębowe Loft', 'biurka', 850.00, 8), (4, 'Szafa przesuwna Nordic', 'szafy', 1490.00, 2), (5, 'Krzesło drewniane Classic', 'krzesla', 180.00, 25);",
+        "schema": "CREATE TABLE meble (id INT PRIMARY KEY, nazwa TEXT, kategoria TEXT, cena REAL, dostepnosc INT); INSERT INTO meble VALUES (1, 'Fotel biurowy Ergonom', 'fotele', 480.00, 12), (2, 'Fotel uszak Velvet', 'fotele', 620.00, 4), (3, 'Biurko dębowe Loft', 'biurka', 850.00, 8), (4, 'Szafa przesuwna Nordic', 'szafy', 1490.00, 2), (5, 'Krzesło drewniane Classic', 'krzesla', 180.00, 25), (6, 'Fotel gamingowy Diablo', 'fotele', 1199.00, 3), (7, 'Fotel pufa Mini', 'fotele', 249.00, 15), (8, 'Stolik kawowy Loft', 'stoliki', 520.00, 10);",
         "expectedCount": 2,
-        "expectedColumns": ["nazwa", "cena"]
-      },
-      {
-        "id": "syntax-like",
-        "text": "Wykorzystano operator LIKE z symbolem wieloznacznym %",
-        "type": "contains",
-        "pattern": "LIKE"
+        "expectedColumns": ["nazwa", "cena"],
+        "expectedRows": [
+          { "nazwa": "Fotel biurowy Ergonom" },
+          { "nazwa": "Fotel uszak Velvet" }
+        ]
       }
     ]
   </template>
