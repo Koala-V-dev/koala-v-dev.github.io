@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechanizm ARP - wiązanie IP z MAC i bezpieczeństwo - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">podstawy-sieci-komputerowych</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty i medium transmisyjne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Istota sieci komputerowej we współczesnym świecie"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200/Istota%20sieci%20komputerowej%20we%20wsp%C3%B3%C5%82czesnym%20%C5%9Bwiecie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Istota sieci komputerowej we współczesnym świecie</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Topologie logiczne i transmisja sygnału"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200/Topologie%20logiczne%20i%20transmisja%20sygna%C5%82u.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Topologie logiczne i transmisja sygnału</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Topologie fizyczne, okablowanie i zasięgi sieci"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%200/Topologie%20fizyczne%2C%20okablowanie%20i%20zasi%C4%99gi%20sieci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Topologie fizyczne, okablowanie i zasięgi sieci</a></li><li class="module">Moduł 1: Architektura warstwowa i Enkapsulacja</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dlaczego warstwy - problem monolitu i podział zadań"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201/Dlaczego%20warstwy%20-%20problem%20monolitu%20i%20podzia%C5%82%20zada%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dlaczego warstwy - problem monolitu i podział zadań</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Model ISO-OSI vs TCP-IP - teoria a realia systemu"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201/Model%20ISO-OSI%20vs%20TCP-IP%20-%20teoria%20a%20realia%20systemu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Model ISO-OSI vs TCP-IP - teoria a realia systemu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Enkapsulacja i jednostki PDU - wędrówka danych"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%201/Enkapsulacja%20i%20jednostki%20PDU%20-%20w%C4%99dr%C3%B3wka%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i jednostki PDU - wędrówka danych</a></li><li class="module">Moduł 2: Warstwa Łącza Danych (L2) - Ethernet, MAC i Przełączanie</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Anatomia ramki Ethernet II i adresowanie fizyczne MAC"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202/Anatomia%20ramki%20Ethernet%20II%20i%20adresowanie%20fizyczne%20MAC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Anatomia ramki Ethernet II i adresowanie fizyczne MAC</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Mechanizm ARP - wiązanie IP z MAC i bezpieczeństwo"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202/Mechanizm%20ARP%20-%20wi%C4%85zanie%20IP%20z%20MAC%20i%20bezpiecze%C5%84stwo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Mechanizm ARP - wiązanie IP z MAC i bezpieczeństwo</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Przełącznik L2 - tablica CAM, domeny kolizyjne i rozgłoszeniowe"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202/Prze%C5%82%C4%85cznik%20L2%20-%20tablica%20CAM%2C%20domeny%20kolizyjne%20i%20rozg%C5%82oszeniowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Przełącznik L2 - tablica CAM, domeny kolizyjne i rozgłoszeniowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Wirtualne sieci LAN (VLAN 802.1Q) - segmentacja ruchu L2"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%202/Wirtualne%20sieci%20LAN%20(VLAN%20802.1Q)%20-%20segmentacja%20ruchu%20L2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wirtualne sieci LAN (VLAN 802.1Q) - segmentacja ruchu L2</a></li><li class="module">Moduł 3: Warstwa Sieciowa (L3) - IPv4, IPv6 i Routing</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Pakiet IPv4 - budowa nagłówka i czas życia (TTL)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Pakiet%20IPv4%20-%20budowa%20nag%C5%82%C3%B3wka%20i%20czas%20%C5%BCycia%20(TTL).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pakiet IPv4 - budowa nagłówka i czas życia (TTL)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Adresowanie IPv4, maski i notacja CIDR"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Adresowanie%20IPv4%2C%20maski%20i%20notacja%20CIDR.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Adresowanie IPv4, maski i notacja CIDR</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Podział sieci (Subnetting VLSM) w praktyce inżynierskiej"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Podzia%C5%82%20sieci%20(Subnetting%20VLSM)%20w%20praktyce%20in%C5%BCynierskiej.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podział sieci (Subnetting VLSM) w praktyce inżynierskiej</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Podstawy routingu L3 - jak router podejmuje decyzje"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Podstawy%20routingu%20L3%20-%20jak%20router%20podejmuje%20decyzje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy routingu L3 - jak router podejmuje decyzje</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Diagnostyka sieciowa - protokół ICMP, Ping i Traceroute"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Diagnostyka%20sieciowa%20-%20protok%C3%B3%C5%82%20ICMP%2C%20Ping%20i%20Traceroute.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Diagnostyka sieciowa - protokół ICMP, Ping i Traceroute</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Przepisywanie adresów NAT i PAT (RFC 1918)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Przepisywanie%20adres%C3%B3w%20NAT%20i%20PAT%20(RFC%201918).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Przepisywanie adresów NAT i PAT (RFC 1918)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Wprowadzenie do IPv6 - dlaczego 128 bitów i koniec z ARP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%203/Wprowadzenie%20do%20IPv6%20-%20dlaczego%20128%20bit%C3%B3w%20i%20koniec%20z%20ARP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wprowadzenie do IPv6 - dlaczego 128 bitów i koniec z ARP</a></li><li class="module">Moduł 4: Warstwa Transportowa (L4) - TCP, UDP i Niezawodność</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Koncepcja portów i gniazd sieciowych (Sockets)"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%204/Koncepcja%20port%C3%B3w%20i%20gniazd%20sieciowych%20(Sockets).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Koncepcja portów i gniazd sieciowych (Sockets)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Protokół UDP - prostota, brak połączenia i zastosowania w czasie rzeczywistym"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%204/Protok%C3%B3%C5%82%20UDP%20-%20prostota%2C%20brak%20po%C5%82%C4%85czenia%20i%20zastosowania%20w%20czasie%20rzeczywistym.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Protokół UDP - prostota, brak połączenia i zastosowania w czasie rzeczywistym</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Protokół TCP - 3-Way Handshake i nawiązywanie połączenia"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%204/Protok%C3%B3%C5%82%20TCP%20-%203-Way%20Handshake%20i%20nawi%C4%85zywanie%20po%C5%82%C4%85czenia.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Protokół TCP - 3-Way Handshake i nawiązywanie połączenia</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Niezawodność TCP - numery sekwencyjne, okno przesuwne i kontrola przeciążeń"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%204/Niezawodno%C5%9B%C4%87%20TCP%20-%20numery%20sekwencyjne%2C%20okno%20przesuwne%20i%20kontrola%20przeci%C4%85%C5%BCe%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Niezawodność TCP - numery sekwencyjne, okno przesuwne i kontrola przeciążeń</a></li><li class="module">Moduł 5: Warstwa Aplikacji (L7) - Kluczowe usługi sieciowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/System nazw domenowych DNS - od zapytania do adresu IP"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%205/System%20nazw%20domenowych%20DNS%20-%20od%20zapytania%20do%20adresu%20IP.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">System nazw domenowych DNS - od zapytania do adresu IP</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Protokół DHCP - automatyczna konfiguracja hosta w cyklu DORA"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%205/Protok%C3%B3%C5%82%20DHCP%20-%20automatyczna%20konfiguracja%20hosta%20w%20cyklu%20DORA.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Protokół DHCP - automatyczna konfiguracja hosta w cyklu DORA</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Protokoły WWW - anatomia HTTP i bezpieczny kanał TLS i HTTPS"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%205/Protoko%C5%82y%20WWW%20-%20anatomia%20HTTP%20i%20bezpieczny%20kana%C5%82%20TLS%20i%20HTTPS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Protokoły WWW - anatomia HTTP i bezpieczny kanał TLS i HTTPS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Bezpieczne administrowanie - protokół SSH i szyfrowanie asymetryczne"><a class="lesson-link" href="/courses/podstawy-sieci-komputerowych/Pages/Modu%C5%82%205/Bezpieczne%20administrowanie%20-%20protok%C3%B3%C5%82%20SSH%20i%20szyfrowanie%20asymetryczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bezpieczne administrowanie - protokół SSH i szyfrowanie asymetryczne</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Mechanizm ARP - wiązanie IP z MAC i bezpieczeństwo</h1>
+<p>Gdy wydajesz polecenie <code>ping 192.168.1.50</code>, stos warstwy 3 systemu operacyjnego zna docelowy adres IPv4. Karta sieciowa wpięta do przełącznika Ethernet nie potrafi jednak wysłać ramki na adres logiczny IP: nagłówek warstwy 2 wymaga podania 48‑bitowego adresu <span class="color-green">MAC</span> urządzenia docelowego w tym samym segmencie sieci.</p>
+<p>Powiązanie między logiczną adresacją warstwy 3 a fizyczną adresacją kart sieciowych realizuje protokół <span class="color-green">ARP</span> (<span class="color-blue">Address Resolution Protocol</span>, RFC 826).</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔄 Cykl pracy protokołu ARP: Request i Reply</h2>
+<p><img src="/courses/podstawy-sieci-komputerowych/Images/arp-cykl-request-reply.svg" alt="Mechanizm protokołu ARP: Cykl Request i Reply"></p>
+<h3>📢 Krok 1: ARP Request (Zapytanie rozgłoszeniowe)</h3>
+<p>Host A (<code>192.168.1.10</code>) zamierza wysłać dane do Hosta B (<code>192.168.1.50</code>), ale nie zna jego adresu fizycznego MAC.</p>
+<ol>
+<li>Host A tworzy pakiet ARP z pytaniem: kto posiada adres IP <code>192.168.1.50</code> i prośbą o odpowiedź na adres <code>192.168.1.10</code> (<code>AA:AA:AA:AA:AA:AA</code>).</li>
+<li>Karta umieszcza zapytanie w ramce Ethernet II z docelowym adresem rozgłoszeniowym <span class="color-green"><code>FF:FF:FF:FF:FF:FF</code></span> i kodem EtherType <span class="color-green"><code>0x0806</code></span>.</li>
+<li>Przełącznik powiela tę ramkę na wszystkie aktywne porty w obrębie danej sieci lokalnej.</li>
+<li>Wszystkie stacje analizują treść komunikatu. Komputery posiadające inny adres IP cicho odrzucają pakiet.</li>
+</ol>
+<h3>🎯 Krok 2: ARP Reply (Odpowiedź bezpośrednia)</h3>
+<p>Stacja o adresie <code>192.168.1.50</code> rozpoznaje własne IP:</p>
+<ol>
+<li>Formuje odpowiedź z własnym adresem MAC (<code>BB:BB:BB:BB:BB:BB</code>).</li>
+<li>Odsyła ramkę bezpośrednio (<span class="color-green">Unicast</span>) na fizyczny adres Hosta A (<code>AA:AA:AA:AA:AA:AA</code>).</li>
+<li>Host A zapisuje mapowanie <code>IP -&gt; MAC</code> w pamięci operacyjnej i od tej pory kieruje ramki bezpośrednio na adres docelowy.</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗄️ Pamięć podręczna ARP (ARP Cache)</h2>
+<p>Rozsyłanie zapytań przed każdym pojedynczym pakietem zablokowałoby sieć lokalną ruchem rozgłoszeniowym. Jądro systemu buforuje więc poznane powiązania w lokalnej tablicy pamięci podręcznej (<span class="color-blue">ARP Cache</span>).</p>
+<ul>
+<li><span class="color-green">Wpisy dynamiczne:</span> dodawane automatycznie po odebraniu <span class="color-blue">ARP Reply</span>; wygasają samoczynnie po upływie licznika ważności (typowo 2 do 20 minut braku komunikacji).</li>
+<li><span class="color-green">Wpisy statyczne:</span> dodawane ręcznie przez administratora; pozostają aktywne do restartu systemu lub ich jawnego skasowania.</li>
+</ul>
+<h3>💻 Diagnostyka tablicy ARP w systemie operacyjnym</h3>
+<h4>🪟 1. Środowisko Windows (CMD / PowerShell)</h4>
+<p>Wyświetlenie powiązań adresów dla wszystkich kart:</p>
+<pre><code class="language-cmd">C:\&gt; arp -a
+
+Interfejs: 192.168.1.10 --- 0xb
+  Adres internetowy      Adres fizyczny        Typ
+  192.168.1.1            00-11-22-33-44-55     dynamiczne
+  192.168.1.50           b4-2e-99-a1-12-88     dynamiczne
+</code></pre>
+<ul>
+<li><code>arp -d *</code>: czyści dynamiczną pamięć podręczną ARP.</li>
+<li><code>arp -s 192.168.1.50 b4-2e-99-a1-12-88</code>: dopisuje stały wpis statyczny.</li>
+</ul>
+<h4>🐧 2. Środowisko Linux</h4>
+<p>Współczesny zestaw <code>iproute2</code> zarządza tablicą sąsiadów poleceniem <code>ip neigh</code>:</p>
+<pre><code class="language-bash">$ ip neigh show
+192.168.1.1 dev eth0 lladdr 00:11:22:33:44:55 REACHABLE
+192.168.1.50 dev eth0 lladdr b4:2e:99:a1:12:88 STALE
+</code></pre>
+<ul>
+<li><code>REACHABLE</code>: wpis potwierdzony niedawną wymianą danych.</li>
+<li><code>STALE</code>: wpis zestarzały, wymagający weryfikacji przed kolejną transmisją.</li>
+<li><code>ip neigh flush all</code>: opróżnia tablicę sąsiadów.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📢 Gratuitous ARP i wykrywanie konfliktów adresacji</h2>
+<p>Szczególnym zastosowaniem protokołu jest <span class="color-green">Gratuitous ARP</span> (<span class="color-blue">GARP</span>), czyli zapytanie, w którym stacja odpytuje sieć o własny adres IP (IP nadawcy jest równe adresowi poszukiwanemu).</p>
+<ol>
+<li><span class="color-green">Wykrywanie konfliktów adresacji (<span class="color-blue">ACD</span>):</span> Przed aktywowaniem statycznego adresu IP system wysyła zapytanie <span class="color-blue">GARP</span>. Odebranie odpowiedzi oznacza duplikat adresu w podsieci i skutkuje wyłączeniem interfejsu z komunikatem o konflikcie adresów IP.</li>
+<li><span class="color-green">Odświeżenie tablic CAM po migracji:</span> Po przełączeniu serwera na zapasową kartę sieciową pakiet <span class="color-blue">GARP</span> aktualizuje wpisy we wszystkich przełącznikach w segmencie L2.</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Podatność ARP Spoofing i ochrona DAI</h2>
+<p>Protokół ARP jest całkowicie bezstanowy: karta i system operacyjny akceptują przychodzącą odpowiedź <span class="color-blue">ARP Reply</span> i nadpisują swoją tablicę nawet wtedy, gdy nie wysłały wcześniej zapytania <span class="color-blue">ARP Request</span>.</p>
+<p><img src="/courses/podstawy-sieci-komputerowych/Images/arp-spoofing-mitm.svg" alt="Zagrożenie: Fałszowanie tablic ARP (ARP Spoofing)"></p>
+<h3>🕵️ 1. Przebieg ataku Man-in-the-Middle</h3>
+<p>Atakujący wysyła równolegle dwa sfałszowane pakiety <span class="color-blue">ARP Reply</span>: do komputera ofiary wskazuje własny MAC jako bramę domyślną, a do routera wskazuje własny MAC jako adres ofiary. W rezultacie cały ruch między stacją a bramą przechodzi przez maszynę atakującego.</p>
+<h3>🛡️ 2. Mechanizmy obronne</h3>
+<ul>
+<li><span class="color-green">Statyczne mapowanie <code>arp -s</code>:</span> Sztywne przypisanie adresu MAC bramy w systemie uniemożliwia jego nadpisanie fałszywą odpowiedzią.</li>
+<li><span class="color-green">DAI (<span class="color-blue">Dynamic ARP Inspection</span>):</span> Funkcja przełączników zarządzalnych L2 weryfikująca przychodzące ramki ARP względem bazy przydziałów serwera DHCP (<span class="color-blue">DHCP Snooping</span>). Ramki z niespójną parą IP‑MAC są odrzucane na porcie wejściowym.</li>
+</ul>
+<p>Przetestuj rozwiązywanie adresów w konsoli <code>arp -a</code>, zatrucie tablicy pamięci podręcznej oraz blokadę ataku przez funkcję DAI w poniższym symulatorze:</p>
+<p><data-arp-simulator></data-arp-simulator></p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Sprawdzenie wiedzy: Przebieg komunikacji z ARP</h2>
+<data-gate>
+  <data-sortable-list title="Ułóż kolejność kroków, gdy Host A wysyła pakiet IP do serwera 8.8.8.8 poza siecią LAN przy pustej tablicy ARP">
+    <item data-correct="3">Router (brama) odpowiada ramką ARP Reply (Unicast) ze swoim adresem MAC</item>
+    <item data-correct="1">Host A porównuje adres celu z maską i wybiera bramę domyślną jako Next-Hop</item>
+    <item data-correct="4">Host A zapisuje MAC bramy w arp -a i wysyła ramkę z docelowym IP 8.8.8.8 na MAC bramy</item>
+    <item data-correct="2">Host A wysyła Broadcast ARP Request z pytaniem o MAC bramy domyślnej</item>
+  </data-sortable-list>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Protokół <span class="color-blue">ARP</span> (EtherType <code>0x0806</code>) tłumaczy znany adres logiczny IPv4 na nieznany adres fizyczny MAC wyłącznie w granicach lokalnej domeny rozgłoszeniowej L2.</li>
+<li>Zapytanie <span class="color-blue">ARP Request</span> trafia rozgłoszeniowo na adres <code>FF:FF:FF:FF:FF:FF</code>, natomiast odpowiedź <span class="color-blue">ARP Reply</span> wraca w trybie Unicast bezpośrednio do pytającego.</li>
+<li>Polecenia <code>arp -a</code> w Windows oraz <code>ip neigh show</code> w Linuksie pozwalają zweryfikować tablicę powiązań i wykryć fałszowanie wpisów.</li>
+<li>Bezstanowość ARP umożliwia atak <span class="color-blue">ARP Spoofing</span> (Man‑in-the‑Middle), przed którym chronią statyczne wpisy <code>arp -s</code> oraz inspekcja <span class="color-blue">DAI</span> na przełącznikach L2.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

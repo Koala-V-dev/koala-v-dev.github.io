@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0a0f1d; }
+      .header-title { font-family: system-ui, -apple-system, sans-serif; font-size: 21px; font-weight: 800; fill: #ffffff; }
+      .header-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 500; fill: #cbd5e1; }
+      .card { fill: #131d31; stroke: #3b4d6b; stroke-width: 2; rx: 12; }
+      .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 800; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 12.5px; font-weight: 600; fill: #e2e8f0; }
+      .step-box { fill: #0a0f1d; stroke: #475569; stroke-width: 1.5; rx: 6; }
+      .step-num { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; fill: #38bdf8; }
+      .step-text { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 600; fill: #f1f5f9; }
+      .jam-box { fill: #450a0a; stroke: #ef4444; stroke-width: 2; rx: 6; }
+      .jam-title { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; fill: #fecaca; }
+      .node-circle { fill: #0a0f1d; stroke: #c084fc; stroke-width: 2.5; }
+      .node-text { font-family: monospace; font-size: 12px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .radius-circle { fill: #a855f7; fill-opacity: 0.12; stroke: #c084fc; stroke-dasharray: 5 4; stroke-width: 2; }
+      .badge-box { fill: #090d16; stroke-width: 1.5; rx: 6; }
+      .badge-text { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+    </style>
+    <filter id="card-shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="420" class="bg"/>
+
+  <g transform="translate(40, 34)">
+    <text x="0" y="0" class="header-title">Kontrola dostępu do medium: CSMA/CD vs CSMA/CA</text>
+    <text x="0" y="22" class="header-desc">Wykrywanie kolizji w kablu miedzianym (Ethernet) a unikanie kolizji w falach radiowych (Wi-Fi)</text>
+  </g>
+
+  <!-- ================= LEWA STRONA: CSMA/CD ================= -->
+  <g transform="translate(30, 78)" filter="url(#card-shadow)">
+    <rect width="435" height="320" class="card"/>
+    <text x="24" y="28" class="title" fill="#38bdf8">CSMA/CD (Detekcja w kablu – Ethernet)</text>
+    <text x="24" y="46" class="subtitle">Wspólny przewód miedziany / koncentrator (Hub)</text>
+
+    <!-- 5 kroków -->
+    <g transform="translate(24, 62)">
+      <!-- 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="387" height="34" class="step-box"/>
+        <text x="14" y="22" class="step-num">1. Carrier Sense:</text>
+        <text x="142" y="22" class="step-text">Nasłuch napięcia w kablu (badanie nośnej)</text>
+      </g>
+      <!-- 2 -->
+      <g transform="translate(0, 40)">
+        <rect width="387" height="34" class="step-box"/>
+        <text x="14" y="22" class="step-num">2. Multiple Access:</text>
+        <text x="152" y="22" class="step-text">Cisza w torze: stacje rozpoczynają transfer</text>
+      </g>
+      <!-- 3: Kolizja -->
+      <g transform="translate(0, 80)">
+        <rect width="387" height="38" class="jam-box"/>
+        <text x="14" y="24" class="jam-title">💥 3. Collision &amp; JAM:</text>
+        <text x="162" y="24" font-family="system-ui, sans-serif" font-size="11.5px" font-weight="700" fill="#fee2e2">Skok napięcia: stacje emitują sygnał JAM!</text>
+      </g>
+      <!-- 4: Backoff -->
+      <g transform="translate(0, 124)">
+        <rect width="387" height="34" class="step-box"/>
+        <text x="14" y="22" class="step-num">4. Backoff:</text>
+        <text x="110" y="22" class="step-text">Losowy czas odczekania (np. A: 3 ms, B: 12 ms)</text>
+      </g>
+      <!-- 5: Retransmisja -->
+      <g transform="translate(0, 164)">
+        <rect width="387" height="34" class="step-box"/>
+        <text x="14" y="22" class="step-num">5. Retransmisja:</text>
+        <text x="135" y="22" class="step-text">Stacja z krótszym czasem pierwsza nadaje</text>
+      </g>
+    </g>
+
+    <!-- Pigułka podsumowująca -->
+    <rect x="24" y="270" width="387" height="36" class="badge-box" stroke="#0284c7"/>
+    <text x="217" y="293" class="badge-text" fill="#38bdf8">Switch Full-Duplex eliminuje kolizje (brak CSMA/CD)</text>
+  </g>
+
+  <!-- ================= PRAWA STRONA: CSMA/CA ================= -->
+  <g transform="translate(495, 78)" filter="url(#card-shadow)">
+    <rect width="435" height="320" class="card" stroke="#a855f7"/>
+    <text x="24" y="28" class="title" fill="#c084fc">CSMA/CA (Unikanie w radiu – Wi-Fi 802.11)</text>
+    <text x="24" y="46" class="subtitle">Problem ukrytego węzła i rezerwacja RTS/CTS</text>
+
+    <!-- Rysunek ukrytego węzła -->
+    <g transform="translate(24, 60)">
+      <!-- Zasięgi stacji A i C -->
+      <circle cx="75" cy="46" r="60" class="radius-circle"/>
+      <circle cx="312" cy="46" r="60" class="radius-circle"/>
+
+      <!-- Stacja A -->
+      <circle cx="75" cy="46" r="18" class="node-circle"/>
+      <text x="75" y="51" class="node-text">Host A</text>
+
+      <!-- Access Point w środku -->
+      <circle cx="193" cy="46" r="22" fill="#0284c7" stroke="#38bdf8" stroke-width="2.5"/>
+      <text x="193" y="51" class="node-text">AP</text>
+
+      <!-- Stacja C -->
+      <circle cx="312" cy="46" r="18" class="node-circle"/>
+      <text x="312" y="51" class="node-text">Host C</text>
+
+      <!-- Przekreślona linia między A i C -->
+      <line x1="97" y1="46" x2="290" y2="46" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <rect x="140" y="74" width="106" height="20" fill="#450a0a" stroke="#ef4444" stroke-width="1.5" rx="4"/>
+      <text x="193" y="88" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="800" fill="#fecaca" text-anchor="middle">A NIE WIDZI C!</text>
+    </g>
+
+    <!-- Sekwencja RTS / CTS -->
+    <g transform="translate(24, 166)">
+      <rect width="387" height="96" class="step-box"/>
+      <text x="14" y="22" font-family="system-ui, sans-serif" font-size="12px" font-weight="800" fill="#c084fc">Sekwencja rezerwacji eteru (RTS / CTS):</text>
+      <text x="14" y="42" class="step-text">1. <tspan fill="#38bdf8" font-weight="800">RTS (Request to Send):</tspan> Host A prosi AP o czas na nadanie</text>
+      <text x="14" y="62" class="step-text">2. <tspan fill="#fbbf24" font-weight="800">CTS (Clear to Send):</tspan> AP rozgłasza zakaz nadawania (słyszy też C)</text>
+      <text x="14" y="82" class="step-text">3. <tspan fill="#34d399" font-weight="800">Transmisja &amp; ACK:</tspan> Host A przesyła dane, AP odsyła potwierdzenie</text>
+    </g>
+
+    <!-- Pigułka podsumowująca -->
+    <rect x="24" y="270" width="387" height="36" class="badge-box" stroke="#a855f7"/>
+    <text x="217" y="293" class="badge-text" fill="#c084fc">W radiu nadajnik oślepia odbiornik – kolizjom się zapobiega</text>
+  </g>
+</svg>

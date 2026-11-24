@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Katalog arkuszy egzaminacyjnych INF.02, INF.03 i INF.04 (CKE) — filtrowanie po kwalifikacji i tagach, linki do oryginałów oraz interaktywne omówienia krok po kroku." />
+  <title>Arkusze Egzaminacyjne INF — Koala-V</title>
+
+  <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <script>
+    (function () {
+      try {
+        var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+        var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', t);
+        if (t === 'dark') {
+          document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <link rel="stylesheet" href="/css/arkusze.css" />
+  <script type="module" src="/js/arkusze-app.js"></script>
+</head>
+
+<body class="browser-firefox">
+  <div id="app-main-content">
+    <a class="skip-link" href="#arkusze-main">Przejdź do katalogu arkuszy</a>
+
+    <header>
+      <p class="site-logo medievalsharp-regular">
+        <a href="/" aria-label="Koala-V — strona główna">
+          <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded" />
+          <span class="logo-text">Koala-V</span>
+        </a>
+      </p>
+      <div class="header-actions" id="header-actions"></div>
+    </header>
+
+    <main id="arkusze-main" class="arkusze-page">
+      <section class="arkusze-hero" aria-labelledby="arkusze-title">
+        <div class="arkusze-hero-top">
+          <a href="/" class="arkusze-back-link">← Wróć na stronę główną</a>
+          <div class="arkusze-progress-pill" id="arkusze-progress-pill" aria-live="polite">
+            Ukończono: 0 / 0
+          </div>
+        </div>
+        <h1 id="arkusze-title">Arkusze Egzaminacyjne INF (CKE)</h1>
+        <p class="arkusze-intro">
+          Filtruj arkusze praktyczne według kwalifikacji i technologii, pobieraj oficjalne paczki prosto z CKE i odznaczaj wykonane zadania (postęp zapisuje się lokalnie w Twojej przeglądarce).
+          Każda oficjalna paczka <code>*_SG.zip</code> na stronie
+          <a href="https://cke.gov.pl/egzamin-zawodowy/egzamin-zawodowy-formula-2019/przykladowe-zadania/" target="_blank" rel="noopener noreferrer">Centralnej Komisji Egzaminacyjnej (Formuła 2019 → Przykładowe zadania)</a>
+          zawiera w środku komplet: arkusz PDF, zasady oceniania oraz pliki startowe do zadania.
+        </p>
+      </section>
+
+      <section class="arkusze-controls" aria-label="Filtrowanie arkuszy">
+        <div class="arkusze-qual-tabs" role="tablist" aria-label="Kwalifikacja">
+          <button type="button" class="qual-tab active" data-qual="ALL" role="tab" aria-selected="true">Wszystkie</button>
+          <button type="button" class="qual-tab" data-qual="INF.02" role="tab" aria-selected="false">INF.02</button>
+          <button type="button" class="qual-tab" data-qual="INF.03" role="tab" aria-selected="false">INF.03</button>
+          <button type="button" class="qual-tab" data-qual="INF.04" role="tab" aria-selected="false">INF.04</button>
+        </div>
+
+        <div class="arkusze-search-row">
+          <label for="arkusze-search" class="sr-only">Szukaj arkusza</label>
+          <input type="search" id="arkusze-search" class="form-control" placeholder="Szukaj po tytule, sesji lub tagu (np. SQL, forEach, Ubuntu)..." />
+          <select id="arkusze-status-filter" class="form-control" aria-label="Filtruj według statusu">
+            <option value="all">Wszystkie statusy</option>
+            <option value="todo">Do zrobienia</option>
+            <option value="done">Zrobione</option>
+          </select>
+        </div>
+
+        <div class="arkusze-tags-bar" id="arkusze-tags-bar" aria-label="Filtruj po tagach"></div>
+      </section>
+
+      <section class="arkusze-list-section" aria-live="polite">
+        <p id="arkusze-count-status" class="arkusze-count-status"></p>
+        <div id="arkusze-grid" class="arkusze-grid"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+  </div>
+</body>
+
+</html>

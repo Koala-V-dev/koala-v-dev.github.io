@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macierze RAID - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">urządzenia-techniki-komputerowej</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/">Wprowadzenie</a></li><li class="module">Moduł 0: Od bitu do działającego komputera</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Od bitu do urządzenia"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%200/Od%20bitu%20do%20urz%C4%85dzenia.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Od bitu do urządzenia</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Kondensator i czas zmiany sygnału"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%200/Kondensator%20i%20czas%20zmiany%20sygna%C5%82u.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kondensator i czas zmiany sygnału</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Tranzystory i układy scalone"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%200/Tranzystory%20i%20uk%C5%82ady%20scalone.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tranzystory i układy scalone</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Procesor i cykl rozkazowy"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%200/Procesor%20i%20cykl%20rozkazowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Procesor i cykl rozkazowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Rejestry cache i RAM"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%200/Rejestry%20cache%20i%20RAM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Rejestry cache i RAM</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Magistrale przerwania i DMA"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%200/Magistrale%20przerwania%20i%20DMA.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Magistrale przerwania i DMA</a></li><li class="module">Moduł 1: Budowa stacji roboczej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Płyta główna i zgodność podzespołów"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%201/P%C5%82yta%20g%C5%82%C3%B3wna%20i%20zgodno%C5%9B%C4%87%20podzespo%C5%82%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Płyta główna i zgodność podzespołów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Pamięć DDR i kanały"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%201/Pami%C4%99%C4%87%20DDR%20i%20kana%C5%82y.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć DDR i kanały</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Grafika monitor i dźwięk"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%201/Grafika%20monitor%20i%20d%C5%BAwi%C4%99k.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika monitor i dźwięk</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Zasilanie chłodzenie i bezpieczny montaż"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%201/Zasilanie%20ch%C5%82odzenie%20i%20bezpieczny%20monta%C5%BC.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasilanie chłodzenie i bezpieczny montaż</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/UEFI i start systemu"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%201/UEFI%20i%20start%20systemu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">UEFI i start systemu</a></li><li class="module">Moduł 2: Urządzenia wejścia i wyjścia</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Porty kable i interfejsy"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%202/Porty%20kable%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Porty kable i interfejsy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Sterowniki i identyfikacja urządzeń"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%202/Sterowniki%20i%20identyfikacja%20urz%C4%85dze%C5%84.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Sterowniki i identyfikacja urządzeń</a></li><li class="module">Moduł 3: Nośniki pamięci masowej</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Nośniki i wydajność zapisu"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%203/No%C5%9Bniki%20i%20wydajno%C5%9B%C4%87%20zapisu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Nośniki i wydajność zapisu</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dysk twardy HDD"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%203/Dysk%20twardy%20HDD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dysk twardy HDD</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Dysk półprzewodnikowy SSD"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%203/Dysk%20p%C3%B3%C5%82przewodnikowy%20SSD.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dysk półprzewodnikowy SSD</a></li><li class="module">Moduł 4: Organizacja przestrzeni i ochrona danych</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Tablice partycjonowania MBR i GPT"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%204/Tablice%20partycjonowania%20MBR%20i%20GPT.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice partycjonowania MBR i GPT</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Systemy plików"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%204/Systemy%20plik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy plików</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Macierze RAID"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%204/Macierze%20RAID.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Macierze RAID</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Kopie zapasowe i diagnostyka nośników"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%204/Kopie%20zapasowe%20i%20diagnostyka%20no%C5%9Bnik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kopie zapasowe i diagnostyka nośników</a></li><li class="module">Moduł 5: Drukarki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Parametry i dobór drukarki"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%205/Parametry%20i%20dob%C3%B3r%20drukarki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Parametry i dobór drukarki</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Drukarka atramentowa"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%205/Drukarka%20atramentowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drukarka atramentowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Drukarka laserowa"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%205/Drukarka%20laserowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drukarka laserowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Drukarka igłowa"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%205/Drukarka%20ig%C5%82owa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drukarka igłowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Druk termiczny i termosublimacyjny"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%205/Druk%20termiczny%20i%20termosublimacyjny.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Druk termiczny i termosublimacyjny</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 5/Drukarka 3D"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%205/Drukarka%203D.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drukarka 3D</a></li><li class="module">Moduł 6: Skanery</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Skaner płaski i dokumentowy"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%206/Skaner%20p%C5%82aski%20i%20dokumentowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Skaner płaski i dokumentowy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 6/Skaner 3D"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%206/Skaner%203D.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Skaner 3D</a></li><li class="module">Moduł 7: Diagnostyka i finał</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 7/Diagnostyka stacji roboczej"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%207/Diagnostyka%20stacji%20roboczej.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Diagnostyka stacji roboczej</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 7/Wielki finał UTK"><a class="lesson-link" href="/courses/urządzenia-techniki-komputerowej/Pages/Modu%C5%82%207/Wielki%20fina%C5%82%20UTK.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki finał UTK</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Macierze RAID</h1>
+<p>Cztery dyski po 2 TB mają pomieścić ponad 4 TB i przetrwać awarię jednego dysku. Które układy spełniają oba warunki?</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🧮 Paski lustra i parzystość</h2>
+<p><span class="color-green">Striping</span> rozdziela kolejne porcje danych między dyski. <span class="color-green">Lustro</span> trzyma ich kopie na osobnych dyskach. <span class="color-green">Parzystość</span> pozwala odtworzyć brakujące dane z informacji o całym pasku.</p>
+<table>
+<thead>
+<tr>
+<th>Poziom</th>
+<th>Minimum dysków</th>
+<th>Pojemność dla jednakowych dysków</th>
+<th>Tolerancja awarii</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>RAID 0</td>
+<td>2</td>
+<td>wszystkie dyski</td>
+<td>żadna</td>
+</tr>
+<tr>
+<td>RAID 1, dwie kopie</td>
+<td>2</td>
+<td>pojemność jednego dysku w parze</td>
+<td>jeden dysk w parze</td>
+</tr>
+<tr>
+<td>RAID 5</td>
+<td>3</td>
+<td>pojemność wszystkich poza jednym</td>
+<td>jeden dysk</td>
+</tr>
+<tr>
+<td>RAID 6</td>
+<td>4</td>
+<td>pojemność wszystkich poza dwoma</td>
+<td>dwa dyski</td>
+</tr>
+<tr>
+<td>RAID 10, pary luster</td>
+<td>4</td>
+<td>połowa sumy</td>
+<td>co najmniej jeden, więcej przy zachowaniu dysku w każdej parze</td>
+</tr>
+</tbody></table>
+<p>Przy jednakowych dyskach 2 TB RAID 5 daje teoretycznie 6 TB przed narzutami, RAID 6 i 10 po 4 TB. W układach z różnymi dyskami przyjmij do prostych obliczeń wielkość najmniejszego członka. Po awarii układ może pracować w stanie zdegradowanym. Odbudowa ponownie wykorzystuje pozostałe dyski. Usunięty plik może zniknąć ze wszystkich kopii w macierzy, dlatego potrzebujesz osobnej kopii zapasowej.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Odczytaj plik z macierzy po awarii dysku</h2>
+<p>Użyj maszyny wirtualnej z Linuksem, narzędziem <span class="color-green">mdadm</span> i trzema pustymi dyskami wirtualnymi na macierz RAID 5. Dysk systemowy maszyny zostaje osobno. Przygotuj czwarty pusty dysk wirtualny do odbudowy. Pracuj wyłącznie wewnątrz maszyny, bez przekazywania jej dysków hosta. Przed utworzeniem macierzy rozpoznaj wszystkie urządzenia przez <span class="color-green">lsblk</span>. Poniższe nazwy są przykładowe. <a href="https://manpages.debian.org/trixie/mdadm/mdadm.8.en.html">Instrukcja mdadm</a>.</p>
+<pre><code class="language-bash">lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
+# Przykład po potwierdzeniu, że vdb, vdc i vdd to puste dyski ćwiczeniowe.
+sudo mdadm --create /dev/md0 --level=5 --raid-devices=3 /dev/vdb /dev/vdc /dev/vdd
+cat /proc/mdstat
+</code></pre>
+<ol>
+<li>Po zakończeniu synchronizacji utwórz system plików na <span class="color-green">macierzy</span> poleceniem <code>sudo mkfs.ext4 /dev/md0</code>. Utwórz katalog <code>/mnt/raid-lab</code> i zamontuj w nim macierz przez <code>sudo mount /dev/md0 /mnt/raid-lab</code>. Skopiuj tam własny plik testowy przez <code>sudo cp</code>. Oblicz jego SHA‑256 przez <code>sha256sum</code> i zachowaj wynik poza macierzą.</li>
+<li>Wyświetl <code>sudo mdadm --detail /dev/md0</code>. Z listy aktywnych członków wybierz jeden dysk ćwiczeniowy. Dla <span class="color-green">vdc</span> oznaczenie awarii i usunięcie z macierzy wykonasz poleceniem <code>sudo mdadm /dev/md0 --fail /dev/vdc --remove /dev/vdc</code>. Odczytaj stan macierzy. Odmontuj system plików i zamontuj go ponownie, żeby kolejny odczyt nie korzystał z poprzedniej kopii pliku w pamięci podręcznej. Ponownie oblicz SHA‑256 pliku. Zapisz, czy nadal można go odczytać i czy skrót się zgadza.</li>
+<li>Dodaj pusty dysk zastępczy, np. <code>sudo mdadm /dev/md0 --add /dev/vde</code>, po potwierdzeniu jego nazwy w <span class="color-green">lsblk</span>. W <span class="color-green">/proc/mdstat</span> obserwuj odbudowę. Gdy dobiegnie końca, sprawdź liczbę aktywnych członków i jeszcze raz porównaj skrót pliku.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Etap</th>
+<th>Stan macierzy</th>
+<th>Aktywne dyski</th>
+<th>SHA‑256 pliku</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Przed awarią</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Po utracie jednego dysku</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Po odbudowie</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>Zgodny skrót po awarii oznacza, że macierz nadal udostępnia treść sprawdzanego pliku. Odbudowa przywraca nadmiarowość. W RAID 5 awaria drugiego członka przed zakończeniem odbudowy przekracza tolerancję układu. W RAID 10 z parami <span class="color-green">1 i 2</span> oraz <span class="color-green">3 i 4</span> utrata dysków 1 i 3 zostawia po kopii w każdej parze. Utrata dysków 1 i 2 usuwa obie kopie jednej części danych. <a href="https://docs.kernel.org/admin-guide/md.html">Stany macierzy Linux MD</a>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📏 Dobierz pojemność i tolerancję awarii</h2>
+<p>Masz 6 dysków po 4 TB i potrzebujesz co najmniej 15 TB przed narzutem. Układ ma przetrwać awarię dowolnych dwóch dysków. Wybierz poziom i policz pojemność.</p>
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<p>RAID 6 daje (6 - 2) × 4 TB = 16 TB. RAID 10 dałby 12 TB, a utrata dwóch dysków z jednej pary może uniemożliwić odczyt.</p>
+</details>
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Odzyskiwanie brakującego bajtu przez XOR</span> <span class="deep-dive-badge">ALGEBRA BOOLEA</span></summary>
+<div class="deep-dive-content">
+
+<p>W modelowym pasku <code>A = 0x39</code>, <code>B = 0xA5</code>, a parzystość <code>P = A ^ B = 0x9C</code>. Jeśli zabraknie B, <code>0x39 ^ 0x9C</code> daje <code>0xA5</code>. Wynika to z reguł <code>x ^ x = 0</code> i <code>x ^ 0 = x</code>. Jedno równanie XOR nie określi dwóch nieznanych bajtów. RAID 6 potrzebuje dwóch niezależnych informacji nadmiarowych. Przy przerwanym zapisie osobnym problemem jest zgodność parzystości z danymi. <a href="https://docs.kernel.org/driver-api/md/raid5-cache.html">Dokumentacja bufora RAID w Linux MD</a>.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Reguła serwisowa</h2>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Oblicz pojemność i sprawdź konkretne kombinacje awarii. Oddziel odporność na awarię od możliwości odzyskania skasowanego pliku.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

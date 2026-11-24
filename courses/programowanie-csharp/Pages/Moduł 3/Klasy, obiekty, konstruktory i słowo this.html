@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klasy, obiekty, konstruktory i słowo this - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Klasy, obiekty, konstruktory i słowo this</h1>
+<p>Wyobraź sobie kod serwera gry, który przechowuje dane graczy w trzech osobnych tablicach: <span class="color-blue">nicki</span>, <span class="color-blue">hp</span> oraz <span class="color-blue">poziomy</span>. Gracz spod indeksu <code>2</code> ma swój nick w <code>nicki[2]</code>, punkty życia w <code>hp[2]</code> i poziom w <code>poziomy[2]</code>. Wystarczy jedno sortowanie wyników według <span class="color-blue">hp</span> albo usunięcie jednego gracza bez zaktualizowania trzeciej tablicy, aby dane się rozjechały. Nagle inny użytkownik przejmuje cudzy poziom i cudze punkty życia.</p>
+<p>Ten sam problem pojawia się w monitorze procesów Windows, gdzie każdy proces ma identyfikator PID, nazwę i zużycie pamięci RAM. <span class="color-green">Programowanie Obiektowe (OOP)</span> rozwiązuje ten bałagan u źródła. Zamiast rozrzucać dane po wielu tablicach, łączysz je razem z metodami w jeden spójny typ zwany <span class="color-green">klasą</span> (<code>class</code>).</p>
+<p>Klasa jest projektem technicznym, a nie gotowym egzemplarzem. Dopiero operator <span class="color-green"><code>new</code></span> tworzy na jej podstawie konkretny <span class="color-green">obiekt</span> (instancję) w pamięci RAM. Zobacz najprostszy przykład takiej definicji:</p>
+<pre><code class="language-csharp">public class Gracz
+{
+    public string Nick;
+    public int Hp;
+}
+
+// Użycie w Main:
+Gracz ada = new Gracz();
+ada.Nick = "Ada";
+ada.Hp = 100;
+
+Gracz jan = new Gracz();
+jan.Nick = "Jan";
+jan.Hp = 80;
+</code></pre>
+<p>Teraz wystarczy jedna tablica <code>Gracz[]</code> albo lista <code>List&lt;Gracz&gt;</code>. Gdy przestawiasz obiekt <span class="color-blue">ada</span>, jego <span class="color-blue">Nick</span> i <span class="color-blue">Hp</span> zawsze podróżują razem jako jedna całość.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Jeden kod metod i wiele zestawów pól</h2>
+<p>Częste błędne założenie mówi, że 1000 obiektów klasy <code>Gracz</code> zajmuje miejsce na 1000 kopii jej metod. W środowisku .NET kod każdej metody istnieje w pamięci <span class="color-green">tylko jeden raz</span>. Każdy obiekt utworzony przez <code>new</code> dostaje natomiast własny, niezależny zestaw pól na swoje dane.</p>
+<p>Skoro wszystkie obiekty współdzielą jedną definicję metody <code>OtrzymajObrazenia</code>, skąd metoda wie, czy zmniejszyć <span class="color-blue">Hp</span> obiektu <span class="color-blue">ada</span>, czy obiektu <span class="color-blue">jan</span>? Kompilator przekazuje jej adres konkretnego obiektu jako ukryty pierwszy parametr o nazwie <span class="color-gold">this</span>. Gdy wywołujesz <code>ada.OtrzymajObrazenia(20)</code>, wewnątrz metody słowo <code>this</code> wskazuje dokładnie na obiekt <span class="color-blue">ada</span>.</p>
+<p>To wyjaśnia różnicę między składnikiem instancyjnym a składnikiem <span class="color-green"><code>static</code></span>:</p>
+<ul>
+<li><span class="color-green">Metoda lub właściwość instancyjna</span>: należy do pojedynczego obiektu i otrzymuje ukryte <span class="color-gold">this</span>. Odczytuje i zmienia pola konkretnej instancji.</li>
+<li><span class="color-green">Metoda lub właściwość <code>static</code></span>: należy do samej klasy, a nie do konkretnego obiektu. Nie otrzymuje parametru <span class="color-gold">this</span>, więc nie widzi pól pojedynczego gracza. Świetnie sprawdza się jako wspólny licznik (na przykład <code>Gracz.LiczbaGraczy</code>) lub funkcja pomocnicza.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Pola private, właściwości i modyfikator readonly</h2>
+<p>Nasz pierwszy przykład z publicznymi polami <code>public int Hp;</code> ma poważną wadę. Dowolna linia kodu w całym programie może wpisać <code>ada.Hp = -999;</code>, niszcząc zasady gry. Aby ochronić stan obiektu, stosujemy <span class="color-green">hermetyzację</span>: ukrywamy surowe dane przed bezpośrednim zapisem z zewnątrz.</p>
+<p>W C# masz cztery podstawowe narzędzia do projektowania stanu klasy:</p>
+<table>
+<thead>
+<tr>
+<th>Konstrukcja w klasie</th>
+<th>Dostęp z zewnątrz</th>
+<th>Kiedy jej używać?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>private int _maksHp;</code></td>
+<td>Brak (tylko wewnątrz klasy)</td>
+<td>Wewnętrzne dane pomocnicze, o których reszta programu nie musi wiedzieć</td>
+</tr>
+<tr>
+<td><code>public string Nick { get; set; }</code></td>
+<td>Odczyt i zapis</td>
+<td>Gdy każda wartość jest dozwolona i nie wymaga reguł walidacji</td>
+</tr>
+<tr>
+<td><code>public int Hp { get; private set; }</code></td>
+<td>Tylko odczyt (zapis tylko w klasie)</td>
+<td>Gdy stan może się zmieniać wyłącznie przez metody pilnujące zasad (np. <code>OtrzymajObrazenia</code>)</td>
+</tr>
+<tr>
+<td><code>public bool CzyZywy { get { return Hp &gt; 0; } }</code></td>
+<td>Tylko odczyt (bez pola w RAM)</td>
+<td><span class="color-green">Właściwość wyliczana</span>: wynik liczony na bieżąco z innych pól przy każdym odczycie</td>
+</tr>
+</tbody></table>
+<p>Zwróć uwagę na czwarty wiersz tabeli. <span class="color-green">Właściwość wyliczana</span> ma wyłącznie blok <code>get</code> (bez <code>set</code>) i nie przechowuje osobnej zmiennej w pamięci. Gdy zmieni się <span class="color-blue">Hp</span>, właściwość <code>CzyZywy</code> natychmiast zwróci aktualną odpowiedź <code>true</code> lub <code>false</code>, bez ryzyka nieaktualnych danych.</p>
+<p>Jeśli jakieś pole ma zostać ustawione raz przy narodzinach obiektu i nigdy więcej się nie zmienić (nawet wewnątrz metod tej samej klasy), oznacz je modyfikatorem <span class="color-green"><code>readonly</code></span>:</p>
+<pre><code class="language-csharp">public class Konto
+{
+    private readonly int _idKonta;
+    public decimal Saldo { get; private set; }
+    public bool CzyNaPlusie { get { return Saldo &gt; 0; } }
+
+    public Konto(int idKonta, decimal saldoStartowe)
+    {
+        _idKonta = idKonta;
+        Saldo = saldoStartowe;
+    }
+}
+</code></pre>
+<p>Próba ponownego przypisania do pola <code>_idKonta</code> w dowolnej metodzie poza konstruktorem zakończy się <span class="color-red">błędem kompilacji</span>. Dzięki temu kompilator sam pilnuje, że identyfikator obiektu pozostanie stały przez cały czas jego życia.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj element klasy C# do jego roli w programie">
+    <item left="private int _tajnyKlucz;" right="Ukrywa pole całkowicie przed kodem spoza klasy"></item>
+    <item left="public int Hp { get; private set; }" right="Pozwala na odczyt z zewnątrz, ale blokuje zapis poza metodami klasy"></item>
+    <item left="public int Brakuje { get { return 100 - Hp; } }" right="Wylicza wynik na bieżąco przy odczycie bez tworzenia osobnego pola"></item>
+    <item left="public static int LiczbaObiektow" right="Przechowuje jedną wspólną wartość dla całej klasy zamiast osobnej kopii w obiektach"></item>
+    <item left="this.hp = hp;" right="Rozstrzyga konflikt nazw między polem obiektu a parametrem konstruktora"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔧 Konstruktory, konflikt nazw i łańcuch this</h2>
+<p><span class="color-green">Konstruktor</span> to specjalna metoda uruchamiana automatycznie w chwili wywołania operatora <code>new</code>. Nosi dokładnie taką samą nazwę jak klasa i nie ma typu zwracanego (nawet <code>void</code>). Jego zadaniem jest zbudowanie obiektu w poprawnym, gotowym do pracy stanie.</p>
+<h3>🔹 Znikający konstruktor domyślny i konflikt nazw</h3>
+<p>Jeśli w klasie nie napiszesz żadnego konstruktora, kompilator sam wygeneruje pusty <span class="color-green">konstruktor bezparametrowy</span> (<code>public Gracz() { }</code>). W chwili, gdy dopiszesz własny konstruktor z parametrami, ten automatyczny konstruktor <span class="color-green">znika</span>.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Po zdefiniowaniu własnego konstruktora <code>Gracz(string nick, int hp)</code> wywołanie <code>new Gracz()</code> przestaje się kompilować. Jeśli klasa nadal potrzebuje wersji bez parametrów, musisz dopisać ją jawnie.</p>
+
+</div>
+</div><p>Wewnątrz konstruktora często nadajemy parametrom takie same nazwy jak polom klasy. Zobacz, co dzieje się bez użycia słowa <code>this</code>:</p>
+<pre><code class="language-csharp">public class Bohater
+{
+    private int hp;
+
+    public Bohater(int hp)
+    {
+        hp = hp;      // BŁĄD: przypisuje parametr do samego siebie! Pole obiektu nadal ma 0.
+        this.hp = hp; // POPRAWNIE: lewa strona to pole obiektu, prawa to parametr.
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zapis <code>hp = hp;</code> kompiluje się bez błędu, ale tworzy <span class="color-red">cichy defekt</span>: pole obiektu pozostaje wyzerowane. Stosuj <code>this.hp = hp;</code> albo nazewnictwo odróżniające pole (np. <code>_hp</code> lub właściwość <code>Hp</code> wielką literą).</p>
+
+</div>
+</div><h3>🔹 Dlaczego konstruktor rzuca wyjątki i jak działa łańcuch konstruktorów</h3>
+<p>Konstruktor nie może zwrócić <code>false</code>, gdy dostanie pusty nick albo ujemne punkty życia. Gdyby po cichu zignorował błędne dane, program dostałby do ręki uszkodzony obiekt, który później wywołałby awarię w losowym miejscu. Dlatego konstruktor pilnuje <span class="color-green">niezmiennika klasy</span> (zestawu reguł zawsze prawdziwych dla obiektu) i natychmiast rzuca <span class="color-red">ArgumentException</span> albo <span class="color-red">ArgumentOutOfRangeException</span>.</p>
+<p>Często chcemy tworzyć obiekt na kilka sposobów: raz podając wszystkie dane, a innym razem korzystając z wartości domyślnych. Zamiast kopiować warunki <code>if</code> do każdego konstruktora, łączymy je składnią <span class="color-green"><code>: this(...)</code></span>:</p>
+<pre><code class="language-csharp">using System;
+using System.Globalization;
+
+public class Gracz
+{
+    public string Nick { get; private set; }
+    public int Hp { get; private set; }
+    public int MaksHp { get; private set; }
+    public int BrakujaceHp { get { return MaksHp - Hp; } }
+
+    public static int LiczbaGraczy { get; private set; }
+
+    // 1. Konstruktor główny: jedyne miejsce z walidacją i inkrementacją licznika
+    public Gracz(string nick, int startoweHp)
+    {
+        if (string.IsNullOrWhiteSpace(nick))
+            throw new ArgumentException("Nick gracza nie moze byc pusty.");
+        if (startoweHp &lt;= 0)
+            throw new ArgumentOutOfRangeException("startoweHp");
+
+        Nick = nick.Trim();
+        Hp = startoweHp;
+        MaksHp = startoweHp;
+        LiczbaGraczy++;
+    }
+
+    // 2. Konstruktor skrócony: deleguje pracę do konstruktora głównego
+    public Gracz(string nick) : this(nick, 100)
+    {
+    }
+
+    public void OtrzymajObrazenia(int ile)
+    {
+        if (ile &lt; 0)
+            throw new ArgumentOutOfRangeException("ile");
+
+        Hp = Math.Max(0, Hp - ile);
+    }
+
+    public override string ToString()
+    {
+        return string.Format(CultureInfo.InvariantCulture, "{0} ({1}/{2} HP)", Nick, Hp, MaksHp);
+    }
+}
+</code></pre>
+<p>Zwróć uwagę na kolejność zdarzeń przy wywołaniu <code>new Gracz("Ada")</code>. Najpierw uruchamia się konstruktor główny wskazany po <code>: this("Ada", 100)</code>, a dopiero po jego zakończeniu wykonuje się ciało konstruktora skróconego. Jeśli walidacja rzuci wyjątek w konstruktorze głównym, instrukcja <code>LiczbaGraczy++</code> na jego końcu w ogóle się nie wykona.</p>
+<data-gate>
+<data-sortable-list title="Ułóż kolejność 4 kroków przy wywołaniu new Gracz(&quot;Ada&quot;)">
+  <item data-correct="3">Konstruktor główny sprawdza argumenty, ustawia pola Nick, Hp, MaksHp i zwiększa LiczbaGraczy</item>
+  <item data-correct="1">Program wywołuje przeciążony konstruktor skrócony Gracz("Ada")</item>
+  <item data-correct="4">Wykonuje się ciało konstruktora skróconego, a operator new zwraca adres gotowego obiektu</item>
+  <item data-correct="2">Mechanizm : this("Ada", 100) przekazuje sterowanie do konstruktora głównego przed uruchomieniem ciała skróconego</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏷️ Dziedziczenie z System.Object i metoda ToString</h2>
+<p>Każda klasa, którą napiszesz w C#, dziedziczy automatycznie po wspólnym typie bazowym <span class="color-gold">System.Object</span>. Oznacza to, że każdy obiekt od razu posiada gotową metodę <code>ToString()</code>, wywoływaną niejawnie przez <code>Console.WriteLine(gracz)</code> oraz w oknie debuggera.</p>
+<p>Domyślna wersja <code>ToString()</code> z <span class="color-gold">System.Object</span> nie zna pól Twojej klasy, więc wypisuje jedynie samą nazwę typu (na przykład <code>"Gracz"</code>). Dopisując <code>public override string ToString()</code>, zastępujesz to domyślne zachowanie czytelnym opisem obiektu.</p>
+<p>Gdy w <code>ToString()</code> formatujesz liczby zmiennoprzecinkowe (na przykład zużycie pamięci w MB), polska wersja Windows wstawi przecinek (<code>842,5</code>), a angielska kropkę (<code>842.5</code>). Przekazując <span class="color-green"><code>CultureInfo.InvariantCulture</code></span> z przestrzeni nazw <code>System.Globalization</code>, gwarantujesz identyczny zapis z kropką na każdym komputerze:</p>
+<pre><code class="language-csharp">string czas = string.Format(CultureInfo.InvariantCulture, "{0:F1} s", 12.46); // zawsze "12.5 s"
+</code></pre>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Układ obiektu na stercie CLR, padding w C++ i C# oraz rejestr RCX</span>
+<span class="deep-dive-badge">PAMIĘĆ CLR · X86-64 · C++</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Układ obiektu klasy na 64-bitowej stercie CLR</h4>
+
+<p>Każdy obiekt klasy na 64‑bitowej stercie CLR przechowuje własne pola oraz dwa 8‑bajtowe pola nagłówkowe. Sama referencja obiektu (czyli <code>this</code>) wskazuje na <code>MethodTable*</code> pod offsetem <code>+0 B</code>, natomiast nagłówek synchronizacji leży 8 bajtów przed nią:</p>
+<table>
+<thead>
+<tr>
+<th>Offset względem <code>this</code></th>
+<th>Rozmiar</th>
+<th>Nazwa sekcji</th>
+<th>Co przechowuje?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-8 B</code></td>
+<td>8 B</td>
+<td><code>Object Header</code></td>
+<td>Indeks bloku synchronizacji (<code>SyncBlockIndex</code>) dla <code>lock</code>, flagi GC i kod skrótu</td>
+</tr>
+<tr>
+<td><code>+0 B</code></td>
+<td>8 B</td>
+<td><code>MethodTable*</code></td>
+<td>Wskaźnik na wspólną tablicę metod i metadanych klasy <code>Gracz</code> (tu wskazuje <code>this</code>)</td>
+</tr>
+<tr>
+<td><code>+8 B</code></td>
+<td>8 B</td>
+<td>Pole <code>Nick</code></td>
+<td>64‑bitowy adres napisu <code>string</code> leżącego osobno na stercie</td>
+</tr>
+<tr>
+<td><code>+16 B</code></td>
+<td>4 B</td>
+<td>Pole <code>Hp</code></td>
+<td>Liczba 32‑bitowa (<code>int</code>) zapisana bezpośrednio wewnątrz obiektu</td>
+</tr>
+<tr>
+<td><code>+20 B</code></td>
+<td>4 B</td>
+<td><code>Padding</code></td>
+<td>Puste bajty wyrównujące rozmiar obiektu do wielokrotności 8 B (razem 32 B)</td>
+</tr>
+</tbody></table>
+<h4>2. Wyrównanie pamięci (padding) w C++ i w środowisku CLR</h4>
+
+<p>Procesor x86‑64 najwydajniej pobiera 8‑bajtowe słowa (<code>long</code>, wskaźniki) spod adresów podzielnych przez 8. Gdy adres nie jest podzielny przez 8, CPU musi wykonać dwa odczyty z pamięci podręcznej L1 zamiast jednego. Dlatego kompilatory wstawiają niewidoczne bajty wypełniające zwane <span class="color-green">paddingiem</span>.</p>
+<p>W języku <span class="color-green">C++</span> standard zabrania kompilatorowi przestawiać kolejności zadeklarowanych pól. Zobacz różnicę dla dwóch pozornie identycznych struktur:</p>
+<pre><code class="language-cpp">struct ZlyUklad {
+    bool a;      // offset 0 (1 B) + 7 B paddingu!
+    long long b; // offset 8 (8 B)
+    bool c;      // offset 16 (1 B) + 7 B paddingu!
+};               // sizeof(ZlyUklad) == 24 bajty!
+
+struct DobryUklad {
+    long long b; // offset 0 (8 B)
+    bool a;      // offset 8 (1 B)
+    bool c;      // offset 9 (1 B) + 6 B paddingu
+};               // sizeof(DobryUklad) == 16 bajtów!
+</code></pre>
+<p>Przy tablicy 10 milionów elementów różnica między 24 B a 16 B to aż <span class="color-red">80 MB zmarnowanego RAM</span> oraz znacznie gorsze wykorzystanie linii cache L1 (64 B).</p>
+<p>W <span class="color-green">C#</span> środowisko CLR radzi sobie z tym sprytniej:</p>
+<ul>
+<li>Dla klas (<code>class</code>) domyślny jest układ <code>[StructLayout(LayoutKind.Auto)]</code>. Ładowacz klas ma prawo <span class="color-green">automatycznie przetasować kolejność pól</span> w pamięci, aby ograniczyć straty na padding.</li>
+<li>Dla struktur (<code>struct</code>) domyślny jest układ <code>[StructLayout(LayoutKind.Sequential)]</code>, który zachowuje kolejność dokładnie jak w C++ (jest to niezbędne przy wywołaniach Win32 API przez P/Invoke).</li>
+<li>Minimalny rozmiar pustego obiektu klasy na 64‑bitowej stercie CLR to zawsze <span class="color-green">24 bajty</span>: 8 B <code>Object Header</code>, 8 B <code>MethodTable*</code> oraz minimum 8 B przestrzeni na pola.</li>
+</ul>
+<h4>3. Jak procesor x86-64 widzi słowo kluczowe this</h4>
+
+<p>W konwencji wywołań Microsoft x64 (Windows ABI) pierwsze cztery argumenty całkowite lub wskaźnikowe trafiają do rejestrów <code>RCX</code>, <code>RDX</code>, <code>R8</code>, <code>R9</code>. Dla każdej metody instancyjnej w C# i C++ ukryty wskaźnik <code>this</code> zajmuje zawsze pierwszy rejestr <span class="color-green"><code>RCX</code></span>, a jawne argumenty przesuwają się dalej:</p>
+<pre><code class="language-asm">; Wywołanie: gracz.OtrzymajObrazenia(20);
+mov rcx, [rbp-8]             ; 1. ukryty parametr: adres obiektu (this) -&gt; RCX
+mov edx, 20                  ; 2. jawny parametr: ile = 20 -&gt; EDX
+call Gracz::OtrzymajObrazenia
+</code></pre>
+<p>Wewnątrz metody odczyt pola <code>this.Hp</code> to pojedyncza instrukcja z przesunięciem względem rejestru bazowego <code>RCX</code>: <code>mov eax, dword ptr [rcx+16]</code>. Metoda <code>static</code> nie dostaje adresu w <code>RCX</code>, więc argument <code>20</code> trafia bezpośrednio do rejestru <code>ECX</code>.</p>
+<h4>4. Zasada niezmiennika klasy</h4>
+
+<p>Najważniejszym zadaniem konstruktora nie jest wygoda zapisu, lecz utrzymanie <span class="color-green">niezmiennika klasy</span>: warunku, który musi pozostać prawdziwy przez cały czas życia obiektu. Jeśli konstruktor waliduje argumenty, a modyfikatory <code>private set</code> blokują niekontrolowane przypisania z zewnątrz, to obiekt w nielegalnym stanie fizycznie nie może zaistnieć w pamięci. Eliminuje to konieczność powtarzania sprawdzeń <code>if (gracz.Hp &lt; 0)</code> w dziesiątkach innych metod.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne w 2 plikach dla klasy ProcesInfo</h2>
+<p>Przełącz zakładkę w edytorze na <span class="color-green"><code>ProcesInfo.cs</code></span> i zaimplementuj klasę opisującą proces systemu Windows wraz z monitorowaniem jego szczytowego zużycia pamięci oraz globalnego licznika utworzonych obiektów:</p>
+<ol>
+<li><span class="color-green">Właściwość statyczna <code>public static int LiczbaUtworzonych { get; private set; }</code></span>:<ul>
+<li>zadeklaruj ją w klasie i zwiększaj o <code>1</code> w konstruktorze głównym dopiero po pomyślnej walidacji (błędne wywołanie rzucające wyjątek nie może zwiększać licznika).</li>
+</ul>
+</li>
+<li><span class="color-green">Właściwość wyliczana <code>public double RoznicaOdSzczytuMb</code></span>:<ul>
+<li>zaimplementuj właściwość tylko do odczytu (<code>get</code>), która na bieżąco zwraca <code>SzczytPamieciMb - PamiecMb</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Konstruktor główny <code>ProcesInfo(int pid, string nazwa, double pamiecMb)</code></span>:<ul>
+<li>dla <code>pid &lt; 0</code> lub <code>pamiecMb &lt; 0</code> rzuć <span class="color-red">ArgumentOutOfRangeException</span>,</li>
+<li>dla pustej lub białoznakowej nazwy (<code>string.IsNullOrWhiteSpace(nazwa)</code>) rzuć <span class="color-red">ArgumentException</span>,</li>
+<li>przypisz <code>Pid</code>, <code>Nazwa</code> (po przycięciu spacji metodą <code>Trim()</code>), <code>PamiecMb</code>, zainicjalizuj <code>SzczytPamieciMb</code> wartością <code>pamiecMb</code> oraz zwiększ <code>LiczbaUtworzonych</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Konstruktor skrócony <code>ProcesInfo(int pid, string nazwa)</code></span>:<ul>
+<li>zadeklaruj go samodzielnie i deleguj wywołanie przez <code>: this(pid, nazwa, 0.0)</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ZaktualizujPamiec(double nowaPamiecMb)</code></span>:<ul>
+<li>dla wartości ujemnej rzuć <span class="color-red">ArgumentOutOfRangeException</span>,</li>
+<li>zaktualizuj <code>PamiecMb</code>, a jeśli <code>nowaPamiecMb &gt; SzczytPamieciMb</code>, zaktualizuj także <code>SzczytPamieciMb</code> (niezmiennik: <code>SzczytPamieciMb &gt;= PamiecMb</code> jest zawsze prawdziwy).</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>override string ToString()</code></span>:<ul>
+<li>zwróć napis w formacie <code>"{0} (PID: {1}) - {2:F1} MB"</code> z użyciem <code>CultureInfo.InvariantCulture</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Klasa ProcesInfo, static LiczbaUtworzonych, właściwość wyliczana i łańcuch konstruktorów">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        var chrome = new ProcesInfo(4120, "chrome", 842.5);
+        chrome.ZaktualizujPamiec(1024.0);
+        chrome.ZaktualizujPamiec(790.0);
+
+        var notepad = new ProcesInfo(1044, "notepad");
+        notepad.ZaktualizujPamiec(18.2);
+
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+            "{0} | Szczyt: {1:F1} MB | Roznica od szczytu: {2:F1} MB",
+            chrome, chrome.SzczytPamieciMb, chrome.RoznicaOdSzczytuMb));
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+            "{0} | Szczyt: {1:F1} MB | Roznica od szczytu: {2:F1} MB",
+            notepad, notepad.SzczytPamieciMb, notepad.RoznicaOdSzczytuMb));
+        Console.WriteLine("Utworzono obiektow: " + ProcesInfo.LiczbaUtworzonych);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="ProcesInfo.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Globalization;
+
+public class ProcesInfo
+{
+    public static int LiczbaUtworzonych { get; private set; }
+
+    public int Pid { get; private set; }
+    public string Nazwa { get; private set; }
+    public double PamiecMb { get; private set; }
+    public double SzczytPamieciMb { get; private set; }
+
+    public double RoznicaOdSzczytuMb
+    {
+        get
+        {
+            // Zwroc roznice miedzy SzczytPamieciMb a PamiecMb
+            return 0.0;
+        }
+    }
+
+    public ProcesInfo(int pid, string nazwa, double pamiecMb)
+    {
+        // Zwaliduj pid &lt; 0, pamiecMb &lt; 0 (ArgumentOutOfRangeException)
+        // oraz nazwe (ArgumentException), przypisz wlasciwosci i zwieksz LiczbaUtworzonych
+    }
+
+    // Dopisz przeciazony konstruktor ProcesInfo(int pid, string nazwa) delegujacy przez : this(...)
+
+    public void ZaktualizujPamiec(double nowaPamiecMb)
+    {
+        // Zwaliduj nowaPamiecMb &lt; 0, zaktualizuj PamiecMb oraz (jesli wieksza) SzczytPamieciMb
+    }
+
+    public override string ToString()
+    {
+        // Zwroc "{Nazwa} (PID: {Pid}) - {PamiecMb:F1} MB" z CultureInfo.InvariantCulture
+        return "";
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("Konstruktor główny ustawia pola, przycina nazwę, inicjalizuje SzczytPamieciMb i zwiększa LiczbaUtworzonych", () =&gt; {
+    int przed = ProcesInfo.LiczbaUtworzonych;
+
+    var p = new ProcesInfo(1200, "  discord  ", 310.5);
+    LabAssert.Equal(1200, p.Pid);
+    LabAssert.Equal("discord", p.Nazwa);
+    LabAssert.Equal(310.5, p.PamiecMb);
+    LabAssert.Equal(310.5, p.SzczytPamieciMb);
+    LabAssert.Equal(0.0, p.RoznicaOdSzczytuMb);
+
+    var idle = new ProcesInfo(0, "System Idle Process", 0.0);
+    LabAssert.Equal(0, idle.Pid);
+    LabAssert.Equal(0.0, idle.PamiecMb);
+    LabAssert.Equal(0.0, idle.SzczytPamieciMb);
+    LabAssert.Equal(przed + 2, ProcesInfo.LiczbaUtworzonych);
+});
+LabAssert.Test("Błędne argumenty rzucają właściwe wyjątki i nie zwiększają LiczbaUtworzonych", () =&gt; {
+    int przed = ProcesInfo.LiczbaUtworzonych;
+
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new ProcesInfo(-1, "x", 10.0));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; new ProcesInfo(1, null, 10.0));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; new ProcesInfo(1, "   ", 10.0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new ProcesInfo(1, "x", -0.1));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new ProcesInfo(-5, "cmd"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; new ProcesInfo(5, "  "));
+
+    LabAssert.Equal(przed, ProcesInfo.LiczbaUtworzonych);
+});
+LabAssert.Test("Konstruktor skrócony (: this), ZaktualizujPamiec i RoznicaOdSzczytuMb pilnują niezmiennika", () =&gt; {
+    int przed = ProcesInfo.LiczbaUtworzonych;
+    var p = new ProcesInfo(500, "cmd");
+    LabAssert.Equal(przed + 1, ProcesInfo.LiczbaUtworzonych);
+    LabAssert.Equal(0.0, p.PamiecMb);
+    LabAssert.Equal(0.0, p.SzczytPamieciMb);
+    LabAssert.Equal(0.0, p.RoznicaOdSzczytuMb);
+
+    p.ZaktualizujPamiec(48.5);
+    LabAssert.Equal(48.5, p.PamiecMb);
+    LabAssert.Equal(48.5, p.SzczytPamieciMb);
+    LabAssert.Equal(0.0, p.RoznicaOdSzczytuMb);
+
+    p.ZaktualizujPamiec(12.5);
+    LabAssert.Equal(12.5, p.PamiecMb);
+    LabAssert.Equal(48.5, p.SzczytPamieciMb);
+    LabAssert.Equal(36.0, Math.Round(p.RoznicaOdSzczytuMb, 4));
+
+    p.ZaktualizujPamiec(0.0);
+    LabAssert.Equal(0.0, p.PamiecMb);
+    LabAssert.Equal(48.5, p.SzczytPamieciMb);
+    LabAssert.Equal(48.5, Math.Round(p.RoznicaOdSzczytuMb, 4));
+
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; p.ZaktualizujPamiec(-1.0));
+});
+LabAssert.Test("ToString zwraca format z kropką dziesiętną (InvariantCulture)", () =&gt; {
+    var p1 = new ProcesInfo(4120, "chrome", 842.56);
+    LabAssert.Equal("chrome (PID: 4120) - 842.6 MB", p1.ToString());
+    var p2 = new ProcesInfo(4, "System");
+    LabAssert.Equal("System (PID: 4) - 0.0 MB", p2.ToString());
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy zastąpić równoległe tablice klasą?</strong> Zawsze wtedy, gdy kilka wartości (np. nick, HP, poziom) opisuje jeden byt i musi podróżować razem jako spójny obiekt.</li>
+<li><strong>Jak chronić stan obiektu przed uszkodzeniem?</strong> Używaj <code>{ get; private set; }</code> oraz <code>readonly</code> dla niezmiennych pól, a każdą zmianę przepuszczaj przez metodę z walidacją.</li>
+<li><strong>Jak projektować konstruktory bez duplikacji kodu?</strong> Waliduj argumenty i rzucaj wyjątki wyłącznie w konstruktorze głównym, a pozostałe wersje podpinaj przez <code>: this(...)</code>.</li>
+<li><strong>Kiedy użyć właściwości wyliczanej zamiast zwykłego pola?</strong> Gdy wartość wynika bezpośrednio z innych pól obiektu (jak <code>RoznicaOdSzczytuMb</code>) i powinna być zawsze aktualna bez ręcznego przeliczania.</li>
+<li><strong>Dlaczego warto nadpisywać ToString() z CultureInfo.InvariantCulture?</strong> Aby każdy obiekt wypisywał czytelny opis w logach i debuggerze z przewidywalną kropką dziesiętną niezależnie od języka systemu Windows.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

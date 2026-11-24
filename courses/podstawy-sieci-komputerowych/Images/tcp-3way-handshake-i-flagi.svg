@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ade80"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#facc15"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Nawiązywanie połączenia TCP: 3-Way Handshake i maszyna stanowa</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Synchronizacja numerów ISN (Seq/Ack), negocjacja MSS i stany jądra systemu</text>
+
+  <!-- OŚ CZASU HANDSHAKE -->
+  <g transform="translate(60, 75)">
+    <!-- Kolumny Klient / Serwer -->
+    <rect x="0" y="0" width="180" height="420" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="0" y="0" width="180" height="28" rx="6" fill="#0369a1"/>
+    <text x="90" y="19" fill="#f0f9ff" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">KLIENT (192.168.1.15)</text>
+
+    <rect x="660" y="0" width="180" height="420" rx="6" fill="#0f172a" stroke="#4ade80" stroke-width="1.5"/>
+    <rect x="660" y="0" width="180" height="28" rx="6" fill="#166534"/>
+    <text x="750" y="19" fill="#f0fdf4" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">SERWER (10.0.0.1)</text>
+
+    <!-- Oś pionowa -->
+    <line x1="90" y1="35" x2="90" y2="400" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="750" y1="35" x2="750" y2="400" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- STAN 0: PRZED ROZPOCZĘCIEM -->
+    <rect x="15" y="45" width="150" height="24" rx="3" fill="#1e293b"/>
+    <text x="90" y="61" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="middle">Stan: CLOSED</text>
+
+    <rect x="675" y="45" width="150" height="24" rx="3" fill="#1e293b"/>
+    <text x="750" y="61" fill="#4ade80" font-size="10" font-family="monospace" text-anchor="middle">Stan: LISTEN (:80)</text>
+
+    <!-- KROK 1: SYN -->
+    <g transform="translate(0, 90)">
+      <line x1="90" y1="0" x2="740" y2="55" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+      <rect x="220" y="6" width="390" height="42" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="230" y="24" fill="#38bdf8" font-size="11" font-family="system-ui, sans-serif" font-weight="700">1. SYN [Synchronize]</text>
+      <text x="230" y="40" fill="#cbd5e1" font-size="9" font-family="monospace">Flagi: [SYN] | Seq=1000 (ISN_Client) | Win=64240 | MSS=1460</text>
+
+      <rect x="15" y="60" width="150" height="24" rx="3" fill="#0c4a6e"/>
+      <text x="90" y="76" fill="#7dd3fc" font-size="10" font-family="monospace" text-anchor="middle">Stan: SYN_SENT</text>
+    </g>
+
+    <!-- KROK 2: SYN-ACK -->
+    <g transform="translate(0, 180)">
+      <line x1="750" y1="0" x2="100" y2="60" stroke="#facc15" stroke-width="2" marker-end="url(#arrow-amber)"/>
+      <rect x="220" y="10" width="410" height="42" rx="4" fill="#1e293b" stroke="#facc15" stroke-width="1"/>
+      <text x="230" y="28" fill="#facc15" font-size="11" font-family="system-ui, sans-serif" font-weight="700">2. SYN-ACK [Synchronize + Acknowledgment]</text>
+      <text x="230" y="44" fill="#cbd5e1" font-size="9" font-family="monospace">Flagi: [SYN, ACK] | Seq=5000 (ISN_Server) | Ack=1001 | Win=65535</text>
+
+      <rect x="675" y="65" width="150" height="24" rx="3" fill="#713f12"/>
+      <text x="750" y="81" fill="#fde047" font-size="10" font-family="monospace" text-anchor="middle">Stan: SYN_RCVD</text>
+    </g>
+
+    <!-- KROK 3: ACK -->
+    <g transform="translate(0, 275)">
+      <line x1="90" y1="0" x2="740" y2="55" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+      <rect x="220" y="6" width="390" height="42" rx="4" fill="#1e293b" stroke="#4ade80" stroke-width="1"/>
+      <text x="230" y="24" fill="#4ade80" font-size="11" font-family="system-ui, sans-serif" font-weight="700">3. ACK [Acknowledgment - Połączenie Zestawione]</text>
+      <text x="230" y="40" fill="#cbd5e1" font-size="9" font-family="monospace">Flagi: [ACK] | Seq=1001 | Ack=5001 | Win=64240</text>
+
+      <rect x="15" y="60" width="150" height="24" rx="3" fill="#14532d"/>
+      <text x="90" y="76" fill="#86efac" font-size="10" font-family="monospace" font-weight="700" text-anchor="middle">ESTABLISHED</text>
+
+      <rect x="675" y="60" width="150" height="24" rx="3" fill="#14532d"/>
+      <text x="750" y="76" fill="#86efac" font-size="10" font-family="monospace" font-weight="700" text-anchor="middle">ESTABLISHED</text>
+    </g>
+
+    <!-- WYNIK -->
+    <g transform="translate(200, 365)">
+      <rect width="440" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="220" y="18" fill="#e2e8f0" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Czas trwania handshake: dokładnie 1 pełny RTT (Round Trip Time)</text>
+      <text x="220" y="32" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Dopiero po odebraniu kroku 3 serwer i klient mogą przesyłać dane aplikacyjne.</text>
+    </g>
+  </g>
+</svg>

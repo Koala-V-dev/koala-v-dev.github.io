@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t03 d03">
+  <title id="t03">Rozgałęzienie if/else-if kontra tablica skoków switch i ewaluacja leniwa</title>
+  <desc id="d03">Porównanie sekwencyjnego sprawdzania warunków if/else-if (czas liniowy) ze skokiem bezpośrednim przez Jump Table w switch (czas stały O(1)).</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .box { fill: #0f172a; stroke: #475569; stroke-width: 1.5; rx: 6; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 600 11.5px Consolas, monospace; fill: #38bdf8; }
+    .ok { font: 700 11.5px Consolas, monospace; fill: #34d399; }
+    .warn { font: 700 11.5px Consolas, monospace; fill: #fbbf24; }
+    @keyframes scan { 0% { transform: translateY(0); } 33% { transform: translateY(42px); } 66% { transform: translateY(84px); } 100% { transform: translateY(0); } }
+    @keyframes jump { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+    .scanner { animation: scan 3s steps(1) infinite; }
+    .jumper { animation: jump 1.6s ease-in-out infinite; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Jak procesor wykonuje drabinkę if / else-if kontra tablicę skoków switch</text>
+  <text x="24" y="48" class="sub">Po lewej: sekwencyjne porównania po kolei. Po prawej: bezpośredni skok do adresu w czasie O(1).</text>
+
+  <!-- Left: if / else if -->
+  <rect x="24" y="66" width="386" height="176" class="card"/>
+  <text x="40" y="90" class="title">Drabinka if / else if — zakresy (np. entropia)</text>
+
+  <rect x="40" y="104" width="354" height="32" class="box"/>
+  <text x="52" y="124" class="mono">1. if (bity &lt; 40)      → "Słabe"</text>
+
+  <rect x="40" y="146" width="354" height="32" class="box"/>
+  <text x="52" y="166" class="mono">2. else if (bity &lt; 60) → "Średnie"</text>
+
+  <rect x="40" y="188" width="354" height="32" class="box"/>
+  <text x="52" y="208" class="ok">3. else                → "Silne"</text>
+
+  <rect x="38" y="102" width="358" height="36" rx="7" fill="none" stroke="#fbbf24" stroke-width="2" class="scanner"/>
+
+  <!-- Right: switch Jump Table -->
+  <rect x="430" y="66" width="386" height="176" class="card"/>
+  <text x="446" y="90" class="title">switch (Jump Table) — konkretne wartości</text>
+
+  <rect x="446" y="114" width="118" height="60" class="box"/>
+  <text x="458" y="138" class="mono">tryb = 2</text>
+  <text x="458" y="158" class="warn">JMP tab[2]</text>
+
+  <line x1="564" y1="144" x2="624" y2="164" stroke="#34d399" stroke-width="2.5" class="jumper"/>
+  <polygon points="622,158 632,166 620,169" fill="#34d399" class="jumper"/>
+
+  <rect x="634" y="104" width="166" height="28" class="box"/>
+  <text x="646" y="122" class="sub">[0] → 0x4010 Szyfruj</text>
+
+  <rect x="634" y="138" width="166" height="28" class="box"/>
+  <text x="646" y="156" class="sub">[1] → 0x4040 Deszyfruj</text>
+
+  <rect x="634" y="172" width="166" height="28" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.8"/>
+  <text x="646" y="190" class="ok">[2] → 0x4080 Hasło</text>
+
+  <text x="446" y="224" class="sub">1 skok CPU niezależnie od liczby gałęzi case.</text>
+</svg>

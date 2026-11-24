@@ -308,7 +308,45 @@ network:
         addresses: [8.8.8.8, 1.1.1.1]
 ```
 
+---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Gniazda Netlink w Linuksie - jak narzędzia iproute2 i NetworkManager komunikują się z jądrem</span><span class="deep-dive-badge">Linux Network Subsystem & Netlink</span></summary>
+
+Gdy wpisujesz `ip addr add 192.168.50.10/24 dev enp0s3` albo gdy `netplan apply` konfiguruje sieć, system operacyjny nie zapisuje żadnego pliku na dysku. Modyfikuje bezpośrednio tablice routingu i struktury interfejsów w pamięci RAM jądra za pomocą **gniazd Netlink** (*AF_NETLINK*).
+
+### 1. Czym jest Netlink?
+Netlink to wyspecjalizowany protokół IPC pomiędzy przestrzenią użytkownika (*User Space*) a podsystemem sieciowym jądra (*Kernel Space*). Zastąpił on dawne, powolne wywołania `ioctl()`:
+- Działa jak standardowe gniazdo sieciowe BSD: tworzy się je funkcją `socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE)`.
+- Zamiast przesyłać pakiety po kablu, gniazdo przesyła binarne komunikaty z nagłówkiem `struct nlmsghdr` bezpośrednio do struktur jądra.
+- Obsługuje asynchroniczny multicast: jądro potrafi powiadomić zarejestrowane procesy (np. NetworkManager) o podłączeniu kabla sieciowego lub zmianie adresu IP.
+
+```
+   Przestrzeń użytkownika:  netplan apply / iproute2
+                                       │
+                      Komunikat binarny: RTM_NEWADDR
+                                       │
+                      socket(AF_NETLINK, ..., NETLINK_ROUTE)
+                                       │
+   ════════════════════════════════════╪════════════════════════════════════
+   Jądro Linuksa:                      ▼
+                              Stos sieciowy jądra:
+                       - Aktualizacja struct net_device
+                       - Modyfikacja tablicy routingu FIB
+                       - Wysłanie powiadomienia Netlink Multicast
+```
+
+### 2. Rodzina komunikatów `NETLINK_ROUTE` (rtnetlink)
+Do manipulacji siecią służą ściśle zdefiniowane typy komunikatów:
+- `RTM_NEWLINK` / `RTM_DELLINK` - włączanie, wyłączanie i tworzenie interfejsów (np. mostków, VLAN-ów, interfejsów tun/tap).
+- `RTM_NEWADDR` / `RTM_DELADDR` - przypisywanie i usuwanie adresów IP.
+- `RTM_NEWROUTE` / `RTM_DELROUTE` - modyfikacja tablicy routingu (*Forwarding Information Base - FIB*).
+
+Dzięki gniazdom Netlink zmiana adresu IP odbywa się atomowo w ułamku mikrosekundy, bez konieczności restartowania usług czy przeładowywania modułów jądra.
+
+</details>
+
+---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 

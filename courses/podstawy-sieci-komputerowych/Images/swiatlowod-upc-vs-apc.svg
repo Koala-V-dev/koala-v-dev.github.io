@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 370" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 20px; font-weight: 800; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .card { fill: #1e293b; stroke-width: 1.5; rx: 8; }
+      .card-title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 700; }
+      .card-sub { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 600; }
+      .ferrule { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.5; }
+      .core { fill: #38bdf8; }
+      .cladding { fill: #334155; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 11.5px; fill: #cbd5e1; }
+      .metric { font-family: monospace; font-size: 13px; font-weight: 800; }
+    </style>
+    <marker id="beam-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="refl-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="35" y="38" class="title">Szlif czoła ferruli światłowodowej: UPC vs APC</text>
+  <text x="35" y="58" class="subtitle">Fizyka odbicia fali świetlnej (Return Loss) i kodowanie kolorami obudów</text>
+
+  <!-- ================= LEWA STRONA: UPC ================= -->
+  <g transform="translate(35, 75)">
+    <rect width="375" height="225" class="card" stroke="#2563eb"/>
+    <rect x="20" y="16" width="16" height="16" rx="4" fill="#2563eb"/>
+    <text x="44" y="29" class="card-title" fill="#60a5fa">UPC (Ultra Physical Contact)</text>
+    <text x="20" y="50" class="card-sub" fill="#93c5fd">Kolor wtyku: NIEBIESKI • Szlif prosty (0°)</text>
+
+    <!-- Przekrój styku ferruli UPC -->
+    <g transform="translate(20, 65)">
+      <!-- Ferrula lewa -->
+      <path d="M 10 15 L 145 15 L 145 75 L 10 75 Z" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <!-- Płaszcz i rdzeń -->
+      <rect x="10" y="30" width="135" height="30" class="cladding"/>
+      <rect x="10" y="42" width="135" height="6" class="core"/>
+
+      <!-- Linia styku 0 stopni (pionowa) -->
+      <line x1="145" y1="10" x2="145" y2="80" stroke="#f8fafc" stroke-width="2"/>
+
+      <!-- Promień główny i promień odbity -->
+      <line x1="20" y1="45" x2="135" y2="45" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#beam-arr)"/>
+      <line x1="140" y1="45" x2="55" y2="45" stroke="#ef4444" stroke-width="2" stroke-dasharray="3 2" marker-end="url(#refl-arr)"/>
+      <text x="95" y="38" font-family="monospace" font-size="9px" font-weight="700" fill="#f87171" text-anchor="middle">Odbicie w rdzeń!</text>
+
+      <!-- Ferrula prawa (stykająca się) -->
+      <path d="M 147 15 L 280 15 L 280 75 L 147 75 Z" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <rect x="147" y="30" width="133" height="30" class="cladding"/>
+      <rect x="147" y="42" width="133" height="6" class="core"/>
+    </g>
+
+    <g transform="translate(20, 165)">
+      <text x="0" y="14" class="desc-txt">Fala odbita cofa się <tspan fill="#f87171" font-weight="700">bezpośrednio w rdzeń</tspan> do nadajnika.</text>
+      <text x="0" y="32" class="desc-txt">Tłumienność odbiciowa (Return Loss): <tspan class="metric" fill="#60a5fa">≥ -50 dB</tspan></text>
+      <text x="0" y="48" class="desc-txt">Zastosowanie: klasyczne sieci LAN, serwery, Ethernet do 10G.</text>
+    </g>
+  </g>
+
+  <!-- ================= PRAWA STRONA: APC ================= -->
+  <g transform="translate(430, 75)">
+    <rect width="375" height="225" class="card" stroke="#16a34a"/>
+    <rect x="20" y="16" width="16" height="16" rx="4" fill="#16a34a"/>
+    <text x="44" y="29" class="card-title" fill="#4ade80">APC (Angled Physical Contact)</text>
+    <text x="20" y="50" class="card-sub" fill="#86efac">Kolor wtyku: ZIELONY • Szlif kątowy (8°)</text>
+
+    <!-- Przekrój styku ferruli APC -->
+    <g transform="translate(20, 65)">
+      <!-- Ferrula lewa z ukośnym czołem 8 stopni -->
+      <path d="M 10 15 L 140 15 L 150 75 L 10 75 Z" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <polygon points="10,30 142.5,30 147.5,60 10,60" class="cladding"/>
+      <polygon points="10,42 144.5,42 145.5,48 10,48" class="core"/>
+
+      <!-- Linia styku ukośna -->
+      <line x1="140" y1="10" x2="151" y2="80" stroke="#f8fafc" stroke-width="2"/>
+
+      <!-- Promień główny i odbicie w płaszcz! -->
+      <line x1="20" y1="45" x2="135" y2="45" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#beam-arr)"/>
+      <line x1="144" y1="45" x2="90" y2="24" stroke="#4ade80" stroke-width="2" stroke-dasharray="3 2" marker-end="url(#beam-arr)"/>
+      <text x="85" y="16" font-family="monospace" font-size="9px" font-weight="700" fill="#4ade80">Odbicie w płaszcz!</text>
+
+      <!-- Ferrula prawa z dopasowanym kątem -->
+      <path d="M 142 15 L 280 15 L 280 75 L 152 75 Z" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <polygon points="144.5,30 280,30 280,60 149.5,60" class="cladding"/>
+      <polygon points="146.5,42 280,42 280,48 147.5,48" class="core"/>
+    </g>
+
+    <g transform="translate(20, 165)">
+      <text x="0" y="14" class="desc-txt">Fala odbita uderza w <tspan fill="#4ade80" font-weight="700">płaszcz (cladding)</tspan> i ulega rozproszeniu.</text>
+      <text x="0" y="32" class="desc-txt">Tłumienność odbiciowa (Return Loss): <tspan class="metric" fill="#4ade80">≥ -60 dB</tspan> (10× lepsza!)</text>
+      <text x="0" y="48" class="desc-txt">Zastosowanie: FTTH (światłowód do domu), CATV, lasery WDM.</text>
+    </g>
+  </g>
+
+  <!-- ================= DOLNY PAS OSTRZEGAWCZY ================= -->
+  <g transform="translate(35, 312)">
+    <rect width="770" height="44" fill="#450a0a" stroke="#ef4444" stroke-width="1.5" rx="6"/>
+    <text x="16" y="20" font-family="system-ui, sans-serif" font-size="11.5px" font-weight="800" fill="#fca5a5">🚫 KRYTYCZNA ZASADA WARSZTATOWA: NIGDY NIE ŁĄCZ WTYKU NIEBIESKIEGO (UPC) Z ZIELONYM (APC)!</text>
+    <text x="16" y="34" font-family="system-ui, sans-serif" font-size="10.5px" fill="#fecaca">Szlif prosty zderzony ze szlifem ukośnym 8° styka się punktowo – silny docisk złącza nieodwracalnie kruszy i rysuje ceramiczną ferrulę!</text>
+  </g>
+</svg>

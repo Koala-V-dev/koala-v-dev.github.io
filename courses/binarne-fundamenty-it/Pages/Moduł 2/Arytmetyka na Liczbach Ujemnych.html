@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arytmetyka na Liczbach Ujemnych - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/binarne-fundamenty-it/">Wprowadzenie</a></li><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Podstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Pot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Bity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Systemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Bramki Logiczne i Podstawy Arytmetyki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Podstawowe Bramki Logiczne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Podstawowe%20Bramki%20Logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawowe Bramki Logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Bramki Złożone i Uniwersalne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Bramki%20Z%C5%82o%C5%BCone%20i%20Uniwersalne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bramki Złożone i Uniwersalne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dodawanie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Dodawanie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dodawanie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Odejmowanie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Odejmowanie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Odejmowanie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Mnożenie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Mno%C5%BCenie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Mnożenie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dzielenie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Dzielenie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dzielenie Binarne</a></li><li class="module">Moduł 2: Liczby Ze Znakiem i Arytmetyka Procesora</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Arytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Liczby Ujemne i Kod U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Liczby%20Ujemne%20i%20Kod%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne i Kod U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Arytmetyka na Liczbach Ujemnych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Arytmetyka%20na%20Liczbach%20Ujemnych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka na Liczbach Ujemnych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dzielenie z Resztą i Operacja Modulo"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Dzielenie%20z%20Reszt%C4%85%20i%20Operacja%20Modulo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dzielenie z Resztą i Operacja Modulo</a></li><li class="module">Moduł 3: Kodowanie Danych i Format Zmiennoprzecinkowy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Kodowanie Znaków - ASCII i Standardy Tekstowe"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%203/Kodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Standardy%20Tekstowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Standardy Tekstowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Liczby Zmiennoprzecinkowe - Standard IEEE 754"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%203/Liczby%20Zmiennoprzecinkowe%20-%20Standard%20IEEE%20754.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Zmiennoprzecinkowe - Standard IEEE 754</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Arytmetyka na Liczbach Ujemnych</h1>
+<p>Kod U2 pozwala na zunifikowanie operacji dodawania i odejmowania w jednostce arytmetyczno‑logicznej procesora (ALU). Dzięki ujemnej wadze najstarszego bitu ten sam sprzętowy sumator wielobitowy realizuje oba działania bez konieczności przełączania na osobne obwody odjemników.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>⚡ Realizacja odejmowania za pomocą sumatora</h2>
+<p>W architekturze krzemowej operację odejmowania $A - B$ sprowadza się do dodania liczby przeciwnej:</p>
+<p>$$A - B = A + (-B)_{U2} = A + (\neg B + 1)$$</p>
+<p>Przeanalizujmy operację $5 - 3 = 2$ w rejestrze 8‑bitowym:</p>
+<ul>
+<li>Liczba $+5$ w kodzie binarnym: <code>0000 0101</code></li>
+<li>Liczba $-3$ w kodzie U2 (inwersja trójki <code>1111 1100</code> i dodanie jedynki): <code>1111 1101</code></li>
+</ul>
+<p>Krokowe sumowanie w 8‑bitowym sumatorze (+5 oraz -3):</p>
+<p><data-binary-process mode="carry-borrow" base="2" operation="+" a="5" b="253" bits="8"></data-binary-process></p>
+<h4>Kroki procesu sumowania w kodzie U2 na przykładzie 5 + (-3) = +2:</h4>
+<ol>
+<li><span class="color-green">Składniki operacji w rejestrze 8‑bitowym</span>:<ul>
+<li>Składnik $A$ ($+5$): <code>0000 0101</code></li>
+<li>Składnik $B$ ($-3$ w U2): <code>1111 1101</code></li>
+</ul>
+</li>
+<li><span class="color-green">Kaskada przeniesień</span>:<ul>
+<li>Kolumny od prawej do lewej sumują bity z uwzględnieniem przeniesień.</li>
+<li>Na 7. pozycji (najstarszy bit znaku) zachodzi sumowanie: $0 + 1 + 1\text{ (przeniesienie)} = 2_{10}$ ($10_2$). Wpisujemy <span class="color-red">0</span>, a jedynka wędruje jako przeniesienie na 8. pozycję (poza format 8‑bitowy).</li>
+</ul>
+</li>
+<li><span class="color-green">Odrzucenie bitu przeniesienia (Carry Drop)</span>:<ul>
+<li>Dziewiąty bit przeniesienia wykracza poza 8‑bitowy rejestr procesora. Procesor odnotowuje go we fladze przeniesienia <span class="color-green">CF</span> (<span class="color-blue">Carry Flag</span>), lecz rejestr wynikowy zachowuje wyłącznie 8 młodszych bitów.</li>
+</ul>
+</li>
+<li><span class="color-green">Wynik w rejestrze</span>:<ul>
+<li>Wektor wynikowy wynosi <code>0000 0010</code>, czyli dziesiętne <span class="color-green">$+2$</span>. Sumator zrealizował odejmowanie przy użyciu standardowego dodawania bez konieczności angażowania obwodów pożyczek.</li>
+</ul>
+</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Detekcja Przepełnienia (Overflow Flag - OF) vs Przeniesienie (Carry Flag - CF)</h2>
+<p>W kodzie U2 pojawienie się bitu przeniesienia poza rejestr (<span class="color-blue">Carry</span>) jest zjawiskiem naturalnym i nie świadczy o błędzie wyniku.</p>
+<p>Błąd przepełnienia zakresu (<span class="color-red">Overflow</span>) występuje w sytuacji, gdy <span class="color-green">wynik operacji przekracza pojemność formatu bitowego</span>, co prowadzi do zakłócenia bitu znaku.</p>
+<p>W formacie 8‑bitowym U2 dopuszczalny zakres wynosi od $-128$ do $+127$:</p>
+<ul>
+<li>Rozważmy dodanie dwóch liczb dodatnich: $+100$ oraz $+50$:<br>$$100 + 50 = 150_{10}$$</li>
+<li>Liczba $150$ wymaga wagi $128$. Na pozycji 7 w kodzie U2 waga ta ma jednak znak ujemny ($-128$).</li>
+<li>Po zsumowaniu bitowym otrzymujemy wektor <code>1001 0110</code>:<br>$$-128 + 16 + 4 + 2 = \mathbf{-106}$$</li>
+</ul>
+<p>Suma dwóch liczb dodatnich dała wynik ujemny. W rejestrze procesora zapala się sprzętowa flaga przepełnienia <span class="color-red">OF (Overflow Flag)</span>.</p>
+<h3>Sprzętowa reguła wyznaczania flagi OF w krzemie</h3>
+<p>Jednostka ALU wyznacza stan flagi przepełnienia za pomocą jednej bramki XOR badającej przeniesienie wchodzące na najstarszy bit oraz przeniesienie wychodzące z tego bitu:</p>
+<p>$$OF = C_{in}(MSB) \oplus C_{out}(MSB)$$</p>
+<p>Gdy przeniesienie wpadło na pozycję znaku, ale z niej nie wyszło (lub odwrotnie), nastąpiło przepełnienie arytmetyczne formatu ze znakiem.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕹️ Laboratorium arytmetyki U2</h2>
+<p>Przetestuj dodawanie i odejmowanie w symulatorze. Obserwuj zachowanie najstarszego bitu znaku przy przejściach przez zero oraz sytuacje przepełnienia zakresu:</p>
+<p><data-binary-arithmetic digits="16" base="2" u2="true"></data-binary-arithmetic></p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Flagi procesora (EFLAGS), niezdefiniowane zachowanie w C++ i arytmetyka nasycona</span>
+<span class="deep-dive-badge">ARCHITEKTURA ALU &amp; C++</span>
+</summary>
+<div class="deep-dive-content">
+
+<p>Rejestr stanu procesora (np. <code>RFLAGS</code> w x86‑64) rejestruje stan ostatniej operacji wykonanej przez ALU:</p>
+<ul>
+<li><span class="color-green">CF</span> (<span class="color-blue">Carry Flag</span>): sygnalizuje przeniesienie poza rejestr. Jest flagą błędu dla arytmetyki <span class="color-green">unsigned</span>.</li>
+<li><span class="color-green">OF</span> (<span class="color-blue">Overflow Flag</span>): sygnalizuje przepełnienie zakresu wagowego. Jest flagą błędu dla arytmetyki <span class="color-green">signed U2</span>.</li>
+<li><span class="color-green">SF</span> (<span class="color-blue">Sign Flag</span>): przyjmuje kopię najstarszego bitu wyniku (stan <span class="color-green">$1$</span> oznacza wynik ujemny).</li>
+<li><span class="color-green">ZF</span> (<span class="color-blue">Zero Flag</span>): zapala się, gdy wszystkie bity rejestru wynikowego mają wartość <span class="color-green">0</span>.</li>
+</ul>
+<h4>Instrukcje skoków warunkowych a interpretacja flag</h4>
+<p>Kompilator tłumaczy operatory porównania (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>) na odrębne instrukcje skoku warunkowego w zależności od tego, czy porównywane dane są traktowane jako liczby ze znakiem, czy bez znaku:</p>
+<ul>
+<li><span class="color-green">Dla liczb bez znaku (unsigned)</span>: procesor wykonuje rozkazy <code>JB</code> (<span class="color-blue">Jump if Below</span>) lub <code>JA</code> (<span class="color-blue">Jump if Above</span>), które sprawdzają wyłącznie stan flagi przeniesienia <span class="color-green">CF</span> (<span class="color-blue">Carry Flag</span>).</li>
+<li><span class="color-green">Dla liczb ze znakiem (signed U2)</span>: procesor wykonuje rozkazy <code>JL</code> (<span class="color-blue">Jump if Less</span>) lub <code>JG</code> (<span class="color-blue">Jump if Greater</span>), które sprawdzają relację flagi znaku <span class="color-green">SF</span> (<span class="color-blue">Sign Flag</span>) oraz flagi przepełnienia <span class="color-green">OF</span> (<span class="color-blue">Overflow Flag</span>) poprzez warunek $SF \neq OF$.</li>
+</ul>
+<h4>Konsekwencje w standardzie C i C++: Niezdefiniowane zachowanie (<span class="color-blue">Undefined Behavior</span>)</h4>
+<p>W językach C i C++ przepełnienie liczby ze znakiem (<span class="color-blue">signed overflow</span>) stanowi <span class="color-green">Undefined Behavior</span> (UB).</p>
+<h5>Źródło błędnego wzorca detekcji: <span class="color-blue">x + 1 &lt; x</span></h5>
+<p>Na poziomie rejestrów procesora przekroczenie wartości maksymalnej w kodzie U2 powoduje sprzętowe zawinięcie (<span class="color-blue">wraparound</span>) i zmianę bitu znaku. Dla typu 8‑bitowego ze znakiem (<code>int8_t</code>):</p>
+<ul>
+<li>Maksymalna wartość wynosi <span class="color-green">$x = 127$</span> (<code>0111 1111₂</code>).</li>
+<li>Dodanie jedynki generuje w rejestrze ciąg <code>1000 0000₂</code>, czyli wartość <span class="color-green">$-128$</span>.</li>
+</ul>
+<p>W asemblerze relacja $-128 &lt; 127$ jest spełniona. Z tego względu w kodzie wyższego poziomu bywa stosowana próba weryfikacji zakresu po wykonaniu operacji:</p>
+<pre><code class="language-cpp">if (x + 1 &lt; x) {
+    // próba reakcji na przepełnienie
+}
+</code></pre>
+<h5>Mechanizm eliminacji warunku przez optymalizator</h5>
+<p>Standard C i C++ definiuje przepełnienie typu ze znakiem jako operację niedozwoloną. Kompilator przyjmuje aksjomat, że w poprawnym programie przepełnienie nie zachodzi, a relacja $x + 1 &gt; x$ jest zawsze prawdziwa.</p>
+<p>W fazie optymalizacji kompilator traktuje warunek <code>x + 1 &lt; x</code> jako tożsamościowo fałszywy i usuwa całą instrukcję warunkową z wygenerowanego pliku binarnego. Zabezpieczenie przestaje istnieć w kodzie maszynowym.</p>
+<p>Prawidłowa weryfikacja wymaga sprawdzenia granicy przed wykonaniem dodawania:</p>
+<pre><code class="language-cpp">if (x &gt; INT_MAX - 1) {
+    // obsługa błędu przed przekroczeniem zakresu
+}
+</code></pre>
+<p>Dla typów bez znaku (<code>unsigned</code>, np. <code>uint8_t</code>) standard gwarantuje arytmetykę modulo $2^N$ (<span class="color-blue">wraparound</span>), dlatego tam kompilator zachowuje sprawdzanie relacji.</p>
+<h4>Arytmetyka nasycona (<span class="color-blue">Saturation Arithmetic</span>) w instrukcjach wektorowych SIMD</h4>
+<p>W przetwarzaniu sygnałów audio, wideo i grafiki 3D zawinięcie wartości przy przepełnieniu prowadziłoby do drastycznych artefaktów (np. zmiana maksymalnej bieli <code>255</code> na czerń <code>0</code> po dodaniu jednostki).</p>
+<p>W instrukcjach wektorowych procesora (np. SSE, AVX, ARM NEON) stosuje się <span class="color-gold">arytmetykę nasyconą</span>:</p>
+<ul>
+<li>Przy przekroczeniu górnej granicy rejestr przyjmuje maksymalną dopuszczalną wartość (np. $+127$ dla 8 bitów),</li>
+<li>Przy przekroczeniu dolnej granicy rejestr zatrzymuje się na wartości minimalnej (np. $-128$).<br>Dzięki temu operacje miksowania próbek dźwiękowych nie generują trzasków wynikających z przeskoku znaku.</li>
+</ul>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Weryfikacja: Arytmetyka U2 i zachowanie sprzętu</h2>
+<data-gate>
+  <data-connection-matcher title="Zasady Arytmetyki U2 i Przepełnienia">
+    <item left="Sprzętowe odejmowanie: `A - B`" right="Dodanie liczby ujemnej: `A + (-B)`"></item>
+    <item left="Wypadający bit przeniesienia poza rejestr" right="Prawidłowe w U2 (rejestr go ignoruje)"></item>
+    <item left="Suma `+100` i `+50` w 8 bitach" right="Wynik `-106` (błąd przepełnienia formatu)"></item>
+    <item left="Dodanie liczby dodatniej i ujemnej" right="Nigdy nie wywoła błędu przepełnienia"></item>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Procesor nie wymaga osobnego układu odjemnika: odejmowanie wykonuje standardowy sumator poprzez dodanie liczby w kodzie U2 ($A + \neg B + 1$).</li>
+<li>Przeniesienie wyjściowe (<span class="color-blue">Carry Flag</span> - CF) w arytmetyce U2 nie oznacza błędu logicznego.</li>
+<li>Przepełnienie (<span class="color-blue">Overflow Flag</span> - OF) występuje, gdy suma liczb o tym samym znaku przekracza dopuszczalny zakres formatu bitowego ($OF = C_{in} \oplus C_{out}$).</li>
+<li>Standardy języków niskopoziomowych traktują przepełnienie signed jako błąd niezdefiniowany (UB), podczas gdy typy unsigned podlegają przewidywalnemu zawijaniu modulo.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

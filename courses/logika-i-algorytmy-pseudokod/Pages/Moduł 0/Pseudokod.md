@@ -61,7 +61,7 @@ Aby to rozwiązać, stosujemy instrukcję `JEŻELI ... TO` (ang. `IF`). Używamy
 
 Jeśli warunek jest oceniony jako **Prawda**, program wchodzi do bloku i wykonuje wcięte instrukcje. Jeśli sygnał to **_Fałsz_**, procesor przeskakuje ten wcięty blok i przechodzi od razu do sekcji `W PRZECIWNYM RAZIE` (ang. `ELSE`).
 
-Przeanalizujmy klasyczny algorytm wybierający większą z dwóch liczb. Zobacz, jak wskaźnik wykonawczy całkowicie omija ten blok kodu, który nie spełnia warunku.
+Przeanalizujmy klasyczny algorytm wybierający większą z dwóch liczb. Klikaj przycisk <kbd>⏭ Krok</kbd> i obserwuj, jak procesor rozstrzyga warunek.
 
 <data-gate>
 <data-pseudocode-runner>
@@ -72,13 +72,9 @@ liczbaB = 103
 WYPISZ "Rozpoczynam analize maksimum..."
 
 JEŻELI liczbaA > liczbaB TO
-
-&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaA
-
+    maksimum = liczbaA
 W PRZECIWNYM RAZIE
-
-&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaB
-
+    maksimum = liczbaB
 KONIEC JEŻELI
 
 WYPISZ "Najwieksza liczba w zbiorze to: " + maksimum
@@ -96,7 +92,7 @@ Pętla iteracyjna (ang. `WHILE`) pozwala na wielokrotne powtarzanie tego samego 
 
 W dokumencie tekstowym osiągamy ten efekt stosując strukturę `DOPÓKI ... WYKONUJ` wraz z domknięciem `KONIEC DOPÓKI`. Kiedy procesor dociera do linii zamknięcia, wraca do samego początku pętli. Tam ponownie sprawdza warunek i decyduje, czy rozpocząć kolejny cykl.
 
-Przetestuj algorytm odliczania w Krokerze. Wykonuj kolejne kroki i obserwuj moment, w którym aktualizacja zmiennej *`odliczanie`* sprawia, że warunek staje się fałszywy, a pętla ulega zakończeniu.
+Przetestuj algorytm odliczania w Krokerze. Obserwuj moment, w którym aktualizacja zmiennej *`odliczanie`* sprawia, że warunek staje się fałszywy, a pętla ulega zakończeniu.
 
 <data-gate>
 <data-pseudocode-runner>
@@ -107,11 +103,8 @@ czasOpoznienia = 1
 WYPISZ "Inicjalizacja ładunku..."
 
 DOPÓKI odliczanie > 0
-
-&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Czas do eksplozji: " + odliczanie
-
-&nbsp;&nbsp;&nbsp;&nbsp;odliczanie = odliczanie - czasOpoznienia
-
+    WYPISZ "Czas do eksplozji: " + odliczanie
+    odliczanie = odliczanie - czasOpoznienia
 KONIEC DOPÓKI
 
 WYPISZ "BOOM!"
@@ -161,6 +154,26 @@ Tabela Śledzenia obrazuje krok po kroku aktualne stany przypisane do pamięci (
 | **Koniec**   | WYPISZ `x`          | `10`         | `1`         | Program wypisuje wynik **$10$**.             |
 
 Udało nam się bez zgadywania ustalić, że pętla wykona się dokładnie dwa razy, a na końcu program wyświetli liczbę $10$. Tabela śledzenia to proste i sprawdzone narzędzie ułatwiające analizę działania kodu przed jego właściwym uruchomieniem.
+
+---
+
+## Zadanie: Symulacja zużycia paliwa
+
+Dla wartości początkowych `paliwo = 12`, `kosztSkoku = 4` oraz `skoki = 0` skonstruuj pętlę `DOPÓKI`, która wykonuje się tak długo, jak `paliwo >= kosztSkoku`. W każdym obiegu zmniejsz `paliwo` o `kosztSkoku` oraz zwiększ `skoki` o `1`, a po pętli wypisz `skoki`.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="skoki:3;paliwo:0" expected-output="3">
+<pre>
+paliwo = 12
+kosztSkoku = 4
+skoki = 0
+
+
+
+WYPISZ skoki
+</pre>
+</data-pseudocode-runner>
+</data-gate>
 
 ---
 

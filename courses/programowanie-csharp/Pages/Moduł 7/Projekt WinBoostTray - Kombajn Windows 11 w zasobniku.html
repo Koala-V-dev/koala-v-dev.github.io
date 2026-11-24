@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt WinBoostTray - Kombajn Windows 11 w zasobniku - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</h1>
+<p>Połączenie monitora pamięci, czyszczenia <span class="color-blue">Working Set</span>, trybu Awake, zrzutu ekranu i ikony zasobnika w jednym pliku <span class="color-green"><code>WinBoostTray.exe</code></span> wystawia kod na realne problemy produkcyjne. Jeśli upchniesz całą logikę w jednym pliku z formularzem, nie przetestujesz jej automatycznie bez uruchamiania okna.</p>
+<p>Co gorsza, uruchomienie czyszczenia pamięci wprost na wątku UI zamraża interfejs na kilkaset milisekund. Jeśli zaś przeniesiesz je do <code>Task.Run</code> bez odpowiedniej blokady, szybkie dwukrotne kliknięcie przycisku uruchomi dwa równoległe sprzątania naraz i doprowadzi do wyścigu.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Architektura trzywarstwowa WinBoostTray</h2>
+<p>Aby aplikacja była stabilna i łatwa w testowaniu, dzielimy ją na <span class="color-green">trzy niezależne warstwy</span> rozdzielone pomiędzy trzy pliki projektu:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Plik projektu</th>
+<th align="left">Warstwa</th>
+<th align="left">Odpowiedzialność</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Program.cs</code></td>
+<td align="left">Warstwa UI i zdarzeń (<code>WinBoostForm</code>)</td>
+<td align="left">Kontrolki WinForms, obsługa kliknięć, <code>Timer</code>, <code>NotifyIcon</code>, cykl życia okna i bezpieczny <code>BeginInvoke</code></td>
+</tr>
+<tr>
+<td align="left"><code>BoostState.cs</code></td>
+<td align="left">Czysta logika domenowa i walidacja</td>
+<td align="left">Obliczenia procentu i zwolnionego RAM, maski bitowe Awake, formatowanie tekstu zasobnika i reguły auto‑czyszczenia</td>
+</tr>
+<tr>
+<td align="left"><code>Win32Bridge.cs</code></td>
+<td align="left">Izolowany most P/Invoke</td>
+<td align="left">Natywne wywołania <code>GlobalMemoryStatusEx</code> i <code>SetThreadExecutionState</code> (<code>kernel32.dll</code>) oraz <code>EmptyWorkingSet</code> (<code>psapi.dll</code>)</td>
+</tr>
+</tbody></table>
+<p>Taki podział daje kluczową korzyść inżynierską: <code>BoostState</code> nie zależy od <code>System.Windows.Forms</code> ani od natywnych bibliotek DLL. Dzięki temu automatyczne testy weryfikują wszystkie obliczenia i przypadki brzegowe bez tworzenia ani jednego okna.</p>
+<h3>🧰 Cztery moduły w jednym procesie</h3>
+<ol>
+<li><span class="color-green">Monitor i czyszczenie RAM</span>: co sekundę odczytuje pamięć fizyczną przez <code>GlobalMemoryStatusEx</code>, wylicza procent w <code>BoostState</code> i pozwala jednym kliknięciem (lub automatycznie po przekroczeniu progu) opróżnić <span class="color-blue">Working Set</span> dostępnych procesów w tle.</li>
+<li><span class="color-green">Przełącznik Awake</span>: buduje 32‑bitową maskę flag w <code>BoostState.ZbudujFlagiAwake</code> i przekazuje ją do <code>SetThreadExecutionState</code>, blokując wygaszanie ekranu bez uprawnień administratora.</li>
+<li><span class="color-green">QuickSnap</span>: ukrywa własne okno na <span class="color-gold">220 ms</span>, przechwytuje pulpit przez <code>Graphics.CopyFromScreen</code>, zapisuje plik <code>Snap_RRRRMMDD_GGMMSS.png</code> na Pulpicie i kopiuje obraz do schowka pod skrót <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
+<li><span class="color-green">Zasobnik systemowy</span>: kliknięcie <kbd>X</kbd> lub minimalizacja chowa okno obok zegara, a dopiero wybór <code>„Zamknij WinBoostTray”</code> z menu podręcznego kończy proces i zwalnia zasoby.</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Cykl życia okna i ochrona przed re-entrancy</h2>
+<p>Aplikacja zasobnikowa musi precyzyjnie rozróżniać intencję użytkownika od polecenia systemu operacyjnego. W zdarzeniu <code>FormClosing</code> sprawdzamy flagę <span class="color-blue">_prawdziweZamkniecie</span> oraz powód zamknięcia <span class="color-blue">e.CloseReason</span>.</p>
+<p>Gdy użytkownik klika <kbd>X</kbd>, <span class="color-blue">e.CloseReason</span> ma wartość <code>CloseReason.UserClosing</code>. Jeśli nie wybrano opcji <code>„Zamknij WinBoostTray”</code>, ustawiamy <code>e.Cancel = true</code> i chowamy okno metodą <code>Hide()</code>. Gdy natomiast Windows wysyła <code>CloseReason.WindowsShutDown</code>, warunek nie przechodzi i aplikacja zamyka się bez blokowania systemu.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj warstwę lub zdarzenie WinBoostTray do jego odpowiedzialności">
+  <item left="WinBoostForm (Program.cs)" right="Obsługa kontrolek UI, timerów, zadań w tle i powrotu przez BeginInvoke"></item>
+  <item left="BoostState (BoostState.cs)" right="Czysta, testowalna logika domenowa, flagi bitowe i walidacja granic"></item>
+  <item left="Win32Bridge (Win32Bridge.cs)" right="Izolowane wywołania P/Invoke do kernel32.dll i psapi.dll"></item>
+  <item left="FormClosing" right="Przechwycenie CloseReason.UserClosing i schowanie okna do zasobnika"></item>
+  <item left="FormClosed" right="Jednorazowe zatrzymanie timerów, reset Awake i usunięcie ikony zasobnika"></item>
+</data-connection-matcher>
+</data-gate>
+
+<h3>🚦 Problem re-entrancy przy asynchronicznym czyszczeniu RAM</h3>
+<p>Wywołanie <code>Win32Bridge.WyczyscWorkingSets()</code> przechodzi po wszystkich procesach w systemie, więc uruchamiamy je w <code>Task.Run</code>. Natychmiast pojawia się jednak ryzyko <span class="color-red">re‑entrancy</span> (wielokrotnego wywołania współbieżnego).</p>
+<p>Jeśli użytkownik dwa razy szybko kliknie przycisk czyszczenia albo timer auto‑czyszczenia odpali się w trakcie trwania operacji ręcznej, dwa wątki robocze zaczną jednocześnie opróżniać te same procesy i nadpisywać komunikaty statusu.</p>
+<p>Rozwiązujemy to flagą <span class="color-blue">_trwaCzyszczenie</span>:</p>
+<ul>
+<li>przed uruchomieniem <code>Task.Run</code> sprawdzamy <code>if (_trwaCzyszczenie) return;</code>, ustawiamy <code>_trwaCzyszczenie = true</code> i dezaktywujemy przycisk,</li>
+<li>przekazujemy <span class="color-blue">_trwaCzyszczenie</span> do <code>BoostState.CzyWymagaAutoCzyszczenia(...)</code>, aby automat nie uruchomił drugiej operacji w trakcie pierwszej,</li>
+<li>w bloku <code>finally</code> wątku roboczego zawsze wracamy przez <code>if (!IsDisposed &amp;&amp; IsHandleCreated) BeginInvoke((Action)(() =&gt; ...))</code> i zdejmujemy flagę <code>_trwaCzyszczenie = false</code> na wątku UI.</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zdjęcie flagi <span class="color-blue">_trwaCzyszczenie</span> musi znaleźć się w bloku <code>finally</code> wykonywanym z powrotem na wątku UI. Jeśli pominiesz <code>finally</code>, dowolny nieoczekiwany wyjątek w <code>Task.Run</code> zablokuje przycisk czyszczenia na stałe aż do restartu programu.</p>
+
+</div>
+</div><p>Równie ważna jest kolejność sprzątania w <code>FormClosed</code>. Jeśli najpierw wywołasz <code>Dispose()</code> na kontrolkach, a dopiero potem zatrzymasz <code>_timer</code>, ostatni tik timera może odwołać się do już zwolnionego okna.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>W zdarzeniu <code>FormClosed</code> zawsze zachowuj kolejność: najpierw zatrzymaj timery, potem zresetuj flagi Awake (<code>ES_CONTINUOUS</code>), następnie ukryj <code>_tray.Visible = false</code> (sygnał <code>NIM_DELETE</code> dla <code>explorer.exe</code>), a na końcu wywołaj <code>Dispose()</code> na wszystkich zasobach.</p>
+
+</div>
+</div><data-gate>
+<data-sortable-list title="Ułóż bezpieczną kolejność zwalniania zasobów w zdarzeniu FormClosed">
+  <item data-correct="3">Ukrycie ikony w zasobniku (_tray.Visible = false), aby usunąć ją z explorer.exe</item>
+  <item data-correct="1">Zatrzymanie i zwolnienie timerów (_timer.Stop(); _timer.Dispose();)</item>
+  <item data-correct="4">Wywołanie Dispose() na _tray, _trayMenu oraz wszystkich obiektach Font</item>
+  <item data-correct="2">Reset stanu zasilania przez SetThreadExecutionState(ES_CONTINUOUS)</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Struktura Win32 NOTIFYICONDATA, ikona-duch bez NIM_DELETE i bezpieczne przywracanie Awake</span>
+<span class="deep-dive-badge">WINDOWS SHELL · P/INVOKE · CYKL ŻYCIA</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Struktura Win32 NOTIFYICONDATA i twardy limit 63 znaków</h4>
+
+<p>Pod maską WinForms <code>NotifyIcon</code> komunikuje się z powłoką Windows przez funkcję <code>Shell_NotifyIconW</code> (biblioteka <code>shell32.dll</code>), przekazując strukturę <span class="color-green"><code>NOTIFYICONDATAW</code></span> z nagłówka <code>shellapi.h</code>:</p>
+<pre><code class="language-c">typedef struct _NOTIFYICONDATAW {
+    DWORD cbSize;          // Rozmiar struktury w bajtach
+    HWND  hWnd;            // Uchwyt ukrytego okna odbierającego kliknięcia
+    UINT  uID;             // Identyfikator ikony w ramach procesu
+    UINT  uFlags;          // Maska bitowa: NIF_ICON | NIF_TIP | NIF_MESSAGE
+    UINT  uCallbackMessage;
+    HICON hIcon;           // Uchwyt ikony GDI
+    WCHAR szTip[64];       // Bufor podpowiedzi: 64 znaki UTF-16 (w tym '\0')
+} NOTIFYICONDATAW;
+</code></pre>
+<p>Łańcuchy znaków w C kończą się znakiem zerowym <code>'\0'</code>, więc w 64‑elementowej tablicy <code>szTip[64]</code> mieści się maksymalnie <span class="color-gold">63 znaki</span> tekstu. Klasa <code>NotifyIcon</code> w .NET Framework dla zgodności wstecznej wykonuje w setterze <span class="color-blue">Text</span> twarde sprawdzenie <code>if (value.Length &gt;= 64)</code> i rzuca <span class="color-red">ArgumentOutOfRangeException</span>. Dlatego <code>FormatujStatusTray</code> zawsze gwarantuje długość nie większą niż <span class="color-gold">63 znaki</span>.</p>
+<h4>2. Jak powstaje ikona-duch w Eksploratorze Windows</h4>
+
+<p>Zasobnik systemowy należy do procesu <span class="color-green"><code>explorer.exe</code></span>, a komunikacja opiera się na trzech komunikatach <code>Shell_NotifyIconW</code>:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Operacja w C#</th>
+<th align="left">Komunikat Win32</th>
+<th align="left">Efekt w procesie <code>explorer.exe</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>_tray.Visible = true;</code></td>
+<td align="left"><code>NIM_ADD</code></td>
+<td align="left">Rejestruje parę <code>(hWnd, uID)</code> i rysuje ikonę obok zegara</td>
+</tr>
+<tr>
+<td align="left"><code>_tray.Text = tip;</code></td>
+<td align="left"><code>NIM_MODIFY</code></td>
+<td align="left">Aktualizuje pole <code>szTip</code> istniejącego wpisu</td>
+</tr>
+<tr>
+<td align="left"><code>_tray.Visible = false; _tray.Dispose();</code></td>
+<td align="left"><code>NIM_DELETE</code></td>
+<td align="left">Natychmiast usuwa wpis z zasobnika i zwalnia <code>HICON</code></td>
+</tr>
+</tbody></table>
+<p>Jeśli proces zakończy się bez wysłania <code>NIM_DELETE</code>, <code>explorer.exe</code> nie dowiaduje się o zamknięciu aplikacji. Ikona zostaje w zasobniku jako <span class="color-red">ikona‑duch</span> aż do najechania na nią kursorem. Dopiero wtedy Eksplorator sprawdza <code>IsWindow(hWnd)</code>, dostaje <code>FALSE</code> i usuwa osierocony wpis.</p>
+<h4>3. Wątkowe flagi ETHREAD i przewaga FormClosed nad FormClosing</h4>
+
+<p>System Windows przechowuje maskę <code>SetThreadExecutionState</code> osobno dla każdego wątku w strukturze jądra <code>ETHREAD</code>. Jawne wywołanie z samą flagą <code>ES_CONTINUOUS</code> w <code>FormClosed</code> natychmiast przywraca domyślne wygaszanie ekranu, zanim proces zakończy sprzątanie końcowe.</p>
+<p>Zdarzenie <code>FormClosing</code> może zostać anulowane (<code>e.Cancel = true</code>), co wykorzystujemy przy chowaniu okna do zasobnika. Zdarzenie <code>FormClosed</code> wykonuje się dokładnie raz, gdy zamknięcie jest już nieodwołalne, dzięki czemu stanowi jedyne bezpieczne miejsce na zatrzymanie <code>_timer</code>, wyłączenie Awake i zwolnienie zasobów GDI.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Końcowy Modułu 7: Zbuduj i pobierz WinBoostTray.exe</h2>
+<p>Przełącz zakładkę na <span class="color-green"><code>BoostState.cs</code></span> i zaimplementuj pięć współpracujących metod warstwy domenowej:</p>
+<ol>
+<li><span class="color-green"><code>ObliczProcentRam(long uzytyMB, long calkowityMB)</code></span>:<ul>
+<li>dla <code>calkowityMB &lt;= 0</code> lub <code>uzytyMB &lt;= 0</code> zwraca <code>0.0</code>,</li>
+<li>oblicza zużycie procentowe <code>(double)uzytyMB / calkowityMB * 100.0</code> i ogranicza wynik do przedziału <code>[0.0, 100.0]</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ObliczZwolnioneMB(long przedMB, long poMB)</code></span>:<ul>
+<li>oblicza różnicę <code>przedMB - poMB</code> (ile MB zajętej pamięci udało się zwolnić),</li>
+<li>nigdy nie zwraca liczby ujemnej: jeśli pamięć wzrosła (<code>poMB &gt;= przedMB</code>), zwraca <code>0</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZbudujFlagiAwake(bool aktywny, bool utrzymujEkran)</code></span>:<ul>
+<li>gdy <span class="color-blue">aktywny</span> jest <code>false</code>, zwraca samo <code>ES_CONTINUOUS</code>,</li>
+<li>gdy <span class="color-blue">aktywny</span> jest <code>true</code>, łączy <code>ES_CONTINUOUS | ES_SYSTEM_REQUIRED</code>, a gdy <span class="color-blue">utrzymujEkran</span> jest <code>true</code>, dokłada także <code>ES_DISPLAY_REQUIRED</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>FormatujStatusTray(double procentRam, bool awakeAktywny)</code></span>:<ul>
+<li>dla <code>double.IsNaN(procentRam)</code> lub <code>double.IsNegativeInfinity(procentRam)</code> przyjmuje <code>0.0</code>, a dla <code>double.IsPositiveInfinity(procentRam)</code> przyjmuje <code>100.0</code>,</li>
+<li>ogranicza <span class="color-blue">procentRam</span> do <code>[0.0, 100.0]</code>, formatuje przez <code>CultureInfo.InvariantCulture</code> według wzoru <code>WinBoost | RAM: 64% | Awake: ON</code> (zaokrąglenie <code>F0</code>, status <code>ON</code> lub <code>OFF</code>),</li>
+<li>gwarantuje długość wyniku nie większą niż <span class="color-gold">63 znaki</span>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>CzyWymagaAutoCzyszczenia(double procentRam, double progProcent, bool trwaCzyszczenie)</code></span>:<ul>
+<li>chroni przed <span class="color-red">re‑entrancy</span>: gdy <span class="color-blue">trwaCzyszczenie</span> jest <code>true</code>, zawsze zwraca <code>false</code>,</li>
+<li>zwraca <code>false</code>, gdy <span class="color-blue">procentRam</span> lub <span class="color-blue">progProcent</span> ma wartość <code>NaN</code> albo <code>Infinity</code>,</li>
+<li>zwraca <code>false</code>, gdy <span class="color-blue">progProcent</span> wykracza poza sensowny zakres <code>1.0..100.0</code>,</li>
+<li>w pozostałych przypadkach zwraca <code>true</code> wyłącznie wtedy, gdy <code>procentRam &gt;= progProcent</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Po zaliczeniu wszystkich testów kliknij <span class="color-green">⬇ Pobierz .exe</span> i uruchom <span class="color-green"><code>WinBoostTray.exe</code></span> na Windows 11.</p>
+<data-gate>
+<data-csharp-lab title="Projekt Modułu 7: WinBoostTray (MemReduct + Awake + QuickSnap + System Tray)" exe-name="WinBoostTray.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Globalization;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+public class WinBoostForm : Form
+{
+    private const double AutoCleanProg = 85.0;
+    private const int AutoCleanCooldownSek = 120;
+
+    private readonly Timer _timer = new Timer { Interval = 1000 };
+    private readonly NotifyIcon _tray;
+    private readonly ContextMenuStrip _trayMenu;
+    private readonly Font _fontRam;
+    private readonly Font _fontBtn;
+    private readonly Font _fontLog;
+
+    private Label _lblRam;
+    private ProgressBar _barRam;
+    private Button _btnClean;
+    private Button _btnAwake;
+    private CheckBox _chkAutoClean;
+    private Label _lblLog;
+    private bool _awakeOn = false;
+    private bool _trwaCzyszczenie = false;
+    private bool _prawdziweZamkniecie = false;
+    private DateTime _ostatnieCzyszczenie = DateTime.MinValue;
+
+    public WinBoostForm()
+    {
+        Text = "WinBoostTray - Windows 11 Utility";
+        ClientSize = new Size(420, 345);
+        BackColor = Color.FromArgb(15, 23, 42);
+        ForeColor = Color.White;
+        StartPosition = FormStartPosition.CenterScreen;
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
+
+        _fontRam = new Font("Segoe UI", 18, FontStyle.Bold);
+        _fontBtn = new Font("Segoe UI", 10, FontStyle.Bold);
+        _fontLog = new Font("Segoe UI", 9);
+
+        _lblRam = new Label
+        {
+            Text = "RAM: --%",
+            Location = new Point(22, 18),
+            Size = new Size(376, 36),
+            Font = _fontRam,
+            ForeColor = Color.FromArgb(56, 189, 248)
+        };
+
+        _barRam = new ProgressBar { Location = new Point(22, 62), Size = new Size(376, 22), Minimum = 0, Maximum = 100 };
+
+        _btnClean = StworzPrzycisk("Wyczysc pamiec RAM (Working Set)", 100, Color.FromArgb(16, 185, 129));
+        _btnClean.Click += (s, e) =&gt; WyczyscRam();
+
+        _btnAwake = StworzPrzycisk("Tryb Awake (nie usypiaj ekranu): OFF", 152, Color.FromArgb(51, 65, 85));
+        _btnAwake.Click += (s, e) =&gt; PrzelaczAwake();
+
+        var btnSnap = StworzPrzycisk("QuickSnap - Zrzut ekranu na Pulpit + Schowek", 204, Color.FromArgb(139, 92, 246));
+        btnSnap.Click += (s, e) =&gt; ZrobZrzutEkranu();
+
+        _chkAutoClean = new CheckBox
+        {
+            Text = string.Format(CultureInfo.InvariantCulture,
+                "Auto-czyszczenie RAM powyzej {0:F0}% (cooldown {1} s)", AutoCleanProg, AutoCleanCooldownSek),
+            Location = new Point(22, 258),
+            Size = new Size(376, 24),
+            Font = _fontLog,
+            ForeColor = Color.FromArgb(203, 213, 225)
+        };
+
+        _lblLog = new Label
+        {
+            Text = "Minimalizacja lub X chowa program do zasobnika (System Tray).",
+            Location = new Point(22, 290),
+            Size = new Size(376, 38),
+            Font = _fontLog,
+            ForeColor = Color.FromArgb(148, 163, 184)
+        };
+
+        Controls.AddRange(new Control[] { _lblRam, _barRam, _btnClean, _btnAwake, btnSnap, _chkAutoClean, _lblLog });
+
+        _trayMenu = new ContextMenuStrip();
+        _trayMenu.Items.Add("Pokaz okno", null, (s, e) =&gt; { Show(); WindowState = FormWindowState.Normal; Activate(); });
+        _trayMenu.Items.Add("Wyczysc RAM teraz", null, (s, e) =&gt; WyczyscRam());
+        _trayMenu.Items.Add("Zrzut ekranu (QuickSnap)", null, (s, e) =&gt; ZrobZrzutEkranu());
+        _trayMenu.Items.Add(new ToolStripSeparator());
+        _trayMenu.Items.Add("Zamknij WinBoostTray", null, (s, e) =&gt; { _prawdziweZamkniecie = true; Close(); });
+
+        _tray = new NotifyIcon
+        {
+            Icon = SystemIcons.Application,
+            Visible = true,
+            Text = "WinBoostTray",
+            ContextMenuStrip = _trayMenu
+        };
+        _tray.DoubleClick += (s, e) =&gt; { Show(); WindowState = FormWindowState.Normal; Activate(); };
+
+        Resize += (s, e) =&gt; { if (WindowState == FormWindowState.Minimized) Hide(); };
+        FormClosing += (s, e) =&gt;
+        {
+            if (!_prawdziweZamkniecie &amp;&amp; e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        };
+        FormClosed += (s, e) =&gt;
+        {
+            _timer.Stop();
+            _timer.Dispose();
+            Win32Bridge.UstawAwake(BoostState.ZbudujFlagiAwake(false, false));
+            _tray.Visible = false;
+            _tray.Dispose();
+            _trayMenu.Dispose();
+            _fontRam.Dispose();
+            _fontBtn.Dispose();
+            _fontLog.Dispose();
+        };
+
+        _timer.Tick += (s, e) =&gt; OdswiezRam();
+        OdswiezRam();
+        _timer.Start();
+    }
+
+    private Button StworzPrzycisk(string tekst, int y, Color tlo)
+    {
+        var b = new Button
+        {
+            Text = tekst,
+            Location = new Point(22, y),
+            Size = new Size(376, 42),
+            BackColor = tlo,
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat,
+            Font = _fontBtn
+        };
+        b.FlatAppearance.BorderSize = 0;
+        return b;
+    }
+
+    private void OdswiezRam()
+    {
+        ulong total, avail;
+        if (!Win32Bridge.PobierzRam(out total, out avail) || total == 0) return;
+
+        long calkowityMB = (long)(total / 1048576UL);
+        long uzytyMB = (long)((total - avail) / 1048576UL);
+        double pct = BoostState.ObliczProcentRam(uzytyMB, calkowityMB);
+        int ipct = Math.Max(0, Math.Min(100, (int)Math.Round(pct)));
+
+        _barRam.Value = ipct;
+        _lblRam.Text = string.Format(CultureInfo.InvariantCulture,
+            "RAM: {0:F1}%  ({1:F2} / {2:F2} GB)",
+            pct, (total - avail) / 1073741824.0, total / 1073741824.0);
+
+        string tip = BoostState.FormatujStatusTray(pct, _awakeOn);
+        _tray.Text = tip.Length &gt; 63 ? tip.Substring(0, 63) : tip;
+
+        if (_chkAutoClean.Checked)
+        {
+            bool minalCooldown = _ostatnieCzyszczenie == DateTime.MinValue
+                || (DateTime.UtcNow - _ostatnieCzyszczenie).TotalSeconds &gt;= AutoCleanCooldownSek;
+
+            if (minalCooldown &amp;&amp; BoostState.CzyWymagaAutoCzyszczenia(pct, AutoCleanProg, _trwaCzyszczenie))
+            {
+                WyczyscRam();
+            }
+        }
+    }
+
+    private void WyczyscRam()
+    {
+        if (_trwaCzyszczenie) return;
+
+        _trwaCzyszczenie = true;
+        _btnClean.Enabled = false;
+        _lblLog.Text = "Czyszczenie pamieci RAM w tle...";
+
+        Task.Run(() =&gt;
+        {
+            string komunikat = "";
+            bool sukces = false;
+            try
+            {
+                ulong t1, a1, t2, a2;
+                Win32Bridge.PobierzRam(out t1, out a1);
+                long przedMB = (long)((t1 - a1) / 1048576UL);
+
+                int ok = Win32Bridge.WyczyscWorkingSets();
+
+                Win32Bridge.PobierzRam(out t2, out a2);
+                long poMB = (long)((t2 - a2) / 1048576UL);
+                long zwolnioneMB = BoostState.ObliczZwolnioneMB(przedMB, poMB);
+
+                komunikat = string.Format(CultureInfo.InvariantCulture,
+                    "Zwolniono {0} MB RAM (oczyszczono procesow: {1}).", zwolnioneMB, ok);
+                sukces = true;
+            }
+            catch (Exception ex)
+            {
+                komunikat = "Blad czyszczenia RAM: " + ex.Message;
+            }
+            finally
+            {
+                if (!IsDisposed &amp;&amp; IsHandleCreated)
+                {
+                    BeginInvoke((Action)(() =&gt;
+                    {
+                        _trwaCzyszczenie = false;
+                        _btnClean.Enabled = true;
+                        if (sukces)
+                        {
+                            _ostatnieCzyszczenie = DateTime.UtcNow;
+                            OdswiezRam();
+                        }
+                        _lblLog.Text = komunikat;
+                    }));
+                }
+            }
+        });
+    }
+
+    private void PrzelaczAwake()
+    {
+        _awakeOn = !_awakeOn;
+        uint flagi = BoostState.ZbudujFlagiAwake(_awakeOn, true);
+        Win32Bridge.UstawAwake(flagi);
+        _btnAwake.Text = "Tryb Awake (nie usypiaj ekranu): " + (_awakeOn ? "ON" : "OFF");
+        _btnAwake.BackColor = _awakeOn ? Color.FromArgb(217, 119, 6) : Color.FromArgb(51, 65, 85);
+        OdswiezRam();
+        _lblLog.Text = _awakeOn ? "Awake AKTYWNY: Windows nie wygasi ekranu." : "Awake wylaczony: normalne zarzadzanie energia.";
+    }
+
+    private void ZrobZrzutEkranu()
+    {
+        bool byloWidoczne = Visible;
+        if (byloWidoczne) Hide();
+
+        var t = new Timer { Interval = 220 };
+        t.Tick += (s, e) =&gt;
+        {
+            t.Stop();
+            t.Dispose();
+            if (IsDisposed) return;
+
+            try
+            {
+                Rectangle bounds = Screen.PrimaryScreen.Bounds;
+                string plik = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                    "Snap_" + DateTime.Now.ToString("yyyyMMdd_HHmmss", CultureInfo.InvariantCulture) + ".png");
+
+                using (var bmp = new Bitmap(bounds.Width, bounds.Height))
+                using (var g = Graphics.FromImage(bmp))
+                {
+                    g.CopyFromScreen(bounds.Location, Point.Empty, bounds.Size);
+                    bmp.Save(plik, ImageFormat.Png);
+                    Clipboard.SetImage(bmp);
+                }
+                _lblLog.Text = "Zapisano zrzut na Pulpicie i w schowku (Ctrl+V)!";
+            }
+            catch (Exception ex)
+            {
+                _lblLog.Text = "Blad zrzutu: " + ex.Message;
+            }
+
+            if (byloWidoczne &amp;&amp; !IsDisposed) Show();
+        };
+        t.Start();
+    }
+}
+
+class Program
+{
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new WinBoostForm());
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="BoostState.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Globalization;
+
+public static class BoostState
+{
+    public const uint ES_CONTINUOUS = 0x80000000U;
+    public const uint ES_SYSTEM_REQUIRED = 0x00000001U;
+    public const uint ES_DISPLAY_REQUIRED = 0x00000002U;
+
+    public static double ObliczProcentRam(long uzytyMB, long calkowityMB)
+    {
+        // Zabezpiecz przed calkowityMB &lt;= 0 i uzytyMB &lt;= 0 oraz ogranicz wynik do [0.0, 100.0]
+        return 0.0;
+    }
+
+    public static long ObliczZwolnioneMB(long przedMB, long poMB)
+    {
+        // Oblicz różnicę przedMB - poMB; jeśli pamięć wzrosła, zwróć 0
+        return 0;
+    }
+
+    public static uint ZbudujFlagiAwake(bool aktywny, bool utrzymujEkran)
+    {
+        // Zbuduj 32-bitową maskę flag Win32 dla SetThreadExecutionState
+        return ES_CONTINUOUS;
+    }
+
+    public static string FormatujStatusTray(double procentRam, bool awakeAktywny)
+    {
+        // Obsłuż NaN/Infinity, ogranicz do [0, 100], sformatuj z InvariantCulture i zachowaj limit &lt;= 63 znaków
+        return "";
+    }
+
+    public static bool CzyWymagaAutoCzyszczenia(double procentRam, double progProcent, bool trwaCzyszczenie)
+    {
+        // Zabezpiecz przed re-entrancy, NaN/Infinity oraz progProcent spoza [1.0, 100.0]
+        return false;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="Win32Bridge.cs" readonly="">
+
+<pre><code class="language-csharp">using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+
+public static class Win32Bridge
+{
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    private struct MEMORYSTATUSEX
+    {
+        public uint dwLength, dwMemoryLoad;
+        public ulong ullTotalPhys, ullAvailPhys, ullTotalPageFile, ullAvailPageFile, ullTotalVirtual, ullAvailVirtual, ullAvailExtendedVirtual;
+    }
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    private static extern bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
+
+    [DllImport("psapi.dll", SetLastError = true)]
+    private static extern bool EmptyWorkingSet(IntPtr hProcess);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern uint SetThreadExecutionState(uint esFlags);
+
+    public static bool PobierzRam(out ulong total, out ulong avail)
+    {
+        var st = new MEMORYSTATUSEX();
+        st.dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
+        if (!GlobalMemoryStatusEx(ref st)) { total = 0; avail = 0; return false; }
+        total = st.ullTotalPhys;
+        avail = st.ullAvailPhys;
+        return true;
+    }
+
+    public static int WyczyscWorkingSets()
+    {
+        int ok = 0;
+        foreach (var p in Process.GetProcesses())
+        {
+            try { if (EmptyWorkingSet(p.Handle)) ok++; }
+            catch { }
+            finally { p.Dispose(); }
+        }
+        return ok;
+    }
+
+    public static void UstawAwake(uint flagi)
+    {
+        SetThreadExecutionState(flagi);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("ObliczProcentRam chroni przed zerem/ujemnymi i ogranicza wynik do [0..100]", () =&gt; {
+    LabAssert.Equal(50.0, BoostState.ObliczProcentRam(8192, 16384));
+    LabAssert.Equal(0.0, BoostState.ObliczProcentRam(0, 16384));
+    LabAssert.Equal(0.0, BoostState.ObliczProcentRam(-500, 16384));
+    LabAssert.Equal(0.0, BoostState.ObliczProcentRam(4096, 0));
+    LabAssert.Equal(0.0, BoostState.ObliczProcentRam(4096, -1024));
+    LabAssert.Equal(100.0, BoostState.ObliczProcentRam(16384, 16384));
+    LabAssert.Equal(100.0, BoostState.ObliczProcentRam(20000, 16384));
+});
+
+LabAssert.Test("ObliczZwolnioneMB zwraca dodatnią różnicę i nigdy nie zwraca liczby ujemnej", () =&gt; {
+    LabAssert.Equal(850L, BoostState.ObliczZwolnioneMB(8000, 7150));
+    LabAssert.Equal(0L, BoostState.ObliczZwolnioneMB(8000, 8000));
+    LabAssert.Equal(0L, BoostState.ObliczZwolnioneMB(8000, 8350));
+    LabAssert.Equal(0L, BoostState.ObliczZwolnioneMB(0, 100));
+});
+
+LabAssert.Test("ZbudujFlagiAwake poprawnie składa maskę 32-bitową dla SetThreadExecutionState", () =&gt; {
+    LabAssert.Equal(0x80000000U, BoostState.ZbudujFlagiAwake(false, false));
+    LabAssert.Equal(0x80000000U, BoostState.ZbudujFlagiAwake(false, true));
+    LabAssert.Equal(0x80000001U, BoostState.ZbudujFlagiAwake(true, false));
+    LabAssert.Equal(0x80000003U, BoostState.ZbudujFlagiAwake(true, true));
+});
+
+LabAssert.Test("FormatujStatusTray obsługuje NaN, Infinity, clamping [0..100] i limit 63 znaków", () =&gt; {
+    string on = BoostState.FormatujStatusTray(64.2, true);
+    string off = BoostState.FormatujStatusTray(88.7, false);
+    string nan = BoostState.FormatujStatusTray(double.NaN, true);
+    string posInf = BoostState.FormatujStatusTray(double.PositiveInfinity, true);
+    string negInf = BoostState.FormatujStatusTray(double.NegativeInfinity, false);
+    string ujemny = BoostState.FormatujStatusTray(-12.5, true);
+    string ponad = BoostState.FormatujStatusTray(135.8, false);
+
+    LabAssert.Equal("WinBoost | RAM: 64% | Awake: ON", on);
+    LabAssert.Equal("WinBoost | RAM: 89% | Awake: OFF", off);
+    LabAssert.Equal("WinBoost | RAM: 0% | Awake: ON", nan);
+    LabAssert.Equal("WinBoost | RAM: 100% | Awake: ON", posInf);
+    LabAssert.Equal("WinBoost | RAM: 0% | Awake: OFF", negInf);
+    LabAssert.Equal("WinBoost | RAM: 0% | Awake: ON", ujemny);
+    LabAssert.Equal("WinBoost | RAM: 100% | Awake: OFF", ponad);
+
+    LabAssert.True(on.Length &lt;= 63);
+    LabAssert.True(posInf.Length &lt;= 63);
+    LabAssert.True(ponad.Length &lt;= 63);
+});
+
+LabAssert.Test("CzyWymagaAutoCzyszczenia blokuje re-entrancy, NaN, Infinity i błędne progi", () =&gt; {
+    // Podstawowe granice progu przy braku aktywnego czyszczenia
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(84.9, 85.0, false));
+    LabAssert.True(BoostState.CzyWymagaAutoCzyszczenia(85.0, 85.0, false));
+    LabAssert.True(BoostState.CzyWymagaAutoCzyszczenia(94.2, 85.0, false));
+
+    // Ochrona przed re-entrancy (trwaCzyszczenie == true)
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(95.0, 85.0, true));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(100.0, 1.0, true));
+
+    // Ochrona przed NaN i Infinity
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(double.NaN, 85.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(double.PositiveInfinity, 85.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(double.NegativeInfinity, 85.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(90.0, double.NaN, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(90.0, double.PositiveInfinity, false));
+
+    // Granice akceptowanego zakresu progProcent [1.0, 100.0]
+    LabAssert.True(BoostState.CzyWymagaAutoCzyszczenia(1.0, 1.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(0.9, 1.0, false));
+    LabAssert.True(BoostState.CzyWymagaAutoCzyszczenia(100.0, 100.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(99.9, 100.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(95.0, 0.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(95.0, -10.0, false));
+    LabAssert.False(BoostState.CzyWymagaAutoCzyszczenia(95.0, 100.1, false));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy projektujesz aplikację desktopową z logiką i P/Invoke</strong>: rozdziel ją na trzy warstwy (<code>WinBoostForm</code>, czystą klasę domenową <code>BoostState</code> oraz <code>Win32Bridge</code>), aby testować reguły bez uruchamiania okna.</li>
+<li><strong>Kiedy uruchamiasz ciężką operację z przycisku lub timera w <code>Task.Run</code></strong>: zabezpiecz ją flagą stanu przed <span class="color-red">re‑entrancy</span> i zawsze zdejmuj blokadę w bloku <code>finally</code> przez <code>BeginInvoke</code> ze strażnikiem <code>!IsDisposed &amp;&amp; IsHandleCreated</code>.</li>
+<li><strong>Kiedy zamykasz aplikację działającą w zasobniku</strong>: w <code>FormClosing</code> chowaj okno wyłącznie dla <code>CloseReason.UserClosing</code>, a w <code>FormClosed</code> zatrzymuj timery, resetuj flagi zasilania, ukrywaj ikonę i dopiero wtedy zwalniaj zasoby.</li>
+</ul>
+<p>Masz za sobą kompletną drogę od pierwszego <code>Main()</code> aż po własne portfolio <span class="color-green">11 działających programów <code>.exe</code></span>, których architekturę i kod w pełni rozumiesz: <code>SysSpec.exe</code>, <code>CipherForge.exe</code>, <code>TicTacToe.exe</code>, <code>FolderTidy.exe</code>, <code>MemReductCLI.exe</code>, <code>ProcScout.exe</code>, <code>TicTacToeGUI.exe</code>, <code>MemReductGUI.exe</code>, <code>MemoryCards.exe</code>, <code>NeonSnake.exe</code> oraz <code>WinBoostTray.exe</code>.</p>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

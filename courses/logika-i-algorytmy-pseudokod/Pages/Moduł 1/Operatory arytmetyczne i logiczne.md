@@ -159,6 +159,24 @@ Maszyna stosuje następującą hierarchię priorytetów:
 
 ---
 
+## Zadanie: Weryfikacja parzystości i progu
+
+Dla zmiennej początkowej `energia = 15` zwiększ jej wartość o `9`, zapisz w zmiennej `reszta` wynik dzielenia modulo `energia` przez `2`, a w zmiennej `czyGotowy` wynik koniunkcji warunków `energia >= 20` oraz `reszta == 0`.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="energia:24;reszta:0;czyGotowy:PRAWDA" expected-output="true">
+<pre>
+energia = 15
+
+
+
+WYPISZ czyGotowy
+</pre>
+</data-pseudocode-runner>
+</data-gate>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - **Modulo `%` reguluje cykle.** Odpowiada za resztę z dzielenia. Jest kluczowym narzędziem do badania parzystości liczb oraz kontroli powtarzalności bez używania rozbudowanych warunków.

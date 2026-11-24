@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ade80"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Algorytm decyzji routingu L3: Longest Prefix Match i przepisywanie L2</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Jak jądro routera dopasowuje trasy w tablicy FIB, dekrementuje TTL i przepisuje ramkę Ethernet</text>
+
+  <!-- GŁÓWNY PRZEPŁYW PAKIETU -->
+  <g transform="translate(50, 75)">
+    <!-- 1. Pakiet wchodzi -->
+    <rect x="0" y="30" width="160" height="150" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="0" y="30" width="160" height="26" rx="6" fill="#0369a1"/>
+    <text x="80" y="47" fill="#f0f9ff" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">1. ODBIÓR NA ETH0</text>
+
+    <text x="10" y="75" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif">Pakiet przychodzący:</text>
+    <rect x="10" y="82" width="140" height="42" rx="3" fill="#1e293b"/>
+    <text x="15" y="98" fill="#e2e8f0" font-size="9" font-family="monospace">DST IP: 192.168.10.45</text>
+    <text x="15" y="112" fill="#facc15" font-size="9" font-family="monospace">TTL: 64</text>
+    <text x="80" y="145" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Zdjęcie nagłówka L2</text>
+    <text x="80" y="160" fill="#38bdf8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Przekazanie do silnika L3 -></text>
+
+    <!-- Strzałka do LPM -->
+    <line x1="160" y1="105" x2="215" y2="105" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- 2. TABLICA ROUTINGU I LPM -->
+    <rect x="220" y="0" width="370" height="230" rx="6" fill="#0f172a" stroke="#facc15" stroke-width="2"/>
+    <rect x="220" y="0" width="370" height="28" rx="6" fill="#854d0e"/>
+    <text x="405" y="19" fill="#fef08a" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">2. TABLICA ROUTINGU (LONGEST PREFIX MATCH)</text>
+
+    <!-- Trasy w tablicy -->
+    <g transform="translate(230, 38)">
+      <rect width="350" height="36" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="16" fill="#94a3b8" font-size="9" font-family="monospace">Trasa A: 0.0.0.0/0 via 100.100.100.2 (WAN)</text>
+      <text x="10" y="28" fill="#64748b" font-size="8" font-family="system-ui, sans-serif">Prefiks: 0 bitów zgodnych (Domyślna - najsłabsza)</text>
+
+      <rect y="42" width="350" height="36" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="58" fill="#94a3b8" font-size="9" font-family="monospace">Trasa B: 192.168.0.0/16 via 10.1.1.1 (Oddział)</text>
+      <text x="10" y="70" fill="#64748b" font-size="8" font-family="system-ui, sans-serif">Prefiks: 16 bitów zgodnych</text>
+
+      <rect y="84" width="350" height="52" rx="3" fill="#14532d" stroke="#4ade80" stroke-width="2"/>
+      <rect y="84" width="95" height="16" rx="2" fill="#16a34a"/>
+      <text x="47" y="96" fill="#ffffff" font-size="8" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">ZWYCIĘZCA LPM</text>
+      <text x="10" y="115" fill="#86efac" font-size="10" font-family="monospace" font-weight="700">Trasa C: 192.168.10.0/25 dev eth1 proto kernel</text>
+      <text x="10" y="128" fill="#dcfce7" font-size="8" font-family="system-ui, sans-serif">Prefiks: 25 bitów zgodnych! (Najdłuższa, najbardziej precyzyjna maska)</text>
+
+      <text x="175" y="150" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Decyzja: Wysłać bezpośrednio przez interfejs eth1</text>
+    </g>
+
+    <!-- Strzałka z LPM do modyfikacji nagłówka L3 i ARP -->
+    <line x1="590" y1="105" x2="645" y2="105" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+    <!-- 3. Modyfikacja pakietu i wysyłka L2 -->
+    <rect x="650" y="10" width="210" height="200" rx="6" fill="#0f172a" stroke="#4ade80" stroke-width="1.5"/>
+    <rect x="650" y="10" width="210" height="26" rx="6" fill="#166534"/>
+    <text x="755" y="27" fill="#f0fdf4" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">3. DEKREMENTACJA &amp; L2 REWRITE</text>
+
+    <g transform="translate(660, 45)">
+      <text x="0" y="14" fill="#facc15" font-size="9" font-family="system-ui, sans-serif" font-weight="700">Modyfikacja L3:</text>
+      <text x="0" y="28" fill="#e2e8f0" font-size="8" font-family="monospace">TTL: 64 -> 63 (Zmniejszono o 1)</text>
+      <text x="0" y="40" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif">Nowy Checksum IP przeliczony!</text>
+
+      <text x="0" y="62" fill="#38bdf8" font-size="9" font-family="system-ui, sans-serif" font-weight="700">Odpytanie tablicy ARP:</text>
+      <text x="0" y="76" fill="#cbd5e1" font-size="8" font-family="monospace">192.168.10.45 -> MAC Host B</text>
+
+      <text x="0" y="98" fill="#4ade80" font-size="9" font-family="system-ui, sans-serif" font-weight="700">Nowa ramka Ethernet II (L2):</text>
+      <rect y="104" width="190" height="38" rx="3" fill="#1e293b"/>
+      <text x="5" y="118" fill="#86efac" font-size="8" font-family="monospace">SRC MAC: 00:1a:2b:3c:4d:02 (eth1)</text>
+      <text x="5" y="132" fill="#86efac" font-size="8" font-family="monospace">DST MAC: a4:5e:60:11:22:33 (Host B)</text>
+    </g>
+  </g>
+
+  <!-- PANELE DOLNE: NAJCZĘSTSZE BŁĘDY I ZASADY EGZAMINACYJNE -->
+  <g transform="translate(50, 330)">
+    <rect width="860" height="150" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <rect width="860" height="26" rx="6" fill="#1e293b"/>
+    <text x="430" y="18" fill="#f8fafc" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">KLUCZOWE REGUŁY DIAGNOSTYCZNE ROUTERA (INF.02 &amp; PRODUKCJA)</text>
+
+    <g transform="translate(20, 36)">
+      <rect width="250" height="98" rx="4" fill="#1e293b"/>
+      <text x="15" y="20" fill="#ef4444" font-size="10" font-family="system-ui, sans-serif" font-weight="700">Gdy TTL osiągnie 0:</text>
+      <text x="15" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Pakiet jest kasowany przez router.</text>
+      <text x="15" y="54" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Router wysyła do nadawcy komunikat:</text>
+      <text x="15" y="70" fill="#fca5a5" font-size="9" font-family="monospace">ICMP Type 11: Time Exceeded</text>
+      <text x="15" y="86" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif">(Na tym polega traceroute!).</text>
+    </g>
+
+    <g transform="translate(290, 36)">
+      <rect width="270" height="98" rx="4" fill="#1e293b"/>
+      <text x="15" y="20" fill="#facc15" font-size="10" font-family="system-ui, sans-serif" font-weight="700">Gdy brak trasy (No Route to Host):</text>
+      <text x="15" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Brak trasy w tablicy i brak domyślnej</text>
+      <text x="15" y="54" fill="#cbd5e1" font-size="9" font-family="monospace">bramy (0.0.0.0/0) -> DROP.</text>
+      <text x="15" y="70" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Router odsyła do nadawcy:</text>
+      <text x="15" y="86" fill="#fef08a" font-size="9" font-family="monospace">ICMP Type 3: Destination Unreachable</text>
+    </g>
+
+    <g transform="translate(580, 36)">
+      <rect width="260" height="98" rx="4" fill="#1e293b"/>
+      <text x="15" y="20" fill="#4ade80" font-size="10" font-family="system-ui, sans-serif" font-weight="700">Adresy IP vs MAC:</text>
+      <text x="15" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Adresy IP w nagłówku (SRC/DST)</text>
+      <text x="15" y="54" fill="#4ade80" font-size="9" font-family="system-ui, sans-serif" font-weight="700">NIE ZMIENIAJĄ SIĘ przez cały routing!</text>
+      <text x="15" y="70" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Zmieniają się TYLKO adresy MAC</text>
+      <text x="15" y="86" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif">na każdym skoku L2 (hop-by-hop).</text>
+    </g>
+  </g>
+</svg>

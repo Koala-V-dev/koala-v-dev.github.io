@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 360" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .sw-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; text-anchor: middle; }
+      .port-txt { font-family: monospace; font-size: 9px; font-weight: 800; text-anchor: middle; }
+      .tag-lbl { font-family: monospace; font-size: 8.5px; font-weight: 700; fill: #ffffff; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9px; fill: #cbd5e1; }
+      .box-hdr { font-family: system-ui, sans-serif; font-size: 10.5px; font-weight: 800; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Architektura VLAN (IEEE 802.1Q): Porty Access vs Porty Trunk</text>
+  <text x="30" y="48" class="sub">Logiczna segmentacja sieci L2: ramki nietagowane na portach stacyjnych i tagowane na magistrali</text>
+
+  <!-- ================= SWITCH 1 ================= -->
+  <g transform="translate(30, 75)">
+    <rect width="180" height="150" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="180" height="26" fill="#0284c7" rx="6"/>
+    <text x="90" y="18" class="sw-hdr" fill="#ffffff">SWITCH 1 (Budynek A)</text>
+
+    <!-- Port Access VLAN 10 -->
+    <g transform="translate(15, 38)">
+      <rect width="150" height="30" fill="#0b1120" stroke="#10b981" rx="3"/>
+      <text x="75" y="15" class="port-txt" fill="#34d399">PORT 1 (Access VLAN 10)</text>
+      <text x="75" y="25" font-family="system-ui, sans-serif" font-size="8px" fill="#a7f3d0" text-anchor="middle">PC Księgowość (Untagged)</text>
+    </g>
+
+    <!-- Port Access VLAN 20 -->
+    <g transform="translate(15, 74)">
+      <rect width="150" height="30" fill="#0b1120" stroke="#f59e0b" rx="3"/>
+      <text x="75" y="15" class="port-txt" fill="#fde047">PORT 2 (Access VLAN 20)</text>
+      <text x="75" y="25" font-family="system-ui, sans-serif" font-size="8px" fill="#fde68a" text-anchor="middle">Kamera CCTV (Untagged)</text>
+    </g>
+
+    <!-- Port Trunk Gi0/1 -->
+    <g transform="translate(15, 110)">
+      <rect width="150" height="30" fill="#0b1120" stroke="#a855f7" stroke-width="1.5" rx="3"/>
+      <text x="75" y="15" class="port-txt" fill="#c084fc">PORT Gi0/1 (TRUNK)</text>
+      <text x="75" y="25" font-family="system-ui, sans-serif" font-size="8px" fill="#e9d5ff" text-anchor="middle">Magistrala VLAN 10, 20</text>
+    </g>
+  </g>
+
+  <!-- ================= ŁĄCZE TRUNK (ŚRODEK) ================= -->
+  <g transform="translate(210, 185)">
+    <line x1="0" y1="15" x2="320" y2="15" stroke="#a855f7" stroke-width="3"/>
+    <polygon points="160,15 152,10 152,20" fill="#c084fc"/>
+    <polygon points="170,15 178,10 178,20" fill="#c084fc"/>
+
+    <!-- Wizualizacja ramki 802.1Q w locie -->
+    <g transform="translate(55, -25)">
+      <rect width="210" height="32" fill="#0b1120" stroke="#c084fc" rx="4"/>
+      <!-- Header -->
+      <rect x="4" y="4" width="40" height="24" fill="#064e3b" rx="2"/>
+      <text x="24" y="19" font-family="monospace" font-size="8px" fill="#a7f3d0" text-anchor="middle">MAC</text>
+      <!-- Tag 802.1Q -->
+      <rect x="48" y="4" width="95" height="24" fill="#581c87" stroke="#c084fc" rx="2"/>
+      <text x="95" y="16" font-family="monospace" font-size="8px" font-weight="800" fill="#ffffff" text-anchor="middle">Tag 802.1Q (4B)</text>
+      <text x="95" y="24" font-family="monospace" font-size="7px" fill="#e9d5ff" text-anchor="middle">TPID 0x8100 | VID 10/20</text>
+      <!-- Payload -->
+      <rect x="147" y="4" width="59" height="24" fill="#0f172a" rx="2"/>
+      <text x="176" y="19" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">Dane IP</text>
+    </g>
+  </g>
+
+  <!-- ================= SWITCH 2 ================= -->
+  <g transform="translate(530, 75)">
+    <rect width="180" height="150" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="180" height="26" fill="#0284c7" rx="6"/>
+    <text x="90" y="18" class="sw-hdr" fill="#ffffff">SWITCH 2 (Budynek B)</text>
+
+    <!-- Port Access VLAN 10 -->
+    <g transform="translate(15, 38)">
+      <rect width="150" height="30" fill="#0b1120" stroke="#10b981" rx="3"/>
+      <text x="75" y="15" class="port-txt" fill="#34d399">PORT 1 (Access VLAN 10)</text>
+      <text x="75" y="25" font-family="system-ui, sans-serif" font-size="8px" fill="#a7f3d0" text-anchor="middle">Serwer Biura (Untagged)</text>
+    </g>
+
+    <!-- Port Access VLAN 20 -->
+    <g transform="translate(15, 74)">
+      <rect width="150" height="30" fill="#0b1120" stroke="#f59e0b" rx="3"/>
+      <text x="75" y="15" class="port-txt" fill="#fde047">PORT 2 (Access VLAN 20)</text>
+      <text x="75" y="25" font-family="system-ui, sans-serif" font-size="8px" fill="#fde68a" text-anchor="middle">Rejestrator NVR (Untagged)</text>
+    </g>
+
+    <!-- Port Trunk Gi0/1 -->
+    <g transform="translate(15, 110)">
+      <rect width="150" height="30" fill="#0b1120" stroke="#a855f7" stroke-width="1.5" rx="3"/>
+      <text x="75" y="15" class="port-txt" fill="#c084fc">PORT Gi0/1 (TRUNK)</text>
+      <text x="75" y="25" font-family="system-ui, sans-serif" font-size="8px" fill="#e9d5ff" text-anchor="middle">Magistrala VLAN 10, 20</text>
+    </g>
+  </g>
+
+  <!-- ================= DOLNE KARTY ROZWINIĘCIA ================= -->
+  <!-- KARTA 1: BUDOWA TAGA 802.1Q -->
+  <g transform="translate(30, 240)">
+    <rect width="325" height="105" fill="#1e293b" stroke="#a855f7" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="24" fill="#581c87" rx="6"/>
+    <text x="12" y="17" class="box-hdr" fill="#ffffff">Budowa nagłówka taga IEEE 802.1Q (4 bajty)</text>
+
+    <g transform="translate(12, 34)">
+      <text x="0" y="14" class="desc-txt"><tspan font-family="monospace" font-weight="700" fill="#c084fc">TPID (16 bitów):</tspan> Stała wartość <tspan font-family="monospace" font-weight="700" fill="#fde047">0x8100</tspan> (wskazuje obecność taga).</text>
+      <text x="0" y="30" class="desc-txt"><tspan font-family="monospace" font-weight="700" fill="#c084fc">PCP (3 bity):</tspan> Priorytet jakości usługi QoS (od 0 do 7, np. VoIP).</text>
+      <text x="0" y="46" class="desc-txt"><tspan font-family="monospace" font-weight="700" fill="#c084fc">DEI (1 bit):</tspan> Flaga dopuszczalności odrzucenia ramki przy przeciążeniu.</text>
+      <text x="0" y="62" class="desc-txt"><tspan font-family="monospace" font-weight="700" fill="#c084fc">VID (12 bitów):</tspan> Identyfikator VLAN: <tspan font-weight="700" fill="#34d399">1 do 4094</tspan> (4096 = 2^12).</text>
+    </g>
+  </g>
+
+  <!-- KARTA 2: REGUŁA PORTÓW -->
+  <g transform="translate(385, 240)">
+    <rect width="325" height="105" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="24" fill="#064e3b" rx="6"/>
+    <text x="12" y="17" class="box-hdr" fill="#ffffff">Zasada działania portów (Egzamin INF.02)</text>
+
+    <g transform="translate(12, 34)">
+      <text x="0" y="14" class="desc-txt"><tspan font-weight="700" fill="#34d399">Port Access (Dostępowy):</tspan> Dla komputerów i drukarek.</text>
+      <text x="0" y="28" class="desc-txt">Należy do 1 VLAN-u. Ramki są <tspan font-weight="700" fill="#ffffff">nietagowane (Untagged)</tspan>.</text>
+      <text x="0" y="48" class="desc-txt"><tspan font-weight="700" fill="#c084fc">Port Trunk (Magistralny):</tspan> Do łączenia switch ➔ switch.</text>
+      <text x="0" y="62" class="desc-txt">Przenosi wiele VLAN-ów. Ramki są <tspan font-weight="700" fill="#ffffff">otagowane (Tagged)</tspan>.</text>
+    </g>
+  </g>
+</svg>

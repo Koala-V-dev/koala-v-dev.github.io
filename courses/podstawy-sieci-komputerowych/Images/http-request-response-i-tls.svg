@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="100%" height="100%">
+  <!-- Tło -->
+  <rect width="100%" height="100%" fill="#0b1120" rx="0"/>
+  
+  <!-- Tytuł -->
+  <text x="480" y="38" fill="#f8fafc" font-size="20" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">Anatomia HTTP/1.1 oraz bezpieczny kanał TLS 1.3 (HTTPS Port 443)</text>
+  <text x="480" y="62" fill="#94a3b8" font-size="13" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">Struktura ramek tekstowych HTTP, kody odpowiedzi oraz uścisk dłoni TLS 1.3 z wymianą kluczy</text>
+
+  <!-- LEWA STRONA: Anatomia Request / Response HTTP -->
+  <g transform="translate(35, 85)">
+    <rect width="430" height="410" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="430" height="32" rx="8" fill="#0f172a"/>
+    <text x="215" y="22" fill="#38bdf8" font-size="13" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">1. Struktura protokołu HTTP/1.1 (Tekstowy)</text>
+
+    <!-- Żądanie (HTTP Request) -->
+    <rect x="20" y="48" width="390" height="150" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+    <rect x="20" y="48" width="390" height="24" rx="6" fill="#0369a1"/>
+    <text x="30" y="65" fill="#ffffff" font-size="11" font-family="system-ui, -apple-system, sans-serif" font-weight="700">HTTP Request (Klient &#8594; Serwer)</text>
+
+    <!-- Request Line -->
+    <text x="30" y="90" fill="#38bdf8" font-size="11" font-family="monospace" font-weight="700">GET /index.html HTTP/1.1</text>
+    <text x="30" y="108" fill="#94a3b8" font-size="10" font-family="monospace">Host: example.com</text>
+    <text x="30" y="123" fill="#94a3b8" font-size="10" font-family="monospace">User-Agent: Mozilla/5.0 ...</text>
+    <text x="30" y="138" fill="#94a3b8" font-size="10" font-family="monospace">Accept: text/html,application/xhtml+xml</text>
+    <text x="30" y="153" fill="#94a3b8" font-size="10" font-family="monospace">Connection: keep-alive</text>
+    <text x="30" y="172" fill="#64748b" font-size="10" font-family="monospace">\r\n (Pusta linia oddzielająca nagłówki)</text>
+    <text x="30" y="188" fill="#64748b" font-size="10" font-family="monospace">[Opcjonalne ciało żądania - Body]</text>
+
+    <!-- Odpowiedź (HTTP Response) -->
+    <rect x="20" y="210" width="390" height="180" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+    <rect x="20" y="210" width="390" height="24" rx="6" fill="#065f46"/>
+    <text x="30" y="227" fill="#ffffff" font-size="11" font-family="system-ui, -apple-system, sans-serif" font-weight="700">HTTP Response (Serwer &#8594; Klient)</text>
+
+    <!-- Status Line -->
+    <text x="30" y="252" fill="#34d399" font-size="11" font-family="monospace" font-weight="700">HTTP/1.1 200 OK</text>
+    <text x="30" y="270" fill="#94a3b8" font-size="10" font-family="monospace">Content-Type: text/html; charset=UTF-8</text>
+    <text x="30" y="285" fill="#94a3b8" font-size="10" font-family="monospace">Content-Length: 1256</text>
+    <text x="30" y="300" fill="#94a3b8" font-size="10" font-family="monospace">Server: nginx/1.24.0</text>
+    <text x="30" y="315" fill="#64748b" font-size="10" font-family="monospace">\r\n (Pusta linia oddzielająca)</text>
+    
+    <!-- Body -->
+    <rect x="30" y="325" width="370" height="55" rx="3" fill="#0b1120"/>
+    <text x="40" y="343" fill="#cbd5e1" font-size="10" font-family="monospace">&lt;!DOCTYPE html&gt;&lt;html&gt;</text>
+    <text x="40" y="358" fill="#cbd5e1" font-size="10" font-family="monospace">&lt;body&gt;&lt;h1&gt;Witaj świecie&lt;/h1&gt;&lt;/body&gt;</text>
+    <text x="40" y="373" fill="#cbd5e1" font-size="10" font-family="monospace">&lt;/html&gt;</text>
+  </g>
+
+  <!-- PRAWA STRONA: Uścisk dłoni TLS 1.3 -->
+  <g transform="translate(485, 85)">
+    <rect width="440" height="410" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <rect width="440" height="32" rx="8" fill="#0f172a"/>
+    <text x="220" y="22" fill="#fde047" font-size="13" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">2. Bezpieczny kanał TLS 1.3 (HTTPS Port 443)</text>
+
+    <!-- Oś Klienta -->
+    <line x1="80" y1="45" x2="80" y2="385" stroke="#475569" stroke-width="2" stroke-dasharray="4,4"/>
+    <rect x="30" y="45" width="100" height="28" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="80" y="64" fill="#38bdf8" font-size="11" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">Przeglądarka</text>
+
+    <!-- Oś Serwera -->
+    <line x1="360" y1="45" x2="360" y2="385" stroke="#475569" stroke-width="2" stroke-dasharray="4,4"/>
+    <rect x="310" y="45" width="100" height="28" rx="4" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+    <text x="360" y="64" fill="#34d399" font-size="11" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">Serwer HTTPS</text>
+
+    <!-- Krok 1: ClientHello + Key Share -->
+    <path d="M 80 100 L 350 135" stroke="#38bdf8" stroke-width="2" fill="none"/>
+    <polygon points="350,130 360,135 350,140" fill="#38bdf8"/>
+    <rect x="110" y="95" width="220" height="32" rx="3" fill="#0b1120" stroke="#38bdf8" stroke-width="1"/>
+    <text x="220" y="110" fill="#38bdf8" font-size="10" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">ClientHello + Key Share (Diffie-Hellman)</text>
+    <text x="220" y="122" fill="#94a3b8" font-size="9" font-family="monospace" text-anchor="middle">Szyfry, SNI (example.com), Ephemeral Key</text>
+
+    <!-- Krok 2: ServerHello + Certyfikat X.509 + Finished -->
+    <path d="M 360 170 L 90 205" stroke="#34d399" stroke-width="2" fill="none"/>
+    <polygon points="90,200 80,205 90,210" fill="#34d399"/>
+    <rect x="105" y="165" width="230" height="42" rx="3" fill="#0b1120" stroke="#34d399" stroke-width="1"/>
+    <text x="220" y="180" fill="#34d399" font-size="10" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">ServerHello + Certyfikat X.509 + Finished</text>
+    <text x="220" y="193" fill="#cbd5e1" font-size="9" font-family="monospace" text-anchor="middle">Podpis CA (PKI) + Server Key Share</text>
+    <text x="220" y="203" fill="#fde047" font-size="8" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">&#8594; Ustalono wspólny symetryczny klucz sesji!</text>
+
+    <!-- Szyfrowany kanał (1-RTT) -->
+    <rect x="25" y="250" width="390" height="135" rx="6" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="220" y="275" fill="#34d399" font-size="13" font-family="system-ui, -apple-system, sans-serif" font-weight="700" text-anchor="middle">Szyfrowany kanał danych aplikacji (1-RTT)</text>
+    <text x="40" y="298" fill="#a7f3d0" font-size="10" font-family="system-ui, -apple-system, sans-serif">&#10003; <tspan font-weight="700">Poufność:</tspan> Szyfrowanie symetryczne AES-256-GCM / ChaCha20</text>
+    <text x="40" y="318" fill="#a7f3d0" font-size="10" font-family="system-ui, -apple-system, sans-serif">&#10003; <tspan font-weight="700">Integralność:</tspan> Ochrona przed modyfikacją pakietów w locie (AEAD)</text>
+    <text x="40" y="338" fill="#a7f3d0" font-size="10" font-family="system-ui, -apple-system, sans-serif">&#10003; <tspan font-weight="700">Uwierzytelnienie:</tspan> Certyfikat poświadczony przez Root CA w OS</text>
+    <text x="220" y="368" fill="#fde047" font-size="10" font-family="monospace" text-anchor="middle">Żaden podsłuchiwacz (Sniffer) nie widzi URL ani ciasteczek!</text>
+  </g>
+</svg>

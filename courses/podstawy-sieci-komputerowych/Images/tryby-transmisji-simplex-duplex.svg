@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0a0f1d; }
+      .header-title { font-family: system-ui, -apple-system, sans-serif; font-size: 21px; font-weight: 800; fill: #ffffff; }
+      .header-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 500; fill: #cbd5e1; }
+      .card { fill: #131d31; stroke: #3b4d6b; stroke-width: 2; rx: 12; }
+      .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 800; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 600; fill: #e2e8f0; }
+      .road-asphalt { fill: #1e293b; stroke: #475569; stroke-width: 1.5; rx: 6; }
+      .lane-line { stroke: #e2e8f0; stroke-width: 2; stroke-dasharray: 8 6; }
+      .barrier-solid { fill: #0f172a; stroke: #94a3b8; stroke-width: 2; }
+      .car-tx { fill: #0284c7; stroke: #38bdf8; stroke-width: 2; rx: 5; }
+      .car-rx { fill: #059669; stroke: #34d399; stroke-width: 2; rx: 5; }
+      .car-text { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .tl-box { fill: #090d16; stroke: #64748b; stroke-width: 1.5; rx: 4; }
+      .roadwork-hatch { fill: #451a03; stroke: #f59e0b; stroke-width: 2; }
+      .badge-box { fill: #090d16; stroke-width: 1.5; rx: 6; }
+      .badge-text { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+    </style>
+    <filter id="card-shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="320" class="bg"/>
+
+  <!-- Nagłówek o wysokim kontraście -->
+  <g transform="translate(40, 34)">
+    <text x="0" y="0" class="header-title">Tryby transmisji danych: Simplex, Half-Duplex i Full-Duplex</text>
+    <text x="0" y="22" class="header-desc">Analogia toru transmisyjnego: jednokierunkowy, zwężenie z ruchem wahadłowym oraz pełna autostrada dwujezdniowa</text>
+  </g>
+
+  <!-- ================= 1. SIMPLEX ================= -->
+  <g transform="translate(30, 80)" filter="url(#card-shadow)">
+    <rect width="280" height="215" class="card"/>
+    <text x="20" y="28" class="title" fill="#38bdf8">1. Simplex (Jednokierunkowy)</text>
+    <text x="20" y="46" class="subtitle">Wyłącznie jeden kierunek: Host A → Host B</text>
+
+    <!-- Droga 1-kierunkowa -->
+    <g transform="translate(20, 60)">
+      <rect width="240" height="80" class="road-asphalt"/>
+      <line x1="20" y1="40" x2="220" y2="40" class="lane-line"/>
+
+      <!-- Pakiet A płynie w prawo -->
+      <g transform="translate(35, 25)">
+        <rect width="90" height="30" class="car-tx"/>
+        <text x="45" y="19" class="car-text">Pakiet A ➔</text>
+      </g>
+
+      <!-- Znak zakazu wjazdu po prawej (brak powrotu) -->
+      <g transform="translate(190, 24)">
+        <circle cx="16" cy="16" r="16" fill="#dc2626" stroke="#fca5a5" stroke-width="2"/>
+        <rect x="5" y="13" width="22" height="6" fill="#ffffff" rx="1"/>
+      </g>
+    </g>
+
+    <!-- Pigułka WCAG -->
+    <rect x="20" y="155" width="240" height="42" class="badge-box" stroke="#0284c7"/>
+    <text x="140" y="176" class="badge-text" fill="#38bdf8">Brak kanału zwrotnego</text>
+    <text x="140" y="191" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="600" fill="#cbd5e1" text-anchor="middle">Odbiornik nie ma jak odesłać potwierdzenia</text>
+  </g>
+
+  <!-- ================= 2. HALF-DUPLEX ================= -->
+  <g transform="translate(340, 80)" filter="url(#card-shadow)">
+    <rect width="280" height="215" class="card" stroke="#f59e0b"/>
+    <text x="20" y="28" class="title" fill="#fbbf24">2. Half-Duplex (Półdupleks)</text>
+    <text x="20" y="46" class="subtitle">Roboty drogowe: jeden pas i ruch wahadłowy</text>
+
+    <!-- Droga z robotami drogowymi na jednym pasie -->
+    <g transform="translate(20, 60)">
+      <rect width="240" height="80" class="road-asphalt"/>
+
+      <!-- Pas górny: wolny, jedzie Pakiet A -->
+      <g transform="translate(95, 8)">
+        <rect width="75" height="26" class="car-tx"/>
+        <text x="37" y="17" class="car-text">Host A ➔</text>
+      </g>
+
+      <!-- Linia środkowa -->
+      <line x1="10" y1="40" x2="230" y2="40" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+      <!-- Pas dolny: ZABLOKOWANY ROBOTAMI DROGOWYMI -->
+      <g transform="translate(40, 44)">
+        <rect width="160" height="30" class="roadwork-hatch" rx="4"/>
+        <text x="80" y="19" font-family="system-ui, sans-serif" font-size="11px" font-weight="800" fill="#fef08a" text-anchor="middle">🚧 PRACE DROGOWE 🚧</text>
+      </g>
+
+      <!-- Sygnalizator po lewej (Zielone dla A) -->
+      <g transform="translate(10, 8)">
+        <rect width="16" height="34" class="tl-box"/>
+        <circle cx="8" cy="9" r="4" fill="#ef4444" opacity="0.2"/>
+        <circle cx="8" cy="17" r="4" fill="#eab308" opacity="0.2"/>
+        <circle cx="8" cy="25" r="4.5" fill="#22c55e"/>
+      </g>
+
+      <!-- Sygnalizator po prawej (Czerwone dla B - czeka!) -->
+      <g transform="translate(214, 8)">
+        <rect width="16" height="34" class="tl-box"/>
+        <circle cx="8" cy="9" r="4.5" fill="#ef4444"/>
+        <circle cx="8" cy="17" r="4" fill="#eab308" opacity="0.2"/>
+        <circle cx="8" cy="25" r="4" fill="#22c55e" opacity="0.2"/>
+      </g>
+    </g>
+
+    <!-- Pigułka WCAG -->
+    <rect x="20" y="155" width="240" height="42" class="badge-box" stroke="#f59e0b"/>
+    <text x="140" y="176" class="badge-text" fill="#fbbf24">Ruch naprzemienny • Zwężenie</text>
+    <text x="140" y="191" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="600" fill="#fef08a" text-anchor="middle">Jednoczesny wjazd wywoła kolizję czołową!</text>
+  </g>
+
+  <!-- ================= 3. FULL-DUPLEX ================= -->
+  <g transform="translate(650, 80)" filter="url(#card-shadow)">
+    <rect width="280" height="215" class="card" stroke="#10b981"/>
+    <text x="20" y="28" class="title" fill="#34d399">3. Full-Duplex (Pełny dupleks)</text>
+    <text x="20" y="46" class="subtitle">Osobne jezdnie: ruch w obu kierunkach naraz</text>
+
+    <!-- Droga 2-pasmowa z barierą -->
+    <g transform="translate(20, 60)">
+      <rect width="240" height="80" class="road-asphalt"/>
+
+      <!-- Pas górny: Tx (A → B) w PRAWO -->
+      <g transform="translate(25, 8)">
+        <rect width="105" height="26" class="car-tx"/>
+        <text x="52" y="17" class="car-text">Tx: A ➔ B</text>
+      </g>
+
+      <!-- Fizyczna bariera rozdzielająca (osobne pary żył / osobne włókna) -->
+      <rect x="0" y="37" width="240" height="6" class="barrier-solid"/>
+
+      <!-- Pas dolny: Rx (A ← B) w LEWO -->
+      <g transform="translate(110, 46)">
+        <rect width="105" height="26" class="car-rx"/>
+        <text x="52" y="17" class="car-text">Rx: A ⬅ B</text>
+      </g>
+    </g>
+
+    <!-- Pigułka WCAG -->
+    <rect x="20" y="155" width="240" height="42" class="badge-box" stroke="#10b981"/>
+    <text x="140" y="176" class="badge-text" fill="#34d399">Osobne linie Tx i Rx</text>
+    <text x="140" y="191" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="600" fill="#a7f3d0" text-anchor="middle">Zero kolizji • Pełna podwójna prędkość</text>
+  </g>
+</svg>

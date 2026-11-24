@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t51 d51">
+  <title id="t51">Pętla komunikatów Windows (Message Loop) w aplikacjach GUI WinForms</title>
+  <desc id="d51">Schemat działania aplikacji okienkowej: system Windows wrzuca zdarzenia myszy, klawiatury i zegara do kolejki komunikatów, pętla Application.Run() pobiera je i przekazuje do procedury okna oraz zdarzeń Click/Paint/Tick.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .box { fill: #172554; stroke: #38bdf8; stroke-width: 1.8; rx: 8; }
+    .ok { fill: #064e3b; stroke: #34d399; stroke-width: 1.8; rx: 8; }
+    .warn { fill: #451a03; stroke: #fbbf24; stroke-width: 1.8; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    @keyframes msgFlow { 0% { stroke-dashoffset: 32; } 100% { stroke-dashoffset: 0; } }
+    .wire { stroke: #38bdf8; stroke-width: 2.4; stroke-dasharray: 6 6; animation: msgFlow 1.2s linear infinite; fill: none; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Jak żyje okno w Windows 11 — Pętla Komunikatów (Message Loop / Application.Run)</text>
+  <text x="24" y="48" class="sub">W konsoli program biegnie z góry na dół. W GUI program ŚPI i budzi się na każdy komunikat z systemu Windows!</text>
+
+  <rect x="24" y="70" width="212" height="168" class="card"/>
+  <text x="40" y="94" class="title">1. Sprzęt i Windows</text>
+  <rect x="40" y="108" width="180" height="32" class="warn"/><text x="52" y="128" class="mono">WM_LBUTTONDOWN (klik)</text>
+  <rect x="40" y="148" width="180" height="32" class="box"/><text x="52" y="168" class="mono">WM_KEYDOWN (klawisz)</text>
+  <rect x="40" y="188" width="180" height="32" class="ok"/><text x="52" y="208" class="mono">WM_TIMER (co 1000 ms)</text>
+
+  <path d="M 236 154 L 290 154" class="wire"/>
+
+  <rect x="290" y="70" width="244" height="168" class="card"/>
+  <text x="306" y="94" class="title">2. Application.Run(form)</text>
+  <rect x="306" y="112" width="212" height="66" class="box"/>
+  <text x="318" y="134" class="mono">while (GetMessage())</text>
+  <text x="318" y="156" class="mono" fill="#38bdf8">  DispatchMessage();</text>
+  <text x="306" y="204" class="sub">Wątek UI (1 wątek [STAThread])</text>
+  <text x="306" y="222" class="sub" fill="#f87171">Thread.Sleep = ZAMRAŻA OKNO!</text>
+
+  <path d="M 534 154 L 588 154" class="wire"/>
+
+  <rect x="588" y="70" width="228" height="168" class="card"/>
+  <text x="604" y="94" class="title">3. Twoje zdarzenia C#</text>
+  <rect x="604" y="108" width="196" height="32" class="ok"/><text x="616" y="128" class="mono">btn.Click += ...</text>
+  <rect x="604" y="148" width="196" height="32" class="ok"/><text x="616" y="168" class="mono">form.KeyDown += ...</text>
+  <rect x="604" y="188" width="196" height="32" class="ok"/><text x="616" y="208" class="mono">timer.Tick += ...</text>
+</svg>
+

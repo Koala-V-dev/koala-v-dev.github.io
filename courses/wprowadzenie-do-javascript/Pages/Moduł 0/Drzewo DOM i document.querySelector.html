@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drzewo DOM i document.querySelector - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty DOM, funkcje strzałkowe, zdarzenia i forEach</li><li class="lesson-item lesson" data-path="Moduł 0/Drzewo DOM i document.querySelector"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Drzewo%20DOM%20i%20document.querySelector.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drzewo DOM i document.querySelector</a></li><li class="lesson-item lesson" data-path="Moduł 0/Funkcje jako wartości i funkcje strzałkowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Funkcje%20jako%20warto%C5%9Bci%20i%20funkcje%20strza%C5%82kowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje jako wartości i funkcje strzałkowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zdarzenia i addEventListener na żywym DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zdarzenia%20i%20addEventListener%20na%20%C5%BCywym%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia i addEventListener na żywym DOM</a></li><li class="lesson-item lesson" data-path="Moduł 0/Kolekcje elementów - querySelectorAll i pętla forEach"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kolekcje%20element%C3%B3w%20-%20querySelectorAll%20i%20p%C4%99tla%20forEach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolekcje elementów - querySelectorAll i pętla forEach</a></li><li class="lesson-item lesson" data-path="Moduł 0/Synteza - querySelectorAll, forEach i addEventListener"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Synteza%20-%20querySelectorAll%2C%20forEach%20i%20addEventListener.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Synteza - querySelectorAll, forEach i addEventListener</a></li><li class="module">Moduł 1: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" data-path="Moduł 1/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" data-path="Moduł 1/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 2: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" data-path="Moduł 2/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" data-path="Moduł 2/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 3: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" data-path="Moduł 3/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" data-path="Moduł 3/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 4: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" data-path="Moduł 4/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 5: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" data-path="Moduł 5/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" data-path="Moduł 5/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 6: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" data-path="Moduł 6/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 7: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" data-path="Moduł 7/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%207/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Drzewo DOM i document.querySelector</h1>
+<p>Otwierasz kartę produktu w sklepie internetowym. Na ekranie widnieje napis „Brak w magazynie”, a przycisk zakupu jest nieaktywny. Po sekundzie status zmienia się na „Dostępny”, kolor ramki przechodzi w zieleń, a przycisk daje się kliknąć.</p>
+<p>Plik HTML na serwerze nie zmienił się w tym czasie ani o jeden znak. Przeglądarka nie przeładowała też strony. Jak JavaScript zmienił zawartość ekranu, skoro sam plik HTML jest tylko statycznym tekstem?</p>
+<p>Aby odpowiedzieć na to pytanie, musisz zobaczyć, co przeglądarka buduje w pamięci komputera zaraz po pobraniu pliku HTML.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🌳 Od pliku HTML do żywego drzewa DOM</h2>
+<p>Plik HTML to płaski tekst zapisany na dysku lub przesłany przez sieć. Zawiera znaczniki takie jak <code>&lt;article&gt;</code>, <code>&lt;h2&gt;</code> czy <code>&lt;button&gt;</code>, ale sam w sobie nie potrafi reagować na działania użytkownika ani zmieniać swojego stanu.</p>
+<p>Gdy przeglądarka pobiera ten tekst, uruchamia parser HTML. Parser czyta znaczniki od góry do dołu i zamienia każdy z nich w żywy obiekt w pamięci RAM. Wszystkie te obiekty tworzą hierarchiczną strukturę nazywaną <span class="color-green">drzewem DOM</span> (Document Object Model).</p>
+<p>Spójrz na krótki fragment HTML:</p>
+<pre><code class="language-html">&lt;article id="karta-produktu" class="karta"&gt;
+  &lt;h2&gt;Klawiatura mechaniczna&lt;/h2&gt;
+  &lt;p class="cena"&gt;299 zł&lt;/p&gt;
+  &lt;button id="btn-kup"&gt;Dodaj do koszyka&lt;/button&gt;
+&lt;/article&gt;
+</code></pre>
+<p>W pamięci przeglądarki ten tekst zamienia się w żywe drzewo powiązanych ze sobą obiektów. Kliknij dowolny selektor poniżej i zobacz na animacji, jak <code>document.querySelector</code> wędruje po węzłach w RAM:</p>
+<p><data-dom-tree-lab></data-dom-tree-lab></p>
+<p>Każdy punkt na tym schemacie to <span class="color-green">węzeł</span> drzewa DOM. Znaczniki HTML stają się <span class="color-blue">węzłami elementów</span>, a napisy w ich wnętrzu stają się <span class="color-blue">węzłami tekstowymi</span>.</p>
+<p>Kluczowa zmiana myślenia jest prosta: JavaScript nigdy nie edytuje pliku <code>.html</code> na dysku. JavaScript rozmawia wyłącznie z <span class="color-green">drzewem DOM</span> w pamięci RAM. Gdy zmieniasz właściwość obiektu w DOM, przeglądarka natychmiast odrysowuje zmieniony fragment strony na ekranie.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Zmienne const i let jako etykiety na węzły</h2>
+<p>Zanim zmienisz cokolwiek na stronie, musisz przechwycić konkretny obiekt z drzewa DOM i zapisać go pod czytelną nazwą. Do przechowywania takich odniesień w JavaScript służą zmienne deklarowane słowami <code>const</code> i <code>let</code>.</p>
+<p>Słowo kluczowe <span class="color-green">const</span> tworzy stałe powiązanie między nazwą a wartością. Po przypisaniu nie możesz podmienić tej etykiety na inny obiekt.</p>
+<p>Słowo kluczowe <span class="color-blue">let</span> tworzy zmienną, której wartość możesz później nadpisać nową wartością. Używasz go na przykład do liczników albo tekstu, który zmienia się w trakcie działania programu.</p>
+<pre><code class="language-javascript">const nazwaSklepu = "TechLab";
+let liczbaSztuk = 3;
+
+liczbaSztuk = 4; // Poprawne: zmienna let pozwala na nadpisanie wartości.
+// nazwaSklepu = "Inny"; // Błąd TypeError: nie można ponownie przypisać const.
+</code></pre>
+<p>W pracy z drzewem DOM niemal zawsze zapisujemy pobrane elementy w zmiennych <span class="color-green">const</span>. Początkujący często obawiają się, że <code>const</code> zablokuje możliwość zmiany tekstu lub koloru danego elementu.</p>
+<p>Tak się nie dzieje. Deklaracja <code>const</code> blokuje wyłącznie samą etykietę, czyli wskazanie na konkretny obiekt w pamięci. Wnętrze tego obiektu, na przykład jego tekst lub klasy CSS, nadal pozostaje w pełni modyfikowalne.</p>
+<p>Do podglądania wartości zmiennych podczas nauki służy wbudowane polecenie <code>console.log(wartosc)</code>. Wypisuje ono dowolną wartość w konsoli narzędzi deweloperskich przeglądarki (skrót <kbd>F12</kbd>), dzięki czemu natychmiast widzisz, co naprawdę siedzi w pamięci.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Wybieraj <code>const</code> jako domyślny sposób zapisywania referencji do elementów DOM. Sięgaj po <code>let</code> dopiero wtedy, gdy planujesz nadpisywać samą zmienną nową wartością.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Namierzanie elementu przez document.querySelector</h2>
+<p>Głównym punktem wejścia do całego drzewa DOM jest wbudowany obiekt <span class="color-gold">document</span>. Reprezentuje on całą załadowaną stronę i udostępnia metody do wyszukiwania węzłów.</p>
+<p>Najbardziej uniwersalnym narzędziem do namierzania pojedynczego elementu jest metoda <span class="color-green">document.querySelector</span>. Jako argument przyjmuje ona tekst z selektorem CSS: dokładnie takim samym, jakiego używasz w arkuszach stylów.</p>
+<pre><code class="language-javascript">const karta = document.querySelector("#karta-produktu");
+const cena = document.querySelector(".cena");
+const przycisk = document.querySelector("#karta-produktu button");
+</code></pre>
+<p>Zauważ, jak precyzyjnie działają znaki na początku selektora:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Selektor w <code>querySelector</code></th>
+<th align="left">Czego szuka w drzewie DOM</th>
+<th align="left">Przykład dopasowanego HTML</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>"#btn-kup"</code></td>
+<td align="left">Elementu o konkretnym atrybucie <code>id</code></td>
+<td align="left"><code>&lt;button id="btn-kup"&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>".cena"</code></td>
+<td align="left">Pierwszego elementu z klasą CSS <code>cena</code></td>
+<td align="left"><code>&lt;p class="cena"&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>"h2"</code></td>
+<td align="left">Pierwszego znacznika <code>&lt;h2&gt;</code> na stronie</td>
+<td align="left"><code>&lt;h2&gt;Klawiatura&lt;/h2&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>"#karta .cena"</code></td>
+<td align="left">Elementu <code>.cena</code> wewnątrz <code>#karta</code></td>
+<td align="left"><code>&lt;p class="cena"&gt;</code> w <code>#karta</code></td>
+</tr>
+<tr>
+<td align="left"><code>"button[disabled]"</code></td>
+<td align="left">Przycisku z atrybutem <code>disabled</code></td>
+<td align="left"><code>&lt;button disabled&gt;</code></td>
+</tr>
+</tbody></table>
+<h3>🔮 Przewidywanie: co zwróci querySelector przy wielu pasujących elementach</h3>
+<p>Zanim przeczytasz wyjaśnienie poniżej, zatrzymaj się na 20 sekund i zapisz w myślach własną odpowiedź.</p>
+<p>Masz na stronie trzy karty produktów, a w każdej z nich znajduje się akapit z klasą <code>cena</code>:</p>
+<pre><code class="language-html">&lt;p class="cena"&gt;120 zł&lt;/p&gt;
+&lt;p class="cena"&gt;250 zł&lt;/p&gt;
+&lt;p class="cena"&gt;89 zł&lt;/p&gt;
+</code></pre>
+<p>Uruchamiasz kod:</p>
+<pre><code class="language-javascript">const wynik = document.querySelector(".cena");
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zdecyduj przed czytaniem dalej: czy zmienna <code>wynik</code> zawiera listę wszystkich trzech akapitów, ostatni akapit z ceną <code>89 zł</code>, czy wyłącznie pierwszy akapit z ceną <code>120 zł</code>?</p>
+
+</div>
+</div><h3>🔎 Obserwacja i wyjaśnienie</h3>
+<p>Zmienna <code>wynik</code> przechowuje <span class="color-green">wyłącznie pierwszy pasujący element</span>, czyli <code>&lt;p class="cena"&gt;120 zł&lt;/p&gt;</code>. Pozostałe dwa akapity zostają całkowicie zignorowane.</p>
+<p>Metoda <code>document.querySelector</code> przeszukuje drzewo DOM od góry do dołu w kolejności zapisu w HTML. W chwili, gdy znajdzie pierwszy węzeł pasujący do selektora, natychmiast kończy poszukiwania i zwraca ten jeden obiekt.</p>
+<p>Jeśli potrzebujesz pobrać wszystkie pasujące elementy naraz, użyjesz innej metody (<code>querySelectorAll</code>), którą poznasz w dalszej części tego modułu. Gdy celujesz w jeden konkretny element, najbezpieczniej jest nadać mu unikalny atrybut <code>id</code> i szukać go przez <code>#id</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🩺 Diagnozowanie null i TypeError</h2>
+<p>Co się stanie, gdy selektor przekazany do <code>document.querySelector</code> nie pasuje do żadnego elementu w drzewie DOM? Metoda nie zgłasza wtedy błędu. Zamiast tego zwraca specjalną wartość <span class="color-red">null</span>, która oznacza „nie znaleziono żadnego obiektu”.</p>
+<h3>🔮 Przewidywanie: brak znaku # przed identyfikatorem</h3>
+<p>Przeanalizuj poniższy kod HTML i JavaScript:</p>
+<pre><code class="language-html">&lt;p id="status-zamowienia"&gt;Oczekuje na płatność&lt;/p&gt;
+</code></pre>
+<pre><code class="language-javascript">const statusEl = document.querySelector("status-zamowienia");
+statusEl.textContent = "Opłacone";
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zastanów się przed dalszym czytaniem: co zostanie zapisane w zmiennej <code>statusEl</code> w pierwszej linii i jaki komunikat pojawi się w konsoli przy wykonaniu drugiej linii?</p>
+
+</div>
+</div><h3>🔎 Obserwacja i wyjaśnienie</h3>
+<p>W pierwszej linii brakuje znaku <code>#</code> przed nazwą identyfikatora. Przeglądarka szuka więc znacznika <code>&lt;status-zamowienia&gt;</code>, który nie istnieje w HTML. W efekcie zmienna <code>statusEl</code> otrzymuje wartość <span class="color-red">null</span>.</p>
+<p>Pierwsza linia kończy się po cichu bez żadnego ostrzeżenia. Awaria następuje dopiero w drugiej linii, gdy próbujesz ustawić właściwość <code>textContent</code> na wartości <code>null</code>.</p>
+<p>Konsola wyświetla wtedy najczęstszy błąd w pracy z DOM:</p>
+<pre><code class="language-text">Uncaught TypeError: Cannot set properties of null (setting 'textContent')
+</code></pre>
+<p>Komunikat ten oznacza dosłownie: „nie można ustawić właściwości <code>textContent</code> na wartości <code>null</code>”. Błąd nie leży w samym <code>textContent</code>, tylko linijkę wyżej, w błędnym selektorze lub braku elementu w drzewie.</p>
+<p>Gdy zobaczysz <span class="color-red">TypeError</span> związany z <code>null</code>, sprawdź po kolei trzy najczęstsze przyczyny:</p>
+<ol>
+<li><span class="color-red">Brak prefiksu <code>#</code> lub <code>.</code></span>: dla <code>id</code> wymagany jest <code>#</code>, a dla <code>class</code> wymagana jest kropka <code>.</code>.</li>
+<li><span class="color-red">Literówka w nazwie</span>: selektory rozróżniają wielkość liter i myślniki, więc <code>#statusZamowienia</code> to nie to samo co <code>#status-zamowienia</code>.</li>
+<li><span class="color-red">Zbyt wczesne uruchomienie skryptu</span>: znacznik <code>&lt;script&gt;</code> umieszczony w <code>&lt;head&gt;</code> bez atrybutu <code>defer</code> wykonuje się, zanim przeglądarka zdąży zbudować elementy w <code>&lt;body&gt;</code>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Gdy dołączasz zewnętrzny plik JavaScript w sekcji <code>&lt;head&gt;</code>, dodaj atrybut <code>defer</code> (<code>&lt;script src="app.js" defer&gt;&lt;/script&gt;</code>). Dzięki temu przeglądarka najpierw zbuduje całe drzewo DOM, a dopiero potem uruchomi Twój skrypt.</p>
+
+</div>
+</div><data-gate>
+  <data-sortable-list title="Ułóż etapy od pobrania HTML do aktualizacji elementu w DOM">
+    <item data-correct="3">Skrypt wywołuje document.querySelector("#status") i otrzymuje referencję do węzła (albo null)</item>
+    <item data-correct="1">Przeglądarka pobiera tekstowy plik HTML z serwera</item>
+    <item data-correct="4">Skrypt modyfikuje właściwość obiektu w pamięci, a przeglądarka natychmiast odrysowuje widok</item>
+    <item data-correct="2">Parser HTML buduje żywe drzewo obiektów DOM w pamięci RAM</item>
+  </data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>✍️ Bezpieczna zmiana treści: textContent kontra innerHTML</h2>
+<p>Po poprawnym namierzeniu węzła możesz odczytać lub zmienić jego zawartość tekstową. Do dyspozycji masz dwie popularne właściwości: <span class="color-green">textContent</span> oraz <span class="color-blue">innerHTML</span>. Choć dla zwykłego tekstu wyglądają podobnie, działają na zupełnie innych zasadach.</p>
+<p>Właściwość <span class="color-green">textContent</span> traktuje przypisywany napis wyłącznie jako surowy tekst. Przeglądarka nie uruchamia parsera HTML i wyświetla dokładnie te znaki, które przekazałeś.</p>
+<p>Właściwość <span class="color-blue">innerHTML</span> przekazuje napis do parsera HTML. Przeglądarka interpretuje napotkane znaczniki i buduje z nich nowe węzły w drzewie DOM.</p>
+<p>Spójrz na różnicę w działaniu dla identycznego ciągu znaków:</p>
+<pre><code class="language-javascript">const napis = "&lt;strong&gt;Promocja&lt;/strong&gt; -20%";
+
+poleA.textContent = napis;
+// Na ekranie dosłownie: &lt;strong&gt;Promocja&lt;/strong&gt; -20%
+
+poleB.innerHTML = napis;
+// Na ekranie pogrubione: Promocja -20%
+</code></pre>
+<p>Dlaczego to rozróżnienie ma znaczenie krytyczne dla bezpieczeństwa? Wyobraź sobie, że wyświetlasz na stronie nazwę wpisaną wcześniej przez obcego użytkownika. Jeśli złośliwy użytkownik wpisze fragment HTML ze skryptem i wstawisz go przez <code>innerHTML</code>, przeglądarka wykona jego kod.</p>
+<p>Taki atak nazywa się <span class="color-red">XSS</span> (Cross‑Site Scripting). Właściwość <span class="color-green">textContent</span> całkowicie neutralizuje ten problem, ponieważ zamienia znaki <code>&lt;</code> oraz <code>&gt;</code> w zwykły, nieszkodliwy tekst na ekranie.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha</th>
+<th align="left"><code>textContent</code></th>
+<th align="left"><code>innerHTML</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Interpretacja znaczników HTML</td>
+<td align="left">Nie (zawsze surowy tekst)</td>
+<td align="left">Tak (parsuje i tworzy nowe węzły)</td>
+</tr>
+<tr>
+<td align="left">Bezpieczeństwo przy danych od użytkownika</td>
+<td align="left">Bezpieczne</td>
+<td align="left">Ryzyko ataku <span class="color-red">XSS</span></td>
+</tr>
+<tr>
+<td align="left">Wydajność przy częstych zmianach</td>
+<td align="left">Wysoka (brak ponownego parsowania)</td>
+<td align="left">Niższa (wymaga pracy parsera HTML)</td>
+</tr>
+<tr>
+<td align="left">Kiedy stosować</td>
+<td align="left">Domyślnie do każdego tekstu</td>
+<td align="left">Wyłącznie dla zaufanego kodu HTML</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎨 Sterowanie wyglądem przez classList</h2>
+<p>Zmiana wyglądu elementu nie wymaga wpisywania reguł CSS bezpośrednio w kodzie JavaScript. Zamiast manipulować pojedynczymi właściwościami <code>element.style.color</code>, definiujesz gotowe klasy w CSS, a w JavaScript jedynie włączasz lub wyłączasz je przez <span class="color-green">classList</span>.</p>
+<p>Właściwość <code>classList</code> daje dostęp do listy klas CSS przypisanych do danego węzła. Udostępnia cztery podstawowe metody:</p>
+<ul>
+<li><code>element.classList.add("aktywny")</code>: dodaje klasę, jeśli jeszcze jej nie ma.</li>
+<li><code>element.classList.remove("offline")</code>: usuwa wskazaną klasę.</li>
+<li><code>element.classList.toggle("otwarty")</code>: dodaje klasę, gdy jej brakuje, albo usuwa ją, gdy już istnieje.</li>
+<li><code>element.classList.contains("online")</code>: zwraca <code>true</code> lub <code>false</code>, informując, czy element ma tę klasę.</li>
+</ul>
+<p>Przeanalizuj pełny przykład przejścia karty ze stanu nieaktywnego do gotowego:</p>
+<pre><code class="language-javascript">const karta = document.querySelector("#karta-produktu");
+const statusEl = document.querySelector("#status-produktu");
+const przycisk = document.querySelector("#btn-kup");
+
+statusEl.textContent = "Dostępny od ręki";
+karta.classList.remove("niedostepny");
+karta.classList.add("dostepny");
+przycisk.disabled = false;
+</code></pre>
+<p>Zwróć uwagę na ostatnią linię: <code>przycisk.disabled = false</code>. Atrybuty logiczne HTML (takie jak <code>disabled</code> w <code>&lt;button disabled&gt;</code>) mają swoje bezpośrednie odpowiedniki we właściwościach obiektu DOM typu logicznego (<code>true</code> lub <code>false</code>).</p>
+<data-gate>
+<data-connection-matcher title="Połącz operację DOM z jej rzeczywistym skutkiem">
+  <item left="`document.querySelector('.cena')`" right="Zwraca pierwszy napotkany węzeł z klasą cena w drzewie DOM"></item>
+  <item left="`document.querySelector('brak-hasha')`" right="Zwraca null, jeśli nie istnieje znacznik o takiej nazwie"></item>
+  <item left="`el.textContent = '<b>Test</b>'`" right="Wypisuje dosłowny tekst ze znacznikami, bez parsowania HTML"></item>
+  <item left="`el.classList.toggle('aktywny')`" right="Dodaje klasę aktywny, jeśli jej nie ma, lub usuwa ją, jeśli istnieje"></item>
+  <item left="`przycisk.disabled = false`" right="Odblokowuje przycisk, usuwając stan nieaktywności w DOM"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Warsztat prowadzony: naprawa skryptu karty produktu</h2>
+<p>Poniższy skrypt miał zaktualizować kartę produktu: zmienić cenę promocyjną, usunąć klasę <code>wyprzedany</code> i dodać klasę <code>promocja</code>. Zawiera jednak trzy celowe usterki, przez które nie działa poprawnie.</p>
+<p>Zdiagnozuj błędy i popraw skrypt w edytorze:</p>
+<ul>
+<li>Popraw selektor dla elementu o <code>id="cena-produktu"</code>, aby nie zwracał <code>null</code>.</li>
+<li>Zastąp niebezpieczne <code>innerHTML</code> bezpiecznym <code>textContent</code> przy ustawianiu tekstu <code>"199 zł"</code>.</li>
+<li>Popraw metody <code>classList</code> na karcie <code>#karta-produktu</code>, aby usunąć klasę <code>"wyprzedany"</code> i dodać klasę <code>"promocja"</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" sandbox="dom" title="Naprawa karty produktu" data-code="Ly8gTmFwcmF3IDMgYsWCxJlkeSB3IHBvbmnFvHN6eW0gc2tyeXBjaWU6CmNvbnN0IGthcnRhID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2thcnRhLXByb2R1a3R1Iik7CmNvbnN0IGNlbmFFbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoImNlbmEtcHJvZHVrdHUiKTsKCmNlbmFFbC5pbm5lckhUTUwgPSAiMTk5IHrFgiI7CgprYXJ0YS5jbGFzc0xpc3QuYWRkKCJ3eXByemVkYW55Iik7CmthcnRhLmNsYXNzTGlzdC5yZW1vdmUoInByb21vY2phIik7" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJmaXgtc2VsZWN0b3IiLAogICAgICAgICAgInRleHQiOiAiUG9wcmF3bnkgc2VsZWt0b3IgSUQgI2NlbmEtcHJvZHVrdHUgdyBkb2N1bWVudC5xdWVyeVNlbGVjdG9yIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImRvY3VtZW50XFwucXVlcnlTZWxlY3RvclxccypcXChcXHMqW1wiJ10jY2VuYS1wcm9kdWt0dVtcIiddXFxzKlxcKSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ1c2UtdGV4dGNvbnRlbnQiLAogICAgICAgICAgInRleHQiOiAiVcW8eWNpZSB0ZXh0Q29udGVudCBkbyB1c3Rhd2llbmlhIG5vd2VqIGNlbnkgMTk5IHrFgiIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJjZW5hRWxcXC50ZXh0Q29udGVudFxccyo9XFxzKltcIiddMTk5IHrFgltcIiddIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogIm5vLWlubmVyaHRtbCIsCiAgICAgICAgICAidGV4dCI6ICJVc3VuacSZY2llIHfFgmHFm2Npd2/Fm2NpIGlubmVySFRNTCB6ZSBza3J5cHR1IiwKICAgICAgICAgICJ0eXBlIjogIm5vdC1jb250YWlucyIsCiAgICAgICAgICAicGF0dGVybiI6ICJpbm5lckhUTUwiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAicmVtb3ZlLXd5cHJ6ZWRhbnkiLAogICAgICAgICAgInRleHQiOiAiVXN1bmnEmWNpZSBrbGFzeSB3eXByemVkYW55IHoga2FydHkgcHJ6ZXogY2xhc3NMaXN0LnJlbW92ZSIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJrYXJ0YVxcLmNsYXNzTGlzdFxcLnJlbW92ZVxccypcXChcXHMqW1wiJ113eXByemVkYW55W1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImFkZC1wcm9tb2NqYSIsCiAgICAgICAgICAidGV4dCI6ICJEb2RhbmllIGtsYXN5IHByb21vY2phIGRvIGthcnR5IHByemV6IGNsYXNzTGlzdC5hZGQiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAia2FydGFcXC5jbGFzc0xpc3RcXC5hZGRcXHMqXFwoXFxzKltcIiddcHJvbW9jamFbXCInXVxccypcXCkiCiAgICAgICAgfQogICAgICBd" data-html="PHN0eWxlPgogIC5rYXJ0YSB7IHBhZGRpbmc6IDE2cHg7IGJvcmRlci1yYWRpdXM6IDEwcHg7IGJvcmRlcjogMnB4IHNvbGlkICM5NGEzYjg7IGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmOyBtYXgtd2lkdGg6IDMyMHB4OyB9CiAgLmthcnRhLnd5cHJ6ZWRhbnkgeyBiYWNrZ3JvdW5kOiAjZmVmMmYyOyBib3JkZXItY29sb3I6ICNlZjQ0NDQ7IGNvbG9yOiAjOTkxYjFiOyB9CiAgLmthcnRhLnByb21vY2phIHsgYmFja2dyb3VuZDogI2VjZmRmNTsgYm9yZGVyLWNvbG9yOiAjMTBiOTgxOyBjb2xvcjogIzA2NWY0NjsgfQogIC5jZW5hIHsgZm9udC1zaXplOiAxLjRyZW07IGZvbnQtd2VpZ2h0OiA3MDA7IG1hcmdpbjogOHB4IDAgMDsgfQo8L3N0eWxlPgo8YXJ0aWNsZSBpZD0ia2FydGEtcHJvZHVrdHUiIGNsYXNzPSJrYXJ0YSB3eXByemVkYW55Ij4KICA8aDM+U8WCdWNoYXdraSBzdHVkeWpuZTwvaDM+CiAgPHAgaWQ9ImNlbmEtcHJvZHVrdHUiIGNsYXNzPSJjZW5hIj4yOTkgesWCPC9wPgo8L2FydGljbGU+"></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Samodzielne zadanie: Panel statusu serwera</h2>
+<p>Teraz napiszesz kompletny skrypt sterujący od zera. W podglądzie znajduje się karta monitoringu serwera, która domyślnie jest w stanie wyłączonym (<code>offline</code>), a przycisk wejścia do panelu jest zablokowany (<code>disabled</code>).</p>
+<p>Twoje wymagania:</p>
+<ol>
+<li>Zapisz w zmiennych <code>const</code> referencje do trzech węzłów za pomocą <code>document.querySelector</code>: <code>#panel-serwera</code>, <code>#komunikat-statusu</code> oraz <code>#btn-panel</code>.</li>
+<li>Zmień treść elementu <code>#komunikat-statusu</code> na <code>"Serwer aktywny"</code> używając wyłącznie <code>textContent</code>.</li>
+<li>Na elemencie <code>#panel-serwera</code> usuń klasę <code>"offline"</code> i dodaj klasę <code>"online"</code> za pomocą <code>classList</code>.</li>
+<li>Odblokuj przycisk <code>#btn-panel</code>, ustawiając jego właściwość <code>disabled</code> na <code>false</code>.</li>
+</ol>
+<data-gate>
+  <data-code-runner language="javascript" sandbox="dom" title="Panel statusu serwera" data-code="Ly8gTmFwaXN6IGtvZCBha3R5d3VqxIVjeSBwYW5lbCBzZXJ3ZXJhIHpnb2RuaWUgeiB3eW1hZ2FuaWFtaTo=" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJjb25zdC1wYW5lbCIsCiAgICAgICAgICAidGV4dCI6ICJQb2JyYW5pZSAjcGFuZWwtc2Vyd2VyYSBwcnpleiBkb2N1bWVudC5xdWVyeVNlbGVjdG9yIGkgemFwaXMgdyBjb25zdCIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJjb25zdFxccytbYS16QS1aXyRdW2EtekEtWjAtOV8kXSpcXHMqPVxccypkb2N1bWVudFxcLnF1ZXJ5U2VsZWN0b3JcXHMqXFwoXFxzKltcIiddI3BhbmVsLXNlcndlcmFbXCInXVxccypcXCkiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAiY29uc3Qtc3RhdHVzIiwKICAgICAgICAgICJ0ZXh0IjogIlBvYnJhbmllICNrb211bmlrYXQtc3RhdHVzdSBwcnpleiBkb2N1bWVudC5xdWVyeVNlbGVjdG9yIGkgemFwaXMgdyBjb25zdCIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJjb25zdFxccytbYS16QS1aXyRdW2EtekEtWjAtOV8kXSpcXHMqPVxccypkb2N1bWVudFxcLnF1ZXJ5U2VsZWN0b3JcXHMqXFwoXFxzKltcIiddI2tvbXVuaWthdC1zdGF0dXN1W1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImNvbnN0LWJ0biIsCiAgICAgICAgICAidGV4dCI6ICJQb2JyYW5pZSAjYnRuLXBhbmVsIHByemV6IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IgaSB6YXBpcyB3IGNvbnN0IiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImNvbnN0XFxzK1thLXpBLVpfJF1bYS16QS1aMC05XyRdKlxccyo9XFxzKmRvY3VtZW50XFwucXVlcnlTZWxlY3RvclxccypcXChcXHMqW1wiJ10jYnRuLXBhbmVsW1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInNldC10ZXh0IiwKICAgICAgICAgICJ0ZXh0IjogIlptaWFuYSB0ZWtzdHUga29tdW5pa2F0dSBuYSBcIlNlcndlciBha3R5d255XCIgcHJ6ZXogdGV4dENvbnRlbnQiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAiXFwudGV4dENvbnRlbnRcXHMqPVxccypbXCInXVNlcndlciBha3R5d255W1wiJ10iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAibm8taW5uZXJodG1sLTIiLAogICAgICAgICAgInRleHQiOiAiQnJhayB1xbx5Y2lhIGlubmVySFRNTCB3IHJvendpxIV6YW5pdSIsCiAgICAgICAgICAidHlwZSI6ICJub3QtY29udGFpbnMiLAogICAgICAgICAgInBhdHRlcm4iOiAiaW5uZXJIVE1MIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInRvZ2dsZS1jbGFzc2VzLXJlbW92ZSIsCiAgICAgICAgICAidGV4dCI6ICJVc3VuacSZY2llIGtsYXN5IG9mZmxpbmUgcHJ6ZXogY2xhc3NMaXN0LnJlbW92ZSIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJcXC5jbGFzc0xpc3RcXC5yZW1vdmVcXHMqXFwoXFxzKltcIiddb2ZmbGluZVtcIiddXFxzKlxcKSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ0b2dnbGUtY2xhc3Nlcy1hZGQiLAogICAgICAgICAgInRleHQiOiAiRG9kYW5pZSBrbGFzeSBvbmxpbmUgcHJ6ZXogY2xhc3NMaXN0LmFkZCIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJcXC5jbGFzc0xpc3RcXC5hZGRcXHMqXFwoXFxzKltcIiddb25saW5lW1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImVuYWJsZS1idXR0b24iLAogICAgICAgICAgInRleHQiOiAiT2RibG9rb3dhbmllIHByenljaXNrdSBwcnpleiB1c3Rhd2llbmllIGRpc2FibGVkID0gZmFsc2UiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAiXFwuZGlzYWJsZWRcXHMqPVxccypmYWxzZSIKICAgICAgICB9CiAgICAgIF0=" data-html="PHN0eWxlPgogIC5wYW5lbCB7IHBhZGRpbmc6IDE4cHg7IGJvcmRlci1yYWRpdXM6IDEwcHg7IGJvcmRlcjogMnB4IHNvbGlkICM2NDc0OGI7IGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmOyBtYXgtd2lkdGg6IDM0MHB4OyB9CiAgLnBhbmVsLm9mZmxpbmUgeyBiYWNrZ3JvdW5kOiAjZmZmMWYyOyBib3JkZXItY29sb3I6ICNlMTFkNDg7IGNvbG9yOiAjODgxMzM3OyB9CiAgLnBhbmVsLm9ubGluZSB7IGJhY2tncm91bmQ6ICNmMGZkZjQ7IGJvcmRlci1jb2xvcjogIzE2YTM0YTsgY29sb3I6ICMxNDUzMmQ7IH0KICAucGFuZWwgYnV0dG9uIHsgbWFyZ2luLXRvcDogMTBweDsgcGFkZGluZzogOHB4IDE0cHg7IGJvcmRlci1yYWRpdXM6IDZweDsgYm9yZGVyOiBub25lOyBiYWNrZ3JvdW5kOiAjMTZhMzRhOyBjb2xvcjogI2ZmZjsgY3Vyc29yOiBwb2ludGVyOyB9CiAgLnBhbmVsIGJ1dHRvbjpkaXNhYmxlZCB7IGJhY2tncm91bmQ6ICM5NGEzYjg7IGN1cnNvcjogbm90LWFsbG93ZWQ7IH0KPC9zdHlsZT4KPHNlY3Rpb24gaWQ9InBhbmVsLXNlcndlcmEiIGNsYXNzPSJwYW5lbCBvZmZsaW5lIj4KICA8aDM+V8SZemXFgiBwcm9kdWtjeWpueSBFVS0wMTwvaDM+CiAgPHAgaWQ9ImtvbXVuaWthdC1zdGF0dXN1Ij5TZXJ3ZXIgd3nFgsSFY3pvbnk8L3A+CiAgPGJ1dHRvbiBpZD0iYnRuLXBhbmVsIiBkaXNhYmxlZD5PdHfDs3J6IGtvbnNvbMSZPC9idXR0b24+Cjwvc2VjdGlvbj4="></data-code-runner>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+  <summary>Głębsze spojrzenie: jak silnik przeglądarki buduje DOM i dlaczego textContent wygrywa z innerText</summary>
+
+  <h4>Jak powstaje drzewo DOM i drzewo renderowania</h4>
+  <p>Parser HTML zamienia strumień bajtów w tokeny (np. tag otwierający, atrybuty, tag zamykający), a następnie buduje z nich hierarchię obiektów zgodną ze specyfikacją WHATWG DOM Living Standard. Równolegle parser CSS buduje osobne drzewo stylów nazywane CSSOM. Dopiero połączenie DOM oraz CSSOM tworzy drzewo renderowania, na podstawie którego silnik oblicza geometrię bloków (layout) i maluje piksele na ekranie.</p>
+
+  <h4>Różnica między textContent a innerText</h4>
+  <p>W starszych poradnikach często pojawia się właściwość <code>innerText</code>. W przeciwieństwie do <code>textContent</code>, odczyt <code>innerText</code> uwzględnia aktualne style CSS (np. pomija elementy z <code>display: none</code>). Wymusza to na przeglądarce natychmiastowe przeliczenie układu strony (reflow), co przy częstych wywołaniach potrafi wyraźnie spowolnić aplikację. Właściwość <code>textContent</code> czyta bezpośrednio węzły tekstowe w DOM bez uruchamiania silnika układu.</p>
+
+  <h4>Dlaczego zmiana pojedynczej klasy jest lepsza niż modyfikacja style</h4>
+  <p>Wielokrotne przypisywanie właściwości <code>element.style.color</code>, <code>element.style.border</code> i <code>element.style.background</code> w kodzie JavaScript miesza warstwę logiki z warstwą prezentacji i nadpisuje reguły arkusza CSS stylami liniowymi o wysokiej specyficzności. Przełączanie klas przez <code>classList</code> pozwala utrzymać wszystkie style w pliku CSS oraz ułatwia obsługę motywów (np. trybu ciemnego).</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">HTML a drzewo DOM</span>: HTML to plik tekstowy, a DOM to żywa struktura obiektów w RAM; JavaScript modyfikuje wyłącznie obiekty DOM, a przeglądarka natychmiast odzwierciedla zmiany.</li>
+<li><span class="color-green">Referencje w <code>const</code></span>: stałe powiązanie chroni przed przypadkowym nadpisaniem zmiennej, ale pozwala swobodnie zmieniać tekst, klasy i atrybuty samego węzła.</li>
+<li><span class="color-green">Wynik <code>document.querySelector</code></span>: metoda zwraca pierwszy pasujący element albo <code>null</code>, dlatego zawsze sprawdzaj prefiks <code>#</code> (dla <code>id</code>) oraz <code>.</code> (dla <code>class</code>).</li>
+<li><span class="color-green">Diagnoza błędu</span>: gdy widzisz <span class="color-red">TypeError</span> z komunikatem o <code>null</code>, szukaj przyczyny w linii z <code>querySelector</code>, nie w samej właściwości <code>textContent</code> czy <code>classList</code>.</li>
+<li><span class="color-green"><code>textContent</code> i <code>classList</code></span>: stosuj <code>textContent</code> do bezpiecznej zmiany napisów (bez ryzyka XSS), a <code>classList</code> do przełączania stanów wizualnych w CSS.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Chcesz poćwiczyć namierzanie elementów i modyfikację gotowych struktur HTML w większych projektach? Sprawdź <a href="/arkusze/?qual=INF.03">Katalog zadań praktycznych</a>.</p>
+
+</div>
+</div></section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

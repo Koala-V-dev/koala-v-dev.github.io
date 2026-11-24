@@ -65,10 +65,10 @@ Cel: wprowadzić `ls -l`, `chown`, `chmod`, `chgrp` i audyt uprawnień katalogu.
   </step>
 
   <step id="su-technik">
-    <teach>Przetestowanie dostępu z perspektywy nowego właściciela wymaga przełączenia tożsamości. Otwórz nową sesję powłoki jako użytkownik `technik` za pomocą polecenia `su - technik`.</teach>
+    <teach>Przetestowanie dostępu z perspektywy nowego właściciela wymaga przełączenia tożsamości. Otwórz nową sesję powłoki jako użytkownik `technik` za pomocą polecenia `su - technik` (lub `su technik`).</teach>
     <command>su - technik</command>
-    <run>Polecenie `su -` (*substitute user*) uruchamia interaktywną powłokę logowania wskazanego konta, ładując jego pełne środowisko i zmienne systemowe z katalogu domowego.</run>
-    <expect command="su - technik" session-user="technik"></expect>
+    <run>Polecenie `su` (*substitute user*) uruchamia interaktywną powłokę logowania wskazanego konta, przełączając tożsamość sesji.</run>
+    <expect command-family="su" session-user="technik"></expect>
     <explain>Świetnie! Znalazłeś się w osobnej sesji powłoki uruchomionej z prawami i tożsamością użytkownika `technik`.</explain>
   </step>
 

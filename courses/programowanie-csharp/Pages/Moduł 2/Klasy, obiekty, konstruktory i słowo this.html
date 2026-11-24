@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klasy, obiekty, konstruktory i słowo this - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/programowanie-csharp/">Wprowadzenie</a></li><li class="module">Moduł 0: Fundamenty C# i Myślenie Algorytmiczne</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i pułapki liczb"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20pu%C5%82apki%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i pułapki liczb</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Programowanie Strukturalne i Kolekcje</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 1/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="module">Moduł 2: Fundamenty OOP i Model Pamięci</li><li class="lesson-item lesson" data-path="Moduł 2/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 2/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 2/Enkapsulacja i Właściwości - System Bankowy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Enkapsulacja%20i%20W%C5%82a%C5%9Bciwo%C5%9Bci%20-%20System%20Bankowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i Właściwości - System Bankowy</a></li><li class="lesson-item lesson" data-path="Moduł 2/Dziedziczenie i polimorfizm"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Dziedziczenie%20i%20polimorfizm.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dziedziczenie i polimorfizm</a></li><li class="module">Moduł 3: Architektura OOP i Nowoczesny C#</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy abstrakcyjne i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%20abstrakcyjne%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy abstrakcyjne i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Kompozycja i słowniki Dictionary"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Kompozycja%20i%20s%C5%82owniki%20Dictionary.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kompozycja i słowniki Dictionary</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 3/Wyrażenia lambda i podstawy LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Wyra%C5%BCenia%20lambda%20i%20podstawy%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i podstawy LINQ</a></li><li class="module">Moduł 4: Inżynieria Oprogramowania i Wielki Finał INF.04</li><li class="lesson-item lesson" data-path="Moduł 4/Zasady SOLID i refaktoryzacja kodu"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20SOLID%20i%20refaktoryzacja%20kodu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady SOLID i refaktoryzacja kodu</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projektowanie wieloplikowe i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projektowanie%20wieloplikowe%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie wieloplikowe i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wielki Finał - System Bankowy INF.04"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20-%20System%20Bankowy%20INF.04.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - System Bankowy INF.04</a></li><li class="lesson-item lesson" data-path="Moduł 4/MemReductMini - Menedżer Pamięci Windows"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/MemReductMini%20-%20Mened%C5%BCer%20Pami%C4%99ci%20Windows.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">MemReductMini - Menedżer Pamięci Windows</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Klasy, obiekty, konstruktory i słowo this</h1>
+<p>Wyobraź sobie, że tworzysz sklep internetowy z 50 produktami. Bez obiektów musiałbyś trzymać trzy osobne, niepowiązane listy: <code>List&lt;string&gt; nazwy</code>, <code>List&lt;decimal&gt; ceny</code>, <code>List&lt;int&gt; ilosci</code>. Jeśli usuniesz 12. element z <code>nazwy</code>, ale zapomnisz usunąć go z <code>ceny</code>, cały sklep zacznie sprzedawać laptopy w cenie kabla HDMI.</p>
+<p><span class="color-green">Programowanie Obiektowe (OOP)</span> rozwiązuje ten chaos u źródła: wiąże <span class="color-green">dane</span> i <span class="color-green">operacje na tych danych</span> w jeden spójny organizm zwany <span class="color-green">obiektem</span>, tworzony na podstawie szablonu - <span class="color-green">klasy (<code>class</code>)</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏠 Klasa (projekt) kontra Obiekt (konkretny egzemplarz)</h2>
+<ul>
+<li><span class="color-green">Klasa (<code>class</code>)</span> to <span class="color-green">projekt architektoniczny</span> zapisany w osobnym pliku <code>.cs</code> (np. <code>Produkt.cs</code>). Sama klasa nie zajmuje jeszcze pamięci na dane konkretnego produktu - opisuje tylko, jakie właściwości i metody będzie mieć każdy egzemplarz.</li>
+<li><span class="color-green">Obiekt (instancja)</span> to <span class="color-green">konkretny produkt</span> utworzony w pamięci słowem kluczowym <span class="color-green"><code>new</code></span>. Z jednej klasy <code>Produkt</code> możesz utworzyć tysiąc niezależnych obiektów.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Pełna anatomia klasy: konstruktory, : this(...) i ToString()</h2>
+<p>Spójrz na kompletną klasę <code>Bohater</code> zapisaną w osobnym pliku <code>Bohater.cs</code>:</p>
+<pre><code class="language-csharp">using System;
+
+public class Bohater
+{
+    // 1. Właściwości instancyjne - każdy obiekt ma WŁASNĄ kopię tych danych
+    public string Imie { get; }
+    public int PunktyZycia { get; private set; }
+
+    // 2. Właściwość statyczna (static) - JEDNA wspólna dla całej klasy!
+    public static int LiczbaBohaterow { get; private set; } = 0;
+
+    // 3. Konstruktor główny - uruchamia się przy "new Bohater(...)"
+    public Bohater(string imie, int startoweHp)
+    {
+        if (string.IsNullOrWhiteSpace(imie)) throw new ArgumentException("Brak imienia");
+        if (startoweHp &lt; 0) throw new ArgumentOutOfRangeException(nameof(startoweHp));
+
+        this.Imie = imie;            // słowo "this" wskazuje na bieżący obiekt
+        this.PunktyZycia = startoweHp;
+        LiczbaBohaterow++;
+    }
+
+    // 4. Przeciążenie konstruktora - deleguje pracę do głównego przez ": this(...)"
+    public Bohater(string imie) : this(imie, 100) { }
+
+    // 5. Metoda instancyjna (BEZ słowa static!) - działa na konkretnym obiekcie
+    public void OtrzymajObrazenia(int ile)
+    {
+        if (ile &lt; 0) throw new ArgumentOutOfRangeException(nameof(ile));
+        PunktyZycia = Math.Max(0, PunktyZycia - ile);
+    }
+
+    // 6. Nadpisanie ToString() - decyduje, co wypisze Console.WriteLine(bohater)
+    public override string ToString()
+    {
+        return $"{Imie} ({PunktyZycia} HP)";
+    }
+}
+</code></pre>
+<p>Zobacz, jak czysto używa się tej klasy w <code>Program.cs</code>:</p>
+<pre><code class="language-csharp">var rycerz = new Bohater("Geralt", 120); // używa konstruktora 2-parametrowego
+var uczen = new Bohater("Ciri");         // używa konstruktora 1-parametrowego (: this(..., 100))
+
+rycerz.OtrzymajObrazenia(25);
+
+Console.WriteLine(rycerz);               // automatycznie wywoła rycerz.ToString() -&gt; "Geralt (95 HP)"
+Console.WriteLine(uczen);                // "Ciri (100 HP)"
+Console.WriteLine($"Łącznie bohaterów: {Bohater.LiczbaBohaterow}"); // 2 (wywołanie na KLASIE!)
+</code></pre>
+<h3>⚠️ Pułapka: kiedy static, a kiedy metoda obiektu?</h3>
+<ul>
+<li>Jeśli metoda lub właściwość dotyczy <span class="color-green">jednego konkretnego obiektu</span> (np. <code>rycerz.OtrzymajObrazenia(25)</code>, <code>rycerz.PunktyZycia</code>) → <span class="color-green">NIE używaj <code>static</code></span>.</li>
+<li>Jeśli dana dotyczy <span class="color-green">całego gatunku / fabryki</span> (np. <code>Bohater.LiczbaBohaterow</code>, <code>Math.Max(a, b)</code>) → użyj <span class="color-green"><code>static</code></span> i odwołuj się przez nazwę klasy, a nie obiektu.</li>
+</ul>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Jak obiekt wygląda na stercie CLR i czym naprawdę jest słowo this</span>
+<span class="deep-dive-badge">OOP &amp; PAMIĘĆ CLR</span>
+</summary>
+<div class="deep-dive-content">
+
+<p>Gdy wykonujesz <code>var rycerz = new Bohater("Geralt", 120);</code>, środowisko CLR przydziela na stercie RAM ciągły blok bajtów o ściśle określonym układzie (na architekturze 64‑bitowej):</p>
+<table>
+<thead>
+<tr>
+<th>Przesunięcie</th>
+<th align="center">Rozmiar</th>
+<th>Zawartość w pamięci obiektu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>+0 B</code></td>
+<td align="center">8 B</td>
+<td><span class="color-green">Object Header</span> (SyncBlockIndex - używany przy blokadach wątków i hashowaniu)</td>
+</tr>
+<tr>
+<td><code>+8 B</code></td>
+<td align="center">8 B</td>
+<td><span class="color-green">MethodTable Pointer</span> (adres opisu klasy <code>Bohater</code> i tablicy jej metod!)</td>
+</tr>
+<tr>
+<td><code>+16 B</code></td>
+<td align="center">8 B</td>
+<td>Pole <code>Imie</code> (adres referencji do napisu <code>"Geralt"</code>)</td>
+</tr>
+<tr>
+<td><code>+24 B</code></td>
+<td align="center">4 B</td>
+<td>Pole <code>PunktyZycia</code> (liczba <code>120</code>) + 4 B wyrównania (<span class="color-blue">padding</span>)</td>
+</tr>
+</tbody></table>
+<p>Zauważ rzecz kluczową: <span class="color-green">kod metody <code>OtrzymajObrazenia</code> NIE jest kopiowany do każdego obiektu!</span> Istnieje tylko raz w pamięci klasy. Gdy piszesz <code>rycerz.OtrzymajObrazenia(25)</code>, kompilator tłumaczy to na wywołanie z <span class="color-green">ukrytym pierwszym parametrem <code>this</code></span>:</p>
+<pre><code class="language-csharp">// Co piszesz w C#:
+rycerz.OtrzymajObrazenia(25);
+
+// Co naprawdę wykonuje CLR:
+Bohater.OtrzymajObrazenia(this: rycerz, ile: 25);
+</code></pre>
+<p>Dlatego metoda <code>static</code> nie może odczytać <code>PunktyZycia</code> - w jej ramce na stosie po prostu <span class="color-green">nie ma ukrytego parametru <code>this</code></span>!</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne (2 pliki): Katalog produktów z konstruktorami i ToString()</h2>
+<p>W edytorze masz dwa osobne pliki: <code>Program.cs</code> oraz <span class="color-green"><code>Produkt.cs</code></span>. Kliknij zakładkę <code>Produkt.cs</code> i uzupełnij klasę:</p>
+<ol>
+<li><span class="color-green">Konstruktor główny <code>Produkt(string nazwa, decimal cena, int ilosc)</code></span>:<ul>
+<li>jeśli <code>string.IsNullOrWhiteSpace(nazwa)</code> → rzuć <code>ArgumentException</code>,</li>
+<li>jeśli <code>cena &lt;= 0m</code> lub <code>ilosc &lt; 0</code> → rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>zapisz <code>Nazwa</code>, <code>Cena</code>, <code>Ilosc</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Konstruktor skrócony <code>Produkt(string nazwa, decimal cena) : this(nazwa, cena, 1)</code></span>:<ul>
+<li>deleguje do głównego konstruktora z domyślną ilością <code>1</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ObliczWartoscMagazynu()</code></span>:<ul>
+<li>zwraca <code>Cena * Ilosc</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ZmienCene(decimal nowaCena)</code></span>:<ul>
+<li>jeśli <code>nowaCena &lt;= 0m</code> → rzuć <code>ArgumentOutOfRangeException</code>, inaczej ustaw <code>Cena = nowaCena;</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>override string ToString()</code></span>:<ul>
+<li>zwraca dokładnie <code>$"{Nazwa}: {Cena:F2} zł (szt: {Ilosc})"</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Klasa, przeciążanie konstruktorów (: this) i ToString (2 pliki)">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        var klawiatura = new Produkt("Klawiatura", 250m, 4);
+        var mysz = new Produkt("Mysz", 120m); // używa konstruktora z : this(..., 1)
+
+        klawiatura.ZmienCene(230m);
+
+        Console.WriteLine(klawiatura);
+        Console.WriteLine(mysz);
+        Console.WriteLine($"Wartość magazynu klawiatur: {klawiatura.ObliczWartoscMagazynu():F2} zł");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="Produkt.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class Produkt
+{
+    public string Nazwa { get; }
+    public decimal Cena { get; private set; }
+    public int Ilosc { get; private set; }
+
+    public Produkt(string nazwa, decimal cena, int ilosc)
+    {
+        // TODO 1: Zwaliduj nazwa (ArgumentException), cena &lt;= 0m oraz ilosc &lt; 0 (ArgumentOutOfRangeException)
+        // Przypisz Nazwa, Cena, Ilosc
+    }
+
+    public Produkt(string nazwa, decimal cena) : this(nazwa, cena, 1)
+    {
+        // TODO 2: Ten konstruktor już deleguje przez : this(nazwa, cena, 1) - nie wymaga dodatkowego kodu!
+    }
+
+    public decimal ObliczWartoscMagazynu()
+    {
+        // TODO 3: Zwróć Cena * Ilosc
+        return 0m;
+    }
+
+    public void ZmienCene(decimal nowaCena)
+    {
+        // TODO 4: Jeśli nowaCena &lt;= 0m -&gt; ArgumentOutOfRangeException, inaczej zaktualizuj Cena
+    }
+
+    public override string ToString()
+    {
+        // TODO 5: Zwróć $"{Nazwa}: {Cena:F2} zł (szt: {Ilosc})"
+        return "";
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("Konstruktor główny ustawia Nazwa, Cena, Ilosc i waliduje błędne dane", () =&gt; {
+    var p = new Produkt("Monitor", 800m, 3);
+    LabAssert.Equal("Monitor", p.Nazwa);
+    LabAssert.Equal(800m, p.Cena);
+    LabAssert.Equal(3, p.Ilosc);
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; new Produkt("  ", 100m, 1));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new Produkt("M", 0m, 1));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new Produkt("M", 100m, -2));
+});
+LabAssert.Test("Konstruktor skrócony (: this) ustawia domyślną ilość 1", () =&gt; {
+    var p = new Produkt("Mysz", 99m);
+    LabAssert.Equal(1, p.Ilosc);
+    LabAssert.Equal(99m, p.ObliczWartoscMagazynu());
+});
+LabAssert.Test("ObliczWartoscMagazynu oraz ZmienCene działają poprawnie", () =&gt; {
+    var p = new Produkt("Kabel", 35m, 10);
+    LabAssert.Equal(350m, p.ObliczWartoscMagazynu());
+    p.ZmienCene(40m);
+    LabAssert.Equal(400m, p.ObliczWartoscMagazynu());
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; p.ZmienCene(-10m));
+});
+LabAssert.Test("ToString zwraca wymagany czytelny format", () =&gt; {
+    var p = new Produkt("Mysz", 120m, 2);
+    LabAssert.Equal("Mysz: 120.00 zł (szt: 2)", p.ToString().Replace(',', '.'));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<pre><code class="language-csharp">public Produkt(string nazwa, decimal cena, int ilosc)
+{
+    if (string.IsNullOrWhiteSpace(nazwa)) throw new ArgumentException("Brak nazwy produktu.");
+    if (cena &lt;= 0m) throw new ArgumentOutOfRangeException(nameof(cena));
+    if (ilosc &lt; 0) throw new ArgumentOutOfRangeException(nameof(ilosc));
+
+    Nazwa = nazwa;
+    Cena = cena;
+    Ilosc = ilosc;
+}
+
+public decimal ObliczWartoscMagazynu() =&gt; Cena * Ilosc;
+
+public void ZmienCene(decimal nowaCena)
+{
+    if (nowaCena &lt;= 0m) throw new ArgumentOutOfRangeException(nameof(nowaCena));
+    Cena = nowaCena;
+}
+
+public override string ToString()
+{
+    return $"{Nazwa}: {Cena:F2} zł (szt: {Ilosc})";
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Każda klasa leży we własnym pliku <code>.cs</code>; <span class="color-green">konstruktor</span> gwarantuje, że obiekt od pierwszej milisekundy powstaje w poprawnym stanie.</li>
+<li>Przeciążone konstruktory łącz przez <span class="color-green"><code>: this(...)</code></span>, aby nie kopiować kodu walidacji w dwóch miejscach.</li>
+<li>Metody i właściwości konkretnego egzemplarza pisz <span class="color-green">bez <code>static</code></span>; słowo <code>static</code> rezerwuj dla danych wspólnych dla całej klasy.</li>
+<li>Nadpisuj <span class="color-green"><code>override string ToString()</code></span>, aby obiekty same potrafiły wypisać się w czytelnej formie podczas debugowania i w konsoli.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyrażenia lambda i potoki LINQ - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Wyrażenia lambda i potoki LINQ</h1>
+<p>Masz listę 500 pomiarów sieciowych z serwerów i musisz wyciągnąć trzy najwolniejsze udane odpowiedzi powyżej 50 ms. Zapisanie tego w klasycznej pętli <code>foreach</code> wymaga utworzenia listy pomocniczej, ręcznego filtrowania, napisania komparatora do sortowania oraz osobnej pętli wycinającej trzy pierwsze wyniki. Każda zmiana kryterium zmusza do przebudowy kilkudziesięciu linii kodu.</p>
+<p>W C# te same operacje opisujesz deklaratywnie w kilku czytelnych wierszach. Łączysz w tym celu <span class="color-green">wyrażenia lambda</span> (<code>=&gt;</code>) oraz bibliotekę <span class="color-green">LINQ</span> z przestrzeni <code>System.Linq</code>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧩 Delegaty Func, Action oraz pełna składnia lambd</h2>
+<p><span class="color-green">Wyrażenie lambda</span> to anonimowa funkcja, którą przekazujesz jako argument do innej metody, dokładnie tak jak liczbę albo napis. Zapis <code>p =&gt; p.CzasMs &gt; 50</code> oznacza: „weź parametr <span class="color-blue">p</span> i zwróć wynik porównania <code>p.CzasMs &gt; 50</code>”.</p>
+<p>Aby kompilator wiedział, jaką funkcję może przyjąć metoda, C# dostarcza dwa wbudowane generyczne <span class="color-green">typy delegatów</span>:</p>
+<ul>
+<li><span class="color-green"><code>Func&lt;T, TResult&gt;</code></span>: opisuje funkcję, która przyjmuje argumenty i <span class="color-green">zawsze zwraca wynik</span>. Ostatni parametr typu w nawiasach ostrych to zawsze typ zwracany. Przykładowo <code>Func&lt;int, bool&gt;</code> przyjmuje <code>int</code> i zwraca <code>bool</code>, a <code>Func&lt;int, int, double&gt;</code> przyjmuje dwa <code>int</code> i zwraca <code>double</code>.</li>
+<li><span class="color-green"><code>Action&lt;T&gt;</code></span>: opisuje akcję, która przyjmuje argumenty, ale <span class="color-green">nic nie zwraca</span> (<code>void</code>), na przykład <code>Action&lt;string&gt;</code> do wypisania komunikatu w konsoli.</li>
+</ul>
+<p>Spójrz, jak możesz przekazać warunek jako <code>Func&lt;T, bool&gt;</code> do własnej metody generycznej:</p>
+<pre><code class="language-csharp">public static int PoliczPasujace&lt;T&gt;(IEnumerable&lt;T&gt; dane, Func&lt;T, bool&gt; warunek)
+{
+    int licznik = 0;
+    foreach (T element in dane)
+    {
+        if (warunek(element))
+            licznik++;
+    }
+    return licznik;
+}
+
+// Wywolanie z wyrazeniem lambda:
+int duze = PoliczPasujace(new[] { 10, 80, 120 }, x =&gt; x &gt; 50); // wynik: 2
+</code></pre>
+<p>W zależności od liczby parametrów i złożoności logiki, wyrażenie lambda przyjmuje cztery formy składniowe:</p>
+<table>
+<thead>
+<tr>
+<th>Forma lambdy</th>
+<th>Składnia</th>
+<th>Kiedy stosować?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Jeden parametr</td>
+<td><code>p =&gt; p.CzasMs &gt; 50</code></td>
+<td>Najczęstszy zapis w <code>Where</code>, <code>Select</code> i <code>OrderBy</code></td>
+</tr>
+<tr>
+<td>Zero parametrów</td>
+<td><code>() =&gt; DateTime.Now</code></td>
+<td>Funkcje fabrykujące, testy <code>LabAssert.Throws</code>, zadania w tle</td>
+</tr>
+<tr>
+<td>Wiele parametrów</td>
+<td><code>(a, b) =&gt; a + b</code></td>
+<td>Agregacje, porównywanie par, delegaty wieloargumentowe</td>
+</tr>
+<tr>
+<td><span class="color-green">Lambda blokowa</span></td>
+<td><code>x =&gt; { ... return ...; }</code></td>
+<td>Gdy ciało wymaga zmiennych lokalnych, <code>if</code> lub wielu instrukcji</td>
+</tr>
+</tbody></table>
+<p><span class="color-green">Lambda blokowa</span> używa nawiasów klamrowych <code>{ }</code> i wymaga jawnego słowa kluczowego <code>return</code> (jeśli delegat to <code>Func</code>). Ten zapis przyda się szczególnie przy obsłudze zdarzeń i operacji asynchronicznych w kolejnej lekcji:</p>
+<pre><code class="language-csharp">Func&lt;double, string&gt; klasyfikujPing = ms =&gt;
+{
+    if (ms &lt; 30) return "Szybki";
+    if (ms &lt; 100) return "Sredni";
+    return "Wolny";
+};
+
+Action&lt;string&gt; wypiszLog = tekst =&gt; Console.WriteLine("[LOG] " + tekst);
+wypiszLog(klasyfikujPing(75)); // [LOG] Sredni
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚡ Potok przetwarzania LINQ i operatory</h2>
+<p>Biblioteka <span class="color-green">LINQ</span> (Language Integrated Query) to zestaw metod rozszerzających dla dowolnej kolekcji implementującej <code>IEnumerable&lt;T&gt;</code>: tablic, list <code>List&lt;T&gt;</code>, słowników oraz własnych kolekcji z poprzedniej lekcji. Łącząc wywołania w łańcuch, tworzysz <span class="color-green">potok przetwarzania danych</span>.</p>
+<p><data-csharp-linq-viz></data-csharp-linq-viz></p>
+<h3>🔀 Filtrowanie, sortowanie, grupowanie i spłaszczanie</h3>
+<p>Najważniejsze operatory przekształcające kolekcję w przestrzeni <code>System.Linq</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Operator LINQ</th>
+<th>Rola w potoku</th>
+<th>Przykład użycia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Where</code></td>
+<td>Przepuszcza wyłącznie elementy spełniające predykat</td>
+<td><code>.Where(p =&gt; p.CzyUdany &amp;&amp; p.CzasMs &gt; 40)</code></td>
+</tr>
+<tr>
+<td><code>OrderBy</code> / <code>OrderByDescending</code></td>
+<td>Sortuje rosnąco lub malejąco po głównym kluczu</td>
+<td><code>.OrderByDescending(p =&gt; p.CzasMs)</code></td>
+</tr>
+<tr>
+<td><code>ThenBy</code> / <code>ThenByDescending</code></td>
+<td>Sortowanie drugorzędne przy remisach po <code>OrderBy</code></td>
+<td><code>.ThenBy(p =&gt; p.Host)</code></td>
+</tr>
+<tr>
+<td><code>Select</code></td>
+<td>Mapuje każdy element na nową wartość lub typ (1 do 1)</td>
+<td><code>.Select(p =&gt; p.Host)</code></td>
+</tr>
+<tr>
+<td><code>SelectMany</code></td>
+<td>Spłaszcza zagnieżdżone kolekcje w jedną płaską sekwencję</td>
+<td><code>.SelectMany(serwer =&gt; serwer.Logi)</code></td>
+</tr>
+<tr>
+<td><code>Distinct</code></td>
+<td>Usuwa duplikaty z sekwencji</td>
+<td><code>.Distinct()</code></td>
+</tr>
+<tr>
+<td><code>Skip(n)</code> / <code>Take(n)</code></td>
+<td>Pomija <span class="color-blue">n</span> elementów / pobiera co najwyżej <span class="color-blue">n</span> kolejnych</td>
+<td><code>.Skip(20).Take(10)</code> (paginacja: strona 3)</td>
+</tr>
+<tr>
+<td><code>GroupBy</code></td>
+<td>Grupuje elementy po wspólnym kluczu (<code>g.Key</code>)</td>
+<td><code>.GroupBy(p =&gt; p.Host.ToLowerInvariant())</code></td>
+</tr>
+<tr>
+<td><code>ToDictionary</code></td>
+<td>Materializuje wynik do <code>Dictionary&lt;TKey, TValue&gt;</code></td>
+<td><code>.ToDictionary(g =&gt; g.Key, g =&gt; g.Count())</code></td>
+</tr>
+</tbody></table>
+<p>Zwróć uwagę na dwa operatory często mylone przez początkujących: <code>Select</code> kontra <code>SelectMany</code>. Jeśli masz listę serwerów, a każdy serwer ma własną listę <code>List&lt;string&gt; Logi</code>, to <code>serwery.Select(s =&gt; s.Logi)</code> zwróci kolekcję list (<code>IEnumerable&lt;List&lt;string&gt;&gt;</code>). Dopiero <span class="color-green"><code>SelectMany</code></span> spłaszcza te zagnieżdżone listy w jeden ciągły strumień <code>IEnumerable&lt;string&gt;</code>.</p>
+<p>Z kolei duet <span class="color-green"><code>Skip</code> + <code>Take</code></span> stanowi standardowy mechanizm <span class="color-green">paginacji</span> wyników. Aby pobrać stronę numer <span class="color-blue">strona</span> (liczoną od 1) o rozmiarze <span class="color-blue">rozmiarStrony</span>, pomijasz <code>(strona - 1) * rozmiarStrony</code> rekordów i bierzesz kolejne <span class="color-blue">rozmiarStrony</span>.</p>
+<h3>🎯 Wyszukiwanie pojedynczego elementu i sprawdzanie warunków</h3>
+<p>Gdy szukasz konkretnego rekordu albo chcesz sprawdzić warunek logiczny, wybór właściwego operatora decyduje o bezpieczeństwie i wydajności kodu:</p>
+<ul>
+<li><span class="color-green"><code>First()</code></span> kontra <span class="color-green"><code>FirstOrDefault()</code></span>: oba zwracają pierwszy pasujący element. Gdy kolekcja jest pusta lub nic nie pasuje, <code>First()</code> rzuca <span class="color-red">InvalidOperationException</span>, natomiast <code>FirstOrDefault()</code> bezpiecznie zwraca <code>default(T)</code> (<code>null</code> dla klas, <code>0</code> dla liczb).</li>
+<li><span class="color-green"><code>SingleOrDefault()</code></span>: stosuj wyłącznie wtedy, gdy w kolekcji może istnieć <span class="color-green">co najwyżej jeden</span> pasujący element (na przykład wyszukiwanie po unikalnym <code>Id</code>). Jeśli dopasowań będzie dwa lub więcej, <code>SingleOrDefault()</code> celowo rzuci <span class="color-red">InvalidOperationException</span>, sygnalizując naruszenie unikalności danych.</li>
+<li><span class="color-green"><code>Any()</code></span> kontra <span class="color-green"><code>All()</code></span>: <code>Any(warunek)</code> sprawdza, czy istnieje choć jeden pasujący element, a <code>All(warunek)</code> sprawdza, czy spełniają go wszystkie elementy.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Nigdy nie pisz <code>if (lista.Count() &gt; 0)</code> ani <code>if (lista.Where(x =&gt; x &gt; 10).Count() &gt; 0)</code>. Wywołanie <code>Count()</code> potrafi przejść przez całą kolekcję do samego końca. Zamiast tego użyj <span class="color-green"><code>Any()</code></span>, które zatrzymuje się natychmiast po znalezieniu pierwszego pasującego elementu.</p>
+
+</div>
+</div><p>Spójrz na przykład analizy logów sieciowych z serwerów gry:</p>
+<pre><code class="language-csharp">var najwolniejszeHosty = pomiary
+    .Where(p =&gt; p.CzyUdany &amp;&amp; p.CzasMs &gt;= 50)
+    .OrderByDescending(p =&gt; p.CzasMs)
+    .ThenBy(p =&gt; p.Host)
+    .Take(3)
+    .Select(p =&gt; p.Host)
+    .ToList();
+
+var sredniPingHostow = pomiary
+    .Where(p =&gt; p.CzyUdany)
+    .GroupBy(p =&gt; p.Host.ToLowerInvariant())
+    .ToDictionary(g =&gt; g.Key, g =&gt; g.Average(x =&gt; x.CzasMs));
+</code></pre>
+<h3>⚠️ Zachowanie operatorów na pustej sekwencji</h3>
+<p>Jednym z najczęstszych źródeł awarii w aplikacjach produkcyjnych jest założenie, że każda agregacja LINQ na pustej liście zwraca <code>0</code>. Rzeczywiste zachowanie zależy od operatora:</p>
+<table>
+<thead>
+<tr>
+<th>Operator na pustej sekwencji</th>
+<th>Wynik dla <code>int</code> / <code>double</code></th>
+<th>Wynik dla klasy (np. <code>string</code>)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Count()</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>Any()</code></td>
+<td><code>false</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>All(warunek)</code></td>
+<td><code>true</code> (pusta prawda)</td>
+<td><code>true</code> (pusta prawda)</td>
+</tr>
+<tr>
+<td><code>Sum()</code></td>
+<td><code>0</code> lub <code>0.0</code></td>
+<td>nie dotyczy</td>
+</tr>
+<tr>
+<td><code>Average()</code></td>
+<td>rzuca <span class="color-red">InvalidOperationException</span></td>
+<td>nie dotyczy</td>
+</tr>
+<tr>
+<td><code>Min()</code> / <code>Max()</code></td>
+<td>rzuca <span class="color-red">InvalidOperationException</span></td>
+<td><code>null</code></td>
+</tr>
+<tr>
+<td><code>First()</code> / <code>Single()</code></td>
+<td>rzuca <span class="color-red">InvalidOperationException</span></td>
+<td>rzuca <span class="color-red">InvalidOperationException</span></td>
+</tr>
+<tr>
+<td><code>FirstOrDefault()</code> / <code>SingleOrDefault()</code></td>
+<td><code>0</code> lub <code>0.0</code></td>
+<td><code>null</code></td>
+</tr>
+</tbody></table>
+<p>Zanim wywołasz <code>Average()</code>, <code>Min()</code> lub <code>Max()</code> na przefiltrowanych liczbach, sprawdź przez <code>Any()</code>, czy sekwencja nie jest pusta. Inaczej pojedynczy dzień bez danych lub nietrafiony filtr zatrzyma aplikację wyjątkiem.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⏳ Odroczone wykonanie i pułapka wielokrotnej enumeracji</h2>
+<p>Operatory pośrednie (<code>Where</code>, <code>Select</code>, <code>OrderBy</code>, <code>Skip</code>, <code>Take</code>) <span class="color-green">nie wykonują obliczeń w chwili wywołania</span>. Zwracają obiekt <code>IEnumerable&lt;T&gt;</code>, który jest jedynie opisem potoku gotowym do uruchomienia. To zachowanie nazywamy <span class="color-gold">odroczonym wykonaniem</span> (Deferred Execution).</p>
+<p>Faktyczne przetwarzanie startuje dopiero w momencie <span class="color-green">materializacji</span>:</p>
+<ul>
+<li>gdy wywołasz <code>.ToList()</code>, <code>.ToArray()</code> lub <code>.ToDictionary(...)</code>,</li>
+<li>gdy wywołasz agregację lub pobranie elementu (<code>.Count()</code>, <code>.Sum(...)</code>, <code>.Any()</code>, <code>.FirstOrDefault()</code>),</li>
+<li>gdy przeiterujesz wynik w pętli <code>foreach</code>.</li>
+</ul>
+<p>Jeśli po zdefiniowaniu zapytania dopiszesz element do źródłowej listy, zapytanie zobaczy go podczas późniejszej materializacji:</p>
+<pre><code class="language-csharp">var logi = new List&lt;int&gt; { 12, 85, 34 };
+IEnumerable&lt;int&gt; wysokie = logi.Where(ms =&gt; ms &gt; 50); // Jeszcze nic nie policzono!
+
+logi.Add(140); // Dodane po zdefiniowaniu zapytania
+
+// Dopiero teraz LINQ przeglada liste i zwraca [85, 140]
+List&lt;int&gt; wynik = wysokie.ToList();
+</code></pre>
+<p>Odroczone wykonanie ma jednak drugą stronę: <span class="color-green">wielokrotną enumerację</span>. Załóżmy, że filtrujesz 500 000 rekordów i zapisujesz wynik jako leniwy obiekt <code>IEnumerable&lt;Pomiar&gt;</code>:</p>
+<pre><code class="language-csharp">IEnumerable&lt;Pomiar&gt; wolne = pomiary.Where(p =&gt; p.CzasMs &gt; 100);
+
+int liczba = wolne.Count();            // 1. przejscie: 500 000 sprawdzen
+double suma = wolne.Sum(p =&gt; p.CzasMs); // 2. przejscie: 500 000 sprawdzen
+foreach (var p in wolne) { ... }        // 3. przejscie: 500 000 sprawdzen
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Każda z trzech powyższych linii uruchamia filtr <code>Where</code> od zera! Zamiast 500 000 sprawdzeń program wykonuje <span class="color-red">1 500 000 operacji</span> i trzykrotnie marnuje czas procesora. Gdy wynik zapytania wykorzystujesz więcej niż raz, zmaterializuj go raz na początku przez <code>.ToList()</code>.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj realną potrzebę w aplikacji do właściwego operatora LINQ">
+  <item left="Sprawdzenie, czy istnieje choć jeden błąd krytyczny bez liczenia całej listy" right="Any(warunek)"></item>
+  <item left="Połączenie list logów ze wszystkich serwerów w jedną płaską kolekcję" right="SelectMany(...)"></item>
+  <item left="Pobranie pierwszego pasującego użytkownika lub null, gdy go brak" right="FirstOrDefault(warunek)"></item>
+  <item left="Wyświetlenie czwartej strony wyników raportu po 20 rekordów" right="Skip(60).Take(20)"></item>
+  <item left="Zapisanie przefiltrowanego wyniku przed użyciem go w Count, Sum i foreach" right="ToList()"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Maszyna stanów yield return i domknięcia (Closures)</span>
+<span class="deep-dive-badge">ROSLYN LOWERING · IENUMERABLE · CLOSURES</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Maszyna stanów yield return i brak pośrednich list w RAM</h4>
+
+<p>Częsty mit głosi, że <code>.Where(...).Select(...).Take(5).ToList()</code> tworzy w pamięci kolejno trzy pośrednie listy. W rzeczywistości operatory strumieniowe (<code>Where</code>, <code>Select</code>, <code>Take</code>) są zaimplementowane jako iteratory z <code>yield return</code>.</p>
+<p>Podczas kompilacji kompilator Roslyn przeprowadza obniżanie składni (lowering) i zamienia metodę z <code>yield return</code> w ukrytą klasę maszyny stanów implementującą <code>IEnumerable&lt;T&gt;</code> oraz <code>IEnumerator&lt;T&gt;</code>:</p>
+<pre><code class="language-csharp">// Uproszczony kod generowany przez kompilator dla iteratora Where:
+private sealed class WhereIterator&lt;T&gt; : IEnumerable&lt;T&gt;, IEnumerator&lt;T&gt;
+{
+    private int state;          // aktualny etap (0 = start, 1 = petla, -1 = koniec)
+    private T current;          // biezacy element zwracany przez Current
+    private IEnumerator&lt;T&gt; src; // iterator zrodlowy
+
+    public bool MoveNext()
+    {
+        while (src.MoveNext())
+        {
+            if (predicate(src.Current)) { current = src.Current; return true; }
+        }
+        return false;
+    }
+}
+</code></pre>
+<p>Gdy <code>ToList()</code> wywołuje <code>MoveNext()</code> na <code>Take(5)</code>, potok „ciągnie” pojedynczy element od końca do początku. Jeśli pierwsze 5 pasujących rekordów leży wśród pierwszych 40 elementów miliona rekordów, iterator zatrzymuje się po <span class="color-green">40 krokach</span> i w ogóle nie czyta pozostałych <span class="color-green">999 960 rekordów</span>. Wyjątkiem są <code>OrderBy</code> oraz <code>GroupBy</code>, które muszą zbuforować wszystkie elementy, zanim wydadzą pierwszy wynik.</p>
+<h4>2. Domknięcia (Closures) i klasyczny błąd pętli for z lambdą</h4>
+
+<p>Wyrażenie lambda może odczytywać zmienne lokalne z otaczającej metody, na przykład <code>int prog = 50; lista.Where(x =&gt; x &gt; prog);</code>. Zmienna lokalna leży jednak na stosie, który zniknie po wyjściu z metody, a lambda może zostać wywołana znacznie później.</p>
+<p>Roslyn rozwiązuje ten problem, generując ukrytą klasę pomocniczą na stercie (<code>&lt;&gt;c__DisplayClass0_0</code>) i przenosząc przechwyconą zmienną <span class="color-blue">prog</span> jako pole tej klasy (lifting). Stąd bierze się znany błąd z pętlą <code>for</code>:</p>
+<pre><code class="language-csharp">var akcje = new List&lt;Func&lt;int&gt;&gt;();
+for (int i = 0; i &lt; 3; i++)
+{
+    akcje.Add(() =&gt; i); // Kazda lambda przechwytuje TO SAMO pole 'i' na stercie!
+}
+// Wywolanie akcje[0](), akcje[1](), akcje[2]() zwroci: 3, 3, 3 zamiast 0, 1, 2!
+</code></pre>
+<p>Wszystkie trzy lambdy wskazują na tę samą instancję ukrytej klasy z jednym polem <span class="color-blue">i</span>, które po zakończeniu pętli ma wartość <code>3</code>. Poprawka wymaga utworzenia zmiennej lokalnej wewnątrz pętli (<code>int kopia = i; akcje.Add(() =&gt; kopia);</code>), co zmusza kompilator do utworzenia osobnej instancji domknięcia dla każdej iteracji.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Analityka procesów w LINQ</h2>
+<p>W klasie <code>AnalizatorLinq</code> uzupełnij pięć metod operujących na liście <code>List&lt;WpisProcesu&gt;</code>:</p>
+<ol>
+<li><span class="color-green"><code>TopNazwy(List&lt;WpisProcesu&gt; procesy, int ile)</code></span>:<ul>
+<li>dla <code>procesy == null</code> lub <code>ile &lt;= 0</code> zwróć pustą listę nazw,</li>
+<li>posortuj procesy malejąco po zużyciu pamięci, pobierz co najwyżej <span class="color-blue">ile</span> pierwszych i zwróć listę ich nazw.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>SumaPamieciDlaNazwy(List&lt;WpisProcesu&gt; procesy, string nazwa)</code></span>:<ul>
+<li>dla <code>procesy == null</code> lub pustej nazwy zwróć <code>0.0</code>,</li>
+<li>zsumuj zużycie pamięci wszystkich procesów o podanej nazwie bez rozróżniania wielkości liter.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>PodsumujGrupami(List&lt;WpisProcesu&gt; procesy)</code></span>:<ul>
+<li>dla <code>procesy == null</code> zwróć pusty słownik,</li>
+<li>pogrupuj procesy po nazwie sprowadzonej do małych liter i zsumuj pamięć w każdej grupie.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>SredniaPamiecAktywnych(List&lt;WpisProcesu&gt; procesy, double progMb)</code></span>:<ul>
+<li>dla <code>procesy == null</code> zwróć <code>0.0</code>,</li>
+<li>odfiltruj procesy zużywające co najmniej <span class="color-blue">progMb</span> pamięci (<code>&gt;=</code>) i oblicz ich średnie zużycie pamięci,</li>
+<li>jeśli żaden proces nie spełnia warunku, zwróć bezpiecznie <code>0.0</code> bez rzucania wyjątku przez <code>Average()</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZnajdzNajciezszyLubNull(List&lt;WpisProcesu&gt; procesy, string prefiksNazwy)</code></span>:<ul>
+<li>dla <code>procesy == null</code> lub pustego prefiksu zwróć <code>null</code>,</li>
+<li>znajdź proces, którego nazwa zaczyna się od <span class="color-blue">prefiksNazwy</span> (bez rozróżniania wielkości liter) i ma największe zużycie pamięci,</li>
+<li>jeśli brak pasujących procesów, zwróć <code>null</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Potoki LINQ - filtrowanie, sortowanie, grupowanie i bezpieczne agregacje" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class WpisProcesu
+{
+    public string Nazwa { get; private set; }
+    public double PamiecMb { get; private set; }
+
+    public WpisProcesu(string nazwa, double pamiecMb)
+    {
+        Nazwa = nazwa;
+        PamiecMb = pamiecMb;
+    }
+}
+
+public class AnalizatorLinq
+{
+    public static List&lt;string&gt; TopNazwy(List&lt;WpisProcesu&gt; procesy, int ile)
+    {
+        // Zwroc nazwy 'ile' najbardziej pamieciozernych procesow (zabezpiecz null i ile &lt;= 0)
+        return new List&lt;string&gt;();
+    }
+
+    public static double SumaPamieciDlaNazwy(List&lt;WpisProcesu&gt; procesy, string nazwa)
+    {
+        // Zsumuj pamiec procesow o podanej nazwie bez rozrozniania wielkosci liter
+        return 0.0;
+    }
+
+    public static Dictionary&lt;string, double&gt; PodsumujGrupami(List&lt;WpisProcesu&gt; procesy)
+    {
+        // Zbuduj slownik: nazwa (malymi literami) -&gt; laczna pamiec MB
+        return new Dictionary&lt;string, double&gt;();
+    }
+
+    public static double SredniaPamiecAktywnych(List&lt;WpisProcesu&gt; procesy, double progMb)
+    {
+        // Policz srednia pamiec dla procesow z PamiecMb &gt;= progMb; dla braku wynikow zwroc 0.0
+        return 0.0;
+    }
+
+    public static WpisProcesu ZnajdzNajciezszyLubNull(List&lt;WpisProcesu&gt; procesy, string prefiksNazwy)
+    {
+        // Zwroc najciezszy proces zaczynajacy sie od prefiksNazwy (ignore case) lub null
+        return null;
+    }
+
+    static void Main()
+    {
+        var lista = new List&lt;WpisProcesu&gt;
+        {
+            new WpisProcesu("chrome", 250.0),
+            new WpisProcesu("Chrome", 310.0),
+            new WpisProcesu("discord", 180.0),
+            new WpisProcesu("notepad", 12.5)
+        };
+
+        Console.WriteLine("Top 2: " + string.Join(", ", TopNazwy(lista, 2)));
+        Console.WriteLine("Suma Chrome: " + SumaPamieciDlaNazwy(lista, "CHROME") + " MB");
+        Console.WriteLine("Srednia &gt;= 100 MB: " + SredniaPamiecAktywnych(lista, 100.0) + " MB");
+        var najciezszyChr = ZnajdzNajciezszyLubNull(lista, "chr");
+        Console.WriteLine("Najciezszy chr*: " + (najciezszyChr != null ? najciezszyChr.PamiecMb.ToString() : "brak"));
+
+        var grupy = PodsumujGrupami(lista);
+        foreach (var para in grupy)
+        {
+            Console.WriteLine(para.Key + ": " + para.Value + " MB");
+        }
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("TopNazwy sortuje malejaco po pamieci i obsluguje przypadki brzegowe", () =&gt; {
+    var lista = new List&lt;WpisProcesu&gt; {
+        new WpisProcesu("a", 50),
+        new WpisProcesu("b", 300),
+        new WpisProcesu("c", 120)
+    };
+    LabAssert.Equal("b,c", string.Join(",", AnalizatorLinq.TopNazwy(lista, 2)));
+    LabAssert.Equal("b,c,a", string.Join(",", AnalizatorLinq.TopNazwy(lista, 10)));
+    LabAssert.Equal(0, AnalizatorLinq.TopNazwy(lista, 0).Count);
+    LabAssert.Equal(0, AnalizatorLinq.TopNazwy(lista, -3).Count);
+    LabAssert.Equal(0, AnalizatorLinq.TopNazwy(null, 2).Count);
+    LabAssert.Equal(0, AnalizatorLinq.TopNazwy(new List&lt;WpisProcesu&gt;(), 3).Count);
+});
+
+LabAssert.Test("SumaPamieciDlaNazwy ignoruje wielkosc liter i obsluguje null oraz brak dopasowan", () =&gt; {
+    var lista = new List&lt;WpisProcesu&gt; {
+        new WpisProcesu("chrome", 100.5),
+        new WpisProcesu("CHROME", 200.5),
+        new WpisProcesu("edge", 150.0)
+    };
+    LabAssert.Equal(301.0, AnalizatorLinq.SumaPamieciDlaNazwy(lista, "Chrome"));
+    LabAssert.Equal(0.0, AnalizatorLinq.SumaPamieciDlaNazwy(lista, "firefox"));
+    LabAssert.Equal(0.0, AnalizatorLinq.SumaPamieciDlaNazwy(new List&lt;WpisProcesu&gt;(), "chrome"));
+    LabAssert.Equal(0.0, AnalizatorLinq.SumaPamieciDlaNazwy(null, "chrome"));
+    LabAssert.Equal(0.0, AnalizatorLinq.SumaPamieciDlaNazwy(lista, null));
+    LabAssert.Equal(0.0, AnalizatorLinq.SumaPamieciDlaNazwy(lista, ""));
+});
+
+LabAssert.Test("PodsumujGrupami laczy nazwy niezaleznie od wielkosci liter i obsluguje null oraz pusta liste", () =&gt; {
+    var lista = new List&lt;WpisProcesu&gt; {
+        new WpisProcesu("chrome", 100.0),
+        new WpisProcesu("Chrome", 250.0),
+        new WpisProcesu("discord", 180.0)
+    };
+    var mapa = AnalizatorLinq.PodsumujGrupami(lista);
+    LabAssert.Equal(2, mapa.Count);
+    LabAssert.Equal(350.0, mapa["chrome"]);
+    LabAssert.Equal(180.0, mapa["discord"]);
+
+    LabAssert.Equal(0, AnalizatorLinq.PodsumujGrupami(new List&lt;WpisProcesu&gt;()).Count);
+    LabAssert.Equal(0, AnalizatorLinq.PodsumujGrupami(null).Count);
+});
+
+LabAssert.Test("SredniaPamiecAktywnych liczy srednia powyzej progu i nie rzuca wyjatku dla pustego wyniku", () =&gt; {
+    var lista = new List&lt;WpisProcesu&gt; {
+        new WpisProcesu("notepad", 20.0),
+        new WpisProcesu("discord", 100.0),
+        new WpisProcesu("chrome", 300.0)
+    };
+    LabAssert.Equal(200.0, AnalizatorLinq.SredniaPamiecAktywnych(lista, 100.0));
+    LabAssert.Equal(300.0, AnalizatorLinq.SredniaPamiecAktywnych(lista, 250.0));
+    LabAssert.Equal(0.0, AnalizatorLinq.SredniaPamiecAktywnych(lista, 999.0));
+    LabAssert.Equal(0.0, AnalizatorLinq.SredniaPamiecAktywnych(new List&lt;WpisProcesu&gt;(), 10.0));
+    LabAssert.Equal(0.0, AnalizatorLinq.SredniaPamiecAktywnych(null, 10.0));
+});
+
+LabAssert.Test("ZnajdzNajciezszyLubNull wybiera najwiekszy pasujacy proces lub zwraca null", () =&gt; {
+    var lista = new List&lt;WpisProcesu&gt; {
+        new WpisProcesu("chrome_helper", 120.0),
+        new WpisProcesu("Chrome_main", 420.0),
+        new WpisProcesu("code", 280.0)
+    };
+    var znaleziony = AnalizatorLinq.ZnajdzNajciezszyLubNull(lista, "CHR");
+    LabAssert.Equal(true, znaleziony != null);
+    LabAssert.Equal("Chrome_main", znaleziony.Nazwa);
+    LabAssert.Equal(420.0, znaleziony.PamiecMb);
+
+    LabAssert.Equal(true, AnalizatorLinq.ZnajdzNajciezszyLubNull(lista, "firefox") == null);
+    LabAssert.Equal(true, AnalizatorLinq.ZnajdzNajciezszyLubNull(new List&lt;WpisProcesu&gt;(), "chr") == null);
+    LabAssert.Equal(true, AnalizatorLinq.ZnajdzNajciezszyLubNull(null, "chr") == null);
+    LabAssert.Equal(true, AnalizatorLinq.ZnajdzNajciezszyLubNull(lista, "") == null);
+    LabAssert.Equal(true, AnalizatorLinq.ZnajdzNajciezszyLubNull(lista, null) == null);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Gdy przekazujesz logikę jako argument do metody:</strong> użyj delegatu <code>Func&lt;..., TResult&gt;</code> dla funkcji zwracających wartość lub <code>Action&lt;...&gt;</code> dla operacji <code>void</code>, zapisując samą logikę jako zwięzłą lambdę (lub lambdę blokową przy wielu instrukcjach).</li>
+<li><strong>Gdy sprawdzasz istnienie elementu lub pobierasz pierwszy wynik:</strong> wybieraj <code>Any()</code> zamiast <code>Count() &gt; 0</code> oraz <code>FirstOrDefault()</code> zamiast <code>First()</code>, aby uniknąć zbędnego skanowania i <span class="color-red">InvalidOperationException</span>.</li>
+<li><strong>Gdy liczysz <code>Average()</code>, <code>Min()</code> lub <code>Max()</code> na przefiltrowanych liczbach:</strong> najpierw upewnij się przez <code>Any()</code>, że sekwencja nie jest pusta.</li>
+<li><strong>Gdy wynik zapytania LINQ wykorzystujesz więcej niż raz:</strong> zmaterializuj go jednorazowo przez <code>.ToList()</code>, aby uniknąć wielokrotnej enumeracji tej samej kolekcji.</li>
+<li><strong>Gdy musisz spłaszczyć kolekcję kolekcji lub podzielić dane na strony:</strong> sięgnij po <code>SelectMany(...)</code> dla spłaszczania oraz duet <code>Skip(n).Take(m)</code> dla paginacji.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #38bdf8; }
+      .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #94a3b8; }
+      .step-num { font-family: monospace; font-size: 10px; font-weight: 700; }
+      .step-title { font-family: system-ui, -apple-system, sans-serif; font-size: 11.5px; font-weight: 700; text-anchor: middle; }
+      .step-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 9.5px; fill: #94a3b8; text-anchor: middle; }
+      .loop-label { font-family: system-ui, -apple-system, sans-serif; font-size: 9.5px; font-weight: 600; }
+    </style>
+    <!-- Groty strzałek -->
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- Tło panelu -->
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  <rect x="15" y="15" width="610" height="280" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="10"/>
+
+  <!-- Nagłówek -->
+  <text x="35" y="44" class="title">CSMA/CD: Wykrywanie kolizji w sieci przewodowej (Ethernet)</text>
+  <text x="35" y="64" class="subtitle">Pełny cykl badania nośnika, reakcji na zderzenie pakietów i losowego wznowienia</text>
+
+  <!-- Krok 1: Carrier Sense -->
+  <g transform="translate(35, 85)">
+    <rect width="110" height="52" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <text x="55" y="22" class="step-title" fill="#38bdf8">1. Carrier Sense</text>
+    <text x="55" y="38" class="step-desc">Badanie napięcia kabla</text>
+  </g>
+
+  <!-- Strzałka 1 -> 2 -->
+  <line x1="145" y1="111" x2="175" y2="111" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Krok 2: Nadawanie -->
+  <g transform="translate(180, 85)">
+    <rect width="110" height="52" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <text x="55" y="22" class="step-title" fill="#38bdf8">2. Nadawanie</text>
+    <text x="55" y="38" class="step-desc">Wysyłanie ramki</text>
+  </g>
+
+  <!-- Strzałka 2 -> 3 -->
+  <line x1="290" y1="111" x2="325" y2="111" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Krok 3: Kolizja! -->
+  <g transform="translate(330, 85)">
+    <rect width="120" height="52" fill="#450a0a" stroke="#ef4444" stroke-width="2" rx="6"/>
+    <text x="60" y="22" class="step-title" fill="#fca5a5">💥 3. KOLIZJA!</text>
+    <text x="60" y="38" class="step-desc" fill="#f87171">Skok napięcia w kablu</text>
+  </g>
+
+  <!-- Strzałka 3 -> 4 -->
+  <line x1="450" y1="111" x2="485" y2="111" stroke="#ef4444" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Krok 4: JAM -->
+  <g transform="translate(490, 85)">
+    <rect width="115" height="52" fill="#0f172a" stroke="#ef4444" stroke-width="1.5" rx="6"/>
+    <text x="57" y="22" class="step-title" fill="#ef4444">4. Sygnał JAM</text>
+    <text x="57" y="38" class="step-desc">32 bity ostrzeżenia</text>
+  </g>
+
+  <!-- Płynna strzałka 4 -> 5 (zgięta) -->
+  <path d="M 547 137 L 547 195 L 470 195" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr-amber)"/>
+
+  <!-- Krok 5: Backoff -->
+  <g transform="translate(210, 170)">
+    <rect width="255" height="50" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" rx="6"/>
+    <text x="127" y="22" class="step-title" fill="#fbbf24">5. Exponential Backoff (BEB)</text>
+    <text x="127" y="38" class="step-desc">Odczekanie losowego interwału r × 51.2 µs</text>
+  </g>
+
+  <!-- Pętla powrotna: 5 -> 1 (w lewo i w górę do dołu Krok 1) -->
+  <path d="M 210 195 L 90 195 L 90 142" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="96" y="178" class="loop-label" fill="#34d399">Ponowny nasłuch</text>
+
+  <!-- Gałąź sukcesu: Brak kolizji (z Kroku 2 w dół) -->
+  <path d="M 235 137 L 235 255 L 350 255" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <rect x="355" y="240" width="225" height="30" fill="#064e3b" stroke="#10b981" stroke-width="1" rx="4"/>
+  <text x="467" y="260" class="step-title" fill="#86efac">Brak kolizji → Transmisja OK ✅</text>
+</svg>

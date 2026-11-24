@@ -1,6 +1,6 @@
-# Przygotowanie ISO — Środowisko Rozruchowe
+# Przygotowanie ISO - Środowisko Rozruchowe
 
-W pracy inżyniera systemowego zamiast tracić godziny na debugowanie ekstremalnie zużytego środowiska, często optymalnym wyborem jest dekompozycja i odbudowa od nowa — *tabula rasa* (czysta karta) 📖. 
+W pracy inżyniera systemowego zamiast tracić godziny na debugowanie ekstremalnie zużytego środowiska, często optymalnym wyborem jest dekompozycja i odbudowa od nowa - *tabula rasa* (czysta karta) 📖. 
 
 Pierwszym krokiem jest utworzenie środowiska rozruchowego. 🥸
 
@@ -77,31 +77,6 @@ Wersja $2.0$ wprowadziła obsługę algorytmu `SHA-256`. Stanowi to absolutny wy
 
 ---
 
-## 🛠️ Punkt Kontrolny: Wymagania brzegowe
-
-Zrozumienie blokad sprzętowych i logiki dostarczania paczek systemowych.
-
-<data-gate>
-  <data-quiz>
-    <question>
-Jakie są minimalne wymagania dotyczące ilości pamięci RAM oraz miejsca na dysku, aby móc poprawnie uruchamiać wersję systemu Windows 11?
-    </question>
-    <options>
-      <option>$16 GB$ RAM i $128 GB$ miejsca na dysku</option>
-      <option correct>$4 GB$ RAM i $64 GB$ miejsca na dysku</option>
-      <option>$8 GB$ RAM i $32 GB$ miejsca na dysku</option>
-    </options>
-    <div data-hint="error">
-      W pytaniu jest mowa o minimalnych wymaganiach brzegowych, które pozwalają uruchomić system.
-    </div>
-    <div data-hint="success">
-      Brawo! Windows 11 jest bardziej wymagający niż jego poprzednicy w architekturze pamięciowej.
-    </div>
-  </data-quiz>
-</data-gate>
-
----
-
 ## 💾 Deploy: Tworzenie instalacyjnego pendrive'a
 
 <div class="cross-knowledge" id="rufus-ventoy">
@@ -145,7 +120,7 @@ Mamy do dyspozycji dwa świetne i darmowe rozwiązania:
 
 **[Ventoy](https://www.ventoy.net/en/download.html)** to zupełnie inna klasa oprogramowania (Chainloader). Instalujesz go na dysku USB tylko raz.
 
-Największą przewagą Ventoy jest **brak konieczności formatowania nośnika** przy zmianie obrazu. Mając jeden pojemny pendrive, możesz umieścić na nim dziesiątki plików $\text{ISO}$ — np. instalatory Windows 11, serwerowe edycje dystrybucji Linux oraz środowiska diagnostyczne — po prostu je kopiując. 
+Największą przewagą Ventoy jest **brak konieczności formatowania nośnika** przy zmianie obrazu. Mając jeden pojemny pendrive, możesz umieścić na nim dziesiątki plików $\text{ISO}$ - np. instalatory Windows 11, serwerowe edycje dystrybucji Linux oraz środowiska diagnostyczne - po prostu je kopiując. 
 
 Po zbootowaniu z USB, Ventoy wyświetli listę wszystkich obecnych na dysku obrazów $\text{ISO}$ i po dokonaniu wyboru zainicjuje wskazany system, emulując w locie sprzętowy napęd optyczny.
 
@@ -156,8 +131,8 @@ Po zbootowaniu z USB, Ventoy wyświetli listę wszystkich obecnych na dysku obra
 4. Kliknij **Install** (Zainstaluj).
    ![Aplikacja Ventoy2Disk z wybranym pendrivem i przyciskiem Install](/public/courses/windows-11/Images/instalacja_Ventoy.webp)
 5. Po instalacji, otwórz *Ten Komputer*. Ventoy podzielił pendrive na dwa obszary:
-   - **`Ventoy`** (zazwyczaj format `exFAT`) – to Twoja główna, potężna przestrzeń. Tu będziesz wrzucać pliki instalacyjne $\text{ISO}$.
-   - **`VTOYEFI`** (zaledwie $32\text{ MB}$ w `FAT32`) – to partycja rozruchowa z bootloaderem. Windows bardzo często samoistnie przypisze jej literę i pokaże ją obok, mimo że powinna być ukryta. **_Pamiętaj: nic na nią nie wrzucasz i absolutnie jej nie modyfikujesz!_**
+   - **`Ventoy`** (zazwyczaj format `exFAT`) - to Twoja główna, potężna przestrzeń. Tu będziesz wrzucać pliki instalacyjne $\text{ISO}$.
+   - **`VTOYEFI`** (zaledwie $32\text{ MB}$ w `FAT32`) - to partycja rozruchowa z bootloaderem. Windows bardzo często samoistnie przypisze jej literę i pokaże ją obok, mimo że powinna być ukryta. **_Pamiętaj: nic na nią nie wrzucasz i absolutnie jej nie modyfikujesz!_**
  ![Dysk Ventoy w Eksploratorze plików i w przystawce zarządzania dyskami](/public/courses/windows-11/Images/ventoy_partycje.webp)
 6. **Po prostu skopiuj plik ISO Windows 11** i wklej na ten nośnik. To wszystko!
 
@@ -183,14 +158,39 @@ Przetestuj zrozumienie zależności środowiska przed przystąpieniem do operacj
 
 ---
 
-### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Hybrydowa struktura obrazu ISO 9660 / UDF i specyfikacja El Torito</span><span class="deep-dive-badge">Bootloader & File Formats</span></summary>
 
-- $\text{ISO}$ to zamknięty, skompresowany system plików zawierający instalator gotowy do wdrożenia,
-- serwisy zewnętrzne jak *basewin.pl* mogą dostarczać nośniki z wbudowanymi obejściami wymagań sprzętowych,
-- Windows 11 twardo weryfikuje zabezpieczenia sprzętowe procesów w tle (`TPM 2.0` i `UEFI` z `Secure Boot`),
-- proces tworzenia nośnika instalacyjnego w Rufusie to głęboka modyfikacja dysku USB pozwalająca wstrzyknąć parametry omijania wymagań sprzętowych,
-- Ventoy eliminuje potrzebę ciągłego formatowania pendrive'a za pomocą ukrytej logiki *Chainloadera*.
+Obraz `.iso` systemu Windows 11 to w rzeczywistości skomplikowany, hybrydowy kontener danych łączący systemy plików **UDF** (*Universal Disk Format*) oraz **ISO 9660** ze specyfikacją rozruchową **El Torito**.
+
+### 1. Rozszerzenie El Torito i sektor rozruchowy
+Aby płyta DVD lub zamontowany plik ISO mógł uruchomić komputer, w sektorze $17$ nośnika (LBA 17, przy rozmiarze sektora 2048 bajtów) znajduje się deskryptor **Boot Record Volume Descriptor**:
+- Zawiera on wskaźnik do **Katalogu Rozruchowego** (*Boot Catalog*).
+- Katalog definiuje wpisy dla różnych architektur sprzętowych: wpis domyślny BIOS (x86 Real Mode) oraz wpisy EFI (x86_64 UEFI).
+- Wpis EFI wskazuje na skompresowany obraz partycji FAT12/FAT16 o nazwie `efisys.bin`, wewnątrz którego znajduje się plik wykonywalny `EFI\BOOT\BOOTX64.EFI`.
+
+### 2. Dlaczego Windows 11 wymaga UDF zamiast ISO 9660?
+Tradycyjny system plików ISO 9660 (Level 1 i 2) posiadał sztywne ograniczenie: maksymalny rozmiar pojedynczego pliku wynosił **$4\ \text{GiB}$** (z powodu 32-bitowego pola długości pliku).
+Główny plik z obrazem systemu Windows 11 (**`install.wim`**) ma obecnie rozmiar przekraczający **$5\ \text{GB}$**. Z tego powodu instalator Windows wykorzystuje format UDF w rewizji 1.02/2.01, który operuje na 64-bitowych wskaźnikach i znosi limit $4\ \text{GiB}$.
+
+### 3. Jak Rufus wstrzykuje obejścia wymagań (Bypass TPM / Secure Boot)
+Gdy w programie Rufus zaznaczysz opcję *„Remove requirement for 4GB+ RAM, Secure Boot and TPM 2.0”*:
+- Rufus wypakowuje strukturę ISO na pendrive i odnajduje plik odpowiedzi instalatora automatycznego `autounattend.xml` lub modyfikuje obraz `boot.wim` (drugi indeks, czyli instalator Windows Setup).
+- W kluczu rejestru instalatora `HKEY_LOCAL_MACHINE\SYSTEM\Setup\LabConfig` wstrzykiwane są wartości DWORD równe `1`:
+  - `BypassTPMCheck = 1`
+  - `BypassSecureBootCheck = 1`
+  - `BypassRAMCheck = 1`
+  - `BypassStorageCheck = 1`
+- Gdy instalator uruchamia bibliotekę weryfikacyjną `appraiserres.dll`, obecność tych flag zmusza kod do pominięcia zapytań WMI o obecność układu TPM i zakończenia testu statusem sukcesu (`STATUS_SUCCESS`).
+
+</details>
 
 ---
 
-W następnej lekcji poznamy zasady wirtualizacji instalacji i wejdziemy w środowisko VirtualBox. 🚀
+### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
+
+- Obraz ISO to kontener plików łączący system plików UDF i specyfikację rozruchową El Torito.
+- Windows 11 weryfikuje zabezpieczenia sprzętowe procesora i płyty głównej: TPM 2.0, UEFI oraz Secure Boot.
+- Oficjalny instalator `install.wim` przekracza limit $4\ \text{GB}$, co wymaga formatu UDF lub partycji NTFS na pendrive.
+- Program Rufus pozwala na wstrzyknięcie wpisów do klucza `LabConfig`, co umożliwia wdrożenie systemu na starszym sprzęcie laboratoryjnym.
+- Narzędzie Ventoy eliminuje potrzebę ponownego formatowania nośnika dzięki łańcuchowemu ładowaniu obrazów ISO w locie.

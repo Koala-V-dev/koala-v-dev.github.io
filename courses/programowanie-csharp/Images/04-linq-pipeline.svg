@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t42 d42">
+  <title id="t42">Potok zapytań LINQ: źródło → Where → GroupBy → OrderByDescending → Take → ToList</title>
+  <desc id="d42">Schemat strumieniowego przetwarzania procesów w LINQ: operacje pośrednie są leniwe (Deferred Execution) i wykonują się dopiero w momencie materializacji przez ToList() lub foreach.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .stage { fill: #172554; stroke: #38bdf8; stroke-width: 1.6; rx: 8; }
+    .mat { fill: #064e3b; stroke: #34d399; stroke-width: 2; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 11.5px Consolas, monospace; fill: #f8fafc; }
+    @keyframes flowLinq { 0% { stroke-dashoffset: 32; } 100% { stroke-dashoffset: 0; } }
+    .pipe { stroke: #38bdf8; stroke-width: 2.5; stroke-dasharray: 6 6; animation: flowLinq 1.2s linear infinite; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Potok LINQ — strumieniowe przetwarzanie danych z odroczonym wykonaniem (Deferred Execution)</text>
+  <text x="24" y="48" class="sub">Etapy Where/OrderBy/Take tylko opisują przepis. Rzeczywiste przetwarzanie startuje dopiero przy .ToList() lub foreach!</text>
+
+  <rect x="24" y="72" width="144" height="106" class="card"/>
+  <text x="36" y="96" class="title">Źródło</text>
+  <text x="36" y="120" class="mono">procesy</text>
+  <text x="36" y="142" class="sub">180 procesów</text>
+  <text x="36" y="160" class="sub">Windows 11</text>
+
+  <line x1="168" y1="125" x2="200" y2="125" class="pipe"/>
+
+  <rect x="200" y="72" width="160" height="106" class="stage"/>
+  <text x="212" y="96" class="title">.Where(...)</text>
+  <text x="212" y="120" class="mono" fill="#38bdf8">p =&gt; p.Mb &gt; 50</text>
+  <text x="212" y="144" class="sub">Filtruje tylko</text>
+  <text x="212" y="162" class="sub">ciężkie procesy</text>
+
+  <line x1="360" y1="125" x2="392" y2="125" class="pipe"/>
+
+  <rect x="392" y="72" width="194" height="106" class="stage"/>
+  <text x="404" y="96" class="title">.OrderByDescending</text>
+  <text x="404" y="120" class="mono" fill="#38bdf8">p =&gt; p.Mb</text>
+  <text x="404" y="144" class="sub">Sortuje od</text>
+  <text x="404" y="162" class="sub">największego RAM</text>
+
+  <line x1="586" y1="125" x2="618" y2="125" class="pipe"/>
+
+  <rect x="618" y="72" width="198" height="106" class="mat"/>
+  <text x="630" y="96" class="title">.Take(5).ToList()</text>
+  <text x="630" y="120" class="mono" fill="#34d399">Materializacja!</text>
+  <text x="630" y="144" class="sub">Zwraca gotową</text>
+  <text x="630" y="162" class="sub">List&lt;ProcesInfo&gt;</text>
+
+  <rect x="24" y="198" width="792" height="44" rx="8" fill="#1e293b" stroke="#334155"/>
+  <text x="40" y="224" class="sub">Zasada: jeśli iterujesz po wyniku LINQ więcej niż raz, wywołaj na końcu .ToList(), aby nie liczyć zapytania dwukrotnie.</text>
+</svg>
+

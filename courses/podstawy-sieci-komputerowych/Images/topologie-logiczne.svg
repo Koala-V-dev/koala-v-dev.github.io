@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0a0f1d; }
+      .header-title { font-family: system-ui, -apple-system, sans-serif; font-size: 21px; font-weight: 800; fill: #ffffff; }
+      .header-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 500; fill: #cbd5e1; }
+      .card { fill: #131d31; stroke: #3b4d6b; stroke-width: 2; rx: 12; }
+      .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 800; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 12.5px; font-weight: 700; fill: #f1f5f9; }
+      .node { fill: #0a0f1d; stroke: #38bdf8; stroke-width: 2.5; rx: 6; }
+      .node-text { font-family: monospace; font-size: 12px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .wire-p2p { stroke: #38bdf8; stroke-width: 4; }
+      .wire-bus { stroke: #f59e0b; stroke-width: 4.5; }
+      .wire-drop { stroke: #f59e0b; stroke-width: 2.5; }
+      .wire-ring { stroke: #10b981; stroke-width: 3.5; fill: none; }
+      .token-box { fill: #fbbf24; stroke: #d97706; stroke-width: 1.5; rx: 4; }
+      .token-text { font-family: monospace; font-size: 10px; font-weight: 900; fill: #0f172a; text-anchor: middle; }
+      .badge-box { fill: #090d16; stroke-width: 1.5; rx: 6; }
+      .badge-text { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+    </style>
+    <filter id="card-shadow" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="300" class="bg"/>
+
+  <g transform="translate(40, 34)">
+    <text x="0" y="0" class="header-title">Trzy modele topologii logicznych</text>
+    <text x="0" y="22" class="header-desc">Sposób przepływu danych i reguły arbitrażu medium niezależnie od geometrii kabli</text>
+  </g>
+
+  <!-- ================= 1. PUNKT-PUNKT ================= -->
+  <g transform="translate(30, 78)" filter="url(#card-shadow)">
+    <rect width="280" height="202" class="card"/>
+    <text x="20" y="28" class="title" fill="#38bdf8">1. Punkt-Punkt (Point-to-Point)</text>
+    <text x="20" y="48" class="subtitle">Dedykowany kanał: Host A ⇄ Host B</text>
+
+    <!-- Schemat połączenia -->
+    <g transform="translate(20, 62)">
+      <line x1="55" y1="25" x2="185" y2="25" class="wire-p2p"/>
+      <!-- Host A -->
+      <g transform="translate(0, 3)">
+        <rect width="60" height="44" class="node"/>
+        <text x="30" y="27" class="node-text">Host A</text>
+      </g>
+      <!-- Host B -->
+      <g transform="translate(180, 3)">
+        <rect width="60" height="44" class="node"/>
+        <text x="30" y="27" class="node-text">Host B</text>
+      </g>
+      <circle cx="120" cy="25" r="15" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="120" y="30" font-family="sans-serif" font-size="14px" font-weight="900" fill="#ffffff" text-anchor="middle">⇄</text>
+    </g>
+
+    <!-- Pigułka WCAG -->
+    <rect x="20" y="146" width="240" height="38" class="badge-box" stroke="#0284c7"/>
+    <text x="140" y="170" class="badge-text" fill="#38bdf8">Łącze na wyłączność • 0 kolizji</text>
+  </g>
+
+  <!-- ================= 2. WIELODOSTĘP ================= -->
+  <g transform="translate(340, 78)" filter="url(#card-shadow)">
+    <rect width="280" height="202" class="card" stroke="#f59e0b"/>
+    <text x="20" y="28" class="title" fill="#fbbf24">2. Wielodostęp (Multiaccess)</text>
+    <text x="20" y="48" class="subtitle">Medium współdzielone: Wszyscy słyszą</text>
+
+    <!-- Schemat magistrali logicznej -->
+    <g transform="translate(20, 56)">
+      <!-- Szyna główna -->
+      <line x1="15" y1="48" x2="225" y2="48" class="wire-bus"/>
+      <!-- Odczepy do stacji -->
+      <line x1="45" y1="48" x2="45" y2="30" class="wire-drop"/>
+      <line x1="120" y1="48" x2="120" y2="30" class="wire-drop"/>
+      <line x1="195" y1="48" x2="195" y2="30" class="wire-drop"/>
+
+      <!-- Hosty na górze -->
+      <g transform="translate(18, 2)">
+        <rect width="54" height="28" class="node" stroke="#f59e0b"/>
+        <text x="27" y="19" class="node-text">PC 1</text>
+      </g>
+      <g transform="translate(93, 2)">
+        <rect width="54" height="28" class="node" stroke="#f59e0b"/>
+        <text x="27" y="19" class="node-text">PC 2</text>
+      </g>
+      <g transform="translate(168, 2)">
+        <rect width="54" height="28" class="node" stroke="#f59e0b"/>
+        <text x="27" y="19" class="node-text">PC 3</text>
+      </g>
+    </g>
+
+    <!-- Pigułka WCAG -->
+    <rect x="20" y="146" width="240" height="38" class="badge-box" stroke="#f59e0b"/>
+    <text x="140" y="170" class="badge-text" fill="#fbbf24">Wspólny nośnik • Ryzyko kolizji</text>
+  </g>
+
+  <!-- ================= 3. PIERŚCIEŃ (TOKEN PASSING) ================= -->
+  <g transform="translate(650, 78)" filter="url(#card-shadow)">
+    <rect width="280" height="202" class="card" stroke="#10b981"/>
+    <text x="20" y="28" class="title" fill="#34d399">3. Pierścień (Token Passing)</text>
+    <text x="20" y="48" class="subtitle">Sekwencyjna pętla z żetonem</text>
+
+    <!-- Schemat pierścienia -->
+    <g transform="translate(20, 56)">
+      <circle cx="120" cy="38" r="34" class="wire-ring"/>
+      <!-- 4 stacje po okręgu -->
+      <circle cx="120" cy="4" r="13" fill="#0a0f1d" stroke="#34d399" stroke-width="2"/>
+      <text x="120" y="8" class="node-text" fill="#ffffff">A</text>
+
+      <circle cx="154" cy="38" r="13" fill="#0a0f1d" stroke="#34d399" stroke-width="2"/>
+      <text x="154" y="42" class="node-text" fill="#ffffff">B</text>
+
+      <circle cx="120" cy="72" r="13" fill="#0a0f1d" stroke="#34d399" stroke-width="2"/>
+      <text x="120" y="76" class="node-text" fill="#ffffff">C</text>
+
+      <circle cx="86" cy="38" r="13" fill="#0a0f1d" stroke="#34d399" stroke-width="2"/>
+      <text x="86" y="42" class="node-text" fill="#ffffff">D</text>
+
+      <!-- Żeton w locie -->
+      <g transform="translate(130, 8)">
+        <rect width="36" height="16" class="token-box"/>
+        <text x="18" y="12" class="token-text">TOKEN</text>
+      </g>
+    </g>
+
+    <!-- Pigułka WCAG -->
+    <rect x="20" y="146" width="240" height="38" class="badge-box" stroke="#10b981"/>
+    <text x="140" y="170" class="badge-text" fill="#34d399">Dostęp żetonowy • Determinizm</text>
+  </g>
+</svg>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt ProcScout - Skaner procesów i portów TCP z LINQ - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Projekt ProcScout - Skaner procesów i portów TCP z LINQ</h1>
+<p>Otwórz Menedżer zadań na komputerze programisty. Zamiast jednej pozycji przeglądarki zobaczysz 25 osobnych wierszy <code>chrome</code>, 12 instancji <code>Code</code> i kilka procesów <code>discord</code>.</p>
+<p>W takim widoku trudno jednym rzutem oka ocenić, która aplikacja faktycznie pochłania najwięcej pamięci RAM. Trudno też szybko sprawdzić, które lokalne porty TCP są już zajęte przez uruchomione serwery deweloperskie.</p>
+<p>W tym projekcie zbudujesz pobieralne narzędzie diagnostyczne <span class="color-green"><code>ProcScout.exe</code></span>, które łączy wszystkie filary Modułu 4 w jedną spójną architekturę:</p>
+<ul>
+<li><span class="color-green">Typy generyczne:</span> bufor cykliczny <code>HistoriaPomiarow&lt;T&gt;</code> rejestrujący historię łącznego zużycia RAM z kolejnych skanów w stałej pamięci.</li>
+<li><span class="color-green">Potoki LINQ:</span> grupowanie wieloprocesowych aplikacji, sortowanie z rozstrzyganiem remisów oraz filtrowanie unikalnych portów TCP.</li>
+<li><span class="color-green">Zasady SOLID:</span> wydzielenie eksportu za interfejs <code>IScoutExporter</code> z implementacją <code>CsvScoutExporter</code> oraz oddzielenie konsolowego menu (<code>Program.cs</code>) od czystego, testowalnego silnika (<code>ScoutEngine.cs</code>).</li>
+</ul>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔍 Bezpieczny odczyt procesów, uchwyty jądra i potok LINQ</h2>
+<p>Każdy obiekt <code>System.Diagnostics.Process</code> utrzymuje po stronie systemu Windows natywny uchwyt jądra (kernel handle). Klasa <code>Process</code> implementuje interfejs <span class="color-gold">IDisposable</span>, więc każdy pobrany uchwyt musi zostać jawnie zwolniony po odczycie danych.</p>
+<p>W pętli skanującej najlepiej zamknąć każdy obiekt <span class="color-blue">p</span> w bloku <code>using (p)</code>, a sam odczyt jego właściwości otoczyć blokiem <code>try / catch</code>:</p>
+<pre><code class="language-csharp">foreach (var p in Process.GetProcesses())
+{
+    using (p)
+    {
+        try
+        {
+            double pamiecMib = p.WorkingSet64 / (1024.0 * 1024.0);
+            rekordy.Add(new ProcesRekord(p.ProcessName, pamiecMib));
+        }
+        catch
+        {
+            // Procesy systemowe chronione (np. Idle, System) odmawiaja odczytu
+        }
+    }
+}
+</code></pre>
+<p>Blok <code>using (p)</code> kompilator zamienia na <code>try / finally { p.Dispose(); }</code>. Masz gwarancję, że uchwyt jądra wróci do systemu nawet wtedy, gdy odczyt pamięci rzuci wyjątek braku uprawnień.</p>
+<p>Właściwość <code>WorkingSet64</code> zwraca fizyczną pamięć zajmowaną przez proces w bajtach. Dzielenie przez <code>1024.0 * 1024.0</code> przelicza bajty na <span class="color-green">MiB</span> (mebibajty), a zapis zmiennoprzecinkowy <code>1024.0</code> chroni przed ucięciem ułamka w dzieleniu całkowitym.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Pominięcie <code>using (p)</code> lub <code>p.Dispose()</code> w narzędziu odświeżającym skan w pętli prowadzi do <span class="color-red">wycieku uchwytów jądra</span>. Po kilkunastu odświeżeniach proces gromadzi tysiące otwartych uchwytów w systemie Windows.</p>
+
+</div>
+</div><h3>🔗 Agregacja wieloprocesowych aplikacji</h3>
+<p>Surowa lista <code>ProcesRekord</code> zawiera dziesiątki wpisów o tej samej nazwie (czasem różniących się wielkością liter, np. <code>chrome</code> i <code>Chrome</code>). Zamiast budować ręczne słowniki i pętle sortujące, przepuszczasz dane przez potok LINQ.</p>
+<p>Każdy operator w łańcuchu odpowiada za jedno zadanie: grupowanie po małych literach, wyliczenie statystyk grupy, ustawienie liderów RAM na początku, deterministyczne rozstrzygnięcie remisów alfabetycznie, obcięcie listy do <span class="color-blue">topN</span> wyników oraz finalną materializację do listy.</p>
+<data-gate>
+<data-sortable-list title="Ułóż etapy potoku agregacji LINQ dla procesów systemu Windows">
+  <item data-correct="3">OrderByDescending: posortowanie aplikacji malejąco według łącznego zużycia RAM</item>
+  <item data-correct="1">GroupBy: pogrupowanie rekordów po nazwie procesu sprowadzonej do małych liter</item>
+  <item data-correct="5">Take: wybranie pierwszych N najbardziej pamięciożernych aplikacji</item>
+  <item data-correct="2">Select: zamiana każdej grupy w obiekt GrupaAplikacji z liczbą instancji i sumą MiB</item>
+  <item data-correct="6">ToList: materializacja odroczonego zapytania LINQ do gotowej listy w pamięci</item>
+  <item data-correct="4">ThenBy: alfabetyczne rozstrzygnięcie remisów między aplikacjami o równym zużyciu RAM</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌐 Porty nasłuchujące TCP i architektura SOLID z historią pomiarów</h2>
+<p>Klasa <code>IPGlobalProperties</code> z przestrzeni nazw <code>System.Net.NetworkInformation</code> pozwala pobrać tablicę wszystkich lokalnych punktów końcowych (<code>IPEndPoint</code>) w stanie <code>LISTEN</code>. Działa bez uprawnień administratora i pokazuje, które porty są aktualnie zajęte przez działające usługi.</p>
+<p>Standard <span class="color-green">RFC 6335</span> dzieli 16‑bitową przestrzeń numerów portów na trzy kategorie:</p>
+<table>
+<thead>
+<tr>
+<th>Zakres portów (RFC 6335)</th>
+<th>Nazwa kategorii</th>
+<th>Przykłady zastosowań</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0..1023</code></td>
+<td>Porty dobrze znane (Well‑Known)</td>
+<td>HTTP <code>80</code>, HTTPS <code>443</code>, SSH <code>22</code>, SMB <code>445</code></td>
+</tr>
+<tr>
+<td><code>1024..49151</code></td>
+<td>Porty zarejestrowane (Registered)</td>
+<td>MySQL <code>3306</code>, RDP <code>3389</code>, Vite <code>5173</code>, Minecraft <code>25565</code></td>
+</tr>
+<tr>
+<td><code>49152..65535</code></td>
+<td>Porty efemeryczne (Dynamic/Ephemeral)</td>
+<td>Dynamiczne połączenia wychodzące i lokalne gniazda IPC</td>
+</tr>
+</tbody></table>
+<p>Ta sama usługa sieciowa często nasłuchuje jednocześnie na adresie IPv4 (<code>0.0.0.0</code>) oraz IPv6 (<code>::</code>), więc jej numer portu pojawia się na surowej liście dwukrotnie. Operator <code>Distinct</code> usuwa te duplikaty przed posortowaniem wyników rosnąco.</p>
+<h3>🏛️ Połączenie SOLID i bufora cyklicznego w jednym narzędziu</h3>
+<p>Formatowanie tabeli CSV nie powinno siedzieć na sztywno w <code>Program.cs</code> ani w silniku skanującym. Wydzielenie interfejsu <code>IScoutExporter</code> i klasy <code>CsvScoutExporter</code> realizuje zasady <span class="color-green">SRP</span>, <span class="color-green">OCP</span> oraz <span class="color-green">DIP</span>: w przyszłości możesz dopisać <code>JsonScoutExporter</code> bez zmiany logiki skanowania.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Na polskiej wersji systemu Windows domyślne formatowanie liczb zmiennoprzecinkowych (<code>F1</code>) używa przecinka dziesiętnego (<code>550,5</code>). Zawsze przekazuj <code>CultureInfo.InvariantCulture</code> do <code>string.Format</code>, aby raport CSV używał kropki (<code>550.5</code>) i otwierał się poprawnie w każdym parserze na świecie.</p>
+
+</div>
+</div><p>Z kolei przy wielokrotnym odświeżaniu skanu w interaktywnym menu konsolowym przydaje się generyczna klasa <code>HistoriaPomiarow&lt;T&gt;</code>. Działa jak <span class="color-green">bufor cykliczny</span> o stałej pojemności: pamięta na przykład 5 ostatnich pomiarów łącznego RAM i nadpisuje najstarszy wpis bez niekontrolowanego rozrostu listy.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj zakres portów TCP lub mechanizm .NET do jego roli w ProcScout">
+  <item left="Porty 0..1023" right="Porty dobrze znane (systemowe), m.in. HTTP 80, HTTPS 443 i SMB 445"></item>
+  <item left="Porty 1024..49151" right="Porty zarejestrowane aplikacji użytkownika, np. MySQL 3306 i Vite 5173"></item>
+  <item left="Porty 49152..65535" right="Pula portów efemerycznych przydzielanych dynamicznie połączeniom wychodzącym"></item>
+  <item left="using (p) na obiekcie Process" right="Natychmiastowe zwolnienie natywnego uchwytu jądra Windows nawet przy wyjątku"></item>
+  <item left="CultureInfo.InvariantCulture" right="Wymuszenie kropki dziesiętnej w CSV niezależnie od polskich ustawień Windows"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: iphlpapi.dll, Site Isolation i wyczerpanie portów efemerycznych</span>
+<span class="deep-dive-badge">WIN32 IPHLPAPI · SPECTRE · SIECI TCP/IP</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Wywołania iphlpapi.dll pod spodem GetActiveTcpListeners i netstat -ano</h4>
+
+<p>Wewnątrz .NET Framework metoda <code>GetActiveTcpListeners()</code> wywołuje przez mechanizm P/Invoke natywne funkcje z biblioteki systemowej <span class="color-green"><code>iphlpapi.dll</code></span> (IP Helper API): <code>GetTcpTable</code> dla IPv4 oraz <code>GetTcp6Table</code> dla IPv6. Biblioteka ta odpytuje sterownik sieciowy <code>tcpip.sys</code> o aktualną tablicę gniazd w stanie <code>MIB_TCP_STATE_LISTEN</code>.</p>
+<p>Struktura <code>MIB_TCPTABLE</code> zwraca adres lokalny, port zapisany w kolejności sieciowej (big‑endian, więc .NET zamienia bajty na little‑endian x86‑64) oraz stan gniazda. Rozszerzona funkcja <code>GetExtendedTcpTable</code> zwraca dodatkowo identyfikator procesu właściciela <code>dwOwningPid</code>:</p>
+<pre><code class="language-c">// Sygnatura w Win32 API (iphlpapi.dll), z ktorej korzysta m.in. netstat -ano:
+DWORD GetExtendedTcpTable(
+    PVOID pTcpTable, PDWORD pdwSize, BOOL bOrder,
+    ULONG ulAf, TCP_TABLE_CLASS TableClass, ULONG Reserved
+);
+</code></pre>
+<p>Odczyt samej listy lokalnych portów nasłuchujących nie wymaga uprawnień administratora, ponieważ program nie otwiera surowego gniazda sieciowego ani nie przechwytuje cudzych pakietów. Narzędzie systemowe <span class="color-green"><code>netstat -ano</code></span> korzysta właśnie z <code>GetExtendedTcpTable</code> z flagą <code>TCP_TABLE_OWNER_PID_LISTENER</code>, aby dopisać kolumnę <code>PID</code>.</p>
+<h4>2. Architektura Site Isolation w przeglądarkach po ataku Spectre</h4>
+
+<p>Dawniej przeglądarka działała jako jeden proces, a każda karta była osobnym wątkiem. Zawieszenie jednej strony zamykało całe okno, a wszystkie karty dzieliły wspólną przestrzeń adresową pamięci.</p>
+<p>W 2018 roku ujawniono klasę ataków sprzętowych <span class="color-red">Spectre</span>, pozwalających odczytać dowolny bajt pamięci w obrębie tego samego procesu przez spekulatywne wykonywanie instrukcji CPU i pomiar czasu dostępu do cache L1. Złośliwy skrypt na jednej karcie mógł w ten sposób wykraść hasła lub tokeny sesyjne z innej karty.</p>
+<p>Współczesne przeglądarki stosują architekturę <span class="color-green">Site Isolation</span> (Process‑per-Site‑Instance):</p>
+<ul>
+<li>każda domena otrzymuje osobny, odizolowany proces w piaskownicy (sandbox) z własną tablicą stron pamięci,</li>
+<li>osobne procesy obsługują GPU, stos sieciowy, dekodery multimediów oraz rozszerzenia.</li>
+</ul>
+<p>Z punktu widzenia bezpieczeństwa to ogromny zysk. Z punktu widzenia diagnostyki RAM wymusza jednak agregację przez <code>GroupBy</code>, aby zobaczyć prawdziwy koszt całej aplikacji.</p>
+<h4>3. Pula portów efemerycznych, stan TIME_WAIT i błąd SocketException 10048</h4>
+
+<p>Od systemu Windows Vista aż po Windows 11 jądro przydziela połączeniom wychodzącym dokładnie <span class="color-green">16 384 porty efemeryczne</span> (<code>49152..65535</code>).</p>
+<p>Jeśli źle napisany klient HTTP tworzy w pętli tysiące nowych obiektów <code>HttpClient</code> na sekundę bez ich ponownego użycia, każde zamykane gniazdo trafia w stan <code>TIME_WAIT</code> na 120 sekund. Po wyczerpaniu całej puli 16 384 portów system odrzuca kolejne połączenia wychodzące błędem <span class="color-red">SocketException (10048: Address already in use)</span>.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Modułu 4: Zbuduj i pobierz ProcScout.exe</h2>
+<p>W zakładce <span class="color-green"><code>ScoutEngine.cs</code></span> uzupełnij cztery elementy łączące generyki, LINQ i zasady SOLID:</p>
+<ol>
+<li><span class="color-green">Generyczna klasa <code>HistoriaPomiarow&lt;T&gt;</code></span>:<ul>
+<li>konstruktor przyjmuje <span class="color-blue">pojemnosc</span> (<code>int</code>); dla wartości mniejszej lub równej <code>0</code> rzuca <code>ArgumentOutOfRangeException("pojemnosc")</code>,</li>
+<li>udostępnia właściwości <code>Count</code> (liczba aktualnie zapisanych wpisów) oraz <code>Pojemnosc</code> (maksymalny rozmiar bufora),</li>
+<li>metoda <code>Dodaj(T pomiar)</code> dopisuje pomiar do tablicy cyklicznej, nadpisując najstarszy wpis po zapełnieniu,</li>
+<li>metoda <code>PobierzWszystkie()</code> zwraca nową <code>List&lt;T&gt;</code> z elementami ułożonymi chronologicznie od najstarszego do najnowszego.</li>
+</ul>
+</li>
+<li><span class="color-green">Klasa <code>CsvScoutExporter</code> implementująca <code>IScoutExporter</code></span>:<ul>
+<li>metoda <code>Eksportuj(List&lt;GrupaAplikacji&gt; grupy)</code> zawsze zaczyna wynik od wiersza nagłówkowego <code>"Aplikacja;Instancje;RamMB"</code>,</li>
+<li>jeśli <span class="color-blue">grupy</span> nie są <code>null</code>, dopisuje po jednym wierszu rozdzielonym średnikami (nazwa, liczba instancji, pamięć RAM z jednym miejscem po przecinku w <code>CultureInfo.InvariantCulture</code>),</li>
+<li>łączy wszystkie wiersze znakiem nowej linii <code>"\n"</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ScoutEngine.AgregujAplikacje(List&lt;ProcesRekord&gt; procesy, int topN)</code></span>:<ul>
+<li>dla <span class="color-blue">procesy</span> równych <code>null</code> lub <span class="color-blue">topN</span> mniejszego bądź równego <code>0</code> zwraca pustą <code>List&lt;GrupaAplikacji&gt;</code>,</li>
+<li>grupuje rekordy niezależnie od wielkości liter (klucz sprowadzony do małych liter), zlicza instancje i sumuje pamięć RAM,</li>
+<li>sortuje malejąco po łącznej pamięci RAM, rozstrzyga remisy alfabetycznie po nazwie, ogranicza wynik do <span class="color-blue">topN</span> pozycji i zwraca gotową listę.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ScoutEngine.FiltrujPortyUzytkownika(List&lt;int&gt; porty)</code></span>:<ul>
+<li>dla <span class="color-blue">porty</span> równych <code>null</code> zwraca pustą <code>List&lt;int&gt;</code>,</li>
+<li>przepuszcza wyłącznie poprawne porty użytkownika z przedziału <code>1024..65535</code>, usuwa duplikaty i zwraca wynik posortowany rosnąco.</li>
+</ul>
+</li>
+</ol>
+<p>Plik <span class="color-green"><code>Program.cs</code></span> wykonuje automatyczny pierwszy skan od razu po starcie, a na prawdziwym terminalu Windows uruchamia interaktywne menu (odświeżanie skanu z historią RAM, filtrowanie po nazwie, podgląd portów TCP i zapis raportu CSV na dysk). Po przejściu testów kliknij <span class="color-green">⬇ Pobierz .exe</span> i przetestuj <code>ProcScout.exe</code> na swoim komputerze.</p>
+<data-gate>
+<data-csharp-lab title="Projekt Modułu 4: ProcScout (Generyki + LINQ + SOLID)" exe-name="ProcScout.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.NetworkInformation;
+
+class Program
+{
+    static List&lt;ProcesRekord&gt; SkanujProcesy()
+    {
+        var rekordy = new List&lt;ProcesRekord&gt;();
+        foreach (var p in Process.GetProcesses())
+        {
+            using (p)
+            {
+                try
+                {
+                    rekordy.Add(new ProcesRekord(p.ProcessName, p.WorkingSet64 / (1024.0 * 1024.0)));
+                }
+                catch
+                {
+                    // Pomijamy procesy systemowe bez uprawnien do odczytu pamieci
+                }
+            }
+        }
+        return rekordy;
+    }
+
+    static List&lt;int&gt; SkanujPortyTcp()
+    {
+        var surowe = IPGlobalProperties.GetIPGlobalProperties()
+            .GetActiveTcpListeners()
+            .Select(ep =&gt; ep.Port)
+            .ToList();
+        return ScoutEngine.FiltrujPortyUzytkownika(surowe);
+    }
+
+    static void PokazHistorieRam(HistoriaPomiarow&lt;double&gt; historia)
+    {
+        var pomiary = historia.PobierzWszystkie()
+            .Select(mb =&gt; mb.ToString("F1", CultureInfo.InvariantCulture) + " MiB");
+        Console.WriteLine("Historia lacznego RAM (ostatnie " + historia.Count + "/" + historia.Pojemnosc + " skanow): " + string.Join(" -&gt; ", pomiary));
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("=== PROCSCOUT v2.0 (Generyki + LINQ + SOLID) ===");
+
+        IScoutExporter exporter = new CsvScoutExporter();
+        var historiaRam = new HistoriaPomiarow&lt;double&gt;(5);
+
+        var rekordy = SkanujProcesy();
+        historiaRam.Dodaj(rekordy.Sum(r =&gt; r.PamiecMb));
+        var ostatnieTop = ScoutEngine.AgregujAplikacje(rekordy, 8);
+
+        Console.WriteLine("\nTop 8 aplikacji (zsumowane instancje):");
+        Console.WriteLine(exporter.Eksportuj(ostatnieTop));
+        PokazHistorieRam(historiaRam);
+
+        try
+        {
+            var porty = SkanujPortyTcp().Take(15).ToList();
+            Console.WriteLine("\nOtwarte porty uzytkownika TCP (pierwsze 15): " + string.Join(", ", porty));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("\nPorty TCP niedostepne w tym srodowisku: " + ex.Message);
+        }
+
+        if (Console.IsInputRedirected)
+            return;
+
+        string wybor;
+        do
+        {
+            Console.WriteLine("\n--- MENU PROCSCOUT ---");
+            Console.WriteLine("[1] Odswiez skan procesow");
+            Console.WriteLine("[2] Filtruj proces po nazwie");
+            Console.WriteLine("[3] Pokaz porty TCP");
+            Console.WriteLine("[4] Zapisz raport CSV na dysk");
+            Console.WriteLine("[0] Wyjdz");
+            Console.Write("Wybor: ");
+
+            wybor = Console.ReadLine();
+            if (wybor == null)
+                break;
+
+            wybor = wybor.Trim();
+            switch (wybor)
+            {
+                case "1":
+                    rekordy = SkanujProcesy();
+                    historiaRam.Dodaj(rekordy.Sum(r =&gt; r.PamiecMb));
+                    ostatnieTop = ScoutEngine.AgregujAplikacje(rekordy, 8);
+                    Console.WriteLine("\n" + exporter.Eksportuj(ostatnieTop));
+                    PokazHistorieRam(historiaRam);
+                    break;
+
+                case "2":
+                    Console.Write("Podaj fragment nazwy procesu: ");
+                    string fraza = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(fraza))
+                    {
+                        string szukana = fraza.Trim().ToLowerInvariant();
+                        var wszystkie = ScoutEngine.AgregujAplikacje(rekordy, rekordy.Count);
+                        var pasujace = wszystkie.Where(a =&gt; a.Nazwa.Contains(szukana)).ToList();
+                        if (pasujace.Count == 0)
+                            Console.WriteLine("Brak procesow pasujacych do frazy: " + fraza);
+                        else
+                            Console.WriteLine("\n" + exporter.Eksportuj(pasujace));
+                    }
+                    break;
+
+                case "3":
+                    try
+                    {
+                        var wszystkiePorty = SkanujPortyTcp();
+                        Console.WriteLine("Znalezione porty uzytkownika (" + wszystkiePorty.Count + "): " + string.Join(", ", wszystkiePorty));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Nie udalo sie odczytac portow TCP: " + ex.Message);
+                    }
+                    break;
+
+                case "4":
+                    try
+                    {
+                        string sciezka = "procscout-raport.csv";
+                        File.WriteAllText(sciezka, exporter.Eksportuj(ostatnieTop));
+                        Console.WriteLine("Zapisano raport do pliku: " + Path.GetFullPath(sciezka));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Blad zapisu raportu: " + ex.Message);
+                    }
+                    break;
+
+                case "0":
+                    Console.WriteLine("Zamykanie ProcScout...");
+                    break;
+
+                default:
+                    Console.WriteLine("Nieznana opcja. Wybierz cyfre 0-4.");
+                    break;
+            }
+        }
+        while (wybor != "0");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="ScoutEngine.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+public class ProcesRekord
+{
+    public string Nazwa { get; private set; }
+    public double PamiecMb { get; private set; }
+
+    public ProcesRekord(string nazwa, double pamiecMb)
+    {
+        Nazwa = nazwa;
+        PamiecMb = pamiecMb;
+    }
+}
+
+public class GrupaAplikacji
+{
+    public string Nazwa { get; private set; }
+    public int Instancje { get; private set; }
+    public double LacznieMb { get; private set; }
+
+    public GrupaAplikacji(string nazwa, int instancje, double lacznieMb)
+    {
+        Nazwa = nazwa;
+        Instancje = instancje;
+        LacznieMb = lacznieMb;
+    }
+}
+
+public class HistoriaPomiarow&lt;T&gt;
+{
+    private T[] _dane;
+    private int _indeksZapisu;
+
+    public int Count { get; private set; }
+    public int Pojemnosc { get { return _dane.Length; } }
+
+    public HistoriaPomiarow(int pojemnosc)
+    {
+        // Rzuc ArgumentOutOfRangeException("pojemnosc") dla pojemnosc &lt;= 0
+        _dane = new T[pojemnosc &gt; 0 ? pojemnosc : 1];
+    }
+
+    public void Dodaj(T pomiar)
+    {
+        // Zapisz pomiar w buforze cyklicznym i zaktualizuj indeks oraz Count
+    }
+
+    public List&lt;T&gt; PobierzWszystkie()
+    {
+        // Zwroc elementy chronologicznie od najstarszego do najnowszego
+        return new List&lt;T&gt;();
+    }
+}
+
+public interface IScoutExporter
+{
+    string Eksportuj(List&lt;GrupaAplikacji&gt; grupy);
+}
+
+public class CsvScoutExporter : IScoutExporter
+{
+    public string Eksportuj(List&lt;GrupaAplikacji&gt; grupy)
+    {
+        // Naglowek "Aplikacja;Instancje;RamMB" + wiersze z CultureInfo.InvariantCulture (F1)
+        return "";
+    }
+}
+
+public static class ScoutEngine
+{
+    public static List&lt;GrupaAplikacji&gt; AgregujAplikacje(List&lt;ProcesRekord&gt; procesy, int topN)
+    {
+        // Zabezpiecz null i topN &lt;= 0, zagreguj instancje oraz zwroc topN aplikacji
+        return new List&lt;GrupaAplikacji&gt;();
+    }
+
+    public static List&lt;int&gt; FiltrujPortyUzytkownika(List&lt;int&gt; porty)
+    {
+        // Zabezpiecz null, odfiltruj porty poza 1024..65535, usun duplikaty i posortuj rosnaco
+        return new List&lt;int&gt;();
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("ScoutEngine.AgregujAplikacje grupuje instancje, rozstrzyga remisy przez ThenBy i obsluguje przypadki brzegowe", () =&gt; {
+    var dane = new List&lt;ProcesRekord&gt; {
+        new ProcesRekord("chrome", 200.0),
+        new ProcesRekord("Chrome", 350.0),
+        new ProcesRekord("zed", 400.0),
+        new ProcesRekord("discord", 400.0),
+        new ProcesRekord("notepad", 15.0)
+    };
+    var top = ScoutEngine.AgregujAplikacje(dane, 3);
+    LabAssert.Equal(3, top.Count);
+    LabAssert.Equal("chrome", top[0].Nazwa);
+    LabAssert.Equal(2, top[0].Instancje);
+    LabAssert.Equal(550.0, top[0].LacznieMb);
+    LabAssert.Equal("discord", top[1].Nazwa);
+    LabAssert.Equal("zed", top[2].Nazwa);
+
+    LabAssert.Equal(0, ScoutEngine.AgregujAplikacje(dane, 0).Count);
+    LabAssert.Equal(0, ScoutEngine.AgregujAplikacje(null, 5).Count);
+});
+
+LabAssert.Test("CsvScoutExporter implementuje IScoutExporter, uzywa kropki dziesietnej i obsluguje null", () =&gt; {
+    IScoutExporter exporter = new CsvScoutExporter();
+    var grupy = new List&lt;GrupaAplikacji&gt; {
+        new GrupaAplikacji("chrome", 2, 550.5),
+        new GrupaAplikacji("discord", 1, 120.0)
+    };
+    string csv = exporter.Eksportuj(grupy).Replace("\r\n", "\n");
+    LabAssert.Equal("Aplikacja;Instancje;RamMB\nchrome;2;550.5\ndiscord;1;120.0", csv);
+
+    string pustyCsv = exporter.Eksportuj(new List&lt;GrupaAplikacji&gt;()).Replace("\r\n", "\n");
+    LabAssert.Equal("Aplikacja;Instancje;RamMB", pustyCsv);
+
+    string nullCsv = exporter.Eksportuj(null).Replace("\r\n", "\n");
+    LabAssert.Equal("Aplikacja;Instancje;RamMB", nullCsv);
+});
+
+LabAssert.Test("ScoutEngine.FiltrujPortyUzytkownika sprawdza granice 1024..65535, usuwa duplikaty i sortuje rosnaco", () =&gt; {
+    var surowe = new List&lt;int&gt; { -1, 0, 80, 443, 1023, 5173, 3306, 5173, 1024, 65535, 65536, 25565, 3306 };
+    var wynik = ScoutEngine.FiltrujPortyUzytkownika(surowe);
+    LabAssert.Equal("1024,3306,5173,25565,65535", string.Join(",", wynik));
+
+    LabAssert.Equal(0, ScoutEngine.FiltrujPortyUzytkownika(new List&lt;int&gt; { -1, 22, 80, 443, 1023, 65536 }).Count);
+    LabAssert.Equal(0, ScoutEngine.FiltrujPortyUzytkownika(null).Count);
+});
+
+LabAssert.Test("HistoriaPomiarow&lt;T&gt; nadpisuje najstarsze wpisy w buforze cyklicznym i waliduje pojemnosc", () =&gt; {
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new HistoriaPomiarow&lt;double&gt;(0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new HistoriaPomiarow&lt;double&gt;(-3));
+
+    var historia = new HistoriaPomiarow&lt;double&gt;(3);
+    LabAssert.Equal(0, historia.Count);
+    LabAssert.Equal(3, historia.Pojemnosc);
+    LabAssert.Equal(0, historia.PobierzWszystkie().Count);
+
+    historia.Dodaj(100.5);
+    historia.Dodaj(200.0);
+    LabAssert.Equal(2, historia.Count);
+    LabAssert.Equal(100.5, historia.PobierzWszystkie()[0]);
+    LabAssert.Equal(200.0, historia.PobierzWszystkie()[1]);
+
+    historia.Dodaj(300.0);
+    historia.Dodaj(400.0);
+    LabAssert.Equal(3, historia.Count);
+    var lista = historia.PobierzWszystkie();
+    LabAssert.Equal(200.0, lista[0]);
+    LabAssert.Equal(300.0, lista[1]);
+    LabAssert.Equal(400.0, lista[2]);
+
+    var logi = new HistoriaPomiarow&lt;string&gt;(2);
+    logi.Dodaj("skan-1");
+    logi.Dodaj("skan-2");
+    logi.Dodaj("skan-3");
+    LabAssert.Equal("skan-2,skan-3", string.Join(",", logi.PobierzWszystkie()));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Jak bezpiecznie czytać procesy Windows?</strong> Zawsze zamykaj każdy obiekt <code>Process</code> w bloku <code>using (p)</code> oraz przechwytuj wyjątki uprawnień, aby uniknąć wycieku uchwytów jądra.</li>
+<li><strong>Kiedy używać <code>CultureInfo.InvariantCulture</code>?</strong> Przy każdym zapisie liczb zmiennoprzecinkowych do plików tekstowych (CSV, JSON, logi), aby kropka dziesiętna była identyczna na każdym komputerze.</li>
+<li><strong>Jak łączyć generyki, LINQ i SOLID w aplikacji?</strong> Silnik obliczeniowy trzymaj w czystych metodach LINQ, historię pomiarów w generycznym buforze o stałym rozmiarze, a eksport za interfejsem strategii (<code>IScoutExporter</code>).</li>
+<li><strong>Jak projektować pobieralne narzędzie konsolowe?</strong> Oddziel pierwszy automatyczny raport od interaktywnej pętli <code>do-while</code> chronionej warunkiem <code>!Console.IsInputRedirected</code> oraz bezpiecznym wyjściem przy <code>wybor == null</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

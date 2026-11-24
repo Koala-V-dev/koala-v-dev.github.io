@@ -113,10 +113,45 @@ Zakończ sesję poleceniem:
 exit
 ```
 
+---
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Matematyka kryptograficzna SSH: Krzywe Eliptyczne Ed25519 vs RSA i wymiana kluczy ECDH</span><span class="deep-dive-badge">Cryptography & SSH Protocol</span></summary>
+
+Protokół SSHv2 (*Secure Shell*) rozwiązuje fundamentalny problem kryptografii: jak dwa nieznające się komputery mogą przez podsłuchiwaną sieć ustanowić tajny, wspólny klucz szyfrowania symetrycznego AES bez przesyłania żadnego hasła przez kabel?
+
+### 1. Wymiana kluczy Diffie-Hellman na Krzywych Eliptycznych (ECDH)
+Nawiązanie połączenia SSH rozpoczyna się od protokołu **ECDH** (*Elliptic Curve Diffie-Hellman*):
+1. Serwer i klient uzgadniają parametry krzywej eliptycznej oraz punkt bazowy $G$.
+2. Klient generuje losowy klucz prywatny $a$ i wysyła serwerowi klucz publiczny $A = a \cdot G$.
+3. Serwer generuje losowy klucz prywatny $b$ i wysyła klientowi klucz publiczny $B = b \cdot G$.
+4. Klient oblicza wspólny sekret: $S = a \cdot B = a \cdot (b \cdot G)$.
+5. Serwer oblicza identyczny sekret: $S = b \cdot A = b \cdot (a \cdot G)$.
+
+Podsłuchujący w sieci widzi punkty $A$ i $B$, ale z powodu trudności problemu logarytmu dyskretnego na krzywych eliptycznych (ECDLP) nie jest w stanie odtworzyć wartości $a$, $b$ ani wspólnego sekretu $S$. Z sekretu $S$ obie strony wyprowadzają symetryczny klucz AES-256-GCM, którym szyfrowana jest cała dalsza sesja terminala.
+
+### 2. Dlaczego Ed25519 zamiast przestarzałego RSA-2048?
+Tradycyjne klucze RSA opierają się na trudności faktoryzacji wielkich liczb pierwszych ($n = p \cdot q$):
+- Aby zapewnić 128-bitowy poziom bezpieczeństwa, klucz RSA musi mieć długość aż **$3072\ \text{bity}$**.
+- Generowanie podpisu RSA jest powolne i podatne na ataki czasowe (*Timing Attacks*).
+
+Nowoczesny standard **Ed25519** (oparty na skręconej krzywej Edwardsa) oferuje ten sam poziom bezpieczeństwa przy kluczu o długości zaledwie **$256\ \text{bitów}$** (32 bajty):
+$$x^2 + y^2 = 1 + d \cdot x^2 y^2 \quad \text{nad ciałem skończonym } \mathbb{F}_{2^{255}-19}$$
+gdzie $d = -\frac{121665}{121666}$.
+
+Zalety inżynierskie Ed25519:
+- Stały czas wykonania instrukcji (*Constant Time*): całkowita odporność na ataki typu side-channel badające czas odpowiedzi procesora.
+- Ekstremalna szybkość: weryfikacja podpisu wymaga ułamka milisekundy na procesorze x86_64.
+- Krótkie odciski palców klucza, łatwe do weryfikacji przez człowieka w pliku `known_hosts`.
+
+</details>
 
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- VM1 jest klientem SSH, a VM2 przyjmuje połączenia dzięki pakietowi `openssh-server`.
-- Po zalogowaniu potwierdzasz maszynę i użytkownika poleceniami `hostname` oraz `whoami`.
+- **Architektura klient-serwer:** Maszyna łącząca się jest klientem SSH (`ssh`), natomiast maszyna zdalna wymaga działającego demona `sshd` (pakiet `openssh-server`).
+- **Weryfikacja tożsamości hosta:** Przy pierwszym połączeniu klient weryfikuje odcisk klucza publicznego serwera i zapisuje go w `~/.ssh/known_hosts`, co chroni przed atakami typu Man-in-the-Middle (MITM).
+- **Zarządzanie usługą ssh:** Włączenie automatycznego startu i natychmiastowe uruchomienie realizuje polecenie `sudo systemctl enable --now ssh`.
+- **Weryfikacja sesji:** Po zalogowaniu należy zawsze potwierdzić tożsamość i maszynę za pomocą poleceń `hostname`, `whoami` oraz `ip -br address`.
+- **Kryptografia Ed25519:** Nowoczesne klucze oparte na krzywych eliptycznych oferują wyższe bezpieczeństwo i stały czas wykonania w porównaniu do klasycznego RSA.

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pętle zagnieżdżone i algorytmy liczbowe - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Pętle zagnieżdżone i algorytmy liczbowe</h1>
+<p>Sprawdźmy w myślach, czy liczba <code>2 147 483 647</code> jest pierwsza. Jeśli napiszesz prostą pętlę <code>for</code> sprawdzającą wszystkie dzielniki od <code>2</code> do <code>2 147 483 646</code>, procesor wykona ponad dwa miliardy dzieleń i zawiesi program na kilka sekund.</p>
+<p>Gdy spróbujesz przyspieszyć tę pętlę szkolnym warunkiem <code>d * d &lt;= n</code>, wydarzy się coś jeszcze gorszego. Program nie zakończy się szybciej: wpadnie w <span class="color-red">przepełnienie typu int</span> i po kilku miliardach błędnych kroków wyrzuci awarię <span class="color-red">DivideByZeroException</span>. To moment, w którym samo pisanie pętli przestaje wystarczać, a zaczyna się projektowanie algorytmów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧱 Pętle zagnieżdżone i koszt kwadratowy</h2>
+<p>Jedną pętlę możesz umieścić wewnątrz drugiej. Taki układ nazywamy <span class="color-green">pętlą zagnieżdżoną</span>. Pętla zewnętrzna steruje zazwyczaj wierszami, a pętla wewnętrzna kolumnami w danym wierszu.</p>
+<p>Dla każdego <span class="color-green">jednego</span> obrotu pętli zewnętrznej pętla wewnętrzna wykonuje <span class="color-green">wszystkie</span> swoje kroki od początku do końca:</p>
+<pre><code class="language-csharp">for (int wiersz = 1; wiersz &lt;= 3; wiersz++)
+{
+    for (int kolumna = 1; kolumna &lt;= 3; kolumna++)
+    {
+        Console.Write((wiersz * kolumna) + "\t");
+    }
+    Console.WriteLine();
+}
+</code></pre>
+<p>Prześledź kolejność wartości obu liczników w pierwszych sześciu krokach:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Krok łączny</th>
+<th align="center"><span class="color-blue">wiersz</span> (zewnętrzna)</th>
+<th align="center"><span class="color-blue">kolumna</span> (wewnętrzna)</th>
+<th align="center">Wypisany iloczyn</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>2</code></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>3</code></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>2</code></td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>4</code></td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>6</code></td>
+</tr>
+</tbody></table>
+<h3>📐 Animacja pętli zagnieżdżonej 2D i granicy zależnej</h3>
+<p>Zamiast liczyć kroki na kartce, przełącz wszystkie trzy tryby poniżej (pełna siatka <code>n × n</code>, unikalne pary <code>b = a + 1</code> oraz trójkąt <code>j &lt;= i</code>) i obejrzyj animację kolejności wykonań oraz łączną liczbę kroków:</p>
+<data-gate>
+<data-csharp-nested-loop-viz></data-csharp-nested-loop-viz>
+</data-gate>
+
+<h3>⏱️ Dlaczego zagnieżdżone pętle szybko zwalniają?</h3>
+<p>Jeśli obie pętle wykonują po <span class="color-blue">n</span> kroków, wnętrze wewnętrznej pętli wykona się <span class="color-green">$n \times n$ razy</span>. Taki wzrost nazywamy <span class="color-green">kosztem kwadratowym</span>:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Rozmiar danych <span class="color-blue">n</span></th>
+<th align="center">Pojedyncza pętla (<span class="color-blue">n</span>)</th>
+<th align="center">Pętla zagnieżdżona ($n \times n$)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>10</code></td>
+<td align="center"><code>10</code> kroków</td>
+<td align="center"><code>100</code> kroków</td>
+</tr>
+<tr>
+<td align="center"><code>100</code></td>
+<td align="center"><code>100</code> kroków</td>
+<td align="center"><code>10 000</code> kroków</td>
+</tr>
+<tr>
+<td align="center"><code>1 000</code></td>
+<td align="center"><code>1 000</code> kroków</td>
+<td align="center"><code>1 000 000</code> kroków</td>
+</tr>
+<tr>
+<td align="center"><code>100 000</code></td>
+<td align="center"><code>100 000</code> kroków</td>
+<td align="center"><span class="color-red">10 000 000 000 kroków</span></td>
+</tr>
+</tbody></table>
+<p>Dziesięciokrotny wzrost danych wydłuża czas pracy pętli zagnieżdżonej aż <span class="color-green">stukrotnie</span>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Instrukcja <code>break</code> umieszczona w pętli wewnętrznej przerywa <span class="color-green">wyłącznie pętlę wewnętrzną</span>. Pętla zewnętrzna nadal przechodzi do kolejnego wiersza. Dodatkowo nie używaj tej samej nazwy licznika <span class="color-blue">i</span> w obu pętlach: kompilator C# odrzuci taki kod jako błąd zasięgu zmiennej.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Algorytm Euklidesa (NWD)</h2>
+<p>Największy wspólny dzielnik dwóch liczb całkowitych <span class="color-blue">a</span> i <span class="color-blue">b</span> (w skrócie <span class="color-green">NWD</span>) można szukać naiwnie, sprawdzając wszystkie liczby w dół od mniejszej z nich. Dla liczb rzędu miliarda zajęłoby to miliard dzieleń.</p>
+<p>Starożytny <span class="color-green">algorytm Euklidesa</span> opiera się na prostej własności matematycznej zwanej <span class="color-gold">niezmiennikiem</span>: największy wspólny dzielnik nie zmienia się, gdy większą liczbę zastąpimy resztą z dzielenia <code>a % b</code>.</p>
+<p>$$NWD(a, b) = NWD(b, a \bmod b)$$</p>
+<p>Powtarzasz tę podmianę tak długo, aż <span class="color-blue">b</span> spadnie do zera. Wtedy wynik siedzi w zmiennej <span class="color-blue">a</span>.</p>
+<p><data-euclid-modern a="100" b="30"></data-euclid-modern></p>
+<p>Zobacz ślad kroków dla dwóch różnych par:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Krok</th>
+<th align="center">Para <code>(a, b)</code> dla <code>(100, 30)</code></th>
+<th align="center">Reszta <code>a % b</code></th>
+<th align="center">Para <code>(a, b)</code> dla <code>(18, 48)</code></th>
+<th align="center">Reszta <code>a % b</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">start</td>
+<td align="center"><code>(100, 30)</code></td>
+<td align="center"><code>10</code></td>
+<td align="center"><code>(18, 48)</code></td>
+<td align="center"><code>18</code></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center"><code>(30, 10)</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>(48, 18)</code></td>
+<td align="center"><code>12</code></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"><code>(10, 0)</code></td>
+<td align="center">stop, NWD = <code>10</code></td>
+<td align="center"><code>(18, 12)</code></td>
+<td align="center"><code>6</code></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">brak</td>
+<td align="center">brak</td>
+<td align="center"><code>(12, 6)</code></td>
+<td align="center"><code>0</code></td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">brak</td>
+<td align="center">brak</td>
+<td align="center"><code>(6, 0)</code></td>
+<td align="center">stop, NWD = <code>6</code></td>
+</tr>
+</tbody></table>
+<p>Zwróć uwagę na parę <code>(18, 48)</code>, gdzie pierwsza liczba jest mniejsza od drugiej. Ponieważ <code>18 % 48</code> daje <code>18</code>, pierwszy krok sam zamienia liczby miejscami na <code>(48, 18)</code>. Nie musisz dopisywać żadnego <code>if</code> zamieniającego argumenty.</p>
+<p>Aby przełożyć ten schemat na pętlę <code>while (b != 0)</code> w C#, w każdym obiegu wykonaj dokładnie trzy przypisania:</p>
+<ol>
+<li>Oblicz resztę <code>a % b</code> i zapisz ją w zmiennej pomocniczej <span class="color-blue">reszta</span>.</li>
+<li>Przepisz wartość <span class="color-blue">b</span> do <span class="color-blue">a</span>.</li>
+<li>Przepisz wartość <span class="color-blue">reszta</span> do <span class="color-blue">b</span>.</li>
+</ol>
+<p>Po zakończeniu pętli <code>while</code> zwróć zmienną <span class="color-blue">a</span>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Test pierwszości i błąd przepełnienia kwadratu</h2>
+<p>Liczba całkowita <span class="color-blue">n</span> jest <span class="color-green">liczbą pierwszą</span>, gdy jest większa od <code>1</code> i dzieli się bez reszty wyłącznie przez <code>1</code> oraz przez samą siebie. Liczby mniejsze od <code>2</code> (wszystkie ujemne, <code>0</code> oraz <code>1</code>) z definicji <span class="color-green">nie są pierwsze</span>.</p>
+<p>Dlaczego nie trzeba sprawdzać dzielników aż do <code>n - 1</code>? Spójrz na wszystkie pary dzielników liczby złożonej <code>36</code> (jej pierwiastek wynosi <code>6</code>):</p>
+<ul>
+<li><code>2 × 18 = 36</code></li>
+<li><code>3 × 12 = 36</code></li>
+<li><code>4 × 9 = 36</code></li>
+<li><code>6 × 6 = 36</code></li>
+</ul>
+<p>W każdej parze co najmniej jeden dzielnik jest mniejszy lub równy $\sqrt{n}$. Jeśli żaden dzielnik z przedziału od <code>2</code> do $\sqrt{n}$ nie dzieli <span class="color-blue">n</span>, to żaden większy też jej nie podzieli.</p>
+<h3>🔎 Przewidź, co zrobi komputer dla int.MaxValue</h3>
+<p>Zatrzymaj się i przeanalizuj poniższą pętlę dla największej liczby typu <code>int</code>, czyli <code>n = 2 147 483 647</code> (to słynna liczba pierwsza Mersenne'a, $2^{31} - 1$, której pierwiastek wynosi około <code>46340,95</code>):</p>
+<pre><code class="language-csharp">// NIEBEZPIECZNA WERSJA!
+for (int d = 2; d * d &lt;= n; d++)
+{
+    if (n % d == 0) return false;
+}
+</code></pre>
+<p>Co obliczy procesor w kroku, gdy <span class="color-blue">d</span> wzrośnie z <code>46340</code> do <code>46341</code>?</p>
+<ol>
+<li>Dla <code>d = 46340</code> iloczyn <code>46340 * 46340 = 2 147 395 600</code>. Mieści się w <code>int</code> i jest mniejszy od <span class="color-blue">n</span>. Pętla robi <code>d++</code>.</li>
+<li>Dla <code>d = 46341</code> matematyczny kwadrat wynosi <code>2 147 488 281</code>. Przekracza zakres <code>int.MaxValue</code> (<code>2 147 483 647</code>) o <code>4634</code>.</li>
+<li>W domyślnym trybie <code>unchecked</code> wynik zawija się na drugą stronę osi liczbowej do <span class="color-red">-2 147 479 015</span>.</li>
+<li>Komputer sprawdza warunek <code>-2 147 479 015 &lt;= 2 147 483 647</code>. To jest <span class="color-green">prawda</span>!</li>
+</ol>
+<p>Pętla nie zatrzymuje się przy pierwiastku. Zmienna <span class="color-blue">d</span> rośnie dalej przez kolejne dwa miliardy liczb, aż sama się przepełni, przeskoczy na liczby ujemne i dotrze do <code>d = 0</code>. Wtedy dzielenie <code>n % 0</code> zabija program wyjątkiem <span class="color-red">DivideByZeroException</span>.</p>
+<h3>✅ Bezpieczny warunek dzielący</h3>
+<p>Zamiast mnożyć <code>d * d &lt;= n</code>, przenieś jedno <span class="color-blue">d</span> na drugą stronę nierówności i zapisz warunek pętli <code>for</code> jako <span class="color-green"><code>d &lt;= n / d</code></span>.</p>
+<p>Ten zapis nigdy nie przekroczy zakresu <code>int</code>. Dla <code>n = 2 147 483 647</code> i <code>d = 46341</code> komputer oblicza <code>2147483647 / 46341 = 46340</code>. Warunek <code>46341 &lt;= 46340</code> daje <code>false</code> i pętla zatrzymuje się w ułamku milisekundy.</p>
+<p>Sprawdź jeszcze dwa przypadki brzegowe zanim napiszesz własną metodę:</p>
+<ul>
+<li>dla dowolnego <code>n &lt; 2</code> (liczby ujemne, <code>0</code> oraz <code>1</code>) od razu zwróć <code>false</code>,</li>
+<li>dla <code>n = 2</code> pętla startuje od <code>d = 2</code>, a <code>2 / 2 = 1</code>, więc warunek <code>2 &lt;= 1</code> jest fałszywy już na starcie i po pętli zwracasz <code>true</code>.</li>
+</ul>
+<data-gate>
+<data-connection-matcher title="Dopasuj konstrukcję algorytmiczną do jej zachowania w czasie działania">
+  <item left="for (int d = 2; d * d <= n; d++) dla int.MaxValue" right="Przepełnienie int i zawinięcie do liczby ujemnej (DivideByZeroException)"></item>
+  <item left="for (int d = 2; d <= n / d; d++)" right="Bezpieczny test pierwszości do pierwiastka bez przepełnienia int"></item>
+  <item left="while (b != 0) { r = a % b; a = b; b = r; }" right="Algorytm Euklidesa: maks. 45 kroków w całym zakresie int"></item>
+  <item left="for (int a = 1; a <= n; a++) for (int b = a + 1; b <= n; b++)" right="Przeszukuje wyłącznie unikalne pary bez powtórzeń (a < b)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚡ Porównanie liczby kroków w praktyce</h2>
+<p>Po poznaniu obu algorytmów porównaj, ile pracy oszczędzasz procesorowi w porównaniu z naiwną pętlą:</p>
+<table>
+<thead>
+<tr>
+<th>Problem dla dużych danych</th>
+<th>Naiwna pętla</th>
+<th>Przemyślany algorytm</th>
+<th>Zysk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Czy <code>1 000 000 007</code> jest pierwsza?</td>
+<td><code>1 000 000 005</code> dzieleń (<code>d &lt; n</code>)</td>
+<td><code>31 622</code> dzielenia (<code>d &lt;= n / d</code>)</td>
+<td><span class="color-green">31 623 razy mniej pracy</span></td>
+</tr>
+<tr>
+<td>Czy <code>2 147 483 647</code> jest pierwsza?</td>
+<td><code>2 147 483 645</code> dzieleń</td>
+<td><code>46 339</code> dzieleń (<code>d &lt;= n / d</code>)</td>
+<td><span class="color-green">46 341 razy mniej pracy</span></td>
+</tr>
+<tr>
+<td>NWD dowolnych liczb z zakresu <code>int</code></td>
+<td>Do <code>2 000 000 000</code> kroków</td>
+<td>Maksymalnie <code>44</code> lub <code>45</code> kroków (Euklides)</td>
+<td><span class="color-green">Ponad 40 milionów razy szybciej</span></td>
+</tr>
+</tbody></table>
+<h3>🔗 Od NWD do bezpiecznego NWW</h3>
+<p>Mając gotowy algorytm Euklidesa, możesz błyskawicznie policzyć <span class="color-green">Najmniejszą Wspólną Wielokrotność</span> (NWW) dwóch nieujemnych liczb <span class="color-blue">a</span> i <span class="color-blue">b</span>:</p>
+<p>$$NWW(a, b) = \frac{a}{NWD(a, b)} \cdot b$$</p>
+<p>Zwróć uwagę na kolejność operacji. Gdybyś najpierw pomnożył <code>a * b</code> jako <code>int</code>, dla dużych liczb (na przykład <code>100 000</code> i <code>99 999</code>) iloczyn natychmiast wywołałby <span class="color-red">przepełnienie typu int</span>.</p>
+<p>Dlatego w C# najpierw dzielimy przez <span class="color-blue">nwd</span>, a dopiero potem mnożymy w 64‑bitowym typie <code>long</code>: <code>(long)(a / nwd) * b</code>. Jeśli którakolwiek z liczb <span class="color-blue">a</span> lub <span class="color-blue">b</span> wynosi <code>0</code>, ich NWW wynosi po prostu <code>0L</code>.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Twierdzenie Lamégo, koszt DIV kontra MUL oraz szybkie potęgowanie binarne</span>
+<span class="deep-dive-badge">TEORIA LICZB · X86-64 · POTĘGOWANIE BINARNE</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Twierdzenie Lamégo i rekordowe pary Fibonacciego</h4>
+
+<p>W 1844 roku francuski matematyk Gabriel Lamé udowodnił, jaka para liczb zmusza algorytm Euklidesa do wykonania największej możliwej liczby kroków. Najgorszy przypadek zachodzi wtedy, gdy w każdym dzieleniu iloraz wynosi dokładnie <code>1</code>, czyli reszta maleje najwolniej jak to matematycznie możliwe.</p>
+<p>Ten warunek spełniają dwie kolejne <span class="color-green">liczby Fibonacciego</span>:</p>
+<pre><code class="language-text">NWD(13, 8) -&gt; NWD(8, 5) -&gt; NWD(5, 3) -&gt; NWD(3, 2) -&gt; NWD(2, 1) -&gt; NWD(1, 0)
+</code></pre>
+<p>Ponieważ liczby Fibonacciego rosną wykładniczo, twierdzenie Lamégo gwarantuje, że liczba iteracji algorytmu Euklidesa nigdy nie przekroczy pięciokrotności liczby cyfr dziesiętnych mniejszej z liczb. W całym zakresie 32‑bitowego typu <code>int</code> rekord dla pary <code>1 836 311 903</code> oraz <code>1 134 903 170</code> wynosi dokładnie <span class="color-green">44 iteracje</span> (lub <span class="color-green">45</span>, gdy mniejsza liczba zostanie podana jako pierwsza).</p>
+<h4>2. Koszt instrukcji DIV kontra MUL w procesorze x86-64</h4>
+
+<p>Na poziomie krzemu mnożenie całkowite (<code>IMUL</code>) trwa w nowoczesnych rdzeniach x86‑64 około <span class="color-green">3 cykli zegara</span>. Dzielenie całkowite (<code>IDIV</code>) jest znacznie bardziej złożone i zajmuje od <span class="color-green">12 do 26 cykli</span>.</p>
+<p>W teście pierwszości zapis <code>d &lt;= n / d</code> wykonuje dzielenie w każdym kroku pętli, ale ratuje przed <span class="color-red">przepełnieniem</span> w 32‑bitowym <code>int</code>. Co ciekawe, procesor oblicza iloraz <code>n / d</code> oraz resztę <code>n % d</code> jedną wspólną instrukcją <code>IDIV</code>, więc kompilator JIT potrafi wykorzystać oba wyniki jednocześnie! Jeśli zależy Ci na czystym mnożeniu bez ryzyka przepełnienia dla 32‑bitowego <span class="color-blue">n</span>, możesz też trzymać licznik <span class="color-blue">d</span> w 64‑bitowym typie <code>long</code> i wtedy zapisać <code>d * d &lt;= n</code>.</p>
+<h4>3. Szybkie potęgowanie binarne dla ambitnych</h4>
+
+<p>Jak policzyć $3^{13}$ w zaledwie 4 krokach zamiast 13 mnożeń? Zapisz wykładnik <code>13</code> w systemie binarnym: $13 = 8 + 4 + 1$ (czyli <code>1101</code>). Wtedy:</p>
+<p>$$3^{13} = 3^8 \cdot 3^4 \cdot 3^1$$</p>
+<p>W każdym kroku pętli <code>while (wykladnik &gt; 0)</code> sprawdzasz ostatni bit wykładnika (<code>wykladnik % 2 == 1</code>). Gdy wynosi <code>1</code>, domnażasz bieżącą potęgę do wyniku. Następnie podnosisz podstawę do kwadratu i dzielisz wykładnik całkowicie przez <code>2</code>:</p>
+<pre><code class="language-csharp">long wynik = 1;
+while (wykladnik &gt; 0)
+{
+    if (wykladnik % 2 == 1) wynik *= podstawa;
+    podstawa *= podstawa;
+    wykladnik /= 2;
+}
+</code></pre>
+<p>Dla wykładnika równego miliard pętla wykonuje zaledwie <span class="color-green">30 iteracji</span> zamiast miliarda mnożeń. Ta technika jest fundamentem nowoczesnej kryptografii klucza publicznego (RSA).</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Biblioteka algorytmów liczbowych</h2>
+<p>Zaimplementuj cztery metody statyczne w klasie <span class="color-green"><code>AlgorytmyLiczbowe</code></span>:</p>
+<ol>
+<li><span class="color-green"><code>ObliczNwd(int a, int b)</code></span>:<ul>
+<li>oblicz największy wspólny dzielnik nieujemnych liczb <span class="color-blue">a</span> i <span class="color-blue">b</span> algorytmem Euklidesa w pętli <code>while (b != 0)</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>CzyPierwsza(int n)</code></span>:<ul>
+<li>dla <code>n &lt; 2</code> zwróć <code>false</code>,</li>
+<li>sprawdź dzielniki w pętli <code>for</code> z bezpiecznym warunkiem <span class="color-green"><code>d &lt;= n / d</code></span> (testy weryfikują m.in. <code>2147483647</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ObliczNww(int a, int b)</code></span>:<ul>
+<li>dla <code>a == 0 || b == 0</code> zwróć <code>0L</code>,</li>
+<li>w przeciwnym razie wykorzystaj własną metodę <code>ObliczNwd(a, b)</code> i oblicz wynik bez ryzyka przepełnienia: <span class="color-green"><code>(long)(a / nwd) * b</code></span>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>IleParWzgledniePierwszych(int n)</code></span>:<ul>
+<li>użyj <span class="color-green">pętli zagnieżdżonej</span> z zależną granicą (<code>1 &lt;= a &lt; b &lt;= n</code>, czyli <code>for (int a = 1; a &lt;= n; a++)</code> oraz <code>for (int b = a + 1; b &lt;= n; b++)</code>),</li>
+<li>policz, ile unikalnych par <code>(a, b)</code> jest względnie pierwszych, czyli spełnia warunek <code>ObliczNwd(a, b) == 1</code> (dla <code>n &lt; 2</code> zwróć <code>0</code>).</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Biblioteka algorytmów liczbowych (NWD, Pierwszość, NWW, Pętle zagnieżdżone)" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class AlgorytmyLiczbowe
+{
+    public static int ObliczNwd(int a, int b)
+    {
+        // TODO: Zaimplementuj algorytm Euklidesa w petli while (b != 0)
+        return 0;
+    }
+
+    public static bool CzyPierwsza(int n)
+    {
+        // TODO: Dla n &lt; 2 zwroc false; sprawdz dzielniki z bezpiecznym warunkiem d &lt;= n / d
+        return false;
+    }
+
+    public static long ObliczNww(int a, int b)
+    {
+        // TODO: Obsluz a == 0 lub b == 0 (zwroc 0L)
+        // Uzyj ObliczNwd(a, b) i wzoru (long)(a / nwd) * b bez przepelnienia int
+        return 0L;
+    }
+
+    public static int IleParWzgledniePierwszych(int n)
+    {
+        // TODO: Uzyj petli zagniezdzonej 1 &lt;= a &lt; b &lt;= n i policz pary z ObliczNwd(a, b) == 1
+        return 0;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("NWD(100, 30) = " + AlgorytmyLiczbowe.ObliczNwd(100, 30));
+        Console.WriteLine("Czy 97 pierwsza = " + AlgorytmyLiczbowe.CzyPierwsza(97));
+        Console.WriteLine("NWW(12, 18) = " + AlgorytmyLiczbowe.ObliczNww(12, 18));
+        Console.WriteLine("Pary wzglednie pierwsze do 4 = " + AlgorytmyLiczbowe.IleParWzgledniePierwszych(4));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("ObliczNwd dziala poprawnie dla roznych par liczb, odwrotnej kolejnosci i zera", () =&gt; {
+    LabAssert.Equal(10, AlgorytmyLiczbowe.ObliczNwd(100, 30));
+    LabAssert.Equal(6, AlgorytmyLiczbowe.ObliczNwd(18, 48));
+    LabAssert.Equal(1, AlgorytmyLiczbowe.ObliczNwd(17, 31));
+    LabAssert.Equal(42, AlgorytmyLiczbowe.ObliczNwd(42, 0));
+    LabAssert.Equal(1, AlgorytmyLiczbowe.ObliczNwd(1836311903, 1134903170));
+});
+LabAssert.Test("CzyPierwsza poprawnie klasyfikuje liczby male, zlozone oraz int.MaxValue", () =&gt; {
+    LabAssert.False(AlgorytmyLiczbowe.CzyPierwsza(-5));
+    LabAssert.False(AlgorytmyLiczbowe.CzyPierwsza(0));
+    LabAssert.False(AlgorytmyLiczbowe.CzyPierwsza(1));
+    LabAssert.True(AlgorytmyLiczbowe.CzyPierwsza(2));
+    LabAssert.True(AlgorytmyLiczbowe.CzyPierwsza(97));
+    LabAssert.False(AlgorytmyLiczbowe.CzyPierwsza(121));
+    LabAssert.True(AlgorytmyLiczbowe.CzyPierwsza(2147483647), "int.MaxValue jest liczba pierwsza - uzyj warunku d &lt;= n / d");
+});
+LabAssert.Test("ObliczNww poprawnie oblicza NWW dla zera, liczb malych oraz duzych bez przepelnienia int", () =&gt; {
+    LabAssert.Equal(0L, AlgorytmyLiczbowe.ObliczNww(0, 15));
+    LabAssert.Equal(0L, AlgorytmyLiczbowe.ObliczNww(15, 0));
+    LabAssert.Equal(36L, AlgorytmyLiczbowe.ObliczNww(12, 18));
+    LabAssert.Equal(21L, AlgorytmyLiczbowe.ObliczNww(3, 7));
+    LabAssert.Equal(9999900000L, AlgorytmyLiczbowe.ObliczNww(100000, 99999), "Dla duzych liczb dziel przed mnozeniem i zwroc long");
+});
+LabAssert.Test("IleParWzgledniePierwszych poprawnie zlicza pary w petli zagniezdzonej", () =&gt; {
+    LabAssert.Equal(0, AlgorytmyLiczbowe.IleParWzgledniePierwszych(1));
+    LabAssert.Equal(1, AlgorytmyLiczbowe.IleParWzgledniePierwszych(2));
+    LabAssert.Equal(5, AlgorytmyLiczbowe.IleParWzgledniePierwszych(4));
+    LabAssert.Equal(9, AlgorytmyLiczbowe.IleParWzgledniePierwszych(5));
+    LabAssert.Equal(11, AlgorytmyLiczbowe.IleParWzgledniePierwszych(6));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Pętle zagnieżdżone mają koszt kwadratowy $n \times n$: przed zagnieżdżeniem pętli oszacuj rozmiar danych, a pamiętaj, że <code>break</code> przerywa wyłącznie najbliższą pętlę.</li>
+<li>Algorytm Euklidesa wyznacza NWD w pętli <code>while (b != 0)</code> za pomocą podmiany <code>(a, b) -&gt; (b, a % b)</code> w maksymalnie 44 lub 45 krokach w całym zakresie <code>int</code>.</li>
+<li>W teście pierwszości sprawdzaj dzielniki wyłącznie do pierwiastka i zawsze używaj warunku <code>d &lt;= n / d</code> zamiast <code>d * d &lt;= n</code>, aby uniknąć przepełnienia 32‑bitowego <code>int</code>.</li>
+<li>Przy obliczaniu NWW dziel przez NWD przed mnożeniem i korzystaj z typu <code>long</code>: <code>(long)(a / nwd) * b</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

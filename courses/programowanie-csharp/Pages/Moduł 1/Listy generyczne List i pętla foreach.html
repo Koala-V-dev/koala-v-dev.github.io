@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listy generyczne List i pętla foreach - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/programowanie-csharp/">Wprowadzenie</a></li><li class="module">Moduł 0: Fundamenty C# i Myślenie Algorytmiczne</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i pułapki liczb"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20pu%C5%82apki%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i pułapki liczb</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Programowanie Strukturalne i Kolekcje</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 1/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="module">Moduł 2: Fundamenty OOP i Model Pamięci</li><li class="lesson-item lesson" data-path="Moduł 2/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 2/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 2/Enkapsulacja i Właściwości - System Bankowy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Enkapsulacja%20i%20W%C5%82a%C5%9Bciwo%C5%9Bci%20-%20System%20Bankowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i Właściwości - System Bankowy</a></li><li class="lesson-item lesson" data-path="Moduł 2/Dziedziczenie i polimorfizm"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Dziedziczenie%20i%20polimorfizm.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dziedziczenie i polimorfizm</a></li><li class="module">Moduł 3: Architektura OOP i Nowoczesny C#</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy abstrakcyjne i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%20abstrakcyjne%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy abstrakcyjne i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Kompozycja i słowniki Dictionary"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Kompozycja%20i%20s%C5%82owniki%20Dictionary.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kompozycja i słowniki Dictionary</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 3/Wyrażenia lambda i podstawy LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Wyra%C5%BCenia%20lambda%20i%20podstawy%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i podstawy LINQ</a></li><li class="module">Moduł 4: Inżynieria Oprogramowania i Wielki Finał INF.04</li><li class="lesson-item lesson" data-path="Moduł 4/Zasady SOLID i refaktoryzacja kodu"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20SOLID%20i%20refaktoryzacja%20kodu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady SOLID i refaktoryzacja kodu</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projektowanie wieloplikowe i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projektowanie%20wieloplikowe%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie wieloplikowe i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wielki Finał - System Bankowy INF.04"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20-%20System%20Bankowy%20INF.04.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - System Bankowy INF.04</a></li><li class="lesson-item lesson" data-path="Moduł 4/MemReductMini - Menedżer Pamięci Windows"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/MemReductMini%20-%20Mened%C5%BCer%20Pami%C4%99ci%20Windows.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">MemReductMini - Menedżer Pamięci Windows</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Listy generyczne List i pętla foreach</h1>
+<p>W poprzedniej lekcji poznałeś tablice <code>int[]</code>, które są błyskawiczne, ale mają jedną poważną granicę: <span class="color-green">ich rozmiaru nie da się zmienić po utworzeniu</span>. Jeśli tworzysz koszyk w sklepie albo dziennik ocen, nie wiesz na starcie, czy użytkownik doda 3 produkty, czy 47.</p>
+<p>Gdy liczba elementów zmienia się w trakcie działania programu, sięgasz w C# po kolekcję generyczną <span class="color-green"><code>List&lt;T&gt;</code></span> oraz stworzoną do niej pętlę <span class="color-green"><code>foreach</code></span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 List jako dynamiczna tablica z gotowymi narzędziami</h2>
+<p>Aby używać <code>List&lt;T&gt;</code>, dodaj na górze pliku przestrzeń nazw:</p>
+<pre><code class="language-csharp">using System.Collections.Generic;
+</code></pre>
+<p>Znak <code>&lt;T&gt;</code> oznacza <span class="color-green">typ generyczny</span> - w miejsce <code>T</code> wpisujesz typ elementów, które lista ma trzymać (<code>List&lt;int&gt;</code>, <code>List&lt;string&gt;</code>, <code>List&lt;decimal&gt;</code>).</p>
+<pre><code class="language-csharp">var oceny = new List&lt;int&gt; { 4, 5, 3 };
+
+oceny.Add(6);               // Dodaje na koniec -&gt; { 4, 5, 3, 6 }
+oceny.Insert(0, 2);         // Wstawia na indeks 0 -&gt; { 2, 4, 5, 3, 6 }
+oceny.Remove(3);            // Usuwa PIERWSZE wystąpienie wartości 3 -&gt; { 2, 4, 5, 6 }
+oceny.RemoveAt(0);          // Usuwa element pod indeksem 0 -&gt; { 4, 5, 6 }
+
+int ile = oceny.Count;      // 3 (UWAGA: tablica ma .Length, a List&lt;T&gt; ma .Count!)
+bool maPiatke = oceny.Contains(5); // true
+oceny.Sort();               // Sortuje listę rosnąco w miejscu
+</code></pre>
+<h3>🔎 Tablica `T[]` kontra `List<t>` - szybka tabela decyzyjna</t></h3>
+<table>
+<thead>
+<tr>
+<th>Cecha</th>
+<th>Tablica <code>int[]</code></th>
+<th>Lista <code>List&lt;int&gt;</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Zmiana rozmiaru po utworzeniu</td>
+<td>Niemożliwa (stały blok RAM)</td>
+<td>Automatyczna (<code>.Add()</code>, <code>.Remove()</code>)</td>
+</tr>
+<tr>
+<td>Odczyt liczby elementów</td>
+<td><code>.Length</code></td>
+<td><code>.Count</code></td>
+</tr>
+<tr>
+<td>Dostęp po indeksie</td>
+<td><code>tab[i]</code> (czas $O(1)$)</td>
+<td><code>lista[i]</code> (czas $O(1)$)</td>
+</tr>
+<tr>
+<td>Kiedy wybierasz?</td>
+<td>Stały rozmiar (np. 7 dni tygodnia, plansza 3x3)</td>
+<td>Liczba elementów rośnie lub maleje w trakcie pracy</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Pętla foreach - czytelne przechodzenie po kolekcji</h2>
+<p>Gdy chcesz przeczytać <span class="color-green">każdy element</span> listy od pierwszego do ostatniego, nie musisz pilnować licznika <code>int i = 0; i &lt; oceny.Count; i++</code>. Używasz pętli <span class="color-green"><code>foreach</code></span>:</p>
+<pre><code class="language-csharp">var oceny = new List&lt;int&gt; { 2, 4, 5, 3, 5 };
+int suma = 0;
+
+foreach (int ocena in oceny)
+{
+    suma += ocena;
+}
+
+double srednia = (double)suma / oceny.Count; // 3.80 (pamiętaj o (double)!)
+</code></pre>
+<h3>⚠️ Dwie twarde granice pętli foreach (kiedy wrócić do for?)</h3>
+<p>Pętla <code>foreach</code> jest świetna, ale <span class="color-green">nie zastępuje <code>for</code> w każdej sytuacji</span>:</p>
+<ol>
+<li><span class="color-green">Nie możesz podmienić elementu listy przez zmienną z <code>foreach</code>:</span> zapis <code>ocena = 6;</code> wewnątrz <code>foreach (int ocena in oceny)</code> nie skompiluje się (zmienna iteracyjna jest tylko do odczytu). Jeśli chcesz podnieść każdą ocenę o 1, użyj <code>for (int i = 0; i &lt; oceny.Count; i++) { oceny[i]++; }</code>.</li>
+<li><span class="color-green">Nie możesz wywołać <code>oceny.Add(...)</code> ani <code>oceny.Remove(...)</code> podczas trwania <code>foreach</code>:</span> kompilator to przepuści, ale w trakcie wykonania program wyrzuci <span class="color-green"><code>InvalidOperationException: Collection was modified</code></span>. Gdy chcesz przefiltrować listę, utwórz nową listę wynikową (<code>var wynik = new List&lt;int&gt;();</code>) i dodawaj do niej pasujące elementy!</li>
+</ol>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Jak List rośnie w pamięci (Capacity 0 -&gt; 4 -&gt; 8 -&gt; 16) i jak działa IEnumerator</span>
+<span class="deep-dive-badge">STRUKTURY DANYCH &amp; CLR</span>
+</summary>
+<div class="deep-dive-content">
+
+<p><code>List&lt;T&gt;</code> nie jest żadną magiczną strukturą - <span class="color-green">w środku trzyma zwykłą tablicę <code>T[] _items</code></span> oraz dwa liczniki: <code>_size</code> (widoczne jako <code>Count</code>) i <code>_items.Length</code> (widoczne jako <code>Capacity</code>).</p>
+<p>Zobacz, co dzieje się w pamięci RAM przy kolejnych wywołaniach <code>.Add()</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Operacja</th>
+<th align="center"><code>Count</code> (zajęte)</th>
+<th align="center"><code>Capacity</code> (rozmiar <code>_items</code>)</th>
+<th>Co robi CLR w pamięci?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>new List&lt;int&gt;()</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td>Pusta tablica współdzielona (0 alokacji)</td>
+</tr>
+<tr>
+<td>1. <code>.Add(10)</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>4</code></td>
+<td>Alokuje nową tablicę <code>int[4]</code></td>
+</tr>
+<tr>
+<td>2..4. <code>.Add(...)</code></td>
+<td align="center"><code>2..4</code></td>
+<td align="center"><code>4</code></td>
+<td>Wpisuje w wolne sloty w czasie $O(1)$</td>
+</tr>
+<tr>
+<td>5. <code>.Add(50)</code></td>
+<td align="center"><code>5</code></td>
+<td align="center"><span class="color-green"><code>8</code></span></td>
+<td>Alokuje <code>int[8]</code>, kopiuje 4 elementy, dopisuje 5.</td>
+</tr>
+<tr>
+<td>9. <code>.Add(90)</code></td>
+<td align="center"><code>9</code></td>
+<td align="center"><span class="color-green"><code>16</code></span></td>
+<td>Alokuje <code>int[16]</code>, kopiuje 8 elementów, dopisuje 9.</td>
+</tr>
+</tbody></table>
+<p><span class="color-green">Wskazówka wydajnościowa:</span> jeśli z góry wiesz, że wczytasz z pliku 10 000 rekordów, napisz <span class="color-green"><code>new List&lt;int&gt;(10000)</code></span> - lista od razu zarezerwuje 10 000 miejsc i uniknie 12 zbędnych kopiowań tablicy i śmieci dla GC!</p>
+<p><span class="color-green">Dlaczego <code>foreach</code> rzuca <code>InvalidOperationException</code> przy <code>.Remove()</code>?</span><br>Każda <code>List&lt;T&gt;</code> posiada ukryte pole <code>_version</code>, zwiększane przy każdym <code>Add</code> / <code>Remove</code>. Pętla <code>foreach</code> pod maską tworzy obiekt <span class="color-green"><code>IEnumerator&lt;T&gt;</code></span>, który zapamiętuje <code>_version</code> z chwili startu pętli i przed każdym kolejnym <code>MoveNext()</code> sprawdza, czy wersja się nie zmieniła. Jeśli zmodyfikujesz listę w środku pętli, iterator natychmiast przerywa pracę, zanim przeczytałby błędne lub nieistniejące indeksy.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Filtrowanie, statystyki i transformacja List</h2>
+<p>W klasie <code>Statystyki</code> uzupełnij trzy metody operujące na <code>List&lt;int&gt;</code>:</p>
+<ol>
+<li><span class="color-green"><code>ObliczSrednia(List&lt;int&gt; punkty)</code></span>:<ul>
+<li>zsumuj elementy pętlą <code>foreach</code> i zwróć średnią typu <code>double</code> (pamiętaj o <code>(double)</code>!).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>FiltrujPowyzejProgu(List&lt;int&gt; punkty, int prog)</code></span>:<ul>
+<li>utwórz <span class="color-green">nową listę</span> <code>var wynik = new List&lt;int&gt;();</code>,</li>
+<li>przejdź pętlą <code>foreach</code> po <code>punkty</code> i dodaj do <code>wynik</code> wszystkie wartości spełniające <code>p &gt;= prog</code>,</li>
+<li>zwróć <code>wynik</code> (nie modyfikuj oryginalnej listy!).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>DodajBonus(List&lt;int&gt; punkty, int bonus)</code></span>:<ul>
+<li>użyj pętli <span class="color-green"><code>for</code></span> z indeksem <code>i</code>, aby <span class="color-green">każdy element</span> listy <code>punkty</code> powiększyć o <code>bonus</code> (<code>punkty[i] += bonus;</code>).</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: List<int>, foreach, filtrowanie i modyfikacja przez for" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public class Statystyki
+{
+    public static double ObliczSrednia(List&lt;int&gt; punkty)
+    {
+        // TODO 1: Zsumuj pętlą foreach i zwróć (double)suma / punkty.Count
+        return 0.0;
+    }
+
+    public static List&lt;int&gt; FiltrujPowyzejProgu(List&lt;int&gt; punkty, int prog)
+    {
+        // TODO 2: Utwórz nową List&lt;int&gt;, dodaj elementy &gt;= prog i zwróć ją
+        return new List&lt;int&gt;();
+    }
+
+    public static void DodajBonus(List&lt;int&gt; punkty, int bonus)
+    {
+        // TODO 3: Pętlą for zwiększ każdy element listy punkty[i] o bonus
+    }
+
+    static void Main()
+    {
+        var wyniki = new List&lt;int&gt; { 12, 25, 18, 30, 15 };
+        Console.WriteLine($"Średnia: {ObliczSrednia(wyniki):F2}");
+
+        var top = FiltrujPowyzejProgu(wyniki, 18);
+        Console.WriteLine("Wyniki &gt;= 18: " + string.Join(", ", top));
+
+        DodajBonus(wyniki, 5);
+        Console.WriteLine("Po bonusie +5: " + string.Join(", ", wyniki));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("ObliczSrednia dla { 2, 4, 5, 3, 5 } wynosi 3.8", () =&gt; {
+    double s = Statystyki.ObliczSrednia(new List&lt;int&gt; { 2, 4, 5, 3, 5 });
+    LabAssert.Equal(3.8, Math.Round(s, 2));
+});
+LabAssert.Test("FiltrujPowyzejProgu zwraca nową listę z elementami &gt;= prog bez psucia oryginału", () =&gt; {
+    var wejscie = new List&lt;int&gt; { 12, 25, 18, 30, 15 };
+    var wynik = Statystyki.FiltrujPowyzejProgu(wejscie, 18);
+    LabAssert.Equal(3, wynik.Count);
+    LabAssert.Equal("25,18,30", string.Join(",", wynik));
+    LabAssert.Equal(5, wejscie.Count);
+});
+LabAssert.Test("FiltrujPowyzejProgu zwraca pustą listę gdy nic nie spełnia warunku", () =&gt; {
+    var wynik = Statystyki.FiltrujPowyzejProgu(new List&lt;int&gt; { 5, 10, 12 }, 20);
+    LabAssert.Equal(0, wynik.Count);
+});
+LabAssert.Test("DodajBonus modyfikuje każdy element listy w miejscu przez for", () =&gt; {
+    var lista = new List&lt;int&gt; { 10, 20, 30 };
+    Statystyki.DodajBonus(lista, 5);
+    LabAssert.Equal("15,25,35", string.Join(",", lista));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<pre><code class="language-csharp">public static double ObliczSrednia(List&lt;int&gt; punkty)
+{
+    int suma = 0;
+    foreach (int p in punkty)
+    {
+        suma += p;
+    }
+    return (double)suma / punkty.Count;
+}
+
+public static List&lt;int&gt; FiltrujPowyzejProgu(List&lt;int&gt; punkty, int prog)
+{
+    var wynik = new List&lt;int&gt;();
+    foreach (int p in punkty)
+    {
+        if (p &gt;= prog) wynik.Add(p);
+    }
+    return wynik;
+}
+
+public static void DodajBonus(List&lt;int&gt; punkty, int bonus)
+{
+    for (int i = 0; i &lt; punkty.Count; i++)
+    {
+        punkty[i] += bonus;
+    }
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Wybieraj <span class="color-green"><code>List&lt;T&gt;</code></span> zamiast tablicy <code>T[]</code>, gdy liczba elementów zmienia się w trakcie działania programu; liczbę elementów odczytuj przez <span class="color-green"><code>.Count</code></span>.</li>
+<li>Używaj <span class="color-green"><code>foreach</code></span> do czytania, sumowania i filtrowania do nowej listy; wracaj do <span class="color-green"><code>for</code></span>, gdy musisz modyfikować elementy w miejscu (<code>lista[i] = ...</code>) lub potrzebujesz numeru indeksu.</li>
+<li>Nigdy nie dodawaj ani nie usuwaj elementów z kolekcji, po której aktualnie przechodzi pętla <code>foreach</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

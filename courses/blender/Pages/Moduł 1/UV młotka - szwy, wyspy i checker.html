@@ -58,8 +58,10 @@
             <h1>UV młotka - szwy, wyspy i checker</h1>
 <p>Otwórz własny <code>mlotek_v02.blend</code> lub <a href="/courses/blender/Resources/mlotek-02-materialy.blend">model z materiałami</a>. Zapisz pracę jako <code>mlotek_v03.blend</code>.</p>
 <section class="lesson-section" data-lesson-section="true"><h2>🧩 Podłącz checker do materiału</h2>
-<p>Przejdź do obszaru roboczego <kbd class="win-menu-btn">UV Editing</kbd>. Po lewej jest UV Editor, po prawej widok modelu. Obraz kontrolny musi być podłączony do materiału, abyś widział go także na młotku.</p>
-<p>Zaznacz trzonek w Object Mode. Ikoną typu edytora w lewym górnym rogu lewego obszaru zmień <kbd class="win-menu-btn">UV Editor</kbd> na <kbd class="win-menu-btn">Shader Editor</kbd>. Zobaczysz węzły materiału. Ich wejścia są po lewej, a wyjścia po prawej. Przewód przekazuje wynik jednego węzła do drugiego.</p>
+<p>Przejdź do obszaru roboczego <kbd class="win-menu-btn">UV Editing</kbd>. Po lewej jest UV Editor, po prawej widok modelu. W lewym edytorze będziesz układać UV na obrazie, a w prawym sprawdzać, jak ten obraz wygląda na powierzchni młotka.</p>
+<p>Sprawdź tryb w lewym górnym rogu widoku 3D. Jeśli po przełączeniu obszaru Blender włączył Edit Mode, wróć do Object Mode przez <kbd>Tab</kbd>. Zacznij od podłączenia checkera do materiałów obu części.</p>
+<p>Zaznacz trzonek w Object Mode. Ikoną typu edytora w lewym górnym rogu lewego obszaru zmień <kbd class="win-menu-btn">UV Editor</kbd> na <kbd class="win-menu-btn">Shader Editor</kbd>. Jeśli węzły są poza widokiem, naciśnij <kbd>Home</kbd> nad tym edytorem, aby objąć je wszystkie.</p>
+<p>Materiał jest tu przedstawiony jako połączone <span class="color-green">węzły</span>. Principled BSDF zawiera znane ci już Base Color, Metallic i Roughness. Dodasz węzeł odczytujący obraz i przekażesz jego kolor do Base Color. Wejścia węzła są po lewej, a wyjścia po prawej. Przeciągnięty między nimi przewód określa, skąd pobierana jest dana wartość.</p>
 <p>W lewym edytorze wybierz <kbd class="win-menu-btn">Add</kbd> → <kbd class="win-menu-btn">Texture</kbd> → <kbd class="win-menu-btn">Image Texture</kbd>. Na dodanym węźle kliknij <kbd class="win-menu-btn">New</kbd> i ustaw:</p>
 <table>
 <thead>
@@ -81,28 +83,111 @@
 <td><code>Color Grid</code></td>
 </tr>
 </tbody></table>
+<p>Color Grid wygeneruje kolorową kratkę z literami. Nazwa <code>Checker_1024</code> pozwoli wybrać ten sam obraz w drugim materiale. Wartości Width i Height określają rozdzielczość obrazu kontrolnego.</p>
 <p>Zatwierdź utworzenie obrazu. Przeciągnij przewód z wyjścia <kbd class="win-menu-btn">Color</kbd> w Image Texture (1 na zrzucie) do wejścia <kbd class="win-menu-btn">Base Color</kbd> w Principled BSDF (2). Materiał zacznie odczytywać kolor z obrazu zamiast z jednolitej próbki.</p>
 <p><img src="/courses/blender/Images/uv-checker-node.png" alt="Połączenie wyjścia Color obrazu kontrolnego z wejściem Base Color materiału"></p>
+<p>Przy niepodłączonym wejściu <kbd class="win-menu-btn">Vector</kbd> węzeł Image Texture korzysta z aktywnej mapy UV obiektu. Dlatego późniejsza zmiana rozłożenia UV zmieni kratkę widoczną na modelu. Oba obiekty mogą odczytywać ten sam obraz według własnych współrzędnych.</p>
 <p>Zaznacz głowicę i dodaj do jej materiału drugi Image Texture. Z listy obrazów wybierz istniejący <code>Checker_1024</code>, po czym połącz Color z Base Color. Na czas kontroli ustaw Metallic głowicy na <code>0</code>, aby odbicia stali nie przesłaniały wzoru. W widoku 3D włącz Material Preview.</p>
-<p>Zmień lewy obszar z powrotem na UV Editor i wybierz w nim <code>Checker_1024</code>. To ten sam obraz, z którego korzystają teraz oba materiały.</p>
+<p>Zmień lewy obszar z powrotem na UV Editor. Z listy obrazów w jego nagłówku wybierz <code>Checker_1024</code>. W obu materiałach i w edytorze masz teraz ten sam obraz, więc możesz porównywać wielkość pól na trzonku i głowicy.</p>
+<p>Jeżeli kratka jest widoczna tylko po lewej, sprawdź prawy widok: ma działać w Material Preview. Jeśli tylko jedna część pozostaje jednolita, zaznacz ją w Object Mode i sprawdź w jej materiale połączenie Color → Base Color.</p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔎 Obejrzyj UV po modelowaniu</h2>
-<p>Zaznacz obie części młotka, przejdź do Edit Mode i zaznacz wszystkie ściany przez <kbd>A</kbd>. Po lewej zobaczysz UV pozostałe po kostkach, z których powstał model. Kształt młotka zmienił się podczas modelowania, więc te współrzędne trzeba rozłożyć ponownie.</p>
+<p>W widoku 3D zaznacz trzonek, a z wciśniętym <kbd>Shift</kbd> dodaj głowicę. Przejdź do Edit Mode przez <kbd>Tab</kbd> i, trzymając kursor nad widokiem 3D, zaznacz całą siatkę przez <kbd>A</kbd>. Po lewej zobaczysz UV pozostałe po kostkach, z których powstał model. Kształt młotka zmienił się podczas modelowania, więc te współrzędne trzeba rozłożyć ponownie.</p>
 <p><img src="/courses/blender/Images/uv-przed.png" alt="UV pozostałe po kostkach oraz nierówna kratka na wymodelowanym młotku"></p>
-<p>Przyjrzyj się płaskiemu bokowi głowicy i długiej stronie trzonka. Zapamiętaj miejsca, gdzie kratka jest wyraźnie wydłużona. Po rozłożeniu wrócisz do tych samych powierzchni i sprawdzisz skutek zmiany.</p>
+<p>Na trzonku pola są rozciągnięte w długie, wąskie pasma. Na szerokim boku głowicy porównaj ich wysokość i szerokość. Obróć każdą z tych powierzchni możliwie w swoją stronę, aby ograniczyć wpływ kąta patrzenia. Po Unwrap wrócisz do tych samych miejsc i ocenisz zmianę proporcji.</p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>✂️ Otwórz boki trzonka i oddziel końcówki</h2>
-<p>Wróć do Object Mode, zaznacz sam trzonek i włącz Local View przez <kbd>Numpad /</kbd>. W Edit Mode przejdź do wyboru ścian klawiszem <kbd>3</kbd> nad literami. Odznacz wszystko, wybierz górną ścianę, a potem obróć widok od spodu i dodaj dolną z <kbd>Shift</kbd>.</p>
-<p>Wybierz <kbd class="win-menu-btn">Select</kbd> → <kbd class="win-menu-btn">Loops</kbd> → <kbd class="win-menu-btn">Boundary Loop</kbd>. Zamiast ścian zaznaczone zostaną krawędzie, które je otaczają. W menu <kbd class="win-menu-btn">Edge</kbd> wybierz <kbd class="win-menu-btn">Mark Seam</kbd>, a następnie odznacz wszystko. Czerwone obwody wyznaczają dwie końcówki jako osobne części rozłożenia.</p>
+<p>Wróć do Object Mode, zaznacz sam trzonek i włącz Local View przez <kbd>Numpad /</kbd>. To polecenie znajdziesz też w <kbd class="win-menu-btn">View</kbd> → <kbd class="win-menu-btn">Local View</kbd> → <kbd class="win-menu-btn">Toggle Local View</kbd>.</p>
+<p>W Edit Mode przejdź do wyboru ścian klawiszem <kbd>3</kbd> nad literami. Nad widokiem 3D odznacz wszystko przez <span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span>. Wybierz górną ścianę kończącą trzonek, a potem obróć widok od spodu i dodaj dolną z <kbd>Shift</kbd>. Zaznaczone mają być tylko dwie końcówki.</p>
+<p>Wybierz <kbd class="win-menu-btn">Select</kbd> → <kbd class="win-menu-btn">Select Loops</kbd> → <kbd class="win-menu-btn">Boundary of Selected</kbd>. W Blenderze 5.2.2 tak nazywa się polecenie zamieniające zaznaczenie ścian na krawędzie ich obwodu.</p>
+<p><img src="/courses/blender/Images/uv-obwod-zaznaczenia.png" alt="Dwie końcówki trzonka zaznaczone w trybie wyboru ścian oraz menu z poleceniem Boundary of Selected"></p>
+<p>Po wykonaniu polecenia Blender przełączy wybór na krawędzie. Na tym trzonku powinny być zaznaczone dwa obwody po cztery krawędzie. W menu <kbd class="win-menu-btn">Edge</kbd> wybierz <kbd class="win-menu-btn">Mark Seam</kbd>, a następnie odznacz wszystko. Czerwone linie wskażą miejsca oddzielenia końcówek od boków przy rozkładaniu UV.</p>
 <p>Teraz otwórz zamknięty pas boczny. Włącz wybór krawędzi klawiszem <kbd>2</kbd> i obróć trzonek od tyłu. Wybierz z <kbd>Shift</kbd> dwie krawędzie jednego narożnika: od dolnego końca do środkowej pętli i dalej do górnego. Na zrzucie ten ciąg oznaczono numerem 1. Ponownie wybierz <kbd class="win-menu-btn">Mark Seam</kbd>.</p>
 <p><img src="/courses/blender/Images/uv-szwy-trzonek.png" alt="Trzonek z obwodami oddzielającymi końcówki oraz jednym podłużnym szwem otwierającym powierzchnię boczną"></p>
 <p>Sprawdź połączenia przy środkowej pętli i przy końcach. Podłużny szew ma dochodzić do obu czerwonych obwodów. Dzięki temu boki mogą rozłożyć się w jeden pas, a końcówki trafią obok niego.</p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🗺️ Wykonaj Unwrap i sprawdź wynik</h2>
-<p>Zaznacz całą siatkę trzonka przez <kbd>A</kbd>. Nad widokiem 3D wybierz <kbd class="win-menu-btn">UV</kbd> → <kbd class="win-menu-btn">Unwrap Angle Based</kbd>. W lewym edytorze powinny pojawić się trzy wyspy: jeden długi pas i dwie końcówki.</p>
+<p>Zaznacz całą siatkę trzonka przez <kbd>A</kbd> nad widokiem 3D i naciśnij <kbd>U</kbd>. Otworzy się menu <kbd class="win-menu-btn">UV Mapping</kbd>. Zawiera kilka sposobów utworzenia UV. Wybór zależy od tego, czy chcesz rozwinąć powierzchnię według szwów, automatycznie podzielić model, czy rzutować go z określonego kierunku.</p>
+<p><img src="/courses/blender/Images/uv-menu-metody.png" alt="Menu UV Mapping w Blenderze 5.2.2: trzy metody Unwrap u góry oraz pozostałe sposoby mapowania poniżej"></p>
+<h3>🔀 Porównaj metody na trudniejszej powierzchni</h3>
+<p>Na trzonku trzy metody dają zbliżony wynik. Spójrz więc na obudowę ze stopniowanym otworem i na skan głowy. W każdym rzędzie zachowano ten sam model, szwy, obraz i kamerę. Zmienia się metoda Unwrap. Pod modelem jest jego rzeczywisty układ UV.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-metody-obudowa.png" alt="Angle Based, Conformal i Minimum Stretch na tej samej obudowie, wraz z układami UV"></p>
+<p>Na szerokim froncie obudowy małe kratki mają podobne proporcje we wszystkich trzech próbach. Powierzchnia składa się z płaskich pól oraz pasów, które można otworzyć szwami. <span class="color-green">Conformal</span> wystarcza tu do uzyskania użytecznego rozłożenia. Zmiana na bardziej złożoną metodę przynosi niewielką korzyść.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-metody-glowa.png" alt="Te same trzy metody na skanie głowy: dwie pierwsze mocno zmniejszają obszar twarzy; Minimum Stretch przydziela mu więcej miejsca"></p>
+<p>Teraz porównaj policzek z ramieniem. W pierwszych dwóch próbach na twarzy mieści się zaledwie kilka dużych pól, choć na ramionach jest ich dużo więcej. W UV przód twarzy oznaczono pomarańczowymi krawędziami. Widzisz, jak mocno skurczył się ten obszar. Taki wynik utrudniłby zapisanie szczegółów skóry.</p>
+<p><span class="color-green">Angle Based</span> i Conformal starają się zachować lokalne kąty podczas rozpłaszczania. Pozostawiają jednak swobodę zmiany wielkości poszczególnych obszarów. Przy tym podziale skanu obie metody wykorzystały ją w niekorzystny sposób. <span class="color-green">Minimum Stretch</span> uwzględnia także zmiany względnej powierzchni i w tej próbie daje twarzy znacznie równiejszy przydział. Nadal obejrzyj nos i okolice oczu: krzywizna wymusza miejscowe deformacje.</p>
+<p>Gdy porównujesz metody, sprawdzaj więc <span class="color-green">proporcje pól i ich wielkość między obszarami</span>. Jeśli wszystkie trzy wyniki pozostawiają problem w tym samym miejscu, sprawdź możliwość dodatkowego cięcia. Wybór metody i zaplanowanie szwów są dwiema decyzjami, które wspólnie kształtują wynik.</p>
+<h3>🧭 Dobierz sposób mapowania do powierzchni</h3>
+<p>Pozostałe pozycje menu tworzą UV według innych zasad. Obejrzyj ich działanie na tych samych dwóch modelach. W zakładkach znajdziesz zarówno użyteczne zastosowania, jak i skutki objęcia daną projekcją zbyt dużej części obiektu.</p>
+<data-tabs>
+<tabs><b>Automatyczny podział</b><b>Projekcje brył</b><b>Rzut z widoku</b><b>Pasy i powtarzanie</b></tabs>
+<div><p><kbd class="win-menu-btn">Smart UV Project</kbd> grupuje ściany według kierunków. Na obudowie daje osobne pola, które łatwo ocenić i później pomalować. Na głowie ten sam limit kąta rozcina ciągłą powierzchnię na liczne fragmenty. Spójrz zwłaszcza na okolice nosa i uszu w UV. Przy malowaniu skóry trzeba byłoby dopasowywać wzór przez te granice.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-smart.png" alt="Smart UV Project z limitem 66 stopni na obudowie i skanie głowy: porównanie podziału powierzchni"></p>
+<p>Pole <kbd class="win-menu-btn">Angle Limit</kbd> reguluje ten podział. Obniżenie limitu pozwala łączyć w grupy ściany o bardziej zbliżonych kierunkach, więc zwykle powstaje więcej fragmentów. Po operacji sprawdź, czy granice wysp pasują do sposobu malowania assetu.</p>
+<p><kbd class="win-menu-btn">Lightmap Pack</kbd> wydziela osobne obszary dla ścian. Obejrzyj, jak wypełnia nimi atlas obu modeli. Taki podział służy zapisowi wypalonego oświetlenia, gdzie powierzchnie potrzebują własnego miejsca. Przy ręcznym malowaniu twarzy liczba granic bardzo utrudniłaby pracę.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-lightmap.png" alt="Lightmap Pack na obudowie i głowie: liczne osobne pola ścian w atlasie UV"></p></div>
+<div><p><kbd class="win-menu-btn">Cube Projection</kbd> rzutuje ściany z sześciu kierunków. Na płaskich częściach obudowy daje czytelne pola checkera. Na głowie kierunek projekcji zmienia się między sąsiednimi fragmentami, co widać po nagłych zmianach wzoru. <span class="color-green">Sprawdź też nakładanie w UV</span>: projekcja może umieścić kilka powierzchni w tym samym miejscu obrazu. Do indywidualnego malowania każdej z nich potrzebujesz osobnych obszarów atlasu.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-cube.png" alt="Cube Projection na obudowie i głowie: kształt wzoru oraz nakładające się rzuty w UV"></p>
+<p><kbd class="win-menu-btn">Cylinder Projection</kbd> rozwija powierzchnię wokół osi. W obudowie zaznaczono tylko wewnętrzny pas otworu, a oś projekcji ustawiono wzdłuż tego otworu. Powstaje prostokątna owijka. Po projekcji dopasowano jej proporcje do obwodu i głębokości otworu: w UV Editorze skaluj wysokość pasa przez <kbd>S</kbd>, <kbd>Y</kbd> i sprawdzaj kratkę na jego powierzchni. Zakończ, gdy małe pola oglądane na wprost mają podobną szerokość i wysokość.</p>
+<p>Na całej głowie i ramionach jedna oś wymusza duże różnice skali między szyją, nosem i szerokim dołem. Dobierz zarówno oś, jak i zakres zaznaczenia. Front oraz uskoki obudowy rozłóż osobno.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-cylinder.png" alt="Cylinder Projection na wybranym wnętrzu otworu oraz na całym skanie głowy z ramionami"></p>
+<p><kbd class="win-menu-btn">Sphere Projection</kbd> nadaje współrzędne według kierunków wychodzących ze środka, podobnie jak długość i szerokość geograficzna na globie. Porównaj czubek głowy z jej bokiem. Pola zbiegają się przy biegunie. Na obudowie układ dodatkowo nie odpowiada przebiegowi otworu i płaskich frontów. Tę projekcję łatwiej wykorzystać na powierzchni zbliżonej do kuli, np. gałce ocznej.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-sphere.png" alt="Sphere Projection na obudowie i głowie: deformacje wynikające z odwzorowania wokół środka i przy biegunach"></p></div>
+<div><p><kbd class="win-menu-btn">Project from View</kbd> przenosi zaznaczenie na obraz zgodnie z widokiem. Na obudowie zaznaczono wyłącznie płaski front i wykonano rzut prostopadły do niego. Pola zachowują proporcje. Rzut całej głowy zapisuje głębokość nosa, policzków i tyłu głowy w tej samej płaszczyźnie. Powierzchnie mogą się nałożyć, a odwrócone boki zostają ściśnięte.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-front.png" alt="Rzut z przodu na sam płaski front obudowy i na cały skan: różnica wynikająca z zaznaczenia powierzchni"></p>
+<p>Wariant <kbd class="win-menu-btn">Project from View (Bounds)</kbd> rozciąga rzut do granic obrazu. Poniżej w obu próbach zaznaczony jest ten sam niski pas frontu obudowy. Po dopasowaniu Bounds jego UV zajmuje cały kwadrat, a na powierzchni powstają bardzo wąskie pola. Szerokość i wysokość rzutu zmieniły skalę w różnym stopniu. Użyj zwykłego rzutu, gdy chcesz zachować proporcje, a położenie i wspólną skalę ustaw później w UV Editorze.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-bounds.png" alt="Ten sam wąski pas obudowy przed i po dopasowaniu rzutu do granic obrazu, z widoczną zmianą proporcji checkera"></p></div>
+<div><p><kbd class="win-menu-btn">Follow Active Quads</kbd> prowadzi UV od aktywnego czworokąta przez zaznaczony pas sąsiednich czworokątów. W przykładzie użyto całego wewnętrznego pasa obudowy. Jego ściana początkowa dostała prostokątne UV o proporcjach odpowiadających jej bokom. Kolejne ściany kontynuują ten układ.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-follow.png" alt="Follow Active Quads na pasie czworokątów wewnątrz otworu złożonej obudowy"></p>
+<p>Aby powtórzyć próbę w pliku porównawczym, wybierz scenę <code>x-follow</code>. W Edit Mode zaznacz pas ścian wewnątrz otworu. Jedną z nich wybierz jako ostatnią, aby została aktywna. Jej UV jest wzorcem dla reszty. Po <kbd>U</kbd> wybierz Follow Active Quads. Rozciągnięcie ściany początkowej przeniesie się na pas, dlatego sprawdź ją przed wykonaniem polecenia. Skan głowy składa się z trójkątów, więc ta metoda nie poprowadzi po nim takiego pasa.</p>
+<p><kbd class="win-menu-btn">Reset</kbd> przypisuje każdej zaznaczonej ścianie cały obraz. Spójrz, ile razy wraca ten sam wzór na obu modelach. Można tak powielać grafikę na osobnych panelach. Indywidualne rysy czy pieprzyk wymagałyby oddzielnego miejsca w UV, ponieważ zmiana wspólnego obrazu pojawi się na wszystkich odczytujących go ścianach.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-reset.png" alt="Reset na czworokątach obudowy i trójkątach skanu: każda ściana odczytuje cały wspólny obraz"></p></div>
+</data-tabs>
+
+<p>Możesz obejrzeć i przeliczyć te wyniki w <a href="/courses/blender/Resources/UV-laboratorium-wizualne.blend">pliku z porównaniami UV</a>. Lista scen w górnej belce Blendera zawiera warianty nazwane jak na ilustracjach, np. <code>x-conformal</code> i <code>y-minimum_stretch</code>. Po wybraniu sceny przejdź do UV Editing, zaznacz model, włącz Edit Mode i zaznacz siatkę przez <kbd>A</kbd>. W lewym edytorze wybierz obraz <code>Checker_1024</code>.</p>
+<p>Skan głowy: Lee Perry‑Smith / Infinite‑Realities, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, z <a href="https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf/LeePerrySmith">zasobów three.js</a>. W porównaniach zmieniono UV i materiał kontrolny.</p>
+<p>Polecenia <kbd class="win-menu-btn">Mark Seam</kbd> i <kbd class="win-menu-btn">Clear Seam</kbd> dodają i usuwają oznaczenia szwów. Po zmianie oznaczeń ponownie wykonaj Unwrap.</p>
+<p>Na trzonku chcemy zachować zaplanowany pas boczny i dwie końcówki. Wybierz teraz <kbd class="win-menu-btn">Unwrap Angle Based</kbd>.</p>
+<p>W lewym edytorze powinny pojawić się trzy wyspy: jeden długi pas i dwie końcówki. Ich położenie i obrót mogą różnić się od ilustracji. Sprawdź przede wszystkim, czy końcówki są osobno, a wszystkie boki tworzą wspólny pas.</p>
 <p><img src="/courses/blender/Images/uv-trzonek.png" alt="Trzy wyspy trzonka: powierzchnia boczna i dwie oddzielone końcówki"></p>
+<h3>⚙️ Zobacz, co zmienia F9</h3>
+<p>Od razu po Unwrap naciśnij <kbd>F9</kbd> nad widokiem 3D. Panel pozwala przeliczyć tę operację po zmianie ustawień. Pole <kbd class="win-menu-btn">Method</kbd> przełącza trzy metody pokazane wcześniej.</p>
+<p><img src="/courses/blender/Images/uv-unwrap-ustawienia.png" alt="Panel F9 operacji Unwrap w Blenderze 5.2.2, z parametrami Minimum Stretch"></p>
+<p>Poniżej każda para pokazuje zmianę jednego ustawienia. W pliku porównawczym zapisane są wyniki UV. Aby samodzielnie otworzyć panel F9 po wczytaniu sceny, najpierw wykonaj Unwrap przez <kbd>U</kbd>. Zapisany projekt nie przechowuje historii ostatniej operacji.</p>
+<data-tabs>
+<tabs><b>Obraz i odstępy</b><b>Siatka i otwory</b><b>Przeliczanie i obszar</b><b>Wagi i odwrócenia</b></tabs>
+<div><p><kbd class="win-menu-btn">Correct Aspect</kbd> uwzględnia szerokość i wysokość obrazu. W obu próbach poniżej użyto tego samego checkera 1024 × 512. Po wyłączeniu korekty UV jest układane jak dla kwadratowego obrazu i kratki na modelu zmieniają proporcje. Włączona korekta dopasowuje rozłożenie do prostokątnej tekstury. Podgląd UV na ilustracji również ma proporcje 2:1, aby dało się to porównać.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-aspect.png" alt="Correct Aspect wyłączone i włączone na tej samej obudowie z tą samą prostokątną teksturą 1024 na 512 pikseli"></p>
+<p>Blender odczytuje wymiary z obrazu w aktywnym węźle Image Texture materiału. Zaznacz ten węzeł w Shader Editorze przed Unwrap. Nasz młotek ma kwadratowy checker, więc pozostaw Correct Aspect włączone.</p>
+<p><kbd class="win-menu-btn">Margin</kbd> rezerwuje wolne miejsce wokół pakowanych wysp. Porównaj puste pasy w dwóch atlasach poniżej. Większy margines oddziela wyspy kosztem miejsca zajmowanego przez ich powierzchnie. Po wspólnym dopasowaniu do obrazu na modelu mieści się wtedy mniej pól checkera.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-margin.png" alt="Fraction z marginesem 0 i 0.06: różna szerokość pustych pasów i wielkość wysp w atlasie"></p>
+<p><kbd class="win-menu-btn">Margin Method</kbd> określa, jak Blender interpretuje wpisaną wartość. W tej próbie przed każdym Unwrap powiększono początkowe UV dziesięciokrotnie. Pole Margin ma zawsze <code>0.02</code>. Obejrzyj odstępy: ta sama liczba w różnych trybach daje inny wynik.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-margin-method.png" alt="Scaled, Add i Fraction z wartością Margin 0.02, przy identycznych początkowych UV powiększonych dziesięciokrotnie"></p>
+<p><span class="color-blue">Scaled</span> uzależnia margines od skali dotychczasowych UV. <span class="color-blue">Add</span> dodaje odstęp przed końcowym dopasowaniem układu, więc późniejsze skalowanie wpływa na jego wielkość. <span class="color-blue">Fraction</span> wyraża margines w odniesieniu do końcowego kwadratu UV. Do ustawiania odstępów w gotowym atlasie najłatwiej kontrolować Fraction. Samo pozostawienie pustego miejsca wymaga jeszcze wypełnienia go odpowiednimi kolorami podczas wypalania lub malowania tekstury.</p></div>
+<div><p><kbd class="win-menu-btn">Use Subdivision Surface</kbd> uwzględnia powierzchnię po modyfikatorze Subdivision Surface. W obu próbach poniżej oglądasz ten sam wygładzony model. Po lewej UV obliczono na podstawie siatki bazowej, a po prawej z uwzględnieniem wygładzenia. Porównaj kratkę przy przejściu frontu w otwór, gdzie modyfikator najmocniej zmienia kształt.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-subdiv.png" alt="Ta sama wygładzona obudowa z UV obliczonym bez uwzględnienia i z uwzględnieniem Subdivision Surface"></p>
+<p>Włącz tę opcję, gdy oceniasz teksturę na powierzchni wygładzonej tym modyfikatorem. Trzonek młotka korzysta z Bevel, więc tutaj pozostaw ją wyłączoną.</p>
+<p><kbd class="win-menu-btn">Fill Holes</kbd> pomaga obliczać rozłożenie płatów z wewnętrznymi otworami przez ich tymczasowe domknięcie na potrzeby obliczeń. Spójrz na poniższą obudowę: ma otwór w bryle, ale każdy pierścieniowy płat otwarto szwem od środka do zewnętrznego brzegu. Dlatego obie próby dały identyczne UV.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-holes.png" alt="Fill Holes wyłączone i włączone: identyczny wynik na obudowie z pierścieniami już otwartymi szwami"></p>
+<p>Przed użyciem tej opcji prześledź granicę rozwijanego płata. Zamknięty otwór wewnątrz tej granicy może wpłynąć na obliczenia. Fill Holes zachowuje geometrię modelu. Pole jest dostępne dla Angle Based i Conformal, a Minimum Stretch uwzględnia takie domknięcie automatycznie.</p></div>
+<div><p><kbd class="win-menu-btn">Iterations</kbd> w Minimum Stretch określa liczbę kolejnych przebiegów poprawiania układu. Porównaj czoło, policzek i szyję po jednym oraz po trzydziestu przebiegach. Metoda dostaje więcej czasu na ograniczanie odkształceń wewnątrz tych samych granic.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-iterations.png" alt="Minimum Stretch po jednym i trzydziestu przebiegach na tym samym skanie głowy"></p>
+<p>Zacznij od <code>10</code>. Zwiększ liczbę i wróć wzrokiem do tego samego fragmentu. Gdy dalsze przeliczanie daje podobną kratkę, pozostaw niższą wartość. Zbyt ograniczony szwami płat nadal będzie wymagał decyzji o cięciu.</p>
+<p><kbd class="win-menu-btn">Original Bounds</kbd> przydaje się podczas poprawiania istniejącego atlasu. W obu próbach poniżej punktem wyjścia był ten sam układ zajmujący mały obszar po prawej. Przy wyłączonej opcji Blender rozmieścił wyspy na nowo. Przy włączonej zachował dotychczasowe obszary rozłożenia. Porównaj ich położenie w kwadracie UV.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-bounds.png" alt="Ponowne Unwrap małego istniejącego atlasu z Original Bounds wyłączonym i włączonym"></p>
+<p>W tym trybie część ustawień pakowania staje się niedostępna. Po ponownym rozłożeniu sprawdź dopasowanie istniejącego obrazu, ponieważ punkty wewnątrz wysp mogą zmienić pozycję. Przy młotku zastępujemy UV pozostałe po kostce, więc pozostaw Original Bounds wyłączone.</p></div>
+<div><p><kbd class="win-menu-btn">Importance Weights</kbd> pozwala przydzielić więcej miejsca wybranej części powierzchni. W scenach <code>weights-0</code> i <code>weights-2</code> grupa wierzchołków <code>Priorytet_twarzy</code> ma wyższe wagi z przodu głowy, a niższe na pozostałej powierzchni. Zaznaczenie Importance Weights udostępnia nazwę grupy w <kbd class="win-menu-btn">Weight Group</kbd> oraz siłę wpływu w <kbd class="win-menu-btn">Weight Factor</kbd>.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-weights.png" alt="Ta sama grupa wag twarzy przy Weight Factor 0 i 2: zmiana przydziału powierzchni UV i rozmiaru kratki na twarzy"></p>
+<p>Przy Factor <code>0</code> wagi nie wpływają na wynik. Przy <code>2</code> na twarzy mieści się więcej pól checkera, a na ramionach mniej. Ten przydział ma koszt: obejrzyj wydłużenie pól w szyi. Dobieraj wpływ do szczegółowości obrazu i odległości oglądania assetu.</p>
+<p>Aby przygotować własną grupę, otwórz <kbd class="win-menu-btn">Object Data Properties</kbd> pod zielonym trójkątem. W <kbd class="win-menu-btn">Vertex Groups</kbd> kliknij <code>+</code> i nadaj nazwę. W Edit Mode zaznacz wierzchołki ważnego obszaru, ustaw Weight, np. <code>1</code>, i kliknij Assign. Pozostałemu obszarowi przypisz mniejszą wagę, np. <code>0.1</code>. Dopiero wtedy wybierz tę grupę w panelu Unwrap. Przy młotku pozostaw Importance Weights wyłączone.</p>
+<p><kbd class="win-menu-btn">No Flip</kbd> ogranicza lokalne odwracanie ścian w UV podczas optymalizacji. Poniżej oba wyniki są identyczne: dla tego otwarcia skanu dodatkowe ograniczenie nie zmieniło rozwiązania.</p>
+<p><img src="/courses/blender/Images/uv-porownanie-f9-flip.png" alt="No Flip wyłączone i włączone na tym samym poprawnie otwartym skanie: identyczne wyniki tej próby"></p>
+<p>Ta kontrola ma znaczenie zwłaszcza przy przypiętych punktach UV, których położenie ogranicza rozwijanie. Odwrócenie rozpoznasz w UV po ścianie przechodzącej na drugą stronę własnej krawędzi, często z nałożeniem na sąsiada. Obrócenie całej wyspy na obrazie zachowuje wzajemne ułożenie jej ścian. Po włączeniu No Flip nadal sprawdzaj nakładanie i proporcje wzoru.</p></div>
+</data-tabs>
+
+<p>Wróć do trzonka młotka. W panelu pozostaw Method: Angle Based, włączone Correct Aspect oraz wyłączone Use Subdivision Surface i Original Bounds. Kliknij poza panelem, aby kontynuować pracę na tym rozłożeniu.</p>
 <p>Wróć widokiem do tej samej strony trzonka, którą oglądałeś przed wyznaczeniem szwów. Oceń proporcje małych pól możliwie na wprost powierzchni. Przy końcach trzonek zwęża się, więc połączony pas wymaga drobnych odkształceń. Dla słojów drewna ciągłość tego pasa jest przydatna: wzór może przechodzić przez narożniki bez kolejnych granic do dopasowania.</p>
-<p>Jeśli końcówka pozostała połączona z pasem albo pas zawija się w ciasny fragment, sprawdź czerwone krawędzie. Uzupełnij przerwany obwód lub podłużny szew i ponownie wykonaj Unwrap dla całego trzonka. Samo oznaczenie nowej krawędzi jako szwu pozostawia dotychczasowe UV aż do ponownego rozłożenia.</p>
-<p>Długość trzonka ustaw pionowo w UV, aby ułatwić późniejsze ułożenie słojów. Jeśli pas leży poziomo, przenieś kursor nad lewy edytor, zaznacz UV przez <kbd>A</kbd> i wykonaj <kbd>R</kbd>, <code>90</code>, <kbd>Enter</kbd>. Obrócisz rozłożenie trzonka wraz z jego końcówkami, zachowując proporcje wysp.</p>
+<p>Jeśli końcówka pozostała połączona z pasem, sprawdź, czy otacza ją pełny czerwony obwód. Jeśli boki nie otworzyły się w długi pas, prześledź podłużny szew: ma dochodzić od jednego obwodu do drugiego, także przez środkową pętlę. Uzupełnij brakującą krawędź, zaznacz cały trzonek i ponownie wykonaj Unwrap. Nowe oznaczenie szwu zacznie wpływać na UV po tej operacji.</p>
+<p>Ustaw długość pasa pionowo w UV, jak na ilustracji. Zachowasz w ten sposób czytelny kierunek jego długości. Przy nakładaniu fotografii drewna dopasujesz ten kierunek do włókien widocznych na obrazie. Jeśli pas leży poziomo, przenieś kursor nad lewy edytor, zaznacz UV przez <kbd>A</kbd> i wykonaj <kbd>R</kbd>, <code>90</code>, <kbd>Enter</kbd>. Obrócisz rozłożenie trzonka wraz z jego końcówkami, zachowując proporcje wysp.</p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔨 Porównaj dwa podziały głowicy</h2>
-<p>Wróć do Object Mode i wyłącz Local View. Zaznacz głowicę, włącz Local View dla niej i przejdź do Edit Mode. W trybie wyboru ścian zaznacz dwie końcowe ściany po przeciwnych stronach osi X. Tak jak przy trzonku wykonaj Boundary Loop i Mark Seam, aby oddzielić końcówki.</p>
+<p>Wróć do Object Mode i wyłącz Local View. Zaznacz głowicę, włącz Local View dla niej i przejdź do Edit Mode. Klawiszem <kbd>3</kbd> włącz wybór ścian, odznacz wszystko i zaznacz z <kbd>Shift</kbd> dwie końcowe ściany po przeciwnych stronach osi X. Tak jak przy trzonku wykonaj <kbd class="win-menu-btn">Boundary of Selected</kbd>, a potem <kbd class="win-menu-btn">Mark Seam</kbd>, aby oddzielić końcówki. Odznacz krawędzie przed wyborem podłużnego szwu.</p>
 <p>Na początek otwórz boki jednym podłużnym szwem. W trybie wyboru krawędzi zaznacz trzy kolejne krawędzie jednego tylnego narożnika, od jednej końcówki do drugiej. Oznacz je przez Mark Seam, zaznacz całą głowicę i wykonaj Unwrap Angle Based.</p>
 <p>Powinieneś otrzymać dwie końcówki oraz jedną wyspę łączącą cztery boki. Obejrzyj kratkę przy zwężeniach. Płaskie ściany zachowują wspólne brzegi w UV, więc ich osobne trapezowe kształty ograniczają rozłożenie całej owijki.</p>
 <p>Wróć do wyboru krawędzi i dodaj szwy na pozostałych trzech podłużnych narożnikach. Na każdym zaznacz trzy krawędzie biegnące wzdłuż głowicy. Poprzeczne pętle przy zwężeniach pozostaw bez nowych szwów.</p>
@@ -112,13 +197,45 @@
 <p>Porównaj z poprzednią próbą ten sam płaski bok i jego zwężenie. Dodatkowe cięcia pozwoliły rozłożyć każdą ścianę zgodnie z jej kształtem. Zapisz ten wariant: przy głowicy łatwo umieścić granice tekstury na narożnikach, a mniejsza deformacja ułatwi późniejsze nakładanie śladów obróbki stali.</p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>📐 Ustal skalę i spakuj obie części</h2>
 <p>Wróć do Object Mode, wyłącz Local View i zaznacz obie części. Przejdź do Edit Mode i zaznacz wszystkie ściany. Nad UV Editorem zaznacz wszystkie UV przez <kbd>A</kbd>, a następnie wybierz <kbd class="win-menu-btn">UV</kbd> → <kbd class="win-menu-btn">Average Islands Scale</kbd>.</p>
-<p>To polecenie wyrównuje skalę wysp względem powierzchni modelu. Na tym młotku przyjmujemy zbliżoną gęstość dla drewna i stali, więc jest to użyteczny punkt wyjścia. Przy modelu z drobnym napisem albo szczegółową twarzą po takim wyrównaniu trzeba jeszcze przydzielić ważnym miejscom więcej przestrzeni.</p>
-<p>Wybierz <kbd class="win-menu-btn">UV</kbd> → <kbd class="win-menu-btn">Pack Islands</kbd>. Od razu po operacji naciśnij <kbd>F9</kbd>, aby otworzyć jej ustawienia. Wyłącz <kbd class="win-menu-btn">Rotate</kbd>, ustaw Margin Method na <code>Fraction</code>, a Margin na <code>0.02</code>. Wyłączenie obrotu zachowa pionowy kierunek trzonka. Margines pozostawi odstępy między wyspami.</p>
+<p>Average Islands Scale skaluje całe wyspy tak, aby podobnej powierzchni w 3D odpowiadała podobna powierzchnia w UV. Dzięki temu duży bok głowicy otrzyma więcej miejsca niż mała końcówka, a rozmiar pól checkera na obu częściach powinien się zbliżyć.</p>
+<p>Na młotku przyjmujemy podobną gęstość dla drewna i stali. Po wyrównaniu sprawdź duże płaskie powierzchnie obu części. Jeśli pola nadal są wydłużone, wróć do rozłożenia tej części: wyrównanie skali całych wysp zachowuje ich wewnętrzne odkształcenia. Przydział większego miejsca na wyjątkowo drobny detal wykonuje się po takim wyrównaniu.</p>
+<p>Wybierz <kbd class="win-menu-btn">UV</kbd> → <kbd class="win-menu-btn">Pack Islands</kbd>. Od razu po operacji naciśnij <kbd>F9</kbd>, aby otworzyć jej ustawienia:</p>
+<table>
+<thead>
+<tr>
+<th>Ustawienie</th>
+<th>Wartość</th>
+<th>Wpływ na ten układ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rotate</td>
+<td>Wyłączone</td>
+<td>Zachowuje ustawiony kierunek pasa trzonka.</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>Włączone</td>
+<td>Pozwala wspólnie dopasować wielkość wysp do miejsca na obrazie.</td>
+</tr>
+<tr>
+<td>Margin Method</td>
+<td><code>Fraction</code></td>
+<td>Określa margines jako część wymiaru końcowego układu UV.</td>
+</tr>
+<tr>
+<td>Margin</td>
+<td><code>0.02</code></td>
+<td>Ustala margines na 2% wymiaru obrazu dla tego układu kontrolnego.</td>
+</tr>
+</tbody></table>
+<p>Pack Islands przemieszcza wyspy i może wspólnie zmienić ich skalę, zachowując proporcje między nimi. Po pakowaniu kratka może więc stać się wszędzie większa lub mniejsza. Porównaj jej wielkość między częściami młotka. Każda wyspa ma teraz własny obszar tego samego obrazu.</p>
 <p><img src="/courses/blender/Images/uv-atlas-dokladny.png" alt="Wspólne rozmieszczenie dziewięciu wysp oraz checker na obu częściach młotka"></p>
 <p>W układzie jest dziewięć wysp: pas trzonka, cztery pasy głowicy i cztery końcówki. Mają mieścić się na obrazie bez nakładania. Porównaj wielkość małych pól na modelu, zwłaszcza na trzonku i szerokim boku głowicy. Większa ściana powinna zajmować odpowiednio więcej miejsca w UV, aby otrzymać podobną liczbę pikseli na centymetr.</p>
-<p>Obejrzyj też fazy. Bevel nadal tworzy je jako modyfikator i wylicza ich UV z rozłożenia siatki bazowej. Jeśli wada występuje wyłącznie na fazie, przyjrzyj się jej osobno, zanim ponownie rozłożysz wszystkie duże ściany.</p>
+<p>Obejrzyj też fazy. Bevel nadal tworzy je jako modyfikator i wylicza ich UV z rozłożenia siatki bazowej. Najpierw oceń kratkę na dużych bokach, a potem na wąskich zaokrągleniach. Jeśli zniekształcenie występuje wyłącznie na fazie, oddziel tę obserwację od oceny reszty powierzchni.</p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>💾 Zachowaj wersję kontrolną</h2>
-<p>W UV Editorze wybierz <kbd class="win-menu-btn">Image</kbd> → <kbd class="win-menu-btn">Save As</kbd> i zapisz <code>Checker_1024</code> jako PNG, np. w folderze <code>textures</code> obok projektu. Następnie przez <kbd class="win-menu-btn">Image</kbd> → <kbd class="win-menu-btn">Pack</kbd> umieść jego kopię w pliku Blender. Zapisz <code>mlotek_v03.blend</code> z widoczną kratką.</p>
+<p>W UV Editorze wybierz <kbd class="win-menu-btn">Image</kbd> → <kbd class="win-menu-btn">Save As</kbd> i zapisz <code>Checker_1024</code> jako PNG, np. w folderze <code>textures</code> obok projektu. To zapis samego obrazu. Zapis projektu przechowuje siatki, UV i materiały wraz z odwołaniami do obrazów.</p>
+<p>Następnie przez <kbd class="win-menu-btn">Image</kbd> → <kbd class="win-menu-btn">Pack</kbd> umieść kopię obrazu wewnątrz pliku Blender. Zapisz <code>mlotek_v03.blend</code> z widoczną kratką. Zachowasz punkt odniesienia do porównania, gdy zaczniesz nakładać drewno i stal.</p>
 <p>Teraz zapisz kolejną wersję jako <code>mlotek_v04.blend</code>. W Object Mode otwórz Shader Editor dla trzonka i usuń dodany węzeł Image Texture. Powtórz to dla głowicy, po czym przywróć jej Metallic <code>1</code>. Wcześniejsze próbki Base Color ponownie określą barwy materiałów, a przygotowane UV pozostaną na siatkach.</p>
 <p><img src="/courses/blender/Images/uv-wynik-dokladny.png" alt="Przywrócone materiały drewna i stali oraz zachowane rozłożenie UV"></p>
 <p>Zapisz projekt przez <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>. Do porównania masz <a href="/courses/blender/Resources/mlotek-05-uv-glowica-checker.blend">wersję z checkerem</a> i <a href="/courses/blender/Resources/mlotek-06-uv-glowica-materialy.blend">model z UV oraz przywróconymi materiałami</a>.</p>
@@ -126,6 +243,7 @@
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li><span class="color-green">Zaplanuj otwarcie powierzchni.</span> Końcówki trzonka oddzieliłeś obwodami, a boki otworzyłeś jednym podłużnym szwem.</li>
+<li><span class="color-green">Metodę dobieraj do zadania.</span> Trzy metody Unwrap korzystają ze szwów, a projekcje zależą od kierunku lub bryły rzutowania. Porównuj ten sam fragment wzoru po zmianie jednego ustawienia.</li>
 <li><span class="color-green">Zmiana szwów wymaga ponownego Unwrap.</span> Na głowicy porównałeś wspólną owijkę z osobno rozłożonymi bokami i sprawdziłeś skutek na tej samej powierzchni.</li>
 <li><span class="color-green">Skalę ustal przed pakowaniem.</span> Podobna gęstość obu części pasuje do tego młotka. Inny model może wymagać większego przydziału dla ważnego detalu.</li>
 <li><span class="color-green">Zachowaj wersję z checkerem.</span> Pozwala wrócić do kontroli UV, gdy późniejszy obraz ujawni problem.</li>
@@ -140,6 +258,14 @@
 <tbody><tr>
 <td><kbd>Tab</kbd></td>
 <td>Przełączasz Object Mode i Edit Mode.</td>
+</tr>
+<tr>
+<td><kbd>Home</kbd> nad Shader Editorem</td>
+<td>Obejmujesz widokiem wszystkie węzły materiału.</td>
+</tr>
+<tr>
+<td><span style="white-space: nowrap;"><kbd>Alt</kbd> + <kbd>A</kbd></span> nad widokiem 3D</td>
+<td>Odznaczasz siatkę przed wyborem końcówek lub szwu.</td>
 </tr>
 <tr>
 <td><kbd>2</kbd> / <kbd>3</kbd> nad literami</td>
@@ -158,12 +284,20 @@
 <td>Włączasz lub wyłączasz Local View.</td>
 </tr>
 <tr>
+<td><kbd>S</kbd>, <kbd>Y</kbd> nad UV Editorem</td>
+<td>Zmieniasz wysokość zaznaczonego UV, kontrolując proporcje kratki na powierzchni.</td>
+</tr>
+<tr>
 <td><kbd>R</kbd>, <code>90</code>, <kbd>Enter</kbd> nad UV Editorem</td>
 <td>Obracasz zaznaczone UV o 90°.</td>
 </tr>
 <tr>
+<td><kbd>U</kbd> nad widokiem 3D</td>
+<td>Otwierasz menu UV Mapping.</td>
+</tr>
+<tr>
 <td><kbd>F9</kbd></td>
-<td>Otwierasz ustawienia operacji wykonanej przed chwilą, np. Pack Islands.</td>
+<td>Otwierasz ustawienia ostatniej operacji, np. wybór Method po Unwrap albo parametry Pack Islands.</td>
 </tr>
 <tr>
 <td><span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>S</kbd></span></td>

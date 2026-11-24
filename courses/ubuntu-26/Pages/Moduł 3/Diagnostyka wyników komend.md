@@ -112,6 +112,77 @@ W tej misji utworzysz dedykowany katalog dla raportu i zapiszesz w nim zweryfiko
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Anatomia potoku w jądrze: wywołanie systemowe pipe(), bufor kołowy 64 KiB i podmiana deskryptorów przez dup2()</span><span class="deep-dive-badge">IPC & Pipe Architecture</span></summary>
+
+Operator potoku `|` w powłoce Bash (np. `ps aux | grep nginx`) to genialny mechanizm architektury UNIX, który łączy procesy bez użycia żadnego pliku tymczasowego na dysku. Cała transmisja odbywa się w pamięci RAM jądra.
+
+### 1. Jak jądro implementuje potok: Bufor kołowy
+Gdy powłoka widzi znak `|`, wykonuje wywołanie systemowe `pipe(int pipefd[2])`:
+- Jądro alokuje w pamięci RAM **bufor kołowy** (*Circular Ring Buffer*) o domyślnym rozmiarze **$64\ \text{KiB}$** (16 stron pamięci po 4 KiB).
+- Tworzy dwa nowe deskryptory plików:
+  - `pipefd[0]` - koniec do odczytu (*Read End*)
+  - `pipefd[1]` - koniec do zapisu (*Write End*)
+
+```
+   Proces A (np. ps)                                      Proces B (np. grep)
+   ┌───────────────────────┐                              ┌───────────────────────┐
+   │ stdout (fd 1)         │                              │ stdin (fd 0)          │
+   └───────────┬───────────┘                              └───────────▲───────────┘
+               │                                                      │
+   ════════════╪══════════════════════════════════════════════════════╪════════════════
+   Jądro:      ▼                                                      │
+         ┌────────────────────────────────────────────────────────────┴────────┐
+         │       Bufor Kołowy w pamięci RAM (Pojemność 64 KiB)                 │
+         │       [ Bajt 0 ][ Bajt 1 ][ ... ][ Bajt 65535 ]                     │
+         └─────────────────────────────────────────────────────────────────────┘
+```
+
+### 2. Implementacja potoku w C: `fork()` i `dup2()`
+Powłoka Bash łączy programy następującą sekwencją w języku C:
+
+```c
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main() {
+    int pfd[2];
+    pipe(pfd); // 1. Utwórz potok w jądrze
+
+    // 2. Sklonuj proces dla lewej strony potoku (ps)
+    if (fork() == 0) {
+        close(pfd[0]);               // Zamknij nieużywany odczyt
+        dup2(pfd[1], STDOUT_FILENO); // Podmień stdout (fd 1) na wejście potoku
+        close(pfd[1]);
+        execlp("ps", "ps", "aux", NULL);
+    }
+
+    // 3. Sklonuj proces dla prawej strony potoku (grep)
+    if (fork() == 0) {
+        close(pfd[1]);              // Zamknij nieużywany zapis
+        dup2(pfd[0], STDIN_FILENO); // Podmień stdin (fd 0) na wyjście potoku
+        close(pfd[0]);
+        execlp("grep", "grep", "nginx", NULL);
+    }
+
+    // Proces macierzysty zamyka oba końce i czeka na zakończenie potomków
+    close(pfd[0]);
+    close(pfd[1]);
+    wait(NULL);
+    wait(NULL);
+    return 0;
+}
+```
+
+### 3. Synchronizacja przepływu (Backpressure i SIGPIPE)
+- **Bufor pusty**: Jeśli proces czytający (`grep`) wywoła `read()`, a potok jest pusty, jądro uśpi proces w kolejce oczekujących (*Wait Queue*), dopóki proces zapisujący nie wygeneruje danych.
+- **Bufor pełny**: Jeśli proces `ps` generuje dane szybciej niż `grep` jest w stanie je przetworzyć i zapełni 64 KiB, jądro blokuje wywołanie `write()` procesu `ps`. To automatyczny mechanizm kontroli przepływu (*Backpressure*).
+- **Złamanie potoku**: Jeśli proces `grep` zakończy pracę wcześniej (np. po znalezieniu pierwszej linii `head -n 1`), a proces `ps` spróbuje zapisać kolejne dane do potoku pozbawionego czytelnika, jądro natychmiast wysyła do procesu zapisującego sygnał **`SIGPIPE`** (kod błędu `EPIPE`), co natychmiast ubija niepotrzebnego producenta danych.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - Wywołanie `lshw` bez `sudo` działa, ale zwraca ostrzeżenie i zredukowaną liczbę danych o magistralach.

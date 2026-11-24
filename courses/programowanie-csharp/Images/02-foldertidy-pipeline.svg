@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t24 d24">
+  <title id="t24">Potok działania FolderTidy.exe: skanowanie katalogu, SHA-256 i sortowanie kategorii</title>
+  <desc id="d24">Schemat 3 etapów działania FolderTidy.exe: 1. Skanowanie plików w folderze, 2. Wyliczanie odcisku palca SHA-256 wykrywającego identyczne duplikaty mimo różnych nazw, 3. Grupowanie według słownika kategorii.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 7; }
+    .dup { fill: #451a03; stroke: #fbbf24; stroke-width: 1.8; rx: 7; }
+    .ok { fill: #064e3b; stroke: #34d399; stroke-width: 1.8; rx: 7; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 11.5px Consolas, monospace; fill: #f8fafc; }
+    @keyframes pulseDup { 0%, 100% { stroke-opacity: 0.45; } 50% { stroke-opacity: 1; } }
+    .hl { animation: pulseDup 2s ease-in-out infinite; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Architektura FolderTidy.exe — kategoryzacja rozszerzeń i detekcja duplikatów po SHA-256</text>
+  <text x="24" y="48" class="sub">Dwa pliki o różnych nazwach (foto.png i kopia.png) mają IDENTYCZNY skrót SHA-256, jeśli ich bajty są identyczne.</text>
+
+  <rect x="24" y="68" width="236" height="172" class="card"/>
+  <text x="40" y="92" class="title">1. Folder Pobrane</text>
+  <rect x="40" y="106" width="204" height="30" class="box"/><text x="52" y="125" class="mono">foto.png (2.4 MB)</text>
+  <rect x="40" y="142" width="204" height="30" class="dup hl"/><text x="52" y="161" class="mono">foto (1).png (2.4 MB)</text>
+  <rect x="40" y="178" width="204" height="30" class="box"/><text x="52" y="197" class="mono">faktura.pdf (140 KB)</text>
+
+  <line x1="260" y1="154" x2="294" y2="154" stroke="#64748b" stroke-width="2.2"/>
+  <polygon points="294,149 304,154 294,159" fill="#64748b"/>
+
+  <rect x="304" y="68" width="242" height="172" class="card"/>
+  <text x="320" y="92" class="title">2. Hash SHA-256</text>
+  <rect x="320" y="106" width="210" height="66" class="dup hl"/>
+  <text x="332" y="128" class="mono" fill="#fbbf24">9f86d081...a3b2</text>
+  <text x="332" y="148" class="sub">→ [foto.png, foto (1).png]</text>
+  <text x="332" y="164" class="mono" fill="#f87171">DUPLIKAT WYKRYTY!</text>
+  <text x="320" y="200" class="sub">Dictionary&lt;string, List&lt;string&gt;&gt;</text>
+
+  <line x1="546" y1="154" x2="580" y2="154" stroke="#64748b" stroke-width="2.2"/>
+  <polygon points="580,149 590,154 580,159" fill="#64748b"/>
+
+  <rect x="590" y="68" width="226" height="172" class="card"/>
+  <text x="606" y="92" class="title">3. Podfoldery</text>
+  <rect x="606" y="106" width="194" height="36" class="ok"/><text x="618" y="129" class="mono">Obrazy/ → foto.png</text>
+  <rect x="606" y="150" width="194" height="36" class="ok"/><text x="618" y="173" class="mono">Dokumenty/ → faktura.pdf</text>
+  <text x="606" y="214" class="sub">Bezpieczne przenoszenie</text>
+</svg>
+

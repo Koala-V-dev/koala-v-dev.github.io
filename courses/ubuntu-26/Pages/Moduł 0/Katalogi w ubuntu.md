@@ -50,10 +50,61 @@ To wystarczy, żeby nie błądzić po systemie jak po cudzym magazynie.
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: VFS (Virtual Filesystem) i struktury inode oraz dentry w kodzie jądra</span><span class="deep-dive-badge">Linux Kernel VFS</span></summary>
+
+Dlaczego Linux potrafi w jednym wspólnym drzewie katalogów montować jednocześnie partycję Ext4, pamięć flash FAT32, wirtualny system procesów `/proc` oraz zdalny udział sieciowy NFS? Odpowiada za to **Wirtualny System Plików** (*VFS - Virtual Filesystem*).
+
+VFS to zorientowana obiektowo warstwa abstrakcji wewnątrz jądra Linuksa (napisana w czystym języku C z wykorzystaniem struktur i wskaźników na funkcje).
+
+### 1. Cztery filary architektury VFS
+Dla każdego zamontowanego systemu plików jądro operuje na 4 kluczowych strukturach danych:
+1. **`struct super_block`**: Reprezentuje cały zamontowany system plików (metadane nośnika, rozmiar bloku alokacji, wskaźnik do korzenia).
+2. **`struct inode`**: Reprezentuje konkretny fizyczny plik lub katalog na dysku. Zawiera uprawnienia, identyfikatory właściciela (UID/GID), rozmiar pliku w bajtach, znaczniki czasu oraz wskaźniki do bloków danych na dysku. Inode **nie zawiera nazwy pliku**!
+3. **`struct dentry`** (*Directory Entry*): Wiąże ludzką nazwę pliku (np. `komendy.txt`) z odpowiadającym jej numerem inodu. Pamięć podręczna dentry (*dcache*) tworzy w pamięci RAM całe drzewo ścieżek, dzięki czemu przeszukiwanie katalogów nie wymaga odpytywania wolnego nośnika dyskowego.
+4. **`struct file`**: Reprezentuje plik otwarty przez działający proces w pamięci (przechowuje aktualny offset odczytu `f_pos`, flagi otwarcia `O_RDONLY` oraz wskaźnik na inod).
+
+```
+   Przestrzeń użytkownika:  open("/home/user/dane.txt", O_RDONLY)
+                                        │
+   ═════════════════════════════════════╪═══════════════════════════════
+   Jądro Linuksa (VFS):                 ▼
+                             Wyszukanie w dcache:
+                           "/" ──> "home" ──> "user" ──> "dane.txt"
+                                                           │
+                                             Wskaźnik dentry->d_inode
+                                                           │
+                                                           ▼
+                                                struct inode (Ext4)
+                                                - UID: 1000, GID: 1000
+                                                - st_mode: 0644
+                                                - Tablica extentów bloków
+```
+
+### 2. Polimorfizm w C: Tablice operacji `file_operations`
+Każda struktura w VFS posiada pole wskazujące na tablicę wskaźników do funkcji implementujących konkretne zachowania dla danego nośnika:
+
+```c
+struct file_operations {
+    ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
+    ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
+    int (*open) (struct inode *, struct file *);
+    int (*fsync) (struct file *, loff_t, loff_t, int datasync);
+};
+```
+
+Gdy użytkownik wywołuje `read(fd, buf, 1024)`, jądro nie sprawdza warunkami `if/else`, jaki to system plików. Po prostu wywołuje polimorficznie:
+`file->f_op->read(file, buf, 1024, &file->f_pos);`
+Jeśli plik leży na Ext4, uruchamia się funkcja `ext4_file_read_iter()`. Jeśli w `/proc/cpuinfo`, wywoływana jest funkcja generująca tekst z pamięci RAM w locie.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - Ubuntu używa jednego drzewa katalogów zaczynającego się od `/`.
 - `/home/[użytkownik]` to twoje pliki i konfiguracja użytkownika.
 - `/etc` to konfiguracja systemowa.
 - `/var/log` to miejsce, gdzie szukasz śladów działania systemu.
-- W następnej lekcji użyjesz terminala, żeby poruszać się po tej strukturze.
+- Wszystkie zasoby i systemy plików są spójnie integrowane pod wspólnym korzeniem dzięki jądrowej warstwie VFS.

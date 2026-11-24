@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt MemoryCards - Gra Memory w oknie Windows 11 - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Projekt MemoryCards - Gra Memory w oknie Windows 11</h1>
+<p>Kiedy budujesz pierwszą grę okienkową, pokusa jest prosta: wrzucić tasowanie, liczenie ruchów, obsługę timera i zapis rekordu do jednej metody <code>Button_Click</code>. Taki plik szybko rozrasta się do kilkuset linii. Każda drobna poprawka wymaga uruchomienia okna i szesnastu ręcznych kliknięć, aby sprawdzić, czy ekran wygranej nie zepsuł się po drodze.</p>
+<p>Problem pogłębia się w momencie, gdy gracz kliknie przycisk „Nowa gra” w połowie odliczania timera zakrycia. Stary timer potrafi wtedy po cichu przykryć świeżo odkrytą kartę z nowej partii. Do tego każda niezwolniona czcionka <code>Font</code> zostawia w systemie Windows otwarty uchwyt graficzny.</p>
+<p>Rozwiązaniem jest świadomy podział na dwie warstwy i kontrola nad trzema newralgicznymi punktami styku z systemem operacyjnym.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Architektura Model i Widok w aplikacji desktopowej</h2>
+<p>Cały projekt <code>MemoryCards.exe</code> rozdzielamy na dwa pliki źródłowe o ściśle określonych rolach. Dzięki temu logika gry nie wie nic o istnieniu okien, przycisków ani biblioteki WinForms.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Plik</th>
+<th align="left">Odpowiedzialność</th>
+<th align="left">Zależności</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>MemoryModel.cs</code></td>
+<td align="left">Czysta logika gry: generowanie 8 par, tasowanie Fisher‑Yates, maszyna stanów <code>StanGry</code>, sprawdzanie par, skuteczność, formatowanie czasu i ocena rekordu.</td>
+<td align="left">Wyłącznie <code>System</code> (zero zależności od GUI).</td>
+</tr>
+<tr>
+<td align="left"><code>Program.cs</code></td>
+<td align="left">Warstwa prezentacji WinForms (<code>MemoryForm</code>): okno 4x4, obsługa kliknięć, dwa timery, zasoby GDI oraz atomowy zapis rekordu na dysku.</td>
+<td align="left"><code>System</code>, <code>System.Drawing</code>, <code>System.IO</code>, <code>System.Windows.Forms</code>.</td>
+</tr>
+</tbody></table>
+<p>Taki wzorzec architektoniczny nazywamy <span class="color-gold">separacją modelu od widoku</span> (Model i Widok). Możesz uruchomić dziesiątki testów automatycznych dla klasy <code>MemoryModel</code> w kilka milisekund, bez otwierania żadnego okna. Dopiero gdy wszystkie reguły gry przechodzą weryfikację, kompilujesz oba pliki razem do gotowego programu <code>MemoryCards.exe</code>.</p>
+<h3>🚦 Punkt wejścia aplikacji okienkowej WinForms</h3>
+<p>Program konsolowy kończy działanie zaraz po wykonaniu ostatniej instrukcji w <code>Main()</code>. Aplikacja okienkowa musi działać w sposób ciągły i reagować na ruchy myszy, kliknięcia oraz tyknięcia timerów. Odpowiada za to czteroliniowa sekwencja startowa w klasie <code>Program</code>:</p>
+<pre><code class="language-csharp">class Program
+{
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new MemoryForm());
+    }
+}
+</code></pre>
+<p>Każdy z tych czterech elementów pełni konkretną rolę w systemie Windows:</p>
+<ul>
+<li><span class="color-green"><code>[STAThread]</code></span>: oznacza główny wątek jako jednowątkowy apartament COM (Single‑Threaded Apartment). Wymagają tego okna dialogowe Windows, takie jak <code>MessageBox</code>, oraz dostęp do schowka. Bez tego atrybutu część okien systemowych rzuci <span class="color-red">wyjątek <code>ThreadStateException</code></span>.</li>
+<li><span class="color-green"><code>Application.EnableVisualStyles()</code></span>: włącza nowoczesny wygląd kontrolek systemu Windows 11. Pominięcie tej linii cofa styl przycisków i pasków przewijania do wyglądu z systemu Windows 95.</li>
+<li><span class="color-green"><code>Application.SetCompatibleTextRenderingDefault(false)</code></span>: ustawia nowszy, natywny mechanizm rysowania tekstu (GDI), który daje ostrzejsze czcionki niż starszy GDI+.</li>
+<li><span class="color-green"><code>Application.Run(new MemoryForm())</code></span>: wyświetla okno i uruchamia <span class="color-green">pętlę komunikatów</span> systemu Windows. Od tego momentu program czeka na zdarzenia od użytkownika i nie kończy działania aż do zamknięcia formularza.</li>
+</ul>
+<h3>🎨 Budowa kart i zbiorcze dodawanie kontrolek</h3>
+<p>Każda z szesnastu kart w siatce <code>TableLayoutPanel</code> to obiekt klasy <code>Button</code>. Aby karty wyglądały nowocześnie w ciemnym motywie, zamiast wypukłej ramki 3D ustawiamy właściwość <span class="color-green"><code>FlatStyle.Flat</code></span> oraz kolor obramowania w <code>btn.FlatAppearance.BorderColor</code>.</p>
+<p>Po utworzeniu etykiety statusu, siatki z kartami i przycisku „Nowa gra” dodajemy wszystkie trzy główne elementy do okna jednym wywołaniem <span class="color-green"><code>Controls.AddRange</code></span>:</p>
+<pre><code class="language-csharp">Controls.AddRange(new Control[] { _lblInfo, siatka, btnNowa });
+</code></pre>
+<p>Wywołanie <code>AddRange</code> jest bardziej wydajne niż trzy osobne wywołania <code>Controls.Add</code>, ponieważ pozwala formularzowi zaktualizować układ kontrolek zbiorczo.</p>
+<data-gate>
+<data-connection-matcher title="Podział odpowiedzialności: MemoryModel kontra MemoryForm">
+    <item left="Tasowanie 8 par kart algorytmem Fisher-Yates" right="MemoryModel: losowa permutacja tablicy Symbole bez zależności od GUI"></item>
+    <item left="Przejścia maszyny stanów StanGry" right="MemoryModel: pilnowanie blokady i detekcja stanu KoniecGry"></item>
+    <item left="ObliczSkutecznoscProcent()" right="MemoryModel: matematyka trafień względem ruchów bez dzielenia przez zero"></item>
+    <item left="Dynamiczna siatka 4x4 TableLayoutPanel" right="MemoryForm: rozmieszczenie 16 przycisków Button w oknie Windows"></item>
+    <item left="Jednorazowy Timer zakrycia 750 ms" right="MemoryForm: odliczanie opóźnienia na wątku UI i wywołanie ZakonczBlokade()"></item>
+    <item left="Zapis rekordu przez FileStream.Flush(true)" right="MemoryForm: trwały zapis atomowy w folderze LocalApplicationData"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Maszyna stanów StanGry w praktyce</h2>
+<p>W poprzednich lekcjach blokada kliknięć była prostą flagą <code>bool _blokada</code>. W pełnym projekcie przenosimy sterowanie przepływem do jawnego typu wyliczeniowego <span class="color-green"><code>StanGry</code></span> wewnątrz klasy <code>MemoryModel</code>:</p>
+<pre><code class="language-csharp">public enum StanGry
+{
+    OczekiwanieNaPierwsza,
+    OczekiwanieNaDruga,
+    BlokadaZakrywania,
+    KoniecGry
+}
+</code></pre>
+<p>Taka konstrukcja czyni model <span class="color-green">jedynym źródłem prawdy</span> o stanie rozgrywki. Okno <code>MemoryForm</code> nie musi już zgadywać, czy gra jest zablokowana albo zakończona. Na początku metody <code>OnKartaClick</code> formularz sprawdza po prostu właściwość <code>Stan</code>:</p>
+<ul>
+<li>Jeśli <code>Stan</code> wynosi <code>BlokadaZakrywania</code> lub <code>KoniecGry</code>, kliknięcie zostaje natychmiast odrzucone.</li>
+<li>Gdy gracz odsłania pierwszą kartę, okno zapisuje jej indeks w polu <span class="color-blue">_pierwszy</span> i wywołuje <code>OznaczWyborPierwszej()</code>, przesuwając model do stanu <code>OczekiwanieNaDruga</code>.</li>
+<li>Gdy gracz odsłania drugą kartę, okno przekazuje oba indeksy (<span class="color-blue">a</span> i <span class="color-blue">b</span>) do metody <span class="color-green"><code>SprawdzPare(a, b)</code></span>.</li>
+</ul>
+<p>Wewnątrz <code>SprawdzPare(a, b)</code> model decyduje o kolejnym stanie:</p>
+<ol>
+<li><span class="color-green">Trafiona para, gra trwa dalej</span>: obie karty dostają flagę <code>Dopasowane = true</code>, rośnie <code>TrafionePary</code>, a <code>Stan</code> wraca do <code>OczekiwanieNaPierwsza</code>.</li>
+<li><span class="color-green">Trafiona ostatnia, ósma para</span>: właściwość <code>CzyWygrana</code> przyjmuje wartość <code>true</code>, a <code>Stan</code> przechodzi nieodwracalnie w <code>KoniecGry</code>.</li>
+<li><span class="color-green">Pudło (różne symbole)</span>: model zwiększa <code>Ruchy</code> i ustawia <code>Stan = StanGry.BlokadaZakrywania</code>. Dopiero po 750 ms timer w <code>MemoryForm</code> zakrywa obie karty i wywołuje <span class="color-green"><code>ZakonczBlokade()</code></span>, co przywraca stan <code>OczekiwanieNaPierwsza</code>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Metoda <code>ZakonczBlokade()</code> powinna zmieniać stan wyłącznie wtedy, gdy aktualny <code>Stan</code> to <code>BlokadaZakrywania</code>. Dzięki temu przypadkowe wywołanie tej metody po zakończeniu gry nigdy nie cofnie stanu <code>KoniecGry</code>.</p>
+
+</div>
+</div><data-gate>
+<data-sortable-list title="Kolejność 6 kroków po kliknięciu drugiej, niepasującej karty">
+  <item data-correct="4">Model ustawia stan BlokadaZakrywania, a okno odrzuca kolejne kliknięcia</item>
+  <item data-correct="1">Odkryj kartę B na planszy i wyświetl jej symbol w przycisku</item>
+  <item data-correct="6">W zdarzeniu Tick zakryj karty A i B oraz wywołaj ZakonczBlokade(), wracając do OczekiwanieNaPierwsza</item>
+  <item data-correct="2">Wywołaj metodę SprawdzPare(a, b) w obiekcie MemoryModel</item>
+  <item data-correct="5">Uruchom jednorazowy timer zakrycia z interwałem 750 ms</item>
+  <item data-correct="3">Odśwież pasek statusu z nową liczbą ruchów</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Trzy kluczowe punkty styku w Program.cs</h2>
+<p>W pliku <code>Program.cs</code> kod warstwy graficznej spotyka się bezpośrednio z zasobami systemu Windows. Poniższe trzy mechanizmy decydują o tym, czy gra będzie stabilna po stu partiach i niespodziewanych kliknięciach.</p>
+<h3>⏱️ Anulowanie timera przy nowej grze i zamknięciu okna</h3>
+<p>Gdy gracz odkryje dwie różne karty, startuje jednorazowy <code>_timerZakrycia</code> na 750 ms. Jeśli przed upływem tego czasu użytkownik kliknie przycisk „Nowa gra” lub zamknie okno krzyżykiem, pozostawiony timer odpaliłby się na nowej planszy albo na <span class="color-red">już zniszczonym oknie</span>.</p>
+<p>Wspólna metoda pomocnicza <code>AnulujTimerZakrycia()</code> zamyka ten problem w jednym miejscu:</p>
+<pre><code class="language-csharp">private void AnulujTimerZakrycia()
+{
+    if (_timerZakrycia != null)
+    {
+        _timerZakrycia.Stop();
+        _timerZakrycia.Dispose();
+        _timerZakrycia = null;
+    }
+}
+</code></pre>
+<p>Wywołujemy ją w trzech sytuacjach: na początku <code>StartNowaGra()</code>, przed utworzeniem nowego timera zakrycia oraz w zdarzeniu <code>FormClosed</code>.</p>
+<h3>🧹 Zwalnianie wszystkich czcionek GDI bez wyjątków</h3>
+<p>Każdy obiekt klasy <code>Font</code> rezerwuje w jądrze Windows natywny uchwyt graficzny <span class="color-gold">GDI</span>. Tworzenie czcionek w locie, na przykład <code>Font = new Font("Segoe UI", 11, FontStyle.Bold)</code> osobno dla etykiety i dla przycisku „Nowa gra”, zostawia <span class="color-red">wyciek uchwytów GDI</span>, ponieważ nikt nie wywołuje na nich metody <code>Dispose()</code>.</p>
+<p>W <code>MemoryForm</code> tworzymy dokładnie dwa współdzielone pola czcionek: <span class="color-blue">_czcionkaKarty</span> dla szesnastu przycisków planszy oraz <span class="color-blue">_czcionkaUI</span> dla paska statusu i przycisku „Nowa gra”. Oba obiekty zwalniamy jawnie w zdarzeniu <code>FormClosed</code>:</p>
+<pre><code class="language-csharp">FormClosed += (s, e) =&gt;
+{
+    AnulujTimerZakrycia();
+    _zegarGry.Stop();
+    _zegarGry.Dispose();
+    _czcionkaKarty.Dispose();
+    _czcionkaUI.Dispose();
+};
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli w przyszłości rozbudujesz grę o zmianę rozmiaru planszy (na przykład 4x4 na 4x6), nigdy nie czyść siatki samym wywołaniem <code>siatka.Controls.Clear()</code>. Metoda <code>Clear()</code> jedynie odpina kontrolki od rodzica, ale <span class="color-red">nie zwalnia natywnych uchwytów HWND ani obiektów Font</span>. Każdą usuwaną kontrolkę musisz jawnie zwolnić przez <code>Dispose()</code>.</p>
+
+</div>
+</div><h3>💾 Atomowy zapis rekordu przez zrzut bufora dyskowego</h3>
+<p>Zwykłe <code>File.WriteAllText</code> na docelowym pliku rekordu natychmiast obcina starą zawartość do zera bajtów. Przerwa w zasilaniu w tym ułamku milisekundy niszczy plik <code>rekord.txt</code>.</p>
+<p>Dlatego w metodzie <code>ZapiszRekord()</code> stosujemy zapis dwuetapowy do pliku tymczasowego z wymuszeniem fizycznego zrzutu bufora dyskowego:</p>
+<pre><code class="language-csharp">string tmp = _sciezkaRekordu + ".tmp";
+using (FileStream fs = new FileStream(tmp, FileMode.Create, FileAccess.Write, FileShare.None))
+using (StreamWriter sw = new StreamWriter(fs))
+{
+    sw.Write(_rekord.ToString());
+    sw.Flush();
+    fs.Flush(true);
+}
+</code></pre>
+<p>Wywołanie <code>sw.Flush()</code> opróżnia bufor w pamięci programu, a <code>fs.Flush(true)</code> nakazuje systemowi operacyjnemu zapisać dane fizycznie na nośniku. Dopiero gdy plik <code>.tmp</code> jest bezpieczny na dysku, <code>File.Replace</code> (lub <code>File.Move</code> przy pierwszym zapisie) atomowo podmienia docelowy plik <code>rekord.txt</code>.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Testowanie 1000 rozgrywek w 5 ms oraz limity uchwytów GDI w WinForms</span>
+<span class="deep-dive-badge">ARCHITEKTURA GIER · GDI · PAMIĘĆ WIN32</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Separacja modelu od widoku: 1000 pełnych rozgrywek w 5 milisekund</h4>
+
+<p>Gdy logika gry jest wymieszana z metodami <code>Button_Click</code>, każda zmiana wymaga ręcznego klikania w oknie. Rozdzielając <code>MemoryModel</code> od <code>MemoryForm</code>, możesz napisać automatycznego bota, który rozegra 1000 pełnych partii w około 5 ms bez otwierania okna Windows:</p>
+<pre><code class="language-csharp">// Symulacja 1000 idealnych rozgrywek z różnymi ziarnami PRNG w ~5 ms
+for (int seed = 0; seed &lt; 1000; seed++)
+{
+    var model = new MemoryModel(new Random(seed));
+    for (int i = 0; i &lt; model.Symbole.Length; i++)
+    {
+        if (model.Dopasowane[i]) continue;
+        for (int j = i + 1; j &lt; model.Symbole.Length; j++)
+        {
+            if (!model.Dopasowane[j] &amp;&amp; model.Symbole[i] == model.Symbole[j])
+            {
+                model.SprawdzPare(i, j);
+                break;
+            }
+        }
+    }
+    if (model.Stan != StanGry.KoniecGry || model.Ruchy != 8)
+        throw new Exception("Błąd logiki dla ziarna " + seed);
+}
+</code></pre>
+<p>Taka architektura jest fundamentem profesjonalnych silników gier (MVC, MVVM, ECS). Warstwa logiki nie wie, czy obraz rysuje WinForms, WPF, DirectX, czy konsola tekstowa.</p>
+<h4>2. Wyciek uchwytów GDI i USER przy dynamicznym przebudowywaniu planszy</h4>
+
+<p>W systemie Windows każda kontrolka WinForms (<code>Button</code>, <code>Label</code>) posiada natywny uchwyt okna systemowego (<span class="color-green">HWND</span>, obiekt typu USER). Każda czcionka (<code>Font</code>) i pędzel (<code>Brush</code>) to natywny obiekt podsystemu graficznego <span class="color-green">GDI</span>.</p>
+<p>System Windows nakłada na każdy proces twardy limit: domyślnie <span class="color-gold">10 000 obiektów USER i 10 000 obiektów GDI</span> (klucz rejestru <code>GDIProcessHandleQuota</code>).</p>
+<p>Częsty błąd w grach zmieniających rozmiar planszy wygląda tak:</p>
+<pre><code class="language-csharp">siatka.Controls.Clear(); // BŁĄD! Odpina przyciski, ale NIE wywołuje Dispose()!
+</code></pre>
+<p>Metoda <code>Controls.Clear()</code> usuwa jedynie referencje z kolekcji rodzica, ale <span class="color-red">nie zwalnia natywnych uchwytów HWND ani obiektów Font</span>. Jeśli gracz wielokrotnie zmienia rozmiar planszy, stare uchwyty gromadzą się w tabeli jądra aż do przekroczenia limitu i nagłego zatrzymania programu <span class="color-red">wyjątkiem <code>Win32Exception: Error creating window handle</code></span>.</p>
+<p>Poprawny wzorzec czyszczenia dynamicznej siatki wymaga jawnego wywołania <code>Dispose()</code> na każdej starej kontrolce:</p>
+<pre><code class="language-csharp">while (siatka.Controls.Count &gt; 0)
+{
+    Control staraKontrolka = siatka.Controls[0];
+    siatka.Controls.RemoveAt(0);
+    staraKontrolka.Dispose(); // Natychmiast zwalnia natywny uchwyt HWND
+}
+</code></pre>
+<p>W naszym <code>MemoryForm</code> tworzymy 16 przycisków raz w konstruktorze i współdzielimy dokładnie dwie czcionki (<code>_czcionkaKarty</code> oraz <code>_czcionkaUI</code>). Każda nowa gra jedynie aktualizuje tekst i kolory istniejących przycisków, więc zużycie uchwytów GDI i USER pozostaje stałe nawet po tysiącu rozegranych partii.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Modułu 6: Zbuduj i pobierz MemoryCards.exe</h2>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Plik <code>Program.cs</code> zawiera gotową warstwę okna <code>MemoryForm</code>. Twoja praca odbywa się w zakładce <span class="color-green"><code>MemoryModel.cs</code></span>! Przełącz zakładkę na górze edytora przed pisaniem kodu.</p>
+
+</div>
+</div><p>W pliku <span class="color-green"><code>MemoryModel.cs</code></span> zaimplementuj pełną logikę modelu gry:</p>
+<ol>
+<li><span class="color-green">Konstruktor <code>MemoryModel(Random rnd)</code></span>:<ul>
+<li>jeśli <span class="color-blue">rnd</span> jest <code>null</code>, rzuć <code>ArgumentNullException("rnd")</code>,</li>
+<li>z tablicy 8 symboli bazowych <code>{ "@", "#", "$", "%", "&amp;", "*", "+", "!" }</code> zbuduj 16‑elementową tablicę <code>Symbole</code> (każdy symbol dokładnie dwa razy) oraz 16‑elementową tablicę <code>Dopasowane</code>,</li>
+<li>przetasuj tablicę <code>Symbole</code> w miejscu algorytmem <span class="color-green">Fisher‑Yates</span> (pętla od <code>Symbole.Length - 1</code> w dół do <code>1</code>, losowanie <code>rnd.Next(0, i + 1)</code>),</li>
+<li>ustaw <code>Stan = StanGry.OczekiwanieNaPierwsza</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>SprawdzPare(int indeksA, int indeksB)</code></span>:<ul>
+<li>jeśli <code>Stan</code> wynosi <code>BlokadaZakrywania</code> lub <code>KoniecGry</code>, zwróć <code>false</code> bez zwiększania <code>Ruchy</code>,</li>
+<li>jeśli którykolwiek indeks jest poza zakresem <code>[0 .. Symbole.Length - 1]</code>, <code>indeksA == indeksB</code> albo któraś z tych dwóch kart jest już dopasowana, zwróć <code>false</code> bez zwiększania <code>Ruchy</code>,</li>
+<li>zwiększ <code>Ruchy++</code>,</li>
+<li>przy trafieniu (<code>Symbole[indeksA] == Symbole[indeksB]</code>): ustaw obie pozycje w <code>Dopasowane</code> na <code>true</code>, zwiększ <code>TrafionePary++</code>, ustaw <code>Stan</code> na <code>StanGry.KoniecGry</code> (gdy <code>CzyWygrana</code>) lub <code>StanGry.OczekiwanieNaPierwsza</code>, i zwróć <code>true</code>,</li>
+<li>przy pudle: ustaw <code>Stan = StanGry.BlokadaZakrywania</code> i zwróć <code>false</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ZakonczBlokade()</code></span>:<ul>
+<li>przywróć <code>Stan = StanGry.OczekiwanieNaPierwsza</code> wyłącznie wtedy, gdy aktualny <code>Stan == StanGry.BlokadaZakrywania</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>ObliczSkutecznoscProcent()</code></span>:<ul>
+<li>jeśli <code>Ruchy == 0</code>, zwróć <code>0.0</code>,</li>
+<li>w przeciwnym razie zwróć <code>(double)TrafionePary / Ruchy * 100.0</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda statyczna <code>FormatujCzas(int sekundy)</code></span>:<ul>
+<li>dla wartości ujemnych zwróć <code>"00:00"</code>,</li>
+<li>dla nieujemnych zwróć napis <code>"MM:SS"</code> z wiodącymi zerami (np. <code>9</code> daje <code>"00:09"</code>, <code>75</code> daje <code>"01:15"</code>, <code>3665</code> daje <code>"61:05"</code>).</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda statyczna <code>CzyNowyRekord(int staryRekord, int nowyWynik)</code></span>:<ul>
+<li>mniej ruchów oznacza lepszy wynik,</li>
+<li>jeśli <span class="color-blue">nowyWynik</span> wynosi <code>&lt;= 0</code>, zwróć <code>false</code>,</li>
+<li>jeśli <span class="color-blue">staryRekord</span> wynosi <code>&lt;= 0</code> (brak wcześniejszego rekordu), zwróć <code>true</code>,</li>
+<li>w przeciwnym razie zwróć <code>nowyWynik &lt; staryRekord</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Po zaliczeniu wszystkich testów kliknij <span class="color-green">Pobierz .exe</span> i uruchom własną grę <span class="color-green"><code>MemoryCards.exe</code></span> na Windows 11.</p>
+<data-gate>
+<data-csharp-lab title="Projekt Modułu 6: MemoryCards (Gra WinForms 4x4 + Fisher-Yates + StanGry + Rekordy)" exe-name="MemoryCards.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+
+public class MemoryForm : Form
+{
+    private MemoryModel _model;
+    private Button[] _karty = new Button[16];
+    private int _pierwszy = -1;
+    private int _sekundy = 0;
+    private int _rekord = 0;
+    private Label _lblInfo;
+    private Font _czcionkaKarty;
+    private Font _czcionkaUI;
+    private Timer _zegarGry = new Timer { Interval = 1000 };
+    private Timer _timerZakrycia = null;
+    private readonly string _sciezkaRekordu = Path.Combine(
+        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "MemoryCards"),
+        "rekord.txt");
+
+    public MemoryForm()
+    {
+        Text = "MemoryCards - Windows 11 Game";
+        ClientSize = new Size(420, 520);
+        BackColor = Color.FromArgb(15, 23, 42);
+        ForeColor = Color.White;
+        StartPosition = FormStartPosition.CenterScreen;
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
+
+        WczytajRekord();
+
+        _czcionkaKarty = new Font("Consolas", 24, FontStyle.Bold);
+        _czcionkaUI = new Font("Segoe UI", 11, FontStyle.Bold);
+
+        _lblInfo = new Label
+        {
+            Location = new Point(20, 14),
+            Size = new Size(380, 34),
+            Font = _czcionkaUI,
+            ForeColor = Color.FromArgb(56, 189, 248)
+        };
+
+        var siatka = new TableLayoutPanel
+        {
+            Location = new Point(20, 56),
+            Size = new Size(380, 380),
+            RowCount = 4,
+            ColumnCount = 4
+        };
+        siatka.SuspendLayout();
+        for (int i = 0; i &lt; 4; i++)
+        {
+            siatka.RowStyles.Add(new RowStyle(SizeType.Percent, 25f));
+            siatka.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25f));
+        }
+
+        for (int i = 0; i &lt; 16; i++)
+        {
+            var btn = new Button
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(5),
+                Font = _czcionkaKarty,
+                BackColor = Color.FromArgb(30, 41, 59),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Tag = i
+            };
+            btn.FlatAppearance.BorderColor = Color.FromArgb(71, 85, 105);
+            btn.Click += OnKartaClick;
+            _karty[i] = btn;
+            siatka.Controls.Add(btn);
+        }
+        siatka.ResumeLayout();
+
+        var btnNowa = new Button
+        {
+            Text = "Nowa gra (przetasuj)",
+            Location = new Point(20, 452),
+            Size = new Size(380, 44),
+            BackColor = Color.FromArgb(14, 165, 233),
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat,
+            Font = _czcionkaUI
+        };
+        btnNowa.FlatAppearance.BorderSize = 0;
+        btnNowa.Click += (s, e) =&gt; StartNowaGra();
+
+        Controls.AddRange(new Control[] { _lblInfo, siatka, btnNowa });
+
+        _zegarGry.Tick += (s, e) =&gt; { _sekundy++; OdswiezPasek(); };
+        FormClosed += (s, e) =&gt;
+        {
+            AnulujTimerZakrycia();
+            _zegarGry.Stop();
+            _zegarGry.Dispose();
+            _czcionkaKarty.Dispose();
+            _czcionkaUI.Dispose();
+        };
+        StartNowaGra();
+    }
+
+    private void AnulujTimerZakrycia()
+    {
+        if (_timerZakrycia != null)
+        {
+            _timerZakrycia.Stop();
+            _timerZakrycia.Dispose();
+            _timerZakrycia = null;
+        }
+    }
+
+    private void StartNowaGra()
+    {
+        AnulujTimerZakrycia();
+        _model = new MemoryModel(new Random());
+        _pierwszy = -1;
+        _sekundy = 0;
+        for (int i = 0; i &lt; 16; i++)
+        {
+            _karty[i].Text = "?";
+            _karty[i].BackColor = Color.FromArgb(30, 41, 59);
+            _karty[i].ForeColor = Color.FromArgb(148, 163, 184);
+        }
+        _zegarGry.Start();
+        OdswiezPasek();
+    }
+
+    private void OnKartaClick(object sender, EventArgs e)
+    {
+        if (_model.Stan == StanGry.BlokadaZakrywania || _model.Stan == StanGry.KoniecGry)
+            return;
+
+        int idx = (int)((Button)sender).Tag;
+        if (_model.Dopasowane[idx] || idx == _pierwszy)
+            return;
+
+        _karty[idx].Text = _model.Symbole[idx];
+        _karty[idx].BackColor = Color.FromArgb(23, 37, 84);
+        _karty[idx].ForeColor = Color.FromArgb(56, 189, 248);
+
+        if (_pierwszy == -1)
+        {
+            _pierwszy = idx;
+            _model.OznaczWyborPierwszej();
+            return;
+        }
+
+        int a = _pierwszy;
+        int b = idx;
+        _pierwszy = -1;
+
+        if (_model.SprawdzPare(a, b))
+        {
+            _karty[a].BackColor = Color.FromArgb(6, 78, 59);
+            _karty[b].BackColor = Color.FromArgb(6, 78, 59);
+            _karty[a].ForeColor = Color.FromArgb(52, 211, 153);
+            _karty[b].ForeColor = Color.FromArgb(52, 211, 153);
+            OdswiezPasek();
+
+            if (_model.Stan == StanGry.KoniecGry)
+            {
+                _zegarGry.Stop();
+                if (MemoryModel.CzyNowyRekord(_rekord, _model.Ruchy))
+                {
+                    _rekord = _model.Ruchy;
+                    ZapiszRekord();
+                }
+                OdswiezPasek();
+                MessageBox.Show(
+                    string.Format("Wygrana w {0} ruchach ({1})!\nSkuteczność: {2:F1}%",
+                        _model.Ruchy, MemoryModel.FormatujCzas(_sekundy), _model.ObliczSkutecznoscProcent()),
+                    "MemoryCards", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        else
+        {
+            OdswiezPasek();
+            AnulujTimerZakrycia();
+            _timerZakrycia = new Timer { Interval = 750 };
+            _timerZakrycia.Tick += (s, ev) =&gt;
+            {
+                AnulujTimerZakrycia();
+                _karty[a].Text = "?";
+                _karty[a].BackColor = Color.FromArgb(30, 41, 59);
+                _karty[a].ForeColor = Color.FromArgb(148, 163, 184);
+                _karty[b].Text = "?";
+                _karty[b].BackColor = Color.FromArgb(30, 41, 59);
+                _karty[b].ForeColor = Color.FromArgb(148, 163, 184);
+                _model.ZakonczBlokade();
+            };
+            _timerZakrycia.Start();
+        }
+    }
+
+    private void OdswiezPasek()
+    {
+        string rek = _rekord &gt; 0 ? _rekord.ToString() : "-";
+        _lblInfo.Text = string.Format("Czas: {0}  |  Ruchy: {1}  |  Rekord: {2}",
+            MemoryModel.FormatujCzas(_sekundy), _model.Ruchy, rek);
+    }
+
+    private void WczytajRekord()
+    {
+        try
+        {
+            int val;
+            if (File.Exists(_sciezkaRekordu) &amp;&amp; int.TryParse(File.ReadAllText(_sciezkaRekordu), out val))
+                _rekord = val;
+        }
+        catch { }
+    }
+
+    private void ZapiszRekord()
+    {
+        try
+        {
+            string folder = Path.GetDirectoryName(_sciezkaRekordu);
+            if (!string.IsNullOrEmpty(folder))
+                Directory.CreateDirectory(folder);
+
+            string tmp = _sciezkaRekordu + ".tmp";
+            using (FileStream fs = new FileStream(tmp, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                sw.Write(_rekord.ToString());
+                sw.Flush();
+                fs.Flush(true);
+            }
+
+            if (File.Exists(_sciezkaRekordu))
+                File.Replace(tmp, _sciezkaRekordu, null);
+            else
+                File.Move(tmp, _sciezkaRekordu);
+        }
+        catch { }
+    }
+}
+
+class Program
+{
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new MemoryForm());
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="MemoryModel.cs">
+
+<pre><code class="language-csharp">using System;
+
+public enum StanGry
+{
+    OczekiwanieNaPierwsza,
+    OczekiwanieNaDruga,
+    BlokadaZakrywania,
+    KoniecGry
+}
+
+public class MemoryModel
+{
+    public string[] Symbole { get; private set; }
+    public bool[] Dopasowane { get; private set; }
+    public int Ruchy { get; private set; }
+    public int TrafionePary { get; private set; }
+    public StanGry Stan { get; private set; }
+    public bool CzyWygrana { get { return TrafionePary == Symbole.Length / 2; } }
+
+    public MemoryModel(Random rnd)
+    {
+        // 1. Zwaliduj rnd == null (rzuć ArgumentNullException("rnd"))
+        // 2. Utwórz 8 par z bazy { "@", "#", "$", "%", "&amp;", "*", "+", "!" } (16 kart)
+        // 3. Zainicjalizuj tablicę Dopasowane o długości 16
+        // 4. Przetasuj Symbole algorytmem Fisher-Yates
+        // 5. Ustaw Stan = StanGry.OczekiwanieNaPierwsza
+    }
+
+    public void OznaczWyborPierwszej()
+    {
+        if (Stan == StanGry.OczekiwanieNaPierwsza)
+            Stan = StanGry.OczekiwanieNaDruga;
+    }
+
+    public bool SprawdzPare(int indeksA, int indeksB)
+    {
+        // 1. Odrzuć wywołanie gdy Stan == BlokadaZakrywania lub KoniecGry
+        // 2. Zwaliduj zakres indeksów, indeksA == indeksB oraz karty już dopasowane
+        // 3. Zwiększ Ruchy
+        // 4. Przy trafieniu: oznacz Dopasowane, zwiększ TrafionePary, zaktualizuj Stan i zwróć true
+        // 5. Przy pudle: ustaw Stan = StanGry.BlokadaZakrywania i zwróć false
+        return false;
+    }
+
+    public void ZakonczBlokade()
+    {
+        // Przywróć Stan = StanGry.OczekiwanieNaPierwsza wyłącznie gdy Stan == StanGry.BlokadaZakrywania
+    }
+
+    public double ObliczSkutecznoscProcent()
+    {
+        // Zwróć 0.0 gdy Ruchy == 0, inaczej (double)TrafionePary / Ruchy * 100.0
+        return 0.0;
+    }
+
+    public static string FormatujCzas(int sekundy)
+    {
+        // Dla wartości ujemnych zwróć "00:00", inaczej format "MM:SS" (np. 75 -&gt; "01:15", 3665 -&gt; "61:05")
+        return "00:00";
+    }
+
+    public static bool CzyNowyRekord(int staryRekord, int nowyWynik)
+    {
+        // Mniej ruchów oznacza lepszy wynik; nowyWynik &lt;= 0 -&gt; false; staryRekord &lt;= 0 -&gt; true
+        return false;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("Konstruktor waliduje null, buduje 8 par (16 kart) i deterministycznie tasuje Fisher-Yates", () =&gt; {
+    bool rzuconoNull = false;
+    try
+    {
+        new MemoryModel(null);
+    }
+    catch (ArgumentNullException)
+    {
+        rzuconoNull = true;
+    }
+    LabAssert.True(rzuconoNull, "Konstruktor powinien rzucić ArgumentNullException dla rnd == null.");
+
+    var m1 = new MemoryModel(new Random(42));
+    var m2 = new MemoryModel(new Random(42));
+    var m3 = new MemoryModel(new Random(99));
+
+    LabAssert.True(m1.Symbole != null &amp;&amp; m1.Symbole.Length == 16, "Tablica Symbole musi mieć 16 elementów.");
+    LabAssert.True(m1.Dopasowane != null &amp;&amp; m1.Dopasowane.Length == 16, "Tablica Dopasowane musi mieć 16 elementów.");
+    LabAssert.Equal(StanGry.OczekiwanieNaPierwsza, m1.Stan);
+
+    string[] oczekiwane = { "@", "#", "$", "%", "&amp;", "*", "+", "!" };
+    for (int s = 0; s &lt; oczekiwane.Length; s++)
+    {
+        int ile = 0;
+        for (int i = 0; i &lt; m1.Symbole.Length; i++)
+        {
+            if (m1.Symbole[i] == oczekiwane[s]) ile++;
+        }
+        LabAssert.Equal(2, ile);
+    }
+
+    int rozniceM1M2 = 0;
+    int rozniceM1M3 = 0;
+    for (int i = 0; i &lt; 16; i++)
+    {
+        LabAssert.False(m1.Dopasowane[i]);
+        if (m1.Symbole[i] != m2.Symbole[i]) rozniceM1M2++;
+        if (m1.Symbole[i] != m3.Symbole[i]) rozniceM1M3++;
+    }
+    LabAssert.Equal(0, rozniceM1M2);
+    LabAssert.True(rozniceM1M3 &gt; 0, "Różne ziarna Random powinny generować różne permutacje kart.");
+});
+
+LabAssert.Test("SprawdzPare odrzuca niepoprawne indeksy i ten sam indeks bez nabijania ruchów", () =&gt; {
+    var m = new MemoryModel(new Random(7));
+    LabAssert.Equal(0.0, m.ObliczSkutecznoscProcent());
+
+    LabAssert.False(m.SprawdzPare(0, 0));
+    LabAssert.False(m.SprawdzPare(-1, 2));
+    LabAssert.False(m.SprawdzPare(2, -1));
+    LabAssert.False(m.SprawdzPare(0, 16));
+    LabAssert.False(m.SprawdzPare(16, 0));
+    LabAssert.False(m.SprawdzPare(100, 200));
+
+    LabAssert.Equal(0, m.Ruchy);
+    LabAssert.Equal(0, m.TrafionePary);
+    LabAssert.Equal(StanGry.OczekiwanieNaPierwsza, m.Stan);
+    LabAssert.False(m.CzyWygrana);
+});
+
+LabAssert.Test("Przejścia StanGry, ZakonczBlokade, pudło, trafienie i skuteczność (0%, 50%, 33.33%)", () =&gt; {
+    var m = new MemoryModel(new Random(7));
+    int firstIdx = 0;
+    int matchIdx = -1;
+    int mismatchIdx = -1;
+    for (int i = 1; i &lt; m.Symbole.Length; i++)
+    {
+        if (m.Symbole[i] == m.Symbole[firstIdx]) matchIdx = i;
+        else if (mismatchIdx == -1) mismatchIdx = i;
+    }
+
+    m.OznaczWyborPierwszej();
+    LabAssert.Equal(StanGry.OczekiwanieNaDruga, m.Stan);
+
+    // Pudło przełącza grę w stan BlokadaZakrywania
+    LabAssert.False(m.SprawdzPare(firstIdx, mismatchIdx));
+    LabAssert.Equal(1, m.Ruchy);
+    LabAssert.Equal(0, m.TrafionePary);
+    LabAssert.Equal(StanGry.BlokadaZakrywania, m.Stan);
+    LabAssert.Equal(0.0, m.ObliczSkutecznoscProcent());
+
+    // Podczas BlokadaZakrywania żadne kliknięcie nie może być przyjęte
+    LabAssert.False(m.SprawdzPare(firstIdx, matchIdx));
+    LabAssert.Equal(1, m.Ruchy);
+    LabAssert.Equal(0, m.TrafionePary);
+    LabAssert.Equal(StanGry.BlokadaZakrywania, m.Stan);
+
+    // Po zakończeniu blokady gra wraca do OczekiwanieNaPierwsza
+    m.ZakonczBlokade();
+    LabAssert.Equal(StanGry.OczekiwanieNaPierwsza, m.Stan);
+
+    // Trafienie pary
+    m.OznaczWyborPierwszej();
+    LabAssert.True(m.SprawdzPare(firstIdx, matchIdx));
+    LabAssert.Equal(2, m.Ruchy);
+    LabAssert.Equal(1, m.TrafionePary);
+    LabAssert.Equal(StanGry.OczekiwanieNaPierwsza, m.Stan);
+    LabAssert.True(m.Dopasowane[firstIdx] &amp;&amp; m.Dopasowane[matchIdx]);
+    LabAssert.Equal(50.0, m.ObliczSkutecznoscProcent());
+
+    // Ponowna próba na już dopasowanej karcie nie zwiększa liczby ruchów
+    LabAssert.False(m.SprawdzPare(firstIdx, matchIdx));
+    LabAssert.False(m.SprawdzPare(firstIdx, mismatchIdx));
+    LabAssert.False(m.SprawdzPare(mismatchIdx, firstIdx));
+    LabAssert.Equal(2, m.Ruchy);
+    LabAssert.Equal(1, m.TrafionePary);
+
+    // Dodatkowe pudło: 1 trafienie na 3 ruchy = 33.333...%
+    int otherMismatchIdx = -1;
+    for (int i = 1; i &lt; m.Symbole.Length; i++)
+    {
+        if (!m.Dopasowane[i] &amp;&amp; i != mismatchIdx &amp;&amp; m.Symbole[i] != m.Symbole[mismatchIdx])
+        {
+            otherMismatchIdx = i;
+            break;
+        }
+    }
+    LabAssert.False(m.SprawdzPare(mismatchIdx, otherMismatchIdx));
+    LabAssert.Equal(3, m.Ruchy);
+    LabAssert.Equal(1, m.TrafionePary);
+    LabAssert.Equal(StanGry.BlokadaZakrywania, m.Stan);
+    LabAssert.True(Math.Abs(m.ObliczSkutecznoscProcent() - (100.0 / 3.0)) &lt; 0.001,
+        "Skuteczność dla 1 trafienia na 3 ruchy powinna wynosić ok. 33.33% (unikaj dzielenia całkowitego).");
+    m.ZakonczBlokade();
+    LabAssert.Equal(StanGry.OczekiwanieNaPierwsza, m.Stan);
+});
+
+LabAssert.Test("FormatujCzas oraz CzyNowyRekord obsługują wartości brzegowe", () =&gt; {
+    LabAssert.Equal("00:00", MemoryModel.FormatujCzas(-5));
+    LabAssert.Equal("00:00", MemoryModel.FormatujCzas(0));
+    LabAssert.Equal("00:09", MemoryModel.FormatujCzas(9));
+    LabAssert.Equal("00:59", MemoryModel.FormatujCzas(59));
+    LabAssert.Equal("01:00", MemoryModel.FormatujCzas(60));
+    LabAssert.Equal("01:15", MemoryModel.FormatujCzas(75));
+    LabAssert.Equal("60:00", MemoryModel.FormatujCzas(3600));
+    LabAssert.Equal("61:05", MemoryModel.FormatujCzas(3665));
+
+    LabAssert.True(MemoryModel.CzyNowyRekord(0, 16));
+    LabAssert.True(MemoryModel.CzyNowyRekord(-1, 10));
+    LabAssert.True(MemoryModel.CzyNowyRekord(16, 12));
+    LabAssert.False(MemoryModel.CzyNowyRekord(12, 12));
+    LabAssert.False(MemoryModel.CzyNowyRekord(12, 15));
+    LabAssert.False(MemoryModel.CzyNowyRekord(0, 0));
+    LabAssert.False(MemoryModel.CzyNowyRekord(10, -4));
+});
+
+LabAssert.Test("Pełna symulacja rozgrywki doprowadza do StanGry.KoniecGry i blokuje dalsze ruchy", () =&gt; {
+    var m = new MemoryModel(new Random(42));
+    for (int i = 0; i &lt; m.Symbole.Length; i++)
+    {
+        if (m.Dopasowane[i]) continue;
+        for (int j = i + 1; j &lt; m.Symbole.Length; j++)
+        {
+            if (!m.Dopasowane[j] &amp;&amp; m.Symbole[i] == m.Symbole[j])
+            {
+                m.OznaczWyborPierwszej();
+                LabAssert.True(m.SprawdzPare(i, j));
+                break;
+            }
+        }
+    }
+
+    LabAssert.Equal(8, m.Ruchy);
+    LabAssert.Equal(8, m.TrafionePary);
+    LabAssert.True(m.CzyWygrana);
+    LabAssert.Equal(StanGry.KoniecGry, m.Stan);
+    LabAssert.Equal(100.0, m.ObliczSkutecznoscProcent());
+
+    // Po zakończeniu gry ZakonczBlokade oraz SprawdzPare nie mogą zmienić stanu ani licznika ruchów
+    m.ZakonczBlokade();
+    LabAssert.Equal(StanGry.KoniecGry, m.Stan);
+    LabAssert.False(m.SprawdzPare(0, 1));
+    LabAssert.Equal(8, m.Ruchy);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy rozdzielać aplikację na Model i Widok?</strong> Zawsze wtedy, gdy logika (tasowanie, punktacja, stany) ma być testowana automatycznie bez otwierania okna GUI i ręcznego klikania.</li>
+<li><strong>Kiedy anulować jednorazowy timer?</strong> Przed każdym resetem rozgrywki, przed uruchomieniem nowego timera oraz w zdarzeniu <code>FormClosed</code>, aby uniknąć wyścigów zdarzeń na świeżej planszy.</li>
+<li><strong>Jak zarządzać czcionkami i kontrolkami GDI w WinForms?</strong> Współdziel instancje <code>Font</code> między kontrolkami, zwalniaj każdą z nich przez <code>Dispose()</code> w <code>FormClosed</code>, a przy przebudowie siatki nigdy nie polegaj na samym <code>Controls.Clear()</code>.</li>
+<li><strong>Jak bezpiecznie zapisywać rekordy użytkownika na dysku?</strong> Zapisuj dane w folderze <code>LocalApplicationData</code> przez plik tymczasowy z <code>FileStream.Flush(true)</code>, a na końcu atomowo podmieniaj plik docelowy metodą <code>File.Replace</code> lub <code>File.Move</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

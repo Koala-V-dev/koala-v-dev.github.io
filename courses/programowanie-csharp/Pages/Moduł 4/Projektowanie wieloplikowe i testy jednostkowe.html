@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projektowanie wieloplikowe i testy jednostkowe - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/programowanie-csharp/">Wprowadzenie</a></li><li class="module">Moduł 0: Fundamenty C# i Myślenie Algorytmiczne</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i pułapki liczb"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20pu%C5%82apki%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i pułapki liczb</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Programowanie Strukturalne i Kolekcje</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 1/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="module">Moduł 2: Fundamenty OOP i Model Pamięci</li><li class="lesson-item lesson" data-path="Moduł 2/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 2/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 2/Enkapsulacja i Właściwości - System Bankowy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Enkapsulacja%20i%20W%C5%82a%C5%9Bciwo%C5%9Bci%20-%20System%20Bankowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i Właściwości - System Bankowy</a></li><li class="lesson-item lesson" data-path="Moduł 2/Dziedziczenie i polimorfizm"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Dziedziczenie%20i%20polimorfizm.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dziedziczenie i polimorfizm</a></li><li class="module">Moduł 3: Architektura OOP i Nowoczesny C#</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy abstrakcyjne i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%20abstrakcyjne%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy abstrakcyjne i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Kompozycja i słowniki Dictionary"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Kompozycja%20i%20s%C5%82owniki%20Dictionary.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kompozycja i słowniki Dictionary</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 3/Wyrażenia lambda i podstawy LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Wyra%C5%BCenia%20lambda%20i%20podstawy%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i podstawy LINQ</a></li><li class="module">Moduł 4: Inżynieria Oprogramowania i Wielki Finał INF.04</li><li class="lesson-item lesson" data-path="Moduł 4/Zasady SOLID i refaktoryzacja kodu"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20SOLID%20i%20refaktoryzacja%20kodu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady SOLID i refaktoryzacja kodu</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projektowanie wieloplikowe i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projektowanie%20wieloplikowe%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie wieloplikowe i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wielki Finał - System Bankowy INF.04"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20-%20System%20Bankowy%20INF.04.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - System Bankowy INF.04</a></li><li class="lesson-item lesson" data-path="Moduł 4/MemReductMini - Menedżer Pamięci Windows"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/MemReductMini%20-%20Mened%C5%BCer%20Pami%C4%99ci%20Windows.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">MemReductMini - Menedżer Pamięci Windows</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Projektowanie wieloplikowe i testy jednostkowe</h1>
+<p>Przez cały kurs klikałeś przycisk <span class="color-green">Sprawdź testy</span> i widziałeś zielone albo czerwone komunikaty. Czas zajrzeć na drugą stronę lustra i nauczyć się <span class="color-green">myśleć jak inżynier projektujący testy jednostkowe</span> (<span class="color-blue">Unit Tests</span>) - bo w prawdziwej pracy programisty (oraz na egzaminie INF.04) to Ty udowadniasz, że Twój kod działa dla każdego nietypowego przypadku.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧪 Anatomia profesjonalnego testu: wzorzec AAA</h2>
+<p>Dobry test jednostkowy sprawdza <span class="color-green">jedną konkretną regułę biznesową</span> i dzieli się zawsze na trzy czytelne sekcje <span class="color-green">AAA</span>:</p>
+<pre><code class="language-csharp">// 1. ARRANGE (Przygotowanie): tworzymy obiekty i dane wejściowe
+var konto = new KontoBankowe("Jan", 100m);
+
+// 2. ACT (Działanie): wywołujemy dokładnie JEDNĄ badaną operację
+bool wynik = konto.Wyplac(40m);
+
+// 3. ASSERT (Weryfikacja): sprawdzamy wynik i nowy stan obiektu
+LabAssert.True(wynik);
+LabAssert.Equal(60m, konto.Saldo);
+</code></pre>
+<h3>🎯 Lista kontrolna przypadków brzegowych (Edge Cases)</h3>
+<p>Początkujący testują tylko tzw. <span class="color-green">Happy Path</span> (ładne, poprawne dane, np. <code>100 zł</code>). Prawdziwe błędy w oprogramowaniu kryją się niemal wyłącznie <span class="color-green">na granicach</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Kategoria danych</th>
+<th>Przypadki brzegowe, które MUSISZ sprawdzić</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Liczby (<code>int</code>, <code>decimal</code>)</td>
+<td><code>0</code>, wartości ujemne (<code>-1</code>, <code>-0.01m</code>), wartość dokładnie na progu (np. <code>150m</code> przy progu <code>&gt;= 150m</code>)</td>
+</tr>
+<tr>
+<td>Napisy (<code>string</code>)</td>
+<td><code>null</code>, pusty napis <code>""</code>, same spacje <code>"   "</code> (<code>string.IsNullOrWhiteSpace</code>)</td>
+</tr>
+<tr>
+<td>Kolekcje (<code>List&lt;T&gt;</code>, <code>T[]</code>)</td>
+<td><code>null</code>, pusta lista (<code>Count == 0</code>), lista z 1 elementem, duplikaty</td>
+</tr>
+<tr>
+<td>Obiekty i operacje</td>
+<td>Próba usunięcia nieistniejącego elementu, wielokrotne wywołanie tej samej metody</td>
+</tr>
+</tbody></table>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Piramida testów, pułapka 100% Code Coverage i testowanie mutacyjne</span>
+<span class="deep-dive-badge">INŻYNIERIA JAKOŚCI</span>
+</summary>
+<div class="deep-dive-content">
+
+<p><span class="color-green">1. Dlaczego 100% pokrycia kodu (<span class="color-blue">Code Coverage</span>) nie gwarantuje braku błędów?</span><br>Spójrz na metodę <code>CzyDarmowaDostawa(decimal kwota) =&gt; kwota &gt;= 150m;</code>. Jeśli napiszesz tylko dwa testy: dla <code>100m</code> (<code>false</code>) oraz dla <code>200m</code> (<code>true</code>), narzędzie raportujące pokaże <span class="color-green">100% pokrycia linii</span>. A jednak gdyby ktoś przypadkiem zmienił kod na <code>kwota &gt; 150m</code> (zgubił znak równości!), oba testy <span class="color-green">nadal byłyby zielone</span>!</p>
+<p><span class="color-green">2. Myślenie mutacyjne (<span class="color-blue">Mutation Testing</span>, np. narzędzie Stryker.NET):</span><br>Profesjonalny automat wprowadza do Twojego kodu celowe uszkodzenia (<span class="color-green">mutanty</span>):</p>
+<table>
+<thead>
+<tr>
+<th>Oryginalny kod</th>
+<th>Wprowadzony mutant</th>
+<th>Który test go zabije?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>kwota &gt;= 150m</code></td>
+<td><code>kwota &gt; 150m</code></td>
+<td>Wyłącznie test dla <span class="color-green">dokładnej granicy</span> <code>150m</code>!</td>
+</tr>
+<tr>
+<td><code>Saldo - kwota &lt; -Limit</code></td>
+<td><code>Saldo - kwota &lt;= -Limit</code></td>
+<td>Wyłącznie test schodzący <span class="color-green">dokładnie do <code>-Limit</code></span>!</td>
+</tr>
+<tr>
+<td><code>if (kwota &lt;= 0m) throw</code></td>
+<td><code>if (kwota &lt; 0m) throw</code></td>
+<td>Wyłącznie test sprawdzający <span class="color-green"><code>kwota == 0m</code></span>!</td>
+</tr>
+</tbody></table>
+<p><span class="color-green">Wniosek zmieniający model myślowy:</span> pisząc testy, zawsze pytaj siebie: <span class="color-blue">„jeśli ktoś zmieni <code>&gt;=</code> na <code>&gt;</code> albo usunie warunek <code>== 0</code>, czy któryś mój test zrobi się czerwony?”</span>. Jeśli nie - dopisz test na dokładną wartość graniczną!</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne (2 pliki): KoszykZakupowy odporny na wszystkie przypadki brzegowe</h2>
+<p>W pliku <span class="color-green"><code>KoszykZakupowy.cs</code></span> zaimplementuj klasę, która przejdzie surowy zestaw testów <span class="color-blue">Happy Path</span> oraz <span class="color-blue">Edge Cases</span>:</p>
+<ol>
+<li><span class="color-green"><code>DodajPozycje(string nazwa, decimal cena, int ilosc)</code></span>:<ul>
+<li>jeśli <code>string.IsNullOrWhiteSpace(nazwa)</code> → rzuć <code>ArgumentException</code>,</li>
+<li>jeśli <code>cena &lt;= 0m</code> lub <code>ilosc &lt;= 0</code> → rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>jeśli produkt o tej samej nazwie (bez rozróżniania wielkości liter lub dokładnie) już jest w koszyku, <span class="color-green">zwiększ jego ilość</span> zamiast duplikować wpis; inaczej dodaj nową pozycję.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>UsunPozycje(string nazwa)</code></span>:<ul>
+<li>jeśli produkt istnieje w koszyku, usuń go i zwróć <code>true</code>; jeśli nie istnieje (lub <code>nazwa</code> jest pusta/<code>null</code>), zwróć <code>false</code> bez rzucania wyjątku.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ObliczSume()</code></span>:<ul>
+<li>zwróć łączną wartość wszystkich pozycji (<code>cena * ilosc</code>), a dla pustego koszyka zwróć <code>0m</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: KoszykZakupowy i przypadki brzegowe (2 pliki)">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        var koszyk = new KoszykZakupowy();
+        koszyk.DodajPozycje("Klawiatura", 200m, 1);
+        koszyk.DodajPozycje("Mysz", 80m, 2);
+        koszyk.DodajPozycje("Klawiatura", 200m, 1); // Zwiększa ilość do 2!
+
+        Console.WriteLine($"Liczba unikalnych pozycji: {koszyk.LiczbaPozycji}");
+        Console.WriteLine($"Suma koszyka: {koszyk.ObliczSume():F2} zł");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="KoszykZakupowy.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public class PozycjaKoszyka
+{
+    public string Nazwa { get; }
+    public decimal Cena { get; }
+    public int Ilosc { get; set; }
+
+    public PozycjaKoszyka(string nazwa, decimal cena, int ilosc)
+    {
+        Nazwa = nazwa;
+        Cena = cena;
+        Ilosc = ilosc;
+    }
+}
+
+public class KoszykZakupowy
+{
+    private readonly List&lt;PozycjaKoszyka&gt; _pozycje = new List&lt;PozycjaKoszyka&gt;();
+
+    public int LiczbaPozycji =&gt; _pozycje.Count;
+
+    public void DodajPozycje(string nazwa, decimal cena, int ilosc)
+    {
+        // TODO 1: Guard Clause: pusta nazwa -&gt; ArgumentException; cena &lt;= 0m lub ilosc &lt;= 0 -&gt; ArgumentOutOfRangeException
+        // TODO 2: Jeśli pozycja o tej nazwie już istnieje -&gt; zwiększ jej Ilosc; inaczej dodaj nową PozycjaKoszyka
+    }
+
+    public bool UsunPozycje(string nazwa)
+    {
+        // TODO 3: Jeśli istnieje pozycja o tej nazwie -&gt; usuń i zwróć true; inaczej false
+        return false;
+    }
+
+    public decimal ObliczSume()
+    {
+        // TODO 4: Zsumuj (Cena * Ilosc) wszystkich pozycji (dla pustego koszyka zwróć 0m)
+        return 0m;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("Pusty koszyk ma 0 pozycji i sumę 0m", () =&gt; {
+    var k = new KoszykZakupowy();
+    LabAssert.Equal(0, k.LiczbaPozycji);
+    LabAssert.Equal(0m, k.ObliczSume());
+});
+LabAssert.Test("DodajPozycje sumuje ilość przy ponownym dodaniu tego samego produktu", () =&gt; {
+    var k = new KoszykZakupowy();
+    k.DodajPozycje("Klawiatura", 200m, 1);
+    k.DodajPozycje("Klawiatura", 200m, 2);
+    LabAssert.Equal(1, k.LiczbaPozycji);
+    LabAssert.Equal(600m, k.ObliczSume());
+});
+LabAssert.Test("DodajPozycje blokuje błędne dane brzegowe (pusta nazwa, cena &lt;= 0, ilosc &lt;= 0)", () =&gt; {
+    var k = new KoszykZakupowy();
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; k.DodajPozycje("   ", 10m, 1));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; k.DodajPozycje("A", 0m, 1));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; k.DodajPozycje("A", 10m, 0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; k.DodajPozycje("A", 10m, -3));
+});
+LabAssert.Test("UsunPozycje usuwa istniejący produkt i bezpiecznie zwraca false dla nieistniejącego/null", () =&gt; {
+    var k = new KoszykZakupowy();
+    k.DodajPozycje("Mysz", 50m, 2);
+    LabAssert.True(k.UsunPozycje("Mysz"));
+    LabAssert.Equal(0, k.LiczbaPozycji);
+    LabAssert.False(k.UsunPozycje("Mysz"));
+    LabAssert.False(k.UsunPozycje(null));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<pre><code class="language-csharp">public void DodajPozycje(string nazwa, decimal cena, int ilosc)
+{
+    if (string.IsNullOrWhiteSpace(nazwa)) throw new ArgumentException("Brak nazwy produktu.");
+    if (cena &lt;= 0m) throw new ArgumentOutOfRangeException(nameof(cena));
+    if (ilosc &lt;= 0) throw new ArgumentOutOfRangeException(nameof(ilosc));
+
+    foreach (var p in _pozycje)
+    {
+        if (p.Nazwa == nazwa)
+        {
+            p.Ilosc += ilosc;
+            return;
+        }
+    }
+    _pozycje.Add(new PozycjaKoszyka(nazwa, cena, ilosc));
+}
+
+public bool UsunPozycje(string nazwa)
+{
+    if (string.IsNullOrWhiteSpace(nazwa)) return false;
+    for (int i = 0; i &lt; _pozycje.Count; i++)
+    {
+        if (_pozycje[i].Nazwa == nazwa)
+        {
+            _pozycje.RemoveAt(i);
+            return true;
+        }
+    }
+    return false;
+}
+
+public decimal ObliczSume()
+{
+    decimal suma = 0m;
+    foreach (var p in _pozycje)
+    {
+        suma += p.Cena * p.Ilosc;
+    }
+    return suma;
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Każdy test jednostkowy układaj w strukturze <span class="color-green">AAA (Arrange → Act → Assert)</span> i sprawdzaj w nim dokładnie jedną regułę biznesową.</li>
+<li>Oprócz ścieżki poprawnej (<span class="color-blue">Happy Path</span>) zawsze testuj <span class="color-green">przypadki brzegowe</span>: <code>0</code>, liczby ujemne, dokładnie na granicy progu, <code>null</code>, puste napisy i puste kolekcje.</li>
+<li>Dobre testy jednostkowe to Twoja sieć bezpieczeństwa - pozwalają śmiało refaktoryzować kod bez obawy, że zepsujesz działające funkcje.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: 700; fill: #4ade80; }
+      .lbl { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 600; fill: #cbd5e1; }
+      .spec-txt { font-family: system-ui, -apple-system, sans-serif; font-size: 11.5px; fill: #94a3b8; }
+    </style>
+    <marker id="apc-blue-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="apc-green-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ade80"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <!-- Tytuł z zieloną plakietką -->
+  <rect x="35" y="18" width="14" height="14" rx="3" fill="#16a34a"/>
+  <text x="56" y="30" class="title">Szlif APC (Angled Physical Contact) – Wtyk ZIELONY</text>
+
+  <!-- Płaszczyzna styku etykieta u góry – wyrównana do osi cięcia X=350 -->
+  <text x="350" y="50" font-family="system-ui, sans-serif" font-size="11px" font-weight="700" fill="#4ade80" text-anchor="middle">Szlif kątowy (8°)</text>
+  <line x1="350" y1="54" x2="350" y2="67" stroke="#4ade80" stroke-width="1.5"/>
+
+  <!-- Płaszcz i rdzeń włókna (przesunięty o X=40, Y=68) -->
+  <g transform="translate(40, 68)">
+    <rect width="560" height="74" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="6"/>
+    <!-- Rdzeń -->
+    <rect x="0" y="28" width="560" height="18" fill="#0369a1"/>
+
+    <!-- Płaszczyzna styku ścięta pod kątem 8 stopni (w osi X=310, czyli globalnie 350) -->
+    <line x1="304" y1="5" x2="316" y2="69" stroke="#f8fafc" stroke-width="2.5"/>
+
+    <!-- Wiązka nadawana (w prawo w osi rdzenia) -->
+    <line x1="20" y1="37" x2="300" y2="37" stroke="#38bdf8" stroke-width="3" marker-end="url(#apc-blue-arr)"/>
+    <text x="30" y="58" class="lbl" fill="#38bdf8">Sygnał lasera ►</text>
+
+    <!-- Wiązka odbita pod kątem w górę w stronę płaszcza (celuje w X=230, Y=18) -->
+    <line x1="308" y1="37" x2="235" y2="18" stroke="#4ade80" stroke-width="2.5" stroke-dasharray="4 2" marker-end="url(#apc-green-arr)"/>
+
+    <!-- Plakietka bezpiecznego wygaszenia w płaszczu – z zapasem przestrzeni, zero kolizji -->
+    <g transform="translate(25, 8)">
+      <rect width="200" height="20" rx="4" fill="#064e3b" stroke="#16a34a" stroke-width="1"/>
+      <text x="100" y="14" font-family="system-ui, sans-serif" font-size="10px" font-weight="700" fill="#86efac" text-anchor="middle">Odbicie w płaszcz (wygaszenie) ◄</text>
+    </g>
+
+    <!-- Dalszy bieg sygnału po przejściu styku -->
+    <line x1="316" y1="37" x2="530" y2="37" stroke="#38bdf8" stroke-width="3" marker-end="url(#apc-blue-arr)"/>
+    <text x="420" y="58" class="lbl" fill="#7dd3fc">Do odbiornika ►</text>
+  </g>
+
+  <!-- Pasek informacyjny na dole -->
+  <text x="40" y="168" class="spec-txt">Tłumienność odbiciowa: <tspan fill="#4ade80" font-weight="700">Return Loss ≥ -60 dB</tspan> (odbicie ponad 10× mniejsze niż w UPC).</text>
+  <text x="40" y="184" class="spec-txt">Zastosowanie: bezwzględny wymóg w sieciach dostępowych <tspan fill="#f8fafc" font-weight="700">FTTH (światłowód GPON)</tspan> i telewizji kablowej.</text>
+</svg>

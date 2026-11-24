@@ -102,12 +102,12 @@ Przy tym samym obrazie checkera większe pola na modelu oznaczają mniej pikseli
 
 Własne rozłożenie poprawiaj według objawu:
 
-| Co widzisz na modelu? | Co zmienić w UV? |
-| --- | --- |
-| Pola zachowują proporcje, ale na ważnym detalu są dużo większe niż obok. | Powiększ całą wyspę tego detalu i odzyskaj miejsce na mniej ważnych częściach. |
-| Cała płaska powierzchnia ma pola wydłużone w jednym kierunku. | Przywróć wyspie proporcje powierzchni. Sprawdź, czy jej zwężenia nie zostały wymuszone do prostokąta. |
-| Tylko przy przewężeniu lub nasadzie występuje ciasne pasmo zdeformowanych pól. | Sprawdź podział w tym miejscu. Porównaj rozłożenie po dodaniu szwu uwalniającego tę część. |
-| Pola na obłej powierzchni zmieniają się łagodnie, a szczegóły pozostają czytelne. | Oceń ciągłość wzoru i przydział pikseli przed dodaniem następnych cięć. |
+| Co widzisz na modelu?                                                             | Co zmienić w UV?                                                                                      |
+| --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Pola zachowują proporcje, ale na ważnym detalu są dużo większe niż obok.          | Powiększ całą wyspę tego detalu i odzyskaj miejsce na mniej ważnych częściach.                        |
+| Cała płaska powierzchnia ma pola wydłużone w jednym kierunku.                     | Przywróć wyspie proporcje powierzchni. Sprawdź, czy jej zwężenia nie zostały wymuszone do prostokąta. |
+| Tylko przy przewężeniu lub nasadzie występuje ciasne pasmo zdeformowanych pól.    | Sprawdź podział w tym miejscu. Porównaj rozłożenie po dodaniu szwu uwalniającego tę część.            |
+| Pola na obłej powierzchni zmieniają się łagodnie, a szczegóły pozostają czytelne. | Oceń ciągłość wzoru i przydział pikseli przed dodaniem następnych cięć.                               |
 
 Na młotku zaczniemy od zbliżonej gęstości na drewnie i stali. Przy postaci priorytet można nadać twarzy. Sam równo wypełniony kwadrat UV nie pokaże, czy podział miejsca odpowiada tym potrzebom.
 

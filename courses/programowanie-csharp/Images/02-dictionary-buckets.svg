@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t22 d22">
+  <title id="t22">Tablica haszująca Dictionary&lt;string, string&gt; — od klucza przez GetHashCode() do kubełka w O(1)</title>
+  <desc id="d22">Schemat działania słownika: klucz .png trafia do funkcji skrótu GetHashCode(), operacja modulo wyznacza numer kubełka i od razu zwraca wartość Obrazy bez przeszukiwania całej listy.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 8; }
+    .hit { fill: #064e3b; stroke: #34d399; stroke-width: 2; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    @keyframes beam { 0% { stroke-dashoffset: 36; } 100% { stroke-dashoffset: 0; } }
+    .flow { stroke: #34d399; stroke-width: 2.5; stroke-dasharray: 6 6; animation: beam 1.2s linear infinite; fill: none; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Jak Dictionary&lt;TKey, TValue&gt; znajduje wartość w czasie O(1) bez pętli</text>
+  <text x="24" y="48" class="sub">Klucz zamieniany jest na numer kubełka (bucket) przez funkcję skrótu GetHashCode() % rozmiar.</text>
+
+  <rect x="24" y="68" width="170" height="168" class="card"/>
+  <text x="40" y="94" class="title">1. Klucz (Key)</text>
+  <rect x="40" y="114" width="138" height="44" class="box"/>
+  <text x="64" y="141" class="mono">".png"</text>
+  <text x="40" y="186" class="sub">Szukamy kategorii</text>
+  <text x="40" y="204" class="sub">dla rozszerzenia</text>
+
+  <path d="M 194 136 L 246 136" class="flow"/>
+
+  <rect x="246" y="68" width="220" height="168" class="card"/>
+  <text x="262" y="94" class="title">2. Funkcja skrótu</text>
+  <rect x="262" y="114" width="188" height="58" class="box"/>
+  <text x="274" y="136" class="mono" fill="#38bdf8">GetHashCode()</text>
+  <text x="274" y="156" class="mono">hash % 4 == 2</text>
+  <text x="262" y="198" class="sub">Jedno obliczenie zamiast</text>
+  <text x="262" y="216" class="sub">przeglądania 10 000 kluczy</text>
+
+  <path d="M 466 136 L 520 176" class="flow"/>
+
+  <rect x="520" y="68" width="296" height="168" class="card"/>
+  <text x="536" y="94" class="title">3. Tablica kubełków (Buckets)</text>
+  <rect x="536" y="104" width="264" height="28" class="box"/><text x="548" y="122" class="sub">[0] ".pdf" → "Dokumenty"</text>
+  <rect x="536" y="136" width="264" height="28" class="box"/><text x="548" y="154" class="sub">[1] ".zip" → "Archiwa"</text>
+  <rect x="536" y="168" width="264" height="28" class="hit"/><text x="548" y="186" class="mono">[2] ".png" → "Obrazy"  ✓</text>
+  <rect x="536" y="200" width="264" height="28" class="box"/><text x="548" y="218" class="sub">[3] ".exe" → "Instalatory"</text>
+</svg>
+

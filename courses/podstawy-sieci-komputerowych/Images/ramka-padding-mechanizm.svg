@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 330" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .blk-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .blk-sub { font-family: monospace; font-size: 9px; font-weight: 700; text-anchor: middle; }
+      .box-hdr { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9.5px; fill: #cbd5e1; }
+      .math-txt { font-family: monospace; font-size: 10px; font-weight: 800; fill: #fde047; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Dlaczego ramka Ethernet musi mieć minimum 64 bajty?</text>
+  <text x="30" y="48" class="sub">Zależność fizyczna między czasem propagacji w miedzi (Slot Time) a mechanizmem Padding</text>
+
+  <!-- ================= 1. FIZYKA: CZAS OBIEGU SYGNAŁU (SLOT TIME) ================= -->
+  <g transform="translate(30, 75)">
+    <rect width="680" height="110" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="680" height="28" fill="#164e63" rx="6"/>
+    <text x="15" y="19" class="box-hdr" fill="#a5f3fc">1. Fizyka medium miedzianego: Slot Time w standardzie IEEE 802.3</text>
+
+    <g transform="translate(15, 38)">
+      <text x="0" y="16" class="desc-txt">Maksymalna długość segmentu w sieci 10BASE5 z regeneratorami wynosiła <tspan font-weight="700" fill="#ffffff">2500 metrów</tspan>.</text>
+      <text x="0" y="32" class="desc-txt">Czas przejścia fali elektrycznej tam i z powrotem (Round-Trip Time) to dokładnie <tspan font-weight="700" fill="#22d3ee">51.2 mikrosekundy</tspan>.</text>
+      
+      <!-- Obliczenie matematyczne -->
+      <rect x="0" y="44" width="650" height="22" fill="#0b1120" stroke="#0891b2" rx="3"/>
+      <text x="12" y="59" class="math-txt">51.2 μs × 10 Mb/s = 512 bitów = DOKŁADNIE 64 BAJTY (Minimalny rozmiar ramki na kablu)</text>
+    </g>
+  </g>
+
+  <!-- ================= 2. MECHANIZM PADDING W KARTACH NIC ================= -->
+  <g transform="translate(30, 200)">
+    <rect width="680" height="115" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="680" height="28" fill="#064e3b" rx="6"/>
+    <text x="15" y="19" class="box-hdr" fill="#a7f3d0">2. Mechanizm dopełnienia (Padding): Co robi karta, gdy ładunek jest zbyt mały?</text>
+
+    <!-- Porównanie ramki z paddingiem -->
+    <g transform="translate(15, 42)">
+      <!-- Nagłówek L2 (14B) -->
+      <rect x="0" y="0" width="110" height="42" fill="#047857" stroke="#34d399" rx="3"/>
+      <text x="55" y="18" class="blk-hdr">Eth Header</text>
+      <text x="55" y="32" class="blk-sub" fill="#a7f3d0">14B (MAC+Typ)</text>
+
+      <!-- Małe dane np. ARP (28B) -->
+      <rect x="115" y="0" width="160" height="42" fill="#0f172a" stroke="#38bdf8" rx="3"/>
+      <text x="195" y="18" class="blk-hdr" fill="#38bdf8">Pakiet ARP / Małe dane</text>
+      <text x="195" y="32" class="blk-sub" fill="#bae6fd">28 bajtów (Za mało! &lt; 46B)</text>
+
+      <!-- PADDING (18B zer) -->
+      <rect x="280" y="0" width="170" height="42" fill="#78350f" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3 3" rx="3"/>
+      <text x="365" y="18" class="blk-hdr" fill="#fde68a">PADDING (Dopełnienie)</text>
+      <text x="365" y="32" class="blk-sub" fill="#fde68a">+18 bajtów zer (0x00)</text>
+
+      <!-- FCS CRC-32 (4B) -->
+      <rect x="455" y="0" width="80" height="42" fill="#881337" stroke="#f43f5e" rx="3"/>
+      <text x="495" y="18" class="blk-hdr">FCS</text>
+      <text x="495" y="32" class="blk-sub" fill="#fecdd3">4B CRC</text>
+
+      <!-- Wymuszone 64 bajty -->
+      <line x1="545" y1="21" x2="570" y2="21" stroke="#34d399" stroke-width="2"/>
+      <polygon points="575,21 568,17 568,25" fill="#34d399"/>
+
+      <rect x="580" y="2" width="85" height="38" fill="#064e3b" stroke="#34d399" rx="4"/>
+      <text x="622" y="17" font-family="monospace" font-size="10.5px" font-weight="800" fill="#ffffff" text-anchor="middle">ŁĄCZNIE:</text>
+      <text x="622" y="31" font-family="monospace" font-size="11px" font-weight="800" fill="#a7f3d0" text-anchor="middle">64 BAJTY</text>
+    </g>
+  </g>
+</svg>

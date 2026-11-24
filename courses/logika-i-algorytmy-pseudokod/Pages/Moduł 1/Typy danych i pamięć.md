@@ -137,14 +137,21 @@ Każdy z tych znaków jest fizycznie reprezentowany jako liczba (np. `H = 72` w 
 
 ---
 
-<data-gate>
-  <data-connection-matcher title="Dopasuj konkretną wartość do jej typu">
-    <div class="cmw-item" data-left="`5`" data-right="liczba całkowita (`Integer`)"></div>
-    <div class="cmw-item" data-left='`"100"`' data-right="tablica znaków (`String`)"></div>
-    <div class="cmw-item" data-left="`True`" data-right="wartość logiczna (`Boolean`)"></div>
-    <div class="cmw-item" data-left="`3.14`" data-right="liczba zmiennoprzecinkowa (`Float`)"></div>
-  </data-connection-matcher>
-</data-gate>
+### 📏 Obliczanie adresu w pamięci fizycznej
+
+Rozumiejąc, że zmienne to ciągłe bloki bajtów, możemy precyzyjnie wyliczyć, gdzie w pamięci RAM wyląduje konkretna dana.
+Gdy w językach kompilowanych (C++, C#) deklarujemy zmienne, kompilator wyznacza ich **przesunięcie (offset)** względem początku struktury:
+
+$$\text{AdresFizyczny} = \text{AdresBazowy} + \text{Offset}$$
+
+Jeśli na początku pamięci pod adresem bazowym `0x1000` umieścimy:
+1. `bool flagaAktywna` ($1\text{ bajt}$) $\to$ zajmuje adres `0x1000`
+2. Wyrównanie do 4 bajtów (padding: $3\text{ bajty}$) $\to$ adresy `0x1001`, `0x1002`, `0x1003`
+3. `int punktyGracza` ($4\text{ bajty}$) $\to$ zajmuje adresy od `0x1004` do `0x1007`
+
+Bez zrozumienia typów danych programista piszący kod niskopoziomowy lub silnik gry nie jest w stanie przewidzieć zużycia pamięci podręcznej CPU ani poprawnie zinterpretować bufora bajtów.
+
+---
 
 ---
 
@@ -189,6 +196,25 @@ WYPISZ d
 </data-gate>
 
 Kontrola nad typami danych jest kluczowa dla stabilności oprogramowania. Niewłaściwa konwersja typów w trakcie działania programu prowadzi do błędów logicznych.
+
+---
+
+## Zadanie: Korekta błędu konkatenacji
+
+Zmienna `cenaNetto` została zapisana jako łańcuch znaków, przez co dodanie `podatek` wykonuje konkatenację zamiast sumowania. Skoryguj zapis tak, aby `cenaBrutto` przyjęła wartość liczbową `246`, a na wyjściu pojawił się tekst `Do zaplaty: 246 PLN`.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="cenaBrutto:246" expected-output="Do zaplaty: 246 PLN">
+<pre>
+cenaNetto = "200"
+podatek = 46
+
+cenaBrutto = cenaNetto + podatek
+komunikat = "Do zaplaty: " + cenaBrutto + " PLN"
+WYPISZ komunikat
+</pre>
+</data-pseudocode-runner>
+</data-gate>
 
 ---
 

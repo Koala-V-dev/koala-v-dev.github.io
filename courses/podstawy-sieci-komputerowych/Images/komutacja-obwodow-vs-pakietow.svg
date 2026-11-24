@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .card-bg { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 12; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 500; fill: #94a3b8; }
+      .label { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #e2e8f0; text-anchor: middle; }
+      .sublabel { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94a3b8; text-anchor: middle; }
+      .badge-circuit { fill: #ef4444; font-family: system-ui, sans-serif; font-size: 11px; font-weight: 700; }
+      .badge-packet { fill: #10b981; font-family: system-ui, sans-serif; font-size: 11px; font-weight: 700; }
+      .note { font-family: system-ui, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .wire-reserved { stroke: #ef4444; stroke-width: 4; stroke-dasharray: 6 3; }
+      .wire-idle { stroke: #475569; stroke-width: 2; }
+      .wire-packet { stroke: #10b981; stroke-width: 3; }
+      .wire-alt { stroke: #06b6d4; stroke-width: 2.5; stroke-dasharray: 4 2; }
+      .node-circuit { fill: #334155; stroke: #ef4444; stroke-width: 2; rx: 8; }
+      .node-packet { fill: #1e293b; stroke: #10b981; stroke-width: 2; rx: 8; }
+      .node-alt { fill: #1e293b; stroke: #06b6d4; stroke-width: 2; rx: 8; }
+      .packet-p1 { fill: #38bdf8; rx: 4; }
+      .packet-p2 { fill: #a855f7; rx: 4; }
+      .packet-p3 { fill: #f59e0b; rx: 4; }
+      .pkt-text { font-family: monospace; font-size: 10px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" class="bg"/>
+
+  <!-- ================= LEWA STRONA: KOMUTACJA OBWODÓW ================= -->
+  <g transform="translate(24, 20)" filter="url(#shadow)">
+    <rect width="440" height="440" class="card-bg"/>
+    <text x="24" y="38" class="title">1. Komutacja obwodów (Telefonia PSTN)</text>
+    <text x="24" y="58" class="subtitle">Dedykowany tor fizyczny rezerwowany na czas całej rozmowy</text>
+
+    <!-- Linia zarezerwowana -->
+    <path d="M 70 170 L 190 170 L 250 250 L 370 250" class="wire-reserved" fill="none"/>
+    <!-- Pozostałe linie (zablokowane / bezużyteczne) -->
+    <path d="M 190 170 L 250 170 L 370 170" class="wire-idle" fill="none"/>
+    <path d="M 70 250 L 190 250" class="wire-idle" fill="none"/>
+    <path d="M 190 250 L 250 250" class="wire-idle" fill="none"/>
+
+    <!-- Nadawca A -->
+    <rect x="20" y="145" width="70" height="50" class="node-circuit"/>
+    <text x="55" y="170" class="label">Host A</text>
+    <text x="55" y="185" class="sublabel">Nadawca</text>
+
+    <!-- Centrala 1 -->
+    <rect x="160" y="145" width="60" height="50" class="node-circuit"/>
+    <text x="190" y="170" class="label">Węzeł 1</text>
+    <text x="190" y="185" class="sublabel">Centrala</text>
+
+    <!-- Centrala 2 -->
+    <rect x="220" y="225" width="60" height="50" class="node-circuit"/>
+    <text x="250" y="250" class="label">Węzeł 2</text>
+    <text x="250" y="265" class="sublabel">Centrala</text>
+
+    <!-- Odbiorca B -->
+    <rect x="350" y="225" width="70" height="50" class="node-circuit"/>
+    <text x="385" y="250" class="label">Host B</text>
+    <text x="385" y="265" class="sublabel">Odbiorca</text>
+
+    <!-- Przebieg sygnału / Ostrzeżenie o przerwaniu -->
+    <circle cx="215" cy="203" r="14" fill="#ef4444" opacity="0.9"/>
+    <text x="215" y="208" font-family="sans-serif" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">✕</text>
+
+    <!-- Podsumowanie cech lewej strony -->
+    <g transform="translate(24, 305)">
+      <rect width="392" height="115" fill="#0f172a" rx="8" stroke="#ef4444" stroke-opacity="0.4"/>
+      <text x="16" y="26" class="note">⚠️ <tspan font-weight="700" fill="#f87171">Stała rezerwacja:</tspan> linia zajęta nawet gdy nikt nic nie mówi.</text>
+      <text x="16" y="50" class="note">⚠️ <tspan font-weight="700" fill="#f87171">Marnotrawstwo pasma:</tspan> ruch impulsowy PC zużywa &lt; 1% łącza.</text>
+      <text x="16" y="74" class="note">⚠️ <tspan font-weight="700" fill="#f87171">Pojedynczy punkt awarii:</tspan> przerwanie kabla = zerwanie sesji.</text>
+      <text x="16" y="98" class="note">⚠️ <tspan font-weight="700" fill="#f87171">Brak buforowania:</tspan> węzły nie potrafią zapisać i poczekać.</text>
+    </g>
+  </g>
+
+  <!-- ================= PRAWA STRONA: KOMUTACJA PAKIETÓW ================= -->
+  <g transform="translate(496, 20)" filter="url(#shadow)">
+    <rect width="440" height="440" class="card-bg"/>
+    <text x="24" y="38" class="title">2. Komutacja pakietów (ARPANET / Internet)</text>
+    <text x="24" y="58" class="subtitle">Dane dzielone na pakiety; dynamiczny routing Store-and-Forward</text>
+
+    <!-- Trasa pakietów: Ścieżka Główna -->
+    <path d="M 70 170 L 170 140 L 290 140 L 370 190" class="wire-packet" fill="none"/>
+    <!-- Ścieżka Alternatywna -->
+    <path d="M 170 140 L 230 250 L 370 190" class="wire-alt" fill="none"/>
+
+    <!-- Pakiety w locie na łączu -->
+    <g transform="translate(95, 142)">
+      <rect width="30" height="16" class="packet-p1"/>
+      <text x="15" y="12" class="pkt-text">P1</text>
+    </g>
+    <g transform="translate(205, 132)">
+      <rect width="30" height="16" class="packet-p2"/>
+      <text x="15" y="12" class="pkt-text">P2</text>
+    </g>
+    <g transform="translate(185, 205)">
+      <rect width="30" height="16" class="packet-p3"/>
+      <text x="15" y="12" class="pkt-text">P3</text>
+    </g>
+
+    <!-- Host Nadawca -->
+    <rect x="20" y="145" width="70" height="50" class="node-packet"/>
+    <text x="55" y="170" class="label">Host A</text>
+    <text x="55" y="185" class="sublabel">Dzieli na P1..P3</text>
+
+    <!-- Router / IMP 1 -->
+    <rect x="140" y="115" width="60" height="50" class="node-packet"/>
+    <text x="170" y="140" class="label">Router 1</text>
+    <text x="170" y="155" class="sublabel">Kolejkuje</text>
+
+    <!-- Router / IMP 2 (Ścieżka górna) -->
+    <rect x="260" y="115" width="60" height="50" class="node-packet"/>
+    <text x="290" y="140" class="label">Router 2</text>
+    <text x="290" y="155" class="sublabel">Buforuje</text>
+
+    <!-- Router / IMP 3 (Ścieżka dolna - alternatywna) -->
+    <rect x="200" y="225" width="60" height="50" class="node-alt"/>
+    <text x="230" y="250" class="label">Router 3</text>
+    <text x="230" y="265" class="sublabel">Trasa wolna</text>
+
+    <!-- Host Odbiorca -->
+    <rect x="350" y="165" width="70" height="50" class="node-packet"/>
+    <text x="385" y="190" class="label">Host B</text>
+    <text x="385" y="205" class="sublabel">Składa P1..P3</text>
+
+    <!-- Podsumowanie cech prawej strony -->
+    <g transform="translate(24, 305)">
+      <rect width="392" height="115" fill="#0f172a" rx="8" stroke="#10b981" stroke-opacity="0.4"/>
+      <text x="16" y="26" class="note">✅ <tspan font-weight="700" fill="#34d399">Zwielokrotnienie:</tspan> jedno łącze obsługuje tysiące użytkowników.</text>
+      <text x="16" y="50" class="note">✅ <tspan font-weight="700" fill="#34d399">Store-and-Forward:</tspan> router sprawdza sumę CRC i kieruje dalej.</text>
+      <text x="16" y="74" class="note">✅ <tspan font-weight="700" fill="#34d399">Niezależne trasy:</tspan> pakiet P3 omija korek przez Router 3.</text>
+      <text x="16" y="98" class="note">✅ <tspan font-weight="700" fill="#34d399">Odporność na zniszczenie:</tspan> sieć działa mimo awarii węzła.</text>
+    </g>
+  </g>
+</svg>

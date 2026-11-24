@@ -111,32 +111,46 @@ SHOW GRANTS FOR 'recepcja'@'localhost';
 
 ---
 
-## 💻 Wyzwanie kodowe - Selekcja dostępnych pokoi pensjonatu
+## 💻 Wyzwanie kodowe - Konto techniczne i uprawnienia DCL
 
-Napisz zapytanie, które pobierze numer pokoju (`numer`), standard (`standard`) oraz cenę za dobę (`cena_za_dobe`) dla wszystkich wolnych pokoi (`dostepny = 1`) o cenie za dobę nieprzekraczającej 300.00 zł, posortowane rosnąco po cenie.
+Skonfiguruj w języku SQL (MySQL / MariaDB) dedykowane konto techniczne dla automatycznego systemu rezerwacji zgodnie z zasadą najmniejszych uprawnień:
+1. Utwórz konto `'rezerwacje'@'localhost'` z hasłem `'Hotel#2026'`.
+2. Nadaj mu wyłącznie uprawnienia `SELECT` oraz `INSERT` do tabeli `pensjonat.pokoje` (bez `ALL PRIVILEGES` i bez hosta `'%'`).
+3. Przeładuj tablice uprawnień poleceniem `FLUSH PRIVILEGES;`.
 
 <data-gate>
-<data-code-runner language="sql" title="Filtr wolnych pokoi w przystępnej cenie">
+<data-code-runner language="sql" title="Konfiguracja konta technicznego (CREATE USER, GRANT, FLUSH)">
   <template data-type="code">
--- Wybierz: numer, standard, cena_za_dobe
--- dla dostepny = 1 oraz cena_za_dobe <= 300
--- posortuj rosnąco po cena_za_dobe
-SELECT 
+-- 1. Utwórz konto 'rezerwacje'@'localhost' z hasłem 'Hotel#2026'
+-- 2. Nadaj uprawnienia SELECT, INSERT do tabeli pensjonat.pokoje
+-- 3. Zatwierdź uprawnienia poleceniem FLUSH PRIVILEGES;
+CREATE USER 
   </template>
   <template data-type="requirements">
     [
       {
-        "id": "sql-exec",
-        "text": "Zwrócono wyłącznie wolne pokoje w cenie do 300 zł za dobę, uszeregowane w kolejności rosnącej ceny",
-        "type": "sql-execute",
-        "schema": "CREATE TABLE pokoje (id INT PRIMARY KEY, numer INT, standard TEXT, cena_za_dobe REAL, dostepny INT); INSERT INTO pokoje VALUES (1, 101, 'Standard', 180.00, 1), (2, 102, 'Standard', 180.00, 0), (3, 201, 'Apartament', 350.00, 1), (4, 202, 'Deluxe', 420.00, 1), (5, 103, 'Studio', 240.00, 1), (6, 104, 'Ekonomiczny', 160.00, 0), (7, 105, 'Standard Plus', 315.00, 1);",
-        "expectedCount": 2,
-        "expectedColumns": ["numer", "standard", "cena_za_dobe"],
-        "exactOrder": true,
-        "expectedRows": [
-          { "numer": 101, "cena_za_dobe": 180.00 },
-          { "numer": 103, "cena_za_dobe": 240.00 }
-        ]
+        "id": "dcl-create-user",
+        "text": "Utworzono lokalne konto 'rezerwacje'@'localhost' z hasłem (CREATE USER ... IDENTIFIED BY)",
+        "type": "regex",
+        "pattern": "CREATE\\s+USER\\s+['\"]rezerwacje['\"]\\s*@\\s*['\"]localhost['\"]\\s+IDENTIFIED\\s+BY\\s+['\"][^'\"]+['\"]"
+      },
+      {
+        "id": "dcl-grant",
+        "text": "Nadano wyłącznie uprawnienia SELECT i INSERT do tabeli pensjonat.pokoje",
+        "type": "regex",
+        "pattern": "GRANT\\s+(?:SELECT\\s*,\\s*INSERT|INSERT\\s*,\\s*SELECT)\\s+ON\\s+pensjonat\\.pokoje\\s+TO\\s+['\"]rezerwacje['\"]\\s*@\\s*['\"]localhost['\"]"
+      },
+      {
+        "id": "dcl-no-all",
+        "text": "Zachowano zasadę najmniejszych uprawnień (brak ALL PRIVILEGES)",
+        "type": "not-contains",
+        "pattern": "ALL PRIVILEGES"
+      },
+      {
+        "id": "dcl-flush",
+        "text": "Przeładowano tablice uprawnień poleceniem FLUSH PRIVILEGES",
+        "type": "regex",
+        "pattern": "FLUSH\\s+PRIVILEGES\\b"
       }
     ]
   </template>

@@ -59,7 +59,7 @@ Jeżeli denerwuje Cię wpisywanie hasła do zablokowanego ekranu po kilku minuta
 ![Ubuntu widok karty ustawiania Privacy & Security (prywatność i bezpieczeństwo)](/public/courses/ubuntu-26/Images/ubuntu-wygaszacz-ekranu-karta-power-i-karta-Prvacy-and-Security.png)
 
 
-> W sekcji <kbd class="ubuntu-menu-btn">Power</kbd> możesz też przełączyć tryb zasilania na oszczędny lub zbilansowany. Nie szukaj tu jednak zaawansowanych planów zasilania znanych z systemu Windows – GNOME oferuje tylko podstawowe minimum.
+> W sekcji <kbd class="ubuntu-menu-btn">Power</kbd> możesz też przełączyć tryb zasilania na oszczędny lub zbilansowany. Nie szukaj tu jednak zaawansowanych planów zasilania znanych z systemu Windows - GNOME oferuje tylko podstawowe minimum.
 
 ## 🌐 Ustawienia sieciowe
 
@@ -134,6 +134,43 @@ Przetestuj, czy kojarzysz najważniejsze ustawienia z tej lekcji.
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Serwer wyświetlania Wayland vs X11 i protokół IPC D-Bus</span><span class="deep-dive-badge">Display Server & IPC</span></summary>
+
+Gdy zmieniasz adres IP w graficznym oknie Ustawień GNOME albo suwakiem przesuwasz głośność, pod maską zachodzi komunikacja międzyprocesowa (*IPC - Inter-Process Communication*) oparta na protokole **D-Bus** oraz nowoczesnym serwerze wyświetlania **Wayland**.
+
+### 1. Ewolucja grafiki: X11 vs Wayland
+Przez 30 lat standardem w Linuksie był system X Window System (*X11*). X11 działał w architekturze klient-serwer, gdzie serwer X pośredniczył w każdym rysowaniu okna, co powodowało zbędne kopiowanie pikseli w pamięci RAM i podatności na podsłuchiwanie klawiatury przez dowolną aplikację (*Keylogger vulnerability*).
+
+Nowoczesne Ubuntu 24/26 domyślnie korzysta z protokołu **Wayland** (gdzie kompozytorem jest `mutter` wewnątrz środowiska GNOME Shell):
+- Aplikacja renderuje swoje okno bezpośrednio do dedykowanego bufora pamięci współdzielonej za pomocą mechanizmu jądra **`dma-buf`** (Direct Memory Access Buffer).
+- Kompozytor Wayland otrzymuje wyłącznie deskryptor bufora i zleca karcie graficznej (przez DRM/KMS - Direct Rendering Manager / Kernel Mode Setting) bezpośrednie wyświetlenie klatki na ekranie.
+- Żadna aplikacja w Wayland nie może podglądać buforów pamięci ani zdarzeń klawiatury innych aplikacji, co zapewnia pełną izolację bezpieczeństwa.
+
+```
+   Tradycyjny X11 (Powolny i nieizolowany):
+   Aplikacja ──(rysuj)──> Serwer X11 ──(kopiuj)──> Menedżer okien ──> Ekran
+
+   Nowoczesny Wayland (Zero-copy, sprzętowa izolacja):
+   Aplikacja ──(renderuje do dma-buf)──┐
+                                       ▼
+                              Kompozytor Wayland ──(przekazanie GPU)──> Ekran
+```
+
+### 2. Magistrala systemowa D-Bus (Desktop Bus)
+Aplikacja `gnome-control-center` (okno Ustawień) działa z uprawnieniami zwykłego użytkownika. Jak więc może zmienić konfigurację sieciową lub nazwę komputera, które wymagają uprawnień roota?
+
+Wykorzystuje magistralę komunikacji międzyprocesowej **D-Bus**:
+- W systemie działają dwie magistrale: magistrala sesji (*Session Bus*, dla procesów użytkownika) oraz magistrala systemowa (*System Bus*, zarządzana przez demona jądrowego/systemowego `dbus-daemon`).
+- Zmiana adresu IP w GUI wysyła ustrukturyzowany komunikat RPC (Remote Procedure Call) po magistrali systemowej do demona **NetworkManager** (`org.freedesktop.NetworkManager`).
+- Demon bezpieczeństwa **Polkit** (*PolicyKit*) weryfikuje uprawnienia: sprawdza, czy proces użytkownika ma prawo wykonać tę akcję. Jeśli akcja wymaga uwierzytelnienia, Polkit wyświetla systemowy monit o hasło administratora.
+
+Dzięki temu interfejs graficzny nigdy nie musi działać jako root, co diametralnie zmniejsza ryzyko przejęcia kontroli nad systemem w przypadku błędu w bibliotece graficznej.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - **Odzyskiwanie przestrzeni ekranu:** Domyślny układ GNOME marnuje sporo pikseli. Przeniesienie doku na dół ekranu i zmniejszenie ikon do $28\text{ px}$ pozwala efektywniej wykorzystać przestrzeń roboczą.
@@ -142,9 +179,3 @@ Przetestuj, czy kojarzysz najważniejsze ustawienia z tej lekcji.
 - **Konfiguracja sieci w GUI:** Panel *Network* pozwala na diagnozowanie kart sieciowych, restart interfejsów (w celu odnowienia dzierżawy DHCP) oraz ręczne wpisywanie adresacji IPv4 i DNS.
 - **Sieć wewnętrzna w maszynach wirtualnych:** Tryb *Internal Network* w VirtualBox umożliwia bezpośrednie łączenie wirtualnych maszyn w izolowaną sieć LAN, co wymaga unikalnych adresów MAC i ręcznej konfiguracji tej samej podsieci IP (np. `192.168.0.x`).
 - **Narzędzie ping:** Służy do badania łączności sieciowej. Działa w nieskończoność, dopóki nie zostanie przerwane skrótem `Ctrl + C`.
-
----
-
-Podsumowując: GNOME to próba stworzenia interfejsu „do wszystkiego”, czyli na desktopy i ekrany dotykowe. Na klasycznym pececie bywa to irytujące, a możliwości konfiguracji są bardzo skromne w porównaniu do *KDE Plasma*.
-
-Dla przyszłego administratora serwerów jest to jednak idealny punkt startowy. Bardzo szybko postanowisz całkowicie wywalić środowisko pulpitu i przejść do pracy w czystej konsoli.

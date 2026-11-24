@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t34 d34">
+  <title id="t34">Zarządzanie pamięcią RAM w Windows 11: Working Set, Standby List i EmptyWorkingSet</title>
+  <desc id="d34">Schemat działania MemReductCLI.exe bez uprawnień administratora: funkcja EmptyWorkingSet przenosi nieaktywne strony z Working Set procesów użytkownika na Standby List, zwalniając RAM dla nowych aplikacji.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .ws { fill: #450a0a; stroke: #ef4444; stroke-width: 1.8; rx: 8; }
+    .sb { fill: #172554; stroke: #38bdf8; stroke-width: 1.8; rx: 8; }
+    .free { fill: #064e3b; stroke: #34d399; stroke-width: 1.8; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    @keyframes movePage { 0% { transform: translateX(0); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateX(62px); opacity: 0; } }
+    .mv { animation: movePage 2.2s linear infinite; fill: #34d399; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Jak MemReductCLI.exe zwalnia RAM w Windows 11 bez uprawnień administratora</text>
+  <text x="24" y="48" class="sub">EmptyWorkingSet (psapi.dll) nie kasuje danych — przenosi nieużywane strony RAM z Working Set na Standby List.</text>
+
+  <rect x="24" y="68" width="234" height="172" class="ws"/>
+  <text x="40" y="94" class="title">1. Working Set</text>
+  <text x="40" y="116" class="sub">Aktywny RAM procesów</text>
+  <text x="40" y="138" class="mono">Chrome: 1800 MB</text>
+  <text x="40" y="158" class="mono">Discord: 620 MB</text>
+  <text x="40" y="178" class="mono">VS Code: 940 MB</text>
+  <text x="40" y="216" class="sub" fill="#fca5a5">User-Mode: MASZ DOSTĘP ✓</text>
+
+  <line x1="258" y1="154" x2="324" y2="154" stroke="#34d399" stroke-width="2.5"/>
+  <polygon points="324,149 334,154 324,159" fill="#34d399"/>
+  <circle cx="264" cy="154" r="4.5" class="mv"/>
+
+  <rect x="334" y="68" width="230" height="172" class="sb"/>
+  <text x="350" y="94" class="title">2. Standby List</text>
+  <text x="350" y="116" class="sub">Czyste strony „w rezerwie”</text>
+  <text x="350" y="144" class="mono">Powrót do Chrome?</text>
+  <text x="350" y="164" class="sub">→ Soft Page Fault (&lt;1 µs)</text>
+  <text x="350" y="182" class="sub">Zero odczytu z dysku!</text>
+  <text x="350" y="216" class="sub" fill="#93c5fd">Gotowe do oddania nowej grze</text>
+
+  <line x1="564" y1="154" x2="604" y2="154" stroke="#38bdf8" stroke-width="2.2"/>
+  <polygon points="604,149 614,154 604,159" fill="#38bdf8"/>
+
+  <rect x="614" y="68" width="202" height="172" class="free"/>
+  <text x="630" y="94" class="title">3. Wolny RAM</text>
+  <text x="630" y="116" class="sub">Dostępny natychmiast</text>
+  <text x="630" y="146" class="mono">GlobalMemoryStatusEx</text>
+  <text x="630" y="166" class="sub">Mierzy efekt przed i po</text>
+  <text x="630" y="216" class="mono" fill="#34d399">Moduł 5: dodamy GUI!</text>
+</svg>
+

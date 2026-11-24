@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+
+  <!-- Tło -->
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <!-- Tytuł -->
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Gniazdo sieciowe (Socket) i demultipleksacja w jądrze systemu</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Od pakietu z karty sieciowej przez 5-krotkę (5-Tuple) do deskryptora procesu w pamięci RAM</text>
+
+  <!-- CZĘŚĆ 1: ZAKRESY PORTÓW (IANA) -->
+  <g transform="translate(60, 70)">
+    <rect width="840" height="75" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="420" y="20" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">PRZESTRZEŃ NUMERÓW PORTÓW 16-BITOWYCH (0 - 65535)</text>
+
+    <!-- Pasek 1: 0 - 1023 -->
+    <rect x="25" y="30" width="180" height="32" rx="3" fill="#1e293b" stroke="#ef4444" stroke-width="1.2"/>
+    <text x="115" y="46" fill="#fca5a5" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">0 – 1023: Systemowe</text>
+    <text x="115" y="58" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Root/Admin: 22(SSH), 53, 80, 443</text>
+
+    <!-- Pasek 2: 1024 - 49151 -->
+    <rect x="215" y="30" width="370" height="32" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1.2"/>
+    <text x="400" y="46" fill="#7dd3fc" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">1024 – 49151: Zarejestrowane (Usługi i Gry)</text>
+    <text x="400" y="58" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">3306(MySQL), 7777(Unreal Co-op), 27015(Steam/Source)</text>
+
+    <!-- Pasek 3: 49152 - 65535 -->
+    <rect x="595" y="30" width="220" height="32" rx="3" fill="#1e293b" stroke="#4ade80" stroke-width="1.2"/>
+    <text x="705" y="46" fill="#86efac" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">49152 – 65535: Efemeryczne</text>
+    <text x="705" y="58" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Dynamicznie przydzielane dla klientów</text>
+  </g>
+
+  <!-- CZĘŚĆ 2: PRZEPŁYW PAKIETU DO GNIAZDA (DEMULTIPLEXING) -->
+  <g transform="translate(60, 160)">
+    <!-- 1. Karta sieciowa i pakiet -->
+    <rect x="0" y="30" width="150" height="110" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+    <text x="75" y="52" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Karta NIC (eth0)</text>
+    <text x="75" y="70" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">Pakiet przychodzący</text>
+    
+    <rect x="10" y="80" width="130" height="50" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+    <text x="75" y="96" fill="#38bdf8" font-size="9" font-family="monospace" text-anchor="middle">SRC: 198.51.100.8:53211</text>
+    <text x="75" y="112" fill="#4ade80" font-size="9" font-family="monospace" text-anchor="middle">DST: 192.168.1.15:7777</text>
+    <text x="75" y="124" fill="#facc15" font-size="8" font-family="monospace" text-anchor="middle">PROTO: UDP (17)</text>
+
+    <!-- Strzałka z NIC do kernela -->
+    <line x1="150" y1="85" x2="200" y2="85" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- 2. Tablica gniazd jądra (Kernel Socket Table) -->
+    <rect x="210" y="0" width="390" height="350" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="210" y="0" width="390" height="28" rx="6" fill="#0369a1"/>
+    <text x="405" y="19" fill="#f0f9ff" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">TABLICA GNIAZD JĄDRA SYSTEMU (SOCKET TABLE)</text>
+
+    <!-- Wiersze w tablicy -->
+    <!-- Wpis 1: SSH -->
+    <rect x="220" y="40" width="370" height="55" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="230" y="58" fill="#94a3b8" font-size="10" font-family="monospace">Proto: TCP | Local: 0.0.0.0:22 | Foreign: 0.0.0.0:*</text>
+    <text x="230" y="74" fill="#64748b" font-size="9" font-family="monospace">Stan: LISTEN | Deskryptor: fd=3</text>
+    <text x="230" y="88" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">-> Przypisany do: PID 812 (sshd)</text>
+
+    <!-- Wpis 2: HTTP -->
+    <rect x="220" y="105" width="370" height="55" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="230" y="123" fill="#94a3b8" font-size="10" font-family="monospace">Proto: TCP | Local: 0.0.0.0:80 | Foreign: 0.0.0.0:*</text>
+    <text x="230" y="139" fill="#64748b" font-size="9" font-family="monospace">Stan: LISTEN | Deskryptor: fd=4</text>
+    <text x="230" y="153" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">-> Przypisany do: PID 1240 (nginx)</text>
+
+    <!-- Wpis 3: UDP MATCH (Game Server) -->
+    <rect x="220" y="170" width="370" height="85" rx="4" fill="#14532d" stroke="#4ade80" stroke-width="2"/>
+    <rect x="220" y="170" width="70" height="18" rx="2" fill="#16a34a"/>
+    <text x="255" y="183" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">TRAFIENIE</text>
+    <text x="230" y="204" fill="#86efac" font-size="10" font-family="monospace" font-weight="700">Proto: UDP | Local: 0.0.0.0:7777</text>
+    <text x="230" y="220" fill="#cbd5e1" font-size="9" font-family="monospace">Deskryptor: int sockfd = socket(AF_INET, SOCK_DGRAM)</text>
+    <text x="230" y="234" fill="#facc15" font-size="9" font-family="monospace">Bufor odbiorczy RX: [Pakiet 198.51.100.8]</text>
+    <text x="230" y="248" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif">-> Budzi wywołanie: recvfrom() w PID 4590</text>
+
+    <!-- Wpis 4: Klient TCP nawiązany -->
+    <rect x="220" y="265" width="370" height="70" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="230" y="283" fill="#94a3b8" font-size="10" font-family="monospace">Proto: TCP | Local: 192.168.1.15:54321</text>
+    <text x="230" y="299" fill="#94a3b8" font-size="10" font-family="monospace">Foreign: 142.250.74.206:443 (ESTABLISHED)</text>
+    <text x="230" y="315" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">-> Przypisany do: PID 3310 (chrome.exe)</text>
+
+    <!-- Strzałka z tablicy do procesu -->
+    <line x1="600" y1="212" x2="650" y2="212" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- 3. Przestrzeń użytkownika (Aplikacja / Gra) -->
+    <rect x="660" y="145" width="180" height="135" rx="6" fill="#0f172a" stroke="#4ade80" stroke-width="1.5"/>
+    <rect x="660" y="145" width="180" height="26" rx="6" fill="#166534"/>
+    <text x="750" y="162" fill="#f0fdf4" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">PROCES GRY (PID 4590)</text>
+
+    <text x="670" y="188" fill="#86efac" font-size="9" font-family="system-ui, sans-serif" font-weight="700">Pętla serwera Co-op:</text>
+    <rect x="670" y="195" width="160" height="50" rx="3" fill="#1e293b"/>
+    <text x="675" y="210" fill="#38bdf8" font-size="8" font-family="monospace">recvfrom(sock, buf,</text>
+    <text x="675" y="222" fill="#38bdf8" font-size="8" font-family="monospace">  &amp;client_addr, len);</text>
+    <text x="675" y="236" fill="#4ade80" font-size="8" font-family="monospace">// Aktualizacja klatki!</text>
+    <text x="670" y="268" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif">Zero opóźnień jądra</text>
+  </g>
+</svg>

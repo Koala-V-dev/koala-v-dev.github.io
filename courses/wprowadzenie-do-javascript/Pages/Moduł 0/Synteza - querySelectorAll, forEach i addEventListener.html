@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synteza - querySelectorAll, forEach i addEventListener - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty DOM, funkcje strzałkowe, zdarzenia i forEach</li><li class="lesson-item lesson" data-path="Moduł 0/Drzewo DOM i document.querySelector"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Drzewo%20DOM%20i%20document.querySelector.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drzewo DOM i document.querySelector</a></li><li class="lesson-item lesson" data-path="Moduł 0/Funkcje jako wartości i funkcje strzałkowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Funkcje%20jako%20warto%C5%9Bci%20i%20funkcje%20strza%C5%82kowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje jako wartości i funkcje strzałkowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zdarzenia i addEventListener na żywym DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zdarzenia%20i%20addEventListener%20na%20%C5%BCywym%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia i addEventListener na żywym DOM</a></li><li class="lesson-item lesson" data-path="Moduł 0/Kolekcje elementów - querySelectorAll i pętla forEach"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kolekcje%20element%C3%B3w%20-%20querySelectorAll%20i%20p%C4%99tla%20forEach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolekcje elementów - querySelectorAll i pętla forEach</a></li><li class="lesson-item lesson" data-path="Moduł 0/Synteza - querySelectorAll, forEach i addEventListener"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Synteza%20-%20querySelectorAll%2C%20forEach%20i%20addEventListener.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Synteza - querySelectorAll, forEach i addEventListener</a></li><li class="module">Moduł 1: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" data-path="Moduł 1/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" data-path="Moduł 1/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 2: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" data-path="Moduł 2/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" data-path="Moduł 2/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 3: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" data-path="Moduł 3/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" data-path="Moduł 3/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 4: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" data-path="Moduł 4/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 5: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" data-path="Moduł 5/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" data-path="Moduł 5/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 6: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" data-path="Moduł 6/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 7: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" data-path="Moduł 7/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%207/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Synteza: querySelectorAll, forEach i addEventListener</h1>
+<p>W poprzedniej lekcji zmieniałeś wygląd całej grupy kart po kliknięciu jednego wspólnego przycisku. Co jednak zrobić, gdy na stronie stoi 6 zakładek albo 12 kafelków cennika, a każdy z nich ma reagować osobno na własne kliknięcie?</p>
+<p>Nadawanie każdemu kafelkowi osobnego identyfikatora <code>#kafelek-1</code>, <code>#kafelek-2</code> i kopiowanie dwunastu identycznych bloków <code>addEventListener</code> kończy się awarią przy pierwszej zmianie oferty. Wystarczy dopisać trzynasty kafelek w HTML, a kod przestaje go zauważać.</p>
+<p>Rozwiązaniem jest połączenie wszystkiego, co opanowałeś w tym module, w jeden fundament interaktywnego front‑endu: pętlę <code>forEach</code>, która automatycznie podpina zdarzenie <code>click</code> do każdego elementu kolekcji.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>🔗 Dwa poziomy funkcji strzałkowych</h2>
+<p>Przyjrzyj się uważnie poniższemu wzorcowi. Zapis ten pojawia się w niemal każdej aplikacji webowej, dlatego musisz rozumieć dokładnie, co dzieje się na obu jego poziomach.</p>
+<pre><code class="language-javascript">const przyciski = document.querySelectorAll(".przycisk");
+
+przyciski.forEach((przycisk) =&gt; {
+  przycisk.addEventListener("click", () =&gt; {
+    console.log("Kliknięto:", przycisk.textContent);
+  });
+});
+</code></pre>
+<p>Najczęstszym źródłem zamieszania są tu <span class="color-green">dwie zagnieżdżone funkcje strzałkowe</span> <code>=&gt;</code>. Wyglądają podobnie, ale działają w zupełnie innych momentach czasu:</p>
+<ul>
+<li><span class="color-green">Poziom 1 (zewnętrzna funkcja w <code>forEach</code>):</span> uruchamia się natychmiast po załadowaniu strony, dokładnie raz dla każdego przycisku w kolekcji. Jej zadaniem nie jest obsługa kliknięcia, lecz <span class="color-green">rejestracja nasłuchiwacza</span> na bieżącym elemencie <span class="color-blue">przycisk</span>.</li>
+<li><span class="color-green">Poziom 2 (wewnętrzna funkcja w <code>addEventListener</code>):</span> przy starcie skryptu nie uruchamia się ani razu. Przeglądarka zapisuje ją w pamięci przy konkretnym przycisku i uruchomi dopiero wtedy, gdy użytkownik kliknie ten właśnie przycisk.</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Model mentalny:</span> Zewnętrzna pętla <code>forEach</code> pracuje jak elektryk, który raz montuje włącznik przy każdej lampie. Wewnętrzna funkcja <code>addEventListener</code> to obwód, który zamyka się dopiero wtedy, gdy ktoś naciśnie konkretny włącznik.</p>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Przewidź, sprawdź, wyjaśnij: kolejność logów A i B</h2>
+<p>Sprawdź swój model mentalny na konkretnym eksperymencie. Na stronie znajdują się dokładnie 4 przyciski z klasą <code>.opcja</code>. Uruchamiamy następujący skrypt:</p>
+<pre><code class="language-javascript">const opcje = document.querySelectorAll(".opcja");
+
+opcje.forEach((opcja) =&gt; {
+  console.log("A");
+  opcja.addEventListener("click", () =&gt; {
+    console.log("B");
+  });
+});
+</code></pre>
+<p><span class="color-green">Krok 1 (Przewidź):</span> Odpowiedz na dwa pytania, zanim przeczytasz wynik:</p>
+<ol>
+<li>Co dokładnie pojawi się w konsoli zaraz po załadowaniu strony, zanim cokolwiek klikniesz?</li>
+<li>Co dopisze się do konsoli, gdy klikniesz drugi przycisk na liście?</li>
+</ol>
+<p><span class="color-green">Krok 2 (Obserwuj):</span></p>
+<ul>
+<li>Zaraz po załadowaniu strony konsola wypisuje cztery linie: <code>A</code>, <code>A</code>, <code>A</code>, <code>A</code>. Litera <code>B</code> nie pojawia się ani razu.</li>
+<li>Po kliknięciu drugiego przycisku w konsoli dopisuje się dokładnie jedna linia: <code>B</code>. Litera <code>A</code> już się nie powtarza.</li>
+</ul>
+<p><span class="color-green">Krok 3 (Wyjaśnij):</span> Podczas ładowania strony pętla <code>forEach</code> przeszła przez wszystkie 4 przyciski. W każdej z 4 iteracji natychmiast wykonała <code>console.log("A")</code> oraz zapisała funkcję z <code>console.log("B")</code> do wykonania na przyszłość.</p>
+<p>Gdy użytkownik kliknął drugi przycisk, pętla <code>forEach</code> była już dawno zakończona. Przeglądarka uruchomiła wyłącznie wewnętrzną funkcję przypisaną do tego jednego przycisku, dlatego na ekranie pojawiło się pojedyncze <code>B</code>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏷️ Odczyt danych z HTML przez atrybuty data i obiekt dataset</h2>
+<p>Kiedy użytkownik kliknie kafelek, funkcja wewnętrzna musi wiedzieć, jakie dane należą do tego elementu: opis zakładki, kod produktu albo jego cenę. Wyciąganie liczby z napisu widocznego dla człowieka (na przykład „Dysk SSD 1 TB (299 zł)”) jest kruche i podatne na błędy.</p>
+<p>Standard HTML pozwala zapisać czyste dane techniczne bezpośrednio na znaczniku za pomocą własnych atrybutów zaczynających się od przedrostka <span class="color-green"><code>data-</code></span>:</p>
+<pre><code class="language-html">&lt;button class="kafelek" data-nazwa="Dysk SSD 1 TB" data-cena="299"&gt;
+  Dysk SSD 1 TB (299 zł)
+&lt;/button&gt;
+</code></pre>
+<p>W JavaScripcie przeglądarka zbiera wszystkie atrybuty <code>data-*</code> danego elementu w jednym obiekcie <span class="color-gold">dataset</span>. Nazwa właściwości w <span class="color-blue">dataset</span> odpowiada temu, co stoi po <code>data-</code>:</p>
+<pre><code class="language-javascript">const kafelek = document.querySelector(".kafelek");
+
+console.log(kafelek.dataset.nazwa); // "Dysk SSD 1 TB"
+console.log(kafelek.dataset.cena);  // "299" (uwaga: to jest tekst!)
+
+const cenaLiczba = Number(kafelek.dataset.cena); // 299 (liczba do obliczeń)
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Typ danych w dataset:</span> Każda wartość odczytana z <code>el.dataset</code> ma zawsze typ tekstowy (<code>string</code>). Jeśli dodasz <code>"299" + "150"</code>, otrzymasz napis <code>"299150"</code> zamiast liczby <code>449</code>. Przed operacjami arytmetycznymi zawsze zamieniaj wartość przez <code>Number(el.dataset.cena)</code>.</p>
+
+</div>
+</div><p>Jeśli nazwa atrybutu w HTML zawiera myślnik, na przykład <code>data-kod-produktu</code>, JavaScript automatycznie zamienia ją na zapis wielbłądzi: <code>el.dataset.kodProduktu</code>.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Wzorzec wyłączności: wyczyść wszystkie, zaznacz kliknięty</h2>
+<p>W wielu interfejsach (zakładki, menu nawigacji, wybór pojedynczego wariantu) aktywny może być tylko jeden element naraz. Kiedy użytkownik klika nową zakładkę, poprzednia musi stracić wyróżnienie.</p>
+<p>Zamiast zapamiętywać w osobnej zmiennej, która zakładka była aktywna wcześniej, stosuje się prosty, dwuetapowy wzorzec wewnątrz funkcji kliknięcia:</p>
+<pre><code class="language-javascript">const zakladki = document.querySelectorAll(".tab");
+
+zakladki.forEach((zakladka) =&gt; {
+  zakladka.addEventListener("click", () =&gt; {
+    // Etap 1: zdejmij klasę active ze wszystkich zakładek
+    zakladki.forEach((inna) =&gt; {
+      inna.classList.remove("active");
+    });
+
+    // Etap 2: dodaj klasę active wyłącznie klikniętej zakładce
+    zakladka.classList.add("active");
+  });
+});
+</code></pre>
+<p>Zwróć uwagę na bezpieczeństwo tego rozwiązania. Metoda <code>classList.remove("active")</code> nie zgłasza żadnego błędu, gdy dany element nie ma klasy <code>active</code> (po prostu go ignoruje). Dzięki temu po etapie 1 masz gwarancję czystego stanu na całej liście, a po etapie 2 aktywna jest dokładnie jedna zakładka.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj fragment kodu do jego roli i momentu wykonania">
+  <item left="`document.querySelectorAll('.tab')`" right="Pobiera kolekcję NodeList ze wszystkimi zakładkami na stronie"></item>
+  <item left="Zewnętrzna funkcja w `forEach`" right="Uruchamia się raz przy starcie skryptu, aby podpiąć zdarzenia do każdego elementu"></item>
+  <item left="Wewnętrzna funkcja w `addEventListener`" right="Czeka w pamięci i uruchamia się dopiero po kliknięciu konkretnego elementu"></item>
+  <item left="`el.dataset.opis`" right="Odczytuje wartość tekstową z atrybutu HTML data-opis klikniętego elementu"></item>
+  <item left="`tabs.forEach((t) => t.classList.remove('active'))`" right="Czyści stan zaznaczenia ze wszystkich zakładek przed podświetleniem nowej"></item>
+  <item left="`Number(el.dataset.cena)`" right="Konwertuje tekst z atrybutu data-cena na liczbę gotową do sumowania"></item>
+</data-connection-matcher>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Ćwiczenie prowadzone: przełącznik zakładek i galeria opisów</h2>
+<p>Masz gotowy pasek 3 zakładek <code>.tab</code>. Każda zakładka niesie własny opis w atrybucie <code>data-opis</code>. Poniżej stoi akapit <code>#opis</code>.</p>
+<p>Uzupełnij ciało funkcji kliknięcia tak, aby po kliknięciu dowolnej zakładki:</p>
+<ol>
+<li>usunąć klasę <code>active</code> ze wszystkich zakładek <code>.tab</code> w pętli <code>forEach</code>,</li>
+<li>dodać klasę <code>active</code> klikniętej zakładce,</li>
+<li>wpisać jej opis (<code>tab.dataset.opis</code>) do elementu <code>#opis</code>.</li>
+</ol>
+<data-gate>
+<data-code-runner language="javascript" sandbox="dom" title="Przełącznik zakładek z atrybutem data-opis" data-code="Y29uc3QgemFrbGFka2kgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCIudGFiIik7CmNvbnN0IG9waXNFbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIiNvcGlzIik7Cgp6YWtsYWRraS5mb3JFYWNoKCh0YWIpID0+IHsKICB0YWIuYWRkRXZlbnRMaXN0ZW5lcigiY2xpY2siLCAoKSA9PiB7CiAgICAvLyAxLiBaZGVqbWlqIGtsYXPEmSAiYWN0aXZlIiB6ZSB3c3p5c3RraWNoIGVsZW1lbnTDs3cgdyBrb2xla2NqaSB6YWtsYWRraQoKICAgIC8vIDIuIERvZGFqIGtsYXPEmSAiYWN0aXZlIiBrbGlrbmnEmXRlbXUgZWxlbWVudG93aSB0YWIKCiAgICAvLyAzLiBXc3RhdyB0YWIuZGF0YXNldC5vcGlzIGRvIG9waXNFbC50ZXh0Q29udGVudAoKICB9KTsKfSk7" data-requirements="WwogIHsKICAgICJpZCI6ICJxc2EtdGFiIiwKICAgICJ0ZXh0IjogIlBvYmllcmEga29sZWtjasSZIHpha8WCYWRlayAudGFiIHByemV6IHF1ZXJ5U2VsZWN0b3JBbGwiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAicXVlcnlTZWxlY3RvckFsbFxccypcXChcXHMqW1wiJ11cXC50YWJbXCInXVxccypcXCkiCiAgfSwKICB7CiAgICAiaWQiOiAiY2xpY2stbGlzdGVuZXIiLAogICAgInRleHQiOiAiUmVqZXN0cnVqZSB6ZGFyemVuaWUgY2xpY2sgbmEga2HFvGRlaiB6YWvFgmFkY2UiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAiYWRkRXZlbnRMaXN0ZW5lclxccypcXChcXHMqW1wiJ11jbGlja1tcIiddIgogIH0sCiAgewogICAgImlkIjogInJlbW92ZS1hY3RpdmUiLAogICAgInRleHQiOiAiQ3p5xZtjaSBrbGFzxJkgYWN0aXZlIHplIHdzenlzdGtpY2ggemFrxYJhZGVrIG1ldG9kxIUgY2xhc3NMaXN0LnJlbW92ZSIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJjbGFzc0xpc3RcXC5yZW1vdmVcXHMqXFwoXFxzKltcIiddYWN0aXZlW1wiJ11cXHMqXFwpIgogIH0sCiAgewogICAgImlkIjogImFkZC1hY3RpdmUiLAogICAgInRleHQiOiAiRG9kYWplIGtsYXPEmSBhY3RpdmUga2xpa25pxJl0ZWogemFrxYJhZGNlIG1ldG9kxIUgY2xhc3NMaXN0LmFkZCIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJjbGFzc0xpc3RcXC5hZGRcXHMqXFwoXFxzKltcIiddYWN0aXZlW1wiJ11cXHMqXFwpIgogIH0sCiAgewogICAgImlkIjogInJlYWQtZGF0YXNldCIsCiAgICAidGV4dCI6ICJPZGN6eXR1amUgb3BpcyB6IGF0cnlidXR1IGRhdGEtb3BpcyBwb3ByemV6IGRhdGFzZXQub3BpcyIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJkYXRhc2V0XFwub3BpcyIKICB9Cl0=" data-html="PHN0eWxlPgogIC50YWJzLWJveCB7IGZvbnQtZmFtaWx5OiBzeXN0ZW0tdWksIHNhbnMtc2VyaWY7IHBhZGRpbmc6IDE0cHg7IGJhY2tncm91bmQ6ICMwZjE3MmE7IGNvbG9yOiAjZjhmYWZjOyBib3JkZXItcmFkaXVzOiAxMHB4OyB9CiAgLnRhYnMtYmFyIHsgZGlzcGxheTogZmxleDsgZ2FwOiA4cHg7IG1hcmdpbi1ib3R0b206IDEycHg7IGZsZXgtd3JhcDogd3JhcDsgfQogIC50YWIgeyBwYWRkaW5nOiA4cHggMTRweDsgYmFja2dyb3VuZDogIzFlMjkzYjsgY29sb3I6ICNjYmQ1ZTE7IGJvcmRlcjogMXB4IHNvbGlkICMzMzQxNTU7IGJvcmRlci1yYWRpdXM6IDZweDsgY3Vyc29yOiBwb2ludGVyOyBmb250LXdlaWdodDogNjAwOyB0cmFuc2l0aW9uOiBhbGwgMC4yczsgfQogIC50YWIuYWN0aXZlIHsgYmFja2dyb3VuZDogIzI1NjNlYjsgY29sb3I6ICNmZmZmZmY7IGJvcmRlci1jb2xvcjogIzYwYTVmYTsgfQogICNvcGlzIHsgbWFyZ2luOiAwOyBwYWRkaW5nOiAxMnB4OyBiYWNrZ3JvdW5kOiAjMWUyOTNiOyBib3JkZXItbGVmdDogNHB4IHNvbGlkICMzYjgyZjY7IGJvcmRlci1yYWRpdXM6IDZweDsgZm9udC1zaXplOiAxNHB4OyBsaW5lLWhlaWdodDogMS41OyB9Cjwvc3R5bGU+CjxkaXYgY2xhc3M9InRhYnMtYm94Ij4KICA8ZGl2IGNsYXNzPSJ0YWJzLWJhciI+CiAgICA8YnV0dG9uIGNsYXNzPSJ0YWIgYWN0aXZlIiB0eXBlPSJidXR0b24iIGRhdGEtb3Bpcz0iSFRNTCBkZWZpbml1amUgc3RydWt0dXLEmSBkb2t1bWVudHU6IG5hZ8WCw7N3a2ksIGFrYXBpdHksIHByenljaXNraSBpIGZvcm11bGFyemUuIj5IVE1MPC9idXR0b24+CiAgICA8YnV0dG9uIGNsYXNzPSJ0YWIiIHR5cGU9ImJ1dHRvbiIgZGF0YS1vcGlzPSJDU1Mgb2Rwb3dpYWRhIHphIHdhcnN0d8SZIHdpenVhbG7EhTogdWvFgmFkLCBrb2xvcnksIG9kc3TEmXB5IGkgYW5pbWFjamUuIj5DU1M8L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9InRhYiIgdHlwZT0iYnV0dG9uIiBkYXRhLW9waXM9IkphdmFTY3JpcHQgc3RlcnVqZSBsb2dpa8SFLCByZWFndWplIG5hIHpkYXJ6ZW5pYSB1xbx5dGtvd25pa2EgaSBtb2R5ZmlrdWplIGRyemV3byBET00uIj5KYXZhU2NyaXB0PC9idXR0b24+CiAgPC9kaXY+CiAgPHAgaWQ9Im9waXMiPkhUTUwgZGVmaW5pdWplIHN0cnVrdHVyxJkgZG9rdW1lbnR1OiBuYWfFgsOzd2tpLCBha2FwaXR5LCBwcnp5Y2lza2kgaSBmb3JtdWxhcnplLjwvcD4KPC9kaXY+"></data-code-runner>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Projekt końcowy modułu: interaktywny konfigurator kafelkowy</h2>
+<p>Zanim zaczniesz pisać kod, zapamiętaj dwa szczegóły przydatne w konfiguratorze:</p>
+<ul>
+<li><span class="color-green">Selektor bez spacji</span> <code>".kafelek.wybrany"</code> wybiera wyłącznie elementy, które mają <span class="color-green">obie klasy jednocześnie</span> (ze spacją <code>".kafelek .wybrany"</code> szukałby potomka wewnątrz kafelka).</li>
+<li><span class="color-green">Wzorzec lokalnego akumulatora</span>: zmienną <code>let suma = 0;</code> deklaruj zawsze <span class="color-green">wewnątrz funkcji przeliczającej</span>, aby każde kliknięcie zaczynało sumowanie od zera:</li>
+</ul>
+<pre><code class="language-javascript">let suma = 0;
+wybrane.forEach((el) =&gt; {
+  suma += Number(el.dataset.cena);
+});
+</code></pre>
+<p>Czas połączyć wszystkie poznane techniki w pełny, działający komponent sklepowy. Na stronie stoją 4 kafelki <code>.kafelek</code> reprezentujące usługi dodatkowe. Każdy kafelek ma dwa atrybuty: <code>data-nazwa</code> oraz <code>data-cena</code>.</p>
+<p>Twoje zadanie polega na zaprogramowaniu od zera kompletnej logiki konfiguratora:</p>
+<ol>
+<li>Pobierz wszystkie kafelki <code>.kafelek</code>, pole <code>#podsumowanie</code> oraz przycisk <code>#btn-wyczysc</code>.</li>
+<li>Podepnij do każdego kafelka (w pętli <code>forEach</code>) zdarzenie <code>click</code>, które:<ul>
+<li>przełączy klasę <code>wybrany</code> na klikniętym kafelku za pomocą <code>classList.toggle("wybrany")</code>,</li>
+<li>pobierze wyłącznie aktualnie wybrane kafelki złożonym selektorem <code>document.querySelectorAll(".kafelek.wybrany")</code>,</li>
+<li>zsumuje ich ceny w pętli <code>forEach</code>, pamiętając o rzutowaniu <code>Number(el.dataset.cena)</code>,</li>
+<li>wypisze w <code>#podsumowanie</code> liczbę wybranych opcji (<code>.length</code>) oraz łączną kwotę w złotych.</li>
+</ul>
+</li>
+<li>Podepnij do przycisku <code>#btn-wyczysc</code> zdarzenie <code>click</code>, które w pętli <code>forEach</code> zdejmie klasę <code>wybrany</code> ze wszystkich kafelków i wyzeruje <code>#podsumowanie</code>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Czysta architektura:</span> Przeliczanie sumy i aktualizację <code>#podsumowanie</code> możesz wydzielić do osobnej funkcji pomocniczej (na przykład <code>aktualizujPodsumowanie()</code>). Wywołasz ją zarówno po kliknięciu kafelka, jak i po kliknięciu przycisku „Wyczyść wybór”.</p>
+
+</div>
+</div><data-gate>
+<data-code-runner language="javascript" sandbox="dom" title="Projekt końcowy: Konfigurator kafelkowy" data-code="Ly8gMS4gUG9iaWVyeiAua2FmZWxlayAocXVlcnlTZWxlY3RvckFsbCksICNwb2RzdW1vd2FuaWUgb3JheiAjYnRuLXd5Y3p5c2MKCi8vIDIuIE5hcGlzeiBmdW5rY2rEmSBwcnplbGljemFqxIVjxIUgd3N6eXN0a2llIC5rYWZlbGVrLnd5YnJhbnkgKHDEmXRsYSBmb3JFYWNoICsgTnVtYmVyKGVsLmRhdGFzZXQuY2VuYSkpCi8vICAgIGkgYWt0dWFsaXp1asSFY8SFICNwb2RzdW1vd2FuaWUgKC5sZW5ndGggb3JheiBzdW1hKQoKLy8gMy4gRGxhIGthxbxkZWdvIGthZmVsa2EgdyBwxJl0bGkgZm9yRWFjaCBwb2RlcG5paiBrbGlrbmnEmWNpZSB6IGNsYXNzTGlzdC50b2dnbGUoInd5YnJhbnkiKQovLyAgICBpIHd5d2/FgmFuaWVtIHByemVsaWN6ZW5pYQoKLy8gNC4gRGxhICNidG4td3ljenlzYyB6ZGVqbWlqIGtsYXPEmSAid3licmFueSIgemUgd3N6eXN0a2ljaCBrYWZlbGvDs3cgKGNsYXNzTGlzdC5yZW1vdmUpCi8vICAgIGkgemFrdHVhbGl6dWogcG9kc3Vtb3dhbmll" data-requirements="WwogIHsKICAgICJpZCI6ICJxc2Eta2FmZWxraSIsCiAgICAidGV4dCI6ICJQb2JpZXJhIHdzenlzdGtpZSBrYWZlbGtpIC5rYWZlbGVrIHphIHBvbW9jxIUgcXVlcnlTZWxlY3RvckFsbCIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJxdWVyeVNlbGVjdG9yQWxsXFxzKlxcKFxccypbXCInXVxcLmthZmVsZWtbXCInXVxccypcXCkiCiAgfSwKICB7CiAgICAiaWQiOiAiZm9yZWFjaC1hcnJvdyIsCiAgICAidGV4dCI6ICJVxbx5d2EgcMSZdGxpIGZvckVhY2ggeiBmdW5rY2rEhSBzdHJ6YcWCa293xIUiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAiXFwuZm9yRWFjaFxccypcXChbXildKj0+IgogIH0sCiAgewogICAgImlkIjogInRvZ2dsZS13eWJyYW55IiwKICAgICJ0ZXh0IjogIlByemXFgsSFY3phIGtsYXPEmSB3eWJyYW55IHphIHBvbW9jxIUgY2xhc3NMaXN0LnRvZ2dsZSIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJjbGFzc0xpc3RcXC50b2dnbGVcXHMqXFwoXFxzKltcIiddd3licmFueVtcIiddXFxzKlxcKSIKICB9LAogIHsKICAgICJpZCI6ICJxc2Etd3licmFuZSIsCiAgICAidGV4dCI6ICJQb2JpZXJhIHd5xYLEhWN6bmllIHphem5hY3pvbmUga2FmZWxraSBzZWxla3RvcmVtIC5rYWZlbGVrLnd5YnJhbnkiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAicXVlcnlTZWxlY3RvckFsbFxccypcXChcXHMqW1wiJ11cXC5rYWZlbGVrXFwud3licmFueVtcIiddXFxzKlxcKSIKICB9LAogIHsKICAgICJpZCI6ICJkYXRhc2V0LWNlbmEiLAogICAgInRleHQiOiAiT2Rjenl0dWplIGNlbsSZIGthZmVsa2EgcHJ6ZXogZGF0YXNldC5jZW5hIiwKICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICJwYXR0ZXJuIjogImRhdGFzZXRcXC5jZW5hIgogIH0sCiAgewogICAgImlkIjogIm51bWJlci1jYXN0IiwKICAgICJ0ZXh0IjogIktvbndlcnR1amUgY2VuxJkgeiB0ZWtzdHUgbmEgbGljemLEmSAoTnVtYmVyIC8gcGFyc2VJbnQgLyBwYXJzZUZsb2F0KSIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICIoPzpOdW1iZXJ8cGFyc2VJbnR8cGFyc2VGbG9hdClcXHMqXFwoIgogIH0sCiAgewogICAgImlkIjogImJ0bi1jbGVhciIsCiAgICAidGV4dCI6ICJPYnPFgnVndWplIHByenljaXNrICNidG4td3ljenlzYyBpIHpkZWptdWplIGtsYXPEmSB3eWJyYW55IHByemV6IGNsYXNzTGlzdC5yZW1vdmUiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAiY2xhc3NMaXN0XFwucmVtb3ZlXFxzKlxcKFxccypbXCInXXd5YnJhbnlbXCInXVxccypcXCkiCiAgfSwKICB7CiAgICAiaWQiOiAibGVuZ3RoLWNvdW50IiwKICAgICJ0ZXh0IjogIld5xZt3aWV0bGEgbGljemLEmSB3eWJyYW55Y2gga2FmZWxrw7N3IHogdcW8eWNpZW0gLmxlbmd0aCIsCiAgICAidHlwZSI6ICJjb250YWlucyIsCiAgICAicGF0dGVybiI6ICIubGVuZ3RoIgogIH0KXQ==" data-html="PHN0eWxlPgogIC5rb25mIHsgZm9udC1mYW1pbHk6IHN5c3RlbS11aSwgc2Fucy1zZXJpZjsgcGFkZGluZzogMTRweDsgYmFja2dyb3VuZDogIzBmMTcyYTsgY29sb3I6ICNmOGZhZmM7IGJvcmRlci1yYWRpdXM6IDEwcHg7IH0KICAua29uZi1oZWFkZXIgeyBkaXNwbGF5OiBmbGV4OyBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47IGFsaWduLWl0ZW1zOiBjZW50ZXI7IG1hcmdpbi1ib3R0b206IDEycHg7IGdhcDogMTBweDsgZmxleC13cmFwOiB3cmFwOyB9CiAgLmtvbmYtaGVhZGVyIGgzIHsgbWFyZ2luOiAwOyBmb250LXNpemU6IDE2cHg7IGNvbG9yOiAjOTNjNWZkOyB9CiAgI2J0bi13eWN6eXNjIHsgcGFkZGluZzogNnB4IDEycHg7IGJhY2tncm91bmQ6ICMzMzQxNTU7IGNvbG9yOiAjZTJlOGYwOyBib3JkZXI6IDFweCBzb2xpZCAjNDc1NTY5OyBib3JkZXItcmFkaXVzOiA2cHg7IGN1cnNvcjogcG9pbnRlcjsgZm9udC1zaXplOiAxM3B4OyB9CiAgI2J0bi13eWN6eXNjOmhvdmVyIHsgYmFja2dyb3VuZDogIzQ3NTU2OTsgfQogIC5rYWZlbGtpLWdyaWQgeyBkaXNwbGF5OiBncmlkOyBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgyLCBtaW5tYXgoMCwgMWZyKSk7IGdhcDogMTBweDsgbWFyZ2luLWJvdHRvbTogMTJweDsgfQogIC5rYWZlbGVrIHsgcGFkZGluZzogMTJweDsgYmFja2dyb3VuZDogIzFlMjkzYjsgYm9yZGVyOiAycHggc29saWQgIzMzNDE1NTsgYm9yZGVyLXJhZGl1czogOHB4OyBjdXJzb3I6IHBvaW50ZXI7IHRleHQtYWxpZ246IGxlZnQ7IGNvbG9yOiAjZjhmYWZjOyB0cmFuc2l0aW9uOiBhbGwgMC4yczsgfQogIC5rYWZlbGVrIC5rLW5hendhIHsgZGlzcGxheTogYmxvY2s7IGZvbnQtd2VpZ2h0OiA3MDA7IGZvbnQtc2l6ZTogMTRweDsgbWFyZ2luLWJvdHRvbTogNHB4OyB9CiAgLmthZmVsZWsgLmstY2VuYSB7IGRpc3BsYXk6IGJsb2NrOyBmb250LXNpemU6IDEzcHg7IGNvbG9yOiAjOTRhM2I4OyB9CiAgLmthZmVsZWsud3licmFueSB7IGJhY2tncm91bmQ6ICMxNDUzMmQ7IGJvcmRlci1jb2xvcjogIzIyYzU1ZTsgfQogIC5rYWZlbGVrLnd5YnJhbnkgLmstY2VuYSB7IGNvbG9yOiAjYmJmN2QwOyBmb250LXdlaWdodDogNjAwOyB9CiAgI3BvZHN1bW93YW5pZSB7IG1hcmdpbjogMDsgcGFkZGluZzogMTBweCAxMnB4OyBiYWNrZ3JvdW5kOiAjMWUyOTNiOyBib3JkZXItcmFkaXVzOiA2cHg7IGZvbnQtd2VpZ2h0OiA3MDA7IGNvbG9yOiAjZmNkMzRkOyBmb250LXNpemU6IDE0cHg7IH0KPC9zdHlsZT4KPGRpdiBjbGFzcz0ia29uZiI+CiAgPGRpdiBjbGFzcz0ia29uZi1oZWFkZXIiPgogICAgPGgzPktvbmZpZ3VyYXRvciB1c8WCdWcgc2Vyd2lzb3d5Y2g8L2gzPgogICAgPGJ1dHRvbiBpZD0iYnRuLXd5Y3p5c2MiIHR5cGU9ImJ1dHRvbiI+V3ljennFm8SHIHd5YsOzcjwvYnV0dG9uPgogIDwvZGl2PgogIDxkaXYgY2xhc3M9ImthZmVsa2ktZ3JpZCI+CiAgICA8YnV0dG9uIGNsYXNzPSJrYWZlbGVrIiB0eXBlPSJidXR0b24iIGRhdGEtbmF6d2E9IkN6eXN6Y3plbmllIHVrxYJhZHUgY2jFgm9kemVuaWEiIGRhdGEtY2VuYT0iMTIwIj4KICAgICAgPHNwYW4gY2xhc3M9ImstbmF6d2EiPkN6eXN6Y3plbmllIHVrxYJhZHUgY2jFgm9kemVuaWE8L3NwYW4+CiAgICAgIDxzcGFuIGNsYXNzPSJrLWNlbmEiPjEyMCB6xYI8L3NwYW4+CiAgICA8L2J1dHRvbj4KICAgIDxidXR0b24gY2xhc3M9ImthZmVsZWsiIHR5cGU9ImJ1dHRvbiIgZGF0YS1uYXp3YT0iV3ltaWFuYSBwYXN0eSB0ZXJtb3ByemV3b2R6xIVjZWoiIGRhdGEtY2VuYT0iODAiPgogICAgICA8c3BhbiBjbGFzcz0iay1uYXp3YSI+V3ltaWFuYSBwYXN0eSB0ZXJtb3ByemV3b2R6xIVjZWo8L3NwYW4+CiAgICAgIDxzcGFuIGNsYXNzPSJrLWNlbmEiPjgwIHrFgjwvc3Bhbj4KICAgIDwvYnV0dG9uPgogICAgPGJ1dHRvbiBjbGFzcz0ia2FmZWxlayIgdHlwZT0iYnV0dG9uIiBkYXRhLW5hendhPSJNb250YcW8IGR5c2t1IFNTRCBOVk1lIiBkYXRhLWNlbmE9IjE1MCI+CiAgICAgIDxzcGFuIGNsYXNzPSJrLW5hendhIj5Nb250YcW8IGR5c2t1IFNTRCBOVk1lPC9zcGFuPgogICAgICA8c3BhbiBjbGFzcz0iay1jZW5hIj4xNTAgesWCPC9zcGFuPgogICAgPC9idXR0b24+CiAgICA8YnV0dG9uIGNsYXNzPSJrYWZlbGVrIiB0eXBlPSJidXR0b24iIGRhdGEtbmF6d2E9IktvcGlhIHphcGFzb3dhIGRhbnljaCIgZGF0YS1jZW5hPSI5NSI+CiAgICAgIDxzcGFuIGNsYXNzPSJrLW5hendhIj5Lb3BpYSB6YXBhc293YSBkYW55Y2g8L3NwYW4+CiAgICAgIDxzcGFuIGNsYXNzPSJrLWNlbmEiPjk1IHrFgjwvc3Bhbj4KICAgIDwvYnV0dG9uPgogIDwvZGl2PgogIDxwIGlkPSJwb2RzdW1vd2FuaWUiPld5YnJhbm86IDAgfCBTdW1hOiAwIHrFgjwvcD4KPC9kaXY+"></data-code-runner>
+</data-gate>
+
+<details class="deep-dive">
+<summary>🔬 Dla dociekliwych: domknięcia w forEach, delegacja zdarzeń i bezpieczeństwo dataset</summary>
+
+<h4>Dlaczego funkcja kliknięcia pamięta właściwy kafelek (domknięcie)</h4>
+<p>Gdy pętla <code>forEach</code> kończy swoją pracę przy starcie strony, jej wywołania znikają ze stosu. Mimo to po pięciu minutach, gdy użytkownik kliknie trzeci kafelek, wewnętrzna funkcja strzałkowa dokładnie wie, czym jest zmienna <code>kafelek</code>. Dzieje się tak dzięki mechanizmowi <strong>domknięcia</strong> (closure).</p>
+<p>Każda iteracja <code>forEach</code> tworzy osobny zakres lokalny z własną referencją do jednego kafelka. Funkcja przekazana do <code>addEventListener</code> „zamyka” ten zakres w pamięci, więc każdy z 4 przycisków przechowuje powiązanie dokładnie ze swoim węzłem DOM.</p>
+
+<h4>Kiedy wystarczy forEach, a kiedy potrzebna jest delegacja zdarzeń</h4>
+<p>Podpinanie osobnego <code>addEventListener</code> w pętli <code>forEach</code> jest wzorcem pierwszego wyboru dla stałych grup liczących od kilku do kilkudziesięciu elementów (zakładki, filtry, kafelki cennika). Kod jest prosty, czytelny i szybki.</p>
+<p>W rozbudowanych aplikacjach, gdzie tabela ma 5000 wierszy albo nowe elementy są dopisywane dynamicznie w trakcie działania strony, stosuje się wzorzec zwany <strong>delegacją zdarzeń</strong>: jeden nasłuchiwacz wisi na wspólnym kontenerze rodzicielskim i sprawdza kliknięty cel za pomocą <code>event.target.closest(".kafelek")</code>.</p>
+
+<h4>Bezpieczeństwo danych w atrybutach data-*</h4>
+<p>Atrybuty <code>data-cena</code> w HTML są w pełni widoczne i edytowalne w narzędziach deweloperskich przeglądarki. Użytkownik może ręcznie zmienić <code>data-cena="150"</code> na <code>data-cena="1"</code> i zobaczyć na ekranie niższą kwotę. Dlatego w produkcyjnym sklepie JavaScript w przeglądarce odpowiada wyłącznie za wygodny podgląd dla klienta, a końcową cenę zamówienia zawsze wylicza i weryfikuje serwer na podstawie bazy danych.</p>
+
+</details>
+
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Wzorzec <code>elementy.forEach((el) =&gt; { el.addEventListener("click", () =&gt; { ... }); });</code> ma dwa różne czasy życia: <span class="color-green">zewnętrzna funkcja</span> rejestruje słuchaczy raz przy starcie, a <span class="color-green">wewnętrzna funkcja</span> uruchamia się dopiero po kliknięciu konkretnego elementu.</li>
+<li>Dane powiązane z elementem (opisy, ceny, identyfikatory) zapisuj w atrybutach <code>data-*</code> w HTML i odczytuj przez <span class="color-gold">el.dataset</span>. Pamiętaj, że wartości z <span class="color-blue">dataset</span> są zawsze tekstem, więc przed obliczeniami użyj <code>Number(...)</code>.</li>
+<li>Gdy aktywny może być tylko jeden element w grupie, zastosuj dwuetapowy wzorzec: najpierw zdejmij klasę <code>active</code> ze wszystkich w pętli <code>forEach</code>, a dopiero potem dodaj ją klikniętemu elementowi.</li>
+<li>Gdy użytkownik może zaznaczać wiele opcji naraz, użyj <code>classList.toggle(...)</code>, a następnie pobierz aktualny zbiór zaznaczonych złożonym selektorem (na przykład <code>.kafelek.wybrany</code>) i przelicz go w pętli <code>forEach</code>.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Masz już kompletny fundament manipulacji DOM, zdarzeń, kolekcji i danych w atrybutach <code>data-*</code>. Sprawdź swoje umiejętności na większych projektach w <a href="/arkusze/?qual=INF.03&amp;tag=JS">Katalogu zadań praktycznych</a>.</p>
+
+</div>
+</div></section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

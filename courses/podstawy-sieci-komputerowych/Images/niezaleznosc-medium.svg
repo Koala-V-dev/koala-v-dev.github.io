@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .header-title { font-family: system-ui, -apple-system, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .header-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+      .packet-box { fill: #0284c7; stroke: #38bdf8; stroke-width: 1.5; rx: 6; }
+      .packet-title { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .packet-sub { font-family: monospace; font-size: 10px; fill: #bae6fd; text-anchor: middle; }
+      .medium-title { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #f1f5f9; }
+      .medium-desc { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .signal-copper { stroke: #f59e0b; stroke-width: 2.5; fill: none; }
+      .signal-fiber { stroke: #06b6d4; stroke-width: 2.5; fill: none; stroke-dasharray: 6 3; }
+      .signal-radio { stroke: #a855f7; stroke-width: 2.5; fill: none; }
+      .arrow { stroke: #64748b; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+      .badge-rfc { fill: #334155; stroke: #475569; rx: 4; }
+      .badge-rfc-text { font-family: monospace; font-size: 10px; fill: #cbd5e1; }
+    </style>
+    <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <polygon points="0 0, 6 3, 0 6" fill="#64748b"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="440" class="bg"/>
+
+  <!-- Nagłówek -->
+  <g transform="translate(40, 32)">
+    <text x="0" y="0" class="header-title">Zasada niezależności medium (Media Independence)</text>
+    <text x="0" y="20" class="header-desc">Warstwy wyższe generują ten sam nienaruszony pakiet IP – karta sieciowa tłumaczy go na dowolne zjawisko fizyczne</text>
+  </g>
+
+  <!-- ================= WSPÓLNY PAKIET LOGICZNY IP ================= -->
+  <g transform="translate(40, 75)" filter="url(#shadow)">
+    <rect width="880" height="70" fill="#0f172a" rx="8" stroke="#0284c7" stroke-width="1.5"/>
+    <text x="24" y="28" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">Identyczny pakiet logiczny (Warstwa L3 / IPv4 / IPv6)</text>
+    
+    <!-- Wizualizacja nagłówka i payloadu -->
+    <g transform="translate(24, 38)">
+      <rect width="180" height="22" fill="#0369a1" rx="4"/>
+      <text x="90" y="15" class="packet-title">Nagłówek IP (Źródło/Cel)</text>
+
+      <rect x="190" width="160" height="22" fill="#075985" rx="4"/>
+      <text x="270" y="15" class="packet-title">Nagłówek L4 (Porty TCP)</text>
+
+      <rect x="360" width="480" height="22" fill="#1e293b" stroke="#0284c7" stroke-width="1" rx="4"/>
+      <text x="600" y="15" font-family="monospace" font-size="11px" fill="#93c5fd" text-anchor="middle">Dane użytkownika / Payload (Plik, Strona WWW, Obraz)</text>
+    </g>
+  </g>
+
+  <!-- ================= 4 RÓŻNE NOŚNIKI FIZYCZNE ================= -->
+  <!-- 1. Miedź -->
+  <g transform="translate(40, 165)" filter="url(#shadow)">
+    <rect width="205" height="240" class="card"/>
+    <rect x="16" y="16" width="36" height="36" fill="#f59e0b" opacity="0.15" rx="6"/>
+    <text x="34" y="40" font-family="sans-serif" font-size="20" fill="#f59e0b" text-anchor="middle">⚡</text>
+    
+    <text x="16" y="74" class="medium-title">1. Miedź (Ethernet)</text>
+    <text x="16" y="92" class="medium-desc">Skrętka UTP/FTP kat. 5e/6</text>
+
+    <!-- Kształt sygnału -->
+    <path d="M 20 135 L 50 135 L 50 115 L 80 115 L 80 155 L 110 155 L 110 135 L 140 135 L 140 115 L 170 115 L 170 135 L 185 135" class="signal-copper"/>
+
+    <text x="16" y="175" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Nośnik:</tspan> Napięcie (V)</text>
+    <text x="16" y="195" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Zasięg:</tspan> max 100 m</text>
+    <text x="16" y="215" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Wada:</tspan> Zakłócenia EMI</text>
+  </g>
+
+  <!-- 2. Światłowód -->
+  <g transform="translate(265, 165)" filter="url(#shadow)">
+    <rect width="205" height="240" class="card"/>
+    <rect x="16" y="16" width="36" height="36" fill="#06b6d4" opacity="0.15" rx="6"/>
+    <text x="34" y="40" font-family="sans-serif" font-size="20" fill="#06b6d4" text-anchor="middle">💡</text>
+
+    <text x="16" y="74" class="medium-title">2. Światłowód</text>
+    <text x="16" y="92" class="medium-desc">Włókno szklane SMF / MMF</text>
+
+    <!-- Kształt sygnału światła -->
+    <path d="M 20 135 Q 40 105 60 135 T 100 135 T 140 135 T 180 135" class="signal-fiber"/>
+
+    <text x="16" y="175" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Nośnik:</tspan> Błyski fotonów</text>
+    <text x="16" y="195" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Zasięg:</tspan> 500 m - 40 km</text>
+    <text x="16" y="215" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Zaleta:</tspan> 0 zakłóceń EMI</text>
+  </g>
+
+  <!-- 3. Fale radiowe -->
+  <g transform="translate(490, 165)" filter="url(#shadow)">
+    <rect width="205" height="240" class="card"/>
+    <rect x="16" y="16" width="36" height="36" fill="#a855f7" opacity="0.15" rx="6"/>
+    <text x="34" y="40" font-family="sans-serif" font-size="20" fill="#a855f7" text-anchor="middle">📡</text>
+
+    <text x="16" y="74" class="medium-title">3. Fale radiowe</text>
+    <text x="16" y="92" class="medium-desc">Wi-Fi (2.4/5 GHz), 5G</text>
+
+    <!-- Kształt fali radiowej -->
+    <path d="M 20 135 C 35 110, 45 110, 60 135 C 75 160, 85 160, 100 135 C 115 110, 125 110, 140 135 C 155 160, 165 160, 180 135" class="signal-radio"/>
+
+    <text x="16" y="175" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Nośnik:</tspan> Modulacja EM</text>
+    <text x="16" y="195" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Zasięg:</tspan> 15 - 100 m</text>
+    <text x="16" y="215" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Cecha:</tspan> Współdzielony eter</text>
+  </g>
+
+  <!-- 4. Gołębie (RFC 1149) -->
+  <g transform="translate(715, 165)" filter="url(#shadow)">
+    <rect width="205" height="240" class="card"/>
+    <rect x="16" y="16" width="36" height="36" fill="#10b981" opacity="0.15" rx="6"/>
+    <text x="34" y="40" font-family="sans-serif" font-size="20" fill="#10b981" text-anchor="middle">🕊️</text>
+
+    <text x="16" y="74" class="medium-title">4. Gołębie pocztowe</text>
+    <text x="16" y="92" class="medium-desc">Standard RFC 1149 (IPoAC)</text>
+
+    <!-- Kartka z pakietem na nodze gołębia -->
+    <g transform="translate(60, 115)">
+      <rect width="80" height="32" fill="#0f172a" stroke="#10b981" stroke-width="1.5" rx="4"/>
+      <text x="40" y="20" font-family="monospace" font-size="10px" font-weight="700" fill="#34d399" text-anchor="middle">IP on Paper</text>
+    </g>
+
+    <text x="16" y="175" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Nośnik:</tspan> Wydruk na nóżce</text>
+    <text x="16" y="195" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Ping RTT:</tspan> 3000-6000 s</text>
+    <text x="16" y="215" font-family="system-ui, sans-serif" font-size="11px" fill="#cbd5e1">• <tspan font-weight="700">Dowód:</tspan> Pełna niezależność!</text>
+  </g>
+</svg>

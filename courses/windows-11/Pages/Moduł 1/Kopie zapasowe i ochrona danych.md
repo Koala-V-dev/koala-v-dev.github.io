@@ -8,7 +8,7 @@ Tylko Ty, dysponując odpowiednią wiedzą i procedurami, będziesz w stanie odz
 
 ## 🧠 Filozofia bezpieczeństwa
 
-Zanim wybierzesz narzędzie, musisz zrozumieć, *dlaczego* i *jak* chronimy dane. Backup to nie tylko kopia plików – to przemyślany system i procedury odzyskiwania.
+Zanim wybierzesz narzędzie, musisz zrozumieć, *dlaczego* i *jak* chronimy dane. Backup to nie tylko kopia plików - to przemyślany system i procedury odzyskiwania.
 
 <data-tabs>
   <tabs>
@@ -19,15 +19,15 @@ Zanim wybierzesz narzędzie, musisz zrozumieć, *dlaczego* i *jak* chronimy dane
     
 ### Fundamenty Biznesowe: Czas to pieniądz
 
-1. **RPO (Recovery Point Objective)** – *Ile danych możemy stracić?* Jeśli robisz backup o $2:00$, a awaria nastąpi o $23:00$ – tracisz $21$ h pracy. Twoje RPO wynosi $24$ h.
-2. **RTO (Recovery Time Objective)** – *Jak szybko musimy wrócić do pracy?* Jeśli odzyskanie systemu z chmury trwa $48$ h, a firma stoi – Twoje RTO wynosi $48$ h. Czy organizacja to przeżyje?
+1. **RPO (Recovery Point Objective)** - *Ile danych możemy stracić?* Jeśli robisz backup o $2:00$, a awaria nastąpi o $23:00$ - tracisz $21$ h pracy. Twoje RPO wynosi $24$ h.
+2. **RTO (Recovery Time Objective)** - *Jak szybko musimy wrócić do pracy?* Jeśli odzyskanie systemu z chmury trwa $48$ h, a firma stoi - Twoje RTO wynosi $48$ h. Czy organizacja to przeżyje?
 
 </div>
 <div>
     
 ### Złoty Standard: Zasada $3-2-1$
 
-To absolutny standard rynkowy. Jeśli go nie stosujesz, nie masz backupu – masz tylko „szansę na odzysk”.
+To absolutny standard rynkowy. Jeśli go nie stosujesz, nie masz backupu - masz tylko „szansę na odzysk”.
     
 *   **$3$ kopie danych:** Oryginał + dwie dodatkowe kopie.
 *   **$2$ różne nośniki:** Np. szybki dysk zewnętrzny HDD/SSD + chmura.
@@ -119,7 +119,7 @@ Tu sprawa jest prosta i być może już to robiłeś przy instalacji systemu prz
 <hotspot x="1" y="45" title="Przywróć pliki osobiste">
 
 Jeżeli została już utworzona kopia zapasowa, to w tym miejscu możesz przywracać pliki z wykorzystaniem **UI**  
-(*User Interface* – *interfejs użytkownika*).  
+(*User Interface* - *interfejs użytkownika*).  
 ![Przywracanie plików osobistych](/public/courses/windows-11/Images/historia-plików-przywracanie-plików.webp)
 
 </hotspot>
@@ -212,7 +212,7 @@ Na ostatniej karcie zobaczysz podsumowanie tego, co zostanie skopiowane, oraz mo
 
 ## 🧰 Odzyskiwanie obrazu z kopii zapasowej i przywracanie systemu (Windows 7)
 
-Na początku warto sprawdzić, czy w przystawce `diskmgmt.msc` (Zarządzanie dyskami) jest utworzona partycja odzyskiwania – tak zwana *recovery*. Jeżeli jest, możesz uruchomić system w trybie zaawansowanym, przytrzymując klawisz <kbd>Shift</kbd> i wybierając z menu Start „Uruchom ponownie”. 
+Na początku warto sprawdzić, czy w przystawce `diskmgmt.msc` (Zarządzanie dyskami) jest utworzona partycja odzyskiwania - tak zwana *recovery*. Jeżeli jest, możesz uruchomić system w trybie zaawansowanym, przytrzymując klawisz <kbd>Shift</kbd> i wybierając z menu Start „Uruchom ponownie”. 
 ![Partycja odzyskiwania w diskmgmt.msc](/public/courses/windows-11/Images/partycja-odzyskiwania-w-diskmgmt.msc.webp)
 
 
@@ -246,7 +246,7 @@ Następnie kliknij <kbd class="win-menu-btn">Wyklucz dyski...</kbd> i odznacz pa
 Jak widziałeś powyżej, cała procedura przechodzi bez problemów. Dopóki w trakcie przywracania coś się nie wykrzaczy.
 
 Dlaczego Microsoft na to pozwala?  
-Usunięcie tej funkcjonalności wiązałoby się z brakiem wsparcia dla starszych edycji Windowsa. Nadal są osoby korzystające z siódemki – to zaproszenie ich na najnowszą edycję, aby łatwo przenieśli swoje dane. Dlatego dodano ten dopisek `(Windows 7)`. Przy aktualnych ruchach Microsoftu można łatwo wywnioskować, że jest im to na rękę. Raz zawiedziesz się na tej funkcji, tracąc ogrom czasu, i chętniej przejdziesz na kopie zapasowe konfiguracji systemu oraz usługę OneDrive. W razie problemów oficjalne wsparcie Microsoftu odeśle Cię do [dokumentacji](https://learn.microsoft.com/pl-pl/windows/compatibility/windows-7-backup-and-restore-deprecated).
+Usunięcie tej funkcjonalności wiązałoby się z brakiem wsparcia dla starszych edycji Windowsa. Nadal są osoby korzystające z siódemki - to zaproszenie ich na najnowszą edycję, aby łatwo przenieśli swoje dane. Dlatego dodano ten dopisek `(Windows 7)`. Przy aktualnych ruchach Microsoftu można łatwo wywnioskować, że jest im to na rękę. Raz zawiedziesz się na tej funkcji, tracąc ogrom czasu, i chętniej przejdziesz na kopie zapasowe konfiguracji systemu oraz usługę OneDrive. W razie problemów oficjalne wsparcie Microsoftu odeśle Cię do [dokumentacji](https://learn.microsoft.com/pl-pl/windows/compatibility/windows-7-backup-and-restore-deprecated).
 
 Jak sam widzisz, domyślne opcje kopii zapasowych w Windows 11 są bardzo słabe... delikatnie mówiąc. 😐
 
@@ -256,7 +256,7 @@ Wiele razy przekonasz się, że różnego rodzaju oprogramowanie nie spełnia Tw
 | Narzędzie | Co MOŻESZ zrobić | Czego ABSOLUTNIE NIE MOŻESZ zrobić | Dlaczego |
 |---|---|---|---|
 | **CloneZilla** | ✔️ Skopiować dysk 1:1 w tym samym urządzeniu (np. NVMe → NVMe w laptopie) <br> ✔️ Skopiować dysk między **identycznymi** modelami komputerów | ❌ Przenieść system laptop → PC <br> ❌ Przenieść system na inny sprzęt (chipset, CPU, grafika) <br> ❌ Użyć jako backup systemu Windows | CloneZilla kopiuje **bloki dysku**, nie system. <br> Kopiuje sterowniki, HAL, konfigurację sprzętu.<br> Inny sprzęt = system nie wstaje. |
-| **Macrium Reflect** | ✔️ Zrobić obraz systemu Windows 10/11 <br> ✔️ Przywrócić system na innym sprzęcie (po sysprep) <br> ✔️ Backup przyrostowy | ❌ Przenieść system bez sysprep na zupełnie inny sprzęt | Macrium rozumie Windows, VSS, GPT, NVMe — ale nie usuwa sterowników sprzętowych. |
+| **Macrium Reflect** | ✔️ Zrobić obraz systemu Windows 10/11 <br> ✔️ Przywrócić system na innym sprzęcie (po sysprep) <br> ✔️ Backup przyrostowy | ❌ Przenieść system bez sysprep na zupełnie inny sprzęt | Macrium rozumie Windows, VSS, GPT, NVMe - ale nie usuwa sterowników sprzętowych. |
 | **AOMEI Backupper** | ✔️ Backup systemu <br> ✔️ Klonowanie dysku w tym samym komputerze | ❌ Migracja systemu na inny sprzęt | To narzędzie działa, ale nie rozwiązuje problemu sterowników. |
 | **OneDrive / Google Drive** | ✔️ Chronić dokumenty <br> ✔️ Cofnąć wersje po ransomware | ❌ Backup systemu <br> ❌ Backup programów | To jest synchronizacja + wersjonowanie, nie obraz systemu. |
 | **Git** | ✔️ Historia projektów <br> ✔️ Cofanie zmian | ❌ Backup zdjęć, filmów, dużych plików <br> ❌ Backup systemu | Git to system kontroli wersji, nie backup danych. |
@@ -271,22 +271,42 @@ Jak widzisz, opcji jest mnóstwo. Mają swoje plusy i minusy. Dlatego warto pozn
 
 ## 🧠 Sprawdź swoją wiedzę
 
-<data-gate>
-  <data-quiz>
-    <question>Firma doświadczyła ataku ransomware, który zaszyfrował pliki użytkowników na dyskach lokalnych. Pliki te były synchronizowane z chmurą OneDrive. Które z podjętych działań pozwoli na najszybsze odzyskanie dokumentów bez utraty danych?</question>
-    <options>
-      <item correct>Wykorzystanie wbudowanej w OneDrive funkcji przywracania stanu chmury (Roll-back) do 30 dni wstecz po uprzednim wyczyszczeniu zainfekowanych stacji roboczych.</item>
-      <item>Uruchomienie narzędzia Kopia zapasowa i przywracanie (Windows 7) w celu odtworzenia uszkodzonych plików z lokalnej partycji recovery.</item>
-      <item>Wykonanie klonowania zainfekowanych dysków za pomocą narzędzia CloneZilla 1:1 na nowe stacje robocze.</item>
-    </options>
-    <div data-hint="error">
-      Ransomware szyfruje pliki lokalne, co wyzwala automatyczną synchronizację zmian do chmury. Tradycyjna kopia systemu Windows 7 czy klonowanie blokowe programem CloneZilla nie służą do wersjonowania dokumentów użytkownika ani nie eliminują zagrożenia z zainfekowanego systemu. Zastanów się, jakie wbudowane mechanizmy chmury Microsoftu chronią przed tego typu skutkami.
-    </div>
-    <div data-hint="success">
-      Doskonale! OneDrive posiada mechanizm wersjonowania plików oraz funkcję *„Roll-back”* (przywracanie stanu dysku chmurowego), która pozwala na cofnięcie zmian wprowadzonych przez ransomware w ciągu ostatnich $30$ dni. Przed synchronizacją należy oczywiście dokładnie oczyścić lub przeinstalować systemy operacyjne na stacjach roboczych.
-    </div>
-  </data-quiz>
-</data-gate>
+---
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Architektura usługi VSS (Volume Shadow Copy) i mechanizm Copy-on-Write w volsnap.sys</span><span class="deep-dive-badge">Storage Architecture & VSS</span></summary>
+
+Jak system Windows potrafi stworzyć spójną kopię zapasową bazy danych SQL lub rejestru systemowego o rozmiarze kilkunastu gigabajtów w czasie krótszym niż $2$ sekundy, bez zatrzymywania pracy systemu? Odpowiada za to technologia migawek **VSS** (*Volume Shadow Copy Service*).
+
+### 1. Trójkąt współpracy VSS
+Tworzenie migawki opiera się na skoordynowanej współpracy trzech warstw oprogramowania:
+1. **VSS Requestor**: Aplikacja żądająca kopii (np. narzędzie *Kopia zapasowa Windows*, Veeam, skrypt PowerShell).
+2. **VSS Writers**: Komponenty aplikacji i baz danych (np. *Registry Writer*, *Active Directory Writer*, *NTFS Writer*). Na sygnał od VSS zamrażają transakcje na 10 sekund, zrzucają bufory RAM na dysk i tymczasowo wstrzymują zapisy.
+3. **VSS Provider (Sterownik `volsnap.sys`)**: Sterownik filtrujący pamięci masowej w jądrze NT, który dokonuje faktycznego „zamrożenia” obrazu dysku.
+
+```
+   Aplikacja backupu (Requestor) ──> Usługa VSS (vssvc.exe)
+                                           │
+                     ┌─────────────────────┴─────────────────────┐
+                     ▼                                           ▼
+          VSS Writers (Rejestr, SQL)                 Sterownik volsnap.sys
+          (Zamrożenie transakcji I/O)                (Tworzenie migawki klastrów)
+```
+
+### 2. Matematyka Copy-on-Write (CoW) w sterowniku `volsnap.sys`
+Migawka VSS w chwili utworzenia nie kopiuje ani jednego megabajta plików:
+- Sterownik `volsnap.sys` tworzy w ukrytym katalogu `System Volume Information` wirtualny wolumin różnicowy (*Diff Area*).
+- Zastosowanie znajduje algorytm **Copy-on-Write (Zapis przy modyfikacji)**:
+  - Gdy jakakolwiek aplikacja w systemie próbuje zmodyfikować klaster dyskowy nr $500$, sterownik `volsnap.sys` przechwytuje to żądanie I/O przed dotarciem do nośnika.
+  - Sterownik najpierw odczytuje **oryginalną zawartość** klastra $500$ i kopiuje ją do strefy *Diff Area*.
+  - Dopiero po zabezpieczeniu starej wersji zezwala na zapisanie nowych danych w klastrze $500$.
+- Gdy program backupu czyta migawkę VSS:
+  - Dla klastrów niezmienionych czyta bezpośrednio z dysku głównego.
+  - Dla klastrów zmodyfikowanych czyta ich oryginalną postać z bufora *Diff Area*.
+
+Dzięki temu migawka zachowuje idealny stan dysku z dokładnie określonej nanosekundy w czasie, przy niemal zerowym początkowym narzucie pamięci masowej.
+
+</details>
 
 ---
 

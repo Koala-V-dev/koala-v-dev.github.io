@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 4\Maski Bitowe i Flagi Rejestrów - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Podstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Pot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Bity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Systemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Bramki Logiczne i Podstawy Arytmetyki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Logika Stanów Dyskretnych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Logika%20Stan%C3%B3w%20Dyskretnych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Logika Stanów Dyskretnych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Algebra Boole'a"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Algebra%20Boole'a.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algebra Boole'a</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dodawanie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Dodawanie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dodawanie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Odejmowanie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Odejmowanie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Odejmowanie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Mnożenie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Mno%C5%BCenie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Mnożenie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dzielenie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Dzielenie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dzielenie Binarne</a></li><li class="module">Moduł 2: Liczby Ze Znakiem i Arytmetyka Procesora</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Arytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Liczby Ujemne i Kod U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Liczby%20Ujemne%20i%20Kod%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne i Kod U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Arytmetyka na Liczbach Ujemnych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Arytmetyka%20na%20Liczbach%20Ujemnych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka na Liczbach Ujemnych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dzielenie z Resztą i Operacja Modulo"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Dzielenie%20z%20Reszt%C4%85%20i%20Operacja%20Modulo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dzielenie z Resztą i Operacja Modulo</a></li><li class="module">Moduł 3: Kodowanie Danych i Format Zmiennoprzecinkowy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Kodowanie Znaków - ASCII i Standardy Tekstowe"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%203/Kodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Standardy%20Tekstowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Standardy Tekstowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Liczby Zmiennoprzecinkowe - Standard IEEE 754"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%203/Liczby%20Zmiennoprzecinkowe%20-%20Standard%20IEEE%20754.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Zmiennoprzecinkowe - Standard IEEE 754</a></li><li class="module">Moduł 4: Inżynieria Bitowa i Zastosowania Praktyczne</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Maski Bitowe i Flagi Rejestrów"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%204/Maski%20Bitowe%20i%20Flagi%20Rejestr%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Maski Bitowe i Flagi Rejestrów</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Wielki Finał Egzaminacyjny"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20Egzaminacyjny.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał Egzaminacyjny</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 4/Wielki Finał Inżynierski"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20In%C5%BCynierski.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał Inżynierski</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Maski Bitowe i Operacje Niskopoziomowe</h1>
+<p>W zadaniach egzaminacyjnych kwalifikacji <span class="color-green">INF.02</span> (administracja systemami i sieciami) oraz <span class="color-green">INF.03/INF.04</span> (programowanie) operacje bitowe pojawiają się w dwóch kluczowych momentach:</p>
+<ol>
+<li><span class="color-green">Adresowanie IPv4 i maski podsieci</span> (np. wyznaczanie adresu sieci za pomocą operacji bitowej `AND`).</li>
+<li><span class="color-green">Uprawnienia do plików w systemie Linux</span> (polecenie `chmod` i maska praw `rwx`).</li>
+</ol>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎯 Czym jest maska bitowa?</h2>
+<p>Maska bitowa to wzorzec bitów (ciąg zer i jedynek), który przykładamy do innej liczby za pomocą operacji logicznej (`AND`, `OR`, `XOR`), aby:</p>
+<ul>
+<li><span class="color-green">Wyciąć (przefiltrować)</span> interesujące nas bity,</li>
+<li><span class="color-green">Włączyć</span> określony parametr (ustawić bit na $1$),</li>
+<li><span class="color-green">Wyłączyć</span> parametr (zgasić bit na $0$),</li>
+<li><span class="color-green">Sprawdzić</span> czy dana flaga jest aktywna.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌐 Maska bitowa w praktyce egzaminu INF.02: Obliczanie adresu sieci</h2>
+<p>W sieciach komputerowych IPv4 każdy adres IP i maska to w rzeczywistości <span class="color-green">32 bity</span> (4 oktety po 8 bitów).</p>
+<p>Gdy komputer chce dowiedzieć się, w jakiej sieci się znajduje, wykonuje bitową operację <span class="color-green">koniunkcji (`AND`)</span> między adresem IP a maską podsieci:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Element</th>
+<th align="center">Zapis dziesiętny</th>
+<th align="center">Zapis binarny (jeden oktet)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Adres IP komputera</span></td>
+<td align="center">`192.168.1.77`</td>
+<td align="center">`... . 0100 1101` ($77$)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Maska podsieci</span></td>
+<td align="center">`255.255.255.240`</td>
+<td align="center">`... . 1111 0000` ($240$)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Operacja bitowa AND</span></td>
+<td align="center"><span class="color-green">Adres sieci</span></td>
+<td align="center"><span class="color-green">`... . 0100 0000` ($64$)</span></td>
+</tr>
+</tbody></table>
+<p>Bramka `AND` przepuszcza tylko te bity, gdzie w masce była jedynka. Tam, gdzie w masce są zera (część hosta), bity adresu IP zostają wyzerowane. Wynik to adres podsieci: <span class="color-green">`192.168.1.64`</span>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐧 Maski bitowe w uprawnieniach Linux (chmod i POSIX)</h2>
+<p>W systemie Linux uprawnienia pliku zapisywane są w trzech triadach bitowych: odczyt ($r=4$), zapis ($w=2$) i wykonanie ($x=1$):</p>
+<p><data-posix-acl-matrix mode="umask-dac" umask="022" file-type="-"></data-posix-acl-matrix></p>
+<p>Gdy wpisujesz `chmod 754 plik`:</p>
+<ul>
+<li>`7` ($4+2+1$) $\to$ `111` (właściciel: pełne prawa `rwx`),</li>
+<li>`5` ($4+0+1$) $\to$ `101` (grupa: odczyt i wykonanie `r‑x`),</li>
+<li>`4` ($4+0+0$) $\to$ `100` (pozostali: tylko odczyt `r--`).</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Cztery podstawowe operacje na flagach w programowaniu</h2>
+<p>W kodzie programistycznym (C++, C#, JavaScript) zamiast tworzyć dziesiątki osobnych zmiennych logicznych `bool`, pakujemy je do jednego bajtu lub liczby całkowitej za pomocą 4 reguł:</p>
+<ol>
+<li><span class="color-green">Włączenie flagi (SET) – bramka `OR` (`|`):</span><br>```cpp<br>flagi |= 0x02; // Wymusza 1 na danej pozycji bez ruszania pozostałych<br>```</li>
+<li><span class="color-green">Wyłączenie flagi (CLEAR) – bramka `AND` z negacją (`&amp; ~`)</span>:<br>```cpp<br>flagi &amp;= ~0x02; // Gasi wybrany bit do 0<br>```</li>
+<li><span class="color-green">Przełączenie flagi (TOGGLE) – bramka `XOR` (`^`):</span><br>```cpp<br>flagi ^= 0x02; // Zmienia 0 na 1 lub 1 na 0<br>```</li>
+<li><span class="color-green">Sprawdzenie flagi (TEST) – bramka `AND` (`&amp;`):</span><br>```cpp<br>if ((flagi &amp; 0x02) != 0) {<br>// Flaga jest włączona!<br>}<br>```</li>
+</ol>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Bit Twiddling Hacks i programowanie bezrozgałęzieniowe (Branchless)</span>
+<span class="deep-dive-badge">C++ &amp; WYDAJNOŚĆ ALU</span>
+</summary>
+<div class="deep-dive-content">
+
+<p>Dla inżynierów i programistów silników gier oraz baz danych kluczowa jest eliminacja instrukcji skoków warunkowych (`if/else`), które powodują czyszczenie potoku wykonawczego procesora (<span class="color-blue">Branch Misprediction Penalty</span> rzędu 15‑20 cykli zegara).</p>
+<h4>1. Izolacja najmłodszej jedynki: \`x &amp; (-x)\`</h4>
+<p>Dzięki właściwościom kodu U2 (gdzie $-x = \\neg x + 1$), operacja ta gasi wszystkie bity poza najmłodszą jedynką:<br>```cpp<br>uint32_t lowestBit = x &amp; (-x); // Np. dla 0010 1100 (44) daje 0000 0100 (4)<br>```</p>
+<h4>2. Test potęgi dwójki w 1 cyklu zegara: \`(x &amp; (x - 1)) == 0\`</h4>
+<p>Liczba będąca potęgą dwójki ma w zapisie binarnym dokładnie jedną jedynkę. Odjęcie 1 zamienia tę jedynkę na zero i zapala bity po prawej stronie. Koniunkcja z `x` daje zero:<br>```cpp<br>bool isPowerOfTwo = (x &gt; 0) &amp;&amp; ((x &amp; (x - 1)) == 0);<br>```</p>
+<h4>3. Wartość bezwzględna bez rozgałęzienia (Branchless ABS)</h4>
+<p>```cpp<br>int32_t branchless_abs(int32_t x) {<br>    int32_t mask = x &gt;&gt; 31; // 0 dla x &gt;= 0 lub -1 (0xFFFFFFFF) dla x &lt; 0<br>    return (x + mask) ^ mask;<br>}<br>```</p>
+<h4>4. Atomowa modyfikacja rejestrów w mikrokontrolerach ARM</h4>
+<p>W mikrokontrolerach STM32 (ARM Cortex‑M) do sterowania pinami procesora stosuje się rejestry atomowe `BSRR` (<span class="color-blue">Bit Set/Reset Register</span>) lub sprzętowy mechanizm <span class="color-green">Bit‑Banding</span>, eliminujący błędy wyścigu przy przerwaniach bez konieczności blokowania magistrali.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Weryfikacja: Maski bitowe</h2>
+<data-gate>
+  <data-connection-matcher title="Operacje na Maskach Bitowych">
+    <item left="Włączenie flagi: `flags |= MASK`" right="Wymuszenie stanu 1 (operacja SET)"></item>
+    <item left="Wyłączenie flagi: `flags &amp;= ~MASK`" right="Wymuszenie stanu 0 (operacja CLEAR)"></item>
+    <item left="Maska podsieci w IPv4 (AND)" right="Wyznaczenie adresu sieci"></item>
+    <item left="Uprawnienia Linux `chmod 755`" right="Triady bitowe rwx w ósemkowym"></item>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Maska bitowa to wzorzec używany do izolowania, włączania lub wyłączania określonych bitów.</li>
+<li>W kwalifikacji INF.02 maska służy m.in. do wyznaczania adresu sieci z adresu IP za pomocą operacji bitowej `AND`.</li>
+<li>Uprawnienia uniksowe `chmod` bazują na 3‑bitowych maskach praw `rwx` zapisywanych cyframi ósemkowymi ($4, 2, 1$).</li>
+<li>Cztery kanoniczne operacje na flagach w programowaniu to SET (`|=`), CLEAR (`&amp;= ~`), TOGGLE (`^=`) i TEST (`&amp;`).</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

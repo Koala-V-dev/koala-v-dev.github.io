@@ -1,14 +1,14 @@
 # Zarządzanie dyskami i partycjami
 
-Na Helpdesku prędzej czy później usłyszysz: *„Komputer nie widzi dysku”*, *„Pendrive nie daje się sformatować”* albo *„Dysk C jest pełny, a ja nic inżynierskiego nie instalowałem”* 😅. Każdy z tych problemów wymaga zrozumienia tego, **jak Windows organizuje dane na nośnikach** – od surowego dysku fizycznego, przez tablice partycji, aż po litery woluminów widoczne w Eksploratorze.
+Na Helpdesku prędzej czy później usłyszysz: *„Komputer nie widzi dysku”*, *„Pendrive nie daje się sformatować”* albo *„Dysk C jest pełny, a ja nic inżynierskiego nie instalowałem”* 😅. Każdy z tych problemów wymaga zrozumienia tego, **jak Windows organizuje dane na nośnikach** - od surowego dysku fizycznego, przez tablice partycji, aż po litery woluminów widoczne w Eksploratorze.
 
 ---
 
-## 💾 Pamięci masowe – przestrzeń na dane nieulotne
+## 💾 Pamięci masowe - przestrzeń na dane nieulotne
 
 Aby skutecznie zarządzać przestrzenią dyskową z poziomu systemu operacyjnego, musisz najpierw poznać budowę i zasady działania samych nośników danych. 
 
-Pamięć masowa jest pamięcią **nieulotną** (*non-volatile*) – w przeciwieństwie do pamięci operacyjnej RAM, zachowuje ona zapisane pliki i foldery po wyłączeniu zasilania komputera. [Pierwszym w historii nieulotnym dyskiem twardym](https://pl.wikipedia.org/wiki/Dysk_twardy#Historia) była konstrukcja **IBM 350 z $1956$ roku** (będąca częścią komputera RAMAC). Składała się z 50 talerzy o gigantycznej średnicy **$24$ cali** i mieściła zaledwie **$5$ megabajtów (MB)** danych! 
+Pamięć masowa jest pamięcią **nieulotną** (*non-volatile*) - w przeciwieństwie do pamięci operacyjnej RAM, zachowuje ona zapisane pliki i foldery po wyłączeniu zasilania komputera. [Pierwszym w historii nieulotnym dyskiem twardym](https://pl.wikipedia.org/wiki/Dysk_twardy#Historia) była konstrukcja **IBM 350 z $1956$ roku** (będąca częścią komputera RAMAC). Składała się z 50 talerzy o gigantycznej średnicy **$24$ cali** i mieściła zaledwie **$5$ megabajtów (MB)** danych! 
 
 Dziś, po dekadach ewolucji magnetyzmu i półprzewodników, na rynku dominują dwa całkowicie odmienne światy technologiczne, z którymi bezpośrednio współpracuje system Windows 11:
 - *MAGNETYCZNE HDD* (Talerzowe)
@@ -33,7 +33,7 @@ Przeanalizujmy szczegółowo budowę fizyczną obu typów nośników. Pozwoli to
 
 Klasyczny dysk twardy (HDD) to precyzyjne urządzenie elektro-mechaniczne. Dane są zapisywane magnetycznie na wirujących z ogromną prędkością **talerzach** (*platters*), pokrytych cienką warstwą ferromagnetyka. 
 
-Odczyt i zapis realizują mikroskopijne **głowice elektromagnetyczne** umieszczone na precyzyjnych ramionach pozycjonera. Fizyczny zapis danych na talerzu magnetycznym opiera się na polaryzacji miniaturowych domen magnetycznych (ziaren ferromagnetyka). We współczesnych dyskach stosuje się technologię **zapisu prostopadłego (PMR – Perpendicular Magnetic Recording)**, w której domeny magnetyczne są zorientowane pionowo względem powierzchni talerza, co umożliwia znacznie większą gęstość upakowania danych.
+Odczyt i zapis realizują mikroskopijne **głowice elektromagnetyczne** umieszczone na precyzyjnych ramionach pozycjonera. Fizyczny zapis danych na talerzu magnetycznym opiera się na polaryzacji miniaturowych domen magnetycznych (ziaren ferromagnetyka). We współczesnych dyskach stosuje się technologię **zapisu prostopadłego (PMR - Perpendicular Magnetic Recording)**, w której domeny magnetyczne są zorientowane pionowo względem powierzchni talerza, co umożliwia znacznie większą gęstość upakowania danych.
 
 ### 🏗️ Budowa i logiczny podział dysku HDD:
 
@@ -45,10 +45,10 @@ Schemat przedstawia zasadę prostopadłego zapisu magnetycznego (PMR) danych na 
 
 **Opis strukturalny diagramu**
 
-1. **Podział na domeny magnetyczne** – Rysunek przedstawia ciąg $12$ pionowych, prostokątnych komórek (domen magnetycznych) na powierzchni talerza dysku. Pierwsze $8$ komórek jest spolaryzowanych magnetycznie (kolorowe), a kolejne $4$ po prawej stronie są nieaktywne/szare.
-2. **Reprezentacja bitu 1 (kolor różowy/czerwony)** – Komórki reprezentujące wartość logiczną `1` posiadają polaryzację z biegunem północnym (N) na górze i południowym (S) na dole, co zilustrowano czarną strzałką skierowaną w górę. Pod każdą taką komórką widnieje czerwona cyfra `1`.
-3. **Reprezentacja bitu 0 (kolor niebieski)** – Komórki reprezentujące wartość logiczną `0` posiadają polaryzację z biegunem południowym (S) na górze i północnym (N) na dole, co zilustrowano czarną strzałką skierowaną w dół. Pod każdą taką komórką widnieje czerwona cyfra `0`.
-4. **Zapisana sekwencja binarna** – Uporządkowany ciąg ośmiu spolaryzowanych domen reprezentuje bajt danych o wartości binarnej: `1 0 1 0 0 1 0 1`.
+1. **Podział na domeny magnetyczne** - Rysunek przedstawia ciąg $12$ pionowych, prostokątnych komórek (domen magnetycznych) na powierzchni talerza dysku. Pierwsze $8$ komórek jest spolaryzowanych magnetycznie (kolorowe), a kolejne $4$ po prawej stronie są nieaktywne/szare.
+2. **Reprezentacja bitu 1 (kolor różowy/czerwony)** - Komórki reprezentujące wartość logiczną `1` posiadają polaryzację z biegunem północnym (N) na górze i południowym (S) na dole, co zilustrowano czarną strzałką skierowaną w górę. Pod każdą taką komórką widnieje czerwona cyfra `1`.
+3. **Reprezentacja bitu 0 (kolor niebieski)** - Komórki reprezentujące wartość logiczną `0` posiadają polaryzację z biegunem południowym (S) na górze i północnym (N) na dole, co zilustrowano czarną strzałką skierowaną w dół. Pod każdą taką komórką widnieje czerwona cyfra `0`.
+4. **Zapisana sekwencja binarna** - Uporządkowany ciąg ośmiu spolaryzowanych domen reprezentuje bajt danych o wartości binarnej: `1 0 1 0 0 1 0 1`.
 
 ---
 
@@ -66,14 +66,14 @@ Fizyczny schemat budowy przedstawia wewnętrzne i zewnętrzne komponenty dysku t
 
 **Opis strukturalny diagramu**
 
-1. **Elementy logiczne struktury danych (oznaczone na talerzu)** – wskazane są cztery obszary na wirującym talerzu magnetycznym: `ŚCIEŻKA` (jako pojedynczy okrąg), `SEKTOR DYSKU` (pojedynczy blok danych na ścieżce), `SEKTOR GEOMETRYCZNY` (wycinek przechodzący przez wszystkie talerze) oraz `KLASTER` (zgrupowanie sektorów).  
-2. **Mechanizm pozycjonowania** – wskazane jest `RAMIĘ GŁOWICY` połączone z elementem `UKŁAD POZYCJONUJĄCY RAMIĘ GŁOWICY`. Na końcu ramienia znajduje się `GŁOWICA` elektromagnetyczna.  
-3. **Konstrukcja nośnika i napęd** – w centrum znajdują się wirujące `TALERZE` osadzone na osi, którą obraca `SILNIK OBRACAJĄCY TALERZAMI`.  
-4. **Interfejsy przyłączeniowe** – na obudowie wyprowadzone są porty: zasilanie oznaczone jako `ZŁĄCZE ZASILANIA SATA` oraz złącze danych `WEJŚCIE SATA`.
+1. **Elementy logiczne struktury danych (oznaczone na talerzu)** - wskazane są cztery obszary na wirującym talerzu magnetycznym: `ŚCIEŻKA` (jako pojedynczy okrąg), `SEKTOR DYSKU` (pojedynczy blok danych na ścieżce), `SEKTOR GEOMETRYCZNY` (wycinek przechodzący przez wszystkie talerze) oraz `KLASTER` (zgrupowanie sektorów).  
+2. **Mechanizm pozycjonowania** - wskazane jest `RAMIĘ GŁOWICY` połączone z elementem `UKŁAD POZYCJONUJĄCY RAMIĘ GŁOWICY`. Na końcu ramienia znajduje się `GŁOWICA` elektromagnetyczna.  
+3. **Konstrukcja nośnika i napęd** - w centrum znajdują się wirujące `TALERZE` osadzone na osi, którą obraca `SILNIK OBRACAJĄCY TALERZAMI`.  
+4. **Interfejsy przyłączeniowe** - na obudowie wyprowadzone są porty: zasilanie oznaczone jako `ZŁĄCZE ZASILANIA SATA` oraz złącze danych `WEJŚCIE SATA`.
 
 - **Silnik i prędkość obrotowa** (*Spindle*): Silnik obraca talerzami ze stałą prędkością (standardowo $5400 \text{ RPM}$ w laptopach i dyskach przenośnych lub $7200 \text{ RPM}$ w komputerach stacjonarnych i serwerach).
-> $\text{RPM}$ – obroty na minutę (*Rotations Per Minute*).
-- **Wielotalerzowość:** Dysk może składać się z kilku talerzy zamontowanych na wspólnej osi. Każda powierzchnia talerza ma swoją dedykowaną głowicę odczytująco-zapisującą. Na powyższym schemacie widzimy pięć ramion pozycjonera niosących łącznie osiem głowic (obsługujących obie strony czterech talerzy) – gęstość zapisu na tak zaawansowanym stosie pozwala uzyskać pojemności rzędu $10\text{ TB}$ i więcej!
+> $\text{RPM}$ - obroty na minutę (*Rotations Per Minute*).
+- **Wielotalerzowość:** Dysk może składać się z kilku talerzy zamontowanych na wspólnej osi. Każda powierzchnia talerza ma swoją dedykowaną głowicę odczytująco-zapisującą. Na powyższym schemacie widzimy pięć ramion pozycjonera niosących łącznie osiem głowic (obsługujących obie strony czterech talerzy) - gęstość zapisu na tak zaawansowanym stosie pozwala uzyskać pojemności rzędu $10\text{ TB}$ i więcej!
 - **Poduszka powietrzna i sterylność:** Głowica nie dotyka talerza! Unosi się nad nim na wysokości zaledwie kilkunastu nanometrów, wykorzystując mikroskopijną poduszkę powietrzną tworzoną przez pęd powietrza wirującego nośnika.
 
 > [!CAUTION]
@@ -87,10 +87,10 @@ Fizyczny schemat budowy przedstawia wewnętrzne i zewnętrzne komponenty dysku t
       - **$12\text{ V}$** potrzebne do zasilenia silnika obracającego talerzami,
       - **$5\text{ V}$** zasilające układy elektroniczne dysku.
 
-### ⚙️ Windows 11 a HDD – Fragmentacja i Defragmentacja:
+### ⚙️ Windows 11 a HDD - Fragmentacja i Defragmentacja:
 Ponieważ dysk HDD jest urządzeniem mechanicznym, jego głowica musi fizycznie przemieścić się nad odpowiednią ścieżkę, a następnie poczekać, aż talerz obróci się pod nią do właściwego sektora (tzw. *opóźnienie rotacyjne*). 
 
-Z czasem zapisywania i usuwania plików, dane pojedynczego pliku ulegają **fragmentacji** – zostają rozrzucone w różnych klastrach na powierzchni całego dysku. Gdy głowica musi nieustannie skakać fizycznie z miejsca na miejsce, wydajność odczytu drastycznie spada.
+Z czasem zapisywania i usuwania plików, dane pojedynczego pliku ulegają **fragmentacji** - zostają rozrzucone w różnych klastrach na powierzchni całego dysku. Gdy głowica musi nieustannie skakać fizycznie z miejsca na miejsce, wydajność odczytu drastycznie spada.
 
 W systemie Windows 11 wbudowane narzędzie _**Defragmentacja i optymalizacja dysków**_ regularnie scala pofragmentowane pliki na nośnikach HDD, układając je w jeden ciągły ciąg klastrów. Dzięki temu głowica odczytuje plik jednym płynnym ruchem, co znacząco przyspiesza działanie systemu!
 
@@ -99,7 +99,7 @@ W systemie Windows 11 wbudowane narzędzie _**Defragmentacja i optymalizacja dys
 
 ### Dysk półprzewodnikowy SSD (Solid State Drive)
 
-Pamięć półprzewodnikowa nie jest nowym konceptem – z powodzeniem od lat służy jako pamięć operacyjna RAM. Jednak klasyczny RAM jest pamięcią **ulotną** (Dynamic RAM – DRAM), która wymaga stałego dopływu prądu do podtrzymania ładunku w kondensatorach. 
+Pamięć półprzewodnikowa nie jest nowym konceptem - z powodzeniem od lat służy jako pamięć operacyjna RAM. Jednak klasyczny RAM jest pamięcią **ulotną** (Dynamic RAM - DRAM), która wymaga stałego dopływu prądu do podtrzymania ładunku w kondensatorach. 
 
 Dysk SSD wykorzystuje nieulotną pamięć **NAND Flash**. Dzięki zastosowaniu tranzystorów z bramką pływającą (Floating Gate) lub technologii Charge Trap, komórki SSD potrafią trwale uwięzić ładunek elektryczny (elektrony) wewnątrz struktury krzemowej, zachowując dane po odłączeniu zasilania komputera. 
 
@@ -115,15 +115,15 @@ Schemat przedstawia wewnętrzną płytkę drukowaną (PCB) otwartego dysku SSD z
 
 **Opis strukturalny diagramu**
 
-1. **Moduły pamięci** – u góry płytki znajdują się cztery czarne układy scalone oznaczone jako `MODUŁY PAMIĘCI FLASH DZIAŁAJĄCE NA UKŁADACH PAMIĘCI NAND`.
-2. **Bufor danych** – po lewej stronie umieszczony jest mniejszy układ scalony oznaczony jako `BUFOR PAMIĘĆ CACHE`.
-3. **Układ sterujący** – w centrum znajduje się główny procesor dysku oznaczony jako `KONTROLER SSD`.
-4. **Złącze danych** – na dolnej krawędzi po lewej stronie wyprowadzone jest 7-pinowe `WEJŚCIE SATA`.
-5. **Złącze zasilania** – na dolnej krawędzi po prawej stronie znajduje się 15-pinowy port zasilający oznaczony jako `ZŁĄCZE ZASILANIA SATA`.
+1. **Moduły pamięci** - u góry płytki znajdują się cztery czarne układy scalone oznaczone jako `MODUŁY PAMIĘCI FLASH DZIAŁAJĄCE NA UKŁADACH PAMIĘCI NAND`.
+2. **Bufor danych** - po lewej stronie umieszczony jest mniejszy układ scalony oznaczony jako `BUFOR PAMIĘĆ CACHE`.
+3. **Układ sterujący** - w centrum znajduje się główny procesor dysku oznaczony jako `KONTROLER SSD`.
+4. **Złącze danych** - na dolnej krawędzi po lewej stronie wyprowadzone jest 7-pinowe `WEJŚCIE SATA`.
+5. **Złącze zasilania** - na dolnej krawędzi po prawej stronie znajduje się 15-pinowy port zasilający oznaczony jako `ZŁĄCZE ZASILANIA SATA`.
 
 Dyski SSD są całkowicie pozbawione ruchomych części mechanicznych. Składają się z trzech kluczowych komponentów:
 1.  **Kontroler SSD:** Zaawansowany procesor (mózg dysku). Odpowiada za korekcję błędów (ECC), równomierne zużycie komórek (*Wear Leveling*), szyfrowanie sprzętowe oraz protokół komunikacji.
-2.  **Pamięć podręczna DRAM:** Szybki bufor przechowujący mapę translacji adresów logicznych na fizyczne (FTL – Flash Translation Layer). Pozwala kontrolerowi błyskawicznie lokalizować dane na kościach pamięci.
+2.  **Pamięć podręczna DRAM:** Szybki bufor przechowujący mapę translacji adresów logicznych na fizyczne (FTL - Flash Translation Layer). Pozwala kontrolerowi błyskawicznie lokalizować dane na kościach pamięci.
 3.  **Kości pamięci NAND Flash:** Półprzewodnikowe układy scalone przechowujące pliki w komórkach krzemowych.
 
 ### 📊 Ewolucja pamięci Flash: SLC vs MLC vs TLC vs QLC vs PLC:
@@ -137,19 +137,19 @@ Render 3D porównuje pięć typów komórek pamięci NAND Flash (SLC, MLC, TLC, 
 
 **Opis strukturalny diagramu**
 
-1. **Komórka SLC** – kolumna oznaczona jako `SLC` z zielonym nagłówkiem `1b` (1 bit), zawierająca 2 zielone walce oznaczone cyfrą `1` (2 poziomy napięcia).
-2. **Komórka MLC** – kolumna oznaczona jako `MLC` z żółtym nagłówkiem `2b` (2 bity), zawierająca stos 4 żółtych walców oznaczonych liczbą `10` (4 poziomy napięcia).
-3. **Komórka TLC** – kolumna oznaczona jako `TLC` z różowym nagłówkiem `3b` (3 bity), zawierająca stos 8 różowych walców oznaczonych liczbą `101` (8 poziomów napięcia).
-4. **Komórka QLC** – kolumna oznaczona jako `QLC` z niebieskim nagłówkiem `4b` (4 bity), zawierająca stos 16 niebieskich walców oznaczonych liczbą `1010` (16 poziomów napięcia).
-5. **Komórka PLC** – kolumna oznaczona jako `PLC` z czerwonym nagłówkiem `5b` (5 bitów), zawierająca stos 32 czerwonych walców oznaczonych liczbą `10101` (32 poziomy napięcia).
+1. **Komórka SLC** - kolumna oznaczona jako `SLC` z zielonym nagłówkiem `1b` (1 bit), zawierająca 2 zielone walce oznaczone cyfrą `1` (2 poziomy napięcia).
+2. **Komórka MLC** - kolumna oznaczona jako `MLC` z żółtym nagłówkiem `2b` (2 bity), zawierająca stos 4 żółtych walców oznaczonych liczbą `10` (4 poziomy napięcia).
+3. **Komórka TLC** - kolumna oznaczona jako `TLC` z różowym nagłówkiem `3b` (3 bity), zawierająca stos 8 różowych walców oznaczonych liczbą `101` (8 poziomów napięcia).
+4. **Komórka QLC** - kolumna oznaczona jako `QLC` z niebieskim nagłówkiem `4b` (4 bity), zawierająca stos 16 niebieskich walców oznaczonych liczbą `1010` (16 poziomów napięcia).
+5. **Komórka PLC** - kolumna oznaczona jako `PLC` z czerwonym nagłówkiem `5b` (5 bitów), zawierająca stos 32 czerwonych walców oznaczonych liczbą `10101` (32 poziomy napięcia).
 
-- **SLC (Single-Level Cell – 1 bit/komórkę):** Przechowuje $2$ stany napięcia. Najszybsza, o najwyższej trwałości (do $100\ 000$ cykli zapisu), ale bardzo droga i o małej pojemności.
-- **MLC (Multi-Level Cell – 2 bity/komórkę):** Przechowuje $4$ stany napięcia. Standard w starszych profesjonalnych dyskach SSD. Żywotność ok. $10\ 000$ cykli.
-- **TLC (Triple-Level Cell – 3 bity/komórkę):** Przechowuje $8$ stanów napięcia. Obecny standard w większości współczesnych dysków SSD. Świetny kompromis wydajności i trwałości ($3000$ cykli).
-- **QLC (Quad-Level Cell – 4 bity/komórkę):** Przechowuje $16$ stanów napięcia. Bardzo tanie dyski o ogromnych pojemnościach, ale o niskiej trwałości (ok. $1000$ cykli) i silnym spadku prędkości zapisu po zapełnieniu bufora DRAM/SLC.
-- **PLC (Penta-Level Cell – 5 bitów/komórkę):** Przechowuje $32$ stany napięcia. Nadchodzący standard mający zastąpić klasyczne HDD w serwerowniach typu „zimne archiwum”. Ekstremalnie tanie kosztem żywotności, która może wynosić poniżej $500$ cykli na komórkę.
+- **SLC (Single-Level Cell - 1 bit/komórkę):** Przechowuje $2$ stany napięcia. Najszybsza, o najwyższej trwałości (do $100\ 000$ cykli zapisu), ale bardzo droga i o małej pojemności.
+- **MLC (Multi-Level Cell - 2 bity/komórkę):** Przechowuje $4$ stany napięcia. Standard w starszych profesjonalnych dyskach SSD. Żywotność ok. $10\ 000$ cykli.
+- **TLC (Triple-Level Cell - 3 bity/komórkę):** Przechowuje $8$ stanów napięcia. Obecny standard w większości współczesnych dysków SSD. Świetny kompromis wydajności i trwałości ($3000$ cykli).
+- **QLC (Quad-Level Cell - 4 bity/komórkę):** Przechowuje $16$ stanów napięcia. Bardzo tanie dyski o ogromnych pojemnościach, ale o niskiej trwałości (ok. $1000$ cykli) i silnym spadku prędkości zapisu po zapełnieniu bufora DRAM/SLC.
+- **PLC (Penta-Level Cell - 5 bitów/komórkę):** Przechowuje $32$ stany napięcia. Nadchodzący standard mający zastąpić klasyczne HDD w serwerowniach typu „zimne archiwum”. Ekstremalnie tanie kosztem żywotności, która może wynosić poniżej $500$ cykli na komórkę.
 
-### ⚠️ Windows 11 a SSD – Kategoryczny zakaz defragmentacji i funkcja TRIM:
+### ⚠️ Windows 11 a SSD - Kategoryczny zakaz defragmentacji i funkcja TRIM:
 
 > [!CAUTION]
 > **_Pod żadnym pozorem nie defragmentuj dysków SSD!_**
@@ -169,14 +169,14 @@ Aby odzyskać zablokowaną przestrzeń po starych aktualizacjach Windows na prze
 ```powershell
 cleanmgr
 ```
-> Zastosowanie dla `cleanmgr` ma sens przy małych dyskach systemowych – na ogromnych, kilkuterrabajtowych nośnikach na dane, odzyskane za jego pomocą np. $600 \text{ MB}$ to kropla w morzu nie wpływająca w żadnym stopniu na kondycję SSD.
+> Zastosowanie dla `cleanmgr` ma sens przy małych dyskach systemowych - na ogromnych, kilkuterrabajtowych nośnikach na dane, odzyskane za jego pomocą np. $600 \text{ MB}$ to kropla w morzu nie wpływająca w żadnym stopniu na kondycję SSD.
 
 **Weryfikacja działania funkcji TRIM w Windows 11:**
 Upewnij się, że system poprawnie wysyła do dysku komendy czyszczące. Otwórz konsolę PowerShell z uprawnieniami administratora i wpisz:
 ```powershell
 fsutil behavior query DisableDeleteNotify
 ```
-W najnowszych systemach operacyjnych otrzymasz precyzyjny raport ze statusem oddzielnie dla każdego systemu plików (wartość `0` oznacza, że blokada TRIM jest wyłączona – a zatem sam TRIM **działa i poprawnie komunikuje się ze sprzętem**):
+W najnowszych systemach operacyjnych otrzymasz precyzyjny raport ze statusem oddzielnie dla każdego systemu plików (wartość `0` oznacza, że blokada TRIM jest wyłączona - a zatem sam TRIM **działa i poprawnie komunikuje się ze sprzętem**):
 ```yaml
 NTFS DisableDeleteNotify = 0  (Allows TRIM operations to be sent to the storage device)
 ReFS DisableDeleteNotify = 0  (Allows TRIM operations to be sent to the storage device)
@@ -258,7 +258,7 @@ Wniosek jest brutalny: podłączanie nowoczesnych pamięci krzemowych przez arch
 
 ## Protokół NVMe i rewolucja DirectStorage
 
-**NVMe** (*Non-Volatile Memory Express*) to nowoczesny język stworzony od podstaw z myślą o błyskawicznych dyskach krzemowych. Omija on powolny kontroler dysków i podłącza pamięć bezpośrednio pod autostradę do procesora – szynę **PCI Express (PCIe)**!
+**NVMe** (*Non-Volatile Memory Express*) to nowoczesny język stworzony od podstaw z myślą o błyskawicznych dyskach krzemowych. Omija on powolny kontroler dysków i podłącza pamięć bezpośrednio pod autostradę do procesora - szynę **PCI Express (PCIe)**!
 
 - **Genialne kolejkowanie:** Zamiast jednej powolnej kolejki z AHCI, system Windows operując na protokole NVMe potrafi otworzyć **aż $64\ 000$ równoległych kolejek**, a w każdej z nich przetwarzać kolejne $64\ 000$ zadań! To wreszcie pozwala na nakarmienie danymi ogromnych, wielordzeniowych procesorów (CPU).
 - **Przepustowości w gigabajtach:** Dyski NVMe na złączu PCIe $3.0$ osiągają do $3500\text{ MB/s}$, generacja PCIe $4.0$ podbija to do $7500\text{ MB/s}$, natomiast absolutnie nowe układy na szynie PCIe $5.0$ wyciągają zatrważające **$14\ 000\text{ MB/s}$ ($14\text{ GB/s}$)**. To $25$-krotnie szybciej niż jakikolwiek SSD zapięty pod kabelkiem SATA!
@@ -272,27 +272,7 @@ Wniosek jest brutalny: podłączanie nowoczesnych pamięci krzemowych przez arch
 
 ---
 
-<data-gate>
-  <data-quiz>
-    <question>Użytkownik zakupił dysk SSD w formacie M.2 SATA i podłączył go do nowego laptopa. Po uruchomieniu testu prędkości zauważył, że transfery nie przekraczają 550 MB/s. Co jest przyczyną?</question>
-    <options>
-      <item>Port M.2 na płycie głównej automatycznie przełączył się w tryb oszczędzania energii ze względu na brak wsparcia dla protokołu NVMe.</item>
-      <item correct>Złącze M.2 określa jedynie format fizyczny; dysk M.2 SATA wciąż komunikuje się za pomocą starego protokołu AHCI z limitem szyny SATA III.</item>
-      <item>System operacyjny Windows 11 wymaga włączenia DirectStorage, aby odblokować pełną przepustowość magistrali PCIe dla dysków M.2.</item>
-      <item>Konstrukcja wymaga manualnego przełączenia typu klucza fizycznego z Key B na Key M w ustawieniach systemu BIOS/UEFI płyty głównej.</item>
-    </options>
-    <div data-hint="error">
-      Wskazówka: Zastanów się, czy samo złącze M.2 gwarantuje korzystanie z szyny PCIe (NVMe) i czy klucze fizyczne (wycięcia) oraz technologie optymalizacji gier mają wpływ na ogólny limit przepustowości interfejsu SATA III.
-    </div>
-    <div data-hint="success">
-      Dokładnie! Złącze M.2 to tylko format fizyczny. Jeżeli zakupiony nośnik to dysk M.2 SATA, to korzysta on z protokołu SATA/AHCI i jest ograniczony przepustowością szyny SATA III. Aby uzyskać prędkości rzędu tysięcy MB/s, należy zastosować dysk M.2 NVMe (korzystający z szyny PCIe).
-    </div>
-  </data-quiz>
-</data-gate>
-
----
-
-### 🏗️ Od fizyki do litery dysku – logiczne etapy organizacji danych
+### 🏗️ Od fizyki do litery dysku - logiczne etapy organizacji danych
 
 Zanim surowy nośnik fizyczny (HDD lub SSD) pokaże się jako znana litera dysku `C:` w oknie Eksploratora plików, system operacyjny Windows 11 musi przeprowadzić logiczną strukturyzację danych. 
 
@@ -306,7 +286,7 @@ Pomyśl o tym jak o kolejnych etapach wznoszenia budynku mieszkalnego:
 
 ### 📋 Tablice partycjonowania: MBR vs GPT
 
-Po zrozumieniu z czym fizycznie się komunikujemy (SATA czy NVMe), musimy założyć na tym czystym nośniku „plan geodezyjny”. Tym właśnie jest **Tablica partycji** (*Partition Table*) – to pierwsza rzecz, którą system Windows 11 odczytuje ze świeżego dysku twardego. Decyduje ona o tym, ile partycji możesz na nim utworzyć oraz na jak pojemnych dyskach w ogóle będziesz w stanie operować!
+Po zrozumieniu z czym fizycznie się komunikujemy (SATA czy NVMe), musimy założyć na tym czystym nośniku „plan geodezyjny”. Tym właśnie jest **Tablica partycji** (*Partition Table*) - to pierwsza rzecz, którą system Windows 11 odczytuje ze świeżego dysku twardego. Decyduje ona o tym, ile partycji możesz na nim utworzyć oraz na jak pojemnych dyskach w ogóle będziesz w stanie operować!
 
 <data-tabs>
   <tabs>
@@ -327,16 +307,16 @@ Diagram przedstawia strukturę logiczną pierwszego sektora dysku ($512$ bajtów
 
 **Opis strukturalny diagramu**
 
-1. **Kod rozruchowy (Bootloader)** – największy blok po lewej stronie zajmujący `440 bajtów` przeznaczony na kod programu rozruchowego.
-2. **Identyfikator dysku** – blok o rozmiarze `4 bajty` zawierający unikalną sygnaturę dysku.
-3. **Puste bajty** – wąski, czarny obszar zajmujący `2 bajty` (niewykorzystane, puste bajty znajdujące się bezpośrednio po sygnaturze dysku).
-4. **Tabela partycji** – obszar o łącznej wielkości `64 bajtów`, podzielony na cztery równe bloki po `16 bajtów` każdy, odpowiadające wpisom dla `Partycja 1`, `Partycja 2`, `Partycja 3` oraz `Partycja 4`.
-5. **Sygnatura rozruchowa MBR** – blok końcowy po prawej stronie o rozmiarze `2 bajty` (standardowo o wartości `0x55AA`).
+1. **Kod rozruchowy (Bootloader)** - największy blok po lewej stronie zajmujący `440 bajtów` przeznaczony na kod programu rozruchowego.
+2. **Identyfikator dysku** - blok o rozmiarze `4 bajty` zawierający unikalną sygnaturę dysku.
+3. **Puste bajty** - wąski, czarny obszar zajmujący `2 bajty` (niewykorzystane, puste bajty znajdujące się bezpośrednio po sygnaturze dysku).
+4. **Tabela partycji** - obszar o łącznej wielkości `64 bajtów`, podzielony na cztery równe bloki po `16 bajtów` każdy, odpowiadające wpisom dla `Partycja 1`, `Partycja 2`, `Partycja 3` oraz `Partycja 4`.
+5. **Sygnatura rozruchowa MBR** - blok końcowy po prawej stronie o rozmiarze `2 bajty` (standardowo o wartości `0x55AA`).
 
 Obecnie traktuje się go jak przestarzały skansen inżynieryjny, ze względu na potężne ograniczenia:
 
 - **Limit pojemności:** MBR potrafi zaadresować maksymalnie wolumin o rozmiarze do $2\text{ TB}$. Jeśli podłączysz dysk $4\text{ TB}$ zaimplementowany w starym MBR, Windows zobaczy tylko równe $2\text{ TB}$, a pozostała część powierzchni sprzętowej zmarnuje się jako „niedostępny obszar”.
-- **Limit partycji:** Pozwala utworzyć maksymalnie **$4$ partycje podstawowe** na dysku (jeśli klient chce $5$ partycji, technik musi utworzyć $3$ podstawowe i $1$ rozszerzoną z partycjami logicznymi – tzw. rzeźbienie w miedzi).
+- **Limit partycji:** Pozwala utworzyć maksymalnie **$4$ partycje podstawowe** na dysku (jeśli klient chce $5$ partycji, technik musi utworzyć $3$ podstawowe i $1$ rozszerzoną z partycjami logicznymi - tzw. rzeźbienie w miedzi).
 - **Zależność sprzętowa:** Wymaga uruchamiania komputera w przestarzałym trybie startu **Legacy BIOS** (lub moduł CSM).
 - **Brak odporności na uszkodzenia:** Cała definicja partycji dla całego nośnika to pojedynczy malutki rekord, trzymany w Sektorze LBA $0$ (na samym fizycznym początku dysku).
   - ❌ Jeśli jakakolwiek awaria (np. bad-sector) uderzy w ten konkretny punkt, **cała struktura dysku znika!** Dysk raportuje się jako „RAW” i wymaga specjalistycznego oprogramowania (np. TestDisk) do próby odtworzenia tej tabeli po omacku.
@@ -356,16 +336,16 @@ Schemat przedstawia pionowy układ logicznych bloków adresowania (LBA) w strukt
 
 **Opis strukturalny diagramu**
 
-1. **Sektor ochronny (LBA 0)** – na samym początku znajduje się blok `Ochronny MBR` (zabezpieczający strukturę przed starszym oprogramowaniem).
-2. **Główny nagłówek (LBA 1)** – blok zawierający `Główny Nagłówek GPT`.
-3. **Główna tabela partycji (LBA 2 - LBA 33)** – blok tabeli zawierający wpisy o partycjach (maksymalnie 128 wpisów, gdzie każdy wpis ma rozmiar 128 bajtów).
-4. **Przestrzeń danych (od LBA 34 do LBA -34)** – obszar podzielony kolejno na `Partycja 1`, `Partycja 2` oraz sekcję `Pozostałe partycje`.
-5. **Zapasowa tabela partycji (LBA -33 do LBA -2)** – kopia zapasowa głównej tabeli wpisów o partycjach, zlokalizowana na końcu nośnika.
-6. **Zapasowy nagłówek (LBA -1)** – zlokalizowany w ostatnim logicznym sektorze dysku `Drugi zapasowy nagłówek GPT`.
+1. **Sektor ochronny (LBA 0)** - na samym początku znajduje się blok `Ochronny MBR` (zabezpieczający strukturę przed starszym oprogramowaniem).
+2. **Główny nagłówek (LBA 1)** - blok zawierający `Główny Nagłówek GPT`.
+3. **Główna tabela partycji (LBA 2 - LBA 33)** - blok tabeli zawierający wpisy o partycjach (maksymalnie 128 wpisów, gdzie każdy wpis ma rozmiar 128 bajtów).
+4. **Przestrzeń danych (od LBA 34 do LBA -34)** - obszar podzielony kolejno na `Partycja 1`, `Partycja 2` oraz sekcję `Pozostałe partycje`.
+5. **Zapasowa tabela partycji (LBA -33 do LBA -2)** - kopia zapasowa głównej tabeli wpisów o partycjach, zlokalizowana na końcu nośnika.
+6. **Zapasowy nagłówek (LBA -1)** - zlokalizowany w ostatnim logicznym sektorze dysku `Drugi zapasowy nagłówek GPT`.
 
 - **Kosmiczne limity pojemności:** Zamiast małego systemu identyfikatorów, każdy blok i partycja otrzymuje <span style="white-space:nowrap">$128$-bitowy</span> **kryptograficzny GUID** (*Globally Unique Identifier*). Pozwala to tablicy obsługiwać fizyczne dyski twarde o rozmiarze sięgającym niewyobrażalnych **$9{,}4\text{ ZB}$ (zetta-bajtów)**. Limit nie będzie problemem przez najbliższe dziesięciolecia!
 - **Wielka elastyczność:** Natywne wsparcie dla **$128$ równoległych partycji podstawowych** bezpośrednio w strukturze logicznej systemu Windows.
-- **Wbudowana redundancja i odporność:** W standardzie GPT na dysku przechowywane są jednocześnie **dwie w pełni funkcjonalne kopie struktury partycji**! Pierwsza znajduje się na fizycznym początku nośnika (LBA 1), a druga (Safety Backup) – obowiązkowo na **ostatnim użytecznym sektorze fizycznym nośnika**.
+- **Wbudowana redundancja i odporność:** W standardzie GPT na dysku przechowywane są jednocześnie **dwie w pełni funkcjonalne kopie struktury partycji**! Pierwsza znajduje się na fizycznym początku nośnika (LBA 1), a druga (Safety Backup) - obowiązkowo na **ostatnim użytecznym sektorze fizycznym nośnika**.
   - ✅ Jeśli na początku dysku pojawi się fizyczny *bad-sector*, system UEFI ułamek sekundy później automatycznie wczytuje tabelę z końca dysku i nadpisuje uszkodzoną kopię główną naprawiając system w locie!
 
   </div>
@@ -382,40 +362,20 @@ Co zrobić, gdy stary komputer pracowniczy klienta ma na jedynym dysku stary for
 
 W Windows 11 i Windows 10 dostępny jest potężny, bezstratny kombajn w wierszu poleceń. Pozwala w $\approx 10$ sekund na przepisanie struktury całego dysku MBR na w pełni redundantne bloki GPT, **bez utraty nawet jednego bitu z plików pracownika!** Wywołaj ten proces w konsoli CMD jako Administrator:
 
-1. **Etap 1 – Walidacja** (Narzędzie symuluje, czy układ partycji pozwala na konwersję w locie):
+1. **Etap 1 - Walidacja** (Narzędzie symuluje, czy układ partycji pozwala na konwersję w locie):
     ```cmd
     mbr2gpt /validate /allowFullOS
     ```
-2. **Etap 2 – Właściwa konwersja (_Bez powrotu_):**
+2. **Etap 2 - Właściwa konwersja (_Bez powrotu_):**
     ```cmd
     mbr2gpt /convert /allowFullOS
     ```
-3. **Etap 3 – Krytyczny Reboot UEFI:** System poinformuje, by natychmiast wykonać restart! Musisz szybko wejść do konfiguracji płyty głównej (klawisz <kbd>F2</kbd> / <kbd>DEL</kbd>) i zmienić ustawienie **Boot Mode z trybu *Legacy (CSM)* na *UEFI***. Jeśli tego nie zrobisz, BIOS spróbuje czytać stary Sektor $0$ MBR i system się nie załaduje, zgłaszając <span style="white-space:nowrap;">*„Boot Device Not Found”*.</span>
-
----
-
-<data-gate>
-  <data-quiz>
-    <question>Technik z innego oddziału pyta Cię przez komunikator: „Przekonwertowałem dysk systemowy komputera z MBR na GPT za pomocą narzędzia MBR2GPT.exe. Konwersja zakończyła się sukcesem, ale po restarcie komputer wyświetla błąd 'No bootable device found'. Co zrobił nie tak?"</question>
-    <options>
-      <item>Uruchomione narzędzie MBR2GPT.exe uszkodziło pliki rozruchowe systemu, co wymaga wdrożenia nowego obrazu instalacyjnego Windows.</item>
-      <item correct>Po konwersji dysku nie zmieniono trybu rozruchu (Boot Mode) w ustawieniach UEFI płyty głównej z Legacy (CSM BIOS) na czysty standard UEFI.</item>
-      <item>Wielkość sektorów fizycznych nowego dysku uniemożliwiła poprawne odczytanie tablicy GPT przez stary kontroler w trybie automatycznym.</item>
-      <item>Dla nowo powstałej tablicy partycji GPT należy pilnie wywołać procedurę chkdsk /f /r z poziomu zewnętrznego środowiska WinRE.</item>
-    </options>
-    <div data-hint="error">
-      Wskazówka: Zwróć uwagę, jak zmiana typu tablicy partycji z MBR na GPT wpływa na sposób, w jaki płyta główna odnajduje system operacyjny podczas startu komputera.
-    </div>
-    <div data-hint="success">
-      Dokładnie! Konwersja na GPT wymusza przejście na nowoczesny standard startu UEFI. Płyta główna w trybie Legacy nie zrozumie partycji EFI. Przełączenie opcji Boot Mode na UEFI w ustawieniach płyty głównej natychmiast uruchomi system!
-    </div>
-  </data-quiz>
-</data-gate>
+3. **Etap 3 - Krytyczny Reboot UEFI:** System poinformuje, by natychmiast wykonać restart! Musisz szybko wejść do konfiguracji płyty głównej (klawisz <kbd>F2</kbd> / <kbd>DEL</kbd>) i zmienić ustawienie **Boot Mode z trybu *Legacy (CSM)* na *UEFI***. Jeśli tego nie zrobisz, BIOS spróbuje czytać stary Sektor $0$ MBR i system się nie załaduje, zgłaszając <span style="white-space:nowrap;">*„Boot Device Not Found”*.</span>
 
 ---
 
 
-### 📂 Systemy plików – jak Windows organizuje dane
+### 📂 Systemy plików - jak Windows organizuje dane
 
 System plików to „język”, którym partycja opisuje swoje pliki i foldery. Wybór systemu plików determinuje, co możesz zrobić z danym nośnikiem.
 
@@ -428,9 +388,9 @@ System plików to „język”, którym partycja opisuje swoje pliki i foldery. 
   </tabs>
   <div>
 
-### NTFS – Domyślny, transakcyjny system plików Windows
+### NTFS - Domyślny, transakcyjny system plików Windows
 
-**New Technology File System** – standard dla wszystkich wewnętrznych dysków Windows od wersji $\text{NT/}2000$. Działa w sposób w pełni transakcyjny (dziennikowany).
+**New Technology File System** - standard dla wszystkich wewnętrznych dysków Windows od wersji $\text{NT/}2000$. Działa w sposób w pełni transakcyjny (dziennikowany).
 
 | Cecha | Wartość |
 | :--- | :--- |
@@ -452,9 +412,9 @@ System plików to „język”, którym partycja opisuje swoje pliki i foldery. 
   </div>
   <div>
 
-### exFAT – Optymalny standard dla pamięci przenośnych
+### exFAT - Optymalny standard dla pamięci przenośnych
 
-**Extended File Allocation Table** – stworzony przez Microsoft specjalnie z myślą o szybkich pamięciach flash (pendrive'y, karty SD, dyski zewnętrzne SSD).
+**Extended File Allocation Table** - stworzony przez Microsoft specjalnie z myślą o szybkich pamięciach flash (pendrive'y, karty SD, dyski zewnętrzne SSD).
 
 | Cecha | Wartość |
 | :--- | :--- |
@@ -478,9 +438,9 @@ System plików to „język”, którym partycja opisuje swoje pliki i foldery. 
   </div>
   <div>
 
-### FAT32 – Kompatybilny weteran IT
+### FAT32 - Kompatybilny weteran IT
 
-**File Allocation Table 32** – system plików z $1996$ roku (debiutował w Windows 95 OSR2), wciąż obecny w świecie IT wyłącznie ze względów kompatybilności wstecznej.
+**File Allocation Table 32** - system plików z $1996$ roku (debiutował w Windows 95 OSR2), wciąż obecny w świecie IT wyłącznie ze względów kompatybilności wstecznej.
 
 | Cecha | Wartość |
 | :--- | :--- |
@@ -490,7 +450,7 @@ System plików to „język”, którym partycja opisuje swoje pliki i foldery. 
 | Uprawnienia plików (ACL) | ❌ Nie |
 | Kompatybilność | ✅ Działa ze wszystkim, co posiada port USB (nawet z bardzo starym sprzętem) <br> PS. Nie próbuj z pralką. 🤫 |
 
-**Kiedy użyć:** Tylko gdy urządzenie docelowe bezwzględnie wymaga FAT32 – np. starsze radia samochodowe, starsze telewizory, systemy plików w mikrokontrolerach lub partycja rozruchowa EFI (ESP) w Windowsie!
+**Kiedy użyć:** Tylko gdy urządzenie docelowe bezwzględnie wymaga FAT32 - np. starsze radia samochodowe, starsze telewizory, systemy plików w mikrokontrolerach lub partycja rozruchowa EFI (ESP) w Windowsie!
 
 > [!CAUTION]
 > **Pułapka $4\text{ GB}$:** To klasyczne zgłoszenie helpdeskowe. Klient przynosi pendrive 64 GB i mówi: *„Mam 40 GB wolnego miejsca, ale system zgłasza błąd braku miejsca przy próbie skopiowania filmu 5 GB”*.
@@ -505,9 +465,9 @@ System plików to „język”, którym partycja opisuje swoje pliki i foldery. 
   </div>
   <div>
 
-### ReFS – Odporność i przyszłość pod kątem serwerów i deweloperów
+### ReFS - Odporność i przyszłość pod kątem serwerów i deweloperów
 
-**Resilient File System** – zaawansowany system plików Microsoftu, zaprojektowany z myślą o maksymalnej spójności, odporności na ciche uszkodzenia danych oraz potężnych serwerowych magazynach danych (typu Big Data).
+**Resilient File System** - zaawansowany system plików Microsoftu, zaprojektowany z myślą o maksymalnej spójności, odporności na ciche uszkodzenia danych oraz potężnych serwerowych magazynach danych (typu Big Data).
 
 | Cecha | Wartość |
 | :--- | :--- |
@@ -527,33 +487,13 @@ ReFS wykorzystuje sumy kontrolne (checksums) do ciągłej weryfikacji integralno
    - Jeśli wykryje, że bit "zgnił" (suma się nie zgadza), zrzuca błąd i ignoruje dane.
    - Natychmiast i bez wstrzymywania procesu użytkownika uderza do bliźniaczego Dysku nr 2, pobiera stamtąd poprawny pakiet, dostarcza go do procesora i potajemnie naprawia w tle zgniły sektor na <span style="white-space:nowrap">Dysku nr 1.</span>
 
-### 🚀 Dev Drive w Windows 11 – ReFS dla programistów:
+### 🚀 Dev Drive w Windows 11 - ReFS dla programistów:
 Windows 11 (od wersji 23H2) pozwala na stworzenie dedykowanej partycji programistycznej **Dev Drive** opartą na ReFS. Zapewnia ona:
 - **Copy-on-Write (Block Cloning):** Klonowanie ogromnych repozytoriów kodu lub plików maszyn wirtualnych odbywa się w milisekundach, ponieważ system plików tworzy jedynie nowe wskaźniki bez fizycznego kopiowania bloków danych na dysku.
 - **Asynchroniczny tryb Microsoft Defender:** Dedykowany tryb antywirusowy dla Dev Drive redukuje narzut skanowania operacji wejścia/wyjścia plików tymczasowych (np. folderów `node_modules`, cache kompilatora), przyspieszając kompilację kodu nawet o **$30\text{--}40\\%$**!
 
   </div>
 </data-tabs>
-
----
-
-<data-gate>
-  <data-quiz>
-    <question>Pracownik z działu deweloperskiego zgłasza: „Zbudowanie naszego projektu w Node.js zajmuje mi na nowym laptopie z Windows 11 aż 5 minut. Wszyscy na Linuxie robią to w 3 minuty. Czy mój dysk SSD NVMe jest uszkodzony?”. Co zrobisz jako inżynier?</question>
-    <options>
-      <item>Zlecisz fizyczną wymianę dysku NVMe oraz płyty głównej w serwisie, podejrzewając sprzętowe uszkodzenie kontrolera pamięci.</item>
-      <item>Zalecisz całkowite wyłączenie ochrony antywirusowej Microsoft Defender w systemie, aby wyeliminować skanowanie w locie.</item>
-      <item correct>Utworzysz dedykowaną partycję Dev Drive z systemem ReFS, oferującą asynchroniczne skanowanie antywirusowe i Block Cloning.</item>
-      <item>Zaproponujesz zmianę formatu całego dysku systemowego z NTFS na exFAT, co skróci czas operacji wejścia-wyjścia na plikach.</item>
-    </options>
-    <div data-hint="error">
-      Wskazówka: Całkowite wyłączenie antywirusa w firmie to poważne ryzyko bezpieczeństwa, a SSD NVMe rzadko wykazuje tak specyficzne, stabilne spowolnienie. Pomyśl o nowej funkcji Windows 11, zaprojektowanej specjalnie dla deweloperów.
-    </div>
-    <div data-hint="success">
-      Świetna diagnoza! Dev Drive to rewelacyjna funkcja Windows 11 stworzona dokładnie pod takie scenariusze. Wykorzystanie ReFS (Block Cloning/Copy-on-Write) oraz przełączenie Defendera w tryb asynchroniczny (bezpieczny dla systemu, wydajny dla kodu) redukuje narzut kompilacji o $30\text{–}40\\%$!
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -586,7 +526,7 @@ Interfejs przystawki podzielony jest na dwie główne sekcje robocze:
 
 ---
 
-### 🗺️ Ukryte partycje Windows 11 – dlaczego NIE wolno ich ruszać
+### 🗺️ Ukryte partycje Windows 11 - dlaczego NIE wolno ich ruszać
 
 Gdy otworzysz `diskmgmt.msc` na nowo zainstalowanym komputerze, obok głównego dysku `C:` zobaczysz kilka dodatkowych partycji, które nie posiadają przypisanej litery dysku i powinny być ukryte w Eksploratorze plików. 
 
@@ -613,13 +553,13 @@ Windows automatycznie wyświetli okno pop-up z pytaniem o **Inicjalizację dysku
 
 > [!CAUTION]
 > **Inicjalizacja czyści dysk!**
-> Jeśli podłączasz stary dysk z innego komputera w celu zgrania danych i system krzyczy, że dysk wymaga inicjalizacji – **_pod żadnym pozorem tego nie rób!_** ✋🏻 Oznacza to uszkodzenie metadanych tablicy partycji. W takim scenariuszu użyj specjalnego oprogramowania do ratowania danych.
+> Jeśli podłączasz stary dysk z innego komputera w celu zgrania danych i system krzyczy, że dysk wymaga inicjalizacji - **_pod żadnym pozorem tego nie rób!_** ✋🏻 Oznacza to uszkodzenie metadanych tablicy partycji. W takim scenariuszu użyj specjalnego oprogramowania do ratowania danych.
 
 ---
 
-### 💿 Wirtualne dyski twarde (VHD / VHDX) – Dyski ukryte w pliku
+### 💿 Wirtualne dyski twarde (VHD / VHDX) - Dyski ukryte w pliku
 
-Wirtualne dyski twarde (**VHD** – Virtual Hard Disk oraz nowszy **VHDX**) to pliki o specjalnym formacie, które system Windows potrafi zamontować w taki sposób, jakby były fizycznie podłączonymi do komputera dyskami twardymi. Zyskują one osobną literę dysku w Eksploratorze i mogą być swobodnie partycjonowane oraz formatowane.
+Wirtualne dyski twarde (**VHD** - Virtual Hard Disk oraz nowszy **VHDX**) to pliki o specjalnym formacie, które system Windows potrafi zamontować w taki sposób, jakby były fizycznie podłączonymi do komputera dyskami twardymi. Zyskują one osobną literę dysku w Eksploratorze i mogą być swobodnie partycjonowane oraz formatowane.
 
 #### 🔬 Różnica: VHD vs VHDX:
 - **VHD:** Starszy format. Obsługuje wirtualne dyski o maksymalnej pojemności do **$2\text{ TB}$**.
@@ -652,26 +592,6 @@ Wirtualne dyski twarde (**VHD** – Virtual Hard Disk oraz nowszy **VHDX**) to p
 > ```powershell
 > Mount-DiskImage -ImagePath "C:\DyskWirtualny.vhdx"
 > ```
-
----
-
-<data-gate>
-  <data-quiz>
-    <question>Podczas analizy dysków w diskmgmt.msc zauważyłeś trzy ukryte partycje bez przypisanych liter dysków: EFI (ESP), MSR oraz Recovery (WinRE). Która z nich jest kluczowa, aby komputer z Windows 11 w ogóle mógł załadować system operacyjny?</question>
-    <options>
-      <item correct>Partycja EFI (ESP) o pojemności ok. $100\text{–}260\text{ MB}$ – przechowuje bootloader systemu Windows (.efi) wymagany do startu w trybie UEFI.</item>
-      <item>Partycja Recovery (WinRE) o rozmiarze ok. $500\text{–}700\text{ MB}$ – przechowuje główne jądro systemu oraz sterowniki potrzebne przy rozruchu.</item>
-      <item>Partycja MSR (Microsoft Reserved) o wielkości $16\text{ MB}$ – odpowiada bezpośrednio za rozruch interfejsu graficznego powłoki Explorer.</item>
-      <item>Żadna z nich – wszystkie te partycje są opcjonalne i można je usunąć w DiskPart, scalając wolne miejsce bezpośrednio z dyskiem C:.</item>
-    </options>
-    <div data-hint="error">
-      Wskazówka: Zastanów się, gdzie system operacyjny przechowuje pliki startowe (.efi) niezbędne do uruchomienia bootloadera w nowoczesnych maszynach UEFI. Usunięcie której z tych partycji wywoła błąd 'No bootable device'?
-    </div>
-    <div data-hint="success">
-      Dokładnie! Partycja systemowa EFI (ESP) przechowuje pliki bootloadera niezbędne dla interfejsu UEFI do zainicjowania rozruchu systemu Windows 11. Jej usunięcie sprawi, że komputer wyświetli błąd braku urządzenia rozruchowego.
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -738,12 +658,12 @@ Schemat przedstawia logiczny rozkład danych w architekturze woluminu łączoneg
 
 **Opis strukturalny diagramu**
 
-1. **Struktura dysków fizycznych** – macierz składa się z trzech nośników: *`Dysk 1`* ($30 \text{ GB}$), **`Dysk 2`** ($10 \text{ GB}$) oraz _**`Dysk 3`**_ ($20 \text{ GB}$).
-2. **Rozmieszczenie Pliku A (kolor pomarańczowy)** – bloki oznaczające plik A (od `A1` do `A8`) są zapisane szeregowo na nośnikach: bloki `A1`-`A6` zapełniają cały *`Dysk 1`*, natomiast bloki `A7`-`A8` przechodzą na początek przestrzeni dyskowej **`Dysk 2`**.
-3. **Rozmieszczenie Pliku B (kolor zielony)** – bloki oznaczające plik B (od `B1` do `B6`) rozpoczynają się na dysku **`Dysk 2`** (bloki `B1`-`B4`), a ich końcowa część `B5`-`B6` jest zapisana na dysku _**`Dysk 3`**_.
-4. **Wolna przestrzeń (kolor niebieski)** – pozostała część dysku _**`Dysk 3`**_ jest oznaczona jako wolna/nieprzydzielona przestrzeń logiczna woluminu.
+1. **Struktura dysków fizycznych** - macierz składa się z trzech nośników: *`Dysk 1`* ($30 \text{ GB}$), **`Dysk 2`** ($10 \text{ GB}$) oraz _**`Dysk 3`**_ ($20 \text{ GB}$).
+2. **Rozmieszczenie Pliku A (kolor pomarańczowy)** - bloki oznaczające plik A (od `A1` do `A8`) są zapisane szeregowo na nośnikach: bloki `A1`-`A6` zapełniają cały *`Dysk 1`*, natomiast bloki `A7`-`A8` przechodzą na początek przestrzeni dyskowej **`Dysk 2`**.
+3. **Rozmieszczenie Pliku B (kolor zielony)** - bloki oznaczające plik B (od `B1` do `B6`) rozpoczynają się na dysku **`Dysk 2`** (bloki `B1`-`B4`), a ich końcowa część `B5`-`B6` jest zapisana na dysku _**`Dysk 3`**_.
+4. **Wolna przestrzeń (kolor niebieski)** - pozostała część dysku _**`Dysk 3`**_ jest oznaczona jako wolna/nieprzydzielona przestrzeń logiczna woluminu.
 
-- **Mechanizm zapisu:** Dane są zapisywane szeregowo – najpierw zapełniany jest do końca pierwszy dysk, a potem system płynnie zaczyna zapisywać na kolejnym.
+- **Mechanizm zapisu:** Dane są zapisywane szeregowo - najpierw zapełniany jest do końca pierwszy dysk, a potem system płynnie zaczyna zapisywać na kolejnym.
 - **Redundancja:** ❌ Brak (RAID JBOD - Just a Bunch of Disks). 
 - **Ryzyko:** Jeśli ulegnie awarii **choćby jeden** z połączonych dysków fizycznych, uszkodzeniu ulega cała struktura logiczna woluminu i **tracisz dostęp do wszystkich danych** z całej puli!
 
@@ -765,9 +685,9 @@ Schemat przedstawia podział i naprzemienne rozmieszczenie danych (Striping) w m
 
 **Opis strukturalny diagramu**
 
-1. **Konfiguracja dwudyskowa (po lewej)** – Plik A (żółte bloki `A1`-`A4`) i Plik B (zielone bloki `B1`-`B4`) są rozdzielone naprzemiennie: *`Dysk 1`* przechowuje bloki nieparzyste (`A1`, `A3` oraz `B1`, `B3`), a **`Dysk 2`** bloki parzyste (`A2`, `A4` oraz `B2`, `B4`). Wolna przestrzeń oznaczona jest na niebiesko.
-2. **Konfiguracja czterodyskowa (po prawej)** – Paski plików są rozproszone na cztery nośniki (*`Dysk 1`*, **`Dysk 2`**, _**`Dysk 3`**_, **_`Dysk 4`_**). Blok `A1` trafia na _`Dysk 1`_, `A2` na **`Dysk 2`**, `A3` na _**`Dysk 3`**_, `A4` na **_`Dysk 4`_**, `A5` z powrotem na _`Dysk 1`_ itd.
-3. **Zasada działania** – Zapis i odczyt odbywają się równolegle ze wszystkich dysków w macierzy, co zwielokrotnia wydajność, lecz awaria dowolnego dysku niszczy spójność całego woluminu.
+1. **Konfiguracja dwudyskowa (po lewej)** - Plik A (żółte bloki `A1`-`A4`) i Plik B (zielone bloki `B1`-`B4`) są rozdzielone naprzemiennie: *`Dysk 1`* przechowuje bloki nieparzyste (`A1`, `A3` oraz `B1`, `B3`), a **`Dysk 2`** bloki parzyste (`A2`, `A4` oraz `B2`, `B4`). Wolna przestrzeń oznaczona jest na niebiesko.
+2. **Konfiguracja czterodyskowa (po prawej)** - Paski plików są rozproszone na cztery nośniki (*`Dysk 1`*, **`Dysk 2`**, _**`Dysk 3`**_, **_`Dysk 4`_**). Blok `A1` trafia na _`Dysk 1`_, `A2` na **`Dysk 2`**, `A3` na _**`Dysk 3`**_, `A4` na **_`Dysk 4`_**, `A5` z powrotem na _`Dysk 1`_ itd.
+3. **Zasada działania** - Zapis i odczyt odbywają się równolegle ze wszystkich dysków w macierzy, co zwielokrotnia wydajność, lecz awaria dowolnego dysku niszczy spójność całego woluminu.
 
 - **Mechanizm zapisu:** Dane są dzielone na równe bloki (paski) i zapisywane / odczytywane **jednocześnie (równolegle)** na wszystkich dyskach puli.
 - **Wydajność:** 🚀 Ekstremalnie wysoka (prędkość sumuje się w zależności od liczby dysków).
@@ -792,9 +712,9 @@ Schemat przedstawia strukturę macierzy RAID $1$ (Mirroring / Dublowanie). Poró
 
 **Opis strukturalny diagramu**
 
-1. **Układ dwudyskowy (po lewej)** – Plik A (żółte bloki `A1`-`A2`) i Plik B (zielone bloki `B1`-`B2`) są zapisywane identycznie na obu nośnikach. Zarówno *`Dysk 1`*, jak i **`Dysk 2`** zawierają dokładnie tę samą sekwencję bloków (`A1`, `A2`, `B1`, `B2`).
-2. **Układ czterodyskowy (po prawej)** – Wszystkie cztery nośniki (*`Dysk 1`*, **`Dysk 2`**, _**`Dysk 3`**_, **_`Dysk 4`_**) przechowują dokładnie te same kopie bloków danych w tej samej strukturze.
-3. **Pojemność i odporność** – Całkowita pojemność macierzy jest równa pojemności pojedynczego dysku (najmniejszego w puli), ale macierz toleruje awarię $N-1$ dysków (gdzie $N$ to liczba dysków w macierzy).
+1. **Układ dwudyskowy (po lewej)** - Plik A (żółte bloki `A1`-`A2`) i Plik B (zielone bloki `B1`-`B2`) są zapisywane identycznie na obu nośnikach. Zarówno *`Dysk 1`*, jak i **`Dysk 2`** zawierają dokładnie tę samą sekwencję bloków (`A1`, `A2`, `B1`, `B2`).
+2. **Układ czterodyskowy (po prawej)** - Wszystkie cztery nośniki (*`Dysk 1`*, **`Dysk 2`**, _**`Dysk 3`**_, **_`Dysk 4`_**) przechowują dokładnie te same kopie bloków danych w tej samej strukturze.
+3. **Pojemność i odporność** - Całkowita pojemność macierzy jest równa pojemności pojedynczego dysku (najmniejszego w puli), ale macierz toleruje awarię $N-1$ dysków (gdzie $N$ to liczba dysków w macierzy).
 
 - **Mechanizm zapisu:** Każdy plik zapisywany na tym woluminie jest fizycznie zapisywany w dwóch identycznych kopiach równolegle na obu nośnikach.
 - **Wydajność:** Odczyt może ulec przyspieszeniu (system odczytuje dane z dwóch dysków jednocześnie), zapis pozostaje na poziomie prędkości wolniejszego dysku.
@@ -819,12 +739,12 @@ Schemat przedstawia rozkład danych oraz bloków parzystości (XOR) w macierzy R
 
 **Opis strukturalny diagramu**
 
-1. **Układ trójdyskowy (po lewej)** – Bloki parzystości (bloki z literą `p`) są rozproszone rotacyjnie:
+1. **Układ trójdyskowy (po lewej)** - Bloki parzystości (bloki z literą `p`) są rozproszone rotacyjnie:
   - Pierwszy wiersz: Dane `A1` (*`Dysk 1`*), `A2` (**`Dysk 2`**), Parzystość `Ap` (_**`Dysk 3`**_).
   - Drugi wiersz: Dane `B1` (*`Dysk 1`*), Dane `B2` (_**`Dysk 3`**_), Parzystość `Bp` (**`Dysk 2`**).
   - Trzeci wiersz: Dane `C1` (**`Dysk 2`**), Dane `C2` (_**`Dysk 3`**_), Parzystość `Cp` (*`Dysk 1`*).
-2. **Układ czterodyskowy (po prawej)** – W każdym wierszu dane zajmują 3 dyski, a parzystość jeden dysk, która rotuje w lewo w każdym kolejnym wierszu (bloki `Ap` na **_`Dysku 4`_**, `Bp` na _**`Dysku 3`**_, `Cp` na **`Dysku 2`**, `Dp` na *`Dysku 1`*).
-3. **Tolerancja błędów** – Uszkodzenie jednego dowolnego dysku pozwala na odtworzenie brakujących danych za pomocą operacji logicznych XOR na pozostałe nośniki.
+2. **Układ czterodyskowy (po prawej)** - W każdym wierszu dane zajmują 3 dyski, a parzystość jeden dysk, która rotuje w lewo w każdym kolejnym wierszu (bloki `Ap` na **_`Dysku 4`_**, `Bp` na _**`Dysku 3`**_, `Cp` na **`Dysku 2`**, `Dp` na *`Dysku 1`*).
+3. **Tolerancja błędów** - Uszkodzenie jednego dowolnego dysku pozwala na odtworzenie brakujących danych za pomocą operacji logicznych XOR na pozostałe nośniki.
 
 - **Zasada działania:** Dane oraz sumy kontrolne (parzystość) są rozpraszane na min. $3$ dyskach fizycznych. Awaria jednego z dysków nie powoduje utraty danych, ponieważ system potrafi je odtworzyć z równań parzystości w locie.
 - **Dlaczego zablokowana?** Systemy klienckie Windows 11 mają celowo zablokowaną możliwość tworzenia tradycyjnych woluminów RAID-$5$. Ta funkcja jest zarezerwowana wyłączenie dla wersji serwerowych (np. **Windows Server 2025**).
@@ -862,9 +782,9 @@ Schemat strukturalny porównuje rozkład bloków danych, parzystości oraz obsza
 
 **Opis strukturalny diagramu**
 
-1. **Struktura RAID $5$E (po lewej)** – Macierz składa się z czterech dysków fizycznych. Bloki danych i parzystości (`p`) są ułożone rotacyjnie na górze, natomiast dedykowany obszar zapasowy Hot-Spare jest wydzielony jako jednolity, niebieski pasek zajmujący dolny wiersz na wszystkich czterech dyskach (`Spare` na dole każdego dysku).
-2. **Struktura RAID $5$EE (po prawej)** – Wolna przestrzeń zapasowa nie tworzy jednolitego dolnego wiersza. Bloki zapasowe `Spare` są rozproszone rotacyjnie i wplecione bezpośrednio w strukturę macierzy na każdym poziomie wierszy, naprzemiennie z blokami danych i parzystości.
-**Korzyść funkcjonalna** – Rozproszenie bloków zapasowych w RAID $5$EE przyspiesza proces rekonstrukcji (rebuildu) macierzy po awarii w porównaniu do RAID $5$E, ponieważ operacje zapisu kontrolera są bardziej zrównoważone na wszystkich sprawnych nośnikach.
+1. **Struktura RAID $5$E (po lewej)** - Macierz składa się z czterech dysków fizycznych. Bloki danych i parzystości (`p`) są ułożone rotacyjnie na górze, natomiast dedykowany obszar zapasowy Hot-Spare jest wydzielony jako jednolity, niebieski pasek zajmujący dolny wiersz na wszystkich czterech dyskach (`Spare` na dole każdego dysku).
+2. **Struktura RAID $5$EE (po prawej)** - Wolna przestrzeń zapasowa nie tworzy jednolitego dolnego wiersza. Bloki zapasowe `Spare` są rozproszone rotacyjnie i wplecione bezpośrednio w strukturę macierzy na każdym poziomie wierszy, naprzemiennie z blokami danych i parzystości.
+**Korzyść funkcjonalna** - Rozproszenie bloków zapasowych w RAID $5$EE przyspiesza proces rekonstrukcji (rebuildu) macierzy po awarii w porównaniu do RAID $5$E, ponieważ operacje zapisu kontrolera są bardziej zrównoważone na wszystkich sprawnych nośnikach.
 
 
 - **Zasada działania:** Macierz posiada stałą rezerwę wolnego miejsca na wypadek awarii (zamiast pustego dysku czekającego na użycie). W ułamek sekundy po awarii nośnika, RAID $5$E natychmiast rozpoczyna automatyczną odbudowę rozbitej parzystości na pozostałych, wolnych sektorach. 
@@ -885,7 +805,7 @@ Schemat przedstawia logikę podwójnej parzystości rozproszonej w macierzy RAID
 
 **Opis strukturalny diagramu**
 
-1. **Rozkład bloków parzystości** – W każdym wierszu danych znajdują się dwie niezależne sumy kontrolne parzystości oznaczone literami `p` oraz `q`:
+1. **Rozkład bloków parzystości** - W każdym wierszu danych znajdują się dwie niezależne sumy kontrolne parzystości oznaczone literami `p` oraz `q`:
    * Wiersz 1: 
      - Dane `A1` *`Dysk 1`*,
      - Dane `A2` **`Dysk 2`**,
@@ -901,8 +821,8 @@ Schemat przedstawia logikę podwójnej parzystości rozproszonej w macierzy RAID
      - parzystość `Cq` **`Dysk 2`**,
      - Dane `C1` _**`Dysk 3`**_,
      - Dane `C2` **_`Dysk 4`_**.
-2. **Podział ról** – Parzystość `p` jest wyliczana zazwyczaj za pomocą prostej sumy XOR, natomiast parzystość `q` przy użyciu bardziej złożonego algorytmu (np. kodu Reeda-Solomona).
-3. **Tolerancja awarii** – Dzięki obecności dwóch różnych sum kontrolnych w każdym rzędzie, macierz potrafi bezstratnie funkcjonować nawet przy jednoczesnej fizycznej awarii dwóch dowolnych dysków.
+2. **Podział ról** - Parzystość `p` jest wyliczana zazwyczaj za pomocą prostej sumy XOR, natomiast parzystość `q` przy użyciu bardziej złożonego algorytmu (np. kodu Reeda-Solomona).
+3. **Tolerancja awarii** - Dzięki obecności dwóch różnych sum kontrolnych w każdym rzędzie, macierz potrafi bezstratnie funkcjonować nawet przy jednoczesnej fizycznej awarii dwóch dowolnych dysków.
 
 - **Zasada działania:** Podobnie jak RAID $5$, z tą różnicą, że system tworzy i rozprasza aż **dwa oddzielne bloki sum kontrolnych**. 
 - **Korzyść:** Pozwala na jednoczesną awarię **aż dwóch dysków fizycznych** bez utraty pojedynczego pliku!
@@ -914,7 +834,7 @@ Wymaga co najmniej $4$ dysków do uruchomienia.
 
 ### RAID $10$ ( Hybryda $1 + 0$)
 
-Najbardziej bezkompromisowe rozwiązania łączące bezpieczeństwo danych z najwyższą możliwą prędkością operacji bazodanowych – tzw. RAIDy hybrydowe (Lustro Paskowane). 
+Najbardziej bezkompromisowe rozwiązania łączące bezpieczeństwo danych z najwyższą możliwą prędkością operacji bazodanowych - tzw. RAIDy hybrydowe (Lustro Paskowane). 
 
 - **RAID $10$:** Wymaga min. $4$ dysków. Najpierw dyski łączone są w bezpieczne, odporne na awarie pary lustrzane (RAID $1$). Następnie takie zmirrorowane pary są zbijane w wydajnościowy, superszybki RAID $0$. Zapewnia rewelacyjną prędkość odczytu/zapisu dla najcięższych baz SQL.
 ![Konstrukcja RAID 10](/public/courses/windows-11/Images/RAID_10.webp)
@@ -925,11 +845,11 @@ Schemat przedstawia strukturę macierzy hybrydowej RAID $10$ (RAID $1+0$) zbudow
 
 **Opis strukturalny diagramu**
 
-1. **Warstwa nadrzędna (RAID $0$)** – u góry schematu znajduje się główny podział danych (striping) na paski. Dane są kierowane równolegle do dwóch niezależnych gałęzi.
-2. **Podgrupy lustrzane (RAID $1$)** – w środkowej części schemat dzieli się na dwie niezależne pary RAID $1$:
+1. **Warstwa nadrzędna (RAID $0$)** - u góry schematu znajduje się główny podział danych (striping) na paski. Dane są kierowane równolegle do dwóch niezależnych gałęzi.
+2. **Podgrupy lustrzane (RAID $1$)** - w środkowej części schemat dzieli się na dwie niezależne pary RAID $1$:
    * **Lewa para**: Przechowuje zduplikowane bloki `A1`, `A3` oraz `B1`, `B3` (*`Dysk 1`* jest lustrzaną kopią **`Dysku 2`**).
    * **Prawa para**: Przechowuje zduplikowane bloki `A2`, `A4` oraz `B2`, `B4` (_**`Dysk 3`**_ jest lustrzaną kopią **_`Dysku 4`_**).
-3. **Odporność na uszkodzenia** – Macierz toleruje uszkodzenie jednego dysku w każdej parze RAID 1. Uszkodzenie np. Dysku 1 i Dysku 3 nie powoduje utraty danych, ale jednoczesne uszkodzenie Dysku 1 i Dysku 2 (cała lewa para) niszczy całą macierz.
+3. **Odporność na uszkodzenia** - Macierz toleruje uszkodzenie jednego dysku w każdej parze RAID 1. Uszkodzenie np. Dysku 1 i Dysku 3 nie powoduje utraty danych, ale jednoczesne uszkodzenie Dysku 1 i Dysku 2 (cała lewa para) niszczy całą macierz.
 > RAIDy Hybrydowe odczytujemy od podstawy do góry. 
 > W tym przypadku mamy dwa RAIDy $1$ złączone w jeden RAID $0$.
 
@@ -950,11 +870,11 @@ Schemat porównuje strukturę trzech technologii zapisu: RAID $1\text{E}$ (lustr
 
 **Opis strukturalny diagramu**
 
-1. **RAID $1\text{E}$ (Przesunięte lustro) – po lewej stronie** – ukazuje trzy dyski (Dysk 1, Dysk 2, Dysk 3), na których dane są rozproszone z przesunięciem (szachownica):
+1. **RAID $1\text{E}$ (Przesunięte lustro) - po lewej stronie** - ukazuje trzy dyski (Dysk 1, Dysk 2, Dysk 3), na których dane są rozproszone z przesunięciem (szachownica):
   - Blok `A1` znajduje się na *`Dysku 1`* i **`Dysku 2`**, blok `A2` na *`Dysku 1`* i _**`Dysku 3`**_, a blok `A3` na **`Dysku 2`** i _**`Dysku 3`**_.
   - Analogicznie bloki danych `B`: `B1` na *`Dysku 1`* i **`Dysku 2`**, `B2` na *`Dysku 1`* i _**`Dysku 3`**_, a `B3` na **`Dysku 2`** i _**`Dysku 3`**_.
-2. **RAID $1$ (Klasyczne lustro) – pośrodku** – ukazuje dwa dyski (Dysk 1 i Dysk 2) z identycznym, równoległym układem bloków: oba dyski przechowują dokładnie tę samą sekwencję danych (`A1`, `A2`, `B1`, `B2`).
-3. **RAID $0$ (Paski) – po prawej stronie** – ukazuje dwa dyski (Dysk 3 i Dysk 4), na których dane są podzielone i rozłożone naprzemiennie:
+2. **RAID $1$ (Klasyczne lustro) - pośrodku** - ukazuje dwa dyski (Dysk 1 i Dysk 2) z identycznym, równoległym układem bloków: oba dyski przechowują dokładnie tę samą sekwencję danych (`A1`, `A2`, `B1`, `B2`).
+3. **RAID $0$ (Paski) - po prawej stronie** - ukazuje dwa dyski (Dysk 3 i Dysk 4), na których dane są podzielone i rozłożone naprzemiennie:
   - **`Dysk 3`** przechowuje bloki nieparzyste (`A1`, `A3`, `B1`, `B3`).
   - **_`Dysk 4`_** przechowuje bloki parzyste (`A2`, `A4`, `B2`, `B4`).
 
@@ -981,7 +901,7 @@ Windows 11 posiada wbudowaną technologię **Miejsca do magazynowania (Storage S
 
 To nowoczesny, elastyczny i znacznie bezpieczniejszy następca klasycznego RAID-u programowego znanego z dysków dynamicznych z Menedżera Dysków (`diskmgmt.msc`).
 
-Miejsca do magazynowania natywnie wspierają odpowiedniki RAID $0$ i RAID $1$ opisane wyżej, a co najważniejsze – odblokowują pełną moc tworzenia macierzy z parzystością na konsumenckim Windows 11! 
+Miejsca do magazynowania natywnie wspierają odpowiedniki RAID $0$ i RAID $1$ opisane wyżej, a co najważniejsze - odblokowują pełną moc tworzenia macierzy z parzystością na konsumenckim Windows 11! 
 
 ### 🛢️ Konfiguracja miejsc do magazynowania (Storage Spaces)
 
@@ -1016,29 +936,9 @@ Następnie kliknij w <kbd class="link-os-windows">Utwórz pulę i miejsce do mag
 
 ---
 
-<data-gate>
-  <data-quiz>
-    <question>Klient chce skonfigurować w systemie Windows 11 pulę Storage Spaces o wysokiej odporności z parzystością (odpowiednik RAID $5$). Jaka jest minimalna liczba fizycznych dysków, które musi wpiąć do komputera, aby utworzyć takie miejsce do magazynowania?</question>
-    <options>
-      <item>$1$ dysk fizyczny</item>
-      <item>$2$ dyski fizyczne</item>
-      <item correct>3$ dyski fizyczne</item>
-      <item>$5$ dysków fizycznych</item>
-    </options>
-    <div data-hint="error">
-      Wskazówka: Zastanów się, w jaki sposób rozkładane są dane oraz sumy kontrolne parzystości w odpowiedniku RAID $5$. Ile minimalnie nośników jest wymaganych, aby móc rozproszyć te informacje w taki sposób, by awaria jednego z nich nie zniszczyła całości?
-    </div>
-    <div data-hint="success">
-      Znakomicie! Zarówno klasyczny RAID $5$, jak i jego implementacja w Storage Spaces (Parzystość) wymaga podłączenia co najmniej $3$ dysków fizycznych, aby móc wydajnie rozpraszać dane oraz sumy kontrolne parzystości.
-    </div>
-  </data-quiz>
-</data-gate>
+## ⌨️ DiskPart - partycjonowanie z poziomu CMD
 
----
-
-## ⌨️ DiskPart – partycjonowanie z poziomu CMD
-
-Gdy graficzny interfejs zawodzi (pendrive jest zablokowany, dysk ma uszkodzoną tablicę partycji w stanie RAW lub pracujesz w środowisku instalatora Windows 11), sięgasz po **DiskPart** – narzędzie wiersza poleceń.
+Gdy graficzny interfejs zawodzi (pendrive jest zablokowany, dysk ma uszkodzoną tablicę partycji w stanie RAW lub pracujesz w środowisku instalatora Windows 11), sięgasz po **DiskPart** - narzędzie wiersza poleceń.
 
 > [!CAUTION]
 > DiskPart to narzędzie bezkompromisowe. Nie wyświetla komunikatów typu *„Czy na pewno chcesz usunąć dane?”*. Komenda `clean` natychmiast zeruje sektory rozruchowe. Zawsze zweryfikuj wybrany nośnik za pomocą `list disk` przed uruchomieniem poleceń niszczących!
@@ -1061,7 +961,7 @@ exit                               ← opuszcza narzędzie DiskPart
 
 ---
 
-## 🔍 chkdsk i Repair-Volume – diagnostyka oraz naprawa logicznych błędów dysku
+## 🔍 chkdsk i Repair-Volume - diagnostyka oraz naprawa logicznych błędów dysku
 
 Gdy dysk zaczyna działać niestabilnie, pliki znikają lub system zgłasza błędy wejścia/wyjścia (**I/O**) po nagłym wyłączeniu komputera, uruchamiamy **Check Disk (`chkdsk`)**. Tę operację wywołujemy, gdy wiemy już, że struktura dysku istnieje, partycje są założone, a awarii uległa jedynie warstwa bitowa samego systemu plików.
 
@@ -1069,9 +969,9 @@ Gdy dysk zaczyna działać niestabilnie, pliki znikają lub system zgłasza bł�
 - `chkdsk E:` $\rightarrow$ Skanuje dysk E w trybie tylko do odczytu (raportuje błędy, ale ich nie naprawia).
 - `chkdsk E: /f` $\rightarrow$ Skanuje i **naprawia błędy** w strukturze systemu plików.
 - `chkdsk E: /f /r /x` $\rightarrow$ Najbardziej agresywny tryb inżynieryjny:
-    - `/f` – naprawia strukturę logiczną plików.
-    - `/r` – lokalizuje uszkodzone sektory (bad sectors) na powierzchni dysku, próbuje odzyskać z nich dane i oznacza je jako wyłączone z użytku, by system więcej na nich nie zapisywał.
-    - `/x` – wymusza natychmiastowe odmontowanie woluminu przed skanowaniem, zwalniając wszelkie blokady procesów w tle.
+    - `/f` - naprawia strukturę logiczną plików.
+    - `/r` - lokalizuje uszkodzone sektory (bad sectors) na powierzchni dysku, próbuje odzyskać z nich dane i oznacza je jako wyłączone z użytku, by system więcej na nich nie zapisywał.
+    - `/x` - wymusza natychmiastowe odmontowanie woluminu przed skanowaniem, zwalniając wszelkie blokady procesów w tle.
 
 #### ⚙️ Diagnostyka i szybka naprawa (Repair-Volume) w PowerShell:
 Nowoczesne wersje Windows 11 pozwalają na bezinwazyjne diagnozowanie systemu plików w locie oraz błyskawiczną naprawę (zamiast wielogodzinnego klasycznego `chkdsk`) za pomocą cmdletu `Repair-Volume`:
@@ -1103,10 +1003,10 @@ Dopasuj zgłoszony przez użytkownika objaw do poprawnego rozwiązania:
 <data-gate>
   <data-connection-matcher>
     <div class="cmw-item" data-left="Klient mówi: 'Pendrive nie daje się sformatować w Eksploratorze, wyskakuje błąd ochrony zapisu'." data-right="Użyj DiskPart: select disk X → clean → create partition primary → format fs=exfat quick."></div>
-    <div class="cmw-item" data-left="Nowo podłączony dysk SSD 2 TB M.2 nie pojawia się w oknie Ten komputer." data-right="Otwórz diskmgmt.msc – dysk wymaga inicjalizacji (styl GPT) i utworzenia nowego woluminu."></div>
-    <div class="cmw-item" data-left="Klient nie może zapisać pliku ISO 6 GB na pendrive, chociaż ma 30 GB wolnego miejsca." data-right="Nośnik sformatowany w starym FAT32 (limit 4 GB na plik) – przeformatuj go na exFAT."></div>
+    <div class="cmw-item" data-left="Nowo podłączony dysk SSD 2 TB M.2 nie pojawia się w oknie Ten komputer." data-right="Otwórz diskmgmt.msc - dysk wymaga inicjalizacji (styl GPT) i utworzenia nowego woluminu."></div>
+    <div class="cmw-item" data-left="Klient nie może zapisać pliku ISO 6 GB na pendrive, chociaż ma 30 GB wolnego miejsca." data-right="Nośnik sformatowany w starym FAT32 (limit 4 GB na plik) - przeformatuj go na exFAT."></div>
     <div class="cmw-item" data-left="Po nagłym odcięciu prądu system Windows ładuje się bardzo wolno i sypie błędami zapisu plików." data-right="Uruchom konsolę jako Administrator i wykonaj chkdsk C: /f /r w celu naprawy błędów systemu plików."></div>
-    <div class="cmw-item" data-left="Chcesz powiększyć dysk C: o nieprzydzielone miejsce, ale opcja Rozszerz wolumin jest szara." data-right="Wolna przestrzeń nie sąsiaduje z woluminem C bezpośrednio po prawej – usuń partycję blokującą lub użyj GParted."></div>
+    <div class="cmw-item" data-left="Chcesz powiększyć dysk C: o nieprzydzielone miejsce, ale opcja Rozszerz wolumin jest szara." data-right="Wolna przestrzeń nie sąsiaduje z woluminem C bezpośrednio po prawej - usuń partycję blokującą lub użyj GParted."></div>
   </data-connection-matcher>
 </data-gate>
 
@@ -1114,13 +1014,69 @@ Dopasuj zgłoszony przez użytkownika objaw do poprawnego rozwiązania:
 
 > [!TIP]
 > **Złota Zasada Helpdeskowego Partycjonowania:**
-> Zanim dotkniesz tablicy partycji lub uruchomisz jakiekolwiek polecenie DiskPart na komputerze klienta – **zawsze upewnij się, że posiadasz aktualną kopię zapasową (backup)** najważniejszych danych! Operacje niskopoziomowe są z natury obarczone ryzykiem (np. nagły spadek napięcia w sieci w trakcie zapisu tablicy partycji) i mogą bezpowrotnie zniszczyć strukturę logiczną dysku.
+> Zanim dotkniesz tablicy partycji lub uruchomisz jakiekolwiek polecenie DiskPart na komputerze klienta - **zawsze upewnij się, że posiadasz aktualną kopię zapasową (backup)** najważniejszych danych! Operacje niskopoziomowe są z natury obarczone ryzykiem (np. nagły spadek napięcia w sieci w trakcie zapisu tablicy partycji) i mogą bezpowrotnie zniszczyć strukturę logiczną dysku.
+
+---
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Bezpośredni odczyt sektorów przez \\.\PhysicalDrive0 w Win32 i sumy CRC-32 w GPT</span><span class="deep-dive-badge">Storage Internals & Win32 API</span></summary>
+
+Gdy program do diagnostyki dysków odczytuje stan tablicy partycji GPT lub odzyskuje usunięte pliki, omija warstwę liter dysków i system plików NTFS, uzyskując dostęp bezpośrednio do surowych sektorów nośnika.
+
+### 1. Otwieranie uchwytu do dysku surowego w języku C/C++
+W Win32 API dysk fizyczny reprezentowany jest jako obiekt urządzenia w przestrzeni nazw jądra:
+```c
+#include <windows.h>
+#include <stdio.h>
+
+int main() {
+    // Otwarcie dostępu do całego dysku fizycznego 0
+    HANDLE hDisk = CreateFileW(
+        L"\\\\.\\PhysicalDrive0",
+        GENERIC_READ,
+        FILE_SHARE_READ | FILE_SHARE_WRITE,
+        NULL,
+        OPEN_EXISTING,
+        0,
+        NULL
+    );
+    if (hDisk == INVALID_HANDLE_VALUE) {
+        printf("Wymagane uprawnienia Administratora! Kod: %lu\n", GetLastError());
+        return 1;
+    }
+
+    // Bufor na pierwszy sektor LBA 0 (512 bajtów)
+    BYTE sectorBuffer[512];
+    DWORD bytesRead = 0;
+
+    if (ReadFile(hDisk, sectorBuffer, 512, &bytesRead, NULL)) {
+        // Weryfikacja sygnatury rozruchowej na końcu sektora MBR (0x55AA)
+        WORD bootSig = *(WORD *)(sectorBuffer + 510);
+        printf("Sygnatura MBR: 0x%04X (Oczekiwana: 0xAA55 w Little-Endian)\n", bootSig);
+    }
+
+    CloseHandle(hDisk);
+    return 0;
+}
+```
+
+### 2. Matematyka sumy kontrolnej CRC-32 w nagłówku GPT
+W sektorze LBA 1 zapisany jest nagłówek podstawowy GPT. Pole `HeaderCRC32` (offset 16) obliczane jest przy użyciu standardowego wielomianu IEEE 802.3:
+$P(x) = x^{32} + x^{26} + x^{23} + x^{22} + x^{16} + x^{12} + x^{11} + x^{10} + x^8 + x^7 + x^5 + x^4 + x^2 + x + 1$
+
+Algorytm weryfikacji w jądrze Windows:
+1. Wczytanie 92 bajtów nagłówka GPT z sektora LBA 1.
+2. Zapisanie oryginalnej wartości pola `HeaderCRC32` do zmiennej pomocniczej i tymczasowe wyzerowanie tych 4 bajtów w pamięci.
+3. Obliczenie sumy CRC-32 dla całego 92-bajtowego bloku nagłówka w ciele Galois $GF(2)$.
+4. Porównanie obliczonego wyniku z wartością zapisaną pierwotnie. Jeśli sumy się różnią, jądro uznaje nagłówek za uszkodzony i natychmiast odczytuje kopię zapasową z ostatniego sektora dysku (LBA -1).
+
+</details>
 
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **Różnica między formatem a protokołem:** Sam format fizyczny złącza (M.2) nie definiuje prędkości dysku – nośnik M.2 może korzystać ze starego protokołu SATA (AHCI) lub nowoczesnego NVMe (PCIe). Jako inżynier zawsze weryfikuj typ klucza (fizycznego wycięcia) oraz to, jaki protokół (SATA czy PCIe) obsługuje dane gniazdo na płycie głównej. 🔌
+- **Różnica między formatem a protokołem:** Sam format fizyczny złącza (M.2) nie definiuje prędkości dysku - nośnik M.2 może korzystać ze starego protokołu SATA (AHCI) lub nowoczesnego NVMe (PCIe). Jako inżynier zawsze weryfikuj typ klucza (fizycznego wycięcia) oraz to, jaki protokół (SATA czy PCIe) obsługuje dane gniazdo na płycie głównej. 🔌
 - **Standard GPT vs MBR:** Windows 11 do startu bezwzględnie wymaga tablicy GPT oraz włączonego trybu UEFI. MBR to przestarzały standard ograniczony do $2\text{ TB}$ i $4$ partycji podstawowych. Inżynierskie narzędzie `MBR2GPT.exe` pozwala na bezstratną konwersję systemu w locie w zaledwie kilkanaście sekund. 🗺️
 - **Sztuczne limity systemów plików:** Powszechny limit $32\text{ GB}$ dla formatowania FAT32 w Windows to jedynie zaszłość historyczna GUI Menedżera Dysków. FAT32 technologicznie obsługuje woluminy do $2\text{ TB}$. Z kolei exFAT jest idealny dla pamięci USB z uwagi na obsługę plików $>4\text{ GB}$, jednak brak dziennika (*journaling*) czyni go podatnym na uszkodzenia przy nagłym odłączeniu. 💾
 - **Potęga ReFS i mechanizmu Storage Spaces:** Nowoczesny system plików ReFS potrafi w pełni uchronić dane przed cichym uszkodzeniem (*Bit Rot*), weryfikując sumy kontrolne plików w locie. Do pełnej automatycznej samonaprawy wymaga on jednak spięcia nośników w pulę lustrzaną (Mirror) w ramach wbudowanego w Windows 11 narzędzia *Storage Spaces*. 🛡️

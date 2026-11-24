@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 430" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .panel-hdr { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 800; }
+      .tag { font-family: monospace; font-size: 10px; font-weight: 800; text-anchor: middle; }
+      .pkt-lbl { font-family: monospace; font-size: 9.5px; font-weight: 700; text-anchor: middle; }
+      .action-txt { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 700; fill: #ffffff; }
+      .detail-txt { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 500; fill: #e2e8f0; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Mechanizm działania urządzeń: Do której warstwy sięga logika?</text>
+  <text x="30" y="48" class="sub">Porównanie obróbki pakietu: co procesor urządzenia czyta, co modyfikuje, a co ignoruje</text>
+
+  <!-- ================= 1. HUB / REPEATER (L1) ================= -->
+  <g transform="translate(30, 68)">
+    <rect width="680" height="74" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" rx="6"/>
+    
+    <!-- Identyfikator -->
+    <rect x="12" y="12" width="120" height="22" fill="#78350f" stroke="#fbbf24" rx="4"/>
+    <text x="72" y="27" class="tag" fill="#fde68a">HUB (Warstwa 1)</text>
+    <text x="14" y="52" class="detail-txt" fill="#cbd5e1">Brak procesora logicznego</text>
+
+    <!-- Wizualizacja przepływu -->
+    <g transform="translate(150, 12)">
+      <!-- Wejście -->
+      <rect x="0" y="6" width="90" height="26" fill="#0f172a" stroke="#fde047" rx="3"/>
+      <text x="45" y="22" class="pkt-lbl" fill="#fde047">Sygnał (Bity)</text>
+      <text x="45" y="44" font-family="monospace" font-size="9px" fill="#cbd5e1" text-anchor="middle">Port 1 (Wejście)</text>
+
+      <!-- Strzałka -->
+      <line x1="95" y1="19" x2="135" y2="19" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="140,19 133,15 133,23" fill="#fbbf24"/>
+
+      <!-- Układ elektryczny -->
+      <rect x="145" y="2" width="155" height="42" fill="#0f172a" stroke="#f59e0b" rx="4"/>
+      <text x="222" y="18" class="action-txt" text-anchor="middle">Wzmacniacz napięcia</text>
+      <text x="222" y="34" class="detail-txt" fill="#fbbf24" text-anchor="middle">Zero inspekcji nagłówków</text>
+
+      <!-- Strzałka -->
+      <line x1="305" y1="19" x2="345" y2="19" stroke="#fbbf24" stroke-width="2"/>
+      <polygon points="350,19 343,15 343,23" fill="#fbbf24"/>
+
+      <!-- Wyjście -->
+      <rect x="355" y="2" width="165" height="44" fill="#451a03" stroke="#f59e0b" rx="4"/>
+      <text x="437" y="18" class="action-txt" fill="#fde68a" text-anchor="middle">Klonowanie sygnału na:</text>
+      <text x="437" y="34" font-family="monospace" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">Port 2, Port 3, Port 4...</text>
+    </g>
+  </g>
+
+  <!-- ================= 2. SWITCH (L2) ================= -->
+  <g transform="translate(30, 152)">
+    <rect width="680" height="82" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    
+    <!-- Identyfikator -->
+    <rect x="12" y="12" width="120" height="22" fill="#064e3b" stroke="#34d399" rx="4"/>
+    <text x="72" y="27" class="tag" fill="#a7f3d0">SWITCH (Warstwa 2)</text>
+    <text x="14" y="52" class="detail-txt" fill="#cbd5e1">Układ ASIC przełączający</text>
+
+    <!-- Wizualizacja przepływu -->
+    <g transform="translate(150, 10)">
+      <!-- Przychodząca ramka -->
+      <g transform="translate(0, 4)">
+        <rect x="0" y="0" width="46" height="26" fill="#047857" stroke="#34d399" rx="3"/>
+        <text x="23" y="16" class="pkt-lbl" fill="#ffffff">MAC</text>
+        
+        <rect x="49" y="0" width="32" height="26" fill="#0f172a" stroke="#475569" rx="3"/>
+        <text x="65" y="16" class="pkt-lbl" fill="#94a3b8">IP</text>
+
+        <rect x="84" y="0" width="44" height="26" fill="#0f172a" stroke="#475569" rx="3"/>
+        <text x="106" y="16" class="pkt-lbl" fill="#94a3b8">TCP/Dane</text>
+        <text x="65" y="38" font-family="monospace" font-size="9px" fill="#cbd5e1" text-anchor="middle">Port 1 (Wejście)</text>
+      </g>
+
+      <!-- Strzałka -->
+      <line x1="135" y1="17" x2="160" y2="17" stroke="#34d399" stroke-width="2"/>
+      <polygon points="165,17 158,13 158,21" fill="#34d399"/>
+
+      <!-- Inspekcja L2 i CAM -->
+      <rect x="170" y="0" width="190" height="54" fill="#0f172a" stroke="#10b981" rx="4"/>
+      <text x="265" y="16" class="action-txt" fill="#34d399" text-anchor="middle">Odczyt MAC docelowego</text>
+      <text x="265" y="31" class="detail-txt" fill="#ffffff" text-anchor="middle">Szuka w tablicy CAM (MAC ➔ Port)</text>
+      <text x="265" y="46" font-family="system-ui, sans-serif" font-size="9px" fill="#a7f3d0" text-anchor="middle">Pole IP i TCP pozostaje nietknięte!</text>
+
+      <!-- Strzałka -->
+      <line x1="365" y1="27" x2="390" y2="27" stroke="#34d399" stroke-width="2"/>
+      <polygon points="395,27 388,23 388,31" fill="#34d399"/>
+
+      <!-- Wyjście ramki nienaruszonej -->
+      <g transform="translate(402, 10)">
+        <rect x="0" y="0" width="120" height="34" fill="#064e3b" stroke="#34d399" rx="4"/>
+        <text x="60" y="15" class="action-txt" fill="#ffffff" text-anchor="middle">Wysyłka TYLKO na:</text>
+        <text x="60" y="28" font-family="monospace" font-size="10.5px" font-weight="800" fill="#a7f3d0" text-anchor="middle">Port 3 (Cel)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= 3. ROUTER (L3) ================= -->
+  <g transform="translate(30, 244)">
+    <rect width="680" height="92" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" rx="6"/>
+    
+    <!-- Identyfikator -->
+    <rect x="12" y="12" width="120" height="22" fill="#164e63" stroke="#22d3ee" rx="4"/>
+    <text x="72" y="27" class="tag" fill="#a5f3fc">ROUTER (Warstwa 3)</text>
+    <text x="14" y="52" class="detail-txt" fill="#cbd5e1">Procesor sieciowy / FIB</text>
+
+    <!-- Wizualizacja przepływu -->
+    <g transform="translate(150, 8)">
+      <!-- Wejście z L2 -->
+      <g transform="translate(0, 12)">
+        <rect x="0" y="0" width="38" height="26" fill="#881337" stroke="#f43f5e" rx="3"/>
+        <text x="19" y="16" class="pkt-lbl" fill="#fecdd3">MAC1</text>
+        
+        <rect x="41" y="0" width="38" height="26" fill="#0e7490" stroke="#22d3ee" rx="3"/>
+        <text x="60" y="16" class="pkt-lbl" fill="#ffffff">IP</text>
+
+        <rect x="82" y="0" width="44" height="26" fill="#0f172a" stroke="#475569" rx="3"/>
+        <text x="104" y="16" class="pkt-lbl" fill="#94a3b8">TCP/Dane</text>
+      </g>
+
+      <!-- Strzałka -->
+      <line x1="130" y1="25" x2="155" y2="25" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="160,25 153,21 153,29" fill="#22d3ee"/>
+
+      <!-- Inspekcja L3 i Routing -->
+      <rect x="165" y="0" width="200" height="66" fill="#0f172a" stroke="#06b6d4" rx="4"/>
+      <text x="265" y="16" class="action-txt" fill="#f43f5e" text-anchor="middle">1. Zdziera i niszczy MAC1</text>
+      <text x="265" y="32" class="action-txt" fill="#22d3ee" text-anchor="middle">2. Sprawdza IP docelowe w FIB</text>
+      <text x="265" y="47" class="detail-txt" fill="#ffffff" text-anchor="middle">Dekrementuje TTL: 64 ➔ 63</text>
+      <text x="265" y="59" class="detail-txt" fill="#a5f3fc" text-anchor="middle">Generuje NOWĄ ramkę z MAC2!</text>
+
+      <!-- Strzałka -->
+      <line x1="370" y1="33" x2="395" y2="33" stroke="#22d3ee" stroke-width="2"/>
+      <polygon points="400,33 393,29 393,37" fill="#22d3ee"/>
+
+      <!-- Wyjście nowej ramki -->
+      <g transform="translate(405, 12)">
+        <rect x="0" y="0" width="42" height="26" fill="#047857" stroke="#34d399" rx="3"/>
+        <text x="21" y="16" class="pkt-lbl" fill="#ffffff">MAC2</text>
+        
+        <rect x="45" y="0" width="38" height="26" fill="#0e7490" stroke="#22d3ee" rx="3"/>
+        <text x="64" y="16" class="pkt-lbl" fill="#ffffff">IP</text>
+
+        <rect x="86" y="0" width="38" height="26" fill="#0f172a" stroke="#475569" rx="3"/>
+        <text x="105" y="16" class="pkt-lbl" fill="#94a3b8">Dane</text>
+        <text x="62" y="40" font-family="monospace" font-size="9px" fill="#cbd5e1" text-anchor="middle">Wyjście: WAN (eth1)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= 4. FIREWALL / HOST (L4 - L7) ================= -->
+  <g transform="translate(30, 346)">
+    <rect width="680" height="74" fill="#1e293b" stroke="#a855f7" stroke-width="1.5" rx="6"/>
+    
+    <!-- Identyfikator -->
+    <rect x="12" y="12" width="120" height="22" fill="#581c87" stroke="#c084fc" rx="4"/>
+    <text x="72" y="27" class="tag" fill="#f3e8ff">FIREWALL / HOST</text>
+    <text x="14" y="52" class="detail-txt" fill="#cbd5e1">Warstwy L4 – L7</text>
+
+    <!-- Wizualizacja przepływu -->
+    <g transform="translate(150, 8)">
+      <g transform="translate(0, 10)">
+        <rect x="0" y="0" width="30" height="26" fill="#0f172a" stroke="#475569" rx="3"/>
+        <text x="15" y="16" class="pkt-lbl" fill="#94a3b8">L2</text>
+        <rect x="33" y="0" width="30" height="26" fill="#0f172a" stroke="#475569" rx="3"/>
+        <text x="48" y="16" class="pkt-lbl" fill="#94a3b8">L3</text>
+        <rect x="66" y="0" width="38" height="26" fill="#6b21a8" stroke="#c084fc" rx="3"/>
+        <text x="85" y="16" class="pkt-lbl" fill="#ffffff">TCP</text>
+        <rect x="107" y="0" width="38" height="26" fill="#0369a1" stroke="#38bdf8" rx="3"/>
+        <text x="126" y="16" class="pkt-lbl" fill="#ffffff">HTTP</text>
+      </g>
+
+      <!-- Strzałka -->
+      <line x1="150" y1="23" x2="175" y2="23" stroke="#c084fc" stroke-width="2"/>
+      <polygon points="180,23 173,19 173,27" fill="#c084fc"/>
+
+      <!-- Analiza stanowa L4-L7 -->
+      <rect x="185" y="0" width="180" height="54" fill="#0f172a" stroke="#a855f7" rx="4"/>
+      <text x="275" y="17" class="action-txt" fill="#c084fc" text-anchor="middle">Inspekcja Portu (np. 443)</text>
+      <text x="275" y="32" class="detail-txt" fill="#ffffff" text-anchor="middle">Śledzenie sesji (conntrack)</text>
+      <text x="275" y="46" class="detail-txt" fill="#e9d5ff" text-anchor="middle">Odrzuca nieautoryzowany ruch</text>
+
+      <!-- Strzałka -->
+      <line x1="370" y1="27" x2="395" y2="27" stroke="#c084fc" stroke-width="2"/>
+      <polygon points="400,27 393,23 393,31" fill="#c084fc"/>
+
+      <!-- Dostarczenie do procesu -->
+      <g transform="translate(405, 5)">
+        <rect x="0" y="0" width="120" height="42" fill="#0369a1" stroke="#38bdf8" rx="4"/>
+        <text x="60" y="17" class="action-txt" fill="#ffffff" text-anchor="middle">Socket API recv()</text>
+        <text x="60" y="32" font-family="monospace" font-size="10.5px" font-weight="700" fill="#bae6fd" text-anchor="middle">Nginx / Aplikacja</text>
+      </g>
+    </g>
+  </g>
+</svg>

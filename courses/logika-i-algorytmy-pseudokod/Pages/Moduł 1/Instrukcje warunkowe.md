@@ -35,7 +35,7 @@ WYPISZ "Koniec programu."
 </data-pseudocode-runner>
 </data-gate>
 
-Przeklikując ten program przyciskiem **Krok**. Zaobserwujesz, że instrukcja po słowie kluczowym `W PRZECIWNYM RAZIE` zostanie całkowicie pominięta przez układ ALU!
+Przejdź przez algorytm krok po kroku. Zaobserwujesz, że ścieżka prawdy zostaje całkowicie pominięta przez układ ALU, a procesor przeskakuje do sekcji `W PRZECIWNYM RAZIE`.
 
 ---
 
@@ -58,13 +58,9 @@ punktyWidza = 45
 czyVIP = PRAWDA
 
 JEŻELI (czyVIP == PRAWDA) OR (punktyWidza >= 100) TO
-
-&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Wstęp do loży VIP otwarty!"
-
+    WYPISZ "Wstęp do loży VIP otwarty!"
 W PRZECIWNYM RAZIE
-
-&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Pozostań w sektorze standardowym."
-
+    WYPISZ "Pozostań w sektorze standardowym."
 KONIEC JEŻELI
 </pre>
 </data-pseudocode-runner>
@@ -105,66 +101,40 @@ Zauważ korzyść wydajnościową tej struktury. Jeśli osoba nie spełnia warun
 
 ---
 
-## 🕳️ Pułapki Logiczne: Kolejność Ewaluacji
+## 🕳️ Pułapki Logiczne: Kolejność Ewaluacji (Napraw Błąd!)
 
-Podczas tworzenia rozbudowanych struktur warunkowych łatwo popełnić błąd logiczny. Wynika on ze specyfiki działania procesora.
+Podczas tworzenia rozbudowanych struktur warunkowych łatwo popełnić błąd logiczny. Interpreter analizuje warunki po kolei, od góry do dołu, i wykonuje wyłącznie pierwszy napotkany blok, którego warunek dał wynik prawdziwy.
 
-Interpreter analizuje warunki po kolei, od góry do dołu. Wykonuje on wyłącznie pierwszy napotkany blok, którego warunek dał wynik prawdziwy. Pozostała część struktury zostaje całkowicie zignorowana.
-
-Przeanalizujmy błędną próbę przyznawania rang na podstawie zebranych punktów:
+Przeanalizujmy system przyznawania rang na podstawie zebranych punktów:
 
 - **Od $10$ punktów:** Ranga Brązowa.
 - **Od $50$ punktów:** Ranga Srebrna.
 - **Od $100$ punktów:** Ranga Złota.
 
-<data-gate>
-<data-pseudocode-runner>
+W poniższym kodzie gracz mający `150` punktów błędnie otrzymuje `"Ranga Brazowa!"`, ponieważ warunek `punktyGracza >= 10` umieszczono na samej górze!
 
+> [!CAUTION]
+> Warunki w strukturach wielokrotnego wyboru należy układać od najbardziej szczegółowych (najwyższych progów `>= 100`) do najbardziej ogólnych (`>= 10`).
+
+Przebuduj kolejność progów w edytorze, aby dla `punktyGracza = 150` zmienna `ranga` przyjęła wartość `"Zlota"` i program wypisał `"Ranga Zlota!"`.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="ranga:Zlota" expected-output="Ranga Zlota!">
 <pre>
 punktyGracza = 150
-
-WYPISZ "System nadawania rang (BLEDNY DESIGN):"
+ranga = "Brak"
 
 JEŻELI punktyGracza >= 10 TO
+    ranga = "Brazowa"
     WYPISZ "Ranga Brazowa!"
 W PRZECIWNYM RAZIE
     JEŻELI punktyGracza >= 50 TO
+        ranga = "Srebrna"
         WYPISZ "Ranga Srebrna!"
     W PRZECIWNYM RAZIE
         JEŻELI punktyGracza >= 100 TO
+            ranga = "Zlota"
             WYPISZ "Ranga Zlota!"
-        KONIEC JEŻELI
-    KONIEC JEŻELI
-KONIEC JEŻELI
-</pre>
-</data-pseudocode-runner>
-</data-gate>
-
-> Dlaczego gracz mający $150$ punktów otrzymał rangę Brązową? 
-
-Program sprawdził pierwszy warunek od góry: `150 >= 10`. Wynik tego porównania to prawda. Została wykonana instrukcja wypisania rangi Brązowej, a cały pozostały blok warunkowy został pominięty.
-
-> [!CAUTION]
-> Warunki w strukturach wielokrotnego wyboru należy układać od najbardziej szczegółowych do najbardziej ogólnych. Przy porównaniach wartości liczbowych za pomocą operatora `>=` na samej górze sprawdzamy najwyższe progi.
-
-Poniżej znajduje się poprawiona struktura logiczna:
-
-<data-gate>
-<data-pseudocode-runner>
-
-<pre>
-punktyGracza = 150
-
-WYPISZ "System nadawania rang (DOBRY DESIGN):"
-
-JEŻELI punktyGracza >= 100 TO
-    WYPISZ "Ranga Zlota!"
-W PRZECIWNYM RAZIE
-    JEŻELI punktyGracza >= 50 TO
-        WYPISZ "Ranga Srebrna!"
-    W PRZECIWNYM RAZIE
-        JEŻELI punktyGracza >= 10 TO
-            WYPISZ "Ranga Brazowa!"
         KONIEC JEŻELI
     KONIEC JEŻELI
 KONIEC JEŻELI
@@ -188,7 +158,6 @@ W polskim pseudokodzie instrukcja ta nazywa się `WYBIERZ`. Jej działanie poleg
 wybórMenu = 2
 
 WYBIERZ wybórMenu
-
     PRZYPADEK 1:
         WYPISZ "Wybrano: Rozpocznij nową grę."
     PRZYPADEK 2:

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pierwszy program i wypisywanie w konsoli - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Pierwszy program i wypisywanie w konsoli</h1>
+<p>Zapisujesz cztery linijki kodu w pliku tekstowym, uruchamiasz kompilator i zamiast wyniku dostajesz listę sześciu czerwonych błędów. W całym pliku pomyliłeś się tylko w jednym znaku. Dlaczego komputer nie potrafi „domyślić się” Twojej intencji i zignorować drobnej literówki?</p>
+<p>Procesor nie czyta kodu źródłowego bezpośrednio. Zanim na ekranie pojawi się choćby jeden znak, specjalny program sprawdza każdą literę, cudzysłów i średnik z matematyczną dokładnością.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>⚙️ Najmniejszy program w C# i jego elementy</h2>
+<p>Spójrz na kompletny, działający program konsolowy w języku C#:</p>
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Wypisanie dwoch komunikatow startowych
+        Console.WriteLine("Program uruchomiony.");
+        Console.WriteLine("Zakonczono inicjalizacje.");
+    }
+}
+</code></pre>
+<p>Zanim napiszesz własny kod, poznaj robocze znaczenie każdego klocka w tym szablonie:</p>
+<ul>
+<li><span class="color-green"><code>using System;</code></span>: udostępnia standardową bibliotekę <code>System</code>. Znajduje się w niej narzędzie <code>Console</code> do obsługi okna terminala. Bez tej linii musiałbyś za każdym razem pisać pełną nazwę <code>System.Console.WriteLine(...)</code>.</li>
+<li><span class="color-green">klasa</span> (<code>class Program { ... }</code>): w C# każda instrukcja musi leżeć wewnątrz kontenera zwanego klasą. Na tym etapie traktuj <code>class Program</code> jak teczkę grupującą cały Twój program.</li>
+<li><span class="color-green">metoda</span> (<code>static void Main() { ... }</code>): nazwany blok instrukcji do wykonania. Metoda <code>Main()</code> to jedyny <span class="color-green">punkt startowy</span> programu. Słowo <code>static</code> pozwala uruchomić ją od razu przy starcie, a <code>void</code> informuje, że metoda nie odsyła żadnej wartości liczbowej z powrotem.</li>
+<li><span class="color-green">średnik</span> (<code>;</code>): kończy każdą pojedynczą instrukcję. Po nagłówku klasy i po <code>Main()</code> nie stawiasz średnika, ponieważ ich granice wyznaczają klamry <code>{ }</code>.</li>
+<li><span class="color-green">napis</span> (typ <code>string</code>): dowolny ciąg znaków otoczony prostymi cudzysłowami <code>"..."</code>, na przykład <code>"Program uruchomiony."</code>.</li>
+</ul>
+<h3>💬 Komentarze w kodzie</h3>
+<p>W powyższym przykładzie pojawiła się linia zaczynająca się od <code>//</code>. To <span class="color-green">komentarz</span>: notatka dla człowieka, którą kompilator całkowicie ignoruje podczas budowania programu.</p>
+<p>C# udostępnia dwa rodzaje komentarzy:</p>
+<pre><code class="language-csharp">// Komentarz jednolinijkowy: dziala od znakow // do konca wiersza
+
+/* Komentarz wielolinijkowy:
+   moze zajmowac kilka linii naraz.
+   Konczy sie para znakow gwiazdka i ukosnik. */
+Console.WriteLine("Ta linia wykona sie normalnie.");
+</code></pre>
+<p>Komentarze przydają się do opisywania trudnych miejsc w kodzie oraz do oznaczania zadań do zrobienia (na przykład <code>// TODO: dopisz raport</code>). Możesz też tymczasowo wyłączyć wybraną instrukcję, stawiając przed nią <code>//</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Droga od pliku tekstowego do okna terminala</h2>
+<p>Aby tekst zapisany w edytorze stał się działającą aplikacją na Windows, przechodzi przez cztery ściśle ustalone etapy. Kluczową rolę pełni tu <span class="color-green">kompilator</span> <code>csc</code> (C# Compiler), czyli program sprawdzający składnię i tłumaczący kod C# na plik wykonywalny <code>.exe</code>.</p>
+<data-gate>
+<data-sortable-list title="Ułóż kolejność 4 etapów od pliku Program.cs do tekstu w terminalu">
+  <item data-correct="3">Środowisko .NET uruchamia zbudowany plik .exe i tłumaczy go na instrukcje procesora</item>
+  <item data-correct="1">Programista zapisuje instrukcje języka C# w pliku źródłowym Program.cs</item>
+  <item data-correct="4">System operacyjny odbiera tekst z programu i wyświetla go w oknie terminala</item>
+  <item data-correct="2">Kompilator csc sprawdza składnię kodu i tworzy plik wykonywalny .exe</item>
+</data-sortable-list>
+</data-gate>
+
+<p>Jeśli na etapie 2 w kodzie brakuje średnika, cudzysłowu lub klamry, kompilator <code>csc</code> przerywa pracę. Plik <code>.exe</code> w ogóle nie powstaje, więc nie uruchomisz nawet tych linii, które były napisane poprawnie.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖨️ Sterowanie kursorem: Write, WriteLine i ReadLine</h2>
+<p>Okno konsoli działa jak siatka znaków z niewidzialnym kursorem. Po wypisaniu każdej litery kursor przesuwa się o jedno pole w prawo.</p>
+<p>Różnica między podstawowymi metodami wypisywania dotyczy wyłącznie zachowania kursora na końcu napisu:</p>
+<ul>
+<li><span class="color-green"><code>Console.Write("tekst")</code></span>: wypisuje napis i zostawia kursor bezpośrednio za ostatnim znakiem.</li>
+<li><span class="color-green"><code>Console.WriteLine("tekst")</code></span>: wypisuje napis i natychmiast przenosi kursor na początek następnego wiersza.</li>
+<li><span class="color-green"><code>Console.WriteLine()</code></span> (bez argumentu w nawiasach): przenosi kursor do nowej linii, tworząc pusty wiersz lub domykając linię zaczętą przez <code>Write</code>.</li>
+</ul>
+<pre><code class="language-csharp">Console.Write("Rdzenie: ");
+Console.WriteLine("8");
+Console.WriteLine();
+Console.Write("Pamiec: ");
+Console.WriteLine("16 GB");
+</code></pre>
+<p>Wynik w konsoli:</p>
+<pre><code class="language-text">Rdzenie: 8
+
+Pamiec: 16 GB
+</code></pre>
+<h3>⌨️ Podstawowy model wejście-wyjście</h3>
+<p>Konsola służy nie tylko do wyświetlania wyników, lecz także do odbierania danych z klawiatury. Do wczytania całej linii tekstu wpisanej przez użytkownika służy metoda <span class="color-green"><code>Console.ReadLine()</code></span>.</p>
+<pre><code class="language-csharp">Console.Write("Podaj nazwe stanowiska: ");
+string stanowisko = Console.ReadLine();
+Console.Write("Zalogowano na: ");
+Console.WriteLine(stanowisko);
+</code></pre>
+<p>Zauważ, dlaczego pierwsze polecenie używa <code>Console.Write</code> zamiast <code>Console.WriteLine</code>. Dzięki temu kursor czeka na wpisanie nazwy w tym samym wierszu, tuż po dwukropku. Zapis <code>string stanowisko = ...</code> tworzy proste pudełko na wczytany napis (zmienne poznasz szczegółowo w następnej lekcji).</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔎 Sekwencje ucieczki w napisach</h2>
+<p>Każdy napis w C# zaczyna się i kończy cudzysłowem <code>"</code>. Rodzi to problem: jak wypisać sam znak cudzysłowu albo ukośnik wsteczny <code>\</code> (na przykład w ścieżce katalogu Windows), nie zamykając przedwcześnie napisu?</p>
+<p>Do tego służy <span class="color-green">sekwencja ucieczki</span>: para znaków rozpoczynająca się od ukośnika wstecznego <code>\</code>. Ukośnik mówi kompilatorowi, że następny znak ma specjalne znaczenie.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Sekwencja</th>
+<th>Znaczenie</th>
+<th>Przykład w kodzie</th>
+<th>Wynik w konsoli</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>\n</code></td>
+<td>Przejście do nowej linii</td>
+<td><code>"Wiersz 1\nWiersz 2"</code></td>
+<td><code>Wiersz 1</code><br><code>Wiersz 2</code></td>
+</tr>
+<tr>
+<td align="center"><code>\t</code></td>
+<td>Tabulator poziomy (wyrównanie kolumn)</td>
+<td><code>"Klucz:\tWartosc"</code></td>
+<td><code style="white-space: pre; tab-size: 4;">Klucz:	Wartosc</code></td>
+</tr>
+<tr>
+<td align="center"><code>\"</code></td>
+<td>Dosłowny znak cudzysłowu</td>
+<td><code>"Tryb \"Cichy\""</code></td>
+<td><code>Tryb "Cichy"</code></td>
+</tr>
+<tr>
+<td align="center"><code>\\</code></td>
+<td>Dosłowny ukośnik wsteczny</td>
+<td><code>"C:\\Dane\\Logi"</code></td>
+<td><code>C:\Dane\Logi</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Dla długich ścieżek Windows możesz postawić znak <code>@</code> przed otwierającym cudzysłowem, na przykład <code>@"C:\Dane\Logi"</code>. Taki <span class="color-green">napis dosłowny</span> wyłącza interpretację ukośników wstecznych, więc nie musisz ich podwajać.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Wewnątrz napisu dosłownego <code>@"..."</code> sekwencja <code>\"</code> nie działa. Jeśli potrzebujesz cudzysłowu wewnątrz napisu ze znakiem <code>@</code>, zapisz dwa cudzysłowy obok siebie: <code>@"Tryb ""Cichy"""</code>.</p>
+
+</div>
+</div><h3>🧭 Animacja kursora konsoli i sekwencji ucieczki</h3>
+<p>Prześledź na żywo, jak każda instrukcja przesuwa kursor terminala oraz jak zachowują się <code>\t</code>, <code>\n</code>, <code>\\</code>, <code>\"</code> i <code>@"..."</code>. Przełącz oba scenariusze i wykonaj wszystkie kroki, aby odblokować dalszą część lekcji:</p>
+<data-gate>
+<data-csharp-console-sim></data-csharp-console-sim>
+</data-gate>
+
+<p>Zauważ w pierwszym scenariuszu, że puste <code>Console.WriteLine()</code> po <code>Console.Write("C\nD")</code> jedynie zamyka wiersz z literą <code>D</code>. Pusty odstęp pojawiłby się dopiero po drugim wywołaniu <code>Console.WriteLine()</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚨 Czytanie błędów kompilatora i kaskada zgłoszeń</h2>
+<p>Komunikat kompilatora <code>csc</code> ma stały układ: <code>Plik.cs(Wiersz, Kolumna): error CSxxxx: Opis</code>. Nie zgaduj, co jest nie tak: numer wiersza i kod błędu wskazują dokładne miejsce usterki.</p>
+<p>Cztery najczęstsze kody błędów na początku nauki C#:</p>
+<ul>
+<li><span class="color-red"><code style="color: inherit;">CS1002</code> (<code>; expected</code>)</span>: brakuje średnika <code>;</code> na końcu instrukcji. Jeśli wskazana linia wygląda poprawnie, spójrz na poprzednią niepustą linię nad nią.<pre><code class="language-csharp">Console.WriteLine("Start")   // BLAD CS1002: brak srednika na koncu
+</code></pre>
+</li>
+<li><span class="color-red"><code style="color: inherit;">CS0103</code> (<code>The name '...' does not exist</code>)</span>: literówka lub zła wielkość liter w nazwie. C# ściśle rozróżnia małe i wielkie litery (<code>Console</code> to nie <code>console</code>).<pre><code class="language-csharp">console.WriteLine("Start");  // BLAD CS0103: powinno byc Console
+</code></pre>
+</li>
+<li><span class="color-red"><code style="color: inherit;">CS1010</code> (<code>Newline in constant</code>)</span>: niezamknięty cudzysłów <code>"</code> w napisie albo niepoprawnie zapisany ukośnik przed cudzysłowem.<pre><code class="language-csharp">Console.WriteLine("Witaj);   // BLAD CS1010: brak zamykajacego cudzyslowu
+</code></pre>
+</li>
+<li><span class="color-red"><code style="color: inherit;">CS1513</code> (<code>} expected</code>)</span>: brakuje zamykającej klamry <code>}</code> kończącej metodę <code>Main()</code> albo klasę <code>Program</code>.</li>
+</ul>
+<h3>🔍 Przykład z analizą: dlaczego jeden błąd rodzi trzy komunikaty</h3>
+<p>Spójrz na poniższy program. Brakuje w nim wyłącznie jednego cudzysłowu w wierszu 7:</p>
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Start systemu);
+        Console.WriteLine("Gotowy.");
+    }
+}
+</code></pre>
+<p>Kompilator zgłosi aż trzy błędy naraz:</p>
+<pre><code class="language-text">Program.cs(7,27): error CS1010: Newline in constant
+Program.cs(7,43): error CS1002: ; expected
+Program.cs(9,6): error CS1513: } expected
+</code></pre>
+<p>Skąd wzięły się błędy <span class="color-red">CS1002</span> i <span class="color-red">CS1513</span>, skoro średnik i klamra są na swoich miejscach? Niedomknięty cudzysłów w linii 7 sprawił, że kompilator potraktował średnik na końcu wiersza jako część tekstu. Stracił orientację w strukturze pliku i zgłosił dwa fałszywe błędy wtórne. Po dopisaniu jednego znaku <code>"</code> przed nawiasem zamykającym wszystkie trzy komunikaty znikają jednocześnie.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Gdy kompilator wyświetli kilka błędów naraz, poprawiaj <span class="color-green">wyłącznie pierwszy błąd od góry</span> i uruchom kompilację ponownie. Poprawianie błędów od dołu marnuje czas na fałszywe komunikaty z kaskady.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Kody błędów kompilatora C# vs przyczyna">
+    <item left="CS1002 (; expected)" right="Brak średnika na końcu instrukcji"></item>
+    <item left="CS0103 (The name does not exist)" right="Literówka lub zła wielkość liter w nazwie (np. console zamiast Console)"></item>
+    <item left="CS1010 (Newline in constant)" right="Niezamknięty znak cudzysłowu wewnątrz napisu"></item>
+    <item left="CS1513 (} expected)" right="Brakująca klamra zamykająca blok klasy lub metody"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Bajtkod CIL (ECMA-335), strumienie jądra OS (FD 0/1/2) i Tiered JIT x86-64</span>
+<span class="deep-dive-badge">CIL · KERNEL OS · JIT X86-64</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Jak naprawdę wygląda Console.WriteLine("OK") po kompilacji?</h4>
+
+<p>W przeciwieństwie do C i C++, które od razu generują kod maszynowy konkretnego procesora, kompilator C# tworzy plik <code>.exe</code> z przenośnym bajtkodem <span class="color-gold">CIL</span> (Common Intermediate Language, standard ECMA‑335). Taki bajtkod działa na wirtualnej maszynie stosowej:</p>
+<pre><code class="language-text">.method private hidebysig static void Main() cil managed
+{
+    .entrypoint
+    .maxstack 8
+    IL_0000: ldstr      "OK"
+    IL_0005: call       void [mscorlib]System.Console::WriteLine(string)
+    IL_000a: ret
+}
+</code></pre>
+<p>Instrukcja <code>ldstr</code> odkłada referencję do napisu <code>"OK"</code> na stos ewaluacji. Następnie <code>call</code> zdejmuje ten argument i wywołuje metodę <code>WriteLine</code>, a <code>ret</code> kończy działanie <code>Main()</code>. Ten sam plik <code>.exe</code> uruchomi się na procesorach Intel, AMD i ARM, ponieważ tłumaczenie na rozkazy konkretnego procesora zachodzi dopiero przy starcie aplikacji.</p>
+<h4>2. Wywołanie systemowe WriteFile i trzy deskryptory plików</h4>
+
+<p>Program działający w trybie użytkownika (User Mode) nie ma bezpośredniego dostępu do ekranu. Metoda <code>Console.WriteLine</code> zamienia znaki na bajty i wywołuje funkcję jądra Windows <span class="color-green"><code>WriteFile</code></span> z biblioteki <code>kernel32.dll</code> (w systemie Linux jest to wywołanie <code>write</code>). Każdy proces otrzymuje trzy osobne kanały komunikacji:</p>
+<ul>
+<li><span class="color-green"><code>FD 0</code> (<code>stdin</code>)</span>: standardowe wejście z klawiatury lub potoku, czytane przez <code>Console.ReadLine()</code>.</li>
+<li><span class="color-green"><code>FD 1</code> (<code>stdout</code>)</span>: standardowe wyjście danych (<code>Console.Out</code>), na które trafiają napisy z <code>Console.WriteLine()</code>.</li>
+<li><span class="color-green"><code>FD 2</code> (<code>stderr</code>)</span>: osobny kanał komunikatów błędów (<code>Console.Error</code>).</li>
+</ul>
+<p>W wierszu poleceń możesz rozdzielić oba wyjścia do niezależnych plików:</p>
+<pre><code class="language-text">app.exe &gt; wynik.txt 2&gt; bledy.log
+</code></pre>
+<p>Dodatkowo <code>Console.WriteLine()</code> wstawia zakończenie wiersza właściwe dla systemu operacyjnego (<code>Environment.NewLine</code>): dwa bajty <span class="color-green">CRLF</span> (<code>\r\n</code>) na Windows lub jeden bajt <span class="color-green">LF</span> (<code>\n</code>) na Linuxie i macOS.</p>
+<h4>3. Dwupoziomowa kompilacja JIT</h4>
+
+<p>Środowisko uruchomieniowe <span class="color-gold">CLR</span> (Common Language Runtime) korzysta z kompilatora <span class="color-gold">JIT</span> (Just‑In-Time), który tłumaczy bajtkod CIL na natywny asembler x86‑64 w dwóch fazach:</p>
+<ul>
+<li><span class="color-green">Tier 0 (QuickJIT)</span>: szybka kompilacja bez ciężkich optymalizacji, aby program uruchomił się w ułamku milisekundy.</li>
+<li><span class="color-green">Tier 1 (Optimizing JIT)</span>: dla metod wywoływanych wielokrotnie wątek w tle rekompiluje kod do zoptymalizowanego kodu maszynowego (rozwija wywołania i przydziela rejestry CPU). Następnie podmienia adres metody w trakcie działania programu.</li>
+</ul>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Diagnostyka błędów i formatowanie raportu</h2>
+<p>Twoje zadanie składa się z dwóch etapów. W edytorze poniżej znajduje się uszkodzony program zawierający <span class="color-red">cztery celowe błędy składniowe</span>.</p>
+<ol>
+<li><span class="color-green">Etap 1 (diagnostyka):</span> uruchom program, przeczytaj pierwszy błąd z raportu kompilatora i naprawaj usterki kolejno od góry, aż kod skompiluje się czysto.</li>
+<li><span class="color-green">Etap 2 (samodzielne formatowanie):</span> dopisz brakującą końcówkę raportu zgodnie z podanym wzorem wyjścia.</li>
+</ol>
+<p>Wymagany, dokładny wynik działania programu (7 wierszy, łącznie z pustym wierszem nr 5):</p>
+<pre><code class="language-text">=== RAPORT KOMPILACJI ===
+Kompilator: csc (C# 5.0)
+Katalog: C:\Projekty\CSharp
+Tryb: "Diagnostyka"
+
+Status: OK
+Plik:	"raport.log"
+</code></pre>
+<p>Wymagania techniczne dla etapu 2:</p>
+<ul>
+<li>Po wierszu <code>Tryb: "Diagnostyka"</code> wstaw dokładnie jeden pusty wiersz za pomocą pustego wywołania <code>Console.WriteLine()</code>.</li>
+<li>Wiersz <code>Status: OK</code> zbuduj z dwóch osobnych instrukcji: pierwsza wypisuje samą etykietę bez przejścia do nowej linii, a druga dopisuje wartość i zamyka wiersz.</li>
+<li>Ostatni wiersz musi rozdzielać etykietę <code>Plik:</code> i nazwę <code>"raport.log"</code> znakiem tabulatora <code>\t</code>, a sama nazwa pliku ma być otoczona widocznymi cudzysłowami.</li>
+</ul>
+<data-gate>
+<data-csharp-lab mode="mock" title="Diagnostyka składni i formatowanie raportu w C#" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        console.WriteLine("=== RAPORT KOMPILACJI ===");
+        Console.WriteLine("Kompilator: csc (C# 5.0)")
+        Console.WriteLine("Katalog: C:\Projekty\CSharp");
+        Console.WriteLine("Tryb: "Diagnostyka"");
+        // TODO: Wstaw pusty wiersz
+        // TODO: Wypisz "Status: OK" za pomoca Console.Write oraz Console.WriteLine
+        // TODO: Wypisz etykiete Plik:, tabulator oraz nazwe raport.log w cudzyslowach
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("Program kompiluje sie i wypisuje dokladnie 7 wierszy (w tym pusty wiersz nr 5)", () =&gt; {
+    string output = LabAssert.RunMainAndCapture().TrimEnd();
+    string[] lines = output.Replace("\r\n", "\n").Split('\n');
+    LabAssert.Equal(7, lines.Length);
+    LabAssert.Equal("=== RAPORT KOMPILACJI ===", lines[0]);
+    LabAssert.Equal("Kompilator: csc (C# 5.0)", lines[1]);
+    LabAssert.Equal(@"Katalog: C:\Projekty\CSharp", lines[2]);
+    LabAssert.Equal("Tryb: \"Diagnostyka\"", lines[3]);
+    LabAssert.Equal("", lines[4]);
+    LabAssert.Equal("Status: OK", lines[5]);
+    LabAssert.Equal("Plik:\t\"raport.log\"", lines[6]);
+});
+LabAssert.Test("Ostatni wiersz zawiera znak tabulatora i widoczne cudzyslowy", () =&gt; {
+    string output = LabAssert.RunMainAndCapture().TrimEnd();
+    string[] lines = output.Replace("\r\n", "\n").Split('\n');
+    LabAssert.True(lines.Length &gt;= 7, "Brakuje wiersza z nazwa pliku.");
+    LabAssert.True(lines[6].Contains("\t"), "W wierszu 7 brakuje znaku tabulatora \\t.");
+    LabAssert.True(lines[6].Contains("\"raport.log\""), "Nazwa raport.log musi byc otoczona cudzyslowami.");
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy użyć <code>Write</code>, a kiedy <code>WriteLine</code>?</strong> Wybieraj <code>Console.Write</code>, gdy chcesz zostawić kursor w tym samym wierszu (na przykład przed <code>Console.ReadLine()</code> lub przy sklejaniu fragmentów linii). Wybieraj <code>Console.WriteLine</code>, gdy kończysz wiersz, a puste <code>Console.WriteLine()</code>, gdy wstawiasz odstęp.</li>
+<li><strong>Kiedy użyć <code>\</code>, a kiedy <code>@"..."</code>?</strong> W zwykłych napisach stosuj sekwencje ucieczki (<code>\n</code>, <code>\t</code>, <code>\"</code>, <code>\\</code>). Gdy wpisujesz długą ścieżkę Windows z wieloma ukośnikami, dodaj przedrostek <code>@"C:\..."</code>, pamiętając o podwajaniu cudzysłowów <code>""</code>.</li>
+<li><strong>Jak reagować na listę kilku błędów kompilatora?</strong> Zawsze naprawiaj wyłącznie pierwszy błąd od góry (<code>CS1002</code>, <code>CS0103</code>, <code>CS1010</code>, <code>CS1513</code>) i uruchamiaj kompilację ponownie, ponieważ błędy poniżej często są fałszywą kaskadą.</li>
+<li><strong>Jak czytać szkielet programu C#?</strong> Wykonanie zawsze startuje w metodzie <code>static void Main()</code> wewnątrz klasy, pojedyncze instrukcje kończą się średnikiem <code>;</code>, a notatki po <code>//</code> lub wewnątrz <code>/* ... */</code> są pomijane przez kompilator.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

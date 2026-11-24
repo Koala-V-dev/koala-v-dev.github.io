@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Mechanizm okna przesuwnego (TCP Sliding Window) i bufor jądra</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Kontrola przepływu (Flow Control, rwnd) oraz zarządzanie strumieniem bajtów w pamięci RAM nadawcy</text>
+
+  <!-- REPREZENTACJA STRUMIENIA BAJTÓW -->
+  <g transform="translate(60, 80)">
+    <rect width="840" height="230" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="420" y="24" fill="#38bdf8" font-size="12" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">STRUMIEŃ BAJTÓW W BUFORZE NADAWCY (SENDER BUFFER)</text>
+
+    <!-- Skala bajtowa -->
+    <g transform="translate(30, 45)">
+      <!-- Blok 1: Wysłane i Potwierdzone (Zweryfikowane) -->
+      <rect x="0" y="20" width="220" height="70" rx="4" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="110" y="45" fill="#86efac" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">1. Wysłane i Potwierdzone</text>
+      <text x="110" y="62" fill="#dcfce7" font-size="9" font-family="monospace" text-anchor="middle">Bajty: 0 – 3000 (ACK odebrany)</text>
+      <text x="110" y="78" fill="#a7f3d0" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Zwolnione z pamięci RAM bufora</text>
+
+      <!-- Blok 2: Wysłane, NIEpotwierdzone (W locie) -->
+      <rect x="230" y="20" width="220" height="70" rx="4" fill="#713f12" stroke="#facc15" stroke-width="1.5"/>
+      <text x="340" y="45" fill="#fde047" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">2. Wysłane w locie (In-Flight)</text>
+      <text x="340" y="62" fill="#fef08a" font-size="9" font-family="monospace" text-anchor="middle">Bajty: 3001 – 6000 (Czeka na ACK)</text>
+      <text x="340" y="78" fill="#fef9c3" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Trzymane w RAM na wypadek utraty!</text>
+
+      <!-- Blok 3: Wolne okno (Można wysłać natychmiast) -->
+      <rect x="460" y="20" width="180" height="70" rx="4" fill="#0c4a6e" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="550" y="45" fill="#7dd3fc" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">3. Dostępne okno</text>
+      <text x="550" y="62" fill="#e0f2fe" font-size="9" font-family="monospace" text-anchor="middle">Bajty: 6001 – 8000</text>
+      <text x="550" y="78" fill="#bae6fd" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Można słać od razu</text>
+
+      <!-- Blok 4: Poza oknem (Zablokowane) -->
+      <rect x="650" y="20" width="130" height="70" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+      <text x="715" y="45" fill="#94a3b8" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">4. Poza oknem</text>
+      <text x="715" y="62" fill="#64748b" font-size="9" font-family="monospace" text-anchor="middle">Od 8001 w górę</text>
+      <text x="715" y="78" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">ZAKAZ WYSYŁANIA</text>
+    </g>
+
+    <!-- RAMA OKNA NADAWCY (SENDER WINDOW) -->
+    <g transform="translate(30, 150)">
+      <rect x="230" y="0" width="410" height="42" rx="4" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="6,4"/>
+      <text x="435" y="26" fill="#38bdf8" font-size="12" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">AKTUALNE OKNO WYSYŁAJĄCE (SND.WND = 5000 BAJTÓW)</text>
+      <text x="435" y="58" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif" text-anchor="middle">Rozmiar okna dyktowany przez bufor odbiorcy (Receiver Window, rwnd)</text>
+    </g>
+  </g>
+
+  <!-- PANELE MECHANIZMU DZIAŁANIA -->
+  <g transform="translate(60, 335)">
+    <rect width="840" height="170" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <rect width="840" height="26" rx="6" fill="#1e293b"/>
+    <text x="420" y="18" fill="#f8fafc" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">JAK OKNO PRZESUWA SIĘ W CZASIE (DYNAMIC FLOW)</text>
+
+    <g transform="translate(25, 38)">
+      <rect width="250" height="115" rx="4" fill="#1e293b"/>
+      <text x="15" y="20" fill="#4ade80" font-size="10" font-family="system-ui, sans-serif" font-weight="700">1. Nadejście potwierdzenia:</text>
+      <text x="15" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Odbiorca odsyła pakiet z flagą ACK:</text>
+      <text x="15" y="54" fill="#86efac" font-size="9" font-family="monospace">ACK = 4501, Win = 5000</text>
+      <text x="15" y="72" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Oznacza to:</text>
+      <text x="15" y="88" fill="#dcfce7" font-size="8" font-family="system-ui, sans-serif">„Odebrałem wszystko do bajtu 4500.</text>
+      <text x="15" y="100" fill="#dcfce7" font-size="8" font-family="system-ui, sans-serif">Lewa krawędź okna przesuwa się w prawo!”</text>
+    </g>
+
+    <g transform="translate(295, 38)">
+      <rect width="250" height="115" rx="4" fill="#1e293b"/>
+      <text x="15" y="20" fill="#ef4444" font-size="10" font-family="system-ui, sans-serif" font-weight="700">2. Zadławienie odbiorcy (Zero Window):</text>
+      <text x="15" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Gdy proces odbiorcy nie czyta z gniazda:</text>
+      <text x="15" y="54" fill="#f87171" font-size="9" font-family="monospace">ACK = 4501, Win = 0 (Zero Window)</text>
+      <text x="15" y="72" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Nadawca MUSI całkowicie wstrzymać</text>
+      <text x="15" y="88" fill="#fca5a5" font-size="8" font-family="system-ui, sans-serif">transmisję, wysyłając jedynie 1-bajtowe</text>
+      <text x="15" y="100" fill="#fca5a5" font-size="8" font-family="system-ui, sans-serif">sondy Window Probe!</text>
+    </g>
+
+    <g transform="translate(565, 38)">
+      <rect width="250" height="115" rx="4" fill="#1e293b"/>
+      <text x="15" y="20" fill="#facc15" font-size="10" font-family="system-ui, sans-serif" font-weight="700">3. Skumulowane potwierdzenia:</text>
+      <text x="15" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">TCP nie potwierdza każdego pakietu z osobna.</text>
+      <text x="15" y="54" fill="#fef08a" font-size="9" font-family="monospace">ACK = 6001 potwierdza za jednym zamachem</text>
+      <text x="15" y="72" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif">wszystkie wcześniejsze segmenty!</text>
+      <text x="15" y="90" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif">Eliminuje to narzut sieciowy przy dużych</text>
+      <text x="15" y="102" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif">transferach plików i streamingu.</text>
+    </g>
+  </g>
+</svg>

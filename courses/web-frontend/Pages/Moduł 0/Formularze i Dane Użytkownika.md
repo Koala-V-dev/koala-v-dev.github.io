@@ -1,821 +1,344 @@
 # Formularze i Dane Użytkownika
 
-Do tej pory Twoja strona głównie przekazywała informacje. Użytkownik mógł czytać, klikać linki, oglądać media i analizować tabele.
+Do tej pory dokument HTML działał w jedną stronę: strona wyświetlała treść, a użytkownik mógł ją tylko czytać i klikać odnośniki. Formularz otwiera kanał zwrotny. Pozwala wprowadzać dane, wybierać opcje i przesyłać je do przetworzenia przez serwer.
 
-Teraz dodamy kierunek odwrotny: użytkownik wpisuje dane, wybiera opcje i wysyła dane.
+Z formularzami wiąże się jednak częsty problem konstrukcyjny. Możesz zbudować kompletny ekran rejestracji, który wygląda bezbłędnie w przeglądarce, a mimo to po kliknięciu przycisku „Wyślij” do serwera dotrze pusty pakiet danych. Wszystko przez jeden pominięty atrybut.
 
-Formularz jest jednym z najważniejszych elementów HTML. Obsługuje logowanie, wyszukiwanie, kontakt, zakupy, rejestrację, ankiety i panele administracyjne.
-
-Najważniejsza zasada tej lekcji brzmi: <strong>**każde pole formularza musi mieć zrozumiałą etykietę i poprawny typ danych**</strong>.
+Poniżej rozłożysz ten mechanizm na czynniki pierwsze: od wyboru metody przesyłania i trójki atrybutów pola po kontrolki wyboru oraz natywną walidację.
 
 ---
 
-## 🧾 Szkielet formularza: <code>&lt;form&gt;</code>
+## 📮 Szkielet formularza i metody wysyłania: form, action, method
 
-Element `<form>` grupuje kontrolki, które wspólnie tworzą jeden zestaw danych.
+Kontenerem spinającym pola w jeden pakiet danych jest znacznik `<form>`. Dwa kluczowe atrybuty decydują o tym, dokąd i w jaki sposób przeglądarka wyśle zebrane wartości:
 
-```html
-<form action="/kontakt" method="post">
-    <label for="email">Adres e-mail</label>
-    <input id="email" name="email" type="email">
+- *action*: adres docelowy na serwerze, który odbierze dane.
+- *method*: metoda protokołu HTTP, najczęściej `GET` albo `POST`.
 
-    <button type="submit">Wyślij</button>
-</form>
-```
+Zanim przejdziesz dalej, przewidź zachowanie przeglądarki dla dwóch formularzy. Pierwszy to wyszukiwarka kursów z ustawieniem `method="GET"`. Drugi to formularz logowania z hasłem z ustawieniem `method="POST"`. Co pojawi się w pasku adresu po kliknięciu przycisku wysyłania w obu przypadkach?
 
-Najważniejsze atrybuty:
+### 🔍 Metoda GET: dane w adresie URL
 
-- `action`: adres, pod który formularz ma wysłać dane.
-- `method`: sposób wysłania danych.
-- `name`: nazwa pola w danych wysyłanych do serwera.
-
-Bez `name` pole może wyglądać poprawnie, ale jego wartość nie zostanie sensownie przekazana w żądaniu (*request*).
-
----
-
-## 📬 GET czy POST?
-
-Formularz może wysyłać dane najczęściej metodą `get` albo `post`.
-
-`get` dopisuje dane do adresu URL. Nadaje się do wyszukiwania, filtrowania i linków, które można komuś udostępnić.
+Metoda `GET` dopisuje pary `klucz=wartosc` bezpośrednio do adresu URL po znaku zapytania `?`, rozdzielając kolejne pola znakiem `&`.
 
 ```html
-<form action="/szukaj" method="get">
-    <label for="q">Szukaj</label>
-    <input id="q" name="q" type="search">
+<form action="/szukaj" method="GET">
+    <label for="query">Szukaj kursu</label>
+    <input id="query" name="q" type="text">
     <button type="submit">Szukaj</button>
 </form>
 ```
 
-Po wysłaniu adres może wyglądać tak:
+Po wpisaniu słowa „html” i wysłaniu formularza przeglądarka otworzy adres:
 
 ```text
-https://moja-strona.pl/szukaj?q=html
+https://twoja-strona.pl/szukaj?q=html
 ```
 
-Po znaku zapytania (`?`) do URL są dopisywane zmienne z wartościami inputów w których podano `name=""` i separowane są znakiem `&`
+Takie zachowanie jest zaletą w wyszukiwarkach i filtrach katalogu. Użytkownik może skopiować adres z paska, zapisać go w zakładkach albo wysłać komuś link do dokładnie tych samych wyników.
 
+### 🔒 Metoda POST: dane w ciele żądania
 
-
-`post` wysyła dane w treści żądania. Stosuj go przy logowaniu, rejestracji, komentarzach, zamówieniach i danych prywatnych.
+Metoda `POST` umieszcza dane w niewidocznym na pasku adresu **ciele żądania HTTP**. Stosuj ją zawsze przy logowaniu, rejestracji, formularzach kontaktowych, zamówieniach oraz przy wysyłaniu dłuższych tekstów.
 
 ```html
-<form action="/konto/logowanie" method="post">
-    <label for="login">Login</label>
-    <input id="login" name="login" type="text">
+<form action="/logowanie" method="POST">
+    <label for="user-login">Login</label>
+    <input id="user-login" name="login" type="text">
 
-    <label for="password">Hasło</label>
-    <input id="password" name="password" type="password">
+    <label for="user-pass">Hasło</label>
+    <input id="user-pass" name="password" type="password">
 
     <button type="submit">Zaloguj</button>
 </form>
 ```
 
+Gdybyś użył metody `GET` w formularzu logowania, hasło użytkownika zapisałoby się w historii przeglądarki, w zakładkach oraz w logach serwerów pośredniczących.
+
 > [!WARNING]
-> `post` nie oznacza automatycznie bezpieczeństwa. Dane nadal muszą być wysyłane przez `HTTPS`, a serwer musi je poprawnie walidować.
+> **_Metoda POST nie szyfruje danych sama z siebie._** Ukrywa je jedynie przed paskiem adresu. Do ochrony danych w sieci nadal wymagane jest szyfrowane połączenie `HTTPS`, a serwer musi zawsze zweryfikować wszystko, co otrzymał.
 
 ---
 
-## 🏷️ Etykiety: <code>&lt;label&gt;</code> i <code>for</code>
+## 🔗 Święta trójca pola formularza: label, id oraz name
 
-Etykieta mówi człowiekowi i maszynie, czego dotyczy pole.
-
-```html
-<label for="username">Nazwa użytkownika</label>
-<input id="username" name="username" type="text">
-```
-
-Atrybut `for` wskazuje na `id` pola. Dzięki temu:
-
-- kliknięcie tekstu etykiety aktywuje pole,
-- czytnik ekranu potrafi odczytać nazwę kontrolki,
-- formularz jest łatwiejszy do obsługi na telefonie,
-- parsery i narzędzia testujące rozumieją strukturę.
-
-<strong>**_Placeholder nie zastępuje etykiety_**</strong>.
+Każde pole wprowadzania danych pełni dwie równoległe role: komunikuje się z człowiekiem w przeglądarce oraz przekazuje wartość do programu po stronie serwera. Dlatego poprawnie napisane pole wymaga współpracy trzech atrybutów.
 
 ```html
-<!-- ŹLE: pole ma podpowiedź, ale nie ma etykiety -->
-<input name="email" type="email" placeholder="Adres e-mail">
+<label for="client-email">Adres e-mail</label>
+<input id="client-email" name="email" type="email">
 ```
 
-`placeholder` znika po wpisaniu tekstu. Nie jest stabilną nazwą pola.
+1. **Atrybut `for` w `<label>` oraz `id` w `<input>`:** tworzą połączenie wewnątrz dokumentu HTML. Wartość `for` musi być identyczna z wartością `id`. Dzięki temu kliknięcie napisu „Adres e-mail” ustawia kursor w polu, a czytnik ekranu ogłasza nazwę kontrolki osobie niewidomej.
+2. **Atrybut `name` w `<input>`:** określa **klucz danych** w żądaniu wysyłanym na serwer. W powyższym przykładzie serwer otrzyma parę `email=jan@example.com`.
+
+> [!CAUTION]
+> **_Brak atrybutu `name` sprawia, że przeglądarka całkowicie pomija pole podczas wysyłania formularza._** Pole może mieć poprawny `id`, widoczną etykietę i wpisaną treść, a mimo to jego wartość nigdy nie dotrze na serwer.
+
+Drugim częstym błędem jest zastępowanie znacznika `<label>` atrybutem `placeholder`. Podpowiedź `placeholder` znika w chwili, gdy użytkownik wpisze pierwszy znak. Nie daje też stabilnej nazwy dla technologii asystujących. Używaj `placeholder` wyłącznie jako przykładu formatu (na przykład `jan@example.com`), zawsze obok pełnego `<label>`.
 
 ---
 
-## 🔠 Typy pól <code>&lt;input&gt;</code>
+## ⌨️ Podstawowe kontrolki tekstowe i przyciski
 
-Typ pola wybieraj według danych, których oczekujesz od użytkownika. Zdefiniowanie wszystkiego jako `type="text"` sprawia, że urządzenia mobilne nie dostosują odpowiedniego układu klawiatury ekranowej (np. numerycznej), a przeglądarka nie sprawdzi formatu danych.
+Typ pola `<input>` dobieraj dokładnie do rodzaju danych. Ustawianie wszędzie `type="text"` odbiera użytkownikom telefonów dedykowaną klawiaturę (na przykład ze znakiem `@`), a przeglądarce możliwość sprawdzenia formatu.
 
----
+- `type="text"`: krótki, jednoliniowy tekst bez szczególnego formatu, na przykład imię, login lub tytuł.
+- `type="email"`: adres poczty elektronicznej. Przeglądarka sprawdza podstawową składnię ze znakiem `@`.
+- `type="password"`: hasło. Maskuje wpisywane znaki kropkami lub gwiazdkami.
 
-### 📝 Pola znakowe (tekstowe)
-
-Pola znakowe służą do wpisywania liter, słów, symboli i znaków specjalnych.
-
-#### <code>type="text"</code>: zwykły tekst
-
-Używaj go dla danych, które są tekstem, ale nie mają własnego typu HTML: imię, nazwisko, login, nazwa produktu, tytuł zadania.
+Do dłuższych, wieloliniowych wypowiedzi (wiadomość, opis usterki, komentarz) nie używaj `<input>`. Służy do tego znacznik parowy `<textarea>` z atrybutem *rows* określającym początkową wysokość w liniach.
 
 ```html
-<label for="login">Login</label>
-<input id="login" name="login" type="text" required minlength="3" maxlength="16">
+<label for="msg">Treść wiadomości</label>
+<textarea id="msg" name="message" rows="5" required></textarea>
 ```
 
-`text` sam z siebie nie sprawdza formatu. Możesz jednak dodać `required`, `minlength`, `maxlength` albo `pattern`.
+Zwróć uwagę na atrybut logiczny `required`. Informuje on przeglądarkę, że formularza nie wolno wysłać, dopóki to pole pozostaje puste.
 
-<b>Podgląd: spróbuj wysłać pusty login albo login krótszy niż 3 znaki.</b>
+### 🔘 Przyciski wewnątrz formularza
+
+Element `<button>` wewnątrz `<form>` domyślnie zachowuje się jak przycisk wysyłający. Zawsze zapisuj jego typ jawnie, aby kod nie zostawiał żadnych wątpliwości:
+
+- `<button type="submit">`: uruchamia walidację i wysyła formularz pod adres z `action`.
+- `<button type="button">`: nie wysyła formularza i nie czyści pól; służy do lokalnych akcji (na przykład otwarcia podpowiedzi `popover`).
+
+### 🧪 Zadanie 1: Dostępny formularz kontaktowy
+
+Zbuduj formularz kontaktowy wysyłający dane metodą `POST` pod wybrany adres w atrybucie `action`. Umieść w nim pole na adres e-mail (`type="email"`) oraz wieloliniowe pole wiadomości (`<textarea>`). Oba pola muszą być wymagane (`required`), posiadać atrybuty `id` oraz `name`, a także powiązane etykiety `<label for="...">`. Całość zakończ przyciskiem `<button type="submit">`.
+
 <data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-login">Login</label><br>
-        <input id="preview-login" name="login" type="text" required minlength="3" maxlength="16" placeholder="jan_kowalski">
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
+<data-code-runner language="html" title="Zadanie 1: Dostępny formularz kontaktowy">
+<template data-type="code">
+<!-- Utwórz formularz kontaktowy z action i method="POST" -->
+<!-- Dodaj powiązane etykiety label, pole input type="email" (required), textarea (required) oraz button type="submit" -->
+</template>
+<template data-type="requirements">
+[
+  { "id": "form-post", "type": "regex", "pattern": "<form\\b(?=[^>]*\\baction=[\"'][^\"']+[\"'])(?=[^>]*\\bmethod=[\"']post[\"'])[^>]*>", "flags": "i", "text": "Utwórz element <form> z atrybutami action oraz method=\"POST\"" },
+  { "id": "input-email", "type": "regex", "pattern": "<input\\b(?=[^>]*\\btype=[\"']email[\"'])(?=[^>]*\\bid=[\"'][^\"']+[\"'])(?=[^>]*\\bname=[\"'][^\"']+[\"'])(?=[^>]*\\brequired\\b)[^>]*>", "flags": "i", "text": "Dodaj pole <input type=\"email\"> z atrybutami id, name oraz required" },
+  { "id": "textarea-msg", "type": "regex", "pattern": "<textarea\\b(?=[^>]*\\bid=[\"'][^\"']+[\"'])(?=[^>]*\\bname=[\"'][^\"']+[\"'])(?=[^>]*\\brequired\\b)[^>]*>[\\s\\S]*?</textarea>", "flags": "is", "text": "Dodaj wieloliniowe pole <textarea> z atrybutami id, name oraz required" },
+  { "id": "labels-for", "type": "regex", "pattern": "<label\\b[^>]*\\bfor=[\"'][^\"']+[\"'][^>]*>[\\s\\S]*?</label>[\\s\\S]*?<label\\b[^>]*\\bfor=[\"'][^\"']+[\"'][^>]*>[\\s\\S]*?</label>", "flags": "is", "text": "Powiąż pola z opisami za pomocą co najmniej dwóch etykiet <label for=\"...\">" },
+  { "id": "btn-submit", "type": "regex", "pattern": "<button\\b[^>]*\\btype=[\"']submit[\"'][^>]*>[\\s\\S]*?</button>", "flags": "is", "text": "Dodaj przycisk wysyłania <button type=\"submit\">" }
+]
+</template>
+</data-code-runner>
 </data-gate>
 
 ---
 
-#### <code>type="email"</code>: adres e-mail
+## 🎛️ Liczby, daty i kontrolki wyboru
 
-Używaj go przy adresach e-mail. Przeglądarka sprawdzi podstawowy format, na przykład obecność `@`.
+Formularze często wymagają podania konkretnej liczby, daty albo wyboru jednej opcji z gotowej listy.
 
-```html
-<label for="email">Adres e-mail</label>
-<input id="email" name="email" type="email" required autocomplete="email">
-```
+### 📅 Pola liczbowe i daty: number oraz date
 
-`type="email"` nie sprawdza, czy konto naprawdę istnieje. Sprawdza tylko, czy wpis wygląda jak adres e-mail.
-
-<b>Podgląd: wpisz <code>abc</code> i naciśnij Wyślij.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-email">Adres e-mail</label><br>
-        <input id="preview-email" name="email" type="email" required autocomplete="email" placeholder="uczen@example.com">
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="password"</code>: hasło
-
-Używaj go dla haseł i innych tajnych wartości, które nie powinny być widoczne podczas wpisywania.
+Pole `type="number"` przyjmuje wartości liczbowe i współpracuje z ograniczeniami *min*, *max* oraz *step*. Pole `type="date"` wyświetla natywny kalendarz i przekazuje datę w standardowym formacie `RRRR-MM-DD`.
 
 ```html
-<label for="password">Hasło</label>
-<input id="password" name="password" type="password" required autocomplete="current-password">
+<label for="guests">Liczba osób</label>
+<input id="guests" name="guests" type="number" min="1" max="10" step="1" required>
+
+<label for="visit-date">Data wizyty</label>
+<input id="visit-date" name="visit_date" type="date" min="2026-01-01" required>
 ```
 
-`password` ukrywa znaki, ale nie oznacza bezpieczeństwa. Hasło nadal musi być wysłane przez `HTTPS`, a serwer musi je sprawdzić.
+### ☑️ Niezależne decyzje i wybór jednokrotny: checkbox kontra radio
 
-<b>Podgląd:</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-password">Hasło</label><br>
-        <input id="preview-password" name="password" type="password" required autocomplete="current-password">
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
+- **`type="checkbox"`** oznacza niezależną zgodę albo opcję, którą można zaznaczyć lub odznaczyć (na przykład akceptacja regulaminu lub zgoda na newsletter). Jeśli dodasz `required` do pojedynczego checkboxa, przeglądarka wymusi jego zaznaczenie przed wysłaniem.
+- **`type="radio"`** pozwala wybrać **dokładnie jedną opcję** z grupy. Kluczowy mechanizm to **wspólny atrybut `name`**: wszystkie przyciski radiowe w jednej grupie muszą mieć tę samą wartość `name`, ale różne `id` oraz różne `value`.
 
----
+Jeśli zapomnisz o wspólnym `name` i dasz każdemu przyciskowi `radio` inną nazwę, przeglądarka pozwoli zaznaczyć wszystkie opcje naraz i użytkownik nie będzie mógł ich później odznaczyć.
 
-#### <code>type="search"</code>: wyszukiwanie
+### 📦 Grupowanie pól: fieldset i legend
 
-Używaj go w formularzach wyszukiwania i filtrowania.
-
-```html
-<label for="q">Szukaj</label>
-<input id="q" name="q" type="search" placeholder="Szukaj kursu...">
-```
-
-W przeglądarkach opartych na silniku Chromium (Chrome, Edge) po wpisaniu tekstu pojawia się natywny przycisk `x` do szybkiego czyszczenia pola. W Firefoxie ta kontrolka wygląda identycznie jak zwykły `type="text"` (brak przycisku czyszczenia).
-
-<b>Podgląd: wpisz tekst i porównaj zachowanie w Firefox oraz Chromium (np. Chrome/Edge).</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-search">Szukaj</label><br>
-        <input id="preview-search" name="q" type="search" placeholder="Szukaj kursu..." required>
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="url"</code>: adres strony
-
-Używaj go dla adresów internetowych.
-
-```html
-<label for="website">Strona WWW</label>
-<input id="website" name="website" type="url" placeholder="https://example.com">
-```
-
-`url` sprawdza podstawowy format adresu. Jeżeli wpiszesz samo `example.com`, przeglądarka może uznać to za błąd, bo brakuje schematu, na przykład `https://`.
-
-<b>Podgląd: wpisz <code>example.com</code>, potem <code>https://example.com</code>.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-url">Strona WWW</label><br>
-        <input id="preview-url" name="website" type="url" placeholder="https://example.com" required>
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="text"</code> + <code>&lt;datalist&gt;</code>: autocomplete z podpowiedziami
-
-Element `<datalist>` dostarcza listę podpowiedzi do pola tekstowego bez wymuszania wyboru - użytkownik może wpisać cokolwiek albo wybrać z listy.
-
-Powiązanie przez `list` na inpucie i `id` na datalist.
-
-```html
-<label for="city">Miasto</label>
-<input id="city" name="city" type="text" list="cities" autocomplete="off">
-<datalist id="cities">
-  <option value="Warszawa">
-  <option value="Kraków">
-  <option value="Wrocław">
-  <option value="Gdańsk">
-</datalist>
-```
-
-`<datalist>` różni się od `<select>`: użytkownik nie jest zmuszony do wyboru z listy. Może wpisać dowolną wartość.
-
-<b>Podgląd: wpisz pierwsze litery miasta.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-city">Miasto</label><br>
-        <input id="preview-city" name="city" type="text" list="preview-cities" autocomplete="off" placeholder="Wpisz miasto...">
-        <datalist id="preview-cities">
-          <option value="Warszawa">
-          <option value="Kraków">
-          <option value="Wrocław">
-          <option value="Gdańsk">
-          <option value="Poznań">
-          <option value="Łódź">
-        </datalist>
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-### 🔢 Pola numeryczne i daty
-
-Służą do wprowadzania liczb, wykonywania na nich obliczeń lub wyboru czasu.
-
-#### <code>type="number"</code>: liczba
-
-Używaj go dla wartości liczbowych, na których chcesz wykonywać zakresy, kroki albo obliczenia.
-
-```html
-<label for="age">Wiek</label>
-<input id="age" name="age" type="number" min="13" max="120" step="1" required>
-```
-
-`number` współpracuje z atrybutami `min`, `max` i `step`. Wygląd tej kontrolki zależy od przeglądarki:
-- **Chromium (Chrome, Edge):** Pilnuje wpisywanych znaków i pozwala wpisać wyłącznie cyfry (blokując litery). Pokazuje małe strzałki (spin-buttons) zwiększania/zmniejszania wartości, ale tylko wtedy, gdy pole jest sfokusowane lub najedziesz na nie myszką. Kiedy pole jest nieaktywne, strzałki znikają, a element wygląda jak zwykły `type="text"`.
-- **Firefox:** Pozwala wpisać dowolne znaki (np. litery), ale w przypadku wpisania tekstu zamiast liczby, przeglądarka oznaczy pole jako niepoprawne przy próbie wysłania formularza. Strzałki po prawej stronie są widoczne cały czas.
-
-<b>Podgląd: wpisz $5$ albo $150$ i wyślij formularz. Zwróć uwagę na zachowanie strzałek przy najechaniu i kliknięciu.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-age">Wiek</label><br>
-        <input id="preview-age" name="age" type="number" min="13" max="120" step="1" value="18" required>
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="tel"</code>: numer telefonu
-
-Używaj go dla numerów telefonu.
-
-```html
-<label for="phone">Telefon</label>
-<input id="phone" name="phone" type="tel" autocomplete="tel">
-```
-
-`tel` zwykle nie waliduje automatycznie numeru, bo formaty różnią się krajami. Jego kluczową zaletą jest to, że na urządzeniach mobilnych wymusza wyświetlenie **dedykowanej klawiatury numerycznej** (często ze znakami `+`, `*`, `#`) zamiast pełnej alfanumerycznej.
-
-**Ważne:** Przeglądarka domyślnie **nie blokuje** wpisywania liter ani znaków specjalnych w tym polu. Wynika to z faktu, że numery telefonów na całym świecie mają skrajnie różne formaty. Jeśli chcesz ograniczyć wpisywanie wyłącznie do cyfr, musisz zastosować atrybut `pattern` z wyrażeniem regularnym (np. `pattern="[0-9]{9}"` dla 9 cyfr).
-
-<b>Podgląd: wpisz cokolwiek i wyślij formularz</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-        <label for="preview-phone">Telefon</label><input id="preview-phone" name="phone" type="tel" autocomplete="tel" placeholder="420692137" required>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="date"</code>: data
-
-Używaj go dla dat, na przykład terminu, daty urodzenia albo daty wydarzenia.
-
-```html
-<label for="deadline">Termin</label>
-<input id="deadline" name="deadline" type="date" min="2077-01-01" max="2137-12-31">
-```
-
-`date` pozwala ograniczyć zakres przez `min` i `max`. Natywny wybór daty wygląda inaczej w różnych przeglądarkach i systemach.
-
-<b>Podgląd: wybierz datę i wyślij formularz</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-date">Termin w 2026 roku</label><br>
-        <input id="preview-date" name="deadline" type="date" min="2026-01-01" max="2026-12-31" required>
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="range"</code>: suwak
-
-Używaj go do wyboru wartości liczbowej z zakresu, gdy precyzyjna liczba nie jest kluczowa: głośność, jasność, ocena, priorytet.
-
-```html
-<label for="volume">Głośność: <output id="vol-out">50</output>%</label>
-<input id="volume" name="volume" type="range" min="0" max="100" step="5" value="50">
-```
-
-`range` nie wyświetla aktualnej wartości. Żeby ją pokazać, trzeba użyć elementu `<output>` lub JavaScript. Atrybuty `min`, `max` i `step` działają tak samo jak w `type="number"`.
-
-<b>Podgląd: przesuń suwak.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-volume">Głośność: <output id="preview-vol-out" for="preview-volume">50</output>%</label><br>
-        <input id="preview-volume" name="volume" type="range" min="0" max="100" step="5" value="50"
-          oninput="document.getElementById('preview-vol-out').value = this.value">
-      </p>
-      <button type="submit">Zapisz</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="time"</code>: godzina
-
-Używaj go do wyboru godziny. Format wartości to zawsze `HH:MM` (24-godzinny).
-
-```html
-<label for="meeting">Godzina spotkania</label>
-<input id="meeting" name="meeting" type="time" min="08:00" max="18:00">
-```
-
-`min` i `max` ograniczają zakres dostępnych godzin. Wygląd kontrolki zależy od systemu operacyjnego i przeglądarki.
-
-<b>Podgląd: wybierz godzinę poza zakresem 08:00-18:00 i wyślij.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-time">Godzina spotkania (8:00-18:00)</label><br>
-        <input id="preview-time" name="meeting" type="time" min="08:00" max="18:00" required>
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-### 🧺 Grupy kontrolek wyboru
-
-Służą do wybierania gotowych opcji zdefiniowanych w kodzie.
-
-#### <code>type="checkbox"</code>: niezależna decyzja
-
-Używaj go, gdy użytkownik może zaznaczyć albo odznaczyć opcję. Checkboxy z różnymi nazwami są niezależne.
-
-```html
-<input id="newsletter" name="newsletter" type="checkbox">
-<label for="newsletter">Chcę otrzymywać newsletter</label>
-```
-
-Checkbox może być wymagany przez `required`, na przykład przy akceptacji regulaminu.
-
-<b>Podgląd: nie zaznaczaj wymaganego checkboxa i wyślij formularz</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <input id="preview-terms" name="terms" type="checkbox" required>
-        <label for="preview-terms">Akceptuję regulamin</label>
-      </p>
-      <p>
-        <input id="preview-newsletter" name="newsletter" type="checkbox">
-        <label for="preview-newsletter">Chcę otrzymywać newsletter</label>
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### <code>type="radio"</code>: jeden wybór z grupy
-
-Używaj go, gdy użytkownik ma wybrać jedną odpowiedź z kilku możliwości.
-
-```html
-<input id="contact-email" name="contact" type="radio" value="email" required>
-<label for="contact-email">E-mail</label>
-
-<input id="contact-phone" name="contact" type="radio" value="phone">
-<label for="contact-phone">Telefon</label>
-```
-
-Radio buttony tworzą grupę przez wspólne `name`. Jeżeli każde radio ma inne `name`, przeglądarka potraktuje je jak osobne decyzje i użytkownik będzie mógł zaznaczyć kilka.
-
-<b>Podgląd: wybierz kilka metodę kontaktu.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <fieldset>
-        <legend>Preferowany kontakt</legend>
-        <input id="preview-contact-email" name="contact" type="radio" value="email" required>
-        <label for="preview-contact-email">E-mail</label><br>
-        <input id="preview-contact-phone" name="contact" type="radio" value="phone">
-        <label for="preview-contact-phone">Telefon</label><br>
-        <input id="preview-contact-none" name="contact" type="radio" value="none">
-        <label for="preview-contact-none">Nie kontaktuj się ze mną</label>
-      </fieldset>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-#### Elementy grupujące: <code>&lt;fieldset&gt;</code> i <code>&lt;legend&gt;</code>
-
-Gdy kilka pól dotyczy jednego tematu (szczególnie przy radio buttonach i checkboxach), użyj `<fieldset>`, a nagłówek grupy opisz za pomocą `<legend>`.
+Powiązane grupy kontrolek (zwłaszcza przyciski `radio` i zestawy `checkbox`) zamykaj w znaczniku `<fieldset>`, a tytuł całej grupy wpisuj w pierwszym dziecku `<legend>`.
 
 ```html
 <fieldset>
-    <legend>Preferowany kontakt</legend>
+    <legend>Sposób dostawy</legend>
 
-    <input id="contact-email" name="contact" type="radio" value="email">
-    <label for="contact-email">E-mail</label>
+    <input id="del-courier" name="delivery" type="radio" value="courier" required>
+    <label for="del-courier">Kurier</label>
 
-    <input id="contact-phone" name="contact" type="radio" value="phone">
-    <label for="contact-phone">Telefon</label>
+    <input id="del-locker" name="delivery" type="radio" value="locker">
+    <label for="del-locker">Paczkomat</label>
 </fieldset>
 ```
 
-Bez legendy użytkownik korzystający z technologii asystujących usłyszy same opcje (np. „E-mail”, „Telefon”), nie wiedząc, czego one dotyczą.
+Bez `<legend>` użytkownik czytnika ekranu usłyszy same etykiety „Kurier” i „Paczkomat”, nie wiedząc, jakiego pytania dotyczą.
+
+### 📋 Lista rozwijana: select, optgroup i option
+
+Gdy użytkownik wybiera jedną wartość z dłuższej listy, użyj `<select>` z wewnętrznymi pozycjami `<option>`. Aby uporządkować wiele opcji w kategorie, pogrupuj je za pomocą `<optgroup label="...">`.
+
+```html
+<label for="room-type">Rodzaj sali</label>
+<select id="room-type" name="room_type" required>
+    <option value="">Wybierz z listy</option>
+    <optgroup label="Sale małe">
+        <option value="s1">Sala konferencyjna A (do 6 osób)</option>
+        <option value="s2">Sala warsztatowa B (do 10 osób)</option>
+    </optgroup>
+    <optgroup label="Sale duże">
+        <option value="l1">Aula szkoleniowa (do 40 osób)</option>
+    </optgroup>
+</select>
+```
+
+Wartość wysłana na serwer pochodzi z atrybutu `value` wybranego elementu `<option>`. Pusta pierwsza opcja `<option value="">` w połączeniu z `required` na `<select>` wymusza świadomy wybór użytkownika.
 
 ---
 
-### ⚙️ Budowanie własnych wzorców walidacji (atrybut <code>pattern</code>)
+## 🛡️ Natywna walidacja oraz stany disabled i readonly
 
-Gdy wbudowane typy pól nie wystarczają do walidacji specyficznego formatu danych (np. kodu pocztowego, numeru seryjnego czy serii dokumentu), możesz zdefiniować własny wzorzec za pomocą wyrażeń regularnych (Regex). Najczęściej łączy się go z `type="text"` lub `type="tel"`.
+Przeglądarka potrafi wyłapać najprostsze błędy jeszcze przed wysłaniem żądania do serwera. Służą do tego atrybuty walidacyjne:
 
-```html
-<label for="serial-number">Numer seryjny (Wzór: AB123)</label>
-<input id="serial-number" name="serial" type="text" pattern="[A-Z]{2}[0-9]{3}" required>
-```
+- `required`: pole nie może pozostać puste.
+- `min` i `max`: dolna oraz górna granica dla liczb i dat.
+- `minlength` i `maxlength`: minimalna oraz maksymalna liczba znaków w polu tekstowym.
+- `pattern`: wzorzec formatu zapisany jako wyrażenie regularne. Przeglądarka dopasowuje go do całej wpisanej wartości.
 
-#### 🔍 Jak działają wyrażenia regularne w HTML?
-
-W atrybucie `pattern` przeglądarka automatycznie dopasowuje wzorzec do **całego wpisanego tekstu** (tak, jakby na początku i końcu znajdowały się ukryte kotwice `^` oraz `$`). Użytkownik musi wpisać dokładnie to, co opisuje wzorzec.
-
-Wyrażenia buduje się ze **zbiorów znaków** (co dopuszczamy) i **kwantyfikatorów** (ile razy znaki mogą się powtórzyć).
-
-- _**Zbiory znaków (nawiasy kwadratowe `[]`):**_
-  - `[A-Z]` – pojedyncza wielka litera (od A do Z).
-  - `[a-z]` – pojedyncza mała litera.
-  - `[0-9]` – pojedyncza cyfra (można zapisać też jako `\d`).
-  - `[a-zA-Z]` – pojedyncza dowolna litera (mała lub wielka).
-
-- _**Kwantyfikatory (nawiasy klamrowe `{}` oraz symbole):**_
-  - `{n}` – dokładnie `n` powtórzeń (np. `{3}` to dokładnie 3 znaki).
-  - `{min,max}` – od `min` do `max` powtórzeń (np. `{9,15}`).
-  - `?` – element opcjonalny (może wystąpić 0 lub 1 raz).
-  - `+` – co najmniej 1 powtórzenie.
-  - `*` – dowolna liczba powtórzeń (od 0 do nieskończoności).
-
-#### 🛠️ Analiza przykładów
-
-- **Przykład 1: Kod identyfikacyjny (`[A-Z]{2}[0-9]{3}`)**
-  - `[A-Z]{2}` – dokładnie dwie wielkie litery (np. `PL`, `AB`).
-  - `[0-9]{3}` – dokładnie trzy cyfry (np. `123`, `000`).
-  - *Pasuje:* `PL045`, `AB999`.
-  - **_Nie pasuje:_** `pl045` (małe litery), `PL12` (za mało cyfr), `AB1234` (za dużo cyfr).
-
-- **Przykład 2: Polski kod pocztowy (`[0-9]{2}-[0-9]{3}`)**
-  - `[0-9]{2}` – dokładnie dwie cyfry.
-  - `-` – dosłowny znak myślnika.
-  - `[0-9]{3}` – dokładnie trzy cyfry.
-  - *Pasuje:* `00-950`, `43-100`.
-  - **_Nie pasuje:_** `00950` (brak myślnika), `0-950` (za mało cyfr przed myślnikiem).
-
-- **Przykład 3: Numer telefonu bez spacji (`\+?[0-9]{9}`)**
-  - `\+?` – opcjonalny znak plusa na początku (ukośnik `\` jest potrzebny, ponieważ sam `+` jest znakiem specjalnym w Regex, więc musimy go potraktować znakiem „ucieczki”).
-  - `[0-9]{9}` – dokładnie dziewięć cyfr.
-  - *Pasuje:* `123456789`, `+48123456789` (jeśli dodamy numer kierunkowy przed pozostałymi cyframi).
-
-<b>Podgląd walidacji wzorca:</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-code">Kod identyfikacyjny (Wzór: AB123)</label><br>
-        <input id="preview-code" name="code" type="text" pattern="[A-Z]{2}[0-9]{3}" placeholder="AB123" required>
-      </p>
-      <button type="submit">Sprawdź</button>
-    </form>
-  </div>
-</data-gate>
-
-Walidacja HTML pomaga użytkownikowi szybciej zauważyć błąd, ale nie zastępuje walidacji po stronie serwera.
-
-<strong>**Serwer musi traktować dane z formularza jako niezaufane**</strong>.
-
----
-
-### <code>color</code>: selektor koloru
-
-Służy do wyboru koloru z palety lub ręcznego wprowadzenia kodu szesnastkowego.
+Prosty przykład użycia `pattern` dla polskiego kodu pocztowego (dwie cyfry, łącznik, trzy cyfry):
 
 ```html
-<label for="favcolor">Wybierz kolor</label>
-<input id="favcolor" name="favcolor" type="color" value="#ff0000">
+<label for="postal-code">Kod pocztowy (format 00-000)</label>
+<input id="postal-code" name="postal_code" type="text" pattern="[0-9]{2}-[0-9]{3}" required>
 ```
 
-**Kluczowe fakty techniczne:**
-- **Wartość i format:** Pole zawsze przechowuje i przesyła wartość jako **7-znakowy kod szesnastkowy** (np. `#ff0000` lub `#002f55`) zapisany małymi literami. Nie obsługuje przezroczystości (kanału alfa).
-- **Domyślna wartość:** Jeśli nie zdefiniujesz atrybutu `value` lub podasz nieprawidłową wartość, przeglądarka domyślnie ustawi kolor czarny (`#000000`). W tym polu nie można ustawić pustej wartości.
-- **Działanie:** Kliknięcie pola otwiera systemowy (OS) lub przeglądarkowy selektor koloru.
+Wzorzec `[0-9]{2}` oznacza dokładnie dwie cyfry, znak `-` to dosłowny łącznik, a `[0-9]{3}` wymusza dokładnie trzy cyfry. Wpisanie `00950` bez łącznika zablokuje wysłanie formularza.
 
-<b>Podgląd: wybierz swój ulubiony kolor.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="favcolor">Wybierz kolor</label><br>
-        <input id="favcolor" name="favcolor" type="color" value="#ff0000">
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
+> [!IMPORTANT]
+> Natywna walidacja HTML poprawia wygodę użytkownika, bo daje natychmiastową informację zwrotną. Nie stanowi jednak zabezpieczenia aplikacji: każdy może zmodyfikować kod strony w przeglądarce. **Serwer musi zawsze powtórzyć walidację otrzymanych danych.**
 
----
+### 🔮 Przewidywanie: disabled kontra readonly
 
-### <code>file</code>: pole wyboru plików
+Wyobraź sobie formularz potwierdzenia zamówienia. Wyświetlasz w nim numer zamówienia `ZAM-2026-41`, którego użytkownik nie może edytować, ale serwer musi otrzymać tę wartość po kliknięciu „Potwierdź”. Zablokujesz pole atrybutem `disabled` czy `readonly`?
 
-Służy do wysyłania plików z urządzenia użytkownika na serwer.
+Oba atrybuty uniemożliwiają edycję tekstu, ale w chwili wysyłania formularza działają zupełnie inaczej:
 
-```html
-<label for="avatar">Wybierz zdjęcie (PNG, JPEG)</label>
-<input id="avatar" name="avatar" type="file" accept="image/png, image/jpeg" multiple required>
-```
-
-**Kluczowe fakty techniczne:**
-- **Atrybut `enctype` formularza:** Aby plik fizycznie dotarł na serwer w żądaniu POST, tag `<form>` **musi** posiadać atrybuty `method="post"` oraz `enctype="multipart/form-data"`. Bez tego formularz wyśle tylko tekstową nazwę pliku zamiast jego rzeczywistej zawartości.
-- **Filtrowanie typów (`accept`):** Za pomocą atrybutu `accept` możesz ograniczyć typy plików dopuszczalne do wyboru (np. `accept="image/png, image/jpeg"` lub `accept=".pdf"`). Zapobiega to pomyłkowemu załadowaniu niewłaściwego formatu przez użytkownika.
-- **Wielokrotny wybór (`multiple`):** Dodanie tego atrybutu logicznego pozwala użytkownikowi wybrać więcej niż jeden plik naraz.
-
-<b>Podgląd: wybierz plik z dysku.</b>
-<data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="avatar">Wybierz plik</label><br>
-        <input id="avatar" name="avatar" type="file" required>
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
-</data-gate>
-
----
-
-### <code>type="hidden"</code>: niewidoczne pole danych
-
-Pole ukryte nie jest widoczne dla użytkownika, ale jego wartość jest wysyłana razem z formularzem.
-
-```html
-<form action="/komentarz" method="post">
-  <input type="hidden" name="csrf_token" value="8f14e45fcc">
-  <input type="hidden" name="post_id" value="42">
-
-  <label for="tresc">Komentarz</label>
-  <textarea id="tresc" name="tresc"></textarea>
-  <button type="submit">Dodaj</button>
-</form>
-```
-
-Używaj go do przesyłania:
-- **tokenów CSRF** - ochrona przed atakami Cross-Site Request Forgery,
-- **identyfikatorów kontekstu** - np. ID posta, strony, sesji wieloetapowej,
-- **danych stanu** - wartości generowanych przez serwer, które muszą wrócić przy kolejnym żądaniu.
-
-<strong>**_Ostrzeżenie:_**</strong> Pole jest ukryte wizualnie, ale użytkownik widzi jego wartość w źródle HTML i może ją zmodyfikować. <strong>Serwer musi zawsze walidować dane z pól hidden</strong>.
-
----
-
-### ⚙️ Stany pól: <code>disabled</code> i <code>readonly</code>
-
-Oba atrybuty blokują edycję pola, ale działają inaczej.
-
-```html
-<!-- Pole zablokowane - wartość NIE jest wysyłana do serwera -->
-<input name="plan" type="text" value="Darmowy" disabled>
-
-<!-- Pole tylko do odczytu - wartość JEST wysyłana do serwera -->
-<input name="user_id" type="text" value="12345" readonly>
-```
-
-| Cecha | `disabled` | `readonly` |
+| Cecha kontrolki | `disabled` | `readonly` |
 | :--- | :--- | :--- |
 | Edycja przez użytkownika | zablokowana | zablokowana |
-| Wartość wysyłana do serwera | **_nie_** | **tak** |
-| Focusowalny | nie | tak |
-| Styl wizualny | wyszarzony | zależy od przeglądarki |
+| Wysłanie wartości do serwera | **_nie (pole jest pomijane)_** | **tak (wartość trafia na serwer)** |
+| Przejście klawiszem <kbd>Tab</kbd> | nie | tak |
 
-`disabled` stosuj dla pól, których wartość jest nieistotna lub warunkowa. `readonly` stosuj dla pól, których wartość musi dotrzeć do serwera, ale użytkownik nie powinien jej zmieniać - np. wygenerowane identyfikatory, podsumowania zamówień.
+```html
+<!-- Wartość NIE zostanie wysłana na serwer -->
+<input name="promo_code" type="text" value="BRAK" disabled>
 
-<b>Podgląd: zwróć uwagę, które pole pojawia się w wynikach przesłanego formularza.</b>
+<!-- Wartość ZOSTANIE wysłana na serwer -->
+<input name="order_id" type="text" value="ZAM-2026-41" readonly>
+```
+
+Dlatego dla numeru zamówienia, który musi dotrzeć do serwera, właściwym wyborem jest `readonly`. Atrybut `disabled` stosuj wyłącznie wtedy, gdy pole jest tymczasowo wyłączone i jego wartość nie ma brać udziału w wysyłanym żądaniu.
+
+---
+
 <data-gate>
-  <div class="native-html-preview">
-    <form>
-      <p>
-        <label for="preview-disabled">Plan (disabled)</label><br>
-        <input id="preview-disabled" name="plan" type="text" value="Darmowy" disabled>
-      </p>
-      <p>
-        <label for="preview-readonly">ID użytkownika (readonly)</label><br>
-        <input id="preview-readonly" name="user_id" type="text" value="12345" readonly>
-      </p>
-      <button type="submit">Wyślij</button>
-    </form>
-  </div>
+<data-connection-matcher title="Połącz element lub atrybut formularza z jego działaniem">
+  <item left="`for` i `id`" right="Łączą etykietę label z konkretnym polem dla kliknięcia i czytnika ekranu"></item>
+  <item left="`name`" right="Nadaje kontrolce klucz, pod którym jej wartość jest wysyłana do serwera"></item>
+  <item left="`method=&quot;GET&quot;`" right="Dopisuje dane formularza do adresu URL po znaku zapytania"></item>
+  <item left="`method=&quot;POST&quot;`" right="Wysyła dane w ciele żądania, bez dopisywania ich do paska adresu"></item>
+  <item left="`disabled`" right="Blokuje edycję pola i pomija jego wartość podczas wysyłania"></item>
+  <item left="`readonly`" right="Blokuje edycję pola, ale wysyła jego wartość razem z formularzem"></item>
+  <item left="`type=&quot;radio&quot;`" right="Pozwala wybrać jedną opcję w grupie pól ze wspólnym atrybutem name"></item>
+  <item left="`type=&quot;checkbox&quot;`" right="Pozwala niezależnie zaznaczyć lub odznaczyć pojedynczą opcję"></item>
+</data-connection-matcher>
 </data-gate>
 
 ---
 
-## 📝 Kontrolki niebędące elementami <code>&lt;input&gt;</code>
+### 🧪 Zadanie 2: Formularz rezerwacyjny
 
-W formularzach występują również inne tagi, które służą do wprowadzania dłuższych tekstów, wyboru z list rozwijanych czy prezentacji wyników.
+Uzupełnij formularz rezerwacji sali konferencyjnej. Zawrzyj w nim:
+1. Grupę `<fieldset>` z opisem `<legend>` zawierającą co najmniej dwa przyciski `type="radio"` połączone **wspólnym atrybutem `name`**, z osobnymi atrybutami `value`.
+2. Powiązaną etykietę `<label for="...">` oraz listę rozwijaną `<select>` (z `id` i `name`) zawierającą co najmniej dwa elementy `<option>`.
+3. Powiązaną etykietę `<label for="...">` oraz pole liczbowe `<input type="number">` (z `id`, `name`, `min` oraz `max`) określające liczbę uczestników.
+4. Pole numeru rezerwacji `<input type="text" ... readonly>` z ustawioną wartością `value`, którego nie da się edytować, ale które zostanie wysłane na serwer.
+5. Przycisk wysyłania `<button type="submit">`.
 
-### <code>&lt;textarea&gt;</code>: większy blok tekstu
+<data-gate>
+<data-code-runner language="html" title="Zadanie 2: Formularz rezerwacyjny">
+<template data-type="code">
+<form action="/rezerwacja" method="POST">
+  <!-- 1. Dodaj fieldset z legend oraz co najmniej dwa input type="radio" ze wspólnym name i atrybutami value -->
 
-Pozwala na wpisanie dłuższego tekstu (np. komentarza, opisu). Rozmiar pola można ustalić atrybutami `rows` (liczba linii) i `cols` (szerokość).
+  <!-- 2. Dodaj label for oraz listę select (id, name) z co najmniej dwoma option -->
 
-```html
-<label for="message">Wiadomość</label>
-<textarea id="message" name="message" rows="6"></textarea>
-```
+  <!-- 3. Dodaj label for oraz pole input type="number" (id, name, min, max) -->
 
----
+  <!-- 4. Dodaj pole tekstowe z numerem rezerwacji i atrybutem readonly -->
 
-### <code>&lt;select&gt;</code> i <code>&lt;option&gt;</code>: lista rozwijana
-
-Służy do wyboru jednej (lub wielu, z atrybutem `multiple`) opcji z listy rozwijanej.
-
-```html
-<label for="topic">Temat</label>
-<select id="topic" name="topic">
-    <option value="">Wybierz temat</option>
-    <option value="html">HTML</option>
-    <option value="accessibility">Dostępność</option>
-</select>
-```
-
-Opcje można grupować za pomocą `<optgroup>`. Atrybut `label` definiuje nazwę grupy, wyświetlaną jako nieaktywny nagłówek.
-
-```html
-<label for="tech">Technologia</label>
-<select id="tech" name="tech">
-  <option value="">Wybierz technologię</option>
-  <optgroup label="Frontend">
-    <option value="html">HTML</option>
-    <option value="css">CSS</option>
-    <option value="js">JavaScript</option>
-  </optgroup>
-  <optgroup label="Backend">
-    <option value="php">PHP</option>
-    <option value="python">Python</option>
-  </optgroup>
-</select>
-```
-
----
-
-### <code>&lt;button&gt;</code>: przyciski formularza
-
-Zawsze określaj atrybut `type` przycisku. Domyślnie przycisk wewnątrz formularza zachowuje się jak `type="submit"`.
-
-```html
-<!-- Wysyła formularz -->
-<button type="submit">Wyślij formularz</button>
-
-<!-- Resetuje wszystkie pola do stanu początkowego -->
-<button type="reset">Wyczyść formularz</button>
-
-<!-- Formularz na niego nie zareaguje -->
-<button type="button">Kliknij</button>
-```
-
----
-
-### <code>&lt;output&gt;</code>: wynik obliczeń
-
-Służy do wyświetlania wyników operacji wykonanych w formularzu. Atrybut `for` powinien zawierać identyfikatory `id` elementów wejściowych, z których pochodzą dane.
-
-```html
-<form>
-    <label for="score">Wynik testu</label>
-    <input id="score" name="score" type="number" value="8" min="0" max="10">
-    <p>Ocena końcowa: <output name="grade" for="score">dobry</output></p>
+  <!-- 5. Dodaj przycisk button type="submit" -->
 </form>
+</template>
+<template data-type="requirements">
+[
+  { "id": "fieldset-legend", "type": "regex", "pattern": "<fieldset\\b[^>]*>[\\s\\S]*?<legend\\b[^>]*>[^<]+</legend>[\\s\\S]*?</fieldset>", "flags": "is", "text": "Opakuj grupę opcji w <fieldset> z niepustym nagłówkiem <legend>" },
+  { "id": "radio-group", "type": "regex", "pattern": "<input\\b(?=[^>]*\\btype=[\"']radio[\"'])(?=[^>]*\\bvalue=[\"'][^\"']+[\"'])[^>]*\\bname=[\"']([^\"']+)[\"'][^>]*>[\\s\\S]*?<input\\b(?=[^>]*\\btype=[\"']radio[\"'])(?=[^>]*\\bvalue=[\"'][^\"']+[\"'])[^>]*\\bname=[\"']\\1[\"'][^>]*>", "flags": "is", "text": "Dodaj co najmniej dwa pola <input type=\"radio\"> z tym samym atrybutem name i własnymi value" },
+  { "id": "select-options", "type": "regex", "pattern": "<select\\b(?=[^>]*\\bid=[\"'][^\"']+[\"'])(?=[^>]*\\bname=[\"'][^\"']+[\"'])[^>]*>[\\s\\S]*?<option\\b[^>]*>[^<]+</option>[\\s\\S]*?<option\\b[^>]*>[^<]+</option>[\\s\\S]*?</select>", "flags": "is", "text": "Dodaj listę <select> (z id i name) z co najmniej dwoma elementami <option>" },
+  { "id": "input-number", "type": "regex", "pattern": "<input\\b(?=[^>]*\\btype=[\"']number[\"'])(?=[^>]*\\bid=[\"'][^\"']+[\"'])(?=[^>]*\\bname=[\"'][^\"']+[\"'])(?=[^>]*\\bmin=[\"']\\d+[\"'])(?=[^>]*\\bmax=[\"']\\d+[\"'])[^>]*>", "flags": "i", "text": "Dodaj pole <input type=\"number\"> z atrybutami id, name, min oraz max" },
+  { "id": "labels-for", "type": "regex", "pattern": "<label\\b[^>]*\\bfor=[\"'][^\"']+[\"'][^>]*>[\\s\\S]*?</label>[\\s\\S]*?<label\\b[^>]*\\bfor=[\"'][^\"']+[\"'][^>]*>[\\s\\S]*?</label>", "flags": "is", "text": "Dodaj co najmniej dwie etykiety <label for=\"...\"> powiązane z polami" },
+  { "id": "input-readonly", "type": "regex", "pattern": "<input\\b(?=[^>]*\\bname=[\"'][^\"']+[\"'])(?=[^>]*\\bvalue=[\"'][^\"']+[\"'])(?=[^>]*\\breadonly\\b)[^>]*>", "flags": "i", "text": "Dodaj pole z numerem rezerwacji (name, value) zabezpieczone atrybutem readonly" },
+  { "id": "btn-submit", "type": "regex", "pattern": "<button\\b[^>]*\\btype=[\"']submit[\"'][^>]*>[\\s\\S]*?</button>", "flags": "is", "text": "Dodaj przycisk wysyłania <button type=\"submit\">" }
+]
+</template>
+</data-code-runner>
+</data-gate>
+
+---
+
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Kodowanie ciała POST (urlencoded vs multipart/form-data) i tokeny CSRF</span>
+<span class="deep-dive-badge">HTTP POST · MULTIPART · CSRF</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Co dokładnie leci w ciele żądania HTTP POST?</h4>
+
+Domyślnie formularz koduje dane jako `application/x-www-form-urlencoded` (taki sam format `klucz=wartosc&...` jak w `GET`, tylko przeniesiony z adresu URL do ciała żądania). Gdy jednak formularz zawiera pole przesyłania pliku `<input type="file">`, musisz ustawić `enctype="multipart/form-data"`. Przeglądarka dzieli wtedy ciało żądania losowym separatorem *boundary* i wysyła surowe bajty pliku:
+
+```http
+POST /upload HTTP/1.1
+Content-Type: multipart/form-data; boundary=----KoalaBoundary7MA4YWxk
+
+------KoalaBoundary7MA4YWxk
+Content-Disposition: form-data; name="order_id"
+
+ZAM-2026-41
+------KoalaBoundary7MA4YWxk
+Content-Disposition: form-data; name="avatar"; filename="profil.webp"
+Content-Type: image/webp
+
+<surowe bajty pliku graficznego>
+------KoalaBoundary7MA4YWxk--
 ```
 
-_**♿ Dostępność (WCAG):**_
-- **Powiązanie:** Atrybut `for` w tagu `<output>` powinien zawierać identyfikatory `id` elementów wejściowych, z których pochodzą dane do obliczeń.
-- **Dynamiczne ogłaszanie:** Element ten ma domyślnie przypisaną rolę powiadomień na żywo. Kiedy jego wartość zostanie zmieniona, czytnik ekranu automatycznie odczyta nowy wynik użytkownikowi.
+Bez `enctype="multipart/form-data"` przeglądarka wyśle wyłącznie tekstową nazwę pliku (`avatar=profil.webp`), a serwer nigdy nie dostanie jego zawartości binarnej.
 
----
+<h4>2. Pola ukryte (type="hidden"), CSRF i obejście walidacji HTML</h4>
 
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego <code>placeholder</code> nie powinien zastępować elementu <code>&lt;label&gt;</code>?</question>
-    <options>
-      <item>Bo placeholder działa wyłącznie w polach typu <code>password</code>.</item>
-      <item correct>Bo placeholder jest tylko podpowiedzią wizualną, znika podczas pisania i nie tworzy stabilnej nazwy pola.</item>
-      <item>Bo placeholder blokuje wysyłanie formularza metodą <code>post</code>.</item>
-      <item>Bo placeholder jest przeznaczony wyłącznie dla wyszukiwarek SEO.</item>
-    </options>
-    <div data-hint="error">Pomyśl o użytkowniku czytnika ekranu i osobie, która już zaczęła wpisywać tekst w polu.</div>
-    <div data-hint="success">Dokładnie. <code>&lt;label&gt;</code> nazywa pole, a placeholder tylko podpowiada przykład lub oczekiwany format.</div>
-  </data-quiz>
-</data-gate>
+Pole `<input type="hidden" name="csrf_token" value="...">` nie pojawia się na ekranie, ale jego wartość trafia w ciele żądania POST i służy do ochrony przed atakami **CSRF** (*Cross-Site Request Forgery*). Pamiętaj, że każdy użytkownik może w DevTools dopisać atrybut `novalidate` do `<form>` albo wysłać żądanie bezpośrednio z narzędzia `curl` z pominięciem przeglądarki. Dlatego walidacja HTML jest wyłącznie warstwą UX, a każdą regułę bezpieczeństwa i spójności musi ponownie zweryfikować serwer.
 
----
+<h4>3. Podpowiedzi bez zamkniętej listy: znacznik datalist</h4>
 
-<data-gate>
-  <data-connection-matcher title="Połącz element formularza z jego rolą:">
-    <div class="cmw-item" data-left="`&amp;lt;label&amp;gt;`" data-right="Nadaje polu zrozumiałą nazwę"></div>
-    <div class="cmw-item" data-left="`name`" data-right="Określa nazwę pola w danych wysyłanych do serwera"></div>
-    <div class="cmw-item" data-left="`required`" data-right="Oznacza pole jako obowiązkowe"></div>
-    <div class="cmw-item" data-left="`&amp;lt;fieldset&amp;gt;`" data-right="Grupuje powiązane kontrolki formularza"></div>
-  </data-connection-matcher>
-</data-gate>
+Jeśli chcesz podpowiadać popularne wartości podczas wpisywania, ale bez blokowania własnego tekstu użytkownika, połącz `<input list="miasta">` ze znacznikiem `<datalist id="miasta">` zawierającym pozycje `<option value="...">`.
+
+</div>
+</details>
 
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **`<form>` zbiera dane użytkownika**: `action` wskazuje adres, a `method` określa sposób wysłania danych.
-- **Etykieta jest obowiązkowa w praktyce**: `<label>` tworzy stabilną nazwę pola dla człowieka, czytnika ekranu i narzędzi testujących.
-- **Typ pola ma znaczenie**: `email`, `url`, `number`, `date`, `password` i inne typy niosą informację o rodzaju danych.
-- **HTML ma podstawową walidację**: `required`, `min`, `max`, `maxlength` i `pattern` pomagają, ale nie zastępują walidacji serwera.
-- **`fieldset` i `legend` porządkują grupy**: Szczególnie przy radio buttonach i checkboxach dają użytkownikowi kontekst.
-- **`type="hidden"` przemyca dane**: niewidoczne dla użytkownika, wysyłane z formularzem. Używaj do tokenów CSRF i identyfikatorów kontekstu.
-- **`disabled` nie wysyła, `readonly` wysyła**: to najczęstsza pomyłka przy formularzach z zablokowanymi polami.
-- **`<datalist>` daje podpowiedzi bez ograniczeń**: użytkownik może wybrać opcję albo wpisać cokolwiek innego.
+- **Dobieraj metodę do charakteru danych:** używaj `GET` do wyszukiwania i filtrowania (dane trafiają do adresu URL), a `POST` do logowania, rejestracji i formularzy wysyłających prywatne lub dłuższe treści.
+- **Pilnuj trójki `for`, `id` i `name`:** para `for`/`id` zapewnia dostępność i klikalność etykiety `<label>`, a atrybut `name` decyduje o tym, czy wartość pola w ogóle trafi do serwera. Nigdy nie zastępuj etykiety samym `placeholder`.
+- **Grupuj opcje wyboru z głową:** przyciski `radio` tworzą grupę jednokrotnego wyboru wyłącznie wtedy, gdy dzielą ten sam atrybut `name`. Zamykaj takie grupy w `<fieldset>` z czytelnym `<legend>`.
+- **Rozróżniaj `disabled` i `readonly`:** oba blokują edycję, ale `disabled` wyklucza pole z wysyłanych danych, natomiast `readonly` przesyła jego wartość do serwera.
+- **Traktuj walidację HTML jako pierwszą linię pomocy:** atrybuty `required`, `min`, `max`, `minlength` i `pattern` oszczędzają czas użytkownika, lecz ostateczną weryfikację zawsze wykonuje serwer.
 
+> [!TIP]
+> Chcesz utrwalić budowanie semantycznych struktur i formularzy na realnych scenariuszach? Zajrzyj do [Katalog zadań praktycznych](/arkusze/?qual=INF.03&tag=HTML).

@@ -1,8 +1,8 @@
 # Polisy, Zabezpieczenia i Rejestr Systemowy
 
-Poprzednia lekcja uczyła nas analizy po fakcie – szukaliśmy śladów awarii w Dzienniku Zdarzeń. W tym module przestaniesz być tylko obserwatorem i zaczniesz aktywnie modyfikować surowe parametry systemu, od których zależy to, na co Windows pozwala użytkownikom i aplikacjom.
+Poprzednia lekcja uczyła nas analizy po fakcie - szukaliśmy śladów awarii w Dzienniku Zdarzeń. W tym module przestaniesz być tylko obserwatorem i zaczniesz aktywnie modyfikować surowe parametry systemu, od których zależy to, na co Windows pozwala użytkownikom i aplikacjom.
 
-Z poprzednich modułów wiesz już, jak ominąć proces OOBE i utworzyć lokalne konto administratora zamiast wymuszanego przez Microsoft konta online. Ma to jednak swoją cenę. Konto Microsoft automatycznie chroni dostęp za pomocą chmury i MFA. Konto lokalne daje Ci pełną niezależność od serwerów, ale zostawia kwestie bezpieczeństwa wyłącznie w Twoich rękach – domyślnie pozwala na puste hasła i nie posiada limitów prób logowania. W tej lekcji nauczysz się własnoręcznie łatać te luki: odetniemy drogę ransomware'owi, zahackujemy stan aplikacji w Rejestrze i zbudujemy rygorystyczną klatkę dla stanowiska publicznego. Czas wejść pod maskę.
+Z poprzednich modułów wiesz już, jak ominąć proces OOBE i utworzyć lokalne konto administratora zamiast wymuszanego przez Microsoft konta online. Ma to jednak swoją cenę. Konto Microsoft automatycznie chroni dostęp za pomocą chmury i MFA. Konto lokalne daje Ci pełną niezależność od serwerów, ale zostawia kwestie bezpieczeństwa wyłącznie w Twoich rękach - domyślnie pozwala na puste hasła i nie posiada limitów prób logowania. W tej lekcji nauczysz się własnoręcznie łatać te luki: odetniemy drogę ransomware'owi, zahackujemy stan aplikacji w Rejestrze i zbudujemy rygorystyczną klatkę dla stanowiska publicznego. Czas wejść pod maskę.
 
 ---
 
@@ -20,32 +20,15 @@ Schemat przedstawia architekturę przepływu konfiguracji w systemie Windows, il
 
 **Opis strukturalny diagramu**
 
-1. **Główne komponenty** – W górnej części rysunku ułożone są poziomo cztery prostokątne bloki. Od lewej do prawej to: „🧿 Jądro Systemu (Ring 0)”, „🔧 `secpol.msc` Zasady Zabezpieczeń Lokalnych”, „🛠️ `gpedit.msc` Edytor Zasad Grupy” oraz „🪟 Ustawienia Windows Panel Sterowania (Ring 3)”.
-2. **Centralna baza danych** – W dolnej części schematu znajduje się ciemny, walcowaty kształt z pomarańczowym obrysem, opisany jako „🗄️ Rejestr Systemowy i Baza Zabezpieczeń”.
-3. **Pola akcji** – Pod każdym z czterech górnych bloków znajduje się szare pole z opisem działania, od którego prowadzi strzałka do centralnego walca na dole.
-4. **Relacja Jądra Systemu** – Od Jądra odchodzi zielona strzałka przez pole „Odczytuje podczas startu i logowania”, co wizualizuje proces pobierania danych.
-5. **Relacje narzędzi administracyjnych** – Od `secpol.msc` prowadzi biała strzałka przez pole „Modyfikuje secedit.sdb i klucze rejestru”. Od `gpedit.msc` prowadzi analogiczna strzałka przez pole „Generuje Registry.pol i nadpisuje rejestr”.
-6. **Relacja panelu użytkownika** – Skrajny prawy blok (Ustawienia) jest połączony białą strzałką z bazą poprzez pole opisane jako „Słabe zmiany, niższy priorytet”.
+1. **Główne komponenty** - W górnej części rysunku ułożone są poziomo cztery prostokątne bloki. Od lewej do prawej to: „🧿 Jądro Systemu (Ring 0)”, „🔧 `secpol.msc` Zasady Zabezpieczeń Lokalnych”, „🛠️ `gpedit.msc` Edytor Zasad Grupy” oraz „🪟 Ustawienia Windows Panel Sterowania (Ring 3)”.
+2. **Centralna baza danych** - W dolnej części schematu znajduje się ciemny, walcowaty kształt z pomarańczowym obrysem, opisany jako „🗄️ Rejestr Systemowy i Baza Zabezpieczeń”.
+3. **Pola akcji** - Pod każdym z czterech górnych bloków znajduje się szare pole z opisem działania, od którego prowadzi strzałka do centralnego walca na dole.
+4. **Relacja Jądra Systemu** - Od Jądra odchodzi zielona strzałka przez pole „Odczytuje podczas startu i logowania”, co wizualizuje proces pobierania danych.
+5. **Relacje narzędzi administracyjnych** - Od `secpol.msc` prowadzi biała strzałka przez pole „Modyfikuje secedit.sdb i klucze rejestru”. Od `gpedit.msc` prowadzi analogiczna strzałka przez pole „Generuje Registry.pol i nadpisuje rejestr”.
+6. **Relacja panelu użytkownika** - Skrajny prawy blok (Ustawienia) jest połączony białą strzałką z bazą poprzez pole opisane jako „Słabe zmiany, niższy priorytet”.
 
 > [!NOTE]
 > `gpedit.msc` to potężna nakładka graficzna do masowej, bezpiecznej edycji **Rejestru** w oparciu o polityki. Z kolei `secpol.msc` to wycinek (podzbiór) edytora `gpedit.msc`, wyseparowany jako osobne narzędzie, aby dać administratorom szybki wgląd w same krytyczne parametry ochrony systemu bez przebijania się przez resztę opcji. Co najważniejsze: **ani `gpedit.msc`, ani `secpol.msc` nie są dostępne w systemie Windows 11 Home**. Narzędzia te zarezerwowane są wyłącznie dla wersji *Pro*, *Enterprise* oraz *Education*.
-
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego narzędzia takie jak `gpedit.msc` zawsze mają absolutny priorytet nad standardowym Panelem Sterowania?</question>
-    <options>
-      <item>Ponieważ operują one w przestrzeni użytkownika (Ring 3) i wymuszają uprawnienia przez UAC.</item>
-      <item correct>Modyfikują one chronione klucze polis w Rejestrze, które Jądro systemu czyta jako pierwsze i ostateczne.</item>
-      <item>Ze względu na to, że generują one pliki XML nadpisujące graficzne ustawienia menedżera pulpitu (DWM).</item>
-    </options>
-    <div data-hint="error">
-      Zastanów się nad architekturą z diagramu.
-    </div>
-    <div data-hint="success">
-      Dokładnie! Zwykłe Ustawienia to tylko Ring 3. Polityki z `gpedit` i `secpol` modyfikują specjalne chronione klucze rejestru, które Jądro Windowsa zawsze traktuje jako ważniejsze w przypadku konfliktu.
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -57,13 +40,13 @@ Ustawisz w niej m.in.: wymagania co do haseł, historię haseł, blokowanie kont
 
 Uruchamiasz ją skrótem <kbd class="Win"></kbd> + <kbd>R</kbd>, wpisz komendę `secpol.msc` i zatwierdzasz klawiszem <kbd>Enter</kbd>.
 
-### 🔑 Zasady Haseł – koniec z `admin123`
+### 🔑 Zasady Haseł - koniec z `admin123`
 
 Hasła to pierwsza linia obrony. Bez wymuszonych zasad użytkownicy będą ustawiać `hasło1`, `qwerty` lub, co gorsza, zostawią konto bez hasła w ogóle.
 
 W lewym drzewie przejdź do: <kbd class="win-menu-btn">Zasady konta</kbd> → <kbd class="win-menu-btn">Zasady haseł</kbd>.
 
-Poniższy widok przedstawia pełną listę dostępnych polis. Wartości, które tu narzucisz, nie powinny być przypadkowe – w środowiskach produkcyjnych opiera się je na branżowych standardach bezpieczeństwa, takich jak **Microsoft Security Baselines**, wytyczne **CIS (Center for Internet Security)** czy ramy **NIST SP 800-63B**. 
+Poniższy widok przedstawia pełną listę dostępnych polis. Wartości, które tu narzucisz, nie powinny być przypadkowe - w środowiskach produkcyjnych opiera się je na branżowych standardach bezpieczeństwa, takich jak **Microsoft Security Baselines**, wytyczne **CIS (Center for Internet Security)** czy ramy **NIST SP 800-63B**. 
 
 Zbadaj każdą z dostępnych zasad na interaktywnym zrzucie ekranu (najedź na pulsujące punkty):
 
@@ -76,8 +59,8 @@ Ta zasada wymusza, żeby hasło zawierało znaki z co najmniej **$3$ z $4$** kat
 - Małe litery (a-z)  
 - Cyfry ($0 - 9$)
 - Znaki specjalne (!@#$%...)
-`SuperAdmin` – odrzucone ❌ (brak cyfr i znaków specjalnych).  
-`S3cur3@dmin` – zaakceptowane. ✅</hotspot>
+`SuperAdmin` - odrzucone ❌ (brak cyfr i znaków specjalnych).  
+`S3cur3@dmin` - zaakceptowane. ✅</hotspot>
     <hotspot x="75.2" y="24.2" title="Inspekcja minimalnej długości hasła">
 _**Zalecenie: Używane przejściowo (np. $14$ znaków)**_
 Ta nowa polisa (ikona kartki z lupą) to flagowy przykład profesjonalnego podejścia **„Audit before Enforce”** (Audytuj przed Wymuszeniem).
@@ -116,7 +99,7 @@ Włączenie zasady znosi ten limit, dając administratorowi możliwość wymusze
 
 ---
 
-### 🔒 Zasady Blokady Konta – śmierć ataków Brute-Force
+### 🔒 Zasady Blokady Konta - śmierć ataków Brute-Force
 
 Sama złożoność hasła nie wystarczy. Jeśli atakujący ma nieograniczoną liczbę prób, każde hasło da się złamać słownikiem lub siłą. Zasady blokady konta rozwiązują ten problem radykalnie: po kilku błędnych próbach konto zostaje zablokowane.
 
@@ -164,7 +147,7 @@ Unlock-LocalUser -Name "Administrator"
 
 ---
 
-### 👁️ Zasady Inspekcji – włączenie „oczu” systemu
+### 👁️ Zasady Inspekcji - włączenie „oczu” systemu
 
 Zabezpieczenia to nie tylko blokady, ale też stały monitoring. System bez włączonego audytu jest ślepy. Windows posiada wbudowany, ultrawydajny mechanizm logowania oparty na architekturze **ETW (Event Tracing for Windows)**. Domyślnie jednak, by oszczędzać zasoby dyskowe w wersjach Desktopowych (np. Pro/Home), system nie zapisuje wielu zdarzeń powiązanych z autoryzacją.
 
@@ -221,16 +204,16 @@ _**Absolutnie najważniejsza polisa dla obrony stanowiska!**_
 ### 🗝️ Konfiguracja inspekcji zdarzeń logowania
 
 Aby móc na żywo obserwować potencjalne ataki, kliknij dwukrotnie w **„Przeprowadź inspekcję zdarzeń logowania"** i zaznacz obydwie opcje:
-- <kbd class="check-mark"></kbd> **Sukces** – system zapisze każde udane wejście (`Event ID 4624`).
-- <kbd class="check-mark"></kbd> **_Niepowodzenie_** – system zapisze każdą odrzuconą próbę wejścia (`Event ID 4625`).
+- <kbd class="check-mark"></kbd> **Sukces** - system zapisze każde udane wejście (`Event ID 4624`).
+- <kbd class="check-mark"></kbd> **_Niepowodzenie_** - system zapisze każdą odrzuconą próbę wejścia (`Event ID 4625`).
 
 Po zapisaniu zmian otwórz **Podgląd zdarzeń** (`eventvwr.msc`), rozwiń <kbd class="win-menu-btn">Dzienniki systemu Windows</kbd> i kliknij <kbd class="win-menu-btn">Zabezpieczenia</kbd>.
 
 
 <data-tabs>
   <tabs>
-    <item>Event ID 4624 – Sukces</item>
-    <item>Event ID 4625 – Niepowodzenie</item>
+    <item>Event ID 4624 - Sukces</item>
+    <item>Event ID 4625 - Niepowodzenie</item>
     <item>Kody błędów (Hex)</item>
   </tabs>
   <div>
@@ -240,9 +223,9 @@ Po zapisaniu zmian otwórz **Podgląd zdarzeń** (`eventvwr.msc`), rozwiń <kbd 
 **Event ID 4624: Logowanie na koncie zakończone sukcesem**
 
 Ten log oznacza po prostu, że ktoś dostał się do systemu. Zamiast czytać cały długi opis, skup się na trzech najważniejszych polach:
-- **Nowe logowanie** → *Nazwa konta* – na jaki login ktoś wszedł (np. `Egzamin`).
-- **Informacje o sieci** → *Źródłowy adres sieciowy* – z jakiego adresu IP się połączył (np. `127.0.0.1` (*localhost*) w przypadku logowania fizycznie z tej samej maszyny).
-- **Informacje o logowaniu** → *Typ logowania* – w jaki sposób nastąpiło wejście. Najpopularniejsze to:
+- **Nowe logowanie** → *Nazwa konta* - na jaki login ktoś wszedł (np. `Egzamin`).
+- **Informacje o sieci** → *Źródłowy adres sieciowy* - z jakiego adresu IP się połączył (np. `127.0.0.1` (*localhost*) w przypadku logowania fizycznie z tej samej maszyny).
+- **Informacje o logowaniu** → *Typ logowania* - w jaki sposób nastąpiło wejście. Najpopularniejsze to:
   - `2` = Interaktywny (ktoś usiadł fizycznie przed monitorem i użył klawiatury).
   - `3` = Sieciowy (ktoś połączył się przez udostępniony w sieci folder).
   - `10` = Zdalny (ktoś wbił przez Pulpit Zdalny).
@@ -252,7 +235,7 @@ Jeśli w logach widzisz logowanie zdalne (Typ `10`) na konto `Administrator` o $
   </div>
   <div>
 
-![Podgląd Zdarzeń z otwartym zdarzeniem 4625 – Niepowodzenie inspekcji z pełnymi szczegółami](/public/courses/windows-11/Images/inspekcja-logowania-w-podglądzie-zdarzeń-niepowodzenie.png)
+![Podgląd Zdarzeń z otwartym zdarzeniem 4625 - Niepowodzenie inspekcji z pełnymi szczegółami](/public/courses/windows-11/Images/inspekcja-logowania-w-podglądzie-zdarzeń-niepowodzenie.png)
 
 **Event ID 4625: Logowanie na koncie nie powiodło się**
 
@@ -291,11 +274,11 @@ W tym przykładzie system odrzucił logowanie interaktywne (Typ `2`) na konto `E
 
 Zamiast zgadywać, po prostu zerknij na kod w polu **Stan podrzędny**. To on zdradza prawdziwą przyczynę porażki:
 
-- `0xC000006A` – Złe hasło. Najpopularniejszy błąd. Oznacza atak, złośliwe zgadywanie hasła albo... zwykłą literówkę przy logowaniu.
-- `0xC0000064` – Konto nie istnieje. Ktoś próbuje wejść na użytkownika, którego w ogóle nie ma na tym komputerze.
-- `0xC0000234` – Konto zablokowane. Atakujący wpisywał złe hasło tak długo, aż system odpalił ochronę z Zasad Blokady Konta.
+- `0xC000006A` - Złe hasło. Najpopularniejszy błąd. Oznacza atak, złośliwe zgadywanie hasła albo... zwykłą literówkę przy logowaniu.
+- `0xC0000064` - Konto nie istnieje. Ktoś próbuje wejść na użytkownika, którego w ogóle nie ma na tym komputerze.
+- `0xC0000234` - Konto zablokowane. Atakujący wpisywał złe hasło tak długo, aż system odpalił ochronę z Zasad Blokady Konta.
 
-W podanym logu widoczny jest kod `0xC000006A`, co świadczy o błędnym haśle. Jeśli jednak widzisz, że obcy adres IP generuje błąd `0xC000006A` po kilkanaście razy na sekundę – masz 100% pewności, że trwa automatyczny atak siłowy (Brute-Force). Rozwiązanie? Szybka blokada tego IP w Zaporze sieciowej (Firewall).
+W podanym logu widoczny jest kod `0xC000006A`, co świadczy o błędnym haśle. Jeśli jednak widzisz, że obcy adres IP generuje błąd `0xC000006A` po kilkanaście razy na sekundę - masz 100% pewności, że trwa automatyczny atak siłowy (Brute-Force). Rozwiązanie? Szybka blokada tego IP w Zaporze sieciowej (Firewall).
 
   </div>
 </data-tabs>
@@ -327,10 +310,10 @@ Get-WinEvent -FilterHashtable @{
 
 > [!NOTE]
 > **Skąd wzięły się indeksy 19 i 10?**
-> W starym Windows 10 adres IP miał indeks $18$, a Typ Logowania $9$. W Windows 11 Microsoft wcisnął w środek struktury `4625` nowe pole – `FailureReason` – przez co wszystko pod nim przesunęło się w tablicy o jeden w dół. Opieranie się na sztywnych indeksach to oczywiście brudny hack, ale przy pisaniu jednorazowych komend na kolanie to po prostu najszybsza metoda.
+> W starym Windows 10 adres IP miał indeks $18$, a Typ Logowania $9$. W Windows 11 Microsoft wcisnął w środek struktury `4625` nowe pole - `FailureReason` - przez co wszystko pod nim przesunęło się w tablicy o jeden w dół. Opieranie się na sztywnych indeksach to oczywiście brudny hack, ale przy pisaniu jednorazowych komend na kolanie to po prostu najszybsza metoda.
 
 > [!TIP]
-> Jeśli konsola ma prawa admina, a po puszczeniu skryptu widzisz absolutną pustkę – system po prostu nie zarejestrował żadnego nieudanego logowania w tym czasie. Upewnij się, że opcja audytu jest włączona w `secpol.msc` i została zastosowana (zmiany w `secpol.msc` i `gpedit.msc` stosowane są prz logowaniu ale możesz je wymusić wpisując w konsoli: `gpupdate /force`).
+> Jeśli konsola ma prawa admina, a po puszczeniu skryptu widzisz absolutną pustkę - system po prostu nie zarejestrował żadnego nieudanego logowania w tym czasie. Upewnij się, że opcja audytu jest włączona w `secpol.msc` i została zastosowana (zmiany w `secpol.msc` i `gpedit.msc` stosowane są prz logowaniu ale możesz je wymusić wpisując w konsoli: `gpupdate /force`).
 </details>
 
 ### 🔐 Konfiguracja inspekcji obiektów
@@ -364,8 +347,8 @@ Gdy tylko obcy proces (w tym wypadku `cmd.exe`) dobierze się do zawartości, sy
 ![Sukcesy inspekcji 4663 4656 i jedno niepowodzenie inspekcji 4565 na kategorii zadań File System](/public/courses/windows-11/Images/2-sukcesy-inspekcji-4663-4656-i-jedne-niepowodzenie-inspekcji-4565-na-kategorii-zadania-File-System.png)
 
 Kluczowe numery logów (Kategoria zadań: File System), których powinieneś szukać:
-- **4656** – Informacja techniczna: ktoś (lub jakiś proces) poprosił system o uchwyt (Handle) do pliku.
-- **4663** – Absolutny „dowód zbrodni”. Podjęto próbę konkretnej operacji na obiekcie. Jak widzisz na screenie wyżej, log bezbłędnie wyłapał dokładną nazwę konta (`test`) oraz ścieżkę do procesu (`C:\Windows\System32\cmd.exe`), który odczytał dokument. Intruz złapany za rękę!
+- **4656** - Informacja techniczna: ktoś (lub jakiś proces) poprosił system o uchwyt (Handle) do pliku.
+- **4663** - Absolutny „dowód zbrodni”. Podjęto próbę konkretnej operacji na obiekcie. Jak widzisz na screenie wyżej, log bezbłędnie wyłapał dokładną nazwę konta (`test`) oraz ścieżkę do procesu (`C:\Windows\System32\cmd.exe`), który odczytał dokument. Intruz złapany za rękę!
 
 <data-gate>
   <data-connection-matcher title="Zarządzanie bezpieczeństwem kont i inspekcją">
@@ -378,9 +361,9 @@ Kluczowe numery logów (Kategoria zadań: File System), których powinieneś szu
 
 ---
 
-## 🗄️ 2. Rejestr Systemowy (`regedit.exe`) – prawdziwa twarz systemu
+## 🗄️ 2. Rejestr Systemowy (`regedit.exe`) - prawdziwa twarz systemu
 
-Rejestr to hierarchiczna baza danych przechowywana jako pliki binarne (zwane *Hive*), które Jądro Windowsa mapuje na wirtualne drzewo podczas bootowania. Wszystko co system „wie" o sobie – sterowniki, konfiguracja aplikacji, preferencje użytkownika, polityki bezpieczeństwa – żyje w Rejestrze.
+Rejestr to hierarchiczna baza danych przechowywana jako pliki binarne (zwane *Hive*), które Jądro Windowsa mapuje na wirtualne drzewo podczas bootowania. Wszystko co system „wie" o sobie - sterowniki, konfiguracja aplikacji, preferencje użytkownika, polityki bezpieczeństwa - żyje w Rejestrze.
 
 | Gałąź | Skrót | Co przechowuje | Plik fizyczny |
 | :--- | :--- | :--- | :--- |
@@ -431,7 +414,7 @@ Wiele aplikacji desktopowych zapisuje swoją konfigurację właśnie w gałęzi 
 
 > [!TIP]
 > **Koszmar optymalizacyjny**
-> Przeanalizuj ten XML na zrzucie ekranu z *CyberChefa* – to podręcznikowy przykład, jak **_NIE_** projektować systemów zapisu.
+> Przeanalizuj ten XML na zrzucie ekranu z *CyberChefa* - to podręcznikowy przykład, jak **_NIE_** projektować systemów zapisu.
 > 
 > Zwróć uwagę na potężny narzut składniowy domyślnego serializatora XML w C#. Aby zapisać najprostszą wartość prawda/fałsz (wymagającą w teorii 1 bita), gra marnuje kilkanaście bajtów na tasiemcowy tag `<boolean>false</boolean>`. W połączeniu z deklaracją `utf-16` (które rezerwuje dwa bajty na każdy znak, wstawiając w angielskim tekście puste zera) daje to gigantyczne pompowanie pliku. Surowe dane ważące 300 bajtów rozrastają się do kilkunastu kilobajtów! W małej grze to bez znaczenia, ale w większych produkcjach zapisywanie takich molochów do plików powoduje zauważalne zacinanie się gry (*stutter*) podczas autozapisu. Mądry deweloper użyłby tu lekkiego formatu JSON z wymuszonym UTF-8. 😁
 
@@ -444,13 +427,13 @@ Wiele aplikacji desktopowych zapisuje swoją konfigurację właśnie w gałęzi 
 
 > [!WARNING]
 > **Pułapka Integer Overflow (przepełnienie wartości liczbowej)**
-> Wpisanie zbyt wysokiej kwoty (np. `999999999`) wywołuje błąd typu Integer Overflow. Gra ma problem ze zdeserializowaniem tak potężnej liczby z XML-a do przypisanego typu zmiennej liczbowej w kodzie. Na zrzucie poniżej (po lewej stronie) widać efekt: gra zgłupiała, ustawiła błędny poziom (Lvl $88$), zresetowała pieniądze do $\text{$}4000$ i zablokowała możliwość rozpoczęcia wyścigu. Prawa strona obrazka pokazuje poprawne zachowanie po podaniu wartości `9999999` – środki zostały poprawnie dodane i pozwoliły na zakup dowolnych ulepszeń (np. niebieskiego lakieru dla auta).
+> Wpisanie zbyt wysokiej kwoty (np. `999999999`) wywołuje błąd typu Integer Overflow. Gra ma problem ze zdeserializowaniem tak potężnej liczby z XML-a do przypisanego typu zmiennej liczbowej w kodzie. Na zrzucie poniżej (po lewej stronie) widać efekt: gra zgłupiała, ustawiła błędny poziom (Lvl $88$), zresetowała pieniądze do $\text{$}4000$ i zablokowała możliwość rozpoczęcia wyścigu. Prawa strona obrazka pokazuje poprawne zachowanie po podaniu wartości `9999999` - środki zostały poprawnie dodane i pozwoliły na zakup dowolnych ulepszeń (np. niebieskiego lakieru dla auta).
 
 ![Dziwny bug gdzie wartość money po przekroczeniu max int zmienia lvl i menu się buguje](/public/courses/windows-11/Images/dziwny-bug-gdzie-wartość-money-po-przekroczeniu-max-int-zmienia-lvl-i-menu-się-buguje-ale-dla-wartości-9999999-wszystkodziała.png)
 
 > PS. W XML są tagi dotyczące odblokowania map i samochodów. Spróbuj je odnaleźć i pozmieniać wartości na `true`.  
 
-### 🚀 Analiza Autostartu – wykrywanie ukrytych intruzów
+### 🚀 Analiza Autostartu - wykrywanie ukrytych intruzów
 
 Złośliwe oprogramowanie uwielbia jeden trick:
 Wstrzykniecie się do kluczy autostartu w Rejestrze, żeby uruchomić się przy każdym starcie systemu. Menedżer zadań (zakładka Autostart) często ich nie pokazuje, bo **_rootkit_** celowo ukrywa się przed API Windowsa.
@@ -469,8 +452,8 @@ Na powyższym zrzucie widzisz prawdziwe wpisy autostartu z działającego system
 
 | Nazwa wartości | Dane | Ocena |
 | :--- | :--- | :--- |
-| `RtkAudUService` | `C:\WINDOWS\System32\DriverStore\...\RtkAudUService64.exe` | ✅ Legitny – sterownik audio Realtek |
-| `SecurityHealth` | `%windir%\system32\SecurityHealthSystray.exe` | ✅ Legitny – ikona Windows Security w zasobniku |
+| `RtkAudUService` | `C:\WINDOWS\System32\DriverStore\...\RtkAudUService64.exe` | ✅ Legitny - sterownik audio Realtek |
+| `SecurityHealth` | `%windir%\system32\SecurityHealthSystray.exe` | ✅ Legitny - ikona Windows Security w zasobniku |
 
 W tym przypadku wszystko jest w porządku. Jak wygląda podejrzany wpis? 🤔 
 
@@ -487,7 +470,7 @@ Dane: C:\Users\Admin\AppData\Local\Temp\update.vbs
 
 Jeśli znajdziesz coś podejrzanego: PPM na wartości → **Usuń**. Wirus straci mechanizm przetrwania przy restarcie.
 
-Sprawdź też te lokalizacje – to one najczęściej służą jako „schronienie” zarówno dla legitnych programów, jak i złośliwego oprogramowania:
+Sprawdź też te lokalizacje - to one najczęściej służą jako „schronienie” zarówno dla legitnych programów, jak i złośliwego oprogramowania:
 
 <data-tabs>
   <tabs>
@@ -544,7 +527,7 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce
 HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce
 ```
 
-Klucze typu `RunOnce` (Uruchom Raz) działają na innej zasadzie – program umieszcza w nich swój wpis i **czeka na następne logowanie użytkownika** (najczęściej następujące po restarcie systemu). W trakcie tego logowania Windows wykonuje polecenie, a następnie automatycznie usuwa wpis z Rejestru.
+Klucze typu `RunOnce` (Uruchom Raz) działają na innej zasadzie - program umieszcza w nich swój wpis i **czeka na następne logowanie użytkownika** (najczęściej następujące po restarcie systemu). W trakcie tego logowania Windows wykonuje polecenie, a następnie automatycznie usuwa wpis z Rejestru.
 
 Złapany przed restartem wpis z mojego systemu:
 
@@ -560,7 +543,7 @@ Złapany przed restartem wpis z mojego systemu:
 
 > [!WARNING]
 > **🔥 Fast Startup może zablokować wykonanie RunOnce!**
-> Zwykłe wyłączenie Windowsa z aktywnym *Fast Startup* to nie jest pełen reset – to jedynie wylogowanie użytkownika i **hibernacja jądra** (co omawialiśmy w Module 1). 
+> Zwykłe wyłączenie Windowsa z aktywnym *Fast Startup* to nie jest pełen reset - to jedynie wylogowanie użytkownika i **hibernacja jądra** (co omawialiśmy w Module 1). 
 > 
 > Aby mieć pewność wykonania wpisów oczekujących na ponowne uruchomienie, należy użyć opcji **Restart**. Wyłączenie komputera przy aktywnym Fast Startup może nie uruchomić wszystkich mechanizmów oczekujących na pełny restart systemu.
 > 
@@ -571,29 +554,12 @@ Ponieważ wpisy `RunOnce` są automatycznie usuwane po wykonaniu, klucze te (zar
   </div>
 </data-tabs>
 
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego złośliwe oprogramowanie (np. trojany) tak chętnie wykorzystuje gałąź HKCU w kluczu Run do utrwalenia swojej obecności w systemie?</question>
-    <options>
-      <item correct>Klucze w HKCU ładują program przy logowaniu profilu i kompletnie nie wymagają uprawnień administratora do modyfikacji.</item>
-      <item>Klucze w HKLM są ignorowane przez systemy Windows 11 i zastępowane przez bezpieczną zakładkę Autostart w Menedżerze.</item>
-      <item>Wpisy dodane w HKLM wykonują się jednorazowo przy restarcie, podczas gdy te z HKCU są trwale i niemożliwe do usunięcia.</item>
-    </options>
-    <div data-hint="error">
-      Zastanów się nad restrykcjami. Czy zwykły pracownik (Konto Standardowe) może modyfikować ustawienia systemowe, a czy może własne?
-    </div>
-    <div data-hint="success">
-      Świetnie! Zapis do `HKEY_LOCAL_MACHINE` wymaga podniesienia uprawnień (UAC). Zmiana w `HKEY_CURRENT_USER` przebiega po cichu w tle.
-    </div>
-  </data-quiz>
-</data-gate>
-
 ---
 
 
 ## 🧰 Projekt: Konfiguracja Stanowiska Publicznego
 
-Stanowiska komputerowe w miejscach publicznych (szkoły, biblioteki, kawiarnie internetowe) są narażone na ciągłe próby modyfikacji konfiguracji lub wręcz celowego sabotażu. Administrowanie takim środowiskiem wymaga wyważenia dostępności – użytkownicy muszą móc pracować – z rygorystycznym bezpieczeństwem.
+Stanowiska komputerowe w miejscach publicznych (szkoły, biblioteki, kawiarnie internetowe) są narażone na ciągłe próby modyfikacji konfiguracji lub wręcz celowego sabotażu. Administrowanie takim środowiskiem wymaga wyważenia dostępności - użytkownicy muszą móc pracować - z rygorystycznym bezpieczeństwem.
 
 ### ⚖️ Analiza wektorów ataku: Czy samo konto wystarczy?
 
@@ -752,17 +718,31 @@ Zmiany są natychmiastowe i nie musisz używać `gpupdate /force`. O dziwo bloka
 
 ---
 
-### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Binarne pliki Hive rejestru NT, komórki nk/vk i indeksowanie B-drzewem</span><span class="deep-dive-badge">Registry Architecture & B-Trees</span></summary>
 
-- **Architektura zarządzania zasadami:** Jądro czyta wartości prosto z Rejestru i bazy zabezpieczeń. `secpol.msc` i `gpedit.msc` to po prostu wygodne narzędzia do edycji tych plików. Tradycyjne Ustawienia Windows leżą na samym dole hierarchii – Jądro zignoruje je przy każdym konflikcie z polisami. 🏗️
-- **Zasady haseł i blokady:** W `secpol.msc` narzucasz długość hasła i odcinasz dostęp po kilku błędach. Bez tego każdy prosty skrypt do Brute-Force uderzy w konta lokalne siłą. 🔐
-- **Polityki Audytu i Event ID:** Windows domyślnie milczy o incydentach bezpieczeństwa. Dopiero włączenie audytu logowania sprawia, że logi **4624** i **4625** zaczynają spływać do Podglądu Zdarzeń. Pojawia się błąd 4625 z obcym IP? Masz pewność, że ktoś właśnie włamuje się na maszynę. 👁️
-- **Rejestr jako źródło prawdy:** Złośliwy kod najczęściej podpina się pod gałęzie `...\CurrentVersion\Run`, żeby zapewnić sobie start wraz z systemem. Z kolei klucze w poddrzewie `Policies` działają nad głową użytkownika – nadpisują wszystko, co zostało wyklikane w interfejsie graficznym. 🗄️
-- **Ochrona stanowiska publicznego i ataki fizyczne:** Brak BitLockera oddaje dysk walkowerem. Wystarczy byle jaki pendrive z Linuxem albo stara sztuczka z Klawiszami Trwałymi, żeby zresetować hasło. Zwykłe Konto Standardowe nie rozwiąże problemu bałaganu w pracowni – musisz ręcznie zablokować CMD, Regedit i personalizację korzystając z `gpedit.msc`. 🛡️
+Rejestr Windows nie jest pojedynczym plikiem XML ani bazą SQL. Fizycznie składa się z kilkunastu binarnych plików zwanych **gałęziami rejestru** (*Registry Hives*), zlokalizowanych w katalogu `C:\Windows\System32\config\` (pliki `SYSTEM`, `SOFTWARE`, `SAM`, `SECURITY`) oraz w profilach użytkowników (`NTUSER.DAT`).
 
-> PS. Jak zobaczysz coś o hakowaniu czy bezpieczeństwie i wspomniane zostanie `netplwiz` to wtrafiłeś na bullshit.
-> To narzędzie jest tylko do zarządzania kontami. Reszta to bzdury. 😐
+### 1. Podział na kosze (HBIN) i komórki (Cells)
+Każdy plik gałęzi rejestru podzielony jest na bloki o rozmiarze wielokrotności $4096 	ext{bajtów}$ zwane **koszami** (*Hive Bins - hbin*):
+- Wewnątrz koszy znajdują się **komórki** (*Cells*) o zmiennej długości.
+- Każda komórka posiada 4-bajtowy nagłówek z polem rozmiaru. Liczba ujemna oznacza komórkę zaalokowaną (aktywną), a liczba dodatnia komórkę wolną (*Free Cell*).
+
+### 2. Typy komórek binarnych
+- **Komórka klucza `nk` (Named Key Cell)**: Reprezentuje klucz rejestru (folder w `regedit`). Zawiera nazwę klucza, znacznik czasu ostatniej modyfikacji, liczbę podkluczy i wartości oraz wskaźnik do deskryptora bezpieczeństwa `sk`.
+- **Komórka wartości `vk` (Value Key Cell)**: Reprezentuje pojedynczą wartość (np. `REG_DWORD`, `REG_SZ`). Zawiera nazwę wartości, typ danych oraz same dane (lub wskaźnik do osobnego bloku, jeśli dane przekraczają 4 bajty).
+
+### 3. Złożoność wyszukiwania O(log N) dzięki B-drzewom
+Gdy usługa systemowa odpytuje rejestr o parametr startowy, jądro nie przeszukuje pliku liniowo. Lista podkluczy jest zorganizowana w postaci **B-drzewa** (*B-Tree*) z tablicami haszującymi pierwszych 4 znaków nazwy klucza (*Fast Leaf - lf/lh*). Dzięki temu odnalezienie klucza wśród dziesiątek tysięcy wpisów wymaga zaledwie kilku skoków w pamięci RAM ($O(log n)$ operacji).
+
+</details>
 
 ---
 
-Na ten moment zbudowaliśmy solidną obronę pasywną – system zablokuje ataki wykorzystując własne restrykcje. W następnym module przechodzimy do reagowania. Zbudujemy skrypty i wepniemy je w Harmonogram Zadań, żeby sprzęt automatycznie odpierał incydenty bez Twojego udziału. ⚡
+### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
+
+- **Architektura zarządzania zasadami:** Jądro czyta wartości prosto z Rejestru i bazy zabezpieczeń. `secpol.msc` i `gpedit.msc` to po prostu wygodne narzędzia do edycji tych plików. Tradycyjne Ustawienia Windows leżą na samym dole hierarchii - Jądro zignoruje je przy każdym konflikcie z polisami. 🏗️
+- **Zasady haseł i blokady:** W `secpol.msc` narzucasz długość hasła i odcinasz dostęp po kilku błędach. Bez tego każdy prosty skrypt do Brute-Force uderzy w konta lokalne siłą. 🔐
+- **Polityki Audytu i Event ID:** Windows domyślnie milczy o incydentach bezpieczeństwa. Dopiero włączenie audytu logowania sprawia, że logi **4624** i **4625** zaczynają spływać do Podglądu Zdarzeń. Pojawia się błąd 4625 z obcym IP? Masz pewność, że ktoś właśnie włamuje się na maszynę. 👁️
+- **Rejestr jako źródło prawdy:** Złośliwy kod najczęściej podpina się pod gałęzie `...\CurrentVersion\Run`, żeby zapewnić sobie start wraz z systemem. Z kolei klucze w poddrzewie `Policies` działają nad głową użytkownika - nadpisują wszystko, co zostało wyklikane w interfejsie graficznym. 🗄️
+- **Ochrona stanowiska publicznego i ataki fizyczne:** Brak BitLockera oddaje dysk walkowerem. Wystarczy byle jaki pendrive z Linuxem albo stara sztuczka z Klawiszami Trwałymi, żeby zresetować hasło. Zwykłe Konto Standardowe nie rozwiąże problemu bałaganu w pracowni - musisz ręcznie zablokować CMD, Regedit i personalizację korzystając z `gpedit.msc`. 🛡️

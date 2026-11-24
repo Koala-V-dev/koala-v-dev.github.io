@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jak działa okno w Windows - Message Loop, Form i kontrolki - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Jak działa okno w Windows - Message Loop, Form i kontrolki</h1>
+<p>Do tej pory wszystkie programy działały liniowo w konsoli: startowały w <code>Main()</code>, wykonywały instrukcje po kolei i natychmiast się kończyły. Gdy program konsolowy wywołuje <code>Console.ReadLine()</code>, stoi w jednym miejscu i czeka wyłącznie na naciśnięcie klawisza <kbd>Enter</kbd>.</p>
+<p>W aplikacji okienkowej ten model się załamuje. Użytkownik może w dowolnej kolejności kliknąć przycisk, zmienić rozmiar okna, nacisnąć <kbd>Alt</kbd>+<kbd>F4</kbd> albo nie robić nic przez godzinę. Dlatego program okienkowy odwraca sterowanie: tworzy okno, oddaje kontrolę systemowi Windows i budzi się dopiero w reakcji na zdarzenia. Ten mechanizm nazywa się <span class="color-gold">pętla zdarzeń</span> i stanowi fundament technologii <span class="color-green">Windows Forms (WinForms)</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🪟 Pętla komunikatów Windows i jedyny wątek UI</h2>
+<p>Każdy wątek tworzący okno w systemie Windows otrzymuje od jądra własną <span class="color-green">kolejkę komunikatów</span>. Wywołanie <code>Application.Run(new MojeOkno())</code> uruchamia nieskończoną pętlę, która usypia wątek przy bezczynności (0% użycia procesora).</p>
+<p>Gdy użytkownik poruszy myszą, kliknie przycisk lub przełączy okno, system wrzuca komunikat do kolejki i natychmiast budzi wątek. Pętla pobiera komunikat, przekazuje go do odpowiedniej kontrolki i wraca w stan oczekiwania.</p>
+<p><data-csharp-msgloop-viz></data-csharp-msgloop-viz></p>
+<p>Całe okno oraz wszystkie jego kontrolki obsługuje <span class="color-green">jeden dedykowany wątek UI</span> (wątek interfejsu użytkownika). Metoda <code>Main()</code> musi być oznaczona atrybutem <code>[STAThread]</code>, który ustawia dla tego wątku model <span class="color-gold">Single‑Threaded Apartment</span> wymagany przez podsystem graficzny i komponenty powłoki Windows.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Nigdy nie wywołuj <code>Thread.Sleep(...)</code> ani długich obliczeń wprost wewnątrz obsługi kliknięcia. Zablokujesz jedyny wątek UI: pętla przestanie odbierać komunikaty, okno nie odrysuje swojego wnętrza, a Windows oznaczy pasek tytułu etykietą <span class="color-red">„Brak odpowiedzi”</span>.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Pominięcie atrybutu <code>[STAThread]</code> nad <code>Main()</code> uruchamia wątek w trybie MTA. Samo okno się wyświetli, ale pierwsza próba otwarcia okna wyboru pliku (<code>OpenFileDialog</code>) lub zapisu do schowka (<code>Clipboard.SetText</code>) rzuci wyjątek <span class="color-red">ThreadStateException</span>.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Tryb konsolowy, tryb okienkowy i start aplikacji</h2>
+<p>Kompilator <code>csc.exe</code> zapisuje w nagłówku PE pliku <code>.exe</code> pole <code>Subsystem</code>. Informuje ono jądro systemu Windows, czy przed uruchomieniem <code>Main()</code> należy otworzyć okno terminala.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha</th>
+<th align="left"><code>/target:exe</code> (Konsola)</th>
+<th align="left"><code>/target:winexe</code> (Okno GUI)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Wartość <code>Subsystem</code> w nagłówku PE</td>
+<td align="left"><code>IMAGE_SUBSYSTEM_WINDOWS_CUI</code> (3)</td>
+<td align="left"><code>IMAGE_SUBSYSTEM_WINDOWS_GUI</code> (2)</td>
+</tr>
+<tr>
+<td align="left">Czarne okno terminala przy starcie</td>
+<td align="left">Tworzone automatycznie przez system</td>
+<td align="left">Brak: pojawia się wyłącznie Twój obiekt <code>Form</code></td>
+</tr>
+<tr>
+<td align="left">Domyślne strumienie <code>Console.Out</code></td>
+<td align="left">Podpięte do okna konsoli</td>
+<td align="left">Brak konsoli (zapis trafia w próżnię)</td>
+</tr>
+<tr>
+<td align="left">Wymagane biblioteki <code>.dll</code></td>
+<td align="left">Tylko <code>mscorlib.dll</code> i <code>System.dll</code></td>
+<td align="left">Dodatkowo <code>System.Windows.Forms.dll</code> i <code>System.Drawing.dll</code></td>
+</tr>
+</tbody></table>
+<p>Zanim w <code>Main()</code> utworzysz pierwszy obiekt okna, wywołaj dwie statyczne metody konfiguracyjne klasy <code>Application</code>:</p>
+<pre><code class="language-csharp">[STAThread]
+static void Main()
+{
+    Application.EnableVisualStyles();
+    Application.SetCompatibleTextRenderingDefault(false);
+    Application.Run(new MojeOkno());
+}
+</code></pre>
+<ul>
+<li><code>Application.EnableVisualStyles()</code> włącza nowoczesne <span class="color-green">style wizualne</span> systemu Windows 11 (zaokrąglone przyciski, cienie, bieżący motyw). Bez tego wywołania kontrolki wracają do kanciastego wyglądu z czasów Windows 95.</li>
+<li><code>Application.SetCompatibleTextRenderingDefault(false)</code> przełącza rysowanie napisów na szybszy, natywny mechanizm GDI (<code>TextRenderer</code>) zamiast starszego GDI+. Czcionki są wtedy ostrzejsze i spójne z resztą systemu.</li>
+</ul>
+<data-gate>
+<data-connection-matcher title="Dopasuj element startowy WinForms do jego skutku w działającej aplikacji">
+  <item left="[STAThread]" right="Włącza model COM STA; brak powoduje ThreadStateException w schowku i oknach plików"></item>
+  <item left="/target:winexe" right="Ustawia podsystem WINDOWS_GUI w nagłówku PE i uruchamia program bez okna konsoli"></item>
+  <item left="Application.Run(okno)" right="Uruchamia pętlę komunikatów Windows i utrzymuje okno przy życiu do zamknięcia"></item>
+  <item left="Application.EnableVisualStyles()" right="Włącza nowoczesny wygląd kontrolek Windows 11 zamiast klasycznego stylu Windows 95"></item>
+  <item left="Thread.Sleep(5000) w obsłudze kliknięcia" right="Blokuje jedyny wątek UI, wstrzymuje odrysowanie i wywołuje stan Brak odpowiedzi"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 Układ współrzędnych ekranu, ClientSize i WorkingArea</h2>
+<p>W grafice komputerowej i w WinForms <span class="color-green">układ współrzędnych</span> różni się od osi znanej z matematyki. Punkt <code>(0, 0)</code> leży zawsze w <span class="color-green">lewym górnym rogu</span> ekranu (dla pozycji okna) lub w lewym górnym rogu wnętrza okna (dla kontrolek).</p>
+<p>Oś X rośnie standardowo w prawo. Oś Y rośnie natomiast <span class="color-green">w dół</span>: im większa współrzędna <span class="color-blue">y</span>, tym niżej na ekranie znajduje się dany element.</p>
+<p>Projektując geometrię okna, musisz rozróżnić dwa zestawy właściwości: wymiary całego okna od jego wnętrza oraz pełny ekran od obszaru roboczego.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Para właściwości</th>
+<th align="left">Co dokładnie obejmuje</th>
+<th align="left">Kiedy jej używasz</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Form.Size</code> vs <code>Form.ClientSize</code></td>
+<td align="left"><code>Size</code> liczy ramki i pasek tytułu; <code>ClientSize</code> to wyłącznie użyteczne wnętrze okna</td>
+<td align="left">Do ustalania miejsca na kontrolki zawsze ustawiaj <code>ClientSize</code></td>
+</tr>
+<tr>
+<td align="left"><code>Screen.Bounds</code> vs <code>Screen.WorkingArea</code></td>
+<td align="left"><code>Bounds</code> to pełny monitor; <code>WorkingArea</code> odejmuje pasek zadań Windows</td>
+<td align="left">Do pozycjonowania okna używaj <code>WorkingArea</code>, aby nie wjechało pod pasek zadań</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Grubość paska tytułu i ramek zależy od wersji Windows oraz skalowania ekranu (DPI). Ustawienie <code>ClientSize</code> gwarantuje, że wnętrze na kontrolki ma dokładnie zadane wymiary na każdym monitorze. Pamiętaj też o <code>WorkingArea.X</code> oraz <code>WorkingArea.Y</code>: jeśli użytkownik przeniósł pasek zadań na górę lub lewą krawędź ekranu, początek obszaru roboczego nie wynosi <code>(0, 0)</code>.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Anatomia klasy Form i podstawowe kontrolki</h2>
+<p>W WinForms każde okno jest zwykłą klasą C# dziedziczącą po <code>System.Windows.Forms.Form</code>. Dzięki dziedziczeniu Twoja klasa <code>MojeOkno</code> od razu otrzymuje zestaw gotowych właściwości: <code>Text</code> (tytuł na pasku), <code>ClientSize</code>, <code>BackColor</code>, <code>ForeColor</code>, <code>StartPosition</code> oraz kolekcję <code>Controls</code>.</p>
+<p>Wszystkie widoczne elementy interfejsu dziedziczą ze wspólnej klasy bazowej <code>Control</code>, więc obsługujesz je za pomocą tych samych właściwości:</p>
+<ul>
+<li><code>Location</code> (<code>Point</code>): współrzędne lewego górnego rogu kontrolki wewnątrz rodzica.</li>
+<li><code>Size</code> (<code>Size</code>): szerokość i wysokość kontrolki w pikselach.</li>
+<li><code>AutoSize</code> (<code>bool</code>): automatyczne dopasowanie rozmiaru do długości napisu.</li>
+<li><code>Enabled</code> (<code>bool</code>): wartość <code>false</code> blokuje klikanie i wyszarza kontrolkę.</li>
+</ul>
+<p>Pięć podstawowych kontrolek pozwala zbudować większość prostych narzędzi okienkowych:</p>
+<ul>
+<li><span class="color-green"><code>Label</code></span>: wyświetla statyczny lub aktualizowany tekst (zwykle z <code>AutoSize = true</code>).</li>
+<li><span class="color-green"><code>Button</code></span>: przycisk uruchamiający akcję po kliknięciu (<code>Click</code>).</li>
+<li><span class="color-green"><code>TextBox</code></span>: pole edycyjne do wpisywania tekstu przez użytkownika (<code>Text</code>).</li>
+<li><span class="color-green"><code>CheckBox</code></span>: pole wyboru typu tak lub nie (<code>Checked</code>).</li>
+<li><span class="color-green"><code>Panel</code></span>: kontener grupujący inne kontrolki; posiada własną kolekcję <code>Controls</code> i własny punkt <code>(0, 0)</code>.</li>
+</ul>
+<p>Stan okna, na przykład licznik kliknięć lub referencje do kontrolek wymagających późniejszej zmiany, przechowuj w <span class="color-green">polach prywatnych klasy</span> (takich jak <code>_klikniecia</code> i <code>_etykieta</code>), a nie w zmiennych lokalnych konstruktora. Konstruktor kończy pracę zaraz po utworzeniu okna, podczas gdy obiekt okna i jego pola żyją aż do zamknięcia aplikacji.</p>
+<pre><code class="language-csharp">using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class MojeOkno : Form
+{
+    private int _klikniecia = 0;
+    private readonly Label _etykieta;
+
+    public MojeOkno()
+    {
+        Text = "Moja pierwsza aplikacja Windows 11";
+        ClientSize = new Size(420, 220);
+        BackColor = Color.FromArgb(15, 23, 42);
+        ForeColor = Color.White;
+        StartPosition = FormStartPosition.CenterScreen;
+
+        _etykieta = new Label
+        {
+            Text = "Kliknij przycisk ponizej:",
+            Location = new Point(24, 24),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 12, FontStyle.Bold)
+        };
+
+        var przycisk = new Button
+        {
+            Text = "Kliknij mnie!",
+            Location = new Point(24, 70),
+            Size = new Size(180, 42),
+            BackColor = Color.FromArgb(14, 165, 233),
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat
+        };
+        przycisk.FlatAppearance.BorderSize = 0;
+        przycisk.Click += ObsluzKlikniecie;
+
+        Controls.Add(_etykieta);
+        Controls.Add(przycisk);
+    }
+
+    private void ObsluzKlikniecie(object sender, EventArgs e)
+    {
+        _klikniecia++;
+        _etykieta.Text = "Liczba klikniec: " + _klikniecia;
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Samo wywołanie <code>new Button()</code> tworzy obiekt wyłącznie w pamięci RAM. Kontrolka pojawi się w oknie dopiero wtedy, gdy dodasz ją do kolekcji metodą <code>Controls.Add(...)</code>.</p>
+
+</div>
+</div><p>Zapis <code>przycisk.Click += ObsluzKlikniecie;</code> podłącza metodę reagującą na kliknięcie przycisku. Dokładny mechanizm delegatów, zdarzeń i operatora <code>+=</code> poznasz w następnej lekcji.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Uchwyt okna HWND, funkcja WndProc w user32.dll i model COM STA</span>
+<span class="deep-dive-badge">WIN32 API · USER32 · COM STA</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. WinForms to cienka warstwa zarządzana nad natywnym Win32 API (user32.dll)</h4>
+Każda kontrolka dziedzicząca po `Control` (zarówno `Form`, jak i `Button` czy `Label`) posiada pod spodem natywny uchwyt okna w jądrze systemu: **`HWND`**, dostępny w C# jako `IntPtr control.Handle`. Kiedy tworzysz `new Form()` i wywołujesz `Application.Run(okno)`, środowisko WinForms wywołuje przez P/Invoke funkcje `RegisterClassExW` oraz `CreateWindowExW` z `user32.dll`. Dopiero wtedy podsystem graficzny Windows (`win32k.sys`) alokuje strukturę okna w pamięci jądra i przypisuje mu unikalny uchwyt `HWND`.
+
+<h4>2. Surowe komunikaty Win32 i funkcja zwrotna WndProc</h4>
+System Windows nie zna zdarzeń C# takich jak `Click` czy `FormClosing`. Wszystkie zdarzenia trafiają do kolejki wątku jako struktury `MSG` z 32-bitowym kodem komunikatu oraz dwoma parametrami `wParam` i `lParam`:
+- `WM_LBUTTONDOWN` (`0x0201`): wciśnięcie lewego przycisku myszy (`lParam` zawiera współrzędne X i Y upakowane w dwóch słowach 16-bitowych).
+- `WM_PAINT` (`0x000F`): prośba systemu o odrysowanie fragmentu okna, na przykład po odsłonięciu go przez inne okno.
+- `WM_CLOSE` (`0x0010`): użytkownik kliknął przycisk zamknięcia X lub nacisnął <kbd>Alt</kbd>+<kbd>F4</kbd>.
+- `WM_QUIT` (`0x0012`): sygnał zakończenia pętli komunikatów.
+
+<p>W czystym języku C pętla komunikatów i funkcja zwrotna wyglądają następująco:</p>
+<pre><code class="language-c">// Czysty Win32 API w C (user32.dll)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    switch (msg)
+    {
+        case WM_LBUTTONDOWN:
+            // Obsluga klikniecia lewym przyciskiem
+            return 0;
+        case WM_CLOSE:
+            DestroyWindow(hwnd);
+            return 0;
+        case WM_DESTROY:
+            PostQuitMessage(0); // Wstawia WM_QUIT (0x0012) do kolejki
+            return 0;
+    }
+    return DefWindowProcW(hwnd, msg, wParam, lParam);
+}
+
+// Glowna petla w WinMain:
+MSG m;
+while (GetMessageW(&amp;m, NULL, 0, 0) &gt; 0) // Zasypia w jadrze, gdy kolejka pusta (0% CPU)
+{
+    TranslateMessage(&amp;m);
+    DispatchMessageW(&amp;m); // Wywoluje WndProc dla docelowego HWND
+}
+</code></pre>
+<p>W WinForms dokładnie tę samą pętlę realizuje <code>Application.Run(...)</code>. W każdej klasie dziedziczącej po <code>Form</code> możesz nadpisać metodę <code>protected override void WndProc(ref Message m)</code> i przechwytywać surowe kody <code>0x0201</code> czy <code>0x0010</code>, zanim WinForms zamieni je na zdarzenia C#.</p>
+<h4>3. Dlaczego [STAThread] jest obowiązkowy dla aplikacji okienkowych</h4>
+Atrybut `[STAThread]` nakazuje CLR wywołać natywną funkcję `CoInitializeEx(NULL, COINIT_APARTMENTTHREADED)` przed wejściem do `Main()`. Ustawia to bieżący wątek jako **Single-Threaded Apartment (STA)** w modelu komponentów COM.
+
+<p>Wiele kluczowych usług powłoki Windows (schowek systemowy <code>Clipboard.SetText</code>, okna wyboru plików <code>OpenFileDialog</code> i <code>SaveFileDialog</code>, mechanizm Drag &amp; Drop oraz podsystem ułatwień dostępu UI Automation) to natywne obiekty COM napisane bez wewnętrznych blokad wielowątkowych. COM gwarantuje im bezpieczeństwo w ten sposób, że tworzy dla wątku STA ukryte okno pomocnicze i kolejkę komunikatów. Jeśli inny wątek wywoła taki obiekt COM, wywołanie jest serializowane jako komunikat w kolejce wątku STA.</p>
+<p>Bez <code>[STAThread]</code> wątek startuje w trybie MTA (Multi‑Threaded Apartment). Samo okno <code>Form</code> się wyświetli, ale pierwsza próba otwarcia <code>OpenFileDialog</code> lub zapisu do schowka zakończy się wyjątkiem <span class="color-red">System.Threading.ThreadStateException</span>.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Konfigurator geometrii okna i pierwsze pobieralne GUI</h2>
+<p>Aplikacje okienkowe działają na monitorach o bardzo różnych rozdzielczościach: od małego ekranu laptopa <code>800x600</code> po monitor 4K <code>3840x2160</code>. Jeśli okno ma na sztywno ustawiony rozmiar <code>1024x768</code>, na małym ekranie jego przyciski uciekną poza dolną krawędź monitora.</p>
+<p>W zakładce <span class="color-green"><code>KonfiguracjaOkna.cs</code></span> zaimplementuj dwie statyczne metody pomocnicze używane przez <code>Program.cs</code>:</p>
+<ol>
+<li><p><code>ObliczSrodek(int szerEkranu, int wysEkranu, int szerOkna, int wysOkna, out int x, out int y)</code>:</p>
+<ul>
+<li>wylicza współrzędne lewego górnego rogu okna tak, aby znalazło się na środku ekranu (połowa różnicy między wymiarem ekranu a wymiarem okna, dzielenie całkowite),</li>
+<li>chroni każdą oś osobno przed wyjściem poza lewą lub górną krawędź monitora: jeśli okno jest szersze niż ekran, <span class="color-blue">x</span> wynosi <code>0</code>; jeśli jest wyższe niż ekran, <span class="color-blue">y</span> wynosi <code>0</code>.</li>
+</ul>
+</li>
+<li><p><code>DopasujRozmiarOkna(int szerEkranu, int wysEkranu, int zadanaSzer, int zadanaWys, int margines, out int szer, out int wys)</code>:</p>
+<ul>
+<li>gwarantuje minimalny czytelny rozmiar okna (<code>MinSzerokosc = 320</code>, <code>MinWysokosc = 200</code>),</li>
+<li>jeśli podany <span class="color-blue">margines</span> jest ujemny, traktuje go jak <code>0</code>,</li>
+<li>wylicza maksymalną dostępną szerokość i wysokość po odjęciu marginesu z obu stron ekranu (lewa i prawa oraz góra i dół); jeżeli ekran po odjęciu podwójnego marginesu daje mniej niż rozmiar minimalny, górny limit wynosi dokładnie <code>MinSzerokosc</code> lub <code>MinWysokosc</code>,</li>
+<li>dopasowuje każdą oś niezależnie do dozwolonego zakresu: zbyt małe okno powiększa do minimum, a zbyt duże zmniejsza do dostępnego maksimum.</li>
+</ul>
+</li>
+</ol>
+<p>Po zaliczeniu wszystkich testów kliknij <span class="color-green">Pobierz .exe</span> i uruchom <span class="color-green"><code>PierwszeOkno.exe</code></span> na Windows 11.</p>
+<data-gate>
+<data-csharp-lab title="Zadanie: Konfigurator okna WinForms (/target:winexe)" exe-name="PierwszeOkno.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+class Program
+{
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+
+        Rectangle obszar = Screen.PrimaryScreen.WorkingArea;
+        int szer, wys, posX, posY;
+        KonfiguracjaOkna.DopasujRozmiarOkna(obszar.Width, obszar.Height, 480, 240, 32, out szer, out wys);
+        KonfiguracjaOkna.ObliczSrodek(obszar.Width, obszar.Height, szer, wys, out posX, out posY);
+
+        var okno = new Form
+        {
+            Text = "PierwszeOkno - Windows 11 GUI",
+            ClientSize = new Size(szer, wys),
+            StartPosition = FormStartPosition.Manual,
+            Location = new Point(obszar.X + posX, obszar.Y + posY),
+            BackColor = Color.FromArgb(15, 23, 42),
+            ForeColor = Color.White,
+            FormBorderStyle = FormBorderStyle.FixedSingle,
+            MaximizeBox = false
+        };
+
+        var label = new Label
+        {
+            Text = "Witaj w trybie GUI (/target:winexe)!",
+            Location = new Point(24, 24),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 12, FontStyle.Bold)
+        };
+
+        var info = new Label
+        {
+            Text = string.Format("Ekran: {0}x{1}  |  Okno: {2}x{3}  |  Pozycja: ({4}, {5})",
+                obszar.Width, obszar.Height, szer, wys, posX, posY),
+            Location = new Point(24, 58),
+            AutoSize = true,
+            Font = new Font("Segoe UI", 9.5f),
+            ForeColor = Color.FromArgb(148, 163, 184)
+        };
+
+        int licznik = 0;
+        var btn = new Button
+        {
+            Text = "Testuj zdarzenie Click",
+            Location = new Point(24, 104),
+            Size = new Size(220, 44),
+            BackColor = Color.FromArgb(14, 165, 233),
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 10, FontStyle.Bold)
+        };
+        btn.FlatAppearance.BorderSize = 0;
+        btn.Click += (s, e) =&gt;
+        {
+            licznik++;
+            label.Text = "Zdarzenie Click obsluzone: " + licznik + "x";
+        };
+
+        okno.Controls.Add(label);
+        okno.Controls.Add(info);
+        okno.Controls.Add(btn);
+        Application.Run(okno);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="KonfiguracjaOkna.cs">
+
+<pre><code class="language-csharp">using System;
+
+public static class KonfiguracjaOkna
+{
+    public const int MinSzerokosc = 320;
+    public const int MinWysokosc = 200;
+
+    public static void ObliczSrodek(int szerEkranu, int wysEkranu, int szerOkna, int wysOkna, out int x, out int y)
+    {
+        // Wylicz wyśrodkowane współrzędne (x, y), nigdy mniejsze od 0
+        x = 0;
+        y = 0;
+    }
+
+    public static void DopasujRozmiarOkna(int szerEkranu, int wysEkranu, int zadanaSzer, int zadanaWys, int margines, out int szer, out int wys)
+    {
+        // Ogranicz rozmiar okna do [MinSzerokosc..maxSzer] i [MinWysokosc..maxWys] z uwzględnieniem marginesu
+        szer = zadanaSzer;
+        wys = zadanaWys;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("ObliczSrodek wyśrodkowuje okno na Full HD, 4K oraz obsługuje przypadki asymetryczne i ujemne", () =&gt; {
+    int x, y;
+    KonfiguracjaOkna.ObliczSrodek(1920, 1080, 420, 220, out x, out y);
+    LabAssert.Equal(750, x);
+    LabAssert.Equal(430, y);
+
+    KonfiguracjaOkna.ObliczSrodek(3840, 2160, 1200, 800, out x, out y);
+    LabAssert.Equal(1320, x);
+    LabAssert.Equal(680, y);
+
+    // Obie osie większe niż ekran
+    KonfiguracjaOkna.ObliczSrodek(300, 200, 500, 400, out x, out y);
+    LabAssert.Equal(0, x);
+    LabAssert.Equal(0, y);
+
+    // Asymetryczne: tylko szerokość większa od ekranu
+    KonfiguracjaOkna.ObliczSrodek(400, 800, 600, 200, out x, out y);
+    LabAssert.Equal(0, x);
+    LabAssert.Equal(300, y);
+
+    // Asymetryczne: tylko wysokość większa od ekranu
+    KonfiguracjaOkna.ObliczSrodek(1000, 300, 400, 500, out x, out y);
+    LabAssert.Equal(300, x);
+    LabAssert.Equal(0, y);
+});
+
+LabAssert.Test("DopasujRozmiarOkna zachowuje zadany rozmiar na monitorze 4K i przycina na Full HD oraz 800x600", () =&gt; {
+    int szer, wys;
+    KonfiguracjaOkna.DopasujRozmiarOkna(3840, 2160, 1200, 800, 40, out szer, out wys);
+    LabAssert.Equal(1200, szer);
+    LabAssert.Equal(800, wys);
+
+    KonfiguracjaOkna.DopasujRozmiarOkna(1920, 1080, 1900, 1100, 40, out szer, out wys);
+    LabAssert.Equal(1840, szer);
+    LabAssert.Equal(1000, wys);
+
+    KonfiguracjaOkna.DopasujRozmiarOkna(800, 600, 1024, 768, 30, out szer, out wys);
+    LabAssert.Equal(740, szer);
+    LabAssert.Equal(540, wys);
+});
+
+LabAssert.Test("DopasujRozmiarOkna obsługuje bardzo mały ekran, ujemny margines oraz asymetryczne osie", () =&gt; {
+    int szer, wys;
+    // Bardzo mały ekran: szerEkranu - 2*margines &lt; MinSzerokosc
+    KonfiguracjaOkna.DopasujRozmiarOkna(400, 300, 500, 400, 100, out szer, out wys);
+    LabAssert.Equal(320, szer);
+    LabAssert.Equal(200, wys);
+
+    // Zbyt małe okno podbite do minimum
+    KonfiguracjaOkna.DopasujRozmiarOkna(1920, 1080, 150, 100, 20, out szer, out wys);
+    LabAssert.Equal(320, szer);
+    LabAssert.Equal(200, wys);
+
+    // Ujemny margines traktowany jako 0
+    KonfiguracjaOkna.DopasujRozmiarOkna(800, 600, 900, 700, -25, out szer, out wys);
+    LabAssert.Equal(800, szer);
+    LabAssert.Equal(600, wys);
+
+    // Asymetryczne: szerokość za duża, wysokość poniżej minimum
+    KonfiguracjaOkna.DopasujRozmiarOkna(1000, 800, 1200, 120, 50, out szer, out wys);
+    LabAssert.Equal(900, szer);
+    LabAssert.Equal(200, wys);
+
+    // Asymetryczne: szerokość poniżej minimum, wysokość za duża
+    KonfiguracjaOkna.DopasujRozmiarOkna(1000, 800, 200, 900, 50, out szer, out wys);
+    LabAssert.Equal(320, szer);
+    LabAssert.Equal(700, wys);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Gdy budujesz okno w WinForms:</strong> oznacz <code>Main()</code> atrybutem <code>[STAThread]</code>, wywołaj <code>Application.EnableVisualStyles()</code> oraz <code>Application.SetCompatibleTextRenderingDefault(false)</code>, a potem uruchom pętlę komunikatów przez <code>Application.Run(...)</code>.</li>
+<li><strong>Gdy aplikacja ma startować bez czarnego okna terminala:</strong> kompiluj z flagą <code>/target:winexe</code>, która wpisuje podsystem <code>WINDOWS_GUI</code> do nagłówka PE.</li>
+<li><strong>Gdy chcesz uniknąć zamrożenia interfejsu:</strong> nigdy nie blokuj jedynego wątku UI wywołaniem <code>Thread.Sleep</code> ani długą pętlą obliczeniową.</li>
+<li><strong>Gdy rozmieszczasz okno i kontrolki:</strong> pamiętaj, że punkt <code>(0, 0)</code> leży w lewym górnym rogu, oś Y rośnie w dół, rozmiar wnętrza ustalasz przez <code>ClientSize</code>, a dostępny obszar monitora bez paska zadań odczytujesz z <code>Screen.PrimaryScreen.WorkingArea</code>.</li>
+<li><strong>Gdy dodajesz elementy do okna:</strong> trzymaj stan interfejsu w polach prywatnych klasy dziedziczącej po <code>Form</code> i każdą utworzoną kontrolkę rejestruj w kolekcji <code>Controls.Add(...)</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .header-title { font-family: system-ui, -apple-system, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .header-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .link-line { stroke: #38bdf8; stroke-width: 3; }
+      .link-speed { font-family: monospace; font-size: 11px; font-weight: 600; fill: #38bdf8; text-anchor: middle; }
+      .host-card { fill: #1e293b; stroke: #475569; stroke-width: 1.5; rx: 8; }
+      .imp-card { fill: #0369a1; stroke: #38bdf8; stroke-width: 2; rx: 6; }
+      .host-name { font-family: system-ui, sans-serif; font-size: 14px; font-weight: 700; fill: #f1f5f9; text-anchor: middle; }
+      .host-model { font-family: monospace; font-size: 11px; fill: #94a3b8; text-anchor: middle; }
+      .imp-title { font-family: monospace; font-size: 12px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .imp-desc { font-family: system-ui, sans-serif; font-size: 10px; fill: #bae6fd; text-anchor: middle; }
+      .cable-host-imp { stroke: #fbbf24; stroke-width: 2.5; stroke-dasharray: 4 2; }
+      .legend-bg { fill: #1e293b; stroke: #334155; stroke-width: 1; rx: 8; }
+      .legend-text { font-family: system-ui, sans-serif; font-size: 12px; fill: #cbd5e1; }
+    </style>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="480" class="bg"/>
+
+  <!-- Tytuł nagłówka -->
+  <g transform="translate(40, 36)">
+    <text x="0" y="0" class="header-title">Pierwsza sieć rozproszona: ARPANET (Grudzień 1969)</text>
+    <text x="0" y="20" class="header-desc">Separacja maszyn badawczych (Hosty) od dedykowanych węzłów komunikacyjnych (IMP – przodkowie routerów)</text>
+  </g>
+
+  <!-- ================= ŁĄCZA 50 kb/s MIĘDZY IMP-AMI ================= -->
+  <!-- SRI do UCLA -->
+  <line x1="260" y1="180" x2="260" y2="340" class="link-line"/>
+  <rect x="220" y="250" width="80" height="22" fill="#0f172a" rx="4" stroke="#38bdf8" stroke-width="1"/>
+  <text x="260" y="265" class="link-speed">50 kb/s</text>
+
+  <!-- SRI do UTAH -->
+  <line x1="260" y1="180" x2="700" y2="180" class="link-line"/>
+  <rect x="440" y="169" width="80" height="22" fill="#0f172a" rx="4" stroke="#38bdf8" stroke-width="1"/>
+  <text x="480" y="184" class="link-speed">50 kb/s</text>
+
+  <!-- UCLA do UCSB -->
+  <line x1="260" y1="340" x2="700" y2="340" class="link-line"/>
+  <rect x="440" y="329" width="80" height="22" fill="#0f172a" rx="4" stroke="#38bdf8" stroke-width="1"/>
+  <text x="480" y="344" class="link-speed">50 kb/s</text>
+
+  <!-- ================= WĘZEŁ 1: SRI (Stanford Research Institute) ================= -->
+  <g transform="translate(180, 100)" filter="url(#glow)">
+    <rect width="160" height="60" class="host-card"/>
+    <text x="80" y="25" class="host-name">SRI (Stanford)</text>
+    <text x="80" y="45" class="host-model">Host: SDS 940</text>
+    <!-- Kabel do IMP -->
+    <line x1="80" y1="60" x2="80" y2="80" class="cable-host-imp"/>
+    <!-- IMP 2 -->
+    <rect x="15" y="80" width="130" height="42" class="imp-card"/>
+    <text x="80" y="98" class="imp-title">IMP 2 (BBN)</text>
+    <text x="80" y="112" class="imp-desc">Honeywell DDP-516</text>
+  </g>
+
+  <!-- ================= WĘZEŁ 2: UCLA (Univ. of California, Los Angeles) ================= -->
+  <g transform="translate(180, 310)" filter="url(#glow)">
+    <!-- IMP 1 -->
+    <rect x="15" y="0" width="130" height="42" class="imp-card"/>
+    <text x="80" y="18" class="imp-title">IMP 1 (BBN)</text>
+    <text x="80" y="32" class="imp-desc">Honeywell DDP-516</text>
+    <!-- Kabel do hosta -->
+    <line x1="80" y1="42" x2="80" y2="62" class="cable-host-imp"/>
+    <!-- Host -->
+    <rect y="62" width="160" height="60" class="host-card"/>
+    <text x="80" y="87" class="host-name">UCLA</text>
+    <text x="80" y="107" class="host-model">Host: SDS Sigma 7</text>
+  </g>
+
+  <!-- ================= WĘZEŁ 3: UTAH (University of Utah) ================= -->
+  <g transform="translate(620, 100)" filter="url(#glow)">
+    <rect width="160" height="60" class="host-card"/>
+    <text x="80" y="25" class="host-name">UTAH (Salt Lake)</text>
+    <text x="80" y="45" class="host-model">Host: DEC PDP-10</text>
+    <line x1="80" y1="60" x2="80" y2="80" class="cable-host-imp"/>
+    <!-- IMP 4 -->
+    <rect x="15" y="80" width="130" height="42" class="imp-card"/>
+    <text x="80" y="98" class="imp-title">IMP 4 (BBN)</text>
+    <text x="80" y="112" class="imp-desc">Honeywell DDP-516</text>
+  </g>
+
+  <!-- ================= WĘZEŁ 4: UCSB (UC Santa Barbara) ================= -->
+  <g transform="translate(620, 310)" filter="url(#glow)">
+    <!-- IMP 3 -->
+    <rect x="15" y="0" width="130" height="42" class="imp-card"/>
+    <text x="80" y="18" class="imp-title">IMP 3 (BBN)</text>
+    <text x="80" y="32" class="imp-desc">Honeywell DDP-516</text>
+    <line x1="80" y1="42" x2="80" y2="62" class="cable-host-imp"/>
+    <!-- Host -->
+    <rect y="62" width="160" height="60" class="host-card"/>
+    <text x="80" y="87" class="host-name">UCSB</text>
+    <text x="80" y="107" class="host-model">Host: IBM 360/75</text>
+  </g>
+
+  <!-- ================= LEGENDA ================= -->
+  <g transform="translate(350, 220)">
+    <rect width="260" height="70" class="legend-bg"/>
+    <rect x="16" y="16" width="14" height="14" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5" rx="3"/>
+    <text x="38" y="28" class="legend-text">IMP: węzeł sieciowy (router)</text>
+    <rect x="16" y="40" width="14" height="14" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="3"/>
+    <text x="38" y="52" class="legend-text">Host: komputer mainframe</text>
+  </g>
+</svg>

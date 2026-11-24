@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ade80"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#facc15"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Automatyczna konfiguracja IP: Cykl DHCP DORA i Opcje sieciowe</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Komunikacja UDP 67/68, dzierżawa adresu, rezerwacja po adresie MAC oraz opcje 3 i 6</text>
+
+  <!-- GŁÓWNA OŚ CZASU DORA -->
+  <g transform="translate(60, 75)">
+    <!-- Kolumny Klient / Serwer DHCP -->
+    <rect x="0" y="0" width="180" height="420" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="0" y="0" width="180" height="28" rx="6" fill="#0369a1"/>
+    <text x="90" y="19" fill="#f0f9ff" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">KLIENT BEZ IP (BOOT)</text>
+
+    <rect x="660" y="0" width="180" height="420" rx="6" fill="#0f172a" stroke="#4ade80" stroke-width="1.5"/>
+    <rect x="660" y="0" width="180" height="28" rx="6" fill="#166534"/>
+    <text x="750" y="19" fill="#f0fdf4" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">SERWER DHCP (ROUTER/LINUX)</text>
+
+    <!-- Oś pionowa -->
+    <line x1="90" y1="35" x2="90" y2="400" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="750" y1="35" x2="750" y2="400" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- 1. DISCOVER -->
+    <g transform="translate(0, 50)">
+      <line x1="90" y1="0" x2="740" y2="45" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+      <rect x="200" y="5" width="440" height="42" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="210" y="22" fill="#38bdf8" font-size="11" font-family="system-ui, sans-serif" font-weight="700">D — DHCP DISCOVER (Rozgłoszenie L2/L3)</text>
+      <text x="210" y="38" fill="#cbd5e1" font-size="9" font-family="monospace">SRC: 0.0.0.0:68 | DST: 255.255.255.255:67 | MAC: FF:FF:FF:FF:FF:FF</text>
+      <text x="90" y="56" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif" text-anchor="middle">„Szukam serwera!”</text>
+    </g>
+
+    <!-- 2. OFFER -->
+    <g transform="translate(0, 130)">
+      <line x1="750" y1="0" x2="100" y2="50" stroke="#facc15" stroke-width="2" marker-end="url(#arrow-amber)"/>
+      <rect x="200" y="8" width="440" height="52" rx="4" fill="#1e293b" stroke="#facc15" stroke-width="1"/>
+      <text x="210" y="25" fill="#facc15" font-size="11" font-family="system-ui, sans-serif" font-weight="700">O — DHCP OFFER (Propozycja konfiguracji)</text>
+      <text x="210" y="40" fill="#cbd5e1" font-size="9" font-family="monospace">Oferowany IP: 192.168.10.13 | Maska: 255.255.255.128 (/25)</text>
+      <text x="210" y="52" fill="#86efac" font-size="9" font-family="monospace">Opcja 3: Brama 192.168.10.1 | Opcja 6: DNS 5.4.3.2 | Dzierżawa: 8h</text>
+    </g>
+
+    <!-- 3. REQUEST -->
+    <g transform="translate(0, 220)">
+      <line x1="90" y1="0" x2="740" y2="45" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+      <rect x="200" y="5" width="440" height="42" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="210" y="22" fill="#38bdf8" font-size="11" font-family="system-ui, sans-serif" font-weight="700">R — DHCP REQUEST (Akceptacja oferty)</text>
+      <text x="210" y="38" fill="#cbd5e1" font-size="9" font-family="monospace">Klient oficjalnie żąda przydziału IP 192.168.10.13 od serwera X</text>
+    </g>
+
+    <!-- 4. ACK -->
+    <g transform="translate(0, 300)">
+      <line x1="750" y1="0" x2="100" y2="50" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+      <rect x="200" y="8" width="440" height="50" rx="4" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+      <text x="210" y="25" fill="#4ade80" font-size="11" font-family="system-ui, sans-serif" font-weight="700">A — DHCP ACKNOWLEDGE (Potwierdzenie i dzierżawa)</text>
+      <text x="210" y="40" fill="#cbd5e1" font-size="9" font-family="monospace">Serwer zapisuje dzierżawę w bazie (leases.db). Klient podnosi IP!</text>
+      <text x="210" y="52" fill="#a7f3d0" font-size="8" font-family="system-ui, sans-serif">Adres staje się aktywny w systemie operacyjnym (ipconfig / ip addr).</text>
+
+      <rect x="15" y="45" width="150" height="24" rx="3" fill="#14532d"/>
+      <text x="90" y="61" fill="#86efac" font-size="10" font-family="monospace" font-weight="700" text-anchor="middle">IP: 192.168.10.13</text>
+    </g>
+
+    <!-- DOLNY PANEL: REZERWACJA MAC (INF.02) -->
+    <g transform="translate(190, 375)">
+      <rect width="460" height="38" rx="4" fill="#312e81"/>
+      <text x="230" y="16" fill="#c7d2fe" font-size="9" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">REZERWACJA DHCP (STATIC LEASE PO MAC) NA EGZAMINIE INF.02:</text>
+      <text x="230" y="30" fill="#a5b4fc" font-size="8" font-family="monospace" text-anchor="middle">host stacja1 { hardware ethernet 00:1a:2b:3c:4d:5e; fixed-address 192.168.10.13; }</text>
+    </g>
+  </g>
+</svg>

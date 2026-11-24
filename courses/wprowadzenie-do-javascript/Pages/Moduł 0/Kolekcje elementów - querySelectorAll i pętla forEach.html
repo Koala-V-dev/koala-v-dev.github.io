@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolekcje elementów - querySelectorAll i pętla forEach - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty DOM, funkcje strzałkowe, zdarzenia i forEach</li><li class="lesson-item lesson" data-path="Moduł 0/Drzewo DOM i document.querySelector"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Drzewo%20DOM%20i%20document.querySelector.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drzewo DOM i document.querySelector</a></li><li class="lesson-item lesson" data-path="Moduł 0/Funkcje jako wartości i funkcje strzałkowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Funkcje%20jako%20warto%C5%9Bci%20i%20funkcje%20strza%C5%82kowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje jako wartości i funkcje strzałkowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zdarzenia i addEventListener na żywym DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zdarzenia%20i%20addEventListener%20na%20%C5%BCywym%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia i addEventListener na żywym DOM</a></li><li class="lesson-item lesson" data-path="Moduł 0/Kolekcje elementów - querySelectorAll i pętla forEach"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kolekcje%20element%C3%B3w%20-%20querySelectorAll%20i%20p%C4%99tla%20forEach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolekcje elementów - querySelectorAll i pętla forEach</a></li><li class="lesson-item lesson" data-path="Moduł 0/Synteza - querySelectorAll, forEach i addEventListener"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Synteza%20-%20querySelectorAll%2C%20forEach%20i%20addEventListener.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Synteza - querySelectorAll, forEach i addEventListener</a></li><li class="module">Moduł 1: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" data-path="Moduł 1/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" data-path="Moduł 1/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 2: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" data-path="Moduł 2/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" data-path="Moduł 2/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 3: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" data-path="Moduł 3/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" data-path="Moduł 3/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 4: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" data-path="Moduł 4/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 5: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" data-path="Moduł 5/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" data-path="Moduł 5/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 6: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" data-path="Moduł 6/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 7: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" data-path="Moduł 7/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%207/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Kolekcje elementów: querySelectorAll i pętla forEach</h1>
+<p>Wyobraź sobie stronę sklepu internetowego, na której stoi 24 karty produktów. Wszystkie mają wspólną klasę <code>.karta</code>. Chcesz dodać przycisk „Zaznacz wszystkie”, który podświetli każdą kartę jednym kliknięciem.</p>
+<p>Do tej pory używałeś <code>document.querySelector(".karta")</code>. Gdy uruchomisz to polecenie na liście 24 produktów, podświetli się wyłącznie pierwsza karta od góry. Pozostałe 23 pozostaną nietknięte, ponieważ <code>querySelector</code> przerywa przeszukiwanie dokumentu w chwili znalezienia pierwszego pasującego węzła.</p>
+<p>Ręczne nadawanie identyfikatorów <code>#karta-1</code>, <code>#karta-2</code> aż do <code>#karta-24</code> nie rozwiązuje problemu. Gdy jutro dodasz dwa nowe produkty w HTML, skrypt przestanie obejmować całą listę. Potrzebujesz narzędzia, które zbiera wszystkie pasujące elementy naraz, oraz mechanizmu, który przetwarza je jeden po drugim.</p>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Pojedynczy element kontra kolekcja NodeList</h2>
+<p>Metoda <code>document.querySelector</code> zachowuje się jak szczypce: chwyta jeden konkretny element z drzewa DOM. Jeśli żaden znacznik nie pasuje do selektora, zwraca wartość <code>null</code>.</p>
+<p>Metoda <span class="color-green">document.querySelectorAll</span> działa inaczej. Przeszukuje całe drzewo dokumentu i zbiera każdy pasujący znacznik do jednego kontenera nazywanego <span class="color-gold">NodeList</span>.</p>
+<p>Pomyśl o tej różnicy jak o magazynie. <code>querySelector</code> podaje Ci do ręki pojedynczy produkt. <code>querySelectorAll</code> stawia przed Tobą karton z ponumerowanymi przegródkami: <code>0</code>, <code>1</code>, <code>2</code> i tak dalej.</p>
+<pre><code class="language-javascript">const pierwszaKarta = document.querySelector(".karta");
+const wszystkieKarty = document.querySelectorAll(".karta");
+
+console.log(pierwszaKarta);          // &lt;div class="karta"&gt;...&lt;/div&gt; (lub null)
+console.log(wszystkieKarty);         // NodeList(4) [div.karta, div.karta, ...]
+console.log(wszystkieKarty.length);  // 4
+</code></pre>
+<p>Karton ma jedną ważną cechę: <span class="color-green">zawsze istnieje jako obiekt</span>, nawet gdy w środku nic nie ma. Jeśli na stronie nie ma ani jednego elementu z klasą <code>.karta</code>, <code>querySelectorAll(".karta")</code> nie zwraca <code>null</code>. Zwraca pustą kolekcję <code>NodeList</code>, której właściwość <span class="color-blue">length</span> wynosi <code>0</code>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha</th>
+<th align="left"><code>document.querySelector(selektor)</code></th>
+<th align="left"><code>document.querySelectorAll(selektor)</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Co zwraca przy trafieniu</td>
+<td align="left">Pierwszy pasujący obiekt <code>Element</code></td>
+<td align="left">Kolekcję <code>NodeList</code> ze wszystkimi trafieniami</td>
+</tr>
+<tr>
+<td align="left">Co zwraca, gdy brak trafień</td>
+<td align="left"><code>null</code></td>
+<td align="left">Pustą kolekcję <code>NodeList</code> (<code>.length === 0</code>)</td>
+</tr>
+<tr>
+<td align="left">Czy ma właściwość <code>.classList</code></td>
+<td align="left">Tak (bezpośrednio na elemencie)</td>
+<td align="left">Nie (<code>.classList</code> mają dopiero elementy w środku)</td>
+</tr>
+<tr>
+<td align="left">Czy ma właściwość <code>.length</code></td>
+<td align="left">Nie</td>
+<td align="left">Tak (zwraca liczbę znalezionych elementów)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kluczowa zasada typów:</span> <code>querySelectorAll</code> nigdy nie zwraca <code>null</code>. Zawsze dostajesz obiekt <code>NodeList</code>, więc możesz bezpiecznie odczytać <span class="color-blue">lista.length</span> nawet wtedy, gdy selektor nic nie znalazł.</p>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Przewidź, sprawdź, wyjaśnij: błąd na pudełku</h2>
+<p>Skoro zmienna <span class="color-blue">karty</span> przechowuje wszystkie karty produktów, intuicja podpowiada najkrótszy możliwy zapis: dodać klasę bezpośrednio do całej zmiennej. Przeanalizuj poniższy kod.</p>
+<pre><code class="language-javascript">const karty = document.querySelectorAll(".karta");
+karty.classList.add("aktywna");
+</code></pre>
+<p><span class="color-green">Krok 1 (Przewidź):</span> Zatrzymaj się na 10 sekund i postaw konkretną hipotezę, zanim przeczytasz dalszą część. Co zrobi przeglądarka po uruchomieniu tych dwóch linii?</p>
+<ul>
+<li>Opcja A: Doda klasę <code>aktywna</code> do wszystkich elementów <code>.karta</code> naraz.</li>
+<li>Opcja B: Doda klasę <code>aktywna</code> tylko do pierwszego elementu.</li>
+<li>Opcja C: Przerwie działanie skryptu z błędem <span class="color-red">TypeError</span>.</li>
+</ul>
+<p><span class="color-green">Krok 2 (Obserwuj):</span> Po uruchomieniu kodu w konsoli przeglądarki żadna karta nie zmienia wyglądu. Zamiast tego pojawia się czerwony komunikat:</p>
+<pre><code class="language-text">Uncaught TypeError: Cannot read properties of undefined (reading 'add')
+</code></pre>
+<p><span class="color-green">Krok 3 (Wyjaśnij):</span> Przyczyną błędu nie jest brak elementów na stronie. Zmienna <span class="color-blue">karty</span> to kolekcja <code>NodeList</code>, czyli karton z elementami. Karton nie jest znacznikiem HTML, więc nie posiada właściwości <code>classList</code>.</p>
+<p>Gdy JavaScript próbuje odczytać <code>karty.classList</code>, otrzymuje wartość <code>undefined</code>. Zaraz potem próbuje wywołać na tym <code>undefined</code> metodę <code>.add("aktywna")</code>. Ponieważ na <code>undefined</code> nie da się wywołać żadnej metody, silnik natychmiast rzuca <span class="color-red">TypeError</span>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Diagnostyka błędu:</span> Gdy widzisz w konsoli komunikat <span class="color-red">Cannot read properties of undefined (reading 'add')</span> przy operacji na <code>classList</code>, sprawdź linię wyżej. Prawie zawsze próbujesz modyfikować całą kolekcję z <code>querySelectorAll</code> zamiast pojedynczego elementu.</p>
+
+</div>
+</div></section><section class="lesson-section" data-lesson-section="true"><h2>⚙️ Pętla forEach krok po kroku</h2>
+<p>Aby zmienić wygląd każdej karty, musisz otworzyć karton i wykonać operację osobno dla każdej przegródki. Teoretycznie mógłbyś użyć indeksów ręcznie: <code>karty[0].classList.add("aktywna")</code>, potem <code>karty[1]</code> i tak dalej. Taki kod natychmiast psuje się, gdy liczba produktów na stronie się zmieni.</p>
+<p>Zamiast ręcznego wypisywania indeksów używasz wbudowanej metody <span class="color-green">forEach</span>, którą posiada każda kolekcja <code>NodeList</code>. Metoda ta przyjmuje funkcję strzałkową i wywołuje ją automatycznie dla każdego kolejnego elementu w kolekcji.</p>
+<pre><code class="language-javascript">const karty = document.querySelectorAll(".karta");
+
+karty.forEach((karta, indeks) =&gt; {
+  karta.classList.add("aktywna");
+  console.log(indeks, karta.textContent);
+});
+</code></pre>
+<p>Przyjrzyj się uważnie, skąd biorą się parametry <span class="color-blue">karta</span> i <span class="color-blue">indeks</span>. Nigdzie nie przypisywałeś im wartości znakiem <code>=</code>. Robi to za Ciebie silnik JavaScript wewnątrz metody <code>forEach</code>.</p>
+<p>Załóżmy, że na stronie istnieją 3 karty: „Klawiatura”, „Mysz” i „Monitor”. Prześledź dokładnie, co wykonuje przeglądarka:</p>
+<ol>
+<li><span class="color-green">Start pętli:</span> <code>karty.forEach(...)</code> sprawdza, że kolekcja ma długość <code>3</code>.</li>
+<li><span class="color-green">Iteracja 1 (indeks 0):</span> Silnik wyjmuje <code>karty[0]</code> („Klawiatura”) i wstawia go jako pierwszy parametr <span class="color-blue">karta</span>, a liczbę <code>0</code> jako drugi parametr <span class="color-blue">indeks</span>. Uruchamia ciało funkcji: dodaje klasę <code>aktywna</code> do „Klawiatury” i wypisuje <code>0 "Klawiatura"</code>.</li>
+<li><span class="color-green">Iteracja 2 (indeks 1):</span> Silnik wyjmuje <code>karty[1]</code> („Mysz”) i podstawia <code>1</code> pod <span class="color-blue">indeks</span>. Dodaje klasę <code>aktywna</code> do „Myszy” i wypisuje <code>1 "Mysz"</code>.</li>
+<li><span class="color-green">Iteracja 3 (indeks 2):</span> Silnik wyjmuje <code>karty[2]</code> („Monitor”) i podstawia <code>2</code> pod <span class="color-blue">indeks</span>. Dodaje klasę <code>aktywna</code> do „Monitora” i wypisuje <code>2 "Monitor"</code>.</li>
+<li><span class="color-green">Koniec pętli:</span> Brak kolejnych elementów w <code>NodeList</code>. Program przechodzi do linii kodu za zamknięciem <code>});</code>.</li>
+</ol>
+<h3>Nazwy parametrów i drugi parametr</h3>
+<p>Nazwy <span class="color-blue">karta</span> oraz <span class="color-blue">indeks</span> wybierasz samodzielnie. Równie poprawnie zadziałają nazwy <code>(el, i)</code> albo <code>(produkt, numer)</code>. Dla silnika JavaScript liczy się wyłącznie <span class="color-green">kolejność parametrów</span>:</p>
+<ul>
+<li><span class="color-green">pierwszy parametr</span> zawsze otrzymuje bieżący element HTML z kolekcji,</li>
+<li><span class="color-green">drugi parametr</span> jest opcjonalny i zawsze otrzymuje numer porządkowy tej iteracji, liczony od zera (<code>0</code>, <code>1</code>, <code>2</code>, ...).</li>
+</ul>
+<p>Jeśli w danym zadaniu nie potrzebujesz numeru iteracji, pomijasz drugi parametr i piszesz po prostu <code>karty.forEach((karta) =&gt; { ... })</code>.</p>
+<h3>Co dzieje się przy pustej kolekcji</h3>
+<p>Załóżmy, że wywołałeś <code>document.querySelectorAll(".nieistniejaca")</code> i otrzymałeś pustą kolekcję o długości <code>0</code>. Kiedy wywołasz na niej <code>.forEach(...)</code>, pętla sprawdzi długość, wykona zero obiegów i zakończy się bez żadnego błędu. Nie musisz owijać <code>forEach</code> w dodatkowy warunek <code>if (lista.length &gt; 0)</code>.</p>
+<data-gate>
+<data-sortable-list title="Przepływ wykonania: od querySelectorAll do ostatniej iteracji forEach">
+  <item data-correct="3">Iteracja 1: silnik podstawia element [0] pod parametr karta i wykonuje ciało funkcji strzałkowej</item>
+  <item data-correct="1">Wywołanie document.querySelectorAll(".karta") skanuje DOM i zwraca kolekcję NodeList (np. 3 elementy)</item>
+  <item data-correct="5">Iteracja 3: silnik podstawia element [2] pod parametr karta i wykonuje ciało funkcji strzałkowej</item>
+  <item data-correct="2">Wywołanie karty.forEach(...) rozpoczyna przeglądanie kolekcji od indeksu 0</item>
+  <item data-correct="6">Brak kolejnych pozycji w NodeList: pętla kończy działanie i kod przechodzi do kolejnej instrukcji</item>
+  <item data-correct="4">Iteracja 2: silnik podstawia element [1] pod parametr karta i wykonuje ciało funkcji strzałkowej</item>
+</data-sortable-list>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Ćwiczenie prowadzone: numerowanie i podświetlanie listy zadań</h2>
+<p>Zanim uzupełnisz pętlę, zwróć uwagę na dwa krótkie zapisy łączenia tekstu, z których skorzystasz w ćwiczeniach:</p>
+<pre><code class="language-javascript">// Nawiasy przy (indeks + 1) gwarantują dodawanie liczb przed sklejeniem z tekstem:
+element.textContent = (indeks + 1) + ". " + element.textContent;
+
+// Operator += dopisuje nowy fragment na końcu istniejącego napisu:
+element.textContent += " (-20%)";
+</code></pre>
+<p>Masz gotową listę 4 zadań w HTML. Każde zadanie ma klasę <code>.zadanie</code>. Twoim celem jest uzupełnienie pętli <code>forEach</code> tak, aby:</p>
+<ol>
+<li>dodać każdemu zadaniu klasę <code>gotowe</code> przez <code>classList.add</code>,</li>
+<li>dopisać na początku tekstu każdego zadania jego numer dla człowieka (<code>indeks + 1</code>, na przykład <code>1. Sprawdzić kopię zapasową</code>),</li>
+<li>wypisać łączną liczbę zadań w elemencie <code>#licznik</code>, korzystając z właściwości <span class="color-blue">length</span>.</li>
+</ol>
+<data-gate>
+<data-code-runner language="javascript" sandbox="dom" title="Lista zadań: numerowanie i klasa gotowe" data-code="Y29uc3QgemFkYW5pYSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoIi56YWRhbmllIik7CmNvbnN0IGxpY3puaWsgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKCIjbGljem5payIpOwoKemFkYW5pYS5mb3JFYWNoKCh6YWRhbmllLCBpbmRla3MpID0+IHsKICAvLyAxLiBEb2RhaiBrbGFzxJkgImdvdG93ZSIgZG8gYmllxbzEhWNlZ28gZWxlbWVudHUgemFkYW5pZQoKICAvLyAyLiBabWllxYQgemFkYW5pZS50ZXh0Q29udGVudCwgZG9waXN1asSFYyBudW1lciAoaW5kZWtzICsgMSkgcHJ6ZWQgb2JlY255bSB0ZWtzdGVtCgp9KTsKCi8vIDMuIFdwaXN6IGRvIGxpY3puaWsudGV4dENvbnRlbnQgdGVrc3QgemF3aWVyYWrEhWN5IHphZGFuaWEubGVuZ3Ro" data-requirements="WwogIHsKICAgICJpZCI6ICJxc2EiLAogICAgInRleHQiOiAiUG9iaWVyYSB3c3p5c3RraWUgemFkYW5pYSBtZXRvZMSFIHF1ZXJ5U2VsZWN0b3JBbGwiLAogICAgInR5cGUiOiAiY29udGFpbnMiLAogICAgInBhdHRlcm4iOiAicXVlcnlTZWxlY3RvckFsbCIKICB9LAogIHsKICAgICJpZCI6ICJmb3JlYWNoLXR3by1wYXJhbXMiLAogICAgInRleHQiOiAiVcW8eXdhIHDEmXRsaSBmb3JFYWNoIHogZnVua2NqxIUgc3RyemHFgmtvd8SFIHByenlqbXVqxIVjxIUgZWxlbWVudCBpIGluZGVrcyIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJcXC5mb3JFYWNoXFxzKlxcKFxccypcXChcXHMqW2EtekEtWl8kXVtcXHckXSpcXHMqLFxccypbYS16QS1aXyRdW1xcdyRdKlxccypcXClcXHMqPT4iCiAgfSwKICB7CiAgICAiaWQiOiAiY2xhc3NsaXN0LWFkZCIsCiAgICAidGV4dCI6ICJEb2RhamUga2HFvGRlbXUgemFkYW5pdSBrbGFzxJkgZ290b3dlIHByemV6IGNsYXNzTGlzdC5hZGQiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAiY2xhc3NMaXN0XFwuYWRkXFxzKlxcKFxccypbXCInXWdvdG93ZVtcIiddXFxzKlxcKSIKICB9LAogIHsKICAgICJpZCI6ICJuby1jb2xsZWN0aW9uLWNsYXNzbGlzdCIsCiAgICAidGV4dCI6ICJOaWUgd3l3b8WCdWplIGNsYXNzTGlzdCBiZXpwb8WbcmVkbmlvIG5hIGtvbGVrY2ppIHphZGFuaWEiLAogICAgInR5cGUiOiAibm90LWNvbnRhaW5zIiwKICAgICJwYXR0ZXJuIjogInphZGFuaWEuY2xhc3NMaXN0IgogIH0sCiAgewogICAgImlkIjogImh1bWFuLWluZGV4IiwKICAgICJ0ZXh0IjogIk51bWVydWplIHphZGFuaWEgb2QgMSwgZG9kYWrEhWMgMSBkbyBpbmRla3N1IChpbmRla3MgKyAxKSIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJcXCtcXHMqMSIKICB9LAogIHsKICAgICJpZCI6ICJ1c2UtbGVuZ3RoIiwKICAgICJ0ZXh0IjogIk9kY3p5dHVqZSBsaWN6YsSZIGVsZW1lbnTDs3cga29sZWtjamkgemEgcG9tb2PEhSB3xYJhxZtjaXdvxZtjaSAubGVuZ3RoIiwKICAgICJ0eXBlIjogImNvbnRhaW5zIiwKICAgICJwYXR0ZXJuIjogIi5sZW5ndGgiCiAgfQpd" data-html="PHN0eWxlPgogIC56YWRhbmlhLXBhbmVsIHsgZm9udC1mYW1pbHk6IHN5c3RlbS11aSwgc2Fucy1zZXJpZjsgcGFkZGluZzogMTRweDsgYmFja2dyb3VuZDogIzFlMjkzYjsgY29sb3I6ICNmOGZhZmM7IGJvcmRlci1yYWRpdXM6IDEwcHg7IH0KICAuemFkYW5pYS1wYW5lbCBoMyB7IG1hcmdpbjogMCAwIDEwcHggMDsgZm9udC1zaXplOiAxNnB4OyBjb2xvcjogIzkzYzVmZDsgfQogIC56YWRhbmlhLWxpc3RhIHsgbGlzdC1zdHlsZTogbm9uZTsgcGFkZGluZzogMDsgbWFyZ2luOiAwIDAgMTJweCAwOyBkaXNwbGF5OiBncmlkOyBnYXA6IDhweDsgfQogIC56YWRhbmllIHsgcGFkZGluZzogMTBweCAxMnB4OyBiYWNrZ3JvdW5kOiAjMzM0MTU1OyBib3JkZXItbGVmdDogNHB4IHNvbGlkICM2NDc0OGI7IGJvcmRlci1yYWRpdXM6IDZweDsgdHJhbnNpdGlvbjogYWxsIDAuMnM7IH0KICAuemFkYW5pZS5nb3Rvd2UgeyBiYWNrZ3JvdW5kOiAjMTQ1MzJkOyBib3JkZXItbGVmdC1jb2xvcjogIzIyYzU1ZTsgY29sb3I6ICNkY2ZjZTc7IH0KICAjbGljem5payB7IG1hcmdpbjogMDsgZm9udC1zaXplOiAxNHB4OyBmb250LXdlaWdodDogNjAwOyBjb2xvcjogI2ZjZDM0ZDsgfQo8L3N0eWxlPgo8ZGl2IGNsYXNzPSJ6YWRhbmlhLXBhbmVsIj4KICA8aDM+TGlzdGEga29udHJvbG5hIHNlcndlcmE8L2gzPgogIDx1bCBjbGFzcz0iemFkYW5pYS1saXN0YSI+CiAgICA8bGkgY2xhc3M9InphZGFuaWUiPlNwcmF3ZHppxIcga29wacSZIHphcGFzb3fEhSBiYXp5PC9saT4KICAgIDxsaSBjbGFzcz0iemFkYW5pZSI+WmFrdHVhbGl6b3dhxIcgY2VydHlmaWthdCBTU0w8L2xpPgogICAgPGxpIGNsYXNzPSJ6YWRhbmllIj5PY3p5xZtjacSHIHN0YXJlIGxvZ2kgYXBsaWthY2ppPC9saT4KICAgIDxsaSBjbGFzcz0iemFkYW5pZSI+WndlcnlmaWtvd2HEhyB3b2xuZSBtaWVqc2NlIG5hIGR5c2t1PC9saT4KICA8L3VsPgogIDxwIGlkPSJsaWN6bmlrIj5MaWN6YmEgemFkYcWEOiA/PC9wPgo8L2Rpdj4="></data-code-runner>
+</data-gate>
+
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Typowe błędy podczas pracy z kolekcjami</h2>
+<p>Zanim przejdziesz do samodzielnego zadania, poznaj trzy pomyłki, które najczęściej blokują kod początkujących. Każda z nich daje inny objaw w przeglądarce.</p>
+<h3>1. Pętla forEach wywołana na querySelector</h3>
+<p>Jeśli przez nieuwagę napiszesz <code>document.querySelector(".produkt")</code> zamiast <code>querySelectorAll</code>, otrzymasz pojedynczy element HTML. Pojedynczy element nie ma metody <code>forEach</code>, więc konsola wyrzuci błąd <span class="color-red">TypeError: produkty.forEach is not a function</span>.</p>
+<h3>2. Brak kropki przed nazwą klasy</h3>
+<p>Zapis <code>document.querySelectorAll("produkt")</code> bez kropki na początku nie zgłasza żadnego błędu składni. Przeglądarka grzecznie szuka nieistniejącego znacznika <code>&lt;produkt&gt;</code>, znajduje zero wyników i zwraca pustą <code>NodeList</code>. Pętla <code>forEach</code> wykonuje wtedy zero iteracji, a strona wygląda tak, jakby kod w ogóle nie zadziałał.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Szybki test diagnostyczny:</span> Jeśli pętla <code>forEach</code> „nic nie robi” i w konsoli nie ma błędu, wpisz nad pętlą <code>console.log(produkty.length)</code>. Wartość <code>0</code> natychmiast wskazuje na literówkę w selektorze albo brak kropki przed nazwą klasy.</p>
+
+</div>
+</div><h3>3. Wyświetlanie surowego indeksu użytkownikowi</h3>
+<p>Komputer liczy pozycje od <code>0</code>, bo indeks oznacza przesunięcie od początku kolekcji. Użytkownik spodziewa się listy zaczynającej się od <code>1</code>. Zawsze dodawaj <code>+ 1</code> w tekście wyświetlanym na ekranie, ale nigdy nie zmieniaj samej zmiennej sterującej.</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Samodzielne zadanie: masowa akcja Wyprzedaż -20%</h2>
+<p>Zbuduj obsługę przycisku przeceny w panelu sklepu. Na stronie znajduje się przycisk <code>#btn-promocja</code>, cztery karty z klasą <code>.produkt</code> oraz pole informacyjne <code>#liczba-produktow</code>.</p>
+<p>Napisz od zera skrypt, który po kliknięciu przycisku <code>#btn-promocja</code>:</p>
+<ol>
+<li>pobierze wszystkie karty <code>.produkt</code> metodą <code>document.querySelectorAll(".produkt")</code>,</li>
+<li>przejdzie po nich pętlą <code>.forEach</code> z funkcją strzałkową,</li>
+<li>każdej karcie doda klasę <code>przecena</code> za pomocą <code>classList.add("przecena")</code> oraz dopisze do jej tekstu etykietę <code>-20%</code> (na przykład <code>produkt.textContent += " (-20%)"</code>),</li>
+<li>w elemencie <code>#liczba-produktow</code> wypisze komunikat zawierający liczbę przecenionych kart odczytaną przez <code>.length</code>.</li>
+</ol>
+<p>Po uruchomieniu kodu kliknij przycisk w zakładce podglądu DOM i sprawdź, czy wszystkie cztery produkty zmieniły kolor i otrzymały etykietę.</p>
+<data-gate>
+<data-code-runner language="javascript" sandbox="dom" title="Masowa akcja: Wyprzedaż -20%" data-code="Ly8gMS4gUG9iaWVyeiBwcnp5Y2lzayAjYnRuLXByb21vY2phIG9yYXogYWthcGl0ICNsaWN6YmEtcHJvZHVrdG93CgovLyAyLiBQb2RlcG5paiB6ZGFyemVuaWUgImNsaWNrIiBkbyBwcnp5Y2lza3UKCi8vIDMuIFdld27EhXRyeiBvYnPFgnVnaSBrbGlrbmnEmWNpYSBwb2JpZXJ6IHdzenlzdGtpZSAucHJvZHVrdCBwcnpleiBxdWVyeVNlbGVjdG9yQWxsLAovLyAgICBwcnplamTFuiBwbyBuaWNoIHDEmXRsxIUgZm9yRWFjaCAoZG9kYWoga2xhc8SZICJwcnplY2VuYSIgaSBkb3Bpc3ogIi0yMCUiKSwKLy8gICAgYSBuYSBrb8WEY3Ugd3lwaXN6IGxpY3pixJkgcHJvZHVrdMOzdyAoLmxlbmd0aCkgdyAjbGljemJhLXByb2R1a3Rvdw==" data-requirements="WwogIHsKICAgICJpZCI6ICJjbGljay1saXN0ZW5lciIsCiAgICAidGV4dCI6ICJQb2RwaW5hIG5hc8WCdWNoaXdhY3ogemRhcnplbmlhIGNsaWNrIGRvIHByenljaXNrdSBwcm9tb2NqaSIsCiAgICAidHlwZSI6ICJyZWdleCIsCiAgICAicGF0dGVybiI6ICJhZGRFdmVudExpc3RlbmVyXFxzKlxcKFxccypbXCInXWNsaWNrW1wiJ10iCiAgfSwKICB7CiAgICAiaWQiOiAicXNhLXByb2R1a3QiLAogICAgInRleHQiOiAiUG9iaWVyYSB3c3p5c3RraWUgZWxlbWVudHkgLnByb2R1a3QgemEgcG9tb2PEhSBxdWVyeVNlbGVjdG9yQWxsIiwKICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICJwYXR0ZXJuIjogInF1ZXJ5U2VsZWN0b3JBbGxcXHMqXFwoXFxzKltcIiddXFwucHJvZHVrdFtcIiddXFxzKlxcKSIKICB9LAogIHsKICAgICJpZCI6ICJmb3JlYWNoLWFycm93IiwKICAgICJ0ZXh0IjogIlByemVjaG9kemkgcG8ga29sZWtjamkgbWV0b2TEhSBmb3JFYWNoIHogZnVua2NqxIUgc3RyemHFgmtvd8SFIiwKICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICJwYXR0ZXJuIjogIlxcLmZvckVhY2hcXHMqXFwoW14pXSo9PiIKICB9LAogIHsKICAgICJpZCI6ICJhZGQtcHJ6ZWNlbmEiLAogICAgInRleHQiOiAiRG9kYWplIGtsYXPEmSBwcnplY2VuYSBrYcW8ZGVtdSBwcm9kdWt0b3dpIHByemV6IGNsYXNzTGlzdC5hZGQiLAogICAgInR5cGUiOiAicmVnZXgiLAogICAgInBhdHRlcm4iOiAiY2xhc3NMaXN0XFwuYWRkXFxzKlxcKFxccypbXCInXXByemVjZW5hW1wiJ11cXHMqXFwpIgogIH0sCiAgewogICAgImlkIjogImxhYmVsLWRpc2NvdW50IiwKICAgICJ0ZXh0IjogIkRvcGlzdWplIGV0eWtpZXTEmSAtMjAlIGRvIHRyZcWbY2kgcHJvZHVrdHUiLAogICAgInR5cGUiOiAiY29udGFpbnMiLAogICAgInBhdHRlcm4iOiAiLTIwJSIKICB9LAogIHsKICAgICJpZCI6ICJzaG93LWxlbmd0aCIsCiAgICAidGV4dCI6ICJXeWtvcnp5c3R1amUgd8WCYcWbY2l3b8WbxIcgLmxlbmd0aCBkbyB3ecWbd2lldGxlbmlhIGxpY3pieSBwcm9kdWt0w7N3IiwKICAgICJ0eXBlIjogImNvbnRhaW5zIiwKICAgICJwYXR0ZXJuIjogIi5sZW5ndGgiCiAgfQpd" data-html="PHN0eWxlPgogIC5za2xlcCB7IGZvbnQtZmFtaWx5OiBzeXN0ZW0tdWksIHNhbnMtc2VyaWY7IHBhZGRpbmc6IDE0cHg7IGJhY2tncm91bmQ6ICMwZjE3MmE7IGNvbG9yOiAjZjhmYWZjOyBib3JkZXItcmFkaXVzOiAxMHB4OyB9CiAgLnNrbGVwLWJhciB7IGRpc3BsYXk6IGZsZXg7IGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjsgYWxpZ24taXRlbXM6IGNlbnRlcjsgZ2FwOiAxMHB4OyBtYXJnaW4tYm90dG9tOiAxMnB4OyBmbGV4LXdyYXA6IHdyYXA7IH0KICAjYnRuLXByb21vY2phIHsgcGFkZGluZzogOHB4IDE0cHg7IGJhY2tncm91bmQ6ICNlYTU4MGM7IGNvbG9yOiAjZmZmOyBib3JkZXI6IG5vbmU7IGJvcmRlci1yYWRpdXM6IDZweDsgZm9udC13ZWlnaHQ6IDcwMDsgY3Vyc29yOiBwb2ludGVyOyB9CiAgI2J0bi1wcm9tb2NqYTpob3ZlciB7IGJhY2tncm91bmQ6ICNjMjQxMGM7IH0KICAjbGljemJhLXByb2R1a3RvdyB7IGZvbnQtc2l6ZTogMTNweDsgY29sb3I6ICNjYmQ1ZTE7IG1hcmdpbjogMDsgfQogIC5zaWF0a2EgeyBkaXNwbGF5OiBncmlkOyBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgyLCBtaW5tYXgoMCwgMWZyKSk7IGdhcDogOHB4OyB9CiAgLnByb2R1a3QgeyBwYWRkaW5nOiAxMnB4OyBiYWNrZ3JvdW5kOiAjMWUyOTNiOyBib3JkZXI6IDFweCBzb2xpZCAjMzM0MTU1OyBib3JkZXItcmFkaXVzOiA4cHg7IGZvbnQtc2l6ZTogMTRweDsgdHJhbnNpdGlvbjogYWxsIDAuMnM7IH0KICAucHJvZHVrdC5wcnplY2VuYSB7IGJhY2tncm91bmQ6ICM0MzE0MDc7IGJvcmRlci1jb2xvcjogI2Y5NzMxNjsgY29sb3I6ICNmZmVkZDU7IGZvbnQtd2VpZ2h0OiA2MDA7IH0KPC9zdHlsZT4KPGRpdiBjbGFzcz0ic2tsZXAiPgogIDxkaXYgY2xhc3M9InNrbGVwLWJhciI+CiAgICA8YnV0dG9uIGlkPSJidG4tcHJvbW9jamEiIHR5cGU9ImJ1dHRvbiI+QWt0eXd1aiB3eXByemVkYcW8IC0yMCU8L2J1dHRvbj4KICAgIDxwIGlkPSJsaWN6YmEtcHJvZHVrdG93Ij5CcmFrIGFrdHl3bmVqIHByb21vY2ppPC9wPgogIDwvZGl2PgogIDxkaXYgY2xhc3M9InNpYXRrYSI+CiAgICA8ZGl2IGNsYXNzPSJwcm9kdWt0Ij5LbGF3aWF0dXJhIG1lY2hhbmljem5hPC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJwcm9kdWt0Ij5NeXN6IGJlenByemV3b2Rvd2E8L2Rpdj4KICAgIDxkaXYgY2xhc3M9InByb2R1a3QiPlPFgnVjaGF3a2kgc3R1ZHlqbmU8L2Rpdj4KICAgIDxkaXYgY2xhc3M9InByb2R1a3QiPlBvZGvFgmFka2EgWEw8L2Rpdj4KICA8L2Rpdj4KPC9kaXY+"></data-code-runner>
+</data-gate>
+
+<details class="deep-dive">
+<summary>🔬 Dla dociekliwych: statyczna NodeList, brak map/filter i wydajność DOM</summary>
+
+<h4>Statyczna NodeList kontra żywa HTMLCollection</h4>
+<p>Metoda <code>document.querySelectorAll</code> zwraca <strong>statyczną</strong> kolekcję <code>NodeList</code>. Działa ona jak zdjęcie z chwili wywołania. Jeśli chwilę później skrypt doda do strony nową kartę <code>.produkt</code> albo usunie starą, zapisana wcześniej zmienna <code>produkty</code> nadal będzie miała starą liczbę elementów.</p>
+<p>Starsze metody, takie jak <code>document.getElementsByClassName</code>, zwracają <strong>żywą</strong> kolekcję <code>HTMLCollection</code>, która aktualizuje się automatycznie przy każdej zmianie w DOM. Żywa kolekcja potrafi jednak utrudnić debugowanie (na przykład gdy usuwasz elementy podczas pętli, zmieniając długość listy w locie), a do tego nie posiada metody <code>forEach</code>. Dlatego w nowoczesnym JavaScripcie domyślnym wyborem jest <code>querySelectorAll</code>.</p>
+
+<h4>Dlaczego NodeList ma forEach, ale nie ma map ani filter</h4>
+<p>Kolekcja <code>NodeList</code> wygląda w konsoli podobnie do tablicy, ponieważ ma indeksy <code>[0]</code>, <code>[1]</code> i właściwość <code>.length</code>. Technicznie nie jest jednak obiektem typu <code>Array</code>. Z tego powodu posiada metodę <code>forEach</code>, ale próba wywołania <code>produkty.filter(...)</code> albo <code>produkty.map(...)</code> zakończy się błędem <code>TypeError</code>.</p>
+<p>Gdy w kolejnych modułach będziesz chciał przefiltrować elementy DOM metodami tablicowymi, wystarczy zamienić kolekcję na prawdziwą tablicę jednym wyrażeniem: <code>Array.from(produkty)</code> albo <code>[...produkty]</code>.</p>
+
+<h4>Kiedy zapisywać kolekcję raz, a kiedy pobierać ją w kliknięciu</h4>
+<p>Jeśli lista elementów w HTML jest stała od załadowania strony, pobranie jej raz na górze skryptu oszczędza przeglądarce powtarzania wyszukiwania. Jeśli jednak w trakcie działania aplikacji użytkownik może dodawać lub usuwać elementy (albo zmieniać ich klasy, jak w zadaniach z filtrowaniem aktywnych kart), wywołanie <code>querySelectorAll</code> wewnątrz funkcji kliknięcia gwarantuje, że pracujesz na aktualnym stanie strony.</p>
+
+</details>
+
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Gdy potrzebujesz jednego konkretnego znacznika, użyj <span class="color-green">document.querySelector</span> (pamiętaj o możliwym wyniku <code>null</code>). Gdy operujesz na grupie elementów, użyj <span class="color-green">document.querySelectorAll</span>, które zawsze zwraca kolekcję <span class="color-gold">NodeList</span> z właściwością <code>length</code>.</li>
+<li>Nigdy nie wywołuj <code>.classList</code> ani <code>.textContent</code> bezpośrednio na wyniku <code>querySelectorAll</code>. Kolekcja to kontener, więc taka operacja zawsze rzuci <span class="color-red">TypeError</span>.</li>
+<li>Aby wykonać akcję na każdym elemencie z kolekcji, użyj <code>lista.forEach((element, indeks) =&gt; { ... })</code>. Pierwszy parametr to bieżący element HTML, a drugi (opcjonalny) to jego indeks liczony od zera.</li>
+<li>Jeśli pętla <code>forEach</code> nie przynosi efektu i nie pokazuje błędu, sprawdź <code>lista.length</code> w konsoli: wartość <code>0</code> najczęściej oznacza brak kropki przed nazwą klasy lub literówkę w selektorze.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

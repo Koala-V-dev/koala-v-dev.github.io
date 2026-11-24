@@ -56,11 +56,16 @@
         
         <article id="course-lesson-content">
             <h1>Instalacja Ubuntu 26.04 w VirtualBox</h1>
-<blockquote>
-<p>[!REMINDER]<br>Maszyna wirtualna daje bezpieczne laboratorium. Możesz instalować system, testować ustawienia i uczyć się naprawiania błędów bez ryzyka dla głównego komputera.</p>
+<div class="markdown-alert markdown-alert--reminder">
+<p class="markdown-alert-title">
+<span class="alert-icon">🤓</span> Przypomnienie
+</p>
+<div class="markdown-alert-content">
+<p>Maszyna wirtualna daje bezpieczne laboratorium. Możesz instalować system, testować ustawienia i uczyć się naprawiania błędów bez ryzyka dla głównego komputera.</p>
 <p>Jeśli coś pójdzie źle, usuwasz maszynę albo wracasz do kopii. To dużo spokojniejszy sposób nauki niż eksperymenty na fizycznym dysku.</p>
-</blockquote>
-<hr>
+
+</div>
+</div><hr>
 <section class="lesson-section" data-lesson-section="true"><h2>📡 Pobieranie obrazu ISO</h2>
 <p>Obraz instalacyjny Ubuntu 26.04 LTS Desktop pobierz z oficjalnej strony Canonical: <a href="https://ubuntu.com/download/desktop">ubuntu.com/download/desktop</a>.</p>
 <p>Na stronie zobaczysz dwie wersje:</p>
@@ -68,16 +73,19 @@
 <li><span class="color-green">Intel or AMD 64‑bit architecture:</span> wybierz tę wersję na typowym komputerze PC, laptopie z procesorem Intel lub AMD oraz starszym Macu.</li>
 <li><span class="color-green">ARM 64‑bit architecture:</span> wybierz tę wersję tylko wtedy, gdy Twój komputer ma procesor ARM, na przykład Apple Silicon albo Snapdragon X Elite.</li>
 </ul>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/pobieranie-ubuntu-26-z-canonical.webp" alt="Strona pobierania Ubuntu 26.04 LTS" width="1920" height="944" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/pobieranie-ubuntu-26-z-canonical.png" alt="Strona pobierania Ubuntu 26.04 LTS"></p>
 <p>Po kliknięciu właściwego przycisku pobierzesz plik z rozszerzeniem <code>.iso</code>.</p>
-<blockquote>
-<p>[!REMINDER]<br><span class="color-green">ISO</span> to rozszerzenie pliku pochodzące od standardu $\text{ISO }9660$. W praktyce taki plik zawiera obraz płyty instalacyjnej. Możesz go nagrać na nośnik albo zamontować w maszynie wirtualnej.</p>
+<div class="markdown-alert markdown-alert--reminder">
+<p class="markdown-alert-title">
+<span class="alert-icon">🤓</span> Przypomnienie
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">ISO</span> to rozszerzenie pliku pochodzące od standardu $\text{ISO }9660$. W praktyce taki plik zawiera obraz płyty instalacyjnej. Możesz go nagrać na nośnik albo zamontować w maszynie wirtualnej.</p>
 <hr>
-Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona fizyczna płyta DVD.</blockquote>
-<div class="markdown-alert markdown-alert--tip">
+Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona fizyczna płyta DVD.
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
 <p class="markdown-alert-title">
 <span class="alert-icon">✨</span> Wskazówka
 </p>
@@ -97,7 +105,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li>Opcji <span class="color-green">Ubuntu (safe graphics)</span> użyj tylko wtedy, gdy pierwsza opcja kończy się czarnym ekranem, migającym kursorem albo zamrożonym obrazem.</li>
 </ol>
 <p>Tryb <span class="color-blue">safe graphics</span> uruchamia ten sam system Live z instalatorem, ale dodaje do jądra parametr <code>nomodeset</code>. Ten parametr wyłącza ładowanie sterowników karty graficznej. Obraz jest wtedy renderowany programowo przez procesor, zwykle w niższej rozdzielczości, ale instalator ma większą szansę się uruchomić.</p>
-<p><img src="/public/courses/ubuntu-26/Images/GNU_2.14_Try_or_Inatsll_Ubuntu_Albo_Ubuntu_%28safe_graphics%29.png" alt="Menu rozruchowe GRUB"></p>
+<p><img src="/courses/ubuntu-26/Images/GNU_2.14_Try_or_Inatsll_Ubuntu_Albo_Ubuntu_%28safe_graphics%29.png" alt="Menu rozruchowe GRUB"></p>
 <h3>🌍 Ustawienia regionalne i klawiatura</h3>
 <p>Po załadowaniu systemu Live uruchomi się kreator instalacji.</p>
 <ol>
@@ -106,29 +114,20 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li>Jako układ klawiatury wybierz <span class="color-green">Polski</span>.</li>
 <li>Przetestuj klawiaturę w polu tekstowym. Wpisz polskie znaki: <span class="color-blue">ą, ć, ę, ł, ń, ó, ś, ź, ż</span>.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-język-dostępność-klawiatura.webp" alt="Wybór języka i układu klawiatury" width="1938" height="1388" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-j%C4%99zyk-dost%C4%99pno%C5%9B%C4%87-klawiatura.png" alt="Wybór języka i układu klawiatury"></p>
 <h3>🌐 Połączenie z siecią</h3>
 <p>Instalator wykryje kartę sieciową i zaproponuje połączenie z internetem.</p>
 <p>W tym laboratorium wybierz tryb offline. Instalacja będzie szybsza i mniej zależna od dostępności serwerów z pakietami. Aktualizacje oraz dodatkowe sterowniki lepiej wykonać już po pierwszym uruchomieniu gotowego systemu.</p>
 <blockquote>
 <p>Wybierz opcję <span class="color-green">Nie łącz się z Internetem</span>.</p>
 </blockquote>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-mimo-połączenia-z-internetem-wybrano-aby-się-z-nim-nie-łączyć.webp" alt="Instalacja w trybie offline" width="1280" height="800" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-mimo-po%C5%82%C4%85czenia-z-internetem-wybrano-aby-si%C4%99-z-nim-nie-%C5%82%C4%85czy%C4%87.png" alt="Instalacja w trybie offline"></p>
 <h3>⚙️ Tryb instalacji</h3>
 <p>Kreator zapyta, czy chcesz wypróbować system bez instalacji, czy zainstalować go na dysku.</p>
 <blockquote>
 <p>Wybierz <span class="color-green">Zainstaluj Ubuntu</span>.</p>
 </blockquote>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-wybór-miedzy-instalacją-a-testowaniem.webp" alt="Wybór instalacji lub testowania" width="960" height="680" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-wyb%C3%B3r-miedzy-instalacj%C4%85-a-testowaniem.png" alt="Wybór instalacji lub testowania"></p>
 <h3>🎚️ Rodzaj instalacji</h3>
 <p>Instalator zapyta: <span class="color-blue">Jak chcesz zainstalować Ubuntu?</span></p>
 <ul>
@@ -139,20 +138,14 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <blockquote>
 <p>Wybierz <span class="color-green">Instalacja interaktywna</span>.</p>
 </blockquote>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-wybór-jak-zainstalować-interaktywnie-przez-plik-autoinstalacji-lub-landscape.webp" alt="Rodzaj instalacji" width="960" height="679" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-wyb%C3%B3r-jak-zainstalowa%C4%87-interaktywnie-przez-plik-autoinstalacji-lub-landscape.png" alt="Rodzaj instalacji"></p>
 <h3>🧰 Wybór aplikacji na start</h3>
 <p>Możesz zdecydować, jaki zestaw programów ma zostać zainstalowany od razu.</p>
 <ol>
 <li>Wybierz <span class="color-green">Domyślny wybór</span>, jeśli chcesz lżejszy system w maszynie wirtualnej. Dostaniesz podstawowe narzędzia, przeglądarkę Firefox i terminal.</li>
 <li>Wybierz <span class="color-green">Rozszerzony wybór</span>, jeśli od razu potrzebujesz większego zestawu aplikacji, na przykład LibreOffice albo klienta poczty.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-jakie-programy-na-start-podstawowe-rozszerzone.webp" alt="Wybór oprogramowania na start" width="960" height="680" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-jakie-programy-na-start-podstawowe-rozszerzone.png" alt="Wybór oprogramowania na start"></p>
 <h3>⚠️ Sterowniki własnościowe</h3>
 <p>System zapyta o dodatkowe oprogramowanie i sterowniki własnościowe.</p>
 <ol>
@@ -169,10 +162,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <p>Instalowanie sterowników NVIDIA albo AMD wewnątrz systemu gościa może spowodować błędy wyświetlania, pętle restartów albo konflikt z narzędziami Guest Additions.</p>
 
 </div>
-</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-oprogramowanie-własnościowe.webp" alt="Instalacja oprogramowania własnościowego" width="960" height="680" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+</div><p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-oprogramowanie-w%C5%82asno%C5%9Bciowe.png" alt="Instalacja oprogramowania własnościowego"></p>
 <h3>💽 Partycjonowanie dysku</h3>
 <p>Instalator zapyta, jak przygotować dysk.</p>
 <data-tabs>
@@ -180,10 +170,15 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
         <b>🖥️ Tylko Ubuntu</b>
         <b>💻 Ubuntu obok Windows</b>
     </tabs>
-<div><p>W maszynie wirtualnej wybierz <span class="color-green">Wymaż dysk i zainstaluj Ubuntu</span>.</p>
+<div>
+
+<p>W maszynie wirtualnej wybierz <span class="color-green">Wymaż dysk i zainstaluj Ubuntu</span>.</p>
 <p>To najprostszy wariant laboratoryjny. Dotyczy wyłącznie wirtualnego dysku maszyny, więc nie usuwa danych z Twojego fizycznego komputera.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-wymaż-dysk.webp" alt="Wybór automatycznego partycjonowania" width="960" height="679" class="lazy-image" loading="lazy" decoding="async"></div>
-<div><h3>📦 Przygotowanie dysku w Windows</h3>
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-wyma%C5%BC-dysk.png" alt="Wybór automatycznego partycjonowania"></p>
+</div>
+<div>
+
+<h3>📦 Przygotowanie dysku w Windows</h3>
 <p>Jeśli instalujesz Ubuntu na tym samym dysku co Windows 11, najpierw przygotuj <span class="color-green">nieprzydzieloną przestrzeń</span> dla systemu <b>GNU/Linux</b>.</p>
 <p>Wykonaj to z poziomu Windows 11:</p>
 <ol>
@@ -192,21 +187,12 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li>Kliknij prawym przyciskiem największą partycję i wybierz <kbd class="win-menu-btn">Zmniejsz wolumin</kbd>.</li>
 <li>Wydziel co najmniej <span class="color-green">$50\text{ GB}$</span> nieprzydzielonego miejsca. Daj więcej, jeśli planujesz intensywnie korzystać z Ubuntu.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/windows-11-nieprzydzielona-przestrzeń-dla-ubuntu.webp" alt="Nieprzydzielona przestrzeń dla Ubuntu w Zarządzaniu dyskami Windows 11" width="1022" height="767" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/windows-11-nieprzydzielona-przestrze%C5%84-dla-ubuntu.png" alt="Nieprzydzielona przestrzeń dla Ubuntu w Zarządzaniu dyskami Windows 11"></p>
 <p>Upewnij się też, że <span class="color-green">BitLocker jest wyłączony</span> na partycji systemowej Windows. Sprawdzisz to w ścieżce: <kbd class="win-menu-btn">Panel Sterowania</kbd> &gt; <kbd class="win-menu-btn">Duże ikony</kbd> &gt; <kbd class="win-menu-btn">Szyfrowanie dysków funkcją BitLocker</kbd>.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/windows-11-bitlocker-wyłączony.webp" alt="BitLocker wyłączony w Windows 11" width="1022" height="767" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/windows-11-bitlocker-wy%C5%82%C4%85czony.png" alt="BitLocker wyłączony w Windows 11"></p>
 <h3>💿 Zamontowanie ISO i uruchomienie instalatora</h3>
 <p>W maszynie wirtualnej z Windows 11 zamontuj ISO Ubuntu do wirtualnego napędu optycznego. W menu VirtualBox wybierz: <span class="color-green">Urządzenia</span> &gt; <span class="color-green">Napędy optyczne</span> &gt; <span class="color-green">Wybierz obraz instalatora ISO</span>.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/VB-domontowanie-iso-ubuntu-w-maszynie-windows-11.webp" alt="Zamontowanie ISO Ubuntu w maszynie wirtualnej z Windows 11" width="893" height="391" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/VB-domontowanie-iso-ubuntu-w-maszynie-windows-11.png" alt="Zamontowanie ISO Ubuntu w maszynie wirtualnej z Windows 11"></p>
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
 <span class="alert-icon">🚧</span> Uwaga
@@ -216,22 +202,13 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <p>Jeśli Windows 11 nie startuje w maszynie wirtualnej, sprawdź liczbę przydzielonych rdzeni procesora. W tej konfiguracji ustaw co najmniej <span class="color-green">$3$ procesory wirtualne</span>.</p>
 
 </div>
-</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/vb-rdzenie-dla-win11.webp" alt="Ustawienie rdzeni procesora dla Windows 11 w VirtualBox" width="940" height="526" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+</div><p><img src="/courses/ubuntu-26/Images/vb-rdzenie-dla-win11.png" alt="Ustawienie rdzeni procesora dla Windows 11 w VirtualBox"></p>
 <h3>🔧 Bootowanie instalatora</h3>
 <p>Na fizycznym komputerze zwykle wystarczy nacisnąć <kbd>F12</kbd> przy starcie, wejść do menu bootowania i wybrać napęd optyczny. W VirtualBox sprawa zależy od trybu firmware.</p>
 <p><strong><span class="color-red">Menu bootowania pod <kbd>F12</kbd> jest niedostępne w trybie UEFI.</span></strong></p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/VB-F12-boot.webp" alt="Ekran F12 boot w VirtualBox" width="1023" height="767" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/VB-F12-boot.png" alt="Ekran F12 boot w VirtualBox"></p>
 <p>Jeśli Windows 11 został zainstalowany w trybie <span class="color-green">BIOS</span>, bez UEFI, menu bootowania zadziała. Naciśnij <kbd>C</kbd>, aby uruchomić instalator Ubuntu z napędu optycznego.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/VB-BIOS-boot-menu.webp" alt="Menu bootowania w trybie BIOS" width="1023" height="767" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/VB-BIOS-boot-menu.png" alt="Menu bootowania w trybie BIOS"></p>
 <div class="markdown-alert markdown-alert--tip">
 <p class="markdown-alert-title">
 <span class="alert-icon">✨</span> Wskazówka
@@ -241,27 +218,18 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <p>Tryb BIOS zwykle poznasz po niskiej rozdzielczości ekranu startowego. Jeśli wyłączysz UEFI w ustawieniach maszyny wirtualnej, menu bootowania zostanie odblokowane, ale instalator Ubuntu uruchomi się w niższej rozdzielczości.</p>
 
 </div>
-</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/zbootowany-instalator-ubuntu-bez-uefi.webp" alt="Instalator Ubuntu uruchomiony w trybie BIOS" width="940" height="975" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+</div><p><img src="/courses/ubuntu-26/Images/zbootowany-instalator-ubuntu-bez-uefi.png" alt="Instalator Ubuntu uruchomiony w trybie BIOS"></p>
 <p>W trybie <span class="color-green">UEFI</span> skorzystaj z menu zaawansowanego uruchamiania Windows 11:</p>
 <ol>
 <li>Uruchom Windows 11 i upewnij się, że ISO Ubuntu jest widoczne w Eksploratorze plików.</li>
 <li>Przytrzymaj <kbd>Shift</kbd> i kliknij <span class="color-green">Uruchom ponownie</span> w menu Start.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/windows-11-restart-podczas-trzymania-klawisza-shift.webp" alt="Restart z przytrzymanym Shift" width="1024" height="768" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/windows-11-restart-podczas-trzymania-klawisza-shift.png" alt="Restart z przytrzymanym Shift"></p>
 <ol start="3">
 <li>Maszyna wirtualna uruchomi niebieski ekran opcji zaawansowanych.</li>
 <li>Wybierz <span class="color-green">Użyj urządzenia</span>, a potem <span class="color-green">UEFI VBOX CD‑ROM</span>.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/bootowanie-instalatora-ubuntu-poprzez-tryb-zaawansowane-rezwiązywanie-problemów-win11.webp" alt="Bootowanie instalatora Ubuntu przez opcje zaawansowane Windows 11" width="992" height="345" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/bootowanie-instalatora-ubuntu-poprzez-tryb-zaawansowane-rezwi%C4%85zywanie-problem%C3%B3w-win11.png" alt="Bootowanie instalatora Ubuntu przez opcje zaawansowane Windows 11"></p>
 <div class="markdown-alert markdown-alert--tip">
 <p class="markdown-alert-title">
 <span class="alert-icon">✨</span> Wskazówka
@@ -270,16 +238,10 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <p>Jeśli po wybraniu napędu CD‑ROM długo widzisz czarny ekran, użyj <span style="white-space: nowrap;"><kbd>Prawy Ctrl</kbd> + <kbd>R</kbd></span>, aby wymusić restart maszyny. Po ponownym uruchomieniu powinno pojawić się menu GRUB w wyższej rozdzielczości, ponieważ instalator wystartuje w trybie UEFI.</p>
 
 </div>
-</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/GRUB-w-trybie-UEFI.webp" alt="Menu GRUB załadowane w trybie UEFI" width="1024" height="766" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+</div><p><img src="/courses/ubuntu-26/Images/GRUB-w-trybie-UEFI.png" alt="Menu GRUB załadowane w trybie UEFI"></p>
 <h3>🧩 Instalator wykrył Windows</h3>
 <p>Instalator Ubuntu może wykryć Windows i pokazać komunikat o BitLockerze. Taki komunikat może pojawić się nawet wtedy, gdy BitLocker jest wyłączony. W VirtualBox bywa to efekt pracy na wirtualnym dysku <code>VDI</code>, a nie dowód faktycznego szyfrowania partycji.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalator-ubuntu-wykrył-windowsa.webp" alt="Instalator Ubuntu wykrył Windows 11" width="1022" height="767" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalator-ubuntu-wykry%C5%82-windowsa.png" alt="Instalator Ubuntu wykrył Windows 11"></p>
 <p>Masz do wyboru trzy opcje:</p>
 <ul>
 <li><span class="color-gold">Zainstaluj Ubuntu obok Windows Boot Manager</span>: instalator sam przygotuje partycje pod dual boot.</li>
@@ -293,15 +255,9 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li><span class="color-green">Partycję swap</span> (pamięć wymiany), na przykład <span class="color-green">4 GB</span> (<code>4096 MB</code>). System używa jej jako awaryjnego rozszerzenia pamięci RAM.</li>
 <li><span class="color-green">Partycję systemową</span> z reszty miejsca. Wybierz system plików <span class="color-green">Ext4</span> i punkt montowania <code>/</code>.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/reczne-partcjonowanie.webp" alt="Ręczne partycjonowanie: swap i ext4 na /" width="1632" height="766" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/reczne-partcjonowanie.png" alt="Ręczne partycjonowanie: swap i ext4 na /"></p>
 <p>Obie metody zadziałają poprawnie. Instalator w trybie automatycznym zwykle nie tworzy osobnej partycji swap, tylko używa pliku wymiany wewnątrz partycji systemowej.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/porównanie-automatycznego-z-ręcznym-partycjonowaniem.webp" alt="Porównanie automatycznego i ręcznego partycjonowania" width="2050" height="767" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/por%C3%B3wnanie-automatycznego-z-r%C4%99cznym-partycjonowaniem.png" alt="Porównanie automatycznego i ręcznego partycjonowania"></p>
 <h3>🔄 Menu GRUB po instalacji</h3>
 <p>Po instalacji przy każdym uruchomieniu komputera zobaczysz menu <span class="color-green">GRUB</span> z listą systemów operacyjnych. Domyślnie wybrany będzie Ubuntu.</p>
 <div class="markdown-alert markdown-alert--important">
@@ -313,15 +269,13 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <p>Jeśli chcesz uruchomić Windows zamiast Ubuntu, od razu naciśnij strzałkę w dół <kbd>↓</kbd> i wybierz <span class="color-blue">Windows Boot Manager</span>. Jeśli nic nie zrobisz, GRUB automatycznie załaduje Ubuntu.</p>
 
 </div>
-</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/GRUB-menu-wyboru-bootowania-systemów.webp" alt="Menu GRUB: wybór między Ubuntu a Windows" width="1022" height="765" class="lazy-image" loading="lazy" decoding="async"></div>
+</div><p><img src="/courses/ubuntu-26/Images/GRUB-menu-wyboru-bootowania-system%C3%B3w.png" alt="Menu GRUB: wybór między Ubuntu a Windows"></p>
+</div>
 </data-tabs>
 
 <h3>🔐 Szyfrowanie i system plików</h3>
 <p>Gdy dysk i partycje będą gotowe, kreator zaproponuje wybór szyfrowania i systemu plików.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-szyfrowanie-plików.webp" alt="Szyfrowanie i system plików" width="960" height="680" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-szyfrowanie-plik%C3%B3w.png" alt="Szyfrowanie i system plików"></p>
 <p>Masz tu kilka opcji:</p>
 <ul>
 <li><span class="color-green">Bez szyfrowania</span>: domyślny wybór. Dane na dysku nie są szyfrowane.</li>
@@ -341,10 +295,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li><span class="color-green">Hasło:</span> ustaw silne hasło, na przykład <code>ZAQ!2wsx</code> 😅. Będziesz go używać przy poleceniu <code>sudo</code>.</li>
 <li>Pozostaw zaznaczoną opcję <span class="color-green">Wymaganie hasła do zalogowania</span>.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-skonfiguruj-swoje-konto.webp" alt="Konfiguracja konta użytkownika" width="960" height="680" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-skonfiguruj-swoje-konto.png" alt="Konfiguracja konta użytkownika"></p>
 <div class="markdown-alert markdown-alert--note">
 <p class="markdown-alert-title">
 <span class="alert-icon">💬</span> Notatka
@@ -356,10 +307,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 </div>
 </div><h3>🕒 Wybór strefy czasowej</h3>
 <p>Wskaż swoją lokalizację na mapie, na przykład region Polski. Instalator ustawi strefę czasową <code>Europe/Warsaw</code>. Potem pokaże podsumowanie konfiguracji.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-strefa-czasowa-i-podsumowanie-partycjonowania-sda1-i-sda2-dla-slash.webp" alt="Wybór strefy czasowej" width="1931" height="680" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-strefa-czasowa-i-podsumowanie-partycjonowania-sda1-i-sda2-dla-slash.png" alt="Wybór strefy czasowej"></p>
 <h3>📋 Podsumowanie przed instalacją</h3>
 <p>Przed zapisaniem zmian instalator pokaże podsumowanie.</p>
 <ol>
@@ -376,7 +324,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li>W prawym dolnym rogu okna instalatora kliknij małą ikonę <span class="color-green">Terminala/Konsoli</span>, obok tekstu <span class="color-blue">Kopiowanie plików...</span>.</li>
 <li>Instalator przełączy widok na logi tekstowe.</li>
 </ol>
-<p><img src="/public/courses/ubuntu-26/Images/instalacja-ubuntu-koniecznie-warto-prze%C5%82%C4%85czy%C4%87%20na%20widok-konsoli-bo-jak-bedzie-b%C5%82%C4%85d-to-ta-obcja-mo%C5%BCe-si%C4%99-zablokowa%C4%87.png" alt="Widok konsoli instalatora"></p>
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-koniecznie-warto-prze%C5%82%C4%85czy%C4%87%20na%20widok-konsoli-bo-jak-bedzie-b%C5%82%C4%85d-to-ta-obcja-mo%C5%BCe-si%C4%99-zablokowa%C4%87.png" alt="Widok konsoli instalatora"></p>
 <div class="markdown-alert markdown-alert--important">
 <p class="markdown-alert-title">
 <span class="alert-icon">📌</span> Ważny punkt
@@ -392,10 +340,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li>Po zakończeniu kopiowania plików pojawi się komunikat: <span class="color-blue">„Ubuntu 26.04 został zainstalowany i jest gotowy do użycia”</span>.</li>
 <li>Kliknij <span class="color-green">Uruchom ponownie teraz</span>. Jeśli GUI się zawiesi, użyj <span style="white-space: nowrap;"><kbd>Prawy Ctrl</kbd> + <kbd>R</kbd></span>.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/instalacja-ubuntu-zakończona-i-dzieki-odłączeniu-wirtualnego-kabla-internetu-w-VB-nie-było-problemów.webp" alt="Instalacja zakończona" width="1598" height="1032" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/instalacja-ubuntu-zako%C5%84czona-i-dzieki-od%C5%82%C4%85czeniu-wirtualnego-kabla-internetu-w-VB-nie-by%C5%82o-problem%C3%B3w.png" alt="Instalacja zakończona"></p>
 <ol start="3">
 <li>Jeśli zobaczysz komunikat <span class="color-blue">„Please remove the installation medium, then press ENTER:”</span>, naciśnij <kbd>Enter</kbd>. VirtualBox zwykle sam odmontuje ISO.</li>
 </ol>
@@ -408,10 +353,7 @@ Po podłączeniu ISO system traktuje go tak, jakby do napędu została włożona
 <li>W menu okna VirtualBox wybierz <span class="color-green">Urządzenia</span> &gt; <span class="color-green">Sieć</span>.</li>
 <li>Kliknij <span class="color-green">Podłącz kartę sieciową</span>.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/ubuntu-aktualizacja-po-instalacji.webp" alt="Błędy DNS spowodowane trybem Link-Local Only" width="1600" height="934" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/ubuntu-aktualizacja-po-instalacji.png" alt="Błędy DNS spowodowane trybem Link‑Local Only"></p>
 <h3>🔧 Naprawa konfiguracji sieci</h3>
 <p>Samo podłączenie wirtualnego kabla może nie wystarczyć. Po instalacji offline <span class="color-gold">NetworkManager</span> może zapisać profil interfejsu w trybie <span class="color-green">Link‑Local Only</span> zamiast <span class="color-green">Automatic (DHCP)</span>.</p>
 <p>W trybie Link‑Local system dostaje adres z puli <code>169.254.x.x</code>. To adres lokalny, bez bramy domyślnej i bez serwerów DNS. Interfejs wygląda na podłączony, ale nie ma trasy do internetu.</p>
@@ -430,10 +372,7 @@ Błąd:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
 <li>Kliknij <span class="color-green">Apply</span>.</li>
 <li>Wyłącz i włącz interfejs przełącznikiem przy ikonie koła zębatego. To wymusi ponowne pobranie adresu IP i DNS z DHCP VirtualBox.</li>
 </ol>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/poprawa-ustawienia-interfejsu-sieciowego-z-link-local-Only-na-dhcp.webp" alt="Zmiana konfiguracji IPv4 z Link-Local Only na Automatic DHCP" width="1040" height="800" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/poprawa-ustawienia-interfejsu-sieciowego-z-link-local-Only-na-dhcp.png" alt="Zmiana konfiguracji IPv4 z Link‑Local Only na Automatic DHCP"></p>
 <h3>🖥️ Pierwsza aktualizacja systemu</h3>
 <p>Po przełączeniu interfejsu na DHCP otwórz terminal skrótem <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd></span> i wykonaj:</p>
 <pre><code class="language-bash">sudo apt update
@@ -468,33 +407,54 @@ Błąd:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
 
 </div>
 </div><p>Po zatwierdzeniu system pobierze i zainstaluje aktualizacje. Może to potrwać od kilku do kilkunastu minut.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/zainstalowanie-aktualizacji.webp" alt="Aktualizacja systemu: sudo apt upgrade z promptem Kontynuować T/n" width="1177" height="780" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/zainstalowanie-aktualizacji.png" alt="Aktualizacja systemu: sudo apt upgrade z promptem Kontynuować T/n"></p>
 <p>Po aktualizacji środowisko jest gotowe do dalszej pracy. To dobry moment, aby wyeksportować maszynę wirtualną jako plik <code>.ova</code> (<span class="color-blue">Open Virtualization Archive</span>). W VirtualBox wybierz <span class="color-green">Plik</span> &gt; <span class="color-green">Eksportuj urządzenie wirtualne</span>.</p>
 <p>Plik <code>.ova</code> jest kompletnym obrazem maszyny. Możesz go później zaimportować na innym komputerze z VirtualBox bez powtarzania całej instalacji.</p>
 <hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>💿 Punkt kontrolny: instalacja</h2>
-<data-gate>
-  <data-quiz>
-    <question><p>Dlaczego do nauki Linuksa zaleca się instalację w maszynie wirtualnej (VirtualBox) zamiast bezpośrednio na dysku komputera?</p>
-</question>
-    <options>
-      <item correct=""><p>Maszyna wirtualna działa w izolowanym środowisku. Nie ingeruje w główny system operacyjny, a w razie problemów można ją usunąć albo odtworzyć z kopii.</p>
-</item>
-      <item><p>Linux nie działa poprawnie na fizycznym sprzęcie i wymaga warstwy wirtualizacji do obsługi sterowników.</p>
-</item>
-      <item><p>VirtualBox szyfruje całą komunikację sieciową maszyny wirtualnej, chroniąc przed atakami podczas nauki.</p>
-</item>
-    </options>
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Sprzętowa wirtualizacja procesora (Intel VT-x i AMD-V)</span><span class="deep-dive-badge">Hardware Virtualization &amp; Hypervisor</span></summary>
 
-<div data-hint="error"><p>Pomyśl o bezpieczeństwie eksperymentowania. Co stanie się po błędzie konfiguracji na fizycznym dysku, a co po takim samym błędzie w maszynie wirtualnej?</p>
-</div>
-<div data-hint="success"><p>Dobrze. Maszyna wirtualna jest środowiskiem laboratoryjnym. Możesz testować, psuć i naprawiać system bez ryzyka dla głównego komputera.</p>
-</div>
-  </data-quiz>
-</data-gate>
+<p>Uruchomienie systemu operacyjnego wewnątrz maszyny wirtualnej VirtualBox nie polega na powolnej programowej emulacji każdej instrukcji asemblera. Nowoczesne hiperwizory typu 2 (jak VirtualBox czy VMware Workstation) wykorzystują <span class="color-green">sprzętowe rozszerzenia wirtualizacji procesora</span> (<span class="color-blue">Intel VT‑x</span> lub <span class="color-blue">AMD‑V</span>).</p>
+<h3>1. Dwa światy procesora: VMX Root i VMX Non-Root</h3>
+<p>Przed pojawieniem się sprzętowej wirtualizacji w architekturze x86 występował problem tzw. <span class="color-blue">wrażliwych instrukcji Ring 0</span>, które nie powodowały pułapki (trap) przy próbie wykonania w Ring 1, lecz po cichu zwracały fałszywe wartości.</p>
+<p>Intel rozwiązał ten problem wprowadzając dwa ortogonalne tryby działania procesora:</p>
+<ul>
+<li><span class="color-green">VMX Root Operation</span>: Tryb, w którym działa hiperwizor (VirtualBox na systemie‑gospodarzu). Posiada pełną kontrolę nad fizycznym procesorem.</li>
+<li><span class="color-green">VMX Non‑Root Operation</span>: Tryb, w którym działa system‑gość (nasze wirtualne Ubuntu). W tym trybie procesor gościa nadal posiada swoje pierścienie Ring 0 (jądro Linuksa) i Ring 3 (aplikacje Ubuntu).</li>
+</ul>
+<pre><code>   System-Gospodarz (Host)              Maszyna Wirtualna (Guest)
+   ┌───────────────────────┐            ┌───────────────────────┐
+   │ VirtualBox (VMX Root) │            │ Ubuntu User (Ring 3)  │
+   │      [Ring 0/3]       │            ├───────────────────────┤
+   └───────────┬───────────┘            │ Ubuntu Kernel (Ring 0)│
+               │                        └───────────┬───────────┘
+               │  VMENTRY (Przekazanie CPU)         │
+               ▼                                    ▼
+       ┌────────────────────────────────────────────────────────┐
+       │             Fizyczny Rdzeń x86_64 CPU                  │
+       │   - Rejestr sterujący VMCS (Virtual Machine Control)   │
+       │   - Sprzętowa translacja stron: EPT / SLAT             │
+       └────────────────────────────────────────────────────────┘
+               ▲                                    │
+               │  VMEXIT (Przechwycenie I/O)        │
+               └────────────────────────────────────┘
+</code></pre>
+<h3>2. Struktura VMCS i zjawisko VM-Exit</h3>
+<p>Każda wirtualna maszyna posiada w pamięci RAM przyporządkowaną 4‑kilobajtową strukturę <span class="color-green">VMCS</span> (<span class="color-blue">Virtual Machine Control Structure</span>). Zawiera ona:</p>
+<ul>
+<li>Stan rejestrów gościa (Guest‑State Area): wartości rejestrów <code>RAX</code>, <code>RSP</code>, <code>CR3</code>, <code>RFLAGS</code> odtwarzane w chwili wejścia do maszyny (<code>VMENTRY</code>).</li>
+<li>Stan rejestrów gospodarza (Host‑State Area): stan VirtualBoxa, do którego procesor wraca po przerwaniu.</li>
+<li>Maski przechwytywania (VM‑Execution Controls): określają, jakie zdarzenia wewnątrz Ubuntu mają natychmiast zatrzymać gościa i oddać kontrolę VirtualBoxowi.</li>
+</ul>
+<p>Gdy jądro Ubuntu w maszynie wirtualnej próbuje uzyskać bezpośredni dostęp do portu sprzętowego lub zmienić zegar czasu rzeczywistego, procesor wykonuje sprzętowe przejście <span class="color-green"><code>VM-Exit</code></span>. Działanie gościa zostaje zamrożone, a hiperwizor emuluje odpowiedź wirtualnego kontrolera (np. wirtualnej karty sieciowej Intel PRO/1000) i wznawia maszynę instrukcją <code>VMRESUME</code>.</p>
+<h3>3. Sprzętowa translacja stron pamięci (EPT / SLAT)</h3>
+<p>Aby jądro Ubuntu mogło swobodnie zarządzać własnymi tablicami stron pamięci bez wywoływania kosztownego <code>VM-Exit</code> przy każdej alokacji, procesor stosuje <span class="color-green">Extended Page Tables (EPT)</span>:</p>
+<ul>
+<li>Adres wirtualny w Ubuntu $\to$ tłumaczony przez tablice stron gościa na adres fizyczny gościa (<span class="color-blue">Guest Physical Address</span>).</li>
+<li>Adres fizyczny gościa $\to$ natychmiast sprzętowo tłumaczony przez tablicę EPT procesora na rzeczywisty adres w fizycznej kości RAM komputera.</li>
+</ul>
+<p>Dzięki temu kod wewnątrz wirtualnego Ubuntu wykonuje się na fizycznym krzemie z wydajnością sięgającą 95‑98% prędkości natywnej.</p>
+</details>
 
 
 <hr>

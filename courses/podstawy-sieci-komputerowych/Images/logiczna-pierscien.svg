@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" width="100%" height="100%">
+  <defs>
+    <style>
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #34d399; }
+      .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #94a3b8; }
+      .host-title { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #f8fafc; text-anchor: middle; }
+      .host-sub { font-family: monospace; font-size: 9px; fill: #6ee7b7; text-anchor: middle; }
+      .note-title { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 700; }
+      .note-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 10px; fill: #94a3b8; }
+    </style>
+    <marker id="token-ring-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- Tło panelu -->
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  <rect x="15" y="15" width="610" height="250" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="10"/>
+
+  <!-- Nagłówek -->
+  <text x="35" y="44" class="title">Topologia logiczna: Pierścień ze wspólnym żetonem (Token Passing)</text>
+  <text x="35" y="64" class="subtitle">Prawo do nadawania w medium posiada wyłącznie stacja dysponująca żetonem</text>
+
+  <!-- Pętla logiczna (Kabel / Ścieżka żetonu) -->
+  <circle cx="320" cy="165" r="75" stroke="#10b981" stroke-width="4" fill="none"/>
+
+  <!-- Strzałki cyrkulacji żetonu po obwodzie -->
+  <path d="M 370 110 A 75 75 0 0 1 392 140" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#token-ring-arrow)"/>
+  <path d="M 390 190 A 75 75 0 0 1 350 230" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#token-ring-arrow)"/>
+  <path d="M 285 233 A 75 75 0 0 1 250 195" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#token-ring-arrow)"/>
+  <path d="M 248 140 A 75 75 0 0 1 280 100" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#token-ring-arrow)"/>
+
+  <!-- 4 Hosty - osadzone centralnie na okręgu (cx = 320, cy = 165, r = 75) -->
+
+  <!-- Host A (Góra: cx=320, cy=90) - W TRAKCIE NADAWANIA -->
+  <g transform="translate(286, 72)">
+    <rect width="68" height="36" fill="#064e3b" stroke="#34d399" stroke-width="2" rx="6"/>
+    <text x="34" y="21" class="host-title">Host A</text>
+    <text x="34" y="31" class="host-sub" fill="#34d399">NADAJE</text>
+  </g>
+
+  <!-- Host B (Prawo: cx=395, cy=165) -->
+  <g transform="translate(361, 147)">
+    <rect width="68" height="36" fill="#0f172a" stroke="#34d399" stroke-width="2" rx="6"/>
+    <text x="34" y="21" class="host-title">Host B</text>
+    <text x="34" y="31" class="host-sub">Nasłuch</text>
+  </g>
+
+  <!-- Host C (Dół: cx=320, cy=240) -->
+  <g transform="translate(286, 222)">
+    <rect width="68" height="36" fill="#0f172a" stroke="#34d399" stroke-width="2" rx="6"/>
+    <text x="34" y="21" class="host-title">Host C</text>
+    <text x="34" y="31" class="host-sub">Nasłuch</text>
+  </g>
+
+  <!-- Host D (Lewo: cx=245, cy=165) -->
+  <g transform="translate(211, 147)">
+    <rect width="68" height="36" fill="#0f172a" stroke="#34d399" stroke-width="2" rx="6"/>
+    <text x="34" y="21" class="host-title">Host D</text>
+    <text x="34" y="31" class="host-sub">Nasłuch</text>
+  </g>
+
+  <!-- Żeton (TOKEN) przemieszczający się po pierścieniu -->
+  <g transform="translate(348, 88)">
+    <rect width="58" height="22" fill="#f59e0b" stroke="#fde68a" stroke-width="1.5" rx="5"/>
+    <text x="29" y="15" font-family="monospace" font-size="10px" font-weight="800" fill="#0f172a" text-anchor="middle">🪙 TOKEN</text>
+  </g>
+
+  <!-- Panele informacyjne po bokach -->
+  <!-- Lewy panel: Brak kolizji -->
+  <g transform="translate(35, 140)">
+    <rect width="150" height="58" fill="#0f172a" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <text x="12" y="24" class="note-title" fill="#34d399">🛡️ Zero kolizji</text>
+    <text x="12" y="40" class="note-desc">W sieci jest tylko 1 żeton,</text>
+    <text x="12" y="52" class="note-desc">stacje nie walczą o pasmo</text>
+  </g>
+
+  <!-- Prawy panel: Determinizm czasowy -->
+  <g transform="translate(455, 140)">
+    <rect width="150" height="58" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5" rx="6"/>
+    <text x="12" y="24" class="note-title" fill="#fbbf24">⏱️ Determinizm</text>
+    <text x="12" y="40" class="note-desc">Gwarantowany maksymalny</text>
+    <text x="12" y="52" class="note-desc">czas oczekiwania na żeton</text>
+  </g>
+</svg>

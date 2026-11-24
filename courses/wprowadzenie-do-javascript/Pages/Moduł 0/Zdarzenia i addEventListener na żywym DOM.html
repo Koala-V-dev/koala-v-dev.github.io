@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zdarzenia i addEventListener na żywym DOM - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty DOM, funkcje strzałkowe, zdarzenia i forEach</li><li class="lesson-item lesson" data-path="Moduł 0/Drzewo DOM i document.querySelector"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Drzewo%20DOM%20i%20document.querySelector.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drzewo DOM i document.querySelector</a></li><li class="lesson-item lesson" data-path="Moduł 0/Funkcje jako wartości i funkcje strzałkowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Funkcje%20jako%20warto%C5%9Bci%20i%20funkcje%20strza%C5%82kowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje jako wartości i funkcje strzałkowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zdarzenia i addEventListener na żywym DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zdarzenia%20i%20addEventListener%20na%20%C5%BCywym%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia i addEventListener na żywym DOM</a></li><li class="lesson-item lesson" data-path="Moduł 0/Kolekcje elementów - querySelectorAll i pętla forEach"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kolekcje%20element%C3%B3w%20-%20querySelectorAll%20i%20p%C4%99tla%20forEach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolekcje elementów - querySelectorAll i pętla forEach</a></li><li class="lesson-item lesson" data-path="Moduł 0/Synteza - querySelectorAll, forEach i addEventListener"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Synteza%20-%20querySelectorAll%2C%20forEach%20i%20addEventListener.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Synteza - querySelectorAll, forEach i addEventListener</a></li><li class="module">Moduł 1: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" data-path="Moduł 1/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" data-path="Moduł 1/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 2: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" data-path="Moduł 2/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" data-path="Moduł 2/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 3: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" data-path="Moduł 3/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" data-path="Moduł 3/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 4: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" data-path="Moduł 4/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 5: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" data-path="Moduł 5/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" data-path="Moduł 5/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 6: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" data-path="Moduł 6/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 7: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" data-path="Moduł 7/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%207/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Zdarzenia i addEventListener na żywym DOM</h1>
+<p>W dwóch poprzednich lekcjach potrafiłeś już namierzyć węzły przez <code>document.querySelector</code>, zmienić ich treść i klasy oraz zamknąć operacje w funkcjach strzałkowych. Każdy z tych skryptów miał jednak jedną zasadniczą granicę: wykonywał się wyłącznie raz, w momencie otwarcia strony.</p>
+<p>Gdy użytkownik klika przycisk „Lubię to”, wpisuje wiadomość w formularzu albo wysyła komentarz, przeglądarka musi zareagować dopiero w chwili tej akcji. Nie może też zatrzymać całego programu i „czekać w miejscu”, ponieważ strona przestałaby się przewijać i całkowicie by zamarzła.</p>
+<p>Do rozwiązania tego problemu służy model zdarzeń i metoda <code>addEventListener</code>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📡 Architektura sterowana zdarzeniami</h2>
+<p>Przeglądarka działa w <span class="color-gold">architekturze sterowanej zdarzeniami</span>. Zamiast blokować główny wątek oczekiwaniem na ruch użytkownika, Twój skrypt uruchamia się przy starcie strony, rejestruje nasłuchy na wybranych węzłach DOM i natychmiast kończy pracę.</p>
+<p>Od tej chwili przeglądarka przechodzi w stan czuwania. Za każdym razem, gdy użytkownik kliknie element, naciśnie klawisz lub prześle formularz, silnik przeglądarki tworzy zdarzenie i wywołuje zarejestrowaną przez Ciebie <span class="color-green">funkcję zwrotną</span> (callback).</p>
+<p>Podstawowy zapis rejestracji nasłuchu wygląda tak:</p>
+<pre><code class="language-javascript">const przycisk = document.querySelector("#btn-start");
+const statusEl = document.querySelector("#status");
+
+przycisk.addEventListener("click", () =&gt; {
+  statusEl.textContent = "Uruchomiono!";
+});
+</code></pre>
+<p>Rozłóżmy to wywołanie na trzy elementy:</p>
+<ol>
+<li><code>przycisk</code>: węzeł DOM, na którym nasłuchujemy.</li>
+<li><code>"click"</code>: nazwa zdarzenia zapisana jako tekst.</li>
+<li><code>() =&gt; { ... }</code>: anonimowa funkcja strzałkowa przekazana jako drugi argument, która uruchomi się dopiero po kliknięciu.</li>
+</ol>
+<p>Zauważ, jak naturalnie łączą się tu umiejętności z poprzednich lekcji: <code>document.querySelector</code> dostarcza cel, a funkcja strzałkowa dostarcza przepis do wykonania w przyszłości.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚡ Najważniejsze zdarzenia w pracy z interfejsem</h2>
+<p>Nie każde działanie użytkownika to kliknięcie myszą. Dobór właściwego typu zdarzenia decyduje o tym, czy interfejs działa płynnie i reaguje we właściwym momencie.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Nazwa zdarzenia</th>
+<th align="left">Kiedy się uruchamia</th>
+<th align="left">Typowy element docelowy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>"click"</code></td>
+<td align="left">Po pełnym kliknięciu elementu myszą lub aktywacji klawiaturą</td>
+<td align="left"><code>&lt;button&gt;</code>, <code>&lt;a&gt;</code>, element karty</td>
+</tr>
+<tr>
+<td align="left"><code>"input"</code></td>
+<td align="left">Natychmiast po każdej pojedynczej zmianie znaku lub przesunięciu suwaka</td>
+<td align="left"><code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>"change"</code></td>
+<td align="left">Po zatwierdzeniu zmiany (np. wybór nowej opcji z listy lub zaznaczenie checkboxa)</td>
+<td align="left"><code>&lt;select&gt;</code>, <code>&lt;input type="checkbox"&gt;</code></td>
+</tr>
+<tr>
+<td align="left"><code>"submit"</code></td>
+<td align="left">W chwili wysłania formularza przyciskiem lub klawiszem <kbd>Enter</kbd></td>
+<td align="left"><code>&lt;form&gt;</code> (nie sam <code>&lt;button&gt;</code>!)</td>
+</tr>
+</tbody></table>
+<p>Zwróć szczególną uwagę na różnicę między <code>"input"</code> a <code>"change"</code> w polach tekstowych. Zdarzenie <code>"input"</code> odpala się przy każdym naciśnięciu klawisza, dlatego idealnie nadaje się do podglądu na żywo i licznika znaków. Zdarzenie <code>"change"</code> w polu tekstowym odpala się dopiero po opuszczeniu pola (utracie fokusu).</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚫 Błąd przedwczesnego wywołania: nawiasy w addEventListener</h2>
+<p>Wiesz już z poprzedniej lekcji, że zapis <code>zwieksz</code> oznacza referencję do funkcji, a zapis <code>zwieksz()</code> natychmiast ją uruchamia. W <code>addEventListener</code> pomylenie tych dwóch zapisów jest najczęstszym źródłem „martwych przycisków”.</p>
+<h3>🔮 Przewidywanie: co zrobi przycisk z nawiasami w argumencie</h3>
+<p>Przeanalizuj poniższy kod:</p>
+<pre><code class="language-javascript">let licznik = 0;
+const btn = document.querySelector("#btn-plus");
+const wynikEl = document.querySelector("#wynik");
+
+const zwieksz = () =&gt; {
+  licznik = licznik + 1;
+  wynikEl.textContent = licznik;
+};
+
+btn.addEventListener("click", zwieksz());
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zanim przeczytasz wyjaśnienie poniżej, odpowiedz na dwa pytania:</p>
+<ol>
+<li>Jaką wartość pokaże <code>#wynik</code> tuż po załadowaniu strony, zanim ktokolwiek kliknie przycisk?</li>
+<li>Co się stanie na ekranie, gdy użytkownik kliknie przycisk <code>#btn-plus</code> trzy razy z rzędu?</li>
+</ol>
+
+</div>
+</div><h3>🔎 Obserwacja i wyjaśnienie</h3>
+<p>Tuż po załadowaniu strony <code>#wynik</code> pokaże <code>1</code>, mimo że nikt nie kliknął przycisku. Następnie możesz kliknąć przycisk sto razy, a wartość pozostanie zamrożona na <code>1</code>.</p>
+<p>Dlaczego tak się dzieje? W linii <code>btn.addEventListener("click", zwieksz())</code> silnik JavaScript najpierw oblicza argumenty wywołania. Widzi <code>zwieksz()</code> z nawiasami, więc <span class="color-red">natychmiast uruchamia funkcję</span>. Zmienna <code>licznik</code> rośnie z <code>0</code> do <code>1</code>, a ponieważ <code>zwieksz</code> nie ma instrukcji <code>return</code>, w miejsce drugiego argumentu trafia <span class="color-red">undefined</span>.</p>
+<p>Metoda <code>addEventListener</code> dostaje więc <code>undefined</code> zamiast funkcji zwrotnej i nie ma czego wywołać przy kolejnych kliknięciach.</p>
+<p>Poprawny zapis przekazuje samą referencję bez nawiasów albo opakowuje wywołanie w funkcję strzałkową:</p>
+<pre><code class="language-javascript">// Poprawnie: przekazujemy sam przepis bez nawiasów
+btn.addEventListener("click", zwieksz);
+
+// Również poprawnie: funkcja strzałkowa czeka na kliknięcie i dopiero wtedy wywołuje zwieksz()
+btn.addEventListener("click", () =&gt; {
+  zwieksz();
+});
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Obiekt event: preventDefault i target</h2>
+<p>Gdy przeglądarka wywołuje Twoją funkcję zwrotną, może przekazać do niej specjalny obiekt z pełnym opisem zdarzenia. Zwyczajowo nazywamy ten parametr <span class="color-blue">event</span> (lub skrótowo <code>e</code>).</p>
+<pre><code class="language-javascript">formularz.addEventListener("submit", (event) =&gt; {
+  event.preventDefault();
+  console.log("Wysłano formularz bez przeładowania strony.");
+});
+</code></pre>
+<p>Dwie właściwości obiektu <span class="color-green">event</span> wykorzystasz niemal w każdym projekcie:</p>
+<ol>
+<li><span class="color-green">event.preventDefault()</span>: zatrzymuje domyślną akcję przeglądarki. Formularz <code>&lt;form&gt;</code> domyślnie próbuje wysłać dane na serwer i <span class="color-red">przeładować całą stronę</span>, co natychmiast kasuje stan Twoich zmiennych w JavaScript. Wywołanie <code>event.preventDefault()</code> na początku listenera <code>"submit"</code> blokuje to przeładowanie.</li>
+<li><span class="color-green">event.target</span>: wskazuje konkretny węzeł DOM, który wywołał zdarzenie. W zdarzeniu <code>"input"</code> na polu tekstowym <code>event.target.value</code> daje Ci aktualny tekst wpisany przez użytkownika bez konieczności ponownego szukania pola w drzewie.</li>
+</ol>
+<pre><code class="language-javascript">poleTekstu.addEventListener("input", (event) =&gt; {
+  podgladEl.textContent = event.target.value;
+});
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zapamiętaj różnicę: pola formularza (<code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>) przechowują wpisaną treść we właściwości <span class="color-green">value</span>, a zwykłe znaczniki tekstowe (<code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;h2&gt;</code>) korzystają z właściwości <span class="color-green">textContent</span>.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Połącz zdarzenie lub metodę z jej rolą w aplikacji">
+  <item left="Zdarzenie `input`" right="Uruchamia się przy każdej wpisanej lub usuniętej literze w polu"></item>
+  <item left="Zdarzenie `submit`" right="Rejestruje się na znaczniku form, aby obsłużyć wysłanie formularza"></item>
+  <item left="`event.preventDefault()`" right="Blokuje domyślne przeładowanie strony przy wysłaniu formularza"></item>
+  <item left="`event.target.value`" right="Zwraca bieżący tekst z pola wejściowego, które wywołało zdarzenie"></item>
+  <item left="`btn.addEventListener('click', fn())`" right="Błąd: uruchamia fn natychmiast przy starcie i przekazuje undefined"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Stan aplikacji: zmienna poza listenerem kontra zmienna w środku</h2>
+<p>Częstym problemem przy budowaniu liczników, koszyków czy przełączników jest umieszczenie zmiennej stanu w złym miejscu. Spójrz na te dwa warianty:</p>
+<pre><code class="language-javascript">// Wariant błędny: zmienna resetuje się przy każdym kliknięciu!
+btn.addEventListener("click", () =&gt; {
+  let klikniecia = 0;
+  klikniecia = klikniecia + 1;
+  licznikEl.textContent = klikniecia;
+});
+</code></pre>
+<p>W wariancie błędnym funkcja strzałkowa za każdym kliknięciem tworzy nową zmienną <code>klikniecia</code> o wartości <code>0</code>, dodaje <code>1</code> i wypisuje <code>1</code>. Po zakończeniu funkcji zmienna lokalna znika z pamięci. Wynik nigdy nie przekroczy <code>1</code>.</p>
+<p>Aby program pamiętał historię między kolejnymi kliknięciami, <span class="color-green">zmienna stanu</span> musi być zadeklarowana przez <code>let</code> <span class="color-green">poza funkcją listenera</span>:</p>
+<pre><code class="language-javascript">// Wariant poprawny: stan żyje poza listenerem i zachowuje wartość
+let klikniecia = 0;
+
+btn.addEventListener("click", () =&gt; {
+  klikniecia = klikniecia + 1;
+  licznikEl.textContent = klikniecia;
+});
+</code></pre>
+<p>Reguła jest prosta: wszystko, co ma przetrwać między kolejnymi zdarzeniami użytkownika, deklaruj poza <code>addEventListener</code>. Wewnątrz listenera trzymaj tylko zmienne pomocnicze potrzebne do jednego, bieżącego uruchomienia.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Warsztat prowadzony: Licznik polubień z resetem</h2>
+<p>Zbuduj działający licznik polubień z dwoma przyciskami: <code>#btn-like</code> zwiększa wynik o <code>1</code>, a <code>#btn-reset</code> zeruje stan z powrotem do <code>0</code>. Po kliknięciu w podglądzie możesz od razu przetestować oba przyciski na żywo.</p>
+<p>Wymagania:</p>
+<ul>
+<li>Zadeklaruj zmienną stanu <code>let polubienia = 0;</code> poza funkcjami <code>addEventListener</code>.</li>
+<li>Podłącz listener <code>"click"</code> do <code>#btn-like</code>, który zwiększa <code>polubienia</code> o <code>1</code> i aktualizuje <code>#licznik-wartosc</code> przez <code>textContent</code>.</li>
+<li>Podłącz listener <code>"click"</code> do <code>#btn-reset</code>, który ustawia <code>polubienia = 0</code> i aktualizuje <code>#licznik-wartosc</code> przez <code>textContent</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" sandbox="dom" title="Licznik polubień z resetem" data-code="Y29uc3QgYnRuTGlrZSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIiNidG4tbGlrZSIpOwpjb25zdCBidG5SZXNldCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIiNidG4tcmVzZXQiKTsKY29uc3QgbGljem5pa0VsID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcigiI2xpY3puaWstd2FydG9zYyIpOwoKbGV0IHBvbHViaWVuaWEgPSAwOwoKLy8gVE9ETyAxOiBQb2TFgsSFY3ogemRhcnplbmllICJjbGljayIgZG8gYnRuTGlrZSAoendpxJlrc3ogcG9sdWJpZW5pYSBpIHpha3R1YWxpenVqIGxpY3puaWtFbC50ZXh0Q29udGVudCkKCi8vIFRPRE8gMjogUG9kxYLEhWN6IHpkYXJ6ZW5pZSAiY2xpY2siIGRvIGJ0blJlc2V0ICh3eXplcnVqIHBvbHViaWVuaWEgaSB6YWt0dWFsaXp1aiBsaWN6bmlrRWwudGV4dENvbnRlbnQp" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJzdGF0ZS1vdXRzaWRlIiwKICAgICAgICAgICJ0ZXh0IjogIlptaWVubmEgc3RhbnUgbGV0IHBvbHViaWVuaWEgPSAwIHphZGVrbGFyb3dhbmEgcG96YSBsaXN0ZW5lcmVtIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImxldFxccytwb2x1YmllbmlhXFxzKj1cXHMqMCIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJsaXN0ZW5lci1saWtlIiwKICAgICAgICAgICJ0ZXh0IjogIlphcmVqZXN0cm93YW55IGxpc3RlbmVyIGNsaWNrIG5hIGJ0bkxpa2UgeiBmdW5rY2rEhSBzdHJ6YcWCa293xIUiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAiYnRuTGlrZVxcLmFkZEV2ZW50TGlzdGVuZXJcXHMqXFwoXFxzKltcIiddY2xpY2tbXCInXVxccyosXFxzKlxcKFteKV0qXFwpXFxzKj0+IgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImxpc3RlbmVyLXJlc2V0IiwKICAgICAgICAgICJ0ZXh0IjogIlphcmVqZXN0cm93YW55IGxpc3RlbmVyIGNsaWNrIG5hIGJ0blJlc2V0IHogZnVua2NqxIUgc3RyemHFgmtvd8SFIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImJ0blJlc2V0XFwuYWRkRXZlbnRMaXN0ZW5lclxccypcXChcXHMqW1wiJ11jbGlja1tcIiddXFxzKixcXHMqXFwoW14pXSpcXClcXHMqPT4iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAiaW5jcmVtZW50LXN0YXRlIiwKICAgICAgICAgICJ0ZXh0IjogIlp3acSZa3N6YW5pZSB6bWllbm5laiBwb2x1YmllbmlhIHdld27EhXRyeiBvYnPFgnVnaSBrbGlrbmnEmWNpYSIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJwb2x1YmllbmlhXFxzKihcXCtcXCt8XFwrPVxccyoxfD1cXHMqcG9sdWJpZW5pYVxccypcXCtcXHMqMSkiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAicmVzZXQtc3RhdGUiLAogICAgICAgICAgInRleHQiOiAiV3l6ZXJvd2FuaWUgem1pZW5uZWogcG9sdWJpZW5pYSA9IDAgdyBvYnPFgnVkemUgcHJ6eWNpc2t1IHJlc2V0dSIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJidG5SZXNldFxcLmFkZEV2ZW50TGlzdGVuZXJbXFxzXFxTXSpwb2x1YmllbmlhXFxzKj1cXHMqMCIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJ1cGRhdGUtdGV4dGNvbnRlbnQiLAogICAgICAgICAgInRleHQiOiAiQWt0dWFsaXphY2phIHd5xZt3aWV0bGFuZWogd2FydG/Fm2NpIHByemV6IGxpY3puaWtFbC50ZXh0Q29udGVudCIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJsaWN6bmlrRWxcXC50ZXh0Q29udGVudFxccyo9XFxzKnBvbHViaWVuaWEiCiAgICAgICAgfQogICAgICBd" data-html="PHN0eWxlPgogIC5rYXJ0YS1saWtlIHsgcGFkZGluZzogMTZweDsgYm9yZGVyLXJhZGl1czogMTBweDsgYm9yZGVyOiAycHggc29saWQgI2NiZDVlMTsgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7IG1heC13aWR0aDogMzIwcHg7IGJhY2tncm91bmQ6ICNmOGZhZmM7IH0KICAubGljem5payB7IGZvbnQtc2l6ZTogMnJlbTsgZm9udC13ZWlnaHQ6IDcwMDsgY29sb3I6ICMwZjE3MmE7IG1hcmdpbjogOHB4IDAgMTJweDsgfQogIC5ha2NqZSB7IGRpc3BsYXk6IGZsZXg7IGdhcDogOHB4OyB9CiAgYnV0dG9uIHsgcGFkZGluZzogOHB4IDE0cHg7IGJvcmRlci1yYWRpdXM6IDZweDsgYm9yZGVyOiBub25lOyBjdXJzb3I6IHBvaW50ZXI7IGZvbnQtd2VpZ2h0OiA2MDA7IH0KICAjYnRuLWxpa2UgeyBiYWNrZ3JvdW5kOiAjMjU2M2ViOyBjb2xvcjogI2ZmZjsgfQogICNidG4tcmVzZXQgeyBiYWNrZ3JvdW5kOiAjZTJlOGYwOyBjb2xvcjogIzMzNDE1NTsgfQo8L3N0eWxlPgo8c2VjdGlvbiBjbGFzcz0ia2FydGEtbGlrZSI+CiAgPGgzPlBvc3QgdGVjaG5pY3pueTwvaDM+CiAgPHAgY2xhc3M9ImxpY3puaWsiPlBvbHViaWVuaWE6IDxzcGFuIGlkPSJsaWN6bmlrLXdhcnRvc2MiPjA8L3NwYW4+PC9wPgogIDxkaXYgY2xhc3M9ImFrY2plIj4KICAgIDxidXR0b24gaWQ9ImJ0bi1saWtlIiB0eXBlPSJidXR0b24iPkx1YmnEmSB0byArMTwvYnV0dG9uPgogICAgPGJ1dHRvbiBpZD0iYnRuLXJlc2V0IiB0eXBlPSJidXR0b24iPlJlc2V0dWo8L2J1dHRvbj4KICA8L2Rpdj4KPC9zZWN0aW9uPg=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Samodzielne zadanie: Podgląd wiadomości na żywo i obsługa formularza</h2>
+<p>Teraz połączysz zdarzenia <code>"input"</code> i <code>"submit"</code> oraz <code>event.preventDefault()</code> w jednym formularzu.</p>
+<p>W szablonie HTML masz:</p>
+<ul>
+<li>formularz <code>#form-wiadomosc</code>,</li>
+<li>pole tekstowe <code>#pole-wiadomosc</code>,</li>
+<li>akapit podglądu na żywo <code>#podglad-tekstu</code>,</li>
+<li>akapit statusu wysłania <code>#status-wyslania</code>.</li>
+</ul>
+<p>Twoje wymagania:</p>
+<ol>
+<li>Pobierz wszystkie cztery elementy przez <code>document.querySelector</code> i zapisz je w zmiennych <code>const</code>.</li>
+<li>Na polu <code>#pole-wiadomosc</code> zarejestruj zdarzenie <code>"input"</code> z parametrem <code>event</code>. Przy każdej zmianie ustaw <code>textContent</code> elementu <code>#podglad-tekstu</code> na <code>event.target.value</code>.</li>
+<li>Na formularzu <code>#form-wiadomosc</code> zarejestruj zdarzenie <code>"submit"</code> z parametrem <code>event</code>.</li>
+<li>Jako pierwszą instrukcję w obsłudze <code>"submit"</code> wywołaj <code>event.preventDefault()</code>, aby zablokować przeładowanie strony.</li>
+<li>Następnie ustaw <code>textContent</code> elementu <code>#status-wyslania</code> na <code>"Wiadomość wysłana!"</code>.</li>
+</ol>
+<data-gate>
+  <data-code-runner language="javascript" sandbox="dom" title="Podgląd wiadomości i formularz" data-code="Ly8gTmFwaXN6IG9ic8WCdWfEmSBwb2RnbMSFZHUgbmEgxbx5d28gKCJpbnB1dCIpIG9yYXogd3lzecWCYW5pYSBmb3JtdWxhcnphICgic3VibWl0Iik6" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJzZWxlY3QtZm9ybSIsCiAgICAgICAgICAidGV4dCI6ICJQb2JyYW5pZSAjZm9ybS13aWFkb21vc2MgcHJ6ZXogZG9jdW1lbnQucXVlcnlTZWxlY3RvciIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJkb2N1bWVudFxcLnF1ZXJ5U2VsZWN0b3JcXHMqXFwoXFxzKltcIiddI2Zvcm0td2lhZG9tb3NjW1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInNlbGVjdC1pbnB1dCIsCiAgICAgICAgICAidGV4dCI6ICJQb2JyYW5pZSAjcG9sZS13aWFkb21vc2MgcHJ6ZXogZG9jdW1lbnQucXVlcnlTZWxlY3RvciIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJkb2N1bWVudFxcLnF1ZXJ5U2VsZWN0b3JcXHMqXFwoXFxzKltcIiddI3BvbGUtd2lhZG9tb3NjW1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImxpc3Rlbi1pbnB1dCIsCiAgICAgICAgICAidGV4dCI6ICJSZWplc3RyYWNqYSB6ZGFyemVuaWEgaW5wdXQgeiBmdW5rY2rEhSBzdHJ6YcWCa293xIUgb2RiaWVyYWrEhWPEhSBldmVudCIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJcXC5hZGRFdmVudExpc3RlbmVyXFxzKlxcKFxccypbXCInXWlucHV0W1wiJ11cXHMqLFxccypcXCg/XFxzKihldmVudHxlKVxccypcXCk/XFxzKj0+IgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImxpdmUtcHJldmlldyIsCiAgICAgICAgICAidGV4dCI6ICJBa3R1YWxpemFjamEgcG9kZ2zEhWR1IHByemV6IHRleHRDb250ZW50IHogd3lrb3J6eXN0YW5pZW0gdGFyZ2V0LnZhbHVlIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogIlxcLnRleHRDb250ZW50XFxzKj1cXHMqKGV2ZW50fGUpXFwudGFyZ2V0XFwudmFsdWUiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAibGlzdGVuLXN1Ym1pdCIsCiAgICAgICAgICAidGV4dCI6ICJSZWplc3RyYWNqYSB6ZGFyemVuaWEgc3VibWl0IG5hIGZvcm11bGFyenUiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAiXFwuYWRkRXZlbnRMaXN0ZW5lclxccypcXChcXHMqW1wiJ11zdWJtaXRbXCInXVxccyosXFxzKlxcKD9cXHMqKGV2ZW50fGUpXFxzKlxcKT9cXHMqPT4iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAicHJldmVudC1kZWZhdWx0IiwKICAgICAgICAgICJ0ZXh0IjogIlphYmxva293YW5pZSBwcnplxYJhZG93YW5pYSBzdHJvbnkgcHJ6ZXogcHJldmVudERlZmF1bHQoKSIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICIoZXZlbnR8ZSlcXC5wcmV2ZW50RGVmYXVsdFxccypcXChcXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInN0YXR1cy1zZW50IiwKICAgICAgICAgICJ0ZXh0IjogIlVzdGF3aWVuaWUga29tdW5pa2F0dSBcIldpYWRvbW/Fm8SHIHd5c8WCYW5hIVwiIHByemV6IHRleHRDb250ZW50IiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogIlxcLnRleHRDb250ZW50XFxzKj1cXHMqW1wiJ11XaWFkb21vxZvEhyB3eXPFgmFuYSFbXCInXSIKICAgICAgICB9CiAgICAgIF0=" data-html="PHN0eWxlPgogIC5ib3ggeyBwYWRkaW5nOiAxNnB4OyBib3JkZXItcmFkaXVzOiAxMHB4OyBib3JkZXI6IDJweCBzb2xpZCAjY2JkNWUxOyBmb250LWZhbWlseTogc2Fucy1zZXJpZjsgbWF4LXdpZHRoOiAzODBweDsgYmFja2dyb3VuZDogI2ZmZmZmZjsgfQogIC5ib3ggaW5wdXQgeyB3aWR0aDogMTAwJTsgYm94LXNpemluZzogYm9yZGVyLWJveDsgcGFkZGluZzogOHB4IDEwcHg7IGJvcmRlcjogMXB4IHNvbGlkICM5NGEzYjg7IGJvcmRlci1yYWRpdXM6IDZweDsgbWFyZ2luLWJvdHRvbTogMTBweDsgfQogIC5ib3ggYnV0dG9uIHsgcGFkZGluZzogOHB4IDE0cHg7IGJvcmRlci1yYWRpdXM6IDZweDsgYm9yZGVyOiBub25lOyBiYWNrZ3JvdW5kOiAjMTZhMzRhOyBjb2xvcjogI2ZmZjsgY3Vyc29yOiBwb2ludGVyOyBmb250LXdlaWdodDogNjAwOyB9CiAgLnBvZGdsYWQgeyBtYXJnaW4tdG9wOiAxMnB4OyBwYWRkaW5nOiAxMHB4OyBiYWNrZ3JvdW5kOiAjZjFmNWY5OyBib3JkZXItcmFkaXVzOiA2cHg7IG1pbi1oZWlnaHQ6IDIwcHg7IH0KICAuc3RhdHVzIHsgbWFyZ2luLXRvcDogOHB4OyBmb250LXdlaWdodDogNjAwOyBjb2xvcjogIzE1ODAzZDsgfQo8L3N0eWxlPgo8c2VjdGlvbiBjbGFzcz0iYm94Ij4KICA8Zm9ybSBpZD0iZm9ybS13aWFkb21vc2MiPgogICAgPGxhYmVsIGZvcj0icG9sZS13aWFkb21vc2MiPlRyZcWbxIcga29tdW5pa2F0dTo8L2xhYmVsPgogICAgPGlucHV0IGlkPSJwb2xlLXdpYWRvbW9zYyIgdHlwZT0idGV4dCIgcGxhY2Vob2xkZXI9IldwaXN6IHdpYWRvbW/Fm8SHLi4uIiAvPgogICAgPGJ1dHRvbiB0eXBlPSJzdWJtaXQiPld5xZtsaWo8L2J1dHRvbj4KICA8L2Zvcm0+CiAgPHAgY2xhc3M9InBvZGdsYWQiPlBvZGdsxIVkOiA8c3BhbiBpZD0icG9kZ2xhZC10ZWtzdHUiPjwvc3Bhbj48L3A+CiAgPHAgaWQ9InN0YXR1cy13eXNsYW5pYSIgY2xhc3M9InN0YXR1cyI+PC9wPgo8L3NlY3Rpb24+"></data-code-runner>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+  <summary>Głębsze spojrzenie: pętla zdarzeń (Event Loop), bąbelkowanie i różnica między target a currentTarget</summary>
+
+  <h4>Dlaczego strona nie zamarza: pętla zdarzeń</h4>
+  <p>JavaScript w przeglądarce działa jednowątkowo, ale samo nasłuchiwanie kliknięć i klawiatury obsługują wielowątkowe mechanizmy przeglądarki (Web APIs). Gdy użytkownik kliknie przycisk, przeglądarka wrzuca zdarzenie do kolejki zadań. Pętla zdarzeń (Event Loop) sprawdza, czy główny stos wywołań jest pusty, i dopiero wtedy pobiera kolejną funkcję zwrotną do wykonania.</p>
+
+  <h4>Bąbelkowanie zdarzeń w drzewie DOM</h4>
+  <p>Większość zdarzeń (np. <code>click</code>) po trafieniu w kliknięty element wędruje w górę drzewa DOM przez kolejnych rodziców aż do obiektu <code>document</code>. Zjawisko to nazywa się bąbelkowaniem (event bubbling). Dzięki niemu możesz w większych aplikacjach podłączyć jeden listener do całego kontenera zamiast do stu osobnych przycisków wewnątrz niego.</p>
+
+  <h4>event.target kontra event.currentTarget</h4>
+  <p>Właściwość <code>event.target</code> wskazuje najgłębszy element, w który fizycznie kliknął użytkownik (na przykład ikonę <code>&lt;span&gt;</code> wewnątrz przycisku). Właściwość <code>event.currentTarget</code> zawsze wskazuje dokładnie ten element, na którym wywołałeś metodę <code>addEventListener</code>. W prostych przyciskach tekstowych oba wskazują na to samo, ale w rozbudowanych kartach to rozróżnienie bywa kluczowe.</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Model zdarzeń</span>: skrypt rejestruje nasłuchy przez <code>addEventListener</code> i nie blokuje przeglądarki, uruchamiając kod dopiero w reakcji na akcję użytkownika.</li>
+<li><span class="color-green">Callback bez nawiasów</span>: przekazuj referencję <code>fn</code> albo funkcję strzałkową <code>() =&gt; { ... }</code>, bo dopisanie <code>()</code> w <code>addEventListener("click", fn())</code> uruchamia funkcję za wcześnie i rejestruje <code>undefined</code>.</li>
+<li><span class="color-green">Dobór typu zdarzenia</span>: <code>"click"</code> dla przycisków, <code>"input"</code> dla podglądu na żywo, <code>"change"</code> dla wyborów z list, <code>"submit"</code> wyłącznie na znaczniku <code>&lt;form&gt;</code>.</li>
+<li><span class="color-green">Formularz i <code>event.preventDefault()</code></span>: w obsłudze <code>"submit"</code> zawsze blokuj domyślne przeładowanie strony, aby nie wyzerować stanu skryptu.</li>
+<li><span class="color-green">Zmienna stanu poza listenerem</span>: zmienne zadeklarowane wewnątrz funkcji zwrotnej tworzą się od zera przy każdym kolejnym zdarzeniu.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Chcesz utrwalić obsługę zdarzeń i formularzy na rozbudowanych zadaniach praktycznych z gotowym HTML i CSS? Zobacz <a href="/arkusze/?qual=INF.03&amp;tag=JS">Katalog zadań praktycznych</a>.</p>
+
+</div>
+</div></section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

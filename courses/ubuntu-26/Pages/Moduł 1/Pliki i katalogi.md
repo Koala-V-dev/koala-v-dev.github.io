@@ -100,6 +100,78 @@ Wyzwanie sprawdza, czy umiesz samodzielnie naprawić bałagan po sekwencji złyc
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Implementacja ls -la w języku C i wywołania systemowe opendir/readdir/lstat</span><span class="deep-dive-badge">C & POSIX Syscalls</span></summary>
+
+Polecenie `ls -la` nie jest magicznym mechanizmem wbudowanym w powłokę Bash. Jest to samodzielny program binarny (część pakietu *coreutils*), który odpytuje jądro za pośrednictwem wywołań systemowych POSIX.
+
+Oto uproszczona, w pełni działająca implementacja własnego miniaturowego narzędzia `ls` w czystym języku C:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <grp.h>
+#include <time.h>
+
+void print_permissions(mode_t mode) {
+    printf((S_ISDIR(mode)) ? "d" : (S_ISLNK(mode)) ? "l" : "-");
+    printf((mode & S_IRUSR) ? "r" : "-");
+    printf((mode & S_IWUSR) ? "w" : "-");
+    printf((mode & S_IXUSR) ? "x" : "-");
+    printf((mode & S_IRGRP) ? "r" : "-");
+    printf((mode & S_IWGRP) ? "w" : "-");
+    printf((mode & S_IXGRP) ? "x" : "-");
+    printf((mode & S_IROTH) ? "r" : "-");
+    printf((mode & S_IWOTH) ? "w" : "-");
+    printf((mode & S_IXOTH) ? "x" : "-");
+}
+
+int main(int argc, char *argv[]) {
+    const char *path = (argc > 1) ? argv[1] : ".";
+    DIR *dir = opendir(path);
+    if (!dir) { perror("opendir"); return 1; }
+
+    struct dirent *entry;
+    struct stat file_stat;
+
+    while ((entry = readdir(dir)) != NULL) {
+        // lstat pobiera metadane bez podążania za dowiązaniami symbolicznymi
+        if (lstat(entry->d_name, &file_stat) == -1) continue;
+
+        print_permissions(file_stat.st_mode);
+
+        struct passwd *pw = getpwuid(file_stat.st_uid);
+        struct group  *gr = getgrgid(file_stat.st_gid);
+
+        printf(" %2ld %s %s %8ld ", 
+            file_stat.st_nlink,
+            pw ? pw->pw_name : "unknown",
+            gr ? gr->gr_name : "unknown",
+            file_stat.st_size
+        );
+
+        printf("%s\n", entry->d_name);
+    }
+    closedir(dir);
+    return 0;
+}
+```
+
+### Sekwencja jądra podczas listowania katalogu:
+1. **`opendir()` $\to$ wywołanie systemowe `openat()` z flagami `O_RDONLY | O_DIRECTORY`**:
+   Jądro przydziela deskryptor pliku dla katalogu i alokuje strukturę strumienia `DIR`.
+2. **`readdir()` $\to$ wywołanie systemowe `getdents64()`** (*Get Directory Entries*):
+   Jądro nie czyta plików pojedynczo z dysku. Za jednym razem pobiera z nośnika bufor struktur `linux_dirent64`, zawierających numery inodów (`d_ino`), typy plików (`d_type`) i nazwy (`d_name`).
+3. **`lstat()` $\to$ wywołanie systemowe `newfstatat()`**:
+   Dla każdej pozycji jądro odczytuje bezpośrednio z dysku strukturę `struct inode`, zwracając rozmiar w bajtach, liczbę twardych dowiązań (`st_nlink`), znaczniki czasu oraz 16-bitową maskę trybu `st_mode`.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - Każde polecenie w terminalu wykonuje się w kontekście określonego **katalogu roboczego** (jego ścieżkę wyświetlisz za pomocą `pwd`).

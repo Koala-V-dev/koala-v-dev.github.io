@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsługa błędów, Guard Clause i wyjątki - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/programowanie-csharp/">Wprowadzenie</a></li><li class="module">Moduł 0: Fundamenty C# i Myślenie Algorytmiczne</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i pułapki liczb"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20pu%C5%82apki%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i pułapki liczb</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Programowanie Strukturalne i Kolekcje</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 1/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="module">Moduł 2: Fundamenty OOP i Model Pamięci</li><li class="lesson-item lesson" data-path="Moduł 2/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 2/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 2/Enkapsulacja i Właściwości - System Bankowy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Enkapsulacja%20i%20W%C5%82a%C5%9Bciwo%C5%9Bci%20-%20System%20Bankowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i Właściwości - System Bankowy</a></li><li class="lesson-item lesson" data-path="Moduł 2/Dziedziczenie i polimorfizm"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Dziedziczenie%20i%20polimorfizm.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dziedziczenie i polimorfizm</a></li><li class="module">Moduł 3: Architektura OOP i Nowoczesny C#</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy abstrakcyjne i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%20abstrakcyjne%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy abstrakcyjne i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Kompozycja i słowniki Dictionary"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Kompozycja%20i%20s%C5%82owniki%20Dictionary.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kompozycja i słowniki Dictionary</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 3/Wyrażenia lambda i podstawy LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Wyra%C5%BCenia%20lambda%20i%20podstawy%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i podstawy LINQ</a></li><li class="module">Moduł 4: Inżynieria Oprogramowania i Wielki Finał INF.04</li><li class="lesson-item lesson" data-path="Moduł 4/Zasady SOLID i refaktoryzacja kodu"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20SOLID%20i%20refaktoryzacja%20kodu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady SOLID i refaktoryzacja kodu</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projektowanie wieloplikowe i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projektowanie%20wieloplikowe%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie wieloplikowe i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wielki Finał - System Bankowy INF.04"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20-%20System%20Bankowy%20INF.04.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - System Bankowy INF.04</a></li><li class="lesson-item lesson" data-path="Moduł 4/MemReductMini - Menedżer Pamięci Windows"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/MemReductMini%20-%20Mened%C5%BCer%20Pami%C4%99ci%20Windows.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">MemReductMini - Menedżer Pamięci Windows</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Obsługa błędów, Guard Clause i wyjątki</h1>
+<p>W poprzedniej lekcji napisałeś metodę <code>ObliczSrednia(List&lt;int&gt; punkty)</code>. Działała świetnie dla 5 ocen. A co się stanie, gdy ktoś wywoła ją z <span class="color-green">pustą listą</span> <code>new List&lt;int&gt;()</code> albo z wartością <span class="color-green"><code>null</code></span>?</p>
+<p>Dla pustej listy wyrażenie <code>(double)0 / 0</code> w C# nie wyrzuci błędu - zwróci po cichu dziwną wartość <span class="color-green"><code>NaN</code></span> (<span class="color-blue">Not a Number</span>), która potem trafi do bazy danych lub na świadectwo ucznia. W tej lekcji nauczysz się <span class="color-green">programowania defensywnego</span>: jak zatrzymywać złe dane na granicy metody (Guard Clause) i jak bezpiecznie obsługiwać błędy blokiem <code>try / catch / finally</code>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🛡️ Wzorzec Guard Clause (strażnik na wejściu metody)</h2>
+<p><span class="color-green">Guard Clause</span> to warunek ochronny umieszczony <span class="color-green">w pierwszych linijkach metody</span>, zanim wykonasz jakiekolwiek obliczenia. Jeśli dane łamią regułę, metoda natychmiast rzuca wyjątek słowem <span class="color-green"><code>throw</code></span> i przerywa działanie (<span class="color-blue">fail‑fast</span>):</p>
+<pre><code class="language-csharp">public static decimal ObliczCeneBiletu(int wiek, decimal cenaBazowa)
+{
+    if (wiek &lt; 0 || wiek &gt; 130)
+        throw new ArgumentOutOfRangeException(nameof(wiek), "Wiek musi mieścić się w przedziale 0..130.");
+
+    if (cenaBazowa &lt;= 0m)
+        throw new ArgumentOutOfRangeException(nameof(cenaBazowa), "Cena musi być dodatnia.");
+
+    return wiek &lt; 18 ? cenaBazowa * 0.5m : cenaBazowa;
+}
+</code></pre>
+<p>Operator <span class="color-green"><code>nameof(wiek)</code></span> zamienia nazwę parametru na napis <code>"wiek"</code> sprawdzany przez kompilator - jeśli kiedyś zmienisz nazwę parametru, kompilator przypomni o poprawce.</p>
+<h3>📋 Który wyjątek wybrać? (Mapa decyzyjna C#)</h3>
+<table>
+<thead>
+<tr>
+<th>Sytuacja błędu</th>
+<th>Standardowy wyjątek w C#</th>
+<th>Przykład użycia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Przekazano <code>null</code> tam, gdzie wymagany obiekt</td>
+<td><code>ArgumentNullException</code></td>
+<td><code>if (oceny == null) throw new ArgumentNullException(nameof(oceny));</code></td>
+</tr>
+<tr>
+<td>Zła wartość argumentu (np. pusta lista, pusty tekst)</td>
+<td><code>ArgumentException</code></td>
+<td><code>if (oceny.Count == 0) throw new ArgumentException("Brak ocen");</code></td>
+</tr>
+<tr>
+<td>Liczba poza dopuszczalnym zakresem</td>
+<td><code>ArgumentOutOfRangeException</code></td>
+<td><code>if (ocena &lt; 1 || ocena &gt; 6) throw new ArgumentOutOfRangeException(nameof(ocena));</code></td>
+</tr>
+<tr>
+<td>Operacja niedozwolona w aktualnym stanie obiektu</td>
+<td><code>InvalidOperationException</code></td>
+<td>Próba pobrania elementu z pustego stosu</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zauważ hierarchię w C#: zarówno <code>ArgumentNullException</code>, jak i <code>ArgumentOutOfRangeException</code> <span class="color-green">dziedziczą po <code>ArgumentException</code></span>. Jeśli więc test sprawdza <code>ArgumentException</code>, a Ty rzucisz bardziej szczegółowy <code>ArgumentNullException</code>, oba warunki zostaną spełnione!</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧯 Przechwytywanie błędów: try, catch i finally</h2>
+<p>Rzucanie wyjątków to jedna strona medalu (np. w metodzie bibliotecznej <code>Dziennik.ObliczSrednia</code>). Druga strona to <span class="color-green">obsługa wyjątku</span> w kodzie wywołującym (np. w <code>Main()</code>), żeby aplikacja mogła pokazać użytkownikowi czytelny komunikat zamiast zamknąć się z awarią:</p>
+<pre><code class="language-csharp">try
+{
+    var pusta = new List&lt;int&gt;();
+    double srednia = Dziennik.ObliczSrednia(pusta);
+    Console.WriteLine($"Średnia: {srednia:F2}");
+}
+catch (ArgumentException ex)
+{
+    // Łapiemy KONKRETNY typ wyjątku i odczytujemy jego komunikat ex.Message
+    Console.WriteLine($"Niepoprawne dane: {ex.Message}");
+}
+finally
+{
+    // Blok finally wykonuje się ZAWSZE (czy był błąd, czy nie) - idealny do sprzątania zasobów
+    Console.WriteLine("Zakończono analizę.");
+}
+</code></pre>
+<h3>⚠️ Antywzorzec: pusty catch (połykanie wyjątków)</h3>
+<p>Nigdy nie pisz <code>catch (Exception) { }</code> z pustym ciałem! Taki zapis <span class="color-green">ukrywa każdy błąd</span> (łącznie z literówkami i błędami logiki), przez co aplikacja psuje dane w ciszy, a Ty godzinami szukasz przyczyny. Łap wyłącznie <span class="color-green">konkretne wyjątki</span>, które potrafisz sensownie obsłużyć.</p>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Stack Unwinding - dlaczego wyjątek kosztuje tysiące cykli CPU</span>
+<span class="deep-dive-badge">CLR &amp; WYDAJNOŚĆ</span>
+</summary>
+<div class="deep-dive-content">
+
+<p>Gdy w metodzie na głębokim poziomie stosu wywołań (np. <code>Main -&gt; Raport -&gt; Dziennik -&gt; ObliczSrednia</code>) wykona się <code>throw new ArgumentException(...)</code>, środowisko CLR uruchamia procedurę <span class="color-green">zwijania stosu (<span class="color-blue">Stack Unwinding</span>)</span>:</p>
+<ol>
+<li>CLR zatrzymuje normalny potok instrukcji procesora.</li>
+<li>Przeszukuje tablicę metadanych każdej kolejnej ramki na stosie (<code>ObliczSrednia</code>, potem <code>Dziennik</code>, potem <code>Raport</code>, aż do <code>Main</code>), szukając pasującego bloku <code>catch</code>.</li>
+<li>Po drodze wykonuje wszystkie napotkane bloki <code>finally</code> (np. zamykające pliki).</li>
+<li>Buduje obiekt <code>StackTrace</code> ze ścieżkami plików i numerami linii.</li>
+</ol>
+<p>Ta operacja trwa <span class="color-green">dziesiątki mikrosekund</span> - jest ok. <span class="color-green">1000× wolniejsza</span> niż zwykły <code>if</code> lub <code>return false</code>.</p>
+<p><span class="color-green">Złota zasada wydajności w .NET:</span></p>
+<ul>
+<li><span class="color-green">Wyjątki służą do sytuacji wyjątkowych</span> (złamany kontrakt metody, brak pliku, zerwane połączenie).</li>
+<li><span class="color-green">Do codziennego parsowania danych od użytkownika</span> (gdzie błędny wpis jest normalny) używaj bezwyjątkowego wzorca <code>TryParse</code> (np. <code>int.TryParse(wejscie, out int liczba)</code>), który działa w kilkanaście nanosekund bez żadnego <span class="color-blue">Stack Unwinding</span>.</li>
+</ul>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Zadanie integrujące Modułu 1: Analizator Dziennika Ocen</h2>
+<p>Połącz teraz cały Moduł 0 i Moduł 1: metody <code>static</code>, <code>List&lt;int&gt;</code>, <code>foreach</code>, <code>(double)</code> oraz <span class="color-green">Guard Clause</span> w klasie <code>Dziennik</code>:</p>
+<ol>
+<li><span class="color-green"><code>ObliczSrednia(List&lt;int&gt; oceny)</code></span>:<ul>
+<li>jeśli <code>oceny == null || oceny.Count == 0</code> → rzuć <code>ArgumentException</code>,</li>
+<li>jeśli <span class="color-green">którakolwiek</span> ocena na liście jest spoza skali <code>1..6</code> (<code>ocena &lt; 1 || ocena &gt; 6</code>) → rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>zwróć dokładną średnią jako <code>double</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>PoliczZaliczone(List&lt;int&gt; oceny, int prog)</code></span>:<ul>
+<li>jeśli <code>oceny == null</code> → rzuć <code>ArgumentException</code>,</li>
+<li>jeśli <code>prog &lt; 1 || prog &gt; 6</code> → rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>zlicz pętlą <code>foreach</code>, ile ocen spełnia <code>ocena &gt;= prog</code> (dla pustej listy zwróć <code>0</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>BezpiecznaSredniaTekst(List&lt;int&gt; oceny)</code></span>:<ul>
+<li>użyj bloku <span class="color-green"><code>try / catch (ArgumentException)</code></span> do wywołania <code>ObliczSrednia(oceny)</code>:</li>
+<li>jeśli się uda → zwróć <code>$"{srednia:F2}"</code> (z kropką lub przecinkiem, test sprawdzi wartość),</li>
+<li>jeśli złapiesz <code>ArgumentException</code> → zwróć <code>"BŁĄD"</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie integrujące Modułu 1: Analizator Dziennika Ocen" allow-add-file="false" exe-name="DziennikOcen.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public class Dziennik
+{
+    public static double ObliczSrednia(List&lt;int&gt; oceny)
+    {
+        // TODO 1: Guard Clause dla null/pustej listy (ArgumentException) oraz ocen spoza 1..6 (ArgumentOutOfRangeException)
+        // TODO 2: Policz średnią pętlą foreach i zwróć jako double
+        return 0.0;
+    }
+
+    public static int PoliczZaliczone(List&lt;int&gt; oceny, int prog)
+    {
+        // TODO 3: Guard Clause dla null (ArgumentException) oraz prog spoza 1..6 (ArgumentOutOfRangeException)
+        // TODO 4: Policz ile ocen &gt;= prog
+        return 0;
+    }
+
+    public static string BezpiecznaSredniaTekst(List&lt;int&gt; oceny)
+    {
+        // TODO 5: Wywołaj ObliczSrednia(oceny) w bloku try/catch (ArgumentException) -&gt; zwróć $"{s:F2}" lub "BŁĄD"
+        return "BŁĄD";
+    }
+
+    static void Main()
+    {
+        var oceny = new List&lt;int&gt; { 2, 4, 5, 3, 5 };
+        Console.WriteLine($"Średnia: {BezpiecznaSredniaTekst(oceny)}");
+        Console.WriteLine($"Pusta lista: {BezpiecznaSredniaTekst(new List&lt;int&gt;())}");
+        Console.WriteLine($"Zaliczone (&gt;= 3): {PoliczZaliczone(oceny, 3)}");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("ObliczSrednia liczy poprawną średnią 3.8 dla { 2, 4, 5, 3, 5 }", () =&gt; {
+    double wynik = Dziennik.ObliczSrednia(new List&lt;int&gt; { 2, 4, 5, 3, 5 });
+    LabAssert.Equal(3.8, Math.Round(wynik, 2));
+});
+LabAssert.Test("ObliczSrednia rzuca ArgumentException dla pustej listy i null", () =&gt; {
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; Dziennik.ObliczSrednia(new List&lt;int&gt;()));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; Dziennik.ObliczSrednia(null));
+});
+LabAssert.Test("ObliczSrednia rzuca ArgumentOutOfRangeException dla oceny spoza skali 1..6", () =&gt; {
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; Dziennik.ObliczSrednia(new List&lt;int&gt; { 4, 7, 5 }));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; Dziennik.ObliczSrednia(new List&lt;int&gt; { 0, 3 }));
+});
+LabAssert.Test("PoliczZaliczone poprawnie zlicza oceny i waliduje próg 1..6", () =&gt; {
+    LabAssert.Equal(4, Dziennik.PoliczZaliczone(new List&lt;int&gt; { 2, 4, 5, 3, 5 }, 3));
+    LabAssert.Equal(0, Dziennik.PoliczZaliczone(new List&lt;int&gt;(), 3));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; Dziennik.PoliczZaliczone(new List&lt;int&gt; { 3 }, 9));
+});
+LabAssert.Test("BezpiecznaSredniaTekst obsługuje poprawną listę oraz łapie wyjątek zwracając 'BŁĄD'", () =&gt; {
+    LabAssert.Equal("3.80", Dziennik.BezpiecznaSredniaTekst(new List&lt;int&gt; { 2, 4, 5, 3, 5 }).Replace(',', '.'));
+    LabAssert.Equal("BŁĄD", Dziennik.BezpiecznaSredniaTekst(new List&lt;int&gt;()));
+    LabAssert.Equal("BŁĄD", Dziennik.BezpiecznaSredniaTekst(null));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<pre><code class="language-csharp">public static double ObliczSrednia(List&lt;int&gt; oceny)
+{
+    if (oceny == null || oceny.Count == 0)
+        throw new ArgumentException("Lista ocen nie może być pusta.");
+
+    int suma = 0;
+    foreach (int ocena in oceny)
+    {
+        if (ocena &lt; 1 || ocena &gt; 6)
+            throw new ArgumentOutOfRangeException(nameof(oceny), "Ocena musi należeć do zakresu 1..6.");
+        suma += ocena;
+    }
+
+    return (double)suma / oceny.Count;
+}
+
+public static int PoliczZaliczone(List&lt;int&gt; oceny, int prog)
+{
+    if (oceny == null) throw new ArgumentException("Lista ocen nie może być null.");
+    if (prog &lt; 1 || prog &gt; 6) throw new ArgumentOutOfRangeException(nameof(prog));
+
+    int licznik = 0;
+    foreach (int ocena in oceny)
+    {
+        if (ocena &gt;= prog) licznik++;
+    }
+    return licznik;
+}
+
+public static string BezpiecznaSredniaTekst(List&lt;int&gt; oceny)
+{
+    try
+    {
+        double s = ObliczSrednia(oceny);
+        return $"{s:F2}";
+    }
+    catch (ArgumentException)
+    {
+        return "BŁĄD";
+    }
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Sprawdzaj błędne dane wejściowe <span class="color-green">na samym początku metody (Guard Clause)</span> - lepiej rzucić czytelny wyjątek niż zwrócić ciche <code>NaN</code> lub błędny wynik.</li>
+<li>Dobieraj konkretny wyjątek: <code>ArgumentNullException</code> (dla <code>null</code>), <code>ArgumentException</code> (błędny/pusty argument), <code>ArgumentOutOfRangeException</code> (liczba poza zakresem).</li>
+<li>W bloku <code>try / catch</code> przechwytuj wyłącznie <span class="color-green">konkretne typy wyjątków</span>, które potrafisz sensownie obsłużyć - nigdy nie pisz pustego <code>catch (Exception) { }</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

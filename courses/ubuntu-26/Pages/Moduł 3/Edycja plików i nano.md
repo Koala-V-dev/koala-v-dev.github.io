@@ -88,27 +88,53 @@ Konfiguracyjne pliki systemowe potrafią mieć setki linii kodu. Szukanie konkre
 
 ---
 
-## 🧠 Punkt kontrolny: Praca w nano
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Buforowanie I/O w libc (FILE* vs int fd), blokady plików (flock/fcntl) i zrzut buforów fsync()</span><span class="deep-dive-badge">System I/O & File Locking</span></summary>
 
-<data-gate>
-  <data-quiz>
-    <question>
-      Chcesz wyjść z edytora nano po edycji pliku konfiguracyjnego `/etc/resolv.conf`, odrzucając wszystkie wprowadzone zmiany. Jaką sekwencję klawiszy powinieneś wybrać?
-    </question>
-    <options>
-      <item correct>Naciśnij <kbd>Ctrl</kbd> + <kbd>X</kbd>, a następnie na pytanie o zapis bufora odpowiedz klawiszem <kbd>N</kbd>.</item>
-      <item>Naciśnij <kbd>Ctrl</kbd> + <kbd>O</kbd>, a następnie wpisz nazwę pustego pliku i wyjdź za pomocą <kbd>Ctrl</kbd> + <kbd>X</kbd>.</item>
-      <item>Naciśnij <kbd>Ctrl</kbd> + <kbd>C</kbd>, aby anulować działanie, a potem zamknij okno terminala.</item>
-      <item>Wpisz komendę `:q!` na dole ekranu i zatwierdź klawiszem <kbd>Enter</kbd>.</item>
-    </options>
-    <div data-hint="error">
-      Pamiętaj: <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>X</kbd></span> inicjuje wyjście. Jeśli nie chcesz zapisywać zmian, system musi otrzymać informację „No” (<kbd>N</kbd>).
-    </div>
-    <div data-hint="success">
-      Świetnie! <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>X</kbd></span> i klawisz <kbd>N</kbd> to jedyna poprawna metoda na bezpieczne wyjście z nano bez zapisywania zmian w pliku.
-    </div>
-  </data-quiz>
-</data-gate>
+Gdy edytor tekstu (taki jak `nano` czy `vim`) modyfikuje plik na dysku, wewnątrz systemu operacyjnego zachodzi seria operacji związanych z buforowaniem pamięci i synchronizacją nośnika.
+
+### 1. Dwa poziomy buforowania danych
+Gdy program w C zapisuje tekst do pliku, dane nie trafiają natychmiast na dysk SSD:
+1. **Bufor biblioteki `libc` (Przestrzeń użytkownika)**:
+   Funkcje wysokopoziomowe takie jak `fprintf()` lub `fputs()` operują na strumieniu `FILE*`. Dane gromadzone są w buforze pamięci procesu (zwykle 4096 lub 8192 bajty), aby zminimalizować liczbę kosztownych przejść Ring 3 $\to$ Ring 0.
+2. **Page Cache w pamięci jądra (Przestrzeń jądra)**:
+   Gdy bufor biblioteki zostanie opróżniony funkcją `fflush()`, wywoływane jest wywołanie systemowe `write(fd, buf, count)`. Jądro Linuksa kopiuje dane do stron pamięci RAM zwanych **Page Cache** (oznaczając te strony jako *Dirty Pages* - brudne strony). Fizyczny zapis na dysk wykonuje asynchronicznie w tle proces jądra `kworker / flusher` co określony czas (zwykle co 5 sekund).
+
+```
+   Edytor (User Space):  fputs("port=8080", file_ptr)
+                                     │
+                             Bufor libc (4 KiB)
+                                     │ fflush()
+                                     ▼
+   Jądro Linuksa:            write(fd, buf, len)
+                                     │
+                             Page Cache (Dirty Pages w RAM)
+                                     │
+                         ┌───────────┴───────────┐
+                         │ fsync()               │ kworker (co 5s)
+                         ▼                       ▼
+   Fizyczny Dysk:        Fizyczny zapis magnetyczny / komórki Flash
+```
+
+### 2. Gwarancja trwałości: Wywołanie `fsync()`
+Co się stanie, jeśli komputer straci zasilanie 1 sekundę po naciśnięciu `Ctrl + O` w edytorze?
+Jeśli edytor wywołał tylko `close(fd)`, dane wciąż znajdowały się w pamięci RAM i przepadną bezpowrotnie.
+
+Profesjonalne edytory i silniki baz danych (PostgreSQL, SQLite) po zapisaniu pliku konfiguracyjnego wykonują wywołanie systemowe:
+```c
+fsync(fd);
+```
+`fsync()` wymusza zablokowanie procesu do momentu, aż kontroler dysku fizycznie potwierdzi zapisanie wszystkich brudnych stron oraz metadanych inodu na nośniku nieulotnym.
+
+### 3. Zapobieganie konfliktom edycji: Blokady `flock` i pliki `.swp`
+Jeśli dwóch administratorów otworzy jednocześnie ten sam plik w `nano` lub `vim`:
+- `vim` tworzy ukryty plik tymczasowy `.plik.swp` i zakłada blokadę adwokacką (*Advisory Lock*) funkcją systemową:
+  ```c
+  flock(fd, LOCK_EX | LOCK_NB);
+  ```
+- Flaga `LOCK_EX` wnioskuje o wyłączną blokadę zapisu (*Exclusive Lock*). Jeśli drugi proces próbuje założyć taką samą blokadę, wywołanie zwraca błąd `EWOULDBLOCK`, a edytor wyświetla ostrzeżenie o jednoczesnej modyfikacji pliku przez innego użytkownika.
+
+</details>
 
 ---
 

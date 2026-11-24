@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praca z tekstem - string, char i StringBuilder - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Praca z tekstem - string, char i StringBuilder</h1>
+<p>Jeśli spróbujesz zaszyfrować literę <code>'Y'</code>, dodając do niej <code>3</code>, komputer nie zwróci <code>'B'</code>, lecz znak ukośnika <code>'\\'</code>. Jeśli z kolei będziesz sklejać znaki w pętli operatorem <code>+=</code>, zbudowanie krótkiego tekstu o długości 50 000 znaków zmusi program do skopiowania <span class="color-red">2 500 000 000 bajtów (2,5 GB)</span> pamięci RAM.</p>
+<p>Oba problemy wynikają z tego, jak C# przechowuje znaki i napisy w pamięci. Gdy poznasz mechanizm kodowania znaków, niemutowalność napisów i klasę <code>StringBuilder</code>, połączysz całą wiedzę z Modułu 0 w pierwszy kompletny program do pobrania: <span class="color-green"><code>CipherForge.exe</code></span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔤 Elementarz typów string i char</h2>
+<p>W C# pojedynczy znak ma typ <span class="color-green"><code>char</code></span> i zapisuje się go w apostrofach, na przykład <code>'A'</code> lub <code>'7'</code>. Ciąg znaków ma typ <span class="color-green"><code>string</code></span> i zapisuje się go w cudzysłowach, na przykład <code>"KOD"</code>.</p>
+<p>Do pojedynczego znaku w napisie dostajesz się przez indeks w nawiasach kwadratowych. Indeksowanie zawsze zaczyna się od <span class="color-green"><code>0</code></span> i kończy na <span class="color-green"><code>Length - 1</code></span>:</p>
+<pre><code class="language-csharp">string nazwa = "KOD";
+int dlugosc = nazwa.Length; // 3
+char pierwszy = nazwa[0];   // 'K'
+char ostatni = nazwa[2];    // 'D'
+</code></pre>
+<p>Próba odczytu <code>nazwa[3]</code> lub <code>nazwa[-1]</code> natychmiast przerywa program wyjątkiem <span class="color-red">IndexOutOfRangeException</span>.</p>
+<h3>🕳️ Puste napisy: null, "" oraz same spacje</h3>
+<p>Napis w C# może przyjmować trzy różne stany, które łatwo pomylić:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Wartość</th>
+<th>Co oznacza?</th>
+<th align="center">Wynik <code>.Length</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>null</code></td>
+<td>Brak obiektu w pamięci</td>
+<td align="center"><span class="color-red">NullReferenceException</span></td>
+</tr>
+<tr>
+<td align="center"><code>""</code></td>
+<td>Istniejący, pusty napis</td>
+<td align="center"><code>0</code></td>
+</tr>
+<tr>
+<td align="center"><code>"   "</code></td>
+<td>Napis zawierający same spacje</td>
+<td align="center"><code>3</code></td>
+</tr>
+</tbody></table>
+<p>Zamiast ręcznie sprawdzać <code>tekst == null || tekst.Length == 0</code>, używaj gotowych metod ochronnych:</p>
+<ul>
+<li><span class="color-green"><code>string.IsNullOrEmpty(tekst)</code></span> zwraca <code>true</code> dla <code>null</code> oraz <code>""</code>,</li>
+<li><span class="color-green"><code>string.IsNullOrWhiteSpace(tekst)</code></span> zwraca <code>true</code> dla <code>null</code>, <code>""</code> oraz samych spacji i znaków nowej linii.</li>
+</ul>
+<h3>🛠️ Przydatne metody string i char</h3>
+<table>
+<thead>
+<tr>
+<th>Operacja</th>
+<th>Przykład</th>
+<th>Wynik</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Zamiana wielkości liter</td>
+<td><code>"Koala".ToLower()</code>, <code>"Koala".ToUpper()</code></td>
+<td><code>"koala"</code>, <code>"KOALA"</code></td>
+</tr>
+<tr>
+<td>Usunięcie spacji z brzegów</td>
+<td><code>"  admin  ".Trim()</code></td>
+<td><code>"admin"</code></td>
+</tr>
+<tr>
+<td>Sprawdzenie obecności fragmentu</td>
+<td><code>"CipherForge".Contains("Forge")</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td>Wycinek napisu</td>
+<td><code>"CipherForge".Substring(0, 6)</code></td>
+<td><code>"Cipher"</code></td>
+</tr>
+<tr>
+<td>Klasyfikacja znaku</td>
+<td><code>char.IsLower(c)</code>, <code>char.IsUpper(c)</code>, <code>char.IsDigit(c)</code></td>
+<td><code>true</code> lub <code>false</code></td>
+</tr>
+</tbody></table>
+<h3>🔍 Przewidź wynik: niemutowalność string</h3>
+<p>Zatrzymaj się na chwilę i przewidź, co dokładnie wypisze konsola po uruchomieniu tego kodu:</p>
+<pre><code class="language-csharp">string haslo = "  admin  ";
+haslo.Trim();
+Console.WriteLine("[" + haslo + "]");
+</code></pre>
+<p>Konsola wypisze <span class="color-green"><code>[  admin  ]</code></span> ze spacjami na obu końcach!</p>
+<p>Dzieje się tak, ponieważ typ <code>string</code> w C# jest <span class="color-green">niemutowalny</span>. Raz utworzonego napisu w pamięci RAM nie da się zmienić w miejscu. Zapis <code>haslo[0] = 'X';</code> to <span class="color-red">błąd kompilacji</span>.</p>
+<p>Metoda <code>Trim()</code> (a także <code>ToLower()</code>, <code>ToUpper()</code> i <code>Substring()</code>) nigdy nie modyfikuje oryginalnej zmiennej. Tworzy w pamięci <span class="color-green">nowy napis</span> i go zwraca. Jeśli nie przypiszesz wyniku z powrotem, nowy napis natychmiast znika:</p>
+<pre><code class="language-csharp">haslo = haslo.Trim(); // dopiero teraz zmienna haslo ma wartosc "admin"
+</code></pre>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Wywołanie <code>tekst.Trim();</code> lub <code>tekst.ToLower();</code> bez przypisania wyniku do zmiennej nie zmienia zawartości <span class="color-blue">tekst</span>. Zawsze zapisuj wynik: <code>tekst = tekst.Trim();</code>.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔢 Kodowanie ASCII, UTF-16 i arytmetyka char</h2>
+<p>Wewnątrz pamięci RAM komputer nie przechowuje rysunków liter, lecz liczby całkowite. Standard <span class="color-green">ASCII</span> przypisuje liczby od <code>0</code> do <code>127</code> znakom alfabetu angielskiego, cyfrom i podstawowym symbolom.</p>
+<p>W języku C# typ <code>char</code> zajmuje dokładnie <span class="color-green">2 bajty</span> w kodowaniu <span class="color-green">UTF‑16</span>. Dla pierwszych 128 znaków kody UTF‑16 są identyczne z tabelą ASCII, a pozostałe wartości pozwalają zapisywać polskie znaki diakrytyczne oraz symbole z innych alfabetów.</p>
+<p><data-ascii-converter initial="A"></data-ascii-converter></p>
+<p>Litery alfabetu angielskiego leżą w tabeli jedna za drugą bez przerw:</p>
+<ul>
+<li><code>'A'</code> ma kod <code>65</code>, a <code>'Z'</code> ma kod <code>90</code>,</li>
+<li><code>'a'</code> ma kod <code>97</code>, a <code>'z'</code> ma kod <code>122</code>,</li>
+<li><code>'0'</code> ma kod <code>48</code>, a <code>'9'</code> ma kod <code>57</code>.</li>
+</ul>
+<p>Ponieważ <code>char</code> jest w pamięci liczbą, możesz sprawdzać przynależność znaku do alfabetu angielskiego warunkami <code>c &gt;= 'A' &amp;&amp; c &lt;= 'Z'</code> oraz <code>c &gt;= 'a' &amp;&amp; c &lt;= 'z'</code>. To bezpieczniejsze dla szyfru Cezara niż <code>char.IsUpper(c)</code>, ponieważ <code>char.IsUpper('Ż')</code> również zwraca <code>true</code>, a odjęcie <code>'A'</code> od polskiej litery <code>'Ż'</code> wyszłoby daleko poza zakres <code>0..25</code>.</p>
+<p>Dlatego dodanie <code>3</code> do <code>'Y'</code> (<code>89</code>) daje kod <code>92</code>, czyli znak <code>'\\'</code>. Aby po literze <code>'Z'</code> zawinąć wynik z powrotem na początek alfabetu (<code>'A'</code>), sprowadzamy literę do zakresu <code>0..25</code>, dodajemy przesunięcie modulo <code>26</code>, a potem wracamy do kodów liter:</p>
+<pre><code class="language-csharp">char litera = 'Y';
+int klucz = 3;
+int przesuniecie = ((klucz % 26) + 26) % 26;    // 3
+int pozycja = litera - 'A';                     // 89 - 65 = 24
+int nowaPozycja = (pozycja + przesuniecie) % 26; // (24 + 3) % 26 = 1
+char wynik = (char)('A' + nowaPozycja);         // (char)(65 + 1) = 'B'
+</code></pre>
+<h3>🔄 Dlaczego normalizacja klucza ma podwójne modulo?</h3>
+<p>W C# operator <code>%</code> dla liczby ujemnej zwraca <span class="color-green">resztę ujemną</span>: <code>-3 % 26</code> wynosi <code>-3</code>, a nie <code>23</code>. Gdybyś użył tej wartości w przesunięciu dla litery <code>'A'</code> (pozycja <code>0</code>), otrzymałbyś <code>0 + (-3) = -3</code> i wyszedł przed alfabet!</p>
+<p>Wzór <span class="color-green"><code>((klucz % 26) + 26) % 26</code></span> bezpiecznie sprowadza każdy klucz do zakresu <code>0..25</code>:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Wartość <span class="color-blue">klucz</span></th>
+<th align="center">Krok 1: <code>klucz % 26</code></th>
+<th align="center">Krok 2: <code>+ 26</code></th>
+<th align="center">Krok 3: <code>% 26</code></th>
+<th>Efekt</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>3</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>29</code></td>
+<td align="center"><span class="color-green"><code>3</code></span></td>
+<td>Szyfrowanie o <code>3</code> w prawo</td>
+</tr>
+<tr>
+<td align="center"><code>-3</code></td>
+<td align="center"><code>-3</code></td>
+<td align="center"><code>23</code></td>
+<td align="center"><span class="color-green"><code>23</code></span></td>
+<td>Deszyfrowanie o <code>3</code> w lewo (<code>'B' -&gt; 'Y'</code>)</td>
+</tr>
+<tr>
+<td align="center"><code>29</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>29</code></td>
+<td align="center"><span class="color-green"><code>3</code></span></td>
+<td>Pełny obrót <code>26</code> + przesunięcie o <code>3</code></td>
+</tr>
+</tbody></table>
+<p><data-caesar-wheel></data-caesar-wheel></p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 Budowanie napisów w pętli: StringBuilder</h2>
+<p>Skoro <code>string</code> jest niemutowalny, co dzieje się przy <code>wynik += c;</code> w pętli? W każdym obiegu środowisko uruchomieniowe rezerwuje w RAM nowy, o jeden znak dłuższy napis. Kopiuje do niego całą dotychczasową treść, dopisuje nowy znak i porzuca starą kopię.</p>
+<p>Porzuconymi obiektami w C# zajmuje się automatyczny sprzątacz pamięci zwany <span class="color-gold">Garbage Collectorem</span>. Gdy w pętli dopisujesz pojedynczy znak 50 000 razy (jeden <code>char</code> to 2 bajty), program kopiuje $2 \times (1 + 2 + \dots + 50\,000)$ bajtów:</p>
+<table>
+<thead>
+<tr>
+<th>Metoda dla 50 000 znaków</th>
+<th align="center">Liczba nowych obiektów</th>
+<th align="center">Skopiowana pamięć RAM</th>
+<th>Praca Garbage Collectora</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>string wynik = ""; wynik += c;</code></td>
+<td align="center"><code>50 000</code> obiektów</td>
+<td align="center"><span class="color-red">2 500 000 000 bajtów (2,5 GB)</span></td>
+<td>Częste pauzy czyszczenia pamięci</td>
+</tr>
+<tr>
+<td><code>StringBuilder sb = new StringBuilder(); sb.Append(c);</code></td>
+<td align="center">kilkanaście buforów</td>
+<td align="center">ok. <span class="color-green">100 KB</span></td>
+<td>Minimalny narzut, ułamek milisekundy</td>
+</tr>
+</tbody></table>
+<p>Klasa <span class="color-green"><code>StringBuilder</code></span> z przestrzeni nazw <code>System.Text</code> trzyma wewnętrzny, modyfikowalny bufor znaków. Słowo kluczowe <span class="color-green"><code>new</code></span> tworzy w pamięci nowy obiekt takiego bufora (szczegółowo poznasz je w module o obiektowości). Dopisujesz znaki metodą <code>.Append(...)</code>, a na końcu zamieniasz całość na zwykły <code>string</code> metodą <code>.ToString()</code>.</p>
+<p>Przykład użycia <code>StringBuilder</code> do odwrócenia napisu:</p>
+<pre><code class="language-csharp">using System.Text;
+
+string wejscie = "KOALA";
+StringBuilder sb = new StringBuilder(wejscie.Length);
+
+for (int i = wejscie.Length - 1; i &gt;= 0; i--)
+{
+    sb.Append(wejscie[i]);
+}
+
+string odwrocony = sb.ToString(); // "ALAOK"
+</code></pre>
+<data-gate>
+<data-connection-matcher title="Dopasuj operację na napisach C# do jej skutku w pamięci RAM">
+  <item left="string s = null; int x = s.Length;" right="Rzuca wyjątek NullReferenceException (brak obiektu w pamięci)"></item>
+  <item left="string kod = &quot;abc&quot;; kod.ToUpper();" right="Zmienna kod nadal ma wartość &quot;abc&quot; (niemutowalność bez przypisania)"></item>
+  <item left="wynik += c; (50 000 razy w pętli)" right="Kopiuje ok. 2,5 GB RAM i przeciąża Garbage Collector"></item>
+  <item left="sb.Append(c); ... sb.ToString();" right="Dopisuje znaki do modyfikowalnego bufora w ok. 100 KB RAM"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Wzorzec czterech flag i entropia Shannona</h2>
+<p>W poprzedniej lekcji poznałeś wzorzec flagi boolowskiej w pętli. Wykorzystamy go teraz do oceny siły hasła.</p>
+<p>Aby oszacować, jak trudno złamać hasło metodą siłową, sprawdzamy, z jak dużej <span class="color-green">puli znaków</span> korzystał autor hasła. Tworzymy przed pętlą cztery flagi startujące od <code>false</code>:</p>
+<ul>
+<li><span class="color-blue">maMale</span> (małe litery <code>char.IsLower(c)</code>),</li>
+<li><span class="color-blue">maWielkie</span> (wielkie litery <code>char.IsUpper(c)</code>),</li>
+<li><span class="color-blue">maCyfry</span> (cyfry <code>char.IsDigit(c)</code>),</li>
+<li><span class="color-blue">maSymbole</span> (wszystkie pozostałe znaki).</li>
+</ul>
+<p>W jednej pętli <code>for</code> po znakach hasła ustawiamy odpowiednie flagi na <code>true</code>. Po pętli sumujemy rozmiar puli <span class="color-blue">pula</span>:</p>
+<ul>
+<li>jeśli <span class="color-blue">maMale</span>: dodaj <code>26</code>,</li>
+<li>jeśli <span class="color-blue">maWielkie</span>: dodaj <code>26</code>,</li>
+<li>jeśli <span class="color-blue">maCyfry</span>: dodaj <code>10</code>,</li>
+<li>jeśli <span class="color-blue">maSymbole</span>: dodaj <code>10</code>.</li>
+</ul>
+<p>Siłę hasła wyraża w bitach <span class="color-green">entropia Shannona</span>:</p>
+<p>$$H = L \cdot \log_2(N)$$</p>
+<p>Gdzie $L$ to długość hasła (<code>haslo.Length</code>), a $N$ to rozmiar puli (<code>pula</code>). W C# logarytm o podstawie <code>2</code> oblicza gotowa metoda <code>Math.Log(pula, 2)</code>.</p>
+<p>Policzmy to ręcznie dla hasła <code>"Kot99"</code>:</p>
+<ol>
+<li>Długość hasła: <code>L = 5</code>.</li>
+<li>Znaki w haśle: wielka <code>'K'</code> (<code>maWielkie = true</code>), małe <code>'o'</code>, <code>'t'</code> (<code>maMale = true</code>), cyfry <code>'9'</code> (<code>maCyfry = true</code>), brak symboli (<code>maSymbole = false</code>).</li>
+<li>Rozmiar puli: <code>pula = 26 + 26 + 10 = 62</code>.</li>
+<li>Entropia: <code>5 * Math.Log(62, 2)</code> daje około <span class="color-green"><code>29,77</code> bita</span>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Każdy dodatkowy bit entropii <span class="color-green">podwaja</span> liczbę kombinacji, które musi sprawdzić program łamiący hasło. Wydłużenie hasła z 8 do 16 znaków zwiększa jego odporność znacznie bardziej niż samo dopisanie jednego wykrzyknika.</p>
+
+</div>
+</div><hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Stack Buffer Overflow w C (char* i \0), String Interning w CLR oraz One-Time Pad</span>
+<span class="deep-dive-badge">C STACK · CLR INTERN · KRYPTOGRAFIA</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Napisy char* w C, bajt zerowy \0 i podatność Stack Buffer Overflow</h4>
+
+<p>W języku C napis nie przechowuje własnej długości. Jest wskaźnikiem na pierwszy bajt w pamięci, a jego koniec wyznacza bajt zerowy <code>'\0'</code>. Aby poznać długość napisu, funkcja <code>strlen</code> musi skanować pamięć bajt po bajcie, aż natrafi na zero.</p>
+<p>Klasyczna funkcja <code>strcpy(bufor, wejscie)</code> kopiuje bajty w ślepo, bez sprawdzania rozmiaru docelowej tablicy:</p>
+<pre><code class="language-c">void przetworzHaslo(const char* wejscie) {
+    char bufor[16];          // 16 bajtow na stosie funkcji
+    strcpy(bufor, wejscie);  // wejscie o dlugosci 40 bajtow nadpisuje stos!
+}
+</code></pre>
+<p>Na stosie wywołań x86‑64 bezpośrednio za tablicą <code>bufor[16]</code> leży zapisany <span class="color-green">8‑bajtowy adres powrotu (RIP)</span>, pod który procesor wraca po zakończeniu funkcji. Jeśli atakujący poda 40‑bajtowy tekst, <code>strcpy</code> nadpisze adres powrotu adresem własnego kodu. To klasyczna podatność <span class="color-red">Stack Buffer Overflow</span>.</p>
+<p>W C# obiekt <code>string</code> na stercie ma 4‑bajtowe pole <code>_stringLength</code> tuż przed znakami UTF‑16. Odczyt <code>.Length</code> trwa jeden cykl, a przy każdym indeksowaniu <code>tekst[i]</code> środowisko CLR sprawdza zakres i rzuca <span class="color-red">IndexOutOfRangeException</span> zamiast nadpisywać sąsiednią pamięć.</p>
+<h4>2. String Interning w środowisku CLR</h4>
+
+<p>Ponieważ napisy <code>string</code> w C# są niemutowalne, dwa fragmenty programu używające tego samego literału <code>"ADMIN"</code> nie muszą trzymać w pamięci dwóch kopii. Środowisko CLR utrzymuje na stercie wspólną tablicę zwaną <span class="color-green">Intern Pool</span>:</p>
+<pre><code class="language-csharp">string a = "ADMIN";
+string b = "ADMIN";
+bool tenSamAdres = object.ReferenceEquals(a, b); // true!
+</code></pre>
+<p>Gdyby <code>string</code> był mutowalny, zmiana <code>a[0] = 'X'</code> po cichu zmieniłaby także zmienną <code>b</code> w zupełnie innym miejscu programu. Niemutowalność gwarantuje bezpieczeństwo współdzielenia napisów.</p>
+<h4>3. Kryptografia Shannona i dowód One-Time Pad</h4>
+
+<p>Szyfr Cezara ma zaledwie 25 nietrywialnych kluczy, więc komputer łamie go w mikrosekundy. Jeśli jednak zastąpisz stałe przesunięcie prawdziwie losowym kluczem o długości równej samej wiadomości, użytym dokładnie raz i łączonym operacją bitową <code>XOR</code>:</p>
+<pre><code class="language-text">Wiadomosc M:  01000001  ('A')
+Klucz     K:  10110110  (losowy bajt)
+Szyfrogram C: 11110111  (M XOR K)
+Deszyfracja:  11110111 XOR 10110110 = 01000001 ('A')
+</code></pre>
+<p>Otrzymujesz szyfr <span class="color-green">One‑Time Pad</span>. W 1949 roku Claude Shannon udowodnił matematycznie, że dla dowolnego przechwyconego szyfrogramu istnieje klucz zamieniający go w każdą możliwą wiadomość tej samej długości z takim samym prawdopodobieństwem. Jest to jedyny znany szyfr nie do złamania nawet przy nieskończonej mocy obliczeniowej, pod warunkiem że klucz nigdy nie zostanie użyty drugi raz.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Modułu 0: CipherForge.exe</h2>
+<p>Zbuduj swój pierwszy pobieralny program konsolowy <span class="color-green"><code>CipherForge.exe</code></span>, implementując dwie metody statyczne w klasie <span class="color-green"><code>CipherEngine</code></span>:</p>
+<ol>
+<li><span class="color-green"><code>SzyfrujCezara(string tekst, int klucz)</code></span>:<ul>
+<li>użyj <span class="color-green"><code>StringBuilder</code></span> do zbudowania wyniku,</li>
+<li>znormalizuj klucz wzorem <code>int przesuniecie = ((klucz % 26) + 26) % 26;</code>, aby obsłużyć klucze dodatnie, ujemne (deszyfrowanie) oraz większe od <code>26</code>,</li>
+<li>przesuwaj wielkie litery <code>'A'..'Z'</code> w obrębie wielkich liter, małe litery <code>'a'..'z'</code> w obrębie małych liter, a pozostałe znaki (spacje, cyfry, znaki interpunkcyjne) przepisuj bez zmian.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ObliczEntropie(string haslo)</code></span>:<ul>
+<li>jeśli <code>string.IsNullOrEmpty(haslo)</code>, zwróć <code>0.0</code>,</li>
+<li>użyj wzorca <span class="color-green">czterech flag boolowskich</span> w pętli <code>for</code>:<ul>
+<li>małe litery (<code>char.IsLower(c)</code>): <code>+26</code> do puli,</li>
+<li>wielkie litery (<code>char.IsUpper(c)</code>): <code>+26</code> do puli,</li>
+<li>cyfry (<code>char.IsDigit(c)</code>): <code>+10</code> do puli,</li>
+<li>pozostałe znaki specjalne: <code>+10</code> do puli,</li>
+</ul>
+</li>
+<li>zwróć <span class="color-green"><code>haslo.Length * Math.Log(pula, 2)</code></span>.</li>
+</ul>
+</li>
+</ol>
+<p>W metodzie <code>Main()</code> przygotowaliśmy dwa tryby działania. W przeglądarce uruchamia się automatyczna prezentacja wyników. Po kliknięciu <span class="color-green">⬇ Pobierz .exe</span> i uruchomieniu pliku na Windows 11 otwiera się pełne interaktywne menu z pętlą <code>do-while</code>, instrukcją <code>switch</code> i <code>Console.ReadLine()</code> (a <code>int.Parse(...)</code> zamienia wpisany tekst klucza na liczbę całkowitą <code>int</code>).</p>
+<data-gate>
+<data-csharp-lab title="Projekt Modułu 0: CipherForge (Szyfr Cezara + Entropia Hasła)" allow-add-file="false" exe-name="CipherForge.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Globalization;
+using System.Text;
+
+public class CipherEngine
+{
+    public static string SzyfrujCezara(string tekst, int klucz)
+    {
+        // TODO: Znormalizuj klucz: int przesuniecie = ((klucz % 26) + 26) % 26;
+        // Uzyj StringBuilder do przesuniecia liter 'A'-'Z' oraz 'a'-'z', inne znaki przepisz bez zmian
+        return "";
+    }
+
+    public static double ObliczEntropie(string haslo)
+    {
+        // TODO: Dla pustego lub null zwroc 0.0
+        // Uzyj 4 flag boolowskich: male (+26), wielkie (+26), cyfry (+10), symbole (+10)
+        // Zwroc haslo.Length * Math.Log(pula, 2)
+        return 0.0;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        if (Console.IsInputRedirected)
+        {
+            string tekst = "Attack at Dawn 2026!";
+            string zaszyfrowany = CipherEngine.SzyfrujCezara(tekst, 3);
+            string odszyfrowany = CipherEngine.SzyfrujCezara(zaszyfrowany, -3);
+            string haslo = "K0ala!Forge#99";
+            double entropia = CipherEngine.ObliczEntropie(haslo);
+
+            Console.WriteLine("=== CIPHERFORGE v1.0 (TRYB DEMO) ===");
+            Console.WriteLine("Tekst jawny:  " + tekst);
+            Console.WriteLine("Szyfrogram:   " + zaszyfrowany);
+            Console.WriteLine("Odszyfrowany: " + odszyfrowany);
+            Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "Entropia hasla: {0:F1} bitow", entropia));
+            return;
+        }
+
+        string wybor;
+        do
+        {
+            Console.WriteLine("\n=== CIPHERFORGE v1.0 ===");
+            Console.WriteLine("1. Szyfruj tekst (Cezar)");
+            Console.WriteLine("2. Deszyfruj tekst (Cezar)");
+            Console.WriteLine("3. Sprawdz entropie hasla");
+            Console.WriteLine("0. Wyjdz");
+            Console.Write("Wybor: ");
+            wybor = Console.ReadLine();
+
+            switch (wybor)
+            {
+                case "1":
+                    Console.Write("Podaj tekst: ");
+                    string jawny = Console.ReadLine();
+                    Console.Write("Podaj klucz (liczba calkowita): ");
+                    int kluczSzyfr = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Szyfrogram: " + CipherEngine.SzyfrujCezara(jawny, kluczSzyfr));
+                    break;
+                case "2":
+                    Console.Write("Podaj szyfrogram: ");
+                    string tajny = Console.ReadLine();
+                    Console.Write("Podaj klucz (liczba calkowita): ");
+                    int kluczDeszyfr = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Odszyfrowany: " + CipherEngine.SzyfrujCezara(tajny, -kluczDeszyfr));
+                    break;
+                case "3":
+                    Console.Write("Podaj haslo do oceny: ");
+                    string haslo = Console.ReadLine();
+                    double bity = CipherEngine.ObliczEntropie(haslo);
+                    Console.WriteLine(string.Format(CultureInfo.InvariantCulture, "Entropia: {0:F1} bitow", bity));
+                    break;
+                case "0":
+                    Console.WriteLine("Do zobaczenia!");
+                    break;
+                default:
+                    Console.WriteLine("Nieznana opcja. Wybierz 0, 1, 2 lub 3.");
+                    break;
+            }
+        } while (wybor != null &amp;&amp; wybor != "0");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("SzyfrujCezara poprawnie szyfruje z zachowaniem wielkosci liter i znakow specjalnych", () =&gt; {
+    LabAssert.Equal("Dwwdfn dw Gdzq 2026!", CipherEngine.SzyfrujCezara("Attack at Dawn 2026!", 3));
+    LabAssert.Equal("Cde Zab 99!", CipherEngine.SzyfrujCezara("Zab Wxy 99!", 3));
+});
+LabAssert.Test("SzyfrujCezara obsluguje klucze ujemne (deszyfrowanie) oraz wieksze niz 26", () =&gt; {
+    LabAssert.Equal("Attack at Dawn 2026!", CipherEngine.SzyfrujCezara("Dwwdfn dw Gdzq 2026!", -3));
+    LabAssert.Equal("Dwwdfn dw Gdzq 2026!", CipherEngine.SzyfrujCezara("Attack at Dawn 2026!", 29));
+    LabAssert.Equal("Zab Wxy 99!", CipherEngine.SzyfrujCezara("Cde Zab 99!", -29));
+    LabAssert.Equal("Bez Zmian!", CipherEngine.SzyfrujCezara("Bez Zmian!", 0));
+});
+LabAssert.Test("ObliczEntropie poprawnie ocenia puste, slabe, srednie i silne hasla", () =&gt; {
+    LabAssert.Equal(0.0, CipherEngine.ObliczEntropie(""));
+    LabAssert.Equal(0.0, CipherEngine.ObliczEntropie(null));
+
+    double slabe = CipherEngine.ObliczEntropie("123456"); // 6 * log2(10) ~= 19.93
+    LabAssert.True(Math.Abs(slabe - 19.93) &lt; 0.05, "Dla '123456' oczekiwano ~19.93 bita, otrzymano: " + slabe);
+
+    double srednie = CipherEngine.ObliczEntropie("Haslo2026"); // 9 * log2(62) ~= 53.59
+    LabAssert.True(Math.Abs(srednie - 53.59) &lt; 0.05, "Dla 'Haslo2026' oczekiwano ~53.59 bita, otrzymano: " + srednie);
+
+    double silne = CipherEngine.ObliczEntropie("K0ala!Forge#99"); // 14 * log2(72) ~= 86.38
+    LabAssert.True(Math.Abs(silne - 86.38) &lt; 0.05, "Dla 'K0ala!Forge#99' oczekiwano ~86.38 bita, otrzymano: " + silne);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Typ <code>string</code> jest niemutowalny: każda metoda przetwarzająca napis (<code>Trim</code>, <code>ToLower</code>, <code>Substring</code>) zwraca nowy napis, który musisz przypisać do zmiennej.</li>
+<li>Zawsze sprawdzaj pusty lub brakujący tekst metodą <code>string.IsNullOrEmpty</code> albo <code>string.IsNullOrWhiteSpace</code>, zanim odwołasz się do jego indeksów <code>0..Length - 1</code>.</li>
+<li>Do budowania napisów w pętli używaj klasy <span class="color-green"><code>StringBuilder</code></span> (<code>.Append()</code> i <code>.ToString()</code>) zamiast operatora <code>+=</code>, aby uniknąć kopiowania gigabajtów pamięci RAM.</li>
+<li>Normalizacja <code>((klucz % 26) + 26) % 26</code> bezpiecznie zamienia dowolny klucz dodatni lub ujemny na przesunięcie w zakresie <code>0..25</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

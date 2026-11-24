@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 330" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .node-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .node-sub { font-family: monospace; font-size: 9px; font-weight: 700; text-anchor: middle; }
+      .label-txt { font-family: monospace; font-size: 10px; font-weight: 700; }
+      .val-txt { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 600; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Mechanizm sprzętowy NIC: Weryfikacja ogona ramki (FCS CRC-32)</text>
+  <text x="30" y="48" class="sub">Układ scalony karty sieciowej eliminuje uszkodzone pakiety w krzemie bez obciążania procesora CPU</text>
+
+  <!-- 1. KABEL / TRANSCEIVER PHY -->
+  <g transform="translate(30, 75)">
+    <rect width="115" height="180" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" rx="6"/>
+    <text x="57" y="24" class="node-hdr">1. PHY (L1)</text>
+    <text x="57" y="38" class="node-sub" fill="#fde68a">Port RJ-45 / SFP</text>
+
+    <!-- Wizualizacja fali/bitów -->
+    <path d="M 15,70 Q 25,55 35,70 T 55,70 T 75,70 T 95,70" fill="none" stroke="#fbbf24" stroke-width="2"/>
+    <text x="57" y="92" class="node-sub" fill="#cbd5e1">Strumień bitów</text>
+
+    <rect x="12" y="115" width="91" height="50" fill="#0f172a" stroke="#fbbf24" rx="4"/>
+    <text x="57" y="133" font-family="monospace" font-size="9px" font-weight="700" fill="#fde68a" text-anchor="middle">Deserializacja</text>
+    <text x="57" y="148" font-family="system-ui, sans-serif" font-size="8.5px" fill="#ffffff" text-anchor="middle">Sygnał ➔ Bajty</text>
+  </g>
+
+  <!-- Strzałka z PHY do CRC Engine -->
+  <line x1="147" y1="165" x2="178" y2="165" stroke="#fbbf24" stroke-width="2"/>
+  <polygon points="183,165 175,161 175,169" fill="#fbbf24"/>
+
+  <!-- 2. UKŁAD SCALONY ASIC (CRC-32 ENGINE) -->
+  <g transform="translate(185, 75)">
+    <rect width="215" height="180" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <text x="107" y="24" class="node-hdr">2. Karta NIC (ASIC MAC)</text>
+    <text x="107" y="38" class="node-sub" fill="#a7f3d0">Rejestr przesuwny CRC-32</text>
+
+    <!-- Bufor ramki -->
+    <g transform="translate(12, 52)">
+      <rect width="36" height="22" fill="#064e3b" stroke="#34d399" rx="3"/>
+      <text x="18" y="15" font-family="monospace" font-size="8.5px" font-weight="700" fill="#ffffff" text-anchor="middle">Hdr</text>
+
+      <rect x="39" y="0" width="105" height="22" fill="#0f172a" stroke="#475569" rx="3"/>
+      <text x="91" y="15" font-family="monospace" font-size="8.5px" font-weight="700" fill="#cbd5e1" text-anchor="middle">Dane (IP+TCP)</text>
+
+      <rect x="147" y="0" width="44" height="22" fill="#881337" stroke="#f43f5e" rx="3"/>
+      <text x="169" y="15" font-family="monospace" font-size="8.5px" font-weight="700" fill="#ffffff" text-anchor="middle">FCS</text>
+    </g>
+
+    <!-- Sprzętowy komparator -->
+    <rect x="12" y="86" width="191" height="80" fill="#0f172a" stroke="#34d399" rx="4"/>
+    <text x="107" y="104" font-family="system-ui, sans-serif" font-size="10px" font-weight="800" fill="#34d399" text-anchor="middle">Kalkulator wielomianu w locie</text>
+    <text x="107" y="120" font-family="system-ui, sans-serif" font-size="9px" fill="#cbd5e1" text-anchor="middle">W miarę napływu bajtów liczy CRC.</text>
+    <text x="107" y="135" font-family="system-ui, sans-serif" font-size="9px" fill="#ffffff" text-anchor="middle">Na końcu porównuje z ogonem FCS:</text>
+    <text x="107" y="153" font-family="monospace" font-size="10px" font-weight="800" fill="#fde047" text-anchor="middle">CRC_obliczone == FCS_ramki ?</text>
+  </g>
+
+  <!-- Rozgałęzienie: BŁĄD (w dół) vs SUKCES (w prawo) -->
+  <!-- Ścieżka Błędu -->
+  <path d="M 292,257 L 292,285 L 430,285" fill="none" stroke="#ef4444" stroke-width="2"/>
+  <polygon points="435,285 427,281 427,289" fill="#ef4444"/>
+
+  <!-- Ścieżka Sukcesu -->
+  <line x1="402" y1="165" x2="430" y2="165" stroke="#22c55e" stroke-width="2"/>
+  <polygon points="435,165 427,161 427,169" fill="#22c55e"/>
+
+  <!-- 3A. WYNIK: BŁĄD SUMY KONTROLNEJ -->
+  <g transform="translate(438, 258)">
+    <rect width="272" height="54" fill="#450a0a" stroke="#ef4444" stroke-width="1.5" rx="6"/>
+    <text x="14" y="22" font-family="system-ui, sans-serif" font-size="11px" font-weight="800" fill="#fecaca">NIEZGODNOŚĆ CRC ✗</text>
+    <text x="14" y="38" font-family="monospace" font-size="9.5px" font-weight="700" fill="#fca5a5">Sprzętowy DROP + licznik rx_crc_errors++</text>
+    <text x="14" y="48" font-family="system-ui, sans-serif" font-size="8.5px" fill="#ffffff">CPU komputera nie marnuje ani 1 cyklu zegara!</text>
+  </g>
+
+  <!-- 3B. WYNIK: ZGODNOŚĆ SUMY (DEKAPSULACJA) -->
+  <g transform="translate(438, 75)">
+    <rect width="272" height="170" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <text x="136" y="24" class="node-hdr" fill="#38bdf8">3. Host RAM i Jądro Systemu</text>
+    <text x="136" y="38" class="node-sub" fill="#7dd3fc">DMA ➔ Ring Buffer ➔ sk_buff</text>
+
+    <g transform="translate(12, 48)">
+      <!-- Krok A -->
+      <rect width="248" height="34" fill="#0f172a" stroke="#10b981" rx="3"/>
+      <text x="10" y="15" font-family="system-ui, sans-serif" font-size="9.5px" font-weight="700" fill="#34d399">1. Obcięcie nagłówka Eth i ogona FCS</text>
+      <text x="10" y="27" font-family="monospace" font-size="8.5px" fill="#cbd5e1">Zostaje czysty Pakiet IPv4 (EtherType 0x0800)</text>
+
+      <!-- Krok B -->
+      <rect y="39" width="248" height="34" fill="#0f172a" stroke="#06b6d4" rx="3"/>
+      <text x="10" y="54" font-family="system-ui, sans-serif" font-size="9.5px" font-weight="700" fill="#22d3ee">2. Jądro IP: weryfikacja adresu i TTL</text>
+      <text x="10" y="66" font-family="monospace" font-size="8.5px" fill="#cbd5e1">Odcięcie nagłówka IP ➔ przekazanie do TCP</text>
+
+      <!-- Krok C -->
+      <rect y="78" width="248" height="34" fill="#0f172a" stroke="#a855f7" rx="3"/>
+      <text x="10" y="93" font-family="system-ui, sans-serif" font-size="9.5px" font-weight="700" fill="#c084fc">3. Jądro TCP: Port docelowy (np. 80)</text>
+      <text x="10" y="105" font-family="monospace" font-size="8.5px" fill="#cbd5e1">Odcięcie TCP ➔ wstawienie do bufora socketu</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t23 d23">
+  <title id="t23">Rozwijanie stosu (Stack Unwinding) i gwarantowane wykonanie bloku finally</title>
+  <desc id="d23">Animowany schemat propagacji wyjątku IOException w górę stosu wywołań aż do dopasowanego bloku catch oraz bezwarunkowego wykonania bloku finally zwalniającego uchwyt pliku.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .err { fill: #450a0a; stroke: #ef4444; stroke-width: 1.8; rx: 8; }
+    .ok { fill: #064e3b; stroke: #34d399; stroke-width: 1.8; rx: 8; }
+    .fin { fill: #172554; stroke: #38bdf8; stroke-width: 1.8; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    @keyframes bounceErr { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    .animErr { animation: bounceErr 2s ease-in-out infinite; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Przepływ wyjątku: throw → rozwijanie stosu → catch → zawsze finally (lub using)</text>
+  <text x="24" y="48" class="sub">Blok finally wykonuje się ZAWSZE — niezależnie od tego, czy kod zakończył się sukcesem, czy wyjątkiem.</text>
+
+  <rect x="24" y="68" width="246" height="172" class="card"/>
+  <text x="40" y="92" class="title">1. Awaria w try { ... }</text>
+  <rect x="40" y="110" width="214" height="58" class="err animErr"/>
+  <text x="52" y="132" class="mono">Plik zablokowany!</text>
+  <text x="52" y="152" class="sub" fill="#fca5a5">throw IOException</text>
+  <text x="40" y="196" class="sub">Reszta instrukcji w try</text>
+  <text x="40" y="214" class="sub">zostaje pominięta.</text>
+
+  <line x1="270" y1="148" x2="306" y2="148" stroke="#ef4444" stroke-width="2.5"/>
+  <polygon points="306,143 316,148 306,153" fill="#ef4444"/>
+
+  <rect x="316" y="68" width="246" height="172" class="card"/>
+  <text x="332" y="92" class="title">2. Obsługa w catch</text>
+  <rect x="332" y="110" width="214" height="58" class="ok"/>
+  <text x="344" y="132" class="mono">catch (IOException ex)</text>
+  <text x="344" y="152" class="sub" fill="#6ee7b7">Pomiń plik i idź dalej</text>
+  <text x="332" y="196" class="sub">Program NIE wyłącza się</text>
+  <text x="332" y="214" class="sub">z powodu 1 pliku!</text>
+
+  <line x1="562" y1="148" x2="598" y2="148" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="598,143 608,148 598,153" fill="#38bdf8"/>
+
+  <rect x="608" y="68" width="208" height="172" class="card"/>
+  <text x="624" y="92" class="title">3. Sprzątanie (finally)</text>
+  <rect x="624" y="110" width="176" height="58" class="fin"/>
+  <text x="636" y="132" class="mono">strumien.Dispose()</text>
+  <text x="636" y="152" class="sub" fill="#93c5fd">Zwalnia uchwyt OS</text>
+  <text x="624" y="196" class="sub">Skrót w C#:</text>
+  <text x="624" y="214" class="mono" fill="#38bdf8">using (var s = ...)</text>
+</svg>
+

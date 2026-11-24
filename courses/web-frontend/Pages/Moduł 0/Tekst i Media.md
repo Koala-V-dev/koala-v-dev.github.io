@@ -1,22 +1,21 @@
 # Tekst i Media
 
-Mając już gotowy, poprawny szkielet dokumentu, czas zająć się tym, co znajduje się bezpośrednio wewnątrz akapitów. 
+Masz już poprawny szkielet semantyczny strony zbudowany z `<header>`, `<main>`, `<article>` i `<aside>`. Prawdziwe problemy zaczynają się jednak wewnątrz samych akapitów. Ostrzeżenie o nieodwracalnym usunięciu konta wygląda na ekranie tak samo jak pogrubiona nazwa programu, wklejony kod źródłowy zbija się w jedną nieczytelną linię, a obrazy bez podanych wymiarów powodują gwałtowne skakanie tekstu podczas ładowania strony.
 
-W tej lekcji dowiesz się, jak poprawnie formatować tekst i dodawać multimedia tak, aby strona była czytelna dla ludzi oraz w pełni zrozumiała dla systemów komputerowych.
+HTML nie służy do malowania liter na ekranie. Każdy znacznik śródtekstowy i multimedialny przekazuje przeglądarce, wyszukiwarce oraz technologiom asystującym konkretną intencję autora.
 
 ---
 
-## 🔤 Semantyka tekstu: <code>&lt;strong&gt;</code> vs <code>&lt;b&gt;</code>, <code>&lt;em&gt;</code> vs <code>&lt;i&gt;</code>
+## 🔤 Semantyka tekstu: strong kontra b oraz em kontra i
 
-Pogrubienie i kursywa wyglądają prosto. W HTML mają jednak dwa różne poziomy znaczenia:
-- **Tagi prezentacyjne**: opisują efekt wizualny.
-- **Tagi semantyczne**: opisują znaczenie tekstu.
+Pogrubienie i kursywa to dwa najczęściej mylone obszary w HTML. Przeglądarki renderują dwie pary znaczników identycznie, ale ich znaczenie w kodzie jest zupełnie inne:
 
-Wyszukiwarki, parsery, algorytmy sztucznej inteligencji oraz technologie asystujące odczytują intencję kodu bezpośrednio z użytych tagów oraz atrybutów, a nie z ich wizualnego wyglądu.
+- **Znaczniki semantyczne** (`<strong>`, `<em>`): opisują wagę lub logiczny nacisk treści.
+- **Znaczniki wyróżnienia wizualnego i idiomatycznego** (`<b>`, `<i>`): zaznaczają fragment wzrokowo bez nadawania mu krytycznej wagi.
 
-### ✅ <code>&lt;strong&gt;</code> oznacza ważność
+### ✅ Znacznik strong oznacza krytyczną ważność
 
-Tag `<strong>` oznacza, że zawarty tekst ma <strong>krytyczne lub bardzo ważne znaczenie w danym kontekście</strong>.
+Stosuj `<strong>`, gdy pominięcie informacji grozi błędem, utratą danych albo błędną decyzją użytkownika:
 
 ```html
 <p>
@@ -26,157 +25,106 @@ Tag `<strong>` oznacza, że zawarty tekst ma <strong>krytyczne lub bardzo ważne
 </p>
 ```
 
-Użyj go wtedy, gdy pominięcie informacji może doprowadzić do błędu, utraty danych albo złej decyzji. <strong>Nie stosuj <code>&lt;strong&gt;</code> tylko po to, żeby tekst był grubszy</strong>.
+Nie używaj `<strong>` wyłącznie po to, aby uzyskać grubszą czcionkę. Do samego wyglądu służy CSS.
 
-### 🎨 <code>&lt;b&gt;</code> oznacza wyróżnienie wizualne
+### 🎨 Znacznik b oznacza wyróżnienie bez wagi
 
-<strong class="tag-stamp tag-stamp--obsolete">Przestarzały (lecz praktyczny)</strong>
-
-Tag `<b>` daje pogrubienie bez dodatkowej semantycznej wagi. Chociaż we współczesnym frontendzie dąży się do oznaczania ważności semantycznej (`<strong>`) lub stylowania w CSS, tag `<b>` jest nadal praktyczny. Nadaje się do nazw własnych, słów kluczowych we wstępie albo terminów, które chcesz wyłapać wzrokiem na ekranie bez narzucania maszynom fałszywej hierarchii ważności.
+Znacznik `<b>` pogrubia tekst bez sygnału alarmowego dla maszyn. Sprawdza się przy nazwach własnych lub słowach kluczowych we wstępie, które oko czytelnika ma szybko wyłapać:
 
 ```html
 <p>
-    Oprogramowanie <b>Visual Studio Code</b>
-    zostało stworzone przez Microsoft.
+    Edytor <b>Visual Studio Code</b> wspiera podgląd stron HTML.
 </p>
 ```
 
-### ✅ Tag <code>&lt;em&gt;</code> definiuje nacisk semantyczny
+### ✅ Znacznik em definiuje nacisk logiczny
 
-Tag <code>&lt;em&gt;</code> (skrót od *emphasis*, czyli nacisk na frazę) stosujemy do słów, które zmieniają sens logiczny całego zdania. Przeniesienie tego tagu na inne słowo całkowicie modyfikuje intencję zapisanego komunikatu.
+Znacznik `<em>` zmienia sens logiczny wypowiedzi zależnie od tego, które słowo otacza. Zobacz różnicę w trzech wersjach tego samego zdania:
 
-Spójrz na poniższe przykłady i przeanalizuj różnicę w znaczeniu logicznym:
+- Ja <em>nie</em> chcę tam iść (zaprzeczenie samej chęci).
+- <em>Ja</em> nie chcę tam iść (ktoś inny może pójść, ale nie ja).
+- Ja nie chcę <em>tam</em> iść (chcę pójść w inne miejsce).
 
-- Ja <em>nie</em> chcę tam iść. (oznacza zaprzeczenie chęci pójścia)
-- <em>Ja</em> nie chcę tam iść. (oznacza, że ktoś inny może iść, ale nie ja)
-- Ja nie chcę <em>tam</em> iść. (oznacza chęć pójścia w inne miejsce)
+### 🎨 Znacznik i oznacza tekst idiomatyczny
 
-Dla robotów indeksujących wyszukiwarki, translatorów, parserów i modeli językowych to informacja, że to konkretne słowo modyfikuje znaczenie całego zdania. Nie jest to jednak narzędzie do sterowania głosem czytnika ekranu – dla technologii asystujących to przede wszystkim strukturalna informacja o kontraście logicznym.
+Znacznik `<i>` wydziela słowa o innym charakterze językowym, które nie zmieniają logiki zdania:
+- zwroty obcojęzyczne (na przykład <i>divide et impera</i>),
+- tytuły publikacji i książek (na przykład <i>Hobbit</i>),
+- nazwy techniczne lub nazwy plików (na przykład <i>config.json</i>).
 
-### 🎨 Tag <code>&lt;i&gt;</code> wyróżnia bez zmiany znaczenia
-
-<strong class="tag-stamp tag-stamp--obsolete">Przestarzały (lecz praktyczny)</strong>
-
-Tag <code>&lt;i&gt;</code> (obecnie *idiomatic text*) służy do oznaczania słów, które różnią się charakterem od otaczającego tekstu, ale ich rola nie modyfikuje sensu logicznego zdania. Mimo że w klasycznym HTML uważano go za przestarzały znacznik czysto prezentacyjny, we współczesnych standardach jego wąskie, idiomatyczne użycie jest w pełni poprawne i praktyczne.
-
-To idealne miejsce na:
-- zwroty obcojęzyczne (np. <i>divide et impera</i>),
-- tytuły dzieł i publikacji (np. książka <i>Hobbit</i>),
-- terminy techniczne lub nazwy plików (np. plik <i>config.json</i>).
-
-Wizualnie oba tagi dają pochylenie tekstu. Semantycznie różnią się jednak intencją: `<em>` zmienia znaczenie logiczne wypowiedzi, a `<i>` oznacza jedynie wydzielony językowo lub konwencjonalnie termin.
-
-### 📊 Porównanie w tabeli
-
-| Tag | Wygląd | Semantyka | Kiedy stosować |
+| Znacznik | Wygląd domyślny | Znaczenie w kodzie | Typowe zastosowanie |
 | :--- | :--- | :--- | :--- |
-| `<strong>` | Pogrubienie | Ważna lub krytyczna informacja | Instrukcje bezpieczeństwa, ostrzeżenia przed utratą danych |
-| `<b>` | Pogrubienie | Wyróżnienie czysto wizualne | Nazwy własne w tekście, słowa kluczowe we wstępie |
-| `<em>` | Kursywa | Nacisk semantyczny (emfaza) | Słowa kluczowe zmieniające sens logiczny całego zdania |
-| `<i>` | Kursywa | Wyróżnienie idiomatyczne | Tytuły książek, słownictwo obcojęzyczne, nazwy plików |
+| `<strong>` | Pogrubienie | Ważna lub krytyczna informacja | Ostrzeżenia, instrukcje bezpieczeństwa, kluczowe reguły |
+| `<b>` | Pogrubienie | Wyróżnienie wizualne bez wagi | Nazwy własne, słowa kluczowe w leadzie |
+| `<em>` | Kursywa | Nacisk logiczny zmieniający sens | Kontrast w zdaniu, zmiana intencji komunikatu |
+| `<i>` | Kursywa | Wyróżnienie idiomatyczne | Zwroty obce, tytuły dzieł, terminy techniczne |
 
-### 🧪 Rzeczywistość czytania kodu: Ludzie vs Maszyny
+### 🧪 Ludzie kontra maszyny: bez mitów o czytnikach ekranu
 
-W świecie technologii asystujących i nowoczesnego webu musisz patrzeć na semantykę tekstu bez mitów.
+Większość czytników ekranu (NVDA, VoiceOver) odczytuje `<strong>`, `<b>`, `<em>` i `<i>` tym samym głosem, bez zmiany intonacji. Gdyby syntezator krzyczał przy każdym pogrubieniu w sieci, słuchanie stron byłoby męczące.
 
-Czytniki ekranu (takie jak NVDA czy VoiceOver) przejeżdżają przez tagi `<strong>`, `<em>`, `<b>` i `<i>` jak przez zwykły tekst. Słowo umieszczone wewnątrz `<strong>` brzmi dla słuchacza dokładnie tak samo jak każdy inny wyraz obok. Wynika to z prostej przyczyny: gdyby syntezator mowy zmieniał intonację przy każdym pogrubieniu czy kursywie, słuchanie stron internetowych (gdzie wyróżnienia bywają masowo nadużywane) byłoby dla użytkowników po prostu irytujące i trudne w odbiorze.
+Sens rozróżnienia polega na podziale odbiorców:
+- **Dla człowieka**: liczy się czytelny wygląd, kontrast i rytm wzrokowy (budowany w CSS).
+- **Dla maszyn**: wyszukiwarki, tryby czytnika w przeglądarkach, parsery i modele AI analizują czysty kod źródłowy. Dla nich `<strong>` i `<em>` to jasny sygnał o intencji autora.
 
-Gdzie zatem leży sens stosowania semantyki? Kluczem jest rozdzielenie odbiorców na dwa światy: **ludzi** oraz **maszyny**.
+### 🏷️ Znacznik span jako liniowy odpowiednik div
 
-#### Dla człowieka: Wizualne wyróżnienie (Wygląd)
+W poprzedniej lekcji poznałeś blokowy kontener `<div>`. Jego liniowym odpowiednikiem wewnątrz akapitu jest `<span>`. Nie posiada żadnego znaczenia semantycznego i domyślnie nie zmienia wyglądu tekstu:
 
-Człowiek czytający stronę potrzebuje punktów skupienia, rytmu i czytelnej struktury graficznej. Robi to za pomocą wzroku. Aby ułatwić mu czytanie (szczególnie osobom z dysleksją czy trudnościami z koncentracją), stosujemy kolory, kontrast i style graficzne (które na produkcji definiujemy za pomocą klas CSS). 
+```html
+<p>
+    Status połączenia: <span class="status-ok">aktywne</span>.
+</p>
+```
 
-Służy to wyłącznie ludzkiemu oku – ułatwia skanowanie wzrokiem, ale nie niesie wbudowanego, technicznego znaczenia dla kodu strony.
-
-#### Dla maszyn: Semantyka HTML (Intencja Dokumentu)
-
-Roboty indeksujące wyszukiwarki (SEO), ekstraktory treści, systemy podsumowujące (np. wbudowane w przeglądarki tryby czytnika) oraz algorytmy AI nie „widzą” kolorów ani stylów graficznych. Analizują one **czysty kod źródłowy**.
-
-Dla nich użycie `<strong>` oraz `<em>` to jednoznaczny sygnał o intencji autora. Mówisz maszynie: *„Ta fraza to kluczowa reguła, ostrzeżenie przed nieodwracalną akcją lub istotna definicja w strukturze dokumentu”*. Semantyka HTML opisuje znaczenie informacji, a nie wygląd ekranu.
-
-#### Synergia: Wygląd i znaczenie
-
-Te dwa światy nie wykluczają się wzajemnie. Jeśli dany fragment ma być zarówno szybko dostrzeżony przez człowieka, jak i poprawnie zinterpretowany przez maszyny, stosujemy oba rozwiązania: nadajemy mu wagę semantyczną w HTML (np. opakowując w `<strong>`) oraz odpowiedni styl graficzny.
-
-Dzięki temu kod pozostaje maksymalnie czytelny dla czytelnika, a jednocześnie czysty i w pełni zrozumiały dla całego ekosystemu internetu.
-
+Używaj `<span>` wyłącznie wtedy, gdy musisz wydzielić fragment zdania pod późniejsze stylowanie w CSS lub pod obsługę w JavaScript.
 
 ---
 
-<data-gate>
-  <data-quiz>
-    <question>Piszesz dokumentację techniczną. Pojawia się zdanie ostrzegające o nieodwracalnej operacji usunięcia danych. Który tag powinieneś zastosować?</question>
-<options>
-<item correct>
+## 💬 Cytaty blokowe i źródła: blockquote oraz cite
+
+Do dłuższych cytatów służy znacznik `<blockquote>`. Informację o źródle najlepiej umieścić w jego stopce `<footer>` za pomocą znacznika `<cite>`.
+
+W HTML istnieje także atrybut `cite="..."` na elemencie `<blockquote>`, ale jest on **_całkowicie niewidoczny dla użytkownika_** i pomijany przez wyszukiwarki. W praktyce znacznie lepiej użyć widocznego znacznika `<cite>` z linkiem `<a>` lub pełną nazwą dokumentu:
 
 ```html
-<strong>
-```
-
-</item>
-<item>
-
-```html
-<em>
-```
-
-</item>
-<item>
-
-```html
-<i>
-```
-
-</item>
-</options>
-    <div data-hint="error">
-      Zastanów się, który z tych tagów niesie ze sobą faktyczną wagę semantyczną oznaczającą krytyczne znaczenie dla bezpieczeństwa użytkownika i systemu.
-    </div>
-    <div data-hint="success">
-      Dobrze. <code>&lt;strong&gt;</code> informuje maszyny i systemy operacyjne o wysokiej wadze treści. <code>&lt;b&gt;</code> to wyłącznie efekt wizualny.
-    </div>
-  </data-quiz>
-</data-gate>
-
----
-
-## 📝 Inne przydatne tagi śródtekstowe
-
-Artykuł techniczny rzadko składa się wyłącznie z akapitów. HTML oferuje tagi dopasowane do specyficznych rodzajów informacji.
-
-### 💬 <code>&lt;blockquote&gt;</code> i <code>&lt;cite&gt;</code> dla cytatów
-
-Znacznik <strong>**`<blockquote>`**</strong> służy do oznaczania *dłuższych cytatów blokowych*. Zazwyczaj w jego stopce (oznaczonej tagiem <strong>**`<footer>`**</strong>) podajemy źródło cytatu za pomocą znacznika <strong>**`<cite>`**</strong>. W strukturze HTML należy odróżnić znacznik `<cite>` od atrybutu `cite`. Atrybut ten (dodawany do elementu `<blockquote>`) jest <strong>**_całkowicie niewidoczny dla czytelnika_**</strong> i ignorowany przez wyszukiwarki pod kątem pozycjonowania (SEO), przez co w praktyce nie ma potrzeby jego stosowania. Prawidłowym podejściem jest użycie samego elementu `<cite>` i zagnieżdżenie w nim standardowego linku `<a>` prowadzącego do źródła:
-
-```html
-<!-- NAJLEPSZA PRAKTYKA: Klikalny odnośnik dla ludzi oraz poprawna semantyka dla wyszukiwarek -->
 <blockquote>
-    <p>Treść powinna być dostępna dla każdego użytkownika.</p>
+    <p>Treść powinna być dostępna dla każdego użytkownika, niezależnie od używanego urządzenia.</p>
     <footer>
         Źródło: <cite><a href="https://www.w3.org/WAI/WCAG21/Understanding/">Web Content Accessibility Guidelines (WCAG) 2.1</a></cite>
     </footer>
 </blockquote>
 ```
 
-`<cite>` podobnie jak `<i>` oraz `<em>` renderuje się jako *kursywa*:
+Znacznik `<cite>` wyświetla się domyślnie kursywą, podobnie jak `<i>` oraz `<em>`:
 
 ![Porównanie tagów cite, i oraz em](/public/courses/web-frontend/Images/porównanie-cite-i-em-oraz-przedstawienie-wszystkie-3-rendery.png)
 
-
-
 ---
 
-### 💻 Tagi <code>&lt;code&gt;</code> i <code>&lt;pre&gt;</code> dla kodu
+## 💻 Kod źródłowy w tekście: pre oraz code
 
-Przeglądarki internetowe domyślnie ignorują dodatkowe spacje oraz znaki nowej linii w kodzie HTML. Łączą je w jedną spację. Przy zwykłym tekście to pomaga. Przy kodzie programistycznym jest to jednak <strong>**_poważny problem_**</strong>, ponieważ wcięcia i struktura linii decydują o czytelności.
+### 🔮 Przewidywanie: białe znaki w p kontra pre i code
 
-Rozwiązaniem jest połączenie dwóch tagów.
+Chcesz umieścić w artykule krótki blok kodu JavaScript z wcięciami. Wpisujesz go wewnątrz zwykłego akapitu `<p>` oraz znacznika `<code>`:
 
-- **1. Warstwa semantyczna:** Tag `<code>` informuje przeglądarki, czytniki ekranu oraz roboty sieciowe, że dany fragment to kod źródłowy. Sam w sobie nie zachowuje jednak wcięć.
-- **2. Warstwa prezentacyjna:** Tag `<pre>` oznacza tekst preformatowany (ang. *preformatted text*). Nakazuje przeglądarce renderować tekst dokładnie tak, jak został wpisany w edytorze kodu. Zachowuje każdy znak nowej linii oraz każdą spację.
+```html
+<p><code>function hello(name) {
+    return "Cześć, " + name;
+}</code></p>
+```
 
-Połączenie <code>&lt;pre&gt;</code> oraz <code>&lt;code&gt;</code> jest najbardziej naturalnym sposobem na prezentację bloków kodu:
+> [!IMPORTANT]
+> Zdecyduj przed czytaniem dalej: czy przeglądarka zachowa trzy osobne wiersze i czterospacjowe wcięcie przed słowem `return`, czy połączy cały kod w jedną linię?
+
+### 🔎 Obserwacja i wyjaśnienie
+
+Przeglądarka połączy cały kod w jedną linię: `function hello(name) { return "Cześć, " + name; }`. Odpowiada za to domyślny mechanizm HTML zwany **zwijaniem białych znaków** (whitespace collapsing): dowolny ciąg spacji, tabulatorów i znaków nowej linii zamieniany jest w jedną spację.
+
+W zwykłych akapitach to bardzo pomaga, bo możesz dowolnie łamać wiersze w edytorze kodu. W przypadku bloków kodu jest to jednak **_poważny problem czytelności_**. Rozwiązaniem jest połączenie dwóch znaczników o różnych rolach:
+
+- `<code>` (**warstwa semantyczna**): oznacza kod źródłowy w linii tekstu lub w bloku.
+- `<pre>` (**warstwa zachowania formatu**): nakazuje przeglądarce zachować dokładnie każdą spację i każdy znak nowej linii.
 
 ```html
 <p>Metoda <code>querySelector()</code> zwraca pierwszy pasujący element.</p>
@@ -187,222 +135,308 @@ Połączenie <code>&lt;pre&gt;</code> oraz <code>&lt;code&gt;</code> jest najbar
 </code></pre>
 ```
 
-Dzięki temu kod zachowuje _**idealną strukturę**_ i czytelność. Jest jednocześnie w pełni zrozumiały dla maszyn analizujących naszą stronę.
-
 > [!WARNING]
-> Przeglądarki internetowe nie kolorują automatycznie kodu umieszczonego w tagach `<code>`. Jeśli chcesz uzyskać wielokolorowe podświetlanie składni (takie jak w edytorach kodu), musisz zastosować zewnętrzne biblioteki JavaScript (np. `highlight.js` czy `Prism.js`) lub ręcznie otoczyć słowa kluczowe znacznikami `<span>` (które działają jak bezużyteczne semantycznie, liniowe kontenery przeznaczone do stylowania tekstu wewnątrz zdania).
+> Przeglądarki nie kolorują automatycznie składni wewnątrz `<code>`. Wielokolorowe podświetlanie kodu wymaga dodatkowych bibliotek (takich jak `Prism.js` lub `highlight.js`) albo ręcznego ostylowania fragmentów za pomocą `<span>`.
 
 ---
 
-### 🏷️ Znacznik <code>&lt;span&gt;</code> (Kontener liniowy)
+## 📅 Daty dla ludzi i maszyn: time oraz ISO 8601
 
-W poprzedniej lekcji poznałeś znacznik `<div>`, który służy jako uniwersalne pudełko blokowe do grupowania elementów. W tekście jego odpowiednikiem jest znacznik `<span>`.
+Zapis `04/05/2026` oznacza dla czytelnika w Polsce czwarty maja, a dla użytkownika w USA piąty kwietnia. Maszyny, kalendarze i wyszukiwarki nie mogą zgadywać konwencji regionalnej.
 
-To element **czysto strukturalny i liniowy** (ang. *inline*). Oznacza to dwie rzeczy:
-* Nie posiada żadnego znaczenia semantycznego (nie informuje maszyn o ważności czy typie tekstu).
-* Domyślnie nie zmienia wyglądu tekstu (nie pogrubia go ani nie przenosi do nowej linii).
-
-Stosujemy go wyłącznie wtedy, gdy chcemy wydzielić pojedyncze słowo lub fragment zdania, aby w przyszłości móc nadać mu specyficzny styl graficzny (np. zmienić kolor tekstu).
-
-```html
-<p>
-    W tym zdaniu słowo <span>czerwony</span> ma zachować swój domyślny wygląd, 
-    dopóki nie zmienimy jego stylu.
-</p>
-```
-
-Stanowi to idealne dopełnienie dla tagu `<div>` – `<div>` grupuje całe akapity i sekcje, a `<span>` działa wyłącznie wewnątrz linii tekstu.
-
----
-
-### 📅 <code>&lt;time&gt;</code> czyli data dla maszyny
-
-W artykule data publikacji może wyglądać po ludzku:
-
-```html
-<p>Artykuł opublikowany: <time datetime="2024-01-15">15 stycznia 2024</time></p>
-```
-
-Tekst „$15$ stycznia $2024$” jest dla czytelnika. Wartość `2024-01-15` jest dla maszyny.
-
-Format `datetime` korzysta ze standardu _**ISO 8601**_. Najpierw zapisujesz rok, potem miesiąc, potem dzień.
-
-> [!NOTE]
-> _**ISO 8601**_ w HTML-u nie oznacza, że użytkownik ma widzieć datę w takim zapisie.
-> To format techniczny dla przeglądarek, robotów, wyszukiwarek, kalendarzy i modeli językowych.
-> W Polsce naturalny tekst to zwykle „$15$ stycznia $2024$” albo „$15.01.2024$”, ale w atrybucie `datetime` nadal zapisujesz `2024-01-15`.
-
-Przykłady:
-
-- **Pełna data**: `2024-01-15`.
-- **Miesiąc**: `2013-01`.
-- **Rok**: `2019`.
-- **Godzina**: `14:30`.
-- **Data i godzina**: `2024-01-15T14:30` (połączone literą `T`).
-Zakres dat, taki jak `2024-01-01/2024-12-31`, wygląda jak ISO 8601, ale nie jest dobrym przykładem dla pojedynczego elementu `<time>`. Jeśli opisujesz przedział, zwykle bezpieczniej użyć dwóch elementów `<time>`:
-
-```html
-<p>
-    Kurs trwa od <time datetime="2024-01-01">1 stycznia 2024</time>
-    do <time datetime="2024-12-31">31 grudnia 2024</time>.
-</p>
-```
-
-Formaty zapisu dat różnią się w zależności od kraju (np. w Polsce stosuje się układ dzień, miesiąc, rok, a w USA miesiąc, dzień, rok). Poniższa mapa pokazuje te różnice na świecie. Właśnie dlatego maszyna potrzebuje jednego, ustandaryzowanego formatu ISO 8601 w atrybucie `datetime`, niezależnie od tego, jak prezentujemy datę użytkownikowi.
-
-![Mapa świata przedstawiająca regionalne formaty zapisu dat.](/public/courses/web-frontend/Images/date-format-map.svg)
-
-> PS. Otwórz ten obraz w nowej karcie, a po najechaniu na niego myszką zobaczysz dymek z nazwą kraju oraz formatem zapisu daty w nim stosowanym. 😉
-
-```html
-<p>Facebook uruchomił wersję <code>.onion</code> w
-    <time datetime="2014">2014</time> roku.</p>
-
-<p>Spotkanie odbędzie się o
-    <time datetime="14:30">wpół do trzeciej</time>.</p>
-
-<p>BBC udostępniło mirror w sieci Tor w
-    <time datetime="2019">2019</time> roku.</p>
-```
-
-> [!WARNING]
-> Zapis daty w elemencie `<time>` z niejednoznacznym lub niepasującym atrybutem `datetime` (np. `datetime="1990"` dla tekstu "lat $90$.") jest **martwy semantycznie**, ponieważ parsery i roboty sieciowe nie będą w stanie poprawnie zinterpretować takiego zapisu. Pamiętaj, że <code>&lt;time&gt;</code> ma sens **tylko wtedy, gdy data jest w pełni jednoznaczna** i poprawnie sformatowana według standardu ISO 8601.
-
-```html
-<!-- Niepoprawnie: „lata 90.” to opis epoki, nie jedna data -->
-<p>Projekt powstał w <time datetime="1990">latach 90.</time></p>
-```
-
-Taki zapis jest <strong>błędny semantycznie</strong>. Kod mówi „$1990$”, ale tekst mówi „cała dekada”.
-
-
-### 🔤 <code>&lt;abbr&gt;</code> czyli skrót z kontekstem
-
-<strong class="tag-stamp tag-stamp--dead">Martwa semantyka (abbr)</strong>
-
-Tag `<abbr>` (skrót od *abbreviation*) miał w teorii służyć do oznaczania skrótów i akronimów. W praktyce jest to jednak **_znacznik martwy_**. Współczesne wyszukiwarki (SEO), modele językowe (AI) oraz czytniki ekranu całkowicie go ignorują, a domyślny atrybut `title` wywołujący dymek podpowiedzi stwarza ogromne bariery dostępności.
-
-> [!NOTE]
-> Atrybut `title` jest atrybutem globalnym. Oznacza to, że możesz dodać go do dowolnego znacznika w HTML. Przeglądarki graficzne wyświetlają jego wartość w formie prostego dymku (ang. *tooltip*) po najechaniu myszką.
-
-#### Dlaczego ten tag i dymek <code>title</code> to ślepa uliczka?
-
-Ukrywanie pełnego wyjaśnienia skrótu w atrybucie `title` to zła praktyka. Dymek ten nie wyświetla się na urządzeniach mobilnych (brak kursora myszy), nie pojawia się przy nawigacji za pomocą klawisza <kbd>Tab</kbd>, a czytniki ekranu domyślnie go ignorują, odczytując sam skrót (np. *„<abbr title="Content Management System">CMS</abbr>”* jako litery C, M, S) na podstawie własnych mechanizmów analizy wielkich liter.
-
-```html
-<!-- BŁĘDNIE: Użytkownicy mobilni, klawiaturowi oraz roboty sieciowe nie dowiedzą się, co oznacza skrót CMS -->
-<p>
-    System <abbr title="Content Management System">CMS</abbr>
-    zarządza treścią w panelu administracyjnym.
-</p>
-```
-
----
-
-## 🖼️ Obrazy w HTML: znacznik <code>&lt;img&gt;</code>
-
-Do osadzania plików graficznych na stronie służy znacznik `<img src="...">`.
-
-Zgodnie ze standardem **HTML5** poprawna deklaracja grafiki wymaga zdefiniowania wymiarów *`width`* i *`height`* w pikselach (bez jednostki `px`). Pozwala to przeglądarce zarezerwować odpowiedni obszar w układzie strony przed pobraniem pliku. Zapobiega to **skokom układu strony** (ang. *Layout Shift*, efekt rwania stony podczas ładowania).
-
-Dla poprawy wydajności stosujemy atrybut **`loading="lazy"`** (tzw. *lazy loading*). Opóźnia on pobieranie grafiki do momentu zbliżenia się do niej przez użytkownika podczas przewijania. Dodatkowo pozwala na przekierowanie piorytetu pobrania najpierw plików `html`, `css` i `js`.
-
-### 🏷️ Tekst alternatywny: atrybut <code>alt</code>
-
-Każdy znacznik `<img>` musi posiadać atrybut **`alt`** (ang. *alternative text*). <strong>Brak tego atrybutu to kardynalny błąd dostępności</strong>.
-
-Tekst alternatywny pełni trzy kluczowe funkcje:
-- **Dla dostępności:** Czytniki ekranu (np. NVDA) odczytują wartość `alt` osobom niewidomym. Bez tego atrybutu program  wygeneruje irytujący i rozpraszający komunikat o grafice bez etykiety.
-- **Dla wyszukiwarek (SEO):** Roboty sieciowe analizują `alt`, aby sklasyfikować tematykę obrazu w wynikach wyszukiwania.
-- **Jako fallback:** Jeśli plik graficzny nie załaduje się z powodu błędu połączenia, przeglądarka wyświetli w jego miejscu tekst alternatywny.
-
-Wartość atrybutu `alt` dobieramy na podstawie kontekstu grafiki na stronie:
-
-| Rola grafiki | Rekomendowana wartość `alt` | Opis zachowania |
+| Zapis tekstu na stronie | Interpretacja regionalna | Jednoznaczny zapis ISO 8601 |
 | :--- | :--- | :--- |
-| **Grafika dekoracyjna** (np. ozdobna linia) | `alt=""` (pusty atrybut) | Czytnik ekranu całkowicie ją zignoruje. Ozdobniki CSS nie używają `<img>`. |
-| **Link graficzny** (np. logo jako odnośnik) | `alt="Strona główna"` | Opisuje cel i kierunek odnośnika, a nie wygląd logotypu. |
-| **Zdjęcie produktowe w katalogu** | `alt=""` (pusty atrybut) | Jeśli obok znajduje się widoczny tytuł produktu, pusty `alt` zapobiega redundancji. |
-| **Zdjęcie detalu na karcie produktu** | `alt="Zbliżenie na boczne porty USB-C smartfona"` | Opisuje unikalny szczegół, którego brakuje w opisie karty produktu. |
+| `04/05/2026` (Polska) | 4 maja 2026 | `2026-05-04` |
+| `04/05/2026` (USA) | 5 kwietnia 2026 | `2026-04-05` |
+| `15 stycznia 2026` | 15 stycznia 2026 | `2026-01-15` |
 
-## 🗃️ Konteneryzacja semantyczna: znacznik <code>&lt;figure&gt;</code> i <code>&lt;figcaption&gt;</code>
+Znacznik `<time>` rozdziela czytelny tekst dla człowieka od standardu _**ISO 8601**_ w atrybucie *datetime* (zawsze od największej jednostki: rok, miesiąc, dzień):
 
-Standard **WHATWG HTML Living Standard** wprowadza element **`<figure>`** jako kontener na **treść samodzielną** (ang. *self-contained*). Reprezentuje on grupę elementów, którą można wyciąć z głównego tekstu i przenieść w inne miejsce w dokumencie (np. do załącznika na końcu) bez zaburzania logicznej struktury lekcji.
+```html
+<p>Artykuł opublikowany: <time datetime="2026-01-15">15 stycznia 2026</time>.</p>
+```
 
-> Znacznik `<figure>` nie jest przypisany wyłącznie do obrazków. Może grupować również fragmenty kodu źródłowego, wykresy i schematy.
+Najważniejsze poprawne warianty atrybutu `datetime`:
+- **Pełna data**: `2026-01-15`
+- **Rok i miesiąc**: `2026-01`
+- **Sam rok**: `2026`
+- **Godzina**: `14:30`
+- **Data i godzina**: `2026-01-15T14:30` (rozdzielone literą `T`)
 
-Do podpisywania zawartości kontenera służy tag **`<figcaption>`**. Musi on być bezpośrednim dzieckiem elementu `<figure>` (jako pierwszy lub ostatni znacznik).
+Jeśli opisujesz przedział czasu, użyj dwóch osobnych znaczników `<time>`:
 
-Zgodnie z wytycznymi [W3C Web Accessibility Initiative (WAI)](https://www.w3.org/WAI/tutorials/images/complex/), przy parowaniu tych elementów precyzyjnie rozdzielamy role opisów, aby uniknąć redundancji w syntezatorach mowy:
+```html
+<p>
+    Warsztaty trwają od <time datetime="2026-05-01">1 maja 2026</time>
+    do <time datetime="2026-05-15">15 maja 2026</time>.
+</p>
+```
+
+Nie używaj `<time>` dla przybliżonych epok ani niejednoznacznych określeń. Zapis `<time datetime="1990">latach 90.</time>` jest **_błędny semantycznie_**, ponieważ kod wskazuje jeden rok, a tekst obejmuje całą dekadę.
+
+> [!WARNING]
+> **Przestroga przed znacznikiem `<abbr>` i atrybutem `title`**: w starszych poradnikach spotkasz oznaczanie skrótów przez `<abbr title="Content Management System">CMS</abbr>`. To dziś martwa praktyka. Dymek z `title` nie działa na ekranach dotykowych, nie pojawia się przy nawigacji klawiszem <kbd>Tab</kbd>, a czytniki ekranu domyślnie go ignorują. Zamiast ukrywać wyjaśnienie w atrybucie, rozwijaj skrót wprost w tekście przy jego pierwszym użyciu, na przykład: „System zarządzania treścią (CMS)”.
+
+### 🛠️ Warsztat 1: korekta semantyki tekstu, kodu i daty
+
+Zanim przejdziesz do grafik, napraw trzy typowe błędy w poniższej notatce technicznej:
+- Zamień prezentacyjne `<b>` na semantyczne `<strong>` w ostrzeżeniu o utracie danych.
+- Owiń wieloliniowy fragment kodu w `<pre><code>...</code></pre>`, aby przeglądarka zachowała wcięcia.
+- Zapisz datę publikacji w znaczniku `<time>` z poprawnym atrybutem `datetime="2026-05-15"`.
+
+<data-gate>
+  <data-code-runner language="html" title="Warsztat 1: Korekta strong, pre/code oraz time">
+    <template data-type="code">
+<p>Ostatnia aktualizacja: 15 maja 2026.</p>
+<p>Przed uruchomieniem polecenia <b>wykonaj kopię zapasową bazy</b>.</p>
+<p><code>SELECT nazwa, cena
+FROM towary
+WHERE cena &lt; 100;</code></p>
+    </template>
+    <template data-type="requirements">
+      [
+        {
+          "id": "fix-time",
+          "text": "Oznaczono datę znacznikiem <time datetime=\"2026-05-15\">",
+          "type": "regex",
+          "pattern": "<time\\b[^>]*datetime\\s*=\\s*[\"']2026-05-15[\"'][^>]*>[\\s\\S]*?</time>"
+        },
+        {
+          "id": "fix-strong",
+          "text": "Zastąpiono <b> semantycznym znacznikiem <strong> w ostrzeżeniu",
+          "type": "regex",
+          "pattern": "<strong\\b[^>]*>[\\s\\S]{5,}?</strong>"
+        },
+        {
+          "id": "fix-no-b",
+          "text": "Usunięto prezentacyjne <b> z komunikatu ostrzegawczego",
+          "type": "not-contains",
+          "pattern": "<b>"
+        },
+        {
+          "id": "fix-pre-code",
+          "text": "Umieszczono wieloliniowy blok kodu wewnątrz <pre><code>...</code></pre>",
+          "type": "regex",
+          "pattern": "<pre\\b[^>]*>\\s*<code\\b[^>]*>[\\s\\S]*?</code>\\s*</pre>"
+        }
+      ]
+    </template>
+  </data-code-runner>
+</data-gate>
+
+---
+
+## 🖼️ Obrazy w HTML: img, formaty plików i ścieżki
+
+Do osadzania grafiki służy pojedynczy znacznik `<img>`. Poprawny zapis produkcyjny składa się z pięciu atrybutów:
+
+```html
+<img
+    src="./images/schemat-sieci.webp"
+    width="640"
+    height="360"
+    loading="lazy"
+    alt="Schemat połączenia przeglądarki z serwerem WWW"
+>
+```
+
+Zwróć uwagę na trzy techniczne detale:
+- **Atrybuty *width* i *height* bez jednostki `px`**: przeglądarka od razu zna proporcje obrazu i rezerwuje miejsce w układzie przed pobraniem pliku. Chroni to czytelnika przed **_skokami układu strony_** (efektem nagłego przesuwania tekstu w dół podczas ładowania zdjęć).
+- **Atrybut `loading="lazy"`**: opóźnia pobranie grafik znajdujących się daleko poniżej ekranu aż do momentu, gdy użytkownik zacznie przewijać stronę.
+- **Ścieżki względne w *src***: działają tak samo jak w linkach `<a>`. Jeśli plik HTML leży w głównym folderze projektu, używasz `./images/foto.webp`. Jeśli strona leży w podfolderze `artykuly/sieci.html`, wychodzisz poziom wyżej: `../images/foto.webp`.
+
+### 📊 Dobór formatu grafiki: JPG, PNG, WebP i SVG
+
+Wybór niewłaściwego formatu pliku potrafi zwiększyć wagę strony dziesięciokrotnie. Dobieraj format do charakteru obrazu, nie z przyzwyczajenia:
+
+| Format | Typ grafiki | Przezroczystość | Kiedy wybierać | Czego unikać |
+| :--- | :--- | :--- | :--- | :--- |
+| **JPG (JPEG)** | Rastrowy (stratny) | Nie | Fotografie i bogate sceny, gdy musisz wspierać bardzo stare narzędzia | Logo, zrzuty ekranu z tekstem (powstają artefakty kompresji) |
+| **PNG** | Rastrowy (bezstratny) | Tak (kanał alfa) | Ostre zrzuty ekranu, grafiki wymagające idealnej ostrości i przezroczystości | Duże zdjęcia fotograficzne (bardzo ciężkie pliki) |
+| **WebP** | Rastrowy (nowoczesny) | Tak | **Domyślny wybór na strony WWW**: zdjęcia i grafiki o 25 do 35% lżejsze niż JPG i PNG | Brak przeszkód w nowoczesnych przeglądarkach |
+| **SVG** | Wektorowy (kod XML) | Tak | Ikony, proste logotypy, wykresy i schematy, które muszą być idealnie ostre w każdym powiększeniu | Fotografie i złożone obrazy malarskie |
+
+---
+
+## ♿ Tekst alternatywny alt oraz kontener figure
+
+### 🔮 Przewidywanie: kiedy alt pusty, a kiedy opisowy
+
+Na jednej stronie sklepu masz trzy obrazy osadzone przez `<img>`:
+1. Cienką ozdobną linię oddzielającą sekcje (brak dodatkowej informacji).
+2. Logotyp sklepu umieszczony wewnątrz linku `<a href="./index.html">` prowadzącego na stronę główną.
+3. Zdjęcie bocznej krawędzi laptopa pokazujące układ portów USB-C i HDMI w recenzji technicznej.
+
+> [!IMPORTANT]
+> Zdecyduj przed czytaniem dalej: który z tych trzech obrazów powinien dostać pusty atrybut `alt=""`, który wymaga opisu celu linku, a który potrzebuje dokładnego opisu zawartości zdjęcia?
+
+### 🔎 Obserwacja i wyjaśnienie
+
+Każdy `<img>` **musi posiadać atrybut *alt***. Jego całkowite pominięcie to **_kardynalny błąd dostępności_**, ponieważ czytnik ekranu odczyta wtedy surową nazwę pliku (na przykład `IMG_4821_final.webp`) albo zgłosi „grafika bez etykiety”.
+
+Wartość atrybutu dobierasz jednak do roli obrazu w kontekście strony:
+1. **Ozdobna linia**: `alt=""` (pusty cudzysłów). Czytnik ekranu całkowicie pomija element dekoracyjny i nie rozprasza użytkownika.
+2. **Logotyp jako link**: `alt="Strona główna Sklepu"`. Opisuje funkcję odnośnika, nie wygląd samego znaku graficznego.
+3. **Zdjęcie portów laptopa**: `alt="Lewa krawędź laptopa z dwoma portami USB-C oraz gniazdem HDMI"`. Zastępuje informację wzrokową, której brakuje w samym tekście.
+
+| Rola grafiki | Poprawny atrybut `alt` | Skutek dla czytnika ekranu |
+| :--- | :--- | :--- |
+| Element czysto dekoracyjny | `alt=""` | Element jest bezpiecznie ignorowany |
+| Obraz wewnątrz linku `<a>` | Cel linku, np. `alt="Strona główna"` | Czytnik ogłasza dokąd prowadzi odnośnik |
+| Zdjęcie produktowe z podpisem obok | `alt=""` (jeśli tytuł obok wyczerpuje opis) | Brak męczącego powtarzania tej samej nazwy |
+| Zdjęcie lub schemat niosący wiedzę | Konkretny opis informacji z obrazu | Użytkownik otrzymuje pełny sens grafiki |
+
+### 🗃️ Samodzielna ilustracja z podpisem: figure i figcaption
+
+Znacznik `<figure>` grupuje samodzielny obiekt ilustracyjny (obraz, schemat, wykres albo blok kodu), który można przenieść w inne miejsce dokumentu bez utraty sensu tekstu. Podpis dodajesz znacznikiem `<figcaption>` jako pierwszym lub ostatnim dzieckiem `<figure>`:
 
 ```html
 <figure>
-    <img src="images/architektura-sieci.png" width="640" height="360" loading="lazy" alt="Schemat architektury klient-serwer.">
+    <img
+        src="./images/architektura-sieci.webp"
+        width="640"
+        height="360"
+        loading="lazy"
+        alt="Schemat architektury klient i serwer"
+    >
     <figcaption>
-        <strong>Schemat 1: Przepływ danych w architekturze aplikacji internetowej.</strong> 
-        Żądanie HTTP wysłane z przeglądarki przechodzi przez zaporę sieciową (Firewall) i trafia do serwera aplikacji (Node.js), który odpytuje bazę danych SQL, a następnie zwraca odpowiedź.
+        <strong>Schemat 1:</strong> Żądanie HTTP z przeglądarki przechodzi przez zaporę sieciową do serwera aplikacji, który odpytuje bazę danych i zwraca odpowiedź.
     </figcaption>
 </figure>
 ```
 
-W powyższym kodzie zastosowaliśmy profesjonalny podział ról:
-- **Szczegółowy opis techniczny** (droga zapytania przez firewall) znajduje się bezpośrednio w podpisie `<figcaption>`, dzięki czemu każdy uczeń ma do niego dostęp.
-- **Atrybut `alt`** na obrazku służy wyłącznie do zwięzłej identyfikacji tematu grafiki, co zapobiega powielaniu wypowiedzi w czytnikach ekranu.
-
-Zgodnie z wytycznymi **WCAG**, jeśli podpis `<figcaption>` całkowicie wyczerpuje opis grafiki, dopuszczalne jest pozostawienie pustego atrybutu `alt=""`. Całkowite pominięcie tego atrybutu (brak zapisu `alt` w kodzie) jest jednak błędem, ponieważ część starszych systemów odczyta wtedy nazwę pliku.
+Zwróć uwagę na czysty podział ról: atrybut `alt` podaje zwięzły temat ilustracji, a `<figcaption>` rozwija szczegóły techniczne widoczne dla wszystkich czytelników. Dzięki temu czytnik ekranu nie powtarza dwa razy identycznego zdania.
 
 <data-gate>
-  <data-quiz>
-    <question>Na stronie sklepu internetowego umieszczasz zdjęcie produktu. Jaką wartość atrybutu `alt` zastosować dla fotografii czerwonych sneakersów Nike Air Max 270?</question>
-    <options>
-<item>
-
-```html
-alt=""
-```
-
-</item>
-<item correct>
-
-```html
-alt="Czerwone buty sportowe Nike Air Max 270"
-```
-
-</item>
-<item>
-
-```html
-alt="Zdjęcie produktu numer 4721"
-```
-
-</item>
-<item>
-
-```html
-alt="Obrazek przedstawiający buty"
-```
-
-</item>
-</options>
-    <div data-hint="error">
-      Zastanów się, co usłyszy osoba niewidoma. Opis powinien pozwolić jej podjąć świadomą decyzję o tym, co dokładnie znajduje się na zdjęciu produktu.
-    </div>
-    <div data-hint="success">
-      Dobrze. Opisowy `alt` zastępuje wzrokowe postrzeganie zdjęcia. Powinien przekazać cechy kluczowe dla kontekstu strony.
-    </div>
-  </data-quiz>
+<data-connection-matcher title="Połącz znacznik HTML z jego dokładną rolą w semantyce tekstu i mediów">
+  <item left="`&lt;strong&gt;`" right="Oznacza treść krytycznie ważną, ostrzeżenie lub kluczową regułę"></item>
+  <item left="`&lt;em&gt;`" right="Nadaje logiczny nacisk zmieniający sens wypowiedzi w zdaniu"></item>
+  <item left="`&lt;pre&gt;&lt;code&gt;`" right="Prezentuje wieloliniowy blok kodu z zachowaniem spacji i wcięć"></item>
+  <item left="`&lt;blockquote&gt;` + `&lt;cite&gt;`" right="Oznacza dłuższy cytat blokowy wraz z nazwą lub źródłem publikacji"></item>
+  <item left="`&lt;time datetime=&quot;...&quot;&gt;`" right="Przekazuje maszynom jednoznaczną datę w standardzie ISO 8601"></item>
+  <item left="`&lt;figure&gt;` + `&lt;figcaption&gt;`" right="Grupuje samodzielną ilustrację lub schemat razem z jego podpisem"></item>
+</data-connection-matcher>
 </data-gate>
+
+---
+
+## 🚀 Zadanie: semantyczna karta artykułu technicznego
+
+Zbuduj kompletną semantyczną kartę fragmentu artykułu (bez używania gotowych wzorców do przeklejenia). Wyobraź sobie, że publikujesz notatkę z audytu wydajności strony internetowej.
+
+Twój kod HTML musi zawierać wszystkie poniższe elementy:
+1. Akapit z datą publikacji `15 maja 2026` zapisaną znacznikiem `<time>` z atrybutem `datetime` w formacie ISO 8601 (`2026-05-15`).
+2. Krótkie ostrzeżenie lub kluczową regułę wyróżnioną znacznikiem `<strong>`.
+3. Blok cytatu `<blockquote>` zawierający tekst cytatu w `<p>` oraz wskazanie źródła w znaczniku `<cite>` (na przykład nazwę specyfikacji, bez adresu zaczynającego się od `https://`).
+4. Kontener `<figure>` zawierający:
+   - znacznik `<img>` ze ścieżką względną (na przykład `./images/audyt-obrazow.webp`), liczbowymi atrybutami `width` i `height` (bez `px`) oraz opisowym, niepustym atrybutem `alt` (co najmniej 5 znaków),
+   - podpis `<figcaption>` opisujący ilustrację (co najmniej 5 znaków).
+
+<data-gate>
+  <data-code-runner language="html" title="Semantyczna karta artykułu: time, blockquote, cite oraz figure">
+    <template data-type="code">
+<!-- Zbuduj semantyczną kartę artykułu: time (ISO 8601), strong, blockquote z cite oraz figure z img i figcaption -->
+
+    </template>
+    <template data-type="requirements">
+      [
+        {
+          "id": "card-time-iso",
+          "text": "Dodano znacznik <time> z atrybutem datetime w formacie ISO 8601 (2026-05-15)",
+          "type": "regex",
+          "pattern": "<time\\b[^>]*datetime\\s*=\\s*[\"']2026-05-15[\"'][^>]*>[\\s\\S]*?</time>"
+        },
+        {
+          "id": "card-strong",
+          "text": "Wyróżniono kluczową regułę lub ostrzeżenie znacznikiem <strong>",
+          "type": "regex",
+          "pattern": "<strong\\b[^>]*>[\\s\\S]{3,}?</strong>"
+        },
+        {
+          "id": "card-blockquote-cite",
+          "text": "Utworzono cytat <blockquote> zawierający źródło w znaczniku <cite>",
+          "type": "regex",
+          "pattern": "<blockquote\\b[^>]*>[\\s\\S]*?<cite\\b[^>]*>[\\s\\S]{3,}?</cite>[\\s\\S]*?</blockquote>"
+        },
+        {
+          "id": "card-figure-figcaption",
+          "text": "Umieszczono <img> oraz opisowy podpis <figcaption> wewnątrz <figure>",
+          "type": "regex",
+          "pattern": "<figure\\b[^>]*>[\\s\\S]*?<img\\b[^>]*>[\\s\\S]*?<figcaption\\b[^>]*>[\\s\\S]{5,}?</figcaption>[\\s\\S]*?</figure>"
+        },
+        {
+          "id": "card-img-width",
+          "text": "Zdefiniowano liczbowy atrybut width (bez px) na elemencie <img>",
+          "type": "regex",
+          "pattern": "<img\\b[^>]*width\\s*=\\s*[\"']\\d+[\"'][^>]*>"
+        },
+        {
+          "id": "card-img-height",
+          "text": "Zdefiniowano liczbowy atrybut height (bez px) na elemencie <img>",
+          "type": "regex",
+          "pattern": "<img\\b[^>]*height\\s*=\\s*[\"']\\d+[\"'][^>]*>"
+        },
+        {
+          "id": "card-img-alt",
+          "text": "Dodano opisowy, niepusty atrybut alt (min. 5 znaków) do elementu <img>",
+          "type": "regex",
+          "pattern": "<img\\b[^>]*alt\\s*=\\s*[\"'][^\"']{5,}[\"'][^>]*>"
+        }
+      ]
+    </template>
+  </data-code-runner>
+</data-gate>
+
+---
+
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Matematyka CLS, Preload Scanner w Blink i negocjacja formatów AVIF/WebP</span>
+<span class="deep-dive-badge">CORE WEB VITALS · PRELOAD SCANNER · AVIF</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Jak przeglądarka wylicza proporcję z width i height przed pobraniem obrazu</h4>
+
+W domyślnym arkuszu stylów przeglądarki (*User-Agent Stylesheet*) atrybuty HTML `width` i `height` na `<img>` mapują się na wskazówkę prezentacyjną CSS `aspect-ratio`:
+
+```css
+/* Wbudowana reguła UA w nowoczesnych silnikach (Blink, Gecko, WebKit) */
+img {
+    aspect-ratio: attr(width) / attr(height);
+}
+```
+
+Dzięki temu, nawet jeśli później w CSS ustawisz responsywne `max-width: 100%; height: auto;`, silnik podczas pierwszego etapu *Layout* zna dokładną wysokość ramki jeszcze przed pobraniem pierwszego bajtu pliku graficznego. Utrzymuje to metrykę **CLS** (*Cumulative Layout Shift = impact fraction × distance fraction*) na poziomie `0.00`.
+
+<h4>2. Preload Scanner i dlaczego loading="lazy" szkodzi głównemu obrazowi LCP</h4>
+
+Gdy główny parser HTML natrafia na zasoby blokujące, w tle działa osobny, szybki **Preload Scanner** (skaner spekulatywny), który wyłapuje tagi `<img>` i uruchamia ich pobieranie z wyprzedzeniem. Dodanie `loading="lazy"` wyłącza obraz ze skanera spekulatywnego i opóźnia żądanie sieciowe aż do momentu obliczenia pełnego *Layoutu*. Dla głównego zdjęcia widocznego od razu na ekranie (**LCP**, *Largest Contentful Paint*) zamiast `loading="lazy"` stosuje się `fetchpriority="high"`.
+
+<h4>3. Negocjacja kodeków graficznych przez znacznik picture</h4>
+
+Format **AVIF** (oparty na kodeku wideo AV1) potrafi zmniejszyć wagę zdjęcia o kolejne 20 do 30% względem WebP. Bezpieczne podanie nowoczesnych formatów z automatycznym fallbackiem realizuje `<picture>`:
+
+```html
+<picture>
+    <source srcset="./images/hero.avif" type="image/avif">
+    <source srcset="./images/hero.webp" type="image/webp">
+    <img src="./images/hero.jpg" width="1200" height="675" fetchpriority="high" alt="Widok serwerowni">
+</picture>
+```
+
+</div>
+</details>
 
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **`<strong>` to nie pogrubienie, a `<em>` to nie kursywa**: Służą one do oznaczania wagi semantycznej oraz emfazy zdaniowej. Do celów czysto wizualnych stosujesz tagi `<b>` oraz `<i>`.
-- **`<span>` to liniowy odpowiednik `<div>`**: Nie posiada znaczenia semantycznego. Służy wyłącznie do grupowania słów wewnątrz tekstu pod przyszłe stylowanie lub np. na potrzeby kolorowania kodu w `<code>`.
-- **`<abbr>` i dymki `title` to martwa semantyka**: Współczesne wyszukiwarki, syntezatory mowy i systemy AI całkowicie je ignorują. Każdy skrót najlepiej i najbezpieczniej rozwijać wprost w zwykłym tekście (np. w nawiasie) przy jego pierwszym użyciu.
-- **Brak `alt` to błąd i** **_„grafika bez etykiety”_**: Całkowity brak tego atrybutu sprawia, że czytniki ekranu zgłaszają komunikat o braku etykiety. Pusty `alt=""` rezerwujesz wyłącznie dla elementów czysto ozdobnych, które czytnik ma zignorować.
-- **`<time>` wymaga formatu ISO 8601**: Atrybut `datetime` musi zawierać jednoznacznie i poprawnie sformatowaną datę, by roboty i parsery mogły ją bezbłędnie zinterpretować.
+- **Rozdzielaj semantykę od wyglądu**: `<strong>` oznacza krytyczną ważność, `<em>` logiczny nacisk, natomiast `<b>`, `<i>` i `<span>` służą do wyróżnień bez narzucania maszynom fałszywej wagi.
+- **Wieloliniowy kod zawsze zamykaj w `<pre><code>`**: samo `<code>` nie chroni przed zwijaniem białych znaków i wcięć przez przeglądarkę.
+- **Zapisuj daty w `<time>` z formatem ISO 8601**: atrybut `datetime` ujednolica zapis dla maszyn niezależnie od języka na stronie; nie stosuj `<time>` do niejednoznacznych epok.
+- **Unikaj `<abbr title="...">`**: rozwijaj skróty bezpośrednio w tekście przy pierwszym użyciu, aby były dostępne na smartfonach i dla klawiatury.
+- **Dobieraj format grafiki świadomie i zawsze dodawaj `alt`, `width` oraz `height`**: domyślnie wybieraj **WebP** dla zdjęć i **SVG** dla ikon, podawaj wymiary bez `px`, a pusty `alt=""` rezerwuj wyłącznie dla grafik czysto dekoracyjnych.
 
-
-
-
+> [!TIP]
+> Chcesz utrwalić dobór semantyki tekstu, formatów obrazów i dostępnych podpisów na kolejnych scenariuszach? Przejdź do sekcji [Katalog zadań praktycznych](/arkusze/?qual=INF.03&tag=HTML).

@@ -154,6 +154,40 @@
 <data-terminal-mission src="/public/courses/ubuntu-26/Scenarios/terminal-missions/m4-01-regula-testowa-ufw.md"></data-terminal-mission>
 </data-gate>
 
+<hr>
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Od iptables do nftables i maszyn wirtualnych eBPF w jądrze Linuksa</span><span class="deep-dive-badge">Kernel Packet Filtering &amp; eBPF</span></summary>
+
+<p>UFW to zaledwie przyjazna dla człowieka nakładka w języku Python. Pod spodem jądro Linuksa przetwarza każdy przychodzący pakiet sieciowy w ultrawydajnym silniku reguł.</p>
+<h3>1. Ewolucja podsystemu filtrowania jądra</h3>
+<p>Przez dekady podsystemem zapory sieciowej był <span class="color-green"><code>iptables</code></span> (oparty na hakach <span class="color-blue">Netfilter</span>). Posiadał on jednak wady architektoniczne: każda zmiana reguły wymagała zrzucenia i ponownego załadowania całej tablicy reguł w pamięci jądra.</p>
+<p>Współczesne systemy (w tym Ubuntu 24.04/26.04) jako backend dla UFW wykorzystują <span class="color-green"><code>nftables</code></span>:</p>
+<ul>
+<li>Nftables traktuje jądro jako maszynę wirtualną wykonującą miniaturowy kod bajtowy.</li>
+<li>Reguły są reprezentowane jako zestawy wyrażeń: sprawdź nagłówek TCP $\to$ sprawdź port docelowy $\to$ podejmij akcję <code>ACCEPT</code> lub <code>DROP</code>.</li>
+<li>Zmiany reguł są w pełni <span class="color-green">atomowe</span>: dodanie lub usunięcie portu nie przerywa trwających połączeń TCP.</li>
+</ul>
+<pre><code>   Pakiet sieciowy z karty sieciowej (struct sk_buff)
+                       │
+                       ▼
+             Haki jądra Netfilter:
+   [ PREROUTING ] ──&gt; [ INPUT ] ──&gt; Aplikacja (np. sshd)
+                            │
+                      Maszyna nftables / eBPF:
+                      1. Czy proto == TCP? (TAK)
+                      2. Czy dport == 22? (TAK)
+                      3. Czy src == 192.168.50.10? (TAK)
+                      ==&gt; Werdykt: NF_ACCEPT
+</code></pre>
+<h3>2. Rewolucja eBPF (Extended Berkeley Packet Filter)</h3>
+<p>Tradycyjna zapora sieciowa sprawdza pakiet dopiero po tym, jak sterownik karty sieciowej przekaże go do stosu sieciowego jądra i zaalokuje strukturę <code>struct sk_buff</code>.</p>
+<p>Nowoczesne środowiska wysokiej wydajności (np. Cloudflare, Meta) stosują technologię <span class="color-green">eBPF</span>:</p>
+<ul>
+<li>Administrator kompiluje kod w C do kodu bajtowego eBPF i wstrzykuje go bezpośrednio do jądra.</li>
+<li>Program eBPF jest weryfikowany pod kątem bezpieczeństwa pamięci (<span class="color-blue">in‑kernel verifier</span>), a następnie tłumaczony w locie (JIT) na natywny kod maszynowy x86_64.</li>
+<li>Program może zostać podpięty pod warstwę <span class="color-green">XDP</span> (<span class="color-blue">eXpress Data Path</span>) w samym sterowniku karty sieciowej: niepożądane pakiety są odrzucane w ułamku nanosekundy, zanim jądro zdąży w ogóle zaalokować dla nich pamięć RAM!</li>
+</ul>
+</details>
 
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>

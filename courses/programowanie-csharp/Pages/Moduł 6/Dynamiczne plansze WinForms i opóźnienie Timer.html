@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamiczne plansze WinForms i opóźnienie Timer - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Dynamiczne plansze WinForms i opóźnienie Timer</h1>
+<p>Plansza 4x4 wyklikana ręcznie w projektancie WinForms przestaje działać w chwili, gdy gracz wybierze tryb 3x4 albo 4x6. Ręczne układanie kilkudziesięciu przycisków nie skaluje się i zamienia każdą zmianę poziomu trudności w kopiowanie formularzy.</p>
+<p>Kolejna ściana pojawia się przy obsłudze nietrafionej pary kart. Intuicja podpowiada prosty zapis: odkryj drugą kartę, wywołaj <code>Thread.Sleep(750)</code> i zakryj obie. Po uruchomieniu czeka jednak niemiła niespodzianka: okno zamiera, a druga karta w ogóle nie pojawia się na ekranie.</p>
+<p>Na koniec program musi trwale zapisać najlepszy wynik. Zapis pliku obok <code>.exe</code> działa na Pulpicie, ale kończy się awarią uprawnień po zainstalowaniu gry w <code>C:\Program Files</code>. Poniżej rozkładamy na czynniki pierwsze trzy filary dojrzałej aplikacji okienkowej: dynamiczny układ siatki, nieblokujący <code>Timer</code> oraz atomowy zapis danych użytkownika.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧩 Dynamiczna siatka TableLayoutPanel z kodu</h2>
+<p>Aby dopasować planszę do dowolnych wymiarów <span class="color-blue">wiersze</span> x <span class="color-blue">kolumny</span>, budujesz kontener <code>TableLayoutPanel</code> w pętli. Każdemu wierszowi i każdej kolumnie nadajesz styl <code>SizeType.Percent</code> z wartością <code>100f / wiersze</code> oraz <code>100f / kolumny</code>.</p>
+<p>Zwróć uwagę na literę <code>f</code> w <code>100f</code>. Dzielenie całkowitoliczbowe <code>100 / 6</code> obcięłoby ułamek do <code>16</code>, zostawiając puste <code>4%</code> z boku planszy. Zapis <code>100f / 6</code> daje <code>16.6667f</code>, więc wszystkie karty mają identyczny rozmiar i wypełniają cały kontener.</p>
+<pre><code class="language-csharp">private TableLayoutPanel ZbudujSiatke(int wiersze, int kolumny, Size rozmiarPlanszy)
+{
+    var siatka = new TableLayoutPanel();
+    siatka.Size = rozmiarPlanszy;
+    siatka.RowCount = wiersze;
+    siatka.ColumnCount = kolumny;
+
+    siatka.SuspendLayout();
+    for (int r = 0; r &lt; wiersze; r++)
+        siatka.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / wiersze));
+    for (int c = 0; c &lt; kolumny; c++)
+        siatka.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f / kolumny));
+
+    int indeks = 0;
+    for (int r = 0; r &lt; wiersze; r++)
+    {
+        for (int c = 0; c &lt; kolumny; c++)
+        {
+            var btn = new Button();
+            btn.Dock = DockStyle.Fill;
+            btn.Margin = new Padding(4);
+            btn.Tag = indeks++;
+            siatka.Controls.Add(btn, c, r);
+        }
+    }
+    siatka.ResumeLayout();
+    return siatka;
+}
+</code></pre>
+<p>Trzy właściwości decydują o tym, że siatka działa szybko i czysto:</p>
+<ul>
+<li><span class="color-green"><code>SuspendLayout()</code> i <code>ResumeLayout()</code></span>: bez tej pary WinForms przeliczałby geometrię całej planszy po każdym <code>Controls.Add</code>. Dla 24 kart oznacza to 24 pełne przeliczenia układu zamiast jednego na końcu.</li>
+<li><span class="color-green"><code>Dock = DockStyle.Fill</code></span>: rozciąga każdy przycisk na całą komórkę siatki z zachowaniem marginesu <code>Margin</code>. Bez tej właściwości przyciski miałyby domyślny, sztywny rozmiar i nie skalowałyby się z oknem.</li>
+<li><span class="color-green"><code>Button.Tag</code></span>: uniwersalne pole typu <code>object</code> do przechowywania numeru karty w jednym wspólnym handlerze <code>Click</code>. Przypisanie wartości <code>int</code> wykonuje <span class="color-green">boxing</span> (opakowanie liczby na stercie), a odczyt <code>int idx = (int)btn.Tag;</code> wykonuje <span class="color-green">unboxing</span>.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Podczas <span class="color-green">unboxingu</span> rzutuj <code>btn.Tag</code> dokładnie na ten sam typ, który wcześniej zapisałeś. Jeśli w <code>Tag</code> siedzi <code>int</code>, próba rzutowania na <code>(long)btn.Tag</code> albo <code>(short)btn.Tag</code> rzuci wyjątek <span class="color-red">InvalidCastException</span>.</p>
+
+</div>
+</div><h3>📐 Algorytm szukania najbardziej kwadratowej siatki</h3>
+<p>Gracz wybiera liczbę kart (np. <code>12</code>, <code>16</code>, <code>24</code>), a program musi sam wyliczyć <span class="color-blue">wiersze</span> i <span class="color-blue">kolumny</span> tak, aby <code>wiersze * kolumny == liczbaKart</code>, <code>wiersze &lt;= kolumny</code>, a kształt planszy był jak najbliższy kwadratowi.</p>
+<p>Najpierw odrzucasz dane niepoprawne: dla <code>liczbaKart &lt; 4</code> lub liczby nieparzystej (<code>liczbaKart % 2 != 0</code>) zawsze zerujesz oba parametry <code>out</code> (<code>wiersze = 0; kolumny = 0;</code>) i zwracasz <code>false</code>. Pozostawienie starych wartości w <code>out</code> po błędnym wywołaniu wprowadziłoby w błąd kod wywołujący.</p>
+<p>Dla poprawnej liczby kart startujesz pętlą od pierwiastka <code>int d = (int)Math.Sqrt(liczbaKart);</code> i idziesz w dół do <code>1</code>. Pierwszy napotkany dzielnik spełniający <code>liczbaKart % d == 0</code> gwarantuje najmniejszą różnicę między bokami: <code>wiersze = d</code> oraz <code>kolumny = liczbaKart / d</code>. Przykładowo dla <code>16</code> trafiasz od razu <code>4x4</code>, dla <code>24</code> zaczynasz od <code>4</code> i dostajesz <code>4x6</code>, dla <code>12</code> masz <code>3x4</code>, a dla <code>14</code> trafiasz <code>2x7</code>.</p>
+<data-gate>
+<data-connection-matcher title="Połącz mechanizm WinForms z jego rolą i skutkiem pominięcia">
+  <item left="Dock = DockStyle.Fill" right="Rozciąga przycisk na całą komórkę siatki; bez tego karty mają sztywny rozmiar i nie skalują się"></item>
+  <item left="Button.Tag" right="Przechowuje indeks karty jako object (boxing/unboxing) dla jednego wspólnego handlera Click"></item>
+  <item left="SuspendLayout() i ResumeLayout()" right="Wstrzymuje przeliczanie układu do końca pętli; bez tego 24 karty wymuszają 24 przeliczenia geometrii"></item>
+  <item left="SizeType.Percent z 100f / kolumny" right="Dzieli szerokość ułamkowo na równe pasy; dzielenie całkowite 100 / 6 obcięłoby ułamek i zostawiło pusty margines"></item>
+  <item left="Environment.SpecialFolder.LocalApplicationData" right="Daje bezpieczny katalog zapisu bez uprawnień administratora; zapis obok .exe zawodzi w Program Files"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⏱️ Kolejka WM_PAINT i jednorazowy Timer bez wyścigu zdarzeń</h2>
+<p>Aplikacja WinForms działa wokół jednej pętli komunikatów na <span class="color-green">wątku UI</span>. Gdy w obsłudze kliknięcia zmienisz napis lub kolor przycisku, Windows nie rysuje kontrolki od razu. System jedynie dopisuje komunikat odrysowania <span class="color-gold">WM_PAINT</span> na koniec kolejki.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Wywołanie <span class="color-red">Thread.Sleep(750)</span> wewnątrz zdarzenia <code>Click</code> blokuje pętlę komunikatów. Okno nie reaguje na mysz, a komunikat <span class="color-gold">WM_PAINT</span> czeka w kolejce przez całe 750 ms. W efekcie druga karta nawet nie zdąży się wyświetlić, zanim kod po przebudzeniu ją zakryje!</p>
+
+</div>
+</div><p>Aby pokazać graczowi obie karty i nie zamrozić okna, używasz obiektu <code>System.Windows.Forms.Timer</code>. Korzysta on z komunikatu <span class="color-gold">WM_TIMER</span> na tym samym wątku UI, więc w zdarzeniu <code>Tick</code> bezpiecznie modyfikujesz przyciski bez ryzyka błędu wielowątkowości <span class="color-red">InvalidOperationException</span>.</p>
+<h3>🛡️ Pole klasy i ochrona przed wyścigiem zdarzeń</h3>
+<p>W prostych przykładach timer bywa tworzony jako zmienna lokalna <code>var timerZakrycia = new Timer()</code>. W prawdziwej grze prowadzi to do groźnego błędu <span class="color-red">UI Race Condition</span> (wyścigu zdarzeń w interfejsie).</p>
+<p>Prześledź taki scenariusz: gracz odkrywa nietrafioną parę kart <code>0</code> i <code>5</code>, a timer startuje na <code>750 ms</code>. Po <code>300 ms</code> gracz klika przycisk „Nowa gra”, który tasuje nową planszę i odblokowuje kliknięcia. Gracz zdążył odkryć nową kartę <code>0</code>, gdy po pozostałych <code>450 ms</code> stary timer z poprzedniej partii odpala <code>Tick</code> i po cichu zakrywa kartę z nowej rozgrywki!</p>
+<p>Rozwiązaniem jest trzymanie timera w polu klasy <code>_timerZakrycia</code> oraz metoda <code>AnulujTimerZakrycia()</code>, wywoływana zarówno w <code>Tick</code>, jak i na początku przycisku „Nowa gra”:</p>
+<pre><code class="language-csharp">private Timer _timerZakrycia;
+
+private void AnulujTimerZakrycia()
+{
+    if (_timerZakrycia != null)
+    {
+        _timerZakrycia.Stop();
+        _timerZakrycia.Dispose();
+        _timerZakrycia = null;
+    }
+}
+
+private void UruchomZakryciePoOpoznieniu(int pierwsza, int druga)
+{
+    AnulujTimerZakrycia();
+
+    // Kopie lokalne dla domknięcia lambdy: pola klasy mogą się zmienić przed upływem 750 ms
+    int a = pierwsza;
+    int b = druga;
+
+    _timerZakrycia = new Timer { Interval = 750 };
+    _timerZakrycia.Tick += (s, e) =&gt;
+    {
+        AnulujTimerZakrycia();
+        ZakryjPare(a, b);
+        _silnik.TimerZakonczony();
+    };
+    _timerZakrycia.Start();
+}
+</code></pre>
+<p>Zwróć uwagę na zmienne lokalne <span class="color-blue">a</span> i <span class="color-blue">b</span>. Zanim upłynie <code>750 ms</code>, stan gry może wyzerować pole indeksowe pierwszej karty do <code>-1</code>. Przechwycenie lokalnych kopii <span class="color-blue">a</span> oraz <span class="color-blue">b</span> w domknięciu lambdy daje pewność, że po zakończeniu opóźnienia zakryjesz dokładnie tę parę kart, którą gracz przed chwilą odsłonił.</p>
+<data-gate>
+<data-sortable-list title="Ułóż kolejność zdarzeń w kolejce UI WinForms po kliknięciu drugiej niepasującej karty">
+  <item data-correct="3">Upływa 750 ms: system Windows dostarcza komunikat WM_TIMER i wywołuje handler Tick na wątku UI</item>
+  <item data-correct="1">Handler Click odkrywa drugą kartę, ustawia blokadę, wywołuje _timerZakrycia.Start() i kończy działanie</item>
+  <item data-correct="5">Handler Tick zakrywa karty a i b oraz zdejmuje blokadę w maszynie stanów</item>
+  <item data-correct="2">Pętla komunikatów odbiera zakolejkowany WM_PAINT i rysuje obie odkryte karty na ekranie</item>
+  <item data-correct="4">Handler Tick wywołuje AnulujTimerZakrycia(), wykonując Stop() i Dispose() na timerze Win32</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💾 Formatowanie czasu i trwały zapis w LocalApplicationData</h2>
+<p>Zegar rozgrywki zlicza sekundy jako <code>int</code>. Aby wyświetlić napis <code>MM:SS</code>, dzielisz <span class="color-blue">sekundy</span> całkowicie przez <code>60</code> (minuty) i bierzesz resztę z dzielenia <code>sekundy % 60</code> (pozostałe sekundy).</p>
+<p>Specyfikator formatu <code>:D2</code> w <code>string.Format("{0:D2}:{1:D2}", minuty, resztaSekund)</code> dopisuje wiodące zero tylko liczbom jednocyfrowym (<code>9</code> staje się <code>"09"</code>), ale nie ucina liczb większych (<code>61</code> pozostaje <code>"61"</code>). Dla wartości ujemnych sprowadź najpierw <span class="color-blue">sekundy</span> do <code>0</code>, aby zegar pokazał bezpieczne <code>"00:00"</code>.</p>
+<h3>📂 Ścieżka użytkownika i defensywny odczyt</h3>
+<p>Pliki z wynikami umieszczaj zawsze w katalogu danych bieżącego użytkownika zamiast obok <code>.exe</code>:</p>
+<pre><code class="language-csharp">string folder = Path.Combine(
+    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+    "MemoryCards");
+string sciezka = Path.Combine(folder, "rekord.txt");
+</code></pre>
+<p>Podczas odczytu pliku z dysku nie zakładaj, że plik istnieje ani że zawiera poprawną liczbę. Użytkownik mógł usunąć plik, otworzyć go w Notatniku i wpisać tekst <code>"abc"</code> albo zostawić pustą linię. Zamiast <code>int.Parse</code>, które rzuciłoby <span class="color-red">FormatException</span>, sprawdź <code>File.Exists</code>, usuń białe znaki przez <code>Trim()</code> i użyj <code>int.TryParse</code>. Każdy błąd I/O, brak pliku albo wynik <code>&lt;= 0</code> traktuj jako brak rekordu (<code>0</code>).</p>
+<h3>⚛️ Zapis atomowy przez plik tymczasowy</h3>
+<div class="markdown-alert markdown-alert--caution">
+<p class="markdown-alert-title">
+<span class="alert-icon">❗</span> Ostrożnie
+</p>
+<div class="markdown-alert-content">
+<p>Zwykłe <code>File.WriteAllText(sciezka, dane)</code> wywołuje funkcję systemową, która <span class="color-red">natychmiast obcina istniejący plik do 0 bajtów</span>, a dopiero potem wpisuje nowe dane. Zanik zasilania lub ubicie procesu w tej milisekundzie niszczy dotychczasowy rekord.</p>
+
+</div>
+</div><p>Bezpieczny wzorzec inżynierski w systemach NTFS to <span class="color-green">zapis atomowy</span>:</p>
+<ol>
+<li>Upewnij się, że katalog docelowy istnieje (<code>Path.GetDirectoryName(sciezka)</code> + <code>Directory.CreateDirectory</code>).</li>
+<li>Zapisz pełną nową treść do pliku tymczasowego <code>string tmp = sciezka + ".tmp";</code> przez <code>FileStream</code> i wymuś fizyczny zrzut bufora wywołaniem <code>fs.Flush(true)</code>.</li>
+<li>Podmień plik jedną operacją metadanych systemu plików: <code>File.Replace(tmp, sciezka, null)</code> (gdy plik docelowy już istnieje) albo <code>File.Move(tmp, sciezka)</code> (przy pierwszym zapisie).</li>
+</ol>
+<pre><code class="language-csharp">string tmp = sciezka + ".tmp";
+using (var fs = new FileStream(tmp, FileMode.Create, FileAccess.Write, FileShare.None))
+using (var sw = new StreamWriter(fs))
+{
+    sw.Write(tresc);
+    sw.Flush();
+    fs.Flush(true);
+}
+
+if (File.Exists(sciezka))
+    File.Replace(tmp, sciezka, null);
+else
+    File.Move(tmp, sciezka);
+</code></pre>
+<p>Jeśli zasilanie zniknie podczas zapisu do <code>.tmp</code>, oryginalny plik rekordu pozostaje nienaruszony. Jeśli zniknie po <code>File.Replace</code>, na dysku leży już pełny nowy plik.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: UAC i VirtualStore, Debouncing kontra Throttling oraz NTFS</span>
+<span class="deep-dive-badge">WINDOWS SECURITY · UI PATTERNS · ATOMIC I/O</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. UAC, Program Files i mechanizm VirtualStore</h4>
+
+<p>Od czasów Windows Vista mechanizm <span class="color-green">UAC</span> (User Account Control) zabrania zwykłym procesom modyfikowania katalogów systemowych, w tym <code>C:\Program Files</code>. Zapis obok pliku <code>.exe</code> działa na Pulpicie, ale zawodzi po instalacji programu.</p>
+<p>Zachowanie systemu zależy od manifestu aplikacji:</p>
+<ul>
+<li><span class="color-green">Stara aplikacja 32‑bitowa bez manifestu UAC</span>: jądro Windows uruchamia zgodność wsteczną <span class="color-gold">File Virtualization</span> i po cichu przekierowuje zapis do ukrytego folderu <code>AppData\Local\VirtualStore\Program Files\...</code>. Program nie rzuca wyjątku, lecz użytkownik nie znajduje pliku tam, gdzie go szuka.</li>
+<li><span class="color-green">Nowoczesna aplikacja .NET z manifestem <code>asInvoker</code> lub 64‑bitowa</span>: wirtualizacja jest wyłączona, więc próba zapisu w <code>Program Files</code> kończy się natychmiastowym wyjątkiem <span class="color-red">UnauthorizedAccessException</span>.</li>
+</ul>
+<p>Z tego powodu wszystkie profesjonalne aplikacje desktopowe zapisują dane w <code>Environment.SpecialFolder.LocalApplicationData</code>, gdzie bieżący użytkownik ma pełne prawa zapisu bez eskalacji UAC.</p>
+<h4>2. Debouncing kontra Throttling w aplikacjach UI</h4>
+
+<p>Wzorzec zatrzymywania i ponownego uruchamiania timera (taki jak <code>AnulujTimerZakrycia()</code> przed nowym <code>Start()</code>) ma szersze zastosowanie w inżynierii interfejsów i nosi nazwę <span class="color-green">debouncing</span>.</p>
+<p>Przykład z wyszukiwarki: gdy użytkownik wpisuje słowo w pole tekstowe, każdy klawisz anuluje stary timer <code>300 ms</code> i uruchamia nowy. Zapytanie do bazy danych wysyła się dopiero wtedy, gdy użytkownik przestanie pisać na <code>300 ms</code>.</p>
+<p>Pokrewną techniką jest <span class="color-green">throttling</span> (dławienie częstotliwości). W przeciwieństwie do debouncingu nie czeka on na ciszę, lecz gwarantuje, że akcja (np. przeliczanie układu podczas przeciągania krawędzi okna myszą) wykona się maksymalnie raz na ustalony interwał, na przykład co <code>50 ms</code>.</p>
+<h4>3. Dlaczego File.WriteAllText grozi utratą danych na NTFS</h4>
+
+<p>Metoda <code>File.WriteAllText</code> otwiera plik z flagą Win32 <code>CREATE_ALWAYS</code>, która <span class="color-red">natychmiast obcina istniejący plik do 0 bajtów</span> przed zapisaniem nowej zawartości. Ponadto system operacyjny buforuje zapis w pamięci RAM (cache dyskowy) i zrzuca go na nośnik z opóźnieniem.</p>
+<p>Wywołanie <code>fs.Flush(true)</code> wymusza komendę <code>FlushFileBuffers</code> na sterowniku dysku, zanim wywołasz <code>File.Replace</code>. Sama zamiana wpisów w tablicy MFT systemu NTFS jest operacją księgowaną w dzienniku transakcji, dzięki czemu plik docelowy nigdy nie pozostaje w stanie „w połowie zapisany”.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Zegar, siatka i atomowy zapis rekordów</h2>
+<p>W klasie <code>RekordyHelper</code> zaimplementuj pięć metod statycznych dla silnika gry Memory:</p>
+<ol>
+<li><span class="color-green"><code>FormatujCzas(int sekundy)</code></span>:<ul>
+<li>wartości ujemne traktuj jako <code>0</code> (<code>"00:00"</code>),</li>
+<li>zwróć napis <code>MM:SS</code> z co najmniej dwiema cyframi minut i dwiema cyframi sekund (np. <code>9</code> -&gt; <code>"00:09"</code>, <code>75</code> -&gt; <code>"01:15"</code>, <code>3665</code> -&gt; <code>"61:05"</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>CzyNowyRekord(int stareRuchy, int noweRuchy)</code></span>:<ul>
+<li>mniej ruchów oznacza lepszy wynik,</li>
+<li>jeśli <span class="color-blue">noweRuchy</span> <code>&lt;= 0</code>, zwróć <code>false</code>,</li>
+<li>jeśli <span class="color-blue">stareRuchy</span> <code>&lt;= 0</code> (brak rekordu), zwróć <code>true</code>,</li>
+<li>w przeciwnym razie zwróć <code>true</code> wyłącznie wtedy, gdy <code>noweRuchy &lt; stareRuchy</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ObliczWymiarySiatki(int liczbaKart, out int wiersze, out int kolumny)</code></span>:<ul>
+<li>jeśli <code>liczbaKart &lt; 4</code> lub <span class="color-blue">liczbaKart</span> jest nieparzyste, wyzeruj <code>wiersze = 0</code>, <code>kolumny = 0</code> i zwróć <code>false</code>,</li>
+<li>w przeciwnym razie wyznacz parę liczb <code>wiersze &lt;= kolumny</code> o najmniejszej różnicy, gdzie <code>wiersze * kolumny == liczbaKart</code> (dzielniki od <code>(int)Math.Sqrt(liczbaKart)</code> w dół), i zwróć <code>true</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>WczytajRekordZPliku(string sciezka)</code></span>:<ul>
+<li>jeśli <span class="color-blue">sciezka</span> jest pusta (<code>string.IsNullOrWhiteSpace</code>) lub plik nie istnieje, zwróć <code>0</code>,</li>
+<li>wczytaj treść pliku (zabezpieczając odczyt <code>try / catch</code>), przytnij białe znaki przez <code>Trim()</code> i sparsuj przez <code>int.TryParse</code>,</li>
+<li>jeśli tekst nie jest poprawną liczbą dodatnią (np. <code>"abc"</code>, <code>""</code>, <code>"-5"</code>), zwróć <code>0</code>; w przeciwnym razie zwróć wczytaną liczbę.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZapiszRekordJesliLepszy(string sciezka, int noweRuchy)</code></span>:<ul>
+<li>jeśli <span class="color-blue">sciezka</span> jest pusta lub <code>noweRuchy &lt;= 0</code>, zwróć <code>false</code>,</li>
+<li>wczytaj dotychczasowy rekord metodą <code>WczytajRekordZPliku(sciezka)</code> i sprawdź <code>CzyNowyRekord(stary, noweRuchy)</code> (jeśli nowy wynik nie jest lepszy, zwróć <code>false</code>),</li>
+<li>jeśli <code>Path.GetDirectoryName(sciezka)</code> nie jest puste, utwórz brakujący katalog metodą <code>Directory.CreateDirectory</code>,</li>
+<li>zapisz <code>noweRuchy.ToString()</code> atomowo przez plik <code>sciezka + ".tmp"</code> (<code>FileStream</code> + <code>Flush(true)</code> + <code>File.Replace</code> gdy plik istnieje albo <code>File.Move</code> przy pierwszym zapisie) i zwróć <code>true</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: RekordyHelper (zegar, wymiary siatki i atomowy zapis rekordu)" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.IO;
+
+public static class RekordyHelper
+{
+    public static string FormatujCzas(int sekundy)
+    {
+        // Zwróć "MM:SS" (wartości ujemne -&gt; "00:00", sekundy &gt;= 3600 -&gt; np. "60:00", "61:05")
+        return "00:00";
+    }
+
+    public static bool CzyNowyRekord(int stareRuchy, int noweRuchy)
+    {
+        // Mniej ruchów = lepiej; stareRuchy &lt;= 0 oznacza brak wcześniejszego rekordu
+        return false;
+    }
+
+    public static bool ObliczWymiarySiatki(int liczbaKart, out int wiersze, out int kolumny)
+    {
+        // Dla parzystej liczbaKart &gt;= 4 wyznacz najbardziej kwadratowe wymiary (wiersze &lt;= kolumny)
+        wiersze = 0;
+        kolumny = 0;
+        return false;
+    }
+
+    public static int WczytajRekordZPliku(string sciezka)
+    {
+        // Zwróć 0 gdy brak pliku, błędna ścieżka, błąd I/O, śmieci zamiast liczby lub wartość &lt;= 0
+        return 0;
+    }
+
+    public static bool ZapiszRekordJesliLepszy(string sciezka, int noweRuchy)
+    {
+        // Porównaj z bieżącym rekordem z pliku, utwórz katalog jeśli brakuje
+        // i zapisz nowy rekord atomowo przez plik .tmp
+        return false;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("75 s -&gt; " + FormatujCzas(75));
+        Console.WriteLine("3665 s -&gt; " + FormatujCzas(3665));
+        Console.WriteLine("Nowy rekord (18 vs 14): " + CzyNowyRekord(18, 14));
+
+        int w, k;
+        if (ObliczWymiarySiatki(24, out w, out k))
+            Console.WriteLine("24 karty -&gt; siatka " + w + "x" + k);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("FormatujCzas formatuje MM:SS, obsługuje ujemne oraz czasy &gt;= 3600 s", () =&gt; {
+    LabAssert.Equal("00:00", RekordyHelper.FormatujCzas(-5));
+    LabAssert.Equal("00:00", RekordyHelper.FormatujCzas(0));
+    LabAssert.Equal("00:09", RekordyHelper.FormatujCzas(9));
+    LabAssert.Equal("00:59", RekordyHelper.FormatujCzas(59));
+    LabAssert.Equal("01:00", RekordyHelper.FormatujCzas(60));
+    LabAssert.Equal("01:15", RekordyHelper.FormatujCzas(75));
+    LabAssert.Equal("10:00", RekordyHelper.FormatujCzas(600));
+    LabAssert.Equal("60:00", RekordyHelper.FormatujCzas(3600));
+    LabAssert.Equal("61:05", RekordyHelper.FormatujCzas(3665));
+});
+
+LabAssert.Test("CzyNowyRekord rozpoznaje pierwszy rekord, poprawę i błędne wartości", () =&gt; {
+    LabAssert.True(RekordyHelper.CzyNowyRekord(0, 16));
+    LabAssert.True(RekordyHelper.CzyNowyRekord(-1, 10));
+    LabAssert.True(RekordyHelper.CzyNowyRekord(16, 12));
+    LabAssert.False(RekordyHelper.CzyNowyRekord(12, 12));
+    LabAssert.False(RekordyHelper.CzyNowyRekord(12, 15));
+    LabAssert.False(RekordyHelper.CzyNowyRekord(0, 0));
+    LabAssert.False(RekordyHelper.CzyNowyRekord(10, -4));
+});
+
+LabAssert.Test("ObliczWymiarySiatki odrzuca niepoprawne liczby i dobiera wymiary najbliższe kwadratowi", () =&gt; {
+    int w, k;
+
+    LabAssert.False(RekordyHelper.ObliczWymiarySiatki(0, out w, out k));
+    LabAssert.Equal(0, w);
+    LabAssert.Equal(0, k);
+
+    LabAssert.False(RekordyHelper.ObliczWymiarySiatki(-8, out w, out k));
+    LabAssert.False(RekordyHelper.ObliczWymiarySiatki(2, out w, out k));
+    LabAssert.False(RekordyHelper.ObliczWymiarySiatki(7, out w, out k));
+    LabAssert.False(RekordyHelper.ObliczWymiarySiatki(15, out w, out k));
+
+    LabAssert.True(RekordyHelper.ObliczWymiarySiatki(4, out w, out k));
+    LabAssert.Equal(2, w);
+    LabAssert.Equal(2, k);
+
+    LabAssert.True(RekordyHelper.ObliczWymiarySiatki(12, out w, out k));
+    LabAssert.Equal(3, w);
+    LabAssert.Equal(4, k);
+
+    LabAssert.True(RekordyHelper.ObliczWymiarySiatki(14, out w, out k));
+    LabAssert.Equal(2, w);
+    LabAssert.Equal(7, k);
+
+    LabAssert.True(RekordyHelper.ObliczWymiarySiatki(16, out w, out k));
+    LabAssert.Equal(4, w);
+    LabAssert.Equal(4, k);
+
+    // Błędne wywołanie po poprawnym musi wyzerować parametry out
+    LabAssert.False(RekordyHelper.ObliczWymiarySiatki(15, out w, out k));
+    LabAssert.Equal(0, w);
+    LabAssert.Equal(0, k);
+
+    LabAssert.True(RekordyHelper.ObliczWymiarySiatki(24, out w, out k));
+    LabAssert.Equal(4, w);
+    LabAssert.Equal(6, k);
+
+    LabAssert.True(RekordyHelper.ObliczWymiarySiatki(30, out w, out k));
+    LabAssert.Equal(5, w);
+    LabAssert.Equal(6, k);
+});
+
+LabAssert.Test("WczytajRekordZPliku jest odporne na brak pliku, puste ścieżki i uszkodzone dane", () =&gt; {
+    string tempDir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "koala_rec_read_" + Guid.NewGuid().ToString("N"));
+    try
+    {
+        System.IO.Directory.CreateDirectory(tempDir);
+        string brak = System.IO.Path.Combine(tempDir, "nie_ma.txt");
+        string smieci = System.IO.Path.Combine(tempDir, "smieci.txt");
+        string ujemny = System.IO.Path.Combine(tempDir, "ujemny.txt");
+        string ok = System.IO.Path.Combine(tempDir, "ok.txt");
+
+        System.IO.File.WriteAllText(smieci, "abc\r\n");
+        System.IO.File.WriteAllText(ujemny, "-7");
+        System.IO.File.WriteAllText(ok, "  18 \n");
+
+        LabAssert.Equal(0, RekordyHelper.WczytajRekordZPliku(null));
+        LabAssert.Equal(0, RekordyHelper.WczytajRekordZPliku("   "));
+        LabAssert.Equal(0, RekordyHelper.WczytajRekordZPliku(brak));
+        LabAssert.Equal(0, RekordyHelper.WczytajRekordZPliku(smieci));
+        LabAssert.Equal(0, RekordyHelper.WczytajRekordZPliku(ujemny));
+        LabAssert.Equal(18, RekordyHelper.WczytajRekordZPliku(ok));
+    }
+    finally
+    {
+        if (System.IO.Directory.Exists(tempDir))
+            System.IO.Directory.Delete(tempDir, true);
+    }
+});
+
+LabAssert.Test("ZapiszRekordJesliLepszy tworzy katalog, zapisuje atomowo i nadpisuje tylko lepszy wynik", () =&gt; {
+    string tempDir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "koala_rec_save_" + Guid.NewGuid().ToString("N"));
+    try
+    {
+        string sciezka = System.IO.Path.Combine(tempDir, "podkatalog", "rekord.txt");
+
+        LabAssert.False(RekordyHelper.ZapiszRekordJesliLepszy("", 10));
+        LabAssert.False(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, 0));
+        LabAssert.False(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, -5));
+
+        // Pierwszy zapis tworzy brakujący katalog i zapisuje wynik bez pozostałości .tmp
+        LabAssert.True(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, 20));
+        LabAssert.Equal(20, RekordyHelper.WczytajRekordZPliku(sciezka));
+        LabAssert.False(System.IO.File.Exists(sciezka + ".tmp"), "Plik tymczasowy .tmp nie powinien pozostać na dysku.");
+
+        // Gorszy lub równy wynik nie nadpisuje pliku
+        LabAssert.False(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, 20));
+        LabAssert.False(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, 25));
+        LabAssert.Equal(20, RekordyHelper.WczytajRekordZPliku(sciezka));
+
+        // Lepszy wynik nadpisuje plik atomowo
+        LabAssert.True(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, 14));
+        LabAssert.Equal(14, RekordyHelper.WczytajRekordZPliku(sciezka));
+        LabAssert.False(System.IO.File.Exists(sciezka + ".tmp"), "Plik tymczasowy .tmp nie powinien pozostać po podmianie.");
+
+        // Uszkodzony plik ze śmieciami traktowany jako brak rekordu (0) -&gt; daje się nadpisać
+        System.IO.File.WriteAllText(sciezka, "abc");
+        LabAssert.True(RekordyHelper.ZapiszRekordJesliLepszy(sciezka, 19));
+        LabAssert.Equal(19, RekordyHelper.WczytajRekordZPliku(sciezka));
+    }
+    finally
+    {
+        if (System.IO.Directory.Exists(tempDir))
+            System.IO.Directory.Delete(tempDir, true);
+    }
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Kiedy generujesz w pętli wiele kontrolek WinForms:</span> otocz pętlę parą <code>SuspendLayout()</code> / <code>ResumeLayout()</code>, użyj <code>SizeType.Percent</code> z <code>100f</code> oraz <code>Dock = DockStyle.Fill</code>, aby układ przeliczył się raz i płynnie skalował.</li>
+<li><span class="color-green">Kiedy potrzebujesz opóźnienia w oknie bez zamrażania GUI:</span> użyj <code>System.Windows.Forms.Timer</code> przechowywanego w polu klasy z metodą <code>AnulujTimerZakrycia()</code> i lokalnymi kopiami zmiennych w lambdzie, nigdy <code>Thread.Sleep</code> w handlerze <code>Click</code>.</li>
+<li><span class="color-green">Kiedy zapisujesz trwałe dane użytkownika w Windows:</span> buduj ścieżkę z <code>Environment.SpecialFolder.LocalApplicationData</code>, parsuj odczyt defensywnie przez <code>TryParse</code>, a zapis wykonuj atomowo przez plik <code>.tmp</code> i <code>File.Replace</code> / <code>File.Move</code>.</li>
+<li><span class="color-green">Kiedy dobierasz wymiary prostokątnej siatki dla parzystej liczby kart:</span> szukaj pierwszego dzielnika od <code>(int)Math.Sqrt(N)</code> w dół i zawsze zeruj parametry <code>out</code> przy błędnym wejściu.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

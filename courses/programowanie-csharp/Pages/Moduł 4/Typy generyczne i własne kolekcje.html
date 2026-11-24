@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typy generyczne i własne kolekcje - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Typy generyczne i własne kolekcje</h1>
+<p>Wyobraź sobie panel diagnostyczny monitorujący komputer w czasie rzeczywistym. Program zapisuje zużycie pamięci RAM z ostatnich 60 sekund, historię 120 klatek gry albo 20 ostatnich poleceń w terminalu. Zwykła lista <code>List&lt;T&gt;</code> rośnie tu bez końca i po kilku godzinach pracy zapełni całą pamięć operacyjną.</p>
+<p>Rozwiązaniem jest <span class="color-green">bufor cykliczny</span>: struktura o stałym rozmiarze, która po zapełnieniu nadpisuje najstarszy element. Pierwsza intuicja podpowiada napisanie osobnych klas: <code>BuforDouble</code>, <code>BuforInt</code> i <code>BuforString</code>. Kopiowanie identycznej logiki do kilku plików oznacza jednak potrójne utrzymanie kodu i potrójne ryzyko błędów przy każdej poprawce.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Dlaczego tablica object zawodzi</h2>
+<p>Przed wprowadzeniem typów generycznych w C# 2.0 programiści obchodzili powielanie kodu przez użycie typu bazowego <code>object</code>. Ponieważ każdy typ w C# dziedziczy po <code>object</code>, pojedyncza tablica <code>object[]</code> potrafi przechować liczby, napisy oraz obiekty dowolnych klas.</p>
+<p>To podejście niesie jednak dwa poważne koszty. Pierwszym jest utrata bezpieczeństwa typów na etapie kompilacji:</p>
+<pre><code class="language-csharp">object[] bufor = new object[3];
+bufor[0] = 64.5;
+bufor[1] = "blad_czujnika"; // Kompilator akceptuje ten zapis!
+
+double pomiar = (double)bufor[1]; // Wyjatek w trakcie dzialania programu!
+</code></pre>
+<p>Kompilator nie zgłasza żadnego błędu, bo dla niego oba elementy mają typ <code>object</code>. Dopiero w czasie uruchomienia programu rzutowanie <code>(double)</code> rzuca wyjątek <span class="color-red">InvalidCastException</span> i zatrzymuje aplikację.</p>
+<p>Drugim kosztem jest <span class="color-red">boxing</span> (pakowanie typów wartościowych). Liczba <code>double</code> normalnie zajmuje 8 bajtów na stosie lub bezpośrednio w tablicy. Włożenie jej do <code>object[]</code> zmusza środowisko uruchomieniowe do utworzenia osobnego pudełka na stercie z nagłówkiem obiektu. Przy milionie pomiarów generuje to milion zbędnych alokacji i obciąża Garbage Collector.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Typy generyczne</span> (<code>&lt;T&gt;</code>) przenoszą sprawdzanie typów z czasu uruchomienia na czas kompilacji. Jednocześnie przechowują typy wartościowe bez pakowania na stercie.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Generyczny bufor cykliczny i zawijanie indeksu</h2>
+<p>Wewnątrz klasy generycznej umieszczasz <span class="color-green">parametr typu</span> w nawiasach ostrych, najczęściej oznaczony literą <code>T</code>. Kompilator traktuje <code>T</code> jak pełnoprawny typ: możesz zadeklarować tablicę <code>T[]</code>, parametr metody <code>Dodaj(T element)</code> oraz typ zwracany <code>List&lt;T&gt;</code>.</p>
+<p>Sercem bufora cyklicznego jest tablica <span class="color-blue">_dane</span> o stałej długości <span class="color-blue">pojemnosc</span> oraz wskaźnik zapisu <span class="color-blue">_indeksZapisu</span>. Indeks zachowuje się jak wskazówka na tarczy zegara: po osiągnięciu ostatniej pozycji nie wychodzi poza tablicę, lecz zawija się z powrotem na pozycję <code>0</code> dzięki operatorowi reszty z dzielenia (<code>%</code>).</p>
+<p>Prześledź w tabeli działanie bufora o pojemności <code>3</code> podczas dodawania pięciu kolejnych pomiarów:</p>
+<table>
+<thead>
+<tr>
+<th>Krok</th>
+<th>Operacja</th>
+<th>Tablica przed zapisem</th>
+<th>Indeks zapisu</th>
+<th>Tablica po zapisie</th>
+<th>Count</th>
+<th>Kolejność od najstarszego</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>Dodaj(10)</code></td>
+<td><code>[0, 0, 0]</code></td>
+<td><code>0</code> -&gt; <code>1</code></td>
+<td><code>[10, 0, 0]</code></td>
+<td><code>1</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>Dodaj(20)</code></td>
+<td><code>[10, 0, 0]</code></td>
+<td><code>1</code> -&gt; <code>2</code></td>
+<td><code>[10, 20, 0]</code></td>
+<td><code>2</code></td>
+<td><code>10, 20</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>Dodaj(30)</code></td>
+<td><code>[10, 20, 0]</code></td>
+<td><code>2</code> -&gt; <code>0</code></td>
+<td><code>[10, 20, 30]</code></td>
+<td><code>3</code></td>
+<td><code>10, 20, 30</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>Dodaj(40)</code></td>
+<td><code>[10, 20, 30]</code></td>
+<td><code>0</code> -&gt; <code>1</code></td>
+<td><code>[40, 20, 30]</code></td>
+<td><code>3</code></td>
+<td><code>20, 30, 40</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>Dodaj(50)</code></td>
+<td><code>[40, 20, 30]</code></td>
+<td><code>1</code> -&gt; <code>2</code></td>
+<td><code>[40, 50, 30]</code></td>
+<td><code>3</code></td>
+<td><code>30, 40, 50</code></td>
+</tr>
+</tbody></table>
+<p>Zwróć uwagę na dwie własności widoczne w krokach 4 i 5:</p>
+<ul>
+<li><span class="color-green">Pozycja najstarszego elementu:</span> dopóki bufor nie jest pełny (<code>Count &lt; _dane.Length</code>), najstarszy element leży na indeksie <code>0</code>. Po zapełnieniu najstarszy element leży dokładnie pod <span class="color-blue">_indeksZapisu</span>, bo to komórka czekająca na nadpisanie.</li>
+<li><span class="color-green">Pozycja najnowszego elementu:</span> znajduje się o jedną komórkę przed <span class="color-blue">_indeksZapisu</span>. Gdy <span class="color-blue">_indeksZapisu</span> wynosi <code>0</code>, zwykłe odejmowanie dałoby <span class="color-red">indeks ujemny (-1)</span>. Aby bezpiecznie cofnąć wskaźnik po okręgu, dodaj długość tablicy przed obliczeniem reszty z dzielenia.</li>
+</ul>
+<p>Każde dodanie elementu wykonuje <span class="color-green">stałą liczbę operacji</span> w czasie <code>O(1)</code>. Niezależnie od tego, czy bufor mieści 10, czy 10 000 000 próbek, nie przesuwasz istniejących danych w pamięci.</p>
+<data-gate>
+<data-sortable-list title="Ułóż kolejność kroków podczas dodawania nowego elementu do pełnego bufora cyklicznego">
+  <item data-correct="3">Wskaźnik _indeksZapisu przesuwa się o jeden w przód z zawinięciem modulo</item>
+  <item data-correct="1">Nowa wartość trafia do tablicy _dane pod aktualny _indeksZapisu, nadpisując najstarszy wpis</item>
+  <item data-correct="4">Właściwość Count nie rośnie, ponieważ osiągnęła już maksymalną pojemność tablicy</item>
+  <item data-correct="2">Poprzednio drugi najstarszy element staje się teraz najstarszym elementem w buforze</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Wartość domyślna default oraz pułapka porównywania</h2>
+<p>Pisząc kod generyczny, nie znasz jeszcze docelowego typu <code>T</code>. Ta niewiedza blokuje dwie operacje, które w zwykłych klasach wydają się oczywiste: zwracanie <code>null</code> oraz porównywanie operatorem <code>==</code>.</p>
+<h3>🕳️ Słowo kluczowe default</h3>
+<p>Załóżmy, że piszesz metodę bezpiecznego odczytu ze stosu <code>TryPobierzSzczyt(out T wynik)</code>. Gdy stos jest pusty, musisz przypisać coś do parametru <span class="color-blue">wynik</span> przed zwróceniem <code>false</code>. Nie możesz jednak napisać <code>wynik = null;</code>, bo kompilator odrzuci taki kod: jeśli ktoś utworzy kolekcję dla <code>int</code>, typ wartościowy nie przyjmie wartości <code>null</code>.</p>
+<p>Rozwiązaniem jest operator <span class="color-green"><code>default(T)</code></span>. Zwraca on wyzerowaną wartość dopasowaną do konkretnego typu:</p>
+<ul>
+<li>dla typów liczbowych (<code>int</code>, <code>double</code>, <code>decimal</code>): zwraca <code>0</code>,</li>
+<li>dla <code>bool</code>: zwraca <code>false</code>,</li>
+<li>dla typów referencyjnych (<code>string</code>, klasy, tablice): zwraca <code>null</code>.</li>
+</ul>
+<pre><code class="language-csharp">public bool TryPobierzPierwszy(out T wynik)
+{
+    if (_licznik == 0)
+    {
+        wynik = default(T);
+        return false;
+    }
+
+    wynik = _elementy[0];
+    return true;
+}
+</code></pre>
+<p>Operator <code>default(T)</code> ma jeszcze jedno krytyczne zastosowanie: czyszczenie kolekcji w metodzie <code>Wyczysc()</code>. Samo wyzerowanie licznika <code>Count = 0</code> nie usuwa starych referencji z wewnętrznej tablicy <span class="color-blue">_dane</span>. Jeśli bufor przechowywał duże obiekty, Garbage Collector nie zwolni ich pamięci, dopóki nie nadpiszesz komórek tablicy wartością <code>default(T)</code> lub nie wywołasz <code>Array.Clear(_dane, 0, _dane.Length)</code>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Pozostawienie starych referencji w tablicy po logicznym wyczyszczeniu kolekcji powoduje <span class="color-red">wyciek pamięci</span>. Obiekty pozostają osiągalne dla Garbage Collectora, mimo że program już ich nie potrzebuje.</p>
+
+</div>
+</div><h3>⚖️ Dlaczego operator == nie działa na typie T</h3>
+<p>Próba napisania warunku <code>if (_dane[i] == szukany)</code> wewnątrz klasy generycznej zakończy się <span class="color-red">błędem kompilacji CS0019</span>. Kompilator nie ma gwarancji, że nieznany typ <code>T</code> w ogóle definiuje operator <code>==</code> (na przykład własne struktury <code>struct</code> domyślnie go nie mają).</p>
+<p>Nie powinieneś też wywoływać <code>szukany.Equals(element)</code>, bo gdy <span class="color-blue">szukany</span> jest równy <code>null</code>, program rzuci <span class="color-red">NullReferenceException</span>. Kanonicznym narzędziem w C# jest <span class="color-green"><code>EqualityComparer&lt;T&gt;.Default</code></span>:</p>
+<pre><code class="language-csharp">public bool CzyZawiera&lt;T&gt;(T[] tablica, T szukany)
+{
+    var porownywacz = EqualityComparer&lt;T&gt;.Default;
+    for (int i = 0; i &lt; tablica.Length; i++)
+    {
+        if (porownywacz.Equals(tablica[i], szukany))
+            return true;
+    }
+    return false;
+}
+</code></pre>
+<p>Klasa <code>EqualityComparer&lt;T&gt;.Default</code> automatycznie dobiera najlepszy sposób porównania dla danego typu <code>T</code>. Obsługuje bezpiecznie wartości <code>null</code>, wykorzystuje interfejs <code>IEquatable&lt;T&gt;</code> i unika boxingu typów wartościowych.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Ograniczenia where, wiele parametrów i wnioskowanie typu</h2>
+<p>Domyślnie kompilator wie o typie <code>T</code> wyłącznie to, że dziedziczy po <code>object</code>. Nie pozwoli Ci więc utworzyć nowej instancji przez <code>new T()</code> ani porównać kolejności przez <code>a.CompareTo(b)</code>.</p>
+<h3>🎯 Ograniczenia pojedyncze i złożone</h3>
+<p>Aby poinformować kompilator, jakie możliwości musi posiadać typ <code>T</code>, nakładasz ograniczenie <span class="color-green"><code>where</code></span>:</p>
+<table>
+<thead>
+<tr>
+<th>Ograniczenie</th>
+<th>Co gwarantuje kompilatorowi?</th>
+<th>Przykładowe typy pasujące</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>where T : IComparable&lt;T&gt;</code></td>
+<td>Typ <code>T</code> ma metodę <code>CompareTo(T other)</code></td>
+<td><code>int</code>, <code>double</code>, <code>string</code>, <code>DateTime</code></td>
+</tr>
+<tr>
+<td><code>where T : class</code></td>
+<td>Typ <code>T</code> jest typem referencyjnym (można przypisać <code>null</code>)</td>
+<td><code>string</code>, <code>List&lt;int&gt;</code>, własne klasy</td>
+</tr>
+<tr>
+<td><code>where T : struct</code></td>
+<td>Typ <code>T</code> jest typem wartościowym (nie może być <code>null</code>)</td>
+<td><code>int</code>, <code>double</code>, <code>bool</code>, <code>DateTime</code></td>
+</tr>
+<tr>
+<td><code>where T : new()</code></td>
+<td>Typ <code>T</code> ma publiczny konstruktor bezparametrowy</td>
+<td><code>List&lt;string&gt;</code>, <code>StringBuilder</code></td>
+</tr>
+</tbody></table>
+<p>Możesz łączyć wiele wymagań dla jednego typu, oddzielając je przecinkami. Kolejność w klauzuli jest ściśle określona: ograniczenie <code>class</code> lub <code>struct</code> musi stać na samym początku, a <code>new()</code> zawsze na samym końcu:</p>
+<pre><code class="language-csharp">public class Repozytorium&lt;T&gt; where T : class, IComparable&lt;T&gt;, new()
+{
+    public T UtworzDomyslny()
+    {
+        return new T();
+    }
+}
+</code></pre>
+<p>Klasy i metody mogą też przyjmować <span class="color-green">wiele parametrów typu</span> naraz, na przykład <code>&lt;TKlucz, TWartosc&gt;</code>. Każdy parametr może wtedy otrzymać własną klauzulę <code>where</code>:</p>
+<pre><code class="language-csharp">public class WpisPamieciPodrecznej&lt;TKlucz, TWartosc&gt;
+    where TKlucz : IEquatable&lt;TKlucz&gt;
+    where TWartosc : class
+{
+    public TKlucz Klucz { get; private set; }
+    public TWartosc Wartosc { get; private set; }
+
+    public WpisPamieciPodrecznej(TKlucz klucz, TWartosc wartosc)
+    {
+        Klucz = klucz;
+        Wartosc = wartosc;
+    }
+}
+</code></pre>
+<h3>🧠 Klasa generyczna a metoda generyczna z wnioskowaniem typu</h3>
+<p>Istnieje ważna różnica między typem generycznym na poziomie klasy a metodą generyczną w zwykłej klasie. Tworząc obiekt klasy generycznej, musisz jawnie podać typ w nawiasach ostrych: <code>new BuforCykliczny&lt;double&gt;(5)</code>.</p>
+<p>W przypadku <span class="color-green">metody generycznej</span> kompilator potrafi zastosować <span class="color-gold">wnioskowanie typu</span> (Type Inference). Na podstawie typów przekazanych argumentów sam rozpoznaje, czym jest <code>T</code>:</p>
+<pre><code class="language-csharp">public static bool CzyPosortowanaRosnaco&lt;T&gt;(T[] tablica) where T : IComparable&lt;T&gt;
+{
+    if (tablica == null || tablica.Length &lt; 2)
+        return true;
+
+    for (int i = 1; i &lt; tablica.Length; i++)
+    {
+        if (tablica[i - 1].CompareTo(tablica[i]) &gt; 0)
+            return false;
+    }
+    return true;
+}
+</code></pre>
+<p>Metoda <code>CompareTo</code> zwraca liczbę ujemną, gdy pierwszy obiekt jest mniejszy, <code>0</code> przy równości oraz dodatnią, gdy jest większy. Wywołując <code>CzyPosortowanaRosnaco(new int[] { 2, 5, 9 })</code>, nie musisz dopisywać <code>&lt;int&gt;</code>, ponieważ kompilator odczytuje ten typ wprost z przekazywanej tablicy.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj potrzebną operację w kodzie generycznym do właściwego mechanizmu C#">
+  <item left="Wywołanie a.CompareTo(b) do ustalenia kolejności elementów" right="where T : IComparable<T>"></item>
+  <item left="Utworzenie nowego obiektu instrukcją new T()" right="where T : new()"></item>
+  <item left="Bezpieczne porównanie równości dwóch wartości typu T z obsługą null" right="EqualityComparer<T>.Default.Equals(a, b)"></item>
+  <item left="Przypisanie pustej wartości do parametru out T bez zakładania typu" right="default(T)"></item>
+  <item left="Wymuszenie, aby typ T był typem referencyjnym dopuszczającym null" right="where T : class"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Interfejs IEnumerable jako most do foreach i LINQ</h2>
+<p>Własna kolekcja generyczna zyskuje pełną użyteczność dopiero wtedy, gdy współpracuje z pętlą <code>foreach</code> oraz z operatorami LINQ, które poznasz w kolejnej lekcji. Aby to osiągnąć, klasa musi zaimplementować interfejs <span class="color-green"><code>IEnumerable&lt;T&gt;</code></span> z przestrzeni <code>System.Collections.Generic</code>.</p>
+<p>Interfejs <code>IEnumerable&lt;T&gt;</code> dziedziczy po starszym, niegenerycznym interfejsie <code>IEnumerable</code> z czasów C# 1.0. Dlatego klasa musi dostarczyć dwie metody <code>GetEnumerator()</code>:</p>
+<pre><code class="language-csharp">using System.Collections;
+using System.Collections.Generic;
+
+public class StalaPara&lt;T&gt; : IEnumerable&lt;T&gt;
+{
+    private T _pierwszy;
+    private T _drugi;
+
+    public StalaPara(T pierwszy, T drugi)
+    {
+        _pierwszy = pierwszy;
+        _drugi = drugi;
+    }
+
+    public IEnumerator&lt;T&gt; GetEnumerator()
+    {
+        yield return _pierwszy;
+        yield return _drugi;
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+}
+</code></pre>
+<p>Słowo kluczowe <span class="color-green"><code>yield return</code></span> zwraca kolejne elementy pojedynczo, bez tworzenia dodatkowej listy w pamięci. Druga metoda przekierowuje starsze wywołania do wersji generycznej. Od tej chwili każdy obiekt <code>StalaPara&lt;T&gt;</code> działa bezpośrednio w pętli <code>foreach</code> i przyjmuje pełen zestaw zapytań LINQ.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Reified Generics w CLR kontra Type Erasure w Javie i szablony C++</span>
+<span class="deep-dive-badge">CLR · JIT · JAVA · C++ TEMPLATES</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Trzy architektury typów generycznych w językach przemysłowych</h4>
+
+<p>Choć zapis <code>List&lt;int&gt;</code> wygląda podobnie w C#, Javie i C++ (<code>std::vector&lt;int&gt;</code>), sposób zamiany kodu na instrukcje procesora i układ w pamięci RAM jest zupełnie inny.</p>
+<h4>2. Java: wymazywanie typów (Type Erasure)</h4>
+
+<p>W Javie generyki dodano w 2004 roku (Java 5) z wymogiem wstecznej zgodności ze starszym bajtkodem JVM. Kompilator <code>javac</code> sprawdza typy przy kompilacji, a następnie <span class="color-green">usuwa parametr <code>&lt;T&gt;</code></span> i zamienia go na <code>Object</code>.</p>
+<ul>
+<li>W bajtkodzie nie istnieje <code>ArrayList&lt;Integer&gt;</code>: istnieje wyłącznie surowy <code>ArrayList</code> przechowujący referencje <code>Object</code>.</li>
+<li>Nie możesz utworzyć <code>ArrayList&lt;int&gt;</code>. Każda 4‑bajtowa liczba <code>int</code> przechodzi <span class="color-red">boxing</span> do obiektu <code>Integer</code> na stercie (nagłówek obiektu + pole + referencja w tablicy).</li>
+<li>Dla <span class="color-green">1 000 000 liczb całkowitych</span> oznacza to około <span class="color-green">20 do 24 MB pamięci</span> i milion osobnych alokacji, które obciążają Garbage Collector i pogarszają trafienia w pamięć podręczną CPU.</li>
+</ul>
+<h4>3. C++: szablony i monomorfizacja (Templates)</h4>
+
+<p>W C++ <code>template&lt;typename T&gt;</code> działa w czasie kompilacji jak generator kodu źródłowego. Dla każdego użytego typu <code>T</code> kompilator tworzy osobną definicję klasy i osobny kod maszynowy:</p>
+<pre><code class="language-cpp">template&lt;typename T&gt;
+class RingBuffer { /* osobna kopia kodu dla int, double, Widget*, Enemy* */ };
+</code></pre>
+<ul>
+<li>Zaleta: zerowy narzut w czasie uruchomienia, ciągły układ pamięci dla typów wartościowych i pełne rozwijanie funkcji przez optymalizator.</li>
+<li>Koszt: użycie <code>std::vector&lt;T*&gt;</code> dla 40 różnych klas wskaźników tworzy 40 niemal identycznych kopii kodu maszynowego. Powoduje to <span class="color-red">Code Bloat</span>, który wydłuża kompilację i powiększa plik wykonywalny, marnując pamięć podręczną instrukcji (L1i cache).</li>
+</ul>
+<h4>4. C# i CLR: generyki zachowane w runtime (Reified Generics)</h4>
+
+<p>Twórcy .NET 2.0 zmodyfikowali maszynę wirtualną CLR oraz bajtkod CIL. Informacja o <code>&lt;T&gt;</code> zostaje zapisana w metadanych pliku wykonywalnego i trafia do kompilatora JIT podczas uruchamiania programu. JIT stosuje strategię hybrydową:</p>
+<ul>
+<li><span class="color-green">Dla wszystkich typów referencyjnych</span> (<code>List&lt;string&gt;</code>, <code>List&lt;object&gt;</code>) JIT generuje <span class="color-green">jeden współdzielony kod maszynowy</span> (Canonical Sharing). Każda referencja na x86‑64 zajmuje dokładnie 8 bajtów, więc instrukcje przesuwania wskaźników są identyczne.</li>
+<li><span class="color-green">Dla każdego typu wartościowego</span> (<code>List&lt;int&gt;</code>, <code>List&lt;double&gt;</code>) JIT generuje <span class="color-green">wyspecjalizowany kod natywny</span> dopasowany do dokładnego rozmiaru struktury (4 bajty dla <code>int</code>, 8 bajtów dla <code>double</code>).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Cecha</th>
+<th>Java (Type Erasure)</th>
+<th>C++ (Templates)</th>
+<th>C# / CLR (Reified Generics)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Moment specjalizacji</td>
+<td>Czas kompilacji (usunięcie <code>T</code>)</td>
+<td>Czas kompilacji (monomorfizacja)</td>
+<td>Czas uruchomienia (JIT)</td>
+</tr>
+<tr>
+<td>Pamięć dla 1 000 000 <code>int</code></td>
+<td>ok. 20 do 24 MB (boxing)</td>
+<td>4 MB (ciągła tablica)</td>
+<td>4 MB (ciągła tablica)</td>
+</tr>
+<tr>
+<td>Kopie kodu dla 40 klas ref.</td>
+<td>1 kopia</td>
+<td>40 kopii (<span class="color-red">Code Bloat</span>)</td>
+<td>1 współdzielona kopia</td>
+</tr>
+<tr>
+<td><code>typeof(T)</code> w runtime</td>
+<td>Niedostępne (wymazane)</td>
+<td>Brak (RTTI ograniczone)</td>
+<td>Pełna informacja o typie</td>
+</tr>
+</tbody></table>
+<p>Dla <span class="color-green">1 000 000 liczb <code>int</code></span> w C# <code>List&lt;int&gt;</code> powstaje jedna ciągła tablica o rozmiarze dokładnie <span class="color-green">4 MB</span> w RAM, bez boxingu i bez nadmiarowego powielania kodu dla typów referencyjnych.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne (2 pliki): Generyczny bufor cykliczny</h2>
+<p>W zakładce <span class="color-green"><code>BuforCykliczny.cs</code></span> zaimplementuj klasę <code>BuforCykliczny&lt;T&gt;</code> oraz statyczną klasę <code>NarzedziaGeneryczne</code>:</p>
+<ol>
+<li><span class="color-green">Konstruktor <code>BuforCykliczny(int pojemnosc)</code></span>:<ul>
+<li>dla niepoprawnej pojemności (<code>&lt;= 0</code>) rzuć wyjątek <code>ArgumentOutOfRangeException</code>,</li>
+<li>przygotuj wewnętrzną tablicę o zadanym rozmiarze.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>Dodaj(T element)</code></span>:<ul>
+<li>zapisuje element na bieżącej pozycji zapisu,</li>
+<li>przesuwa wskaźnik zapisu cyklicznie na kolejną komórkę,</li>
+<li>aktualizuje <code>Count</code> aż do osiągnięcia maksymalnej pojemności.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>PobierzWszystkie()</code></span>:<ul>
+<li>zwraca nową listę <code>List&lt;T&gt;</code> z dokładnie <code>Count</code> aktualnymi elementami w kolejności od najstarszego do najnowszego (dla pustego bufora zwraca pustą listę).</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>PobierzNajnowszy()</code></span>:<ul>
+<li>dla pustego bufora rzuca <code>InvalidOperationException</code>,</li>
+<li>w przeciwnym razie zwraca ostatnio dodany element.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>TryPobierzNajnowszy(out T wynik)</code></span>:<ul>
+<li>dla pustego bufora ustawia <span class="color-blue">wynik</span> na wartość domyślną typu <code>T</code> i zwraca <code>false</code>,</li>
+<li>dla niepustego bufora przypisuje ostatnio dodany element do <span class="color-blue">wynik</span> i zwraca <code>true</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Metoda <code>Zawiera(T szukany)</code></span>:<ul>
+<li>sprawdza wyłącznie wśród <code>Count</code> aktualnie przechowywanych elementów, czy bufor zawiera <span class="color-blue">szukany</span>,</li>
+<li>użyj bezpiecznego porównywania generycznego obsługującego również wartość <code>null</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Klasa <code>NarzedziaGeneryczne</code></span>:<ul>
+<li>metoda <code>Maksimum&lt;TVal&gt;(TVal a, TVal b) where TVal : IComparable&lt;TVal&gt;</code>: zwraca większą z dwóch wartości (przy równości zwraca <span class="color-blue">a</span>),</li>
+<li>metoda <code>OgraniczDoZakresu&lt;TVal&gt;(TVal wartosc, TVal min, TVal max) where TVal : IComparable&lt;TVal&gt;</code>: jeśli <span class="color-blue">min</span> jest większe od <span class="color-blue">max</span>, rzuca <code>ArgumentException</code>; jeśli <span class="color-blue">wartosc</span> jest poniżej <span class="color-blue">min</span>, zwraca <span class="color-blue">min</span>; jeśli powyżej <span class="color-blue">max</span>, zwraca <span class="color-blue">max</span>; w przeciwnym razie zwraca <span class="color-blue">wartosc</span>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Generyczny BuforCykliczny, default(T), EqualityComparer i where IComparable">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        var historiaRam = new BuforCykliczny&lt;double&gt;(3);
+        historiaRam.Dodaj(61.0);
+        historiaRam.Dodaj(63.5);
+        historiaRam.Dodaj(65.0);
+        historiaRam.Dodaj(52.0); // Nadpisuje 61.0
+
+        Console.WriteLine("Liczba probek: " + historiaRam.Count);
+        Console.WriteLine("Najnowsza probka: " + historiaRam.PobierzNajnowszy());
+        Console.WriteLine("Czy zawiera 61.0: " + historiaRam.Zawiera(61.0));
+        Console.WriteLine("Czy zawiera 65.0: " + historiaRam.Zawiera(65.0));
+        Console.WriteLine("Historia (od najstarszej): " + string.Join(", ", historiaRam.PobierzWszystkie()));
+
+        double ostatnia;
+        if (historiaRam.TryPobierzNajnowszy(out ostatnia))
+            Console.WriteLine("TryPobierzNajnowszy: " + ostatnia);
+
+        Console.WriteLine("Max(12, 45) = " + NarzedziaGeneryczne.Maksimum(12, 45));
+        Console.WriteLine("Ogranicz(120, 0, 100) = " + NarzedziaGeneryczne.OgraniczDoZakresu(120, 0, 100));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="BuforCykliczny.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public class BuforCykliczny&lt;T&gt;
+{
+    private T[] _dane;
+    private int _indeksZapisu;
+    public int Count { get; private set; }
+    public int Pojemnosc { get { return _dane.Length; } }
+
+    public BuforCykliczny(int pojemnosc)
+    {
+        // Zwaliduj pojemnosc &lt;= 0 i zaalokuj tablice
+        _dane = new T[pojemnosc &gt; 0 ? pojemnosc : 1];
+    }
+
+    public void Dodaj(T element)
+    {
+        // Zapisz element, przesun indeks cyklicznie i zaktualizuj Count
+    }
+
+    public List&lt;T&gt; PobierzWszystkie()
+    {
+        // Zwroc elementy w kolejnosci od najstarszego do najnowszego
+        return new List&lt;T&gt;();
+    }
+
+    public T PobierzNajnowszy()
+    {
+        // Dla pustego bufora rzuc InvalidOperationException, inaczej zwroc ostatnio dodany element
+        throw new NotImplementedException();
+    }
+
+    public bool TryPobierzNajnowszy(out T wynik)
+    {
+        // Dla pustego bufora ustaw default(T) i zwroc false, inaczej zwroc ostatni element i true
+        wynik = default(T);
+        return false;
+    }
+
+    public bool Zawiera(T szukany)
+    {
+        // Sprawdz wsrod Count aktualnych elementow za pomoca bezpiecznego porownywania generycznego
+        return false;
+    }
+}
+
+public static class NarzedziaGeneryczne
+{
+    public static TVal Maksimum&lt;TVal&gt;(TVal a, TVal b) where TVal : IComparable&lt;TVal&gt;
+    {
+        // Zwroc wiekszy element za pomoca CompareTo
+        return a;
+    }
+
+    public static TVal OgraniczDoZakresu&lt;TVal&gt;(TVal wartosc, TVal min, TVal max) where TVal : IComparable&lt;TVal&gt;
+    {
+        // Zwaliduj min &gt; max (ArgumentException) i przytnij wartosc do przedzialu [min, max]
+        return wartosc;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("BuforCykliczny&lt;double&gt; zwraca elementy po zapelnieniu oraz po nadpisaniu", () =&gt; {
+    var b = new BuforCykliczny&lt;double&gt;(3);
+    b.Dodaj(10.0);
+    b.Dodaj(20.0);
+    b.Dodaj(30.0);
+    LabAssert.Equal(3, b.Count);
+    LabAssert.Equal(30.0, b.PobierzNajnowszy());
+
+    var pelnyBezNadpisania = b.PobierzWszystkie();
+    LabAssert.Equal(3, pelnyBezNadpisania.Count);
+    LabAssert.Equal(10.0, pelnyBezNadpisania[0]);
+    LabAssert.Equal(20.0, pelnyBezNadpisania[1]);
+    LabAssert.Equal(30.0, pelnyBezNadpisania[2]);
+
+    b.Dodaj(40.0);
+    b.Dodaj(50.0);
+    LabAssert.Equal(3, b.Count);
+    LabAssert.Equal(50.0, b.PobierzNajnowszy());
+
+    var poNadpisaniu = b.PobierzWszystkie();
+    LabAssert.Equal(3, poNadpisaniu.Count);
+    LabAssert.Equal(30.0, poNadpisaniu[0]);
+    LabAssert.Equal(40.0, poNadpisaniu[1]);
+    LabAssert.Equal(50.0, poNadpisaniu[2]);
+});
+
+LabAssert.Test("BuforCykliczny obsluguje czesciowe zapelnienie oraz pojemnosc rowna 1", () =&gt; {
+    var logi = new BuforCykliczny&lt;string&gt;(4);
+    logi.Dodaj("ping");
+    logi.Dodaj("tracert");
+    LabAssert.Equal(2, logi.Count);
+    LabAssert.Equal(4, logi.Pojemnosc);
+    LabAssert.Equal("tracert", logi.PobierzNajnowszy());
+
+    var lista = logi.PobierzWszystkie();
+    LabAssert.Equal(2, lista.Count);
+    LabAssert.Equal("ping", lista[0]);
+    LabAssert.Equal("tracert", lista[1]);
+
+    var pojedynczy = new BuforCykliczny&lt;int&gt;(1);
+    pojedynczy.Dodaj(7);
+    LabAssert.Equal(1, pojedynczy.Count);
+    LabAssert.Equal(7, pojedynczy.PobierzNajnowszy());
+    pojedynczy.Dodaj(42);
+    LabAssert.Equal(1, pojedynczy.Count);
+    LabAssert.Equal(42, pojedynczy.PobierzNajnowszy());
+    LabAssert.Equal(42, pojedynczy.PobierzWszystkie()[0]);
+});
+
+LabAssert.Test("TryPobierzNajnowszy zwraca false i default(T) dla pustego bufora oraz true dla niepustego", () =&gt; {
+    var pustyInt = new BuforCykliczny&lt;int&gt;(3);
+    int wynikInt = 999;
+    LabAssert.Equal(false, pustyInt.TryPobierzNajnowszy(out wynikInt));
+    LabAssert.Equal(0, wynikInt);
+
+    var pustyStr = new BuforCykliczny&lt;string&gt;(2);
+    string wynikStr = "stary";
+    LabAssert.Equal(false, pustyStr.TryPobierzNajnowszy(out wynikStr));
+    LabAssert.Equal(null, wynikStr);
+
+    pustyInt.Dodaj(11);
+    pustyInt.Dodaj(22);
+    LabAssert.Equal(true, pustyInt.TryPobierzNajnowszy(out wynikInt));
+    LabAssert.Equal(22, wynikInt);
+});
+
+LabAssert.Test("Zawiera szuka tylko wsrod aktualnych elementow i obsluguje null", () =&gt; {
+    var liczby = new BuforCykliczny&lt;int&gt;(3);
+    liczby.Dodaj(10);
+    // Niezapisane sloty w tablicy maja 0, ale Count == 1, wiec 0 nie jest w buforze!
+    LabAssert.Equal(false, liczby.Zawiera(0));
+    LabAssert.Equal(true, liczby.Zawiera(10));
+
+    liczby.Dodaj(20);
+    liczby.Dodaj(30);
+    liczby.Dodaj(40); // Nadpisuje 10
+    LabAssert.Equal(false, liczby.Zawiera(10));
+    LabAssert.Equal(true, liczby.Zawiera(20));
+    LabAssert.Equal(true, liczby.Zawiera(40));
+
+    var napisy = new BuforCykliczny&lt;string&gt;(2);
+    napisy.Dodaj("ok");
+    LabAssert.Equal(false, napisy.Zawiera(null));
+    napisy.Dodaj(null);
+    LabAssert.Equal(true, napisy.Zawiera(null));
+    LabAssert.Equal(true, napisy.Zawiera("ok"));
+});
+
+LabAssert.Test("Przypadki brzegowe: niepoprawna pojemnosc i pusty bufor", () =&gt; {
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new BuforCykliczny&lt;int&gt;(0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new BuforCykliczny&lt;int&gt;(-5));
+
+    var pusty = new BuforCykliczny&lt;int&gt;(3);
+    LabAssert.Equal(0, pusty.PobierzWszystkie().Count);
+    LabAssert.Throws&lt;InvalidOperationException&gt;(() =&gt; pusty.PobierzNajnowszy());
+});
+
+LabAssert.Test("NarzedziaGeneryczne.Maksimum dziala dla a &lt; b, a &gt; b oraz a == b", () =&gt; {
+    LabAssert.Equal(99, NarzedziaGeneryczne.Maksimum(15, 99));
+    LabAssert.Equal(99, NarzedziaGeneryczne.Maksimum(99, 15));
+    LabAssert.Equal(-2, NarzedziaGeneryczne.Maksimum(-10, -2));
+    LabAssert.Equal(7.5, NarzedziaGeneryczne.Maksimum(7.5, 7.5));
+    LabAssert.Equal("zeta", NarzedziaGeneryczne.Maksimum("alfa", "zeta"));
+    LabAssert.Equal("zeta", NarzedziaGeneryczne.Maksimum("zeta", "alfa"));
+});
+
+LabAssert.Test("NarzedziaGeneryczne.OgraniczDoZakresu przycina wartosci i waliduje min &gt; max", () =&gt; {
+    LabAssert.Equal(0, NarzedziaGeneryczne.OgraniczDoZakresu(-15, 0, 100));
+    LabAssert.Equal(100, NarzedziaGeneryczne.OgraniczDoZakresu(250, 0, 100));
+    LabAssert.Equal(42, NarzedziaGeneryczne.OgraniczDoZakresu(42, 0, 100));
+    LabAssert.Equal(5.0, NarzedziaGeneryczne.OgraniczDoZakresu(5.0, 5.0, 5.0));
+    LabAssert.Equal("beta", NarzedziaGeneryczne.OgraniczDoZakresu("alfa", "beta", "delta"));
+    LabAssert.Equal("delta", NarzedziaGeneryczne.OgraniczDoZakresu("omega", "beta", "delta"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; NarzedziaGeneryczne.OgraniczDoZakresu(5, 10, 1));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Gdy ta sama struktura danych ma działać dla różnych typów:</strong> użyj parametru generycznego <code>&lt;T&gt;</code> zamiast <code>object[]</code>, aby wykrywać niezgodność typów podczas kompilacji i uniknąć <span class="color-red">boxingu</span> na stercie.</li>
+<li><strong>Gdy musisz zwrócić pustą wartość lub wyczyścić referencje dla nieznanego <code>T</code>:</strong> sięgnij po <code>default(T)</code> zamiast <code>null</code>.</li>
+<li><strong>Gdy porównujesz równość elementów typu <code>T</code>:</strong> używaj <code>EqualityComparer&lt;T&gt;.Default.Equals(a, b)</code> zamiast operatora <code>==</code>, bo obsługuje bezpiecznie <code>null</code> i wszystkie typy wartościowe.</li>
+<li><strong>Gdy metoda generyczna wymaga wywołania konkretnych operacji na <code>T</code>:</strong> dodaj ograniczenie <code>where</code> (np. <code>IComparable&lt;T&gt;</code> dla <code>CompareTo</code> lub <code>new()</code> dla konstruktora).</li>
+<li><strong>Gdy tworzysz własną kolekcję i chcesz używać jej w <code>foreach</code> oraz LINQ:</strong> zaimplementuj interfejs <code>IEnumerable&lt;T&gt;</code> wraz z jawną metodą <code>IEnumerator IEnumerable.GetEnumerator()</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

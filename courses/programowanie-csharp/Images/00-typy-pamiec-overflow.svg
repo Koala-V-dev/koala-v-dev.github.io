@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 285" role="img" aria-labelledby="t02 d02">
+  <title id="t02">Rozmiar typów liczbowych w bajtach i przepełnienie licznika (overflow)</title>
+  <desc id="d02">Porównanie zajętości pamięci dla byte (1 B), int (4 B), long i double (8 B) oraz decimal (16 B), wraz z animacją przekręcenia licznika 8-bitowego 255 + 1 = 0.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    .cyan { fill: #0ea5e9; }
+    .emerald { fill: #10b981; }
+    .amber { fill: #f59e0b; }
+    .violet { fill: #8b5cf6; }
+    .coral { fill: #ef4444; }
+    @keyframes flip { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0.15; } 100% { opacity: 1; } }
+    @keyframes flip2 { 0%, 45% { opacity: 0.15; } 50%, 95% { opacity: 1; } 100% { opacity: 0.15; } }
+    .stateA { animation: flip 3.6s ease-in-out infinite; }
+    .stateB { animation: flip2 3.6s ease-in-out infinite; }
+  </style>
+  <rect width="840" height="285" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Ile bajtów zajmują typy w pamięci RAM i jak dochodzi do przepełnienia (Overflow)</text>
+  <text x="24" y="48" class="sub">Każdy prostokąt = 1 bajt (8 bitów). Więcej bajtów oznacza szerszy zakres liczb, ale nie nieskończoność.</text>
+
+  <!-- Left panel: Memory bars -->
+  <rect x="24" y="66" width="460" height="196" class="card"/>
+  <text x="40" y="90" class="title">Szerokość typów liczbowych w pamięci</text>
+
+  <text x="40" y="118" class="mono">byte (1 B)</text>
+  <rect x="165" y="105" width="18" height="18" rx="3" class="cyan"/>
+  <text x="195" y="118" class="sub">0 .. 255 (8 bitów)</text>
+
+  <text x="40" y="148" class="mono">int (4 B)</text>
+  <rect x="165" y="135" width="76" height="18" rx="3" class="emerald"/>
+  <text x="252" y="148" class="sub">-2,14 mld .. +2,14 mld</text>
+
+  <text x="40" y="178" class="mono">long (8 B)</text>
+  <rect x="165" y="165" width="152" height="18" rx="3" class="amber"/>
+  <text x="328" y="178" class="sub">±9,22 tryliona</text>
+
+  <text x="40" y="208" class="mono">double (8 B)</text>
+  <rect x="165" y="195" width="152" height="18" rx="3" class="violet"/>
+  <text x="328" y="208" class="sub">IEEE 754 (błędy 0.1+0.2)</text>
+
+  <text x="40" y="238" class="mono">decimal (16 B)</text>
+  <rect x="165" y="225" width="304" height="18" rx="3" class="coral"/>
+
+  <!-- Right panel: Overflow wrap-around -->
+  <rect x="502" y="66" width="314" height="196" class="card"/>
+  <text x="518" y="90" class="title">Przepełnienie (byte: 255 + 1)</text>
+  <text x="518" y="110" class="sub">Brak 9. bitu → licznik wraca na zero:</text>
+
+  <g class="stateA">
+    <rect x="518" y="126" width="282" height="44" rx="8" fill="#0f172a" stroke="#10b981"/>
+    <text x="532" y="145" class="mono" fill="#34d399">Poziom 255 (max dla byte)</text>
+    <text x="532" y="162" class="mono">1 1 1 1 1 1 1 1  (255)</text>
+  </g>
+
+  <g class="stateB">
+    <rect x="518" y="182" width="282" height="44" rx="8" fill="#0f172a" stroke="#ef4444"/>
+    <text x="532" y="201" class="mono" fill="#f87171">Po +1 → OVERFLOW! (bit 9 znika)</text>
+    <text x="532" y="218" class="mono">[1] 0 0 0 0 0 0 0 0  →  0</text>
+  </g>
+
+  <text x="518" y="248" class="sub">W C# domyślnie unchecked; użyj checked {} do wykrycia.</text>
+</svg>

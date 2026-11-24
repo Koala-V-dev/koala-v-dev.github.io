@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zmienne, typy danych i arytmetyka komputera - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Zmienne, typy danych i arytmetyka komputera</h1>
+<p>Każesz komputerowi podzielić <code>7</code> przez <code>2</code>, a program bez żadnego ostrzeżenia zwraca <code>3</code>. Dodajesz <code>1</code> do największej liczby całkowitej <code>2 147 483 647</code>, a wynik nagle przeskakuje na ujemne <code>-2 147 483 648</code>. W kalkulatorze finansowym sprawdzasz, czy <code>0.1 + 0.2</code> równa się <code>0.3</code>, i otrzymujesz odpowiedź <code>False</code>.</p>
+<p>To nie błędy sprzętu. Każda wartość w programie zajmuje skończoną liczbę bajtów w pamięci RAM i podlega sztywnym regułom swojego typu danych. C# jest językiem <span class="color-green">silnie i statycznie typowanym</span>, więc kompilator sprawdza typy każdej operacji jeszcze przed zbudowaniem pliku <code>.exe</code>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Zmienne, przypisanie i stałe</h2>
+<p><span class="color-green">Zmienna</span> to nazwany obszar w pamięci RAM, który przechowuje wartość określonego typu. Zanim użyjesz zmiennej, musisz ją utworzyć i nadać jej wartość początkową:</p>
+<pre><code class="language-csharp">int liczbaGraczy;         // deklaracja: rezerwujemy miejsce w pamieci na typ int
+liczbaGraczy = 4;         // inicjalizacja: wpisujemy pierwsza wartosc
+
+int punkty = 100;         // deklaracja i inicjalizacja w jednej linii
+punkty = punkty + 25;     // nadpisanie: teraz zmienna punkty ma wartosc 125
+</code></pre>
+<p>Znak <code>=</code> w C# nie oznacza równości matematycznej. W matematyce zapis $x = x + 1$ jest sprzeczny. W programowaniu <code>=</code> to <span class="color-green">operator przypisania</span>: procesor najpierw oblicza wyrażenie po prawej stronie (<code>100 + 25</code>), a potem zapisuje wynik do zmiennej po lewej stronie.</p>
+<p>Kompilator C# pilnuje, aby nikt nie odczytał pustej, nieprzygotowanej zmiennej. Próba wypisania zmiennej przed nadaniem jej pierwszej wartości kończy się błędem kompilacji <span class="color-red"><code style="color: inherit;">CS0165</code></span> (<code>Use of unassigned local variable</code>):</p>
+<pre><code class="language-csharp">int wynik;
+Console.WriteLine(wynik); // BLAD CS0165: zmienna nie zostala zainicjalizowana
+</code></pre>
+<h3>🏷️ Nazewnictwo i stałe const</h3>
+<p>Dla zmiennych lokalnych w C# stosuj konwencję <span class="color-green">camelCase</span>: pierwszy wyraz małą literą, a każdy kolejny wielką, bez spacji i polskich znaków (na przykład <code>cenaNetto</code>, <code>liczbaSekund</code>). Nazwa nie może zaczynać się od cyfry.</p>
+<p>Jeśli wartość nie ma prawa się zmienić podczas działania programu, oznacz ją słowem kluczowym <span class="color-green"><code>const</code></span>:</p>
+<pre><code class="language-csharp">const int SekundyWMinucie = 60;
+const decimal StawkaPodstawowa = 0.23m;
+</code></pre>
+<p>Stałe zastępują zagadkowe liczby wpisane luzem w kodzie. Jeśli ktoś spróbuje później nadpisać stałą <code>const</code>, kompilator natychmiast zablokuje taki kod.</p>
+<h3>🔄 Zamiana wartości dwóch zmiennych w pamięci RAM</h3>
+<p>Wyobraź sobie dwie komórki pamięci: <code>int a = 5;</code> oraz <code>int b = 9;</code>. Zobacz na animacji, dlaczego naiwny zapis <code>a = b; b = a;</code> niszczy wartość <code>5</code>, i prześledź bezpieczną zamianę (swap) ze zmienną pomocniczą <span class="color-blue">temp</span>:</p>
+<data-gate>
+<data-csharp-swap-viz></data-csharp-swap-viz>
+</data-gate>
+
+<p>Taki schemat zamiany wartości przez zmienną pomocniczą <span class="color-blue">temp</span> wykorzystasz wielokrotnie w algorytmach sortowania.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧱 System typów danych w C#</h2>
+<p>Wybór typu zmiennej decyduje o tym, jakie dane możesz zapisać, jaką precyzję zachowasz oraz ile bajtów zarezerwujesz w pamięci RAM:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Typ C#</th>
+<th align="center">Rozmiar</th>
+<th>Zakres lub precyzja</th>
+<th align="center">Przykład literału</th>
+<th>Typowe zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>byte</code></td>
+<td align="center">1 bajt</td>
+<td><code>0</code> do <code>255</code></td>
+<td align="center"><code>255</code></td>
+<td>Pojedyncze bajty plików, kanały koloru RGB</td>
+</tr>
+<tr>
+<td align="center"><code>int</code></td>
+<td align="center">4 bajty</td>
+<td><code>-2 147 483 648</code> do <code>2 147 483 647</code></td>
+<td align="center"><code>42</code></td>
+<td>Liczniki, indeksy, domyślne obliczenia całkowite</td>
+</tr>
+<tr>
+<td align="center"><code>long</code></td>
+<td align="center">8 bajtów</td>
+<td>około <code>-9,22 * 10^18</code> do <code>9,22 * 10^18</code></td>
+<td align="center"><code>42L</code></td>
+<td>Rozmiary dużych plików w bajtach, znaczniki czasu</td>
+</tr>
+<tr>
+<td align="center"><code>double</code></td>
+<td align="center">8 bajtów</td>
+<td>15 do 17 cyfr znaczących (zapis binarny)</td>
+<td align="center"><code>3.14</code></td>
+<td>Fizyka, pomiary inżynierskie, prędkość sieci</td>
+</tr>
+<tr>
+<td align="center"><code>decimal</code></td>
+<td align="center">16 bajtów</td>
+<td>28 do 29 cyfr znaczących (zapis dziesiętny)</td>
+<td align="center"><code>19.99m</code></td>
+<td>Ceny, faktury, księgowość, podatki</td>
+</tr>
+<tr>
+<td align="center"><code>bool</code></td>
+<td align="center">1 bajt</td>
+<td>wyłącznie <code>true</code> lub <code>false</code></td>
+<td align="center"><code>true</code></td>
+<td>Flagi logiczne i wyniki porównań</td>
+</tr>
+<tr>
+<td align="center"><code>string</code></td>
+<td align="center">zmienny</td>
+<td>dowolny ciąg znaków tekstu</td>
+<td align="center"><code>"Raport"</code></td>
+<td>Imiona, komunikaty, ścieżki plików</td>
+</tr>
+</tbody></table>
+<p>Zwróć uwagę na sufiksy literałów liczbowych. Liczbę z kropką taką jak <code>19.99</code> kompilator traktuje zawsze jako <code>double</code>. Aby przypisać ją do zmiennej <code>decimal</code>, musisz dopisać sufiks <code>m</code> (<code>19.99m</code>). Analogicznie, bardzo dużą liczbę całkowitą dla typu <code>long</code> oznaczasz sufiksem <code>L</code> (<code>3000000000L</code>).</p>
+<h3>⚖️ Dlaczego 0.1 + 0.2 nie równa się 0.3 w typie double?</h3>
+<p>Typ <code>double</code> zapisuje ułamki jako sumy potęg dwójki. Ułamków <code>0.1</code> i <code>0.2</code> nie da się zapisać skończenie w systemie binarnym, tak jak <code>1/3</code> w systemie dziesiętnym. W efekcie <code>0.1 + 0.2</code> daje <code>0.30000000000000004</code>, więc <code>0.1 + 0.2 == 0.3</code> zwraca <code>False</code>.</p>
+<p>Typ <span class="color-green"><code>decimal</code></span> zapisuje liczby dziesiętnie, dlatego <code>0.1m + 0.2m == 0.3m</code> daje dokładnie <code>True</code>.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Do pieniędzy, cen, stawek VAT i księgowości używaj zawsze typu <span class="color-green"><code>decimal</code></span> z sufiksem <code>m</code>. Typ <span class="color-green"><code>double</code></span> zostaw dla fizyki, geometrii i pomiarów, gdzie liczy się szybkość procesora, a nie dokładność co do grosza.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dobierz właściwy typ C# do rodzaju danych">
+    <item left="Cena produktu na fakturze (149.99 zł)" right="decimal"></item>
+    <item left="Rozmiar obrazu dysku w bajtach (ponad 10 miliardów)" right="long"></item>
+    <item left="Informacja, czy użytkownik jest zalogowany" right="bool"></item>
+    <item left="Średnia prędkość pobierania w megabitach na sekundę" right="double"></item>
+    <item left="Liczba sztuk towaru w magazynie (do kilkunastu tysięcy)" right="int"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>➗ Arytmetyka, konwersje i kolejność działań</h2>
+<p>W C# wynik operatora <code>/</code> zależy wyłącznie od <span class="color-green">typów liczb biorących udział w dzieleniu</span>, a nie od typu zmiennej po lewej stronie znaku <code>=</code>:</p>
+<pre><code class="language-csharp">int a = 7;
+int b = 2;
+
+int iloraz = a / b;              // 3 (czesc ulamkowa zostaje ucieta)
+int reszta = a % b;              // 1 (reszta z dzielenia, tzw. modulo)
+double bladZapisu = a / b;       // 3.0! Najpierw wykonuje sie int / int = 3
+double poprawny = (double)a / b; // 3.5 (rzutowanie zmienia a na double przed dzieleniem)
+</code></pre>
+<h3>🪙 Rozkład wielkości za pomocą / i %</h3>
+<p>Para operatorów <code>/</code> oraz <code>%</code> pozwala rozbić dowolną liczbę całkowitą na mniejsze jednostki. Spójrz na przykład rozmieniania kwoty <code>254</code> zł na jak największe nominały (<code>100</code> zł, <code>10</code> zł i <code>1</code> zł):</p>
+<pre><code class="language-csharp">int kwota = 254;
+int setki = kwota / 100;          // 254 / 100 = 2 banknoty po 100 zl
+int resztaPoSetkach = kwota % 100;// 254 % 100 = 54 zl zostalo do rozmienienia
+int dziesiatki = resztaPoSetkach / 10; // 54 / 10 = 5 banknotow po 10 zl
+int zlotowki = kwota % 10;        // 254 % 10 = 4 monety po 1 zl
+</code></pre>
+<p>Dokładnie ten sam schemat działa przy zamianie centymetrów na metry albo sekund na godziny, minuty i sekundy: dzielenie <code>/</code> wyciąga pełne paczki, a reszta <code>%</code> zostawia to, co się w nich nie zmieściło.</p>
+<h3>🔁 Konwersja niejawna kontra jawne rzutowanie</h3>
+<p>Gdy przenosisz wartość z węższego typu do szerszego (na przykład <code>int</code> do <code>long</code> lub <code>int</code> do <code>double</code>), C# wykonuje <span class="color-green">konwersję niejawną</span> automatycznie, bo nic nie może się zgubić.</p>
+<p>W drugą stronę (na przykład z <code>double</code> do <code>int</code>) kompilator blokuje przypisanie, ponieważ grozi ono utratą części ułamkowej. Musisz użyć <span class="color-green">jawnego rzutowania</span>:</p>
+<pre><code class="language-csharp">int calkowita = 42;
+double szeroka = calkowita;     // konwersja niejawna: 42.0
+
+double cena = 3.99;
+int obcieta = (int)cena;        // jawne rzutowanie: 3 (UCINA ulamek, nie zaokragla!)
+</code></pre>
+<p>Pamiętaj też, że w C# nie wolno mieszać w jednym wyrażeniu typów <code>decimal</code> i <code>double</code> (kompilator zgłosi błąd <span class="color-red">CS0019</span>). Gdy w obliczeniach finansowych dzielisz liczbę całkowitą <code>int</code> przez <code>100</code>, użyj literału dziesiętnego <code>100m</code> lub rzutowania <code>(decimal)</code>:</p>
+<pre><code class="language-csharp">int vat = 23;
+decimal stawka = vat / 100m;       // 0.23m (poprawnie: int / decimal daje decimal)
+// decimal blad = vat / 100.0;     // BLAD CS0019: double nie zamienia sie sam na decimal
+</code></pre>
+<h3>📐 Priorytet operatorów i pułapka sklejania napisów</h3>
+<p>Mnożenie <code>*</code>, dzielenie <code>/</code> i reszta <code>%</code> wykonują się zawsze przed dodawaniem <code>+</code> i odejmowaniem <code>-</code>. Gdy chcesz wymusić inną kolejność, używaj nawiasów <code>(...)</code>.</p>
+<p>Znak <code>+</code> pełni dwie role: dla liczb oznacza dodawanie, a dla napisów łączenie tekstu. Ponieważ komputer czyta wyrażenia z <code>+</code> od lewej do prawej, zobacz różnicę między dwiema poniższymi liniami:</p>
+<pre><code class="language-csharp">Console.WriteLine("Wynik: " + 2 + 3);   // wypisze: Wynik: 23
+Console.WriteLine("Wynik: " + (2 + 3)); // wypisze: Wynik: 5
+</code></pre>
+<p>W pierwszej linii wyrażenie <code>"Wynik: " + 2</code> tworzy napis <code>"Wynik: 2"</code>, a kolejne <code>+ 3</code> dokleja cyfrę <code>3</code> jako tekst. Nawiasy w drugiej linii każą najpierw dodać liczby <code>2 + 3</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Kontrola przepełnienia: checked i unchecked</h2>
+<p>Gdy wynik operacji na typie <code>int</code> przekracza jego górną granicę (<code>int.MaxValue = 2 147 483 647</code>), w C# domyślnie działa tryb <span class="color-green"><code>unchecked</code></span>. Liczba zawija się na sam początek ujemnego zakresu (<code>-2 147 483 648</code>), a program biegnie dalej bez żadnego ostrzeżenia.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Ciche zawinięcie liczby w kalkulatorach finansowych, rozmiarach plików lub licznikach czasu prowadzi do trudnych do wykrycia błędów. Jeśli wynik może przekroczyć 2 miliardy, od razu użyj typu <code>long</code> albo zrzutuj pierwszy czynnik: <code>(long)rozmiarMB * 1024 * 1024</code>.</p>
+
+</div>
+</div><p>Aby zmusić program do natychmiastowego wykrycia przepełnienia, umieść obliczenie w bloku <span class="color-green"><code>checked</code></span>. W razie przekroczenia zakresu środowisko .NET rzuci <span class="color-green">wyjątek</span> (sygnał błędu w trakcie działania programu, który natychmiast przerywa wadliwe obliczenie): <span class="color-red"><code style="color: inherit;">OverflowException</code></span>.</p>
+<pre><code class="language-csharp">int maks = int.MaxValue;
+
+int zawiniete = unchecked(maks + 1); // -2147483648 (ciche zawiniecie)
+
+checked
+{
+    int blad = maks + 1; // Rzuca OverflowException i zatrzymuje program
+}
+</code></pre>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Signed Overflow UB w C++ vs C#, instrukcja IDIV oraz magiczne stałe mnożenia</span>
+<span class="deep-dive-badge">C++ UB · X86-64 · COMPILER OPT</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Undefined Behavior w C++ kontra zdefiniowana arytmetyka w C#</h4>
+
+<p>W językach C i C++ przepełnienie liczby całkowitej ze znakiem (<code>int</code>) jest określone w standardzie jako <span class="color-red">Undefined Behavior (UB)</span>. Kompilator ma pełne prawo założyć, że w poprawnym programie taka sytuacja nigdy nie wystąpi, i na tej podstawie agresywnie optymalizować kod. Spójrz na funkcję sprawdzającą przepełnienie w C++:</p>
+<pre><code class="language-cpp">bool czyPrzepelnienie(int x) {
+    return (x + 1) &lt; x;
+}
+</code></pre>
+<p>Po kompilacji z flagą <code>g++ -O2</code> kompilator rozumuje algebraicznie: skoro <code>x + 1</code> nie może się przepełnić, warunek <code>(x + 1) &lt; x</code> jest zawsze fałszywy. W efekcie <code>gcc</code> usuwa całe porównanie i generuje dwie instrukcje asemblera:</p>
+<pre><code class="language-asm">xor eax, eax   ; zwroc 0 (false) bez sprawdzania x
+ret
+</code></pre>
+<p>W C# arytmetyka całkowita jest w pełni zdefiniowana przez specyfikację języka. Blok <code>unchecked</code> generuje instrukcję bajtkodu CIL <code>add</code>, gwarantującą zawijanie modulo $2^{32}$. Blok <code>checked</code> generuje instrukcję <code>add.ovf</code>. Na procesorze x86‑64 sprawdza ona flagę przepełnienia <code>OF</code> (Overflow Flag) instrukcją <code>JO</code> (Jump if Overflow) i zgłasza <span class="color-red">OverflowException</span>.</p>
+<h4>2. Dlaczego dzielenie IDIV jest wolne i jak kompilator je zastępuje?</h4>
+
+<p>Na nowoczesnym procesorze x86‑64 dodawanie (<code>ADD</code>) zajmuje 1 cykl zegara, mnożenie (<code>IMUL</code>) około 3 cykli, natomiast dzielenie całkowite instrukcją <span class="color-green"><code>IDIV</code></span> trwa od 20 do 40 cykli zegara. Dodatkowo <code>IDIV</code> wymaga umieszczenia dzielnej w sztywnej parze rejestrów <code>EDX:EAX</code> i zwraca iloraz w <code>EAX</code> oraz resztę w <code>EDX</code>.</p>
+<p>Gdy dzielisz przez <span class="color-green">stałą znaną w czasie kompilacji</span> (na przykład <code>sekundy / 60</code> albo <code>n / 10</code>), kompilator JIT w ogóle nie emituje instrukcji <code>IDIV</code>. Wyznacza z teorii liczb odwrotność modularną i zamienia dzielenie na mnożenie oraz przesunięcie bitowe:</p>
+<pre><code class="language-asm">mov  eax, edi          ; laduj argument n
+mov  edx, 0x66666667   ; magiczna stala ~ (2^34) / 10
+imul edx               ; wynik 64-bitowy w EDX:EAX
+sar  edx, 2            ; przesuniecie arytmetyczne w prawo o 2 bity
+sar  edi, 31           ; korekta znaku dla liczb ujemnych
+sub  edx, edi          ; finalny iloraz n / 10 w EDX
+</code></pre>
+<p>Cała sekwencja trwa około 4 do 5 cykli zegara zamiast 30, bez żadnej zmiany w Twoim kodzie C#. Przy okazji diagnostyki bitowej pamiętaj, że w C# podgląd zapisu dwójkowego lub szesnastkowego liczby daje metoda <code>Convert.ToString(liczba, 2)</code> oraz <code>Convert.ToString(liczba, 16)</code>.</p>
+<h4>3. Sprzętowe double (SSE2) kontra programowy decimal</h4>
+
+<p>Zmienna <code>double</code> trafia bezpośrednio do rejestrów wektorowych procesora <code>XMM0</code>..<code>XMM15</code>. Obsługują ją pojedyncze rozkazy sprzętowe SSE2 (<code>ADDSD</code>, <code>MULSD</code>, <code>DIVSD</code>).</p>
+<p>Z kolei <code>decimal</code> w C# to 128‑bitowa struktura przechowująca 96‑bitową mantysę całkowitą oraz dziesiętny wykładnik skali $10^{-k}$ (dla $0 \le k \le 28$). Procesory x86‑64 nie mają natywnych instrukcji dla tego formatu, więc każdą operację na <code>decimal</code> wykonuje środowisko CLR. Jest około 10 razy wolniejsza niż <code>double</code>, ale całkowicie eliminuje błędy reprezentacji ułamków dziesiętnych.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Rozkład czasu i kalkulator brutto</h2>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p><strong>Jak działa gotowy szablon metody z parametrem i <code>return</code>?</strong><br>W poniższym zadaniu masz gotowe nagłówki metod (na przykład <code>public static string FormatujCzas(int sekundy)</code>). Zmienne w nawiasach to <span class="color-green">dane wejściowe</span>, które testy podstawią automatycznie dla wielu przypadków. Zamiast wypisywać wynik na konsolę przez <code>Console.WriteLine</code>, odeślij gotową wartość na zewnątrz słowem kluczowym <span class="color-green"><code>return</code></span>.</p>
+
+</div>
+</div><p>Zaimplementuj dwie metody statyczne w klasie <span class="color-green"><code>Kalkulator</code></span>:</p>
+<ol>
+<li><span class="color-green"><code>FormatujCzas(int sekundy)</code></span>:<ul>
+<li>rozbij podaną liczbę sekund na pełne godziny, pozostałe pełne minuty i pozostałe sekundy za pomocą operatorów <code>/</code> oraz <code>%</code> (analogicznie do przykładu z rozmienianiem kwoty),</li>
+<li>zwróć napis w formacie <code>"Gh Mm Ss"</code>, na przykład:<ul>
+<li><code>3725</code> daje <code>"1h 2m 5s"</code>,</li>
+<li><code>0</code> daje <code>"0h 0m 0s"</code>,</li>
+<li><code>86399</code> daje <code>"23h 59m 59s"</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ObliczBrutto(decimal cenaNetto, int stawkaVatProcent)</code></span>:<ul>
+<li>oblicz cenę brutto w typie <span class="color-green"><code>decimal</code></span>, dodając do <span class="color-blue">cenaNetto</span> podatek VAT o podanej stawce procentowej (na przykład <code>23</code> oznacza 23%),</li>
+<li>uważaj na dzielenie całkowite podczas zamiany procentów na ułamek dziesiętny,</li>
+<li>przykłady: dla <code>100.00m</code> i <code>23</code> wynik wynosi <code>123.00m</code>, dla <code>200.00m</code> i <code>8</code> wynik wynosi <code>216.00m</code>, dla <code>19.99m</code> i <code>23</code> wynik wynosi <code>24.5877m</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Rozkład czasu i kalkulator brutto w C#" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class Kalkulator
+{
+    public static string FormatujCzas(int sekundy)
+    {
+        // TODO: Rozbij sekundy na godziny, minuty i pozostale sekundy (uzyj / oraz %)
+        // Zwroc napis w formacie "1h 2m 5s"
+        return "";
+    }
+
+    public static decimal ObliczBrutto(decimal cenaNetto, int stawkaVatProcent)
+    {
+        // TODO: Oblicz cene brutto w typie decimal (uwazaj na dzielenie calkowite)
+        return 0m;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("3725 s = " + Kalkulator.FormatujCzas(3725));
+        Console.WriteLine("100 netto + 23% VAT = " + Kalkulator.ObliczBrutto(100.00m, 23));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("FormatujCzas obsluguje 0 oraz wartosci ponizej minuty", () =&gt; {
+    LabAssert.Equal("0h 0m 0s", Kalkulator.FormatujCzas(0));
+    LabAssert.Equal("0h 0m 59s", Kalkulator.FormatujCzas(59));
+});
+LabAssert.Test("FormatujCzas poprawnie rozbija godziny, minuty i sekundy", () =&gt; {
+    LabAssert.Equal("1h 2m 5s", Kalkulator.FormatujCzas(3725));
+    LabAssert.Equal("23h 59m 59s", Kalkulator.FormatujCzas(86399));
+});
+LabAssert.Test("ObliczBrutto dokladnie liczy podatek VAT w typie decimal bez dzielenia calkowitego", () =&gt; {
+    LabAssert.Equal(123.00m, Kalkulator.ObliczBrutto(100.00m, 23));
+    LabAssert.Equal(216.00m, Kalkulator.ObliczBrutto(200.00m, 8));
+    LabAssert.Equal(24.5877m, Kalkulator.ObliczBrutto(19.99m, 23));
+    LabAssert.Equal(50.00m, Kalkulator.ObliczBrutto(50.00m, 0));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Jaki typ wybrać dla liczb?</strong> Do pieniędzy i podatków zawsze wybieraj <code>decimal</code> z sufiksem <code>m</code>, bo <code>double</code> nie zapisuje dokładnie ułamków typu <code>0.1</code>. Do fizyki i pomiarów wybieraj <code>double</code>, do standardowych liczników <code>int</code>, a dla wartości powyżej 2 miliardów <code>long</code> z sufiksem <code>L</code>.</li>
+<li><strong>Jak uniknąć ucięcia wyniku w dzieleniu?</strong> Dzielenie dwóch liczb <code>int</code> zawsze ucina część ułamkową. Jeśli chcesz uzyskać ułamek, zrzutuj co najmniej jeden operand przed dzieleniem (na przykład <code>(double)a / b</code>) albo użyj literału z sufiksem (<code>100m</code>).</li>
+<li><strong>Kiedy łączyć <code>/</code> z <code>%</code>?</strong> Gdy rozkładasz jedną wielkość całkowitą na mniejsze jednostki (nominały, czas, miary długości), <code>/</code> wyznacza pełne paczki, a <code>%</code> zwraca to, co zostało do dalszego podziału.</li>
+<li><strong>Jak chronić kod przed przepełnieniem i błędami przypisania?</strong> Owijaj krytyczne operacje całkowite w blok <code>checked</code> (by zamienić ciche zawinięcie na <code>OverflowException</code>), nie używaj zmiennych przed inicjalizacją (<code>CS0165</code>), a do zamiany dwóch zmiennych używaj zmiennej pomocniczej <code>temp</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

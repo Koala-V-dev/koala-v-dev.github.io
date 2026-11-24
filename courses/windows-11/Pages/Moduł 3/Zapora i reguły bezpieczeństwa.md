@@ -11,13 +11,13 @@ W tej lekcji odrzucamy amatorskie sztuczki. Zejdziemy pod maskę systemu operacy
 
 ## 🤵🏻‍♂️ Anegdotyczno-abstrakcyjna idea Zapory Sieciowej
 
-Wyobraź sobie, że jesteś unieruchomiony i nie możesz opuszczać swojej willi. Zapora sieciowa to twój lokaj – zarządca wejścia.
+Wyobraź sobie, że jesteś unieruchomiony i nie możesz opuszczać swojej willi. Zapora sieciowa to twój lokaj - zarządca wejścia.
 
 Gdy zamawiasz jedzenie, lokaj wie o tym i wpuszcza dostawcę. To sytuacja, w której korzystasz z przeglądarki i łączysz się z jakąś stroną. Ty zainicjowałeś połączenie, więc odpowiedź może wrócić do środka.
 
-Inaczej wygląda to w przypadku programów, które oczekują połączeń z zewnątrz, np. gdy hostujesz grę. Załóżmy, że jesteś fanem MTG i chcesz, aby znajomi przyszli do twojej willi pograć. Musisz powiedzieć lokajowi, że ma ich wpuścić – czyli otworzyć odpowiedni port.
+Inaczej wygląda to w przypadku programów, które oczekują połączeń z zewnątrz, np. gdy hostujesz grę. Załóżmy, że jesteś fanem MTG i chcesz, aby znajomi przyszli do twojej willi pograć. Musisz powiedzieć lokajowi, że ma ich wpuścić - czyli otworzyć odpowiedni port.
 
-Przed willą stoi jednak tłum ludzi. To miliony pakietów z internetu, które mogą próbować dostać się do środka. Lokaj wie jednak, że przygotowałeś stół do MTG, więc sprawdza każdego gościa (pakiet) i wpuszcza tylko tych, którzy mają talię MTG. Jeśli ktoś ma talię pokera albo nie ma jej wcale – nie wchodzi.
+Przed willą stoi jednak tłum ludzi. To miliony pakietów z internetu, które mogą próbować dostać się do środka. Lokaj wie jednak, że przygotowałeś stół do MTG, więc sprawdza każdego gościa (pakiet) i wpuszcza tylko tych, którzy mają talię MTG. Jeśli ktoś ma talię pokera albo nie ma jej wcale - nie wchodzi.
 
 Po co więc zapora?  
 Aby chronić cię przed niebezpiecznymi osobami (hakerami), które chcą cię okraść lub zaszkodzić. Dodatkowo zapobiega niepotrzebnemu obciążeniu systemu, blokując ruch, którego i tak nie chcesz obsługiwać.
@@ -31,8 +31,8 @@ Pokazuje decyzję „Zezwól” lub „Odrzuć” dla gracza próbującego poł�
 
 **Opis strukturalny diagramu**
 
-1. **Gracz z internetu** – inicjuje połączenie z portem gry.  
-2. **Zapora / WFP** – punkt decyzyjny, który sprawdza reguły bezpieczeństwa.  
+1. **Gracz z internetu** - inicjuje połączenie z portem gry.  
+2. **Zapora / WFP** - punkt decyzyjny, który sprawdza reguły bezpieczeństwa.  
 3. **Zgoda na regułę** → gracz dołącza do serwera gry.  
 4. **Brak zgody lub reguły** → pakiet zostaje odrzucony.  
 5. Kolory: zielony = zezwól, żółty = odrzuć.
@@ -55,37 +55,19 @@ Diagram decyzyjny przedstawia proces przekazywania żądania zablokowania ruchu 
 
 **Opis strukturalny diagramu**
 
-1. **Przestrzeń użytkownika (User Mode)** – na górze schematu znajduje się proces: `Program Antywirusowy` (krok 1: „Chcę zablokować ruch X”) przekazuje żądanie do biblioteki `BFE.DLL`.  
-2. **Weryfikacja w BFE (krok 2)** – następuje weryfikacja cyfrowa i uprawnień aplikacji. Blok decyzyjny `Czy program ma uprawnienia?` rozdziela przepływ: ścieżka **NIE** prowadzi do akcji `Odrzuć żądanie. Zapisz błąd w logach`, a ścieżka **TAK** przechodzi do `Tłumaczenie reguły dla jądra Windows`.  
-3. **Bezpieczna granica systemowa** – żądanie przekracza granicę trybów przez dedykowany `Interfejs IPC / IOCTL`.  
-4. **Przestrzeń jądra (Kernel Mode)** – krok 3: przekazanie instrukcji w formacie binarnym do silnika `WFP Core` (Kernel Filter Engine). Krok 4: następuje aktualizacja tabeli filtrów w pamięci RAM jądra, co modyfikuje `Tabelę Aktywnych Filtrów`.  
-5. **Przepływ pakietów sieciowych (dół schematu)** – krok 5: przychodzący pakiet sieciowy z `Karty Sieciowej Ethernet/Wi-Fi` trafia do `WFP Core`. Krok 6: następuje błyskawiczne porównanie z `Tabelą Aktywnych Filtrów`.  
-6. **Decyzja WFP** – końcowy krok rozstrzygający los pakietu: ścieżka **Zezwól** oznacza `Przepuść do Windowsa`, natomiast ścieżka **Blokuj** powoduje `Fizyczne porzucenie pakietu w nicość`.
+1. **Przestrzeń użytkownika (User Mode)** - na górze schematu znajduje się proces: `Program Antywirusowy` (krok 1: „Chcę zablokować ruch X”) przekazuje żądanie do biblioteki `BFE.DLL`.  
+2. **Weryfikacja w BFE (krok 2)** - następuje weryfikacja cyfrowa i uprawnień aplikacji. Blok decyzyjny `Czy program ma uprawnienia?` rozdziela przepływ: ścieżka **NIE** prowadzi do akcji `Odrzuć żądanie. Zapisz błąd w logach`, a ścieżka **TAK** przechodzi do `Tłumaczenie reguły dla jądra Windows`.  
+3. **Bezpieczna granica systemowa** - żądanie przekracza granicę trybów przez dedykowany `Interfejs IPC / IOCTL`.  
+4. **Przestrzeń jądra (Kernel Mode)** - krok 3: przekazanie instrukcji w formacie binarnym do silnika `WFP Core` (Kernel Filter Engine). Krok 4: następuje aktualizacja tabeli filtrów w pamięci RAM jądra, co modyfikuje `Tabelę Aktywnych Filtrów`.  
+5. **Przepływ pakietów sieciowych (dół schematu)** - krok 5: przychodzący pakiet sieciowy z `Karty Sieciowej Ethernet/Wi-Fi` trafia do `WFP Core`. Krok 6: następuje błyskawiczne porównanie z `Tabelą Aktywnych Filtrów`.  
+6. **Decyzja WFP** - końcowy krok rozstrzygający los pakietu: ścieżka **Zezwól** oznacza `Przepuść do Windowsa`, natomiast ścieżka **Blokuj** powoduje `Fizyczne porzucenie pakietu w nicość`.
 
 > [!CAUTION]
 > **Scenariusz Awarii:** Jeśli wirus lub złośliwy skrypt zatrzyma usługę **BFE**, cały mechanizm zapory przestaje działać. Co gorsza, system Windows automatycznie przejdzie w tryb "zamknij wszystko", odcinając dostęp do sieci, aby chronić komputer! BFE jest absolutnym fundamentem bezpieczeństwa sieciowego Windows.
 
-<data-gate>
-  <data-quiz>
-    <question>Jak w architekturze systemu Windows Defender Firewall realizowana jest ścieżka od zdefiniowania reguły przez administratora w GUI (wf.msc) do fizycznego zablokowania pakietu na karcie sieciowej?</question>
-    <options>
-      <item>Konsola wf.msc bezpośrednio modyfikuje sterownik jądra systemu, który automatycznie pobiera czarną listę IP i przekazuje ją do fizycznej karty sieciowej.</item>
-      <item correct>Konsola wf.msc wysyła żądanie do usługi Base Filtering Engine (BFE), która autoryzuje zmianę i wdraża ją bezpośrednio do jądra Windows Filtering Platform (WFP).</item>
-      <item>Sterownik jądra WFP regularnie monitoruje pamięć konsoli wf.msc i w przypadku wykrycia nowych wpisów automatycznie restartuje cały stos protokołów sieciowych.</item>
-      <item>Aplikacja antywirusowa w trybie użytkownika przejmuje kontrolę nad bazą danych WFP i samodzielnie kompiluje kod binarny dla sterowników kart sieciowych.</item>
-    </options>
-    <div data-hint="error">
-      Przeanalizuj podział ról zapory: które elementy działają w przestrzeni użytkownika (User Mode) jako interfejs lub zarządca reguł, a który element operuje bezpośrednio w jądrze systemu (Kernel Mode) na poziomie sterowników sieciowych. Spójrz na diagram przepływu żądania.
-    </div>
-    <div data-hint="success">
-      Doskonale! BFE zarządza regułami w przestrzeni użytkownika i przekazuje je do WFP działającego w jądrze systemu, co umożliwia niskopoziomowe filtrowanie pakietów.
-    </div>
-  </data-quiz>
-</data-gate>
-
 ---
 
-## 🌐 NLA (Network Location Awareness) – Inteligencja Profilowania
+## 🌐 NLA (Network Location Awareness) - Inteligencja Profilowania
 
 System Windows obsługuje trzy profile zapory: **Domena**, **Prywatny**, **Publiczny**. Pytanie brzmi: *Skąd Windows wie, którego profilu użyć w danej sekundzie i jak unika pomyłek?*
 
@@ -128,9 +110,9 @@ Zrzut ekranu z Edytora rejestru (regedit) przedstawiający zawartość klucza Pr
 :::
 
 **Opis strukturalny diagramu**
-1. **Drzewo rejestru** – po lewej stronie rozwinięta gałąź `NetworkList\Profiles` z listą identyfikatorów GUID.
-2. **Wybrany GUID** – zaznaczony profil telefonu `{261356F1-78CE-4CC2-A353-FDEDDC7DD8C2}`.
-3. **Panel szczegółów** – po prawej stronie lista wartości: `ProfileName` o wartości `Galaxy J6B373`, `Category` ze statusem `0` (sieć publiczna) oraz pozostałe metadane profilu.
+1. **Drzewo rejestru** - po lewej stronie rozwinięta gałąź `NetworkList\Profiles` z listą identyfikatorów GUID.
+2. **Wybrany GUID** - zaznaczony profil telefonu `{261356F1-78CE-4CC2-A353-FDEDDC7DD8C2}`.
+3. **Panel szczegółów** - po prawej stronie lista wartości: `ProfileName` o wartości `Galaxy J6B373`, `Category` ze statusem `0` (sieć publiczna) oraz pozostałe metadane profilu.
 
 #### 2. Sygnatury sieciowe (`...\NetworkList\Signatures`)
 Dzielą się na `Managed` (zarządzane domanowo) oraz `Unmanaged` (niezarządzane). NLA przechowuje tu parametry fizyczne sieci, aby dopasować je do profilu GUID:
@@ -155,14 +137,14 @@ Diagram przedstawia logiczny algorytm usługi NLA określający, który z trzech
 
 **Opis strukturalny diagramu**
 
-1. **Nawiązanie połączenia** – system wykrywa nowe połączenie sieciowe i uruchamia procedurę identyfikacji sieci (NLA).
-2. **Przynależność do domeny AD** – NLA sprawdza, czy komputer jest członkiem domeny Active Directory.
-3. **Detekcja kontrolera domeny (DC)** – w przypadku przynależności do domeny system próbuje zlokalizować kontroler domeny. Jeśli się to uda, wczytywany jest profil **Domena**.
-4. **Sprawdzenie rejestru (podpis sieci)** – jeśli DC nie zostanie wykryty lub komputer nie należy do domeny, NLA porównuje podpis sieci z bazą danych zapamiętanych sieci w rejestrze systemowym.
-5. **Wczytanie zapisanego profilu** – jeśli sieć jest znana, system wczytuje przypisany do niej wcześniej profil (**Prywatny** lub **Publiczny**).
-6. **Profil domyślny (Publiczny)** – nowa sieć automatycznie otrzymuje profil publiczny.
-7. **Monit / Akcja użytkownika** – zmiana profilu nowej sieci zależy od zachowania użytkownika (monit o wykrywanie sieci lub ręczna konfiguracja we właściwościach).
-8. **Decyzja o wykrywaniu sieci** – zezwolenie na wykrywanie przełącza sieć na profil **Prywatny**, odmowa pozostawia profil **Publiczny**.
+1. **Nawiązanie połączenia** - system wykrywa nowe połączenie sieciowe i uruchamia procedurę identyfikacji sieci (NLA).
+2. **Przynależność do domeny AD** - NLA sprawdza, czy komputer jest członkiem domeny Active Directory.
+3. **Detekcja kontrolera domeny (DC)** - w przypadku przynależności do domeny system próbuje zlokalizować kontroler domeny. Jeśli się to uda, wczytywany jest profil **Domena**.
+4. **Sprawdzenie rejestru (podpis sieci)** - jeśli DC nie zostanie wykryty lub komputer nie należy do domeny, NLA porównuje podpis sieci z bazą danych zapamiętanych sieci w rejestrze systemowym.
+5. **Wczytanie zapisanego profilu** - jeśli sieć jest znana, system wczytuje przypisany do niej wcześniej profil (**Prywatny** lub **Publiczny**).
+6. **Profil domyślny (Publiczny)** - nowa sieć automatycznie otrzymuje profil publiczny.
+7. **Monit / Akcja użytkownika** - zmiana profilu nowej sieci zależy od zachowania użytkownika (monit o wykrywanie sieci lub ręczna konfiguracja we właściwościach).
+8. **Decyzja o wykrywaniu sieci** - zezwolenie na wykrywanie przełącza sieć na profil **Prywatny**, odmowa pozostawia profil **Publiczny**.
 
 
 #### 1. Sieć Domeny (Domain Profile)
@@ -170,7 +152,7 @@ NLA automatycznie aktywuje profil Domeny **tylko** wtedy, gdy:
 - Komputer jest członkiem domeny Active Directory.
 - Na danym interfejsie sieciowym zostanie pomyślnie zlokalizowany i uwierzytelniony **Kontroler Domeny (Domain Controller - DC)**. Odbywa się to poprzez odpytanie DNS o rekordy SRV (np. `_ldap._tcp.dc._msdcs.nazwadomeny.pl`) oraz próbę kontaktu przez protokoły LDAP/Kerberos. Jeśli DC nie odpowie (np. łączysz się z domową siecią bez VPN), profil Domeny **nie** zostanie aktywowany.
 
-#### 2. Profil Prywatny (Private Profile) vs Publiczny (Public Profile) – Obalamy mit
+#### 2. Profil Prywatny (Private Profile) vs Publiczny (Public Profile) - Obalamy mit
 > [!WARNING]
 > **Windows nigdy automatycznie nie przypisuje profilu Prywatnego dla nowej sieci!**
 > Ze względów bezpieczeństwa (zasada najniższego poziomu zaufania), domyślnym profilem dla każdej nowej, dotąd nieznanej sieci jest zawsze profil **Publiczny**.
@@ -184,8 +166,8 @@ PS możesz też tu podejrzeć hasło i uzyskać wynik tekstowy oraz QR kod.
 
 ---
 
-### 🌐 NCSI (Network Connection Status Indicator) – Pomocnik NLA
-NLA ściśle współpracuje z inną usługą – **NCSI (Wskaźnik stanu połączenia sieciowego)**. To NCSI odpowiada za to, czy na pasku zadań widzisz ikonę globusa („Brak dostępu do Internetu”), czy pełne połączenie.
+### 🌐 NCSI (Network Connection Status Indicator) - Pomocnik NLA
+NLA ściśle współpracuje z inną usługą - **NCSI (Wskaźnik stanu połączenia sieciowego)**. To NCSI odpowiada za to, czy na pasku zadań widzisz ikonę globusa („Brak dostępu do Internetu”), czy pełne połączenie.
 
 NCSI wykonuje dwa testy (tzw. sondy):
 1. **Sonda aktywna HTTP:** Próbuje pobrać plik tekstowy z serwerów Microsoft (dla Windows 11 jest to żądanie GET do `http://www.msftconnecttest.com/connecttest.txt` oczekując odpowiedzi `Microsoft Connect Test` i kodu HTTP 200).
@@ -198,7 +180,7 @@ Jeśli któryś z testów zawiedzie, system zgłosi status „Brak internetu” 
 2. **Reakcja NCSI:** Sonda NCSI próbuje pobrać plik testowy, ale router hotelowy przekierowuje to żądanie na swoją stronę logowania. NCSI nie otrzymuje spodziewanej odpowiedzi `Microsoft Connect Test` i ustawia status **Brak dostępu do internetu**. NLA przypisuje profil **Publiczny**.
 3. **Autoryzacja:** Otwierasz przeglądarkę i pomyślnie logujesz się do sieci hotelowej. Router odblokowuje ruch dla Twojej karty sieciowej.
 4. **Wykrycie zmiany przez NCSI:** NCSI ponawia próbę i tym razem pomyślnie pobiera plik tekstowy z serwera Microsoft. Ikona na pasku zadań zmienia się na aktywną sieć Wi-Fi.
-5. **Reakcja NLA:** Ta zmiana statusu NCSI działa jak impuls – natychmiast wyzwala w usłudze NLA ponowną ewaluację (sprawdzenie) parametrów sieci, by upewnić się, czy zapora systemowa wczytała właściwy profil.
+5. **Reakcja NLA:** Ta zmiana statusu NCSI działa jak impuls - natychmiast wyzwala w usłudze NLA ponowną ewaluację (sprawdzenie) parametrów sieci, by upewnić się, czy zapora systemowa wczytała właściwy profil.
 
 Teraz pewnie rozumiesz dlaczego po połączeniu się z siecią status może być *„Połączono. Brak Internetu”*. 😉
 
@@ -284,24 +266,6 @@ IPv6Connectivity         : Internet
 > [!TIP]
 > Jeśli masz problem z ciągle resetującym się profilem sieci bezprzewodowej do stanu "Publiczny", upewnij się, że Twoja brama domyślna (router) ma przypisany stały adres MAC i nie zmienia go dynamicznie (np. z powodu włączonej ochrony przed śledzeniem / losowych adresów MAC w routerze). Zmiana MAC bramy wymusza na NLA wygenerowanie nowej sygnatury sieci i powrót do domyślnego profilu Publicznego.
 
-<data-gate>
-  <data-quiz>
-    <question>W jaki sposób usługi NLA (Network Location Awareness) oraz NCSI (Network Connection Status Indicator) współpracują przy określaniu profilu zapory i stanu sieci po podłączeniu komputera?</question>
-    <options>
-      <item>NLA przeprowadza aktywne testy połączeń HTTP/DNS z serwerami Microsoft, a usługa NCSI na tej podstawie zapisuje w rejestrze systemowym nową konfigurację zapony.</item>
-      <item correct>NCSI bada dostępność internetu za pomocą sond HTTP/DNS, podczas gdy NLA tworzy unikalny podpis sieci (MAC i SSID) i wczytuje z rejestru przypisany do niego profil.</item>
-      <item>System Windows automatycznie wymusza bezpieczny profil Prywatny, jeśli sonda HTTP usługi NCSI nie powiedzie się z powodu przekierowania na stronę logowania routera.</item>
-      <item>NLA wyłącza filtry zapory sieciowej na wszystkich kartach, gdy NCSI potwierdzi obecność kontrolera domeny Active Directory oraz zweryfikuje poprawność rekordów DNS.</item>
-    </options>
-    <div data-hint="error">
-      Przypomnij sobie zasadę działania sond (HTTP i DNS) – do czego one służą? Następnie zastanów się, co wchodzi w skład sygnatury (Network Signature) tworzonej przez NLA i jaka kategoria profilu jest domyślnie przypisywana nowej sieci.
-    </div>
-    <div data-hint="success">
-      Świetnie! NCSI bada dostępność internetu, a NLA na podstawie unikalnej sygnatury (SSID i MAC) dopasowuje profil z rejestru. Nowe sieci zawsze domyślnie otrzymują bezpieczny profil Publiczny.
-    </div>
-  </data-quiz>
-</data-gate>
-
 ---
 
 ## ⚙️ Prawdziwy Algorytm Przetwarzania Reguł
@@ -318,24 +282,6 @@ To jest najczęściej oblewany punkt na testach dla administratorów. W starych 
 > [!IMPORTANT]
 > Z algorytmu wynika **złota inżynieryjna zasada**: Jeśli chcesz komuś zezwolić na dostęp do portu 80, nie twórz reguły "Blokuj wszystkich" a potem "Zezwól szefowi". Ponieważ zasada nr 2 wygrywa z nr 3, szef i tak zostanie zablokowany! Wystarczy, że usuniesz reguły zezwalające dla innych, a zadziała zasada nr 4 (domyślny DROP). Reguł "Blokuj" używamy wyłącznie po to, by odciąć dostęp komuś konkretnemu.
 
-<data-gate>
-  <data-quiz>
-    <question>Administrator dodał dwie reguły w zaporze Windows Defender: jedną typu Blokuj (Block) dla całego ruchu przychodzącego z podsieci $192.168.0.0/24$ na port `8000`, oraz drugą typu Zezwalaj (Allow) dla komputera o adresie $192.168.0.2$ na ten sam port. Czy połączenie z adresu $192.168.0.2$ zostanie zrealizowane?</question>
-    <options>
-      <item>Tak, ponieważ reguła zezwalająca wskazuje pojedynczy adres IP, co nadaje jej wyższy priorytet nad regułą blokującą obejmującą całą podsieć.</item>
-      <item correct>Nie, ponieważ reguły blokujące są przetwarzane przed zezwalającymi i w razie dopasowania pakiet sieciowy jest natychmiast odrzucany (DROP).</item>
-      <item>Tak, o ile reguła zezwalająca dla wybranego hosta została zdefiniowana chronologicznie wcześniej niż reguła blokująca ruch dla podsieci.</item>
-      <item>Nie, ponieważ każdy pakiet kierowany na porty wyższe niż 1024 wymaga przeprowadzenia wcześniejszego uwierzytelnienia przez protokół IPsec.</item>
-    </options>
-    <div data-hint="error">
-      Przeanalizuj 4-stopniowy algorytm przetwarzania pakietu przez zaporę. Co jest sprawdzane w kroku drugim (Reguły Blokujące), a co w kroku trzecim (Reguły Zezwalające)? Jak wpływa to na sytuację, gdy pakiet pasuje do obu reguł?
-    </div>
-    <div data-hint="success">
-      Znakomicie! Ponieważ reguła Blokuj jest sprawdzana przed Zezwalaj (krok 2 vs krok 3), blokada zawsze ma pierwszeństwo. Złotą zasadą jest unikanie reguł blokujących dla podsieci, gdy chcemy dopuścić tylko wybrane wyjątki.
-    </div>
-  </data-quiz>
-</data-gate>
-
 ---
 
 # Konfiguracja zapory sieciowej
@@ -350,7 +296,7 @@ W nowym oknie ustal nazwę i wybierz rodzaj klonowania: **„Powiązany klon”*
 ![klon-powiązany-Virtual-Box](/public/courses/windows-11/Images/klon-powiązany-Virtual-Box.png)
 
 Upewnij się, że w ustawieniach każdej maszyny wirtualnej Twoja karta sieciowa działa w trybie **`Sieć wewnętrzna`** i jest przypisana do tej samej sieci wirtualnej np.: **`intnet`**. Ważne aby do maszyny był podłączony wirtualny kabel.  
-Możesz też zmienić ustawienie *Promiscuous Mode* na **`Pozwalaj wszystkim`** – bedziesz miał pewność, że VirtualBox nie zablokuje po drodze jakiegoś pakietu.
+Możesz też zmienić ustawienie *Promiscuous Mode* na **`Pozwalaj wszystkim`** - bedziesz miał pewność, że VirtualBox nie zablokuje po drodze jakiegoś pakietu.
 
 ![ustawienia-sieciowe-maszyny-wirtualnej-VirtualBox](/public/courses/windows-11/Images/ustawienia-sieciowe-maszyny-wirtualnej-VirtualBox.png)
 
@@ -380,7 +326,7 @@ Skonfigurujmy regułę zezwalającą na ruch z `ping` protokołu _**ICMP**_ w ma
 
 1. Uruchom przystawkę `wf.msc`
 2. W zakładce *Reguły przychodzące* przestaw sobie nagłówki kolumn tak abyś miał podgląd na interesujące nas dane:
-  - **Nazwa**: Udostępnianie plików i drukarek (żądanie echo — ruch przychodzący ICMPv4)
+  - **Nazwa**: Udostępnianie plików i drukarek (żądanie echo - ruch przychodzący ICMPv4)
   - **Protokół**: ICMPv4
   - **Profil**: Prywatny, Publiczny
 Najpewniej jesteś domyślnie na profilu Publicznym, ale jak pewnie zauważyłeś jest niżej odzielna reguła gdy dołączysz do domeny Active Directory (Domena). Prawym przyciskiem myszy rozwiń menu i kliknij **Włącz regułę**.
@@ -453,12 +399,34 @@ Zarządzanie bezpieczeństwem sieciowym w Windows 11 wymaga sprawnego łączenia
 
 <data-gate>
   <data-connection-matcher title="Diagnostyka i reguły zapory">
-    <div class="cmw-item" data-left="Chcesz zmienić profil sieci na Prywatny, ale polecenie Set-NetConnectionProfile w PowerShell zwraca PermissionDenied." data-right="Uruchom konsolę PowerShell z podwyższonymi uprawnieniami (jako Administrator) – konfiguracja profilu sieci wymaga uprawnień administracyjnych."></div>
+    <div class="cmw-item" data-left="Chcesz zmienić profil sieci na Prywatny, ale polecenie Set-NetConnectionProfile w PowerShell zwraca PermissionDenied." data-right="Uruchom konsolę PowerShell z podwyższonymi uprawnieniami (jako Administrator) - konfiguracja profilu sieci wymaga uprawnień administracyjnych."></div>
     <div class="cmw-item" data-left="Po restarcie routera sieć domowa jest oznaczana jako nowa i otrzymuje domyślnie profil Publiczny." data-right="Router lub karta sieciowa używa zmiennego/losowego MAC adresu bramy, co zmienia sygnaturę sieci generowaną przez usługę NLA."></div>
     <div class="cmw-item" data-left="Musisz zezwolić na pingowanie stacji roboczej, ale wyłącznie z jednego wybranego adresu IP w podsieci." data-right="We właściwościach reguły udostępniania plików (żądanie echo ICMPv4) przejdź do zakładki Zakres i dodaj adres IP w sekcji Zdalny adres IP."></div>
     <div class="cmw-item" data-left="Aplikacja antywirusowa chce zablokować określony ruch sieciowy w trybie jądra (Kernel Mode)." data-right="Żądanie jest wysyłane z trybu użytkownika do usługi BFE, która weryfikuje uprawnienia i przekazuje instrukcję do silnika jądra WFP."></div>
   </data-connection-matcher>
 </data-gate>
+
+---
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Platforma filtrowania Windows (WFP) w sterowniku fwpkclnt.sys</span><span class="deep-dive-badge">Network Security & WFP Kernel</span></summary>
+
+Zapora Windows Defender (*Windows Defender Firewall*) to jedynie interfejs zarządzania. Rzeczywiste filtrowanie pakietów w jądrze NT realizuje **Windows Filtering Platform** (**WFP**), którego sercem jest sterownik `fwpkclnt.sys`.
+
+### 1. Warstwowa architektura WFP
+WFP dzieli stos sieciowy na kilkanaście ściśle zdefiniowanych warstw inspekcji (*Filtering Layers*):
+- **Warstwa ALE (Application Layer Enforcement)**: Działa na poziomie gniazd w przestrzeni użytkownika. WFP potrafi sprawdzić tożsamość użytkownika, dokładną ścieżkę do pliku binarnego `.exe` generującego ruch oraz jego podpis cyfrowy.
+- **Warstwa Transportowa (Transport Layer)**: Sprawdza numery portów TCP/UDP i flagi nagłówków.
+- **Warstwa Sieciowa (Network Layer)**: Inspekcja adresów IPv4/IPv6, fragmentacji pakietów oraz enkapsulacji IPsec.
+
+### 2. Moduły wywołania zwrotnego (Callouts)
+WFP umożliwia instalowanie zaawansowanych sterowników analizy pakietów zwanych *Callouts*:
+- Antywirusy i systemy klasy EDR (Endpoint Detection and Response) rejestrują w jądrze funkcje zwrotne, które analizują strumień pakietów w poszukiwaniu sygnatur złośliwego oprogramowania.
+- Sterownik WFP podejmuje jedną z czterech decyzji dla każdego pakietu: `FWP_ACTION_PERMIT` (przepuść), `FWP_ACTION_BLOCK` (zablokuj), `FWP_ACTION_CONTINUE` (sprawdź kolejną regułę) lub `FWP_ACTION_CALLOUT_TERMINATING` (oddaj pakiet do głębokiej inspekcji przez antywirus).
+
+Dzięki działaniu wewnątrz jądra WFP przetwarza setki tysięcy pakietów na sekundę z minimalnym narzutem na procesor.
+
+</details>
 
 ---
 

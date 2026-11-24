@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 350" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #f8fafc; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #94a3b8; }
+      .step-lbl { font-family: monospace; font-size: 11px; font-weight: 800; }
+      .pdu-badge { font-family: monospace; font-size: 11px; font-weight: 800; text-anchor: middle; }
+      .blk-hdr { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 800; text-anchor: middle; }
+      .blk-sub { font-family: monospace; font-size: 8.5px; text-anchor: middle; }
+      .arr-txt { font-family: system-ui, sans-serif; font-size: 9.5px; font-weight: 700; fill: #64748b; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Proces Enkapsulacji: Wędrówka danych w dół stosu (Nadawca)</text>
+  <text x="30" y="48" class="sub">Każda warstwa traktuje PDU warstwy wyższej jako ładunek (Payload) i dodaje własny nagłówek</text>
+
+  <!-- ================= WARSTWA 7 / APLIKACJA ================= -->
+  <g transform="translate(30, 70)">
+    <!-- Etykieta warstwy i PDU -->
+    <rect x="0" y="0" width="135" height="34" rx="4" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8"/>
+    <text x="10" y="16" class="step-lbl" fill="#38bdf8">L7: APLIKACJA</text>
+    <text x="10" y="28" font-family="system-ui, sans-serif" font-size="9px" fill="#94a3b8">PDU: DANE (Data)</text>
+
+    <!-- Blok danych -->
+    <rect x="155" y="0" width="370" height="34" rx="4" fill="#0369a1" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="340" y="18" class="blk-hdr" fill="#f8fafc">Dane Aplikacji (User Data / Payload)</text>
+    <text x="340" y="29" class="blk-sub" fill="#bae6fd">np. żądanie HTTP: GET /index.html</text>
+
+    <!-- Strzałka w dół -->
+    <path d="M 545,17 L 585,17 L 585,48" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <polygon points="585,52 581,45 589,45" fill="#64748b"/>
+  </g>
+
+  <!-- ================= WARSTWA 4 / TRANSPORT ================= -->
+  <g transform="translate(30, 122)">
+    <rect x="0" y="0" width="135" height="34" rx="4" fill="#7c3aed" fill-opacity="0.2" stroke="#a78bfa"/>
+    <text x="10" y="16" class="step-lbl" fill="#a78bfa">L4: TRANSPORT</text>
+    <text x="10" y="28" font-family="system-ui, sans-serif" font-size="9px" fill="#94a3b8">PDU: SEGMENT</text>
+
+    <!-- Nagłówek L4 -->
+    <rect x="155" y="0" width="115" height="34" rx="4" fill="#581c87" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="212" y="15" class="blk-hdr" fill="#e9d5ff">Nagłówek TCP</text>
+    <text x="212" y="27" class="blk-sub" fill="#d8b4fe">Porty, Sekwencja</text>
+
+    <!-- Dane z L7 jako ładunek -->
+    <rect x="275" y="0" width="250" height="34" rx="4" fill="#0369a1" stroke="#38bdf8" stroke-width="1"/>
+    <text x="400" y="21" class="blk-hdr" fill="#e0f2fe">Dane L7 (Payload)</text>
+
+    <path d="M 545,17 L 585,17 L 585,48" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <polygon points="585,52 581,45 589,45" fill="#64748b"/>
+  </g>
+
+  <!-- ================= WARSTWA 3 / SIEĆ ================= -->
+  <g transform="translate(30, 174)">
+    <rect x="0" y="0" width="135" height="34" rx="4" fill="#0891b2" fill-opacity="0.2" stroke="#22d3ee"/>
+    <text x="10" y="16" class="step-lbl" fill="#22d3ee">L3: SIEĆ</text>
+    <text x="10" y="28" font-family="system-ui, sans-serif" font-size="9px" fill="#94a3b8">PDU: PAKIET (Packet)</text>
+
+    <!-- Nagłówek L3 -->
+    <rect x="155" y="0" width="110" height="34" rx="4" fill="#164e63" stroke="#22d3ee" stroke-width="1.5"/>
+    <text x="210" y="15" class="blk-hdr" fill="#a5f3fc">Nagłówek IP</text>
+    <text x="210" y="27" class="blk-sub" fill="#67e8f9">IP Src/Dst, TTL</text>
+
+    <!-- Segment z L4 jako ładunek -->
+    <rect x="270" y="0" width="85" height="34" rx="3" fill="#581c87" stroke="#a78bfa" stroke-width="1"/>
+    <text x="312" y="21" class="blk-hdr" fill="#e9d5ff">TCP</text>
+
+    <rect x="360" y="0" width="165" height="34" rx="3" fill="#0369a1" stroke="#38bdf8" stroke-width="1"/>
+    <text x="442" y="21" class="blk-hdr" fill="#e0f2fe">Dane L7</text>
+
+    <path d="M 545,17 L 585,17 L 585,48" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <polygon points="585,52 581,45 589,45" fill="#64748b"/>
+  </g>
+
+  <!-- ================= WARSTWA 2 / ŁĄCZE DANYCH ================= -->
+  <g transform="translate(30, 226)">
+    <rect x="0" y="0" width="135" height="34" rx="4" fill="#059669" fill-opacity="0.2" stroke="#34d399"/>
+    <text x="10" y="16" class="step-lbl" fill="#34d399">L2: ŁĄCZE DANYCH</text>
+    <text x="10" y="28" font-family="system-ui, sans-serif" font-size="9px" fill="#94a3b8">PDU: RAMKA (Frame)</text>
+
+    <!-- Nagłówek L2 Ethernet -->
+    <rect x="155" y="0" width="115" height="34" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="212" y="15" class="blk-hdr" fill="#a7f3d0">Nagłówek Ethernet</text>
+    <text x="212" y="27" class="blk-sub" fill="#6ee7b7">MAC Src/Dst, Type</text>
+
+    <!-- Pakiet L3 jako ładunek -->
+    <rect x="275" y="0" width="60" height="34" rx="3" fill="#164e63" stroke="#22d3ee" stroke-width="1"/>
+    <text x="305" y="21" class="blk-hdr" fill="#a5f3fc">IP</text>
+
+    <rect x="340" y="0" width="60" height="34" rx="3" fill="#581c87" stroke="#a78bfa" stroke-width="1"/>
+    <text x="370" y="21" class="blk-hdr" fill="#e9d5ff">TCP</text>
+
+    <rect x="405" y="0" width="135" height="34" rx="3" fill="#0369a1" stroke="#38bdf8" stroke-width="1"/>
+    <text x="472" y="21" class="blk-hdr" fill="#e0f2fe">Dane L7</text>
+
+    <!-- Ogon ramki L2: FCS (CRC-32) -->
+    <rect x="545" y="0" width="135" height="34" rx="4" fill="#881337" stroke="#f43f5e" stroke-width="1.5"/>
+    <text x="612" y="15" class="blk-hdr" fill="#fecdd3">Ogon: FCS (CRC-32)</text>
+    <text x="612" y="27" class="blk-sub" fill="#fda4af">Suma kontrolna ramki</text>
+
+    <path d="M 685,17 L 700,17 L 700,48" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <polygon points="700,52 696,45 704,45" fill="#64748b"/>
+  </g>
+
+  <!-- ================= WARSTWA 1 / FIZYCZNA ================= -->
+  <g transform="translate(30, 280)">
+    <rect x="0" y="0" width="135" height="34" rx="4" fill="#d97706" fill-opacity="0.2" stroke="#f59e0b"/>
+    <text x="10" y="16" class="step-lbl" fill="#f59e0b">L1: FIZYCZNA</text>
+    <text x="10" y="28" font-family="system-ui, sans-serif" font-size="9px" fill="#94a3b8">PDU: BITY (Bits)</text>
+
+    <!-- Wizualizacja strumienia bitów -->
+    <rect x="155" y="0" width="525" height="34" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="417" y="16" font-family="monospace" font-size="11.5px" font-weight="700" fill="#fde68a" text-anchor="middle" letter-spacing="3">10110100 11001010 01011101 00101100 11100101 ...</text>
+    <text x="417" y="28" font-family="system-ui, sans-serif" font-size="8.5px" fill="#94a3b8" text-anchor="middle">Modulacja napięciowa w skrętce miedzianej lub impulsy laserowe w światłowodzie</text>
+  </g>
+</svg>

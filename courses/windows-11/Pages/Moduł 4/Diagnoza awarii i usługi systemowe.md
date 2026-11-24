@@ -14,7 +14,7 @@ Czasem używasz wymagającego programu, jak VirtualBox czy edytor wideo, i nagle
 Dla użytkownika wygląda to na złośliwość komputera. Dla inżyniera to znak, że zadziałały mechanizmy obronne.
 
 Aplikacje w Windowsie działają w tzw. warstwie użytkownika (Ring 3). Nie mają one bezpośredniego dostępu do sprzętu. System pilnuje ich procesów i danych w ściśle wydzielonych sektorach pamięci RAM.  
-Jeśli aplikacja popełni krytyczny błąd, na przykład spróbuje odczytać dane z pamięci, do której nie ma praw, do akcji wkracza jądro systemu (Kernel – Ring 0). Jądro reaguje w ułamku sekundy i *natychmiastowo wymusza zamknięcie niebezpiecznego procesu*.
+Jeśli aplikacja popełni krytyczny błąd, na przykład spróbuje odczytać dane z pamięci, do której nie ma praw, do akcji wkracza jądro systemu (Kernel - Ring 0). Jądro reaguje w ułamku sekundy i *natychmiastowo wymusza zamknięcie niebezpiecznego procesu*.
 
 Windows robi to, aby chronić się przed uszkodzeniem kluczowych plików systemowych. Taki błąd mógłby zatrzymać cały komputer i wywołać Niebieski Ekran Śmierci (*BS***_OD_**). Nagłe zamknięcie programu to obrona, a nie awaria.
 
@@ -22,11 +22,11 @@ Kiedy system zamknie proces, zapisuje krótki raport w Dzienniku Zdarzeń.
 
 Oto najważniejsze numery błędów (Event ID) w Podglądzie Zdarzeń:
 
-* **`1000`** (*Application Error*) – Błąd aplikacji, która po prostu się zamknęła. 🤨
-* **`1001`** (*Windows Error Reporting*) – System poinformował, że utworzył raport o błędzie zrzutu pamięci. 🫡
-* **`1002`** (*Application Hang*) – Aplikacja przestała odpowiadać (zamroziła się) i Ty ją wymusiłeś. 😉
-* **`7031`/`7034`** (*Service Control Manager*) – Usługa systemowa niespodziewanie przestała działać w tle. 😯
-* **`41`** (*Kernel Power*) – Problem z zasilaniem lub nagły restart komputera prądem. 😨
+* **`1000`** (*Application Error*) - Błąd aplikacji, która po prostu się zamknęła. 🤨
+* **`1001`** (*Windows Error Reporting*) - System poinformował, że utworzył raport o błędzie zrzutu pamięci. 🫡
+* **`1002`** (*Application Hang*) - Aplikacja przestała odpowiadać (zamroziła się) i Ty ją wymusiłeś. 😉
+* **`7031`/`7034`** (*Service Control Manager*) - Usługa systemowa niespodziewanie przestała działać w tle. 😯
+* **`41`** (*Kernel Power*) - Problem z zasilaniem lub nagły restart komputera prądem. 😨
 
 
 <data-tabs>
@@ -150,23 +150,6 @@ Message     : Nazwa aplikacji powodującej błąd: VirtualBox.exe, wersja: 7.2.4
 ```
 </details>
 
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego „nagłe zniknięcie” programu to często mechanizm obronny systemu, a nie zwykły błąd aplikacji?</question>
-    <options>
-      <item>Ponieważ złośliwe oprogramowanie lub antywirus automatycznie ubija niepodpisane pliki .dll w tle.</item>
-      <item correct>Aplikacja z Ringu 3 narusza pamięć, więc Jądro natychmiast ją zabija, by zapobiec awarii BSOD.</item>
-      <item>To naturalny efekt wycieku pamięci RAM, gdy zapętlona aplikacja nie może zapisać logów błędu.</item>
-    </options>
-    <div data-hint="error">
-      Zastanów się nad hierarchią systemu. Czy programy same decydują o swojej awarii?
-    </div>
-    <div data-hint="success">
-      Dokładnie! „Wyrzucenie do pulpitu” to obrona. Jądro wymusza zamknięcie programu, a dowód tego znajdziesz w Dzienniku Zdarzeń jako `Event ID 1000`.
-    </div>
-  </data-quiz>
-</data-gate>
-
 ---
 
 ## 📈 Oś czasu i Monitor Niezawodności
@@ -217,12 +200,12 @@ Ostrzeżenie: Jeśli problem został spowodowany przez wirusa lub inne zagrożen
 
 Pliki wymienione w powyższym raporcie to standardowe artefakty diagnostyczne generowane przez Windows w momencie awarii:
 
-- `WATCHDOG-20260607-1801.dmp` — zrzut pamięci jądra (kernel-mode), zawierający stan sterowników i struktur systemowych w chwili wystąpienia błędu.
-- `sysdata.xml` — szczegółowe dane o konfiguracji systemu i aktywnych komponentach w momencie awarii.
-- `WERInternalMetadata.xml` — metadane raportu WER, opisujące kontekst błędu i środowisko wykonawcze.
-- `memory.csv` — statystyki wykorzystania pamięci operacyjnej z chwili wystąpienia błędu.
-- `sysinfo.txt` — podstawowe informacje o systemie, sprzęcie i wersjach sterowników.
-- `WERInternalRequest.xml` — wewnętrzny opis żądania diagnostycznego wygenerowanego przez Windows Error Reporting.
+- `WATCHDOG-20260607-1801.dmp` - zrzut pamięci jądra (kernel-mode), zawierający stan sterowników i struktur systemowych w chwili wystąpienia błędu.
+- `sysdata.xml` - szczegółowe dane o konfiguracji systemu i aktywnych komponentach w momencie awarii.
+- `WERInternalMetadata.xml` - metadane raportu WER, opisujące kontekst błędu i środowisko wykonawcze.
+- `memory.csv` - statystyki wykorzystania pamięci operacyjnej z chwili wystąpienia błędu.
+- `sysinfo.txt` - podstawowe informacje o systemie, sprzęcie i wersjach sterowników.
+- `WERInternalRequest.xml` - wewnętrzny opis żądania diagnostycznego wygenerowanego przez Windows Error Reporting.
 
 Na tej podstawie możemy przejść do analizy i ustalić, co było bezpośrednią przyczyną błędu.
 
@@ -315,8 +298,8 @@ KEY_VALUES_STRING: 1
 Większość powyższych linijek to tzw. szum informacyjny. Są to wewnętrzne statystyki samego programu WinDbg (np. `Analysis.Elapsed.mSec` to po prostu czas, jaki program spędził na czytaniu pliku). 
 
 Dla inżyniera z całej tej długiej listy liczą się tak naprawdę tylko dwa klucze:
-1. **`Bugcheck.Code` (0x193)** – Potwierdza numeryczny kod awarii.
-2. **`Failure.Bucket`** – To dokładna „sygnatura zbrodni” (w naszym przypadku `LKD_0x193_dxgkrnl...`). To właśnie ten ciąg znaków kopiuje się i wkleja w wyszukiwarkę internetową, aby szybko znaleźć rozwiązanie problemu.
+1. **`Bugcheck.Code` (0x193)** - Potwierdza numeryczny kod awarii.
+2. **`Failure.Bucket`** - To dokładna „sygnatura zbrodni” (w naszym przypadku `LKD_0x193_dxgkrnl...`). To właśnie ten ciąg znaków kopiuje się i wkleja w wyszukiwarkę internetową, aby szybko znaleźć rozwiązanie problemu.
 
 ### 2. Parametry błędu (Bugcheck Code i argumenty)
 Niżej znajduje się kod wraz z detalami:
@@ -369,8 +352,8 @@ dxgkrnl!NtDxgkPinResources+0x76
 nt!KiSystemServiceCopyEnd+0x25
 0x00007ffc`9e093f04
 ```
-- `watchdog!` — systemowy pies stróżujący wyłapał, że obraz na karcie graficznej się nie odświeża.
-- `dxgkrnl!` — jądro próbowało wymusić na karcie odświeżenie pamięci. Bez skutku.
+- `watchdog!` - systemowy pies stróżujący wyłapał, że obraz na karcie graficznej się nie odświeża.
+- `dxgkrnl!` - jądro próbowało wymusić na karcie odświeżenie pamięci. Bez skutku.
 - `nt!KiSystemServiceCopyEnd` - w tym miejscu proces się zakończył.
 
 Ważne: na liście w ogóle nie widać plików gier ani aplikacji. To oznacza, że winny nie leży po stronie zainstalowanych u Ciebie programów. Problem pochodzi z głębokiej warstwy jądra samego sterownika graficznego.
@@ -417,7 +400,7 @@ Jak rozwiązać ten problem?
 
 ---
 
-### 🟦 Przykład 2: BSOD – Błąd Sterownika Sieciowego
+### 🟦 Przykład 2: BSOD - Błąd Sterownika Sieciowego
 
 Poprzedni omówiony przypadek to awaria naprawiona w locie (system zrestartował sterownik i uratował sytuację 😎🤙🏻).
 
@@ -530,29 +513,12 @@ Procesy grupują w sobie zazwyczaj pojedyncze usługi:
 
 Przykładem zgrupowania usług jest kontener `localServiceNoNetworkFirewall (2)` <span style="text-wrap:nowrap">($11,6\text{ MB}$ RAM)</span>, który trzyma w sobie dwie usługi zapory sieciowej.
 
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego kliknięcie „Zakończ zadanie” na obciążającym procesie `svchost.exe` to błąd diagnostyczny?</question>
-    <options>
-      <item>Wywoła to natychmiastowy twardy reset komputera w celu ochrony Jądra (Ring 0).</item>
-      <item correct>Zabijasz tylko pojemnik. Tracisz unikalny numer PID, przez co nie namierzysz winnej usługi w tle.</item>
-      <item>Spowoduje to nadpisanie dziennika zdarzeń i usunięcie błędów z Diagnostics-Performance.</item>
-    </options>
-    <div data-hint="error">
-      Czy po usunięciu pojemnika nadal będziesz wiedzieć, co było w środku?
-    </div>
-    <div data-hint="success">
-      Dokładnie! `svchost` to tylko _**„nosiciel”**_. Ubijając go w Menedżerze Zadań, zacierasz jedyny ślad (PID), który pozwoliłby zidentyfikować wadliwą usługę.
-    </div>
-  </data-quiz>
-</data-gate>
-
 ---
 
 ## 🕵️ Optymalizacja RAM: Zrzucanie zbędnych usług
 
 RAM to zasób. Mniej usług w tle to mniej procesów `svchost.exe`, mniej wybudzeń CPU i więcej wolnej pamięci.  
-W Windowsie większość usług działa w tle niezauważalnie — ale wiele z nich można bezpiecznie uśpić lub wyłączyć.
+W Windowsie większość usług działa w tle niezauważalnie - ale wiele z nich można bezpiecznie uśpić lub wyłączyć.
 
 Zarządzanie usługami odbywa się przez przystawkę **Usługi**. 
 Wciśnij na klawiaturze skrót <kbd class="Win"></kbd> + <kbd>R</kbd>, po czym wpisz `services.msc` i zatwierdź. 
@@ -561,18 +527,18 @@ Wciśnij na klawiaturze skrót <kbd class="Win"></kbd> + <kbd>R</kbd>, po czym w
 
 W oknie właściwości każdej usługi możesz ustawić **Typ uruchamiania**:
 
-- <kbd class="win-menu-btn">Automatyczne (opóźnione uruchamianie)</kbd> – startuje z systemem, ale chwilę później.  
-- <kbd class="win-menu-btn">Automatyczny</kbd> – startuje natychmiast przy uruchamianiu systemu.  
-- <kbd class="win-menu-btn">Ręczny</kbd> – usługa jest uśpiona; system może ją wybudzić tylko wtedy, gdy będzie potrzebna.  
-- <kbd class="win-menu-btn">Ręczny (wyzwalane uruchamianie)</kbd> – usługa startuje tylko w reakcji na konkretne zdarzenie (np. podłączenie urządzenia).  
-- <kbd class="win-menu-btn">Wyłączony</kbd> – usługa jest zablokowana. System nie może jej uruchomić nawet wtedy, gdy będzie jej potrzebował.
+- <kbd class="win-menu-btn">Automatyczne (opóźnione uruchamianie)</kbd> - startuje z systemem, ale chwilę później.  
+- <kbd class="win-menu-btn">Automatyczny</kbd> - startuje natychmiast przy uruchamianiu systemu.  
+- <kbd class="win-menu-btn">Ręczny</kbd> - usługa jest uśpiona; system może ją wybudzić tylko wtedy, gdy będzie potrzebna.  
+- <kbd class="win-menu-btn">Ręczny (wyzwalane uruchamianie)</kbd> - usługa startuje tylko w reakcji na konkretne zdarzenie (np. podłączenie urządzenia).  
+- <kbd class="win-menu-btn">Wyłączony</kbd> - usługa jest zablokowana. System nie może jej uruchomić nawet wtedy, gdy będzie jej potrzebował.
 
 > [!CAUTION]
 > <b>Dlaczego najczęściej **„Ręczny”**, a nie **_„Wyłączony”_**?</b>
 > Wyłączenie usługi „na sztywno” może spowodować błędy, jeśli inny komponent systemu będzie jej wymagał.  
 > Tryb **Ręczny** to bezpieczna izolacja: usługa nie startuje z systemem, ale Windows może ją uruchomić tylko wtedy, gdy naprawdę musi.
 
-Poniżej znajdziesz **wyselekcjonowane i zweryfikowane** usługi, które można bezpiecznie wyłączyć lub uśpić, aby odzyskać zasoby — bez destabilizacji systemu.
+Poniżej znajdziesz **wyselekcjonowane i zweryfikowane** usługi, które można bezpiecznie wyłączyć lub uśpić, aby odzyskać zasoby - bez destabilizacji systemu.
 
 ---
 
@@ -580,11 +546,11 @@ Poniżej znajdziesz **wyselekcjonowane i zweryfikowane** usługi, które można 
 
 | Usługa | Powód | Zalecenie |
 | :--- | :--- | :--- |
-| **EapHost** | Uwierzytelnianie 802.1X — używane w sieciach korporacyjnych i uczelnianych. | Disable |
+| **EapHost** | Uwierzytelnianie 802.1X - używane w sieciach korporacyjnych i uczelnianych. | Disable |
 | **dot3svc** | 802.1X dla sieci przewodowych (LAN). W domu zbędne. | Disable |
 | **icssvc / SharedAccess** | Udostępnianie połączenia internetowego (Hotspot / ICS). | Disable |
-| **wcncsvc** (WPS) | Konfiguracja urządzeń przez WPS — funkcja podatna na ataki brute‑force. | Disable |
-| **SSDPSRV / upnphost** | UPnP (automatyczne wykrywanie urządzeń). Jeśli nie używasz DLNA / SmartTV / konsol — zbędne. | Disable |
+| **wcncsvc** (WPS) | Konfiguracja urządzeń przez WPS - funkcja podatna na ataki brute‑force. | Disable |
+| **SSDPSRV / upnphost** | UPnP (automatyczne wykrywanie urządzeń). Jeśli nie używasz DLNA / SmartTV / konsol - zbędne. | Disable |
 | **WMPNetworkSvc** | Strumieniowanie DLNA dla Windows Media Player. | Disable |
 
 ---
@@ -599,7 +565,7 @@ To tutaj system marnuje najwięcej zasobów. Wiele programów instaluje własne 
 | **GoogleChromeElevationService** | Niepotrzebne podnoszenie uprawnień dla Chrome. | Disable |
 | **Bonjour Service** | Instalowane przez Adobe / gry. Zwykle zbędne. | Manual |
 | **GIGABYTE Update Service** | Telemetria + automatyczne aktualizacje sterowników. | Disable |
-| **Gservice** | Gigabyte Cloud — zbędne obciążenie CPU. | Disable |
+| **Gservice** | Gigabyte Cloud - zbędne obciążenie CPU. | Disable |
 | **EasyTuneEngineService** | Sterowanie wentylatorami / OC. | Zostawić |
 | **GIGABYTE Adjust** | Sterowanie LED / RGB. | Zostawić |
 | **HwmRecordService** | Monitoring czujników. | Zostawić |
@@ -611,20 +577,20 @@ To tutaj system marnuje najwięcej zasobów. Wiele programów instaluje własne 
 
 | Usługa | Powód | Zalecenie |
 | :--- | :--- | :--- |
-| **EFS** | Szyfrowanie plików (nie BitLocker). Jeśli nie używasz — zbędne. | Manual / Disable |
-| **Spooler** | Bufor wydruku — wyłącz, jeśli nie masz drukarki. | Manual |
+| **EFS** | Szyfrowanie plików (nie BitLocker). Jeśli nie używasz - zbędne. | Manual / Disable |
+| **Spooler** | Bufor wydruku - wyłącz, jeśli nie masz drukarki. | Manual |
 | **Usługi Xbox Live** <ul> <li>XblAuthManager</li><li>XblGameSave</li><li>XboxGipSvc</li><li>XboxNetApiSvc</li></ul> | Telemetria i integracja Xbox. | Manual / Disable |
 
 ---
 
 ### 📦 Wirtualizacja i Hyper‑V (Microsoft)
 
-**Hyper‑V gryzie się z Oracle VirtualBox** — blokuje mu pełny dostęp do wirtualizacji sprzętowej procesora.  
+**Hyper‑V gryzie się z Oracle VirtualBox** - blokuje mu pełny dostęp do wirtualizacji sprzętowej procesora.  
 Jeśli pracujesz w VirtualBox, wyłącz Hyper‑V i jego komponenty.
 
 | Usługa / Funkcja | Powód | Zalecenie |
 | :--- | :--- | :--- |
-| **HvHost** | Główna usługa Hyper‑V — blokuje VT‑x dla VirtualBox. | Disable |
+| **HvHost** | Główna usługa Hyper‑V - blokuje VT‑x dla VirtualBox. | Disable |
 | **vmic*** (wszystkie) | Telemetria i integracja Hyper‑V. | Disable |
 | **HypervisorPlatform** | Włącza natywny hypervisor Windows. | Disable |
 | **VirtualMachinePlatform** | Moduły Hyper‑V dla podsystemów. | Disable |
@@ -632,7 +598,7 @@ Jeśli pracujesz w VirtualBox, wyłącz Hyper‑V i jego komponenty.
 
 > [!NOTE]
 > Wyłączenie Hyper‑V wyłącza również **WSL2** (Windows Subsystem for Linux 2).  
-> Jeśli potrzebujesz WSL2 — nie wyłączaj Hyper‑V.
+> Jeśli potrzebujesz WSL2 - nie wyłączaj Hyper‑V.
 
 > [!TIP]
 > Po zmianie ustawień usług oraz wyłączeniu platform Hyper‑V w „Funkcjach systemu Windows”, wykonaj pełny restart.  
@@ -662,10 +628,10 @@ Ale największym wyzwaniem dla inżyniera są **mikro‑usterki sprzętowe**, kt
 
 ---
 
-#### Rozwiązywanie problemów sprzętowych (Event ID 5 – BTHUSB)
+#### Rozwiązywanie problemów sprzętowych (Event ID 5 - BTHUSB)
 
 Załóżmy, że Twoja bezprzewodowa myszka co chwilę przerywa połączenie.  
-Na ekranie — cisza. Zero błędów.
+Na ekranie - cisza. Zero błędów.
 
 Inżynier robi coś innego:
 
@@ -772,9 +738,9 @@ Następnie w pętli `ForEach-Object` przetwarzamy każdy znaleziony i przefiltro
 W pętli realizowane są komedy:
 - `[xml]$_.ToXml()` - parsuje wpis zdarzenia do formatu XML.
 
-- `$exeName = ($xml.Event.EventData.Data | Where-Object Name -eq 'Name').'#text'` — z tego XML-a wyciągamy tekst schowany pod etykietą `Name`, aby dostać nazwę pliku (np. `msedge.exe`).
+- `$exeName = ($xml.Event.EventData.Data | Where-Object Name -eq 'Name').'#text'` - z tego XML-a wyciągamy tekst schowany pod etykietą `Name`, aby dostać nazwę pliku (np. `msedge.exe`).
 
-- `$totalTime = ($xml.Event.EventData.Data | Where-Object Name -eq 'TotalTime').'#text'` — analogicznie wyciągamy wartość parametru `TotalTime` (czas w milisekundach, który zaważył na powolnym starcie).
+- `$totalTime = ($xml.Event.EventData.Data | Where-Object Name -eq 'TotalTime').'#text'` - analogicznie wyciągamy wartość parametru `TotalTime` (czas w milisekundach, który zaważył na powolnym starcie).
 
 ---
 Ten fragment odpowiada za pominiecie wpisów które już istnieją w zmiennej `$seen`:
@@ -808,7 +774,7 @@ Na podstawie autentycznego zrzutu, podzielmy tego typu procesy na $5$ logicznych
 Nazwa pliku: MsMpEng.exe (13561ms)
 Nazwa pliku: Malwarebytes.exe (5937ms)
 ```
-Programy takie jak Windows Defender (`MsMpEng.exe`) wykonują głębokie skanowanie pamięci RAM zanim uruchomią się inne procesy. **To one najczęściej generują kilkunastosekundowe opóźnienia**. Nie jest to błąd, to cena bezpieczeństwa – nie należy z tym walczyć!
+Programy takie jak Windows Defender (`MsMpEng.exe`) wykonują głębokie skanowanie pamięci RAM zanim uruchomią się inne procesy. **To one najczęściej generują kilkunastosekundowe opóźnienia**. Nie jest to błąd, to cena bezpieczeństwa - nie należy z tym walczyć!
 
 ---
 
@@ -870,6 +836,35 @@ Programy od zewnętrznych wydawców, które ładują swoje niezależne procesy w
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Analiza zrzutu pamięci BSOD w WinDbg: struktura KTRAP_FRAME i rejestry x86_64</span><span class="deep-dive-badge">Crash Dump Analysis & Kernel Debugging</span></summary>
+
+Słynny niebieski ekran śmierci (**BSOD** - *Blue Screen of Death*) to mechanizm obronny jądra Windows NT. Gdy w przestrzeni Ring 0 dojdzie do nienaprawialnego błędu (np. próby odczytu nieistniejącego adresu pamięci RAM przy podwyższonym poziomie przerwań IRQL), jądro natychmiast wywołuje funkcję `KeBugCheckEx()`:
+- Zatrzymuje wszystkie rdzenie procesora instrukcją maszynową `cli` i `hlt`.
+- Zrzuca aktualną zawartość pamięci RAM do pliku zrzutu (`C:\Windows\Minidump\*.dmp`).
+
+### 1. Struktura KTRAP_FRAME i rejestry procesora
+Gdy występuje wyjątek sprzętowy procesora x86_64, jądro automatycznie odkłada stan wszystkich rejestrów na stosie w strukturze **`KTRAP_FRAME`**:
+- Rejestr `%rip` (Instruction Pointer): Dokładny adres instrukcji asemblera, która spowodowała awarię.
+- Rejestr `%rsp` (Stack Pointer): Wskaźnik wierzchołka stosu wątku.
+- Rejestr `%cr2` (Page Fault Linear Address): Adres wirtualny, do którego sterownik próbował uzyskać nielegalny dostęp.
+
+### 2. Analiza zrzutu za pomocą debugera WinDbg
+W oficjalnym debugerze jądra Microsoft WinDbg analiza zrzutu minidump sprowadza się do kilku potężnych poleceń:
+```text
+kd> !analyze -v
+```
+Polecenie to uruchamia wbudowany silnik heurystyczny analizy awarii:
+1. **BUGCHECK_CODE**: Identyfikator błędu (np. `0x0000000A: IRQL_NOT_LESS_OR_EQUAL`).
+2. **FAULTING_IP**: Adres i symbol uszkodzonej funkcji wewnątrz sterownika (np. `myfaulty_driver!ProcessPacket+0x42`).
+3. **STACK_TEXT** (Call Stack): Ścieżka wywołań funkcji prowadząca bezpośrednio do momentu katastrofy.
+
+Polecenie `.trap [adres]` pozwala debugerowi odtworzyć pełen kontekst rejestrów x86_64 w chwili wypadku, umożliwiając inżynierowi natychmiastowe zidentyfikowanie wadliwej linii kodu sterownika w asemblerze lub C++.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - **Awaria to obrona (Event ID 1000):** Wyrzucenie do pulpitu bez komunikatu błędu to najczęściej interwencja Jądra (Ring 0). Zamiast reinstalować program, szukaj winnej biblioteki `.dll` w Podglądzie Zdarzeń. 🔍
@@ -880,4 +875,4 @@ Programy od zewnętrznych wydawców, które ładują swoje niezależne procesy w
 
 ---
 
-Zrozumiałeś, że awarie nie dzieją się bez powodu, a każde zacięcie zostawia twardy ślad. Wiesz, jak namierzyć winną usługę i odczytać zrzuty pamięci. Z tą wiedzą ruszamy dalej – przed nami bezpośrednie modyfikacje Rejestru Windows i zautomatyzowany Harmonogram Zadań. 🛡️
+Zrozumiałeś, że awarie nie dzieją się bez powodu, a każde zacięcie zostawia twardy ślad. Wiesz, jak namierzyć winną usługę i odczytać zrzuty pamięci. Z tą wiedzą ruszamy dalej - przed nami bezpośrednie modyfikacje Rejestru Windows i zautomatyzowany Harmonogram Zadań. 🛡️

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  <rect x="20" y="20" width="600" height="220" fill="#1e293b" stroke="#c084fc" stroke-width="1.5" rx="10"/>
+
+  <text x="40" y="48" font-family="system-ui, sans-serif" font-size="16px" font-weight="700" fill="#c084fc">CSMA/CA: Unikanie kolizji w Wi-Fi i Ukryty Węzeł</text>
+  <text x="40" y="68" font-family="system-ui, sans-serif" font-size="12px" fill="#94a3b8">Problem: Host A i Host C nie słyszą się nawzajem, ale oba nadają do AP (B)</text>
+
+  <!-- Schemat ukrytego węzła -->
+  <g transform="translate(40, 85)">
+    <!-- Zasięg A -->
+    <circle cx="100" cy="50" r="65" fill="#a855f7" fill-opacity="0.1" stroke="#a855f7" stroke-dasharray="4 2"/>
+    <!-- Zasięg C -->
+    <circle cx="420" cy="50" r="65" fill="#a855f7" fill-opacity="0.1" stroke="#a855f7" stroke-dasharray="4 2"/>
+
+    <!-- Host A -->
+    <g transform="translate(60, 25)">
+      <circle cx="25" cy="25" r="22" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+      <text x="25" y="30" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#fff" text-anchor="middle">A</text>
+    </g>
+
+    <!-- AP w środku -->
+    <g transform="translate(230, 20)">
+      <rect width="60" height="60" fill="#0369a1" stroke="#38bdf8" stroke-width="2" rx="8"/>
+      <text x="30" y="30" font-family="system-ui, sans-serif" font-size="12px" font-weight="800" fill="#fff" text-anchor="middle">AP</text>
+      <text x="30" y="46" font-family="sans-serif" font-size="10px" fill="#bae6fd" text-anchor="middle">Punkt B</text>
+    </g>
+
+    <!-- Host C -->
+    <g transform="translate(395, 25)">
+      <circle cx="25" cy="25" r="22" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+      <text x="25" y="30" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+    </g>
+
+    <!-- Brak widoczności A z C -->
+    <line x1="110" y1="50" x2="410" y2="50" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 3"/>
+    <rect x="210" y="90" width="100" height="22" fill="#450a0a" stroke="#ef4444" rx="4"/>
+    <text x="260" y="105" font-family="system-ui, sans-serif" font-size="10px" font-weight="700" fill="#fca5a5" text-anchor="middle">A NIE WIDZI C!</text>
+  </g>
+
+  <!-- Belka RTS/CTS na dole -->
+  <g transform="translate(40, 195)">
+    <rect width="560" height="32" fill="#0f172a" rx="6" stroke="#475569" stroke-width="1"/>
+    <text x="280" y="21" font-family="system-ui, sans-serif" font-size="11.5px" font-weight="600" fill="#cbd5e1" text-anchor="middle">Rozwiązanie: <tspan fill="#38bdf8" font-weight="700">RTS</tspan> (Prośba o nadanie) ──► <tspan fill="#34d399" font-weight="700">CTS</tspan> (AP ucisza pozostałych) ──► <tspan fill="#fbbf24" font-weight="700">ACK</tspan></text>
+  </g>
+</svg>

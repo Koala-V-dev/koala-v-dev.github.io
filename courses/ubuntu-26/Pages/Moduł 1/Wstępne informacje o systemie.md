@@ -123,6 +123,43 @@ Dostajesz mały system po instalacji i notatkę w katalogu `Pobrane`.
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Wirtualny system plików /proc i pobieranie metryk jądra przez sysinfo()</span><span class="deep-dive-badge">Kernel Telemetry & /proc</span></summary>
+
+Polecenia takie jak `uname`, `lscpu`, `free`, `uptime` czy `top` nie przeprowadzają żadnych fizycznych pomiarów sprzętowych. Wszystkie one czerpią dane z **wirtualnego systemu plików `/proc`** (*procfs*).
+
+### 1. Pseudo-pliki generowane w pamięci RAM
+Katalog `/proc` nie zajmuje ani jednego bajtu na Twoim dysku SSD. Jest to interfejs jądra Linuksa zamontowany jako system plików typu `proc`:
+- Każdy plik w `/proc` (np. `/proc/cpuinfo`, `/proc/meminfo`, `/proc/uptime`) to funkcja w kodzie źródłowym jądra (implementacja `seq_file`).
+- Gdy wykonujesz polecenie `cat /proc/uptime`, jądro w chwili odczytu przelicza liczbę tyknięć zegara systemowego (*jiffies*) na sekundy i zwraca gotowy ciąg znaków.
+- Każdy katalog oznaczony liczbą (np. `/proc/1234/`) reprezentuje aktywny proces o numerze PID 1234. Znajdziesz tam jego mapę pamięci (`/proc/1234/maps`), otwarte deskryptory plików (`/proc/1234/fd/`) oraz stan rejestrów.
+
+### 2. Wywołanie systemowe `sysinfo()` w C
+Zamiast parsować tekst z plików w `/proc`, zaawansowane programy systemowe pobierają kompletny stan zasobów maszyny jednym wywołaniem systemowym:
+
+```c
+#include <stdio.h>
+#include <sys/sysinfo.h>
+
+int main() {
+    struct sysinfo s_info;
+    if (sysinfo(&s_info) == 0) {
+        printf("Czas pracy systemu (uptime): %ld sekund\n", s_info.uptime);
+        printf("Całkowita pamięć RAM: %lu MB\n", s_info.totalram * s_info.mem_unit / (1024 * 1024));
+        printf("Wolna pamięć RAM:      %lu MB\n", s_info.freeram  * s_info.mem_unit / (1024 * 1024));
+        printf("Średnie obciążenie 1m: %f\n", s_info.loads[0] / 65536.0);
+        printf("Liczba procesów:       %d\n", s_info.procs);
+    }
+    return 0;
+}
+```
+
+Jądro Linuksa wypełnia strukturę bezpośrednio z globalnych zmiennych kernela w czasie rzędu setek nanosekund, bez narzutu parsowania tekstu czy tworzenia procesów potomnych.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - Plik `/etc/os-release` jest standardowym **źródłem informacji** o dystrybucji, gdzie pole `PRETTY_NAME` służy do prezentacji czytelnej nazwy, a zmienne `ID` i `VERSION_ID` są wykorzystywane w skryptach.

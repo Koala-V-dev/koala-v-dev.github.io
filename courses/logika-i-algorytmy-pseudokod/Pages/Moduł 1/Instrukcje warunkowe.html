@@ -85,7 +85,7 @@ WYPISZ "Koniec programu."
 </data-pseudocode-runner>
 </data-gate>
 
-<p>Przeklikując ten program przyciskiem <span class="color-green">Krok</span>. Zaobserwujesz, że instrukcja po słowie kluczowym <code>W PRZECIWNYM RAZIE</code> zostanie całkowicie pominięta przez układ ALU!</p>
+<p>Przejdź przez algorytm krok po kroku. Zaobserwujesz, że ścieżka prawdy zostaje całkowicie pominięta przez układ ALU, a procesor przeskakuje do sekcji <code>W PRZECIWNYM RAZIE</code>.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🧬 Warunki Złożone: Łączenie Sygnałów</h2>
 <p>Pojedyncze zapytanie to często za mało. Co jeśli system wymaga weryfikacji kilku czynników jednocześnie? W takich sytuacjach wewnątrz instrukcji <code>JEŻELI</code> stosujemy operatory logiczne.</p>
@@ -102,13 +102,9 @@ WYPISZ "Koniec programu."
 czyVIP = PRAWDA
 
 JEŻELI (czyVIP == PRAWDA) OR (punktyWidza &gt;= 100) TO
-
-&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Wstęp do loży VIP otwarty!"
-
+    WYPISZ "Wstęp do loży VIP otwarty!"
 W PRZECIWNYM RAZIE
-
-&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Pozostań w sektorze standardowym."
-
+    WYPISZ "Pozostań w sektorze standardowym."
 KONIEC JEŻELI
 </pre>
 </data-pseudocode-runner>
@@ -142,72 +138,30 @@ KONIEC JEŻELI
 
 <p>Zauważ korzyść wydajnościową tej struktury. Jeśli osoba nie spełnia warunku pełnoletności, procesor od razu przechodzi do zewnętrznej sekcji <code>W PRZECIWNYM RAZIE</code>. Zmienna <code>bilet</code> nie jest w ogóle weryfikowana.</p>
 <hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>🕳️ Pułapki Logiczne: Kolejność Ewaluacji</h2>
-<p>Podczas tworzenia rozbudowanych struktur warunkowych łatwo popełnić błąd logiczny. Wynika on ze specyfiki działania procesora.</p>
-<p>Interpreter analizuje warunki po kolei, od góry do dołu. Wykonuje on wyłącznie pierwszy napotkany blok, którego warunek dał wynik prawdziwy. Pozostała część struktury zostaje całkowicie zignorowana.</p>
-<p>Przeanalizujmy błędną próbę przyznawania rang na podstawie zebranych punktów:</p>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🕳️ Pułapki Logiczne: Kolejność Ewaluacji (Napraw Błąd!)</h2>
+<p>Podczas tworzenia rozbudowanych struktur warunkowych łatwo popełnić błąd logiczny. Interpreter analizuje warunki po kolei, od góry do dołu, i wykonuje wyłącznie pierwszy napotkany blok, którego warunek dał wynik prawdziwy.</p>
+<p>Przeanalizujmy system przyznawania rang na podstawie zebranych punktów:</p>
 <ul>
 <li><span class="color-green">Od $10$ punktów:</span> Ranga Brązowa.</li>
 <li><span class="color-green">Od $50$ punktów:</span> Ranga Srebrna.</li>
 <li><span class="color-green">Od $100$ punktów:</span> Ranga Złota.</li>
 </ul>
-<data-gate>
-<data-pseudocode-runner>
-
-<pre>punktyGracza = 150
-
-WYPISZ "System nadawania rang (BLEDNY DESIGN):"
-
-JEŻELI punktyGracza &gt;= 10 TO
-    WYPISZ "Ranga Brazowa!"
-W PRZECIWNYM RAZIE
-    JEŻELI punktyGracza &gt;= 50 TO
-        WYPISZ "Ranga Srebrna!"
-    W PRZECIWNYM RAZIE
-        JEŻELI punktyGracza &gt;= 100 TO
-            WYPISZ "Ranga Zlota!"
-        KONIEC JEŻELI
-    KONIEC JEŻELI
-KONIEC JEŻELI
-</pre>
-</data-pseudocode-runner>
-</data-gate>
-
-<blockquote>
-<p>Dlaczego gracz mający $150$ punktów otrzymał rangę Brązową? </p>
-</blockquote>
-<p>Program sprawdził pierwszy warunek od góry: <code>150 &gt;= 10</code>. Wynik tego porównania to prawda. Została wykonana instrukcja wypisania rangi Brązowej, a cały pozostały blok warunkowy został pominięty.</p>
+<p>W poniższym kodzie gracz mający <code>150</code> punktów błędnie otrzymuje <code>"Ranga Brazowa!"</code>, ponieważ warunek <code>punktyGracza &gt;= 10</code> umieszczono na samej górze!</p>
 <div class="markdown-alert markdown-alert--caution">
 <p class="markdown-alert-title">
 <span class="alert-icon">❗</span> Ostrożnie
 </p>
 <div class="markdown-alert-content">
-<p>Warunki w strukturach wielokrotnego wyboru należy układać od najbardziej szczegółowych do najbardziej ogólnych. Przy porównaniach wartości liczbowych za pomocą operatora <code>&gt;=</code> na samej górze sprawdzamy najwyższe progi.</p>
+<p>Warunki w strukturach wielokrotnego wyboru należy układać od najbardziej szczegółowych (najwyższych progów <code>&gt;= 100</code>) do najbardziej ogólnych (<code>&gt;= 10</code>).</p>
 
 </div>
-</div><p>Poniżej znajduje się poprawiona struktura logiczna:</p>
+</div><p>Przebuduj kolejność progów w edytorze, aby dla <code>punktyGracza = 150</code> zmienna <code>ranga</code> przyjęła wartość <code>"Zlota"</code> i program wypisał <code>"Ranga Zlota!"</code>.</p>
 <data-gate>
-<data-pseudocode-runner>
-
+<data-pseudocode-runner editable="true" expected-var="ranga:Zlota" expected-output="Ranga Zlota!">
 <pre>punktyGracza = 150
+ranga = "Brak"
 
-WYPISZ "System nadawania rang (DOBRY DESIGN):"
-
-JEŻELI punktyGracza &gt;= 100 TO
-    WYPISZ "Ranga Zlota!"
-W PRZECIWNYM RAZIE
-    JEŻELI punktyGracza &gt;= 50 TO
-        WYPISZ "Ranga Srebrna!"
-    W PRZECIWNYM RAZIE
-        JEŻELI punktyGracza &gt;= 10 TO
-            WYPISZ "Ranga Brazowa!"
-        KONIEC JEŻELI
-    KONIEC JEŻELI
-KONIEC JEŻELI
-</pre>
-</data-pseudocode-runner>
-</data-gate>
-
+<p>JEŻELI punktyGracza &gt;= 10 TO<br>    ranga = "Brazowa"<br>    WYPISZ "Ranga Brazowa!"<br>W PRZECIWNYM RAZIE<br>    JEŻELI punktyGracza &gt;= 50 TO<br>        ranga = "Srebrna"<br>        WYPISZ "Ranga Srebrna!"<br>    W PRZECIWNYM RAZIE<br>        JEŻELI punktyGracza &gt;= 100 TO<br>            ranga = "Zlota"<br>            WYPISZ "Ranga Zlota!"<br>        KONIEC JEŻELI<br>    KONIEC JEŻELI<br>KONIEC JEŻELI<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <p>Taka konstrukcja odpowiada strukturze <code>ELSE IF</code> w tradycyjnych językach programowania. Każdy kolejny warunek sprawdzany jest tylko wtedy, gdy poprzedni okazał się fałszywy.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🪜 Instrukcja Wyboru: WYBIERZ ZMIENNĄ</h2>
@@ -217,17 +171,7 @@ KONIEC JEŻELI
 <data-pseudocode-runner>
 <pre>wybórMenu = 2
 
-<p>WYBIERZ wybórMenu</p>
-<pre><code>PRZYPADEK 1:
-    WYPISZ "Wybrano: Rozpocznij nową grę."
-PRZYPADEK 2:
-    WYPISZ "Wybrano: Opcje i ustawienia."
-PRZYPADEK 3:
-    WYPISZ "Wybrano: Wyjście."
-INACZEJ:
-    WYPISZ "Nieznana opcja. Podaj liczbę od 1 do 3."
-</code></pre>
-<p>KONIEC WYBIERZ<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>WYBIERZ wybórMenu<br>    PRZYPADEK 1:<br>        WYPISZ "Wybrano: Rozpocznij nową grę."<br>    PRZYPADEK 2:<br>        WYPISZ "Wybrano: Opcje i ustawienia."<br>    PRZYPADEK 3:<br>        WYPISZ "Wybrano: Wyjście."<br>    INACZEJ:<br>        WYPISZ "Nieznana opcja. Podaj liczbę od 1 do 3."<br>KONIEC WYBIERZ<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <p>Zwróć uwagę, że instrukcja <code>WYBIERZ</code> jest bardzo zoptymalizowana. Maszyna od razu przeskakuje do odpowiedniego przypadku, omijając wszystkie pozostałe (podobnie jak pociąg przestawiany na odpowiednie tory za pomocą zwrotnicy). Brak konieczności weryfikacji wielu skomplikowanych operatorów relacyjnych oszczędza cykle procesora.</p>
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>

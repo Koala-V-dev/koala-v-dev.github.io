@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</h1>
+<p>Kontrolki <code>Button</code> i <code>PictureBox</code> sprawdzają się w grach turowych, takich jak Kółko i Krzyżyk. Gdy jednak spróbujesz przesuwać kilkadziesiąt takich kontrolek <span class="color-gold">60 razy na sekundę</span>, interfejs WinForms zacznie migotać i gubić klatki. Każda kontrolka to osobne podokno systemu Windows z własnym uchwytem i ciężkim narzutem odświeżania.</p>
+<p>Gry działające w czasie rzeczywistym (Snake, Pong, Arkanoid) wymagają jednego <span class="color-green">płótna 2D</span> w klasie <code>System.Drawing.Graphics</code>. Tutaj natykasz się od razu na pierwsze zderzenie z architekturą systemu: to, co narysujesz na oknie raz, zniknie bez śladu, gdy tylko zasłonisz aplikację innym programem.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎨 Układ współrzędnych 2D, ClientSize i mapowanie siatki</h2>
+<p>W matematyce szkolnej oś Y rośnie w górę. W grafice ekranowej (WinForms, DirectX, HTML Canvas, Unity UI) punkt <code>(0, 0)</code> leży w lewym górnym rogu obszaru roboczego, oś X rośnie w prawo, a oś Y rośnie w dół.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Kierunek ruchu</th>
+<th align="center">Klawisze</th>
+<th align="center">Zmiana X (<span class="color-blue">dx</span>)</th>
+<th align="center">Zmiana Y (<span class="color-blue">dy</span>)</th>
+<th align="left">Przesunięcie z <code>(10, 10)</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">W górę</td>
+<td align="center"><kbd>W</kbd> / <kbd>↑</kbd></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>-1</code></td>
+<td align="left"><code>(10, 9)</code></td>
+</tr>
+<tr>
+<td align="left">W dół</td>
+<td align="center"><kbd>S</kbd> / <kbd>↓</kbd></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="left"><code>(10, 11)</code></td>
+</tr>
+<tr>
+<td align="left">W lewo</td>
+<td align="center"><kbd>A</kbd> / <kbd>←</kbd></td>
+<td align="center"><code>-1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left"><code>(9, 10)</code></td>
+</tr>
+<tr>
+<td align="left">W prawo</td>
+<td align="center"><kbd>D</kbd> / <kbd>→</kbd></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="left"><code>(11, 10)</code></td>
+</tr>
+</tbody></table>
+<h3>📐 ClientSize kontra Size</h3>
+<p>Kiedy tworzysz okno gry o rozmiarze 400 na 300 pikseli, musisz rozróżnić dwie właściwości klasy <code>Form</code>:</p>
+<ul>
+<li><span class="color-green"><code>Size</code></span>: wymiar zewnętrzny całego okna, łącznie z belką tytułu oraz ramkami systemu Windows. Belka i ramki zabierają kilkadziesiąt pikseli z pola gry, a ich grubość zależy od motywu i skali DPI.</li>
+<li><span class="color-green"><code>ClientSize</code></span>: wymiar wyłącznie wewnętrznego płótna, po którym wolno rysować obiektowi <code>Graphics</code>.</li>
+</ul>
+<p>W grach 2D zawsze ustawiaj <code>ClientSize</code>. Dzięki temu wiesz dokładnie, że prawy dolny piksel planszy ma współrzędne <code>(ClientSize.Width - 1, ClientSize.Height - 1)</code>.</p>
+<h3>🗺️ Mapowanie kafelka siatki na piksele ekranu</h3>
+<p>Logika gry operuje na prostych współrzędnych siatki (<span class="color-blue">kolumna</span>, <span class="color-blue">wiersz</span>), natomiast ekran wymaga pikseli. Jeśli u góry okna znajduje się pasek wyniku (<span class="color-green">HUD</span>) o wysokości <span class="color-blue">wysokoscHud</span>, a wokół planszy zostawiasz ramkę <span class="color-blue">margines</span>, pozycję kafelka na ekranie wyliczasz dwoma wzorami:</p>
+<pre><code class="language-csharp">int pikselX = margines + kolumna * rozmiarKratki;
+int pikselY = wysokoscHud + margines + wiersz * rozmiarKratki;
+</code></pre>
+<p>Dla kafelka <code>(2, 1)</code> przy rozmiarze kratki <code>20</code>, wysokości HUD <code>36</code> i marginesie <code>4</code> otrzymasz prostokąt <code>Rectangle(44, 60, 20, 20)</code>. Takie rozdzielenie sprawia, że zmiana rozmiaru kafelka w jednym miejscu natychmiast skaluje całą planszę.</p>
+<h3>🔄 Zawijanie krawędzi i pułapka ujemnego modulo</h3>
+<p>W grach z przechodzeniem przez krawędź planszy (jak Asteroids czy Snake bez ścian) po wyjściu za prawą krawędź obiekt wraca na pozycję <code>0</code>, a po wyjściu za lewą trafia na <code>rozmiarPlanszy - 1</code>. Pierwsza intuicja podpowiada użycie reszty z dzielenia: <code>(pozycja + delta) % rozmiarPlanszy</code>.</p>
+<p>W języku C# operator <code>%</code> zachowuje znak liczby dzielonej. Dlatego wyrażenie <code>-1 % 20</code> zwraca <span class="color-green"><code>-1</code></span>, a nie <code>19</code>! Taki wynik wywołuje <span class="color-red">IndexOutOfRangeException</span> przy odczycie z tablicy albo wyrzuca obiekt poza widoczne okno.</p>
+<p>Aby zawijanie działało poprawnie również dla ujemnych przesunięć większych niż rozmiar planszy (na przykład <span class="color-blue">delta</span> równe <code>-45</code> na planszy o szerokości <code>20</code>), stosuje się podwójne modulo:</p>
+<pre><code class="language-csharp">int wynik = (((pozycja + delta) % rozmiarPlanszy) + rozmiarPlanszy) % rozmiarPlanszy;
+</code></pre>
+<p>Pierwsze <code>% rozmiarPlanszy</code> sprowadza wynik do przedziału <code>(-rozmiarPlanszy, rozmiarPlanszy)</code>. Dodanie <span class="color-blue">rozmiarPlanszy</span> przenosi liczby ujemne na stronę dodatnią, a drugie <code>% rozmiarPlanszy</code> zamyka całość w zakresie <code>[0, rozmiarPlanszy - 1]</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🖼️ Architektura WM_PAINT, DoubleBuffered i pułapka CreateGraphics</h2>
+<p>System Windows nie przechowuje w pamięci kopii tego, co narysowałeś wewnątrz okna. Gdy użytkownik zminimalizuje program, przeciągnie po nim inne okno albo zmieni jego rozmiar, system wysyła komunikat <span class="color-gold">WM_PAINT</span>. Ten komunikat jest rozkazem: „odtwórz zawartość swojego płótna od zera na podstawie aktualnego stanu”.</p>
+<h3>🚫 Dlaczego CreateGraphics jest pułapką</h3>
+<p>Początkujący często wywołują <code>this.CreateGraphics()</code> wewnątrz kliknięcia przycisku lub timera, rysują prostokąt i cieszą się z efektu. Problem ujawnia się po sekundzie: wystarczy zasłonić okno innym programem, a Windows wyśle <span class="color-gold">WM_PAINT</span> i zetrze cały rysunek. Metoda <code>CreateGraphics()</code> maluje bezpośrednio na ekranie poza cyklem odświeżania systemu, więc taki obraz jest nietrwały i migocze.</p>
+<p>Poprawna architektura rysowania w WinForms opiera się na trzech filarach:</p>
+<ol>
+<li><span class="color-green"><code>DoubleBuffered = true</code></span> w konstruktorze okna: każda klatka powstaje najpierw w niewidocznym buforze pamięci RAM, a dopiero po zakończeniu rysowania trafia na ekran w jednym kroku.</li>
+<li><span class="color-green"><code>Invalidate()</code></span> wywoływane w <code>Timer.Tick</code>: nie rysuje klatki od razu, lecz oznacza obszar roboczy jako nieaktualny i wstawia komunikat <span class="color-gold">WM_PAINT</span> do kolejki zdarzeń okna.</li>
+<li><span class="color-green"><code>OnPaint(PaintEventArgs e)</code></span>: jedyne miejsce, w którym rysujesz stan gry na przekazanym obiekcie <code>e.Graphics</code>. Na początku wywołuj <span class="color-green"><code>base.OnPaint(e)</code></span>, aby klasa bazowa mogła obsłużyć podpięte zdarzenia <code>Paint</code>.</li>
+</ol>
+<h3>🧹 Zarządzanie uchwytami GDI+ i cacheowanie pędzli</h3>
+<p>Każdy obiekt <code>SolidBrush</code>, <code>Pen</code> oraz <code>Font</code> rezerwuje natywny uchwyt w jądrze systemu Windows. Masz dwie bezpieczne strategie zarządzania tymi zasobami:</p>
+<ul>
+<li><span class="color-green">Blok <code>using</code> w <code>OnPaint</code></span>: tworzysz pędzel lokalnie i zwalniasz go natychmiast na końcu bloku. Jest to czytelne i odporne na błędy przy małej liczbie kolorów.</li>
+<li><span class="color-green">Cacheowanie w polach klasy</span>: jeśli co klatkę rysujesz setki kafelków tymi samymi 4 kolorami, utwórz pola <code>private readonly SolidBrush</code> raz w konstruktorze i zwolnij je przez <code>Dispose()</code> w zdarzeniu <code>FormClosed</code> (lub nadpisując <code>Dispose(bool)</code>). Unikasz wtedy zbędnego tworzenia i niszczenia uchwytów <span class="color-gold">60 razy na sekundę</span>.</li>
+</ul>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Nigdy nie zostawiaj obiektów <code>SolidBrush</code>, <code>Pen</code> ani <code>Font</code> bez <code>using</code> lub <code>Dispose()</code>. Przy <span class="color-gold">60 FPS</span> wyciek zaledwie 3 uchwytów na klatkę marnuje 180 uchwytów na sekundę. Po około <span class="color-gold">55 sekundach</span> proces uderzy w sztywny limit <span class="color-gold">10 000 uchwytów</span> GDI na proces i zakończy się awarią <span class="color-red">ExternalException</span> lub <span class="color-red">OutOfMemoryException</span>.</p>
+
+</div>
+</div><data-gate>
+<data-sortable-list title="Ułóż poprawną kolejność cyklu życia i renderowania klatki w WinForms">
+  <item data-correct="4">System Windows dostarcza komunikat WM_PAINT, a metoda OnPaint wywołuje base.OnPaint(e) i rysuje stan gry</item>
+  <item data-correct="1">Konstruktor okna ustawia ClientSize, włącza DoubleBuffered = true i przygotowuje zegar oraz cache pędzli</item>
+  <item data-correct="5">Zdarzenie FormClosed zatrzymuje zegar i wywołuje Dispose() na zegarze oraz polach GDI+</item>
+  <item data-correct="2">Zdarzenie Timer.Tick aktualizuje pozycje obiektów oraz stan logiki gry</item>
+  <item data-correct="3">Wywołanie Invalidate() oznacza obszar roboczy jako nieaktualny i kolejkuje odświeżenie okna</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⌨️ Klawiatura w WinForms: fokus, KeyPreview i płynny ruch</h2>
+<p>Obsługa klawiatury w oknie z własnym płótnem kryje dwie pułapki, na które wpada niemal każdy autor pierwszej gry w WinForms.</p>
+<h3>🎯 Pułapka fokusu kontrolek i strzałek</h3>
+<p>Jeśli na oknie <code>Form</code> nie ma żadnych kontrolek, zdarzenie <code>KeyDown</code> działa bez zarzutu. Wystarczy jednak dodać jeden <code>Button</code> (na przykład „Restart”) albo <code>TextBox</code>, a kontrolka natychmiast przejmie <span class="color-green">fokus</span> klawiatury. Od tego momentu naciśnięcie <kbd>W</kbd> nie dociera do okna, a strzałki <kbd>↑</kbd>, <kbd>↓</kbd>, <kbd>←</kbd>, <kbd>→</kbd> zamiast poruszać postacią przełączają podświetlenie między przyciskami.</p>
+<p>Rozwiązanie zależy od rodzaju klawiszy:</p>
+<ul>
+<li><span class="color-green"><code>KeyPreview = true</code></span> w konstruktorze okna sprawia, że formularz otrzymuje zdarzenia <code>KeyDown</code> dla zwykłych klawiszy (takich jak <kbd>W</kbd>, <kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd>, <kbd>Spacja</kbd>) przed aktywną kontrolką.</li>
+<li><span class="color-green"><code>ProcessCmdKey(ref Message msg, Keys keyData)</code></span>: strzałki, <kbd>Tab</kbd> i <kbd>Enter</kbd> są traktowane przez WinForms jako klawisze nawigacji dialogowej jeszcze przed <code>KeyDown</code>. Nadpisanie <code>ProcessCmdKey</code> pozwala przechwycić strzałki nawet wtedy, gdy na formularzu istnieją przyciski.</li>
+</ul>
+<h3>🕹️ KeyDown kontra stan wciśniętych klawiszy</h3>
+<p>Jeśli przesuwasz obiekt bezpośrednio w zdarzeniu <code>KeyDown</code>, zauważysz irytujące szarpanie. Po wciśnięciu i przytrzymaniu <kbd>D</kbd> postać wykona jeden krok, zatrzyma się na około <span class="color-gold">500 ms</span> (systemowe opóźnienie powtarzania klawiszy Windows), a potem ruszy z niską częstotliwością. Co więcej, zdarzenie <code>KeyDown</code> zgłasza po jednym klawiszu naraz, więc nie poruszysz się płynnie po skosie (<kbd>W</kbd> + <kbd>D</kbd>).</p>
+<p>W grach wymagających płynnego sterowania rozdzielasz odczyt klawiatury od ruchu:</p>
+<ul>
+<li>w <code>KeyDown</code> dodajesz <code>e.KeyCode</code> do zbioru <code>HashSet&lt;Keys&gt;</code>,</li>
+<li>w <code>KeyUp</code> usuwasz <code>e.KeyCode</code> ze zbioru,</li>
+<li>w <code>Timer.Tick</code> (co <span class="color-gold">16,67 ms</span>) sprawdzasz, które klawisze są aktualnie wciśnięte, i zmieniasz pozycję.</li>
+</ul>
+<p>Poniższy przykład łączy <code>ClientSize</code>, <code>DoubleBuffered</code>, <code>KeyPreview</code>, płynny ruch oparty na <code>HashSet&lt;Keys&gt;</code>, cache pędzli oraz poprawne <code>base.OnPaint(e)</code>:</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class PlanszaDemo : Form
+{
+    private readonly Timer _zegar = new Timer();
+    private readonly HashSet&lt;Keys&gt; _wcisniete = new HashSet&lt;Keys&gt;();
+    private readonly SolidBrush _pedzelGracza = new SolidBrush(Color.FromArgb(56, 189, 248));
+    private readonly Pen _pioroObrysu = new Pen(Color.White, 2);
+
+    private int _pozX = 120;
+    private int _pozY = 80;
+    private const int Predkosc = 4;
+
+    public PlanszaDemo()
+    {
+        ClientSize = new Size(400, 260);
+        DoubleBuffered = true;
+        KeyPreview = true;
+
+        _zegar.Interval = 16; // około 60 klatek na sekundę
+        _zegar.Tick += (s, e) =&gt;
+        {
+            AktualizujRuch();
+            Invalidate();
+        };
+
+        KeyDown += (s, e) =&gt; _wcisniete.Add(e.KeyCode);
+        KeyUp += (s, e) =&gt; _wcisniete.Remove(e.KeyCode);
+        Deactivate += (s, e) =&gt; _wcisniete.Clear();
+
+        FormClosed += (s, e) =&gt;
+        {
+            _zegar.Stop();
+            _zegar.Dispose();
+            _pedzelGracza.Dispose();
+            _pioroObrysu.Dispose();
+        };
+
+        _zegar.Start();
+    }
+
+    private void AktualizujRuch()
+    {
+        if (ClientSize.Width &lt;= 0 || ClientSize.Height &lt;= 0) return;
+
+        int dx = 0;
+        int dy = 0;
+        if (_wcisniete.Contains(Keys.A) || _wcisniete.Contains(Keys.Left)) dx -= Predkosc;
+        if (_wcisniete.Contains(Keys.D) || _wcisniete.Contains(Keys.Right)) dx += Predkosc;
+        if (_wcisniete.Contains(Keys.W) || _wcisniete.Contains(Keys.Up)) dy -= Predkosc;
+        if (_wcisniete.Contains(Keys.S) || _wcisniete.Contains(Keys.Down)) dy += Predkosc;
+
+        _pozX = (((_pozX + dx) % ClientSize.Width) + ClientSize.Width) % ClientSize.Width;
+        _pozY = (((_pozY + dy) % ClientSize.Height) + ClientSize.Height) % ClientSize.Height;
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+        Graphics g = e.Graphics;
+        g.Clear(Color.FromArgb(15, 23, 42));
+
+        g.FillEllipse(_pedzelGracza, _pozX, _pozY, 24, 24);
+        g.DrawEllipse(_pioroObrysu, _pozX, _pozY, 24, 24);
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zwróć uwagę na linijkę <code>Deactivate += (s, e) =&gt; _wcisniete.Clear();</code>. Jeśli gracz przytrzyma <kbd>D</kbd> i przełączy okno skrótem <kbd>Alt</kbd>+<kbd>Tab</kbd>, okno gry nigdy nie otrzyma zdarzenia <code>KeyUp</code>. Bez wyczyszczenia zbioru w <code>Deactivate</code> postać biegłaby w prawo w nieskończoność.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj objaw błędu 2D w WinForms do jego przyczyny i naprawy">
+    <item left="Obraz wyraźnie migocze podczas ruchu obiektów" right="Brak DoubleBuffered = true (rysowanie bezpośrednio do Front Buffer)"></item>
+    <item left="Aplikacja wyrzuca ExternalException po około 55 sekundach" right="Wyciek uchwytów GDI+ (SolidBrush lub Pen bez using i Dispose)"></item>
+    <item left="Narysowane kształty znikają po minimalizacji lub zasłonięciu okna" right="Rysowanie przez CreateGraphics() zamiast w metodzie OnPaint"></item>
+    <item left="Strzałki i klawisze przestały sterować po dodaniu przycisku Button" right="Przejęcie fokusu przez kontrolkę (wymagane KeyPreview lub ProcessCmdKey)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Detekcja kolizji AABB i prawa De Morgana</h2>
+<p>W większości gier 2D każdy obiekt otacza się prostokątem równoległym do osi układu współrzędnych: <span class="color-green">AABB</span>. Taki prostokąt opisują cztery liczby: lewy górny róg (<span class="color-blue">x</span>, <span class="color-blue">y</span>) oraz dodatnie wymiary (<span class="color-blue">w</span>, <span class="color-blue">h</span>).</p>
+<p>Prostokąt zajmuje piksele w przedziałach półotwartych <code>[x, x + w)</code> w poziomie oraz <code>[y, y + h)</code> w pionie. Zamiast zgadywać warunek nakładania się, znacznie łatwiej zapisać cztery sytuacje, w których dwa prostokąty <span class="color-green">nie kolidują</span> (są rozdzielone):</p>
+<ul>
+<li>pierwszy kończy się na lewo od drugiego: <code>x1 + w1 &lt;= x2</code>,</li>
+<li>pierwszy zaczyna się na prawo od drugiego: <code>x1 &gt;= x2 + w2</code>,</li>
+<li>pierwszy kończy się nad drugim: <code>y1 + h1 &lt;= y2</code>,</li>
+<li>pierwszy zaczyna się pod drugim: <code>y1 &gt;= y2 + h2</code>.</li>
+</ul>
+<p>Prostokąty są rozdzielone, gdy zachodzi <span class="color-green">choć jeden</span> z tych warunków (<code>A || B || C || D</code>). Kolizja jest dokładnym zaprzeczeniem rozdzielenia: <code>!(A || B || C || D)</code>. Stosując <span class="color-green">prawo De Morgana</span> (<code>!(A || B) == !A &amp;&amp; !B</code>), negujemy każdą nierówność i zamieniamy sumę logiczną <code>||</code> na iloczyn <code>&amp;&amp;</code>:</p>
+<ul>
+<li>zaprzeczeniem <code>x1 + w1 &lt;= x2</code> jest <code>x1 + w1 &gt; x2</code>,</li>
+<li>zaprzeczeniem <code>x1 &gt;= x2 + w2</code> jest <code>x1 &lt; x2 + w2</code>,</li>
+<li>zaprzeczeniem <code>y1 + h1 &lt;= y2</code> jest <code>y1 + h1 &gt; y2</code>,</li>
+<li>zaprzeczeniem <code>y1 &gt;= y2 + h2</code> jest <code>y1 &lt; y2 + h2</code>.</li>
+</ul>
+<p>Wszystkie cztery ostre nierówności muszą zachodzić jednocześnie. Zwróć uwagę na przypadek styku krawędzi: kafelek na pozycji <code>x = 0</code> o szerokości <code>10</code> zajmuje piksele <code>0..9</code>, a sąsiedni kafelek na pozycji <code>x = 10</code> zajmuje piksele <code>10..19</code>. Nie mają żadnego wspólnego piksela, więc nie kolidują.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Przypadek geometryczny</th>
+<th align="left">Prostokąt A</th>
+<th align="left">Prostokąt B</th>
+<th align="center">Wynik kolizji AABB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Brak styku (rozdzielone)</td>
+<td align="left"><code>(0, 0, 10, 10)</code></td>
+<td align="left"><code>(20, 0, 10, 10)</code></td>
+<td align="center"><code>false</code></td>
+</tr>
+<tr>
+<td align="left">Styk samych krawędzi</td>
+<td align="left"><code>(0, 0, 10, 10)</code></td>
+<td align="left"><code>(10, 0, 10, 10)</code></td>
+<td align="center"><code>false</code></td>
+</tr>
+<tr>
+<td align="left">Częściowe nachodzenie</td>
+<td align="left"><code>(0, 0, 10, 10)</code></td>
+<td align="left"><code>(8, 6, 10, 10)</code></td>
+<td align="center"><code>true</code></td>
+</tr>
+<tr>
+<td align="left">Pełne zawarcie (B w A)</td>
+<td align="left"><code>(0, 0, 50, 50)</code></td>
+<td align="left"><code>(10, 10, 5, 5)</code></td>
+<td align="center"><code>true</code></td>
+</tr>
+<tr>
+<td align="left">Zdegenerowany wymiar (<code>w &lt;= 0</code> lub <code>h &lt;= 0</code>)</td>
+<td align="left"><code>(0, 0, 0, 10)</code></td>
+<td align="left"><code>(0, 0, 10, 10)</code></td>
+<td align="center"><code>false</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Przed sprawdzeniem czterech nierówności AABB zawsze odrzuć prostokąty o zerowej lub ujemnej szerokości albo wysokości (<code>w1 &lt;= 0 || h1 &lt;= 0 || w2 &lt;= 0 || h2 &lt;= 0</code>). Bez tego strażnika prostokąt o wymiarach <code>0 x 10</code> umieszczony w środku dużego prostokąta spełniłby wszystkie cztery nierówności i zwrócił fałszywą kolizję.</p>
+
+</div>
+</div><hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Front Buffer, Back Buffer, Screen Tearing, VSync, GDI+ (CPU) kontra GPU i limit 10 000 uchwytów GDI</span>
+<span class="deep-dive-badge">GRAFIKA 2D · VSYNC · ARCHITEKTURA WINDOWS</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Front Buffer, Back Buffer i Screen Tearing</h4>
+
+<p>Karta graficzna nie wyświetla całej klatki w jednej mikrosekundzie. Wysyła obraz do monitora wiersz po wierszu, od góry do dołu. Monitor 60 Hz odświeża pełny ekran co <span class="color-gold">16,67 ms</span> (<code>1000 / 60</code>), a monitor 144 Hz co <span class="color-gold">6,94 ms</span> (<code>1000 / 144</code>).</p>
+<p>Jeśli program rysuje bezpośrednio do bufora wyświetlanego (<span class="color-green">Front Buffer</span>), monitor potrafi odczytać stan w połowie rysowania. Zobaczysz puste tło, zanim pojawi się obiekt, co ludzkie oko odbiera jako migotanie. Rozwiązaniem jest <span class="color-green">Double Buffering</span>: CPU lub GPU przygotowuje całą nową klatkę w buforze zapasowym (<span class="color-green">Back Buffer</span>), a po jej ukończeniu podmienia bufory jednym skokiem.</p>
+<p>Mimo podwójnego buforowania może wystąpić <span class="color-red">Screen Tearing</span> (rozrywanie obrazu). Dzieje się tak, gdy podmiana buforów nastąpi w połowie skanowania monitora: górna część ekranu wyświetla jeszcze piksele ze starej klatki, a dolna już z nowej, tworząc wyraźną poziomą linię przesunięcia.</p>
+<h4>2. VSync (Vertical Blank) i budżet czasowy klatki</h4>
+
+<p>Po wysłaniu ostatniego dolnego wiersza monitor potrzebuje krótkiej przerwy przed powrotem na górę ekranu. Ten odstęp to <span class="color-green">Vertical Blank</span> (<span class="color-green">VBlank</span>). Synchronizacja pionowa (<span class="color-green">VSync</span>) wymusza, aby podmiana buforów następowała wyłącznie w oknie VBlank:</p>
+<ul>
+<li>Przy <span class="color-gold">60 Hz</span> masz dokładnie <span class="color-gold">16,67 ms</span> na policzenie fizyki i wyrenderowanie klatki. Jeśli klatka zajmie 18 ms, przegapisz okno VBlank i ta sama klatka zostanie wyświetlona dwa razy (spadek płynności do 30 FPS).</li>
+<li>Przy <span class="color-gold">144 Hz</span> budżet skraca się do <span class="color-gold">6,94 ms</span> na klatkę.</li>
+<li>W Windows 11 menedżer okien <span class="color-gold">DWM</span> (Desktop Window Manager) sam utrzymuje kompozycję z włączonym VSync dla aplikacji okienkowych, więc okno WinForms z <code>DoubleBuffered = true</code> jest naturalnie chronione przed rozrywaniem obrazu.</li>
+</ul>
+<h4>3. Windows GDI+ (System.Drawing na CPU) kontra potok GPU</h4>
+
+<p><code>System.Drawing.Graphics</code> wywołuje natywną bibliotekę <code>gdiplus.dll</code>, która wykonuje rasteryzację (zamianę prostokątów, elips i glifów czcionek na tablicę pikseli ARGB) na procesorze <span class="color-green">CPU</span>. Pojedyncza klatka 1920x1080 w 32‑bitowym kolorze zajmuje <code>1920 * 1080 * 4 = 8 294 400</code> bajtów (<span class="color-gold">8,29 MB</span>). Przy 60 Hz daje to niemal <span class="color-gold">500 MB/s</span> samego przesyłu pikseli, a przy 144 Hz prawie <span class="color-gold">1,2 GB/s</span>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Cecha</th>
+<th align="left">Windows GDI+ (<code>System.Drawing</code>)</th>
+<th align="left">Potok GPU (DirectX 11/12, Vulkan, OpenGL)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Główne obliczenia</td>
+<td align="left">Rdzenie CPU (rasteryzacja programowa)</td>
+<td align="left">Tysiące rdzeni GPU równolegle w pamięci VRAM</td>
+</tr>
+<tr>
+<td align="left">Zależności</td>
+<td align="left">Wbudowane w Windows (0 zewnętrznych DLL)</td>
+<td align="left">Sterownik GPU oraz SDK lub silnik (np. MonoGame, Unity)</td>
+</tr>
+<tr>
+<td align="left">Rozmiar <code>.exe</code></td>
+<td align="left">10 do 25 KB w czystym C#</td>
+<td align="left">Od kilku MB do setek MB</td>
+</tr>
+<tr>
+<td align="left">Zastosowanie</td>
+<td align="left">Narzędzia, wykresy na żywo, gry 2D (Snake, Tetris)</td>
+<td align="left">Gry 3D, tysiące sprite'ów, shadery, fizyka cząsteczek</td>
+</tr>
+</tbody></table>
+<h4>4. Dlaczego Windows nakłada sztywny limit 10 000 uchwytów GDI na proces</h4>
+
+<p>Każdy obiekt <code>Pen</code>, <code>SolidBrush</code>, <code>Font</code>, <code>Bitmap</code> czy <code>Graphics</code> w WinForms opakowuje natywny uchwyt jądra (<code>HPEN</code>, <code>HBRUSH</code>, <code>HFONT</code>, <code>HBITMAP</code>, <code>HDC</code>) wpisany do tabeli sesji Windows. Cała sesja użytkownika ma twardy limit <span class="color-gold">65 536 uchwytów</span> GDI współdzielonych między Eksplorator, przeglądarkę, edytor kodu i wszystkie pozostałe okna.</p>
+<p>Aby pojedynczy program z wyciekiem nie sparaliżował rysowania całego pulpitu Windows, system narzuca limit <span class="color-gold">10 000 uchwytów</span> na proces (klucz rejestru <code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\GDIProcessHandleQuota</code>).</p>
+<pre><code class="language-csharp">// Przy 60 FPS i 3 wyciekach na klatkę (Brush + Pen + Font):
+// 60 * 3 = 180 uchwytów/s -&gt; po 55 sekundach proces przekracza 10 000 uchwytów i ginie!
+</code></pre>
+<p>Garbage Collector w .NET uruchamia się pod presją pamięci zarządzanej RAM, a sam obiekt <code>SolidBrush</code> w C# zajmuje tylko kilkadziesiąt bajtów na stercie. Bez jawnego <code>using</code> lub <code>Dispose()</code> limit <span class="color-gold">10 000 uchwytów</span> GDI zostanie wyczerpany na długo przed uruchomieniem GC.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Fizyka 2D, mapowanie siatki i zawijanie krawędzi</h2>
+<p>W klasie <code>Fizyka2D</code> zaimplementuj pięć metod używanych w silnikach gier 2D:</p>
+<ol>
+<li><span class="color-green"><code>CzyPrzeciwnyKierunek(int dx1, int dy1, int dx2, int dy2)</code></span>:<ul>
+<li>zwraca <code>true</code> wyłącznie wtedy, gdy oba wektory są dokładnie przeciwne i nie są wektorami zerowymi,</li>
+<li>dla <code>(0, 0)</code> oraz <code>(0, 0)</code> zwraca <code>false</code> (brak ruchu nie oznacza zawrócenia o 180 stopni).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>CzyPozaPlansza(int x, int y, int szer, int wys)</code></span>:<ul>
+<li>zwraca <code>true</code>, jeśli plansza ma niepoprawny wymiar (<code>szer &lt;= 0</code> lub <code>wys &lt;= 0</code>) albo punkt <code>(x, y)</code> leży poza zakresem <code>[0..szer-1]</code> w poziomie lub <code>[0..wys-1]</code> w pionie.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>CzyKolidujaProstokaty(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2)</code></span>:<ul>
+<li>realizuje detekcję kolizji <span class="color-green">AABB</span> dla dwóch prostokątów równoległych do osi,</li>
+<li>dla dowolnego wymiaru <code>&lt;= 0</code> zwraca <code>false</code>,</li>
+<li>styk samych krawędzi bez wspólnego pola powierzchni zwraca <code>false</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>PrzeliczKafelekNaProstokatEkranu(int kolumna, int wiersz, int rozmiarKratki, int wysokoscHud, int margines)</code></span>:<ul>
+<li>zwraca strukturę <code>Rectangle</code> opisującą pozycję i wymiary kafelka na ekranie z uwzględnieniem paska HUD na górze oraz marginesu z lewej i od góry (pod HUD),</li>
+<li>jeśli <code>rozmiarKratki &lt;= 0</code>, zwraca <code>Rectangle.Empty</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>PrzesunZZawijaniem(int pozycja, int delta, int rozmiarPlanszy)</code></span>:<ul>
+<li>zwraca nową współrzędną w zakresie <code>[0..rozmiarPlanszy - 1]</code> po dodaniu przesunięcia <span class="color-blue">delta</span> z poprawnym zawijaniem także dla liczb ujemnych i przesunięć większych niż <span class="color-blue">rozmiarPlanszy</span>,</li>
+<li>jeśli <code>rozmiarPlanszy &lt;= 0</code>, zwraca <code>0</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Fizyka 2D - kierunki, AABB, mapowanie siatki i zawijanie krawędzi" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Drawing;
+
+public static class Fizyka2D
+{
+    public static bool CzyPrzeciwnyKierunek(int dx1, int dy1, int dx2, int dy2)
+    {
+        return false;
+    }
+
+    public static bool CzyPozaPlansza(int x, int y, int szer, int wys)
+    {
+        return false;
+    }
+
+    public static bool CzyKolidujaProstokaty(int x1, int y1, int w1, int h1, int x2, int y2, int w2, int h2)
+    {
+        return false;
+    }
+
+    public static Rectangle PrzeliczKafelekNaProstokatEkranu(
+        int kolumna, int wiersz, int rozmiarKratki, int wysokoscHud, int margines)
+    {
+        return Rectangle.Empty;
+    }
+
+    public static int PrzesunZZawijaniem(int pozycja, int delta, int rozmiarPlanszy)
+    {
+        return 0;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("Prawo vs Lewo: " + CzyPrzeciwnyKierunek(1, 0, -1, 0));
+        Console.WriteLine("Punkt (20, 5) poza 20x20: " + CzyPozaPlansza(20, 5, 20, 20));
+        Console.WriteLine("Kolizja AABB: " + CzyKolidujaProstokaty(0, 0, 10, 10, 5, 5, 10, 10));
+        Console.WriteLine("Kafelek (2, 1): " + PrzeliczKafelekNaProstokatEkranu(2, 1, 20, 36, 4));
+        Console.WriteLine("Zawijanie 0 + (-1) mod 20: " + PrzesunZZawijaniem(0, -1, 20));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("CzyPrzeciwnyKierunek wykrywa zawracanie 180 stopni i odrzuca wektor zerowy (0, 0)", () =&gt; {
+    LabAssert.True(Fizyka2D.CzyPrzeciwnyKierunek(1, 0, -1, 0));
+    LabAssert.True(Fizyka2D.CzyPrzeciwnyKierunek(-1, 0, 1, 0));
+    LabAssert.True(Fizyka2D.CzyPrzeciwnyKierunek(0, -1, 0, 1));
+    LabAssert.True(Fizyka2D.CzyPrzeciwnyKierunek(0, 1, 0, -1));
+    LabAssert.False(Fizyka2D.CzyPrzeciwnyKierunek(1, 0, 0, 1));
+    LabAssert.False(Fizyka2D.CzyPrzeciwnyKierunek(0, -1, 1, 0));
+    LabAssert.False(Fizyka2D.CzyPrzeciwnyKierunek(1, 0, 1, 0));
+    LabAssert.False(Fizyka2D.CzyPrzeciwnyKierunek(0, 0, 0, 0));
+    LabAssert.False(Fizyka2D.CzyPrzeciwnyKierunek(0, 0, 1, 0));
+});
+
+LabAssert.Test("CzyPozaPlansza sprawdza wszystkie 4 granice oraz niepoprawne wymiary planszy", () =&gt; {
+    LabAssert.False(Fizyka2D.CzyPozaPlansza(0, 0, 20, 15));
+    LabAssert.False(Fizyka2D.CzyPozaPlansza(19, 14, 20, 15));
+    LabAssert.True(Fizyka2D.CzyPozaPlansza(-1, 5, 20, 15));
+    LabAssert.True(Fizyka2D.CzyPozaPlansza(5, -1, 20, 15));
+    LabAssert.True(Fizyka2D.CzyPozaPlansza(20, 5, 20, 15));
+    LabAssert.True(Fizyka2D.CzyPozaPlansza(5, 15, 20, 15));
+    LabAssert.True(Fizyka2D.CzyPozaPlansza(0, 0, 0, 10));
+    LabAssert.True(Fizyka2D.CzyPozaPlansza(0, 0, 10, -5));
+});
+
+LabAssert.Test("CzyKolidujaProstokaty (AABB) rozróżnia rozdzielenie, styk krawędzi, nachodzenie i pełne zawarcie", () =&gt; {
+    // Brak kolizji: rozdzielone w poziomie i pionie
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 0, 10, 10, 20, 0, 10, 10));
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 0, 10, 10, 0, 25, 10, 10));
+
+    // Styk samych krawędzi (prawa, lewa, dolna, górna): brak kolizji
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 0, 10, 10, 10, 0, 10, 10));
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(10, 0, 10, 10, 0, 0, 10, 10));
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 0, 10, 10, 0, 10, 10, 10));
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 10, 10, 10, 0, 0, 10, 10));
+
+    // Częściowe nachodzenie (różne narożniki)
+    LabAssert.True(Fizyka2D.CzyKolidujaProstokaty(0, 0, 10, 10, 9, 9, 10, 10));
+    LabAssert.True(Fizyka2D.CzyKolidujaProstokaty(5, 5, 10, 10, 0, 0, 6, 6));
+
+    // Pełne zawarcie oraz identyczne prostokąty
+    LabAssert.True(Fizyka2D.CzyKolidujaProstokaty(0, 0, 100, 100, 20, 20, 10, 10));
+    LabAssert.True(Fizyka2D.CzyKolidujaProstokaty(20, 20, 10, 10, 0, 0, 100, 100));
+    LabAssert.True(Fizyka2D.CzyKolidujaProstokaty(5, 5, 12, 8, 5, 5, 12, 8));
+
+    // Zdegenerowane wymiary (szerokość lub wysokość &lt;= 0)
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 0, 0, 10, 0, 0, 10, 10));
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(0, 0, 10, 10, 2, 2, 5, -3));
+    LabAssert.False(Fizyka2D.CzyKolidujaProstokaty(5, 5, 0, 0, 0, 0, 20, 20));
+});
+
+LabAssert.Test("PrzeliczKafelekNaProstokatEkranu uwzględnia rozmiar kratki, wysokość HUD i margines", () =&gt; {
+    Rectangle r0 = Fizyka2D.PrzeliczKafelekNaProstokatEkranu(0, 0, 20, 36, 4);
+    LabAssert.Equal(4, r0.X);
+    LabAssert.Equal(40, r0.Y);
+    LabAssert.Equal(20, r0.Width);
+    LabAssert.Equal(20, r0.Height);
+
+    Rectangle r1 = Fizyka2D.PrzeliczKafelekNaProstokatEkranu(2, 1, 20, 36, 4);
+    LabAssert.Equal(44, r1.X);
+    LabAssert.Equal(60, r1.Y);
+    LabAssert.Equal(20, r1.Width);
+    LabAssert.Equal(20, r1.Height);
+
+    Rectangle r2 = Fizyka2D.PrzeliczKafelekNaProstokatEkranu(5, 3, 24, 0, 0);
+    LabAssert.Equal(120, r2.X);
+    LabAssert.Equal(72, r2.Y);
+    LabAssert.Equal(24, r2.Width);
+    LabAssert.Equal(24, r2.Height);
+
+    // Niepoprawny rozmiar kratki
+    LabAssert.Equal(Rectangle.Empty, Fizyka2D.PrzeliczKafelekNaProstokatEkranu(1, 1, 0, 36, 4));
+    LabAssert.Equal(Rectangle.Empty, Fizyka2D.PrzeliczKafelekNaProstokatEkranu(1, 1, -10, 36, 4));
+});
+
+LabAssert.Test("PrzesunZZawijaniem obsługuje ujemne modulo, wielokrotności rozmiaru i niepoprawny rozmiar", () =&gt; {
+    LabAssert.Equal(6, Fizyka2D.PrzesunZZawijaniem(5, 1, 20));
+    LabAssert.Equal(0, Fizyka2D.PrzesunZZawijaniem(19, 1, 20));
+    LabAssert.Equal(19, Fizyka2D.PrzesunZZawijaniem(0, -1, 20));
+    LabAssert.Equal(17, Fizyka2D.PrzesunZZawijaniem(2, -45, 20));
+    LabAssert.Equal(3, Fizyka2D.PrzesunZZawijaniem(3, 40, 20));
+    LabAssert.Equal(3, Fizyka2D.PrzesunZZawijaniem(3, -40, 20));
+    LabAssert.Equal(0, Fizyka2D.PrzesunZZawijaniem(0, -1, 1));
+    LabAssert.Equal(0, Fizyka2D.PrzesunZZawijaniem(5, 2, 0));
+    LabAssert.Equal(0, Fizyka2D.PrzesunZZawijaniem(5, 2, -10));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy używać <code>ClientSize</code>, a kiedy <code>Size</code>?</strong> W grach 2D zawsze ustawiaj <code>ClientSize</code>, ponieważ <code>Size</code> wlicza belkę tytułu i ramki okna Windows, które skracają pole gry.</li>
+<li><strong>Gdzie wolno rysować na oknie WinForms?</strong> Wyłącznie w <code>OnPaint(PaintEventArgs e)</code> (po wywołaniu <code>base.OnPaint(e)</code>), uruchamianym przez <code>Invalidate()</code> z włączonym <code>DoubleBuffered = true</code>. Unikaj <code>CreateGraphics()</code>, bo taki rysunek znika po zasłonięciu okna.</li>
+<li><strong>Jak uniknąć awarii GDI+ po minucie gry?</strong> Zawsze zwalniaj <code>SolidBrush</code>, <code>Pen</code> i <code>Font</code> przez <code>using</code> w <code>OnPaint</code> albo cacheuj je jako pola klasy i wywołuj <code>Dispose()</code> w <code>FormClosed</code>, aby nie przekroczyć limitu <span class="color-gold">10 000 uchwytów</span>.</li>
+<li><strong>Jak naprawić martwe strzałki i szarpany ruch klawiatury?</strong> Gdy na formularzu są kontrolki, włącz <code>KeyPreview = true</code> lub nadpisz <code>ProcessCmdKey</code>. Dla płynnego ruchu zapisuj stan klawiszy w <code>HashSet&lt;Keys&gt;</code> (z czyszczeniem w <code>Deactivate</code>) i przesuwaj obiekt w <code>Timer.Tick</code>.</li>
+<li><strong>Jak bezpiecznie zawijać współrzędne i liczyć kolizje AABB?</strong> Używaj podwójnego modulo <code>(((poz + delta) % limit) + limit) % limit</code> na ujemne przesunięcia, a w AABB odrzucaj wymiary <code>&lt;= 0</code> i traktuj styk krawędzi jako brak kolizji.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -406,27 +406,53 @@ Plik `.ova` jest kompletnym obrazem maszyny. Możesz go później zaimportować 
 
 ---
 
-## 💿 Punkt kontrolny: instalacja
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Sprzętowa wirtualizacja procesora (Intel VT-x i AMD-V)</span><span class="deep-dive-badge">Hardware Virtualization & Hypervisor</span></summary>
 
-<data-gate>
-  <data-quiz>
-    <question>
-Dlaczego do nauki Linuksa zaleca się instalację w maszynie wirtualnej (VirtualBox) zamiast bezpośrednio na dysku komputera?
-    </question>
-    <options>
-      <item correct>Maszyna wirtualna działa w izolowanym środowisku. Nie ingeruje w główny system operacyjny, a w razie problemów można ją usunąć albo odtworzyć z kopii.</item>
-      <item>Linux nie działa poprawnie na fizycznym sprzęcie i wymaga warstwy wirtualizacji do obsługi sterowników.</item>
-      <item>VirtualBox szyfruje całą komunikację sieciową maszyny wirtualnej, chroniąc przed atakami podczas nauki.</item>
-    </options>
+Uruchomienie systemu operacyjnego wewnątrz maszyny wirtualnej VirtualBox nie polega na powolnej programowej emulacji każdej instrukcji asemblera. Nowoczesne hiperwizory typu 2 (jak VirtualBox czy VMware Workstation) wykorzystują **sprzętowe rozszerzenia wirtualizacji procesora** (*Intel VT-x* lub *AMD-V*).
 
-<div data-hint="error">
-  Pomyśl o bezpieczeństwie eksperymentowania. Co stanie się po błędzie konfiguracji na fizycznym dysku, a co po takim samym błędzie w maszynie wirtualnej?
-</div>
-<div data-hint="success">
-  Dobrze. Maszyna wirtualna jest środowiskiem laboratoryjnym. Możesz testować, psuć i naprawiać system bez ryzyka dla głównego komputera.
-</div>
-  </data-quiz>
-</data-gate>
+### 1. Dwa światy procesora: VMX Root i VMX Non-Root
+Przed pojawieniem się sprzętowej wirtualizacji w architekturze x86 występował problem tzw. *wrażliwych instrukcji Ring 0*, które nie powodowały pułapki (trap) przy próbie wykonania w Ring 1, lecz po cichu zwracały fałszywe wartości.
+
+Intel rozwiązał ten problem wprowadzając dwa ortogonalne tryby działania procesora:
+- **VMX Root Operation**: Tryb, w którym działa hiperwizor (VirtualBox na systemie-gospodarzu). Posiada pełną kontrolę nad fizycznym procesorem.
+- **VMX Non-Root Operation**: Tryb, w którym działa system-gość (nasze wirtualne Ubuntu). W tym trybie procesor gościa nadal posiada swoje pierścienie Ring 0 (jądro Linuksa) i Ring 3 (aplikacje Ubuntu).
+
+```
+   System-Gospodarz (Host)              Maszyna Wirtualna (Guest)
+   ┌───────────────────────┐            ┌───────────────────────┐
+   │ VirtualBox (VMX Root) │            │ Ubuntu User (Ring 3)  │
+   │      [Ring 0/3]       │            ├───────────────────────┤
+   └───────────┬───────────┘            │ Ubuntu Kernel (Ring 0)│
+               │                        └───────────┬───────────┘
+               │  VMENTRY (Przekazanie CPU)         │
+               ▼                                    ▼
+       ┌────────────────────────────────────────────────────────┐
+       │             Fizyczny Rdzeń x86_64 CPU                  │
+       │   - Rejestr sterujący VMCS (Virtual Machine Control)   │
+       │   - Sprzętowa translacja stron: EPT / SLAT             │
+       └────────────────────────────────────────────────────────┘
+               ▲                                    │
+               │  VMEXIT (Przechwycenie I/O)        │
+               └────────────────────────────────────┘
+```
+
+### 2. Struktura VMCS i zjawisko VM-Exit
+Każda wirtualna maszyna posiada w pamięci RAM przyporządkowaną 4-kilobajtową strukturę **VMCS** (*Virtual Machine Control Structure*). Zawiera ona:
+- Stan rejestrów gościa (Guest-State Area): wartości rejestrów `RAX`, `RSP`, `CR3`, `RFLAGS` odtwarzane w chwili wejścia do maszyny (`VMENTRY`).
+- Stan rejestrów gospodarza (Host-State Area): stan VirtualBoxa, do którego procesor wraca po przerwaniu.
+- Maski przechwytywania (VM-Execution Controls): określają, jakie zdarzenia wewnątrz Ubuntu mają natychmiast zatrzymać gościa i oddać kontrolę VirtualBoxowi.
+
+Gdy jądro Ubuntu w maszynie wirtualnej próbuje uzyskać bezpośredni dostęp do portu sprzętowego lub zmienić zegar czasu rzeczywistego, procesor wykonuje sprzętowe przejście **`VM-Exit`**. Działanie gościa zostaje zamrożone, a hiperwizor emuluje odpowiedź wirtualnego kontrolera (np. wirtualnej karty sieciowej Intel PRO/1000) i wznawia maszynę instrukcją `VMRESUME`.
+
+### 3. Sprzętowa translacja stron pamięci (EPT / SLAT)
+Aby jądro Ubuntu mogło swobodnie zarządzać własnymi tablicami stron pamięci bez wywoływania kosztownego `VM-Exit` przy każdej alokacji, procesor stosuje **Extended Page Tables (EPT)**:
+- Adres wirtualny w Ubuntu $\to$ tłumaczony przez tablice stron gościa na adres fizyczny gościa (*Guest Physical Address*).
+- Adres fizyczny gościa $\to$ natychmiast sprzętowo tłumaczony przez tablicę EPT procesora na rzeczywisty adres w fizycznej kości RAM komputera.
+
+Dzięki temu kod wewnątrz wirtualnego Ubuntu wykonuje się na fizycznym krzemie z wydajnością sięgającą 95-98% prędkości natywnej.
+
+</details>
 
 
 ---

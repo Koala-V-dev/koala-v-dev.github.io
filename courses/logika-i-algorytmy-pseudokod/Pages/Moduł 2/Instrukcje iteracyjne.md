@@ -99,8 +99,7 @@ Licznik `i` jest modyfikowany automatycznie przy każdym obiegu.
 <pre>
 WYPISZ "Zaczynamy odliczanie!"
 
-DLA i OD 1 DO 5
-
+DLA i OD 1 DO 3
     WYPISZ "Obieg pętli numer:"
     WYPISZ i
 KONIEC DLA
@@ -124,7 +123,6 @@ Należy pamiętać o ręcznym aktualizowaniu warunku wewnątrz pętli, aby zapob
 punktyZycia = 3
 
 DOPÓKI punktyZycia > 0
-
     WYPISZ "Gracz jest w trakcie walki..."
     WYPISZ "Gracz otrzymuje obrażenia! (-1)"
     punktyZycia = punktyZycia - 1
@@ -176,7 +174,6 @@ Zobacz zestawienie tych dwóch światów programistycznych:
 proby = 5
 
 POWTARZAJ
-
     WYPISZ "Próba logowania..."
     proby = proby + 1
 AŻ proby >= 3
@@ -191,6 +188,25 @@ WYPISZ "Logowanie zakończone (sukces lub blokada konta)."
 - **Pierwsze uruchomienie:** Kod wewnątrz pętli wykonuje się bez sprawdzania warunku. Wypisuje komunikat i zwiększa wartość `proby` do `6`.
 - **Sprawdzenie warunku:** Dopiero po wykonaniu instrukcji program sprawdza warunek `AŻ proby >= 3` (czyli `AŻ 6 >= 3`).
 - **Zakończenie:** Ponieważ warunek `6 >= 3` daje wynik prawdziwy (cel został osiągnięty), pętla natychmiast kończy swoje działanie.
+
+---
+
+## Zadanie: Obliczanie silni ($5!$)
+
+Skonstruuj pętlę `DLA i OD 1 DO n`, która wylicza wartość `silnia` dla `n = 5` i wypisuje wynik na standardowe wyjście.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="silnia:120" expected-output="120">
+<pre>
+n = 5
+silnia = 1
+
+
+
+WYPISZ silnia
+</pre>
+</data-pseudocode-runner>
+</data-gate>
 
 ---
 

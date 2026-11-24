@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .card-bg { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 12; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .node-server { fill: #1e3a8a; stroke: #3b82f6; stroke-width: 2; rx: 8; }
+      .node-client { fill: #1e293b; stroke: #64748b; stroke-width: 1.5; rx: 8; }
+      .node-peer { fill: #064e3b; stroke: #10b981; stroke-width: 2; rx: 8; }
+      .node-text { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 700; fill: #f8fafc; text-anchor: middle; }
+      .node-subtext { font-family: system-ui, sans-serif; font-size: 10px; fill: #94a3b8; text-anchor: middle; }
+      .line-request { stroke: #3b82f6; stroke-width: 2; stroke-dasharray: 4 2; }
+      .line-peer { stroke: #10b981; stroke-width: 2; }
+      .desc-box { fill: #0f172a; rx: 8; stroke: #334155; stroke-width: 1; }
+      .desc-text { font-family: system-ui, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .spof-badge { fill: #ef4444; rx: 4; }
+      .spof-text { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #fff; text-anchor: middle; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="480" class="bg"/>
+
+  <!-- ================= LEWA STRONA: ARCHITEKTURA KLIENT-SERWER ================= -->
+  <g transform="translate(24, 20)" filter="url(#shadow)">
+    <rect width="440" height="440" class="card-bg"/>
+    <text x="24" y="38" class="title">Architektura Klient - Serwer</text>
+    <text x="24" y="58" class="subtitle">Scentralizowany dostawca zasobów i wielu klientów</text>
+
+    <!-- Linie żądań do serwera -->
+    <line x1="80" y1="120" x2="220" y2="180" class="line-request"/>
+    <line x1="80" y1="200" x2="220" y2="180" class="line-request"/>
+    <line x1="80" y1="280" x2="220" y2="180" class="line-request"/>
+
+    <!-- Klienci po lewej -->
+    <g transform="translate(30, 95)">
+      <rect width="100" height="45" class="node-client"/>
+      <text x="50" y="24" class="node-text">Klient A</text>
+      <text x="50" y="38" class="node-subtext">Port: 49152</text>
+    </g>
+    <g transform="translate(30, 175)">
+      <rect width="100" height="45" class="node-client"/>
+      <text x="50" y="24" class="node-text">Klient B</text>
+      <text x="50" y="38" class="node-subtext">Port: 49153</text>
+    </g>
+    <g transform="translate(30, 255)">
+      <rect width="100" height="45" class="node-client"/>
+      <text x="50" y="24" class="node-text">Klient C</text>
+      <text x="50" y="38" class="node-subtext">Port: 49154</text>
+    </g>
+
+    <!-- Serwer centralny -->
+    <g transform="translate(220, 145)">
+      <rect width="180" height="75" class="node-server"/>
+      <text x="90" y="28" class="node-text" fill="#93c5fd">Serwer Centralny</text>
+      <text x="90" y="46" font-family="monospace" font-size="11px" fill="#bfdbfe" text-anchor="middle">IP: 192.168.1.100</text>
+      <text x="90" y="62" font-family="monospace" font-size="11px" fill="#bfdbfe" text-anchor="middle">Nasłuch: Port 80/443</text>
+      
+      <!-- SPoF Badge -->
+      <g transform="translate(40, -10)">
+        <rect width="100" height="18" class="spof-badge"/>
+        <text x="50" y="13" class="spof-text">SPoF (Ryzyko)</text>
+      </g>
+    </g>
+
+    <!-- Opis cech -->
+    <g transform="translate(24, 330)">
+      <rect width="392" height="90" class="desc-box"/>
+      <text x="16" y="26" class="desc-text">• <tspan font-weight="700" fill="#93c5fd">Asymetria ról:</tspan> Serwer tylko odpowiada, klient tylko żąda.</text>
+      <text x="16" y="50" class="desc-text">• <tspan font-weight="700" fill="#93c5fd">Zarządzanie:</tspan> Pełna centralizacja autoryzacji i baz danych.</text>
+      <text x="16" y="74" class="desc-text">• <tspan font-weight="700" fill="#f87171">Podatność:</tspan> Awaria serwera paraliżuje całą organizację.</text>
+    </g>
+  </g>
+
+  <!-- ================= PRAWA STRONA: ARCHITEKTURA P2P ================= -->
+  <g transform="translate(496, 20)" filter="url(#shadow)">
+    <rect width="440" height="440" class="card-bg"/>
+    <text x="24" y="38" class="title">Architektura Równorzędna (P2P)</text>
+    <text x="24" y="58" class="subtitle">Każdy węzeł pobiera i udostępnia fragmenty jednocześnie</text>
+
+    <!-- Siatka połączeń P2P -->
+    <line x1="140" y1="120" x2="300" y2="120" class="line-peer"/>
+    <line x1="300" y1="120" x2="300" y2="250" class="line-peer"/>
+    <line x1="300" y1="250" x2="140" y2="250" class="line-peer"/>
+    <line x1="140" y1="250" x2="140" y2="120" class="line-peer"/>
+    <line x1="140" y1="120" x2="300" y2="250" class="line-peer" stroke-dasharray="3 3"/>
+    <line x1="300" y1="120" x2="140" y2="250" class="line-peer" stroke-dasharray="3 3"/>
+
+    <!-- Węzły Peer -->
+    <g transform="translate(80, 95)">
+      <rect width="115" height="48" class="node-peer"/>
+      <text x="57" y="22" class="node-text">Węzeł A</text>
+      <text x="57" y="38" class="node-subtext" fill="#6ee7b7">Klient + Serwer</text>
+    </g>
+
+    <g transform="translate(245, 95)">
+      <rect width="115" height="48" class="node-peer"/>
+      <text x="57" y="22" class="node-text">Węzeł B</text>
+      <text x="57" y="38" class="node-subtext" fill="#6ee7b7">Klient + Serwer</text>
+    </g>
+
+    <g transform="translate(80, 225)">
+      <rect width="115" height="48" class="node-peer"/>
+      <text x="57" y="22" class="node-text">Węzeł C</text>
+      <text x="57" y="38" class="node-subtext" fill="#6ee7b7">Klient + Serwer</text>
+    </g>
+
+    <g transform="translate(245, 225)">
+      <rect width="115" height="48" class="node-peer"/>
+      <text x="57" y="22" class="node-text">Węzeł D</text>
+      <text x="57" y="38" class="node-subtext" fill="#6ee7b7">Klient + Serwer</text>
+    </g>
+
+    <!-- Opis cech P2P -->
+    <g transform="translate(24, 330)">
+      <rect width="392" height="90" class="desc-box"/>
+      <text x="16" y="26" class="desc-text">• <tspan font-weight="700" fill="#34d399">Symetria:</tspan> Każdy węzeł wysyła i odbiera jednocześnie.</text>
+      <text x="16" y="50" class="desc-text">• <tspan font-weight="700" fill="#34d399">Skalowalność:</tspan> Im więcej węzłów, tym większa wydajność roju.</text>
+      <text x="16" y="74" class="desc-text">• <tspan font-weight="700" fill="#34d399">Brak SPoF:</tspan> Wyłączenie stacji nie przerywa działania sieci.</text>
+    </g>
+  </g>
+</svg>

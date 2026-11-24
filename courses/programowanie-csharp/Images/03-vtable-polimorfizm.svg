@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t33 d33">
+  <title id="t33">Polimorfizm i dynamiczne wiązanie metod przez tablicę vtable (virtual / override)</title>
+  <desc id="d33">Schemat działania listy interfejsu ICzujnik: wywołanie Odczytaj() na tym samym typie bazowym przekierowuje przez tablicę vtable do konkretnej implementacji CzujnikCpu lub CzujnikRam.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .iface { fill: #172554; stroke: #38bdf8; stroke-width: 1.8; rx: 8; }
+    .impl1 { fill: #064e3b; stroke: #34d399; stroke-width: 1.8; rx: 8; }
+    .impl2 { fill: #451a03; stroke: #fbbf24; stroke-width: 1.8; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    @keyframes dash { 0% { stroke-dashoffset: 32; } 100% { stroke-dashoffset: 0; } }
+    .ray { stroke: #38bdf8; stroke-width: 2.2; stroke-dasharray: 6 6; animation: dash 1.4s linear infinite; fill: none; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Polimorfizm pod maską: jedno wywołanie c.Odczytaj(), różne implementacje przez vtable</text>
+  <text x="24" y="48" class="sub">W pętli foreach (ICzujnik c in czujniki) CLR sprawdza rzeczywisty typ obiektu i skacze pod jego adres w vtable.</text>
+
+  <rect x="24" y="72" width="246" height="162" class="card"/>
+  <text x="40" y="96" class="title">Kontrakt (interface)</text>
+  <rect x="40" y="114" width="214" height="68" class="iface"/>
+  <text x="52" y="138" class="mono">interface ICzujnik</text>
+  <text x="52" y="160" class="sub">string Nazwa { get; }</text>
+  <text x="52" y="176" class="sub">double Odczytaj();</text>
+  <text x="40" y="212" class="mono" fill="#38bdf8">c.Odczytaj(); // CALLVIRT</text>
+
+  <path d="M 270 132 L 352 108" class="ray"/>
+  <path d="M 270 166 L 352 190" class="ray"/>
+
+  <rect x="352" y="72" width="464" height="76" class="impl1"/>
+  <text x="368" y="96" class="title">CzujnikCpu : ICzujnik  (vtable → 0x8010)</text>
+  <text x="368" y="118" class="mono">Odczytaj() → zwraca obciążenie rdzeni CPU (%)</text>
+  <text x="368" y="136" class="sub">Własna logika, ten sam interfejs</text>
+
+  <rect x="352" y="160" width="464" height="76" class="impl2"/>
+  <text x="368" y="184" class="title">CzujnikRam : ICzujnik  (vtable → 0x8090)</text>
+  <text x="368" y="206" class="mono">Odczytaj() → wywołuje Win32 GlobalMemoryStatusEx</text>
+  <text x="368" y="224" class="sub">Nowy czujnik dodasz bez zmiany pętli głównej!</text>
+</svg>
+

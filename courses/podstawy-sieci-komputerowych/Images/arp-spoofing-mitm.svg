@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 320" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .box-hdr { font-family: system-ui, sans-serif; font-size: 11.5px; font-weight: 800; text-anchor: middle; }
+      .box-sub { font-family: monospace; font-size: 9px; font-weight: 700; text-anchor: middle; }
+      .alert-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; fill: #fca5a5; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9px; fill: #cbd5e1; }
+      .flow-lbl { font-family: monospace; font-size: 8.5px; font-weight: 700; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Zagrożenie: Zatrute tablice ARP (ARP Spoofing / Poisoning)</text>
+  <text x="30" y="48" class="sub">Wykorzystanie braku autoryzacji w RFC 826 do przechwycenia całego ruchu (Man-in-the-Middle)</text>
+
+  <!-- ================= 1. OFIARA (KOMPUTER PC) ================= -->
+  <g transform="translate(30, 80)">
+    <rect width="150" height="95" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="150" height="26" fill="#0284c7" rx="6"/>
+    <text x="75" y="18" class="box-hdr" fill="#ffffff">OFIARA (PC)</text>
+    <text x="75" y="44" class="box-sub" fill="#cbd5e1">IP: 192.168.1.100</text>
+    <text x="75" y="58" class="box-sub" fill="#38bdf8">MAC: AA:AA:AA:AA:AA:AA</text>
+
+    <!-- Zatruta tablica ARP -->
+    <rect x="10" y="66" width="130" height="22" fill="#450a0a" stroke="#ef4444" rx="2"/>
+    <text x="75" y="80" font-family="monospace" font-size="8px" font-weight="700" fill="#fca5a5" text-anchor="middle">Brama 1.1 ➔ MAC_HAKERA!</text>
+  </g>
+
+  <!-- ================= 2. ATAKUJĄCY (MAN-IN-THE-MIDDLE) ================= -->
+  <g transform="translate(285, 185)">
+    <rect width="170" height="110" fill="#450a0a" stroke="#ef4444" stroke-width="2" rx="6"/>
+    <rect x="0" y="0" width="170" height="26" fill="#991b1b" rx="6"/>
+    <text x="85" y="18" class="box-hdr" fill="#ffffff">ATAKUJĄCY (MITM)</text>
+    <text x="85" y="44" class="box-sub" fill="#cbd5e1">IP: 192.168.1.66</text>
+    <text x="85" y="58" class="box-sub" fill="#f87171">MAC: CC:CC:CC:CC:CC:CC</text>
+
+    <rect x="10" y="66" width="150" height="34" fill="#0b1120" stroke="#ef4444" rx="3"/>
+    <text x="85" y="80" font-family="system-ui, sans-serif" font-size="8px" font-weight="800" fill="#fca5a5" text-anchor="middle">Generuje fałszywe ARP Reply:</text>
+    <text x="85" y="92" font-family="monospace" font-size="7.5px" fill="#ffffff" text-anchor="middle">"192.168.1.1 to mój MAC CC:CC..."</text>
+  </g>
+
+  <!-- ================= 3. BRAMA DOMYŚLNA (ROUTER) ================= -->
+  <g transform="translate(560, 80)">
+    <rect width="150" height="95" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="150" height="26" fill="#064e3b" rx="6"/>
+    <text x="75" y="18" class="box-hdr" fill="#ffffff">BRAMA (ROUTER)</text>
+    <text x="75" y="44" class="box-sub" fill="#cbd5e1">IP: 192.168.1.1</text>
+    <text x="75" y="58" class="box-sub" fill="#34d399">MAC: RR:RR:RR:RR:RR:RR</text>
+
+    <!-- Zatruta tablica ARP na routerze -->
+    <rect x="10" y="66" width="130" height="22" fill="#450a0a" stroke="#ef4444" rx="2"/>
+    <text x="75" y="80" font-family="monospace" font-size="8px" font-weight="700" fill="#fca5a5" text-anchor="middle">Ofiara .100 ➔ MAC_HAKERA!</text>
+  </g>
+
+  <!-- ================= STRZAŁKI ATAKU ARP (CZERWONE DASHED) ================= -->
+  <!-- Atak na Ofiarę -->
+  <path d="M 330,185 L 140,175" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="135,175 143,171 143,179" fill="#ef4444"/>
+  <text x="210" y="172" class="flow-lbl" fill="#f87171">Fałszywe ARP</text>
+
+  <!-- Atak na Router -->
+  <path d="M 410,185 L 600,175" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="605,175 597,171 597,179" fill="#ef4444"/>
+  <text x="530" y="172" class="flow-lbl" fill="#f87171">Fałszywe ARP</text>
+
+  <!-- ================= RZECZYWISTY RUCH INTERNETOWY PRZEJĘTY ================= -->
+  <!-- Ruch z Ofiary do Atakującego -->
+  <path d="M 160,120 L 300,190" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <polygon points="304,192 294,188 298,196" fill="#f59e0b"/>
+  <text x="200" y="130" font-family="system-ui, sans-serif" font-size="8.5px" font-weight="800" fill="#fde047">Ruch do Internetu</text>
+
+  <!-- Przekierowanie przez Atakującego do Routera -->
+  <path d="M 440,190 L 580,120" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <polygon points="585,118 579,126 575,118" fill="#f59e0b"/>
+  <text x="535" y="130" font-family="system-ui, sans-serif" font-size="8.5px" font-weight="800" fill="#fde047">Podsłuchany pakiet</text>
+
+  <!-- Podsumowanie obrony -->
+  <g transform="translate(30, 205)">
+    <rect width="230" height="90" fill="#0f172a" stroke="#10b981" rx="4"/>
+    <text x="12" y="22" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="800" fill="#34d399">Obrona inżynierska:</text>
+    <text x="12" y="42" class="desc-txt"><tspan font-weight="700" fill="#ffffff">1. Statyczne wpisy ARP:</tspan> `arp -s`</text>
+    <text x="12" y="58" class="desc-txt"><tspan font-weight="700" fill="#ffffff">2. DAI (Dynamic ARP Inspection):</tspan></text>
+    <text x="12" y="72" class="desc-txt">Switch odrzuca nieautoryzowane ARP</text>
+    <text x="12" y="84" class="desc-txt">na podstawie bazy DHCP Snooping.</text>
+  </g>
+</svg>

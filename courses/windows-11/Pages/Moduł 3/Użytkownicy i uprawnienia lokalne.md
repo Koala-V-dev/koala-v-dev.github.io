@@ -1,6 +1,6 @@
 # Użytkownicy i uprawnienia lokalne
 
-Na Helpdesku zarządzanie kontami użytkowników to chleb powszedni. *„Nie pamiętam hasła"*, *„Nie mogę zainstalować programu"*, *„Kolega potrzebuje tymczasowy dostęp do mojego komputera"* – każde z tych zgłoszeń sprowadza się do pytania: **kto ma jakie uprawnienia i jak to zmienić?**
+Na Helpdesku zarządzanie kontami użytkowników to chleb powszedni. *„Nie pamiętam hasła"*, *„Nie mogę zainstalować programu"*, *„Kolega potrzebuje tymczasowy dostęp do mojego komputera"* - każde z tych zgłoszeń sprowadza się do pytania: **kto ma jakie uprawnienia i jak to zmienić?**
 
 ---
 
@@ -17,11 +17,11 @@ Windows rozróżnia dwa fundamentalne poziomy uprawnień konta lokalnego. Każdy
 | Zagrożenie bezpieczeństwa | 🟢 Niskie | 🔴 Wysokie (malware działa z pełnymi uprawnieniami) |
 
 > [!IMPORTANT]
-> **Złota zasada IT:** Codzienną pracę wykonuj na koncie **standardowym**. Konto administratora używaj **wyłącznie** do zadań administracyjnych. Nawet administratorzy w firmach powinni mieć dwa konta – jedno zwykłe do poczty i przeglądarki, drugie z uprawnieniami do zarządzania. Jeśli złapiesz wirusa na koncie admina – malware ma pełną kontrolę nad systemem.
+> **Złota zasada IT:** Codzienną pracę wykonuj na koncie **standardowym**. Konto administratora używaj **wyłącznie** do zadań administracyjnych. Nawet administratorzy w firmach powinni mieć dwa konta - jedno zwykłe do poczty i przeglądarki, drugie z uprawnieniami do zarządzania. Jeśli złapiesz wirusa na koncie admina - malware ma pełną kontrolę nad systemem.
 
 ---
 
-## 🛡️ UAC – Kontrola konta użytkownika
+## 🛡️ UAC - Kontrola konta użytkownika
 
 **User Account Control** to mechanizm bezpieczeństwa, który stoi na straży między użytkownikiem a operacjami wymagającymi podwyższonych uprawnień. To ten charakterystyczny ekran z pytaniem *„Czy chcesz zezwolić tej aplikacji na wprowadzenie zmian?"*.
 
@@ -40,7 +40,7 @@ Windows rozróżnia dwa fundamentalne poziomy uprawnień konta lokalnego. Każdy
 4. **Konto administratora** → wymaga jedynie kliknięcia <kbd class="win-menu-btn">Tak</kbd>.
 5. Dopiero po autoryzacji program dostaje podwyższone uprawnienia.
 
-**Dlaczego to ważne?** Bez UAC każdy program uruchomiony przez admina miałby automatycznie pełne uprawnienia – w tym wirusy, trojany i ransomware. UAC zmusza do świadomej decyzji.
+**Dlaczego to ważne?** Bez UAC każdy program uruchomiony przez admina miałby automatycznie pełne uprawnienia - w tym wirusy, trojany i ransomware. UAC zmusza do świadomej decyzji.
 
   <data-hotspot image="/courses/windows-11/Images/UAC-admin-vs-user.png">
     <hotspot x="15" y="25" title="">To okno widziane z konta **Administratora**. Wymaga jedynie kliknięcia <kbd class="win-menu-btn">Tak</kbd>.</hotspot>
@@ -64,9 +64,9 @@ Konfiguracja: `Panel sterowania` → `Konta użytkowników` → `Zmień ustawien
 | Poziom | Zachowanie | Kiedy stosować |
 | :--- | :--- | :--- |
 | **Zawsze powiadamiaj** | Monit przy każdej zmianie systemowej i każdej instalacji | Maksymalne bezpieczeństwo (serwery, stacje krytyczne) |
-| **Domyślny** | Monit tylko przy zmianach ze strony programów (nie ustawień Windows) | Zalecany – balans bezpieczeństwa i wygody |
-| **Powiadamiaj bez ciemnienia** | Tak jak domyślny, ale bez bezpiecznego pulpitu (ekran nie ciemnieje) | Nie zalecany – malware może sfałszować okno UAC |
-| **Nigdy nie powiadamiaj** | UAC wyłączony – wszystko działa z pełnymi uprawnieniami | ⛔ Nigdy! Kompletna rezygnacja z ochrony |
+| **Domyślny** | Monit tylko przy zmianach ze strony programów (nie ustawień Windows) | Zalecany - balans bezpieczeństwa i wygody |
+| **Powiadamiaj bez ciemnienia** | Tak jak domyślny, ale bez bezpiecznego pulpitu (ekran nie ciemnieje) | Nie zalecany - malware może sfałszować okno UAC |
+| **Nigdy nie powiadamiaj** | UAC wyłączony - wszystko działa z pełnymi uprawnieniami | ⛔ Nigdy! Kompletna rezygnacja z ochrony |
 
 > [!CAUTION]
 > Na Helpdesku zdarzają się prośby: *„Wyłącz mi te wyskakujące okienka, bo mnie denerwują."* 
@@ -79,7 +79,7 @@ Konfiguracja: `Panel sterowania` → `Konta użytkowników` → `Zmień ustawien
 
 ## 🧰 Narzędzia zarządzania kontami
 
-Windows oferuje kilka ścieżek do zarządzania użytkownikami lokalnymi – od prostego GUI po komendy CMD oraz potężnego PowerShell'a.
+Windows oferuje kilka ścieżek do zarządzania użytkownikami lokalnymi - od prostego GUI po komendy CMD oraz potężnego PowerShell'a.
 
 <data-tabs>
     <tabs>
@@ -113,17 +113,17 @@ Najprostsza ścieżka, dostępna we **wszystkich** edycjach Windows 11.
 
 ### Użytkownicy i grupy lokalne (`lusrmgr.msc`)
 
-**Tylko Windows Pro / Enterprise / Education** – niedostępne w Home!
+**Tylko Windows Pro / Enterprise / Education** - niedostępne w Home!
 
 <kbd class="Win"></kbd> + <kbd>R</kbd> → `lusrmgr.msc`
 
 To **profesjonalny panel** (przystawka systemu Windows) z pełną kontrolą nad kontami i grupami. Dwa „foldery”, chodź poprawniej kontenery:
 
-**Użytkownicy** – lista wszystkich kont lokalnych:
+**Użytkownicy** - lista wszystkich kont lokalnych:
 - PPM → **Nowy użytkownik** (tworzenie)
 - PPM na konto → **Ustaw hasło** (reset bez znajomości starego hasła!)
 - PPM → **Właściwości** → zakładka **Członek grupy** (przypisanie do grup)
-- Checkbox <kbd class="check-mark-empty"></kbd>`Konto jest wyłączone` – dezaktywacja bez usuwania
+- Checkbox <kbd class="check-mark-empty"></kbd>`Konto jest wyłączone` - dezaktywacja bez usuwania
 
   <data-hotspot image="/courses/windows-11/Images/lusrmgr.msc-users.png">
     <hotspot x="15" y="30" title="Drzewo konsoli">Podział na dwa główne foldery: **Użytkownicy (pojedyncze konta)** i Grupy (zbiory uprawnień).</hotspot>
@@ -140,7 +140,7 @@ To **profesjonalny panel** (przystawka systemu Windows) z pełną kontrolą nad 
 > Nowy użytkownik domyślnie należy do grupy **Użytkownicy**. Członkostwo w tej grupie jest wymagane by zalogować się do systemu przez GUI.
 
 
-**Grupy** – to kontenery na zbiory uprawnień, do których można przypisywać użytkowników lub inne grupy dziedziczące po nich uprawnienia.
+**Grupy** - to kontenery na zbiory uprawnień, do których można przypisywać użytkowników lub inne grupy dziedziczące po nich uprawnienia.
 
 > [!NOTE]
 > **Dziedziczenie**: Sytuacja lub proces pełnego lub częściowego przekazania cech na obiekt dziedziczący z rodzica. 
@@ -222,7 +222,7 @@ PS. Zaznaczyłem Ci też pomarańczową obwódką <kbd class="win-menu-btn">Zaaw
 | Nazwa poświadczenia | Źródło | Opis | Czy usuwać |
 |----------------------|--------|------|------------|
 | `git:https://github.com` | Git | Dane logowania do GitHub przez HTTPS. | 🟢 Można |
-| `GitHub – https://api.github.com/…` | GitHub Desktop | Token dostępu do GitHub API. | 🟢 Można |
+| `GitHub - https://api.github.com/…` | GitHub Desktop | Token dostępu do GitHub API. | 🟢 Można |
 | `gemini:antigravity` | Antigravity | Lokalne poświadczenie aplikacji. | 🟢 Można |
 
 #### Poświadczenia aplikacji sieciowych
@@ -320,8 +320,8 @@ Windows posiada specjalne konta systemowe, które istnieją od momentu instalacj
 
 | Konto | Domyślny stan | Rola | Na Helpdesku |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | Wyłączone | Konto superadmina – pełne uprawnienia, pomija UAC | Włączane w sytuacjach awaryjnych (np. jedyny admin zapomniał hasła) |
-| **Gość** | Wyłączone | Tymczasowy dostęp bez hasła, minimalny poziom uprawnień | Rzadko używane – ryzyko bezpieczeństwa |
+| **Administrator** | Wyłączone | Konto superadmina - pełne uprawnienia, pomija UAC | Włączane w sytuacjach awaryjnych (np. jedyny admin zapomniał hasła) |
+| **Gość** | Wyłączone | Tymczasowy dostęp bez hasła, minimalny poziom uprawnień | Rzadko używane - ryzyko bezpieczeństwa |
 | **DefaultAccount** | Wyłączone | Konto systemowe dla profili tymczasowych | Nie dotykaj |
 | **WDAGUtilityAccount** | Wyłączone | Używane przez Windows Sandbox i Application Guard | Nie dotykaj |
 
@@ -342,13 +342,13 @@ net user Administrator /active:no
 ```
 
 > [!WARNING]
-> Konto `Administrator` (wbudowane) **nie podlega UAC** – programy działają na nim z pełnymi uprawnieniami bez żadnych monitów. Dlatego trzymaj je **zawsze wyłączone** poza sytuacjami awaryjnymi.
+> Konto `Administrator` (wbudowane) **nie podlega UAC** - programy działają na nim z pełnymi uprawnieniami bez żadnych monitów. Dlatego trzymaj je **zawsze wyłączone** poza sytuacjami awaryjnymi.
 
 ---
 
 ## 📁 Profile użytkowników
 
-Każde konto z grupą *Użytkownicy* na komputerze ma swój _**profil**_ – dedykowany folder z danymi, ustawieniami i konfiguracją. Profil tworzony jest automatycznie przy pierwszym logowaniu.
+Każde konto z grupą *Użytkownicy* na komputerze ma swój _**profil**_ - dedykowany folder z danymi, ustawieniami i konfiguracją. Profil tworzony jest automatycznie przy pierwszym logowaniu.
 
 Lokalizacja: `C:\Users\<nazwa_użytkownika>\`
 
@@ -406,7 +406,7 @@ Ponieważ ten folder podróżuje przez sieć, aplikacje nie powinny wrzucać tu 
 Zupełne przeciwieństwo Roaming. Dane w folderze `Local` są **na sztywno przypisane do jednego, fizycznego komputera**. Nie synchronizują się z serwerem.
 
 **Co tu znajdziesz?**
-- Pamięć podręczną przeglądarek (cache) – pliki, które można łatwo pobrać ponownie, by przyspieszyć ładowanie stron.
+- Pamięć podręczną przeglądarek (cache) - pliki, które można łatwo pobrać ponownie, by przyspieszyć ładowanie stron.
 - Pliki tymczasowe instalatorów (`Local\Temp`).
 - Duże bazy danych aplikacji, np. pliki skrzynek pocztowych programu Outlook (`.ost`).
 
@@ -421,7 +421,7 @@ To folder o najniższym poziomie uprawnień i zaufania (Low Integrity). Powstał
 
 **Co tu znajdziesz?**
 - Aplikacje, które nie mają prawa modyfikować głównych plików systemowych ani standardowego profilu użytkownika, mogą zapisywać dane tylko tutaj.
-- Jeśli przeglądarka zostanie zhakowana przez złośliwy skrypt na stronie, atakujący znajdzie się w środowisku Low Integrity. Będzie uwięziony – może odczytywać i modyfikować tylko folder `LocalLow`, bez dostępu do reszty dysku.
+- Jeśli przeglądarka zostanie zhakowana przez złośliwy skrypt na stronie, atakujący znajdzie się w środowisku Low Integrity. Będzie uwięziony - może odczytywać i modyfikować tylko folder `LocalLow`, bez dostępu do reszty dysku.
 
   </div>
 </data-tabs>
@@ -493,7 +493,7 @@ Właściwości pliku/folderu → zakładka **Zabezpieczenia** (Security).
 
 ### 🪙 Złote Zasady NTFS
 
-1. **Odmowa (Deny) zawsze wygrywa.** Jeśli użytkownik należy do grupy A (która ma *Zezwalaj* na Odczyt) i do grupy B (która ma **_Odmów_** na Odczyt) – użytkownik **_nie_** przeczyta pliku. Zaznaczaj „Odmów” tylko wtedy, gdy to absolutnie konieczne!
+1. **Odmowa (Deny) zawsze wygrywa.** Jeśli użytkownik należy do grupy A (która ma *Zezwalaj* na Odczyt) i do grupy B (która ma **_Odmów_** na Odczyt) - użytkownik **_nie_** przeczyta pliku. Zaznaczaj „Odmów” tylko wtedy, gdy to absolutnie konieczne!
 2. **Pełna kontrola vs Modyfikacja.** Modyfikacja pozwala tworzyć, czytać, zmieniać i usuwać pliki. Pełna kontrola pozwala na to samo + _**prawo do zmiany uprawnień**_ i przejmowania na własność. Użytkownikom dajemy maksymalnie *Modyfikację*.
 3. **Dziedziczenie (Inheritance).** Domyślnie każdy folder przekazuje swoje uprawnienia folderom i plikom wewnątrz. Aby nadać unikalne uprawnienia głęboko w strukturze, musisz wyłączyć dziedziczenie (przycisk *Zaawansowane* → *Wyłącz dziedziczenie*), kopiując obecne prawa jako jawne.
 4. **Właściciel (Owner).** Nawet jeśli Administrator ma *Odmów* na odczyt pliku, może wejść w *Zaawansowane* i **Zmienić właściciela** na siebie. Właściciel zawsze ma prawo zmienić uprawnienia, dzięki czemu Administrator zawsze może odzyskać kontrolę nad zablokowanym zasobem.
@@ -587,28 +587,39 @@ Zrozumienie uprawnień to umiejętność łączenia wiedzy o koncie, UAC, zabezp
 
 ---
 
-<data-gate>
-  <data-quiz>
-    <question>Egzamin INF.02: Skonfiguruj system tak, aby użytkownik "Kowalski" mógł modyfikować pliki w katalogu `C:\Raporty`, ale zabroniono mu usuwania samego katalogu. Ponadto, hasło do każdego nowego konta w systemie musi wymagać minimum 10 znaków. Jaka jest prawidłowa ścieżka działania?</question>
-    <options>
-      <item>Użyć polecenia net user by zabronić kasowania. W lusrmgr.msc ustawić regułę 10 znaków.</item>
-      <item correct>We właściwościach NTFS folderu nadać Kowalskiemu Zezwalaj na "Modyfikacja". Włączyć secpol.msc -> Zasady haseł i zmienić minimalną długość hasła na 10.</item>
-      <item>W UAC ustawić zakaz usuwania folderów dla kont standardowych. Hasło 10-znakowe ustawić we właściwościach konta Kowalskiego w netplwiz.</item>
-      <item>Zablokować usuwanie poprzez nadanie mu twardej Odmowy na wszystko w `icacls`. Długość hasła wymaga skryptu w PowerShellu.</item>
-    </options>
-    <div data-hint="error">
-      Reguły znaków dla haseł w całym systemie konfiguruje się tylko przez `secpol.msc`. Narzędzia takie jak UAC, net user czy netplwiz w ogóle tego nie obsługują. Ponadto "Odmowa" na wszystko w NTFS spowodowałaby zablokowanie też modyfikacji.
-    </div>
-    <div data-hint="success">
-      Znakomicie! Zabezpieczenia folderów realizujemy po stronie NTFS (Zabezpieczenia / Modyfikacja pozwala na edycję), a globalne wymogi systemowe takie jak siła haseł realizuje się polisami (secpol.msc).
-    </div>
-  </data-quiz>
-</data-gate>
-
 > [!TIP]
 > **Złota zasada technika:** Uprawnienia to układanka. *Co możesz zrobić systemowo* (Konto + UAC + secpol.msc) oraz *czego możesz dotknąć na dysku* (NTFS). Dopiero zrozumienie obu stref daje Ci pełną władzę nad Windowsem.
 
 ----
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Weryfikacja uprawnień w Windows Security Reference Monitor (SRM) i struktury DACL/ACE</span><span class="deep-dive-badge">Windows Security & SRM Internals</span></summary>
+
+W architekturze Windows NT za każdą decyzję o przyznaniu lub odmowie dostępu do pliku, klucza rejestru czy procesu odpowiada **Security Reference Monitor** (**SRM**) - moduł działający wewnątrz jądra `ntoskrnl.exe`.
+
+### 1. Deskryptor bezpieczeństwa (SECURITY_DESCRIPTOR)
+Każdy zabezpieczalny obiekt w Windows posiada przyporządkowaną strukturę binarną `SECURITY_DESCRIPTOR`:
+- **Owner SID**: Identyfikator bezpieczeństwa właściciela obiektu.
+- **Group SID**: Podstawowa grupa właścicielska.
+- **DACL** (*Discretionary Access Control List*): Tablica określająca, kto i jakie ma uprawnienia.
+- **SACL** (*System Access Control List*): Tablica określająca, jakie zdarzenia mają generować logi audytu w Podglądzie Zdarzeń.
+
+### 2. Anatomia tablicy DACL i wpisów ACE
+Tablica DACL składa się z nagłówka i listy wpisów **ACE** (*Access Control Entry*). Istnieją dwa podstawowe typy wpisów:
+- `ACCESS_ALLOWED_ACE`: Zezwala wskazanej tożsamości (SID) na zestaw operacji (maska bitowa, np. `FILE_GENERIC_READ`).
+- `ACCESS_DENIED_ACE`: Jawnie blokuje dostęp.
+
+### 3. Złota zasada ewaluacji SRM: Dlaczego Deny zawsze wygrywa?
+Gdy proces próbuje otworzyć plik, jądro wywołuje wewnętrzną funkcję `SeAccessCheck` (dostępną w Win32 API jako `AccessCheck`):
+1. SRM pobiera **Token Bezpieczeństwa** procesu (*Access Token*), sprawdzając listę wszystkich SID-ów użytkownika i grup, do których należy.
+2. SRM przegląda tablicę DACL pliku **od góry do dołu** (zgodnie z regułą Canonical Order):
+   - Wszystkie jawne wpisy odmowy (*Explicit Deny*) są zawsze umieszczane przed wpisami zezwalającymi (*Explicit Allow*).
+   - Wpisy dziedziczone (*Inherited*) znajdują się na samym końcu.
+3. Jeśli SRM napotka wpis **Access Denied** pasujący do użytkownika lub którejkolwiek grupy, w której się znajduje: **sprawdzanie NATYCHMIAST się kończy odmową dostępu** (błąd `ERROR_ACCESS_DENIED`). Żadne dalsze wpisy zezwalające nie są nawet czytane!
+
+</details>
+
+---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
@@ -616,7 +627,7 @@ Zrozumienie uprawnień to umiejętność łączenia wiedzy o koncie, UAC, zabezp
 - **Narzędzia zarządzania kontami:** Konsola `lusrmgr.msc` (tylko w edycjach Pro/Enterprise) to pełnoprawne narzędzie administracyjne. W Windows Home alternatywą dla GUI jest `netplwiz` oraz komendy terminala (`net user` w CMD, `Get-LocalUser` w PowerShell). 🧰
 - **Plik NTUSER.DAT i profile:** Każdy zalogowany użytkownik otrzymuje swój profil w `C:\Users`. Jego indywidualne ustawienia systemowe i programów zapisywane są w ukrytym pliku `NTUSER.DAT`, który ładuje się do rejestru jako gałąź `HKEY_CURRENT_USER`. Usunięcie konta nie usuwa folderu profilu automatycznie! 📁
 - **Uprawnienia NTFS (Zabezpieczenia):** Złotą zasadą jest, że twarda „Odmowa” (Deny) zawsze wygrywa z zezwoleniem. Administrator lub właściciel pliku/folderu zawsze może przejąć go na własność, nawet jeśli ma zablokowany dostęp, a uprawnienia mogą być automatycznie dziedziczone z folderów nadrzędnych. 🔒
-- **Lokalne Zasady Zabezpieczeń (`secpol.msc`):** To kluczowe narzędzie do wdrażania polityk bezpieczeństwa na poziomie lokalnym – m.in. wymogów dotyczących minimalnej długości i złożoności haseł oraz blokady konta po serii nieudanych prób logowania. 🏛️
+- **Lokalne Zasady Zabezpieczeń (`secpol.msc`):** To kluczowe narzędzie do wdrażania polityk bezpieczeństwa na poziomie lokalnym - m.in. wymogów dotyczących minimalnej długości i złożoności haseł oraz blokady konta po serii nieudanych prób logowania. 🏛️
 
 ---
 

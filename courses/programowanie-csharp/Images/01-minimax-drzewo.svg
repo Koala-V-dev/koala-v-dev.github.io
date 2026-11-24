@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t14 d14">
+  <title id="t14">Drzewo decyzyjne bota AI w grze Kółko i Krzyżyk (priorytety i Minimax)</title>
+  <desc id="d14">Schemat czterech priorytetów bota AI: 1. Wygraj teraz, 2. Zablokuj rywala, 3. Zajmij środek [1,1], 4. Zajmij narożnik, oraz separacja silnika gry od interfejsu konsoli i GUI.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .box { fill: #0f172a; stroke: #38bdf8; stroke-width: 1.5; rx: 8; }
+    .ok { fill: #064e3b; stroke: #34d399; stroke-width: 1.8; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    @keyframes pulseBorder { 0%, 100% { stroke-opacity: 0.45; } 50% { stroke-opacity: 1; } }
+    .hl { animation: pulseBorder 2s ease-in-out infinite; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Architektura TicTacToe.exe: SilnikGry (logika + AI) oddzielony od widoku (Konsola → później GUI)</text>
+  <text x="24" y="48" class="sub">Dzięki separacji w Module 5 podepniesz ten sam plik SilnikGry.cs prosto pod okno Windows Forms!</text>
+
+  <!-- Left: AI Priority Ladder -->
+  <rect x="24" y="66" width="420" height="178" class="card"/>
+  <text x="40" y="90" class="title">Priorytety decyzji bota AI (O)</text>
+
+  <rect x="40" y="102" width="388" height="28" class="ok hl"/>
+  <text x="52" y="120" class="mono">1. Czy mam ruch dający 3 w linii? → WYGRYWAM!</text>
+
+  <rect x="40" y="136" width="388" height="28" class="box"/>
+  <text x="52" y="154" class="mono">2. Czy gracz X wygra w następnym ruchu? → BLOKUJĘ!</text>
+
+  <rect x="40" y="170" width="388" height="28" class="box"/>
+  <text x="52" y="188" class="mono">3. Czy środek [1,1] jest wolny? → ZAJMUJĘ ŚRODEK</text>
+
+  <rect x="40" y="204" width="388" height="28" class="box"/>
+  <text x="52" y="222" class="mono">4. Inaczej → wybierz wolny narożnik lub krawędź</text>
+
+  <!-- Right: Separation Model vs UI -->
+  <rect x="464" y="66" width="352" height="178" class="card"/>
+  <text x="480" y="90" class="title">Jeden silnik → Dwa interfejsy</text>
+
+  <rect x="480" y="106" width="320" height="46" class="ok"/>
+  <text x="494" y="126" class="mono">SilnikGry.cs (Zero Console.*!)</text>
+  <text x="494" y="144" class="sub">Plansza, WykonajRuch, CzyWygrana, RuchBota</text>
+
+  <line x1="560" y1="152" x2="560" y2="178" stroke="#64748b" stroke-width="2"/>
+  <line x1="720" y1="152" x2="720" y2="178" stroke="#64748b" stroke-width="2"/>
+
+  <rect x="480" y="180" width="150" height="48" class="box"/>
+  <text x="494" y="200" class="mono">Moduł 1: CLI</text>
+  <text x="494" y="218" class="sub">TicTacToe.exe</text>
+
+  <rect x="650" y="180" width="150" height="48" class="box"/>
+  <text x="664" y="200" class="mono">Moduł 5: GUI</text>
+  <text x="664" y="218" class="sub">TicTacToeGUI.exe</text>
+</svg>
+

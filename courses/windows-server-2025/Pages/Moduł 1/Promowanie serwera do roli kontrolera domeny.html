@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moduł 1\Promowanie serwera do roli kontrolera domeny - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">windows-server-2025</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Środowisko i fundamenty serwera</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Instalacja Windows Server 2025 w VirtualBox"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%200/Instalacja%20Windows%20Server%202025%20w%20VirtualBox.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Instalacja Windows Server 2025 w VirtualBox</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Menedżer serwera i konfiguracja kart sieciowych"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%200/Mened%C5%BCer%20serwera%20i%20konfiguracja%20kart%20sieciowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Menedżer serwera i konfiguracja kart sieciowych</a></li><li class="module">Moduł 1: Active Directory Domain Services (AD DS)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Promowanie serwera do roli kontrolera domeny"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%201/Promowanie%20serwera%20do%20roli%20kontrolera%20domeny.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Promowanie serwera do roli kontrolera domeny</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Jednostki Organizacyjne i konta użytkowników"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%201/Jednostki%20Organizacyjne%20i%20konta%20u%C5%BCytkownik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jednostki Organizacyjne i konta użytkowników</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Zasady haseł i blokad w domenie"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%201/Zasady%20hase%C5%82%20i%20blokad%20w%20domenie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady haseł i blokad w domenie</a></li><li class="module">Moduł 2: Magazyn danych i udziały sieciowe</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Uprawnienia sieciowe Share i zabezpieczenia NTFS"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%202/Uprawnienia%20sieciowe%20Share%20i%20zabezpieczenia%20NTFS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Uprawnienia sieciowe Share i zabezpieczenia NTFS</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Ukryte udziały administracyjne i biznesowe ($)"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%202/Ukryte%20udzia%C5%82y%20administracyjne%20i%20biznesowe%20(%24).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Ukryte udziały administracyjne i biznesowe ($)</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Zarządzanie woluminami i limitami dyskowymi (Quota)"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%202/Zarz%C4%85dzanie%20woluminami%20i%20limitami%20dyskowymi%20(Quota).html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zarządzanie woluminami i limitami dyskowymi (Quota)</a></li><li class="module">Moduł 3: Usługi infrastruktury i polisy (GPO)</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Serwer DHCP w Windows Server"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%203/Serwer%20DHCP%20w%20Windows%20Server.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Serwer DHCP w Windows Server</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Serwer DNS - strefy wyszukiwania do przodu i wstecz"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%203/Serwer%20DNS%20-%20strefy%20wyszukiwania%20do%20przodu%20i%20wstecz.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Serwer DNS - strefy wyszukiwania do przodu i wstecz</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Zasady Grupy (GPO) - centralna konfiguracja stacji"><a class="lesson-link" href="/courses/windows-server-2025/Pages/Modu%C5%82%203/Zasady%20Grupy%20(GPO)%20-%20centralna%20konfiguracja%20stacji.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady Grupy (GPO) - centralna konfiguracja stacji</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Promowanie serwera do roli kontrolera domeny</h1>
+<p>Wdrożenie usługi <span class="color-green">Active Directory Domain Services (AD DS)</span> przekształca autonomiczny serwer w <span class="color-green">Kontroler Domeny (Domain Controller)</span> – centralną bazę tożsamości, komputerów i uprawnień w przedsiębiorstwie.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📦 Krok 1: Instalacja roli Active Directory Domain Services</h2>
+<ol>
+<li>W oknie <span class="color-green">Menedżer serwera</span> kliknij: <span class="color-green">Zarządzaj -&gt; Dodaj role i funkcje</span> (lub kafelek na pulpicie powitalnym).</li>
+<li>Przejdź kreator:<ul>
+<li>Typ instalacji: <span class="color-green">Instalacja oparta na rolach lub na funkcjach</span>.</li>
+<li>Wybór serwera: zaznacz bieżący serwer (<code>SERWER-DC</code>).</li>
+<li>Role serwera: zaznacz pole wyboru <span class="color-green">Usługi domenowe Active Directory (AD DS)</span>.</li>
+<li>W wyskakującym oknie kliknij <span class="color-green">Dodaj funkcje</span> (dołączając narzędzia RSAT).</li>
+<li>Pozostałe ekrany zatwierdź domyślnie i kliknij <span class="color-green">Zainstaluj</span>.</li>
+</ul>
+</li>
+</ol>
+<div class="markdown-alert markdown-alert--note">
+<p class="markdown-alert-title">
+<span class="alert-icon">💬</span> Notatka
+</p>
+<div class="markdown-alert-content">
+<p>Sama instalacja roli kopiuje jedynie niezbędne pliki binarne na dysk. Baza danych Active Directory (<code>NTDS.dit</code>) powstaje dopiero podczas procedury promowania.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🌲 Krok 2: Promowanie do roli kontrolera (Nowy las)</h2>
+<p>Po zakończeniu instalacji na pasku menu Menedżera serwera pojawi się żółty trójkąt z powiadomieniem (Flaga).</p>
+<ol>
+<li>Kliknij ikonę powiadomienia i wybierz: <span class="color-green">Podnieś poziom tego serwera do rangi kontrolera domeny</span> (<span class="color-blue">Promote this server to a domain controller</span>).</li>
+<li><span class="color-green">Konfiguracja wdrożenia:</span><ul>
+<li>Wybierz opcję: <span class="color-green">Dodaj nowy las</span> (<span class="color-blue">Add a new forest</span>).</li>
+<li>Podaj nazwę domeny głównej, np.: <code>egzamin.local</code> lub <code>firma.lan</code>.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>📷 Zrzut <code>ws2025-ad-promowanie-nowy-las.png</code>: Okno konfiguracji wdrożenia z wybraną opcją Dodaj nowy las i wpisaną nazwą domeny.</p>
+</blockquote>
+<ol start="3">
+<li><p><span class="color-green">Opcje kontrolera domeny:</span></p>
+<ul>
+<li>Poziom funkcjonalności lasu i domeny: pozostaw domyślny (Windows Server 2025 / 2016).</li>
+<li>Upewnij się, że zaznaczona jest rola <span class="color-green">Serwer DNS</span> oraz <span class="color-green">Katalog globalny (GC)</span>.</li>
+<li>Wpisz hasło trybu przywracania usług katalogowych (<span class="color-green">DSRM</span>), np. <code>ZAQ!2wsx</code>.</li>
+</ul>
+</li>
+<li><p><span class="color-green">Ścieżki bazy danych i weryfikacja:</span></p>
+<ul>
+<li>Pozostaw domyślne ścieżki folderów bazy <code>NTDS</code>, plików dziennika oraz folderu <code>SYSVOL</code>.</li>
+<li>Na ekranie sprawdzania wymagań wstępnych upewnij się, że pojawił się komunikat: <span class="color-blue">Wszystkie testy wymagań wstępnych zostały pomyślnie ukończone</span>.</li>
+</ul>
+</li>
+<li><p>Kliknij <span class="color-green">Zainstaluj</span>. Po zakończeniu operacji serwer automatycznie uruchomi się ponownie.</p>
+</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Weryfikacja po restarcie</h2>
+<p>Po restarcie ekran logowania zmieni swój format:</p>
+<ul>
+<li>Logujesz się teraz jako administrator domeny: <code>EGZAMIN\Administrator</code> z dotychczasowym hasłem.</li>
+<li>W menu <span class="color-green">Narzędzia</span> Menedżera serwera pojawią się nowe przystawki:<ul>
+<li><span class="color-green">Użytkownicy i komputery usługi Active Directory</span> (<code>dsa.msc</code>),</li>
+<li><span class="color-green">Zarządzanie zasadami grupy</span> (<code>gpmc.msc</code>),</li>
+<li><span class="color-green">Menedżer DNS</span> (<code>dnsmgmt.msc</code>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Różnicę między instalacją binariów roli AD DS a faktycznym promowaniem serwera.</li>
+<li>Tworzenie nowego lasu domenowego i przypisanie nazwy FQDN (np. <code>egzamin.local</code>).</li>
+<li>Rolę hasła DSRM (Directory Services Restore Mode) w procedurach odzyskiwania bazy NTDS.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

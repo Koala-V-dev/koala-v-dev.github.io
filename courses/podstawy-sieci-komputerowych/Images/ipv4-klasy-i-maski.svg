@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .cls-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; }
+      .net-txt { font-family: monospace; font-size: 9.5px; font-weight: 700; fill: #ffffff; text-anchor: middle; }
+      .host-txt { font-family: monospace; font-size: 9.5px; font-weight: 700; fill: #bae6fd; text-anchor: middle; }
+      .badge-txt { font-family: monospace; font-size: 9px; font-weight: 800; text-anchor: middle; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9px; fill: #cbd5e1; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Struktura klasowa IPv4 i podział na część sieciową i hosta</text>
+  <text x="30" y="48" class="sub">32-bitowy adres logiczny: relacja między maską domyślną, zakresem pierwszego oktetu a pulami RFC 1918</text>
+
+  <!-- ================= 1. KLASA A (/8) ================= -->
+  <g transform="translate(30, 75)">
+    <rect width="680" height="42" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="4"/>
+    <text x="12" y="18" class="cls-hdr" fill="#38bdf8">KLASA A (1 – 126)</text>
+    <text x="12" y="32" font-family="monospace" font-size="8.5px" fill="#cbd5e1">Maska: 255.0.0.0 (/8)</text>
+
+    <!-- Pasek 32 bity -->
+    <g transform="translate(160, 6)">
+      <!-- NetID (8b) -->
+      <rect width="125" height="30" fill="#0284c7" rx="3"/>
+      <text x="62" y="16" class="net-txt">Sieć (NetID: 8b)</text>
+      <text x="62" y="26" class="badge-txt" fill="#bae6fd">1 oktet</text>
+
+      <!-- HostID (24b) -->
+      <rect x="130" width="375" height="30" fill="#0f172a" stroke="#38bdf8" rx="3"/>
+      <text x="317" y="16" class="host-txt">Część Hosta (HostID: 24 bity = 16 777 214 hostów na sieć)</text>
+      <text x="317" y="26" class="badge-txt" fill="#38bdf8">3 oktety</text>
+    </g>
+  </g>
+
+  <!-- ================= 2. KLASA B (/16) ================= -->
+  <g transform="translate(30, 125)">
+    <rect width="680" height="42" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="4"/>
+    <text x="12" y="18" class="cls-hdr" fill="#34d399">KLASA B (128 – 191)</text>
+    <text x="12" y="32" font-family="monospace" font-size="8.5px" fill="#cbd5e1">Maska: 255.255.0.0 (/16)</text>
+
+    <!-- Pasek 32 bity -->
+    <g transform="translate(160, 6)">
+      <!-- NetID (16b) -->
+      <rect width="250" height="30" fill="#064e3b" rx="3"/>
+      <text x="125" y="16" class="net-txt">Sieć (NetID: 16 bitów)</text>
+      <text x="125" y="26" class="badge-txt" fill="#a7f3d0">2 oktety</text>
+
+      <!-- HostID (16b) -->
+      <rect x="255" width="250" height="30" fill="#0f172a" stroke="#10b981" rx="3"/>
+      <text x="380" y="16" class="host-txt" fill="#a7f3d0">Część Hosta (HostID: 16 bitów = 65 534 hosty)</text>
+      <text x="380" y="26" class="badge-txt" fill="#34d399">2 oktety</text>
+    </g>
+  </g>
+
+  <!-- ================= 3. KLASA C (/24) ================= -->
+  <g transform="translate(30, 175)">
+    <rect width="680" height="42" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" rx="4"/>
+    <text x="12" y="18" class="cls-hdr" fill="#fde047">KLASA C (192 – 223)</text>
+    <text x="12" y="32" font-family="monospace" font-size="8.5px" fill="#cbd5e1">Maska: 255.255.255.0 (/24)</text>
+
+    <!-- Pasek 32 bity -->
+    <g transform="translate(160, 6)">
+      <!-- NetID (24b) -->
+      <rect width="375" height="30" fill="#78350f" rx="3"/>
+      <text x="187" y="16" class="net-txt">Sieć (NetID: 24 bity)</text>
+      <text x="187" y="26" class="badge-txt" fill="#fde68a">3 oktety</text>
+
+      <!-- HostID (8b) -->
+      <rect x="380" width="125" height="30" fill="#0f172a" stroke="#f59e0b" rx="3"/>
+      <text x="442" y="16" class="host-txt" fill="#fde68a">HostID (8b)</text>
+      <text x="442" y="26" class="badge-txt" fill="#fde047">254 hosty</text>
+    </g>
+  </g>
+
+  <!-- ================= PUŁAPKI I ADRESY SPECJALNE (DÓŁ) ================= -->
+  <g transform="translate(30, 228)">
+    <!-- Karta 1: Pule Prywatne RFC 1918 -->
+    <rect width="330" height="95" fill="#1e293b" stroke="#10b981" rx="4"/>
+    <text x="12" y="20" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="800" fill="#34d399">Pule prywatne RFC 1918 (Do wykucia na INF.02):</text>
+    <text x="12" y="38" font-family="monospace" font-size="9.5px" fill="#ffffff">• 10.0.0.0 – 10.255.255.255 <tspan fill="#38bdf8">(/8)</tspan></text>
+    <text x="12" y="54" font-family="monospace" font-size="9.5px" fill="#ffffff">• 172.16.0.0 – 172.31.255.255 <tspan fill="#34d399">(/12)</tspan></text>
+    <text x="12" y="70" font-family="monospace" font-size="9.5px" fill="#ffffff">• 192.168.0.0 – 192.168.255.255 <tspan fill="#fde047">(/16)</tspan></text>
+    <text x="12" y="85" font-family="system-ui, sans-serif" font-size="8px" fill="#cbd5e1">Nieroutowalne w Internecie. Wymagają translacji NAT.</text>
+
+    <!-- Karta 2: Adresy Zastrzeżone -->
+    <g transform="translate(350, 0)">
+      <rect width="330" height="95" fill="#1e293b" stroke="#ef4444" rx="4"/>
+      <text x="12" y="20" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="800" fill="#f87171">Adresy specjalne i zastrzeżone:</text>
+      <text x="12" y="38" font-family="monospace" font-size="9px" fill="#ffffff"><tspan font-weight="800" fill="#fde047">127.0.0.0/8:</tspan> Pętla zwrotna (Loopback / localhost)</text>
+      <text x="12" y="54" font-family="monospace" font-size="9px" fill="#ffffff"><tspan font-weight="800" fill="#f87171">169.254.0.0/16:</tspan> APIPA (Brak odpowiedzi z DHCP!)</text>
+      <text x="12" y="70" font-family="monospace" font-size="9px" fill="#ffffff"><tspan font-weight="800" fill="#22d3ee">224.0.0.0/4:</tspan> Klasa D (Multicast / Grupowy)</text>
+      <text x="12" y="85" font-family="monospace" font-size="9px" fill="#ffffff"><tspan font-weight="800" fill="#cbd5e1">255.255.255.255:</tspan> Limited Broadcast w LAN</text>
+    </g>
+  </g>
+</svg>

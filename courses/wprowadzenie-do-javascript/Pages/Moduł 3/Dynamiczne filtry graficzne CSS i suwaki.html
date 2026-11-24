@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamiczne filtry graficzne CSS i suwaki - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty DOM, funkcje strzałkowe, zdarzenia i forEach</li><li class="lesson-item lesson" data-path="Moduł 0/Drzewo DOM i document.querySelector"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Drzewo%20DOM%20i%20document.querySelector.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drzewo DOM i document.querySelector</a></li><li class="lesson-item lesson" data-path="Moduł 0/Funkcje jako wartości i funkcje strzałkowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Funkcje%20jako%20warto%C5%9Bci%20i%20funkcje%20strza%C5%82kowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje jako wartości i funkcje strzałkowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zdarzenia i addEventListener na żywym DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zdarzenia%20i%20addEventListener%20na%20%C5%BCywym%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia i addEventListener na żywym DOM</a></li><li class="lesson-item lesson" data-path="Moduł 0/Kolekcje elementów - querySelectorAll i pętla forEach"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kolekcje%20element%C3%B3w%20-%20querySelectorAll%20i%20p%C4%99tla%20forEach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolekcje elementów - querySelectorAll i pętla forEach</a></li><li class="lesson-item lesson" data-path="Moduł 0/Synteza - querySelectorAll, forEach i addEventListener"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Synteza%20-%20querySelectorAll%2C%20forEach%20i%20addEventListener.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Synteza - querySelectorAll, forEach i addEventListener</a></li><li class="module">Moduł 1: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" data-path="Moduł 1/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" data-path="Moduł 1/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 2: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" data-path="Moduł 2/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" data-path="Moduł 2/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 3: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" data-path="Moduł 3/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" data-path="Moduł 3/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 4: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" data-path="Moduł 4/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 5: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" data-path="Moduł 5/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" data-path="Moduł 5/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 6: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" data-path="Moduł 6/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 7: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" data-path="Moduł 7/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%207/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Dynamiczne filtry graficzne CSS i suwaki</h1>
+<p>W nowoczesnych aplikacjach internetowych manipulacja wyglądem multimediów nie wymaga ponownego generowania plików graficznych po stronie serwera. Przeglądarki udostępniają silnik filtrów CSS, który pozwala w czasie rzeczywistym zmieniać nasycenie, rozmycie, kontrast, jasność czy odwracać kolory obrazu bez straty jakości oryginału.</p>
+<p>W tej lekcji zbudujemy interaktywne studio fotograficzne, w którym użytkownik może modyfikować parametry grafiki za pomocą pól wyboru, przycisków akcji oraz płynnych suwaków zakresu (<code>range</code>).</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🎨 Wizualny interfejs edytora obrazu</h2>
+<p>Zaczynamy od przygotowania struktury dokumentu HTML. Zwróć uwagę na zastosowanie pól typu <code>range</code> z określonymi atrybutami <code>min</code>, <code>max</code> i <code>value</code>, które posłużą do precyzyjnego sterowania filtrami:</p>
+<pre><code class="language-html">&lt;main class="editor-container"&gt;
+  &lt;section class="viewport-panel"&gt;
+    &lt;img id="image-preview" src="widok.jpg" alt="Podgląd edycji fotografii" /&gt;
+  &lt;/section&gt;
+
+  &lt;aside class="controls-panel"&gt;
+    &lt;h3&gt;Filtry predefiniowane&lt;/h3&gt;
+    &lt;label&gt;&lt;input type="radio" name="preset" value="none" checked /&gt; Brak filtra&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="preset" value="sepia" /&gt; Klasyczna sepia&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="preset" value="invert" /&gt; Negatyw (odwrócenie)&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="preset" value="blur" /&gt; Zmiękczenie (blur)&lt;/label&gt;
+
+    &lt;h3&gt;Korekta barwna&lt;/h3&gt;
+    &lt;button id="btn-grayscale" type="button"&gt;Odcienie szarości&lt;/button&gt;
+    &lt;button id="btn-color" type="button"&gt;Pełny kolor&lt;/button&gt;
+
+    &lt;h3&gt;Dostrajanie suwakami&lt;/h3&gt;
+    &lt;label for="slider-brightness"&gt;Jasność (%):&lt;/label&gt;
+    &lt;input type="range" id="slider-brightness" min="0" max="200" value="100" /&gt;
+
+    &lt;label for="slider-opacity"&gt;Krycie (%):&lt;/label&gt;
+    &lt;input type="range" id="slider-opacity" min="0" max="100" value="100" /&gt;
+
+    &lt;button id="btn-reset" type="button"&gt;Przywróć domyślne&lt;/button&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;
+</code></pre>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Mechanizmy manipulacji filtrami w JavaScript</h2>
+<h3>⚙️ Właściwość CSS filter i składnia funkcji graficznych</h3>
+<p>Właściwość CSS <code>filter</code> przyjmuje ciąg znaków zawierający jedną lub więcej funkcji przekształcających piksele. W kodzie JavaScript odwołujemy się do niej poprzez obiekt stylów elementu: <code>element.style.filter</code>.</p>
+<p>Oto najczęściej wykorzystywane funkcje silnika graficznego:</p>
+<ul>
+<li><code>blur(wartość)</code> - rozmycie gaussowskie przyjmujące jednostki długości, np. <code>blur(5px)</code>. Wartość zero oznacza ostry obraz.</li>
+<li><code>sepia(wartość)</code> - efekt starej fotografii przyjmujący wartość procentową lub ułamek dziesiętny, np. <code>sepia(100%)</code> lub <code>sepia(1)</code>.</li>
+<li><code>invert(wartość)</code> - odwrócenie kolorów do negatywu, np. <code>invert(100%)</code>.</li>
+<li><code>grayscale(wartość)</code> - redukcja nasycenia barw do odcieni szarości, np. <code>grayscale(100%)</code>. Wartość <code>grayscale(0%)</code> przywraca pełną paletę barw.</li>
+<li><code>brightness(wartość)</code> - mnożnik jasności pikseli. <code>brightness(100%)</code> to jasność wyjściowa, <code>0%</code> daje całkowitą czerń, a wartości powyżej <code>100%</code> rozjaśniają kadr.</li>
+<li><code>opacity(wartość)</code> - przezroczystość grafiki w skali od <code>0%</code> (niewidoczny) do <code>100%</code> (pełne krycie).</li>
+</ul>
+<pre><code class="language-javascript">const photo = document.querySelector("#image-preview");
+
+// Nałożenie pojedynczego filtra
+photo.style.filter = "sepia(100%)";
+
+// Usunięcie wszystkich nałożonych filtrów
+photo.style.filter = "none";
+</code></pre>
+<h3>🔄 Zdarzenia suwaków - input kontra change</h3>
+<p>Kontrolka <code>&lt;input type="range"&gt;</code> może być nasłuchiwana na dwa różne zdarzenia i wybór właściwego decyduje o płynności interfejsu:</p>
+<ol>
+<li><span class="color-green">Zdarzenie <code>input</code></span>: emitowane natychmiast przy każdym, nawet najmniejszym przesunięciu suwaka przez użytkownika. Jest optymalnym wyborem do podglądu na żywo, ponieważ zapewnia natychmiastową reakcję wizualną w czasie rzeczywistym.</li>
+<li><span class="color-green">Zdarzenie <code>change</code></span>: emitowane dopiero w momencie, gdy użytkownik puści przycisk myszy lub zakończy gest dotykowy na suwaku. Nie nadaje się do płynnego podglądu, ale jest przydatne do rejestrowania ostatecznej wartości w historii operacji.</li>
+</ol>
+<pre><code class="language-javascript">const slider = document.querySelector("#slider-brightness");
+
+slider.addEventListener("input", (event) =&gt; {
+  const currentBrightness = event.target.value;
+  photo.style.filter = `brightness(${currentBrightness}%)`;
+});
+</code></pre>
+<h3>🧩 Agregacja wielu filtrów w jeden łańcuch stylów</h3>
+<p>W zaawansowanym edytorze użytkownik może jednocześnie chcieć zmienić jasność i zastosować sepię. Przypisanie nowej wartości do <code>element.style.filter</code> całkowicie nadpisuje poprzednią regułę. Aby łączyć efekty, musimy scalić poszczególne funkcje oddzielając je spacjami:</p>
+<pre><code class="language-javascript">// Połączony łańcuch kilku filtrów jednocześnie:
+photo.style.filter = "sepia(80%) brightness(130%) blur(2px)";
+</code></pre>
+<p>Gdy stan edytora zależy od kilku kontrolek naraz, najczystszą architekturą jest funkcja pomocnicza czytająca aktualne wartości wszystkich suwaków i pól, a następnie składająca ostateczny string filtrów.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎯 Sprawdź swoją wiedzę</h2>
+<data-quiz>
+  <question>Które zdarzenie JavaScript należy przypisać do suwaka <code>range</code>, aby filtr aktualizował się w czasie rzeczywistym podczas przeciągania?</question>
+  <options>
+    <option correct="">Zdarzenie <code>input</code>, bo jest wyzwalane natychmiast przy każdym przesunięciu</option>
+    <option>Zdarzenie <code>change</code>, bo wysyła powiadomienie dopiero po puszczeniu suwaka</option>
+    <option>Zdarzenie <code>select</code>, bo informuje silnik o aktywnym zaznaczeniu elementu</option>
+    <option>Zdarzenie <code>blur</code>, bo przelicza styl dopiero po opuszczeniu kontrolki</option>
+  </options>
+</data-quiz>
+
+<data-connection-matcher title="Dopasuj funkcję CSS filter do jej wizualnego efektu">
+  <div class="cmw-item" data-left="`blur(6px)`" data-right="Zmiękcza krawędzie i rozmywa detale obrazu"></div>
+  <div class="cmw-item" data-left="`grayscale(100%)`" data-right="Usuwa barwy tworząc czarno-biały kadr"></div>
+  <div class="cmw-item" data-left="`invert(100%)`" data-right="Odwraca składowe RGB tworząc efekt negatywu"></div>
+  <div class="cmw-item" data-left="`brightness(150%)`" data-right="Wzmacnia intensywność światła rozjaśniając scenę"></div>
+</data-connection-matcher>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Wyzwanie kodowe - Kalibrator naświetlania w laboratorium</h2>
+<p>Twoim zadaniem jest napisanie funkcji <code>buildExposureFilter(brightness, contrast)</code>, która przyjmuje dwie wartości liczbowe (procent jasności oraz procent kontrastu) i zwraca poprawny ciąg znaków gotowy do przypisania do właściwości <code>style.filter</code>.</p>
+<p>Wymagania:</p>
+<ol>
+<li>Jeżeli wartość <code>brightness</code> jest mniejsza niż 0, funkcja powinna ograniczyć ją do zera (<code>Math.max(0, brightness)</code>).</li>
+<li>Funkcja musi zwrócić string w formacie <code>"brightness(X%) contrast(Y%)"</code>.</li>
+</ol>
+<data-gate>
+  <data-code-runner language="javascript" title="Kalibrator naświetlania w laboratorium" data-code="Ly8gMS4gR2VuZXJhdG9yIGZpbHRyYSBDU1MgbmHFm3dpZXRsZW5pYSAod3ltYWdhbmUgcHJ6ZXogYXNlcmNqZSB0ZXN0b3dlKQ0KZnVuY3Rpb24gYnVpbGRFeHBvc3VyZUZpbHRlcihicmlnaHRuZXNzLCBjb250cmFzdCkgew0KICAvLyBUT0RPOiBVenVwZcWCbmlqIGxvZ2lrxJkgb2dyYW5pY3phbmlhIHdhcnRvxZtjaSBicmlnaHRuZXNzIChNYXRoLm1heCgwLCBicmlnaHRuZXNzKSkNCiAgLy8gaSB6d3LDs8SHIHNmb3JtYXRvd2FueSBjacSFZyB3IHBvc3RhY2k6ICJicmlnaHRuZXNzKFglKSBjb250cmFzdChZJSkiDQogIA0KICByZXR1cm4gIiI7DQp9DQoNCi8vIDIuIFBvZGdsxIVkIG5hIMW8eXdvIHcgbGFib3JhdG9yaXVtICh6YWvFgmFka2Eg8J+WvO+4jyBQb2RnbMSFZCBOYSDFu3l3bykNCmZ1bmN0aW9uIGluaXRQaG90b0xhYlVJKCkgew0KICBjb25zdCBpbWcgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgicGhvdG8tcHJldmlldyIpOw0KICBjb25zdCBiU2xpZGVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInNsaWRlci1icmlnaHQiKTsNCiAgY29uc3QgY1NsaWRlciA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJzbGlkZXItY29udHJhc3QiKTsNCiAgY29uc3QgYlZhbCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJ2YWwtYnJpZ2h0bmVzcyIpOw0KICBjb25zdCBjVmFsID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoInZhbC1jb250cmFzdCIpOw0KICBjb25zdCBvdXRwdXQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiZmlsdGVyLW91dHB1dCIpOw0KDQogIGZ1bmN0aW9uIHVwZGF0ZSgpIHsNCiAgICBpZiAoIWJTbGlkZXIgfHwgIWNTbGlkZXIgfHwgIWltZykgcmV0dXJuOw0KICAgIGNvbnN0IGIgPSBwYXJzZUludChiU2xpZGVyLnZhbHVlLCAxMCk7DQogICAgY29uc3QgYyA9IHBhcnNlSW50KGNTbGlkZXIudmFsdWUsIDEwKTsNCg0KICAgIGlmIChiVmFsKSBiVmFsLnRleHRDb250ZW50ID0gYiArICIlIjsNCiAgICBpZiAoY1ZhbCkgY1ZhbC50ZXh0Q29udGVudCA9IGMgKyAiJSI7DQoNCiAgICBjb25zdCBmaWx0ZXJTdHJpbmcgPSBidWlsZEV4cG9zdXJlRmlsdGVyKGIsIGMpOw0KICAgIGlmIChmaWx0ZXJTdHJpbmcpIHsNCiAgICAgIGltZy5zdHlsZS5maWx0ZXIgPSBmaWx0ZXJTdHJpbmc7DQogICAgICBpZiAob3V0cHV0KSBvdXRwdXQudGV4dENvbnRlbnQgPSBgZmlsdGVyOiAke2ZpbHRlclN0cmluZ307YDsNCiAgICB9DQogIH0NCg0KICBpZiAoYlNsaWRlcikgYlNsaWRlci5hZGRFdmVudExpc3RlbmVyKCJpbnB1dCIsIHVwZGF0ZSk7DQogIGlmIChjU2xpZGVyKSBjU2xpZGVyLmFkZEV2ZW50TGlzdGVuZXIoImlucHV0IiwgdXBkYXRlKTsNCiAgdXBkYXRlKCk7DQp9DQoNCmluaXRQaG90b0xhYlVJKCk7" data-requirements="Ww0KICAgICAgICB7DQogICAgICAgICAgImlkIjogInRlc3QtZGVmYXVsdC0xMDAiLA0KICAgICAgICAgICJ0ZXh0IjogIkRvbXnFm2xuZSBuYcWbd2lldGxlbmllIDEwMCUgaSAxMDAlOiB6d3JhY2EgJ2JyaWdodG5lc3MoMTAwJSkgY29udHJhc3QoMTAwJSknIiwNCiAgICAgICAgICAidHlwZSI6ICJ0ZXN0LWNhc2UiLA0KICAgICAgICAgICJmdW5jdGlvbk5hbWUiOiAiYnVpbGRFeHBvc3VyZUZpbHRlciIsDQogICAgICAgICAgImlucHV0IjogWzEwMCwgMTAwXSwNCiAgICAgICAgICAiZXhwZWN0ZWQiOiAiYnJpZ2h0bmVzcygxMDAlKSBjb250cmFzdCgxMDAlKSINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJpZCI6ICJ0ZXN0LWJyaWdodC1jb250cmFzdCIsDQogICAgICAgICAgInRleHQiOiAiUm96amHFm25pZW5pZSAxNDAlIGkga29udHJhc3QgODUlOiB6d3JhY2EgJ2JyaWdodG5lc3MoMTQwJSkgY29udHJhc3QoODUlKSciLA0KICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsDQogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJidWlsZEV4cG9zdXJlRmlsdGVyIiwNCiAgICAgICAgICAiaW5wdXQiOiBbMTQwLCA4NV0sDQogICAgICAgICAgImV4cGVjdGVkIjogImJyaWdodG5lc3MoMTQwJSkgY29udHJhc3QoODUlKSINCiAgICAgICAgfSwNCiAgICAgICAgew0KICAgICAgICAgICJpZCI6ICJ0ZXN0LXByb3RlY3QtbmVnYXRpdmUiLA0KICAgICAgICAgICJ0ZXh0IjogIk9jaHJvbmEgcHJ6ZWQgdWplbW7EhSBqYXNub8WbY2nEhSAoLTIwIGkgMTEwKTogendyYWNhICdicmlnaHRuZXNzKDAlKSBjb250cmFzdCgxMTAlKSciLA0KICAgICAgICAgICJ0eXBlIjogInRlc3QtY2FzZSIsDQogICAgICAgICAgImZ1bmN0aW9uTmFtZSI6ICJidWlsZEV4cG9zdXJlRmlsdGVyIiwNCiAgICAgICAgICAiaW5wdXQiOiBbLTIwLCAxMTBdLA0KICAgICAgICAgICJleHBlY3RlZCI6ICJicmlnaHRuZXNzKDAlKSBjb250cmFzdCgxMTAlKSINCiAgICAgICAgfQ0KICAgICAgXQ==" data-html="PGRpdiBjbGFzcz0icGhvdG8tbGFiLWNvbnRhaW5lciI+DQogIDxkaXYgY2xhc3M9InBob3RvLWxhYi1mcmFtZSI+DQogICAgPHN2ZyBjbGFzcz0icGhvdG8tbGFiLWltYWdlIiBpZD0icGhvdG8tcHJldmlldyIgdmlld0JveD0iMCAwIDQwMCAyMDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogICAgICA8ZGVmcz4NCiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJza3lHcmFkIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjAlIiB5Mj0iMTAwJSI+DQogICAgICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM4YmRmOCIvPg0KICAgICAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzgxOGNmOCIvPg0KICAgICAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgICAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN1bkdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPg0KICAgICAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZWYwOGEiLz4NCiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmNTllMGIiLz4NCiAgICAgICAgPC9saW5lYXJHcmFkaWVudD4NCiAgICAgICAgPGxpbmVhckdyYWRpZW50IGlkPSJtb3VudGFpbkdyYWQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMCUiIHkyPSIxMDAlIj4NCiAgICAgICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMzM0MTU1Ii8+DQogICAgICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMGYxNzJhIi8+DQogICAgICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgICA8L2RlZnM+DQogICAgICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0idXJsKCNza3lHcmFkKSIvPg0KICAgICAgPGNpcmNsZSBjeD0iMjgwIiBjeT0iNjAiIHI9IjMyIiBmaWxsPSJ1cmwoI3N1bkdyYWQpIi8+DQogICAgICA8cG9seWdvbiBwb2ludHM9IjQwLDIwMCAxNjAsODAgMjgwLDIwMCIgZmlsbD0idXJsKCNtb3VudGFpbkdyYWQpIiBvcGFjaXR5PSIwLjkiLz4NCiAgICAgIDxwb2x5Z29uIHBvaW50cz0iMTgwLDIwMCAyOTAsMTEwIDM5MCwyMDAiIGZpbGw9IiMxZTI5M2IiLz4NCiAgICAgIDxwb2x5Z29uIHBvaW50cz0iMCwyMDAgOTAsMTQwIDE4MCwyMDAiIGZpbGw9IiM0NzU1NjkiLz4NCiAgICA8L3N2Zz4NCiAgPC9kaXY+DQogIDxkaXYgY2xhc3M9InBob3RvLWxhYi1jb250cm9scyI+DQogICAgPGRpdiBjbGFzcz0icGhvdG8tbGFiLWNvbnRyb2wtZ3JvdXAiPg0KICAgICAgPGRpdiBjbGFzcz0icGhvdG8tbGFiLWxhYmVsIj4NCiAgICAgICAgPHNwYW4+4piA77iPIEphc25vxZvEhyAoQnJpZ2h0bmVzcyk6PC9zcGFuPg0KICAgICAgICA8c3Ryb25nIGlkPSJ2YWwtYnJpZ2h0bmVzcyI+MTAwJTwvc3Ryb25nPg0KICAgICAgPC9kaXY+DQogICAgICA8aW5wdXQgdHlwZT0icmFuZ2UiIGlkPSJzbGlkZXItYnJpZ2h0IiBtaW49IjAiIG1heD0iMjAwIiB2YWx1ZT0iMTAwIiAvPg0KICAgIDwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9InBob3RvLWxhYi1jb250cm9sLWdyb3VwIj4NCiAgICAgIDxkaXYgY2xhc3M9InBob3RvLWxhYi1sYWJlbCI+DQogICAgICAgIDxzcGFuPvCfjJMgS29udHJhc3QgKENvbnRyYXN0KTo8L3NwYW4+DQogICAgICAgIDxzdHJvbmcgaWQ9InZhbC1jb250cmFzdCI+MTAwJTwvc3Ryb25nPg0KICAgICAgPC9kaXY+DQogICAgICA8aW5wdXQgdHlwZT0icmFuZ2UiIGlkPSJzbGlkZXItY29udHJhc3QiIG1pbj0iMCIgbWF4PSIyMDAiIHZhbHVlPSIxMDAiIC8+DQogICAgPC9kaXY+DQogICAgPGRpdiBjbGFzcz0icGhvdG8tbGFiLWNvZGUtb3V0cHV0IiBpZD0iZmlsdGVyLW91dHB1dCI+ZmlsdGVyOiBicmlnaHRuZXNzKDEwMCUpIGNvbnRyYXN0KDEwMCUpOzwvZGl2Pg0KICA8L2Rpdj4NCjwvZGl2Pg=="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Zadanie projektowe - Studio filtrów graficznych</h2>
+<p>Wracamy do naszego projektu studia fotograficznego przedstawionego na początku lekcji. Zaimplementuj skrypt obsługujący wszystkie interakcje użytkownika według poniższych kroków.</p>
+<h3>📋 Lista kroków do samodzielnego wykonania:</h3>
+<ol>
+<li><span class="color-green">Pobranie referencji do elementów interfejsu</span>: Pobierz referencję do obrazu podglądu <code>#image-preview</code>, przycisków <code>#btn-grayscale</code>, <code>#btn-color</code>, <code>#btn-reset</code> oraz suwaków <code>#slider-brightness</code> i <code>#slider-opacity</code>.</li>
+<li><span class="color-green">Obsługa gotowych presetów za pomocą pól radio</span>: Pobierz wszystkie opcje radiowe o nazwie <code>preset</code>. Przypisz do każdej z nich nasłuchiwacz zdarzenia <code>change</code>. W zależności od wybranej wartości (<code>event.target.value</code>):<ul>
+<li><code>"sepia"</code> -&gt; nałóż <code>sepia(100%)</code></li>
+<li><code>"invert"</code> -&gt; nałóż <code>invert(100%)</code></li>
+<li><code>"blur"</code> -&gt; nałóż <code>blur(6px)</code></li>
+<li><code>"none"</code> -&gt; usuń filtry (<code>"none"</code>)</li>
+</ul>
+</li>
+<li><span class="color-green">Przyciski skali szarości i przywracania koloru</span>: Do przycisku <code>#btn-grayscale</code> przypisz nałożenie filtra <code>grayscale(100%)</code>, natomiast przycisk <code>#btn-color</code> powinien usuwać filtr szarości (<code>grayscale(0%)</code>).</li>
+<li><span class="color-green">Płynna regulacja suwakami i reset stanu</span>: Dla obu suwaków nasłuchuj zdarzenia <code>input</code>, aby na bieżąco łączyć wartości jasności i krycia w jeden łańcuch stylów: <code>brightness(X%) opacity(Y%)</code>. Przycisk <code>#btn-reset</code> powinien przywrócić domyślne położenie suwaków (na 100) oraz zresetować <code>style.filter = "none"</code>.</li>
+</ol>
+<p>Spróbuj napisać rozwiązanie samodzielnie w edytorze kodu. Dopiero po zakończeniu próby rozwiń poniższy blok, aby porównać swoje rozwiązanie z kodem wzorcowym.</p>
+<details>
+<summary>Pokaż przykładowy kod rozwiązania</summary>
+
+<pre><code class="language-javascript">const preview = document.querySelector("#image-preview");
+const presetRadios = document.querySelectorAll("input[name='preset']");
+const btnGrayscale = document.querySelector("#btn-grayscale");
+const btnColor = document.querySelector("#btn-color");
+const btnReset = document.querySelector("#btn-reset");
+const sliderBrightness = document.querySelector("#slider-brightness");
+const sliderOpacity = document.querySelector("#slider-opacity");
+
+function applySlidersFilter() {
+  const brightness = sliderBrightness.value;
+  const opacity = sliderOpacity.value;
+  preview.style.filter = `brightness(${brightness}%) opacity(${opacity}%)`;
+}
+
+presetRadios.forEach((radio) =&gt; {
+  radio.addEventListener("change", (e) =&gt; {
+    switch (e.target.value) {
+      case "sepia":
+        preview.style.filter = "sepia(100%)";
+        break;
+      case "invert":
+        preview.style.filter = "invert(100%)";
+        break;
+      case "blur":
+        preview.style.filter = "blur(6px)";
+        break;
+      default:
+        preview.style.filter = "none";
+        break;
+    }
+  });
+});
+
+btnGrayscale.addEventListener("click", () =&gt; {
+  preview.style.filter = "grayscale(100%)";
+});
+
+btnColor.addEventListener("click", () =&gt; {
+  preview.style.filter = "grayscale(0%)";
+});
+
+sliderBrightness.addEventListener("input", applySlidersFilter);
+sliderOpacity.addEventListener("input", applySlidersFilter);
+
+btnReset.addEventListener("click", () =&gt; {
+  sliderBrightness.value = 100;
+  sliderOpacity.value = 100;
+  preview.style.filter = "none";
+  const defaultRadio = document.querySelector("input[name='preset'][value='none']");
+  if (defaultRadio) defaultRadio.checked = true;
+});
+</code></pre>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🐨 <span class="header-koala">Podsumowanie lekcji</span></h2>
+<ul>
+<li>Właściwość <code>element.style.filter</code> umożliwia sprzętowe przetwarzanie grafiki w przeglądarce za pomocą funkcji takich jak <code>blur()</code>, <code>sepia()</code>, <code>invert()</code>, <code>grayscale()</code>, <code>brightness()</code> i <code>opacity()</code>.</li>
+<li>Zdarzenie <code>input</code> na kontrolkach <code>&lt;input type="range"&gt;</code> wyzwala się w sposób ciągły podczas przeciągania suwaka, co jest kluczowe dla uzyskania płynnego podglądu na żywo.</li>
+<li>Zdarzenie <code>change</code> czeka na zatwierdzenie wartości (puszczenie kursora myszy lub palca na ekranie dotykowym).</li>
+<li>Wiele filtrów łączy się w jeden ciąg znaków rozdzielając poszczególne wywołania funkcji spacjami.</li>
+<li>Zresetowanie stylu odbywa się przez przypisanie wartości <code>"none"</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 330" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .node-hdr { font-family: system-ui, sans-serif; font-size: 12px; font-weight: 800; text-anchor: middle; }
+      .node-sub { font-family: monospace; font-size: 9.5px; text-anchor: middle; }
+      .pkt-title { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 800; text-anchor: middle; }
+      .tag-l2 { font-family: monospace; font-size: 9px; font-weight: 700; fill: #ffffff; }
+      .tag-l3 { font-family: monospace; font-size: 9px; font-weight: 700; fill: #ffffff; }
+      .callout { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #ffffff; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Wędrówka przez router: Adresy IP (L3) vs Adresy MAC (L2)</text>
+  <text x="30" y="48" class="sub">Adresy IP pozostają niezmienne (End-to-End), podczas gdy ramka Ethernet rodzi się na nowo na każdym przeskoku</text>
+
+  <!-- ================= 1. HOSTA A (NADAWCA) ================= -->
+  <g transform="translate(30, 75)">
+    <rect width="130" height="90" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <text x="65" y="25" class="node-hdr" fill="#38bdf8">HOST A (PC)</text>
+    <text x="65" y="42" class="node-sub" fill="#cbd5e1">IP: 192.168.1.10</text>
+    <text x="65" y="58" class="node-sub" fill="#38bdf8">MAC: AA:AA:AA:AA</text>
+    <rect x="15" y="66" width="100" height="16" fill="#0284c7" rx="3"/>
+    <text x="65" y="78" font-family="monospace" font-size="8.5px" font-weight="700" fill="#ffffff" text-anchor="middle">Źródło pakietu</text>
+  </g>
+
+  <!-- ================= 2. SKOK 1 (LAN A): RAMKA 1 ================= -->
+  <g transform="translate(170, 75)">
+    <!-- Linia połączenia -->
+    <line x1="0" y1="45" x2="115" y2="45" stroke="#475569" stroke-width="2"/>
+    <polygon points="120,45 112,41 112,49" fill="#475569"/>
+
+    <!-- Karta pakietu w locie -->
+    <rect x="5" y="10" width="108" height="70" fill="#0f172a" stroke="#10b981" stroke-width="1.5" rx="4"/>
+    <text x="59" y="24" class="pkt-title" fill="#34d399">SKOK 1 (LAN)</text>
+
+    <!-- Nagłówek L2 -->
+    <rect x="10" y="30" width="98" height="20" fill="#064e3b" rx="2"/>
+    <text x="14" y="44" class="tag-l2">L2: AA ➔ R_eth0</text>
+
+    <!-- Nagłówek L3 -->
+    <rect x="10" y="53" width="98" height="20" fill="#0e7490" rx="2"/>
+    <text x="14" y="67" class="tag-l3">L3: IP_A ➔ IP_B</text>
+  </g>
+
+  <!-- ================= 3. ROUTER (WĘZEŁ POŚREDNI) ================= -->
+  <g transform="translate(295, 75)">
+    <rect width="150" height="235" fill="#1e293b" stroke="#06b6d4" stroke-width="2" rx="6"/>
+    <text x="75" y="26" class="node-hdr" fill="#22d3ee">ROUTER L3</text>
+    <text x="75" y="42" class="node-sub" fill="#cbd5e1">Brama / Trasowanie</text>
+
+    <!-- Interfejsy -->
+    <g transform="translate(10, 52)">
+      <rect width="60" height="26" fill="#0f172a" stroke="#38bdf8" rx="3"/>
+      <text x="30" y="14" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">eth0 (LAN)</text>
+      <text x="30" y="23" font-family="monospace" font-size="8px" fill="#38bdf8" text-anchor="middle">MAC: R_eth0</text>
+
+      <rect x="70" width="60" height="26" fill="#0f172a" stroke="#34d399" rx="3"/>
+      <text x="100" y="14" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">eth1 (WAN)</text>
+      <text x="100" y="23" font-family="monospace" font-size="8px" fill="#34d399" text-anchor="middle">MAC: R_eth1</text>
+    </g>
+
+    <!-- Mechanizm wewnętrzny routera -->
+    <g transform="translate(10, 88)">
+      <rect width="130" height="135" fill="#0b1120" stroke="#06b6d4" rx="4"/>
+      
+      <text x="10" y="18" font-family="system-ui, sans-serif" font-size="9.5px" font-weight="800" fill="#f43f5e">1. Zdjęcie ramki L2:</text>
+      <text x="10" y="32" font-family="monospace" font-size="8px" fill="#cbd5e1">Nagłówek MAC zniszczony</text>
+
+      <text x="10" y="52" font-family="system-ui, sans-serif" font-size="9.5px" font-weight="800" fill="#22d3ee">2. Inspekcja L3 (IP):</text>
+      <text x="10" y="65" font-family="monospace" font-size="8px" fill="#ffffff">TTL: 64 ➔ 63 (-1)</text>
+      <text x="10" y="77" font-family="monospace" font-size="8px" fill="#a5f3fc">Szukanie trasy w FIB</text>
+
+      <text x="10" y="97" font-family="system-ui, sans-serif" font-size="9.5px" font-weight="800" fill="#4ade80">3. Nowa ramka L2:</text>
+      <text x="10" y="110" font-family="monospace" font-size="8px" fill="#ffffff">Src: R_eth1</text>
+      <text x="10" y="122" font-family="monospace" font-size="8px" fill="#a7f3d0">Dst: BB (Serwer)</text>
+    </g>
+  </g>
+
+  <!-- ================= 4. SKOK 2 (WAN / DOCELOWY): RAMKA 2 ================= -->
+  <g transform="translate(455, 75)">
+    <!-- Linia połączenia -->
+    <line x1="0" y1="45" x2="115" y2="45" stroke="#475569" stroke-width="2"/>
+    <polygon points="120,45 112,41 112,49" fill="#475569"/>
+
+    <!-- Karta pakietu w locie -->
+    <rect x="5" y="10" width="108" height="70" fill="#0f172a" stroke="#10b981" stroke-width="1.5" rx="4"/>
+    <text x="59" y="24" class="pkt-title" fill="#34d399">SKOK 2 (DOCELOWY)</text>
+
+    <!-- Nowy nagłówek L2 -->
+    <rect x="10" y="30" width="98" height="20" fill="#064e3b" rx="2"/>
+    <text x="14" y="44" class="tag-l2">L2: R_eth1 ➔ BB</text>
+
+    <!-- Niezmieniony nagłówek L3 -->
+    <rect x="10" y="53" width="98" height="20" fill="#0e7490" rx="2"/>
+    <text x="14" y="67" class="tag-l3">L3: IP_A ➔ IP_B</text>
+  </g>
+
+  <!-- ================= 5. SERWER B (ODBIORCA) ================= -->
+  <g transform="translate(580, 75)">
+    <rect width="130" height="90" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <text x="65" y="25" class="node-hdr" fill="#34d399">SERWER B</text>
+    <text x="65" y="42" class="node-sub" fill="#cbd5e1">IP: 93.184.216.34</text>
+    <text x="65" y="58" class="node-sub" fill="#34d399">MAC: BB:BB:BB:BB</text>
+    <rect x="15" y="66" width="100" height="16" fill="#047857" rx="3"/>
+    <text x="65" y="78" font-family="monospace" font-size="8.5px" font-weight="700" fill="#ffffff" text-anchor="middle">Cel ostateczny</text>
+  </g>
+
+  <!-- Dolny wniosek inżynierski -->
+  <g transform="translate(30, 260)">
+    <rect width="250" height="50" fill="#0f172a" stroke="#38bdf8" rx="4"/>
+    <text x="15" y="20" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="800" fill="#38bdf8">Adres IP (L3) = End-to-End</text>
+    <text x="15" y="37" font-family="system-ui, sans-serif" font-size="9px" fill="#cbd5e1">Nienaruszony przez całą drogę (IP_A ➔ IP_B)</text>
+  </g>
+
+  <g transform="translate(460, 260)">
+    <rect width="250" height="50" fill="#0f172a" stroke="#10b981" rx="4"/>
+    <text x="15" y="20" font-family="system-ui, sans-serif" font-size="10.5px" font-weight="800" fill="#34d399">Adres MAC (L2) = Hop-by-Hop</text>
+    <text x="15" y="37" font-family="system-ui, sans-serif" font-size="9px" fill="#cbd5e1">Wymieniany na nowy na każdym routerze</text>
+  </g>
+</svg>

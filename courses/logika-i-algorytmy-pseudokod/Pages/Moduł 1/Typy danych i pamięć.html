@@ -78,7 +78,7 @@
 </div>
 </div><p>Poniżej znajdziesz reprezentację ułożenia danych w RAM (od lewej do prawej), gdzie jeden kwadrat to $1\text{ bajt}$:</p>
 <figure>
-<img aria-describedby="diagram-schemat-wizualizujacy-ulo" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/logika-i-algorytmy-pseudokod/Images/Rozmieszczenie-zmiennych-w-komórkach-pamięci-RAM.webp" alt="Schemat wizualizujący ułożenie zmiennych w komórkach pamięci RAM o szerokości 8 bajtów z uwzględnieniem dopełnienia (paddingu) i wyrównania." width="1102" height="621" class="lazy-image" loading="lazy" decoding="async">
+<img src="/courses/logika-i-algorytmy-pseudokod/Images/Rozmieszczenie-zmiennych-w-komórkach-pamięci-RAM.png" alt="Schemat wizualizujący ułożenie zmiennych w komórkach pamięci RAM o szerokości 8 bajtów z uwzględnieniem dopełnienia (paddingu) i wyrównania." aria-describedby="diagram-schemat-wizualizujacy-ulo" class="lazy-image" loading="lazy" decoding="async">
 <figcaption id="diagram-schemat-wizualizujacy-ulo">
 <details class="diagram-meta">
 <summary>Opis obrazka</summary>
@@ -113,7 +113,7 @@
 <li><span class="color-green">Języki dynamicznie typowane (JavaScript, PHP, Python):</span> Nie wymagają deklarowania typów. <span class="color-green">Interpreter</span> analizuje kod linijka po linijce w trakcie działania programu. Dopiero w momencie wykonania instrukcji <code>wiek = 18</code> interpreter prosi system operacyjny o przydzielenie pamięci na liczbę. Zapisanie w kolejnym kroku <code>wiek = "osiemnaście"</code> sprawia, że interpreter alokuje nowy obszar pamięci na tekst i przepina tam etykietę zmiennej. Nieużywana komórka zostanie później usunięta przez automatyczny mechanizm oczyszczania pamięci (ang. <span class="color-blue">Garbage Collector</span>).</li>
 </ul>
 <figure>
-<img aria-describedby="diagram-schemat-porownujacy-cykl" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/logika-i-algorytmy-pseudokod/Images/kompilator-vs-Interpreter.webp" alt="Schemat porównujący cykl życia kodu w językach kompilowanych i interpretowanych." width="932" height="491" class="lazy-image" loading="lazy" decoding="async">
+<img src="/courses/logika-i-algorytmy-pseudokod/Images/kompilator-vs-Interpreter.png" alt="Schemat porównujący cykl życia kodu w językach kompilowanych i interpretowanych." aria-describedby="diagram-schemat-porownujacy-cykl" class="lazy-image" loading="lazy" decoding="async">
 <figcaption id="diagram-schemat-porownujacy-cykl">
 <details class="diagram-meta">
 <summary>Opis obrazka</summary>
@@ -291,15 +291,17 @@
 </ul>
 <p>Przykład:<br>W napisie <code>"Hasło"</code> litera <code>H</code> znajduje się w pierwszej komórce tablicy, <code>a</code> w drugiej, <code>s</code> w trzeciej itd.<br>Każdy z tych znaków jest fizycznie reprezentowany jako liczba (np. <code>H = 72</code> w ASCII), a cały <code>String</code> jest liniową strukturą pamięci.</p>
 <hr>
-<data-gate>
-  <data-connection-matcher title="Dopasuj konkretną wartość do jej typu">
-    <div class="cmw-item" data-left="`5`" data-right="liczba całkowita (`Integer`)"></div>
-    <div class="cmw-item" data-left="`&quot;100&quot;`" data-right="tablica znaków (`String`)"></div>
-    <div class="cmw-item" data-left="`True`" data-right="wartość logiczna (`Boolean`)"></div>
-    <div class="cmw-item" data-left="`3.14`" data-right="liczba zmiennoprzecinkowa (`Float`)"></div>
-  </data-connection-matcher>
-</data-gate>
-
+<h3>📏 Obliczanie adresu w pamięci fizycznej</h3>
+<p>Rozumiejąc, że zmienne to ciągłe bloki bajtów, możemy precyzyjnie wyliczyć, gdzie w pamięci RAM wyląduje konkretna dana.<br>Gdy w językach kompilowanych (C++, C#) deklarujemy zmienne, kompilator wyznacza ich <span class="color-green">przesunięcie (offset)</span> względem początku struktury:</p>
+<p>$$\text{AdresFizyczny} = \text{AdresBazowy} + \text{Offset}$$</p>
+<p>Jeśli na początku pamięci pod adresem bazowym <code>0x1000</code> umieścimy:</p>
+<ol>
+<li><code>bool flagaAktywna</code> ($1\text{ bajt}$) $\to$ zajmuje adres <code>0x1000</code></li>
+<li>Wyrównanie do 4 bajtów (padding: $3\text{ bajty}$) $\to$ adresy <code>0x1001</code>, <code>0x1002</code>, <code>0x1003</code></li>
+<li><code>int punktyGracza</code> ($4\text{ bajty}$) $\to$ zajmuje adresy od <code>0x1004</code> do <code>0x1007</code></li>
+</ol>
+<p>Bez zrozumienia typów danych programista piszący kod niskopoziomowy lub silnik gry nie jest w stanie przewidzieć zużycia pamięci podręcznej CPU ani poprawnie zinterpretować bufora bajtów.</p>
+<hr>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Mutacje: Konkatenacja i Sklejanie Typów</h2>
 <p>Słabe typowanie pozwala na automatyczne mieszanie typów danych w obliczeniach. Częstym źródłem błędów jest próba łączenia liczby z tekstem.</p>
@@ -332,6 +334,15 @@ czyGotowy = PRAWDA
 <p>WYPISZ "Twarda arytmetyka! Wynik:"</p>
 <p>WYPISZ d<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <p>Kontrola nad typami danych jest kluczowa dla stabilności oprogramowania. Niewłaściwa konwersja typów w trakcie działania programu prowadzi do błędów logicznych.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Zadanie: Korekta błędu konkatenacji</h2>
+<p>Zmienna <code>cenaNetto</code> została zapisana jako łańcuch znaków, przez co dodanie <code>podatek</code> wykonuje konkatenację zamiast sumowania. Skoryguj zapis tak, aby <code>cenaBrutto</code> przyjęła wartość liczbową <code>246</code>, a na wyjściu pojawił się tekst <code>Do zaplaty: 246 PLN</code>.</p>
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="cenaBrutto:246" expected-output="Do zaplaty: 246 PLN">
+<pre>cenaNetto = "200"
+podatek = 46
+
+<p>cenaBrutto = cenaNetto + podatek<br>komunikat = "Do zaplaty: " + cenaBrutto + " PLN"<br>WYPISZ komunikat<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>

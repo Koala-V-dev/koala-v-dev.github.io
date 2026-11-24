@@ -2,160 +2,161 @@
 
 Zanim uruchomisz terminal i wpiszesz pierwszą komendę, warto wiedzieć, z czym pracujesz.
 
-Linux bywa opisywany jako „alternatywa dla Windowsa”, ale to zbyt wąskie ujęcie. Ten system jest podstawą wielu serwerów internetowych, superkomputerów, urządzeń z Androidem i części systemów używanych w sprzęcie naukowym.
+Linux bywa opisywany jako „alternatywa dla Windowsa”, ale to zbyt wąskie ujęcie. Ten system jest fundamentem współczesnych serwerów internetowych, chmury obliczeniowej, superkomputerów oraz systemów wbudowanych i urządzeń mobilnych (Android).
 
-W tym kursie interesuje nas przede wszystkim praktyka. Chcemy zrozumieć, jak Linux jest zbudowany, dlaczego administratorzy tak często wybierają terminal i skąd bierze się różnica między „system działa” a „pulpit działa”.
-
-### 🐧 Jądro a system operacyjny (GNU/Linux)
-
-Kiedy mówimy „Linux”, zwykle mamy na myśli cały system operacyjny. Technicznie **Linux to jądro systemu** (kernel).
-
-Jądro odpowiada za kontakt z procesorem, pamięcią, dyskami i innym sprzętem. Samo jądro nie wystarczy jednak do wygodnej pracy. Potrzebujesz jeszcze powłoki tekstowej, komend, bibliotek systemowych, kompilatorów i programów użytkowych.
-
-Duża część tych narzędzi pochodzi z projektu **GNU**, rozpoczętego przez Richarda Stallmana. Dlatego pełna nazwa kompletnego systemu to **GNU/Linux**.
-
-W codziennej rozmowie możesz usłyszeć samo „Linux”. To normalne. Warto jednak rozumieć, że chodzi wtedy o skrót myślowy.
-
-## 📦 Dystrybucje, czyli gotowe systemy z Linuksem
-
-Skoro Linux jest tylko jądrem, ktoś musi połączyć je z resztą narzędzi. Tym właśnie zajmują się **dystrybucje**.
-
-Dystrybucja to gotowy zestaw oprogramowania przygotowany przez społeczność lub firmę. Zawiera jądro Linux oraz wybrane komponenty:
-
-- instalator,
-- menedżer pakietów, na przykład `APT` albo `Pacman`,
-- podstawowe programy systemowe,
-- środowisko graficzne, czyli pulpit.
-
-Ubuntu, Debian, Fedora i Arch Linux korzystają z tego samego typu jądra. Różnią się wyborem narzędzi, sposobem aktualizacji, domyślną konfiguracją i tym, jak dużo decyzji zostawiają użytkownikowi.
-
-> [!TIP]
-> **Dlaczego nie budujemy systemu od zera?**
-> 
-> Teoretycznie możesz pobrać samo jądro ze strony [kernel.org](https://www.kernel.org/), skompilować programy, dobrać biblioteki systemowe, wybrać menedżer pakietów i złożyć pulpit. Tak działa między innymi projekt [Linux From Scratch](https://www.linuxfromscratch.org/).
-> 
-> W praktyce na początku kursu nie ma to sensu. Dystrybucja daje stabilny system bazowy. Dzięki temu możesz uczyć się administracji, terminala i konfiguracji bez ręcznego składania całego ekosystemu.
+W tym kursie interesuje nas przede wszystkim inżynierska praktyka. Skupimy się na tym, jak Linux jest zbudowany, dlaczego administratorzy wybierają terminal oraz skąd wynika fundamentalny podział na jądro, przestrzeń użytkownika i środowisko graficzne.
 
 ---
 
-## ⚖️ Linux vs Windows: trzy ważne różnice
+### 🐧 Jądro a system operacyjny (GNU/Linux)
 
-Przejście z Windowsa na Linuksa wymaga zmiany sposobu myślenia o systemie. Najmocniej widać to w konfiguracji, strukturze dysków i roli interfejsu graficznego.
+Kiedy mówimy „Linux”, zwykle mamy na myśli cały system operacyjny. W ścisłym ujęciu technicznym **Linux to wyłącznie jądro systemu** (*kernel*).
+
+Jądro odpowiada za bezpośredni kontakt z procesorem, zarządzanie pamięcią fizyczną i wirtualną, harmonogramowanie procesów oraz obsługę dysków i urządzeń peryferyjnych. Samo jądro nie wystarcza jednak do pracy interaktywnej. Do stworzenia środowiska pracy potrzebna jest powłoka tekstowa (*shell*), podstawowy zestaw narzędzi POSIX, biblioteka standardowa C (*glibc*), kompilatory oraz demony systemowe.
+
+Większość tych kluczowych narzędzi pochodzi z projektu _**GNU**_, zapoczątkowanego przez Richarda Stallmana. Z tego powodu kompletny, gotowy do pracy system operacyjny nosi formalną nazwę _**GNU/Linux**_.
+
+---
+
+## 📦 Dystrybucje, czyli kompletne systemy
+
+Skoro Linux jest jądrem, a narzędzia GNU stanowią przestrzeń użytkownika, konieczne jest ich zintegrowanie w spójny ekosystem instalacyjny. Tym zadaniem zajmują się **dystrybucje Linuksa**.
+
+Dystrybucja to przygotowany zestaw oprogramowania, który obejmuje:
+- Jądro Linuksa (*Linux Kernel*)
+- Instalator systemu (np. Subiquity w Ubuntu)
+- Menedżer pakietów (np. *APT*, *DNF*, *Pacman*)
+- Biblioteki systemowe i demony bazowe (np. *systemd*)
+- Opcjonalne środowisko graficzne (*Desktop Environment*, np. *GNOME*, *KDE Plasma*)
+
+Ubuntu, Debian, Fedora i Arch Linux wykorzystują to samo jądro. Różnią się formatem pakietów, polityką wydań (wydania punktowe vs *rolling release*) oraz domyślnym zestawem prekonfigurowanych usług.
+
+---
+
+## ⚖️ Trzy fundamentalne różnice: Linux vs Windows
+
+Przejście z systemu Windows na Linuksa wymaga modyfikacji mentalnego modelu zarządzania środowiskiem.
 
 <data-tabs>
   <tabs>
-    <item>Ustawienia: rejestr vs pliki tekstowe</item>
-    <item>Dyski: litery vs jedno drzewo</item>
-    <item>Interfejs: GUI vs opcjonalny pulpit</item>
+    <item>Konfiguracja: Rejestr vs Pliki Tekstowe</item>
+    <item>Struktura danych: Litery dysków vs Jedno drzewo</item>
+    <item>Interfejs: Integralne GUI vs Niezależna powłoka</item>
   </tabs>
   <div>
 
 ![Logo Windows](/public/courses/ubuntu-26/Images/windows.png)
 
-- **Rejestr i obiekty systemowe:** Windows przechowuje dużą część konfiguracji w centralnej, binarnej bazie danych, czyli w Rejestrze. Usługi działają jako osobne programy albo biblioteki `DLL`, często ładowane przez procesy pomocnicze, na przykład `svchost.exe`. Parametry startu usług są pobierane przez systemowe API. Uszkodzenie Rejestru może zablokować odczyt tych ustawień, utrudnić start systemu albo uszkodzić profil użytkownika, co już raz doświadczyłem. 😐
+- **Rejestr i obiekty binarne:** Windows przechowuje kluczowe konfiguracje w centralnej, binarnej bazie danych (Rejestr Windows, pliki gałęzi Hive). Uszkodzenie struktury rejestru może uniemożliwić rozruch jądra lub zablokować ładowanie profilu użytkownika.
 
 ![Logo Linux](/public/courses/ubuntu-26/Images/linux.png)
 
-- **Pliki tekstowe i brak jednej bazy:** Linux nie ma jednej centralnej bazy konfiguracji. Ustawienia usług, czyli *demonów*, i programów zwykle leżą w niezależnych plikach tekstowych, głównie w katalogu `/etc/`. Jeśli popełnisz błąd w konfiguracji jednej usługi, najczęściej nie uruchomi się tylko ta usługa oraz procesy, które bezpośrednio od niej zależą. Reszta systemu może dalej startować normalnie. To ważne na serwerach.
-  </div>
-  <div>
-
-![Logo Windows](/public/courses/ubuntu-26/Images/windows.png)
-
-- **Osobne litery dysków:** Windows przypisuje dyskom i partycjom litery, na przykład `C:` albo `D:`. Każda litera jest punktem startowym osobnego drzewa folderów. System zarządza takimi woluminami przez własne mechanizmy i API. Dostęp niskopoziomowy do dysku jest ukryty przed zwykłym użytkownikiem i wymaga narzędzi systemowych.
-
-![Logo Linux](/public/courses/ubuntu-26/Images/linux.png)
-
-- **Jedno drzewo katalogów:** Linux nie używa liter dysków. Cały system plików zaczyna się od katalogu głównego `/`, nazywanego też root. Nowe dyski montuje się jako katalogi, na przykład `/media/dane`. Urządzenia sprzętowe mają swoje reprezentacje w `/dev/`, na przykład dysk `/dev/sda` i jego pierwsza partycja `/dev/sda1`. Historyczne oznaczenie `sd` pochodzi od *SCSI Disk*. Kolejne dyski dostają litery, na przykład `sda`, `sdb`, `sdc`, a partycje numery.
+- **Pliki tekstowe (Plain Text) w `/etc`:** W Linuksie nie ma pojedynczego, binarnego punktu awarii konfiguracji. Usługi systemowe (*demony*) czytają ustawienia ze zwykłych plików tekstowych (np. `/etc/ssh/sshd_config`, `/etc/fstab`). Błąd składni w konfiguracji jednej usługi uniemożliwi start tylko tego demona, nie destabilizując reszty systemu operacyjnego.
 
   </div>
   <div>
 
 ![Logo Windows](/public/courses/ubuntu-26/Images/windows.png)
 
-- **GUI jako domyślny sposób pracy:** Windows projektowano głównie do obsługi graficznej. Pulpit i okna są podstawowym sposobem zarządzania systemem. Zatrzymanie procesu `explorer.exe` nie zatrzymuje jądra, więc pulpit można uruchomić ponownie, na przykład przez Menedżer zadań. Mimo to wiele ustawień systemowych nadal najwygodniej obsługuje się graficznie. PowerShell jest mocny, ale dla wielu użytkowników pozostaje narzędziem administracyjnym.
+- **Litery dysków i niezależne woluminy:** Windows organizuje nośniki danych według niezależnych liter dysków (`C:`, `D:`). Każda litera stanowi korzeń odrębnego drzewa katalogów.
 
 ![Logo Linux](/public/courses/ubuntu-26/Images/linux.png)
 
-- **Terminal jako naturalny interfejs:** W Linuksie terminal jest bezpośrednim sposobem pracy z systemem. Jądro nie potrzebuje pulpitu, żeby działać. Środowisko graficzne, czyli Desktop Environment, jest programem uruchamianym w przestrzeni użytkownika. Serwery często nie mają grafiki wcale. Na komputerze osobistym pulpit można wyłączyć, zrestartować albo wymienić bez zatrzymywania usług działających w tle.
+- **Jednolite drzewo katalogów FHS:** Linux nie stosuje liter nośników. Wszystkie zasoby, partycje i nośniki zewnętrzne są montowane w wyznaczonych punktach montowania wewnątrz **jednego wspólnego drzewa**, którego początkiem jest katalog główny `/` (*root*). Nośniki sprzętowe są reprezentowane w wirtualnym systemie plików `/dev/` (np. dysk `/dev/sda`, partycja `/dev/sda1`).
+
+  </div>
+  <div>
+
+![Logo Windows](/public/courses/ubuntu-26/Images/windows.png)
+
+- **Interfejs graficzny jako rdzeń:** Windows projektowano od podstaw z myślą o graficznej obsłudze okienkowej. Mimo potężnych możliwości konsoli PowerShell, wiele komponentów systemu zakłada obecność podsystemu graficznego.
+
+![Logo Linux](/public/courses/ubuntu-26/Images/linux.png)
+
+- **Pulpit jako opcjonalny proces przestrzeni użytkownika:** W Linuksie serwer wyświetlania (Wayland lub X11) oraz menedżer okien to zwykłe procesy działające w przestrzeni użytkownika (*User Space*). Jądro i usługi sieciowe działają całkowicie niezależnie od grafiki. Na serwerach środowisko graficzne nie jest w ogóle instalowane, co drastycznie redukuje zużycie pamięci RAM oraz powierzchnię potencjalnych ataków sieciowych.
+
   </div>
 </data-tabs>
 
-> [!IMPORTANT]
-> **Zarządzanie i uprawnienia (`sudo`)**
-> 
-> W Linuksie na co dzień pracujesz na koncie o ograniczonych uprawnieniach. Zmiany systemowe wymagają jawnego użycia polecenia `sudo`, czyli *SuperUser Do*.
-> 
-> `sudo` tymczasowo podnosi Twoje uprawnienia do poziomu administratora, czyli użytkownika `root`. Pod tym względem pełni podobną funkcję jak okno UAC w Windowsie: system pyta, czy naprawdę chcesz wykonać operację administracyjną.
-> 
-> ![Obrazek przedstawiający połączenie Shia LaBeouf z kanapką SUDO](/public/courses/ubuntu-26/Images/just_do_it_sudo.png)
+---
+
+## 🛡️ Model bezpieczeństwa i rola polecenia `sudo`
+
+W Linuksie codzienna praca odbywa się z poziomu konta o ograniczonych uprawnieniach. Modyfikacja plików konfiguracyjnych, instalacja pakietów oraz zarządzanie demonami wymagają uprawnień superużytkownika **root** (UID 0).
+
+Polecenie `sudo` (*SuperUser Do*) umożliwia uwierzytelnionemu użytkownikowi jednorazowe wykonanie wskazanej komendy z uprawnieniami konta root. Działa to jako ścisła zapora proceduralna: każda operacja naruszająca stan systemu wymaga świadomej autoryzacji hasłem, co zapobiega przypadkowym uszkodzeniom struktury plików przez skrypty lub nieuwagę operatora.
 
 ---
 
-## 🐧 Punkt kontrolny: Czym jest Linux?
+## 🌳 Drzewo genealogiczne dystrybucji
 
-<data-gate>
-  <data-quiz>
-    <question>
-Dlaczego poprawna nazwa systemu to „GNU/Linux”, a nie po prostu „Linux”?
-    </question>
-    <options>
-      <item correct>Nazwa „Linux” odnosi się wyłącznie do jądra systemu. Kompletny system operacyjny wymaga także narzędzi przestrzeni użytkownika, takich jak powłoka, kompilatory i biblioteki. W dużej części pochodzą one z projektu GNU.</item>
-      <item>Linux to marka handlowa firmy Canonical, a GNU to darmowa wersja tego samego oprogramowania dystrybuowana przez Richarda Stallmana.</item>
-      <item>GNU to nazwa graficznego interfejsu użytkownika, który jest nakładany na tekstowe jądro Linuksa.</item>
-    </options>
-
-<div data-hint="error">
-  Przypomnij sobie: Linus Torvalds napisał samo jądro. Jakich komponentów brakuje, żeby z jądra powstał użyteczny system operacyjny?
-</div>
-<div data-hint="success">
-  Dobrze. Jądro Linux + narzędzia GNU = kompletny system operacyjny. To rozróżnienie pomaga zrozumieć cały ekosystem.
-</div>
-  </data-quiz>
-</data-gate>
-
-
-## 🌳 Rodziny dystrybucji i ich pochodne
-
-Wszystkie dystrybucje Linuksa korzystają z tego samego jądra (*Linux Kernel*), jednak różnią się organizacją systemową, menedżerem pakietów oraz narzędziami administracyjnymi.
-
-Dystrybucje dzielą się na **dystrybucje macierzyste** (rozwijane od podstaw) oraz ich **dystrybucje pochodne** (bazujące na rozwiązaniach macierzystych).
+Wszystkie nowoczesne dystrybucje dzielą się na kilka głównych rodzin wywodzących się ze stabilnych projektów macierzystych:
 
 ![Drzewo genealogiczne dystrybucji Linux](/public/courses/ubuntu-26/Images/distro-mather.png)
 
-:::diagram
-Schemat przedstawia drzewo genealogiczne 5 głównych rodzin dystrybucji Linuksa wywodzących się z wspólnego jądra: rodziny Debian, Red Hat, Arch Linux, SUSE oraz Slackware, z wyróżnieniem ich charakterystycznych formatów pakietów oraz flagowych dystrybucji pochodnych.
-:::
+1. _**Rodzina Debian**_ (Debian GNU/Linux):
+   - Format pakietów: `.deb`, menedżery: `dpkg` oraz `apt`. Cechuje się rygorystycznym podejściem do stabilności.
+   - Główne pochodne: **Ubuntu** (dystrybucja bazowa naszego kursu) oraz **Kali Linux**.
+2. _**Rodzina Red Hat**_ (RHEL - Red Hat Enterprise Linux):
+   - Format pakietów: `.rpm`, menedżer: `dnf` (dawniej `yum`). Standard korporacyjny i serwerowy.
+   - Główne pochodne: **Fedora** (wydania innowacyjne) oraz **Rocky Linux** / **AlmaLinux** (darmowe kompilacje RHEL).
+3. _**Rodzina Arch Linux**_:
+   - Model ciągły (*Rolling Release*), menedżer pakietów `pacman`.
+   - Główne pochodne: **Manjaro** oraz **EndeavourOS**.
 
-**Opis strukturalny diagramu**
+---
 
-1. _**Rodzina Debian**_ (Dystrybucja Macierzysta: Debian GNU/Linux):
-   - *Charakterystyka:* Niezwykła stabilność, pakiety instalacyjne w formacie `.deb`, menedżery `dpkg` oraz `apt`.
-   - <b>Główne pochodne:</b> **Ubuntu** (rozwijane przez Canonical) oraz **Kali Linux** (dystrybucja do testów penetracyjnych).
-2. _**Rodzina Red Hat**_ (Dystrybucja Macierzysta: RHEL – Red Hat Enterprise Linux):
-   - *Charakterystyka:* Standard w środowiskach biznesowych i serwerowych, pakiety `.rpm`, menedżer `dnf` (dawniej `yum`).
-   - <b>Główne pochodne:</b> **Fedora** (poligon doświadczalny Red Hata) oraz **Rocky Linux** / **AlmaLinux** (darmowe zamienniki RHEL).
-3. _**Rodzina Arch Linux**_ (Dystrybucja Macierzysta: Arch Linux):
-   - *Charakterystyka:* Dystrybucja typu *Rolling Release* (ciągłe aktualizacje bez wydań numerowanych), menedżer pakietów `pacman`.
-   - <b>Główne pochodne:</b> **Manjaro** oraz **EndeavourOS**.
-4. _**Rodzina SUSE**_ (Dystrybucja Macierzysta: openSUSE / SLES):
-   - *Charakterystyka:* Popularna w Europie, korzysta z pakietyzacji `.rpm` oraz narzędzia konfiguracyjnego YaST i menedżera `zypper`.
-   - <b>Główne pochodne:</b> **SUSE Tumbleweed** oraz **openSUSE Leap**.
-5. _**Rodzina Slackware**_ (Dystrybucja Macierzysta: Slackware):
-   - *Najstarsza wciąż rozwijana dystrybucja* (od <time datetime="1993-07-04T00:00:00">$4$ lipca $1993$</time> roku). Cechuje się maksymalnym zbliżeniem do standardów UNIX bez automatycznego rozwiązywania zależności pakietów.
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Przejście Ring 3 do Ring 0 i instrukcja syscall w architekturze x86_64</span><span class="deep-dive-badge">x86_64 Kernel Internals</span></summary>
 
+Rozróżnienie między jądrem a przestrzenią użytkownika to nie tylko podział logiczny w oprogramowaniu. Jest to **twarda granica sprzętowa** egzekwowana bezpośrednio przez krzem mikroprocesora.
+
+### 1. Poziomy uprawnień pierścieni (Privilege Rings)
+W architekturze x86_64 procesor operuje na poziomach uprawnień zdefiniowanych w 2 najmłodszych bitach rejestru segmentowego kodu `%cs` (*Current Privilege Level - CPL*):
+- **Ring 3 (CPL = 3)**: Przestrzeń Użytkownika (*User Space*). Tutaj działają przeglądarki, powłoka Bash, serwer graficzny i aplikacje. Kod nie może bezpośrednio wykonać instrukcji wejścia-wyjścia (`in`, `out`), wyłączyć przerwań (`cli`), modyfikować rejestrów kontrolnych (`CR0`, `CR3`) ani uzyskać bezpośredniego dostępu do fizycznych adresów pamięci.
+- **Ring 0 (CPL = 0)**: Przestrzeń Jądra (*Kernel Space* / *Supervisor Mode*). Jądro Linuksa ma pełny dostęp do wszystkich instrukcji maszynowych i całej przestrzeni adresowej sprzętu.
+
+```
+       ┌──────────────────────────────────────────────────┐
+       │   Ring 3: Aplikacje, Bash, Biblioteka glibc       │
+       └────────────────────────┬─────────────────────────┘
+                                │  Instrukcja SYSCALL (RAX = nr)
+       ═════════════════════════╪══════════════════════════ Granica sprzętowa
+                                ▼
+       ┌──────────────────────────────────────────────────┐
+       │   Ring 0: Linux Kernel (Obsługa przerwania)       │
+       │   - Rejestr MSR IA32_LSTAR wskazuje wejście      │
+       │   - Zrzut rejestrów na stos (struct pt_regs)     │
+       │   - Wykonanie funkcji sys_call_table[RAX]        │
+       │   - Powrót instrukcją SYSRET                     │
+       └──────────────────────────────────────────────────┘
+```
+
+<data-sys-ring-bridge preset="write"></data-sys-ring-bridge>
+
+### 2. Mechanizm wywołania systemowego (Syscall Dispatcher)
+Gdy program w C wywołuje funkcję zapisu danych do pliku `write(fd, buf, count)`:
+1. Biblioteka `glibc` umieszcza unikalny identyfikator wywołania systemowego w rejestrze `RAX` (dla `sys_write` na x86_64 jest to liczba **1**).
+2. Argumenty funkcji trafiają do kolejnych rejestrów zgodnie z konwencją ABI x86_64: `RDI` = deskryptor pliku `fd`, `RSI` = wskaźnik na bufor w pamięci `buf`, `RDX` = liczba bajtów `count`.
+3. Wykonywana jest instrukcja maszynowa `syscall`.
+
+Sprzęt procesora w ułamku nanosekundy wykonuje sekwencję atomową:
+- Zapisuje aktualny wskaźnik instrukcji `%rip` do rejestru `%rcx`.
+- Zapisuje rejestr flag `%rflags` do `%r11`.
+- Ładuje do `%rip` stały adres procedury wejściowej jądra z rejestru modelowego procesora **`MSR IA32_LSTAR`** (*Long System Target Address Register*).
+- Przestawia bity CPL w rejestrze `%cs` na wartość **0** (Ring 0).
+
+W jądrze wykonywana jest procedura asocjacyjna `entry_SYSCALL_64`, która zapisuje wszystkie rejestry procesora na dedykowany stos jądra do struktury `struct pt_regs`, weryfikuje poprawność wskaźników z przestrzeni użytkownika, wykonuje kod sterownika dysku i powraca do Ring 3 instrukcją maszynową `sysret`.
+
+</details>
 
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **Jądro vs GNU/Linux:** Linux to jądro systemu operacyjnego. Do kompletnego systemu potrzebne są jeszcze narzędzia przestrzeni użytkownika, w dużej części z projektu GNU.
-- **Rola dystrybucji:** Dystrybucja, na przykład Ubuntu, łączy jądro, narzędzia systemowe, instalator, menedżer pakietów i pulpit w gotowy system.
-- **Konfiguracja w plikach:** Linux zwykle trzyma ustawienia systemowe w czytelnych plikach tekstowych, głównie w `/etc/`, a nie w jednej centralnej bazie podobnej do Rejestru Windows.
-- **Jedno drzewo katalogów:** Linux nie używa liter `C:` i `D:`. Cały system plików zaczyna się od `/`, a dyski i partycje montuje się w wybranych katalogach.
-- **GUI jest opcjonalne:** Pulpit w Linuksie jest programem działającym nad systemem, nie warunkiem działania jądra ani usług.
-- **`sudo` chroni system:** Operacje administracyjne wykonujesz świadomie przez `sudo`, zamiast stale pracować z pełnymi uprawnieniami administratora.
-
----
-
-Znasz już podstawowe różnice między Windowsem a Linuksem. W następnym kroku przejdziesz od teorii do praktyki i zainstalujesz Ubuntu w bezpiecznym środowisku maszyny wirtualnej.
+- **Jądro vs GNU/Linux:** Linux to jądro systemu operacyjnego. Do kompletnego środowiska pracy niezbędne są narzędzia przestrzeni użytkownika, kompilatory i biblioteki standardowe pochodzące z projektu GNU.
+- **Rola dystrybucji:** Dystrybucja łączy jądro, menedżer pakietów, instalator oraz środowisko pulpitu w gotowy, przetestowany produkt inżynierski.
+- **Konfiguracja w plikach tekstowych:** Linux organizuje konfigurację usług w plikach tekstowych w katalogu `/etc/`, eliminując pojedynczy binarny punkt awarii znany z Rejestru Windows.
+- **Jednolite drzewo FHS:** Wszystkie dyski i partycje są montowane wewnątrz jednego wspólnego drzewa zaczynającego się od korzenia `/`.
+- **Niezależność jądra od grafiki:** Interfejs graficzny jest opcjonalną aplikacją przestrzeni użytkownika. Serwery działają stabilnie w trybie bezgłowym (*headless*) bez zainstalowanego pulpitu.
+- **Autoryzacja `sudo`:** Dostęp do uprawnień administratora `root` jest przydzielany selektywnie na czas wykonania konkretnego polecenia, chroniąc integralność systemu operacyjnego.

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 275" role="img" aria-labelledby="t05 d05">
+  <title id="t05">Niemutowalny string w pętli (O(n^2)) kontra mutowalny bufor StringBuilder (O(n))</title>
+  <desc id="d05">Porównanie pamięci sterty: konkatenacja string += w pętli tworzy kolejne kopie i śmieci dla GC, natomiast StringBuilder dopisuje znaki w jednym ciągłym buforze.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+    .garbage { fill: #450a0a; stroke: #ef4444; stroke-dasharray: 4 3; rx: 5; }
+    .live { fill: #064e3b; stroke: #34d399; rx: 5; }
+    .slot { fill: #0f172a; stroke: #38bdf8; rx: 4; }
+    @keyframes fillCell { 0%, 20% { fill: #0f172a; } 30%, 100% { fill: #0284c7; } }
+    .c1 { animation: fillCell 3s infinite; }
+    .c2 { animation: fillCell 3s 0.5s infinite; }
+    .c3 { animation: fillCell 3s 1.0s infinite; }
+    .c4 { animation: fillCell 3s 1.5s infinite; }
+    .c5 { animation: fillCell 3s 2.0s infinite; }
+  </style>
+  <rect width="840" height="275" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Dlaczego string += w pętli dusi pamięć RAM, a StringBuilder działa w czasie O(n)</text>
+  <text x="24" y="48" class="sub">Góra: każdy += alokuje nowy obiekt i wyrzuca poprzedni na śmieci GC. Dół: jeden bufor char[].</text>
+
+  <!-- Top: string += -->
+  <rect x="24" y="64" width="792" height="90" class="card"/>
+  <text x="40" y="88" class="title" fill="#f87171">string s += znak  (Niemutowalny — koszt O(n²))</text>
+
+  <rect x="40" y="102" width="60" height="34" class="garbage"/>
+  <text x="58" y="123" class="mono">"A"</text>
+  <text x="108" y="123" class="sub">→ kopia →</text>
+
+  <rect x="174" y="102" width="82" height="34" class="garbage"/>
+  <text x="194" y="123" class="mono">"AB"</text>
+  <text x="264" y="123" class="sub">→ kopia →</text>
+
+  <rect x="330" y="102" width="106" height="34" class="garbage"/>
+  <text x="356" y="123" class="mono">"ABC"</text>
+  <text x="444" y="123" class="sub">→ kopia →</text>
+
+  <rect x="510" y="102" width="136" height="34" class="live"/>
+  <text x="544" y="123" class="mono">"ABCD"</text>
+  <text x="660" y="123" class="sub">3 obiekty = śmieci GC!</text>
+
+  <!-- Bottom: StringBuilder -->
+  <rect x="24" y="168" width="792" height="86" class="card"/>
+  <text x="40" y="192" class="title" fill="#34d399">StringBuilder.Append(znak)  (Jeden bufor — koszt O(n))</text>
+
+  <rect x="40" y="206" width="52" height="34" class="slot c1"/><text x="60" y="228" class="mono">A</text>
+  <rect x="96" y="206" width="52" height="34" class="slot c2"/><text x="116" y="228" class="mono">B</text>
+  <rect x="152" y="206" width="52" height="34" class="slot c3"/><text x="172" y="228" class="mono">C</text>
+  <rect x="208" y="206" width="52" height="34" class="slot c4"/><text x="228" y="228" class="mono">D</text>
+  <rect x="264" y="206" width="52" height="34" class="slot c5"/><text x="284" y="228" class="mono">E</text>
+  <rect x="320" y="206" width="52" height="34" class="slot"/><text x="340" y="228" class="sub">_</text>
+  <rect x="376" y="206" width="52" height="34" class="slot"/><text x="396" y="228" class="sub">_</text>
+  <rect x="432" y="206" width="52" height="34" class="slot"/><text x="452" y="228" class="sub">_</text>
+  <text x="504" y="228" class="sub">Dopiero sb.ToString() tworzy finalny napis (1 alokacja).</text>
+</svg>

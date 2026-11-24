@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delegaty, zdarzenia event i Timer - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Delegaty, zdarzenia event i Timer</h1>
+<p>W poprzedniej lekcji podpiąłeś reakcję na kliknięcie przycisku zapisem <code>przycisk.Click += ObsluzKlikniecie;</code>. Ten sam problem pojawia się, gdy budujesz własną klasę logiki, na przykład monitor zużycia pamięci RAM albo czujnik temperatury procesora.</p>
+<p>Jeśli klasa monitora odwołuje się wprost do kontrolki <code>Label</code> lub okna <code>Form</code>, traci niezależność. Nie przetestujesz jej w testach jednostkowych ani nie uruchomisz jej w narzędziu konsolowym bez otwierania całego interfejsu graficznego.</p>
+<p>Rozwiązaniem jest <span class="color-gold">wzorzec obserwatora</span> wbudowany w język C#. Klasa nadawcy publikuje sam fakt za pomocą <span class="color-green">delegatów</span> oraz modyfikatora <span class="color-green"><code>event</code></span>, a okno lub konsola jedynie dopisuje swoją reakcję. Do cyklicznego odświeżania danych bez zamrażania okna służy komponent <span class="color-green"><code>System.Windows.Forms.Timer</code></span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>📡 Od metody nazwanej do Action, Func i EventHandler</h2>
+<p><span class="color-green">Delegat</span> to bezpieczny typowo obiekt przechowujący referencję do metody. Pozwala zapisać funkcję w zmiennej, przekazać ją jako argument do innej metody i wywołać w późniejszym momencie.</p>
+<p>Zacznijmy od dwóch zwykłych metod nazwanych: pierwsza tylko wypisuje komunikat (<code>void</code>), a druga ocenia pomiar i zwraca <code>bool</code>.</p>
+<pre><code class="language-csharp">static void WypiszAlarm(int procent)
+{
+    Console.WriteLine("Alarm obciazenia: " + procent + "%");
+}
+
+static bool CzyKrytyczny(int procent)
+{
+    return procent &gt;= 80;
+}
+</code></pre>
+<p>Zamiast definiować własne typy delegatów, w .NET korzystamy z gotowych delegatów generycznych <span class="color-green"><code>Action</code></span> (dla metod <code>void</code>) oraz <span class="color-green"><code>Func</code></span> (dla metod zwracających wynik, gdzie ostatni parametr typu to typ zwracany):</p>
+<pre><code class="language-csharp">// 1. Przypisanie metod nazwanych do delegatow
+Action&lt;int&gt; powiadom = WypiszAlarm;
+Func&lt;int, bool&gt; filtr = CzyKrytyczny;
+
+powiadom(85);                 // Wypisze: Alarm obciazenia: 85%
+bool wysoki = filtr(85);      // Zwroci: true
+
+// 2. Ten sam zapis skrocony za pomoca wyrazenia lambda
+Action&lt;int&gt; powiadomLambda = (v) =&gt; Console.WriteLine("Alarm: " + v);
+Func&lt;int, bool&gt; filtrLambda = (v) =&gt; v &gt;= 80;
+</code></pre>
+<p>W bibliotece Windows Forms niemal wszystkie wbudowane zdarzenia kontrolek (<code>Button.Click</code>, <code>Timer.Tick</code>, <code>CheckBox.CheckedChanged</code>) korzystają ze standardowego delegata <span class="color-green"><code>EventHandler</code></span>. Ma on zawsze stałą sygnaturę: <code>void NazwaMetody(object sender, EventArgs e)</code>.</p>
+<ul>
+<li>Parametr <span class="color-blue">sender</span> wskazuje konkretny obiekt, który wywołał zdarzenie (na przykład kliknięty przycisk lub tykający zegar).</li>
+<li>Parametr <span class="color-blue">e</span> przekazuje dodatkowe dane zdarzenia (lub pusty <code>EventArgs.Empty</code>, jeśli danych nie ma). Dla zamykania okna WinForms używa pokrewnego <code>FormClosingEventArgs</code>, w którym możesz ustawić <code>e.Cancel = true</code> i zatrzymać zamknięcie.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Typ delegata</th>
+<th align="left">Typ zwracany</th>
+<th align="left">Zastosowanie i przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Action</code></td>
+<td align="left"><code>void</code></td>
+<td align="left">Akcja bez parametrów: <code>Action start = () =&gt; Uruchom();</code></td>
+</tr>
+<tr>
+<td align="left"><code>Action&lt;int&gt;</code></td>
+<td align="left"><code>void</code></td>
+<td align="left">Powiadomienie z danymi: <code>Action&lt;int&gt; alarm = (v) =&gt; Log(v);</code></td>
+</tr>
+<tr>
+<td align="left"><code>Func&lt;int, bool&gt;</code></td>
+<td align="left"><code>bool</code> (ostatni typ)</td>
+<td align="left">Predykat lub filtr: <code>Func&lt;int, bool&gt; test = (v) =&gt; v &gt;= 80;</code></td>
+</tr>
+<tr>
+<td align="left"><code>EventHandler</code></td>
+<td align="left"><code>void</code></td>
+<td align="left">Standard WinForms: <code>(object sender, EventArgs e)</code> w <code>Click</code> i <code>Tick</code></td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Zdarzenie event i bezpieczne wywołanie w C# 5.0</h2>
+<p>Zwykłe publiczne pole typu <code>Action&lt;int&gt;</code> łamie hermetyzację: każdy fragment programu mógłby wywołać cudzy alarm albo nadpisać całą listę odbiorców operatorem <code>=</code>. Słowo kluczowe <span class="color-green"><code>event</code></span> nakłada na delegat twardą blokadę dostępu.</p>
+<p>Zewnętrzny kod może wyłącznie:</p>
+<ul>
+<li>dopisać nowego subskrybenta operatorem <span class="color-green"><code>+=</code></span>,</li>
+<li>wypisać istniejącego subskrybenta operatorem <span class="color-green"><code>-=</code></span>.</li>
+</ul>
+<p>Zewnętrzny kod <span class="color-red">nie może</span> wywołać zdarzenia z zewnątrz ani wykasować cudzych subskrybentów przez <code>=</code>. Prawo wywołania ma wyłącznie klasa, która zadeklarowała dane zdarzenie.</p>
+<pre><code class="language-csharp">public class MonitorZdarzen
+{
+    public event Action&lt;int&gt; PrzekroczonoProg;
+    private readonly int _prog;
+
+    public MonitorZdarzen(int prog)
+    {
+        _prog = prog;
+    }
+
+    public void ZglosPomiar(int wartosc)
+    {
+        if (wartosc &gt;= _prog)
+        {
+            Action&lt;int&gt; handler = PrzekroczonoProg;
+            if (handler != null)
+            {
+                handler(wartosc);
+            }
+        }
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>W C# 5.0 przed wywołaniem zdarzenia zawsze skopiuj jego referencję do zmiennej lokalnej (<span class="color-blue">handler</span>), a dopiero potem sprawdź <code>if (handler != null)</code>. Jeśli nikt nie subskrybuje zdarzenia, pole ma wartość <code>null</code> i bezpośrednie wywołanie rzuci <span class="color-red">NullReferenceException</span>. Kopia lokalna chroni także przed sytuacją, w której inny wątek wypisze ostatniego subskrybenta dokładnie między sprawdzeniem <code>!= null</code> a wywołaniem. W nowszych wersjach C# (od C# 6.0) kompilator generuje dokładnie ten sam kod ze skrótu <code>PrzekroczonoProg?.Invoke(wartosc)</code>.</p>
+
+</div>
+</div><p>Dzięki temu podziałowi klasa <code>MonitorZdarzen</code> nic nie wie o interfejsie użytkownika. Ten sam obiekt obsłuży konsolę (<code>Console.WriteLine</code>), okno WinForms (<code>Label</code>) oraz automatyczny test jednostkowy.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚨 Pułapka operatora -= z anonimową lambdą</h2>
+<p>Gdy okno subskrybuje zdarzenie długo żyjącego obiektu (na przykład globalnego monitora lub zegara), obiekt nadawcy zapisuje w swojej liście silną referencję do subskrybenta. Jeśli okno zostanie zamknięte bez odpięcia subskrypcji, obiekt okna pozostanie <span class="color-red">nadal osiągalne</span> dla Garbage Collectora i utworzy <span class="color-green">wyciek pamięci</span>.</p>
+<p>Bardzo częstym błędem jest próba odpięcia anonimowego wyrażenia lambda w ten sposób:</p>
+<pre><code class="language-csharp">// Podpiecie anonimowej lambdy (obiekt delegata nr 1)
+monitor.PrzekroczonoProg += (v) =&gt; AktualizujEtykiete(v);
+
+// Proba odpiecia przy zamykaniu okna (nowy obiekt delegata nr 2!)
+monitor.PrzekroczonoProg -= (v) =&gt; AktualizujEtykiete(v); // NIE ZADZIALA!
+</code></pre>
+<p>Kompilator tworzy dla każdej z tych dwóch linii <span class="color-green">dwa osobne obiekty delegatów</span> pod różnymi adresami w pamięci. Operator <code>-=</code> szuka na liście dokładnie tej samej instancji, nie znajduje jej i kończy działanie bez żadnego błędu, a stara subskrypcja zostaje w pamięci na zawsze.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Nigdy nie używaj anonimowej lambdy przy zdarzeniu, z którego zamierzasz się później wypisać przez <code>-=</code>. Podepnij metodę nazwaną (<code>monitor.PrzekroczonoProg += ObsluzAlarm;</code> oraz <code>-= ObsluzAlarm;</code>) albo zapisz lambdę w polu klasy typu <code>Action&lt;int&gt;</code> i użyj tego samego pola przy obu operatorach.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj konstrukcję delegatów i zdarzeń do jej roli lub błędu">
+  <item left="Action<int>" right="Delegat przyjmujący liczbę całkowitą i niezwracający żadnej wartości (void)"></item>
+  <item left="Func<int, bool>" right="Delegat przyjmujący liczbę całkowitą i zwracający wartość logiczną bool"></item>
+  <item left="EventHandler" right="Standardowy delegat WinForms o sygnaturze (object sender, EventArgs e)"></item>
+  <item left="public event Action<int> Alarm;" right="Zewnętrzny kod może używać tylko += i -=, bez wywoływania oraz bez operatora ="></item>
+  <item left="m.Alarm -= (v) => Log(v);" right="Tworzy drugi, odrębny delegat: nie odpina pierwszej lambdy i powoduje wyciek pamięci"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⏱️ Timer w WinForms kontra Thread.Sleep i System.Threading.Timer</h2>
+<p>Cykliczne odświeżanie danych w oknie (na przykład pomiar RAM co sekundę albo ruch piłki w grze) wymaga współpracy z pętlą komunikatów Windows. Wybór złego mechanizmu kończy się zamrożeniem aplikacji albo natychmiastowym wyjątkiem.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Nigdy nie pisz w aplikacji okienkowej pętli <code>while (true)</code> z wywołaniem <code>Thread.Sleep(1000)</code>. Usypiasz w ten sposób jedyny wątek UI: kolejka przestaje obsługiwać kliknięcia oraz odrysowanie <code>WM_PAINT</code>, a okno zawiesza się ze statusem <span class="color-red">„Brak odpowiedzi”</span>.</p>
+
+</div>
+</div><p>W bibliotece .NET istnieją dwie klasy o tej samej nazwie <code>Timer</code>, ale o zupełnie innym modelu wątkowym:</p>
+<ul>
+<li><span class="color-green"><code>System.Windows.Forms.Timer</code></span>: działa na bazie komunikatu systemowego <code>WM_TIMER</code>. Zdarzenie <code>Tick</code> wykonuje się zawsze w <span class="color-green">wątku UI</span>, więc możesz w nim bezpiecznie zmieniać <code>Label.Text</code> czy <code>ProgressBar.Value</code>.</li>
+<li><span class="color-green"><code>System.Threading.Timer</code></span>: uruchamia funkcję zwrotną w <span class="color-green">wątku z puli wątków</span> w tle. Próba bezpośredniej modyfikacji dowolnej kontrolki WinForms z tego wątku kończy się wyjątkiem <span class="color-red">InvalidOperationException</span> (niedozwolona operacja międzywątkowa na kontrolce).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Kryterium</th>
+<th align="left"><code>Thread.Sleep</code> w wątku UI</th>
+<th align="left"><code>System.Windows.Forms.Timer</code></th>
+<th align="left"><code>System.Threading.Timer</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Wątek wykonania</td>
+<td align="left">Blokuje jedyny wątek UI</td>
+<td align="left">Bezpieczny wątek UI (<code>WM_TIMER</code>)</td>
+<td align="left">Wątek w tle z puli wątków</td>
+</tr>
+<tr>
+<td align="left">Reakcja okna na kliknięcia</td>
+<td align="left">Brak: okno zamrożone</td>
+<td align="left">Pełna responsywność okna</td>
+<td align="left">Pełna responsywność okna</td>
+</tr>
+<tr>
+<td align="left">Zmiana <code>Label.Text</code> wprost</td>
+<td align="left">Blokuje odrysowanie <code>WM_PAINT</code></td>
+<td align="left">W pełni bezpieczna</td>
+<td align="left">Rzuca <code>InvalidOperationException</code></td>
+</tr>
+<tr>
+<td align="left">Zatrzymanie i sprzątanie</td>
+<td align="left">Wymaga flagi przerwania pętli</td>
+<td align="left"><code>Stop()</code>, <code>-=</code> oraz <code>Dispose()</code></td>
+<td align="left"><code>Dispose()</code></td>
+</tr>
+</tbody></table>
+<p>Poprawny cykl życia zegara w klasie <code>Form</code> przechowuje referencję w polu prywatnym i sprząta zasoby przy zamykaniu okna (<code>FormClosing</code>):</p>
+<pre><code class="language-csharp">private readonly System.Windows.Forms.Timer _zegar;
+
+public OknoMonitora()
+{
+    _zegar = new System.Windows.Forms.Timer();
+    _zegar.Interval = 1000; // 1000 ms = 1 sekunda
+    _zegar.Tick += OdswiezDaneRam;
+    _zegar.Start();
+
+    FormClosing += PrzyZamykaniuOkna;
+}
+
+private void OdswiezDaneRam(object sender, EventArgs e)
+{
+    // Bezpieczna aktualizacja kontrolek w watku UI
+}
+
+private void PrzyZamykaniuOkna(object sender, FormClosingEventArgs e)
+{
+    _zegar.Stop();
+    _zegar.Tick -= OdswiezDaneRam;
+    _zegar.Dispose();
+}
+</code></pre>
+<data-gate>
+<data-sortable-list title="Ułóż bezpieczny cykl życia obiektu System.Windows.Forms.Timer w oknie WinForms">
+  <item data-correct="3">Podpięcie nazwanej metody obsługi zdarzenia: _zegar.Tick += OdswiezDaneRam;</item>
+  <item data-correct="1">Utworzenie instancji zegara w polu klasy: _zegar = new System.Windows.Forms.Timer();</item>
+  <item data-correct="5">Zatrzymanie, odpięcie metody i zwolnienie zasobów w FormClosing: Stop(), -= oraz Dispose()</item>
+  <item data-correct="2">Ustawienie odstępu między tyknięciami: _zegar.Interval = 1000;</item>
+  <item data-correct="4">Uruchomienie cyklicznego wysyłania WM_TIMER: _zegar.Start();</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Budowa MulticastDelegate w CLR, niemutowalność += i graf GC Roots</span>
+<span class="deep-dive-badge">MULTICASTDELEGATE · CLR · MEMORY LEAK</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Co naprawdę siedzi w obiekcie MulticastDelegate wewnątrz CLR</h4>
+W języku C lub C++ zwykły wskaźnik na funkcję (`void (*cb)(int)`) zajmuje 8 bajtów na architekturze x86-64 i wskazuje wyłącznie adres kodu maszynowego. W C# każdy typ delegata dziedziczy po klasie `System.MulticastDelegate` i zawiera na stercie trzy kluczowe pola:
+- `_target` (`object`): referencja do instancji obiektu, na którym ma zostać wywołana metoda (dla metod `static` ma wartość `null`).
+- `_methodPtr` (`IntPtr`): adres natywnego kodu JIT (lub stuba wywołania) docelowej metody.
+- `_invocationList` (`object`): dla pojedynczego subskrybenta `null`; gdy podepniesz dwie lub więcej metod przez `+=`, CLR alokuje tu tablicę `object[]` przechowującą kolejne pojedyncze delegaty.
+
+<p>Gdy wywołujesz <code>handler(procent)</code>, CLR przechodzi kolejno po wszystkich wpisach w <code>_invocationList</code> i dla każdego wywołuje kod spod <code>_methodPtr</code>, przekazując <code>_target</code> jako ukryty parametr <code>this</code> w rejestrze <code>RCX</code> (konwencja wywołań x64 Windows).</p>
+<h4>2. Dlaczego += alokuje nowy obiekt i po co lokalna kopia delegata</h4>
+Delegaty w .NET są **niemutowalne** (podobnie jak `string`). Kompilator obniża zapis `m.AlarmWyzwalany += f;` do wywołania `Delegate.Combine(m.AlarmWyzwalany, f)`, które **alokuje nową instancję `MulticastDelegate`** z nową tablicą `_invocationList` i przypisuje jej referencję z powrotem do pola zdarzenia. Analogicznie `-=` wywołuje `Delegate.Remove(...)`.
+
+<p>W kodzie wielowątkowym naiwny zapis:</p>
+<pre><code class="language-csharp">if (AlarmWyzwalany != null)
+{
+    AlarmWyzwalany(procent); // Ryzyko NullReferenceException!
+}
+</code></pre>
+<p>może zawieść: między sprawdzeniem <code>!= null</code> a wywołaniem inny wątek może wypisać ostatniego subskrybenta przez <code>-=</code>, ustawiając pole <code>AlarmWyzwalany</code> na <code>null</code> i wywołując <span class="color-red">NullReferenceException</span>. Dlatego kopiujemy referencję do zmiennej lokalnej na stosie:</p>
+<pre><code class="language-csharp">Action&lt;int&gt; handler = AlarmWyzwalany; // Kopia referencji na stosie watku
+if (handler != null)
+{
+    handler(procent); // Wywolanie na niemutowalnej migawce listy subskrybentow
+}
+</code></pre>
+<p>Ponieważ <code>MulticastDelegate</code> jest niemutowalny, nawet jeśli inny wątek w tej samej mikrosekundzie wywoła <code>-=</code>, nasza lokalna zmienna <span class="color-blue">handler</span> nadal wskazuje na kompletną, bezpieczną tablicę delegatów.</p>
+<h4>3. Jak Garbage Collector widzi nieodpięte zdarzenie (GC Roots)</h4>
+Wyobraź sobie długo żyjący obiekt nadawcy (na przykład globalny `MonitorRam`), który żyje przez cały czas działania programu. Użytkownik otwiera okno diagnostyczne `OknoWykresu` i w jego konstruktorze podpina `monitor.ZmianaRam += this.AktualizujWykres;`.
+
+<p>Wewnątrz <code>monitor</code> pole <code>ZmianaRam</code> trzyma w tablicy <code>_invocationList</code> delegat, którego pole <code>_target</code> wskazuje <span class="color-green">silną referencją</span> na obiekt <code>OknoWykresu</code>. Gdy użytkownik zamknie okno bez odpięcia subskrypcji:</p>
+<ul>
+<li>Garbage Collector przechodzi graf korzeni (<code>GC Roots</code>).</li>
+<li>Znajduje żywy obiekt <code>monitor</code> -&gt; <code>ZmianaRam</code> -&gt; <code>_target</code> -&gt; zamknięte <code>OknoWykresu</code>.</li>
+<li>Uznaje zamknięte okno (wraz ze wszystkimi jego kontrolkami, czcionkami i bitmapami) za <span class="color-red">nadal osiągalne</span> i nigdy nie zwalnia jego pamięci.</li>
+</ul>
+<p>Każde kolejne otwarcie i zamknięcie okna dokłada w pamięci RAM następny obiekt‑duch. Dopiero wywołanie <code>monitor.ZmianaRam -= this.AktualizujWykres;</code> w <code>FormClosed</code> lub <code>Dispose()</code> przecina tę krawędź w grafie i pozwala Garbage Collectorowi odzyskać pamięć.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: LicznikAlarmow z histerezą i filtrem Func</h2>
+<p>W prawdziwym monitoringu temperatury CPU lub obciążenia RAM wartości często oscylują wokół progu: <code>79% -&gt; 80% -&gt; 79% -&gt; 81% -&gt; 80%</code>. Bez mechanizmu <span class="color-green">histerezy</span> system wysyłałby alarm przy każdym kolejnym pomiarze.</p>
+<p>Histereza wprowadza dwa progi:</p>
+<ul>
+<li><span class="color-green"><code>ProgAlarmu</code></span> (na przykład <code>80</code>): osiągnięcie lub przekroczenie tej wartości uruchamia alarm i ustawia <code>CzyAlarmAktywny = true</code>.</li>
+<li><span class="color-green"><code>ProgResetu</code></span> (na przykład <code>65</code>): dopóki obciążenie nie spadnie do wartości <code>&lt;= ProgResetu</code>, kolejne wysokie pomiary nie wyzwalają duplikatu alarmu. Dopiero spadek <code>&lt;= ProgResetu</code> ustawia <code>CzyAlarmAktywny = false</code> i ponownie uzbraja czujnik.</li>
+</ul>
+<p>W klasie <span class="color-green"><code>LicznikAlarmow</code></span> zaimplementuj cztery elementy:</p>
+<ol>
+<li>Publiczne zdarzenie <span class="color-green"><code>AlarmWyzwalany</code></span> typu <code>Action&lt;int&gt;</code> (zadeklarowane ze słowem kluczowym <code>event</code>).</li>
+<li>Konstruktor <code>LicznikAlarmow(int progAlarmu, int progResetu)</code>:<ul>
+<li>odrzuca błędną konfigurację, w której <span class="color-blue">progResetu</span> jest większy lub równy <span class="color-blue">progAlarmu</span> (rzuca <code>ArgumentException</code>),</li>
+<li>zapisuje oba progi we właściwościach <code>ProgAlarmu</code> oraz <code>ProgResetu</code>, ustawia początkowy <code>OstatniAlarm</code> na <code>-1</code>, a stan alarmu <code>CzyAlarmAktywny</code> na <code>false</code>.</li>
+</ul>
+</li>
+<li>Metodę <code>SprawdzPoziom(int procent)</code> realizującą dwustanową maszynę z histerezą:<ul>
+<li>przy każdym wywołaniu zwiększa licznik wszystkich pomiarów (<code>LiczbaPomiarow</code>),</li>
+<li>gdy alarm jest nieaktywny, a nowy pomiar osiąga lub przekracza <code>ProgAlarmu</code>: aktywuje stan alarmu, zwiększa <code>LiczbaAlarmow</code>, zapamiętuje ten pomiar jako <code>OstatniAlarm</code> i bezpiecznie powiadamia subskrybentów zdarzenia <code>AlarmWyzwalany</code> (bez ryzyka <code>NullReferenceException</code>, gdy nikt nie subskrybuje),</li>
+<li>gdy alarm jest aktywny, a pomiar spadnie do wartości mniejszej lub równej <code>ProgResetu</code>: dezaktywuje stan alarmu i ponownie uzbraja czujnik.</li>
+</ul>
+</li>
+<li>Statyczną metodę <code>FiltrujOdczyty(List&lt;int&gt; dane, Func&lt;int, bool&gt; warunek)</code>:<ul>
+<li>jeśli <span class="color-blue">dane</span> albo <span class="color-blue">warunek</span> ma wartość <code>null</code>, rzuca <code>ArgumentNullException</code>,</li>
+<li>zwraca nową listę <code>List&lt;int&gt;</code> zawierającą w oryginalnej kolejności wyłącznie te odczyty, dla których delegat <span class="color-blue">warunek</span> zwraca <code>true</code> (bez modyfikowania listy wejściowej).</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: LicznikAlarmow z histerezą, event oraz Func" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public class LicznikAlarmow
+{
+    public int ProgAlarmu { get; private set; }
+    public int ProgResetu { get; private set; }
+    public int LiczbaPomiarow { get; private set; }
+    public int LiczbaAlarmow { get; private set; }
+    public int OstatniAlarm { get; private set; }
+    public bool CzyAlarmAktywny { get; private set; }
+
+    // 1. Zadeklaruj publiczne zdarzenie: public event Action&lt;int&gt; AlarmWyzwalany;
+
+    public LicznikAlarmow(int progAlarmu, int progResetu)
+    {
+        // 2. Walidacja (progResetu &gt;= progAlarmu -&gt; ArgumentException) i inicjalizacja pól
+    }
+
+    public void SprawdzPoziom(int procent)
+    {
+        // 3. Zaimplementuj liczenie pomiarów, histerezę i bezpieczne wywołanie AlarmWyzwalany
+    }
+
+    public static List&lt;int&gt; FiltrujOdczyty(List&lt;int&gt; dane, Func&lt;int, bool&gt; warunek)
+    {
+        // 4. Walidacja null (ArgumentNullException) i filtrowanie odczytów za pomocą delegata Func
+        return new List&lt;int&gt;();
+    }
+
+    static void Main()
+    {
+        var monitor = new LicznikAlarmow(80, 65);
+        monitor.SprawdzPoziom(60);
+        monitor.SprawdzPoziom(85);
+        monitor.SprawdzPoziom(92);
+        monitor.SprawdzPoziom(64);
+        monitor.SprawdzPoziom(88);
+        Console.WriteLine("Pomiary: " + monitor.LiczbaPomiarow + ", Alarmy: " + monitor.LiczbaAlarmow);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("AlarmWyzwalany jest prawdziwym zdarzeniem (event), a właściwości progów zwracają zadane wartości", () =&gt; {
+    LabAssert.True(typeof(LicznikAlarmow).GetEvent("AlarmWyzwalany") != null,
+        "AlarmWyzwalany musi być zadeklarowane jako zdarzenie (event), a nie zwykłe pole delegata");
+    var m = new LicznikAlarmow(80, 65);
+    LabAssert.Equal(80, m.ProgAlarmu);
+    LabAssert.Equal(65, m.ProgResetu);
+    LabAssert.Equal(-1, m.OstatniAlarm);
+    LabAssert.False(m.CzyAlarmAktywny);
+});
+
+LabAssert.Test("Histereza obsługuje dokładny próg ProgAlarmu (80) i oscylację tuż nad ProgResetu (66 -&gt; 80)", () =&gt; {
+    var m = new LicznikAlarmow(80, 65);
+    int wywolania = 0;
+    int ostatniaWartosc = -1;
+    m.AlarmWyzwalany += (val) =&gt; { wywolania++; ostatniaWartosc = val; };
+
+    m.SprawdzPoziom(50);
+    m.SprawdzPoziom(79);
+    LabAssert.Equal(0, wywolania);
+    LabAssert.False(m.CzyAlarmAktywny);
+
+    // Dokładna wartość graniczna ProgAlarmu (80) wyzwala pierwszy alarm
+    m.SprawdzPoziom(80);
+    LabAssert.Equal(1, wywolania);
+    LabAssert.Equal(80, ostatniaWartosc);
+    LabAssert.Equal(80, m.OstatniAlarm);
+    LabAssert.True(m.CzyAlarmAktywny);
+
+    // Oscylacja tuż nad ProgResetu (66 -&gt; 80) NIE resetuje alarmu i NIE duplikuje wywołania
+    m.SprawdzPoziom(95);
+    m.SprawdzPoziom(66);
+    LabAssert.True(m.CzyAlarmAktywny);
+    m.SprawdzPoziom(80);
+    LabAssert.Equal(1, wywolania);
+
+    // Dopiero spadek do dokładnego ProgResetu (65) uzbraja ponownie czujnik
+    m.SprawdzPoziom(65);
+    LabAssert.False(m.CzyAlarmAktywny);
+
+    // Ponowne osiągnięcie progu wyzwala drugi alarm
+    m.SprawdzPoziom(80);
+    LabAssert.Equal(2, wywolania);
+    LabAssert.Equal(80, m.OstatniAlarm);
+    LabAssert.Equal(2, m.LiczbaAlarmow);
+    LabAssert.Equal(8, m.LiczbaPomiarow);
+});
+
+LabAssert.Test("SprawdzPoziom nie rzuca NullReferenceException gdy brak subskrybentów", () =&gt; {
+    var m = new LicznikAlarmow(75, 50);
+    m.SprawdzPoziom(90);
+    LabAssert.Equal(1, m.LiczbaAlarmow);
+    LabAssert.Equal(90, m.OstatniAlarm);
+});
+
+LabAssert.Test("Obsługa wielu subskrybentów (+=) oraz wypisania subskrybenta (-=)", () =&gt; {
+    var m = new LicznikAlarmow(80, 60);
+    int licznikA = 0;
+    int licznikB = 0;
+    Action&lt;int&gt; subA = (v) =&gt; { licznikA++; };
+    Action&lt;int&gt; subB = (v) =&gt; { licznikB++; };
+
+    m.AlarmWyzwalany += subA;
+    m.AlarmWyzwalany += subB;
+
+    m.SprawdzPoziom(85);
+    LabAssert.Equal(1, licznikA);
+    LabAssert.Equal(1, licznikB);
+
+    // Wypisujemy pierwszego subskrybenta i resetujemy histerezę
+    m.AlarmWyzwalany -= subA;
+    m.SprawdzPoziom(55);
+    m.SprawdzPoziom(90);
+
+    LabAssert.Equal(1, licznikA);
+    LabAssert.Equal(2, licznikB);
+});
+
+LabAssert.Test("Konstruktor rzuca ArgumentException gdy ProgResetu &gt;= ProgAlarmu", () =&gt; {
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; { new LicznikAlarmow(80, 80); });
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; { new LicznikAlarmow(70, 85); });
+});
+
+LabAssert.Test("FiltrujOdczyty filtruje listę przez Func&lt;int, bool&gt;, nie zmienia wejścia i waliduje null", () =&gt; {
+    var wejscie = new System.Collections.Generic.List&lt;int&gt; { 45, 80, 79, 95, 62, 88 };
+
+    var wysokie = LicznikAlarmow.FiltrujOdczyty(wejscie, (v) =&gt; v &gt;= 80);
+    LabAssert.Equal(3, wysokie.Count);
+    LabAssert.Equal(80, wysokie[0]);
+    LabAssert.Equal(95, wysokie[1]);
+    LabAssert.Equal(88, wysokie[2]);
+
+    // Lista wejściowa pozostała nietknięta
+    LabAssert.Equal(6, wejscie.Count);
+
+    var puste = LicznikAlarmow.FiltrujOdczyty(wejscie, (v) =&gt; v &gt; 100);
+    LabAssert.Equal(0, puste.Count);
+
+    var parzyste = LicznikAlarmow.FiltrujOdczyty(wejscie, (v) =&gt; v % 2 == 0);
+    LabAssert.Equal(3, parzyste.Count);
+    LabAssert.Equal(80, parzyste[0]);
+    LabAssert.Equal(62, parzyste[1]);
+    LabAssert.Equal(88, parzyste[2]);
+
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; { LicznikAlarmow.FiltrujOdczyty(null, (v) =&gt; true); });
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; { LicznikAlarmow.FiltrujOdczyty(wejscie, null); });
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Gdy przekazujesz funkcję jako parametr lub publikujesz powiadomienie:</strong> użyj <code>Action&lt;T&gt;</code> dla metod <code>void</code>, <code>Func&lt;T, TResult&gt;</code> dla metod zwracających wynik (na przykład filtrów) oraz <code>EventHandler</code> dla standardowych zdarzeń kontrolek WinForms.</li>
+<li><strong>Gdy oddzielasz logikę silnika od okna:</strong> deklaruj zdarzenia ze słowem kluczowym <code>event</code>, aby zewnętrzny kod mógł wyłącznie dopisywać (<code>+=</code>) i wypisywać (<code>-=</code>) subskrybentów.</li>
+<li><strong>Gdy wywołujesz własne zdarzenie w C# 5.0:</strong> skopiuj jego referencję do zmiennej lokalnej i sprawdź <code>!= null</code>, aby uniknąć wyjątku <code>NullReferenceException</code>.</li>
+<li><strong>Gdy podpinasz się do długo żyjącego nadawcy:</strong> używaj metody nazwanej lub zapisanego pola delegata zamiast anonimowej lambdy i zawsze wypisuj się przez <code>-=</code> przy zamykaniu okna.</li>
+<li><strong>Gdy potrzebujesz cyklicznej aktualizacji interfejsu:</strong> używaj <code>System.Windows.Forms.Timer</code> (bezpieczny wątek UI przez <code>WM_TIMER</code>), nigdy <code>Thread.Sleep</code> ani <code>System.Threading.Timer</code> do bezpośredniej zmiany kontrolek, i zawsze wywołuj <code>Stop()</code> oraz <code>Dispose()</code> w <code>FormClosing</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

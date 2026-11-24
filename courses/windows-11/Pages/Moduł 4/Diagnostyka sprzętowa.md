@@ -11,7 +11,7 @@ By w pełni nazwać się informatykiem, musisz umieć poprawnie skonfigurować i
 - płyty głównej oraz chipsetu,
 - pamięci RAM (w tym fabrycznych profili SPD).
 
-Dzięki niemu sprawdzisz parametry techniczne bez rozkręcania obudowy – program czyta dane prosto z układów na podzespołach.
+Dzięki niemu sprawdzisz parametry techniczne bez rozkręcania obudowy - program czyta dane prosto z układów na podzespołach.
 
 > [!NOTE]
 > **SPD** (*Serial Presence Detect* - seryjny odczyt danych o pamięci RAM) to niewielka pamięć ROM na każdym module RAM. Przechowuje zapisane przez producenta informacje o zalecanych taktowaniach, opóźnieniach i napięciach zasilania.
@@ -26,8 +26,8 @@ Ta zakładka pokazuje dokładny model procesora oraz gniazdo (**Socket**), w kt�
 
 | Stan napięcia                     | Co oznacza?                                                                              | Zachowanie systemu                                                |
 | :-------------------------------- | :--------------------------------------------------------------------------------------- | :---------------------------------------------------------------- |
-| **Niskie (w spoczynku)**          | Poniżej $1.0 \text{ V} – 1.2 \text{ V}$. Procesor oszczędza energię.                     | Komputer działa cicho i wydziela mało ciepła.                     |
-| **Wysokie (pod obciążeniem)**     | $1.2 \text{ V} – 1.45 \text{ V}$. Procesor potrzebuje więcej mocy do szybszych obliczeń. | Temperatury rosną, a wentylatory przyspieszają.                   |
+| **Niskie (w spoczynku)**          | Poniżej $1.0 \text{ V} - 1.2 \text{ V}$. Procesor oszczędza energię.                     | Komputer działa cicho i wydziela mało ciepła.                     |
+| **Wysokie (pod obciążeniem)**     | $1.2 \text{ V} - 1.45 \text{ V}$. Procesor potrzebuje więcej mocy do szybszych obliczeń. | Temperatury rosną, a wentylatory przyspieszają.                   |
 | **Zbyt niskie (Vdroop)**          | Spadek napięcia przy nagłym skoku obciążenia.                                            | Błędy systemu, nagłe restarty lub niebieski ekran (*BS***_OD_**). |
 | **Zbyt wysokie (przevoltowanie)** | Złe ustawienia w BIOS-ie lub zbyt agresywny **_overclocking_**.                          | Ryzyko przegrzania procesora i skrócenia jego żywotności.         |
 
@@ -148,10 +148,10 @@ Schemat poniżej przedstawia fizyczny układ połączeń (magistralę Daisy Chai
 2. **Błędna konfiguracja (2 kości w slotach 1 i 3):**
    - Kości trafiają do gniazd **A1** i **B1** (w środku linii), a gniazda końcowe A2 i B2 pozostają puste.
    - Sygnał dociera do kości w A1/B1, ale biegnie też wolnymi ścieżkami na płycie w kierunku pustych gniazd.
-   - Brak aktywnego odbiornika na końcu pogarsza dopasowanie impedancji – terminator nie pochłania fali w całości. Część sygnału odbija się od pustego końca i wraca jako echo, nakładając się na oryginalny sygnał w slotach A1/B1 oraz na kontrolerze (IMC). Prowadzi to do zakłóceń i niestabilności pamięci przy wyższych częstotliwościach.
+   - Brak aktywnego odbiornika na końcu pogarsza dopasowanie impedancji - terminator nie pochłania fali w całości. Część sygnału odbija się od pustego końca i wraca jako echo, nakładając się na oryginalny sygnał w slotach A1/B1 oraz na kontrolerze (IMC). Prowadzi to do zakłóceń i niestabilności pamięci przy wyższych częstotliwościach.
 
 > [!NOTE]
-> **Impedancja (opór pozorny)** – to odpowiednik oporu elektrycznego, ale dla sygnałów szybkozmiennych.
+> **Impedancja (opór pozorny)** - to odpowiednik oporu elektrycznego, ale dla sygnałów szybkozmiennych.
 > Choć zasilacz dostarcza prąd stały (DC), to sygnały przesyłające dane (np. zegar magistrali RAM) są ciągiem impulsów o częstotliwościach rzędu gigaherców ($\text{GHz}$). Przy takich prędkościach ścieżki na płycie głównej zachowują się jak linie transmisyjne, a prąd przybiera charakterystykę fali wysokiej częstotliwości. Dlatego zamiast zwykłego oporu (rezystancji) musimy brać pod uwagę **impedancję**, która uwzględnia również pojemność i indukcyjność przewodów.
 
 3. **Konfiguracja z 4 kośćmi (wszystkie sloty zajęte):**
@@ -165,22 +165,6 @@ Kości z przykładu mają fabryczny profil XMP na **$3600\text{ MT/s}$** (XMP-36
 W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204 ($3200\text{ MT/s}$)**. To najlepszy kompromis gwarantujący stabilną pracę przy pełnym obsadzeniu płyty.
 
 ### 🛠️ Punkt Kontrolny: Konfiguracja pamięci RAM
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego po zainstalowaniu 4 modułów pamięci RAM DDR4 oznaczonych jako $3600\text{ MT/s}$ płyta główna może automatycznie uruchomić je z niższą prędkością (np. $2400\text{ MT/s}$ lub $3200\text{ MT/s}$)?</question>
-    <options>
-      <item correct>Obsadzenie wszystkich 4 gniazd zwiększa obciążenie pojemnościowe kontrolera pamięci (IMC) oraz wywołuje odbicia sygnału (echo) na magistrali Daisy Chain, co utrudnia stabilną pracę na najwyższym taktowaniu.</item>
-      <item>Standard JEDEC fizycznie zabrania działania pamięci z prędkością wyższą niż $2400\text{ MT/s}$ przy 4 modułach z powodu zbyt wysokiego poboru energii.</item>
-      <item>Procesory 12. generacji obsługują wyłącznie konfiguracje dwukanałowe (Dual Channel) i wyłączają drugą parę kości w celu zapobieżenia awarii systemu.</item>
-    </options>
-    <div data-hint="error">
-      Zastanów się nad fizyką sygnałów szybkozmiennych. Czy kontroler pamięci w procesorze (IMC) ma łatwiejszą pracę, gdy musi obsłużyć dwa moduły na końcu linii transmisyjnej, czy cztery?
-    </div>
-    <div data-hint="success">
-      Świetnie! Dwa moduły w slotach A2 i B2 to optymalne obciążenie i czysty sygnał. Cztery kości to duże wyzwanie dla IMC i ryzyko niestabilności przy agresywnych profilach XMP.
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -210,7 +194,7 @@ W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204
 
 - **Resizable BAR (ReBAR):** Daje procesorowi bezpośredni dostęp do całej pamięci VRAM karty graficznej.
   * **Jak to działa:** Bez ReBAR procesor komunikuje się z pamięcią karty przez małe bloki o wielkości $256\text{ MB}$ (Base Address Register). Resizable BAR znosi ten limit. Tekstury i geometria przesyłane są szybciej, co w grach daje dodatkowe $5 - 15\%$ wydajności i zmniejsza przycięcia (stuttering).
-  * **Stan na zrzucie:** Pole **Resizable BAR** pokazuje **Disabled** (Wyłączone). Aby je włączyć, musisz w BIOS-ie płyty aktywować _**Above 4G Decoding**_ oraz _**ReBAR Support**_ (u AMD ta funkcja nazywa się *SAM* – *Smart Access Memory*).
+  * **Stan na zrzucie:** Pole **Resizable BAR** pokazuje **Disabled** (Wyłączone). Aby je włączyć, musisz w BIOS-ie płyty aktywować _**Above 4G Decoding**_ oraz _**ReBAR Support**_ (u AMD ta funkcja nazywa się *SAM* - *Smart Access Memory*).
   
 > [!WARNING]
 > **Czyste UEFI i pułapka z trybem CSM (MBR vs GPT):**
@@ -239,7 +223,7 @@ W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204
   
 > [!NOTE]
 > **Przepustowość pamięci (Bandwidth):**
-> Szerokość szyny to jak liczba pasów na drodze, a taktowanie pamięci – jak prędkość aut. Karta z wąską szyną (np. **$128\text{-bit}$**) bywa wąskim gardłem w rozdzielczościach **$1440p/4K$**. Nawet duża pojemność (np. **$16\text{ GB}$** VRAM) nie pomoże, jeśli szyna nie nadąży z przesyłaniem danych.
+> Szerokość szyny to jak liczba pasów na drodze, a taktowanie pamięci - jak prędkość aut. Karta z wąską szyną (np. **$128\text{-bit}$**) bywa wąskim gardłem w rozdzielczościach **$1440p/4K$**. Nawet duża pojemność (np. **$16\text{ GB}$** VRAM) nie pomoże, jeśli szyna nie nadąży z przesyłaniem danych.
 
 ---
 
@@ -253,11 +237,11 @@ W BIOS-ie włączono więc bezpieczniejszy i w pełni stabilny profil **XMP-3204
   
   | Różnica (GPU vs Hot Spot)                                                                                                                       | Co oznacza?                                                                                                                                                     |
   | :---------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | **Do $15^\circ\text{C}$ – $20^\circ\text{C}$**<br><span style="font-size: 0.8em; text-wrap: nowrap">*(na zrzucie: $10.1^\circ\text{C}$)*</span> | Chłodzenie dolega prawidłowo, pasta działa bez zarzutu.                                                                                                         |
+  | **Do $15^\circ\text{C}$ - $20^\circ\text{C}$**<br><span style="font-size: 0.8em; text-wrap: nowrap">*(na zrzucie: $10.1^\circ\text{C}$)*</span> | Chłodzenie dolega prawidłowo, pasta działa bez zarzutu.                                                                                                         |
   | <span style="text-wrap: nowrap">**Powyżej $25^\circ\text{C}$ - $30^\circ\text{C}$**</span>                                                      | Słaby odbiór ciepła. Pasta mogła wyschnąć, ulec wypompowaniu (*pump-out effect*) albo docisk radiatora jest nierównomierny. Czas na wymianę pasty i termopadów. |
 
 - **Fan Speed (prędkość wentylatorów):** Prędkość obrotowa wentylatorów (w $\%$ i RPM).
-  * Zrzut podaje **$0\%$ (0 RPM)** dla obu wentylatorów. Dzisiejsze karty chłodzone są **półpasywnie** – wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55-60^\circ\text{C}$ na rdzeniu.
+  * Zrzut podaje **$0\%$ (0 RPM)** dla obu wentylatorów. Dzisiejsze karty chłodzone są **półpasywnie** - wentylatory stoją w miejscu podczas lekkiej pracy na pulpicie i ruszają dopiero po przekroczeniu np. $55-60^\circ\text{C}$ na rdzeniu.
 
 - **Board Power Draw (pobór prądu karty):** Całkowity pobór mocy przez całą konstrukcję w watach ($\text{W}$).
   * Zrzut pokazuje **$19.5\text{ W}$** w spoczynku, z czego sam rdzeń (**GPU Chip Power Draw**) bierze tylko **$5.6\text{ W}$**. Reszta idzie na VRAM, wentylatory, podświetlenie i sekcję zasilania. Ta wartość pozwala ocenić zapas mocy zasilacza.
@@ -289,31 +273,15 @@ Przewijając sekcję *General*, sprawdzisz parametry podłączonych ekranów:
 ![GPU-Z Advanced - Monitor 1](/public/courses/windows-11/Images/GPU-Z_Advanced_2.png)
 
 - **Połączenie i linie sygnałowe:** Ekran podłączony jest przez **DisplayPort**. Karta wynegocjowała 2 linie sygnałowe z 4 możliwych (`Lanes (current) 2` / `Lanes (max) 4`).
-- **Link Rate i parametry obrazu:** Prędkość łącza to **$2.7 Gbps$**, a głębia kolorów wynosi **$8\text{-bit}$ RGB**. Te dane pomagają wykryć, dlaczego monitor $4\text{K}$ odświeża się np. w $30\text{ Hz}$ zamiast $60\text{ Hz}$ – winny jest zazwyczaj kiepski kabel, który nie pozwala na pracę na maksymalnej liczbie linii.
+- **Link Rate i parametry obrazu:** Prędkość łącza to **$2.7 Gbps$**, a głębia kolorów wynosi **$8\text{-bit}$ RGB**. Te dane pomagają wykryć, dlaczego monitor $4\text{K}$ odświeża się np. w $30\text{ Hz}$ zamiast $60\text{ Hz}$ - winny jest zazwyczaj kiepski kabel, który nie pozwala na pracę na maksymalnej liczbie linii.
 
 ##### Monitor 2 (HDMI)
 ![GPU-Z Advanced - Monitor 2](/public/courses/windows-11/Images/GPU-Z_Advanced_3.png)
 
 - **Złącze HDMI:** Drugi ekran podpięty jest kablem **HDMI**.
-- **Obsługa głębi barw i HDR:** Karta i porty obsługują obraz **$8\text{-bit}$**, **$10\text{-bit}$** oraz **$12\text{-bit}$** w przestrzeniach barwnych **RGB444**, **YCbCr444** i **YCbCr422**. Sam parametr **HDR** ma jednak status **N/A** (Not Available) – oznacza to, że ten monitor nie obsługuje wyświetlania o szerokiej rozpiętości tonalnej lub funkcja ta jest wyłączona w ustawieniach systemu Windows.
+- **Obsługa głębi barw i HDR:** Karta i porty obsługują obraz **$8\text{-bit}$**, **$10\text{-bit}$** oraz **$12\text{-bit}$** w przestrzeniach barwnych **RGB444**, **YCbCr444** i **YCbCr422**. Sam parametr **HDR** ma jednak status **N/A** (Not Available) - oznacza to, że ten monitor nie obsługuje wyświetlania o szerokiej rozpiętości tonalnej lub funkcja ta jest wyłączona w ustawieniach systemu Windows.
 
 ### 🛠️ Punkt Kontrolny: Włączanie Resizable BAR
-<data-gate>
-  <data-quiz>
-    <question>Użytkownik włączył w BIOS-ie funkcję Resizable BAR, jednak program GPU-Z nadal pokazuje status `Disabled`. Komputer ma tylko jeden dysk NVMe. Co może być przyczyną?</question>
-    <options>
-      <item correct>System Windows został zainstalowany w starym trybie rozruchu CSM (Legacy) z partycjonowaniem dysku MBR, a ReBAR wymaga czystego UEFI i tablicy partycji GPT.</item>
-      <item>Karta graficzna została zamontowana w pierwszym gnieździe PCIe płyty głównej (najbliżej CPU), co zablokowało bezpośredni dostęp procesora do pamięci VRAM.</item>
-      <item>System operacyjny to 64-bitowy Windows 11, który ze względów bezpieczeństwa domyślnie blokuje funkcję ReBAR dla dysków NVMe.</item>
-    </options>
-    <div data-hint="error">
-      Przypomnij sobie, w jakim środowisku rozruchowym (BIOS/CSM czy czyste UEFI) działa funkcja Resizable BAR oraz jak styl partycjonowania dysku (MBR vs GPT) wpływa na możliwość uruchomienia systemu po wyłączeniu CSM.
-    </div>
-    <div data-hint="success">
-      Zgadza się! Wyłączenie CSM w BIOS-ie jest niezbędne do działania ReBAR, ale bez wcześniejszej konwersji dysku z MBR na GPT system po prostu się nie uruchomi.
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -332,7 +300,7 @@ Do sprawdzania i testowania dysków SSD lub HDD służą dwa bezpłatne programy
 
 Na stronie pobierania ([crystalmark.info](https://crystalmark.info/en/download/#CrystalDiskInfo)) znajdziesz kilka wariantów programu:
 * **Edycje wizualne (skórki):** Pod maską wszystkie wersje są identyczne. **Standard Edition** to klasyczny wygląd Windowsa. Edycje tematyczne (np. **Shizuku Edition**, **Kurei Kei Edition** czy wersja partnerska z **MSI**) mają tła w stylu anime i niestandardowe ikony. Niektóre z nich odtwarzają komunikaty głosowe przy ostrzeżeniach o stanie dysku. 😁
-* **Wersja przenośna (Portable ZIP):** Zamiast instalatora wybierz paczkę **ZIP (Portable)**. Takie programy działają bez instalacji w systemie – rozpakowujesz archiwum i od razu uruchamiasz. Oszczędzasz w ten sposób rejestr Windowsa przed zbędnymi wpisami.
+* **Wersja przenośna (Portable ZIP):** Zamiast instalatora wybierz paczkę **ZIP (Portable)**. Takie programy działają bez instalacji w systemie - rozpakowujesz archiwum i od razu uruchamiasz. Oszczędzasz w ten sposób rejestr Windowsa przed zbędnymi wpisami.
 
 ---
 
@@ -368,7 +336,7 @@ Program wyciąga parametry _**S.M.A.R.T.**_ (*Self-Monitoring, Analysis and Repo
   * *Lexar (Dysk C):* Działa w trybie **PCIe 4.0 x4**. Został zamontowany w pierwszym, górnym slocie M.2 podłączonym bezpośrednio do linii procesora (CPU), co pozwala na pełne wykorzystanie przepustowości Gen4.
   * *Goodram (Dysk D):* Działa w trybie **PCIe 3.0 x4**. Umieszczono go w dolnym slocie M.2 obsługiwanym przez chipset płyty głównej. Złącze to idealnie pasuje do możliwości tej generacji dysku.
 * **Temperatura i fizyczny radiator:**
-  * *Lexar (Dysk `C:`):* Wskazuje **$56^{\circ}\text{C}$** w spoczynku. Dyski PCIe Gen4 z protokołem NVMe 2.0 pobierają więcej prądu i mocno się grzeją. Na płycie głównej z naszego przykładu (*Gigabyte B660 Gaming X*) producent dodał fabryczny radiator (*M.2 Thermal Guard*) na najwyższym slocie M.2 pod procesorem. To tam siedzi dysk *`C:`*. Radiator trzyma temperatury w ryzach – bez niego dysk z Windowsem w tle szybko dobijałby do $65 - 70^{\circ}\text{C}$ już w spoczynku.
+  * *Lexar (Dysk `C:`):* Wskazuje **$56^{\circ}\text{C}$** w spoczynku. Dyski PCIe Gen4 z protokołem NVMe 2.0 pobierają więcej prądu i mocno się grzeją. Na płycie głównej z naszego przykładu (*Gigabyte B660 Gaming X*) producent dodał fabryczny radiator (*M.2 Thermal Guard*) na najwyższym slocie M.2 pod procesorem. To tam siedzi dysk *`C:`*. Radiator trzyma temperatury w ryzach - bez niego dysk z Windowsem w tle szybko dobijałby do $65 - 70^{\circ}\text{C}$ już w spoczynku.
   * *Goodram (Dysk `D:`):* Trzyma chłodne **$30^{\circ}\text{C}$**. Starsze konstrukcje Gen3 nie generują tyle ciepła. Zazwyczaj lądują w dolnych slotach płyty głównej, które bywają zasłonięte przez kartę graficzną i często nie mają fabrycznych radiatorów. Przy tak niskiej emisji ciepła brak dodatkowego chłodzenia w niczym nie przeszkadza. 😎
 
 > [!NOTE]
@@ -412,50 +380,38 @@ Przed kliknięciem któregokolwiek przycisku, przygotuj się:
 * **RND4K [Q1T1] (Odczyt/Zapis losowy):** Najważniejszy parametr dla płynności działania Windowsa. Sprawdza prędkość pracy na małych plikach o rozmiarze $4\text{ KB}$. System operacyjny przez większość czasu mieli właśnie takie dane (pliki rejestru, logi, małe biblioteki DLL).
   * *Lexar (Dysk C):* Osiąga **$85.75 \text{ MB/s}$** przy odczycie i **$298.81 \text{ MB/s}$** przy zapisie. Szybki losowy odczyt bezpośrednio przekłada się na natychmiastowe reakcje Windowsa.
   * *Goodram (Dysk D):* Ma odpowiednio **$44.90 \text{ MB/s}$** oraz **$136.93 \text{ MB/s}$**. Jak na dysk Gen3 to dobre liczby, jednak starszy kontroler i wolniejsze pamięci flash nie dają mu szans w starciu z nowym Lexarem.
-  * _**Co z tego wynika w praktyce?**_ Mimo że Lexar ma dwukrotnie wyższe prędkości, Windows nie włączy się dwa razy szybciej – czas reakcji samego kontrolera pozostaje zbliżony. Jednak wyższa wartość losowego odczytu małych plików ($85.75\text{ MB/s}$ vs $44.90\text{ MB/s}$) sprawia, że system na Lexarze NM790 zareaguje na kliknięcia zauważalnie szybciej, a instalowanie aplikacji w tle nie powoduje mikroprzycięć interfejsu.
-
-### 🛠️ Punkt Kontrolny: Weryfikacja prędkości dysku SSD
-<data-gate>
-  <data-quiz>
-    <question>Użytkownik przeprowadził test dysku SSD w CrystalDiskMark i uzyskał prędkość sekwencyjną SEQ1M na poziomie ok. $3450\text{ MB/s}$ przy odczycie. Dysk to Lexar NM790 (nominalnie osiągający do $7400\text{ MB/s}$). Jaka jest najbardziej prawdopodobna przyczyna?</question>
-    <options>
-      <item correct>Dysk został zainstalowany w slocie M.2 obsługującym jedynie starszy standard PCIe 3.0 lub współdzieli linie PCIe z innym gniazdem, co ograniczyło transfer do limitu poprzedniej generacji.</item>
-      <item>Dysk przekroczył krytyczną temperaturę pracy pod obciążeniem i wbudowany radiator celowo obniżył wydajność o połowę w celu schłodzenia kontrolera.</item>
-      <item>Przed testem zapomniano zaznaczyć w menu głównym opcji automatycznego przyspieszenia interfejsu (Auto Boost).</item>
-    </options>
-    <div data-hint="error">
-      Zwróć uwagę na wartość prędkości – $3450\text{ MB/s}$ to niemal dokładnie fizyczny limit jednej z generacji PCIe x4. Której? Gdzie na płycie głównej mógł zostać wpięty ten dysk?
-    </div>
-    <div data-hint="success">
-      Znakomicie! Wynik na poziomie $3450\text{ MB/s}$ to kres możliwości PCIe Gen3 x4. Prawdopodobnie dysk trafił do gniazda obsługiwanego przez chipset w starszym standardzie.
-    </div>
-  </data-quiz>
-</data-gate>
+  * _**Co z tego wynika w praktyce?**_ Mimo że Lexar ma dwukrotnie wyższe prędkości, Windows nie włączy się dwa razy szybciej - czas reakcji samego kontrolera pozostaje zbliżony. Jednak wyższa wartość losowego odczytu małych plików ($85.75\text{ MB/s}$ vs $44.90\text{ MB/s}$) sprawia, że system na Lexarze NM790 zareaguje na kliknięcia zauważalnie szybciej, a instalowanie aplikacji w tle nie powoduje mikroprzycięć interfejsu.
 
 ---
 
-### 🎉 Podsumowanie całego kursu: Twoja droga do statusu Power Usera
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Architektura buforów pierścieniowych ETW (Event Tracing for Windows)</span><span class="deep-dive-badge">Kernel Telemetry & ETW</span></summary>
 
-Gratulacje! Przebrnąłeś przez cały kurs Windows 11. Z poziomu zwykłego użytkownika awansowałeś na poziom świadomego administratora, który potrafi samodzielnie konfigurować, zabezpieczać i diagnozować środowisko systemowe oraz sprzętowe. Spójrzmy na kluczowe filary, które wspólnie zbudowaliśmy:
+Jak narzędzia diagnostyczne takie jak *Monitor wydajności* (`perfmon`), *Monitor zasobów* (`resmon`) czy profesjonalny zestaw *Windows Performance Recorder* (WPR) potrafią rejestrować miliony zdarzeń systemowych na sekundę (każdy odczyt z dysku, przełączenie wątku CPU czy alokację pamięci) bez zauważalnego spowalniania komputera? Odpowiada za to podsystem **ETW** (*Event Tracing for Windows*).
 
-#### 💿 Moduł 0: Instalacja i pierwsze uruchomienie
-Opanowałeś instalację systemu od podstaw, omijanie restrykcji sprzętowych i sieciowych oraz podstawy wirtualizacji. Nauczyłeś się poruszać po interfejsie za pomocą skrótów klawiszowych i korzystać z wbudowanych narzędzi wiersza poleceń.
+### 1. Trójpoziomowa architektura ETW
+Architektura ETW wbudowana jest bezpośrednio w najgłębsze warstwy jądra Windows NT:
+1. **Controllers**: Aplikacje konfigurujące sesje śledzenia (np. `logman.exe`, WPR). Definiują filtry, maski słów kluczowych (*Keywords*) oraz rozmiary buforów.
+2. **Providers**: Źródła zdarzeń. Mogą to być sterowniki jądra (np. `Microsoft-Windows-Kernel-Process`, `Kernel-Disk`), usługi systemowe lub własne aplikacje C++.
+3. **Consumers**: Aplikacje analizujące strumień zdarzeń w czasie rzeczywistym lub z plików `.etl` (np. *Windows Performance Analyzer - WPA*).
 
-#### ⚙️ Moduł 1: Codzienna obsługa i administracja systemem
-Poznałeś mechanizmy zarządzania oprogramowaniem, sprzątania pozostałości po aplikacjach oraz kontrolowania usług systemowych. Wdrożyłeś również skuteczne strategie wykonywania kopii zapasowych w celu ochrony przed utratą danych.
+### 2. Bezzamkowe bufory pierścieniowe (Lock-Free Circular Buffers)
+Kluczem do astronomicznej wydajności ETW jest eliminacja tradycyjnych blokad synchronizacyjnych (*Locks / Mutexes*):
+- Jądro przydziela w pamięci niestronicowanej (*Non-Paged Pool*) **pule buforów pierścieniowych** przyporządkowane niezależnie do każdego fizycznego rdzenia procesora.
+- Zapis zdarzenia przez wątek jądra wykorzystuje atomową instrukcję procesora **`lock cmpxchg`** lub **`lock xadd`** do natychmiastowej rezerwacji offsetu w buforze.
+- Żaden wątek nie czeka na inny wątek. Wątek jądra zapisuje zdarzenie w ułamku nanosekundy i natychmiast wraca do wykonywania kodu użytkownika.
+- Dedykowany wątek tła jądra asynchronicznie zrzuca zapełnione bufory na dysk NVMe lub przekazuje je do konsumentów analizujących telemetrię w czasie rzeczywistym.
 
-#### 🔌 Moduł 2: Sprzęt, sieć i bezpieczeństwo
-Zgłębiłeś tematykę zarządzania sterownikami, konfiguracji sieci lokalnej i szyfrowania zapytań DNS. Poznałeś fizykę dysków i partycji, a także wdrożyłeś szyfrowanie danych za pomocą mechanizmów **BitLocker** oraz **EFS**.
-
-#### 🔒 Moduł 3: Zarządzanie środowiskiem użytkownika
-Przejąłeś kontrolę nad uprawnieniami kont lokalnych i poziomami ochrony **UAC**. Skonfigurowałeś reguły systemowej zapory sieciowej oraz udziały sieciowe, łącząc uprawnienia sieciowe z prawami dostępu do systemu plików NTFS (w tym dziedziczenie i efektywny dostęp).
-
-#### 🔍 Moduł 4: Zaawansowana administracja i diagnostyka
-Nauczyłeś się badać logi w Podglądzie Zdarzeń, analizować zrzuty pamięci po awariach w debuggerze **WinDbg** oraz zarządzać lokalnymi polisami zabezpieczeń. Dowiedziałeś się również, jak samodzielnie diagnozować parametry pracy i wydajność podzespołów sprzętowych (CPU, GPU, RAM, SSD).
+</details>
 
 ---
 
-### 🚀 Co dalej?
-Zdobyte umiejętności dają Ci pełną niezależność. Zamiast zgadywać przyczyny problemów z systemem lub komputerem, potrafisz teraz logicznie analizować fakty – odczytywać błędy z logów, monitorować parametry pracy podzespołów i wdrażać bezpieczne rozwiązania. Windows 11 nie ma już przed Tobą tajemnic!
+### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
+
+- **Diagnostyka pamięci:** Narzędzie `mdsched.exe` uruchamia testy pamięci RAM w dedykowanym środowisku przed załadowaniem jądra Windows, wykrywając uszkodzone komórki pamięci.
+- **Odczyt atrybutów S.M.A.R.T.:** Monitorowanie stanu dysku w CrystalDiskInfo pozwala na wczesne wykrycie realokowanych sektorów i zużycia pamięci flash przed katastrofalną utratą danych.
+- **Testy losowego odczytu RND4K:** W benchmarkach nośników SSD (np. CrystalDiskMark) kluczowym parametrem wpływającym na responsywność systemu jest operacja na małych plikach 4 KB, a nie transfer sekwencyjny.
+- **Telemetria ETW:** Zaawansowana diagnostyka jądra opiera się na bezzamkowych buforach pierścieniowych ETW, umożliwiając bezstratne śledzenie wątków i przerwań sprzętowych.
+- **Kompletny model inżynierski:** Połączenie wiedzy o sprzęcie, architekturze sterowników i mechanizmach jądra pozwala na trafną identyfikację wąskich gardeł wydajnościowych.
 
 

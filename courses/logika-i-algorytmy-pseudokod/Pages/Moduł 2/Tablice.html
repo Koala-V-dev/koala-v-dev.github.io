@@ -168,12 +168,8 @@ T = [10, 20, 30]
 Suma = 0
 
 <p>rozmiar = DŁUGOŚĆ(Ceny)</p>
-<p>DLA i OD 0 DO rozmiar - 1</p>
-<pre><code>Suma = Suma + Ceny[i]
-</code></pre>
-<p>KONIEC DLA</p>
-<p>WYPISZ "Łączny koszt wynosi:"</p>
-<p>WYPISZ Suma<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
+<p>DLA i OD 0 DO rozmiar - 1<br>    Suma = Suma + Ceny[i]<br>KONIEC DLA</p>
+<p>WYPISZ "Łączny koszt wynosi:"<br>WYPISZ Suma<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <h3>🔁 Pętla do Zadań Specjalnych: Foreach</h3>
 <p>Klasyczna pętla <code>FOR</code> wymaga ręcznego kontrolowania indeksu za pomocą zmiennej sterującej. Często jednak nie interesuje nas sam numer indeksu, a jedynie wykonanie operacji na każdym elemencie po kolei.</p>
 <p>W tym celu w językach programowania wprowadzono uproszczoną instrukcję <span class="color-green">Foreach</span>. Przechodzi ona automatycznie przez całą strukturę. Chroni to programistę przed popełnieniem błędu wyjścia poza zakres tablicy.</p>
@@ -246,6 +242,28 @@ ceny.forEach((cena, indeks) =&gt; {
 <li><span class="color-green">Iteracja i rozkaz:</span> Za pomocą pętli przechodzimy kolejno po każdym strażniku z patrolu, wydając mu polecenie namierzenia oraz zaatakowania gracza: <code>Przeciwnicy[i].ZlokalizujGracza()</code> oraz <code>Przeciwnicy[i].Zaatakuj()</code>.</li>
 </ul>
 <p>Dzięki tablicy obiektów nie musisz pisać osobnego kodu dla każdego z pięciu strażników. Cały patrol reaguje wspólnie i automatycznie.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎮 Praktyka w Gamedevie: Spłaszczanie siatki 2D do tablicy 1D</h2>
+<p>Karty graficzne oraz bufory pamięci RAM nie posiadają fizycznie dwóch wymiarów – cała pamięć komputera jest pojedynczym, jednowymiarowym pasmem komórek. Kiedy tworzysz planszę do gry o wymiarach <code>szerokosc = 4</code> i <code>wysokosc = 3</code> (siatka $4 \times 3 = 12$ pól), w pamięci RAM układana jest ona jako jedna długa tablica 1D:</p>
+<pre><code>Rząd 0: [ (0,0), (1,0), (2,0), (3,0) ]
+Rząd 1: [ (0,1), (1,1), (2,1), (3,1) ]
+Rząd 2: [ (0,2), (1,2), (2,2), (3,2) ]
+</code></pre>
+<p>Aby wyliczyć indeks w jednowymiarowej tablicy <code>Bufor</code> dla współrzędnych <code>(x, y)</code>, stosujemy fundamentalny wzór matematyczny:</p>
+<p>$$\text{indeks} = y \cdot \text{szerokosc} + x$$</p>
+<p>Na przykład dla punktu $(x=2, y=1)$ na planszy o szerokości $4$:<br>$$\text{indeks} = 1 \cdot 4 + 2 = 6$$</p>
+<p>Ten wzór to serce każdego bufora klatki (<span class="color-blue">Frame Buffer</span>), generatora map kafelkowych (<span class="color-blue">Tilemap</span>) oraz teksturowania 3D.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Zadanie: Wyszukiwanie wartości maksymalnej</h2>
+<p>Dla tablicy <code>Pomiary</code> wyznacz w pętli największą wartość, zapisz ją w zmiennej <code>maks</code> i wypisz na wyjście.<br>Uzupełnij wnętrze pętli instrukcją warunkową <code>JEŻELI</code>, która sprawdza, czy bieżący element <code>Pomiary[i]</code> jest większy od dotychczasowego <code>maks</code>.</p>
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="maks:42" expected-output="42">
+<pre>Pomiary = [14, 28, 42, 9, 31]
+maks = Pomiary[0]
+rozmiar = DŁUGOŚĆ(Pomiary)
+
+<p>DLA i OD 1 DO rozmiar - 1<br>    JEŻELI Pomiary[i] &gt; maks TO<br>        maks = Pomiary[i]<br>    KONIEC JEŻELI<br>KONIEC DLA</p>
+<p>WYPISZ maks<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>

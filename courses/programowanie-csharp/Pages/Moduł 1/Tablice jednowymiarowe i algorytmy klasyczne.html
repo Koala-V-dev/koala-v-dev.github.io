@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablice jednowymiarowe i algorytmy klasyczne - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Tablice jednowymiarowe i algorytmy klasyczne</h1>
+<p>Gdy przechowujesz wyniki 100 graczy, pomiary pingu z ostatniej minuty albo bufor pikseli ekranu, nie tworzysz zmiennych <code>ping1</code>, <code>ping2</code>, ..., <code>ping100</code>. Nad setką osobnych nazw nie uruchomisz pętli <code>for</code> i nie przekażesz ich do jednej metody liczącej średnią.</p>
+<p>Rozwiązaniem jest <span class="color-green">tablica jednowymiarowa <code>T[]</code></span>: najprostszy i najszybszy kontener danych w pamięci RAM. Przechowuje wiele wartości tego samego typu pod jedną nazwą, a dostęp do dowolnego elementu zajmuje procesorowi dokładnie jedno obliczenie adresu.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧱 Ciągły układ RAM, indeksowanie i tworzenie tablic</h2>
+<p>Tablica <code>int[]</code> rezerwuje w pamięci RAM <span class="color-green">jeden nieprzerwany blok bajtów</span>. Ponieważ pojedyncza liczba <code>int</code> zajmuje dokładnie 4 bajty, adres dowolnego elementu pod indeksem <span class="color-blue">i</span> procesor wylicza jednym mnożeniem i dodawaniem:</p>
+<p>$$\text{adres}(i) = \text{adres\_poczatku} + i \cdot 4\text{ bajty}$$</p>
+<p>Właśnie dlatego indeksowanie zaczyna się od <span class="color-green"><code>0</code></span>: pierwszy element leży z przesunięciem <code>0</code> bajtów od początku tablicy. Niezależnie od tego, czy tablica ma 10 czy 10 000 000 elementów, odczyt <code>tab[i]</code> nie wymaga przeglądania wcześniejszych komórek.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Indeks <span class="color-blue">i</span></th>
+<th align="center">Przesunięcie od początku</th>
+<th align="center">Przykładowy adres RAM (hex)</th>
+<th align="center">Wartość w <code>wyniki[i]</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>0</code></td>
+<td align="center"><code>+0 B</code></td>
+<td align="center"><code>0x1000</code></td>
+<td align="center"><code>10</code></td>
+</tr>
+<tr>
+<td align="center"><code>1</code></td>
+<td align="center"><code>+4 B</code></td>
+<td align="center"><code>0x1004</code></td>
+<td align="center"><code>24</code></td>
+</tr>
+<tr>
+<td align="center"><code>2</code></td>
+<td align="center"><code>+8 B</code></td>
+<td align="center"><code>0x1008</code></td>
+<td align="center"><code>37</code></td>
+</tr>
+<tr>
+<td align="center"><code>3</code></td>
+<td align="center"><code>+12 B</code></td>
+<td align="center"><code>0x100C</code></td>
+<td align="center"><code>52</code></td>
+</tr>
+<tr>
+<td align="center"><code>4</code></td>
+<td align="center"><code>+16 B</code></td>
+<td align="center"><code>0x1010</code></td>
+<td align="center"><code>68</code></td>
+</tr>
+<tr>
+<td align="center"><code>5</code></td>
+<td align="center"><code>+20 B</code></td>
+<td align="center"><code>0x1014</code></td>
+<td align="center"><code>91</code></td>
+</tr>
+</tbody></table>
+<p>Ostatni poprawny indeks 6‑elementowej tablicy to zawsze <span class="color-green"><code>tab.Length - 1</code></span> (tutaj <code>5</code>). Próba odczytu lub zapisu <code>tab[6]</code> albo <code>tab[-1]</code> natychmiast przerywa program wyjątkiem <span class="color-red">IndexOutOfRangeException</span>.</p>
+<h3>📦 Deklaracja, wartości domyślne i tablica pusta kontra null</h3>
+<p>Tablicę utworzysz na dwa sposoby: podając listę wartości startowych albo rezerwując pusty blok operatorem <span class="color-green"><code>new</code></span> o zadanym rozmiarze <span class="color-blue">n</span>:</p>
+<pre><code class="language-csharp">int[] wyniki = { 10, 24, 37, 52, 68, 91 }; // Rozmiar 6 wyliczony automatycznie
+int[] pomiary = new int[5];                // 5 komorek: wszystkie rowne 0
+bool[] flagi = new bool[3];                // 3 komorki: wszystkie rowne false
+string[] nazwy = new string[4];            // 4 komorki: wszystkie rowne null
+</code></pre>
+<p>Po utworzeniu tablicy CLR automatycznie zeruje jej pamięć, wpisując <span class="color-green">wartości domyślne</span>: <code>0</code> dla typów liczbowych (<code>int</code>, <code>double</code>), <code>false</code> dla <code>bool</code>, <code>'\0'</code> dla <code>char</code> oraz <code>null</code> dla typów referencyjnych (<code>string</code>).</p>
+<p>Tablica ma <span class="color-green">stały rozmiar</span>. Gdy raz utworzysz <code>new int[5]</code>, jej właściwość <code>Length</code> pozostanie równa <code>5</code> aż do końca istnienia obiektu (powiększenie wymaga utworzenia nowej, większej tablicy i skopiowania elementów).</p>
+<p>Nie myl tablicy pustej z brakiem tablicy (<code>null</code>):</p>
+<ul>
+<li><span class="color-green"><code>int[] pusta = new int[0];</code></span>: istniejący obiekt tablicy bez elementów. Odczyt <code>pusta.Length</code> bezpiecznie zwraca <code>0</code>, a pętla po tej tablicy wykona się <code>0</code> razy.</li>
+<li><span class="color-green"><code>int[] brak = null;</code></span>: zmienna nie wskazuje na żaden obiekt w pamięci. Każda próba odczytu <code>brak.Length</code> kończy się wyjątkiem <span class="color-red">NullReferenceException</span>.</li>
+</ul>
+<h3>🔁 Iteracja, szukanie ekstremum i aliasing referencji</h3>
+<p>Do przechodzenia po tablicy używasz klasycznej pętli <code>for</code> lub pętli <code>foreach</code>:</p>
+<pre><code class="language-csharp">int[] temperatury = { -12, -4, -19, -7 };
+
+// Petla for: masz dostep do indeksu i mozesz modyfikowac tab[i]
+for (int i = 0; i &lt; temperatury.Length; i++)
+{
+    temperatury[i] += 1;
+}
+
+// Petla foreach: czytelny odczyt wszystkich elementow bez ryzyka bledu indeksu
+foreach (int t in temperatury)
+{
+    Console.WriteLine(t);
+}
+</code></pre>
+<p>Pętla <code>foreach</code> służy wyłącznie do odczytu: zmiennej <span class="color-blue">t</span> nie wolno nadpisywać wewnątrz pętli. Gdy chcesz wypisać całą tablicę w jednej linii tekstu, przydaje się metoda <code>string.Join(", ", dane)</code>, która łączy wszystkie elementy tablicy w jeden napis rozdzielony podanym separatorem.</p>
+<p>Częstym zadaniem na tablicach jest znalezienie najmniejszej (<code>min</code>) lub największej (<code>max</code>) wartości. Zawsze inicjalizuj zmienną <span class="color-blue">max</span> pierwszym elementem tablicy <code>tab[0]</code>, a nigdy zerem <code>0</code>:</p>
+<pre><code class="language-csharp">int max = temperatury[0]; // Poprawnie: startujemy od realnego elementu (-11)
+for (int i = 1; i &lt; temperatury.Length; i++)
+{
+    if (temperatury[i] &gt; max) max = temperatury[i];
+}
+</code></pre>
+<p>Gdybyś wpisał <code>int max = 0;</code>, dla tablicy samych temperatur ujemnych (<code>{ -11, -3, -18, -6 }</code>) kod zwróciłby fałszywe <code>0</code>, którego w ogóle nie ma w danych. Przed odczytem <code>tab[0]</code> zawsze upewnij się, że <code>tab.Length &gt; 0</code>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Pułapka aliasingu referencji:</span> tablica w C# jest <span class="color-green">typem referencyjnym</span>. Zapis <code>int[] kopia = oryginal;</code> <span class="color-red">nie kopiuje</span> liczb w pamięci RAM. Tworzy wyłącznie drugą nazwę (alias) wskazującą na tę samą tablicę. Zmiana <code>kopia[0] = 99;</code> natychmiast zmienia <code>oryginal[0]</code>. Dokładnie tak samo działa przekazanie <code>int[] tab</code> do metody: zmiany w <code>tab[i]</code> wewnątrz metody są od razu widoczne w <code>Main()</code>.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚡ Trzy klasyczne algorytmy na tablicach</h2>
+<h3>🔍 1. Wyszukiwanie binarne</h3>
+<p>Jeśli dane w tablicy są <span class="color-green">posortowane rosnąco</span>, przeglądanie ich element po elemencie od indeksu <code>0</code> jest stratą czasu. <span class="color-green">Wyszukiwanie binarne</span> (Binary Search) utrzymuje aktywny przedział <code>[lewy..prawy]</code> i w każdym kroku sprawdza dokładnie jego środek:</p>
+<ol>
+<li>Wyznacz <code>srodek = lewy + (prawy - lewy) / 2</code>.</li>
+<li>Jeśli <code>tab[srodek] == szukana</code>: zwracasz indeks <span class="color-blue">srodek</span>.</li>
+<li>Jeśli <code>tab[srodek] &lt; szukana</code>: szukana liczba może być tylko po prawej, więc ustawiasz <code>lewy = srodek + 1</code>.</li>
+<li>Jeśli <code>tab[srodek] &gt; szukana</code>: szukana liczba może być tylko po lewej, więc ustawiasz <code>prawy = srodek - 1</code>.</li>
+<li>Pętla działa dopóki <code>lewy &lt;= prawy</code>. Gdy granice się miną, elementu nie ma w tablicy i zwracasz <code>-1</code>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Dlaczego <code>lewy + (prawy - lewy) / 2</code>, a nie <code>(lewy + prawy) / 2</code>?</span><br>Przy bardzo dużej tablicy (ponad 1,1 miliarda elementów) indeksy <span class="color-blue">lewy</span> i <span class="color-blue">prawy</span> mogą przekroczyć miliard. Ich suma <code>lewy + prawy</code> przekroczy wtedy limit 32‑bitowego <code>int</code> (<code>2 147 483 647</code>), zawinie się na liczbę ujemną i wywoła <span class="color-red">IndexOutOfRangeException</span>. Wzór <code>lewy + (prawy - lewy) / 2</code> daje ten sam matematyczny środek bez ryzyka przepełnienia.</p>
+
+</div>
+</div><p>Prześledź tabelę śladu dla tablicy <code>tab = { -10, 0, 3, 7, 19, 25, 42 }</code> (indeksy <code>0..6</code>):</p>
+<table>
+<thead>
+<tr>
+<th align="left">Przypadek</th>
+<th align="center">Krok</th>
+<th align="center"><span class="color-blue">lewy</span></th>
+<th align="center"><span class="color-blue">prawy</span></th>
+<th align="center"><span class="color-blue">srodek</span></th>
+<th align="center"><code>tab[srodek]</code></th>
+<th align="left">Decyzja</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Szukamy <code>19</code></td>
+<td align="center">1</td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>6</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>7</code></td>
+<td align="left"><code>7 &lt; 19</code>, więc <code>lewy = 4</code></td>
+</tr>
+<tr>
+<td align="left">Szukamy <code>19</code></td>
+<td align="center">2</td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>6</code></td>
+<td align="center"><code>5</code></td>
+<td align="center"><code>25</code></td>
+<td align="left"><code>25 &gt; 19</code>, więc <code>prawy = 4</code></td>
+</tr>
+<tr>
+<td align="left">Szukamy <code>19</code></td>
+<td align="center">3</td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>19</code></td>
+<td align="left">Trafienie! Zwracamy <code>4</code></td>
+</tr>
+<tr>
+<td align="left">Szukamy <code>10</code></td>
+<td align="center">1</td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>6</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>7</code></td>
+<td align="left"><code>7 &lt; 10</code>, więc <code>lewy = 4</code></td>
+</tr>
+<tr>
+<td align="left">Szukamy <code>10</code></td>
+<td align="center">2</td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>6</code></td>
+<td align="center"><code>5</code></td>
+<td align="center"><code>25</code></td>
+<td align="left"><code>25 &gt; 10</code>, więc <code>prawy = 4</code></td>
+</tr>
+<tr>
+<td align="left">Szukamy <code>10</code></td>
+<td align="center">3</td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>19</code></td>
+<td align="left"><code>19 &gt; 10</code>, więc <code>prawy = 3</code> (<code>lewy &gt; prawy</code>: koniec, zwracamy <code>-1</code>)</td>
+</tr>
+</tbody></table>
+<p>Zwróć uwagę na krok 3 obu przypadków oraz na tablicę jednoelementową <code>{ 7 }</code>, gdzie na starcie <code>lewy = 0</code> i <code>prawy = 0</code>. Gdyby pętla miała warunek <code>lewy &lt; prawy</code> zamiast <span class="color-green"><code>lewy &lt;= prawy</code></span>, algorytm nigdy nie sprawdziłby ostatniego pozostałego elementu pod indeksem <code>4</code> ani jedynego elementu tablicy <code>{ 7 }</code>!</p>
+<p>Każde jedno porównanie odrzuca <span class="color-green">połowę pozostałych danych</span>. Zobacz konkretną różnicę liczby porównań:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Rozmiar tablicy</th>
+<th align="center">Wyszukiwanie liniowe (średnio / pesymistycznie)</th>
+<th align="center">Wyszukiwanie binarne (maksymalnie porównań)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>100</code> elementów</td>
+<td align="center"><code>50</code> / <code>100</code></td>
+<td align="center"><code>7</code></td>
+</tr>
+<tr>
+<td align="center"><code>10 000</code> elementów</td>
+<td align="center"><code>5 000</code> / <code>10 000</code></td>
+<td align="center"><code>14</code></td>
+</tr>
+<tr>
+<td align="center"><code>1 000 000</code> elementów</td>
+<td align="center"><code>500 000</code> / <code>1 000 000</code></td>
+<td align="center"><code>20</code></td>
+</tr>
+<tr>
+<td align="center"><code>1 000 000 000</code> elementów</td>
+<td align="center"><code>500 000 000</code> / <code>1 000 000 000</code></td>
+<td align="center"><code>30</code></td>
+</tr>
+</tbody></table>
+<p>Przy milionie elementów wyszukiwanie binarne wykonuje najwyżej <span class="color-green">20 porównań</span> zamiast średnio <span class="color-green">500 000</span>. Warunek konieczny: tablica musi być wcześniej posortowana.</p>
+<data-gate>
+<data-sortable-list title="Ułóż w poprawnej kolejności etapy wyszukiwania binarnego w posortowanej tablicy">
+  <item data-correct="1">Ustaw początkowe granice przedziału: lewy = 0 oraz prawy = tab.Length - 1</item>
+  <item data-correct="2">Dopóki lewy &lt;= prawy, wylicz środek wzorem lewy + (prawy - lewy) / 2</item>
+  <item data-correct="3">Jeśli tab[srodek] == szukana, natychmiast zwróć indeks srodek</item>
+  <item data-correct="4">Jeśli tab[srodek] &lt; szukana, przesuń lewy = srodek + 1; w przeciwnym razie prawy = srodek - 1</item>
+  <item data-correct="5">Gdy granice się miną (lewy &gt; prawy), zakończ pętlę i zwróć -1</item>
+</data-sortable-list>
+</data-gate>
+
+<h3>🔄 2. Odwracanie tablicy w miejscu dwoma wskaźnikami</h3>
+<p>Aby odwrócić kolejność elementów w tablicy, nie musisz rezerwować drugiej tablicy tej samej wielkości. Wystarczą dwa indeksy startujące z przeciwnych końców: <span class="color-blue">lewy</span> równy <code>0</code> oraz <span class="color-blue">prawy</span> równy <code>tab.Length - 1</code>.</p>
+<p>Dopóki <code>lewy &lt; prawy</code>, zamieniasz miejscami <code>tab[lewy]</code> i <code>tab[prawy]</code> przez jedną pomocniczą zmienną <span class="color-blue">temp</span>, po czym przesuwasz oba indeksy ku środkowi (<code>lewy++</code>, <code>prawy--</code>).</p>
+<p>Sprawdź, dlaczego warunek <span class="color-green"><code>lewy &lt; prawy</code></span> działa bezbłędnie dla obu rodzajów długości:</p>
+<ul>
+<li><span class="color-green">Długość parzysta</span> (np. 4 elementy o indeksach <code>0, 1, 2, 3</code>): zamieniasz parę <code>(0, 3)</code>, potem <code>(1, 2)</code>. Następnie <code>lewy = 2</code>, <code>prawy = 1</code>: warunek <code>2 &lt; 1</code> jest fałszywy i pętla kończy pracę.</li>
+<li><span class="color-green">Długość nieparzysta</span> (np. 5 elementów o indeksach <code>0, 1, 2, 3, 4</code>): zamieniasz <code>(0, 4)</code>, potem <code>(1, 3)</code>. Następnie <code>lewy = 2</code>, <code>prawy = 2</code>: środkowy element pod indeksem <code>2</code> stoi już na swoim docelowym miejscu, a warunek <code>2 &lt; 2</code> zatrzymuje pętlę bez zbędnej zamiany z samym sobą.</li>
+</ul>
+<p>Dla tablicy o 1 000 000 elementów algorytm wykonuje dokładnie 500 000 zamian i zużywa wyłącznie <span class="color-green">4 bajty dodatkowej pamięci</span> na zmienną <span class="color-blue">temp</span>.</p>
+<h3>🃏 3. Sortowanie przez wstawianie</h3>
+<p>Algorytm <span class="color-green">Insertion Sort</span> działa dokładnie tak, jak układasz karty w ręku. Lewą część tablicy traktujesz jako już posortowaną (na starcie stanowi ją sam element <code>tab[0]</code>).</p>
+<p>W kolejnych krokach dla <span class="color-blue">i</span> od <code>1</code> do <code>tab.Length - 1</code>:</p>
+<ol>
+<li>Zapamiętujesz bieżący element w zmiennej <code>klucz = tab[i]</code> i ustawiasz <code>j = i - 1</code>.</li>
+<li>W wewnętrznej pętli <code>while</code> przesuwasz w prawo wszystkie większe od niego elementy z posortowanej lewej części (<code>tab[j + 1] = tab[j]</code>), zmniejszając <span class="color-blue">j</span>.</li>
+<li>Gdy trafisz na mniejszy lub równy element (albo na początek tablicy <code>j == -1</code>), wstawiasz <span class="color-blue">klucz</span> w zwolnione miejsce <code>tab[j + 1]</code>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p><span class="color-green">Kolejność w warunku <code>while (j &gt;= 0 &amp;&amp; tab[j] &gt; klucz)</code> jest krytyczna!</span><br>Operator <code>&amp;&amp;</code> działa ze zwarciem od lewej do prawej. Gdy <span class="color-blue">klucz</span> jest najmniejszym elementem i <span class="color-blue">j</span> spada do <code>-1</code>, warunek <code>j &gt;= 0</code> daje <code>false</code>, więc prawa strona nie zostaje w ogóle sprawdzona. Jeśli odwrócisz kolejność na <code>while (tab[j] &gt; klucz &amp;&amp; j &gt;= 0)</code>, program spróbuje odczytać <code>tab[-1]</code> i natychmiast rzuci <span class="color-red">IndexOutOfRangeException</span>.</p>
+
+</div>
+</div><p><data-insert-sort-poker></data-insert-sort-poker></p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: historia błędu Joshuy Blocha, Bounds Check Elimination w JIT i linie L1 CPU Cache</span>
+<span class="deep-dive-badge">CPU CACHE · JIT .NET · C/C++ · ALGORYTMIKA</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Dwadzieścia lat ukrytego błędu w bibliotekach standardowych</h4>
+
+<p>Przez ponad 20 lat podręczniki algorytmiki oraz oficjalna biblioteka standardowa Javy (<code>Arrays.binarySearch</code>) zawierały zapis <code>(lewy + prawy) / 2</code>. Błąd ujawnił się dopiero wtedy, gdy serwery zaczęły dysponować wielogigabajtową pamięcią RAM, i został głośno opisany w 2006 roku przez Joshuę Blocha. W C oraz C++, oprócz wzoru <code>lewy + (prawy - lewy) / 2</code>, stosuje się także rzutowanie na typ bez znaku z przesunięciem bitowym: <code>((unsigned int)lewy + (unsigned int)prawy) &gt;&gt; 1</code>.</p>
+<h4>2. Arytmetyka wskaźników w C kontra Bounds Check Elimination w JIT .NET</h4>
+
+<p>W języku C zapis <code>tab[i]</code> jest dosłownie skrótem dla arytmetyki wskaźników <code>*(tab + i)</code>. Kompilator C nie sprawdza, czy <span class="color-blue">i</span> mieści się w granicach tablicy: odczyt <code>tab[500]</code> po prostu sięga po przypadkową pamięć (częste źródło luk bezpieczeństwa <span class="color-red">Buffer Overflow</span>).</p>
+<p>W C# każdy dostęp <code>tab[i]</code> jest bezpieczny: CLR musi sprawdzić warunek <code>0 &lt;= i &lt; tab.Length</code>. Wydawałoby się, że w pętli na milion obrotów to milion dodatkowych instrukcji <code>cmp</code> i skoków warunkowych. Jednak kompilator <span class="color-green">RyuJIT</span> w .NET stosuje optymalizację <span class="color-green">Bounds Check Elimination</span> (BCE).</p>
+<p>Gdy napiszesz kanoniczną pętlę:</p>
+<pre><code class="language-csharp">for (int i = 0; i &lt; tab.Length; i++)
+{
+    suma += tab[i];
+}
+</code></pre>
+<p>JIT udowadnia statycznie, że <span class="color-blue">i</span> zawsze zaczyna od <code>0</code>, rośnie co <code>1</code> i kończy się ściśle poniżej <code>tab.Length</code>. W wygenerowanym kodzie maszynowym x86‑64 całkowicie usuwa sprawdzenie granic z wnętrza pętli, generując kod niemal identyczny z zoptymalizowanym C++ (<code>add eax, dword ptr [rcx + rdx*4 + 10h]</code>, gdzie <code>+10h</code> to 16‑bajtowy nagłówek obiektu tablicy na stercie CLR). Jeśli jednak zapiszesz warunek nietypowo (np. <code>i &lt;= tab.Length - 1</code> albo przez oddzielną zmienną <code>int n = tab.Length</code>), w starszych wersjach JIT optymalizacja BCE może nie zadziałać.</p>
+<h4>3. Linia L1 CPU Cache (64 B) i Hardware Prefetcher</h4>
+
+<p>Dlaczego iteracja po tablicy <code>int[]</code> bywa 5 do 10 razy szybsza niż przejście po tej samej liczbie elementów w strukturze rozrzuconej po pamięci (np. liście wiązanej)?</p>
+<p>Dostęp do głównej pamięci RAM trwa około <span class="color-green">60 do 100 nanosekund</span> (setki cykli procesora), podczas gdy odczyt z pamięci podręcznej <span class="color-green">L1 Cache</span> trwa około <span class="color-green">1 nanosekundy</span> (3 do 4 cykle). Procesor nigdy nie pobiera z RAM pojedynczego 4‑bajtowego <code>int</code>: kontroler pamięci zawsze transferuje całą <span class="color-green">linię cache o rozmiarze 64 bajtów</span>.</p>
+<p>Ponieważ elementy <code>int[]</code> leżą w pamięci jeden za drugim:</p>
+<ul>
+<li>odczyt <code>tab[0]</code> wczytuje do L1 Cache za jednym zamachem aż <span class="color-green">16 kolejnych liczb <code>int</code></span> (<code>tab[0]</code>..<code>tab[15]</code>),</li>
+<li>kolejne 15 odczytów trafia bezpośrednio w L1 Cache (<span class="color-green">Cache Hit</span>),</li>
+<li>dodatkowo wbudowany w procesor układ <span class="color-green">Hardware Prefetcher</span> wykrywa liniowy wzorzec dostępu i zaczyna pobierać z RAM kolejną linię (<code>tab[16]</code>..<code>tab[31]</code>) jeszcze zanim pętla do niej dotrze.</li>
+</ul>
+<p>Porównanie kosztów sprzętowych dla przejścia przez 1 000 000 liczb <code>int</code> (4 MB danych):</p>
+<ul>
+<li>ciągła tablica <code>int[]</code>: dokładnie <code>62 500</code> linii cache (po 64 B), prawie 100% trafień dzięki prefetcherowi, czas około 0,4 ms,</li>
+<li>rozproszona struktura wskaźnikowa (węzły rozsiane po stercie): do <code>1 000 000</code> osobnych pobrań z RAM, czas 6 do 12 ms.</li>
+</ul>
+<p>Dlatego nawet algorytmy wykonujące więcej prostych operacji na ciągłej tablicy potrafią w praktyce pokonać bardziej skomplikowane struktury wskaźnikowe.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Biblioteka algorytmów na tablicach int</h2>
+<p>W klasie <code>AlgorytmyTablic</code> zaimplementuj trzy metody statyczne:</p>
+<ol>
+<li><span class="color-green"><code>WyszukajBinarnie(int[] posortowana, int szukana)</code></span>:<ul>
+<li>wyszukuje <span class="color-blue">szukana</span> w tablicy posortowanej rosnąco,</li>
+<li>zwraca indeks znalezionego elementu lub <code>-1</code>, jeśli element nie występuje (również dla tablicy pustej <code>Length == 0</code>),</li>
+<li>środek wyliczaj bezpiecznym wzorem <code>lewy + (prawy - lewy) / 2</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>OdwrocWMiejscu(int[] tab)</code></span>:<ul>
+<li>odwraca kolejność elementów bezpośrednio w przekazanej tablicy bez alokowania drugiej tablicy,</li>
+<li>poprawnie obsługuje tablice o długości <code>0</code>, <code>1</code>, parzystej i nieparzystej.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>SortujPrzezWstawianie(int[] tab)</code></span>:<ul>
+<li>sortuje tablicę rosnąco w miejscu algorytmem Insertion Sort (bez użycia <code>Array.Sort</code>),</li>
+<li>poprawnie obsługuje duplikaty, liczby ujemne, tablicę już posortowaną oraz posortowaną odwrotnie.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Binary Search, Reverse In-Place i Insertion Sort" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class AlgorytmyTablic
+{
+    public static int WyszukajBinarnie(int[] posortowana, int szukana)
+    {
+        // Zaimplementuj wyszukiwanie binarne z wzorem lewy + (prawy - lewy) / 2
+        return -1;
+    }
+
+    public static void OdwrocWMiejscu(int[] tab)
+    {
+        // Zamieniaj pary (lewy, prawy) az indeksy sie spotkaja w srodku
+    }
+
+    public static void SortujPrzezWstawianie(int[] tab)
+    {
+        // Zaimplementuj sortowanie przez wstawianie rosnaco w miejscu
+    }
+
+    static void Main()
+    {
+        int[] dane = { 42, -7, 19, 3, 25, 3 };
+        SortujPrzezWstawianie(dane);
+        Console.WriteLine("Posortowane: " + string.Join(", ", dane));
+        Console.WriteLine("Indeks 19: " + WyszukajBinarnie(dane, 19));
+        OdwrocWMiejscu(dane);
+        Console.WriteLine("Odwrocone: " + string.Join(", ", dane));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("SortujPrzezWstawianie obsluguje liczby ujemne, duplikaty i przypadki brzegowe", () =&gt; {
+    int[] t1 = { 42, -7, 19, 3, 25, 3 };
+    AlgorytmyTablic.SortujPrzezWstawianie(t1);
+    LabAssert.Equal("-7,3,3,19,25,42", string.Join(",", t1));
+
+    int[] odwrocona = { 9, 7, 5, 3, 1 };
+    AlgorytmyTablic.SortujPrzezWstawianie(odwrocona);
+    LabAssert.Equal("1,3,5,7,9", string.Join(",", odwrocona));
+
+    int[] jeden = { 99 };
+    AlgorytmyTablic.SortujPrzezWstawianie(jeden);
+    LabAssert.Equal("99", string.Join(",", jeden));
+
+    int[] pusta = new int[0];
+    AlgorytmyTablic.SortujPrzezWstawianie(pusta);
+    LabAssert.Equal(0, pusta.Length);
+});
+LabAssert.Test("WyszukajBinarnie znajduje elementy na brzegach, w srodku, z ujemnymi i przy braku", () =&gt; {
+    int[] t = { -50, -10, 0, 3, 7, 19, 25, 42 };
+    LabAssert.Equal(0, AlgorytmyTablic.WyszukajBinarnie(t, -50));
+    LabAssert.Equal(2, AlgorytmyTablic.WyszukajBinarnie(t, 0));
+    LabAssert.Equal(5, AlgorytmyTablic.WyszukajBinarnie(t, 19));
+    LabAssert.Equal(7, AlgorytmyTablic.WyszukajBinarnie(t, 42));
+    LabAssert.Equal(-1, AlgorytmyTablic.WyszukajBinarnie(t, -100));
+    LabAssert.Equal(-1, AlgorytmyTablic.WyszukajBinarnie(t, 10));
+    LabAssert.Equal(-1, AlgorytmyTablic.WyszukajBinarnie(t, 100));
+
+    int[] jeden = { 7 };
+    LabAssert.Equal(0, AlgorytmyTablic.WyszukajBinarnie(jeden, 7));
+    LabAssert.Equal(-1, AlgorytmyTablic.WyszukajBinarnie(jeden, 8));
+
+    int[] pusta = new int[0];
+    LabAssert.Equal(-1, AlgorytmyTablic.WyszukajBinarnie(pusta, 5));
+});
+LabAssert.Test("OdwrocWMiejscu dziala dla parzystej, nieparzystej, 1-elementowej i pustej tablicy", () =&gt; {
+    int[] a = { 1, 2, 3, 4, 5 };
+    AlgorytmyTablic.OdwrocWMiejscu(a);
+    LabAssert.Equal("5,4,3,2,1", string.Join(",", a));
+
+    int[] b = { -10, 20, -30, 40 };
+    AlgorytmyTablic.OdwrocWMiejscu(b);
+    LabAssert.Equal("40,-30,20,-10", string.Join(",", b));
+
+    int[] c = { 77 };
+    AlgorytmyTablic.OdwrocWMiejscu(c);
+    LabAssert.Equal("77", string.Join(",", c));
+
+    int[] d = new int[0];
+    AlgorytmyTablic.OdwrocWMiejscu(d);
+    LabAssert.Equal(0, d.Length);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Jak bezpiecznie indeksować i przekazywać tablice w C#?</strong> Indeksy biegną od <code>0</code> do <code>tab.Length - 1</code>, a tablica jest typem referencyjnym: przypisanie <code>kopia = oryginal</code> tworzy alias, nie kopię. Odróżniaj pustą tablicę <code>new int[0]</code> od <code>null</code>, który rzuca <span class="color-red">NullReferenceException</span>.</li>
+<li><strong>Kiedy użyć <code>for</code>, a kiedy <code>foreach</code>?</strong> Wybieraj <code>for</code>, gdy potrzebujesz indeksu lub chcesz zmieniać elementy <code>tab[i]</code>. Wybieraj <code>foreach</code>, gdy tylko czytasz kolejne wartości. Przy szukaniu <code>min</code> i <code>max</code> zawsze startuj od <code>tab[0]</code>, nigdy od <code>0</code>.</li>
+<li><strong>Kiedy wolno użyć wyszukiwania binarnego i jak uniknąć błędów brzegowych?</strong> Używaj go wyłącznie na posortowanej tablicy. Pętlę zapisuj z warunkiem <code>lewy &lt;= prawy</code>, a środek licz wzorem <code>lewy + (prawy - lewy) / 2</code>.</li>
+<li><strong>Na co uważać w algorytmach działających w miejscu?</strong> Przy odwracaniu dwoma wskaźnikami używaj <code>lewy &lt; prawy</code>, aby poprawnie obsłużyć długość parzystą i nieparzystą. W Insertion Sort zawsze stawiaj <code>j &gt;= 0</code> po lewej stronie <code>&amp;&amp;</code>, zanim odczytasz <code>tab[j]</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

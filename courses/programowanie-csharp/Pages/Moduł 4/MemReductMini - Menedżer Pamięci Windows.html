@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemReductMini - Menedżer Pamięci Windows - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/programowanie-csharp/">Wprowadzenie</a></li><li class="module">Moduł 0: Fundamenty C# i Myślenie Algorytmiczne</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i pułapki liczb"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20pu%C5%82apki%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i pułapki liczb</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Programowanie Strukturalne i Kolekcje</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 1/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="module">Moduł 2: Fundamenty OOP i Model Pamięci</li><li class="lesson-item lesson" data-path="Moduł 2/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 2/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 2/Enkapsulacja i Właściwości - System Bankowy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Enkapsulacja%20i%20W%C5%82a%C5%9Bciwo%C5%9Bci%20-%20System%20Bankowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i Właściwości - System Bankowy</a></li><li class="lesson-item lesson" data-path="Moduł 2/Dziedziczenie i polimorfizm"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Dziedziczenie%20i%20polimorfizm.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dziedziczenie i polimorfizm</a></li><li class="module">Moduł 3: Architektura OOP i Nowoczesny C#</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy abstrakcyjne i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%20abstrakcyjne%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy abstrakcyjne i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Kompozycja i słowniki Dictionary"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Kompozycja%20i%20s%C5%82owniki%20Dictionary.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kompozycja i słowniki Dictionary</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 3/Wyrażenia lambda i podstawy LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Wyra%C5%BCenia%20lambda%20i%20podstawy%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i podstawy LINQ</a></li><li class="module">Moduł 4: Inżynieria Oprogramowania i Wielki Finał INF.04</li><li class="lesson-item lesson" data-path="Moduł 4/Zasady SOLID i refaktoryzacja kodu"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20SOLID%20i%20refaktoryzacja%20kodu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady SOLID i refaktoryzacja kodu</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projektowanie wieloplikowe i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projektowanie%20wieloplikowe%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie wieloplikowe i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wielki Finał - System Bankowy INF.04"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20-%20System%20Bankowy%20INF.04.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - System Bankowy INF.04</a></li><li class="lesson-item lesson" data-path="Moduł 4/MemReductMini - Menedżer Pamięci Windows"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/MemReductMini%20-%20Mened%C5%BCer%20Pami%C4%99ci%20Windows.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">MemReductMini - Menedżer Pamięci Windows</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>MemReductMini - Menedżer Pamięci Windows</h1>
+<p>W poprzednich modułach opanowałeś klasy, enkapsulację, interfejsy, kolekcje, LINQ oraz zasady SOLID. Czas połączyć tę wiedzę w <span class="color-green">prawdziwe narzędzie systemowe dla Windows 11</span>, które skompilujesz jako samodzielny plik <span class="color-green"><code>MemReductMini.exe</code></span> i uruchomisz na własnym komputerze <span class="color-green">bez uprawnień administratora</span>.</p>
+<p>Projekt jest inspirowany popularnym otwartoźródłowym narzędziem <span class="color-green">Mem Reduct</span> (<code>henrypp/memreduct</code>). Zbudujesz wieloplikową aplikację, która:</p>
+<ol>
+<li>Odczytuje aktualne zużycie fizycznej pamięci RAM bezpośrednio z jądra Windows przez Win32 API (<code>GlobalMemoryStatusEx</code>).</li>
+<li>Wyszukuje procesy użytkownika zużywające najwięcej pamięci (<code>Process.GetProcesses()</code> + LINQ).</li>
+<li>Jednym uruchomieniem zwalnia nieaktywne strony pamięci (<span class="color-green">Working Set</span>) wszystkich procesów bieżącego użytkownika przez Win32 API (<code>EmptyWorkingSet</code>), bezpiecznie omijając procesy chronione systemu.</li>
+</ol>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Jak działa zarządzanie pamięcią w Windows (Working Set vs Standby List)</h2>
+<p>Zanim wywołasz funkcje systemowe Windows, musisz rozumieć, co tak naprawdę „czyści” program taki jak Mem Reduct. Pamięć RAM w Windows 11 nie dzieli się wyłącznie na „zajętą” i „wolną” - menedżer pamięci utrzymuje kilka list stron:</p>
+<table>
+<thead>
+<tr>
+<th>Obszar pamięci Windows</th>
+<th>Co się w nim znajduje?</th>
+<th align="center">Czy wyczyścisz bez uprawnień admina?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green">Working Set procesu</span></td>
+<td>Strony fizycznej pamięci RAM przypisane aktualnie do konkretnego procesu (np. Chrome, Discord, VS Code).</td>
+<td align="center"><span class="color-green">Tak</span> - dla wszystkich procesów bieżącego użytkownika (<code>EmptyWorkingSet</code>)</td>
+</tr>
+<tr>
+<td><span class="color-green">Standby Page List</span></td>
+<td>Strony z cache plików i zamkniętych programów trzymane „na zapas” w RAM, gdybyś uruchomił je ponownie.</td>
+<td align="center"><span class="color-green">Nie</span> - wymaga uprawnień administratora i Native API (<code>NtSetSystemInformation</code>)</td>
+</tr>
+<tr>
+<td><span class="color-green">Modified Page List</span></td>
+<td>Zmienione strony czekające na zapis na dysk (plik stronicowania <code>pagefile.sys</code>).</td>
+<td align="center"><span class="color-green">Nie</span> - wymaga uprawnień administratora</td>
+</tr>
+</tbody></table>
+<p>W typowej pracy na laptopie lub w pracowni 70‑90% aktywnego obciążenia RAM to <span class="color-green">Working Set</span> przeglądarek, komunikatorów i edytorów należących do Twojego konta. Dlatego <code>EmptyWorkingSet</code> z <code>psapi.dll</code> daje natychmiastowy, mierzalny spadek użycia pamięci nawet na szkolnym koncie bez uprawnień administratora.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏗️ Architektura 4-plikowa zgodna z SOLID</h2>
+<p>Aby kod był czysty, testowalny w przeglądarce (na serwerze Linux/Mono) i jednocześnie w pełni funkcjonalny po pobraniu jako <code>.exe</code> na Windows 11, rozdzielamy go na cztery osobne pliki:</p>
+<ol>
+<li><span class="color-green"><code>RamSnapshot.cs</code></span> - niemutowalny obiekt danych (enkapsulacja) przechowujący migawkę stanu RAM (<code>TotalBytes</code>, <code>AvailableBytes</code>, wyliczane właściwości <code>UsedBytes</code>, <code>UsedPercent</code>, <code>UsedMb</code>, <code>TotalMb</code>).</li>
+<li><span class="color-green"><code>IMemoryCleaner.cs</code></span> - interfejs kontraktu (<span class="color-green">DIP / Strategia</span>): <code>CleanupReport CleanWorkingSets();</code>.</li>
+<li><span class="color-green"><code>Win32MemoryEngine.cs</code></span> - warstwa systemowa z P/Invoke do <code>kernel32.dll</code> (<code>GlobalMemoryStatusEx</code>) oraz <code>psapi.dll</code> (<code>EmptyWorkingSet</code>).</li>
+<li><span class="color-green"><code>Program.cs</code></span> - punkt wejścia prezentujący stan RAM przed i po oczyszczeniu oraz listę Top‑5 procesów.</li>
+</ol>
+<h3>🔎 Wywoływanie natywnych bibliotek DLL Windows z C# (P/Invoke)</h3>
+<p>C# pozwala bezpośrednio wywoływać funkcje napisane w C wewnątrz systemowych bibliotek <code>kernel32.dll</code> i <code>psapi.dll</code> za pomocą atrybutu <span class="color-green"><code>[DllImport]</code></span> z przestrzeni nazw <code>System.Runtime.InteropServices</code>:</p>
+<pre><code class="language-csharp">[DllImport("psapi.dll", SetLastError = true)]
+private static extern bool EmptyWorkingSet(IntPtr hProcess);
+</code></pre>
+<p>Procesy systemowe (<code>SYSTEM</code>, antywirus) odrzucają dostęp do swojego uchwytu <code>proc.Handle</code>, rzucając wyjątek <code>Win32Exception</code> lub <code>InvalidOperationException</code>. Dlatego każda próba oczyszczenia procesu musi być osłonięta blokiem <code>try / catch / finally</code> (z wywołaniem <code>proc.Dispose()</code>, aby nie wyciekały uchwyty jądra!).</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Co naprawdę robi EmptyWorkingSet, czym jest Soft Page Fault i efekt Bounce Back</span>
+<span class="deep-dive-badge">WINDOWS KERNEL &amp; MEM REDUCT</span>
+</summary>
+<div class="deep-dive-content">
+
+<p><span class="color-green">1. <code>EmptyWorkingSet</code> nie „kasuje” danych aplikacji</span><br>Gdy wywołasz <code>EmptyWorkingSet(proc.Handle)</code>, Windows nie niszczy kart w Chrome ani dokumentu w edytorze. Menedżer pamięci przegląda tablicę stron procesu i przenosi nieużywane ostatnio strony fizycznego RAM z jego <span class="color-green">Working Set</span> na <span class="color-green">Standby List</span> (dla stron czystych) lub <span class="color-green">Modified List</span> (dla stron zmienionych).</p>
+<p><span class="color-green">2. Soft Page Fault vs Hard Page Fault</span></p>
+<ul>
+<li>Jeśli po chwili wrócisz do okna przeglądarki, a jej strona nadal leży na <span class="color-blue">Standby List</span> w RAM, procesor zgłasza <span class="color-green">Soft Page Fault</span> - jądro w ułamku mikrosekundy wpina tę samą ramkę RAM z powrotem do tablicy stron procesu (zero odczytu z dysku!).</li>
+<li>Jeśli w międzyczasie inna aplikacja (np. gra lub maszyna wirtualna) potrzebowała tej pamięci, system bez zwłoki oddaje jej tę wolną ramkę. Gdy stara aplikacja będzie jej później potrzebować, odczyta ją z pliku stronicowania na SSD (<span class="color-green">Hard Page Fault</span>).</li>
+</ul>
+<p><span class="color-green">3. Dlaczego <code>henrypp/memreduct</code> wymaga admina i czym jest efekt <span class="color-blue">Bounce Back</span>?</span><br>Pełny Mem Reduct oprócz <span class="color-blue">Working Set</span> czyści również globalną <span class="color-blue">Standby List</span> i <span class="color-blue">System Cache</span> wywołaniem nieudokumentowanej funkcji jądra <code>NtSetSystemInformation(SystemMemoryListInformation, ...)</code> z <code>ntdll.dll</code>, co wymaga przywileju <code>SeProfileSingleProcessPrivilege</code> (tylko Administrator).<br>Po każdym czyszczeniu RAM użycie pamięci będzie stopniowo wracać w górę (<span class="color-blue">Bounce Back Effect</span>) - to normalne zachowanie nowoczesnego systemu operacyjnego, który celowo wykorzystuje wolny RAM jako szybki cache dyskowy.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Zbuduj i pobierz własny MemReductMini.exe (4 pliki OOP)</h2>
+<p>Uzupełnij dwa miejsca w <span class="color-green"><code>RamSnapshot.cs</code></span> oraz <span class="color-green"><code>Win32MemoryEngine.cs</code></span>:</p>
+<ol>
+<li>W <span class="color-green"><code>RamSnapshot.cs</code></span>:<ul>
+<li>konstruktor <code>RamSnapshot(ulong totalBytes, ulong availableBytes)</code>: jeśli <code>totalBytes == 0</code> lub <code>availableBytes &gt; totalBytes</code> → rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>właściwość <code>UsedBytes</code> zwracająca <code>TotalBytes - AvailableBytes</code>,</li>
+<li>właściwość <code>UsedPercent</code> zwracająca <code>((double)UsedBytes / TotalBytes) * 100.0</code>,</li>
+<li>metoda <code>CalculateFreedMb(RamSnapshot after)</code> zwracająca <code>((double)after.AvailableBytes - AvailableBytes) / (1024.0 * 1024.0)</code> (lub <code>0.0</code>, gdy ujemna).</li>
+</ul>
+</li>
+<li>W <span class="color-green"><code>Win32MemoryEngine.cs</code></span>:<ul>
+<li>w metodzie <code>CleanWorkingSets()</code> przejdź pętlą <code>foreach</code> po <code>Process.GetProcesses()</code>, wewnątrz <code>try</code> wywołaj <code>EmptyWorkingSet(proc.Handle)</code> (zliczając <code>cleaned</code> lub <code>skipped</code>), w <code>catch</code> zwiększ <code>skipped</code>, a w <code>finally</code> zwolnij zasób <code>proc.Dispose()</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Po zaliczeniu testów kliknij <span class="color-green">⬇ Pobierz .exe</span> (lub <span class="color-green">🛠️ Skrypt .bat (Win11)</span>) i uruchom własny program <span class="color-green"><code>MemReductMini.exe</code></span> na Windows 11!</p>
+<data-gate>
+<data-csharp-lab title="Projekt Koronny: MemReductMini (4 pliki OOP + Win32 API)" exe-name="MemReductMini.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Diagnostics;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("=== MemReductMini (Windows 11 User-Mode RAM Cleaner) ===");
+        Console.WriteLine("Host: {0} | Rdzenie CPU: {1}", Environment.MachineName, Environment.ProcessorCount);
+
+        var engine = new Win32MemoryEngine();
+
+        if (Environment.OSVersion.Platform != PlatformID.Win32NT)
+        {
+            Console.WriteLine("[Tryb podgladu w chmurze Linux/Mono]");
+            var demoBefore = new RamSnapshot(16UL * 1024 * 1024 * 1024, 5UL * 1024 * 1024 * 1024);
+            var demoAfter = new RamSnapshot(16UL * 1024 * 1024 * 1024, 7UL * 1024 * 1024 * 1024);
+            Console.WriteLine("Symulacja przed: {0}", demoBefore);
+            Console.WriteLine("Symulacja po:    {0}", demoAfter);
+            Console.WriteLine("Zwolniono:       {0:F1} MB", demoBefore.CalculateFreedMb(demoAfter));
+            Console.WriteLine("Pobierz plik .exe lub skrypt .bat, aby uruchomic na swoim Windows 11!");
+            return;
+        }
+
+        RamSnapshot before = engine.CaptureRamSnapshot();
+        Console.WriteLine("RAM przed: {0}", before);
+
+        Console.WriteLine("\nTop 5 procesow (Working Set):");
+        var top5 = Process.GetProcesses()
+            .OrderByDescending(p =&gt; p.WorkingSet64)
+            .Take(5)
+            .ToList();
+
+        foreach (var p in top5)
+        {
+            Console.WriteLine("  - {0,-22} PID: {1,-6} {2,8:F1} MB", p.ProcessName, p.Id, p.WorkingSet64 / (1024.0 * 1024.0));
+            p.Dispose();
+        }
+
+        Console.WriteLine("\nCzyszczenie Working Set procesow uzytkownika...");
+        CleanupReport report = engine.CleanWorkingSets();
+        RamSnapshot after = engine.CaptureRamSnapshot();
+
+        Console.WriteLine("RAM po:    {0}", after);
+        Console.WriteLine("Oczyszczono procesow: {0}, pominieto chronionych: {1}", report.CleanedProcesses, report.SkippedProcesses);
+        Console.WriteLine("Zwolniono fizycznego RAM: {0:F1} MB", before.CalculateFreedMb(after));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="IMemoryCleaner.cs" readonly="">
+
+<pre><code class="language-csharp">public class CleanupReport
+{
+    public int CleanedProcesses { get; private set; }
+    public int SkippedProcesses { get; private set; }
+
+    public CleanupReport(int cleanedProcesses, int skippedProcesses)
+    {
+        CleanedProcesses = cleanedProcesses;
+        SkippedProcesses = skippedProcesses;
+    }
+}
+
+public interface IMemoryCleaner
+{
+    RamSnapshot CaptureRamSnapshot();
+    CleanupReport CleanWorkingSets();
+}
+</code></pre>
+</cs-file>
+<cs-file name="RamSnapshot.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class RamSnapshot
+{
+    public ulong TotalBytes { get; private set; }
+    public ulong AvailableBytes { get; private set; }
+
+    public RamSnapshot(ulong totalBytes, ulong availableBytes)
+    {
+        // Zwaliduj: totalBytes == 0 lub availableBytes &gt; totalBytes -&gt; ArgumentOutOfRangeException
+        TotalBytes = totalBytes;
+        AvailableBytes = availableBytes;
+    }
+
+    public ulong UsedBytes
+    {
+        get { return 0; } // Zwróć różnicę TotalBytes - AvailableBytes
+    }
+
+    public double UsedPercent
+    {
+        get { return 0.0; } // Zwróć ((double)UsedBytes / TotalBytes) * 100.0
+    }
+
+    public double TotalGb { get { return TotalBytes / (1024.0 * 1024.0 * 1024.0); } }
+    public double UsedGb { get { return UsedBytes / (1024.0 * 1024.0 * 1024.0); } }
+
+    public double CalculateFreedMb(RamSnapshot after)
+    {
+        if (after == null) throw new ArgumentNullException("after");
+        // Jeśli after.AvailableBytes &lt;= AvailableBytes zwróć 0.0, inaczej różnicę w MB
+        return 0.0;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0:F2} / {1:F2} GB ({2:F1}%)", UsedGb, TotalGb, UsedPercent);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="Win32MemoryEngine.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+
+public class Win32MemoryEngine : IMemoryCleaner
+{
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    private struct MEMORYSTATUSEX
+    {
+        public uint dwLength;
+        public uint dwMemoryLoad;
+        public ulong ullTotalPhys;
+        public ulong ullAvailPhys;
+        public ulong ullTotalPageFile;
+        public ulong ullAvailPageFile;
+        public ulong ullTotalVirtual;
+        public ulong ullAvailVirtual;
+        public ulong ullAvailExtendedVirtual;
+    }
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    private static extern bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
+
+    [DllImport("psapi.dll", SetLastError = true)]
+    private static extern bool EmptyWorkingSet(IntPtr hProcess);
+
+    public RamSnapshot CaptureRamSnapshot()
+    {
+        var status = new MEMORYSTATUSEX();
+        status.dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
+        if (!GlobalMemoryStatusEx(ref status))
+        {
+            throw new InvalidOperationException("Nie udalo sie odczytac GlobalMemoryStatusEx.");
+        }
+        return new RamSnapshot(status.ullTotalPhys, status.ullAvailPhys);
+    }
+
+    public CleanupReport CleanWorkingSets()
+    {
+        int cleaned = 0;
+        int skipped = 0;
+
+        foreach (var proc in Process.GetProcesses())
+        {
+            try
+            {
+                // Wywołaj EmptyWorkingSet(proc.Handle) i zaktualizuj cleaned lub skipped
+                if (EmptyWorkingSet(proc.Handle)) cleaned++;
+                else skipped++;
+            }
+            catch
+            {
+                skipped++;
+            }
+            finally
+            {
+                proc.Dispose();
+            }
+        }
+
+        return new CleanupReport(cleaned, skipped);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("RamSnapshot poprawnie wylicza UsedBytes oraz UsedPercent", () =&gt; {
+    var snap = new RamSnapshot(1000UL, 250UL);
+    LabAssert.Equal(750UL, snap.UsedBytes);
+    LabAssert.Equal(75.0, Math.Round(snap.UsedPercent, 1));
+});
+LabAssert.Test("RamSnapshot blokuje totalBytes == 0 oraz availableBytes &gt; totalBytes", () =&gt; {
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new RamSnapshot(0UL, 0UL));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new RamSnapshot(100UL, 150UL));
+});
+LabAssert.Test("CalculateFreedMb liczy zwolnioną pamięć w MB i nie zwraca liczb ujemnych", () =&gt; {
+    ulong mb = 1024UL * 1024UL;
+    var before = new RamSnapshot(8192UL * mb, 2000UL * mb);
+    var after = new RamSnapshot(8192UL * mb, 2512UL * mb);
+    LabAssert.Equal(512.0, Math.Round(before.CalculateFreedMb(after), 1));
+    LabAssert.Equal(0.0, after.CalculateFreedMb(before));
+});
+LabAssert.Test("Win32MemoryEngine implementuje interfejs IMemoryCleaner", () =&gt; {
+    var engine = new Win32MemoryEngine();
+    LabAssert.True(engine is IMemoryCleaner);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<details>
+<summary>Sprawdź przykładowe rozwiązanie RamSnapshot.cs po wykonaniu próby</summary>
+
+<pre><code class="language-csharp">public class RamSnapshot
+{
+    public ulong TotalBytes { get; private set; }
+    public ulong AvailableBytes { get; private set; }
+
+    public RamSnapshot(ulong totalBytes, ulong availableBytes)
+    {
+        if (totalBytes == 0 || availableBytes &gt; totalBytes)
+            throw new ArgumentOutOfRangeException("availableBytes");
+        TotalBytes = totalBytes;
+        AvailableBytes = availableBytes;
+    }
+
+    public ulong UsedBytes { get { return TotalBytes - AvailableBytes; } }
+    public double UsedPercent { get { return ((double)UsedBytes / TotalBytes) * 100.0; } }
+    public double TotalGb { get { return TotalBytes / (1024.0 * 1024.0 * 1024.0); } }
+    public double UsedGb { get { return UsedBytes / (1024.0 * 1024.0 * 1024.0); } }
+
+    public double CalculateFreedMb(RamSnapshot after)
+    {
+        if (after == null) throw new ArgumentNullException("after");
+        if (after.AvailableBytes &lt;= AvailableBytes) return 0.0;
+        return (after.AvailableBytes - AvailableBytes) / (1024.0 * 1024.0);
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0:F2} / {1:F2} GB ({2:F1}%)", UsedGb, TotalGb, UsedPercent);
+    }
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Dzięki <code>[DllImport]</code> (P/Invoke) program w C# może bezpośrednio wywoływać natywne funkcje jądra Windows (<code>GlobalMemoryStatusEx</code>, <code>EmptyWorkingSet</code>) bez zewnętrznych bibliotek.</li>
+<li>Na koncie bez uprawnień administratora można bezpiecznie oczyścić <span class="color-blue">Working Set</span> wszystkich procesów użytkownika, osłaniając procesy chronione blokiem <code>try / catch / finally</code> z <code>proc.Dispose()</code>.</li>
+<li>Oddzielenie logiki domenowej (<code>RamSnapshot</code>, <code>IMemoryCleaner</code>) od warstwy systemu operacyjnego (<code>Win32MemoryEngine</code>) pozwala testować aplikację niezależnie od systemu, a potem jednym kliknięciem skompilować ją jako <code>MemReductMini.exe</code>.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

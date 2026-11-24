@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t04 d04">
+  <title id="t04">Cykl życia pętli for: inicjalizacja, warunek, ciało, krok</title>
+  <desc id="d04">Animowany schemat kolejności wykonywania pętli for: najpierw raz inicjalizacja int i = 0, potem sprawdzenie warunku, wykonanie ciała, zwiększenie i++, i powrót do warunku aż do wyjścia.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.6; rx: 10; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #38bdf8; }
+    .ok { font: 700 12px Consolas, monospace; fill: #34d399; }
+    .err { font: 700 12px Consolas, monospace; fill: #f87171; }
+    .line { stroke: #64748b; stroke-width: 2.2; fill: none; }
+    @keyframes step1 { 0%, 24% { stroke: #38bdf8; stroke-width: 3; } 25%, 100% { stroke: #334155; stroke-width: 1.6; } }
+    @keyframes step2 { 0%, 24% { stroke: #334155; } 25%, 54% { stroke: #fbbf24; stroke-width: 3; } 55%, 100% { stroke: #334155; } }
+    @keyframes step3 { 0%, 54% { stroke: #334155; } 55%, 79% { stroke: #34d399; stroke-width: 3; } 80%, 100% { stroke: #334155; } }
+    @keyframes step4 { 0%, 79% { stroke: #334155; } 80%, 100% { stroke: #a78bfa; stroke-width: 3; } }
+    .s1 { animation: step1 4s linear infinite; }
+    .s2 { animation: step2 4s linear infinite; }
+    .s3 { animation: step3 4s linear infinite; }
+    .s4 { animation: step4 4s linear infinite; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">Dokładna kolejność 4 faz pętli for (dlaczego krok i++ wykonuje się NA KOŃCU)</text>
+  <text x="24" y="48" class="sub">Śledź podświetlenie: 1. Start (raz) → 2. Warunek → 3. Ciało pętli → 4. Krok → powrót do 2.</text>
+
+  <!-- 1. Init -->
+  <rect x="24" y="84" width="150" height="84" class="card s1"/>
+  <text x="38" y="108" class="title">1. Start (1 raz)</text>
+  <text x="38" y="132" class="mono">int i = 0;</text>
+  <text x="38" y="152" class="sub">Tworzy licznik</text>
+
+  <line x1="174" y1="126" x2="216" y2="126" class="line"/>
+  <polygon points="216,121 226,126 216,131" fill="#64748b"/>
+
+  <!-- 2. Condition -->
+  <rect x="226" y="84" width="170" height="84" class="card s2"/>
+  <text x="240" y="108" class="title">2. Warunek</text>
+  <text x="240" y="132" class="mono">i &lt; n ?</text>
+  <text x="240" y="152" class="sub">true → dalej | false → wyjdź</text>
+
+  <!-- Exit false -->
+  <line x1="311" y1="168" x2="311" y2="214" stroke="#ef4444" stroke-width="2"/>
+  <polygon points="306,212 311,222 316,212" fill="#ef4444"/>
+  <text x="322" y="206" class="err">false → Koniec pętli (kod po })</text>
+
+  <line x1="396" y1="126" x2="438" y2="126" class="line"/>
+  <polygon points="438,121 448,126 438,131" fill="#64748b"/>
+  <text x="404" y="116" class="ok">true</text>
+
+  <!-- 3. Body -->
+  <rect x="448" y="84" width="174" height="84" class="card s3"/>
+  <text x="462" y="108" class="title">3. Ciało pętli</text>
+  <text x="462" y="132" class="ok">{ wykonaj kod }</text>
+  <text x="462" y="152" class="sub">continue → skok do 4</text>
+
+  <line x1="622" y1="126" x2="660" y2="126" class="line"/>
+  <polygon points="660,121 670,126 660,131" fill="#64748b"/>
+
+  <!-- 4. Step -->
+  <rect x="670" y="84" width="146" height="84" class="card s4"/>
+  <text x="684" y="108" class="title">4. Krok</text>
+  <text x="684" y="132" class="mono">i++</text>
+  <text x="684" y="152" class="sub">Zawsze PO ciele</text>
+
+  <!-- Loop back arrow -->
+  <path d="M 743 84 L 743 64 L 311 64 L 311 76" class="line"/>
+  <polygon points="306,74 311,84 316,74" fill="#64748b"/>
+
+  <text x="24" y="248" class="sub">Wskazówka: break natychmiast przeskakuje do wyjścia (jak false), a continue przeskakuje prosto do kroku 4 (i++).</text>
+</svg>

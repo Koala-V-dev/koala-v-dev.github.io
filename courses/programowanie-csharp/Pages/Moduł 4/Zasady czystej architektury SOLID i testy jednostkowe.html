@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zasady czystej architektury SOLID i testy jednostkowe - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Zasady czystej architektury SOLID i testy jednostkowe</h1>
+<p>Napisać działający skrypt na 50 linijek potrafi niemal każdy. Problem pojawia się wtedy, gdy projekt rośnie do kilkunastu plików i trzeba dodać kolejną funkcję, na przykład eksport raportu do JSON.</p>
+<p>W źle zaprojektowanym kodzie dopisanie nowego formatu zmusza do edycji centralnej klasy, która już działała. Jedna pomyłka psuje istniejący eksport CSV, a sprawdzenie poprawki wymaga ręcznego uruchamiania programu i zaglądania w pliki na dysku.</p>
+<p>Zasady <span class="color-gold">SOLID</span> i <span class="color-green">testy jednostkowe</span> rozwiązują ten problem u źródła. Pozwalają rozbudowywać aplikację przez dokładanie nowych klas oraz sprawdzać logikę w ułamku milisekundy bez dotykania dysku czy zegara systemowego.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧱 Studium przypadku: monolit nie do przetestowania</h2>
+<p>Spójrz na klasę <code>GeneratorRaportu</code>, która na pierwszy rzut oka wygląda zupełnie niewinnie. Zbiera jednak trzy poważne wady architektoniczne w jednym miejscu:</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.IO;
+
+public class GeneratorRaportu
+{
+    public void Zapisz(List&lt;string&gt; wpisy, string format, string sciezka)
+    {
+        string znacznikCzasu = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+        string tresc;
+
+        switch (format)
+        {
+            case "CSV":
+                tresc = znacznikCzasu + "\n" + string.Join(";", wpisy);
+                break;
+            case "TXT":
+                tresc = znacznikCzasu + "\n" + string.Join("\n", wpisy);
+                break;
+            default:
+                throw new ArgumentException("Nieznany format: " + format);
+        }
+
+        File.WriteAllText(sciezka, tresc);
+    }
+}
+</code></pre>
+<p>Spróbuj napisać automatyczny test dla metody <code>Zapisz</code>. Natychmiast zderzysz się z trzema barierami:</p>
+<ul>
+<li><span class="color-green">Brak możliwości rozszerzania bez edycji:</span> dodanie formatu JSON wymusza dopisanie kolejnej gałęzi <code>case</code> w działającej metodzie <code>Zapisz</code>.</li>
+<li><span class="color-green">Niedeterministyczny czas:</span> wywołanie <code>DateTime.Now</code> sprawia, że wynik zmienia się co minutę. Test nie może porównać wygenerowanego tekstu ze stałym wzorcem.</li>
+<li><span class="color-green">Twardy zapis na dysk:</span> metoda <code>File.WriteAllText</code> tworzy prawdziwe pliki przy każdym teście. Błąd uprawnień albo brak miejsca na dysku powoduje <span class="color-red">fałszywą awarię testu</span>, mimo że sama logika formatowania jest poprawna.</li>
+</ul>
+<h3>🔧 Refaktoryzacja na IRaportExporter i IZegar</h3>
+<p>Aby rozbić ten <span class="color-red">monolit nie do przetestowania</span>, oddzielamy trzy odpowiedzialności: formatowanie tekstu, odczyt aktualnego czasu oraz samo złożenie raportu.</p>
+<p>Zamiast wywoływać <code>DateTime.Now</code> i instrukcję <code>switch</code> na sztywno, wprowadzamy dwa wąskie interfejsy: <code>IRaportExporter</code> oraz <code>IZegar</code>. Przekazujemy je do klasy przez konstruktor (<span class="color-green">Constructor Injection</span>):</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public interface IRaportExporter
+{
+    string Formatuj(List&lt;string&gt; wpisy);
+}
+
+public interface IZegar
+{
+    DateTime PobierzCzas();
+}
+
+public class ZegarSystemowy : IZegar
+{
+    public DateTime PobierzCzas()
+    {
+        return DateTime.Now;
+    }
+}
+
+public class KreatorRaportu
+{
+    private readonly IRaportExporter _exporter;
+    private readonly IZegar _zegar;
+
+    public KreatorRaportu(IRaportExporter exporter, IZegar zegar)
+    {
+        if (exporter == null)
+            throw new ArgumentNullException("exporter");
+        if (zegar == null)
+            throw new ArgumentNullException("zegar");
+
+        _exporter = exporter;
+        _zegar = zegar;
+    }
+
+    public string Zbuduj(List&lt;string&gt; wpisy)
+    {
+        string naglowek = _zegar.PobierzCzas().ToString("yyyy-MM-dd HH:mm");
+        string tresc = _exporter.Formatuj(wpisy);
+        return naglowek + "\n" + tresc;
+    }
+}
+</code></pre>
+<p>Zauważ, jak diametralnie zmieniła się sytuacja. Klasa <code>KreatorRaportu</code> nie dotyka dysku, nie zawiera instrukcji <code>switch</code> i nie pyta systemu operacyjnego o godzinę.</p>
+<p>W produkcji podajesz jej <code>ZegarSystemowy</code> oraz wybrany eksporter. W teście podstawiasz zegar zwracający stałą datę i lekką atrapę eksportera, otrzymując stuprocentową powtarzalność.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏛️ Pięć zasad SOLID w codziennym kodzie</h2>
+<p>Akronim <span class="color-gold">SOLID</span> zbiera pięć reguł projektowania klas i interfejsów. Każda z nich chroni inny fragment architektury przed sztywnością i przypadkowymi błędami:</p>
+<table>
+<thead>
+<tr>
+<th>Zasada</th>
+<th>Znaczenie</th>
+<th>Objaw złamania</th>
+<th>Poprawne rozwiązanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green">SRP</span> (Single Responsibility)</td>
+<td>Jedna klasa ma jeden powód do zmiany</td>
+<td>Klasa <code>Gra</code> liczy punkty, rysuje ekran i zapisuje pliki</td>
+<td>Rozdzielenie na <code>SilnikWyniku</code>, <code>Renderer</code> i <code>ZapisStanu</code></td>
+</tr>
+<tr>
+<td><span class="color-green">OCP</span> (Open/Closed)</td>
+<td>Otwarta na rozszerzenia, zamknięta na modyfikacje</td>
+<td>Długi łańcuch <code>switch</code> dla każdego nowego formatu</td>
+<td>Nowy format jako osobna klasa implementująca interfejs</td>
+</tr>
+<tr>
+<td><span class="color-green">LSP</span> (Liskov Substitution)</td>
+<td>Podtyp bezpiecznie zastępuje typ bazowy</td>
+<td>Implementacja rzuca <code>NotSupportedException</code> na metodzie z interfejsu</td>
+<td>Podział kontraktu tak, by każda klasa spełniała wszystkie metody</td>
+</tr>
+<tr>
+<td><span class="color-green">ISP</span> (Interface Segregation)</td>
+<td>Wąskie, wyspecjalizowane interfejsy</td>
+<td>Klasa musi mieć puste metody, których nie potrzebuje</td>
+<td>Rozbicie dużego interfejsu na mniejsze role</td>
+</tr>
+<tr>
+<td><span class="color-green">DIP</span> (Dependency Inversion)</td>
+<td>Zależność od abstrakcji, nie od konkretnej klasy</td>
+<td><code>new ZegarSystemowy()</code> wpisane na sztywno w konstruktorze</td>
+<td>Wstrzyknięcie <code>IZegar</code> jako parametru konstruktora</td>
+</tr>
+</tbody></table>
+<h3>🔀 Złamanie i naprawa LSP oraz ISP</h3>
+<p>Zasady <span class="color-green">LSP</span> oraz <span class="color-green">ISP</span> często idą w parze, ponieważ zbyt szeroki interfejs popycha programistę do łamania kontraktu. Spójrz na magazyn danych, w którym jedna z klas obsługuje wyłącznie odczyt:</p>
+<pre><code class="language-csharp">// ZLAMANIE LSP: magazyn tylko do odczytu udaje pelny magazyn
+public interface IMagazyn
+{
+    string Wczytaj(string klucz);
+    void Zapisz(string klucz, string wartosc);
+}
+
+public class MagazynTylkoDoOdczytu : IMagazyn
+{
+    public string Wczytaj(string klucz) { return "dane"; }
+
+    public void Zapisz(string klucz, string wartosc)
+    {
+        // Zaskakujacy wyjatek dla kodu oczekujacego IMagazyn!
+        throw new NotSupportedException("Ten magazyn nie pozwala na zapis.");
+    }
+}
+</code></pre>
+<p>Każda funkcja przyjmująca <code>IMagazyn</code> zakłada, że może wywołać <code>Zapisz</code>. Podstawienie <code>MagazynTylkoDoOdczytu</code> kończy się w trakcie działania aplikacji błędem <span class="color-red">NotSupportedException</span>.</p>
+<p>Naprawą jest rozdzielenie kontraktu zgodnie z <span class="color-green">ISP</span> na dwa osobne interfejsy:</p>
+<pre><code class="language-csharp">// NAPRAWA ISP + LSP: kazda klasa implementuje tylko to, co obsluguje
+public interface IOdczytMagazynu
+{
+    string Wczytaj(string klucz);
+}
+
+public interface IZapisMagazynu
+{
+    void Zapisz(string klucz, string wartosc);
+}
+
+public class MagazynKonfiguracji : IOdczytMagazynu
+{
+    public string Wczytaj(string klucz) { return "dane"; }
+}
+
+public class MagazynPlikowy : IOdczytMagazynu, IZapisMagazynu
+{
+    public string Wczytaj(string klucz) { return "dane"; }
+    public void Zapisz(string klucz, string wartosc) { /* zapis na dysk */ }
+}
+</code></pre>
+<p>Teraz kompilator sam pilnuje poprawności. Nikt nie przekaże <code>MagazynKonfiguracji</code> do metody wymagającej <code>IZapisMagazynu</code>, więc niespodziewany wyjątek w ogóle nie może wystąpić.</p>
+<h3>🎮 Wzorzec Strategia i walidacja w konstruktorze</h3>
+<p>Połączenie <span class="color-green">OCP</span> i <span class="color-green">DIP</span> tworzy wzorzec projektowy <span class="color-green">Strategia</span>. Klasa nadrzędna deleguje zmienny algorytm do obiektu przekazanego przez interfejs:</p>
+<pre><code class="language-csharp">public interface IStrategiaPunktacji
+{
+    int Oblicz(int bazaPunktow, int seriaTrafien);
+}
+
+public class PunktacjaStandardowa : IStrategiaPunktacji
+{
+    public int Oblicz(int bazaPunktow, int seriaTrafien)
+    {
+        return bazaPunktow;
+    }
+}
+
+public class PunktacjaCombo : IStrategiaPunktacji
+{
+    public int Oblicz(int bazaPunktow, int seriaTrafien)
+    {
+        return bazaPunktow * (seriaTrafien &gt; 0 ? seriaTrafien : 1);
+    }
+}
+
+public class SilnikWyniku
+{
+    private readonly IStrategiaPunktacji _strategia;
+
+    public SilnikWyniku(IStrategiaPunktacji strategia)
+    {
+        if (strategia == null)
+            throw new ArgumentNullException("strategia");
+        _strategia = strategia;
+    }
+
+    public int Nalicz(int baza, int seria)
+    {
+        return _strategia.Oblicz(baza, seria);
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zawsze sprawdzaj zależności pod kątem <code>null</code> już w konstruktorze i rzucaj <code>ArgumentNullException</code> (reguła <span class="color-green">Fail Fast</span>). Jeśli pominiesz tę kontrolę, uszkodzony obiekt powstanie po cichu, a program wybuchnie dopiero później z niejasnym błędem <span class="color-red">NullReferenceException</span> w zupełnie innym miejscu kodu.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj błąd architektoniczny do złamanej zasady SOLID">
+  <item left="Klasa Zamowienie jednocześnie liczy podatek VAT, generuje PDF i wysyła e-mail" right="SRP (Single Responsibility): klasa ma trzy różne powody do zmiany"></item>
+  <item left="Dodanie płatności BLIK wymaga dopisania kolejnego else if w klasie Kasa" right="OCP (Open/Closed): kod trzeba modyfikować zamiast go rozszerzać"></item>
+  <item left="Klasa PlikTylkoDoOdczytu implementuje IPlik i rzuca NotSupportedException w metodzie Zapisz" right="LSP (Liskov Substitution): podtyp łamie kontrakt oczekiwanego typu bazowego"></item>
+  <item left="Interfejs IUrzadzenieBiura wymusza na prostej drukarce pustą metodę Skanuj i Faksuj" right="ISP (Interface Segregation): zbyt szeroki interfejs zmusza do zbędnych metod"></item>
+  <item left="SerwisPowiadomien tworzy na sztywno new KlientSmtp() wewnątrz własnego konstruktora" right="DIP (Dependency Inversion): moduł zależy od konkretnej klasy zamiast abstrakcji"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Testy jednostkowe AAA, atrapy i realny xUnit</h2>
+<p>Każdy czytelny test jednostkowy dzieli się na trzy stałe sekcje zwane wzorcem <span class="color-green">AAA</span> (Arrange, Act, Assert). Taka struktura sprawia, że po miesiącu od razu widzisz, co przygotowano, co uruchomiono i jaki warunek sprawdzono:</p>
+<pre><code class="language-csharp">// 1. Arrange: przygotuj zaleznosci i dane wejsciowe
+var silnik = new SilnikWyniku(new PunktacjaCombo());
+
+// 2. Act: wywolaj dokladnie jedna testowana operacje
+int punkty = silnik.Nalicz(100, 3);
+
+// 3. Assert: zweryfikuj wynik
+LabAssert.Equal(300, punkty);
+</code></pre>
+<p>Dobry zestaw testów sprawdza nie tylko typową ścieżkę poprawną (Happy Path), lecz przede wszystkim <span class="color-green">przypadki brzegowe</span> (Edge Cases): wartość <code>null</code>, pustą listę, zero, pojedynczy element oraz znaki specjalne.</p>
+<h3>🎭 Trzy rodzaje atrap testowych: Stub, Spy i Fake</h3>
+<p>Dzięki <span class="color-green">DIP</span> możesz podstawić w miejsce bazy danych, zegara albo eksportera lekki obiekt testowy (<span class="color-green">Test Double</span>). W praktyce najczęściej używasz trzech rodzajów atrap:</p>
+<table>
+<thead>
+<tr>
+<th>Rodzaj atrapy</th>
+<th>Co robi w teście?</th>
+<th>Konkretny przykład</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green">Stub</span></td>
+<td>Zwraca sztywną, z góry zaprogramowaną wartość</td>
+<td><code>StubZegar : IZegar</code> zawsze zwracający <code>2026-01-15 10:00</code></td>
+</tr>
+<tr>
+<td><span class="color-green">Spy</span></td>
+<td>Zapisuje historię wywołań i przekazanych argumentów</td>
+<td><code>SpyPowiadomien</code> zliczający <span class="color-blue">LiczbaWyslan</span> i pamiętający treść</td>
+</tr>
+<tr>
+<td><span class="color-green">Fake</span></td>
+<td>Działa jak uproszczona wersja produkcyjna w pamięci</td>
+<td><code>InMemoryRepozytorium</code> oparte na <code>Dictionary&lt;int, T&gt;</code> zamiast SQL</td>
+</tr>
+</tbody></table>
+<p>Spójrz na krótki przykład atrapy typu <span class="color-green">Spy</span> dla serwisu powiadomień. Pozwala ona sprawdzić, czy testowany kod faktycznie wywołał zależność dokładną liczbę razy:</p>
+<pre><code class="language-csharp">public interface IPowiadomienia
+{
+    void Wyslij(string tresc);
+}
+
+public class SpyPowiadomien : IPowiadomienia
+{
+    public int LiczbaWyslan { get; private set; }
+    public string OstatniaWiadomosc { get; private set; }
+
+    public void Wyslij(string tresc)
+    {
+        LiczbaWyslan++;
+        OstatniaWiadomosc = tresc;
+    }
+}
+</code></pre>
+<p>Po uruchomieniu testowanego serwisu sprawdzasz w sekcji <span class="color-green">Assert</span>, że <code>spy.LiczbaWyslan</code> wynosi dokładnie <code>1</code>, a <code>spy.OstatniaWiadomosc</code> zawiera oczekiwany komunikat.</p>
+<h3>🧰 Jak LabAssert przekłada się na realny xUnit</h3>
+<p>Na tej platformie używasz lekkiej klasy <code>LabAssert</code>, która nie wymaga zewnętrznych paczek NuGet. Jej składnia została jednak wzorowana bezpośrednio na bibliotece <span class="color-green">xUnit</span>, czyli standardzie w komercyjnych projektach .NET.</p>
+<p>Tak samo wyglądałby test <code>SilnikWyniku</code> w prawdziwym projekcie testowym xUnit:</p>
+<pre><code class="language-csharp">using System;
+using Xunit;
+
+public class SilnikWynikuTests
+{
+    [Fact]
+    public void Nalicz_DlaPunktacjiCombo_MnozyBazePrzezSerie()
+    {
+        // Arrange
+        var silnik = new SilnikWyniku(new PunktacjaCombo());
+
+        // Act
+        int punkty = silnik.Nalicz(100, 3);
+
+        // Assert
+        Assert.Equal(300, punkty);
+    }
+
+    [Fact]
+    public void Konstruktor_DlaNullStrategii_RzucaArgumentNullException()
+    {
+        Assert.Throws&lt;ArgumentNullException&gt;(() =&gt; new SilnikWyniku(null));
+    }
+}
+</code></pre>
+<p>Atrybut <code>[Fact]</code> oznacza pojedynczy test, a metody <code>Assert.Equal</code> i <code>Assert.Throws&lt;T&gt;</code> działają identycznie jak <code>LabAssert.Equal</code> oraz <code>LabAssert.Throws&lt;T&gt;</code>. Umiejętność pisania testów tutaj przenosisz jeden do jednego do Visual Studio i Ridera.</p>
+<data-gate>
+<data-sortable-list title="Ułóż etapy testu jednostkowego AAA z użyciem SpyExporter">
+  <item data-correct="4">Assert: sprawdzenie zwróconego tekstu oraz licznika spy.LiczbaWywolan == 1</item>
+  <item data-correct="1">Arrange: utworzenie instancji SpyExporter i wstrzyknięcie jej do konstruktora RaportSerwis</item>
+  <item data-correct="3">Act: pojedyncze wywołanie testowanej metody serwis.Eksportuj(dane)</item>
+  <item data-correct="5">Assert: weryfikacja, że spy.OstatnieWpisy zawiera dokładnie przekazane elementy</item>
+  <item data-correct="2">Arrange: przygotowanie wejściowej listy danych testowych</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Coupling vs Cohesion, przeciążony konstruktor i Mutation Testing</span>
+<span class="deep-dive-badge">ARCHITEKTURA · STRYKER.NET · JAKOŚĆ TESTÓW</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Sprzężenie (Coupling) kontra Spójność (Cohesion)</h4>
+
+<p>Dobra architektura dąży jednocześnie do dwóch celów: <span class="color-green">niskiego sprzężenia</span> między klasami oraz <span class="color-green">wysokiej spójności</span> wewnątrz każdej klasy.</p>
+<ul>
+<li><span class="color-green">Wysoka spójność</span> oznacza, że wszystkie pola i metody klasy współpracują nad jednym zadaniem. Jeśli połowa metod klasy używa wyłącznie pola <code>_bazaDanych</code>, a druga połowa wyłącznie pola <code>_klientSmtp</code>, w jednym pliku ukryte są dwie osobne klasy.</li>
+<li><span class="color-green">Niskie sprzężenie</span> oznacza, że zmiana formatu pliku albo biblioteki sieciowej w klasie A nie zmusza do poprawek w kilkunastu innych plikach.</li>
+</ul>
+<h4>2. Sygnał alarmowy: przeciążony konstruktor (Constructor Over-Injection)</h4>
+
+<p>Wstrzykiwanie zależności przez konstruktor ma cenną zaletę diagnostyczną: czyni wszystkie zależności klasy widocznymi od razu w jednej linijce.</p>
+<p>Gdy konstruktor zaczyna przyjmować <span class="color-red">6, 7 albo 9 interfejsów</span> (<code>ILogger</code>, <code>IMailer</code>, <code>IRepo</code>, <code>ICache</code>, <code>IParser</code>, <code>IExporter</code>, <code>IClock</code>), nie jest to wada <span class="color-green">DIP</span>. To wyraźny sygnał, że klasa złamała <span class="color-green">SRP</span> i robi zbyt wiele rzeczy naraz.</p>
+<p>Rozwiązaniem jest rozbicie jej na mniejsze serwisy albo wydzielenie fasady skupiającej spójne operacje.</p>
+<h4>3. Testowanie mutacyjne (Mutation Testing) ze Stryker.NET</h4>
+
+<p>Metryka pokrycia kodu testami (Code Coverage) potrafi wprowadzać w błąd. Test, który wywołuje metodę <code>Formatuj</code>, ale ma słabą asercję, daje 100% pokrycia i jednocześnie nie wykrywa realnych błędów.</p>
+<p>Narzędzia takie jak <span class="color-green">Stryker.NET</span> działają jak automatyczny audytor testów. Modyfikują drzewo składniowe AST Twojego kodu produkcyjnego, tworząc dziesiątki „mutantów”, a następnie dla każdego z nich uruchamiają cały zestaw testów:</p>
+<pre><code class="language-csharp">// Kod oryginalny:
+if (wpisy == null || wpisy.Count == 0) return "[]";
+
+// Mutant 1 (zamiana || na &amp;&amp;):
+if (wpisy == null &amp;&amp; wpisy.Count == 0) return "[]";
+
+// Mutant 2 (zamiana == na !=):
+if (wpisy == null || wpisy.Count != 0) return "[]";
+</code></pre>
+<ul>
+<li>Jeśli przynajmniej jeden test nie przejdzie, <span class="color-green">mutant został zabity</span> (testy działają skutecznie).</li>
+<li>Jeśli wszystkie testy nadal świecą na zielono mimo uszkodzonej logiki (na przykład przy Mutancie 1, gdy zabrakło osobnego testu dla pustej listy i osobnego dla <code>null</code>), <span class="color-red">mutant przeżył</span>.</li>
+<li>Wynik końcowy to <span class="color-green">Mutation Score</span> (procent zabitych mutantów). W projektach produkcyjnych 85% Mutation Score jest znacznie silniejszą gwarancją jakości niż samo 100% pokrycia linii.</li>
+</ul>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Strategia eksporterów i własny SpyExporter</h2>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Podczas budowania JSON kolejność escapowania znaków jest krytyczna. Najpierw zamieniaj odwrotny ukośnik <code>\</code> na <code>\\</code>, a dopiero potem cudzysłów <code>"</code> na <code>\"</code>. Odwrotna kolejność zamieni <code>"</code> w <code>\"</code>, a drugi krok dopisze ukośnik i stworzy **_uszkodzony zapis ucieczki_** <code>\\"</code>, który psuje składnię JSON.</p>
+
+</div>
+</div><p>W zakładce <span class="color-green"><code>Eksportery.cs</code></span> zaimplementuj cztery klasy współpracujące z interfejsem <code>IRaportExporter</code>:</p>
+<ol>
+<li><span class="color-green"><code>CsvExporter</code></span>:<ul>
+<li>dla <span class="color-blue">wpisy</span> równych <code>null</code> lub pustej listy zwraca pusty napis <code>""</code>,</li>
+<li>dla niepustej listy łączy elementy średnikiem <code>;</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>JsonExporter</code></span>:<ul>
+<li>dla <span class="color-blue">wpisy</span> równych <code>null</code> lub pustej listy zwraca <code>"[]"</code>,</li>
+<li>dla niepustej listy buduje tablicę JSON bez spacji po przecinkach (na przykład <code>["chrome","code"]</code>),</li>
+<li>bezpiecznie traktuje ewentualny element <code>null</code> w liście jak pusty napis oraz escapuje <code>\</code> przed <code>"</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>RaportSerwis</code></span>:<ul>
+<li>konstruktor przyjmuje <code>IRaportExporter exporter</code> i dla <code>null</code> rzuca <code>ArgumentNullException("exporter")</code>,</li>
+<li>metoda <code>Eksportuj(List&lt;string&gt; wpisy)</code> dla <code>null</code> rzuca <code>ArgumentNullException("wpisy")</code> bez wywoływania eksportera, a w przeciwnym razie deleguje formatowanie do wstrzykniętej strategii.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>SpyExporter</code></span> (własna atrapa typu <span class="color-green">Spy</span> do testów):<ul>
+<li>udostępnia właściwości <code>LiczbaWywolan</code> (<code>int</code>, początkowo <code>0</code>) oraz <code>OstatnieWpisy</code> (<code>List&lt;string&gt;</code>, początkowo <code>null</code>),</li>
+<li>w <code>Formatuj(List&lt;string&gt; wpisy)</code> zwiększa <code>LiczbaWywolan</code> o <code>1</code>, zapamiętuje przekazane <span class="color-blue">wpisy</span> w <code>OstatnieWpisy</code> i zwraca napis <code>"SPY:"</code> połączony z liczbą elementów (<code>0</code>, jeśli <span class="color-blue">wpisy</span> są <code>null</code>).</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: SOLID (DIP + Strategia) i własny SpyExporter">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        var dane = new List&lt;string&gt; { "chrome", "app \"v2\"", "C:\\Tools\\scout.exe" };
+        var serwisCsv = new RaportSerwis(new CsvExporter());
+        var serwisJson = new RaportSerwis(new JsonExporter());
+        var spy = new SpyExporter();
+        var serwisSpy = new RaportSerwis(spy);
+
+        Console.WriteLine("CSV:  " + serwisCsv.Eksportuj(dane));
+        Console.WriteLine("JSON: " + serwisJson.Eksportuj(dane));
+        Console.WriteLine("SPY:  " + serwisSpy.Eksportuj(dane) + " (wywolan: " + spy.LiczbaWywolan + ")");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="Eksportery.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public interface IRaportExporter
+{
+    string Formatuj(List&lt;string&gt; wpisy);
+}
+
+public class CsvExporter : IRaportExporter
+{
+    public string Formatuj(List&lt;string&gt; wpisy)
+    {
+        // Dla null lub pustej listy zwroc "", w przeciwnym razie polacz srednikiem
+        return "";
+    }
+}
+
+public class JsonExporter : IRaportExporter
+{
+    public string Formatuj(List&lt;string&gt; wpisy)
+    {
+        // Dla null lub pustej listy zwroc "[]"
+        // Pamietaj o kolejnosci escapowania: najpierw \ -&gt; \\, potem " -&gt; \"
+        return "[]";
+    }
+}
+
+public class RaportSerwis
+{
+    private readonly IRaportExporter _exporter;
+
+    public RaportSerwis(IRaportExporter exporter)
+    {
+        // Zwaliduj null -&gt; ArgumentNullException("exporter")
+        _exporter = exporter;
+    }
+
+    public string Eksportuj(List&lt;string&gt; wpisy)
+    {
+        // Zwaliduj wpisy == null -&gt; ArgumentNullException("wpisy"), potem deleguj do _exporter
+        return "";
+    }
+}
+
+public class SpyExporter : IRaportExporter
+{
+    public int LiczbaWywolan { get; private set; }
+    public List&lt;string&gt; OstatnieWpisy { get; private set; }
+
+    public string Formatuj(List&lt;string&gt; wpisy)
+    {
+        // Zwieksz LiczbaWywolan, zapamietaj wpisy w OstatnieWpisy i zwroc "SPY:&lt;liczba&gt;"
+        return "";
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("CsvExporter formatuje wiele elementow, pojedynczy element, pusta liste i null", () =&gt; {
+    var csv = new CsvExporter();
+    LabAssert.Equal("chrome;discord;code", csv.Formatuj(new List&lt;string&gt; { "chrome", "discord", "code" }));
+    LabAssert.Equal("solo", csv.Formatuj(new List&lt;string&gt; { "solo" }));
+    LabAssert.Equal("", csv.Formatuj(new List&lt;string&gt;()));
+    LabAssert.Equal("", csv.Formatuj(null));
+});
+
+LabAssert.Test("JsonExporter tworzy tablice JSON i poprawnie escapuje backslashe oraz cudzyslowy", () =&gt; {
+    var json = new JsonExporter();
+    LabAssert.Equal("[]", json.Formatuj(new List&lt;string&gt;()));
+    LabAssert.Equal("[]", json.Formatuj(null));
+    LabAssert.Equal("[\"chrome\",\"code\"]", json.Formatuj(new List&lt;string&gt; { "chrome", "code" }));
+
+    var specjalne = new List&lt;string&gt; { "app \"v1\"", "C:\\Apps\\run.exe" };
+    LabAssert.Equal("[\"app \\\"v1\\\"\",\"C:\\\\Apps\\\\run.exe\"]", json.Formatuj(specjalne));
+});
+
+LabAssert.Test("RaportSerwis wstrzykuje strategie (DIP) i waliduje argumenty null", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; new RaportSerwis(null));
+
+    var serwisCsv = new RaportSerwis(new CsvExporter());
+    LabAssert.Equal("a;b", serwisCsv.Eksportuj(new List&lt;string&gt; { "a", "b" }));
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; serwisCsv.Eksportuj(null));
+});
+
+LabAssert.Test("SpyExporter zlicza wywolania, zapamietuje wpisy i nie uruchamia sie przy blednym null", () =&gt; {
+    var spy = new SpyExporter();
+    LabAssert.Equal(0, spy.LiczbaWywolan);
+    LabAssert.Equal(null, spy.OstatnieWpisy);
+
+    var serwis = new RaportSerwis(spy);
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; serwis.Eksportuj(null));
+    LabAssert.Equal(0, spy.LiczbaWywolan);
+
+    var pierwsze = new List&lt;string&gt; { "x", "y", "z" };
+    LabAssert.Equal("SPY:3", serwis.Eksportuj(pierwsze));
+    LabAssert.Equal(1, spy.LiczbaWywolan);
+    LabAssert.Equal(3, spy.OstatnieWpisy.Count);
+    LabAssert.Equal("x", spy.OstatnieWpisy[0]);
+    LabAssert.Equal("z", spy.OstatnieWpisy[2]);
+
+    var drugie = new List&lt;string&gt; { "solo" };
+    LabAssert.Equal("SPY:1", serwis.Eksportuj(drugie));
+    LabAssert.Equal(2, spy.LiczbaWywolan);
+    LabAssert.Equal(1, spy.OstatnieWpisy.Count);
+    LabAssert.Equal("solo", spy.OstatnieWpisy[0]);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy wydzielić interfejs strategii?</strong> Gdy dodanie kolejnego wariantu algorytmu (na przykład formatu eksportu) wymagałoby dopisania nowej gałęzi w <code>switch</code> lub <code>if / else if</code>.</li>
+<li><strong>Kiedy podzielić interfejs na mniejsze?</strong> Gdy choć jedna klasa implementująca musi rzucać <code>NotSupportedException</code> albo zostawiać puste metody, bo łamie to jednocześnie ISP i LSP.</li>
+<li><strong>Kiedy wstrzykiwać zależność przez konstruktor?</strong> Zawsze wtedy, gdy klasa korzysta z efektów ubocznych (zegar, dysk, sieć) lub wymiennej logiki, którą chcesz przetestować w izolacji.</li>
+<li><strong>Jaką atrapę wybrać w teście AAA?</strong> Użyj <span class="color-green">Stub</span>, gdy potrzebujesz stałej wartości zwrotnej (np. zegara), <span class="color-green">Spy</span>, gdy weryfikujesz liczbę wywołań i argumenty, oraz <span class="color-green">Fake</span>, gdy test wymaga lekkiej działającej bazy w pamięci.</li>
+<li><strong>Jak pisać odporne testy?</strong> Sprawdzaj nie tylko ścieżkę poprawną, lecz także przypadki brzegowe: <code>null</code>, pustą listę i znaki specjalne (<code>\</code> oraz <code>"</code>), z walidacją <code>ArgumentNullException</code> na wejściu.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

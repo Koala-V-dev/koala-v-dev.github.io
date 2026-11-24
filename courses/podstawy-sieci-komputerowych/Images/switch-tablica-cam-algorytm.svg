@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .sw-title { font-family: system-ui, sans-serif; font-size: 13px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .port-hdr { font-family: monospace; font-size: 10px; font-weight: 800; text-anchor: middle; }
+      .cam-hdr { font-family: system-ui, sans-serif; font-size: 10.5px; font-weight: 800; fill: #38bdf8; text-anchor: middle; }
+      .tbl-txt { font-family: monospace; font-size: 9.5px; font-weight: 700; fill: #ffffff; }
+      .rule-title { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9px; fill: #cbd5e1; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Mechanizm przełącznika L2: Tablica CAM i reguły przełączania</text>
+  <text x="30" y="48" class="sub">Jak układ krzemowy ASIC uczy się adresów MAC nadawców i selektywnie przekazuje ramki</text>
+
+  <!-- ================= BRYŁA SWITCHA ================= -->
+  <g transform="translate(30, 75)">
+    <rect width="680" height="150" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="680" height="26" fill="#064e3b" rx="6"/>
+    <text x="340" y="18" class="sw-title">PRZEŁĄCZNIK SIECIOWY (SWITCH L2 - UKŁAD ASIC)</text>
+
+    <!-- PORTY FIZYCZNE SWITCHA -->
+    <!-- Port 1 -->
+    <g transform="translate(25, 40)">
+      <rect width="90" height="34" fill="#0b1120" stroke="#38bdf8" stroke-width="1.5" rx="3"/>
+      <text x="45" y="16" class="port-hdr" fill="#38bdf8">PORT 1</text>
+      <text x="45" y="28" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">Host A (AA:AA)</text>
+    </g>
+
+    <!-- Port 2 -->
+    <g transform="translate(130, 40)">
+      <rect width="90" height="34" fill="#0b1120" stroke="#34d399" stroke-width="1.5" rx="3"/>
+      <text x="45" y="16" class="port-hdr" fill="#34d399">PORT 2</text>
+      <text x="45" y="28" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">Host B (BB:BB)</text>
+    </g>
+
+    <!-- CENTRALNA TABLICA CAM -->
+    <g transform="translate(240, 36)">
+      <rect width="200" height="102" fill="#0b1120" stroke="#38bdf8" stroke-width="1.5" rx="4"/>
+      <rect x="0" y="0" width="200" height="22" fill="#0369a1" rx="4"/>
+      <text x="100" y="15" class="cam-hdr" fill="#ffffff">TABLICA CAM (MAC Table)</text>
+
+      <!-- Wpisy w tabeli -->
+      <g transform="translate(12, 34)">
+        <text x="0" y="12" class="tbl-txt" fill="#38bdf8">Port 1 ➔ AA:AA:AA:AA:AA:AA</text>
+        <text x="0" y="28" class="tbl-txt" fill="#34d399">Port 2 ➔ BB:BB:BB:BB:BB:BB</text>
+        <text x="0" y="44" class="tbl-txt" fill="#94a3b8">Port 3 ➔ [Brak wpisu - Pusty]</text>
+        <text x="0" y="60" class="tbl-txt" fill="#22d3ee">Port 4 ➔ RR:RR:RR:RR:RR:RR</text>
+      </g>
+    </g>
+
+    <!-- Port 3 -->
+    <g transform="translate(460, 40)">
+      <rect width="90" height="34" fill="#0b1120" stroke="#64748b" stroke-width="1.5" rx="3"/>
+      <text x="45" y="16" class="port-hdr" fill="#94a3b8">PORT 3</text>
+      <text x="45" y="28" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">Host C (Nieznany)</text>
+    </g>
+
+    <!-- Port 4 -->
+    <g transform="translate(565, 40)">
+      <rect width="90" height="34" fill="#0b1120" stroke="#06b6d4" stroke-width="1.5" rx="3"/>
+      <text x="45" y="16" class="port-hdr" fill="#22d3ee">PORT 4</text>
+      <text x="45" y="28" font-family="monospace" font-size="8px" fill="#cbd5e1" text-anchor="middle">Router (RR:RR)</text>
+    </g>
+  </g>
+
+  <!-- ================= 3 REGUŁY DZIAŁANIA ASIC NA DOLE ================= -->
+  <!-- Reguła 1: Learning -->
+  <g transform="translate(30, 238)">
+    <rect width="215" height="88" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="5"/>
+    <text x="12" y="20" class="rule-title" fill="#38bdf8">1. Uczenie (Learning)</text>
+    <text x="12" y="36" class="desc-txt">Sprawdza <tspan font-weight="700" fill="#ffffff">Source MAC</tspan> w ramce.</text>
+    <text x="12" y="50" class="desc-txt">Zapisuje: "Adres AA:AA wisi</text>
+    <text x="12" y="64" class="desc-txt">na Porcie 1". Resetuje timer</text>
+    <text x="12" y="78" class="desc-txt">starzenia (aging time: 300s).</text>
+  </g>
+
+  <!-- Reguła 2: Forwarding -->
+  <g transform="translate(262, 238)">
+    <rect width="215" height="88" fill="#1e293b" stroke="#34d399" stroke-width="1.5" rx="5"/>
+    <text x="12" y="20" class="rule-title" fill="#34d399">2. Przełączanie (Forward)</text>
+    <text x="12" y="36" class="desc-txt">Sprawdza <tspan font-weight="700" fill="#ffffff">Destination MAC</tspan>.</text>
+    <text x="12" y="50" class="desc-txt">Zna port odbiorcy z CAM?</text>
+    <text x="12" y="64" class="desc-txt">Wysyła ramkę <tspan font-weight="700" fill="#a7f3d0">TYLKO na Port 2</tspan>.</text>
+    <text x="12" y="78" class="desc-txt">Inne porty są odfiltrowane!</text>
+  </g>
+
+  <!-- Reguła 3: Flooding -->
+  <g transform="translate(495, 238)">
+    <rect width="215" height="88" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" rx="5"/>
+    <text x="12" y="20" class="rule-title" fill="#fde047">3. Zalewanie (Flooding)</text>
+    <text x="12" y="36" class="desc-txt">Cel nieznany (Unknown Unicast)</text>
+    <text x="12" y="50" class="desc-txt">lub adres to Broadcast FF:FF...?</text>
+    <text x="12" y="64" class="desc-txt">Switch wysyła kopię na <tspan font-weight="700" fill="#fde68a">WSZYSTKIE</tspan></text>
+    <text x="12" y="78" class="desc-txt">porty oprócz źródłowego!</text>
+  </g>
+</svg>

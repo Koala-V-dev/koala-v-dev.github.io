@@ -1,165 +1,267 @@
 # Struktura Semantyczna
 
-Poprzednia lekcja nauczyła Cię budować czysty szkielet dokumentu HTML. Wiesz już, jak połączyć strony linkami, jak ułożyć listę i jak stworzyć podstawową hierarchię nagłówków.
+Wiesz już, jak zbudować szkielet HTML5, ułożyć hierarchię nagłówków oraz połączyć podstrony linkami względnymi. Wyobraź sobie teraz gotowy portal informacyjny, którego cały kod składa się wyłącznie ze znaczników `<div>`. Na monitorze, po dodaniu stylów CSS, taki serwis wygląda poprawnie: ma górny pasek, menu, kolumnę z artykułem i stopkę.
 
-Teraz zrobimy krok dalej. 
+Kiedy jednak tę samą stronę otwiera osoba niewidoma z czytnikiem ekranu albo robot wyszukiwarki, widzi płaską ścianę bezimiennych pudełek. Przeglądarka nie potrafi odróżnić menu od treści artykułu, a użytkownik klawiatury musi przebrnąć przez dziesiątki linków w nagłówku, zanim dotrze do pierwszego zdania tekstu.
 
-Zbudujesz szkielet artykułu internetowego, który nie jest tylko zbiorem bezimiennych pudełek na tekst. Będzie miał strukturę zrozumiałą dla człowieka, przeglądarki, wyszukiwarki i technologii asystujących.
-
-Najważniejsza zasada tej lekcji brzmi prosto: <strong>*HTML opisuje znaczenie treści, a CSS opisuje jej wygląd*</strong>.
-
-Jeśli używasz tagu tylko dlatego, że daje większą czcionkę albo pogrubienie, <strong>mieszasz dwa różne poziomy pracy</strong>. To szybko prowadzi do kodu, który wygląda dobrze na ekranie, ale jest słaby architektonicznie.
+Najważniejsza zasada architektury HTML brzmi jasno: **HTML opisuje znaczenie treści**, a CSS odpowiada za jej wygląd.
 
 ---
 
-## 🏛️ Semantyczne klocki HTML5: nowe kontenery
+## 🌳 Drzewo dostępności: jak przeglądarka czyta strukturę strony
 
-Zanim HTML5 stał się standardem, układ strony bardzo często budowano prawie wyłącznie z tagu `<div>`.
+Wiesz już, że przeglądarka zamienia kod HTML w drzewo DOM, aby wyświetlić elementy na ekranie. Równolegle tworzy jednak drugą, mniej znaną strukturę: _**drzewo dostępności**_ (Accessibility Tree).
 
-Div do menu. Div do artykułu. Div do stopki. Div wewnątrz diva.
+To uproszczona mapa dokumentu przeznaczona dla technologii asystujących (takich jak czytniki ekranu NVDA lub VoiceOver) oraz systemów nawigacji klawiaturowej. Zamiast interesować się kolorami i marginesami, drzewo dostępności zbiera trzy kluczowe informacje o każdym ważnym elemencie:
 
-Dla przeglądarki i czytnika ekranu był to anonimowy tłum kontenerów. Kod działał, ale jego struktura niewiele mówiła o treści.
+- **Rola**: czym jest dany obszar (na przykład nagłówkiem, menu nawigacyjnym, przyciskiem lub główną treścią).
+- **Nazwa dostępna**: krótka etykieta, która pozwala odróżnić dwa elementy o tej samej roli.
+- **Stan**: na przykład czy dany element jest rozwinięty, zaznaczony lub nieaktywny.
 
-HTML5 dał nam zestaw _**klocków semantycznych**_. To tagi, które nadal są kontenerami (wizualnie zachowują się jak `<div>`), ale mają nazwę opisującą rolę danego fragmentu strony.
+Zwykły znacznik `<div>` nie przekazuje drzewu dostępności żadnej roli. Jest przezroczystym kontenerem. Gdy cała strona powstaje z samych `<div>`, drzewo dostępności nie ma żadnych **punktów orientacyjnych** (zwanych też *landmarkami*).
 
-Kluczowe tagi semantyczne, które musisz znać:
+---
+
+## 🏛️ Semantyczne punkty orientacyjne HTML5
+
+Standard _**HTML5**_ wprowadził zestaw kontenerów, które zachowują się blokowo jak `<div>`, ale automatycznie zgłaszają swoją rolę do drzewa dostępności:
 
 ```html
-<header>    <!-- Nagłówek strony lub sekcji: logo, tytuł, nawigacja -->
-<nav>       <!-- Blok linków nawigacyjnych -->
-<main>      <!-- Główna, unikalna treść całej strony (tylko jeden na stronę!) -->
-<article>   <!-- Samodzielna publikacja: wpis blogowy, artykuł, raport, post -->
-<section>   <!-- Tematyczna część większej całości -->
-<aside>     <!-- Treść poboczna: sidebar, linki powiązane, reklamy -->
+<header>    <!-- Nagłówek strony lub sekcji: logo, tytuł, wprowadzenie -->
+<nav>       <!-- Blok głównych linków nawigacyjnych -->
+<main>      <!-- Główna, unikalna treść całej strony (tylko jeden widoczny na stronę) -->
+<article>   <!-- Samodzielna publikacja: artykuł, wpis na blogu, komentarz -->
+<section>   <!-- Tematyczny rozdział większej całości -->
+<aside>     <!-- Treść poboczna: pasek boczny, powiązane linki, ramka z definicją -->
 <footer>    <!-- Stopka strony, artykułu lub sekcji -->
 ```
 
-Zastąpienie bezimiennych kontenerów `<div>` powyższymi tagami niesie ze sobą trzy kluczowe korzyści:
+### 🔮 Przewidywanie: zupa z divów kontra landmarki
 
-- **Dla programisty**: Kod staje się czytelniejszy. Od razu widać, gdzie zaczyna się i kończy nagłówek, artykuł czy stopka.
-- **Dla dostępności (WCAG)**: Czytniki ekranowe osób z niepełnosprawnościami mogą płynnie nawigować po strukturze dokumentu, np. przeskakując bezpośrednio do treści głównej.
-- **Dla wyszukiwarek (SEO)**: Roboty indeksujące łatwiej rozpoznają najważniejsze treści na stronie, co pozytywnie wpływa na pozycjonowanie.
+Spójrz na dwa fragmenty kodu tej samej podstrony. Pierwszy korzysta wyłącznie ze znaczników `<div>` z klasami CSS (tzw. **_div soup_**):
 
-Pamiętaj, że znacznik `<div>` nie staje się przez to bezużyteczny. Nadal jest podstawowym narzędziem do grupowania elementów, gdy nie mają one żadnego znaczenia semantycznego.
+```html
+<!-- Wariant A -->
+<div class="top-bar">
+    <p>Portal Inżynierii</p>
+    <div class="menu">
+        <ul>
+            <li><a href="./index.html">Start</a></li>
+            <li><a href="./artykuly.html">Artykuły</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content">
+    <h1>Architektura sieci</h1>
+    <p>Treść publikacji...</p>
+</div>
+<div class="bottom-bar">
+    <p>&copy; 2026 Portal Inżynierii</p>
+</div>
+```
 
-Dobry wybór sprowadza się do prostej zasady:
-- Jeśli fragment strony pełni konkretną funkcję (np. jest stopką czy menu), wybierz odpowiedni tag semantyczny.
-- Jeśli grupujesz elementy <strong>wyłącznie w celu ich ostylowania w CSS lub ułożenia w siatce</strong>, użyj tagu `<div>`.
-- Jeśli masz wątpliwości, zapytaj siebie, czy ten element ma swoją nazwę w strukturze dokumentu (np. „miejsce na reklamę”), czy służy tylko do dekoracji.
+Drugi wariant zamienia te same pudełka na znaczniki semantyczne HTML5:
+
+```html
+<!-- Wariant B -->
+<header>
+    <p>Portal Inżynierii</p>
+    <nav>
+        <ul>
+            <li><a href="./index.html">Start</a></li>
+            <li><a href="./artykuly.html">Artykuły</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <article>
+        <h1>Architektura sieci</h1>
+        <p>Treść publikacji...</p>
+    </article>
+</main>
+<footer>
+    <p>&copy; 2026 Portal Inżynierii</p>
+</footer>
+```
+
+> [!IMPORTANT]
+> Zdecyduj przed czytaniem dalej: czym różni się wygląd obu wariantów w czystej przeglądarce bez CSS, a czym różni się ich obraz w drzewie dostępności, gdy użytkownik czytnika ekranu wywoła listę punktów orientacyjnych?
+
+### 🔎 Obserwacja i wyjaśnienie
+
+Wizualnie bez arkusza CSS oba warianty wyglądają identycznie. Wszystkie wymienione znaczniki semantyczne są domyślnie zwykłymi blokami, takimi jak `<div>`.
+
+Różnica ujawnia się w **drzewie dostępności**:
+- Wariant A generuje **pustą listę punktów orientacyjnych**. Nazwy klas CSS (`class="top-bar"`, `class="menu"`) są dla czytnika ekranu całkowicie niewidoczne.
+- Wariant B automatycznie tworzy mapę strony: obszar banera (`<header>`), nawigację (`<nav>`), główną treść (`<main>`) oraz stopkę informacyjną (`<footer>`). Użytkownik czytnika jednym skrótem klawiszowym przeskakuje bezpośrednio do `<main>`, omijając całe menu.
+
+Czy oznacza to, że `<div>` należy całkowicie wyeliminować z kodu? Nie. Zastosuj prostą regułę wyboru:
+- Jeśli obszar pełni określoną funkcję w dokumencie (stopka, menu, główna treść, artykuł), wybierz znacznik semantyczny.
+- Jeśli grupujesz elementy **wyłącznie do ułożenia ich w siatce CSS** lub nadania wspólnego tła, użyj `<div>`.
 
 <data-gate>
-  <data-connection-matcher title="Dopasuj tag semantyczny do jego roli w dokumencie:">
-    <div class="cmw-item" data-left="`&amp;lt;main&amp;gt;`" data-right="Unikalny kontener głównej treści strony. Może być tylko jeden."></div>
-    <div class="cmw-item" data-left="`&amp;lt;article&amp;gt;`" data-right="Niezależna publikacja: blog post, artykuł naukowy, wpis forum."></div>
-    <div class="cmw-item" data-left="`&amp;lt;aside&amp;gt;`" data-right="Treść poboczna niezwiązana bezpośrednio z artykułem: sidebar, reklama."></div>
-    <div class="cmw-item" data-left="`&amp;lt;nav&amp;gt;`" data-right="Blok linków do nawigacji po stronie lub serwisie."></div>
-    <div class="cmw-item" data-left="`&amp;lt;footer&amp;gt;`" data-right="Stopka dokumentu: prawa autorskie, kontakt, linki pomocnicze."></div>
-  </data-connection-matcher>
+<data-connection-matcher title="Połącz znacznik semantyczny HTML5 z jego rolą w strukturze dokumentu">
+  <item left="`&lt;main&gt;`" right="Unikalny kontener głównej treści strony (tylko jeden widoczny w dokumencie)"></item>
+  <item left="`&lt;article&gt;`" right="Samodzielna publikacja mająca pełny sens po wycięciu ze strony"></item>
+  <item left="`&lt;aside&gt;`" right="Treść poboczna: pasek boczny, powiązane linki lub ramka uzupełniająca"></item>
+  <item left="`&lt;nav&gt;`" right="Blok głównych odnośników do poruszania się po serwisie lub artykule"></item>
+  <item left="`&lt;footer&gt;`" right="Stopka strony lub artykułu: prawa autorskie, autor, linki pomocnicze"></item>
+  <item left="`&lt;div&gt;`" right="Neutralny kontener bez roli w drzewie dostępności, używany pod układ CSS"></item>
+</data-connection-matcher>
 </data-gate>
 
 ---
 
-## 🧭 Nawigacja: globalna, lokalna i kontekstowa
+## 🧭 Nawigacja i etykiety aria-label w drzewie dostępności
 
-Tag `<nav>` (*Navigation*) służy do oznaczania głównych bloków linków, które umożliwiają poruszanie się po stronie, artykule lub całym serwisie (np. menu główne, spis treści).
+Znacznik `<nav>` oznacza główny blok odnośników. Nie owijaj nim każdego pojedynczego linku w akapicie ani drobnych odnośników w stopce, jeśli nie tworzą one kluczowej nawigacji.
 
-Na jednej stronie możesz umieścić kilka różnych nawigacji o odmiennych rolach. W poniższych przykładach zobaczysz wewnątrz nich atrybut `aria-label`. Nie przejmuj się nim na tym etapie. Szczegółowo wyjaśnię jego znaczenie za chwilę.
+Na jednej stronie często potrzebujesz jednak więcej niż jednej nawigacji: menu głównego serwisu, spisu treści artykułu oraz listy powiązanych publikacji. Gdy wstawisz trzy tagi `<nav>` bez dodatkowych opisów, w drzewie dostępności pojawią się trzy identyczne pozycje: „nawigacja”, „nawigacja”, „nawigacja”.
+
+Aby nadać każdej nawigacji unikalną **nazwę dostępną**, dodaj atrybut *aria-label*. Nie zmienia on wyglądu strony na ekranie, ale wpisuje konkretną etykietę prosto do drzewa dostępności.
 
 ### 🌐 Nawigacja główna serwisu
 
-Nawigacja główna prowadzi między najważniejszymi częściami serwisu. Zwykle znajduje się w `<header>`, bo jest częścią stałego nagłówka strony.
+Zwykle znajduje się w globalnym `<header>` i prowadzi między działami całej witryny:
 
 ```html
 <header>
-    <span class="logo">Mój Blog o Technologii</span>
+    <p>Portal Inżynierii Webowej</p>
     <nav aria-label="Główna nawigacja">
         <ul>
-            <li><a href="index.html">Strona główna</a></li>
-            <li><a href="artykuly.html">Artykuły</a></li>
-            <li><a href="kontakt.html">Kontakt</a></li>
+            <li><a href="./index.html">Strona główna</a></li>
+            <li><a href="./artykuly.html">Artykuły</a></li>
+            <li><a href="./kontakt.html">Kontakt</a></li>
         </ul>
     </nav>
 </header>
 ```
 
-To menu odpowiada na pytanie: „gdzie mogę przejść w ramach całego serwisu?”.
+### 🧩 Spis treści artykułu z kotwicami
 
-### 📚 Nawigacja między artykułami
+Wewnątrz długiego artykułu możesz umieścić nawigację prowadzącą do poszczególnych sekcji tej samej strony. Linki wskazują wtedy identyfikatory *id* kolejnych rozdziałów:
 
-Nawigacja między artykułami prowadzi do innych publikacji. Może znaleźć się w `<aside>`, jeśli jest poboczna wobec aktualnego tekstu, lub na końcu strony pod artykułem.
+```html
+<article>
+    <h1>Protokół HTTP w praktyce</h1>
+    <nav aria-label="Spis treści artykułu">
+        <ol>
+            <li><a href="#zadanie">Budowa żądania</a></li>
+            <li><a href="#odpowiedz">Kody odpowiedzi</a></li>
+        </ol>
+    </nav>
+
+    <section id="zadanie">
+        <h2>Budowa żądania</h2>
+        <p>Przeglądarka wysyła metodę, ścieżkę zasobu oraz nagłówki...</p>
+    </section>
+
+    <section id="odpowiedz">
+        <h2>Kody odpowiedzi</h2>
+        <p>Serwer zwraca status liczbowy, na przykład 200 lub 404...</p>
+    </section>
+</article>
+```
+
+### 📚 Nawigacja powiązana w panelu bocznym
+
+Lista sugerowanych lektur nie jest częścią głównego wywodu, dlatego najlepiej umieścić ją w `<aside>`:
 
 ```html
 <aside>
-    <h2>Powiązane artykuły</h2>
+    <h2>Powiązane publikacje</h2>
     <nav aria-label="Powiązane artykuły">
         <ul>
-            <li><a href="aaron-swartz.html">Aaron Swartz i wolna wiedza</a></li>
-            <li><a href="creative-commons.html">Creative Commons</a></li>
+            <li><a href="./dns.html">Jak działa system DNS</a></li>
+            <li><a href="./tls.html">Szyfrowanie połączeń TLS</a></li>
         </ul>
     </nav>
 </aside>
 ```
 
-### 🧩 Nawigacja po sekcjach artykułu (Spis Treści)
+> [!TIP]
+> Stosuj atrybut `aria-label` **zawsze, gdy na stronie występuje więcej niż jeden znacznik `<nav>`**. Nie dopisuj w etykiecie słowa „nawigacja”, jeśli nie jest potrzebne dla zrozumiałości, ponieważ czytnik ekranu sam ogłasza rolę elementu (np. „Spis treści artykułu, nawigacja”).
 
-Artykuł może mieć też spis treści prowadzący do sekcji na tej samej stronie. Linki prowadzą wtedy do elementów z konkretnym atrybutem `id`.
+### 🛠️ Warsztat 1: refaktoryzacja zupy z divów na semantykę
 
-```html
-<article>
-    <h1>Sci-Hub: Kontrowersyjna Biblioteka Nauki</h1>
-    <nav aria-label="Spis treści artykułu">
-        <ol>
-            <li><a href="#historia">Historia i geneza</a></li>
-            <li><a href="#prawo">Kontrowersje prawne</a></li>
-        </ol>
-    </nav>
+Poniższy dokument zbudowano w przestarzałym stylu opartym wyłącznie na znacznikach `<div>`. Zastąp wszystkie kontenery `<div>` właściwymi znacznikami semantycznymi HTML5:
+- Górny pasek zamień na `<header>`, a menu wewnątrz na `<nav>` z zachowanym atrybutem `aria-label`.
+- Środkowy obszar zamień na `<main>`, a zawarty w nim blok publikacji na `<article>`.
+- Dolny kontener zamień na `<footer>`.
+- Usuń z kodu wszystkie znaczniki `<div>`.
 
-    <section id="historia">
-        <h2>Historia i geneza</h2>
-        <p>Alexandra Elbakyan stworzyła platformę w 2011 roku...</p>
-    </section>
+<data-gate>
+  <data-code-runner language="html" title="Refaktoryzacja kontenerów div na znaczniki semantyczne HTML5">
+    <template data-type="code">
+<div>
+  <p>Portal Inżynierii Webowej</p>
+  <div aria-label="Menu główne">
+    <ul>
+      <li><a href="./index.html">Start</a></li>
+      <li><a href="./artykuly.html">Artykuły</a></li>
+    </ul>
+  </div>
+</div>
 
-    <section id="prawo">
-        <h2>Kontrowersje prawne</h2>
-        <p>Największe wydawnictwa naukowe pozwały serwis...</p>
-    </section>
-</article>
-```
+<div>
+  <div>
+    <h1>Architektura Landmarków</h1>
+    <p>Treść publikacji dostępna dla czytników ekranu.</p>
+  </div>
+</div>
 
-### 🏷️ Dlaczego <code>aria-label</code> ma znaczenie
-
-Jeśli na stronie masz kilka elementów `<nav>`, użytkownik czytnika ekranu usłyszy listę nawigacji. Bez etykiet brzmią one identycznie („nawigacja”). Z etykietami stają się rozróżnialne:
-
-<ul>
-<li>
-
-```html
-<nav aria-label="Główna nawigacja">
-```
-</li>
-<li>
-
-```html
-<nav aria-label="Spis treści artykułu">
-```
-
-</li>
-<li>
-
-```html
-<nav aria-label="Powiązane artykuły">
-```
-
-</li>
-</ul>
-
-Etykieta nazywa funkcję konkretnej nawigacji. <strong>Stosuj ją zawsze, gdy na stronie pojawia się więcej niż jeden tag <code>&lt;nav&gt;</code></strong>.
+<div>
+  <p>&copy; 2026 Portal Inżynierii Webowej</p>
+</div>
+    </template>
+    <template data-type="requirements">
+      [
+        {
+          "id": "ref-header",
+          "text": "Zastąpiono górny kontener znacznikiem <header>",
+          "type": "regex",
+          "pattern": "<header\\b[^>]*>[\\s\\S]*?</header>"
+        },
+        {
+          "id": "ref-nav-aria",
+          "text": "Umieszczono wewnątrz <header> znacznik <nav> z niepustym atrybutem aria-label",
+          "type": "regex",
+          "pattern": "<header\\b[^>]*>[\\s\\S]*?<nav\\b[^>]*aria-label\\s*=\\s*[\"'][^\"']{3,}[\"'][^>]*>[\\s\\S]*?</nav>[\\s\\S]*?</header>"
+        },
+        {
+          "id": "ref-main",
+          "text": "Zastąpiono główny obszar znacznikiem <main>",
+          "type": "regex",
+          "pattern": "<main\\b[^>]*>[\\s\\S]*?</main>"
+        },
+        {
+          "id": "ref-article",
+          "text": "Umieszczono wewnątrz <main> znacznik <article> zawierający nagłówek <h1>",
+          "type": "regex",
+          "pattern": "<main\\b[^>]*>[\\s\\S]*?<article\\b[^>]*>[\\s\\S]*?<h1\\b[^>]*>[\\s\\S]*?</h1>[\\s\\S]*?</article>[\\s\\S]*?</main>"
+        },
+        {
+          "id": "ref-footer",
+          "text": "Zastąpiono dolny kontener znacznikiem <footer>",
+          "type": "regex",
+          "pattern": "<footer\\b[^>]*>[\\s\\S]*?</footer>"
+        },
+        {
+          "id": "ref-no-div",
+          "text": "Usunięto wszystkie zbędne znaczniki <div> z układu",
+          "type": "not-contains",
+          "pattern": "<div"
+        }
+      ]
+    </template>
+  </data-code-runner>
+</data-gate>
 
 ---
 
-## 📐 Układ artykułu z semantycznym szkieletem
+## 📐 Kompletny szkielet artykułu: przykład wzorcowy
 
-Oto poprawna, kompletna struktura artykułu blogowego:
+Zobacz, jak wszystkie poznane landmarki współpracują w pełnym dokumencie HTML5. Zwróć uwagę, że znaczniki `<header>` oraz `<footer>` występują tu dwukrotnie, ponieważ odnoszą się do dwóch różnych poziomów: całej strony oraz samego artykułu.
 
 ```html
 <!DOCTYPE html>
@@ -167,17 +269,17 @@ Oto poprawna, kompletna struktura artykułu blogowego:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sci-Hub: Kontrowersyjna Biblioteka Nauki | Mój Blog o Technologii</title>
+    <title>Architektura sieci | Portal Inżynierii Webowej</title>
 </head>
 <body>
 
     <header>
-        <span class="logo">Mój Blog o Technologii</span>
+        <p>Portal Inżynierii Webowej</p>
         <nav aria-label="Główna nawigacja">
             <ul>
-                <li><a href="index.html">Strona główna</a></li>
-                <li><a href="artykuly.html">Artykuły</a></li>
-                <li><a href="kontakt.html">Kontakt</a></li>
+                <li><a href="./index.html">Strona główna</a></li>
+                <li><a href="./artykuly.html">Artykuły</a></li>
+                <li><a href="./kontakt.html">Kontakt</a></li>
             </ul>
         </nav>
     </header>
@@ -185,140 +287,225 @@ Oto poprawna, kompletna struktura artykułu blogowego:
     <main>
         <article>
             <header>
-                <h1>Sci-Hub: Kontrowersyjna Biblioteka Nauki</h1>
-                <p>Artykuł opublikowany: <time datetime="2026-06-16">16 czerwca 2026</time></p>
+                <h1>Jak przeglądarka buduje drzewo dostępności</h1>
+                <p>Opublikowano: 16 czerwca 2026</p>
             </header>
 
             <nav aria-label="Spis treści artykułu">
                 <ol>
-                    <li><a href="#historia">Historia i geneza</a></li>
-                    <li><a href="#prawo">Kontrowersje prawne</a></li>
+                    <li><a href="#model">Model DOM i Accessibility Tree</a></li>
+                    <li><a href="#landmarki">Rola punktów orientacyjnych</a></li>
                 </ol>
             </nav>
 
-            <section id="historia">
-                <h2>Historia i geneza</h2>
-                <p>Alexandra Elbakyan stworzyła platformę w 2011 roku...</p>
+            <section id="model">
+                <h2>Model DOM i Accessibility Tree</h2>
+                <p>Silnik przeglądarki tworzy równolegle strukturę wizualną oraz drzewo dostępności...</p>
             </section>
 
-            <section id="prawo">
-                <h2>Kontrowersje prawne</h2>
-                <p>Największe wydawnictwa naukowe pozwały serwis...</p>
+            <section id="landmarki">
+                <h2>Rola punktów orientacyjnych</h2>
+                <p>Znaczniki HTML5 nadają kontenerom jednoznaczne role nawigacyjne...</p>
             </section>
 
             <footer>
-                <p>Autor: Arnold Schwarzenegger</p>
+                <p>Autor: Anna Kowalska</p>
             </footer>
         </article>
 
         <aside>
-            <h2>Powiązane artykuły</h2>
-            <nav aria-label="Powiązane artykuły">
+            <h2>Powiązane materiały</h2>
+            <nav aria-label="Powiązane materiały">
                 <ul>
-                    <li><a href="aaron-swartz.html">Aaron Swartz i wolna wiedza</a></li>
+                    <li><a href="./naglowki.html">Hierarchia nagłówków w praktyce</a></li>
                 </ul>
             </nav>
         </aside>
     </main>
 
     <footer>
-        <p>&copy; 2026 Mój Blog o Technologii. Wszelkie prawa zastrzeżone.</p>
+        <p>&copy; 2026 Portal Inżynierii Webowej. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
 </body>
 </html>
 ```
 
-Zwróć uwagę na kluczowe decyzje:
-- **`<main>` jest jeden**: obejmuje unikalną treść tej konkretnej strony. Nie wkładaj do niego globalnego nagłówka ani stopki.
-- **`<article>` ma własny nagłówek i stopkę**: tytuł artykułu i autor należą bezpośrednio do publikacji.
-- **Wielokrotność tagów**: `<header>` i `<footer>` mogą wystąpić więcej niż raz, jeśli ich kontekst (strona vs artykuł) jest różny.
-- **Nazwa bloga nie jest tytułem artykułu**: na stronie publikacji najważniejszym nagłówkiem `<h1>` jest tytuł tekstu, a nie logo serwisu.
-- **Użycie encji `&copy;`**: W stopce strony użyliśmy kodu `&copy;`. Przeglądarka wyświetla go jako znak praw autorskich &copy;.
+Przeanalizuj cztery kluczowe decyzje architektoniczne z tego przykładu:
+- **Jeden widoczny `<main>`**: obejmuje wyłącznie unikalną treść danej podstrony. Globalny nagłówek i stopka serwisu leżą poza nim.
+- **Lokalny `<header>` i `<footer>` wewnątrz `<article>`**: tytuł publikacji, data oraz informacja o autorze należą do konkretnego artykułu, a nie do całego portalu.
+- **Logo serwisu nie jest nagłówkiem `<h1>`**: na stronie publikacji najważniejszym tytułem `<h1>` jest tytuł artykułu, nie powtarzalna nazwa witryny.
+- **Znak praw autorskich `&copy;`**: w stopce zastosowaliśmy encję HTML zamiast wpisywać symbol ręcznie.
 
 > [!NOTE]
-> **Encje HTML (HTML Entities)** to specjalne sekwencje znaków zaczynające się od symbolu ampersand `&` i kończące średnikiem `;`. Używamy ich w dwóch sytuacjach: gdy chcemy wyświetlić znaki zastrzeżone dla składni języka (np. `<` czy `>`), oraz gdy wprowadzamy symbole trudne do wpisania z klawiatury.
-> 
-> Kilka najpopularniejszych encji, które warto zapamiętać:
-> - `&copy;` (znak praw autorskich: `©` (*copyright*))
-> - `&lt;` (znak mniejszości: `<` (*less than*))
-> - `&gt;` (znak większości: `>` (*greater than*))
-> - `&amp;` (znak ampersand: `&` (*ampersand*))
-> - `&nbsp;` (twarda spacja: *non-breaking space*, która zapobiega automatycznemu przenoszeniu słów do nowej linii)
+> **Encje HTML** to sekwencje zaczynające się od znaku `&` i kończące średnikiem `;`. Służą do bezpiecznego zapisywania znaków zastrzeżonych w składni HTML oraz symboli specjalnych:
+> - `&copy;` wyświetla znak praw autorskich `©`
+> - `&lt;` oraz `&gt;` wyświetlają znaki `<` oraz `>` bez otwierania znacznika HTML
+> - `&amp;` wyświetla znak `&`
+> - `&nbsp;` wstawia twardą spację, która zapobiega rozdzielaniu dwóch wyrazów na końcu wiersza
 
 ---
 
-## 🧱 Wybór znacznika: <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code> czy <code>&lt;div&gt;</code>
+## 🧱 Wybór kontenera: article, section czy div
 
-Wybór odpowiedniego kontenera bywa wyzwaniem. Aby podjąć właściwą decyzję, przeanalizuj znaczenie (semantykę) wydzielanego fragmentu strony.
+Najczęstszy dylemat przy projektowaniu semantyki dotyczy wyboru między `<article>`, `<section>` i `<div>`. Poniższa tabela porządkuje kryteria decyzyjne:
 
-#### 1. Znacznik <code>&lt;article&gt;</code> (Artykuł)
+| Znacznik | Kiedy stosować | Przykłady użycia | Czy wymaga nagłówka |
+| :--- | :--- | :--- | :--- |
+| `<article>` | Treść jest samodzielna i zachowuje pełny sens po przeniesieniu na inną stronę lub do czytnika RSS | Wpis blogowy, artykuł prasowy, karta produktu, pojedynczy komentarz | Zalecany (`<h1>` lub `<h2>`) |
+| `<section>` | Tematyczny rozdział lub logiczny obszar większej całości | Rozdział artykułu, sekcja opinii, blok formularza kontaktowego | Tak (od `<h2>` do `<h6>`) |
+| `<div>` | Brak znaczenia semantycznego; grupowanie wyłącznie pod układ lub style CSS | Kontener siatki kolumn, ramka dekoracyjna, pasek układu kart | Nie |
 
-Stosuj go do treści, które stanowią niezależną, zamkniętą całość. Taki fragment mógłby zostać wycięty i umieszczony na zupełnie innej stronie (lub wysłany w newsletterze), zachowując swój pełny sens.
-
-Przykłady użycia:
-- Wpis na blogu lub artykuł prasowy.
-- Pojedynczy komentarz użytkownika pod tekstem.
-- Post na forum dyskusyjnym.
-
-#### 2. Znacznik <code>&lt;section&gt;</code> (Sekcja)
-
-Reprezentuje tematyczny rozdział dokumentu lub logiczny obszar strony. Sekcja nie jest samodzielną całością, lecz częścią większej struktury. Zgodnie ze specyfikacją HTML, <strong>każda prawidłowa sekcja powinna zawierać nagłówek</strong> (`<h2>`-`<h6>`) opisujący jej temat.
-
-#### 3. Znacznik <code>&lt;div&gt;</code> (Wrapper)
-
-To element czysto strukturalny pozbawiony jakiegokolwiek znaczenia semantycznego. <strong>Używaj go wyłącznie wtedy, gdy grupujesz elementy w celu nadania im stylów wizualnych w CSS lub ustalenia ich pozycji w układzie strony</strong>.
+Zwróć uwagę na przypadek brzegowy: znaczniki `<article>` można w siebie zagnieżdżać, jeśli treść wewnętrzna jest ściśle powiązana z zewnętrzną, ale nadal stanowi samodzielną wypowiedź. Przykładem jest pojedynczy komentarz czytelnika umieszczony wewnątrz artykułu blogowego.
 
 ---
 
-## ♿ Dostępność sekcji: Rola aria-labelledby i dwa konteksty użycia
+## ♿ Dwa konteksty znacznika section i atrybut aria-labelledby
 
-Sposób użycia znacznika `<section>` zależy od tego, czy tworzysz dokument tekstowy, czy układ aplikacji (np. panel dashboardu). Przeglądarka i czytniki ekranu reagują na te sytuacje zupełnie inaczej.
+Sposób, w jaki drzewo dostępności traktuje znacznik `<section>`, zależy od tego, czy posiada on nazwę dostępną. Rozróżnij dwa scenariusze projektowe.
 
-#### 1. Sekcja dokumentu (Rozdział w tekście)
+### 📄 Scenariusz 1: rozdział dokumentu tekstowego
 
-Kiedy dzielisz artykuł `<article>` na rozdziały (np. „Historia”, „Opis problemu”), znacznik `<section>` służy wyłącznie do budowania logicznej struktury dokumentu (tzw. *document outline*). 
+Gdy dzielisz artykuł `<article>` na rozdziały („Historia”, „Podsumowanie”), `<section>` porządkuje wyłącznie strukturę tekstu. W takiej sytuacji **_nie dodawaj_** do `<section>` atrybutu `aria-labelledby`.
 
-W tym przypadku <strong>**_nie stosuje się_**</strong> atrybutu `aria-labelledby`. Użytkownicy czytników ekranu poruszają się po artykule za pomocą poziomu nagłówków (`<h2>`, `<h3>`), a nie za pomocą **landmarków**. Dodanie etykiety do każdego rozdziału tekstu spowodowałoby tak zwane zanieczyszczenie punktów kontrolnych (*landmark pollution*), co utrudnia nawigację.
-
-> [!NOTE]
-> **Landmark (punkt orientacyjny)** to kluczowy, wydzielony obszar strony (taki jak nagłówek, menu nawigacyjne, główna treść czy stopka), który posiada określone znaczenie semantyczne. Czytniki ekranu tworzą z nich specjalną mapę strony. Umożliwia to użytkownikom niewidomym szybkie przeskakiwanie między tymi sekcjami za pomocą skrótów klawiszowych.
+Użytkownicy czytników ekranu poruszają się po rozdziałach artykułu za pomocą skrótów do nagłówków (`<h2>`, `<h3>`). Nadanie etykiety każdemu rozdziałowi wywołałoby **_zanieczyszczenie punktów orientacyjnych_** (landmark pollution): lista landmarków rozrosłaby się do kilkunastu pozycji i straciła swoją przydatność.
 
 ```html
 <section>
-    <h2>Historia i geneza</h2>
+    <h2>Budowa żądania HTTP</h2>
     <p>Treść rozdziału...</p>
 </section>
 ```
 
-#### 2. Sekcja aplikacji (Komponent lub widget)
+### 📊 Scenariusz 2: niezależny panel lub widget aplikacji
 
-Kiedy budujesz panel sterowania (dashboard) lub stronę z osobnymi widgetami (np. „Prognoza pogody”, „Kursy walut”), sekcje te pełnią funkcję samodzielnych narzędzi. 
+Gdy budujesz panel administracyjny (dashboard) z osobnymi narzędziami, na przykład „Status serwerów” oraz „Ostatnie alerty”, zależy Ci na tym, aby użytkownik mógł jednym skrótem przeskoczyć bezpośrednio do wybranego modułu.
 
-W tym kontekście zależy nam, aby użytkownik mógł błyskawicznie przeskoczyć bezpośrednio do wybranego widgetu. W standardzie WAI-ARIA (ogłoszonym przez W3C) znacznik `<section>` staje się widoczny jako ważny obszar nawigacyjny (tzw. *landmark* o roli `region`) <strong>_**wyłącznie wtedy, gdy ma nadaną nazwę**_</strong>.
-
-Aby nadać sekcji nazwę, stosujemy atrybut `aria-labelledby` wskazujący na unikalny identyfikator (`id`) nagłówka:
+W standardzie WAI-ARIA znacznik `<section>` otrzymuje w drzewie dostępności rolę punktu orientacyjnego (`region`) _**wyłącznie wtedy, gdy ma nadaną nazwę dostępną**_. Najlepiej powiązać go z jego własnym nagłówkiem za pomocą atrybutu *aria-labelledby*, który wskazuje wartość *id* tego nagłówka:
 
 ```html
-<section class="weather-widget" aria-labelledby="heading-weather">
-    <h2 id="heading-weather">Prognoza pogody</h2>
-    <!-- formularze i kontrolki widgetu -->
+<section aria-labelledby="heading-alerts">
+    <h2 id="heading-alerts">Ostatnie alerty</h2>
+    <ul>
+        <li>Brak krytycznych błędów w ostatnich 24 godzinach.</li>
+    </ul>
 </section>
 ```
 
 > [!WARNING]
-> Choć specyfikacja ARIA pozwala, aby `aria-labelledby` wskazywało na element leżący w dowolnym miejscu strony (nawet całkowicie poza sekcją), to z punktu widzenia standardu HTML5 jest to błąd walidacji. Każdy znacznik `<section>` musi posiadać nagłówek (`<h2>`-`<h6>`) jako swoje dziecko. Jeśli powiążesz sekcję z zewnętrznym nagłówkiem, oficjalny walidator W3C zgłosi ostrzeżenie: <em>„Section lacks heading”</em> (Sekcja nie posiada nagłówka). Dlatego <strong>nagłówek zawsze musi znajdować się wewnątrz sekcji</strong>.
+> Specyfikacja ARIA pozwala wskazać przez `aria-labelledby` dowolny element na stronie, ale standard HTML5 wymaga, aby każdy znacznik `<section>` zawierał swój nagłówek (od `<h2>` do `<h6>`) wewnątrz siebie. Jeśli powiążesz sekcję z nagłówkiem leżącym poza nią, walidator W3C zgłosi ostrzeżenie „Section lacks heading”. Nagłówek **zawsze umieszczaj wewnątrz sekcji**.
 
-#### Podsumowanie zachowania technologii:
-- **Czytniki ekranu (NVDA, VoiceOver)**: W sekcji aplikacji (z `aria-labelledby`) dodadzą obszar do listy szybkiej nawigacji (np. w NVDA użytkownik może przeskakiwać między landmarkami klawiszem <kbd>D</kbd>), a czytnik oznajmi: „Prognoza pogody, region”. W sekcji dokumentu (bez etykiety) potraktują go jak zwykły `<div>`.
-- **Roboty indeksujące (Googlebot, Bingbot)**: Całkowicie ignorują atrybuty ARIA, w tym `aria-labelledby`. Dla pozycjonowania SEO <strong>znaczenie ma wyłącznie treść nagłówka oraz hierarchia HTML</strong>.
+Dla robotów wyszukiwarek atrybuty ARIA są neutralne: dla indeksowania liczy się treść nagłówka oraz poprawna struktura HTML. Dla czytników ekranu (NVDA, VoiceOver) sekcja z `aria-labelledby` staje się natomiast pełnoprawnym punktem orientacyjnym na liście szybkiej nawigacji.
+
+---
+
+## 🚀 Warsztat 2: samodzielny szkielet panelu administracyjnego
+
+Zbuduj od zera szkielet semantyczny panelu monitorowania serwerów (sama zawartość wewnątrz `<body>`). Tym razem nie budujesz bloga, lecz **dashboard aplikacji** z nazwanym regionem widgetu oraz dwoma wyraźnie rozdzielonymi obszarami nawigacji.
+
+Twój kod musi spełniać wszystkie poniższe wymagania:
+1. Umieść globalny `<header>` z pierwszą nawigacją `<nav aria-label="...">` zawierającą listę `<ul>` linków względnych.
+2. Utwórz główny obszar `<main>` z dokładnie jednym nagłówkiem `<h1>` oraz co najmniej jednym widgetem `<section aria-labelledby="...">`, którego wewnętrzny nagłówek `<h2 id="...">` posiada **identyczny identyfikator** jak wartość `aria-labelledby`.
+3. Dodaj panel poboczny `<aside>` zawierający drugą nawigację `<nav aria-label="...">` (na przykład z szybkimi skrótami do logów i raportów).
+4. Zakończ układ globalną stopką `<footer>`.
+
+<data-gate>
+  <data-code-runner language="html" title="Samodzielny szkielet panelu administracyjnego z aria-labelledby">
+    <template data-type="code">
+<!-- Zbuduj dashboard: header z nav(aria-label), main z h1 i section(aria-labelledby + pasujące h2 id), aside z drugim nav(aria-label) oraz footer -->
+
+    </template>
+    <template data-type="requirements">
+      [
+        {
+          "id": "dash-header-nav",
+          "text": "Utworzono <header> z pierwszą nawigacją <nav aria-label=\"...\">",
+          "type": "regex",
+          "pattern": "<header\\b[^>]*>[\\s\\S]*?<nav\\b[^>]*aria-label\\s*=\\s*[\"'][^\"']{3,}[\"'][^>]*>[\\s\\S]*?</nav>[\\s\\S]*?</header>"
+        },
+        {
+          "id": "dash-main-h1",
+          "text": "Utworzono główny kontener <main> zawierający nagłówek <h1>",
+          "type": "regex",
+          "pattern": "<main\\b[^>]*>[\\s\\S]*?<h1\\b[^>]*>[\\s\\S]*?</h1>[\\s\\S]*?</main>"
+        },
+        {
+          "id": "dash-section-labelledby",
+          "text": "Dodano w <main> widget <section aria-labelledby=\"...\"> powiązany z wewnętrznym <h2 id=\"...\"> o tym samym identyfikatorze",
+          "type": "regex",
+          "pattern": "<main\\b[^>]*>[\\s\\S]*?<section\\b[^>]*aria-labelledby\\s*=\\s*[\"']([^\"']+)[\"'][^>]*>[\\s\\S]*?<h2\\b[^>]*id\\s*=\\s*[\"']\\1[\"'][^>]*>[\\s\\S]*?</h2>[\\s\\S]*?</section>[\\s\\S]*?</main>"
+        },
+        {
+          "id": "dash-aside-nav",
+          "text": "Umieszczono w <aside> drugą nawigację <nav aria-label=\"...\">",
+          "type": "regex",
+          "pattern": "<aside\\b[^>]*>[\\s\\S]*?<nav\\b[^>]*aria-label\\s*=\\s*[\"'][^\"']{3,}[\"'][^>]*>[\\s\\S]*?</nav>[\\s\\S]*?</aside>"
+        },
+        {
+          "id": "dash-footer",
+          "text": "Zakończono układ stopką <footer>",
+          "type": "regex",
+          "pattern": "<footer\\b[^>]*>[\\s\\S]*?</footer>"
+        },
+        {
+          "id": "dash-no-div",
+          "text": "Zbudowano cały szkielet wyłącznie z semantycznych kontenerów (bez <div>)",
+          "type": "not-contains",
+          "pattern": "<div"
+        }
+      ]
+    </template>
+  </data-code-runner>
+</data-gate>
+
+---
+
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Drzewo AXObject w C++, mapowanie HTML-AAM i komunikacja z API systemu OS</span>
+<span class="deep-dive-badge">HTML-AAM · AXOBJECT · OS UI AUTOMATION</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Jak przeglądarka wystawia strukturę do systemu operacyjnego</h4>
+
+Czytnik ekranu (NVDA na Windows, VoiceOver na macOS) nigdy nie parsuje pliku HTML ani nie zagląda bezpośrednio do DOM. Silnik Blink buduje w pamięci równoległą strukturę węzłów **`AXObject`** i udostępnia ją przez natywne API systemu operacyjnego:
+
+- **Windows**: `UI Automation` (UIA) / `IAccessible2`
+- **macOS**: `NSAccessibility`
+- **Linux**: `AT-SPI` (przez magistralę D-Bus)
+
+Dla każdego węzła system otrzymuje trójkę `(Role, AccessibleName, States)` wyliczoną według algorytmu _**ACCNAME 1.2**_ (najpierw `aria-labelledby`, potem `aria-label`, potem natywna etykieta lub treść węzła).
+
+<h4>2. Kontekstowe mapowanie ról w specyfikacji HTML-AAM</h4>
+
+Specyfikacja **HTML-AAM** (*HTML Accessibility API Mappings*) definiuje, dlaczego zagnieżdżone `<header>` i `<footer>` nie zaśmiecają listy punktów orientacyjnych:
+
+| Kontekst w drzewie DOM | Przypisana rola ARIA | Czy tworzy landmark |
+| :--- | :--- | :--- |
+| `<body>` → `<header>` | `banner` | Tak |
+| `<article>` → `<header>` | `generic` | Nie |
+| `<body>` → `<footer>` | `contentinfo` | Tak |
+| `<article>` → `<footer>` | `generic` | Nie |
+| `<section>` (bez nazwy) | `generic` | Nie |
+| `<section aria-labelledby="...">` | `region` | Tak |
+
+<h4>3. Kolejność fokusu i link Skip-to-content</h4>
+
+Osoby nawigujące wyłącznie klawiaturą (<kbd>Tab</kbd>) nie korzystają ze skrótów czytnika ekranu po landmarkach. W profesjonalnych interfejsach pierwszym fokusalnym elementem wewnątrz `<body>` jest ukryty wizualnie link `<a href="#tresc-glowna">Przejdź do treści głównej</a>`, który odsłania się przy otrzymaniu fokusu (`:focus`) i przenosi kursor klawiatury bezpośrednio do `<main id="tresc-glowna" tabindex="-1">`.
+
+</div>
+</details>
 
 ---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **Tagi semantyczne HTML5 opisują funkcję**: `<article>`, `<section>`, `<nav>`, `<aside>` i `<footer>` dzielą dokument na logiczne strefy.
-- **Nawigacja wymaga nazw**: Gdy na stronie masz więcej niż jeden tag `<nav>`, musisz je rozróżnić za pomocą atrybutu `aria-label`.
-- **`<main>` to serce strony**: Może być tylko jeden widoczny element `<main>` na dokument.
-- **`<article>` to samodzielność**: Jeśli treść ma sens wycięta ze strony (np. post, artykuł), użyj `<article>`. Jeśli to rozdział lub powiązana tematycznie część, użyj `<section>`.
-- **Hierarchia nagłówków buduje spis treści**: Nie skacz po poziomach nagłówków i nie używaj ich do zmiany wyglądu czcionki.
+- **Semantyka buduje drzewo dostępności**: znaczniki `<header>`, `<nav>`, `<main>`, `<article>`, `<aside>` i `<footer>` tworzą punkty orientacyjne dla czytników ekranu, podczas gdy `<div>` pozostaje przezroczystym pudełkiem do układów CSS.
+- **Wiele nawigacji wymaga `aria-label`**: gdy na stronie występuje więcej niż jeden tag `<nav>`, nazwij każdy z nich unikalną etykietą opisującą jego funkcję.
+- **Jeden `<main>` na dokument**: obejmuje unikalną treść podstrony, a globalny `<header>` i `<footer>` pozostają na zewnątrz.
+- **`<article>` oznacza samodzielność, `<section>` to rozdział**: jeśli fragment ma pełny sens po wycięciu ze strony, użyj `<article>`; gdy dzielisz treść na rozdziały z nagłówkami, wybierz `<section>`.
+- **Atrybut `aria-labelledby` na `<section>` rezerwuj dla widgetów aplikacji**: zwykłych rozdziałów tekstu nie oznaczaj etykietami ARIA, aby uniknąć **_zanieczyszczenia punktów orientacyjnych_**.
+
+> [!TIP]
+> Chcesz przećwiczyć projektowanie układów HTML na dodatkowych zestawach praktycznych? Sprawdź [Katalog zadań praktycznych](/arkusze/?qual=INF.03&tag=HTML).

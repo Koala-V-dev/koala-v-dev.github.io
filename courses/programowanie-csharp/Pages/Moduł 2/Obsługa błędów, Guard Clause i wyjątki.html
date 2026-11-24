@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obsługa błędów, Guard Clause i wyjątki - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Obsługa błędów, Guard Clause i wyjątki</h1>
+<p>Wyobraź sobie program, który skanuje folder użytkownika na Windows 11. Przez pierwsze dziewięćset plików wszystko działa bez zarzutu. Przy pliku numer dziewięćset jeden przeglądarka trzyma blokadę na pobieranym archiwum, a system odmawia dostępu.</p>
+<p>Bez zabezpieczenia cały proces kończy się natychmiastowym zamknięciem okna. Tracisz raport z poprzednich dziewięciuset plików, a użytkownik widzi jedynie czerwony ekran z komunikatem technicznym.</p>
+<p>Gdy dopiero uczysz się programować, kusi Cię otaczanie każdego kroku kolejnymi instrukcjami <code>if</code>. Taki kod szybko zamienia się w pięciopoziomową piramidę wcięć, w której trudno odróżnić logikę biznesową od sprawdzania błędów. Środowisko .NET rozwiązuje ten problem przez dwa uzupełniające się mechanizmy: <span class="color-green">wzorzec Guard Clause</span> oraz strukturę <span class="color-green"><code>try / catch / finally</code></span> z blokiem <span class="color-green"><code>using</code></span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🛡️ Wzorzec Guard Clause i hierarchia wyjątków</h2>
+<p>Wzorzec <span class="color-green">Guard Clause</span> (klauzula strażnicza) polega na natychmiastowym odrzucaniu błędnych argumentów w pierwszych liniach metody. Zamiast wsuwać właściwy kod głęboko w gałęzie <code>else</code>, przerywasz wykonanie instrukcją <code>throw new ...</code> już przy pierwszym wykrytym naruszeniu kontraktu.</p>
+<pre><code class="language-csharp">public static string ZbudujAdresSerwera(string host, int port)
+{
+    if (string.IsNullOrWhiteSpace(host))
+        throw new ArgumentException("Nazwa hosta nie moze byc pusta.", "host");
+
+    if (port &lt; 1 || port &gt; 65535)
+        throw new ArgumentOutOfRangeException("port", "Port TCP musi miescic sie w zakresie 1-65535.");
+
+    return host.Trim() + ":" + port;
+}
+</code></pre>
+<p>Zwróć uwagę na wcięcia w powyższym przykładzie. Główna logika (<code>return ...</code>) leży na zerowym poziomie i uruchamia się dopiero wtedy, gdy wszystkie strażniki przepuszczą dane wejściowe.</p>
+<h3>⚠️ Pułapka kolejności parametrów konstruktorów</h3>
+<p>Konstruktory wyjątków z rodziny argumentów mają w .NET zdradliwą różnicę w kolejności parametrów. Jeśli je pomylisz, kod skompiluje się bez ostrzeżenia, ale wygeneruje mylący komunikat błędu.</p>
+<table>
+<thead>
+<tr>
+<th>Typ wyjątku</th>
+<th>Kolejność parametrów konstruktora</th>
+<th>Poprawny zapis w C# 5.0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ArgumentException</code></td>
+<td><code>(wiadomosc, nazwaParametru)</code></td>
+<td><code>new ArgumentException("Pusty napis.", "host")</code></td>
+</tr>
+<tr>
+<td><code>ArgumentNullException</code></td>
+<td><code>(nazwaParametru, wiadomosc)</code></td>
+<td><code>new ArgumentNullException("lista", "Brak danych.")</code></td>
+</tr>
+<tr>
+<td><code>ArgumentOutOfRangeException</code></td>
+<td><code>(nazwaParametru, wiadomosc)</code></td>
+<td><code>new ArgumentOutOfRangeException("port", "Poza zakresem.")</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli w <code>ArgumentNullException</code> podasz najpierw komunikat, a potem nazwę parametru, środowisko CLR potraktuje cały komunikat jako nazwę zmiennej. W logach zobaczysz wtedy absurdalny wpis: <span class="color-red">Nazwa parametru: Wartość nie może być pusta</span>.</p>
+
+</div>
+</div><h3>🌳 Hierarchia wyjątków w .NET</h3>
+<p>Wszystkie wyjątki w C# dziedziczą po klasie bazowej <span class="color-gold"><code>System.Exception</code></span>. Dobór konkretnego typu mówi wywołującemu dokładnie, co zawiodło i czy program może ten problem naprawić.</p>
+<table>
+<thead>
+<tr>
+<th>Typ wyjątku</th>
+<th>Dziedziczy po</th>
+<th>Kiedy go rzucasz lub łapiesz?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ArgumentException</code></td>
+<td><code>SystemException</code></td>
+<td>Nieprawidłowa treść argumentu (pusty napis, niedozwolone znaki)</td>
+</tr>
+<tr>
+<td><code>ArgumentNullException</code></td>
+<td><code>ArgumentException</code></td>
+<td>Przekazano <code>null</code> tam, gdzie wymagany jest obiekt lub kolekcja</td>
+</tr>
+<tr>
+<td><code>ArgumentOutOfRangeException</code></td>
+<td><code>ArgumentException</code></td>
+<td>Wartość poza dozwolonym przedziałem (ujemny rozmiar, błędny port)</td>
+</tr>
+<tr>
+<td><code>InvalidOperationException</code></td>
+<td><code>SystemException</code></td>
+<td>Argumenty są poprawne, ale obiekt jest w złym stanie (np. zdjęcie z pustego stosu)</td>
+</tr>
+<tr>
+<td><code>KeyNotFoundException</code></td>
+<td><code>SystemException</code></td>
+<td>Próba odczytu nieistniejącego klucza przez indeksator słownika <code>mapa[klucz]</code></td>
+</tr>
+<tr>
+<td><code>NullReferenceException</code></td>
+<td><code>SystemException</code></td>
+<td>Wywołanie metody lub właściwości na zmiennej równej <code>null</code> (błąd w kodzie)</td>
+</tr>
+<tr>
+<td><code>FormatException</code></td>
+<td><code>SystemException</code></td>
+<td>Napis nie daje się zamienić na liczbę (np. <code>int.Parse("abc")</code>)</td>
+</tr>
+<tr>
+<td><code>OverflowException</code></td>
+<td><code>ArithmeticException</code></td>
+<td>Liczba przekracza zakres typu docelowego (np. <code>int.Parse("99999999999")</code>)</td>
+</tr>
+<tr>
+<td><code>IOException</code></td>
+<td><code>SystemException</code></td>
+<td>Błąd operacji dyskowej, zablokowany plik lub odłączony nośnik</td>
+</tr>
+<tr>
+<td><code>FileNotFoundException</code></td>
+<td><code>IOException</code></td>
+<td>Podana ścieżka pliku nie istnieje na dysku</td>
+</tr>
+<tr>
+<td><code>UnauthorizedAccessException</code></td>
+<td><code>SystemException</code></td>
+<td>System Windows odmówił praw odczytu lub zapisu do pliku</td>
+</tr>
+</tbody></table>
+<h3>🔎 Sprawdzanie zakazanych znaków metodą IndexOfAny</h3>
+<p>Strażnik bardzo często musi odrzucić tekst zawierający choćby jeden znak z czarnej listy. Pisanie siedmiu osobnych wywołań <code>Contains</code> zaciemnia kod i wielokrotnie skanuje ten sam napis.</p>
+<p>Klasa <code>string</code> udostępnia w tym celu metodę <span class="color-green"><code>IndexOfAny(char[] anyOf)</code></span>. Przeszukuje ona napis dokładnie raz i zwraca indeks pierwszego napotkanego znaku z tablicy lub <code>-1</code>, gdy żaden z zakazanych znaków nie występuje.</p>
+<pre><code class="language-csharp">public static string WalidujLogin(string login)
+{
+    if (string.IsNullOrWhiteSpace(login))
+        throw new ArgumentException("Login nie moze byc pusty.", "login");
+
+    char[] zakazane = new char[] { ' ', '@', '#', '$' };
+    if (login.IndexOfAny(zakazane) &gt;= 0)
+        throw new ArgumentException("Login zawiera niedozwolony znak.", "login");
+
+    return login.Trim();
+}
+</code></pre>
+<p>Tę samą technikę stosuje się w ochronie przed atakiem <span class="color-red">Path Traversal</span>. Jeśli użytkownik poda nazwę pliku zawierającą sekwencję <code>".."</code> albo separatory katalogów <code>'/'</code> i <code>'\\'</code>, może wyjść z folderu aplikacji i nadpisać pliki systemowe Windows. Połączenie sprawdzenia <code>".."</code> z <code>IndexOfAny</code> na tablicy zakazanych znaków zamyka tę lukę na samym wejściu metody.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Czytanie obiektu Exception i stosu wywołań StackTrace</h2>
+<p>Kiedy w programie pada wyjątek, środowisko CLR tworzy obiekt klasy dziedziczącej po <code>Exception</code> i wypełnia jego właściwości diagnostyczne. Dwie z nich są kluczowe przy szukaniu przyczyny awarii:</p>
+<ul>
+<li><span class="color-green"><code>Message</code></span>: zwięzły opis problemu przekazany w konstruktorze wyjątku.</li>
+<li><span class="color-green"><code>StackTrace</code></span>: pełna historia <span class="color-green">ramek wywołań</span> (od miejsca powstania błędu w górę aż do metody <code>Main</code>).</li>
+</ul>
+<p>Przeanalizuj przykładowy zrzut błędu wypisany przez środowisko uruchomieniowe:</p>
+<pre><code class="language-text">System.FormatException: Nieprawidłowy format ciągu wejściowego.
+   w System.Number.StringToNumber(String str, NumberStyles options, ...)
+   w System.Int32.Parse(String s)
+   w Sklep.PoliczCene(String tekst) w Program.cs:wiersz 42
+   w Sklep.Main() w Program.cs:wiersz 15
+</code></pre>
+<p>Stos wywołań czytaj zawsze <span class="color-green">od góry do dołu</span>. Pierwsze linie wskazują wnętrze biblioteki .NET, w którym rzucono wyjątek (<code>Int32.Parse</code>). Pierwsza linia z nazwą Twojej klasy (<code>Sklep.PoliczCene</code>, wiersz 42) pokazuje dokładne miejsce, w którym przekazałeś błędne dane.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Przepływ try catch finally i zwalnianie zasobów</h2>
+<p>Gdy wewnątrz bloku <code>try</code> wystąpi wyjątek, środowisko CLR natychmiast przerywa wykonywanie pozostałych instrukcji w tym bloku. Następnie sprawdza po kolei bloki <code>catch</code> i wchodzi w pierwszy, którego typ pasuje do rzuconego obiektu.</p>
+<p>Blok <span class="color-green"><code>finally</code></span> wykonuje się <span class="color-green">zawsze</span>, niezależnie od wyniku bloku <code>try</code> i <code>catch</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Scenariusz wykonania bloku <code>try</code></th>
+<th>Czy wykona się <code>catch</code>?</th>
+<th>Czy wykona się <code>finally</code>?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kod w <code>try</code> kończy się bez błędu</td>
+<td>Nie</td>
+<td><span class="color-green">Tak</span></td>
+</tr>
+<tr>
+<td>Kod w <code>try</code> wykonuje instrukcję <code>return</code></td>
+<td>Nie</td>
+<td><span class="color-green">Tak</span> (przed wyjściem z metody)</td>
+</tr>
+<tr>
+<td>W <code>try</code> pada wyjątek pasujący do <code>catch</code></td>
+<td><span class="color-green">Tak</span> (pierwszy pasujący)</td>
+<td><span class="color-green">Tak</span> (po zakończeniu <code>catch</code>)</td>
+</tr>
+<tr>
+<td>W <code>try</code> pada wyjątek nieobsłużony w <code>catch</code></td>
+<td>Nie (leci wyżej na stos)</td>
+<td><span class="color-green">Tak</span> (przed opuszczeniem metody)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Kolejność bloków <code>catch</code> jest weryfikowana podczas kompilacji. Zawsze umieszczaj typy bardziej szczegółowe nad ogólniejszymi (na przykład <code>FileNotFoundException</code> przed <code>IOException</code>, a <code>ArgumentNullException</code> przed <code>ArgumentException</code>). Odwrotna kolejność wywoła <span class="color-red">błąd kompilacji CS0160</span>, ponieważ ogólny blok przechwyciłby wszystkie przypadki z klasy pochodnej.</p>
+
+</div>
+</div><data-gate>
+<data-sortable-list title="Ułóż bloki catch od najbardziej szczegółowego do najbardziej ogólnego (zgodnie z wymogami kompilatora C#)">
+  <item data-correct="3">catch (SystemException ex) // klasa bazowa wyjątków środowiska .NET</item>
+  <item data-correct="1">catch (FileNotFoundException ex) // konkretny brak pliku pod podaną ścieżką</item>
+  <item data-correct="4">catch (Exception ex) // najogólniejsza klasa bazowa wszystkich wyjątków</item>
+  <item data-correct="2">catch (IOException ex) // ogólny błąd operacji wejścia/wyjścia i dysku</item>
+</data-sortable-list>
+</data-gate>
+
+<h3>🔹 Strumienie Stream, StreamReader i piętrowy blok using</h3>
+<p>W .NET plik na dysku nie jest odczytywany jak zwykła tablica w pamięci RAM. System operacyjny udostępnia go jako <span class="color-gold"><code>Stream</code></span>, czyli abstrakcyjny potok bajtów, z którego program czyta dane porcjami.</p>
+<p>Jeśli pracujesz z plikiem tekstowym, owijasz strumień w <span class="color-green"><code>StreamReader</code></span>. Ta klasa dekoduje surowe bajty na znaki (domyślnie UTF‑8) i udostępnia wygodną metodę <code>ReadLine()</code>.</p>
+<p>Każdy otwarty strumień rezerwuje w jądrze Windows <span class="color-green">uchwyt pliku</span>. Jeśli przed jego zamknięciem padnie wyjątek, plik pozostanie zablokowany dla innych programów aż do zamknięcia Twojej aplikacji. Klasy zarządzające takimi zasobami implementują interfejs <span class="color-gold"><code>IDisposable</code></span> z metodą <code>Dispose()</code>.</p>
+<p>Otoczenie zasobu blokiem <span class="color-green"><code>using (...)</code></span> gwarantuje wywołanie <code>Dispose()</code> nawet przy wyjątku lub wczesnym <code>return</code>:</p>
+<pre><code class="language-csharp">try
+{
+    using (var czytnik = new StreamReader(sciezkaKonfiguracji))
+    {
+        string pierwszaLinia = czytnik.ReadLine();
+        Console.WriteLine("Konfiguracja: " + pierwszaLinia);
+    } // Tu niejawnie wywoluje sie czytnik.Dispose() nawet przy wyjatku
+}
+catch (FileNotFoundException)
+{
+    Console.WriteLine("Brak pliku konfiguracji: " + sciezkaKonfiguracji);
+}
+catch (IOException ex)
+{
+    Console.WriteLine("Blad odczytu dysku: " + ex.Message);
+}
+</code></pre>
+<p>Gdy jednocześnie otwierasz dwa zasoby (na przykład czytasz z jednego pliku i zapisujesz do drugiego), nie musisz zagnieżdżać podwójnych klamr. W C# układasz wtedy <span class="color-green">piętrowy blok <code>using</code></span>:</p>
+<pre><code class="language-csharp">using (var czytnik = new StreamReader(sciezkaWejsciowa))
+using (var pisarz = new StreamWriter(sciezkaWyjsciowa))
+{
+    string linia = czytnik.ReadLine();
+    if (linia != null)
+    {
+        pisarz.WriteLine(linia.ToUpperInvariant());
+    }
+}
+</code></pre>
+<p>Środowisko zwalnia zasoby w kolejności odwrotnej do ich otwarcia: najpierw wywołuje <code>pisarz.Dispose()</code>, a następnie <code>czytnik.Dispose()</code>. Nawet jeśli zapis rzuci <code>IOException</code>, oba uchwyty zostaną poprawnie zwrócone do systemu Windows.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚫 Antywzorce obsługi wyjątków i drzewo decyzyjne</h2>
+<p>Sama obecność bloku <code>try / catch</code> nie czyni programu bezpiecznym. Dwa bardzo częste błędy potrafią zamienić obsługę wyjątków w ukrytą bombę zegarową.</p>
+<h3>🕳️ Antywzorzec 1: Połykanie wyjątków pustym blokiem catch</h3>
+<pre><code class="language-csharp">try
+{
+    ZapiszUstawienia(sciezka, konfiguracja);
+}
+catch (Exception)
+{
+    // ZLE: pusty blok ukrywa kazda awarie!
+}
+</code></pre>
+<p>Pusty <code>catch (Exception) { }</code> sprawia, że aplikacja <span class="color-red">połyka wyjątek</span> i udaje sukces. Program idzie dalej z pustą konfiguracją albo uszkodzonym stanem, a awaria ujawnia się pięć minut później w zupełnie innym module bez żadnej wskazówki o prawdziwej przyczynie. Łap wyłącznie te typy wyjątków, na które potrafisz świadomie zareagować (zalogować, pominąć zablokowany plik lub poprosić o poprawne dane).</p>
+<h3>✂️ Antywzorzec 2: Zniszczenie stosu wywołań przez throw ex</h3>
+<p>Czasami musisz zalogować błąd na poziomie bieżącej metody, a potem przekazać go wyżej do warstwy interfejsu użytkownika. Różnica między <code>throw ex;</code> a <code>throw;</code> jest krytyczna:</p>
+<pre><code class="language-csharp">catch (IOException ex)
+{
+    LogujBlad(ex.Message);
+    throw ex; // ZLE: resetuje StackTrace do tej linii!
+}
+
+catch (IOException ex)
+{
+    LogujBlad(ex.Message);
+    throw;    // DOBRZE: zachowuje pelna historie stosu wywolan!
+}
+</code></pre>
+<p>Instrukcja <span class="color-red"><code>throw ex;</code></span> nadpisuje właściwość <code>StackTrace</code> i ustawia bieżący blok <code>catch</code> jako rzekome źródło błędu. Tracisz w ten sposób numer linii prawdziwej awarii. Samo <span class="color-green"><code>throw;</code></span> bez nazwy zmiennej przekazuje ten sam obiekt dalej z nienaruszonym stosem.</p>
+<h3>🧭 Drzewo decyzyjne: kiedy throw, a kiedy TryParse lub TryGetValue?</h3>
+<p>Wyjątki służą do sytuacji wyjątkowych, a nie do codziennego sterowania przepływem. Przy podejmowaniu decyzji kieruj się poniższą tabelą:</p>
+<table>
+<thead>
+<tr>
+<th>Sytuacja w programie</th>
+<th>Czy to sytuacja wyjątkowa?</th>
+<th>Właściwy mechanizm w C#</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Użytkownik wpisał tekst zamiast liczby w konsoli</td>
+<td>Nie (typowe dane wejściowe)</td>
+<td><code>int.TryParse(tekst, out wynik)</code></td>
+</tr>
+<tr>
+<td>Sprawdzasz, czy klucz istnieje w słowniku</td>
+<td>Nie (normalne zapytanie)</td>
+<td><code>mapa.TryGetValue(klucz, out wartosc)</code></td>
+</tr>
+<tr>
+<td>Wywołujący przekazał <code>null</code> lub ujemny rozmiar do metody</td>
+<td>Tak (złamanie kontraktu)</td>
+<td>Guard Clause + <code>throw new Argument...</code></td>
+</tr>
+<tr>
+<td>Dysk odmawia dostępu lub plik jest zablokowany</td>
+<td>Tak (awaria środowiska)</td>
+<td><code>try / catch (IOException)</code> + <code>using</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli sprawdzasz warunek w pętli wykonującej się tysiące razy na sekundę, zawsze wybieraj metody z przedrostkiem <code>Try</code> (<code>TryParse</code>, <code>TryGetValue</code>). Wyjątki rezerwuj dla naruszeń kontraktu i błędów zewnętrznych zasobów.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj sytuację awaryjną lub przypadek z kodu do właściwej reakcji w C#">
+  <item left="Wywołujący przekazał null zamiast listy do publicznej metody silnika" right="Guard Clause: throw new ArgumentNullException z nazwą parametru"></item>
+  <item left="Przeglądarka trzyma wyłączną blokadę na pliku podczas skanowania folderu" right="Obsługa konkretnego catch (IOException) i bezpieczne pominięcie pliku"></item>
+  <item left="Użytkownik wpisał litery w polu na numer portu w pętli wejścia" right="Użycie int.TryParse bez rzucania i łapania wyjątków"></item>
+  <item left="Zalogowałeś wyjątek dyskowy i chcesz przekazać go wyżej bez utraty StackTrace" right="Ponowne rzucenie przez samo throw; bez nazwy zmiennej"></item>
+  <item left="Otwierasz plik przez StreamReader i chcesz zamknąć uchwyt nawet po błędzie" right="Otoczenie strumienia blokiem using (...) wykorzystującym IDisposable"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Zero-Cost Exception Handling w CLR, Stack Unwinding i C++ RAII kontra using w C#</span>
+<span class="deep-dive-badge">CLR · C++ RAII · KOMPILATOR ROSLYN</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Zero-Cost Exception Handling: dlaczego try nic nie kosztuje, a throw jest bardzo drogi?</h4>
+Wielu początkujących programistów obawia się, że samo dodanie bloku `try` spowolni pętlę. Nowoczesny CLR (podobnie jak kompilatory C++ na architekturze x86-64) stosuje model **Zero-Cost Exception Handling**.
+
+<p>Kompilator JIT nie wstawia w kod maszynowy żadnych instrukcji <code>if (error)</code> na normalnej ścieżce wykonania (Happy Path). Zamiast tego zapisuje obok kodu metody statyczną tabelę metadanych (<span class="color-green">EH Table</span>, czyli Exception Handling Table) z zakresami adresów instrukcji: „jeśli błąd nastąpi między adresem <code>0x0040</code> a <code>0x0078</code>, skocz do bloku <code>catch</code> pod adresem <code>0x0090</code>”. Gdy nie ma błędu, procesor wykonuje <span class="color-green">zero dodatkowych instrukcji</span>.</p>
+<p>Koszt pojawia się dopiero w momencie wykonania <code>throw</code>:</p>
+<ol>
+<li>CLR alokuje obiekt wyjątku na stercie i przechodzi przez wszystkie ramki stosu wywołań, aby zbudować napis <code>StackTrace</code>.</li>
+<li>Środowisko przeszukuje tablice EH kolejnych metod w górę stosu (dwuprzebiegowa obsługa wyjątków w Windows SEH).</li>
+<li>Po znalezieniu pasującego <code>catch</code> następuje <span class="color-green">rozwijanie stosu</span> (Stack Unwinding): wykonywane są wszystkie pośrednie bloki <code>finally</code>, a lokalne ramki stosu są zwalniane.</li>
+</ol>
+<p>Pojedyncze rzucenie i złapanie wyjątku kosztuje zwykle od <span class="color-green">20 000 do 100 000 cykli CPU</span> (dziesiątki mikrosekund). Dlatego wyjątków używa się do rzadkich sytuacji awaryjnych, a nigdy do sterowania zwykłą pętlą.</p>
+<h4>2. C++ RAII kontra IDisposable i obniżanie using przez Roslyn</h4>
+W **C++** nie ma Garbage Collectora. Zasoby systemowe (uchwyty plików, gniazda sieciowe, blokady wątków) owija się w klasy zgodnie z zasadą **RAII** (Resource Acquisition Is Initialization). Destruktor `~Plik()` jest wywoływany **deterministycznie** przez sam kompilator dokładnie w chwili opuszczenia klamry `}`:
+```cpp
+void czytaj(const std::string&amp; sciezka) {
+    std::ifstream plik(sciezka); // Otwarcie uchwytu w konstruktorze
+    if (!plik) throw std::runtime_error("Blad otwarcia");
+    // ... odczyt danych ...
+} // Kompilator automatycznie wstawia wywolanie ~ifstream() nawet przy wyjatku
+```
+W **C#** Garbage Collector zwalnia pamięć w nieprzewidywalnym momencie (czasem dopiero po wielu minutach). Gdyby zamknięcie pliku zależało od GC, plik na Windows pozostałby zablokowany na długo po zakończeniu metody.
+
+<p>Dlatego C# wprowadził interfejs <code>IDisposable</code> i cukier składniowy <code>using</code>. Kompilator <span class="color-green">Roslyn</span> podczas obniżania składni (lowering) zamienia każdy blok <code>using</code> dokładnie na konstrukcję <code>try / finally</code>:</p>
+<pre><code class="language-csharp">// Twoj kod:
+using (var s = File.OpenRead(sciezka))
+{
+    Przetworz(s);
+}
+
+// Kod po obnizeniu przez kompilator Roslyn (to trafia do bajtkodu CIL):
+FileStream s = File.OpenRead(sciezka);
+try
+{
+    Przetworz(s);
+}
+finally
+{
+    if (s != null)
+    {
+        ((IDisposable)s).Dispose();
+    }
+}
+</code></pre>
+<p>Dzięki temu C# łączy wygodę Garbage Collectora z deterministycznym zwalnianiem uchwytów systemu operacyjnego.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Bezpieczny walidator nazw plików i odporny parser z dziennikiem</h2>
+<p>W klasie <code>BezpiecznePliki</code> zaimplementuj dwie metody:</p>
+<ol>
+<li><span class="color-green"><code>WalidujNazwePliku(string nazwa)</code></span> (wzorzec Guard Clause):<ul>
+<li>jeśli <code>string.IsNullOrWhiteSpace(nazwa)</code> jest prawdziwe, rzuć <code>ArgumentException</code>,</li>
+<li>jeśli <span class="color-blue">nazwa</span> zawiera sekwencję <code>".."</code>, znaki separatora katalogów <code>'/'</code> lub <code>'\\'</code> albo którykolwiek z niedozwolonych znaków nazwy pliku Windows (<code>':'</code>, <code>'*'</code>, <code>'?'</code>, <code>'"'</code>, <code>'&lt;'</code>, <code>'&gt;'</code>, <code>'|'</code>), rzuć <code>ArgumentException</code> (zdefiniuj jawną tablicę <code>char[]</code> i użyj <code>IndexOfAny</code>, aby ochrona przed atakiem <span class="color-red">Path Traversal</span> działała identycznie na Windows i Linux),</li>
+<li>dla poprawnej nazwy zwróć <code>nazwa.Trim()</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>AnalizujRozmiary(List&lt;string&gt; teksty, List&lt;string&gt; dziennik)</code></span> (osobne bloki <code>catch</code> + <code>finally</code>):<ul>
+<li>jeśli <span class="color-blue">teksty</span> lub <span class="color-blue">dziennik</span> ma wartość <code>null</code>, rzuć <code>ArgumentNullException</code> z poprawną nazwą parametru (<code>"teksty"</code> lub <code>"dziennik"</code>),</li>
+<li>przejdź po wszystkich elementach listy <span class="color-blue">teksty</span>; jeśli element jest równy <code>null</code>, pomiń go bez dopisywania niczego do dziennika (<code>continue;</code>),</li>
+<li>dla każdego niepustego wpisu użyj <code>try / catch / finally</code> z wywołaniem <code>int.Parse(wpis)</code> (w tym zadaniu celowo stosujemy <code>int.Parse</code>, aby przećwiczyć rozdzielenie typów wyjątków oraz gwarancję bloku <code>finally</code>):<ul>
+<li>w bloku <code>try</code>: jeśli sparsowana liczba jest dodatnia (<code>&gt; 0</code>), dodaj ją do sumy typu <code>long</code>,</li>
+<li>w bloku <code>catch (FormatException)</code>: dodaj do <span class="color-blue">dziennik</span> napis <code>"FORMAT"</code>,</li>
+<li>w bloku <code>catch (OverflowException)</code>: dodaj do <span class="color-blue">dziennik</span> napis <code>"OVERFLOW"</code>,</li>
+<li>w bloku <code>finally</code>: <span class="color-green">zawsze</span> dodaj do <span class="color-blue">dziennik</span> napis <code>"KONIEC"</code>,</li>
+</ul>
+</li>
+<li>zwróć sumę wszystkich poprawnych, dodatnich wartości jako <code>long</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Guard Clause, Path Traversal oraz osobne bloki catch i finally" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public class BezpiecznePliki
+{
+    public static string WalidujNazwePliku(string nazwa)
+    {
+        // Guard Clause: odrzuc pusta nazwe, "..", "/", "\" i niedozwolone znaki Windows
+        return "";
+    }
+
+    public static long AnalizujRozmiary(List&lt;string&gt; teksty, List&lt;string&gt; dziennik)
+    {
+        // Guard Clause: sprawdz null dla teksty oraz dziennik (ArgumentNullException)
+        // Pomin wpisy null; dla pozostalych uzyj try / catch (FormatException) / catch (OverflowException) / finally
+        return 0L;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("Poprawna nazwa: " + WalidujNazwePliku("  raport.pdf  "));
+        var dane = new List&lt;string&gt; { "120", "blad", "-50", null, "880", "99999999999999" };
+        var dziennik = new List&lt;string&gt;();
+        long suma = AnalizujRozmiary(dane, dziennik);
+        Console.WriteLine("Suma poprawnych: " + suma);
+        Console.WriteLine("Dziennik: " + string.Join(", ", dziennik));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("WalidujNazwePliku oczyszcza poprawna nazwe i odrzuca puste napisy", () =&gt; {
+    LabAssert.Equal("raport.pdf", BezpiecznePliki.WalidujNazwePliku("  raport.pdf  "));
+    LabAssert.Equal("kopia_2026.tar.gz", BezpiecznePliki.WalidujNazwePliku("kopia_2026.tar.gz"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku(null));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku(""));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("   "));
+});
+LabAssert.Test("WalidujNazwePliku blokuje Path Traversal i niedozwolone znaki Windows", () =&gt; {
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("../windows/system32"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku(@"folder\plik.txt"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("a/b.txt"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("raport:2026.pdf"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("plik*.txt"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("dane?.csv"));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; BezpiecznePliki.WalidujNazwePliku("plik|test.txt"));
+});
+LabAssert.Test("AnalizujRozmiary waliduje null dla obu parametrow i obsluguje pusta liste", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; BezpiecznePliki.AnalizujRozmiary(null, new List&lt;string&gt;()));
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; BezpiecznePliki.AnalizujRozmiary(new List&lt;string&gt;(), null));
+    var dziennik = new List&lt;string&gt;();
+    LabAssert.Equal(0L, BezpiecznePliki.AnalizujRozmiary(new List&lt;string&gt;(), dziennik));
+    LabAssert.Equal(0, dziennik.Count);
+});
+LabAssert.Test("AnalizujRozmiary rozdziela FormatException, OverflowException, zawsze wykonuje finally i sumuje jako long", () =&gt; {
+    var dane = new List&lt;string&gt; { "2000000000", "blad", "-50", null, "1500000000", "99999999999999" };
+    var dziennik = new List&lt;string&gt;();
+    long wynik = BezpiecznePliki.AnalizujRozmiary(dane, dziennik);
+    LabAssert.Equal(3500000000L, wynik);
+    string zapisDziennika = string.Join(",", dziennik);
+    LabAssert.Equal("KONIEC,FORMAT,KONIEC,KONIEC,KONIEC,OVERFLOW,KONIEC", zapisDziennika);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Gdy piszesz metodę przyjmującą dane z zewnątrz, zastosuj <span class="color-green">Guard Clause</span> na samym jej początku i sprawdzaj kolejność argumentów konstruktorów wyjątków (<code>ArgumentException</code> bierze najpierw komunikat, a <code>ArgumentNullException</code> i <code>ArgumentOutOfRangeException</code> najpierw nazwę parametru).</li>
+<li>Gdy diagnozujesz awarię, czytaj <span class="color-green"><code>StackTrace</code></span> od góry do dołu, a przy przekazywaniu błędu wyżej po zalogowaniu używaj wyłącznie <span class="color-green"><code>throw;</code></span> zamiast niszczącego stos <span class="color-red"><code>throw ex;</code></span>.</li>
+<li>Gdy otwierasz plik lub strumień (<code>Stream</code>, <code>StreamReader</code>), zawsze otaczaj go blokiem <span class="color-green"><code>using (...)</code></span> (lub piętrowym <code>using</code> dla wielu zasobów), aby gwarantować wywołanie <code>Dispose()</code> nawet przy wyjątku.</li>
+<li>Gdy kod obsługuje typowe, spodziewane dane wejściowe lub zapytania do słownika, wybieraj <span class="color-green"><code>TryParse</code></span> i <span class="color-green"><code>TryGetValue</code></span>; wyjątki oraz konkretne bloki <code>catch</code> (ułożone od najbardziej szczegółowego do ogólnego) rezerwuj dla naruszeń kontraktu i błędów zasobów.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

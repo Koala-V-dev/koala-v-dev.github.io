@@ -326,6 +326,27 @@ WYPISZ TestTablicy[0]
 
 ---
 
+## Zadanie: Funkcja zwracająca wartość
+
+Zdefiniuj ciało funkcji `ObliczKrytyk(baza, mnoznik)` tak, aby zwracała iloczyn obu parametrów, a wynik wywołania dla `atak = 50` i `kryt = 3` został zapisany w `obrazeniaKoncowe`.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="obrazeniaKoncowe:150" expected-output="150">
+<pre>
+FUNKCJA ObliczKrytyk(baza, mnoznik)
+    
+KONIEC FUNKCJI
+
+atak = 50
+kryt = 3
+obrazeniaKoncowe = ObliczKrytyk(atak, kryt)
+WYPISZ obrazeniaKoncowe
+</pre>
+</data-pseudocode-runner>
+</data-gate>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - **Unikanie duplikacji (Zasada DRY):** Funkcje są rozwinięciem zasady *Don't Repeat Yourself*. Centralizują kod w jednym miejscu, dzięki czemu ewentualna zmiana mechaniki (np. dodanie mikstury wzmacniającej czary) wymaga modyfikacji tylko jednego szablonu zamiast dziesiątek rozproszonych przycisków.

@@ -29,6 +29,7 @@
 
 <body class="browser-firefox">
   <div id="app-main-content">
+    <a class="skip-link" href="#welcome-page">Przejdź do treści głównej</a>
 
     <header>
       <p class="site-logo medievalsharp-regular">
@@ -50,11 +51,6 @@
             </h1>
             <p>Twoje centrum materiałów edukacyjnych z dziedziny informatyki i matematyki.</p>
 
-            <a href="/poligon.html" data-pjax="" class="poligon-banner"
-              style="display: block; background: var(--bg-gradient-2); color: #fff; padding: 15px; border-radius: 8px; text-decoration: none; margin-top: 15px; margin-bottom: 25px; text-align: center; font-weight: bold; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);text-shadow: 0 0 3px #000;">
-              🔥 Poligon: Podejmij dzisiejsze wyzwanie (10 pytań)
-            </a>
-
             <div class="cta-buttons">
               <a href="#courses-content-container" data-ui="button" data-variant="primary" class="bg-primary"
                 role="button">
@@ -65,10 +61,25 @@
         </section>
       </section>
 
-      <section id="courses-content-container" class="courses-container">
-        <h2>Katalog Kursów</h2>
+      <section id="courses-content-container" class="courses-container" aria-labelledby="courses-catalog-title">
+        <h2 id="courses-catalog-title">Katalog Kursów</h2>
         <!-- Struktura zgodna z oryginałem renderowana przez JS -->
         <div id="home-courses-grid-mount"></div>
+      </section>
+
+      <section id="exams-section" class="exams-container" aria-labelledby="exams-section-title">
+        <h2 id="exams-section-title">Arkusze Egzaminacyjne INF (CKE)</h2>
+        <p class="exams-intro">
+          Osobna sekcja z jawnymi arkuszami praktycznymi dla kwalifikacji <strong>INF.02</strong>, <strong>INF.03</strong> oraz <strong>INF.04</strong>. W przeciwieństwie do wielu portali nie ukrywamy źródła: oryginały publikuje
+          <a href="https://cke.gov.pl/egzamin-zawodowy/egzamin-zawodowy-formula-2019/przykladowe-zadania/" target="_blank" rel="noopener noreferrer">Centralna Komisja Egzaminacyjna (Egzamin zawodowy → Formuła 2019 → Przykładowe zadania)</a>.
+          Każda oficjalna paczka <code>*_SG.zip</code> na serwerze CKE zawiera w środku komplet: <strong>arkusz PDF, zasady oceniania oraz pliki startowe do zadania</strong>. W katalogu <code>/arkusze/</code> linkujemy bezpośrednio do tych paczek CKE oraz udostępniamy interaktywne etapy z widgetami.
+        </p>
+
+        <div class="exams-catalog-cta">
+          <a href="/arkusze/" data-ui="button" data-variant="primary" class="bg-primary" role="button">
+            Katalog /arkusze (filtry, tagi i odznaczanie postępu) →
+          </a>
+        </div>
       </section>
 
     </main>

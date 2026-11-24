@@ -34,31 +34,12 @@ Dzięki temu system startuje szybciej, jednak **czas pracy jądra kumuluje się 
 > - Błędy w przestrzeni jądra lub sterownikach są przenoszone do kolejnych sesji.
 > - Przy instalacji niektórych poprawek plik `hiberfil.sys` nie jest prawidłowo czyszczony, co prowadzi do konfliktów wersji sterowników po rozruchu.
 
-To wyjaśnia, dlaczego standardowa opcja **Uruchom ponownie** (Restart) rozwiązuje większość problemów ze stabilnością – jako jedyna wymusza pełną inicjalizację jądra od zera. 😜
+To wyjaśnia, dlaczego standardowa opcja **Uruchom ponownie** (Restart) rozwiązuje większość problemów ze stabilnością - jako jedyna wymusza pełną inicjalizację jądra od zera. 😜
 
 
 Jeżeli chcesz mieć pewność co do czystości sesji i zminimalizować ryzyko problemów, wyłącz **Fast Startup** w Panelu Sterowania. System delikatnie dłużej się bedzie uruchamiać, ale bedzie to stabilniejsze.
 
 ![Panel sterowania - wyłączenie szybkiego startu](/public/courses/windows-11/Images/Panel-sterowania-wyłączenie-szybkiego-startu.png)
-
----
-
-<data-gate>
-  <data-quiz>
-    <question>Pracownik zgłasza powtarzające się błędy sterowników i spadek wydajności stacji roboczej. Twierdzi, że codziennie po pracy wyłącza komputer opcją Zamknij. Menedżer Zadań w zakładce Wydajność wskazuje czas pracy procesora przekraczający $20$ dni. Jaka jest przyczyna tej rozbieżności?</question>
-    <options>
-      <item correct>Aktywna funkcja Fast Startup zapisuje stan jądra w pliku hiberfil.sys zamiast je wyładowywać. Czas pracy kumuluje się z sesji na sesję.</item>
-      <item>Wyczerpana bateria CMOS na płycie głównej powoduje utratę konfiguracji i restart zegarów sprzętowych po każdym odłączeniu zasilania.</item>
-      <item>Uszkodzony czujnik termiczny płyty głównej fałszuje statystyki wydajności w Menedżerze Zadań.</item>
-    </options>
-    <div data-hint="error">
-Przy włączonej hybrydowej hibernacji kliknięcie „Zamknij” nie resetuje środowiska wykonawczego. Zwróć uwagę na plik hiberfil.sys.
-    </div>
-    <div data-hint="success">
-Prawidłowa diagnoza! Funkcja Fast Startup zrzuca stan jądra na dysk, przez co system operuje na tej samej sesji jądra przez wiele dni. Pełny restart rozwiązuje ten problem.
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -86,7 +67,7 @@ Drugim kluczowym aspektem jest skalowanie interfejsu (DPI/PPI) na ekranach o wys
 
 ---
 
-Dla przykładu – poniżej widać zmianę odświeżania z standardowych $60\text{ } Hz$ na płynniejsze $100\text{ } Hz$ dla budżetowego monitora Samsung.
+Dla przykładu - poniżej widać zmianę odświeżania z standardowych $60\text{ } Hz$ na płynniejsze $100\text{ } Hz$ dla budżetowego monitora Samsung.
  
 ![Zaawansowane opcje wyświetlania](/public/courses/windows-11/Images/ustawienia-windows-monitor-100Hz.webp)
 
@@ -127,25 +108,6 @@ Wszystkie bezpieczne strony internetowe (te z kłódką `HTTPS`) opierają się 
 
 ---
 
-<data-gate>
-  <data-quiz>
-    <question>Po wymianie uszkodzonej baterii CMOS na płycie głównej komputer uruchomił się poprawnie, ale użytkownik nie może otworzyć żadnej bezpiecznej witryny HTTPS w przeglądarce. Wyświetla się czerwony ekran z błędem ERR_CERT_DATE_INVALID. Jak należy rozwiązać ten problem?</question>
-    <options>
-      <item correct>Zsynchronizować czas systemowy z serwerem czasu NTP w sekcji Czas i język aplikacji Ustawienia.</item>
-      <item>Wyłączyć zaporę sieciową Windows Defender, która blokuje szyfrowany ruch na porcie $443$.</item>
-      <item>Usunąć i zainstalować ponownie przeglądarkę internetową w celu resetu magazynu certyfikatów.</item>
-    </options>
-    <div data-hint="error">
-Zastanów się, w jaki sposób przeglądarka sprawdza ważność certyfikatów bezpieczeństwa witryn HTTPS. Wymaga to porównania czasu zapisanego w certyfikacie z czasem na komputerze.
-    </div>
-    <div data-hint="success">
-Zgadza się. Certyfikaty SSL/TLS mają ściśle określony okres ważności. Jeśli czas systemowy stacji drastycznie odbiega od rzeczywistego, walidacja certyfikatu zakończy się błędem.
-    </div>
-  </data-quiz>
-</data-gate>
-
----
-
 ## 🗂️ Panel Sterowania i Klasyczne Aplety
 
 Panel Sterowania pozostaje kluczowym narzędziem administracyjnym, przechowującym zaawansowane aplety konfiguracyjne, które nie zostały jeszcze w pełni zaimplementowane w nowoczesnej aplikacji Ustawienia.
@@ -181,6 +143,47 @@ Dopasuj zgłaszany przez użytkownika problem do odpowiedniego narzędzia lub lo
 
 > [!TIP]
 > Pasek adresu Eksploratora plików obsługuje protokoły systemowe (np. URI `ms-settings:`), co pozwala na bezpośrednie wywoływanie konkretnych zakładek Ustawień. Wpisanie `ms-settings:display` przeniesie Cię natychmiast do zaawansowanych opcji wyświetlania.
+
+---
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Blok środowiska procesu PEB (Process Environment Block) i zmienne w pamięci RAM</span><span class="deep-dive-badge">Process Architecture & PEB</span></summary>
+
+Zmienne środowiskowe (takie jak `PATH`, `TEMP`, `USERNAME`) nie są odczytywane z rejestru za każdym razem, gdy program potrzebuje odnaleźć plik. Podczas tworzenia każdego procesu jądro Windows tworzy w przestrzeni adresowej użytkownika dedykowaną strukturę **PEB** (*Process Environment Block*).
+
+### 1. Architektura struktur TEB i PEB w architekturze x86_64
+W 64-bitowym systemie Windows procesor wykorzystuje rejestr segmentowy **`%gs`** do natychmiastowego dostępu do struktur wątku i procesu w przestrzeni Ring 3:
+- Adres bazowy rejestru `%gs` wskazuje na strukturę **TEB** (*Thread Environment Block*).
+- Pod stałym offsetem `gs:[0x60]` znajduje się bezpośredni wskaźnik do struktury procesu **PEB**.
+
+```c
+// Wskaźnik do bloku parametrów procesu wewnątrz PEB
+PPEB pPeb = (PPEB)__readgsqword(0x60);
+PRTL_USER_PROCESS_PARAMETERS pParams = pPeb->ProcessParameters;
+
+// pParams->Environment wskazuje na ciągły blok pamięci RAM
+wchar_t *pEnv = (wchar_t *)pParams->Environment;
+```
+
+### 2. Układ zmiennych środowiskowych w pamięci
+Blok zmiennych środowiskowych to ciągły bufor znaków Unicode (UTF-16LE). Każda zmienna zapisana jest jako ciąg `KLUCZ=WARTOŚĆ` zakończony bajtem zerowym `\0`. Cały blok kończy się podwójnym bajtem zerowym:
+
+```text
+OS=Windows_NT\0PATH=C:\Windows\system32;C:\Windows\0USERNAME=Admin\0\0
+```
+
+Gdy wywołujesz funkcję Win32 API:
+```c
+GetEnvironmentVariableW(L"PATH", buffer, bufferSize);
+```
+System nie wykonuje żadnego przejścia do jądra Ring 0! Funkcja przeszukuje w pamięci RAM przestrzeń wskazywaną przez `PEB->ProcessParameters->Environment` całkowicie w przestrzeni użytkownika, co gwarantuje natychmiastową wydajność.
+
+### 3. Dziedziczenie zmiennych w wywołaniu CreateProcessW
+Gdy powłoka (CMD lub PowerShell) uruchamia nowy proces funkcją `CreateProcessW`:
+- Domyślnie proces potomny otrzymuje wierną **kopię** bloku zmiennych środowiskowych procesu macierzystego.
+- Modyfikacja zmiennej `PATH` wewnątrz jednego okna terminala wpływa wyłącznie na bufor PEB tego konkretnego procesu i jego przyszłych potomków. Nie ma żadnego wpływu na inne działające procesy ani na wartości zapisane w rejestrze systemowym.
+
+</details>
 
 ---
 

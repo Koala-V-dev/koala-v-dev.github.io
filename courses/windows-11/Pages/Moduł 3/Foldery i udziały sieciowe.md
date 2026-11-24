@@ -40,25 +40,6 @@ Architektura weryfikacji i strumieniowania I/O. Algorytm stosu TCP/IP sprawdza, 
 
 ---
 
-<data-gate>
-  <data-quiz>
-    <question>Dlaczego ruch sieciowy mocniej obciąża procesor w porównaniu do kopiowania na pendrive USB?</question>
-    <options>
-      <item correct>Wymaga przejścia przez stos TCP/IP, który musi stale fragmentować paczki i wyliczać matematyczne sumy kontrolne.</item>
-      <item>Kabel miedziany LAN wymusza na architekturze ciągłe i sztuczne obniżanie taktowania procesora, by zrównać prędkości.</item>
-      <item>Menedżer we/wy systematycznie odrzuca pierwszą próbę połączenia, co zmusza jądro do dublowania każdej operacji I/O.</item>
-    </options>
-    <div data-hint="error">
-      Pamiętaj, że przesył sieciowy, w przeciwieństwie do USB, nie posiada bezpośredniej ścieżki sprzętowej. Jądro systemu musi więc na bieżąco weryfikować poprawność pakietów i zabezpieczać je przed utratą po drodze!
-    </div>
-    <div data-hint="success">
-      Świetnie! Stos `TCP/IP` natywnie weryfikuje poprawność bitów, dodając potężny narzut obliczeniowy, podczas gdy USB to czysta, sprzętowa autostrada przesyłowa.
-    </div>
-  </data-quiz>
-</data-gate>
-
----
-
 ## 🔏 Koncepcja Podwójnego Zamka (SMB vs NTFS)
 
 System Windows traktuje dostęp zdalny do pliku jak próbę odczytania tajnych akt w wojskowym archiwum. Żeby zmodyfikować plik w sieci, zapytanie od stacji-klienta musi pomyślnie minąć dwa niezależne systemy autoryzacji. 
@@ -100,25 +81,6 @@ Cały ten ruch wejściowy nasłuchuje na jednym dedykowanym porcie **TCP 445**. 
 
 > [!NOTE]
 > **Hermetyzacja**: Proces opakowywania jednych danych w drugich. By docelowy proces miał dostęp tylko do części danych, które w poprawnej strukturze sam odtworzy w swoim procesie. Np.: obraz `.png` wysłany do drukarki jest przez sterownik kompresowany do formatu `.spl`, który jest zapisywany w buforze na dysku. Dopiero gdy sterownik drukarki odczyta poprawną strukturę pliku `.spl`, odtworzy go, a następnie za pomocą algorytmu dekompresji **`Render_Bitmap()`** przetworzy go do języka maszynowego i wygeneruje rozkazy dla głowicy termicznej. Przy tym procesie mogą ulec zmianie zakresy kolorów (gamut) z <span class="color-box"><span class="R">R</span><span class="G">G</span><span class="B">B</span></span> do <span class="color-box"><span class="C">C</span><span class="M">M</span><span class="Y">Y</span><span class="K">K</span></span>.
-
----
-
-<data-gate>
-  <data-quiz>
-    <question>Co się stanie, gdy udział SMB pozwala pracownikowi na „Pełną kontrolę”, ale zakładka NTFS pliku dopuszcza jedynie „Odczyt”?</question>
-    <options>
-      <item correct>Prawa zderzą się, a system wyliczy Uprawnienia Efektywne przyjmując bezwzględnie, że najbardziej restrykcyjna blokada zawsze wygrywa.</item>
-      <item>Priorytet uzyska nowszy protokół sieciowy SMB, w pełni ignorując starsze i słabsze restrykcje przypisane do lokalnej tablicy dysku.</item>
-      <item>System Windows zawiesi protokół komunikacji, oczekując aż Administrator ręcznie zrówna wartości z obu miejsc w jeden ciąg dostępu.</item>
-    </options>
-    <div data-hint="error">
-      Zastanów się nad metaforą budynku: czy posiadanie pełnego dostępu do bramy wjazdowej pozwoli Ci otworzyć sejf w piwnicy, do którego nie masz klucza?
-    </div>
-    <div data-hint="success">
-      Dokładnie tak! Dlatego administratorzy korporacyjni często otwierają udział *SMB* na "Wszyscy", by sterować bezpieczeństwem wyłącznie z poziomu twardej tablicy ACL w systemie plików **NTFS**.
-    </div>
-  </data-quiz>
-</data-gate>
 
 ---
 
@@ -182,7 +144,7 @@ Włączenie tej grupy pozwala na eksplorację dysku i czytanie plików, blokują
 ### Tworzenie i Edycja (Zapis)
 
 Zestaw uprawnień do wprowadzania nowych danych, celowo pozbawiony jakichkolwiek funkcji usuwania.
-* **Tworzenie plików / Zapis danych**: Umożliwia lokowanie nowych plików na dysku, zakazując jednocześnie modyfikacji plików stworzonych wcześniej. To mechanizm dla folderów wrzutowych (tzw. Drop-Box) – pracownik wrzuca raport, ale nie ma fizycznej możliwości sabotażu pliku wrzuconego przez kogoś innego.
+* **Tworzenie plików / Zapis danych**: Umożliwia lokowanie nowych plików na dysku, zakazując jednocześnie modyfikacji plików stworzonych wcześniej. To mechanizm dla folderów wrzutowych (tzw. Drop-Box) - pracownik wrzuca raport, ale nie ma fizycznej możliwości sabotażu pliku wrzuconego przez kogoś innego.
 * **Tworzenie folderów / Dołączanie danych**: Prawo do zakładania nowych podkatalogów.  
 Względem samych plików pozwala na dopisywanie bajtów wyłącznie na samym końcu pliku (idealne dla środowisk produkcyjnych trzymających logi w plikach `.txt`).
 * **Zapis atrybutów**: Pozwala modyfikować flagi systemowe.
@@ -217,7 +179,7 @@ Są to w większości proste, jednobitowe przełączniki informujące system ope
 **Atrybuty rozszerzone i Strumienie Danych**
 Zwykłe atrybuty (powyżej) to tylko stany "Włączony/Wyłączony". System **NTFS** pozwala na znacznie więcej, oferując tzw. ukryte metadane:
 * **Atrybuty Rozszerzone (EA - Extended Attributes)**: Struktury typu *klucz-wartość* dodawane do plików (limitowane do max 64 KB). Obecnie to relikt przeszłości, zachowany dla kompatybilności z dawnymi systemami np. OS/2 czy portami POSIX. Z punktu widzenia współczesnego administratora są praktycznie martwe.
-* **Alternatywne Strumienie Danych (ADS - Alternate Data Streams)**: Rozwiązanie stosowane natywnie do dziś. To mechanizm pozwalający „dokleić” do pliku ukryte kontenery z danymi o dowolnym rozmiarze. Główny plik to strumień nienazwany (`$DATA`), ale możemy dodać strumień poboczny. Z systemu ADS powszechnie korzystają przeglądarki internetowe – po ściągnięciu pliku z sieci dołączają do niego ukryty strumień poboczny *Zone.Identifier* (tzw. Mark of the Web), dzięki czemu system wie, że dany `.exe` pochodzi z zewnątrz i wymaga ostrzeżenia SmartScreen przed jego uruchomieniem.
+* **Alternatywne Strumienie Danych (ADS - Alternate Data Streams)**: Rozwiązanie stosowane natywnie do dziś. To mechanizm pozwalający „dokleić” do pliku ukryte kontenery z danymi o dowolnym rozmiarze. Główny plik to strumień nienazwany (`$DATA`), ale możemy dodać strumień poboczny. Z systemu ADS powszechnie korzystają przeglądarki internetowe - po ściągnięciu pliku z sieci dołączają do niego ukryty strumień poboczny *Zone.Identifier* (tzw. Mark of the Web), dzięki czemu system wie, że dany `.exe` pochodzi z zewnątrz i wymaga ostrzeżenia SmartScreen przed jego uruchomieniem.
 
 
   </div>
@@ -234,7 +196,7 @@ Zbiór uprawnień, które w podstawowym oknie zabezpieczeń ukryto pod ogólnym 
 Nowoczesne aplikacje biurowe podczas kliknięcia opcji Zapisz rzadko nadpisują plik na żywo; zamiast tego tworzą nowy plik obok, po czym usuwają oryginał. Jeśli odetniesz prawo kasowania, mechanizm biurowy legnie w gruzach.
 
 > [!NOTE]
-> **MFT** (*Master File Table*) – to główna tablica systemu plików **NTFS** zawierająca informacje o wszystkich plikach i katalogach na dysku. Każdy plik i katalog ma swój wpis w MFT, który zawiera informacje o jego atrybutach, lokalizacji danych na dysku oraz uprawnieniach dostępu. Decyduje które sektory można nadpisać nowymi danymi.
+> **MFT** (*Master File Table*) - to główna tablica systemu plików **NTFS** zawierająca informacje o wszystkich plikach i katalogach na dysku. Każdy plik i katalog ma swój wpis w MFT, który zawiera informacje o jego atrybutach, lokalizacji danych na dysku oraz uprawnieniach dostępu. Decyduje które sektory można nadpisać nowymi danymi.
 
   </div>
   <div>
@@ -287,13 +249,13 @@ Z tego powodu system Windows natywnie uruchamia usługę Serwera (`LanmanServer`
 Zasada działania jest prosta: dodanie znaku dolara `$` na końcu nazwy udziału (np. `Raporty$`) sprawia, że folder całkowicie znika z Otoczenia Sieciowego. Nikt go nie wyklika, bo po prostu go nie widać.
 
 Windows rzutuje w sieć swoje najważniejsze zasoby:
-*   `C$` – Pełen, ukryty dostęp do całego dysku systemowego `C:\` i adekwatnie inne woluminy np `D:\` → `D$`.
-*   `ADMIN$` – Bezpośrednie dojście do głównego folderu `C:\Windows`.
-*   `IPC$` – Niewidzialny kanał do komunikacji między procesami (Inter-Process Communication). Nie przerzuca się nim plików, służy maszynom do przekazywania poświadczeń i wewnętrznych instrukcji sieciowych.
+*   `C$` - Pełen, ukryty dostęp do całego dysku systemowego `C:\` i adekwatnie inne woluminy np `D:\` → `D$`.
+*   `ADMIN$` - Bezpośrednie dojście do głównego folderu `C:\Windows`.
+*   `IPC$` - Niewidzialny kanał do komunikacji między procesami (Inter-Process Communication). Nie przerzuca się nim plików, służy maszynom do przekazywania poświadczeń i wewnętrznych instrukcji sieciowych.
 
 **Jak z tego skorzystać w praktyce?**
 Siedząc przy swoim stanowisku, wpisujesz w oknie Eksploratora surową ścieżkę: `\\IP_Komputera_Obok\C$`.
-System od razu wyrzuci okienko logowania. Do środka nie wbijesz ot tak – Windows wpuści Cię pod warunkiem, że podasz poprawne hasło na konto lokalnego Administratora tamtej maszyny. Gdy zdasz ten test, uzyskasz dostęp do pełnego podglądu cudzego dysku `C:\` na swoim własnym ekranie.
+System od razu wyrzuci okienko logowania. Do środka nie wbijesz ot tak - Windows wpuści Cię pod warunkiem, że podasz poprawne hasło na konto lokalnego Administratora tamtej maszyny. Gdy zdasz ten test, uzyskasz dostęp do pełnego podglądu cudzego dysku `C:\` na swoim własnym ekranie.
 
 ---
 
@@ -302,8 +264,8 @@ System od razu wyrzuci okienko logowania. Do środka nie wbijesz ot tak – Wind
 Przez lata *SMB* (*Server Message Block*) ciągnęło wymianę plików w domowych sieciach. W Windows 11 Microsoft uciął ten temat. Udostępnianie folderów teraz działa sensownie tylko i wyłącznie w domenach _**Active Directory**_.
 
 > [!NOTE]
-> - _**Active Directory (AD)**_ – scentralizowana usługa katalogowa firmy Microsoft. Zamiast kont lokalnych na każdym PC, logujesz się kontem z domeny, a za autoryzację odpowiada centralny serwer (Kontroler Domeny).
-> - _**Kerberos**_ – główny protokół uwierzytelniania w AD. Używa biletów (*Tickets*) wydawanych przez zaufany serwer **KDC** (*Key Distribution Center*).
+> - _**Active Directory (AD)**_ - scentralizowana usługa katalogowa firmy Microsoft. Zamiast kont lokalnych na każdym PC, logujesz się kontem z domeny, a za autoryzację odpowiada centralny serwer (Kontroler Domeny).
+> - _**Kerberos**_ - główny protokół uwierzytelniania w AD. Używa biletów (*Tickets*) wydawanych przez zaufany serwer **KDC** (*Key Distribution Center*).
 
 Ta decyzja Microsoftu wywołała ogromne poruszenie w internecie i wylew poradników jak to naprawić. Problem w tym, że wiele z nich proponuje włączenie  _**SMB$\text{v}1$**_ lub włączenie przez rejestr *local KDC*, który nie działa w pełni poprawnie i blokuje połączenie zwracając fałszywy komunikat o niepoprawności wpisanego hasła (**_Błąd Systemu 86_**). Wcześniejsza implementacja udostępniania folderów w sieci LAN opierała się o dziurawy **NTLM** (*NT LAN Manager*) stosowany od czasów Windows 2.0. Teraz pakiety *SMB* muszą być podpisywane poświadczeniami cyfrowymi co poza domeną AD się nie dzieje.
 
@@ -317,13 +279,13 @@ Zanim wybierzesz narzędzie, musisz zrozumieć aspekt bezpieczeństwa. Pliki mi�
 
 ---
 
-### 🔐 Triada CIA – Podstawa cyberbezpieczeństwa
+### 🔐 Triada CIA - Podstawa cyberbezpieczeństwa
 
 Triada CIA to model opisujący trzy kluczowe właściwości bezpieczeństwa informacji:
 
-- **Poufność** (*Confidentiality*) – dane nie mogą zostać odczytane przez osoby nieuprawnione.  
-- **Integralność** (*Integrity*) – dane nie mogą zostać zmienione w sposób nieautoryzowany.  
-- **Dostępność** (*Availability*) – dane muszą być dostępne dla osób uprawnionych.
+- **Poufność** (*Confidentiality*) - dane nie mogą zostać odczytane przez osoby nieuprawnione.  
+- **Integralność** (*Integrity*) - dane nie mogą zostać zmienione w sposób nieautoryzowany.  
+- **Dostępność** (*Availability*) - dane muszą być dostępne dla osób uprawnionych.
 
 ![Triada CIA](/public/courses/windows-11/Images/triada-CIA.png)
 
@@ -342,14 +304,14 @@ Triada CIA to model opisujący trzy kluczowe właściwości bezpieczeństwa info
 
 ---
 
-### 🧩 Warstwa logiczna – jak urządzenia komunikują się ze sobą
+### 🧩 Warstwa logiczna - jak urządzenia komunikują się ze sobą
 
-To nie są protokoły — to **modele komunikacji** i **logiczne konstrukcje sieciowe**.
+To nie są protokoły - to **modele komunikacji** i **logiczne konstrukcje sieciowe**.
 
 | Nazwa | Co oznacza | Zastosowanie |
 | --- | --- | --- |
 | **P2P (Peer‑to‑Peer)** | Połączenie bezpośrednie między urządzeniami | LocalSend, Wi‑Fi Direct, Torrent |
-| **Client–Server** | Urządzenie łączy się z serwerem | SMB, FTP, HTTP |
+| **Client-Server** | Urządzenie łączy się z serwerem | SMB, FTP, HTTP |
 | **VPN** | Tunelowanie ruchu | Zdalny dostęp, prywatność |
 | **VLAN** | Podział sieci logicznej | Segmentacja sieci |
 | **WLAN** | Sieć LAN po Wi‑Fi | Dom, szkoła, firma |
@@ -360,7 +322,7 @@ To nie są protokoły — to **modele komunikacji** i **logiczne konstrukcje sie
 
 ---
 
-### 🔐 Warstwa bezpieczeństwa – E2E vs E2EE
+### 🔐 Warstwa bezpieczeństwa - E2E vs E2EE
 
 | Model | Co szyfruje | Kto widzi treść | Przykład |
 | --- | --- | --- | --- |
@@ -379,19 +341,19 @@ To nie są protokoły — to **modele komunikacji** i **logiczne konstrukcje sie
 | _**FTP**_ | `21`/`20` | **LAN**/*WAN* | Transfer plików (bez szyfrowania) |
 | _**SFTP**_ | `22` | **LAN**/*WAN* | Bezpieczny transfer (SSH) |
 | _**HTTP/HTTPS**_ | `80`/`443` | **LAN**/*WAN* | Pobieranie/wysyłanie plików |
-| _**Bluetooth OBEX**_ | – | PAN | Transfer plików BT |
-| _**Wi‑Fi Direct**_ | – | **LAN**/P2P | Połączenie bez udziału głównego rutera (Access Point) |
+| _**Bluetooth OBEX**_ | - | PAN | Transfer plików BT |
+| _**Wi‑Fi Direct**_ | - | **LAN**/P2P | Połączenie bez udziału głównego rutera (Access Point) |
 
 ---
 
-### 📶 Warstwa fizyczna – technologie transmisji
+### 📶 Warstwa fizyczna - technologie transmisji
 
 | Technologia | Częstotliwość | Prędkość | Zasięg |
 | --- | --- | --- | --- |
 | *Wi‑Fi* | $2.4 / 5 / 6 \text{ GHz}$ | do $9.6 \text{ Gbps}$ | do $50 \text{ m}$ |
 | *Bluetooth* | $2.4 \text{ GHz}$ | do $3 \text{ Mbps}$ | do $100 \text{ m}$ |
 | *NFC* | $13.56 \text{ MHz}$ | do $424 \text{ Kbps}$ | do $10 \text{ cm}$ |
-| *Hotspot LTE/5G* | $700–2600 \text{ MHz} / 3.5 \text{ GHz}$ | $5 \text{ Mbps}$ – $2 \text{ Gbps}$ | do $5 \text{ km}$ |
+| *Hotspot LTE/5G* | $700-2600 \text{ MHz} / 3.5 \text{ GHz}$ | $5 \text{ Mbps}$ - $2 \text{ Gbps}$ | do $5 \text{ km}$ |
 | *Wi‑Fi Direct* | $2.4 / 5 / 6 \text{ GHz}$ | do $9.6 \text{ Gbps}$ | do $50 \text{ m}$ |
 
 <data-gate>
@@ -415,7 +377,7 @@ To nie są protokoły — to **modele komunikacji** i **logiczne konstrukcje sie
 
 ### 1. LocalSend (Windows, macOS, Linux, iOS, Android)
 LocalSend to prosta aplikacja do przesyłania plików w sieci LAN. Działa trochę jak AirDrop, ale między różnymi systemami i jest darmową alternatywą dla tradycyjnego udostępniania *SMB*. Wykorzystuje protokół multicast i TLS.  
-Transmisja w zasadzie nie wychodzi poza sieć lokalną, choć społeczność tworzy już serwery przekaźnikowe (*Relay Servers*). Twórcy zaimplementowali tu prawdziwe szyfrowanie E2EE (*End to End Encryption*). Oznacza to, że nawet jeśli plik przejdzie przez serwer pośredniczący, nikt w połowie drogi go nie odczyta. Dla porównania – MS Teams używa szyfrowania, ale jego serwer rozszyfrowuje komunikację (by np. nałożyć filtry bezpieczeństwa), a następnie szyfruje ją ponownie. LocalSend działa bardziej jak Signal – klucze są tylko na końcach trasy.
+Transmisja w zasadzie nie wychodzi poza sieć lokalną, choć społeczność tworzy już serwery przekaźnikowe (*Relay Servers*). Twórcy zaimplementowali tu prawdziwe szyfrowanie E2EE (*End to End Encryption*). Oznacza to, że nawet jeśli plik przejdzie przez serwer pośredniczący, nikt w połowie drogi go nie odczyta. Dla porównania - MS Teams używa szyfrowania, ale jego serwer rozszyfrowuje komunikację (by np. nałożyć filtry bezpieczeństwa), a następnie szyfruje ją ponownie. LocalSend działa bardziej jak Signal - klucze są tylko na końcach trasy.
 
 Co ciekawe, możesz przesłać zainstalowaną na Androidzie aplikację bezpośrednio jako paczkę `.apk` na dysk Windowsa:
 ![Przesyłanie aplikacji na Windows 11](/public/courses/windows-11/Images/localSend-windows11.png)
@@ -436,7 +398,7 @@ Pojawi się okienko wyboru, w jakim profilu zapory sieciowej to urządzenie ma b
 > ![Konfiguracja widoczności w sieci](/public/courses/windows-11/Images/Widoczność-w-sieci.png)
 
 Funkcja pozwala pominąć główny router i infrastrukturę sieciową. Jeśli główny punkt dostępu (AP) przestanie działać, pliki i tak przejdą.
-* **Jak to działa pod spodem:** System używa modułu *Bluetooth Low Energy*, by znaleźć sprzęt w pokoju. Gdy komputery się „zauważą”, karty sieciowe negocjują własny, bezpośredni most – _**Wi-Fi Direct**_. Pakiety wędrują prosto z anteny do anteny.
+* **Jak to działa pod spodem:** System używa modułu *Bluetooth Low Energy*, by znaleźć sprzęt w pokoju. Gdy komputery się „zauważą”, karty sieciowe negocjują własny, bezpośredni most - _**Wi-Fi Direct**_. Pakiety wędrują prosto z anteny do anteny.
 
 ![Udostępnianie w pobliżu na Windows](/public/courses/windows-11/Images/windows-udostepnianie-w-poblirzu.png)
 
@@ -457,12 +419,12 @@ To kolejna natywna aplikacja Windows 11, łącząca komputer ze smartfonem. Dzia
 
 #### Jak działa transmisja hybrydowa
 Łącze z telefonem korzysta z dwóch kanałów komunikacji:
-- **Kanał sterujący (LTE / Internet / Microsoft Graph)** — przesyła powiadomienia, SMS-y, miniaturki zdjęć i status urządzenia. Działa zawsze, o ile masz zasięg.
-- **Kanał danych lokalnych (Wi‑Fi Direct / LAN / USB)** — obsługuje streamowanie ekranu i przesył całych plików. Niestety bywa bardzo kapryśny, gdy sieć lokalna odmawia współpracy.
+- **Kanał sterujący (LTE / Internet / Microsoft Graph)** - przesyła powiadomienia, SMS-y, miniaturki zdjęć i status urządzenia. Działa zawsze, o ile masz zasięg.
+- **Kanał danych lokalnych (Wi‑Fi Direct / LAN / USB)** - obsługuje streamowanie ekranu i przesył całych plików. Niestety bywa bardzo kapryśny, gdy sieć lokalna odmawia współpracy.
 
 W praktyce oznacza to, że:
 - **powiadomienia przychodzą zawsze**, bo lecą przez LTE,
-- **pliki i ekran** działają tylko wtedy, gdy Windows i telefon dogadają się lokalnie, a jeśli nie — Windows udaje, że „coś robi”, ale tak naprawdę czeka na stabilny kanał.
+- **pliki i ekran** działają tylko wtedy, gdy Windows i telefon dogadają się lokalnie, a jeśli nie - Windows udaje, że „coś robi”, ale tak naprawdę czeka na stabilny kanał.
 
 
 ![Podział transmisji LAN i WAN w funkcjonalności łączenia telefonu z Windows](/public/courses/windows-11/Images/podział-transmisji-lan-wan-względem-funkcjonalności-łączenia-telefonu-windows.png)
@@ -498,6 +460,30 @@ Zrozumienie podwójnego systemu kontroli to inżynierska gwarancja sprawnego roz
     <div class="cmw-item" data-left="Uczeń próbuje wysłać plik na laptop nauczyciela przez funkcję 'Udostępnianie w pobliżu', ale jego sprzęt w ogóle nie pojawia się na liście." data-right="Nauczyciel ma włączoną tę funkcję, ale zapomniał zmienić tryb. Działa ona na ustawieniu 'Tylko moje urządzenia', przez co laptop ukrywa się przed cudzymi kontami."></div>
   </data-connection-matcher>
 </data-gate>
+
+---
+
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Protokół SMBv3 - integralność pre-autoryzacji i szyfrowanie AES-GCM</span><span class="deep-dive-badge">Network Protocols & SMBv3</span></summary>
+
+Udostępnianie plików w sieciach Windows opiera się na protokole **SMB** (*Server Message Block*). Od czasów archaicznego, podatnego na ataki protokołu SMBv1 (który posłużył do rozprzestrzeniania robaka WannaCry), architektura SMB przeszła całkowitą rewolucję inżynierską.
+
+### 1. Ewolucja SMB: Od SMBv1 do SMB 3.1.1
+- **SMBv1 (Przestarzały, zablokowany)**: Protokół „gadatliwy” (*chatty*), przesyłał hasła w podatnym formacie NTLMv1, brak szyfrowania sesji.
+- **SMBv2 (Windows Vista / 7)**: Redukcja liczby komend z setek do zaledwie 19, pipelining zapytań (wiele żądań I/O w jednym pakiecie TCP).
+- **SMBv3.1.1 (Windows 11)**: Wprowadza integralność przedautoryzacyjną (**Pre-Authentication Integrity**) opartą na skrótach kryptograficznych **SHA-512**, co uniemożliwia ataki typu Man-in-the-Middle dążące do wymuszenia starszego, słabszego dialektu (*Downgrade Attacks*).
+
+### 2. Szyfrowanie sesji w locie (SMB Encryption)
+W Windows 11 cała transmisja udziału sieciowego może być szyfrowana w locie bez konieczności konfigurowania tunelu VPN:
+- Wykorzystywany jest nowoczesny tryb uwierzytelnionego szyfrowania **AES-128-GCM** lub **AES-256-GCM**.
+- Tryb GCM (*Galois/Counter Mode*) zapewnia jednoczesne szyfrowanie oraz weryfikację integralności danych (tag MAC) w jednym przejściu, wykorzystując sprzętowe instrukcje procesora **Intel AES-NI / ARM Crypto**.
+
+### 3. SMB Direct i pamięć RDMA
+W środowiskach serwerowych i stacjach roboczych High-Performance Windows obsługuje funkcję **SMB Direct**:
+- Protokół omija całkowicie stos sieciowy TCP/IP i procesor komputera za pomocą technologii **RDMA** (*Remote Direct Memory Access*).
+- Karta sieciowa odczytuje dane bezpośrednio z pamięci RAM serwera i przesyła je do pamięci RAM klienta przez sieć 40/100 GbE z opóźnieniami rzędu mikrosekund.
+
+</details>
 
 ---
 

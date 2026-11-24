@@ -71,17 +71,13 @@
 <div class="markdown-alert-content">
 <p><span class="color-green">Brak uprawnień przy edycji plików systemowych</span></p>
 <p>Pliki konfiguracyjne systemu (np. w katalogu <code>/etc/</code>) należą do użytkownika <code>root</code>. Jeśli otworzysz plik systemowy komendą <code>nano /etc/hosts</code> jako zwykły użytkownik, edytor pozwoli Ci pisać i wyświetli komunikat <code>[ File 'etc/hosts' is unwritable]</code>, ale przy próbie zapisu pokaże czerwony komunikat błędu:<br><span class="color-red">[Error writnig /etc/hosts: Permission denied]</span> (Brak dostępu do uprawnienia zapisu).</p>
-
-</div>
-</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/nano-not-writing.webp" alt="Brak uprawnień przy edycji plików systemowych" width="1439" height="900" class="lazy-image" loading="lazy" decoding="async">
-
-
-<blockquote>
+<p><img src="/courses/ubuntu-26/Images/nano-not-writing.png" alt="Brak uprawnień przy edycji plików systemowych"></p>
 <p>Aby edytować pliki systemowe, zawsze musisz podnieść uprawnienia za pomocą <code>sudo</code>:</p>
 <pre><code class="language-bash">sudo nano /etc/hosts
 </code></pre>
-</blockquote>
-<hr>
+
+</div>
+</div><hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Nawigacja i pisanie</h2>
 <p>Po uruchomieniu edytora zobaczysz prosty interfejs:</p>
 <ol>
@@ -175,27 +171,45 @@ Wielu administratorów zaczyna od nano, bo w przeciwieństwie do vima, nie trzeb
 <li>Aby wyszukać kolejne wystąpienie tego samego słowa, ponownie naciśnij <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>W</kbd></span> i bez wpisywania tekstu po prostu zatwierdź klawiszem <kbd>Enter</kbd>.</li>
 </ol>
 <hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Punkt kontrolny: Praca w nano</h2>
-<data-gate>
-  <data-quiz>
-    <question><p>Chcesz wyjść z edytora nano po edycji pliku konfiguracyjnego <code>/etc/resolv.conf</code>, odrzucając wszystkie wprowadzone zmiany. Jaką sekwencję klawiszy powinieneś wybrać?</p>
-</question>
-    <options>
-      <item correct=""><p>Naciśnij <kbd>Ctrl</kbd> + <kbd>X</kbd>, a następnie na pytanie o zapis bufora odpowiedz klawiszem <kbd>N</kbd>.</p>
-</item>
-      <item><p>Naciśnij <kbd>Ctrl</kbd> + <kbd>O</kbd>, a następnie wpisz nazwę pustego pliku i wyjdź za pomocą <kbd>Ctrl</kbd> + <kbd>X</kbd>.</p>
-</item>
-      <item><p>Naciśnij <kbd>Ctrl</kbd> + <kbd>C</kbd>, aby anulować działanie, a potem zamknij okno terminala.</p>
-</item>
-      <item><p>Wpisz komendę <code>:q!</code> na dole ekranu i zatwierdź klawiszem <kbd>Enter</kbd>.</p>
-</item>
-    </options>
-    <div data-hint="error"><p>Pamiętaj: <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>X</kbd></span> inicjuje wyjście. Jeśli nie chcesz zapisywać zmian, system musi otrzymać informację „No” (<kbd>N</kbd>).</p>
-</div>
-    <div data-hint="success"><p>Świetnie! <span style="white-space: nowrap;"><kbd>Ctrl</kbd> + <kbd>X</kbd></span> i klawisz <kbd>N</kbd> to jedyna poprawna metoda na bezpieczne wyjście z nano bez zapisywania zmian w pliku.</p>
-</div>
-  </data-quiz>
-</data-gate>
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Buforowanie I/O w libc (FILE* vs int fd), blokady plików (flock/fcntl) i zrzut buforów fsync()</span><span class="deep-dive-badge">System I/O &amp; File Locking</span></summary>
+
+<p>Gdy edytor tekstu (taki jak <code>nano</code> czy <code>vim</code>) modyfikuje plik na dysku, wewnątrz systemu operacyjnego zachodzi seria operacji związanych z buforowaniem pamięci i synchronizacją nośnika.</p>
+<h3>1. Dwa poziomy buforowania danych</h3>
+<p>Gdy program w C zapisuje tekst do pliku, dane nie trafiają natychmiast na dysk SSD:</p>
+<ol>
+<li><span class="color-green">Bufor biblioteki <code>libc</code> (Przestrzeń użytkownika)</span>:<br>Funkcje wysokopoziomowe takie jak <code>fprintf()</code> lub <code>fputs()</code> operują na strumieniu <code>FILE*</code>. Dane gromadzone są w buforze pamięci procesu (zwykle 4096 lub 8192 bajty), aby zminimalizować liczbę kosztownych przejść Ring 3 $\to$ Ring 0.</li>
+<li><span class="color-green">Page Cache w pamięci jądra (Przestrzeń jądra)</span>:<br>Gdy bufor biblioteki zostanie opróżniony funkcją <code>fflush()</code>, wywoływane jest wywołanie systemowe <code>write(fd, buf, count)</code>. Jądro Linuksa kopiuje dane do stron pamięci RAM zwanych <span class="color-green">Page Cache</span> (oznaczając te strony jako <span class="color-blue">Dirty Pages</span> - brudne strony). Fizyczny zapis na dysk wykonuje asynchronicznie w tle proces jądra <code>kworker / flusher</code> co określony czas (zwykle co 5 sekund).</li>
+</ol>
+<pre><code>   Edytor (User Space):  fputs("port=8080", file_ptr)
+                                     │
+                             Bufor libc (4 KiB)
+                                     │ fflush()
+                                     ▼
+   Jądro Linuksa:            write(fd, buf, len)
+                                     │
+                             Page Cache (Dirty Pages w RAM)
+                                     │
+                         ┌───────────┴───────────┐
+                         │ fsync()               │ kworker (co 5s)
+                         ▼                       ▼
+   Fizyczny Dysk:        Fizyczny zapis magnetyczny / komórki Flash
+</code></pre>
+<h3>2. Gwarancja trwałości: Wywołanie `fsync()`</h3>
+<p>Co się stanie, jeśli komputer straci zasilanie 1 sekundę po naciśnięciu <code>Ctrl + O</code> w edytorze?<br>Jeśli edytor wywołał tylko <code>close(fd)</code>, dane wciąż znajdowały się w pamięci RAM i przepadną bezpowrotnie.</p>
+<p>Profesjonalne edytory i silniki baz danych (PostgreSQL, SQLite) po zapisaniu pliku konfiguracyjnego wykonują wywołanie systemowe:</p>
+<pre><code class="language-c">fsync(fd);
+</code></pre>
+<p><code>fsync()</code> wymusza zablokowanie procesu do momentu, aż kontroler dysku fizycznie potwierdzi zapisanie wszystkich brudnych stron oraz metadanych inodu na nośniku nieulotnym.</p>
+<h3>3. Zapobieganie konfliktom edycji: Blokady `flock` i pliki `.swp`</h3>
+<p>Jeśli dwóch administratorów otworzy jednocześnie ten sam plik w <code>nano</code> lub <code>vim</code>:</p>
+<ul>
+<li><code>vim</code> tworzy ukryty plik tymczasowy <code>.plik.swp</code> i zakłada blokadę adwokacką (<span class="color-blue">Advisory Lock</span>) funkcją systemową:<pre><code class="language-c">flock(fd, LOCK_EX | LOCK_NB);
+</code></pre>
+</li>
+<li>Flaga <code>LOCK_EX</code> wnioskuje o wyłączną blokadę zapisu (<span class="color-blue">Exclusive Lock</span>). Jeśli drugi proces próbuje założyć taką samą blokadę, wywołanie zwraca błąd <code>EWOULDBLOCK</code>, a edytor wyświetla ostrzeżenie o jednoczesnej modyfikacji pliku przez innego użytkownika.</li>
+</ul>
+</details>
 
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>

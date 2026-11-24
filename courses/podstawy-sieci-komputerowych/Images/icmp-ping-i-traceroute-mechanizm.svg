@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#facc15"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ade80"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Mechanika protokołu ICMP: Ping i wykrywanie trasy (Traceroute)</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Od struktury nagłówka ICMP po manipulację polem TTL w celu mapowania kolejnych skoków L3</text>
+
+  <!-- CZĘŚĆ 1: NAGŁÓWEK ICMP -->
+  <g transform="translate(60, 70)">
+    <rect width="840" height="70" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="420" y="20" fill="#38bdf8" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">STRUKTURA KOMUNIKATU ICMP (ŁADUNEK PAKIETU IP, PROTOCOL=1)</text>
+
+    <g transform="translate(20, 30)">
+      <rect width="180" height="28" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="90" y="18" fill="#e2e8f0" font-size="10" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">Type (8 bitów: Typ)</text>
+
+      <rect x="190" width="180" height="28" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="280" y="18" fill="#e2e8f0" font-size="10" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">Code (8 bitów: Kod)</text>
+
+      <rect x="380" width="200" height="28" rx="3" fill="#1e293b" stroke="#facc15" stroke-width="1"/>
+      <text x="480" y="18" fill="#facc15" font-size="10" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">Checksum (16 bitów)</text>
+
+      <rect x="590" width="210" height="28" rx="3" fill="#1e293b" stroke="#4ade80" stroke-width="1"/>
+      <text x="695" y="18" fill="#4ade80" font-size="10" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">Identifier + Sequence (32 bity)</text>
+    </g>
+  </g>
+
+  <!-- CZĘŚĆ 2: JAK TRACEROUTE WYKORZYSTUJE TTL (OŚ CZASU SKOKÓW) -->
+  <g transform="translate(60, 155)">
+    <rect width="840" height="360" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect width="840" height="28" rx="6" fill="#0369a1"/>
+    <text x="420" y="19" fill="#f0f9ff" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">DIAGNOSTYKA TRASY: MECHANIZM TRACEROUTE (INKREMENTACJA TTL)</text>
+
+    <!-- Pionowe linie urządzeń -->
+    <!-- Host nadawczy -->
+    <line x1="100" y1="50" x2="100" y2="340" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="100" y="44" fill="#38bdf8" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Host A (Ty)</text>
+
+    <!-- Router 1 (Brama) -->
+    <line x1="330" y1="50" x2="330" y2="340" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="330" y="44" fill="#facc15" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Router 1 (192.168.1.1)</text>
+
+    <!-- Router 2 (ISP) -->
+    <line x1="560" y1="50" x2="560" y2="340" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="560" y="44" fill="#facc15" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Router 2 (80.50.1.25)</text>
+
+    <!-- Cel (Serwer) -->
+    <line x1="750" y1="50" x2="750" y2="340" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="750" y="44" fill="#4ade80" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Serwer Cel (8.8.8.8)</text>
+
+    <!-- SKOK 1: TTL=1 -->
+    <g transform="translate(0, 70)">
+      <line x1="100" y1="0" x2="320" y2="20" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="210" y="6" fill="#38bdf8" font-size="9" font-family="monospace">1. Sonda TTL=1</text>
+
+      <rect x="330" y="15" width="16" height="16" rx="2" fill="#7f1d1d"/>
+      <text x="338" y="27" fill="#fca5a5" font-size="10" font-weight="bold" text-anchor="middle">✕</text>
+      <text x="355" y="27" fill="#ef4444" font-size="8" font-family="system-ui, sans-serif">TTL=0 (Wygasł!)</text>
+
+      <line x1="320" y1="35" x2="105" y2="55" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-amber)"/>
+      <text x="210" y="42" fill="#facc15" font-size="9" font-family="monospace">ICMP Type 11: Time Exceeded (Router 1 IP ujawnione)</text>
+      <text x="50" y="62" fill="#cbd5e1" font-size="8" font-family="monospace">Hop 1: 192.168.1.1 (1ms)</text>
+    </g>
+
+    <!-- SKOK 2: TTL=2 -->
+    <g transform="translate(0, 150)">
+      <line x1="100" y1="0" x2="550" y2="30" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="210" y="6" fill="#38bdf8" font-size="9" font-family="monospace">2. Sonda TTL=2 (Mija R1 z TTL=1 -> pada na R2)</text>
+
+      <rect x="560" y="25" width="16" height="16" rx="2" fill="#7f1d1d"/>
+      <text x="568" y="37" fill="#fca5a5" font-size="10" font-weight="bold" text-anchor="middle">✕</text>
+      <text x="585" y="37" fill="#ef4444" font-size="8" font-family="system-ui, sans-serif">TTL=0 na R2</text>
+
+      <line x1="550" y1="45" x2="105" y2="75" stroke="#facc15" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-amber)"/>
+      <text x="330" y="55" fill="#facc15" font-size="9" font-family="monospace">ICMP Type 11: Time Exceeded (Router 2 IP ujawnione)</text>
+      <text x="50" y="82" fill="#cbd5e1" font-size="8" font-family="monospace">Hop 2: 80.50.1.25 (9ms)</text>
+    </g>
+
+    <!-- SKOK 3: TTL=3 (DOCIERA DO CELU) -->
+    <g transform="translate(0, 240)">
+      <line x1="100" y1="0" x2="740" y2="35" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)"/>
+      <text x="260" y="8" fill="#38bdf8" font-size="9" font-family="monospace">3. Sonda TTL=3 (Dociera bezpośrednio do celu!)</text>
+
+      <rect x="745" y="30" width="16" height="16" rx="2" fill="#14532d"/>
+      <text x="753" y="42" fill="#86efac" font-size="10" font-weight="bold" text-anchor="middle">✓</text>
+
+      <line x1="740" y1="48" x2="105" y2="80" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+      <text x="420" y="60" fill="#4ade80" font-size="9" font-family="monospace">ICMP Type 0: Echo Reply (Cel odpowiada!)</text>
+      <text x="50" y="86" fill="#86efac" font-size="8" font-family="monospace">Hop 3: 8.8.8.8 (14ms) [Trasa ukończona]</text>
+    </g>
+  </g>
+</svg>

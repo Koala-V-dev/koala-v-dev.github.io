@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 380" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .blk-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; text-anchor: middle; }
+      .blk-bytes { font-family: monospace; font-size: 9.5px; font-weight: 700; text-anchor: middle; }
+      .val-txt { font-family: monospace; font-size: 10px; font-weight: 700; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9.5px; fill: #cbd5e1; }
+      .tag { font-family: monospace; font-size: 9px; font-weight: 800; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Anatomia ramki Ethernet II (Standard IEEE 802.3)</text>
+  <text x="30" y="48" class="sub">Struktura danych przekazywana przez kartę sieciową: od preambuły po sumę kontrolną FCS</text>
+
+  <!-- ================= PAS GŁÓWNY: POLA RAMKI ETHERNET ================= -->
+  <g transform="translate(30, 75)">
+    <!-- 1. Preambuła + SFD -->
+    <rect x="0" y="0" width="85" height="50" fill="#1e293b" stroke="#64748b" stroke-width="1.5" rx="4"/>
+    <text x="42" y="22" class="blk-hdr" fill="#cbd5e1">Preambuła</text>
+    <text x="42" y="38" class="blk-bytes" fill="#94a3b8">7B + 1B SFD</text>
+
+    <!-- 2. MAC Docelowy -->
+    <rect x="89" y="0" width="115" height="50" fill="#064e3b" stroke="#10b981" stroke-width="1.5" rx="4"/>
+    <text x="146" y="22" class="blk-hdr" fill="#34d399">MAC Celu</text>
+    <text x="146" y="38" class="blk-bytes" fill="#a7f3d0">6 bajtów (Dst)</text>
+
+    <!-- 3. MAC Źródłowy -->
+    <rect x="208" y="0" width="115" height="50" fill="#064e3b" stroke="#10b981" stroke-width="1.5" rx="4"/>
+    <text x="265" y="22" class="blk-hdr" fill="#34d399">MAC Źródła</text>
+    <text x="265" y="38" class="blk-bytes" fill="#a7f3d0">6 bajtów (Src)</text>
+
+    <!-- 4. EtherType -->
+    <rect x="327" y="0" width="85" height="50" fill="#164e63" stroke="#06b6d4" stroke-width="1.5" rx="4"/>
+    <text x="369" y="22" class="blk-hdr" fill="#22d3ee">EtherType</text>
+    <text x="369" y="38" class="blk-bytes" fill="#a5f3fc">2 bajty (Typ)</text>
+
+    <!-- 5. Dane / Payload (MTU) -->
+    <rect x="416" y="0" width="195" height="50" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" rx="4"/>
+    <text x="513" y="22" class="blk-hdr" fill="#38bdf8">Dane użytkownika (Payload / MTU)</text>
+    <text x="513" y="38" class="blk-bytes" fill="#bae6fd">46 – 1500 bajtów (np. Pakiet IP)</text>
+
+    <!-- 6. FCS (Ogon) -->
+    <rect x="615" y="0" width="65" height="50" fill="#881337" stroke="#f43f5e" stroke-width="1.5" rx="4"/>
+    <text x="647" y="22" class="blk-hdr" fill="#fecdd3">FCS</text>
+    <text x="647" y="38" class="blk-bytes" fill="#fda4af">4B CRC</text>
+  </g>
+
+  <!-- Wymiary podsumowujące (Klamra) -->
+  <g transform="translate(119, 132)">
+    <line x1="0" y1="0" x2="561" y2="0" stroke="#fde047" stroke-width="1.5"/>
+    <line x1="0" y1="-4" x2="0" y2="4" stroke="#fde047" stroke-width="1.5"/>
+    <line x1="561" y1="-4" x2="561" y2="4" stroke="#fde047" stroke-width="1.5"/>
+    <text x="280" y="14" font-family="monospace" font-size="10px" font-weight="800" fill="#fde047" text-anchor="middle">
+      Rozmiar właściwej ramki na kablu: Min 64 bajty ── Max 1518 bajtów
+    </text>
+  </g>
+
+  <!-- ================= DETALE: 2 KARTY ROZWINIĘCIA ================= -->
+
+  <!-- KARTA LEWA: ANATOMIA ADRESU MAC (48 BITÓW) -->
+  <g transform="translate(30, 165)">
+    <rect width="325" height="195" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="30" fill="#10b981" fill-opacity="0.15" rx="6"/>
+    <text x="162" y="20" class="blk-hdr" fill="#34d399">Anatomia adresu MAC (48 bitów / 6 bajtów)</text>
+
+    <!-- Wizualizacja podziału MAC -->
+    <g transform="translate(15, 42)">
+      <!-- OUI -->
+      <rect width="140" height="42" fill="#064e3b" stroke="#34d399" rx="3"/>
+      <text x="70" y="18" font-family="monospace" font-size="12px" font-weight="800" fill="#ffffff" text-anchor="middle">00 : 1A : 2B</text>
+      <text x="70" y="33" class="tag" fill="#a7f3d0">OUI (Producent)</text>
+
+      <!-- NIC -->
+      <rect x="150" width="140" height="42" fill="#0f172a" stroke="#38bdf8" rx="3"/>
+      <text x="220" y="18" font-family="monospace" font-size="12px" font-weight="800" fill="#ffffff" text-anchor="middle">3C : 4D : 5E</text>
+      <text x="220" y="33" class="tag" fill="#bae6fd">NIC (Numer seryjny)</text>
+    </g>
+
+    <!-- Wyjaśnienie kluczowe pod INF.02 -->
+    <g transform="translate(15, 100)">
+      <text x="0" y="14" class="val-txt" fill="#34d399">OUI (3 bajty):</text>
+      <text x="105" y="14" class="desc-txt">Identyfikator producenta (np. Intel, Cisco, Realtek)</text>
+
+      <text x="0" y="34" class="val-txt" fill="#38bdf8">NIC (3 bajty):</text>
+      <text x="105" y="34" class="desc-txt">Unikalny numer przypisany przez producenta karty</text>
+
+      <rect x="0" y="48" width="295" height="32" fill="#0f172a" stroke="#f59e0b" rx="4"/>
+      <text x="10" y="62" font-family="monospace" font-size="9.5px" font-weight="800" fill="#fde047">BROADCAST MAC:</text>
+      <text x="115" y="62" font-family="monospace" font-size="10px" font-weight="800" fill="#ffffff">FF:FF:FF:FF:FF:FF</text>
+      <text x="10" y="74" font-family="system-ui, sans-serif" font-size="8.5px" fill="#cbd5e1">Odbierany przez wszystkie komputery w sieci lokalnej (LAN)</text>
+    </g>
+  </g>
+
+  <!-- KARTA PRAWA: ETHERTYPE ORAZ MTU -->
+  <g transform="translate(385, 165)">
+    <rect width="325" height="195" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="30" fill="#06b6d4" fill-opacity="0.15" rx="6"/>
+    <text x="162" y="20" class="blk-hdr" fill="#22d3ee">EtherType (Rozpoznanie ładunku) i MTU</text>
+
+    <!-- Kody EtherType pod INF.02 -->
+    <g transform="translate(15, 42)">
+      <rect width="295" height="24" fill="#0f172a" stroke="#0891b2" rx="3"/>
+      <text x="10" y="16" class="val-txt" fill="#22d3ee">0x0800 ➔</text>
+      <text x="75" y="16" font-family="system-ui, sans-serif" font-size="10px" font-weight="700" fill="#ffffff">Pakiet IPv4 (Standardowy ruch sieciowy)</text>
+
+      <rect y="29" width="295" height="24" fill="#0f172a" stroke="#0891b2" rx="3"/>
+      <text x="10" y="45" class="val-txt" fill="#22d3ee">0x0806 ➔</text>
+      <text x="75" y="45" font-family="system-ui, sans-serif" font-size="10px" font-weight="700" fill="#ffffff">Protokół ARP (Pytanie: kto ma ten adres IP?)</text>
+
+      <rect y="58" width="295" height="24" fill="#0f172a" stroke="#0891b2" rx="3"/>
+      <text x="10" y="74" class="val-txt" fill="#22d3ee">0x86DD ➔</text>
+      <text x="75" y="74" font-family="system-ui, sans-serif" font-size="10px" font-weight="700" fill="#ffffff">Pakiet IPv6 (Adresy 128-bitowe)</text>
+    </g>
+
+    <!-- MTU -->
+    <g transform="translate(15, 136)">
+      <rect width="295" height="44" fill="#0f172a" stroke="#38bdf8" rx="4"/>
+      <text x="10" y="18" font-family="monospace" font-size="10px" font-weight="800" fill="#38bdf8">MTU = 1500 bajtów (Maximum Transmission Unit)</text>
+      <text x="10" y="32" class="desc-txt">Maksymalny rozmiar ładunku, jaki karta może przesłać</text>
+      <text x="10" y="42" class="desc-txt">w pojedynczej ramce bez jej podziału na fragmenty.</text>
+    </g>
+  </g>
+</svg>

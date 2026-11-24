@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt TicTacToe - Kółko i Krzyżyk z botem AI - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Projekt TicTacToe - Kółko i Krzyżyk z botem AI</h1>
+<p>Napisanie gry w Kółko i Krzyżyk w jednej długiej metodzie <code>Main()</code> wydaje się szybkie tylko pierwszego dnia. Kiedy jednak wymieszasz <code>Console.ReadLine()</code> i rysowanie kresek bezpośrednio ze sprawdzaniem wygranej, wpadasz w ślepą uliczkę.</p>
+<p>Takiego kodu nie da się automatycznie przetestować, ponieważ każda próba uruchomienia czeka na człowieka przy klawiaturze. A gdy zechcesz przenieść grę z czarnego terminala do okienkowej aplikacji graficznej, musisz przepisać wszystkie zasady od zera.</p>
+<p>Rozwiązaniem jest świadomy podział projektu na dwie niezależne warstwy. Zbudujesz pełnoprawny plik <code>TicTacToe.exe</code>, w którym logika gry nic nie wie o konsoli.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏗️ Architektura dwuplikowa: silnik kontra interfejs</h2>
+<p>Projekt dzielimy na dwa pliki o jasno wyznaczonych granicach odpowiedzialności:</p>
+<ol>
+<li><span class="color-green"><code>SilnikGry.cs</code></span>: czysta logika planszy <code>char[,]</code>, walidacja ruchów, wykrywanie wygranej i remisu oraz algorytm decyzji bota AI. W tym pliku nie wolno używać klasy <code>Console</code>.</li>
+<li><span class="color-green"><code>Program.cs</code></span>: warstwa interfejsu konsolowego z pętlą rozgrywki, czytelnym rysowaniem siatki i pobieraniem liczb od użytkownika.</li>
+</ol>
+<p>Klasa <code>SilnikGry</code> jest oznaczona jako <span class="color-green"><code>public static class SilnikGry</code></span>. Słowo <code>static</code> oznacza, że nie tworzysz jej egzemplarza przez <code>new SilnikGry()</code>, tylko wywołujesz gotowe metody bezpośrednio po nazwie klasy, na przykład <code>SilnikGry.WykonajRuch(...)</code>. Słowo <code>public</code> udostępnia te metody innym plikom oraz testom automatycznym.</p>
+<p>Taki podział ma konkretny cel inżynierski: w Module 5 weźmiesz <span class="color-gold">ten sam plik <code>SilnikGry.cs</code></span> i bez przepisywania zasad gry podepniesz go pod okno Windows Forms (<code>TicTacToeGUI.exe</code>).</p>
+<h3>🔌 Tryb interaktywny i Console.IsInputRedirected</h3>
+<p>Program konsolowy uruchomiony w automatycznym środowisku testowym (albo z przekierowanym wejściem) nie ma żywego użytkownika przed ekranem. Gdyby wywołał wtedy <code>Console.ReadLine()</code>, zawiesiłby się lub odczytał pustą wartość <code>null</code>.</p>
+<p>Właściwość <span class="color-green"><code>Console.IsInputRedirected</code></span> rozwiązuje ten problem. Zwraca <code>true</code>, gdy wejście jest przekierowane (na przykład w podglądzie przeglądarkowym), i <code>false</code>, gdy uruchamiasz <code>TicTacToe.exe</code> w prawdziwym oknie terminala.</p>
+<p>Dzięki temu <code>Program.cs</code> ma dwa tryby pracy: w przeglądarce prezentuje szybką symulację pierwszego ruchu bota, a po pobraniu pliku <code>.exe</code> uruchamia pełną rozgrywkę interaktywną.</p>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Gdy klikniesz dwukrotnie pobrany plik <code>TicTacToe.exe</code> w Eksploratorze Windows, okno terminala zamyka się natychmiast po zakończeniu metody <code>Main()</code>. Dlatego na końcu trybu interaktywnego dopisujemy <code>Console.WriteLine("\nNacisnij Enter, aby zakonczyc...");</code> oraz <code>Console.ReadLine();</code>, aby zdążyć przeczytać wynik partii.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🤖 Czteropoziomowa heurystyka bota AI</h2>
+<p>Bot nie losuje pól na ślepo. W każdej swojej turze ocenia aktualny stan planszy według ścisłej hierarchii priorytetów: od ruchów decydujących o wyniku partii aż po kontrolę najsilniejszych pól strategicznych.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Priorytet</th>
+<th align="left">Strategia bota</th>
+<th align="left">Co dokładnie sprawdza?</th>
+<th align="left">Dlaczego to działa?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><span class="color-green">1</span></td>
+<td align="left"><span class="color-green">Atak (natychmiastowa wygrana)</span></td>
+<td align="left">Czy istnieje wolne pole, na którym wstawienie znaku <span class="color-blue">bot</span> daje 3 w linii?</td>
+<td align="left">Kończy partię w tej turze i zapewnia zwycięstwo.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">2</span></td>
+<td align="left"><span class="color-green">Obrona (blokowanie rywala)</span></td>
+<td align="left">Czy istnieje wolne pole, na którym znak <span class="color-blue">gracz</span> dałby mu wygraną za turę?</td>
+<td align="left">Uniemożliwia przeciwnikowi zwycięstwo w następnym ruchu.</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">3</span></td>
+<td align="left"><span class="color-green">Kontrola środka</span></td>
+<td align="left">Czy pole <code>5</code> (<code>p[1, 1]</code>) jest wolne?</td>
+<td align="left">Środek należy jednocześnie do <span class="color-green">4 linii wygrywających</span> (wiersz, kolumna, obie przekątne).</td>
+</tr>
+<tr>
+<td align="center"><span class="color-green">4</span></td>
+<td align="left"><span class="color-green">Narożniki, potem krawędzie</span></td>
+<td align="left">Pierwsze wolne pole z <code>{ 1, 3, 7, 9 }</code>, a na końcu pozostałe <code>{ 2, 4, 6, 8 }</code>.</td>
+<td align="left">Każdy narożnik należy do <span class="color-green">3 linii</span>, a pole krawędziowe tylko do <span class="color-green">2 linii</span>.</td>
+</tr>
+</tbody></table>
+<p>Kolejność pierwszych dwóch kroków jest krytyczna. Wyobraź sobie planszę, na której bot (<code>O</code>) ma już dwa znaki w pierwszym wierszu, a gracz (<code>X</code>) ma dwa znaki w drugim wierszu.</p>
+<p>Jeśli zamienisz Atak z Obroną, bot najpierw zablokuje gracza w drugim wierszu, zamiast dostawić trzecie <code>O</code> i wygrać od razu. W ten sposób oddałby pewną wygraną i przedłużył partię.</p>
+<data-gate>
+<data-sortable-list title="Ułóż cztery priorytety decyzyjne bota AI od najwyższego do najniższego">
+  <item data-correct="3">Kontrola środka planszy (pole 5), które przecina aż 4 linie wygrywające</item>
+  <item data-correct="1">Atak: natychmiastowe uzupełnienie własnej linii i wygrana w tej turze</item>
+  <item data-correct="4">Zajęcie pierwszego wolnego narożnika (3 linie), a dopiero potem krawędzi (2 linie)</item>
+  <item data-correct="2">Obrona: zablokowanie pola, na którym przeciwnik ułożyłby 3 znaki w następnej turze</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Ruch na próbę i granica heurystyki</h2>
+<p>Priorytety 1 i 2 korzystają z tej samej metody pomocniczej: <code>ZnajdzRuchWygrywajacy(char[,] p, char znak)</code>. Przy ataku wywołujesz ją dla znaku <span class="color-blue">bot</span>, a przy obronie dla znaku <span class="color-blue">gracz</span>.</p>
+<p>Jej działanie opiera się na technice <span class="color-green">ruchu na próbę i cofnięcia</span> (make move / unmake move). Dla każdego pola <code>pole</code> od <code>1</code> do <code>9</code> metoda przelicza <code>(r, c)</code>, pomija zajęte komórki, a dla wolnego pola wykonuje trzy kroki:</p>
+<ol>
+<li>Tymczasowo wpisuje badany znak na planszę: <code>p[r, c] = znak;</code>.</li>
+<li>Zapisuje do zmiennej logicznej wynik gotowej metody <code>CzyWygrana(p, znak)</code>.</li>
+<li>Zawsze cofa zmianę z powrotem na kropkę <code>p[r, c] = '.';</code>, zanim zdecyduje o zwrocie numeru <span class="color-blue">pole</span>.</li>
+</ol>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zawsze przywracaj <code>p[r, c] = '.';</code> <span class="color-green">przed</span> instrukcją <code>return pole;</code>. Jeśli napiszesz <code>if (CzyWygrana(p, znak)) return pole;</code> bez cofnięcia znaku, bot podczas sprawdzania obrony zostawi na planszy <span class="color-red">fałszywy znak przeciwnika</span>. Kolejne wywołanie <code>WykonajRuch</code> zobaczy wtedy zajęte pole i cała rozgrywka się rozsypie.</p>
+
+</div>
+</div><h3>🍴 Dlaczego heurystyka przegrywa z „widełkami”?</h3>
+<p>Nasza 4‑poziomowa heurystyka gra solidnie, ale patrzy wyłącznie na jeden ruch do przodu. Doświadczony gracz może zastawić na nią podwójną groźbę, nazywaną <span class="color-green">„widełkami”</span>.</p>
+<p>Prześledź taki układ: gracz <code>X</code> stawia znak w narożniku <code>1</code>, bot <code>O</code> zajmuje środek <code>5</code>, gracz dokłada przeciwny narożnik <code>9</code>, bot wybiera wolny narożnik <code>3</code>, a gracz zajmuje narożnik <code>7</code>.</p>
+<pre><code class="language-text"> X | . | O
+---+---+---
+ . | O | .
+---+---+---
+ X | . | X
+</code></pre>
+<p>Teraz gracz <code>X</code> grozi wygraną jednocześnie na polu <code>4</code> (lewa kolumna) oraz na polu <code>8</code> (dolny wiersz). Bot może zablokować w swojej turze tylko jedno z nich, więc przegrywa w kolejnym ruchu. Aby zablokować „widełki” z wyprzedzeniem, silnik musi zajrzeć głębiej w drzewo gry (zobacz sekcję „Pod maską” o algorytmie Minimax).</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj sytuację na planszy do decyzji bota AI (bot gra jako O)">
+  <item left="Bot ma O na polach 1 i 2, a gracz X na polach 4 i 5 (pola 3 i 6 wolne)" right="Priorytet 1 (Atak): bot wybiera pole 3 i kończy partię wygraną"></item>
+  <item left="Gracz ma X na polach 1 i 5, bot ma O na polu 3 (pole 9 wolne)" right="Priorytet 2 (Obrona): bot blokuje przekątną na polu 9"></item>
+  <item left="Gracz rozpoczął od narożnika na polu 1, reszta planszy jest pusta" right="Priorytet 3 (Środek): bot zajmuje kluczowe pole 5"></item>
+  <item left="Gracz rozpoczął od środka na polu 5, reszta planszy jest pusta" right="Priorytet 4 (Narożnik): bot zajmuje pierwszy wolny narożnik (pole 1)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Przestrzeń stanów gry, algorytm Minimax i odcinanie Alpha-Beta w silnikach C++</span>
+<span class="deep-dive-badge">AI W GRACH · TEORIA GIER · C++ · STOCKFISH</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Przestrzeń stanów Kółko i Krzyżyk w dokładnych liczbach</h4>
+
+<p>Na pustej planszy <code>3x3</code> pierwszy gracz ma 9 możliwości, drugi 8, trzeci 7 i tak dalej. Górna granica liczby wszystkich sekwencji ruchów wynosi $9! = 362\,880$.</p>
+<p>Po odrzuceniu nielegalnych przedłużeń partii po ułożeniu 3 znaków w linii zostaje dokładnie <span class="color-green">255 168</span> możliwych pełnych rozgrywek:</p>
+<ul>
+<li><code>131 184</code> kończy się wygraną pierwszego gracza (<code>X</code>),</li>
+<li><code>77 904</code> kończy się wygraną drugiego gracza (<code>O</code>),</li>
+<li><code>46 080</code> kończy się remisem.</li>
+</ul>
+<p>Wiele układów jest swoim odbiciem lustrzanym lub obrotem o 90, 180 albo 270 stopni. Po odrzuceniu symetrii w całej grze istnieje zaledwie <span class="color-green">765</span> istotnie różnych pozycji. Współczesny procesor przeszukuje całe drzewo gry w ułamku milisekundy.</p>
+<h4>2. Matematyczna definicja algorytmu Minimax</h4>
+
+<p>Aby bot był matematycznie <span class="color-green">niepokonany</span> (najgorszy możliwy wynik to remis) i zawsze unikał „widełek”, stosuje się rekurencyjny algorytm <span class="color-green">Minimax</span>. Zakłada on, że obaj gracze wybierają ruchy optymalne:</p>
+<ul>
+<li>Węzeł <span class="color-green">MAX</span> (tura bota) szuka ruchu o najwyższej ocenie (<code>+10 - glebokosc</code> za wygraną, <code>0</code> za remis, <code>glebokosc - 10</code> za porażkę).</li>
+<li>Węzeł <span class="color-green">MIN</span> (tura gracza) szuka ruchu o najniższej ocenie z perspektywy bota.</li>
+</ul>
+<p>Odjęcie głębokości sprawia, że bot woli wygrać w 2 ruchach niż w 4, a w przegranej pozycji walczy jak najdłużej.</p>
+<pre><code class="language-csharp">static int Minimax(char[,] p, int glebokosc, bool turaBota)
+{
+    if (SilnikGry.CzyWygrana(p, 'O')) return 10 - glebokosc;
+    if (SilnikGry.CzyWygrana(p, 'X')) return glebokosc - 10;
+    if (SilnikGry.CzyRemis(p)) return 0;
+
+    int najlepszy = turaBota ? int.MinValue : int.MaxValue;
+    for (int pole = 1; pole &lt;= 9; pole++)
+    {
+        int r = (pole - 1) / 3, c = (pole - 1) % 3;
+        if (p[r, c] != '.') continue;
+        p[r, c] = turaBota ? 'O' : 'X';
+        int ocena = Minimax(p, glebokosc + 1, !turaBota);
+        p[r, c] = '.'; // Cofniecie ruchu (unmake move)
+        if (turaBota &amp;&amp; ocena &gt; najlepszy) najlepszy = ocena;
+        if (!turaBota &amp;&amp; ocena &lt; najlepszy) najlepszy = ocena;
+    }
+    return najlepszy;
+}
+</code></pre>
+<h4>3. Odcinanie Alpha-Beta Pruning w silnikach szachowych C++</h4>
+
+<p>W szachach z typowej pozycji istnieje około <code>35</code> legalnych ruchów. Przeszukanie czystym Minimaxem zaledwie 6 półruchów w przód wymagałoby sprawdzenia $35^6 = 1\,838\,265\,625$ pozycji.</p>
+<p>Silniki szachowe pisane w C++ (na przykład Stockfish) przyspieszają przeszukiwanie przez <span class="color-green">Alpha‑Beta Pruning</span>. Algorytm pilnuje dwóch granic:</p>
+<ul>
+<li><span class="color-green">alfa (<code>alpha</code>)</span>: najlepszy wynik, jaki gracz MAX ma już zagwarantowany na innej gałęzi.</li>
+<li><span class="color-green">beta (<code>beta</code>)</span>: najniższy wynik, jaki gracz MIN ma już zagwarantowany.</li>
+</ul>
+<p>Gdy w kolejnej gałęzi zajdzie warunek <code>beta &lt;= alpha</code>, przeciwnik i tak nigdy nie dopuści do tej pozycji. Silnik natychmiast przerywa analizę tej gałęzi instrukcją <code>break</code>. Wynik jest identyczny z pełnym Minimaxem, ale liczba odwiedzanych pozycji spada z ponad 1,8 miliarda do około $35^3 = 42\,875$, czyli ponad <span class="color-green">42 000 razy mniej pracy</span>.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Modułu 1: Zbuduj i pobierz TicTacToe.exe</h2>
+<p>Przełącz zakładkę edytora na <span class="color-green"><code>SilnikGry.cs</code></span> i zaimplementuj cztery kluczowe metody silnika:</p>
+<ol>
+<li><span class="color-green"><code>CzyRemis(char[,] p)</code></span>:<ul>
+<li>zwraca <code>true</code> wyłącznie wtedy, gdy na planszy nie ma już żadnego wolnego pola <code>'.'</code> <span class="color-green">oraz</span> żaden z graczy (<code>'X'</code> ani <code>'O'</code>) nie wygrał.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>WykonajRuch(char[,] p, int pole, char znak)</code></span>:<ul>
+<li>sprawdza, czy <span class="color-blue">pole</span> mieści się w zakresie <code>1..9</code>,</li>
+<li>wylicza <code>r = (pole - 1) / 3</code> i <code>c = (pole - 1) % 3</code>,</li>
+<li>jeśli <code>p[r, c] != '.'</code> (pole zajęte), zwraca <code>false</code> bez modyfikacji planszy,</li>
+<li>w przeciwnym razie wpisuje <code>p[r, c] = znak;</code> i zwraca <code>true</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZnajdzRuchWygrywajacy(char[,] p, char znak)</code></span>:<ul>
+<li>przegląda pola <code>1..9</code> i dla każdego wolnego pola <code>'.'</code> wykonuje ruch na próbę: wpisuje <span class="color-blue">znak</span>, sprawdza <code>CzyWygrana(p, znak)</code> i <span class="color-green">zawsze</span> cofa pole z powrotem na <code>'.'</code> przed zwróceniem numeru <span class="color-blue">pole</span>,</li>
+<li>jeśli żaden ruch nie daje natychmiastowej wygranej, zwraca <code>-1</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>WybierzRuchBota(char[,] p, char bot, char gracz)</code></span>:<ul>
+<li>priorytet 1: wywołuje <code>ZnajdzRuchWygrywajacy(p, bot)</code> i jeśli wynik jest różny od <code>-1</code>, zwraca go,</li>
+<li>priorytet 2: wywołuje <code>ZnajdzRuchWygrywajacy(p, gracz)</code> i jeśli wynik jest różny od <code>-1</code>, zwraca to pole jako blok,</li>
+<li>priorytet 3: jeśli środek <code>p[1, 1] == '.'</code>, zwraca <code>5</code>,</li>
+<li>priorytet 4: sprawdza kolejno narożniki <code>{ 1, 3, 7, 9 }</code>, a jeśli wszystkie są zajęte, zwraca pierwsze wolne pole z <code>1..9</code> (lub <code>-1</code>, gdy plansza jest pełna).</li>
+</ul>
+</li>
+</ol>
+<p>Po przejściu wszystkich testów pobierz plik <span class="color-green"><code>TicTacToe.exe</code></span> i rozegraj partię z własnym botem w oknie terminala.</p>
+<data-gate>
+<data-csharp-lab title="Projekt Modulu 1: TicTacToe z botem AI (2 pliki)" exe-name="TicTacToe.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void RysujPlansze(char[,] p)
+    {
+        Console.WriteLine();
+        for (int r = 0; r &lt; 3; r++)
+        {
+            Console.Write("  ");
+            for (int c = 0; c &lt; 3; c++)
+            {
+                char znak = p[r, c];
+                if (znak == '.') Console.Write(" " + (r * 3 + c + 1) + " ");
+                else Console.Write(" " + znak + " ");
+                if (c &lt; 2) Console.Write("|");
+            }
+            Console.WriteLine();
+            if (r &lt; 2) Console.WriteLine("  ---+---+---");
+        }
+        Console.WriteLine();
+    }
+
+    static void Main()
+    {
+        char[,] plansza = SilnikGry.NowaPlansza();
+        Console.WriteLine("=== TICTACTOE AI v1.0 ===");
+
+        if (Console.IsInputRedirected)
+        {
+            // Tryb podgladu automatycznego (symulacja poczatku partii)
+            SilnikGry.WykonajRuch(plansza, 1, 'X');
+            int ruchBota = SilnikGry.WybierzRuchBota(plansza, 'O', 'X');
+            SilnikGry.WykonajRuch(plansza, ruchBota, 'O');
+            RysujPlansze(plansza);
+            Console.WriteLine("Bot AI wybral pole: " + ruchBota);
+            Console.WriteLine("Pobierz TicTacToe.exe, aby zagrac interaktywnie na Windows!");
+            return;
+        }
+
+        while (true)
+        {
+            RysujPlansze(plansza);
+            Console.Write("Twoj ruch (1-9): ");
+            int pole;
+            if (!int.TryParse(Console.ReadLine(), out pole) || !SilnikGry.WykonajRuch(plansza, pole, 'X'))
+            {
+                Console.WriteLine("Nieprawidlowe lub zajete pole!");
+                continue;
+            }
+            if (SilnikGry.CzyWygrana(plansza, 'X'))
+            {
+                RysujPlansze(plansza);
+                Console.WriteLine("WYGRALES!");
+                break;
+            }
+            if (SilnikGry.CzyRemis(plansza))
+            {
+                RysujPlansze(plansza);
+                Console.WriteLine("REMIS!");
+                break;
+            }
+
+            int botPole = SilnikGry.WybierzRuchBota(plansza, 'O', 'X');
+            SilnikGry.WykonajRuch(plansza, botPole, 'O');
+            Console.WriteLine("Bot AI zagral na pole: " + botPole);
+            if (SilnikGry.CzyWygrana(plansza, 'O'))
+            {
+                RysujPlansze(plansza);
+                Console.WriteLine("BOT AI WYGRAL!");
+                break;
+            }
+            if (SilnikGry.CzyRemis(plansza))
+            {
+                RysujPlansze(plansza);
+                Console.WriteLine("REMIS!");
+                break;
+            }
+        }
+
+        Console.WriteLine("\nNacisnij Enter, aby zakonczyc...");
+        Console.ReadLine();
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="SilnikGry.cs">
+
+<pre><code class="language-csharp">using System;
+
+public static class SilnikGry
+{
+    public static char[,] NowaPlansza()
+    {
+        return new char[,] {
+            { '.', '.', '.' },
+            { '.', '.', '.' },
+            { '.', '.', '.' }
+        };
+    }
+
+    public static bool CzyWygrana(char[,] p, char z)
+    {
+        for (int i = 0; i &lt; 3; i++)
+        {
+            if (p[i, 0] == z &amp;&amp; p[i, 1] == z &amp;&amp; p[i, 2] == z) return true;
+            if (p[0, i] == z &amp;&amp; p[1, i] == z &amp;&amp; p[2, i] == z) return true;
+        }
+        return (p[0, 0] == z &amp;&amp; p[1, 1] == z &amp;&amp; p[2, 2] == z)
+            || (p[0, 2] == z &amp;&amp; p[1, 1] == z &amp;&amp; p[2, 0] == z);
+    }
+
+    public static bool CzyRemis(char[,] p)
+    {
+        // Zwroc true tylko gdy brak pol '.' oraz nikt nie wygral
+        return false;
+    }
+
+    public static bool WykonajRuch(char[,] p, int pole, char znak)
+    {
+        // Zwaliduj zakres 1..9 i sprawdz, czy p[r, c] == '.'
+        return false;
+    }
+
+    public static int ZnajdzRuchWygrywajacy(char[,] p, char znak)
+    {
+        // Dla kazdego wolnego pola 1..9: wpisz znak, sprawdz CzyWygrana, ZAWSZE cofnij na '.' przed return
+        return -1;
+    }
+
+    public static int WybierzRuchBota(char[,] p, char bot, char gracz)
+    {
+        // 1. Atak (ZnajdzRuchWygrywajacy dla bot)
+        // 2. Obrona (ZnajdzRuchWygrywajacy dla gracz)
+        // 3. Srodek (5), potem narozniki { 1, 3, 7, 9 }, potem pierwsze wolne pole
+        return -1;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("WykonajRuch stawia znak na wolnym polu i odrzuca zajete lub nielegalne pola", () =&gt; {
+    char[,] p = SilnikGry.NowaPlansza();
+    LabAssert.True(SilnikGry.WykonajRuch(p, 5, 'X'));
+    LabAssert.Equal('X', p[1, 1]);
+    LabAssert.False(SilnikGry.WykonajRuch(p, 5, 'O'));
+    LabAssert.Equal('X', p[1, 1]);
+    LabAssert.False(SilnikGry.WykonajRuch(p, 0, 'O'));
+    LabAssert.False(SilnikGry.WykonajRuch(p, 10, 'O'));
+    LabAssert.False(SilnikGry.WykonajRuch(p, -2, 'O'));
+});
+LabAssert.Test("CzyRemis wykrywa pelna plansze bez zwyciezcy i zwraca false przy wygranej lub wolnych polach", () =&gt; {
+    char[,] remis = { { 'X', 'O', 'X' }, { 'X', 'O', 'O' }, { 'O', 'X', 'X' } };
+    LabAssert.True(SilnikGry.CzyRemis(remis));
+
+    char[,] wygranaPelna = { { 'X', 'X', 'X' }, { 'O', 'O', 'X' }, { 'O', 'X', 'O' } };
+    LabAssert.False(SilnikGry.CzyRemis(wygranaPelna));
+
+    char[,] wTrakcie = { { 'X', 'O', '.' }, { '.', 'X', '.' }, { '.', '.', 'O' } };
+    LabAssert.False(SilnikGry.CzyRemis(wTrakcie));
+});
+LabAssert.Test("ZnajdzRuchWygrywajacy znajduje wygrana i NIE zostawia smieci na planszy", () =&gt; {
+    char[,] p = { { 'O', 'O', '.' }, { 'X', 'X', '.' }, { '.', '.', '.' } };
+    LabAssert.Equal(3, SilnikGry.ZnajdzRuchWygrywajacy(p, 'O'));
+    LabAssert.Equal('.', p[0, 2]);
+    LabAssert.Equal('.', p[1, 2]);
+
+    LabAssert.Equal(6, SilnikGry.ZnajdzRuchWygrywajacy(p, 'X'));
+    LabAssert.Equal('.', p[1, 2]);
+    LabAssert.Equal('.', p[0, 2]);
+
+    char[,] brak = { { 'X', '.', '.' }, { '.', 'O', '.' }, { '.', '.', '.' } };
+    LabAssert.Equal(-1, SilnikGry.ZnajdzRuchWygrywajacy(brak, 'X'));
+    LabAssert.Equal('.', brak[0, 1]);
+    LabAssert.Equal('.', brak[2, 2]);
+});
+LabAssert.Test("Bot AI wybiera wygrywajacy ruch (atak ma pierwszenstwo nad blokiem)", () =&gt; {
+    char[,] p = { { 'O', 'O', '.' }, { 'X', 'X', '.' }, { '.', '.', '.' } };
+    LabAssert.Equal(3, SilnikGry.WybierzRuchBota(p, 'O', 'X'));
+    LabAssert.Equal('.', p[0, 2]);
+    LabAssert.Equal('.', p[1, 2]);
+});
+LabAssert.Test("Bot AI blokuje wygrana przeciwnika po przekatnej i w wierszu", () =&gt; {
+    char[,] wiersz = { { 'X', 'X', '.' }, { '.', 'O', '.' }, { '.', '.', '.' } };
+    LabAssert.Equal(3, SilnikGry.WybierzRuchBota(wiersz, 'O', 'X'));
+    LabAssert.Equal('.', wiersz[0, 2]);
+
+    char[,] przekatna = { { 'X', '.', '.' }, { '.', 'X', '.' }, { 'O', '.', '.' } };
+    LabAssert.Equal(9, SilnikGry.WybierzRuchBota(przekatna, 'O', 'X'));
+    LabAssert.Equal('.', przekatna[2, 2]);
+});
+LabAssert.Test("Bot AI zajmuje srodek (5), naroznik, krawedz, a dla pelnej planszy zwraca -1", () =&gt; {
+    char[,] p1 = SilnikGry.NowaPlansza();
+    SilnikGry.WykonajRuch(p1, 1, 'X');
+    LabAssert.Equal(5, SilnikGry.WybierzRuchBota(p1, 'O', 'X'));
+
+    char[,] p2 = SilnikGry.NowaPlansza();
+    SilnikGry.WykonajRuch(p2, 5, 'X');
+    LabAssert.Equal(1, SilnikGry.WybierzRuchBota(p2, 'O', 'X'));
+
+    char[,] sameKrawedzie = { { 'X', '.', 'O' }, { 'O', 'O', 'X' }, { 'X', 'X', 'O' } };
+    LabAssert.Equal(2, SilnikGry.WybierzRuchBota(sameKrawedzie, 'O', 'X'));
+
+    char[,] pelna = { { 'X', 'O', 'X' }, { 'X', 'O', 'O' }, { 'O', 'X', 'X' } };
+    LabAssert.Equal(-1, SilnikGry.WybierzRuchBota(pelna, 'O', 'X'));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Dlaczego oddzielamy <code>SilnikGry.cs</code> od <code>Program.cs</code>?</strong> Logika gry bez żadnych wywołań <code>Console</code> daje się w pełni przetestować automatycznie i pozwala później podpiąć ten sam silnik pod okno graficzne Windows Forms bez przepisywania zasad.</li>
+<li><strong>Jaka jest właściwa kolejność decyzji bota AI?</strong> Zawsze sprawdzaj najpierw własny atak, potem obronę przed rywalem, następnie środek planszy (4 linie), a na końcu narożniki (3 linie) i krawędzie (2 linie).</li>
+<li><strong>O czym musisz pamiętać przy ruchu na próbę (make move / unmake move)?</strong> Po sprawdzeniu <code>CzyWygrana</code> zawsze przywracaj <code>p[r, c] = '.';</code> przed instrukcją <code>return</code>, inaczej metoda sprawdzająca zostawi na planszy fałszywy znak.</li>
+<li><strong>Po co sprawdzamy <code>Console.IsInputRedirected</code> i dodajemy końcowe <code>Console.ReadLine()</code>?</strong> <code>IsInputRedirected</code> chroni program przed zawieszeniem w środowisku automatycznym bez klawiatury, a końcowy <code>ReadLine()</code> w trybie interaktywnym zatrzymuje okno <code>TicTacToe.exe</code> na Windows do czasu naciśnięcia Enter.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Słowniki Dictionary i tablice haszujące - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Słowniki Dictionary i tablice haszujące</h1>
+<p>Wyobraź sobie, że analizujesz 50 000 wpisów z dziennika serwera. Dla każdego wpisu chcesz natychmiast znaleźć przypisaną regułę albo policzyć, ile razy dany identyfikator pojawił się w logach. Gdybyś za każdym razem przeszukiwał zwykłą listę <code>List&lt;T&gt;</code> od początku, program wykonałby ponad miliard porównań.</p>
+<p>Rozwiązaniem jest <span class="color-green"><code>Dictionary&lt;TKey, TValue&gt;</code></span>: <span class="color-gold">tablica haszująca</span>, która zamienia dowolny <span class="color-green">klucz</span> na przypisaną mu <span class="color-green">wartość</span> w jednym bezpośrednim skoku do pamięci. Czas wyszukiwania pozostaje stały niezależnie od tego, czy słownik przechowuje 10, czy 1 000 000 wpisów.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔑 Jak słownik znajduje wartość bez przeszukiwania pętli</h2>
+<p>Kiedy pytasz słownik o klucz <code>"linux"</code>, C# nie przegląda wpisów po kolei. Najpierw wylicza z klucza liczbę całkowitą metodą <code>GetHashCode()</code>, wyznacza resztę z dzielenia przez liczbę kubełków (<code>buckets.Length</code>) i od razu zagląda pod ten konkretny indeks:</p>
+<table>
+<thead>
+<tr>
+<th>Krok</th>
+<th>Co robi <code>Dictionary&lt;string, string&gt;</code>?</th>
+<th>Przykład dla klucza <code>"linux"</code> (7 kubełków)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. Skrót klucza</td>
+<td>Wywołuje <code>comparer.GetHashCode("linux")</code> i zeruje bit znaku</td>
+<td><code>hash = 1 482 910 315</code></td>
+</tr>
+<tr>
+<td>2. Wybór kubełka</td>
+<td>Oblicza <code>indeks = hash % 7</code></td>
+<td><code>1 482 910 315 % 7 = 5</code></td>
+</tr>
+<tr>
+<td>3. Odczyt</td>
+<td>Skacze wprost do kubełka nr <code>5</code>, sprawdza <code>Equals</code> i zwraca wartość</td>
+<td><code>"System operacyjny"</code></td>
+</tr>
+</tbody></table>
+<p>Zamiast 50 000 porównań w pętli program wykonuje jedno obliczenie skrótu i jedno sprawdzenie kubełka. W słowniku <span class="color-green"><code>Dictionary&lt;TKey, TValue&gt;</code></span> obowiązują dwie podstawowe zasady:</p>
+<ul>
+<li><span class="color-green">Klucze muszą być unikalne:</span> ponowne wywołanie <code>.Add("linux", ...)</code> dla istniejącego już klucza kończy się wyjątkiem <span class="color-red">ArgumentException</span>.</li>
+<li><span class="color-green">Wartości mogą się powtarzać:</span> różne klucze (na przykład <code>"ubuntu"</code> i <code>"fedora"</code>) mogą wskazywać na tę samą wartość <code>"Linux"</code>.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Bezpieczny odczyt TryGetValue, pułapka null i default(T)</h2>
+<p>Jeśli spróbujesz odczytać nieistniejący klucz indekserem <code>slownik["nieznany"]</code>, program natychmiast przerwie działanie wyjątkiem <span class="color-red">KeyNotFoundException</span>. Bezpieczny odczyt niepewnego klucza wykonujesz zawsze metodą <span class="color-green"><code>TryGetValue</code></span>:</p>
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+var opisyTagow = new Dictionary&lt;string, string&gt;(StringComparer.OrdinalIgnoreCase)
+{
+    { "csharp", "Jezyk obiektowy na platforme .NET" },
+    { "sql", "Jezyk zapytan do baz danych" },
+    { "git", "System kontroli wersji" }
+};
+
+string opis;
+if (!opisyTagow.TryGetValue("CSHARP", out opis))
+{
+    opis = "Brak opisu tagu";
+}
+// opis == "Jezyk obiektowy na platforme .NET"
+</code></pre>
+<p>Przekazanie <span class="color-green"><code>StringComparer.OrdinalIgnoreCase</code></span> do konstruktora sprawia, że słownik traktuje <code>"csharp"</code>, <code>"CSHARP"</code> i <code>"CSharp"</code> jako ten sam klucz. Wylicza dla nich identyczny skrót i porównuje je bez rozróżniania wielkości liter.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>W <code>Dictionary&lt;TKey, TValue&gt;</code> klucz nigdy nie może mieć wartości <code>null</code>. Zarówno odczyt <code>slownik[null]</code>, jak i bezpieczne z pozoru wywołanie <code>slownik.TryGetValue(null, out wynik)</code> rzucają natychmiast wyjątek <span class="color-red">ArgumentNullException</span>. Zanim zapytasz słownik o napis z zewnątrz, sprawdź najpierw <code>if (string.IsNullOrEmpty(klucz))</code>.</p>
+
+</div>
+</div><h3>⚙️ Co wpisuje parametr out gdy klucza brakuje</h3>
+<p>Metoda <code>TryGetValue</code> zwraca <code>bool</code> i zawsze inicjalizuje zmienną przekazaną przez <code>out</code>. Gdy klucza nie ma w słowniku, zmienna <code>out</code> otrzymuje <span class="color-gold">wartość domyślną typu</span> <code>default(TValue)</code>:</p>
+<ul>
+<li>dla typów liczbowych (<code>int</code>, <code>long</code>, <code>double</code>) jest to <code>0</code>,</li>
+<li>dla <code>bool</code> jest to <code>false</code>,</li>
+<li>dla typów referencyjnych (<code>string</code>, <code>List&lt;string&gt;</code>) jest to <code>null</code>.</li>
+</ul>
+<p>Ta mechanika jest niezwykle przydatna w słownikach liczbowych <code>Dictionary&lt;string, int&gt;</code>, ponieważ brakujący klucz od razu daje <code>0</code>. Jednak w słowniku <code>Dictionary&lt;string, List&lt;string&gt;&gt;</code> wynik <code>out lista</code> przy braku klucza wynosi <code>null</code>, więc próba wywołania <code>lista.Add(...)</code> bez utworzenia listy rzuci <span class="color-red">NullReferenceException</span>.</p>
+<h3>📊 Wzorzec licznika wystąpień i różnica zapisu przez []</h3>
+<p>Dzięki temu, że <code>TryGetValue</code> wpisuje <code>0</code> dla nieistniejącego klucza, budowanie histogramów częstości wymaga zaledwie kilku linii kodu:</p>
+<pre><code class="language-csharp">var tagi = new List&lt;string&gt; { "sql", "git", "SQL", "csharp", "git", "git" };
+var licznik = new Dictionary&lt;string, int&gt;(StringComparer.OrdinalIgnoreCase);
+
+foreach (string tag in tagi)
+{
+    int ile;
+    licznik.TryGetValue(tag, out ile); // Gdy klucza brak, ile dostaje 0
+    licznik[tag] = ile + 1;            // Zapis [] dodaje nowy klucz lub nadpisuje stary
+}
+// Wynik: "sql" -&gt; 2, "git" -&gt; 3, "csharp" -&gt; 1
+</code></pre>
+<p>Zapamiętaj różnicę między odczytem a zapisem przez nawiasy kwadratowe:</p>
+<ul>
+<li><span class="color-green">Odczyt</span> <code>int x = licznik[klucz];</code> rzuca <span class="color-red">KeyNotFoundException</span>, gdy klucza nie ma.</li>
+<li><span class="color-green">Zapis</span> <code>licznik[klucz] = wartosc;</code> nigdy nie rzuca wyjątku o duplikacie: tworzy nowy wpis albo nadpisuje istniejący.</li>
+</ul>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Gdy budujesz stałą tabelę mapowań (na przykład rozszerzenia plików na kategorie), nie twórz nowego słownika wewnątrz metody przy każdym wywołaniu. Zapisz go raz jako pole klasy <code>private static readonly Dictionary&lt;string, string&gt;</code>, aby uniknąć wielokrotnych alokacji pamięci.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Iteracja po słowniku i porównanie z HashSet</h2>
+<p>Gdy chcesz przejrzeć wszystkie pary zgromadzone w słowniku, używasz pętli <code>foreach</code> z typem <span class="color-green"><code>KeyValuePair&lt;TKey, TValue&gt;</code></span> (albo słowem kluczowym <code>var</code>). Każdy element ma dwie właściwości tylko do odczytu: <code>.Key</code> oraz <code>.Value</code>.</p>
+<pre><code class="language-csharp">foreach (KeyValuePair&lt;string, int&gt; para in licznik)
+{
+    Console.WriteLine(para.Key + ": " + para.Value);
+}
+
+// Gdy potrzebujesz wyłącznie kluczy lub wyłącznie wartości:
+foreach (string klucz in licznik.Keys)
+{
+    Console.WriteLine("Klucz: " + klucz);
+}
+
+foreach (int wartosc in licznik.Values)
+{
+    Console.WriteLine("Liczba wystapien: " + wartosc);
+}
+</code></pre>
+<p>Podobnie jak w <code>List&lt;T&gt;</code>, modyfikowanie słownika (dodawanie lub usuwanie kluczy) wewnątrz <code>foreach</code> przerywa program wyjątkiem <span class="color-red">InvalidOperationException</span>. Nie polegaj też na kolejności wpisów po usunięciach: tablica haszująca optymalizuje szybkość dostępu, a nie porządek alfabetyczny.</p>
+<h3>🎯 Kiedy zamiast Dictionary wybrać HashSet</h3>
+<p>Często nie potrzebujesz powiązania klucza z wartością. Chcesz jedynie szybko sprawdzać, czy dany adres IP, identyfikator lub słowo już się pojawiło, albo odfiltrować duplikaty.</p>
+<p>Wtedy właściwą kolekcją jest <span class="color-green"><code>HashSet&lt;T&gt;</code></span> z tej samej przestrzeni nazw <code>System.Collections.Generic</code>. Działa na identycznym mechanizmie haszowania (wyszukiwanie <code>Contains</code> w czasie <span class="color-green">O(1)</span>), ale przechowuje wyłącznie unikalne elementy bez marnowania pamięci na zbędne wartości:</p>
+<pre><code class="language-csharp">var odwiedzone = new HashSet&lt;string&gt;(StringComparer.OrdinalIgnoreCase);
+bool pierwszy = odwiedzone.Add("10.0.0.1"); // true: nowy element
+bool duplikat = odwiedzone.Add("10.0.0.1"); // false: element juz istnieje, brak wyjatku!
+</code></pre>
+<data-gate>
+<data-connection-matcher title="Dopasuj operację na kolekcji haszującej do jej dokładnego zachowania">
+  <item left="string x = slownik['brak'];" right="Rzuca wyjątek KeyNotFoundException"></item>
+  <item left="slownikInt.TryGetValue('brak', out ile);" right="Zwraca false i ustawia zmienną ile na wartość domyślną 0"></item>
+  <item left="slownik.Add('istniejacyKlucz', 'nowa');" right="Rzuca wyjątek ArgumentException z powodu duplikatu klucza"></item>
+  <item left="slownik.TryGetValue(null, out wynik);" right="Rzuca wyjątek ArgumentNullException, bo klucz nie może być null"></item>
+  <item left="zbiorHashSet.Add('istniejacyElement');" right="Zwraca false i nie modyfikuje zbioru (bez wyjątku)"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗂️ Wzorzec grupowania w słowniku list</h2>
+<p>Jednym z najważniejszych wzorców w codziennym programowaniu jest grupowanie elementów według wspólnej cechy: <span class="color-green"><code>Dictionary&lt;string, List&lt;string&gt;&gt;</code></span>. Wyobraź sobie dziennik serwera, w którym każdy wpis ma poziom ważności (<code>"INFO"</code>, <code>"WARN"</code>, <code>"ERROR"</code>) oraz treść komunikatu. Chcemy zebrać wszystkie komunikaty osobno dla każdego poziomu.</p>
+<p>Prześledź krok po kroku, dlaczego sama próba dopisania do listy nie wystarczy:</p>
+<ol>
+<li>Pobierasz kategorię wpisu, na przykład <span class="color-blue">poziom</span> równy <code>"ERROR"</code>.</li>
+<li>Pytasz słownik: <code>if (!grupy.TryGetValue(poziom, out lista))</code>.</li>
+<li>Jeśli to <span class="color-green">pierwszy wpis</span> dla <code>"ERROR"</code>, metoda zwraca <code>false</code>, a <span class="color-blue">lista</span> ma wartość <code>null</code>. Musisz wtedy utworzyć nową pustą listę <code>lista = new List&lt;string&gt;();</code> i zapisać ją w słowniku pod kluczem <code>"ERROR"</code>: <code>grupy[poziom] = lista;</code>.</li>
+<li>Na końcu zawsze dopisujesz element: <code>lista.Add(komunikat);</code>.</li>
+</ol>
+<pre><code class="language-csharp">var wpisy = new List&lt;string&gt;
+{
+    "INFO:Start serwera",
+    "ERROR:Brak polaczenia z baza",
+    "INFO:Otwarto port 8080",
+    "WARN:Wysokie zuzycie RAM",
+    "ERROR:Timeout zapytania SQL"
+};
+
+var grupyLogow = new Dictionary&lt;string, List&lt;string&gt;&gt;(StringComparer.OrdinalIgnoreCase);
+
+foreach (string wpis in wpisy)
+{
+    int dwukropek = wpis.IndexOf(':');
+    string poziom = wpis.Substring(0, dwukropek);
+    string tresc = wpis.Substring(dwukropek + 1);
+
+    List&lt;string&gt; lista;
+    if (!grupyLogow.TryGetValue(poziom, out lista))
+    {
+        lista = new List&lt;string&gt;();
+        grupyLogow[poziom] = lista;
+    }
+
+    lista.Add(tresc);
+}
+</code></pre>
+<p>Zwróć uwagę na linijkę <code>lista.Add(tresc);</code> przy drugim komunikacie <code>"ERROR"</code>. Nie musisz ponownie wpisywać <code>grupyLogow[poziom] = lista;</code>. Ponieważ <code>List&lt;string&gt;</code> jest typem referencyjnym, zmienna lokalna <span class="color-blue">lista</span> oraz wpis wewnątrz <span class="color-blue">grupyLogow</span> wskazują na <span class="color-green">ten sam obiekt na stercie</span>. Ten wzorzec wykorzystasz także w końcowym projekcie <code>FolderTidy</code> do porządkowania plików według kategorii.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Płaska tablica Entry[] w CLR vs std::unordered_map w C++, liczby pierwsze i kontrakt GetHashCode</span>
+<span class="deep-dive-badge">TABLICE HASZUJĄCE · PAMIĘĆ CPU · C++</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Architektura buckets[] i entries[] w .NET kontra std::unordered_map w C++</h4>
+
+<p>Ponieważ <code>GetHashCode()</code> zwraca 32‑bitową liczbę całkowitą (około 4,29 miliarda możliwości), a różnych napisów istnieje nieskończenie wiele (zasada szufladkowa Dirichleta), dwa różne klucze mogą trafić do tego samego kubełka. Taką sytuację nazywamy <span class="color-green">kolizją</span>.</p>
+<p>W C++ standard wymusza na <code>std::unordered_map</code>, aby adresy elementów w pamięci nie zmieniały się po rehashowaniu (pointer stability). Z tego powodu implementacje C++ alokują każdy wpis jako osobny węzeł listy jednokierunkowej (<code>new Node</code>) rozrzucony w losowych miejscach sterty. Przejście po kolizjach oznacza skakanie po wskaźnikach i kosztowne pudła w pamięci podręcznej CPU (Cache Misses).</p>
+<p><code>Dictionary&lt;TKey, TValue&gt;</code> w .NET robi to inaczej: przechowuje wszystkie wpisy w <span class="color-green">jednej, ciągłej tablicy struktur <code>Entry[]</code></span>:</p>
+<pre><code class="language-csharp">// Uproszczona struktura wewnetrzna .NET Dictionary&lt;TKey, TValue&gt;:
+private struct Entry
+{
+    public int hashCode; // 31-bitowy skrot (bez bitu znaku), -1 gdy slot jest wolny
+    public int next;     // Indeks kolejnego wpisu w tym samym kubelku (-1 = koniec lancucha)
+    public TKey key;
+    public TValue value;
+}
+
+private int[] buckets;   // Przechowuje indeks pierwszego Entry w danym kubelku (-1 = pusty)
+private Entry[] entries; // Plaska, zwarta tablica wpisow przyjazna dla cache L1/L2 CPU
+</code></pre>
+<p>Dzięki temu łańcuchowanie kolizji odbywa się przez indeksy <code>int</code> wewnątrz jednej tablicy bez żadnego <code>new Node</code> na element. Procesor pobiera sąsiednie wpisy jednym blokiem do linii cache (64 bajty), co wyraźnie przyspiesza wyszukiwanie i iterację.</p>
+<h4>2. Dlaczego rozmiary tablicy kubełków w .NET to liczby pierwsze</h4>
+
+<p>W klasie <code>HashHelpers</code> w .NET znajduje się statyczna tablica rozmiarów kubełków:<br><code>3, 7, 11, 17, 23, 29, 37, 47, 59, 71, 89, 107, 131, 163, 197, 239, 293, 353...</code></p>
+<p>Wyobraź sobie, że kluczami są adresy pamięci albo identyfikatory podzielne przez 8 (<code>8, 16, 24, 32, 40...</code>). Gdyby rozmiar tablicy kubełków był potęgą dwójki, na przykład <code>16</code>, to reszta z dzielenia <code>klucz % 16</code> przyjmowałaby <span class="color-green">wyłącznie wartości <code>0</code> oraz <code>8</code></span>. Pozostałe 14 kubełków stałoby puste, a wszystkie dane spiętrzyłyby się w dwóch długich łańcuchach. Dzielenie modulo przez <span class="color-green">liczbę pierwszą</span> (na przykład <code>17</code>) nie ma wspólnych dzielników z potęgami dwójki, więc rozrzuca wielokrotności 8 równomiernie po wszystkich kubełkach.</p>
+<h4>3. Współczynnik wypełnienia i koszt rehashowania</h4>
+
+<p>Gdy liczba elementów w <code>entries[]</code> zrówna się z rozmiarem tablicy (współczynnik wypełnienia osiąga 100%), słownik wybiera kolejną liczbę pierwszą około dwukrotnie większą. Alokuje nowe <code>buckets[]</code> oraz <code>entries[]</code> i dla każdego wpisu oblicza <code>entry.hashCode % newSize</code>. Zapisany w <code>Entry</code> skrót pozwala uniknąć ponownego wywoływania <code>GetHashCode()</code>. Tak jak w <code>List&lt;T&gt;</code>, jeśli znasz docelową liczbę kluczy (na przykład 20 000), przekaż ją do konstruktora: <code>new Dictionary&lt;string, int&gt;(20000)</code>.</p>
+<h4>4. Żelazny kontrakt GetHashCode() i Equals()</h4>
+
+<p>Jeśli kiedykolwiek użyjesz własnej klasy jako klucza w <code>Dictionary</code>, musisz przestrzegać dwóch reguł:</p>
+<ol>
+<li>Jeśli <code>a.Equals(b)</code> zwraca <code>true</code>, to <code>a.GetHashCode()</code> <span class="color-green">musi</span> być równe <code>b.GetHashCode()</code>. Złamanie tej zasady sprawia, że <code>TryGetValue</code> zagląda do innego kubełka niż ten, do którego wstawiono obiekt, i zwraca <code>false</code> mimo istnienia równego klucza.</li>
+<li>Pola biorące udział w obliczaniu <code>GetHashCode()</code> muszą być <span class="color-green">niezmienne</span> (immutable). Jeśli wstawisz obiekt do słownika, a potem zmienisz jego pole wpływające na hash, obiekt zostanie uwięziony w starym kubełku:</li>
+</ol>
+<pre><code class="language-csharp">var klucz = new Punkt(10, 20);
+slownik[klucz] = "Start";
+klucz.X = 99; // Zmiana pola zmienia GetHashCode()!
+// slownik.ContainsKey(klucz) zwroci teraz FALSE: wpis zginal w starym kubelku!
+</code></pre>
+<p>Właśnie dlatego typ <code>string</code> w C# jest niezmienny (immutable): jego <code>GetHashCode()</code> nigdy nie zmieni się po wstawieniu klucza do tablicy haszującej.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Silnik kategoryzacji, zliczania i grupowania plików</h2>
+<p>W klasie <code>AnalizatorRozszerzen</code> uzupełnij pole <code>MapaRozszerzen</code> oraz trzy metody:</p>
+<ol>
+<li><span class="color-green">Pole statyczne <code>MapaRozszerzen</code></span>:<ul>
+<li>zadeklarowane jako <code>private static readonly Dictionary&lt;string, string&gt;</code> z porównywarką <code>StringComparer.OrdinalIgnoreCase</code>,</li>
+<li>uzupełnij mapowanie:<ul>
+<li><code>.png</code>, <code>.jpg</code>, <code>.webp</code> na <code>"Obrazy"</code>,</li>
+<li><code>.pdf</code>, <code>.docx</code>, <code>.txt</code> na <code>"Dokumenty"</code>,</li>
+<li><code>.zip</code>, <code>.7z</code>, <code>.rar</code> na <code>"Archiwa"</code>,</li>
+<li><code>.exe</code>, <code>.msi</code> na <code>"Instalatory"</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span class="color-green"><code>PobierzKategorie(string rozszerzenie)</code></span>:<ul>
+<li>użyj <code>MapaRozszerzen</code> oraz <code>TryGetValue</code>,</li>
+<li>jeśli <span class="color-blue">rozszerzenie</span> jest <code>null</code>, puste lub nie ma go w mapie, zwróć <code>"Inne"</code> (pamiętaj o ochronie przed <span class="color-red">ArgumentNullException</span>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZliczKategorie(List&lt;string&gt; rozszerzenia)</code></span>:<ul>
+<li>zwróć <code>Dictionary&lt;string, int&gt;</code>, w którym kluczem jest nazwa kategorii, a wartością liczba jej wystąpień na liście wejściowej,</li>
+<li>dla pustej listy zwróć pusty słownik; elementy <code>null</code> lub puste traktuj tak jak <code>PobierzKategorie</code> (wliczaj do <code>"Inne"</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>GrupujPoKategorii(List&lt;string&gt; nazwyPlikow)</code></span>:<ul>
+<li>zwróć <code>Dictionary&lt;string, List&lt;string&gt;&gt;</code> grupujący nazwy plików według ich kategorii,</li>
+<li>dla każdej niepustej nazwy wyznacz rozszerzenie przez <code>Path.GetExtension(nazwa)</code> (na przykład dla <code>"raport.PDF"</code> zwraca <code>".PDF"</code>, a dla <code>"README"</code> zwraca <code>""</code>), następnie pobierz kategorię metodą <code>PobierzKategorie</code>,</li>
+<li>pomiń wpisy <code>null</code> oraz puste napisy <code>""</code>; pliki bez rozszerzenia (jak <code>"README"</code>) mają trafić do kategorii <code>"Inne"</code>,</li>
+<li>zachowaj kolejność plików w ramach każdej grupy.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Dictionary, TryGetValue, licznik i grupowanie plików" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.IO;
+
+public class AnalizatorRozszerzen
+{
+    private static readonly Dictionary&lt;string, string&gt; MapaRozszerzen =
+        new Dictionary&lt;string, string&gt;(StringComparer.OrdinalIgnoreCase)
+        {
+            // Uzupełnij mapowania rozszerzeń na kategorie:
+            // Obrazy, Dokumenty, Archiwa, Instalatory
+        };
+
+    public static string PobierzKategorie(string rozszerzenie)
+    {
+        // Sprawdź null/pusty napis i odczytaj kategorię przez TryGetValue z MapaRozszerzen
+        return "Inne";
+    }
+
+    public static Dictionary&lt;string, int&gt; ZliczKategorie(List&lt;string&gt; rozszerzenia)
+    {
+        // Zlicz wystąpienia każdej kategorii w Dictionary&lt;string, int&gt;
+        return new Dictionary&lt;string, int&gt;();
+    }
+
+    public static Dictionary&lt;string, List&lt;string&gt;&gt; GrupujPoKategorii(List&lt;string&gt; nazwyPlikow)
+    {
+        // Wyciągnij rozszerzenie przez Path.GetExtension i pogrupuj nazwy w Dictionary&lt;string, List&lt;string&gt;&gt;
+        return new Dictionary&lt;string, List&lt;string&gt;&gt;();
+    }
+
+    static void Main()
+    {
+        var ext = new List&lt;string&gt; { ".png", ".JPG", ".pdf", ".zip", ".mp3" };
+        var raport = ZliczKategorie(ext);
+        foreach (KeyValuePair&lt;string, int&gt; para in raport)
+        {
+            Console.WriteLine(para.Key + ": " + para.Value);
+        }
+
+        var pliki = new List&lt;string&gt; { "logo.PNG", "umowa.pdf", "avatar.webp", "README" };
+        var grupy = GrupujPoKategorii(pliki);
+        foreach (KeyValuePair&lt;string, List&lt;string&gt;&gt; grupa in grupy)
+        {
+            Console.WriteLine(grupa.Key + " -&gt; " + string.Join(", ", grupa.Value));
+        }
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("PobierzKategorie rozpoznaje rozszerzenia niezaleznie od wielkosci liter", () =&gt; {
+    LabAssert.Equal("Obrazy", AnalizatorRozszerzen.PobierzKategorie(".PNG"));
+    LabAssert.Equal("Obrazy", AnalizatorRozszerzen.PobierzKategorie(".webp"));
+    LabAssert.Equal("Dokumenty", AnalizatorRozszerzen.PobierzKategorie(".pdf"));
+    LabAssert.Equal("Dokumenty", AnalizatorRozszerzen.PobierzKategorie(".DOCX"));
+    LabAssert.Equal("Archiwa", AnalizatorRozszerzen.PobierzKategorie(".7Z"));
+    LabAssert.Equal("Instalatory", AnalizatorRozszerzen.PobierzKategorie(".Msi"));
+});
+LabAssert.Test("PobierzKategorie bezpiecznie obsluguje nieznane rozszerzenia, null i pusty napis", () =&gt; {
+    LabAssert.Equal("Inne", AnalizatorRozszerzen.PobierzKategorie(".iso"));
+    LabAssert.Equal("Inne", AnalizatorRozszerzen.PobierzKategorie(""));
+    LabAssert.Equal("Inne", AnalizatorRozszerzen.PobierzKategorie(null));
+});
+LabAssert.Test("ZliczKategorie zlicza wszystkie kategorie oraz obsluguje null i pusta liste", () =&gt; {
+    var pusty = AnalizatorRozszerzen.ZliczKategorie(new List&lt;string&gt;());
+    LabAssert.Equal(0, pusty.Count);
+
+    var lista = new List&lt;string&gt; { ".png", ".JPG", ".pdf", ".zip", ".mp3", ".webp", null, "", ".EXE", ".rar" };
+    var wynik = AnalizatorRozszerzen.ZliczKategorie(lista);
+    LabAssert.Equal(5, wynik.Count);
+    LabAssert.Equal(3, wynik["Obrazy"]);
+    LabAssert.Equal(1, wynik["Dokumenty"]);
+    LabAssert.Equal(2, wynik["Archiwa"]);
+    LabAssert.Equal(1, wynik["Instalatory"]);
+    LabAssert.Equal(3, wynik["Inne"]);
+});
+LabAssert.Test("GrupujPoKategorii grupuje nazwy plikow, zachowuje kolejnosc i pomija null oraz puste napisy", () =&gt; {
+    var puste = AnalizatorRozszerzen.GrupujPoKategorii(new List&lt;string&gt;());
+    LabAssert.Equal(0, puste.Count);
+
+    var pliki = new List&lt;string&gt;
+    {
+        "screen.PNG",
+        null,
+        "raport.pdf",
+        "",
+        "avatar.jpg",
+        "backup.7Z",
+        "README",
+        "setup.exe",
+        "notatki.TXT"
+    };
+    var grupy = AnalizatorRozszerzen.GrupujPoKategorii(pliki);
+    LabAssert.Equal(5, grupy.Count);
+    LabAssert.Equal("screen.PNG,avatar.jpg", string.Join(",", grupy["Obrazy"]));
+    LabAssert.Equal("raport.pdf,notatki.TXT", string.Join(",", grupy["Dokumenty"]));
+    LabAssert.Equal("backup.7Z", string.Join(",", grupy["Archiwa"]));
+    LabAssert.Equal("setup.exe", string.Join(",", grupy["Instalatory"]));
+    LabAssert.Equal("README", string.Join(",", grupy["Inne"]));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Wybieraj <span class="color-green"><code>Dictionary&lt;TKey, TValue&gt;</code></span>, gdy potrzebujesz szybkiego wyszukiwania po kluczu w czasie <span class="color-green">O(1)</span> zamiast liniowego przeszukiwania listy, oraz <span class="color-green"><code>HashSet&lt;T&gt;</code></span>, gdy przechowujesz wyłącznie zbiór unikalnych wartości.</li>
+<li>Zawsze odczytuj niepewne klucze przez <span class="color-green"><code>TryGetValue</code></span>, aby uniknąć <span class="color-red">KeyNotFoundException</span>, i pamiętaj o wcześniejszym sprawdzeniu <code>null</code>, bo <code>TryGetValue(null, out ...)</code> rzuca <span class="color-red">ArgumentNullException</span>.</li>
+<li>Dla kluczy tekstowych przekazuj do konstruktora <code>StringComparer.OrdinalIgnoreCase</code>, a stałe tabele mapowań trzymaj w polu <code>private static readonly Dictionary&lt;...&gt;</code>.</li>
+<li>Zapis <code>slownik[klucz] = wartosc</code> bezpiecznie wstawia nowy klucz albo nadpisuje istniejący; przy grupowaniu <code>Dictionary&lt;string, List&lt;string&gt;&gt;</code> zainicjalizuj nową listę za pierwszym razem, gdy <code>TryGetValue</code> zwróci <code>false</code> i wpisze <code>null</code>.</li>
+<li>Po słowniku iteruj pętlą <code>foreach</code> z <code>KeyValuePair&lt;TKey, TValue&gt;</code> (albo po <code>.Keys</code> i <code>.Values</code>), nie modyfikując struktury słownika w trakcie pętli.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

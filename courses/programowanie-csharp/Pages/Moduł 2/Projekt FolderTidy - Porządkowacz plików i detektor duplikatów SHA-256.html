@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256 - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</h1>
+<p>Otwórz swój folder <code>Downloads</code> na Windows 11. Po kilku miesiącach normalnej pracy leżą tam setki przypadkowych plików: zrzuty ekranu, faktury PDF, archiwa ZIP, instalatory oraz kopie tego samego dokumentu (<code>umowa.pdf</code>, <code>umowa (1).pdf</code>, <code>umowa (2).pdf</code>).</p>
+<p>Jeśli spróbujesz szukać duplikatów po nazwie, przeoczysz identyczne pliki zapisane jako <code>foto.png</code> i <code>wakacje_kopia.png</code>. Jeśli z kolei porównasz każdy plik z każdym bajt po bajcie, dla 2 000 plików program wykona aż <span class="color-green">1 999 000 porównań</span> i zamrozi dysk na długie minuty.</p>
+<p>Rozwiązaniem używanym w profesjonalnych narzędziach dyskowych jest połączenie kryptograficznego odcisku palca <span class="color-gold">SHA‑256</span> ze słownikiem <code>Dictionary&lt;K, V&gt;</code>, strumieniowym odczytem w blokach <code>using</code> oraz odporną na błędy pętlą <code>try / catch</code>. Te elementy połączysz teraz w gotowy program konsolowy <span class="color-green"><code>FolderTidy.exe</code></span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧬 Architektura potoku FolderTidy i SHA-256</h2>
+<p>Kryptograficzna funkcja skrótu <span class="color-green">SHA‑256</span> zamienia dowolny plik (niezależnie czy ma 10 bajtów, czy 10 GB) na stały, 64‑znakowy ciąg szesnastkowy. Dwa pliki identyczne bajt w bajt dają zawsze ten sam skrót. Zmiana choćby jednego bitu generuje całkowicie inny wynik.</p>
+<p>Dzięki temu <code>FolderTidy</code> nie porównuje par plików. Zamiast niemal dwóch milionów operacji dla 2 000 plików, program wykonuje dokładnie <span class="color-green">2 000 obliczeń skrótu</span> i <span class="color-green">2 000 operacji w słowniku</span> w pięciu uporządkowanych etapach:</p>
+<table>
+<thead>
+<tr>
+<th>Etap potoku</th>
+<th>Struktura lub mechanizm C#</th>
+<th>Zadanie etapu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. Walidacja ścieżki i wejścia</td>
+<td><code>Directory.Exists</code> + Guard Clauses</td>
+<td>Odrzuca nieistniejące foldery i parametry <code>null</code> przed startem pracy</td>
+</tr>
+<tr>
+<td>2. Skanowanie katalogu</td>
+<td><code>Directory.GetFiles</code> + <code>try / catch</code></td>
+<td>Wczytuje ścieżki; pojedynczy zablokowany plik nie przerywa analizy</td>
+</tr>
+<tr>
+<td>3. Kategoryzacja i hashowanie</td>
+<td><code>Path.GetExtension</code>, <code>using (SHA256)</code>, <code>using (File.OpenRead)</code></td>
+<td>Rozpoznaje kategorię i strumieniowo wylicza 64‑znakowy skrót SHA‑256</td>
+</tr>
+<tr>
+<td>4. Grupowanie duplikatów</td>
+<td><code>Dictionary&lt;string, List&lt;string&gt;&gt;</code></td>
+<td>Zbiera nazwy plików o identycznym skrócie i filtruje grupy z <code>Count &gt; 1</code></td>
+</tr>
+<tr>
+<td>5. Raport i kalkulacja SSD</td>
+<td>Arytmetyka <code>long</code> i formatowanie konsoli</td>
+<td>Wyświetla kategorie, wykryte kopie i dokładną liczbę bajtów do odzyskania</td>
+</tr>
+</tbody></table>
+<data-gate>
+<data-sortable-list title="Ułóż pięć etapów potoku przetwarzania FolderTidy we właściwej kolejności wykonania">
+  <item data-correct="4">Grupowanie nazw plików o tym samym skrócie w słowniku i wybranie grup z Count &gt; 1</item>
+  <item data-correct="1">Walidacja wybranej ścieżki katalogu oraz sprawdzenie argumentów Guard Clauses</item>
+  <item data-correct="5">Obliczenie zmarnowanych bajtów jako long i wyświetlenie podsumowania dla użytkownika</item>
+  <item data-correct="2">Wczytanie listy plików z dysku w pętli osłoniętej blokami try / catch</item>
+  <item data-correct="3">Strumieniowe obliczenie skrótu SHA-256 dla każdego pliku w podwójnym bloku using</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Przypadki brzegowe Path.GetExtension i klocki Program.cs</h2>
+<p>Silnik <code>TidyEngine.cs</code> współpracuje z warstwą wejścia/wyjścia w <code>Program.cs</code>. Zanim napiszesz kod silnika, sprawdź dokładnie zachowanie biblioteki standardowej na nietypowych danych.</p>
+<h3>📂 Przypadki brzegowe metody Path.GetExtension</h3>
+<p>Metoda <span class="color-green"><code>Path.GetExtension(nazwaPliku)</code></span> z przestrzeni <code>System.IO</code> wyciąga rozszerzenie z nazwy lub ścieżki. W praktyce zwraca wyniki, które łatwo mogą zaskoczyć:</p>
+<table>
+<thead>
+<tr>
+<th>Wartość <span class="color-blue">nazwaPliku</span></th>
+<th>Wynik <code>Path.GetExtension</code></th>
+<th>Dlaczego to ma znaczenie w <code>KategoryzujPlik</code>?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>"tapeta_4k.PNG"</code></td>
+<td><code>".PNG"</code></td>
+<td>Zawiera kropkę i zachowuje wielkie litery: słownik wymaga <code>StringComparer.OrdinalIgnoreCase</code></td>
+</tr>
+<tr>
+<td><code>"archiwum.tar.gz"</code></td>
+<td><code>".gz"</code></td>
+<td>Zwraca wyłącznie ostatni segment po ostatniej kropce</td>
+</tr>
+<tr>
+<td><code>"brak_rozszerzenia"</code></td>
+<td><code>""</code></td>
+<td>Zwraca pusty napis, nie <code>null</code>; słownik go nie znajdzie, więc trafi do <code>"Inne"</code></td>
+</tr>
+<tr>
+<td><code>""</code> lub <code>"   "</code></td>
+<td><code>""</code></td>
+<td>Bezpiecznie odrzucone przez <code>string.IsNullOrWhiteSpace</code> na wejściu</td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td><code>null</code></td>
+<td>Przekazanie <code>null</code> do <code>Dictionary.TryGetValue</code> rzuciłoby <span class="color-red"><code>ArgumentNullException</code></span>, więc Guard Clause jest obowiązkowy</td>
+</tr>
+</tbody></table>
+<h3>🧱 Cztery klocki warstwy systemowej w Program.cs</h3>
+<p>Plik <code>Program.cs</code> jest gotową otoczką dla systemu Windows 11. Wykorzystuje cztery narzędzia .NET, z którymi będziesz często pracować w aplikacjach narzędziowych:</p>
+<ul>
+<li><span class="color-green"><code>BitConverter.ToString(hash)</code></span>: zamienia 32‑bajtową tablicę zwróconą przez <code>SHA256</code> na napis szesnastkowy rozdzielony myślnikami (na przykład <code>"A1-0F-3C..."</code>). Wywołanie <code>.Replace("-", "").ToLowerInvariant()</code> oczyszcza go do standardowego, 64‑znakowego formatu.</li>
+<li><span class="color-green"><code>Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)</code></span>: pobiera ścieżkę bieżącego konta Windows (na przykład <code>C:\Users\Jan</code>) bez wpisywania nazwy użytkownika na sztywno. <code>Path.Combine</code> bezpiecznie dokleja do niej <code>"Downloads"</code>.</li>
+<li><span class="color-green"><code>new FileInfo(plik).Length</code></span>: odczytuje rozmiar pliku w bajtach bezpośrednio z metadanych systemu plików jako 64‑bitowy <span class="color-green"><code>long</code></span>, dzięki czemu poprawnie obsługuje obrazy ISO i filmy większe niż 2 GB.</li>
+<li><span class="color-green"><code>Console.IsInputRedirected</code></span>: sprawdza, czy program działa w zautomatyzowanej piaskownicy przeglądarki (wejście przekierowane), czy w prawdziwym oknie terminala na Windows 11. Dzięki temu ten sam kod przechodzi testy w kursie i działa interaktywnie po pobraniu pliku <code>FolderTidy.exe</code>.</li>
+</ul>
+<p>Kluczowa metoda hashowania w <code>Program.cs</code> czyta plik strumieniowo, nie ładując go w całości do pamięci RAM:</p>
+<pre><code class="language-csharp">using System.IO;
+using System.Security.Cryptography;
+
+static string ObliczSha256(string sciezka)
+{
+    using (var sha = SHA256.Create())
+    using (var stream = File.OpenRead(sciezka))
+    {
+        byte[] hash = sha.ComputeHash(stream);
+        return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Piętrowy blok <code>using</code> zwalnia najpierw uchwyt pliku NTFS (<span class="color-blue">stream</span>), a następnie zasoby algorytmu kryptograficznego (<span class="color-blue">sha</span>). W pętli skanującej <code>Program.cs</code> każde wywołanie <code>ObliczSha256</code> jest dodatkowo osłonięte osobnymi blokami <code>catch</code> na <span class="color-red"><code>IOException</code></span> oraz <span class="color-red"><code>UnauthorizedAccessException</code></span>, aby zablokowany plik nie zatrzymał analizy całego dysku.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Grupowanie w słowniku i wzór na odzysk miejsca SSD</h2>
+<p>Dwie pozostałe metody silnika (<code>ZnajdzDuplikaty</code> oraz <code>PoliczZmarnowaneBajty</code>) operują już wyłącznie na czystych słownikach w pamięci, bez dotykania dysku. Taki podział ułatwia testowanie logiki w izolacji.</p>
+<h3>🗂️ Krok po kroku: budowanie Dictionary<string, list<string="">&gt;</string,></h3>
+<p>Na wejściu otrzymujesz mapę <span class="color-blue">mapaPlikDoHash</span>, w której kluczem jest nazwa pliku, a wartością jego skrót SHA‑256. Aby odnaleźć duplikaty, musisz <span class="color-green">odwrócić tę relację</span>: skrót staje się kluczem w nowym słowniku pomocniczym, a wartością staje się lista wszystkich plików o tym skrócie.</p>
+<p>Prześledź ten algorytm na pięciu krokach:</p>
+<ol>
+<li>Sprawdź Guard Clause: jeśli <span class="color-blue">mapaPlikDoHash</span> ma wartość <code>null</code>, rzuć <code>ArgumentNullException("mapaPlikDoHash")</code>.</li>
+<li>Utwórz słownik pomocniczy <code>Dictionary&lt;string, List&lt;string&gt;&gt;</code>, który połączy każdy napotkany skrót z listą nazw plików.</li>
+<li>Dla każdej pary <code>(klucz, wartosc)</code> z <span class="color-blue">mapaPlikDoHash</span> sprawdź przez <code>TryGetValue</code>, czy dla danego skrótu istnieje już lista. Jeśli nie istnieje, utwórz <code>new List&lt;string&gt;()</code> i zapisz ją pod tym skrótem.</li>
+<li>Dopisz nazwę pliku do pobranej lub nowo utworzonej listy.</li>
+<li>Na końcu przejdź po wszystkich listach w <code>Values</code> słownika pomocniczego i dodaj do listy wynikowej wyłącznie te grupy, dla których <code>grupa.Count &gt; 1</code>.</li>
+</ol>
+<h3>💾 Wzór na zmarnowane bajty i bezpieczny odczyt TryGetValue</h3>
+<p>Wszystkie pliki w jednej grupie duplikatów mają identyczny skrót SHA‑256, więc mają dokładnie ten sam rozmiar w bajtach. Ponieważ w każdej grupie musisz zachować <span class="color-green">1 oryginał</span>, miejsce możliwe do odzyskania to rozmiar pozostałych <code>Count - 1</code> kopii:</p>
+<p>$$\text{zmarnowaneBajtyDlaGrupy} = (\text{grupa.Count} - 1) \times \text{rozmiarPliku}$$</p>
+<p>Dla przykładu: jeśli w folderze leżą 3 identyczne kopie obrazu filmu po <code>2 000 000 000</code> bajtów każda, zostawiasz 1 oryginał i odzyskujesz <code>(3 - 1) * 2 000 000 000L = 4 000 000 000L</code> bajtów.</p>
+<p>W metodzie <code>PoliczZmarnowaneBajty</code> możesz wywołać swoją własną metodę <code>ZnajdzDuplikaty(mapaPlikDoHash)</code>, aby nie powielać logiki grupowania. Następnie dla każdej wykrytej grupy odczytaj rozmiar pliku z <span class="color-blue">mapaPlikDoRozmiaru</span> za pomocą <span class="color-green"><code>TryGetValue</code></span>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Unikaj dwóch pułapek w <code>PoliczZmarnowaneBajty</code>:</p>
+<ol>
+<li>Zawsze sumuj bajty w zmiennej typu <code>long</code> (zamiast <code>int</code>), ponieważ już 2,15 GB duplikatów spowoduje <span class="color-red">przepełnienie typu <code>int</code></span>.</li>
+<li>Nie odczytuj rozmiaru przez indeksator <code>mapaPlikDoRozmiaru[nazwa]</code>. Jeśli dla któregoś pliku zabraknie wpisu w mapie rozmiarów, indeksator rzuci <span class="color-red"><code>KeyNotFoundException</code></span>. Bezpieczny <code>TryGetValue</code> pozwala pominąć brakujący wpis bez przerywania kalkulacji.</li>
+</ol>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj problem z prawdziwego systemu Windows 11 do właściwego mechanizmu w FolderTidy">
+  <item left="Przeglądarka trzyma wyłączną blokadę NTFS na pobieranym pliku .crdownload" right="Przechwycenie IOException w pętli skanowania i zwiększenie licznika pominiętych"></item>
+  <item left="Użytkownik ma w Downloads obraz ISO systemu o rozmiarze 4,7 GB" right="Strumieniowe czytanie przez File.OpenRead z buforem 4 KB zamiast File.ReadAllBytes"></item>
+  <item left="Plik systemowy lub folder innego konta zwraca kod odmowy dostępu (ERROR_ACCESS_DENIED)" right="Przechwycenie UnauthorizedAccessException bez przerywania skanowania reszty katalogu"></item>
+  <item left="Trzeba zwolnić zarówno uchwyt pliku w jądrze Windows, jak i zasoby algorytmu SHA-256" right="Piętrowy blok using (SHA256) oraz using (File.OpenRead) z gwarantowanym Dispose()"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Efekt lawinowy SHA-256, paradoks urodzin (2^128), limit LOH 2 GB w CLR i blokady NTFS</span>
+<span class="deep-dive-badge">KRYPTOGRAFIA · PAMIĘĆ CLR · NTFS</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Efekt lawinowy (Avalanche Effect) w algorytmie SHA-256</h4>
+Algorytm SHA-256 dzieli dane wejściowe na bloki po 512 bitów (64 bajty) i przepuszcza każdy blok przez 64 rundy operacji bitowych (rotacje, przesunięcia, XOR, dodawanie modulo $2^{32}$) z użyciem stałych wyprowadzonych z ułamkowych części pierwiastków kwadratowych i sześciennych pierwszych 64 liczb pierwszych.
+
+<p>Dzięki temu zmiana <span class="color-green">jednego jedynego bitu</span> w pliku o rozmiarze 1 GB powoduje kaskadową zmianę średnio <span class="color-green">50% bitów</span> w wynikowym 256‑bitowym skrócie. Dwa niemal identyczne pliki dają skróty wyglądające jak całkowicie niezależny szum losowy.</p>
+<h4>2. Paradoks urodzin: dlaczego granica kolizji to 2^128, a nie 2^256?</h4>
+Dla 256-bitowego skrótu istnieje $2^{256}$ możliwych wartości. Mogłoby się wydawać, że aby trafić na dwa różne pliki o tym samym skrócie (kolizję), trzeba przetestować około $2^{255}$ plików. W rzeczywistości działa tu **paradoks urodzin**: gdy szukasz dowolnej pary kolizyjnej (a nie kolizji z konkretnym plikiem), liczba par rośnie kwadratowo wraz z liczbą plików.
+
+<p>W grupie zaledwie <span class="color-green">23 osób</span> szansa, że dwie mają urodziny tego samego dnia roku (365 dni), przekracza 50%, ponieważ $\sqrt{365} \approx 19$. Analogicznie dla SHA‑256 próg 50% szansy na przypadkową kolizję wynosi w przybliżeniu $\sqrt{2^{256}} = 2^{128} \approx 3,4 \cdot 10^{38}$ plików. Gdyby każdy z 8 miliardów ludzi na Ziemi generował miliard plików na sekundę przez 13,8 miliarda lat (wiek Wszechświata), łączna liczba plików wyniosłaby zaledwie około $3,5 \cdot 10^{36}$, czyli wciąż 100 razy za mało, by zbliżyć się do progu kolizji.</p>
+<h4>3. Dlaczego File.ReadAllBytes na pliku 4 GB kończy się OutOfMemoryException?</h4>
+Próba policzenia skrótu przez `sha.ComputeHash(File.ReadAllBytes("obraz_4gb.iso"))` zawiedzie natychmiast, nawet jeśli Twój komputer ma 32 GB pamięci RAM:
+- W .NET każdy obiekt o rozmiarze co najmniej **85 000 bajtów** trafia na osobną stertę **LOH** (Large Object Heap), której Garbage Collector domyślnie nie przesuwa. Częste alokowanie wielomegabajtowych tablic powoduje silną fragmentację pamięci RAM.
+- Jeszcze ważniejsze jest twarde ograniczenie architektury CLR: pojedyncza tablica `byte[]` nie może przekroczyć około **2 GB** (`int.MaxValue` indeksów, dokładny limit wynosi około `2 147 483 591` bajtów), nawet na 64-bitowym systemie Windows 11.
+
+<p>Porównanie zużycia pamięci przy hashowaniu pliku obrazu ISO o rozmiarze 4 GB:</p>
+<table>
+<thead>
+<tr>
+<th>Podejście w C#</th>
+<th>Rozmiar bufora w RAM</th>
+<th>Liczba porcji odczytu</th>
+<th>Zachowanie dla pliku 4 GB</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>File.ReadAllBytes(sciezka)</code></td>
+<td>4 294 967 296 B (4 GB)</td>
+<td>1</td>
+<td>Natychmiastowy <span class="color-red"><code>OutOfMemoryException</code></span></td>
+</tr>
+<tr>
+<td><code>using (File.OpenRead(sciezka))</code></td>
+<td>4 096 B (4 KB)</td>
+<td>1 048 576</td>
+<td>Działa płynnie, zużywa poniżej 1 MB RAM</td>
+</tr>
+</tbody></table>
+<p>Wewnątrz <code>sha.ComputeHash(stream)</code> środowisko .NET utrzymuje jeden niewielki bufor (4 096 lub 8 192 bajtów) i w pętli przekazuje kolejne bloki do funkcji kompresji SHA‑256:</p>
+<pre><code class="language-csharp">// Uproszczony schemat tego, co ComputeHash(Stream) robi pod spodem:
+byte[] bufor = new byte[4096];
+int przeczytano;
+while ((przeczytano = stream.Read(bufor, 0, bufor.Length)) &gt; 0)
+{
+    sha.TransformBlock(bufor, 0, przeczytano, null, 0);
+}
+sha.TransformFinalBlock(bufor, 0, 0);
+</code></pre>
+<h4>4. Blokady plików NTFS i flagi FileShare w jądrze Windows</h4>
+W systemie plików NTFS jądro Windows kontroluje współbieżny dostęp do każdego pliku za pomocą maski uprawnień współdzielenia (`FileShare.None`, `FileShare.Read`, `FileShare.ReadWrite`). Gdy przeglądarka w folderze `Downloads` właśnie zapisuje pobierany plik `.crdownload` albo antywirus otworzył instalator z wyłączną blokadą (`FileShare.None`), wywołanie `File.OpenRead` dostaje z jądra Windows kod błędu Win32 `ERROR_SHARING_VIOLATION` (kod 32), który CLR zamienia na **_`IOException`_**.
+
+<p>Podobnie pliki systemowe lub należące do innego konta zwracają <code>ERROR_ACCESS_DENIED</code> (kod 5), czyli <span class="color-red"><code>UnauthorizedAccessException</code></span>. Dlatego pętla skanująca w <code>Program.cs</code> osłania pojedynczy plik blokiem <code>try / catch</code>, zliczając pominięte pozycje zamiast przerywać analizę całego dysku.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Modułu 2: Zbuduj i pobierz FolderTidy (2 pliki)</h2>
+<p>Przełącz zakładkę edytora na <span class="color-green"><code>TidyEngine.cs</code></span> i uzupełnij trzy metody silnika:</p>
+<ol>
+<li><span class="color-green"><code>KategoryzujPlik(string nazwaPliku)</code></span>:<ul>
+<li>dla <code>null</code> lub pustej/białej nazwy zwróć <code>"Inne"</code>,</li>
+<li>wyciągnij rozszerzenie przez <code>Path.GetExtension(nazwaPliku)</code>,</li>
+<li>zmapuj je przez <code>Dictionary&lt;string, string&gt;(StringComparer.OrdinalIgnoreCase)</code>:<ul>
+<li><code>.png</code>, <code>.jpg</code>, <code>.webp</code> -&gt; <code>"Obrazy"</code>,</li>
+<li><code>.pdf</code>, <code>.docx</code>, <code>.txt</code> -&gt; <code>"Dokumenty"</code>,</li>
+<li><code>.zip</code>, <code>.7z</code>, <code>.rar</code> -&gt; <code>"Archiwa"</code>,</li>
+<li><code>.exe</code>, <code>.msi</code> -&gt; <code>"Instalatory"</code>,</li>
+<li>wszystko inne -&gt; <code>"Inne"</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZnajdzDuplikaty(Dictionary&lt;string, string&gt; mapaPlikDoHash)</code></span>:<ul>
+<li>jeśli <code>mapaPlikDoHash == null</code>, rzuć <code>ArgumentNullException("mapaPlikDoHash")</code>,</li>
+<li>pogrupuj nazwy plików o identycznym skrócie w <code>Dictionary&lt;string, List&lt;string&gt;&gt;</code>,</li>
+<li>zwróć <code>List&lt;List&lt;string&gt;&gt;</code> zawierającą <span class="color-green">wyłącznie grupy mające więcej niż 1 plik</span> (<code>grupa.Count &gt; 1</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>PoliczZmarnowaneBajty(Dictionary&lt;string, string&gt; mapaPlikDoHash, Dictionary&lt;string, long&gt; mapaPlikDoRozmiaru)</code></span>:<ul>
+<li>jeśli którykolwiek z parametrów jest <code>null</code>, rzuć <code>ArgumentNullException</code>,</li>
+<li>oblicz łączną liczbę bajtów, które można odzyskać na dysku SSD, zostawiając <span class="color-green">1 oryginał</span> z każdej grupy duplikatów i sumując rozmiar pozostałych kopii (<code>(grupa.Count - 1) * rozmiar</code>),</li>
+<li>rozmiar pliku pobieraj bezpiecznie przez <span class="color-green"><code>TryGetValue</code></span> (jeśli brakuje wpisu w <span class="color-blue">mapaPlikDoRozmiaru</span>, nie rzucaj <code>KeyNotFoundException</code>, tylko pomiń taki plik i nie doliczaj go do sumy),</li>
+<li>zwróć wynik jako <code>long</code>.</li>
+</ul>
+</li>
+</ol>
+<p>Po zaliczeniu wszystkich testów kliknij przycisk pobierania pliku wykonywalnego. Uruchomiony na Windows 11 <span class="color-green"><code>FolderTidy.exe</code></span> pozwoli Ci nacisnąć Enter dla domyślnego folderu <code>Downloads</code> albo wpisać własną ścieżkę, przeskanuje pliki w trybie tylko do odczytu (niczego nie usuwa!) i poczeka na naciśnięcie Enter przed zamknięciem okna.</p>
+<data-gate>
+<data-csharp-lab title="Projekt Modułu 2: FolderTidy (SHA-256 + Kategoryzator + Kalkulator odzysku SSD)" exe-name="FolderTidy.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+
+class Program
+{
+    static string ObliczSha256(string sciezka)
+    {
+        using (var sha = SHA256.Create())
+        using (var stream = File.OpenRead(sciezka))
+        {
+            byte[] hash = sha.ComputeHash(stream);
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        }
+    }
+
+    static void PrzeskanujKatalog(string katalog)
+    {
+        Console.WriteLine("\nSkanowany katalog: " + katalog);
+
+        var hashe = new Dictionary&lt;string, string&gt;();
+        var rozmiary = new Dictionary&lt;string, long&gt;();
+        var licznikKat = new Dictionary&lt;string, int&gt;();
+        int pominiete = 0;
+
+        string[] pliki;
+        try
+        {
+            pliki = Directory.GetFiles(katalog);
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine("Blad odczytu katalogu: " + ex.Message);
+            return;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            Console.WriteLine("Brak uprawnien do odczytu katalogu: " + katalog);
+            return;
+        }
+
+        foreach (string plik in pliki)
+        {
+            try
+            {
+                string nazwa = Path.GetFileName(plik);
+                string kat = TidyEngine.KategoryzujPlik(nazwa);
+                int ile;
+                licznikKat.TryGetValue(kat, out ile);
+                licznikKat[kat] = ile + 1;
+
+                hashe[nazwa] = ObliczSha256(plik);
+                rozmiary[nazwa] = new FileInfo(plik).Length;
+            }
+            catch (IOException)
+            {
+                pominiete++;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                pominiete++;
+            }
+        }
+
+        Console.WriteLine("\nPodsumowanie kategorii:");
+        foreach (var para in licznikKat)
+            Console.WriteLine("  - {0,-14}: {1} plikow", para.Key, para.Value);
+
+        var grupy = TidyEngine.ZnajdzDuplikaty(hashe);
+        long doOdzyskania = TidyEngine.PoliczZmarnowaneBajty(hashe, rozmiary);
+        double doOdzyskaniaMb = doOdzyskania / (1024.0 * 1024.0);
+
+        Console.WriteLine("\nWykryte grupy duplikatow SHA-256: " + grupy.Count + " (pominieto zablokowanych: " + pominiete + ")");
+        Console.WriteLine(string.Format("Miejsce do odzyskania na SSD: {0} B ({1:F2} MB)", doOdzyskania, doOdzyskaniaMb));
+        foreach (var g in grupy)
+            Console.WriteLine("  [DUPLIKAT] " + string.Join(" == ", g));
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("=== FOLDERTIDY v1.2 (Skaner kategorii i duplikatow SHA-256) ===");
+
+        if (Console.IsInputRedirected)
+        {
+            var demoHash = new Dictionary&lt;string, string&gt;
+            {
+                { "foto.png", "aaa111" },
+                { "foto (1).png", "aaa111" },
+                { "notatki.pdf", "bbb222" }
+            };
+            var demoRozmiar = new Dictionary&lt;string, long&gt;
+            {
+                { "foto.png", 2500000L },
+                { "foto (1).png", 2500000L },
+                { "notatki.pdf", 420000L }
+            };
+            var dups = TidyEngine.ZnajdzDuplikaty(demoHash);
+            long zmarnowane = TidyEngine.PoliczZmarnowaneBajty(demoHash, demoRozmiar);
+            Console.WriteLine("Wykryte grupy duplikatow (demo): " + dups.Count);
+            Console.WriteLine("Kategoria foto.png: " + TidyEngine.KategoryzujPlik("foto.png"));
+            Console.WriteLine("Zmarnowane bajty (demo): " + zmarnowane);
+            Console.WriteLine("Pobierz FolderTidy.exe, aby przeskanowac swoj folder Downloads na Windows 11!");
+            return;
+        }
+
+        string domyslny = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+        if (!Directory.Exists(domyslny))
+            domyslny = Directory.GetCurrentDirectory();
+
+        while (true)
+        {
+            Console.WriteLine("\nDomyslny katalog: " + domyslny);
+            Console.Write("Wpisz sciezke katalogu lub nacisnij Enter dla domyslnego: ");
+            string wpis = Console.ReadLine();
+            string katalog = string.IsNullOrWhiteSpace(wpis) ? domyslny : wpis.Trim().Trim('"');
+
+            if (!Directory.Exists(katalog))
+            {
+                Console.WriteLine("Podany katalog nie istnieje: " + katalog);
+                continue;
+            }
+
+            PrzeskanujKatalog(katalog);
+
+            Console.Write("\nCzy chcesz przeskanowac inny katalog? (t/n): ");
+            string decyzja = Console.ReadLine();
+            if (decyzja == null || !decyzja.Trim().Equals("t", StringComparison.OrdinalIgnoreCase))
+                break;
+        }
+
+        Console.WriteLine("\nNacisnij Enter, aby zakonczyc...");
+        Console.ReadLine();
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="TidyEngine.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.IO;
+
+public static class TidyEngine
+{
+    public static string KategoryzujPlik(string nazwaPliku)
+    {
+        // Guard Clause dla null/bialych znakow, Path.GetExtension i slownik z OrdinalIgnoreCase
+        return "Inne";
+    }
+
+    public static List&lt;List&lt;string&gt;&gt; ZnajdzDuplikaty(Dictionary&lt;string, string&gt; mapaPlikDoHash)
+    {
+        // Guard Clause dla null
+        // Pogrupuj pliki po wartosci hash w Dictionary&lt;string, List&lt;string&gt;&gt;
+        // i zwroc wylacznie grupy z Count &gt; 1
+        return new List&lt;List&lt;string&gt;&gt;();
+    }
+
+    public static long PoliczZmarnowaneBajty(
+        Dictionary&lt;string, string&gt; mapaPlikDoHash,
+        Dictionary&lt;string, long&gt; mapaPlikDoRozmiaru)
+    {
+        // Guard Clause dla null (oba parametry)
+        // Uzyj bezpiecznego TryGetValue dla mapaPlikDoRozmiaru (bez KeyNotFoundException)
+        // Zostaw 1 oryginal z kazdej grupy duplikatow i zsumuj rozmiar pozostalych kopii (long)
+        return 0L;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("KategoryzujPlik rozpoznaje rozszerzenia oraz obsluguje null, tar.gz i brak rozszerzenia", () =&gt; {
+    LabAssert.Equal("Obrazy", TidyEngine.KategoryzujPlik("tapeta_4k.PNG"));
+    LabAssert.Equal("Dokumenty", TidyEngine.KategoryzujPlik("zadanie.pdf"));
+    LabAssert.Equal("Archiwa", TidyEngine.KategoryzujPlik("backup.7z"));
+    LabAssert.Equal("Instalatory", TidyEngine.KategoryzujPlik("installer.EXE"));
+    LabAssert.Equal("Inne", TidyEngine.KategoryzujPlik("archiwum.tar.gz"));
+    LabAssert.Equal("Inne", TidyEngine.KategoryzujPlik("plik_bez_rozszerzenia"));
+    LabAssert.Equal("Inne", TidyEngine.KategoryzujPlik(null));
+    LabAssert.Equal("Inne", TidyEngine.KategoryzujPlik("   "));
+});
+LabAssert.Test("ZnajdzDuplikaty grupuje wylacznie duplikaty (Count &gt; 1) i waliduje null", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; TidyEngine.ZnajdzDuplikaty(null));
+    LabAssert.Equal(0, TidyEngine.ZnajdzDuplikaty(new Dictionary&lt;string, string&gt;()).Count);
+
+    var mapa = new Dictionary&lt;string, string&gt; {
+        { "a.png", "hash1" },
+        { "kopia_a.png", "hash1" },
+        { "b.pdf", "hash2" },
+        { "c.zip", "hash3" },
+        { "c_old.zip", "hash3" },
+        { "c_copy.zip", "hash3" }
+    };
+    var grupy = TidyEngine.ZnajdzDuplikaty(mapa);
+    LabAssert.Equal(2, grupy.Count);
+    int laczniePlikow = grupy[0].Count + grupy[1].Count;
+    LabAssert.Equal(5, laczniePlikow);
+});
+LabAssert.Test("PoliczZmarnowaneBajty zostawia 1 oryginal na grupe i liczy jako long bez przepelnienia", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; TidyEngine.PoliczZmarnowaneBajty(null, new Dictionary&lt;string, long&gt;()));
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; TidyEngine.PoliczZmarnowaneBajty(new Dictionary&lt;string, string&gt;(), null));
+
+    var mapaHash = new Dictionary&lt;string, string&gt; {
+        { "film.mkv", "h_film" },
+        { "film (1).mkv", "h_film" },
+        { "film (2).mkv", "h_film" },
+        { "raport.pdf", "h_pdf" },
+        { "foto.png", "h_foto" },
+        { "foto_kopia.png", "h_foto" }
+    };
+    var mapaRozmiar = new Dictionary&lt;string, long&gt; {
+        { "film.mkv", 2000000000L },
+        { "film (1).mkv", 2000000000L },
+        { "film (2).mkv", 2000000000L },
+        { "raport.pdf", 500000L },
+        { "foto.png", 1500000L },
+        { "foto_kopia.png", 1500000L }
+    };
+    // 2 kopie filmu (4 000 000 000 B) + 1 kopia foto (1 500 000 B) + 0 dla unikalnego raport.pdf
+    LabAssert.Equal(4001500000L, TidyEngine.PoliczZmarnowaneBajty(mapaHash, mapaRozmiar));
+});
+LabAssert.Test("PoliczZmarnowaneBajty obsluguje brakujacy wpis w mapaPlikDoRozmiaru przez TryGetValue i brak duplikatow", () =&gt; {
+    var mapaHash = new Dictionary&lt;string, string&gt; {
+        { "brak1.bin", "h_brak" },
+        { "brak2.bin", "h_brak" },
+        { "foto.png", "h_foto" },
+        { "foto_kopia.png", "h_foto" }
+    };
+    var mapaRozmiar = new Dictionary&lt;string, long&gt; {
+        { "foto.png", 1000L },
+        { "foto_kopia.png", 1000L }
+    };
+    LabAssert.Equal(1000L, TidyEngine.PoliczZmarnowaneBajty(mapaHash, mapaRozmiar));
+
+    var unikalneHash = new Dictionary&lt;string, string&gt; {
+        { "a.txt", "h1" },
+        { "b.txt", "h2" }
+    };
+    var unikalneRozmiar = new Dictionary&lt;string, long&gt; {
+        { "a.txt", 1000L },
+        { "b.txt", 2000L }
+    };
+    LabAssert.Equal(0L, TidyEngine.PoliczZmarnowaneBajty(unikalneHash, unikalneRozmiar));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Gdy musisz wykrywać duplikaty wśród setek lub tysięcy plików, zamień porównywanie par na jeden przebieg z <span class="color-green">SHA‑256</span> i grupowanie w <span class="color-green"><code>Dictionary&lt;string, List&lt;string&gt;&gt;</code></span>.</li>
+<li>Gdy przetwarzasz pliki o nieznanym rozmiarze, zawsze czytaj je strumieniowo przez <span class="color-green"><code>using (var stream = File.OpenRead(sciezka))</code></span> zamiast <code>File.ReadAllBytes</code>, aby uniknąć limitu 2 GB w pamięci CLR i zwalniać uchwyty NTFS.</li>
+<li>Gdy pobierasz rozszerzenie przez <code>Path.GetExtension</code>, pamiętaj o <code>null</code>, pustym napisie i wielkości liter (<code>StringComparer.OrdinalIgnoreCase</code>), a przy odczycie rozmiarów z mapy stosuj <span class="color-green"><code>TryGetValue</code></span> oraz typ <span class="color-green"><code>long</code></span> zamiast <code>int</code>.</li>
+<li>Gdy tworzysz samodzielny program <code>.exe</code> dla Windows, osłaniaj operacje dyskowe blokami <code>catch (IOException)</code> oraz <code>catch (UnauthorizedAccessException)</code> i zapewnij użytkownikowi interaktywny wybór ścieżki z zatrzymaniem okna na końcu.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

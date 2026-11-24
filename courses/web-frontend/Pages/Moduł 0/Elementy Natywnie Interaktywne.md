@@ -1,264 +1,269 @@
 # Elementy Natywnie Interaktywne
 
-Nie każda interakcja na stronie wymaga pisania kodu w JavaScript. HTML posiada własne, wbudowane elementy, które potrafią rozwijać treść, pokazywać stan operacji, obsługiwać okna modalne czy prezentować postępy. 
+Wiele osób buduje rozwijane listy, paski postępu i wyskakujące podpowiedzi ze zwykłych znaczników `<div>`. Taki kod wymaga później dziesiątek linii skryptów, ręcznej obsługi klawiszy <kbd>Tab</kbd>, <kbd>Enter</kbd> oraz <kbd>Esc</kbd>, a czytniki ekranu nadal widzą w nim tylko bezkształtny blok tekstu.
 
-Używanie gotowych elementów HTML jest kluczowe dla dostępności Twojej strony. Natywne tagi mają już wbudowaną obsługę klawiatury, odpowiednią semantykę i podstawowe ułatwienia dla osób z niepełnosprawnościami. 
+HTML5 rozwiązuje ten problem u źródła. Przeglądarka dostarcza gotowe, **natywnie interaktywne elementy**, które działają bez ani jednej linii JavaScriptu. Mają wbudowaną obsługę klawiatury, stany otwarcia i zamknięcia oraz pełną semantykę dla technologii asystujących.
 
-Najważniejsza zasada tej lekcji brzmi: **jeśli HTML ma gotowy element do danej interakcji, użyj go zamiast wymyślać własny mechanizm**.
+Zasada inżynierska jest prosta: zanim zbudujesz własny mechanizm interfejsu, sprawdź, czy przeglądarka nie ma już dla niego gotowego znacznika albo atrybutu.
 
 ---
 
-## 📂 Rozwijana treść: <code>&lt;details&gt;</code> i <code>&lt;summary&gt;</code>
+## 📂 Rozwijana treść z details i summary
 
-Tag `<details>` tworzy sekcję, którą użytkownik może samodzielnie rozwinąć i zwinąć. Wewnątrz niego umieszczasz tag `<summary>`, który pełni funkcję widocznego, klikalnego nagłówka.
+Najczęstsza interakcja na stronach informacyjnych to sekcja zwijana, na przykład lista pytań i odpowiedzi (FAQ) albo dodatkowe szczegóły techniczne. Do tego celu służy para znaczników `<details>` oraz `<summary>`.
+
+Zanim zobaczysz kod, zatrzymaj się na chwilę i przewidź zachowanie przeglądarki. Co stanie się z elementem `<details>`, jeśli umieścisz wewnątrz niego nagłówek `<summary>` i użytkownik przejdzie na niego klawiszem <kbd>Tab</kbd>, a potem naciśnie <kbd>Spację</kbd>? I jak sprawić, aby jedna z odpowiedzi była widoczna od razu po otwarciu strony?
+
+Znacznik `<details>` tworzy kontener na treść, którą można zwinąć i rozwinąć. Jego pierwszym dzieckiem musi być `<summary>`, czyli widoczny, klikalny tytuł. Przeglądarka sama dorysowuje trójkątny wskaźnik oraz obsługuje kliknięcie myszą i klawisze <kbd>Enter</kbd> oraz <kbd>Spacja</kbd>.
 
 ```html
 <details>
-    <summary>Dlaczego warto używać semantycznego HTML?</summary>
-    <p>Semantyczny HTML ułatwia indeksowanie strony przez roboty i poprawia dostępność.</p>
+    <summary>Dlaczego warto używać natywnych znaczników HTML?</summary>
+    <p>Przeglądarka automatycznie zapewnia obsługę klawiatury i poprawną semantykę dla czytników ekranu.</p>
 </details>
 ```
 
----
-
-<b>Podgląd:</b>
+Tak ten fragment działa bezpośrednio w przeglądarce:
 
 <details class="non-styled">
-    <summary>Dlaczego warto używać semantycznego HTML?</summary>
-    <p>Semantyczny HTML ułatwia indeksowanie strony przez roboty i poprawia dostępność.</p>
+    <summary>Dlaczego warto używać natywnych znaczników HTML?</summary>
+    <p>Przeglądarka automatycznie zapewnia obsługę klawiatury i poprawną semantykę dla czytników ekranu.</p>
 </details>
 
----
-
-Możesz sprawić, aby sekcja była domyślnie otwarta po załadowaniu strony. Służy do tego atrybut logiczny `open`:
+Jeśli wybrana sekcja ma być rozwinięta od momentu załadowania strony, dopisz do znacznika otwierającego **atrybut logiczny** `open`. Nie potrzebuje on żadnej wartości.
 
 ```html
 <details open>
-    <summary>Widoczna informacja startowa</summary>
-    <p>Ten fragment tekstu będzie rozwinięty od samego początku.</p>
+    <summary>Godziny otwarcia serwisu</summary>
+    <p>Dział techniczny pracuje od poniedziałku do piątku od 8:00 do 16:00.</p>
 </details>
 ```
 
-_**♿ Dostępność (WCAG):**_
-- **Wbudowane zachowanie:** Przeglądarka automatycznie nadaje elementowi `<summary>` rolę przycisku oraz zarządza stanem `aria-expanded` (prawda/fałsz).
-- **Zasada nieingerencji:** Nigdy nie dodawaj ręcznie atrybutów `role="button"` ani `aria-expanded` do tych znaczników. Możesz w ten sposób zaburzyć działanie czytników ekranu.
-- **Obsługa klawiatury:** Użytkownik może otworzyć i zamknąć sekcję za pomocą klawisza <kbd>Enter</kbd> lub <kbd>Spacja</kbd> po przejściu na nią tabulatorem.
+> [!WARNING]
+> **_Nie nadpisuj natywnej semantyki._** Przeglądarka sama nadaje elementowi `<summary>` rolę przycisku i aktualizuje jego stan otwarcia. Ręczne dopisywanie `role="button"` albo `aria-expanded` wprowadza konflikt w drzewie dostępności i potrafi zepsuć odczyt w czytniku ekranu.
+
+Typowym błędem początkujących jest też umieszczanie `<summary>` dopiero na drugim miejscu wewnątrz `<details>` albo pomijanie go całkowicie. Gdy zabraknie `<summary>`, przeglądarka wstawi własną, generyczną etykietę (najczęściej słowo „Szczegóły”), nad którą tracisz kontrolę merytoryczną.
+
+### 🧪 Zadanie 1: Natywna sekcja FAQ
+
+Zbuduj sekcję z co najmniej dwoma pytaniami FAQ przy użyciu `<details>` oraz `<summary>`. Pierwsze pytanie ma być rozwinięte domyślnie po otwarciu strony. Nie używaj ręcznych atrybutów `role="button"` ani `onclick`.
+
+<data-gate>
+<data-code-runner language="html" title="Zadanie 1: Natywna sekcja FAQ">
+<template data-type="code">
+<section>
+  <h2>Najczęstsze pytania</h2>
+  <!-- Dodaj poniżej co najmniej dwa elementy details z summary -->
+  <!-- Pierwszy element otwórz domyślnie atrybutem open -->
+</section>
+</template>
+<template data-type="requirements">
+[
+  { "id": "two-details", "type": "regex", "pattern": "<details\\b[^>]*>\\s*<summary\\b[^>]*>[^<]+</summary>[\\s\\S]*?</details>[\\s\\S]*?<details\\b[^>]*>\\s*<summary\\b[^>]*>[^<]+</summary>[\\s\\S]*?</details>", "flags": "is", "text": "Utwórz co najmniej dwa elementy <details>, z których każdy zaczyna się od niepustego <summary>" },
+  { "id": "details-open", "type": "regex", "pattern": "<details\\b[^>]*\\bopen\\b[^>]*>", "flags": "i", "text": "Ustaw jeden element <details> jako domyślnie rozwinięty przez atrybut open" },
+  { "id": "no-manual-aria", "type": "not-contains", "pattern": "role=\"button\"", "text": "Nie dodawaj ręcznie role=\"button\" do natywnego znacznika <summary>" },
+  { "id": "no-inline-js", "type": "not-contains", "pattern": "onclick", "text": "Zrealizuj interakcję czystym HTML bez atrybutu onclick" }
+]
+</template>
+</data-code-runner>
+</data-gate>
 
 ---
 
-## 📊 Stan liczbowy: <code>&lt;progress&gt;</code> i <code>&lt;meter&gt;</code>
+## 📊 Postęp zadania kontra pomiar zakresu: progress i meter
 
-Znacznik `<progress>` oznacza postęp w realizacji konkretnego zadania, które zmierza do określonego końca (np. pobieranie pliku).
+Na ekranie dwa poziome paski mogą wyglądać niemal identycznie. Dla przeglądarki i technologii asystujących oznaczają jednak dwie różne sytuacje.
 
-```html
-<label for="upload">Postęp wysyłania pliku: </label>
-<progress id="upload" value="70" max="100">70%</progress>
-```
-
----
-
-<b>Podgląd:</b>
-
-<label for="upload">Postęp wysyłania pliku: </label><progress id="upload" value="70" max="100">70%</progress>
-
----
-
-Znacznik `<meter>` reprezentuje wartość liczbową w znanym, stałym zakresie. Używasz go do pomiarów fizycznych lub statystycznych, które nie oznaczają postępu procesu (np. zajętość dysku, poziom baterii).
-
-```html
-<label for="disk">Zajętość dysku: </label>
-<meter id="disk" min="0" max="100" low="70" high="90" optimum="50" value="82">82%</meter>
-```
-
---- 
-
-<b>Podgląd:</b>
-
-<label for="disk">Zajętość dysku: </label> <meter id="disk" min="0" max="100" low="70" high="90" optimum="50" value="82">82%</meter>
-
----
-
-_**♿ Dostępność (WCAG):**_
-- **Etykietowanie:** Zarówno `<progress>`, jak i `<meter>` muszą być jednoznacznie powiązane z opisem. Zawsze używaj elementu `<label>` powiązanego za pomocą atrybutu `for` z identyfikatorem `id` danej kontrolki.
-- **Tekst alternatywny (Fallback):** Tekst wpisany wewnątrz znaczników (np. `70%`) nie wyświetla się w nowoczesnych przeglądarkach – zastępują go one gotowym elementem graficznym. Służy on jako zabezpieczenie (tzw. *fallback*) dla bardzo starych przeglądarek, które nie znają tych tagów i w przeciwnym razie nic by nie pokazały (wtedy wyświetlą sam tekst). Nowoczesne czytniki ekranu ignorują ten tekst wewnętrzny i odczytują stan bezpośrednio z atrybutów `value`, `min` oraz `max`.
-
----
-
-## 🧷 Kontrolka akcji: <code>&lt;button&gt;</code> kontra link
-
-Elementy `<a>` (*HTMLAnchorElement*) oraz `<button>` (*HTMLButtonElement*) mają w specyfikacji HTML Standard (WHATWG) oraz wytycznych W3C WAI-ARIA zdefiniowane wykluczające się role semantyczne. Zastępowanie jednego drugim jest krytycznym błędem dostępności.
-
-- **Link (<code>&lt;a&gt;</code>):** Reprezentuje hiperłącze do zasobu URI.
-  - **Zarządzanie adresem URL:** Manipuluje historią sesji przeglądarki (`window.history`). Wpływa na pasek adresu URL.
-  - **Kierunek działania:** Przenosi użytkownika pod nowy adres (zewnętrzny lub wewnętrzną podstronę), przewija widok do kotwicy (identyfikatora elementu na tej samej stronie, np. `#sekcja`) lub służy do pobierania zasobów (z atrybutem `download` przeglądarka pobiera plik, zamiast go otwierać):
-    ```html
-    <a href="faktura.pdf" download="faktura-lipiec.pdf">Pobierz fakturę</a>
-    ```
-  - **Obsługa klawiatury:** Należy go aktywować wyłącznie klawiszem <kbd>Enter</kbd>. Przycisk <kbd>Spacja</kbd> na linku nie aktywuje go, lecz przewija stronę w dół (co jest domyślnym zachowaniem przeglądarki dla przewijania dokumentu).
-- **Przycisk (<code>&lt;button&gt;</code>):** Reprezentuje kontrolkę akcji w bieżącym dokumencie.
-  - **Brak wpływu na URL:** Nie modyfikuje adresu w pasku przeglądarki ani historii sesji (chyba że przesyła formularz).
-  - **Kierunek działania:** Wyzwala zachowanie po stronie klienta (JavaScript) lub serwera (wysłanie formularza). Służy do modyfikacji stanu aplikacji lub struktury DOM (np. otwieranie modali, zatwierdzanie danych, usuwanie obiektów, przełączanie motywów).
-  - **Obsługa klawiatury:** Natively obsługuje aktywację za pomocą klawisza <kbd>Enter</kbd> oraz <kbd>Spacja</kbd>.
-
-```html
-<!-- PRAWIDŁOWO: Link nawiguje do podstrony -->
-<a href="raport.html">Otwórz raport roczny</a>
-
-<!-- PRAWIDŁOWO: Przycisk wywołuje akcję lokalną -->
-<button type="button" id="trigger-calc">Oblicz wynik</button>
-```
-
-### 🧭 Element <code>&lt;button&gt;</code> wewnątrz <code>&lt;nav&gt;</code> – jaka jest zasada?
-Zgodnie ze specyfikacją HTML, element `<nav>` grupuje linki służące do przemieszczania się po strukturze serwisu.
-- **_Błąd:_** Umieszczanie przycisków `<button>` wykonujących nawigację poprzez skrypty JS:
-  ```html
-  <button onclick="location.href='/kontakt'">Kontakt</button>
-  ```
-  Taki element traci natywne funkcje przeglądarki, np. menu kontekstowe pod prawym przyciskiem myszy (<kbd class="win-menu-btn">Otwórz odnośnik w nowej karcie</kbd>).
-- **Prawidłowe użycie:** Przycisk `<button>` jest dozwolony w `<nav>` wyłącznie jako element pomocniczy zarządzający samą nawigacją (np. przycisk rozwijający/zwijający menu typu hamburger <span style="border:1px solid;padding: 2px 5px;border-radius: 4px;cursor: pointer;">☰</span>, lub przycisk przełączający widoczność podmenu).
-
-_**♿ Dostępność (WCAG):**_
-- **Semantyczna rola:** Użycie linku `<a>` ostylowanego tak, by udawał przycisk, nie zmienia jego zapowiedzi w czytniku ekranu. Użytkownik usłyszy słowo „link” i będzie oczekiwać nawigacji (przejścia na inną stronę), a nie wykonania lokalnej akcji.
-  - **Grzech <code>href="#"</code> lub <code>javascript:void(0)</code>:** Stosowanie linku z pustym hashem jako przycisku JS powoduje niechciane przewinięcie okna na górę (domyślne zachowanie przeglądarki dla pustej kotwicy) i psuje działanie czytników ekranu, które traktują taki link jako niedziałający odnośnik.
-- **Nienatywne przyciski (np. `<div>`, `<span>`):** Nie posiadają domyślnie żadnych funkcji dostępnościowych. Są pomijane przy przechodzeniu tabulatorem i nie reagują na klawiaturę. Ich dostosowanie do standardów WCAG 2.1 wymaga ręcznego dodania `role="button"`, `tabindex="0"` oraz oprogramowania nasłuchu zdarzeń klawiatury dla klawiszy <kbd>Enter</kbd> i <kbd>Spacja</kbd>.
+Przewidź wybór znacznika w dwóch scenariuszach:
+1. Na stronie trwa wysyłanie załącznika na serwer i pasek pokazuje aktualnie 70%.
+2. Panel administracyjny pokazuje zajętość dysku serwera na poziomie 82% oraz poziom naładowania baterii UPS.
 
 > [!IMPORTANT]
-> ### Semantyczna rola oraz typy przycisku
-> 
-> - **Atrybut `role="button"`** – to proteza dla elementów nienatywnych (np. `<div>`, `<span>`). Dodawanie go do tagu `<button>` jest błędem (redundancja).
-> - **Atrybut `type="button"`** – zmienia domyślne zachowanie elementu `<button>`, którym w specyfikacji HTML jest wysyłanie formularza (`type="submit"`).
->   - **Wewnątrz `<form>`:** Jest **obowiązkowy** dla wszystkich przycisków, które mają uruchomić skrypt JavaScript, a nie przesyłać dane na serwer.
->   - **Poza `<form>`:** Jest **redundantny**. Dopisuje się go wtedy głównie w ramach programowania defensywnego, aby przycisk nie zaczął wysyłać formularza po ewentualnej zmianie struktury strony. (Dany re-używalny komponent stanie się potomnym dzieckiem formularza.)
+> Zastanów się przed dalszym czytaniem: czy oba przypadki powinny korzystać z tego samego elementu HTML?
+
+Nie. W pierwszym scenariuszu opisujesz proces, który zmierza do końca. W drugim mierzysz stały parametr fizyczny w znanym przedziale wartości.
+
+### ⏳ Znacznik progress dla trwających procesów
+
+Element `<progress>` służy wyłącznie do pokazywania **postępu zadania** w czasie, na przykład pobierania pliku, instalacji albo kroków wieloetapowego formularza. Przyjmuje atrybuty *value* (bieżąca wartość) oraz *max* (wartość końcowa, domyślnie `1`).
+
+Aby czytnik ekranu wiedział, czego dotyczy sam pasek, łączysz go z opisem tekstowym za pomocą znacznika **`<label>`**. Atrybut `for` w `<label>` musi mieć dokładnie taką samą wartość jak atrybut `id` w elemencie `<progress>` (ten sam mechanizm etykietowania rozwiniesz szerzej w następnej lekcji o formularzach):
+
+```html
+<label for="upload-bar">Wysyłanie archiwum:</label>
+<progress id="upload-bar" value="70" max="100">70%</progress>
+```
+
+Podgląd działania w przeglądarce:
+
+<label for="upload-bar-preview">Wysyłanie archiwum: </label><progress id="upload-bar-preview" value="70" max="100">70%</progress>
+
+Jeżeli usuniesz atrybut *value*, pasek przejdzie w stan nieokreślony: przeglądarka pokaże animację informującą, że operacja trwa, ale jej czas zakończenia nie jest jeszcze znany.
+
+### 🌡️ Znacznik meter dla pomiarów w stałym zakresie
+
+Element `<meter>` reprezentuje **pomiar skalarny** w znanym przedziale, taki jak zajętość dysku, temperatura procesora, poziom baterii albo siła hasła. Taki pomiar może rosnąć i spadać, a jego celem nie jest „ukończenie zadania”.
+
+Dodatkową zaletą `<meter>` są progi oceny wartości: *min*, *max*, *low*, *high* oraz *optimum*. Przeglądarka automatycznie dobiera kolor paska (zielony, żółty lub czerwony) w zależności od tego, jak blisko strefy optymalnej znajduje się aktualna wartość *value*.
+
+```html
+<label for="disk-usage">Zajętość dysku:</label>
+<meter id="disk-usage" min="0" max="100" low="70" high="90" optimum="40" value="82">82%</meter>
+```
+
+Podgląd działania w przeglądarce:
+
+<label for="disk-usage-preview">Zajętość dysku: </label><meter id="disk-usage-preview" min="0" max="100" low="70" high="90" optimum="40" value="82">82%</meter>
+
+Zwróć uwagę na wartość *optimum* równą `40` przy aktualnym zapełnieniu `82`. Ponieważ wynik leży powyżej progu *low* (`70`), ale poniżej krytycznego *high* (`90`), przeglądarka sygnalizuje stan ostrzegawczy. Gdyby wartość przekroczyła `90`, pasek zmieniłby kolor na alarmowy.
+
+> [!IMPORTANT]
+> Zarówno `<progress>`, jak i `<meter>` muszą mieć powiązaną etykietę `<label for="...">` wskazującą na atrybut `id` wskaźnika. Tekst wpisany między znacznikiem otwierającym a zamykającym (na przykład `82%`) to jedynie zapasowy tekst dla bardzo starych przeglądarek, które nie potrafią narysować paska. Nowoczesne czytniki ekranu odczytują stan bezpośrednio z atrybutów liczbowych.
+
+**_Częsty błąd:_** używanie `<progress>` do wyświetlania poziomu baterii, ocen użytkowników albo wolnego miejsca na dysku. Czytnik ekranu zapowie wtedy taki element jako „pasek postępu”, co myli odbiorcę sugerując trwający proces ładowania.
 
 ---
 
-## 💬 Dialog: <code>&lt;dialog&gt;</code>
+## 🔘 Nawigacja kontra akcja: a oraz button
 
-Tag `<dialog>` reprezentuje okno dialogowe lub okno modalne. Ponieważ jest to natywny element HTML, przeglądarka automatycznie zarządza jego zachowaniem przestrzennym, obsługą fokusu klawiatury oraz blokowaniem tła.
+W wielu projektach graficznych linki wyglądają jak przyciski, a przyciski przypominają zwykły tekst. Wygląd to jednak sprawa arkuszy stylów. W strukturze HTML znaczniki `<a>` i `<button>` mają **wykluczające się role semantyczne**.
 
-```html
-<dialog open>
-    <h2>Komunikat systemowy</h2>
-    <p>To jest natywne okno dialogowe HTML.</p>
-    <form method="dialog">
-        <button>Zamknij</button>
-    </form>
-</dialog>
-```
-
-Atrybut logiczny `open` pozwala wyświetlić okno bezpośrednio po załadowaniu strony. W rzeczywistych projektach dialogi otwiera się jednak dynamicznie. Służą do tego dwie natywne metody JavaScript:
-- `show()`: Otwiera okno w trybie niemodalnym. Możesz wtedy wchodzić w interakcję z elementami znajdującymi się pod oknem.
-- `showModal()`: Otwiera okno w trybie modalnym. Przeglądarka tworzy ciemne tło (tzw. backdrop) i blokuje możliwość klikania czegokolwiek poza oknem.
+- **Link (`<a>`) służy do nawigacji.** Przenosi użytkownika pod inny adres URL, przewija stronę do kotwicy (na przykład `#kontakt`) albo pobiera plik przy użyciu atrybutu *download*. Zmienia historię przeglądarki i wspiera menu kontekstowe pod prawym przyciskiem myszy („Otwórz link w nowej karcie”). Z klawiatury uruchamia się go klawiszem <kbd>Enter</kbd>.
+- **Przycisk (`<button>`) wywołuje akcję.** Nie przenosi pod nowy adres i nie modyfikuje historii przeglądarki. Służy do otwierania wyskakujących paneli, przełączania widoków, potwierdzania operacji albo wysyłania formularza. Z klawiatury aktywuje się go zarówno klawiszem <kbd>Enter</kbd>, jak i <kbd>Spacją</kbd>.
 
 ```html
-<button type="button" id="open-profile-dialog">Edytuj profil</button>
+<!-- Nawigacja do dokumentu lub pliku -->
+<a href="raport-roczny.pdf" download>Pobierz raport roczny</a>
 
-<dialog id="profile-dialog" aria-labelledby="profile-title" aria-describedby="profile-desc">
-    <h2 id="profile-title">Edytuj profil</h2>
-    <p id="profile-desc">Zmień swoje dane użytkownika i zapisz formularz.</p>
-    
-    <form method="dialog">
-        <button value="cancel">Anuluj</button>
-        <button value="save">Zapisz</button>
-    </form>
-</dialog>
-
-<script>
-const dialog = document.querySelector("#profile-dialog");
-const openButton = document.querySelector("#open-profile-dialog");
-
-openButton.addEventListener("click", () => {
-    dialog.showModal();
-});
-</script>
+<!-- Lokalna akcja w interfejsie -->
+<button type="button">Pokaż szczegóły techniczne</button>
 ```
 
-_**♿ Dostępność (WCAG):**_
-- **Rola semantyczna:** Element `<dialog>` ma domyślnie przypisaną rolę okna dialogowego. Określa to specyfikacja HTML, dlatego nie musisz dopisywać do niego atrybutu `role="dialog"`.
-- **Etykietowanie:** Użyj atrybutu `aria-labelledby` w tagu `<dialog>` i skieruj go na identyfikator nagłówka wewnątrz okna (np. `id="profile-title"`). Jeśli okno zawiera dodatkowy opis, użyj `aria-describedby` skierowanego na opis (np. `id="profile-desc"`).
-- **Pułapka fokusu (Focus Trap):** Kiedy otwierasz modal przez `showModal()`, przeglądarka automatycznie blokuje fokus klawiatury wewnątrz tego okna. Użytkownik klikający klawisz <kbd>Tab</kbd> nie wyjdzie poza formularz modala. Po zamknięciu okna, fokus automatycznie wraca na przycisk, który je wywołał.
-- **Klawisz Escape:** Przeglądarka zapewnia, że kliknięcie klawisza <kbd>Esc</kbd> automatycznie zamyka okno modalne.
-- **Unikaj własnych rozwiązań na divach:** Budowanie modali ze zwykłych tagów `<div>` wymaga ręcznego programowania pułapki fokusu, blokowania klawiatury i przywracania stanu aktywnego. Poco dodawać sobie roboty? 😉
+> [!CAUTION]
+> **_Unikaj pseudolinków z pustym adresem `href="#"` oraz klikalnych `<div>`._** Link z samym znakiem `#` przewija stronę na samą górę i wprowadza w błąd czytnik ekranu, który zapowiada przejście do zasobu. Z kolei zwykły `<div>` jest całkowicie pomijany podczas nawigacji klawiszem <kbd>Tab</kbd> i nie reaguje na klawiaturę.
+
+Dobrą praktyką jest jawne dopisywanie atrybutu `type="button"` do przycisków, które nie mają wysyłać formularza. Domyślny typ elementu `<button>` umieszczonego wewnątrz formularza to `submit`. Jawne podanie `type="button"` chroni przycisk przed przypadkowym wysłaniem danych, jeśli komponent trafi kiedyś do środka `<form>`.
+
+Wewnątrz sekcji nawigacyjnej `<nav>` umieszczaj linki `<a>` prowadzące do podstron. Przycisk `<button>` ma tam sens wyłącznie wtedy, gdy steruje samym interfejsem nawigacji, na przykład rozwija menu mobilne.
 
 ---
 
-## 🧭 Podpowiedzi i wyskakujące warstwy: <code>popover</code>
+## 💬 Wyskakujące warstwy bez skryptów: atrybut popover
 
-Atrybut `popover` to nowoczesny mechanizm HTML służący do tworzenia wyskakujących warstw, takich jak menu podręczne, podpowiedzi (tooltips) czy rozwijane listy opcji. 
+Wyobraź sobie panel z krótką pomocą kontekstową, powiadomieniem albo podręcznym menu ustawień. Dawniej wymagało to pisania kodu JavaScript, pilnowania kolejności warstw oraz ręcznego zamykania okna po kliknięciu w tło.
 
-_**Ważne rozróżnienie:**_ W przeciwieństwie do `<dialog>`, który jest dedykowanym elementem, <strong>`popover` to **atrybut globalny**</strong>. Możesz przypisać go do dowolnego znacznika (np. `<div>`, `<nav>` czy `<p>`).
+Nowoczesny HTML wprowadza _**atrybut globalny**_ `popover`. W przeciwieństwie do `<details>` nie jest to nowy znacznik, lecz atrybut, który możesz dopisać do dowolnego elementu, na przykład `<div>`, `<aside>` lub `<dialog>`.
+
+Do sterowania takim panelem wystarcza zwykły `<button>` z atrybutem `popovertarget` ustawionym na wartość `id` docelowej warstwy.
 
 ```html
-<!-- Przycisk kontrolujący podpowiedź -->
-<button popovertarget="help-tip">Pokaż pomoc</button>
+<button type="button" popovertarget="help-panel">Pokaż instrukcję</button>
 
-<!-- Element pełniący funkcję popoveru -->
-<div id="help-tip" popover>
-    <p>To jest natywna podpowiedź wyświetlona jako popover.</p>
+<div id="help-panel" popover>
+    <h3>Skróty klawiszowe</h3>
+    <p>Naciśnij Esc lub kliknij poza to okno, aby je zamknąć.</p>
 </div>
 ```
 
-### 🔀 Dialog a Popover – kiedy stosować i jak je łączyć?
+Przetestuj to działanie na żywo (spróbuj zamknąć wyskakujący panel klawiszem <kbd>Esc</kbd> lub kliknięciem obok):
 
-Te dwa mechanizmy różnią się przeznaczeniem i zachowaniem:
-- **Popover (Warstwa lekka):** Służy do tymczasowych, nieblokujących elementów interfejsu (np. menu kontekstowe, podpowiedzi). Ma wbudowane zachowanie **light dismiss** – zamyka się automatycznie po kliknięciu poza obszar popoveru lub wciśnięciu klawisza <kbd>Esc</kbd>. Domyślnie jest nie-modalny i pozwala na interakcję z resztą strony.
-- **Dialog modalny (Blokada pełna):** Stosujesz go przy krytycznych akcjach wymagających skupienia uwagi (np. potwierdzenie płatności, formularz edycji). Uruchamiany metodą `showModal()`, tworzy ciemne tło (*backdrop*), blokuje interakcję z resztą dokumentu i więzi fokus klawiatury w swoim obrębie.
+<button type="button" popovertarget="koala-popover-demo">Pokaż natywny popover</button>
+<div id="koala-popover-demo" popover>
+    <p>To okno działa w czystym HTML bez ani jednej linii JavaScriptu. Naciśnij Esc lub kliknij poza nie, aby zamknąć.</p>
+</div>
 
-#### 🤝 Hybryda: <code>&lt;dialog popover&gt;</code> (Łączenie obu mechanizmów)
-Przypisanie atrybutu `popover` do elementu `<dialog>` jest w pełni zgodne ze specyfikacją HTML i pozwala połączyć zalety obu rozwiązań:
+Przeglądarka bierze na siebie cały cykl życia wyskakującej warstwy:
+
+1. **Automatyczne przełączanie:** kliknięcie przycisku z `popovertarget` na zmianę otwiera i zamyka powiązany element. Możesz też jawnie wskazać akcję przez `popovertargetaction="show"` lub `popovertargetaction="hide"` (na przykład na przycisku „Zamknij” wewnątrz panelu).
+2. **Lekkie zamykanie:** element z `popover` zamyka się automatycznie po kliknięciu w dowolne miejsce poza nim albo po wciśnięciu klawisza <kbd>Esc</kbd>.
+3. **Najwyższa warstwa renderowania:** otwarty panel trafia ponad całą resztę dokumentu. Nie zostanie przypadkowo ucięty przez kontener nadrzędny z ukrytym przepełnieniem.
+
+Jeżeli wyskakujący panel ma pełnić rolę semantycznego okna z komunikatem, możesz połączyć znacznik `<dialog>` z atrybutem `popover`:
 
 ```html
-<button popovertarget="info-dialog">Pokaż szczegóły</button>
+<button type="button" popovertarget="status-info">Informacje o systemie</button>
 
-<dialog id="info-dialog" popover>
-    <p>To jest semantyczny dialog sterowany deklaratywnie.</p>
+<dialog id="status-info" popover>
+    <p>Wersja środowiska: 2.4. Wszystkie usługi działają poprawnie.</p>
 </dialog>
 ```
 
-**Zalety tego połączenia:**
-- **Zachowanie semantyki:** Czytniki ekranu rozpoznają element jako okno dialogowe (`role="dialog"`).
-- **Deklaratywne sterowanie:** Przycisk z `popovertarget` automatycznie otwiera i zamyka dialog bez użycia JavaScriptu.
-- **Wbudowane zamykanie:** Dialog dziedziczy po popoverze mechanizm *light dismiss* (automatyczne zamykanie przy kliknięciu poza okno).
-- **Top Layer:** Element trafia do najwyższej warstwy renderowania przeglądarki, co zapobiega ucinaniu go przez `overflow: hidden` rodziców.
-
-_**♿ Dostępność (WCAG):**_
-- **Automatyczne powiązanie:** Użycie atrybutu `popovertarget` na przycisku automatycznie informuje technologie asystujące, że przycisk steruje wyskakującą warstwą. Przeglądarka dba o to, by czytniki prawidłowo ogłaszały ten stan.
-- **Fokus klawiatury:** Popover nie tworzy pułapki fokusu. Użytkownik może swobodnie przejść tabulatorem do innych elementów na stronie, co jest prawidłowym zachowaniem dla podpowiedzi lub bocznych menu pomocniczych.
+Takie połączenie zachowuje wbudowaną rolę okna dialogowego dla czytników ekranu, a jednocześnie daje pełne, deklaratywne sterowanie bez pisania skryptów.
 
 ---
 
 <data-gate>
-  <data-connection-matcher title="Połącz natywny element HTML z jego zastosowaniem:">
-    <div class="cmw-item" data-left="`&amp;lt;details&amp;gt;`" data-right="Rozwijana i zwijana treść"></div>
-    <div class="cmw-item" data-left="`&amp;lt;progress&amp;gt;`" data-right="Postęp wykonywania zadania"></div>
-    <div class="cmw-item" data-left="`&amp;lt;meter&amp;gt;`" data-right="Pomiar wartości w znanym zakresie"></div>
-    <div class="cmw-item" data-left="`&amp;lt;dialog&amp;gt;`" data-right="Semantyczne okno dialogowe"></div>
-  </data-connection-matcher>
+<data-connection-matcher title="Dopasuj natywny mechanizm HTML do właściwego zastosowania">
+  <item left="`&lt;progress&gt;`" right="Postęp pobierania pliku lub trwającej instalacji"></item>
+  <item left="`&lt;meter&gt;`" right="Pomiar zajętości dysku lub poziomu baterii w stałym zakresie"></item>
+  <item left="`&lt;a&gt;`" right="Przejście na inną podstronę lub pobranie dokumentu przez adres URL"></item>
+  <item left="`&lt;button&gt;`" right="Wywołanie lokalnej akcji w bieżącym widoku bez zmiany adresu"></item>
+  <item left="`&lt;details&gt;`" right="Wbudowana sekcja zwijana i rozwijana w treści strony, na przykład FAQ"></item>
+  <item left="`popover`" right="Wyskakująca warstwa zamykana kliknięciem obok lub klawiszem Esc"></item>
+</data-connection-matcher>
 </data-gate>
 
 ---
+
+### 🧪 Zadanie 2: Panel zasobów z miernikami i popoverem
+
+Zbuduj panel monitorowania zasobów zawierający:
+1. Pasek postępu `<progress>` (z atrybutami `id`, `value`, `max`) powiązany z etykietą `<label for="...">`.
+2. Miernik `<meter>` (z atrybutami `id`, `min`, `max`, `low`, `high`, `optimum` oraz `value`) powiązany z własną etykietą `<label for="...">`.
+3. Przycisk `<button type="button" popovertarget="...">` otwierający warstwę informacyjną z dokładnie tym samym `id` i atrybutem `popover`.
 
 <data-gate>
-  <data-quiz>
-    <question>Kiedy powinieneś użyć elementu <code>&lt;button&gt;</code> zamiast <code>&lt;a&gt;</code>?</question>
-    <options>
-      <item>Gdy tekst ma wyglądać bardziej technicznie.</item>
-      <item>Gdy użytkownik ma przejść do innego dokumentu HTML.</item>
-      <item correct>Gdy element uruchamia akcję w bieżącym interfejsie, a nie prowadzi pod nowy adres.</item>
-      <item>Gdy chcesz ukryć adres URL przed użytkownikiem.</item>
-    </options>
-    <div data-hint="error">Zastanów się, czy element prowadzi do zasobu, czy wykonuje akcję.</div>
-    <div data-hint="success">Dobrze. Link służy do nawigacji, przycisk do wywoływania akcji.</div>
-  </data-quiz>
+<data-code-runner language="html" title="Zadanie 2: Panel zasobów z miernikami i popoverem">
+<template data-type="code">
+<section>
+  <h2>Panel zasobów serwera</h2>
+  <!-- 1. Dodaj etykietę label oraz pasek postępu progress (id, value, max) -->
+
+  <!-- 2. Dodaj etykietę label oraz miernik meter (id, min, max, low, high, optimum, value) -->
+
+  <!-- 3. Dodaj przycisk button (type="button", popovertarget) oraz element z pasującym id i atrybutem popover -->
+</section>
+</template>
+<template data-type="requirements">
+[
+  { "id": "progress-el", "type": "regex", "pattern": "<progress\\b(?=[^>]*\\bid=[\"'][^\"']+[\"'])(?=[^>]*\\bvalue=[\"']\\d+[\"'])(?=[^>]*\\bmax=[\"']\\d+[\"'])[^>]*>", "flags": "i", "text": "Dodaj element <progress> z atrybutami id, value oraz max" },
+  { "id": "meter-el", "type": "regex", "pattern": "<meter\\b(?=[^>]*\\bid=[\"'][^\"']+[\"'])(?=[^>]*\\bmin=[\"']\\d+[\"'])(?=[^>]*\\bmax=[\"']\\d+[\"'])(?=[^>]*\\blow=[\"']\\d+[\"'])(?=[^>]*\\bhigh=[\"']\\d+[\"'])(?=[^>]*\\boptimum=[\"']\\d+[\"'])(?=[^>]*\\bvalue=[\"']\\d+[\"'])[^>]*>", "flags": "i", "text": "Dodaj element <meter> z atrybutami id, min, max, low, high, optimum oraz value" },
+  { "id": "labels-for", "type": "regex", "pattern": "<label\\b[^>]*\\bfor=[\"'][^\"']+[\"'][^>]*>[\\s\\S]*?</label>[\\s\\S]*?<label\\b[^>]*\\bfor=[\"'][^\"']+[\"'][^>]*>[\\s\\S]*?</label>", "flags": "is", "text": "Powiąż oba wskaźniki z opisami przez dwa elementy <label for=\"...\">" },
+  { "id": "popover-link", "type": "regex", "pattern": "<button\\b(?=[^>]*\\btype=[\"']button[\"'])[^>]*\\bpopovertarget=[\"']([^\"']+)[\"'][^>]*>[\\s\\S]*?</button>[\\s\\S]*?<[a-z]+\\b(?=[^>]*\\bid=[\"']\\1[\"'])(?=[^>]*\\bpopover\\b)[^>]*>[\\s\\S]*?</[a-z]+>", "flags": "is", "text": "Połącz przycisk <button type=\"button\" popovertarget=\"...\"> z elementem popover o identycznym id" }
+]
+</template>
+</data-code-runner>
 </data-gate>
 
 ---
 
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Top Layer kompozytora, stan inert i natywne okno modalne dialog</span>
+<span class="deep-dive-badge">TOP LAYER · INERT SUBTREE · DIALOG API</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Dlaczego Top Layer wygrywa z każdym z-index i overflow: hidden</h4>
+
+Zwykłe elementy strony układane są wewnątrz kontekstów stosu (*Stacking Contexts*). Jeśli kontener rodzica ma ustawione `overflow: hidden` lub niższy `z-index`, dziecko nie może się ponad niego wybić nawet przy `z-index: 999999`.
+
+Otwarty element z atrybutem `popover` (oraz modalny `<dialog>`) zostaje promowany przez silnik renderujący do specjalnej listy **Top Layer** utrzymywanej bezpośrednio przez viewport ponad całym dokumentem `<html>`. Kolejność nakładania w Top Layer wynika wyłącznie z kolejności otwierania (stos LIFO), a przeglądarka dołącza pod elementem pseudoelement `::backdrop`.
+
+<h4>2. Różnica architektoniczna: niemodalny popover kontra stan inert</h4>
+
+- **`popover` (niemodalny)**: reszta dokumentu pozostaje aktywna dla myszy, klawiatury i drzewa dostępności; kliknięcie poza warstwę wywołuje *light dismiss*.
+- **Modalny `<dialog>`**: w dalszej części kursu (po poznaniu JavaScriptu) otworzysz `<dialog>` metodą `dialog.showModal()`. Silnik oznacza wtedy całe pozostałe drzewo dokumentu jako **`inert`**: blokuje zdarzenia myszy, zamyka fokus klawiatury wyłącznie wewnątrz okna, ukrywa tło przed drzewem `AXObject` (czytnik ekranu nie ucieka poza okno), zamyka dialog klawiszem <kbd>Esc</kbd> i po zamknięciu automatycznie przywraca fokus na przycisk wywołujący.
+
+</div>
+</details>
+
+---
 
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
-- **Semantyka to fundament interakcji:** Elementy takie jak `<details>`, `<summary>`, `<progress>`, `<meter>`, `<dialog>` i `<button>` posiadają własną, natywną funkcjonalność i dostępność.
-- **Link i przycisk to różne światy:** `<a>` służy wyłącznie do nawigacji, a `<button>` do wykonywania akcji w aplikacji. Nigdy nie używaj ich zamiennie ani nie stosuj linków z pustym `href="#"`.
-- **Natywny dialog chroni przed błędami:** Używanie metody `showModal()` automatycznie blokuje fokus klawiatury w oknie i obsługuje klawisz <kbd>Esc</kbd>, co zapobiega powstawaniu krytycznych błędów WCAG.
-- **Popover to atrybut, nie tag:** Popover jest globalnym atrybutem służącym do tworzenia lekkich warstw z automatycznym zamykaniem po kliknięciu poza nimi (light dismiss). Nie blokuje on dostępu do strony tak jak modalny `<dialog>`.
-- **Właściwe etykietowanie:** Wszystkie elementy stanu (`<progress>`, `<meter>`, `<dialog>`, `<output>`) wymagają precyzyjnego opisania i powiązania z etykietami za pomocą atrybutów `for`, `id` lub `aria-labelledby`, aby były widoczne dla czytników ekranu.
+- **Natywne elementy zamiast `<div>`:** znaczniki `<details>`, `<progress>`, `<meter>`, `<button>` oraz atrybut `popover` dostarczają gotową obsługę klawiatury i semantykę bez pisania JavaScriptu.
+- **Proces kontra pomiar:** dla trwającej operacji (pobieranie, wysyłanie) użyj `<progress>`, a dla wartości w stałym zakresie (dysk, bateria, temperatura) wybierz `<meter>` z progami *low*, *high* i *optimum*.
+- **Link kontra przycisk:** `<a>` prowadzi pod adres URL lub pobiera zasób, a `<button>` uruchamia lokalną akcję; unikaj `href="#"` jako zamiennika przycisku.
+- **Etykiety wskaźników:** łącz `<progress>` i `<meter>` z opisem za pomocą pary `<label for="...">` oraz `id="..."`, aby czytnik ekranu wiedział, czego dotyczy odczytana wartość.
+- **Deklaratywny `popover`:** dodaj atrybut `popover` do kontenera z `id` i steruj nim przyciskiem z `popovertarget`, aby zyskać automatyczne zamykanie kliknięciem obok oraz klawiszem <kbd>Esc</kbd>.

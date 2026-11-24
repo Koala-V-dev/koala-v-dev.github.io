@@ -159,6 +159,42 @@ Na końcu pokaż audyt. System ma mieć dowód, że konto istnieje i należy do 
 
 ---
 
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Funkcje haszujące haseł w /etc/shadow (SHA-512 crypt vs Yescrypt) i eliminacja tablic tęczowych przez sól kryptograficzną</span><span class="deep-dive-badge">Cryptography & PAM Security</span></summary>
+
+Hasła użytkowników w Linuksie nigdy nie są zapisywane w postaci jawnego tekstu. Od lat standardem bezpieczeństwa jest przechowywanie ich w pliku `/etc/shadow`, do którego dostęp ma wyłącznie proces jądra lub procesy z uprawnieniami roota (`-rw-r----- 1 root shadow`).
+
+### 1. Budowa wpisu w pliku `/etc/shadow`
+Typowy wpis w `/etc/shadow` składa się z pól rozdzielonych dwukropkiem:
+```text
+technik:$y$j9T$vK7x...$zP9...:19800:0:99999:7:::
+```
+Drugie pole to zhashowane hasło w modularnym formacie *Crypt*:
+`$identyfikator_algorytmu$parametry_kosztu$sól$skrót_hasła`
+
+Identyfikatory algorytmów w Linuksie:
+- `$1$` - Przestarzały algorytm MD5 (dziś łamany w ułamki sekund)
+- `$5$` - SHA-256 crypt ($5000$ rund)
+- `$6$` - SHA-512 crypt ($5000$ rund)
+- `$y$` - **Yescrypt** (domyślny standard w Ubuntu 24.04 i nowszych)
+
+### 2. Dlaczego Yescrypt wypiera SHA-512: Ochrona przed GPU i ASIC
+Klasyczne funkcje haszujące (SHA-256, SHA-512) są zoptymalizowane pod kątem szybkiego liczenia prostych operacji bitowych. Nowoczesne karty graficzne (GPU) oraz dedykowane układy ASIC potrafią sprawdzać **miliardy skrótów SHA na sekundę**.
+
+**Yescrypt** rozwiązuje ten problem, wprowadzając mechanizm **funkcji pamięciożernej** (*Memory-Hard Function*):
+- Do wyliczenia hasza algorytm wymaga zarezerwowania określonego, sporego bloku pamięci RAM (np. 32 MiB na pojedyncze hasło) i wykonuje nieprzewidywalne, losowe odczyty wewnątrz tego bufora.
+- Układy GPU i ASIC posiadają tysiące miniaturowych rdzeni obliczeniowych, ale bardzo małą pamięć podręczną na rdzeń. Przy braku pamięci RAM wielowątkowe łamanie Yescrypt na GPU zostaje natychmiast sparaliżowane przez opóźnienia magistrali pamięci.
+
+### 3. Matematyka soli kryptograficznej (Salt)
+Sól to losowy ciąg znaków generowany przez generator liczb losowych `/dev/urandom` w chwili ustawiania hasła.
+Gdyby dwóch użytkowników miało identyczne hasło `Tajne123!`:
+- Bez soli: ich skróty w `/etc/shadow` byłyby identyczne. Atakujący mógłby użyć gotowej **tablicy tęczowej** (*Rainbow Table* - bazy miliardów prekomputowanych skrótów).
+- Z solą: skrót jest funkcją $H(\text{hasło} \parallel \text{sól})$. Ponieważ każdy użytkownik ma inną losową sól, ich skróty są całkowicie różne. Atakujący musi łamać każde konto z osobna, co unieważnia jakąkolwiek przewagę tablic tęczowych.
+
+</details>
+
+---
+
 ### <span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:
 
 - Narzędzia `whoami`, `id` oraz `groups` służą do weryfikacji **tożsamości roboczej** użytkownika oraz przypisanych do niego uprawnień.

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablice dwuwymiarowe i reprezentacja planszy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Tablice dwuwymiarowe i reprezentacja planszy</h1>
+<p>Tablica jednowymiarowa <code>T[]</code> świetnie sprawdza się przy liście wyników albo serii pomiarów. Spróbuj jednak zapisać w niej planszę do gry Kółko i Krzyżyk, mapę kafelkową w grze 2D albo obrazek ze skanera.</p>
+<p>Osobne zmienne <code>pole1</code> aż do <code>pole9</code> albo trzy oddzielne tablice <code>wiersz0</code>, <code>wiersz1</code> i <code>wiersz2</code> szybko zamieniają kod w plątaninę warunków. Nie przejdziesz po nich jedną pętlą, nie sprawdzisz prosto przekątnej i nie zmienisz rozmiaru planszy na <code>2x4</code>.</p>
+<p>Do takich danych służy w C# <span class="color-green">tablica dwuwymiarowa</span> <code>T[,]</code>. Przechowuje ona prostokątną siatkę wierszy i kolumn jako jedną, spójną strukturę w pamięci.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🗺️ Deklaracja, inicjalizacja i układ Row-Major w pamięci</h2>
+<p>Tablicę dwuwymiarową możesz utworzyć na dwa sposoby. Pierwszy rezerwuje pustą siatkę o zadanych wymiarach, wypełnioną wartościami domyślnymi (<code>0</code> dla <code>int</code>, <code>'\0'</code> dla <code>char</code>). Drugi pozwala od razu wpisać konkretne wartości za pomocą <span class="color-green">inicjalizacji literałowej</span>.</p>
+<pre><code class="language-csharp">// 1. Pusta prostokatna tablica 2 wiersze x 4 kolumny
+int[,] tabela = new int[2, 4];
+
+// 2. Inicjalizacja literalowa (2 wiersze x 3 kolumny)
+char[,] plansza = {
+    { 'X', 'O', '.' },
+    { '.', 'X', 'O' }
+};
+</code></pre>
+<p>Każda wewnętrzna para klamer <code>{ ... }</code> tworzy jeden wiersz tablicy. Wszystkie wiersze w <code>T[,]</code> muszą mieć dokładnie tyle samo elementów. Jeśli w drugim wierszu wpiszesz o jedną komórkę mniej, kompilator od razu odrzuci kod.</p>
+<p>Komórkę wskazujesz parą indeksów <code>[r, c]</code>, zawsze liczoną od zera. Pierwszy indeks <span class="color-blue">r</span> oznacza numer wiersza, a drugi indeks <span class="color-blue">c</span> oznacza numer kolumny.</p>
+<h3>📏 Wymiary tablicy prostokątnej i pułapka zamiany indeksów</h3>
+<p>Dla kwadratowej planszy <code>3x3</code> liczba wierszy i kolumn jest identyczna. Różnicę widać dopiero na macierzy prostokątnej, na przykład <code>2x4</code>, gdzie wiersze nie są równe kolumnom.</p>
+<p>W C# do sprawdzania rozmiaru tablicy <code>T[,]</code> służą trzy różne odczyty:</p>
+<ul>
+<li><span class="color-green"><code>plansza.GetLength(0)</code></span> zwraca liczbę <span class="color-green">wierszy</span> (pierwszy wymiar).</li>
+<li><span class="color-green"><code>plansza.GetLength(1)</code></span> zwraca liczbę <span class="color-green">kolumn</span> (drugi wymiar).</li>
+<li><span class="color-green"><code>plansza.Length</code></span> zwraca <span class="color-green">łączną liczbę wszystkich komórek</span> (<code>wiersze * kolumny</code>, dla <code>2x4</code> to <code>8</code>).</li>
+</ul>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Nigdy nie myl <code>GetLength(0)</code> z <code>GetLength(1)</code> ani nie wpisuj <code>plansza.Length</code> jako granicy pętli po wierszach. Na kwadracie <code>3x3</code> zamiana <code>GetLength(0)</code> z <code>GetLength(1)</code> ukrywa błąd, ale na planszy <code>2x4</code> natychmiast kończy się wyjątkiem <span class="color-red">IndexOutOfRangeException</span>.</p>
+
+</div>
+</div><h3>🧱 Jak pamięć RAM układa siatkę 2D?</h3>
+<p>Choć w kodzie widzisz <code>char[3, 3]</code> jako kwadrat, fizyczna pamięć RAM jest jednowymiarowym ciągiem bajtów. C# (tak samo jak C i C++) zapisuje tablicę <code>T[,]</code> w <span class="color-green">układzie wierszowym</span> (Row‑Major).</p>
+<p>Najpierw w pamięci leżą wszystkie komórki wiersza <code>0</code>, tuż za nimi cały wiersz <code>1</code>, a na końcu wiersz <code>2</code>. Dlatego w zagnieżdżonych pętlach zawsze iterujemy najpierw po wierszach <span class="color-blue">r</span>, a wewnątrz po kolumnach <span class="color-blue">c</span>.</p>
+<p><data-csharp-grid2d-viz></data-csharp-grid2d-viz></p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧭 Przeliczanie współrzędnych w obie strony</h2>
+<p>Gracz w konsoli woli wpisać jedną cyfrę od <code>1</code> do <code>9</code> niż podawać osobno wiersz i kolumnę. Nie potrzebujesz do tego dziewięciu warunków <code>if</code> ani instrukcji <code>switch</code>.</p>
+<p>Wystarczą dwa operatory arytmetyczne: dzielenie całkowite <code>/</code> oraz reszta z dzielenia <code>%</code>. Wzór działa dla planszy o dowolnej liczbie <span class="color-blue">kolumny</span>:</p>
+<pre><code class="language-csharp">int indeks = pole - 1;          // Przesuniecie z 1..N na 0..(N-1)
+int r = indeks / kolumny;       // Numer wiersza (ile pelnych wierszy minelismy)
+int c = indeks % kolumny;       // Numer kolumny (pozycja w biezacym wierszu)
+</code></pre>
+<p>Zobacz ten mechanizm na standardowej planszy <code>3x3</code> (<code>kolumny = 3</code>):</p>
+<table>
+<thead>
+<tr>
+<th align="center">Numer <span class="color-blue">pole</span></th>
+<th align="center"><code>indeks = pole - 1</code></th>
+<th align="center"><code>r = indeks / 3</code></th>
+<th align="center"><code>c = indeks % 3</code></th>
+<th align="center">Współrzędne <code>plansza[r, c]</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>[0, 0]</code> (lewy górny róg)</td>
+</tr>
+<tr>
+<td align="center"><code>2</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>[0, 1]</code></td>
+</tr>
+<tr>
+<td align="center"><code>3</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>[0, 2]</code> (prawy górny róg)</td>
+</tr>
+<tr>
+<td align="center"><code>4</code></td>
+<td align="center"><code>3</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>[1, 0]</code></td>
+</tr>
+<tr>
+<td align="center"><code>5</code></td>
+<td align="center"><code>4</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>[1, 1]</code> (środek planszy)</td>
+</tr>
+<tr>
+<td align="center"><code>6</code></td>
+<td align="center"><code>5</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>[1, 2]</code></td>
+</tr>
+<tr>
+<td align="center"><code>7</code></td>
+<td align="center"><code>6</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>0</code></td>
+<td align="center"><code>[2, 0]</code> (lewy dolny róg)</td>
+</tr>
+<tr>
+<td align="center"><code>8</code></td>
+<td align="center"><code>7</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>1</code></td>
+<td align="center"><code>[2, 1]</code></td>
+</tr>
+<tr>
+<td align="center"><code>9</code></td>
+<td align="center"><code>8</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>2</code></td>
+<td align="center"><code>[2, 2]</code> (prawy dolny róg)</td>
+</tr>
+</tbody></table>
+<p>Ten sam wzór bez żadnych zmian obsługuje planszę prostokątną <code>2x4</code> (<code>wiersze = 2</code>, <code>kolumny = 4</code>). Sprawdź pole <code>5</code>: <code>indeks = 4</code>, więc <code>r = 4 / 4 = 1</code>, a <code>c = 4 % 4 = 0</code>. To dokładnie pierwsza kolumna drugiego wiersza!</p>
+<h3>🔄 Kierunek odwrotny: ze współrzędnych na numer pola</h3>
+<p>Kiedy rysujesz pustą planszę w konsoli, musisz wykonać operację odwrotną. Znasz bieżące <span class="color-blue">r</span> i <span class="color-blue">c</span> z pętli, a chcesz wypisać numer pola widoczny dla gracza.</p>
+<pre><code class="language-csharp">int pole = r * kolumny + c + 1;
+</code></pre>
+<p>Dlaczego to działa? Przed wierszem <span class="color-blue">r</span> leży dokładnie <code>r * kolumny</code> pełnych pól. Dodajesz pozycję <span class="color-blue">c</span> w bieżącym wierszu, co daje indeks od zera, a na końcu dopisujesz <code>+ 1</code>, aby wrócić do numeracji od <code>1</code>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zawsze sprawdzaj zakres <code>pole &lt; 1 || pole &gt; wiersze * kolumny</code>, zanim użyjesz dzielenia i reszty. Dla <code>pole = 0</code> w C# wyrażenie <code>(0 - 1) / 3</code> daje <code>0</code>, a <code>(0 - 1) % 3</code> daje <code>-1</code>, co prowadzi prosto do <span class="color-red">IndexOutOfRangeException</span> przy próbie odczytu <code>plansza[0, -1]</code>.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Wypisywanie siatki i sprawdzanie linii wygrywających</h2>
+<p>Aby wypisać dowolną tablicę <code>char[,]</code> w formie czytelnej siatki, łączysz dwie pętle <code>for</code> z różnymi metodami konsoli. Wewnątrz używasz <code>Console.Write</code>, aby komórki jednego wiersza stały obok siebie.</p>
+<pre><code class="language-csharp">char[,] siatka = {
+    { '.', 'X', '.', 'O' },
+    { 'X', '.', 'X', '.' }
+};
+
+for (int r = 0; r &lt; siatka.GetLength(0); r++)
+{
+    for (int c = 0; c &lt; siatka.GetLength(1); c++)
+    {
+        Console.Write(siatka[r, c] + " ");
+    }
+    Console.WriteLine(); // Nowa linia dopiero po calym wierszu!
+}
+</code></pre>
+<p>Jeśli przez pomyłkę użyjesz <code>Console.WriteLine</code> w pętli wewnętrznej, cała plansza rozciągnie się w jedną pionową kolumnę. Jeśli z kolei zapomnisz o <code>Console.WriteLine()</code> na końcu pętli zewnętrznej, oba wiersze skleją się w jeden płaski ciąg znaków.</p>
+<h3>🔹 Osiem linii wygrywających na planszy 3x3</h3>
+<p>W grze Kółko i Krzyżyk zwycięstwo daje wypełnienie jednym znakiem dowolnej z <span class="color-green">8 linii</span>:</p>
+<ul>
+<li><span class="color-green">3 wiersze</span>: <code>[0, 0..2]</code>, <code>[1, 0..2]</code>, <code>[2, 0..2]</code> (stały pierwszy indeks <span class="color-blue">r</span>).</li>
+<li><span class="color-green">3 kolumny</span>: <code>[0..2, 0]</code>, <code>[0..2, 1]</code>, <code>[0..2, 2]</code> (stały drugi indeks <span class="color-blue">c</span>).</li>
+<li><span class="color-green">przekątna główna</span>: <code>[0, 0]</code>, <code>[1, 1]</code>, <code>[2, 2]</code> (współrzędne spełniają <code>r == c</code>).</li>
+<li><span class="color-green">antyprzekątna</span>: <code>[0, 2]</code>, <code>[1, 1]</code>, <code>[2, 0]</code> (współrzędne spełniają <code>r + c == 2</code>).</li>
+</ul>
+<p>Sprawdzanie wszystkich wierszy na planszy <code>3x3</code> zamyka się w jednej krótkiej pętli:</p>
+<pre><code class="language-csharp">for (int i = 0; i &lt; 3; i++)
+{
+    if (p[i, 0] == znak &amp;&amp; p[i, 1] == znak &amp;&amp; p[i, 2] == znak)
+    {
+        return true;
+    }
+}
+</code></pre>
+<p>W tej samej pętli <code>for (int i = 0; i &lt; 3; i++)</code> możesz dołożyć drugi warunek sprawdzający kolumnę numer <span class="color-blue">i</span>: wystarczy zamienić miejscami indeks stały z indeksem <span class="color-blue">i</span>. Po wyjściu z pętli pozostają już tylko dwa osobne warunki dla przekątnej głównej i antyprzekątnej.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj wzór lub właściwość tablicy 2D do jej znaczenia na planszy">
+  <item left="plansza.GetLength(0)" right="Liczba wierszy, czyli pierwszy wymiar tablicy dwuwymiarowej"></item>
+  <item left="plansza.GetLength(1)" right="Liczba kolumn, czyli drugi wymiar tablicy dwuwymiarowej"></item>
+  <item left="r == c" right="Warunek opisujący komórki leżące na przekątnej głównej"></item>
+  <item left="r + c == 2" right="Warunek opisujący komórki leżące na antyprzekątnej planszy 3x3"></item>
+  <item left="r * kolumny + c + 1" right="Przeliczenie współrzędnych (r, c) z powrotem na numer pola od 1"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Row-Major vs Column-Major na obrazie Full HD oraz CIL dla char[,] vs char[][]</span>
+<span class="deep-dive-badge">CPU CACHE · CIL · GRAFIKA 2D · C# vs C++</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Row-Major (C/C++/C#) kontra Column-Major (Fortran/MATLAB/Julia)</h4>
+
+<p>Fizyczna pamięć RAM ma tylko jeden wymiar. Aby zapisać w niej macierz o <code>W</code> wierszach i <code>K</code> kolumnach, język programowania musi przyjąć jedną z dwóch konwencji spłaszczania adresu:</p>
+<ul>
+<li><span class="color-green">Row‑Major</span> (C, C++, C#, Python/NumPy domyślnie): $\text{offset} = r \cdot K + c$. Sąsiednie komórki w tym samym wierszu leżą obok siebie.</li>
+<li><span class="color-green">Column‑Major</span> (Fortran, MATLAB, R, OpenGL/GLSL dla macierzy): $\text{offset} = c \cdot W + r$. Sąsiednie komórki w tej samej kolumnie leżą obok siebie.</li>
+</ul>
+<p>W języku C dla statycznej tablicy <code>int img[1080][1920]</code> kompilator zamienia <code>img[r][c]</code> bezpośrednio na jedno wyrażenie arytmetyki wskaźników:</p>
+<pre><code class="language-c">int piksel = *(&amp;img[0][0] + r * 1920 + c); // Bezposredni skok o (r * 1920 + c) * 4 B
+</code></pre>
+<h4>2. Ile dokładnie kosztuje zła kolejność pętli na obrazie Full HD 1920x1080?</h4>
+
+<p>Wyobraź sobie bufor klatki (framebuffer) w formacie RGBA, gdzie każdy piksel zajmuje 4 bajty. Obraz ma <code>1080</code> wierszy i <code>1920</code> kolumn (<code>int[1080, 1920]</code>), czyli łącznie <code>8 294 400</code> bajtów (około 7,9 MB).</p>
+<p>W <span class="color-green">pętli zgodnej z Row‑Major</span> (<code>for r</code>, wewnątrz <code>for c</code>) każdy krok przesuwa adres o <code>+4</code> bajty. Jedna linia pamięci L1 CPU Cache (64 bajty) dostarcza od razu <span class="color-green">16 kolejnych pikseli</span>. Na 2 073 600 pikseli procesor pobiera linię z RAM tylko <code>129 600</code> razy, a sprzętowy mechanizm wyprzedzania (Hardware Prefetcher) ładuje dane z góry.</p>
+<p>W <span class="color-green">pętli odwróconej</span> (<code>for c</code>, wewnątrz <code>for r</code>) każdy krok przeskakuje cały wiersz obrazu, czyli <code>1920 * 4 = 7 680</code> bajtów (120 linii cache naraz). Procesor pobiera z RAM 64 bajty, wykorzystuje zaledwie <span class="color-green">4 bajty</span> (jeden piksel), a resztę marnuje.</p>
+<p>Zanim pętla przejdzie do kolumny <code>c + 1</code>, wczytana wcześniej linia zostaje wypchnięta z 32 KB pamięci L1 Cache (<code>1080</code> wierszy razy 64 bajty to 69 KB). Efektem jest niemal 2 073 600 przypadków <span class="color-red">Cache Miss</span> i nawet 8 do 12 razy wolniejsze działanie tego samego programu.</p>
+<h4>3. Dlaczego w CLR tablice poszarpane char[][] różnią się w bajtkodzie CIL od char[,]?</h4>
+
+<p>W środowisku .NET jednowymiarowe tablice indeksowane od zera (wektory SZArray) mają w bajtkodzie CIL własne, superszybkie instrukcje:</p>
+<pre><code class="language-il">; Odczyt elementu z tablicy poszarpanej char[][] (tablica tablic):
+ldloc.0         ; zaladuj referencje do zewnetrznej tablicy wierszy
+ldloc.1         ; zaladuj indeks r
+ldelem.ref      ; natywna instrukcja CIL -&gt; pobierz wiersz (char[])
+ldloc.2         ; zaladuj indeks c
+ldelem.u2       ; natywna instrukcja CIL -&gt; pobierz char (2 bajty)
+</code></pre>
+<p>Tablica wielowymiarowa <code>char[,]</code> w CLR <span class="color-green">nie ma osobnej instrukcji odczytu w CIL</span>. Kompilator C# generuje dla <code>p[r, c]</code> wywołanie specjalnej metody tworzonej przez środowisko uruchomieniowe:</p>
+<pre><code class="language-il">; Odczyt elementu z tablicy prostokatnej char[,]:
+ldloc.0         ; zaladuj referencje do char[,]
+ldloc.1         ; zaladuj r
+ldloc.2         ; zaladuj c
+call instance uint16 char[0...,0...]::Get(int32, int32)
+</code></pre>
+<p>Współczesny kompilator JIT RyuJIT potrafi rozwinąć wywołania <code>Get</code> i <code>Set</code> bezpośrednio w miejscu użycia. Mimo to tablica <code>char[,]</code> musi pilnować granic oraz dolnych indeksów obu wymiarów i mnożyć <code>r * stride + c</code>, co utrudnia eliminację sprawdzeń zakresu.</p>
+<p>Z tego powodu silniki gier 3D i biblioteki graficzne w C# często wybierają tablicę poszarpaną <code>T[][]</code> albo płaską tablicę <code>T[w * k]</code> z ręcznym indeksem <code>r * k + c</code>. Na małych planszach gier (<code>3x3</code>, <code>8x8</code>, <code>20x20</code>) <span class="color-gold">tablica prostokątna <code>char[,]</code></span> wygrywa jednak czytelnością i gwarancją identycznej szerokości każdego wiersza.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne: Detektor wygranej i przelicznik współrzędnych</h2>
+<p>W klasie <code>PlanszaHelper</code> zaimplementuj trzy metody statyczne operujące na tablicy <code>char[,]</code>:</p>
+<ol>
+<li><span class="color-green"><code>PoliczWolnePola(char[,] p)</code></span>:<ul>
+<li>przechodzi pętlą zagnieżdżoną po <code>p.GetLength(0)</code> oraz <code>p.GetLength(1)</code>,</li>
+<li>zlicza i zwraca liczbę wszystkich komórek zawierających znak <code>'.'</code>,</li>
+<li>musi działać poprawnie zarówno dla kwadratu <code>3x3</code>, jak i dla macierzy prostokątnej <code>2x4</code>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>CzyGraczWygral(char[,] p, char znak)</code></span>:<ul>
+<li>sprawdza na planszy <code>3x3</code> wszystkie 3 wiersze i wszystkie 3 kolumny,</li>
+<li>sprawdza przekątną główną oraz antyprzekątną,</li>
+<li>zwraca <code>true</code>, jeśli choć jedna z 8 linii zawiera trzy znaki równe <span class="color-blue">znak</span>.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>ZamienPoleNaWspolrzedne(int pole, int wiersze, int kolumny, out int r, out int c)</code></span>:<ul>
+<li>dla niepoprawnych wymiarów (<code>wiersze &lt;= 0</code> lub <code>kolumny &lt;= 0</code>) albo numeru <span class="color-blue">pole</span> spoza przedziału <code>1..(wiersze * kolumny)</code> ustawia <code>r = -1; c = -1;</code> i zwraca <code>false</code>,</li>
+<li>dla poprawnego <span class="color-blue">pole</span> wylicza <span class="color-blue">r</span> i <span class="color-blue">c</span> z użyciem parametru <span class="color-blue">kolumny</span> i zwraca <code>true</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Tablica 2D char[,] - detektor 8 linii i przelicznik prostokatny" allow-add-file="false">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class PlanszaHelper
+{
+    public static int PoliczWolnePola(char[,] p)
+    {
+        // Zlicz komorki rowne '.' petla zagniezdzona po GetLength(0) i GetLength(1)
+        return 0;
+    }
+
+    public static bool CzyGraczWygral(char[,] p, char znak)
+    {
+        // Sprawdz 3 wiersze, 3 kolumny oraz 2 przekatne na planszy 3x3
+        return false;
+    }
+
+    public static bool ZamienPoleNaWspolrzedne(int pole, int wiersze, int kolumny, out int r, out int c)
+    {
+        // Zwaliduj wymiary oraz zakres 1..(wiersze * kolumny), potem oblicz r i c
+        r = -1;
+        c = -1;
+        return false;
+    }
+
+    static void Main()
+    {
+        char[,] p = {
+            { 'X', 'O', '.' },
+            { '.', 'X', 'O' },
+            { '.', '.', 'X' }
+        };
+        Console.WriteLine("Wolne pola: " + PoliczWolnePola(p));
+        Console.WriteLine("Wygral X: " + CzyGraczWygral(p, 'X'));
+        Console.WriteLine("Wygral O: " + CzyGraczWygral(p, 'O'));
+
+        int r, c;
+        if (ZamienPoleNaWspolrzedne(5, 2, 4, out r, out c))
+        {
+            Console.WriteLine("Pole 5 na 2x4 -&gt; [" + r + ", " + c + "]");
+        }
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("PoliczWolnePola zlicza kropki na planszy czesciowej, pustej, pelnej i prostokatnej 2x4", () =&gt; {
+    char[,] czesciowa = { { 'X', 'O', '.' }, { '.', 'X', 'O' }, { '.', '.', 'X' } };
+    LabAssert.Equal(4, PlanszaHelper.PoliczWolnePola(czesciowa));
+
+    char[,] pusta = { { '.', '.', '.' }, { '.', '.', '.' }, { '.', '.', '.' } };
+    LabAssert.Equal(9, PlanszaHelper.PoliczWolnePola(pusta));
+
+    char[,] pelna = { { 'X', 'O', 'X' }, { 'O', 'X', 'O' }, { 'O', 'X', 'O' } };
+    LabAssert.Equal(0, PlanszaHelper.PoliczWolnePola(pelna));
+
+    char[,] prostokat = { { '.', 'X', '.', 'O' }, { 'X', '.', 'X', '.' } };
+    LabAssert.Equal(4, PlanszaHelper.PoliczWolnePola(prostokat));
+});
+LabAssert.Test("CzyGraczWygral wykrywa wszystkie wiersze, kolumny, obie przekatne oraz brak wygranej", () =&gt; {
+    char[,] wiersz2 = { { 'O', '.', 'O' }, { '.', '.', '.' }, { 'X', 'X', 'X' } };
+    LabAssert.True(PlanszaHelper.CzyGraczWygral(wiersz2, 'X'));
+    LabAssert.False(PlanszaHelper.CzyGraczWygral(wiersz2, 'O'));
+
+    char[,] kolumna1 = { { 'X', 'O', '.' }, { '.', 'O', 'X' }, { 'X', 'O', '.' } };
+    LabAssert.True(PlanszaHelper.CzyGraczWygral(kolumna1, 'O'));
+    LabAssert.False(PlanszaHelper.CzyGraczWygral(kolumna1, 'X'));
+
+    char[,] przekatna = { { 'X', 'O', '.' }, { '.', 'X', 'O' }, { '.', '.', 'X' } };
+    LabAssert.True(PlanszaHelper.CzyGraczWygral(przekatna, 'X'));
+    LabAssert.False(PlanszaHelper.CzyGraczWygral(przekatna, 'O'));
+
+    char[,] antyprzekatna = { { '.', '.', 'O' }, { 'X', 'O', '.' }, { 'O', 'X', '.' } };
+    LabAssert.True(PlanszaHelper.CzyGraczWygral(antyprzekatna, 'O'));
+
+    char[,] remis = { { 'X', 'O', 'X' }, { 'X', 'O', 'O' }, { 'O', 'X', 'X' } };
+    LabAssert.False(PlanszaHelper.CzyGraczWygral(remis, 'X'));
+    LabAssert.False(PlanszaHelper.CzyGraczWygral(remis, 'O'));
+});
+LabAssert.Test("ZamienPoleNaWspolrzedne dziala na planszy 3x3 oraz prostokatnej 2x4 i odrzuca bledy", () =&gt; {
+    int r, c;
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(1, 3, 3, out r, out c));
+    LabAssert.Equal(0, r);
+    LabAssert.Equal(0, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(5, 3, 3, out r, out c));
+    LabAssert.Equal(1, r);
+    LabAssert.Equal(1, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(7, 3, 3, out r, out c));
+    LabAssert.Equal(2, r);
+    LabAssert.Equal(0, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(9, 3, 3, out r, out c));
+    LabAssert.Equal(2, r);
+    LabAssert.Equal(2, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(1, 2, 4, out r, out c));
+    LabAssert.Equal(0, r);
+    LabAssert.Equal(0, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(4, 2, 4, out r, out c));
+    LabAssert.Equal(0, r);
+    LabAssert.Equal(3, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(5, 2, 4, out r, out c));
+    LabAssert.Equal(1, r);
+    LabAssert.Equal(0, c);
+
+    LabAssert.True(PlanszaHelper.ZamienPoleNaWspolrzedne(8, 2, 4, out r, out c));
+    LabAssert.Equal(1, r);
+    LabAssert.Equal(3, c);
+
+    LabAssert.False(PlanszaHelper.ZamienPoleNaWspolrzedne(0, 3, 3, out r, out c));
+    LabAssert.Equal(-1, r);
+    LabAssert.Equal(-1, c);
+
+    LabAssert.False(PlanszaHelper.ZamienPoleNaWspolrzedne(10, 3, 3, out r, out c));
+    LabAssert.Equal(-1, r);
+    LabAssert.Equal(-1, c);
+
+    LabAssert.False(PlanszaHelper.ZamienPoleNaWspolrzedne(9, 2, 4, out r, out c));
+    LabAssert.Equal(-1, r);
+    LabAssert.Equal(-1, c);
+
+    LabAssert.False(PlanszaHelper.ZamienPoleNaWspolrzedne(-3, 2, 4, out r, out c));
+    LabAssert.Equal(-1, r);
+    LabAssert.Equal(-1, c);
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Czym się różnią <code>GetLength(0)</code>, <code>GetLength(1)</code> i <code>Length</code>?</strong> W pętli zewnętrznej po wierszach zawsze używaj <code>GetLength(0)</code>, a w pętli wewnętrznej po kolumnach <code>GetLength(1)</code>. Właściwość <code>Length</code> zwraca iloczyn obu wymiarów i na macierzy prostokątnej nie nadaje się na limit pojedynczej pętli.</li>
+<li><strong>W jakiej kolejności przechodzić tablicę 2D?</strong> Zawsze iteruj wierszami na zewnątrz i kolumnami wewnątrz. Taki przebieg zgadza się z układem Row‑Major w pamięci RAM i minimalizuje kosztowne błędy pamięci podręcznej procesora.</li>
+<li><strong>Jak przeliczać numer pola na indeksy i z powrotem?</strong> Dla planszy o szerokości <span class="color-blue">kolumny</span> używaj <code>(pole - 1) / kolumny</code> dla wiersza oraz <code>(pole - 1) % kolumny</code> dla kolumny, ale dopiero po sprawdzeniu zakresu <code>1..(wiersze * kolumny)</code>. W drugą stronę działa wzór <code>r * kolumny + c + 1</code>.</li>
+<li><strong>Jak sprawdzać linie wygrywające bez kopiowania ośmiu długich bloków?</strong> Wiersze i kolumny załatwia jedna pętla <code>for (int i = 0; i &lt; 3; i++)</code>, a przekątną główną (<code>r == c</code>) i antyprzekątną (<code>r + c == 2</code>) dopisujesz tuż pod nią.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

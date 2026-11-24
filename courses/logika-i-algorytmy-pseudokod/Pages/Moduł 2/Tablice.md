@@ -103,12 +103,10 @@ Suma = 0
 rozmiar = DŁUGOŚĆ(Ceny)
 
 DLA i OD 0 DO rozmiar - 1
-
     Suma = Suma + Ceny[i]
 KONIEC DLA
 
 WYPISZ "Łączny koszt wynosi:"
-
 WYPISZ Suma
 </pre>
 </data-pseudocode-runner>
@@ -218,6 +216,52 @@ Pozwala to kontrolować całe grupy elementów jednym prostym algorytmem. Wyobra
 - **Iteracja i rozkaz:** Za pomocą pętli przechodzimy kolejno po każdym strażniku z patrolu, wydając mu polecenie namierzenia oraz zaatakowania gracza: `Przeciwnicy[i].ZlokalizujGracza()` oraz `Przeciwnicy[i].Zaatakuj()`.
 
 Dzięki tablicy obiektów nie musisz pisać osobnego kodu dla każdego z pięciu strażników. Cały patrol reaguje wspólnie i automatycznie.
+
+---
+
+## 🎮 Praktyka w Gamedevie: Spłaszczanie siatki 2D do tablicy 1D
+
+Karty graficzne oraz bufory pamięci RAM nie posiadają fizycznie dwóch wymiarów – cała pamięć komputera jest pojedynczym, jednowymiarowym pasmem komórek. Kiedy tworzysz planszę do gry o wymiarach `szerokosc = 4` i `wysokosc = 3` (siatka $4 \times 3 = 12$ pól), w pamięci RAM układana jest ona jako jedna długa tablica 1D:
+
+```
+Rząd 0: [ (0,0), (1,0), (2,0), (3,0) ]
+Rząd 1: [ (0,1), (1,1), (2,1), (3,1) ]
+Rząd 2: [ (0,2), (1,2), (2,2), (3,2) ]
+```
+
+Aby wyliczyć indeks w jednowymiarowej tablicy `Bufor` dla współrzędnych `(x, y)`, stosujemy fundamentalny wzór matematyczny:
+
+$$\text{indeks} = y \cdot \text{szerokosc} + x$$
+
+Na przykład dla punktu $(x=2, y=1)$ na planszy o szerokości $4$:
+$$\text{indeks} = 1 \cdot 4 + 2 = 6$$
+
+Ten wzór to serce każdego bufora klatki (*Frame Buffer*), generatora map kafelkowych (*Tilemap*) oraz teksturowania 3D.
+
+---
+
+## Zadanie: Wyszukiwanie wartości maksymalnej
+
+Dla tablicy `Pomiary` wyznacz w pętli największą wartość, zapisz ją w zmiennej `maks` i wypisz na wyjście.
+Uzupełnij wnętrze pętli instrukcją warunkową `JEŻELI`, która sprawdza, czy bieżący element `Pomiary[i]` jest większy od dotychczasowego `maks`.
+
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="maks:42" expected-output="42">
+<pre>
+Pomiary = [14, 28, 42, 9, 31]
+maks = Pomiary[0]
+rozmiar = DŁUGOŚĆ(Pomiary)
+
+DLA i OD 1 DO rozmiar - 1
+    JEŻELI Pomiary[i] > maks TO
+        maks = Pomiary[i]
+    KONIEC JEŻELI
+KONIEC DLA
+
+WYPISZ maks
+</pre>
+</data-pseudocode-runner>
+</data-gate>
 
 ---
 

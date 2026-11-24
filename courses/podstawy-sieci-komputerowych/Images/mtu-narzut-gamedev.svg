@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 330" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .blk-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; text-anchor: middle; }
+      .blk-sub { font-family: monospace; font-size: 9px; font-weight: 700; text-anchor: middle; }
+      .box-title { font-family: system-ui, sans-serif; font-size: 11.5px; font-weight: 800; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9.5px; fill: #cbd5e1; }
+      .code-txt { font-family: monospace; font-size: 9.5px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Narzut sieciowy w grze (Gamedev C# / C++) a limit MTU</text>
+  <text x="30" y="48" class="sub">Dlaczego wysłanie 12 bajtów pozycji gracza generuje 58 bajtów na kablu i skąd bierze się limit 1400B</text>
+
+  <!-- ================= GÓRNY PASEK: ANATOMIA PAKIETU GRY ================= -->
+  <g transform="translate(30, 75)">
+    <!-- 1. Ethernet Header (L2) -->
+    <rect x="0" y="0" width="125" height="48" fill="#064e3b" stroke="#34d399" stroke-width="1.5" rx="4"/>
+    <text x="62" y="21" class="blk-hdr" fill="#ffffff">Ethernet L2</text>
+    <text x="62" y="37" class="blk-sub" fill="#a7f3d0">14B (MAC) + 4B FCS</text>
+
+    <!-- 2. IP Header (L3) -->
+    <rect x="130" y="0" width="110" height="48" fill="#164e63" stroke="#22d3ee" stroke-width="1.5" rx="4"/>
+    <text x="185" y="21" class="blk-hdr" fill="#ffffff">IPv4 L3</text>
+    <text x="185" y="37" class="blk-sub" fill="#a5f3fc">20 bajtów (IP)</text>
+
+    <!-- 3. UDP Header (L4) -->
+    <rect x="245" y="0" width="110" height="48" fill="#581c87" stroke="#c084fc" stroke-width="1.5" rx="4"/>
+    <text x="300" y="21" class="blk-hdr" fill="#ffffff">UDP L4</text>
+    <text x="300" y="37" class="blk-sub" fill="#e9d5ff">8 bajtów (Porty)</text>
+
+    <!-- 4. Game Payload (Dane gracza) -->
+    <rect x="360" y="0" width="320" height="48" fill="#0f172a" stroke="#f59e0b" stroke-width="2" rx="4"/>
+    <text x="520" y="21" class="blk-hdr" fill="#fde047">Kod Gry: PlayerMove { float x, y, z; }</text>
+    <text x="520" y="37" class="blk-sub" fill="#ffffff">Tylko 12 bajtów faktycznych danych gry!</text>
+  </g>
+
+  <!-- Klamra podsumowania narzutu -->
+  <g transform="translate(30, 133)">
+    <line x1="0" y1="0" x2="355" y2="0" stroke="#f43f5e" stroke-width="1.5"/>
+    <text x="177" y="14" font-family="monospace" font-size="9.5px" font-weight="700" fill="#f87171" text-anchor="middle">
+      Stały narzut protokołów sieciowych = 42 bajty (Ethernet + IP + UDP)
+    </text>
+
+    <line x1="360" y1="0" x2="680" y2="0" stroke="#fde047" stroke-width="1.5"/>
+    <text x="520" y="14" font-family="monospace" font-size="9.5px" font-weight="700" fill="#fde047" text-anchor="middle">
+      Ładunek gry = 12 bajtów (22% całego pakietu!)
+    </text>
+  </g>
+
+  <!-- ================= 2 KARTY WNIOSKÓW INŻYNIERSKICH ================= -->
+
+  <!-- KARTA 1: PAKIETY MAŁE (TICK RATE) -->
+  <g transform="translate(30, 165)">
+    <rect width="325" height="145" fill="#1e293b" stroke="#34d399" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="30" fill="#064e3b" rx="6"/>
+    <text x="15" y="20" class="box-title" fill="#a7f3d0">1. Częste, małe pakiety gry (np. 60 Hz)</text>
+
+    <g transform="translate(15, 42)">
+      <text x="0" y="14" class="code-txt" fill="#38bdf8">Tick 60 Hz (co 16.6 ms):</text>
+      <text x="0" y="30" class="desc-txt">Gra wysyła pozycję gracza 60 razy na sekundę.</text>
+      
+      <rect x="0" y="42" width="295" height="46" fill="#0f172a" stroke="#10b981" rx="4"/>
+      <text x="10" y="60" class="code-txt" fill="#a7f3d0">54 bajty na pakiet x 60 pakietów/s =</text>
+      <text x="10" y="76" font-family="monospace" font-size="11px" font-weight="800" fill="#ffffff">~3.2 KB/s na gracza (praktycznie zero laga!)</text>
+    </g>
+  </g>
+
+  <!-- KARTA 2: ZŁOTA ZASADA MTU W GRACH -->
+  <g transform="translate(385, 165)">
+    <rect width="325" height="145" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="30" fill="#78350f" rx="6"/>
+    <text x="15" y="20" class="box-title" fill="#fde68a">2. Złota zasada MTU w Gamedevie (&lt; 1400B)</text>
+
+    <g transform="translate(15, 42)">
+      <text x="0" y="14" class="code-txt" fill="#f87171">Co jeśli pakiet gry przekroczy MTU 1500B?</text>
+      <text x="0" y="30" class="desc-txt">Karta i router muszą go pofragmentować na 2 ramki.</text>
+
+      <rect x="0" y="42" width="295" height="46" fill="#450a0a" stroke="#ef4444" rx="4"/>
+      <text x="10" y="60" class="code-txt" fill="#fca5a5">Utrata choćby 1 fragmentu w sieci =</text>
+      <text x="10" y="76" font-family="monospace" font-size="10.5px" font-weight="800" fill="#ffffff">Jądro niszczy CAŁY pakiet gry (Desynchronizacja!)</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .bar-hdr { font-family: system-ui, sans-serif; font-size: 10.5px; font-weight: 800; fill: #ffffff; text-anchor: middle; }
+      .bar-sub { font-family: monospace; font-size: 9px; font-weight: 700; text-anchor: middle; }
+      .rule-hdr { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9px; fill: #cbd5e1; }
+      .scale-lbl { font-family: monospace; font-size: 9px; font-weight: 700; fill: #94a3b8; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Projektowanie VLSM: Podział puli 192.168.1.0/24 na podsieci</text>
+  <text x="30" y="48" class="sub">Zasada bezstratnego upakowania: alokacja od największego zapotrzebowania na hosty do najmniejszego</text>
+
+  <!-- ================= SKALA ADRESOWA 0 DO 255 ================= -->
+  <g transform="translate(30, 72)">
+    <text x="0" y="0" class="scale-lbl">.0</text>
+    <text x="170" y="0" class="scale-lbl">.64</text>
+    <text x="255" y="0" class="scale-lbl">.96</text>
+    <text x="298" y="0" class="scale-lbl">.112</text>
+    <text x="680" y="0" class="scale-lbl" text-anchor="end">.255</text>
+    <line x1="0" y1="5" x2="680" y2="5" stroke="#475569" stroke-width="1"/>
+  </g>
+
+  <!-- ================= PASEK ROZBICIA VLSM (680px szerokości) ================= -->
+  <g transform="translate(30, 84)">
+    <!-- 1. Podsieć A (/26 - 64 adresy = 170px) -->
+    <rect x="0" y="0" width="170" height="54" fill="#047857" stroke="#34d399" stroke-width="1.5" rx="3"/>
+    <text x="85" y="22" class="bar-hdr">PODSIEĆ A (/26)</text>
+    <text x="85" y="35" class="bar-sub" fill="#a7f3d0">50 hostów (mieści 62)</text>
+    <text x="85" y="47" class="bar-sub" fill="#ffffff">Zakres: .0 ➔ .63</text>
+
+    <!-- 2. Podsieć B (/27 - 32 adresy = 85px) -->
+    <rect x="172" y="0" width="85" height="54" fill="#0e7490" stroke="#22d3ee" stroke-width="1.5" rx="3"/>
+    <text x="214" y="22" class="bar-hdr">B (/27)</text>
+    <text x="214" y="35" class="bar-sub" fill="#a5f3fc">25 hostów</text>
+    <text x="214" y="47" class="bar-sub" fill="#ffffff">.64 ➔ .95</text>
+
+    <!-- 3. Podsieć C (/28 - 16 adresów = 43px) -->
+    <rect x="259" y="0" width="43" height="54" fill="#78350f" stroke="#f59e0b" stroke-width="1.5" rx="3"/>
+    <text x="280" y="22" class="bar-hdr" fill="#fde68a">C</text>
+    <text x="280" y="35" class="bar-sub" fill="#fde68a">/28</text>
+    <text x="280" y="47" class="bar-sub" fill="#ffffff">.96</text>
+
+    <!-- 4. Podsieć D (/30 - 4 adresy = 12px) -->
+    <rect x="304" y="0" width="14" height="54" fill="#581c87" stroke="#c084fc" stroke-width="1.5" rx="2"/>
+    <text x="311" y="32" font-family="monospace" font-size="8px" font-weight="800" fill="#ffffff" text-anchor="middle">/30</text>
+
+    <!-- 5. Wolna przestrzeń (Adresy 116 do 255 = 360px) -->
+    <rect x="320" y="0" width="360" height="54" fill="#0f172a" stroke="#475569" stroke-dasharray="4 3" rx="3"/>
+    <text x="500" y="24" class="bar-hdr" fill="#94a3b8">WOLNA PRZESTRZEŃ NA PRZYSZŁĄ ROZBUDOWĘ</text>
+    <text x="500" y="42" class="bar-sub" fill="#cbd5e1">Adresy: .116 ➔ .255 (Dostępne 140 adresów)</text>
+  </g>
+
+  <!-- ================= 2 KARTY METODOLOGII NA DOLE ================= -->
+  <!-- KARTA 1: WZÓR MAGICZNEJ LICZBY -->
+  <g transform="translate(30, 155)">
+    <rect width="325" height="160" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="26" fill="#0284c7" rx="6"/>
+    <text x="12" y="18" class="rule-hdr" fill="#ffffff">Metoda "Kroku" (Magiczna Liczba w 5s)</text>
+
+    <g transform="translate(12, 38)">
+      <text x="0" y="14" class="desc-txt">1. Wartość oktetu maski odejmij od <tspan font-weight="700" fill="#ffffff">256</tspan>:</text>
+      <rect x="0" y="20" width="300" height="22" fill="#0b1120" stroke="#0284c7" rx="3"/>
+      <text x="10" y="35" font-family="monospace" font-size="9.5px" font-weight="800" fill="#fde047">KROK = 256 - Maska (np. 256 - 192 = 64)</text>
+
+      <text x="0" y="58" class="desc-txt">2. Wypisz początki podsieci: <tspan font-family="monospace" fill="#ffffff">0, 64, 128, 192...</tspan></text>
+      <text x="0" y="74" class="desc-txt">3. <tspan font-weight="700" fill="#34d399">Adres sieci:</tspan> Najbliższy próg z lewej strony.</text>
+      <text x="0" y="90" class="desc-txt">4. <tspan font-weight="700" fill="#f87171">Broadcast:</tspan> O 1 mniej niż kolejny próg.</text>
+      <text x="0" y="106" class="desc-txt">5. <tspan font-weight="700" fill="#22d3ee">Hosty:</tspan> Zakres pomiędzy siecią a broadcastem.</text>
+    </g>
+  </g>
+
+  <!-- KARTA 2: ŻELAZNA ZASADA VLSM -->
+  <g transform="translate(385, 155)">
+    <rect width="325" height="160" fill="#1e293b" stroke="#10b981" stroke-width="1.5" rx="6"/>
+    <rect x="0" y="0" width="325" height="26" fill="#064e3b" rx="6"/>
+    <text x="12" y="18" class="rule-hdr" fill="#ffffff">Żelazna reguła kolejności w VLSM</text>
+
+    <g transform="translate(12, 38)">
+      <text x="0" y="14" class="desc-txt"><tspan font-weight="800" fill="#fde047">Zawsze sortuj malejąco po liczbie hostów!</tspan></text>
+      <text x="0" y="32" class="desc-txt">1. Największa sieć: 50 hostów ➔ maska <tspan font-weight="700" fill="#ffffff">/26</tspan> (62 hosty)</text>
+      <text x="0" y="48" class="desc-txt">2. Średnia sieć: 25 hostów ➔ maska <tspan font-weight="700" fill="#ffffff">/27</tspan> (30 hostów)</text>
+      <text x="0" y="64" class="desc-txt">3. Mała sieć: 10 hostów ➔ maska <tspan font-weight="700" fill="#ffffff">/28</tspan> (14 hostów)</text>
+      <text x="0" y="80" class="desc-txt">4. Łącze P2P: 2 hosty ➔ maska <tspan font-weight="700" fill="#ffffff">/30</tspan> (2 hosty)</text>
+
+      <rect x="0" y="90" width="300" height="24" fill="#0b1120" stroke="#10b981" rx="3"/>
+      <text x="8" y="106" font-family="system-ui, sans-serif" font-size="8.5px" font-weight="700" fill="#a7f3d0">Zapewnia brak nakładania się i zero marnotrawstwa!</text>
+    </g>
+  </g>
+</svg>

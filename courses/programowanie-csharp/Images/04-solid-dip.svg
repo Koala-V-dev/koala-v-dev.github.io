@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 265" role="img" aria-labelledby="t43 d43">
+  <title id="t43">Zasada Odwrócenia Zależności (DIP) i wzorzec Strategia — podmiana eksportera CSV/JSON bez zmiany logiki</title>
+  <desc id="d43">Schemat DIP: RaportSerwis zależy od interfejsu IRaportExporter, a nie od konkretnej klasy, dzięki czemu można wstrzyknąć CsvExporter, JsonExporter lub MockExporter w testach.</desc>
+  <style>
+    .bg { fill: #0f172a; }
+    .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 10; }
+    .iface { fill: #172554; stroke: #38bdf8; stroke-width: 2; rx: 8; }
+    .impl { fill: #064e3b; stroke: #34d399; stroke-width: 1.6; rx: 8; }
+    .title { font: 700 14px 'Segoe UI', system-ui, sans-serif; fill: #f8fafc; }
+    .sub { font: 500 12px 'Segoe UI', system-ui, sans-serif; fill: #94a3b8; }
+    .mono { font: 700 12px Consolas, monospace; fill: #f8fafc; }
+  </style>
+  <rect width="840" height="265" rx="14" class="bg"/>
+  <text x="24" y="30" class="title">SOLID w praktyce (SRP + OCP + DIP): wstrzykiwanie zależności przez konstruktor</text>
+  <text x="24" y="48" class="sub">Klasa wysokiego poziomu zależy od abstrakcji (interfejsu), więc nowy format eksportu dodajesz bez edycji serwisu.</text>
+
+  <rect x="24" y="88" width="230" height="114" class="card"/>
+  <text x="40" y="114" class="title">RaportSerwis</text>
+  <text x="40" y="138" class="mono">private IRaportExporter</text>
+  <text x="40" y="160" class="sub">Nie wie, czy zapisuje</text>
+  <text x="40" y="178" class="sub">CSV, JSON czy testowy Mock</text>
+
+  <line x1="254" y1="145" x2="314" y2="145" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="314,140 324,145 314,150" fill="#38bdf8"/>
+
+  <rect x="324" y="98" width="196" height="94" class="iface"/>
+  <text x="340" y="124" class="title">«interface»</text>
+  <text x="340" y="146" class="mono">IRaportExporter</text>
+  <text x="340" y="168" class="sub">string Eksportuj(...)</text>
+
+  <line x1="520" y1="122" x2="576" y2="96" stroke="#34d399" stroke-width="2"/>
+  <line x1="520" y1="145" x2="576" y2="145" stroke="#34d399" stroke-width="2"/>
+  <line x1="520" y1="168" x2="576" y2="194" stroke="#34d399" stroke-width="2"/>
+
+  <rect x="576" y="72" width="240" height="44" class="impl"/><text x="592" y="99" class="mono">CsvExporter (dla Excela)</text>
+  <rect x="576" y="123" width="240" height="44" class="impl"/><text x="592" y="150" class="mono">JsonExporter (dla Web/API)</text>
+  <rect x="576" y="174" width="240" height="44" class="impl"/><text x="592" y="201" class="mono">FakeExporter (testy AAA)</text>
+</svg>
+

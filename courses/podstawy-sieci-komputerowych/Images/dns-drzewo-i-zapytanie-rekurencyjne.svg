@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#4ade80"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg)"/>
+
+  <text x="480" y="32" fill="#f8fafc" font-size="18" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">Hierarchia DNS i przebieg zapytania rekurencyjnego (UDP 53)</text>
+  <text x="480" y="52" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle">Od klienta lokalnego przez serwer rekurencyjny po Root, TLD i serwer autorytatywny strefy</text>
+
+  <!-- LEWA STRONA: KLIENT I REZOLWER REKURENCYJNY -->
+  <g transform="translate(50, 80)">
+    <!-- Klient -->
+    <rect x="0" y="100" width="150" height="110" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <rect x="0" y="100" width="150" height="26" rx="6" fill="#0369a1"/>
+    <text x="75" y="117" fill="#f0f9ff" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">STACJA (STUB RESOLVER)</text>
+
+    <text x="10" y="145" fill="#cbd5e1" font-size="9" font-family="monospace">IP: 192.168.1.15</text>
+    <text x="10" y="160" fill="#94a3b8" font-size="8" font-family="system-ui, sans-serif">Zapytanie o domenę:</text>
+    <rect x="10" y="166" width="130" height="22" rx="3" fill="#1e293b"/>
+    <text x="75" y="181" fill="#38bdf8" font-size="9" font-family="monospace" text-anchor="middle">kursy.pl (A?)</text>
+    <text x="75" y="202" fill="#64748b" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">Port UDP: 53</text>
+
+    <!-- Strzałka Klient <-> Rezolwer -->
+    <line x1="150" y1="135" x2="225" y2="135" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="187" y="128" fill="#38bdf8" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">1. Rekurencyjne</text>
+
+    <line x1="225" y1="175" x2="155" y2="175" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+    <text x="187" y="190" fill="#4ade80" font-size="8" font-family="system-ui, sans-serif" text-anchor="middle">8. Odpowiedź IP</text>
+
+    <!-- Serwer Rekurencyjny (np. 8.8.8.8 lub ISP) -->
+    <rect x="230" y="60" width="190" height="190" rx="6" fill="#0f172a" stroke="#facc15" stroke-width="2"/>
+    <rect x="230" y="60" width="190" height="28" rx="6" fill="#854d0e"/>
+    <text x="325" y="79" fill="#fef08a" font-size="11" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">REZOLWER REKURENCYJNY</text>
+
+    <text x="240" y="106" fill="#facc15" font-size="9" font-family="monospace">DNS: 8.8.8.8 / ISP DNS</text>
+    <text x="240" y="122" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif">Wykonuje sekwencję zapytań</text>
+    <text x="240" y="134" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif">iteracyjnych w imieniu klienta.</text>
+
+    <rect x="240" y="145" width="170" height="90" rx="4" fill="#1e293b"/>
+    <text x="245" y="162" fill="#38bdf8" font-size="8" font-family="system-ui, sans-serif" font-weight="700">Cache pamięci podręcznej:</text>
+    <text x="245" y="176" fill="#94a3b8" font-size="8" font-family="monospace">Zapisuje odpowiedź z czasem</text>
+    <text x="245" y="188" fill="#facc15" font-size="8" font-family="monospace">TTL (Time to Live).</text>
+    <text x="245" y="202" fill="#cbd5e1" font-size="8" font-family="system-ui, sans-serif">Kolejne zapytania o to samo</text>
+    <text x="245" y="214" fill="#4ade80" font-size="8" font-family="system-ui, sans-serif" font-weight="700">obsługuje w 0ms bez Internetu!</text>
+  </g>
+
+  <!-- PRAWA STRONA: DRZEWO HIERARCHII DNS (ROOT -> TLD -> AUTH) -->
+  <g transform="translate(520, 80)">
+    <!-- 1. ROOT SERVERS (.) -->
+    <rect x="0" y="0" width="380" height="80" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
+    <rect x="0" y="0" width="380" height="24" rx="6" fill="#450a0a"/>
+    <text x="190" y="16" fill="#fecaca" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">ROOT SERVERS - GŁÓWNY PUNKT STREFY "." (13 KLASTRÓW A..M)</text>
+
+    <text x="15" y="42" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">2. Rezolwer pyta o „kursy.pl” -> Root odpowiada:</text>
+    <text x="15" y="58" fill="#fca5a5" font-size="9" font-family="monospace">„Nie znam pełnego IP, ale strefą .pl zarządza serwer TLD pod IP: 195.180.x.x”</text>
+
+    <!-- 2. TLD SERVERS (.pl) -->
+    <rect x="0" y="105" width="380" height="80" rx="6" fill="#0f172a" stroke="#facc15" stroke-width="1.5"/>
+    <rect x="0" y="105" width="380" height="24" rx="6" fill="#713f12"/>
+    <text x="190" y="121" fill="#fef08a" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">TLD SERVERS - STREFA KRAJOWA / GŁÓWNA (".PL", ".COM", ".NET")</text>
+
+    <text x="15" y="147" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">4. Rezolwer pyta TLD .pl o „kursy.pl” -> TLD odpowiada:</text>
+    <text x="15" y="163" fill="#fef08a" font-size="9" font-family="monospace">„Dla domeny kursy.pl autorytatywne są serwery NS: ns1.hosting.pl (IP: 91.x)”</text>
+
+    <!-- 3. AUTHORITATIVE NAMESERVER -->
+    <rect x="0" y="210" width="380" height="100" rx="6" fill="#0f172a" stroke="#4ade80" stroke-width="2"/>
+    <rect x="0" y="210" width="380" height="24" rx="6" fill="#166534"/>
+    <text x="190" y="226" fill="#f0fdf4" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">SERWER AUTORYTATYWNY DOMENY (NS DLA KURSY.PL)</text>
+
+    <text x="15" y="252" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">6. Rezolwer pyta serwer strefy: „Jaki jest rekord A dla kursy.pl?”</text>
+    <rect x="15" y="260" width="350" height="36" rx="3" fill="#1e293b"/>
+    <text x="25" y="275" fill="#86efac" font-size="9" font-family="monospace" font-weight="700">7. ODPOWIEDŹ AUTORYTATYWNA: Record A = 185.204.216.34</text>
+    <text x="25" y="289" fill="#94a3b8" font-size="8" font-family="monospace">TTL: 3600 sekund (Rezolwer zapisuje do cache i odsyła do klienta)</text>
+  </g>
+
+  <!-- PANELE DOLNE: REKORDY DNS WYMAGANE NA EGZAMINIE INF.02 -->
+  <g transform="translate(50, 420)">
+    <rect width="860" height="85" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <rect width="860" height="22" rx="6" fill="#1e293b"/>
+    <text x="430" y="16" fill="#f8fafc" font-size="10" font-family="system-ui, sans-serif" font-weight="700" text-anchor="middle">REKORDY STREFY DNS WYMAGANE W ZADANIACH PRAKTYCZNYCH INF.02</text>
+
+    <g transform="translate(15, 28)">
+      <text x="0" y="16" fill="#38bdf8" font-size="9" font-family="monospace" font-weight="700">Rekord A:</text>
+      <text x="75" y="16" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Mapuje nazwę na adres IPv4 (np. www -> 192.168.10.1)</text>
+
+      <text x="0" y="32" fill="#4ade80" font-size="9" font-family="monospace" font-weight="700">Rekord AAAA:</text>
+      <text x="75" y="32" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Mapuje nazwę na adres IPv6 (np. 2001:db8::1)</text>
+
+      <text x="430" y="16" fill="#facc15" font-size="9" font-family="monospace" font-weight="700">Rekord CNAME:</text>
+      <text x="530" y="16" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Alias kanoniczny (np. ftp -> www.szkola.local)</text>
+
+      <text x="430" y="32" fill="#f43f5e" font-size="9" font-family="monospace" font-weight="700">Rekord PTR:</text>
+      <text x="530" y="32" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Reverse DNS - odpytanie o adres IP zwraca nazwę hosta</text>
+    </g>
+  </g>
+</svg>

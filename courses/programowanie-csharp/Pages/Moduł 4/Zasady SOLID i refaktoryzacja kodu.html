@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zasady SOLID i refaktoryzacja kodu - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/programowanie-csharp/">Wprowadzenie</a></li><li class="module">Moduł 0: Fundamenty C# i Myślenie Algorytmiczne</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i pułapki liczb"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20pu%C5%82apki%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i pułapki liczb</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Programowanie Strukturalne i Kolekcje</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 1/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="module">Moduł 2: Fundamenty OOP i Model Pamięci</li><li class="lesson-item lesson" data-path="Moduł 2/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 2/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 2/Enkapsulacja i Właściwości - System Bankowy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Enkapsulacja%20i%20W%C5%82a%C5%9Bciwo%C5%9Bci%20-%20System%20Bankowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja i Właściwości - System Bankowy</a></li><li class="lesson-item lesson" data-path="Moduł 2/Dziedziczenie i polimorfizm"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Dziedziczenie%20i%20polimorfizm.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dziedziczenie i polimorfizm</a></li><li class="module">Moduł 3: Architektura OOP i Nowoczesny C#</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy abstrakcyjne i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%20abstrakcyjne%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy abstrakcyjne i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Kompozycja i słowniki Dictionary"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Kompozycja%20i%20s%C5%82owniki%20Dictionary.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kompozycja i słowniki Dictionary</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 3/Wyrażenia lambda i podstawy LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Wyra%C5%BCenia%20lambda%20i%20podstawy%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i podstawy LINQ</a></li><li class="module">Moduł 4: Inżynieria Oprogramowania i Wielki Finał INF.04</li><li class="lesson-item lesson" data-path="Moduł 4/Zasady SOLID i refaktoryzacja kodu"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20SOLID%20i%20refaktoryzacja%20kodu.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady SOLID i refaktoryzacja kodu</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projektowanie wieloplikowe i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projektowanie%20wieloplikowe%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projektowanie wieloplikowe i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wielki Finał - System Bankowy INF.04"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wielki%20Fina%C5%82%20-%20System%20Bankowy%20INF.04.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielki Finał - System Bankowy INF.04</a></li><li class="lesson-item lesson" data-path="Moduł 4/MemReductMini - Menedżer Pamięci Windows"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/MemReductMini%20-%20Mened%C5%BCer%20Pami%C4%99ci%20Windows.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">MemReductMini - Menedżer Pamięci Windows</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Zasady SOLID i refaktoryzacja kodu</h1>
+<p>Napisanie programu, który „jakoś działa dzisiaj”, to dopiero połowa roboty inżyniera. Prawdziwy test przychodzi po trzech miesiącach, gdy klient prosi o dopisanie nowego rodzaju rabatu, nowego typu płatności albo nowego formatu raportu. Jeśli każda zmiana zmusza Cię do rozgrzebywania 400‑linijkowego <code>if / else if</code>, Twój kod jest kruchy.</p>
+<p>W tej lekcji poznasz trzy najważniejsze w codziennej pracy zasady <span class="color-green">SOLID</span> (<span class="color-green">SRP</span>, <span class="color-green">OCP</span>, <span class="color-green">DIP</span>) i na własnych oczach zmienisz sztywny kalkulator w elastyczną architekturę opartą na <span class="color-green">wzorcu Strategia (Strategy)</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🚨 Diagnoza złego kodu: łamanie OCP przez rosnący if / else</h2>
+<p>Spójrz na kod sklepu, który na pierwszy rzut oka wygląda niewinnie:</p>
+<pre><code class="language-csharp">public class KalkulatorCeny
+{
+    public decimal Oblicz(decimal cena, string typKlienta)
+    {
+        if (typKlienta == "VIP") return cena * 0.80m;
+        else if (typKlienta == "Student") return cena * 0.90m;
+        else if (typKlienta == "BlackFriday") return cena * 0.70m;
+        else return cena;
+    }
+}
+</code></pre>
+<p>Co jest nie tak z tym kodem?</p>
+<ol>
+<li>Gdy marketing wymyśli 10 nowych promocji, musisz <span class="color-green">za każdym razem edytować działającą klasę <code>KalkulatorCeny</code></span> (ryzykując zepsucie rabatu dla VIP‑a!).</li>
+<li>Literówka <code>"vip"</code> zamiast <code>"VIP"</code> przechodzi przez kompilator bez ostrzeżenia i cicho nie nalicza rabatu.</li>
+</ol>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏛️ Trzy filary czystej architektury (SRP, OCP, DIP)</h2>
+<table>
+<thead>
+<tr>
+<th>Zasada</th>
+<th>Pełna nazwa</th>
+<th>Reguła decyzyjna dla Twojego kodu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><span class="color-green">SRP</span></td>
+<td><span class="color-blue">Single Responsibility Principle</span></td>
+<td>Jedna klasa ma <span class="color-green">jeden powód do zmiany</span>. <code>KontoBankowe</code> nie wysyła e‑maili ani nie zapisuje do bazy danych.</td>
+</tr>
+<tr>
+<td><span class="color-green">OCP</span></td>
+<td><span class="color-blue">Open/Closed Principle</span></td>
+<td>Kod powinien być <span class="color-green">otwarty na rozszerzanie</span> (dodanie nowej klasy <code>RabatVip : IRabat</code>), ale <span class="color-green">zamknięty na modyfikacje</span> istniejącego rdzenia (<code>Kasa</code>).</td>
+</tr>
+<tr>
+<td><span class="color-green">DIP</span></td>
+<td><span class="color-blue">Dependency Inversion Principle</span></td>
+<td>Klasa wyższego poziomu (<code>Kasa</code>) zależy od <span class="color-green">interfejsu (<code>IRabat</code>)</span>, a nie od konkretnej klasy (<code>RabatStudent</code>). Zależność przekazujesz przez konstruktor!</td>
+</tr>
+</tbody></table>
+<h3>🔍 Wzorzec Strategia (Strategy) w praktyce</h3>
+<p>Zamiast <code>if (typKlienta == "VIP")</code>, tworzysz interfejs <span class="color-green"><code>IRabat</code></span> i przekazujesz wybraną strategię do <code>Kasy</code>:</p>
+<pre><code class="language-csharp">public interface IRabat
+{
+    decimal Zastosuj(decimal cena);
+}
+
+public class RabatProcentowy : IRabat
+{
+    public decimal Procent { get; }
+    public RabatProcentowy(decimal procent) { Procent = procent; }
+    public decimal Zastosuj(decimal cena) =&gt; cena * (1m - Procent);
+}
+
+public class Kasa
+{
+    private readonly IRabat _strategiaRabatu;
+
+    // DIP: Wstrzykujemy interfejs przez konstruktor (Dependency Injection)!
+    public Kasa(IRabat strategiaRabatu)
+    {
+        _strategiaRabatu = strategiaRabatu ?? throw new ArgumentNullException(nameof(strategiaRabatu));
+    }
+
+    public decimal ObliczDoZaplaty(decimal cena) =&gt; _strategiaRabatu.Zastosuj(cena);
+}
+</code></pre>
+<p>Zauważ przełom: gdy jutro pojawi się <code>RabatKuponowy</code> (odejmujący stałe 20 zł), dopisujesz <span class="color-green">jedną nową klasę</span> implementującą <code>IRabat</code> - w pliku <code>Kasa.cs</code> <span class="color-green">nie zmieniasz ani jednego znaku</span>!</p>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Jak Dependency Injection (DIP) pozwala testować system bez bazy danych i sieci</span>
+<span class="deep-dive-badge">ARCHITEKTURA &amp; TESTY</span>
+</summary>
+<div class="deep-dive-content">
+
+<p>Wyobraź sobie klasę <code>SerwisPlatnosci</code>, która w środku robi na sztywno <code>var bramka = new PrawdziwyPayU();</code>. Jak napiszesz test jednostkowy dla takiej klasy? Nie możesz - każde uruchomienie testu próbowałoby pobrać prawdziwe pieniądze z karty przez internet!</p>
+<p>Gdy zastosujesz <span class="color-green">DIP (wstrzykiwanie przez konstruktor)</span>:</p>
+<pre><code class="language-csharp">public class SerwisPlatnosci
+{
+    private readonly IBramkaPlatnosci _bramka;
+    public SerwisPlatnosci(IBramkaPlatnosci bramka) { _bramka = bramka; }
+}
+</code></pre>
+<ul>
+<li><span class="color-green">Na produkcji</span> wstrzykujesz <code>new PrawdziwyPayU()</code>.</li>
+<li><span class="color-green">W testach jednostkowych</span> wstrzykujesz lekką klasę zastępczą (<span class="color-green">Stub / Mock</span>), np. <code>new UdawanaBramkaZawszeOk()</code>, która działa w 0.01 ms w pamięci RAM bez połączenia z siecią.</li>
+</ul>
+<p><span class="color-green">Wniosek inżynierski:</span> dobrze zaprojektowana architektura OOP nie jest „sztuką dla sztuki” - to jedyny sposób, by duży zespół mógł rozwijać i testować aplikację bez paraliżującego strachu przed każdą zmianą.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne (3 pliki): Wzorzec Strategia dla systemu rabatów (OCP + DIP)</h2>
+<p>W edytorze masz trzy pliki: <code>Program.cs</code>, zablokowane <span class="color-green"><code>IRabat.cs</code></span> oraz <span class="color-green"><code>StrategieRabatu.cs</code></span>, w którym zaimplementujesz trzy klasy zgodne z OCP i DIP:</p>
+<ol>
+<li><span class="color-green"><code>BrakRabatu : IRabat</code></span>:<ul>
+<li>metoda <code>Zastosuj(decimal cena)</code> zwraca po prostu <code>cena</code> bez zmian.</li>
+</ul>
+</li>
+<li><span class="color-green"><code>RabatKwotowy : IRabat</code></span>:<ul>
+<li>konstruktor <code>RabatKwotowy(decimal kwota)</code> - jeśli <code>kwota &lt; 0m</code>, rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>metoda <code>Zastosuj(decimal cena)</code> odejmuje <code>kwota</code>, ale <span class="color-green">cena po rabacie nigdy nie może spaść poniżej <code>0m</code></span> (<code>Math.Max(0m, cena - Kwota)</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>Kasa</code></span>:<ul>
+<li>konstruktor <code>Kasa(IRabat rabat)</code> - jeśli <code>rabat == null</code>, rzuć <code>ArgumentNullException</code>,</li>
+<li>metoda <code>ObliczDoZaplaty(decimal cena)</code> - jeśli <code>cena &lt; 0m</code>, rzuć <code>ArgumentOutOfRangeException</code>; w przeciwnym razie deleguj do <code>_rabat.Zastosuj(cena)</code>.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: SOLID (OCP + DIP) i wzorzec Strategy (3 pliki)">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+
+class Program
+{
+    static void Main()
+    {
+        var kasaStandard = new Kasa(new BrakRabatu());
+        var kasaKupon = new Kasa(new RabatKwotowy(30m));
+
+        Console.WriteLine($"Bez rabatu (100 zł): {kasaStandard.ObliczDoZaplaty(100m):F2} zł");
+        Console.WriteLine($"Z kuponem -30 zł (100 zł): {kasaKupon.ObliczDoZaplaty(100m):F2} zł");
+        Console.WriteLine($"Z kuponem -30 zł (20 zł): {kasaKupon.ObliczDoZaplaty(20m):F2} zł");
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="IRabat.cs" readonly="">
+
+<pre><code class="language-csharp">public interface IRabat
+{
+    decimal Zastosuj(decimal cena);
+}
+</code></pre>
+</cs-file>
+<cs-file name="StrategieRabatu.cs">
+
+<pre><code class="language-csharp">using System;
+
+public class BrakRabatu : IRabat
+{
+    public decimal Zastosuj(decimal cena)
+    {
+        // TODO 1: Zwróć cenę bez zmian
+        return 0m;
+    }
+}
+
+public class RabatKwotowy : IRabat
+{
+    public decimal Kwota { get; }
+
+    public RabatKwotowy(decimal kwota)
+    {
+        // TODO 2: Jeśli kwota &lt; 0m -&gt; ArgumentOutOfRangeException, zapisz Kwota
+    }
+
+    public decimal Zastosuj(decimal cena)
+    {
+        // TODO 3: Zwróć Math.Max(0m, cena - Kwota)
+        return cena;
+    }
+}
+
+public class Kasa
+{
+    private readonly IRabat _rabat;
+
+    public Kasa(IRabat rabat)
+    {
+        // TODO 4: Jeśli rabat == null -&gt; ArgumentNullException, zapisz _rabat
+    }
+
+    public decimal ObliczDoZaplaty(decimal cena)
+    {
+        // TODO 5: Jeśli cena &lt; 0m -&gt; ArgumentOutOfRangeException, inaczej zwróć _rabat.Zastosuj(cena)
+        return 0m;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("BrakRabatu zwraca pełną cenę", () =&gt; {
+    var kasa = new Kasa(new BrakRabatu());
+    LabAssert.Equal(150m, kasa.ObliczDoZaplaty(150m));
+});
+LabAssert.Test("RabatKwotowy odejmuje kupon i nie pozwala zejść poniżej 0m", () =&gt; {
+    var kasa = new Kasa(new RabatKwotowy(30m));
+    LabAssert.Equal(70m, kasa.ObliczDoZaplaty(100m));
+    LabAssert.Equal(0m, kasa.ObliczDoZaplaty(20m));
+});
+LabAssert.Test("Walidacja blokuje null w Kasa oraz ujemne kwoty", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; new Kasa(null));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new RabatKwotowy(-5m));
+    var kasa = new Kasa(new BrakRabatu());
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; kasa.ObliczDoZaplaty(-10m));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<details>
+<summary>Sprawdź rozwiązanie po wykonaniu próby</summary>
+
+<pre><code class="language-csharp">public class BrakRabatu : IRabat
+{
+    public decimal Zastosuj(decimal cena) =&gt; cena;
+}
+
+public class RabatKwotowy : IRabat
+{
+    public decimal Kwota { get; }
+
+    public RabatKwotowy(decimal kwota)
+    {
+        if (kwota &lt; 0m) throw new ArgumentOutOfRangeException(nameof(kwota));
+        Kwota = kwota;
+    }
+
+    public decimal Zastosuj(decimal cena) =&gt; Math.Max(0m, cena - Kwota);
+}
+
+public class Kasa
+{
+    private readonly IRabat _rabat;
+
+    public Kasa(IRabat rabat)
+    {
+        _rabat = rabat ?? throw new ArgumentNullException(nameof(rabat));
+    }
+
+    public decimal ObliczDoZaplaty(decimal cena)
+    {
+        if (cena &lt; 0m) throw new ArgumentOutOfRangeException(nameof(cena));
+        return _rabat.Zastosuj(cena);
+    }
+}
+</code></pre>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Gdy widzisz w klasie rosnący łańcuch <code>if (typ == "...")</code>, zastąp go <span class="color-green">interfejsem i wzorcem Strategia (OCP)</span>, aby dodawać nowe zachowania bez ruszania starego kodu.</li>
+<li>Przekazuj zależności przez interfejs w konstruktorze (<span class="color-green">DIP / Dependency Injection</span>) - dzięki temu klasa jest niezależna od konkretnej implementacji i błyskawicznie testowalna.</li>
+<li>Pilnuj zasady <span class="color-green">SRP</span>: każda klasa odpowiada za jeden konkretny obszar logiki.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Powtórka w GUI - TicTacToeGUI - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Powtórka w GUI - TicTacToeGUI</h1>
+<p>Gdy w <span class="color-green">Module 1</span> budowaliśmy konsolową grę Kółko i Krzyżyk, celowo odseparowaliśmy plik <code>SilnikGry.cs</code> od wywołań <code>Console.ReadLine()</code>. Przy przejściu na aplikację okienkową większość początkujących programistów porzuca tę separację. Zamiast użyć gotowego silnika, trzymają stan gry w tekstach przycisków i piszą warunki <code>if (btn1.Text == "X" &amp;&amp; btn2.Text == "X")</code>.</p>
+<p>Taki skrót mści się bardzo szybko. Dziewięć pól planszy zamienia się w dziewięć niemal identycznych metod <code>Btn1_Click</code> aż do <code>Btn9_Click</code>. Pierwsza zmiana etykiety przycisku albo dodanie animacji rozbija logikę bota AI.</p>
+<p>Tutaj zrobimy to tak, jak robi się w produkcyjnych aplikacjach desktopowych. Ten sam silnik 2D z heurystyką bota AI podepniemy pod ciemne okno <span class="color-green">Windows Forms</span> (<code>TicTacToeGUI.exe</code>) bez dotykania reguł gry.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🏛️ Architektura MVP i jedno źródło prawdy</h2>
+<p>W aplikacjach okienkowych najlepiej sprawdza się podział odpowiedzialności <span class="color-green">Model / Widok / Prezenter</span> (<span class="color-green">MVP</span>). Każdy element ma jedną, wyraźnie wyznaczoną rolę:</p>
+<ul>
+<li><span class="color-gold">Model</span> (<code>SilnikGry.cs</code>): przechowuje wyłącznie czystą tablicę <code>char[3, 3]</code> i deterministyczne reguły gry. Nie ma w nim ani jednej linijki <code>using System.Windows.Forms;</code>.</li>
+<li><span class="color-gold">Widok</span> (<code>TicTacToeForm</code>): odpowiada za wygląd okna, przyciski <code>Button</code>, etykiety <code>Label</code> i kolory. Nie podejmuje żadnych decyzji o tym, kto wygrał.</li>
+<li><span class="color-gold">Prezenter</span> (metody <code>OnPoleClick</code>, <code>OdswiezPlansze</code> i <code>SprawdzZakonczenie</code> w oknie): odbiera intencję gracza, pyta model o wynik i każe widokowi odrysować nowy stan.</li>
+</ul>
+<p>Dlaczego trzymanie stanu planszy w <code>Button.Text</code> jest architektoniczną pułapką? Generuje trzy poważne problemy:</p>
+<ul>
+<li><span class="color-red">Brak testów automatycznych:</span> nie uruchomisz testów jednostkowych bota AI w czystym runnerze bez tworzenia prawdziwego okna <code>Form</code> i uchwytów <code>HWND</code>.</li>
+<li><span class="color-red">Brak przenośności:</span> przeniesienie gry z konsoli do WinForms, WPF lub aplikacji webowej wymagałoby przepisania całej logiki od zera.</li>
+<li><span class="color-red">Rozsynchronizowany stan:</span> gdy dodasz spacje, ikony lub animacje w <code>Button.Text</code>, warunki porównujące napisy przestają działać.</li>
+</ul>
+<h3>🔄 Przepływ jednego ruchu gracza</h3>
+<p>Kiedy gracz klika pole na planszy, dane płyną zawsze w jednym kierunku. Zdarzenie <code>Button.Click</code> przekazuje kliknięty przycisk jako parametr <span class="color-blue">sender</span>. Prezenter odczytuje numer pola z <code>sender.Tag</code> i wywołuje <code>SilnikGry.WykonajRuch</code>.</p>
+<p>Jeśli ruch był poprawny, <code>OdswiezPlansze()</code> przepisuje tablicę <code>_plansza</code> na wszystkie 9 przycisków. Dopiero wtedy <code>SprawdzZakonczenie()</code> pyta silnik o stan rundy, a jeśli gra trwa dalej, uruchamia ruch bota AI i ponownie odświeża widok.</p>
+<data-gate>
+<data-sortable-list title="Ułóż 5 kroków przepływu jednego ruchu gracza w architekturze MVP">
+  <item data-correct="3">SilnikGry.WykonajRuch wpisuje znak X do tablicy char[3, 3] po sprawdzeniu, czy pole jest wolne</item>
+  <item data-correct="1">Gracz klika przycisk na planszy, co uruchamia zdarzenie Button.Click i metodę OnPoleClick</item>
+  <item data-correct="5">SprawdzZakonczenie wywołuje SilnikGry.OcenStanGry i decyduje o podświetleniu linii lub ruchu bota AI</item>
+  <item data-correct="2">Prezenter odczytuje numer pola 1..9 z właściwości Tag obiektu sender</item>
+  <item data-correct="4">Metoda OdswiezPlansze przepisuje aktualny stan tablicy modelu na tekst i kolory 9 przycisków</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📐 System layoutu WinForms i zasoby GDI+</h2>
+<p>Ręczne wyliczanie współrzędnych <code>Location</code> dla 9 przycisków w siatce 3x3 jest żmudne i podatne na pomyłki. W Windows Forms służy do tego kontener <span class="color-green">TableLayoutPanel</span>.</p>
+<p>Wystarczy ustawić <code>RowCount = 3</code> i <code>ColumnCount = 3</code>, a następnie dodać trzy wiersze <code>RowStyle</code> i trzy kolumny <code>ColumnStyle</code> z trybem <code>SizeType.Percent</code> i wartością <code>33.33f</code>. Kontener automatycznie podzieli dostępną przestrzeń na 9 równych komórek.</p>
+<p>Każdy przycisk wewnątrz siatki dostaje dwie właściwości odpowiedzialne za dopasowanie:</p>
+<ul>
+<li><code>Dock = DockStyle.Fill</code>: rozciąga przycisk na całą szerokość i wysokość jego komórki.</li>
+<li><code>Margin = new Padding(4)</code>: zostawia równy, 4‑pikselowy odstęp wokół przycisku, tworząc czytelne linie siatki.</li>
+</ul>
+<pre><code class="language-csharp">var siatka = new TableLayoutPanel
+{
+    Location = new Point(20, 80),
+    Size = new Size(320, 320),
+    RowCount = 3,
+    ColumnCount = 3
+};
+
+for (int i = 0; i &lt; 3; i++)
+{
+    siatka.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33f));
+    siatka.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33f));
+}
+</code></pre>
+<h3>🖋️ Współdzielony obiekt Font zamiast 9 uchwytów GDI+</h3>
+<p>Każde wywołanie <code>new Font("Segoe UI", 28, FontStyle.Bold)</code> nie tworzy zwykłego obiektu C#. Pod spodem rezerwuje natywny uchwyt <span class="color-green">GDI+</span> (<code>HFONT</code>) w systemie Windows.</p>
+<p>Jeśli wstawisz <code>new Font(...)</code> do wnętrza pętli tworzącej 9 przycisków, zarezerwujesz 9 identycznych czcionek w pamięci niezarządzanej. W prostej grze nie zawiesi to systemu, ale przy tablicy 500 kafelków albo wielokrotnym otwieraniu okien prowadzi do wycieku uchwytów.</p>
+<p>Właściwym wzorcem jest utworzenie <span class="color-green">jednego współdzielonego obiektu</span> <code>_fontPlanszy</code> przed pętlą i przypisanie tej samej referencji wszystkim przyciskom. Gdy okno kończy pracę w <code>Dispose(bool disposing)</code>, zwalniamy ten jeden obiekt przez <code>_fontPlanszy.Dispose()</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧩 Mapowanie 9 przycisków, właściwość Tag i pułapka domknięć</h2>
+<p>Wszystkie 9 przycisków podpinamy pod jedną metodę obsługi <code>OnPoleClick(object sender, EventArgs e)</code>. Aby metoda wiedziała, który przycisk kliknął użytkownik, zapisujemy numer pola we właściwości <span class="color-green">Tag</span>:</p>
+<pre><code class="language-csharp">for (int pole = 1; pole &lt;= 9; pole++)
+{
+    var btn = new Button
+    {
+        Dock = DockStyle.Fill,
+        Margin = new Padding(4),
+        Font = _fontPlanszy,
+        BackColor = Color.FromArgb(30, 41, 59),
+        ForeColor = Color.White,
+        FlatStyle = FlatStyle.Flat,
+        Tag = pole
+    };
+    btn.Click += OnPoleClick;
+    _przyciski[pole - 1] = btn;
+    siatka.Controls.Add(btn);
+}
+</code></pre>
+<h3>📦 Boxing, unboxing i ochrona przed błędem rzutowania</h3>
+<p>Właściwość <code>Control.Tag</code> ma typ <code>object</code>, więc przyjmuje dowolne dane. Gdy przypisujesz <code>Tag = pole</code>, kompilator wykonuje <span class="color-green">boxing</span> (pudełkowanie): pakuje typ wartościowy <code>int</code> w obiekt na stercie.</p>
+<p>Wewnątrz <code>OnPoleClick</code> wykonujemy operację odwrotną, czyli <span class="color-green">unboxing</span> (odpakowanie):</p>
+<pre><code class="language-csharp">Button klikniety = sender as Button;
+if (klikniety == null || !(klikniety.Tag is int))
+{
+    return;
+}
+int pole = (int)klikniety.Tag;
+</code></pre>
+<p>Dlaczego nie piszemy w ciemno <code>int pole = (int)((Button)sender).Tag;</code>? Jeśli ktoś omyłkowo podepnie metodę <code>OnPoleClick</code> pod <code>Label</code> albo przypisze do <code>Tag</code> napis <code>"5"</code> zamiast liczby <code>5</code>, bezpośrednie rzutowanie rzuci wyjątek <span class="color-red">InvalidCastException</span>. Sprawdzenie za pomocą operatorów <code>as</code> oraz <code>is</code> bezpiecznie odrzuca błędny obiekt bez zamykania aplikacji.</p>
+<h3>🪤 Pułapka domknięć lambdy w pętli for</h3>
+<p>Wielu programistów zamiast <code>btn.Tag</code> próbuje użyć wyrażenia lambda bezpośrednio w pętli <code>for</code>:</p>
+<pre><code class="language-csharp">// BŁĘDNY KOD: wszystkie 9 przycisków przekaże wartość 10!
+for (int pole = 1; pole &lt;= 9; pole++)
+{
+    var btn = new Button();
+    btn.Click += (s, e) =&gt; ObsluzKlik(pole);
+}
+</code></pre>
+<p>Intuicja podpowiada, że każda iteracja zapamięta własną liczbę od <code>1</code> do <code>9</code>. Maszyna robi jednak coś zupełnie innego. Kompilator C# przechwytuje <span class="color-green">samą zmienną</span> <span class="color-blue">pole</span>, a nie jej chwilową wartość.</p>
+<p>Wszystkie 9 lambd wskazuje to samo współdzielone pole <code>closure.pole</code> w ukrytym obiekcie domknięcia. Gdy pętla <code>for</code> dobiega końca, <code>closure.pole</code> ma wartość <code>10</code> (warunek <code>pole &lt;= 9</code> właśnie przestał być prawdziwy). Kliknięcie <span class="color-green">dowolnego</span> z 9 przycisków wywoła <code>ObsluzKlik(10)</code>!</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Zmiana specyfikacji języka wprowadzona w C# 5.0 naprawiła przechwytywanie zmiennej wyłącznie w pętli <code>foreach</code>. W zwykłej pętli <code>for</code> zmienna sterująca <span class="color-blue">pole</span> pozostaje współdzielona we wszystkich wersjach C#, także we współczesnym .NET. Jeśli musisz użyć lambdy w <code>for</code>, utwórz najpierw lokalną kopię wewnątrz pętli: <code>int numer = pole;</code>.</p>
+
+</div>
+</div><div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Zapis <code>btn.Tag = pole;</code> w parze ze wspólną metodą <code>btn.Click += OnPoleClick;</code> całkowicie eliminuje problem domknięć. Nie generuje ukrytych klas <code>&lt;&gt;c__DisplayClass</code> ani 9 osobnych obiektów delegatów, a kod pozostaje prosty do debugowania.</p>
+
+</div>
+</div><data-gate>
+<data-connection-matcher title="Dopasuj mechanizm GUI w TicTacToeGUI do jego skutku w działaniu programu">
+  <item left="btn.Tag = pole + wspólna metoda OnPoleClick" right="Jedna metoda obsługuje 9 przycisków bez tworzenia klas domknięć"></item>
+  <item left="TableLayoutPanel z SizeType.Percent (33.33f)" right="Automatycznie dzieli siatkę 3x3 na równe komórki bez ręcznych współrzędnych"></item>
+  <item left="btn.Click += (s, e) => ObsluzKlik(pole) w pętli for" right="Przechwytuje wspólną zmienną: kliknięcie każdego przycisku przekazuje 10"></item>
+  <item left="Jeden współdzielony obiekt Font dla wszystkich 9 pól" right="Oszczędza natywne uchwyty GDI+ (HFONT) zamiast alokować 9 kopii"></item>
+  <item left="SilnikGry bez using System.Windows.Forms" right="Umożliwia uruchamianie testów jednostkowych i przeniesienie gry do innego GUI"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗺️ Numeracja pól planszy 3x3 i 8 linii wygranej</h2>
+<p>Silnik gry przechowuje planszę jako tablicę dwuwymiarową <code>char[3, 3]</code>. Interfejs i bot operują natomiast na wygodnych numerach pól od <code>1</code> do <code>9</code>:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Kolumna 0</th>
+<th align="center">Kolumna 1</th>
+<th align="center">Kolumna 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Pole <span class="color-green">1</span> <code>[0, 0]</code></td>
+<td align="center">Pole <span class="color-green">2</span> <code>[0, 1]</code></td>
+<td align="center">Pole <span class="color-green">3</span> <code>[0, 2]</code></td>
+</tr>
+<tr>
+<td align="center">Pole <span class="color-green">4</span> <code>[1, 0]</code></td>
+<td align="center">Pole <span class="color-green">5</span> <code>[1, 1]</code></td>
+<td align="center">Pole <span class="color-green">6</span> <code>[1, 2]</code></td>
+</tr>
+<tr>
+<td align="center">Pole <span class="color-green">7</span> <code>[2, 0]</code></td>
+<td align="center">Pole <span class="color-green">8</span> <code>[2, 1]</code></td>
+<td align="center">Pole <span class="color-green">9</span> <code>[2, 2]</code></td>
+</tr>
+</tbody></table>
+<p>Przeliczanie w obie strony opiera się na dzieleniu całkowitym i reszcie z dzielenia przez <code>3</code>:</p>
+<ul>
+<li>z numeru pola <code>1..9</code> na indeksy tablicy: <code>r = (pole - 1) / 3</code> oraz <code>c = (pole - 1) % 3</code>,</li>
+<li>z indeksów tablicy <code>(r, c)</code> na numer pola: <code>pole = r * 3 + c + 1</code>.</li>
+</ul>
+<p>Na planszy 3x3 istnieje dokładnie <span class="color-green">8 linii wygranej</span>:</p>
+<ul>
+<li>3 wiersze: <code>{ 1, 2, 3 }</code>, <code>{ 4, 5, 6 }</code>, <code>{ 7, 8, 9 }</code>,</li>
+<li>3 kolumny: <code>{ 1, 4, 7 }</code>, <code>{ 2, 5, 8 }</code>, <code>{ 3, 6, 9 }</code>,</li>
+<li>2 przekątne: <code>{ 1, 5, 9 }</code> oraz <code>{ 3, 5, 7 }</code>.</li>
+</ul>
+<p>W <code>SilnikGry.cs</code> zastosujemy zasadę <span class="color-green">jednego źródła prawdy</span>. Zamiast duplikować te same warunki w dwóch metodach, <code>CzyWygrana(p, z)</code> wywołuje wprost <code>ZnajdzLinieWygranej(p, z) != null</code>. Gdy poprawnie zaimplementujesz <code>ZnajdzLinieWygranej</code>, automatycznie zadziała zarówno podświetlanie linii w GUI, jak i heurystyka ataku oraz obrony bota AI.</p>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Compiler lowering domknięć w C# 5.0 oraz limity uchwytów GDI+ w Windows</span>
+<span class="deep-dive-badge">CLOSURES · COMPILER LOWERING · GDI+ HANDLES</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Co naprawdę generuje kompilator csc.exe dla lambdy w pętli for?</h4>
+
+<p>Kompilator C# obniża (ang. lowering) każdą lambdę korzystającą ze zmiennej lokalnej do ukrytej klasy domknięcia (<code>&lt;&gt;c__DisplayClass</code>) alokowanej na stercie. W przypadku pętli <code>for</code> zmienna sterująca <span class="color-blue">pole</span> staje się jednym wspólnym polem tej klasy:</p>
+<pre><code class="language-csharp">// Kod wygenerowany pod maską przez kompilator csc.exe:
+var closure = new __DisplayClass();
+for (closure.pole = 1; closure.pole &lt;= 9; closure.pole++)
+{
+    var btn = new Button();
+    btn.Click += new EventHandler(closure.LambdaMethod);
+}
+// Po wyjściu z pętli closure.pole == 10.
+// Każde kliknięcie wywoła LambdaMethod z closure.pole równym 10!
+</code></pre>
+<p>Jeśli dodasz w ciele pętli lokalną kopię <code>int kopia = pole;</code>, kompilator wygeneruje klasę domknięcia <span class="color-green">wewnątrz pętli</span>. Oznacza to 9 osobnych alokacji obiektów domknięć i 9 osobnych delegatów <code>EventHandler</code> na stercie. W rozwiązaniu z <code>btn.Tag</code> nie powstaje ani jedna klasa domknięcia, a wszystkie przyciski współdzielą jedną metodę instancji <code>OnPoleClick</code>.</p>
+<h4>2. Limity uchwytów GDI+ i dlaczego warto zwalniać Font</h4>
+
+<p>Każdy proces w systemie Windows ma twardy limit uchwytów GDI (domyślnie <code>10 000</code>, zapisany w kluczu rejestru <code>GDIProcessHandleQuota</code>). Obiekty <code>Font</code>, <code>Pen</code>, <code>Brush</code> i <code>Bitmap</code> z przestrzeni <code>System.Drawing</code> implementują interfejs <code>IDisposable</code>, ponieważ owijają natywne struktury jądra graficznego.</p>
+<p>Gdy przekroczysz limit uchwytów w długodziałającej aplikacji desktopowej, kolejne wywołanie <code>new Font(...)</code> lub utworzenie okna rzuci wyjątek <span class="color-red">ExternalException</span> z ogólnikowym komunikatem <code>A generic error occurred in GDI+</code>. Dlatego czcionki współdzielone między kontrolkami przechowujemy jako pole klasy formularza i zwalniamy jawnie w metodzie <code>Dispose(bool disposing)</code>.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Projekt Powtórkowy 1: Zbuduj i pobierz TicTacToeGUI.exe</h2>
+<p>W zakładce <span class="color-green"><code>SilnikGry.cs</code></span> uzupełnij dwie metody wykorzystywane przez okno <code>TicTacToeForm</code> oraz bota AI:</p>
+<ol>
+<li><p><code>ZnajdzLinieWygranej(char[,] p, char znak)</code>:</p>
+<ul>
+<li>przeszukuje wszystkie 8 linii wygranej (3 wiersze, 3 kolumny, 2 przekątne),</li>
+<li>zwraca tablicę <code>int[]</code> z 3 numerami zwycięskich pól w kolejności rosnącej (np. <code>{ 1, 2, 3 }</code>, <code>{ 2, 5, 8 }</code>, <code>{ 1, 5, 9 }</code>, <code>{ 3, 5, 7 }</code>),</li>
+<li>zwraca <code>null</code>, jeśli dla podanego znaku nie ma zwycięskiej linii.</li>
+<li>Zwróć uwagę, że metoda <code>CzyWygrana(p, z)</code> korzysta bezpośrednio z <code>ZnajdzLinieWygranej(p, z) != null</code>.</li>
+</ul>
+</li>
+<li><p><code>OcenStanGry(char[,] p)</code>:</p>
+<ul>
+<li>zwraca <code>"X"</code>, gdy wygrał gracz <code>'X'</code>,</li>
+<li>zwraca <code>"O"</code>, gdy wygrał bot <code>'O'</code>,</li>
+<li>zwraca <code>"REMIS"</code>, gdy plansza jest pełna i nikt nie wygrał,</li>
+<li>zwraca <code>"W_TOKU"</code>, gdy partia nadal trwa.</li>
+</ul>
+</li>
+</ol>
+<p>Okno w <code>Program.cs</code> automatycznie wywoła <code>ZnajdzLinieWygranej</code> po zakończeniu partii i podświetli zwycięskie 3 pola na zielono. Po zaliczeniu testów kliknij <span class="color-green">Pobierz .exe</span> i uruchom <code>TicTacToeGUI.exe</code>.</p>
+<data-gate>
+<data-csharp-lab title="Powtórka GUI cz. 1: TicTacToeGUI (WinForms 3x3 + Bot AI)" exe-name="TicTacToeGUI.exe">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class TicTacToeForm : Form
+{
+    private char[,] _plansza = SilnikGry.NowaPlansza();
+    private Button[] _przyciski = new Button[9];
+    private readonly Font _fontPlanszy;
+    private Label _lblStatus;
+    private Label _lblWynik;
+    private int _wygraneGracza = 0;
+    private int _wygraneBota = 0;
+    private int _remisy = 0;
+    private bool _koniecRundy = false;
+
+    public TicTacToeForm()
+    {
+        Text = "TicTacToe AI - Windows 11 GUI";
+        ClientSize = new Size(360, 470);
+        BackColor = Color.FromArgb(15, 23, 42);
+        ForeColor = Color.White;
+        StartPosition = FormStartPosition.CenterScreen;
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
+
+        _fontPlanszy = new Font("Segoe UI", 28, FontStyle.Bold);
+
+        _lblStatus = new Label
+        {
+            Text = "Twoj ruch (X)",
+            Location = new Point(20, 16),
+            Size = new Size(320, 30),
+            Font = new Font("Segoe UI", 13, FontStyle.Bold),
+            ForeColor = Color.FromArgb(56, 189, 248)
+        };
+
+        _lblWynik = new Label
+        {
+            Text = "Gracz: 0  |  Bot AI: 0  |  Remisy: 0",
+            Location = new Point(20, 48),
+            Size = new Size(320, 22),
+            Font = new Font("Segoe UI", 9.5f),
+            ForeColor = Color.FromArgb(148, 163, 184)
+        };
+
+        var siatka = new TableLayoutPanel
+        {
+            Location = new Point(20, 80),
+            Size = new Size(320, 320),
+            RowCount = 3,
+            ColumnCount = 3
+        };
+        for (int i = 0; i &lt; 3; i++)
+        {
+            siatka.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33f));
+            siatka.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33f));
+        }
+
+        for (int pole = 1; pole &lt;= 9; pole++)
+        {
+            var btn = new Button
+            {
+                Dock = DockStyle.Fill,
+                Margin = new Padding(4),
+                Font = _fontPlanszy,
+                BackColor = Color.FromArgb(30, 41, 59),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Tag = pole
+            };
+            btn.FlatAppearance.BorderColor = Color.FromArgb(51, 65, 85);
+            btn.Click += OnPoleClick;
+            _przyciski[pole - 1] = btn;
+            siatka.Controls.Add(btn);
+        }
+
+        var btnReset = new Button
+        {
+            Text = "Nowa runda",
+            Location = new Point(20, 412),
+            Size = new Size(320, 40),
+            BackColor = Color.FromArgb(14, 165, 233),
+            ForeColor = Color.White,
+            FlatStyle = FlatStyle.Flat,
+            Font = new Font("Segoe UI", 10.5f, FontStyle.Bold)
+        };
+        btnReset.FlatAppearance.BorderSize = 0;
+        btnReset.Click += (s, e) =&gt; ResetujRunde();
+
+        Controls.AddRange(new Control[] { _lblStatus, _lblWynik, siatka, btnReset });
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _fontPlanszy.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+    private void OnPoleClick(object sender, EventArgs e)
+    {
+        if (_koniecRundy) return;
+
+        Button klikniety = sender as Button;
+        if (klikniety == null || !(klikniety.Tag is int)) return;
+
+        int pole = (int)klikniety.Tag;
+        if (!SilnikGry.WykonajRuch(_plansza, pole, 'X')) return;
+
+        OdswiezPlansze();
+        if (SprawdzZakonczenie()) return;
+
+        int ruchBota = SilnikGry.WybierzRuchBota(_plansza, 'O', 'X');
+        if (ruchBota != -1) SilnikGry.WykonajRuch(_plansza, ruchBota, 'O');
+        OdswiezPlansze();
+        SprawdzZakonczenie();
+    }
+
+    private bool SprawdzZakonczenie()
+    {
+        string stan = SilnikGry.OcenStanGry(_plansza);
+        if (stan == "W_TOKU") return false;
+        _koniecRundy = true;
+
+        if (stan == "X")
+        {
+            _wygraneGracza++;
+            _lblStatus.Text = "WYGRALES!";
+            _lblStatus.ForeColor = Color.FromArgb(52, 211, 153);
+            PodswietlLinie(SilnikGry.ZnajdzLinieWygranej(_plansza, 'X'));
+        }
+        else if (stan == "O")
+        {
+            _wygraneBota++;
+            _lblStatus.Text = "BOT AI WYGRAL!";
+            _lblStatus.ForeColor = Color.FromArgb(248, 113, 113);
+            PodswietlLinie(SilnikGry.ZnajdzLinieWygranej(_plansza, 'O'));
+        }
+        else
+        {
+            _remisy++;
+            _lblStatus.Text = "REMIS!";
+            _lblStatus.ForeColor = Color.FromArgb(251, 191, 36);
+        }
+
+        _lblWynik.Text = string.Format("Gracz: {0}  |  Bot AI: {1}  |  Remisy: {2}", _wygraneGracza, _wygraneBota, _remisy);
+        return true;
+    }
+
+    private void PodswietlLinie(int[] linia)
+    {
+        if (linia == null) return;
+        for (int i = 0; i &lt; linia.Length; i++)
+        {
+            int idx = linia[i] - 1;
+            if (idx &gt;= 0 &amp;&amp; idx &lt; _przyciski.Length)
+            {
+                _przyciski[idx].BackColor = Color.FromArgb(21, 128, 61);
+                _przyciski[idx].ForeColor = Color.White;
+            }
+        }
+    }
+
+    private void OdswiezPlansze()
+    {
+        for (int pole = 1; pole &lt;= 9; pole++)
+        {
+            char z = _plansza[(pole - 1) / 3, (pole - 1) % 3];
+            var btn = _przyciski[pole - 1];
+            btn.Text = z == '.' ? "" : z.ToString();
+            btn.BackColor = Color.FromArgb(30, 41, 59);
+            btn.ForeColor = z == 'X' ? Color.FromArgb(56, 189, 248) : Color.FromArgb(251, 191, 36);
+        }
+    }
+
+    private void ResetujRunde()
+    {
+        _plansza = SilnikGry.NowaPlansza();
+        _koniecRundy = false;
+        _lblStatus.Text = "Twoj ruch (X)";
+        _lblStatus.ForeColor = Color.FromArgb(56, 189, 248);
+        OdswiezPlansze();
+    }
+}
+
+class Program
+{
+    [STAThread]
+    static void Main()
+    {
+        Application.EnableVisualStyles();
+        Application.SetCompatibleTextRenderingDefault(false);
+        Application.Run(new TicTacToeForm());
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="SilnikGry.cs">
+
+<pre><code class="language-csharp">using System;
+
+public static class SilnikGry
+{
+    public static char[,] NowaPlansza()
+    {
+        return new char[,] { { '.', '.', '.' }, { '.', '.', '.' }, { '.', '.', '.' } };
+    }
+
+    public static bool CzyWygrana(char[,] p, char z)
+    {
+        return ZnajdzLinieWygranej(p, z) != null;
+    }
+
+    public static bool CzyRemis(char[,] p)
+    {
+        for (int r = 0; r &lt; 3; r++)
+            for (int c = 0; c &lt; 3; c++)
+                if (p[r, c] == '.') return false;
+        return !CzyWygrana(p, 'X') &amp;&amp; !CzyWygrana(p, 'O');
+    }
+
+    public static bool WykonajRuch(char[,] p, int pole, char znak)
+    {
+        if (pole &lt; 1 || pole &gt; 9) return false;
+        int r = (pole - 1) / 3, c = (pole - 1) % 3;
+        if (p[r, c] != '.') return false;
+        p[r, c] = znak;
+        return true;
+    }
+
+    public static int WybierzRuchBota(char[,] p, char bot, char gracz)
+    {
+        int atak = ZnajdzWygrywajacy(p, bot);
+        if (atak != -1) return atak;
+        int blok = ZnajdzWygrywajacy(p, gracz);
+        if (blok != -1) return blok;
+        if (p[1, 1] == '.') return 5;
+        int[] rogi = { 1, 3, 7, 9 };
+        foreach (int r in rogi) if (p[(r - 1) / 3, (r - 1) % 3] == '.') return r;
+        for (int i = 1; i &lt;= 9; i++) if (p[(i - 1) / 3, (i - 1) % 3] == '.') return i;
+        return -1;
+    }
+
+    private static int ZnajdzWygrywajacy(char[,] p, char z)
+    {
+        for (int i = 1; i &lt;= 9; i++)
+        {
+            int r = (i - 1) / 3, c = (i - 1) % 3;
+            if (p[r, c] == '.') { p[r, c] = z; bool ok = CzyWygrana(p, z); p[r, c] = '.'; if (ok) return i; }
+        }
+        return -1;
+    }
+
+    public static string OcenStanGry(char[,] p)
+    {
+        // Zwróć "X", "O", "REMIS" lub "W_TOKU"
+        return "W_TOKU";
+    }
+
+    public static int[] ZnajdzLinieWygranej(char[,] p, char znak)
+    {
+        // Zwróć tablicę 3 numerów zwycięskich pól (1..9) w kolejności rosnącej lub null
+        return null;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("OcenStanGry poprawnie rozpoznaje wygraną X, O, wygraną X na pełnej planszy, REMIS i W_TOKU", () =&gt; {
+    char[,] winX = { { 'X', 'X', 'X' }, { 'O', '.', 'O' }, { '.', '.', '.' } };
+    char[,] winXPelna = { { 'X', 'O', 'X' }, { 'O', 'X', 'O' }, { 'O', 'X', 'X' } };
+    char[,] winO = { { 'X', 'O', '.' }, { 'X', 'O', '.' }, { '.', 'O', 'X' } };
+    char[,] remis = { { 'X', 'O', 'X' }, { 'X', 'O', 'O' }, { 'O', 'X', 'X' } };
+    char[,] pusta = SilnikGry.NowaPlansza();
+    char[,] wTrakcie = { { 'X', 'O', '.' }, { '.', 'X', '.' }, { 'O', '.', '.' } };
+
+    LabAssert.Equal("X", SilnikGry.OcenStanGry(winX));
+    LabAssert.Equal("X", SilnikGry.OcenStanGry(winXPelna));
+    LabAssert.Equal("O", SilnikGry.OcenStanGry(winO));
+    LabAssert.Equal("REMIS", SilnikGry.OcenStanGry(remis));
+    LabAssert.Equal("W_TOKU", SilnikGry.OcenStanGry(pusta));
+    LabAssert.Equal("W_TOKU", SilnikGry.OcenStanGry(wTrakcie));
+});
+
+LabAssert.Test("ZnajdzLinieWygranej rozpoznaje wszystkie 3 wiersze", () =&gt; {
+    char[,] r0 = { { 'X', 'X', 'X' }, { '.', '.', '.' }, { '.', '.', '.' } };
+    char[,] r1 = { { '.', '.', '.' }, { 'O', 'O', 'O' }, { '.', '.', '.' } };
+    char[,] r2 = { { '.', '.', '.' }, { '.', '.', '.' }, { 'X', 'X', 'X' } };
+
+    int[] l0 = SilnikGry.ZnajdzLinieWygranej(r0, 'X');
+    int[] l1 = SilnikGry.ZnajdzLinieWygranej(r1, 'O');
+    int[] l2 = SilnikGry.ZnajdzLinieWygranej(r2, 'X');
+
+    LabAssert.True(l0 != null &amp;&amp; l0.Length == 3 &amp;&amp; l0[0] == 1 &amp;&amp; l0[1] == 2 &amp;&amp; l0[2] == 3, "Wiersz 0 -&gt; {1,2,3}");
+    LabAssert.True(l1 != null &amp;&amp; l1.Length == 3 &amp;&amp; l1[0] == 4 &amp;&amp; l1[1] == 5 &amp;&amp; l1[2] == 6, "Wiersz 1 -&gt; {4,5,6}");
+    LabAssert.True(l2 != null &amp;&amp; l2.Length == 3 &amp;&amp; l2[0] == 7 &amp;&amp; l2[1] == 8 &amp;&amp; l2[2] == 9, "Wiersz 2 -&gt; {7,8,9}");
+});
+
+LabAssert.Test("ZnajdzLinieWygranej rozpoznaje wszystkie 3 kolumny", () =&gt; {
+    char[,] c0 = { { 'O', '.', '.' }, { 'O', '.', '.' }, { 'O', '.', '.' } };
+    char[,] c1 = { { '.', 'X', '.' }, { '.', 'X', '.' }, { '.', 'X', '.' } };
+    char[,] c2 = { { '.', '.', 'O' }, { '.', '.', 'O' }, { '.', '.', 'O' } };
+
+    int[] l0 = SilnikGry.ZnajdzLinieWygranej(c0, 'O');
+    int[] l1 = SilnikGry.ZnajdzLinieWygranej(c1, 'X');
+    int[] l2 = SilnikGry.ZnajdzLinieWygranej(c2, 'O');
+
+    LabAssert.True(l0 != null &amp;&amp; l0.Length == 3 &amp;&amp; l0[0] == 1 &amp;&amp; l0[1] == 4 &amp;&amp; l0[2] == 7, "Kolumna 0 -&gt; {1,4,7}");
+    LabAssert.True(l1 != null &amp;&amp; l1.Length == 3 &amp;&amp; l1[0] == 2 &amp;&amp; l1[1] == 5 &amp;&amp; l1[2] == 8, "Kolumna 1 -&gt; {2,5,8}");
+    LabAssert.True(l2 != null &amp;&amp; l2.Length == 3 &amp;&amp; l2[0] == 3 &amp;&amp; l2[1] == 6 &amp;&amp; l2[2] == 9, "Kolumna 2 -&gt; {3,6,9}");
+});
+
+LabAssert.Test("ZnajdzLinieWygranej rozpoznaje obie przekątne, zwraca null przy braku wygranej i zasila bota AI", () =&gt; {
+    char[,] d1 = { { 'X', '.', '.' }, { '.', 'X', '.' }, { '.', '.', 'X' } };
+    char[,] d2 = { { '.', '.', 'O' }, { '.', 'O', '.' }, { 'O', '.', '.' } };
+    char[,] brak = { { 'X', 'O', 'X' }, { 'X', 'O', 'O' }, { 'O', 'X', 'X' } };
+    char[,] blokuj = { { 'X', 'X', '.' }, { '.', 'O', '.' }, { '.', '.', '.' } };
+
+    int[] l1 = SilnikGry.ZnajdzLinieWygranej(d1, 'X');
+    int[] l2 = SilnikGry.ZnajdzLinieWygranej(d2, 'O');
+    int[] lBrakX = SilnikGry.ZnajdzLinieWygranej(brak, 'X');
+    int[] lZlyZnak = SilnikGry.ZnajdzLinieWygranej(d1, 'O');
+
+    LabAssert.True(l1 != null &amp;&amp; l1.Length == 3 &amp;&amp; l1[0] == 1 &amp;&amp; l1[1] == 5 &amp;&amp; l1[2] == 9, "Przekątna główna -&gt; {1,5,9}");
+    LabAssert.True(l2 != null &amp;&amp; l2.Length == 3 &amp;&amp; l2[0] == 3 &amp;&amp; l2[1] == 5 &amp;&amp; l2[2] == 7, "Przekątna poboczna -&gt; {3,5,7}");
+    LabAssert.True(lBrakX == null, "Przy remisie metoda musi zwrócić null");
+    LabAssert.True(lZlyZnak == null, "Dla znaku bez wygranej metoda musi zwrócić null");
+    LabAssert.Equal(3, SilnikGry.WybierzRuchBota(blokuj, 'O', 'X'));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Gdy przenosisz logikę do GUI:</strong> trzymaj stan i reguły w modelu bez <code>using System.Windows.Forms</code>, a kontrolki traktuj wyłącznie jako odzwierciedlenie danych.</li>
+<li><strong>Gdy obsługujesz wiele podobnych przycisków:</strong> zapisz identyfikator w <code>btn.Tag</code>, podepnij jedną wspólną metodę i sprawdzaj typ przez <code>as</code> oraz <code>is</code>, zamiast łapać zmienną z pętli <code>for</code> w lambdzie.</li>
+<li><strong>Gdy budujesz regularną siatkę kontrolek:</strong> użyj <code>TableLayoutPanel</code> z <code>SizeType.Percent</code> oraz <code>Dock = DockStyle.Fill</code>, zamiast ręcznie wyliczać piksele.</li>
+<li><strong>Gdy wiele kontrolek używa tej samej czcionki:</strong> współdziel jeden obiekt <code>Font</code> i zwolnij go w <code>Dispose(bool disposing)</code>, aby nie marnować uchwytów GDI+.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

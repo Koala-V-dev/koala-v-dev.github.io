@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funkcje jako wartości i funkcje strzałkowe - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">wprowadzenie-do-javascript</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty DOM, funkcje strzałkowe, zdarzenia i forEach</li><li class="lesson-item lesson" data-path="Moduł 0/Drzewo DOM i document.querySelector"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Drzewo%20DOM%20i%20document.querySelector.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Drzewo DOM i document.querySelector</a></li><li class="lesson-item lesson" data-path="Moduł 0/Funkcje jako wartości i funkcje strzałkowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Funkcje%20jako%20warto%C5%9Bci%20i%20funkcje%20strza%C5%82kowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Funkcje jako wartości i funkcje strzałkowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zdarzenia i addEventListener na żywym DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Zdarzenia%20i%20addEventListener%20na%20%C5%BCywym%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zdarzenia i addEventListener na żywym DOM</a></li><li class="lesson-item lesson" data-path="Moduł 0/Kolekcje elementów - querySelectorAll i pętla forEach"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Kolekcje%20element%C3%B3w%20-%20querySelectorAll%20i%20p%C4%99tla%20forEach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kolekcje elementów - querySelectorAll i pętla forEach</a></li><li class="lesson-item lesson" data-path="Moduł 0/Synteza - querySelectorAll, forEach i addEventListener"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%200/Synteza%20-%20querySelectorAll%2C%20forEach%20i%20addEventListener.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Synteza - querySelectorAll, forEach i addEventListener</a></li><li class="module">Moduł 1: Zmienne, typy i kalkulacje z formularzy</li><li class="lesson-item lesson" data-path="Moduł 1/Kalkulator kosztów i rzutowanie typów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Kalkulator%20koszt%C3%B3w%20i%20rzutowanie%20typ%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kalkulator kosztów i rzutowanie typów</a></li><li class="lesson-item lesson" data-path="Moduł 1/Zużycie materiałów i zaokrąglanie liczb"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%201/Zu%C5%BCycie%20materia%C5%82%C3%B3w%20i%20zaokr%C4%85glanie%20liczb.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zużycie materiałów i zaokrąglanie liczb</a></li><li class="module">Moduł 2: Logika warunkowa, checkboxy i przyciski opcji</li><li class="lesson-item lesson" data-path="Moduł 2/Grupy opcji radio i cenniki wariantowe"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Grupy%20opcji%20radio%20i%20cenniki%20wariantowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grupy opcji radio i cenniki wariantowe</a></li><li class="lesson-item lesson" data-path="Moduł 2/Wielokrotny wybór i akumulatory sumujące"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%202/Wielokrotny%20wyb%C3%B3r%20i%20akumulatory%20sumuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wielokrotny wybór i akumulatory sumujące</a></li><li class="module">Moduł 3: Dynamiczne style i walidacja danych</li><li class="lesson-item lesson" data-path="Moduł 3/Analiza tekstu i dynamiczne style CSS"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Analiza%20tekstu%20i%20dynamiczne%20style%20CSS.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Analiza tekstu i dynamiczne style CSS</a></li><li class="lesson-item lesson" data-path="Moduł 3/Paski postępu i zdarzenia formularzy"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Paski%20post%C4%99pu%20i%20zdarzenia%20formularzy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Paski postępu i zdarzenia formularzy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Dynamiczne filtry graficzne CSS i suwaki"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%203/Dynamiczne%20filtry%20graficzne%20CSS%20i%20suwaki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne filtry graficzne CSS i suwaki</a></li><li class="module">Moduł 4: Tablice i komponenty multimedialne</li><li class="lesson-item lesson" data-path="Moduł 4/Karuzela zdjęć i cykliczne indeksowanie"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%204/Karuzela%20zdj%C4%99%C4%87%20i%20cykliczne%20indeksowanie.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Karuzela zdjęć i cykliczne indeksowanie</a></li><li class="module">Moduł 5: Interaktywne drzewo DOM i stan aplikacji</li><li class="lesson-item lesson" data-path="Moduł 5/Dynamiczne listy i manipulacja drzewem DOM"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Dynamiczne%20listy%20i%20manipulacja%20drzewem%20DOM.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne listy i manipulacja drzewem DOM</a></li><li class="lesson-item lesson" data-path="Moduł 5/Pamięć podręczna localStorage i trwałość danych"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%205/Pami%C4%99%C4%87%20podr%C4%99czna%20localStorage%20i%20trwa%C5%82o%C5%9B%C4%87%20danych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pamięć podręczna localStorage i trwałość danych</a></li><li class="module">Moduł 6: Maszyny stanów i gry turowe</li><li class="lesson-item lesson" data-path="Moduł 6/Plansza do gry i maszyna stanów tury"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%206/Plansza%20do%20gry%20i%20maszyna%20stan%C3%B3w%20tury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Plansza do gry i maszyna stanów tury</a></li><li class="module">Moduł 7: Zaawansowane interakcje i przeciąganie elementów</li><li class="lesson-item lesson" data-path="Moduł 7/Techniki Drag and Drop i przeciąganie elementów"><a class="lesson-link" href="/courses/wprowadzenie-do-javascript/Pages/Modu%C5%82%207/Techniki%20Drag%20and%20Drop%20i%20przeci%C4%85ganie%20element%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Techniki Drag and Drop i przeciąganie elementów</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Funkcje jako wartości i funkcje strzałkowe</h1>
+<p>W poprzedniej lekcji napisałeś skrypt, który pobierał elementy drzewa DOM i zmieniał status serwera z „wyłączony” na „aktywny”. Taki skrypt wykonuje się jednak dokładnie raz: natychmiast po załadowaniu strony.</p>
+<p>Co zrobisz, gdy aplikacja musi zmienić komunikat alertu w czterech różnych momentach działania? Kopiowanie tych samych pięciu linii kodu w każde miejsce szybko zamienia skrypt w trudny do utrzymania bałagan. Jeszcze większy problem pojawia się wtedy, gdy chcesz przekazać przeglądarce instrukcję, którą ma uruchomić dopiero w przyszłości.</p>
+<p>Rozwiązaniem obu tych problemów są funkcje traktowane jako zwykłe wartości oraz nowoczesny zapis funkcji strzałkowych.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧩 Funkcja klasyczna jako nazwany przepis</h2>
+<p>Zanim przejdziesz do zapisu strzałkowego, zobacz klasyczną deklarację funkcji. Słowo kluczowe <code>function</code> tworzy nazwany blok instrukcji, który możesz uruchamiać wielokrotnie z różnymi danymi wejściowymi.</p>
+<pre><code class="language-javascript">function ustawKomunikat(tekst) {
+  const pole = document.querySelector("#komunikat");
+  pole.textContent = tekst;
+}
+</code></pre>
+<p>Przeanalizuj trzy elementy tej konstrukcji:</p>
+<ul>
+<li><code>ustawKomunikat</code>: nazwa funkcji, po której odwołujesz się do przepisu.</li>
+<li><span class="color-blue">tekst</span>: <span class="color-green">parametr</span>, czyli lokalna zmienna czekająca na dane wejściowe.</li>
+<li><code>{ ... }</code>: <span class="color-green">ciało funkcji</span>, czyli instrukcje, które wykonają się dopiero w chwili wywołania.</li>
+</ul>
+<p>Sama definicja funkcji nie zmienia jeszcze niczego na stronie. Silnik JavaScript zapisuje przepis w pamięci i przechodzi do kolejnej linii. Dopiero wywołanie funkcji z nawiasami i argumentem uruchamia jej wnętrze:</p>
+<pre><code class="language-javascript">ustawKomunikat("Połączenie nawiązane");
+ustawKomunikat("Zapisano ustawienia");
+</code></pre>
+<p>Funkcja może też obliczyć wynik i oddać go z powrotem do miejsca wywołania za pomocą słowa kluczowego <span class="color-green">return</span> (na przykład <code>return cena - znizka;</code>). Jeśli w funkcji nie ma instrukcji <code>return</code>, silnik automatycznie zwraca specjalną wartość <code>undefined</code>.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>📦 Funkcja jako wartość w zmiennej const</h2>
+<p>W wielu językach programowania funkcje istnieją w osobnym świecie niż liczby czy napisy. W JavaScript działa inna zasada: <span class="color-green">funkcje są wartościami pierwszej kategorii</span>.</p>
+<p>Oznacza to, że funkcję możesz zapisać w zmiennej <code>const</code> dokładnie tak samo, jak zapisujesz liczbę <code>42</code>, napis <code>"Online"</code> albo referencję do węzła DOM. Taki zapis nazywa się <span class="color-green">wyrażeniem funkcyjnym</span>.</p>
+<pre><code class="language-javascript">const ustawKomunikat = function(tekst) {
+  const pole = document.querySelector("#komunikat");
+  pole.textContent = tekst;
+};
+</code></pre>
+<p>Zwróć uwagę na prawą stronę znaku <code>=</code>. Po słowie <code>function</code> nie ma już nazwy, ponieważ funkcja jest zapisana bezpośrednio pod etykietą <code>const ustawKomunikat</code>. Tę samą funkcję bez własnej nazwy nazywamy <span class="color-green">funkcją anonimową</span>.</p>
+<p>Dlaczego programiści chętnie zapisują funkcje w <code>const</code>? Chroni to funkcję przed przypadkowym nadpisaniem w dalszej części programu. Jednocześnie jasno pokazuje, że nazwa funkcji jest zwykłą zmienną wskazującą na obiekt w pamięci.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>➡️ Ewolucja do funkcji strzałkowej</h2>
+<p>Zapis <code>const nazwa = function(parametr) { ... }</code> działa poprawnie, ale w nowoczesnym JavaScript jest rozwlekły. Szczególnie wtedy, gdy przekazujesz krótkie funkcje anonimowe wprost do metod przeglądarki.</p>
+<p>Dlatego standard języka wprowadził krótszy i czytelniejszy zapis: <span class="color-green">funkcję strzałkową</span> (nazywaną tak od operatora <code>=&gt;</code>). Zobacz krok po kroku, jak klasyczna funkcja zamienia się w funkcję strzałkową:</p>
+<pre><code class="language-javascript">// Krok 1: Deklaracja klasyczna
+function policzRabat(cena, znizka) {
+  return cena - znizka;
+}
+
+// Krok 2: Wyrażenie funkcyjne zapisane w const
+const policzRabat = function(cena, znizka) {
+  return cena - znizka;
+};
+
+// Krok 3: Usunięcie słowa function i dodanie strzałki =&gt; po nawiasach
+const policzRabat = (cena, znizka) =&gt; {
+  return cena - znizka;
+};
+</code></pre>
+<p>W funkcji strzałkowej zachowujesz dokładnie tę samą logikę, ale usuwasz powtarzalne słowo <code>function</code>. Znak <code>=&gt;</code> czytaj w myślach jako „przekazuje parametry do bloku instrukcji”.</p>
+<p>Zobacz trzy warianty listy parametrów, które spotkasz w kodzie każdego dnia:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Liczba parametrów</th>
+<th align="left">Zapis funkcji strzałkowej</th>
+<th align="left">Przykład użycia</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Zero parametrów</td>
+<td align="left"><code>() =&gt; { ... }</code></td>
+<td align="left"><code>const wyczysc = () =&gt; { pole.textContent = ""; };</code></td>
+</tr>
+<tr>
+<td align="left">Jeden parametr</td>
+<td align="left"><code>(tekst) =&gt; { ... }</code></td>
+<td align="left"><code>const pokaz = (tekst) =&gt; { pole.textContent = tekst; };</code></td>
+</tr>
+<tr>
+<td align="left">Wiele parametrów</td>
+<td align="left"><code>(a, b) =&gt; { ... }</code></td>
+<td align="left"><code>const dodaj = (a, b) =&gt; { return a + b; };</code></td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Przy jednym parametrze JavaScript pozwala pominąć nawiasy (<code>tekst =&gt; { ... }</code>), jednak na początku nauki zawsze pisz nawiasy <code>(tekst) =&gt; { ... }</code>. Jednolity zapis zmniejsza ryzyko błędu składniowego, gdy później dopiszesz drugi parametr.</p>
+
+</div>
+</div><data-gate>
+  <data-sortable-list title="Ułóż etapy przekształcania funkcji klasycznej w anonimową funkcję strzałkową">
+    <item data-correct="3">Zastąp słowo function operatorem strzałki =&gt; umieszczonym za nawiasami: const powitaj = (imie) =&gt; { ... };</item>
+    <item data-correct="1">Zacznij od klasycznej deklaracji: function powitaj(imie) { ... }</item>
+    <item data-correct="4">Usuń zmienną i użyj samej anonimowej funkcji strzałkowej tam, gdzie potrzebna jest wartość: (imie) =&gt; { ... }</item>
+    <item data-correct="2">Przenieś nazwę do zmiennej const i zamień definicję na wyrażenie funkcyjne: const powitaj = function(imie) { ... };</item>
+  </data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚖️ Kluczowe rozróżnienie: nazwa kontra nazwa()</h2>
+<p>To najważniejsza zasada w tej lekcji. Zrozumienie różnicy między samą nazwą funkcji a jej wywołaniem oszczędzi Ci godzin szukania błędów przy zdarzeniach i pętlach.</p>
+<ul>
+<li><code>pokazStatus</code> (bez nawiasów): to <span class="color-green">referencja do funkcji</span>, czyli sam przepis. Nic się w tym momencie nie wykonuje.</li>
+<li><code>pokazStatus()</code> (z nawiasami): to <span class="color-green">natychmiastowe wywołanie funkcji</span>. Operator <code>()</code> każe silnikowi uruchomić kod wewnątrz funkcji tu i teraz, a w miejscu wywołania wstawić jej wynik (<code>return</code> albo <code>undefined</code>).</li>
+</ul>
+<h3>🔮 Przewidywanie: trzy warianty tego samego przepisu</h3>
+<p>Przeanalizuj uważnie poniższe trzy fragmenty kodu. Załóż, że każdy z nich uruchamiasz w osobnej konsoli.</p>
+<pre><code class="language-javascript">// Wariant A
+const uruchomAlarm = () =&gt; {
+  console.log("ALARM!");
+};
+</code></pre>
+<pre><code class="language-javascript">// Wariant B
+const uruchomAlarm = () =&gt; {
+  console.log("ALARM!");
+};
+const wynik = uruchomAlarm();
+</code></pre>
+<pre><code class="language-javascript">// Wariant C
+const uruchomAlarm = () =&gt; {
+  console.log("ALARM!");
+};
+const kopiaPrzepisu = uruchomAlarm;
+</code></pre>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Zanim przeczytasz wyjaśnienie poniżej, rozstrzygnij dla każdego z trzech wariantów:</p>
+<ol>
+<li>Czy w konsoli pojawi się napis <code>"ALARM!"</code>?</li>
+<li>Co dokładnie znajduje się w zmiennej <code>wynik</code> (Wariant B) oraz <code>kopiaPrzepisu</code> (Wariant C)?</li>
+</ol>
+
+</div>
+</div><h3>🔎 Obserwacja i wyjaśnienie</h3>
+<p>Sprawdź swoje przewidywania z rzeczywistym zachowaniem silnika JavaScript:</p>
+<ul>
+<li><span class="color-green">Wariant A</span>: konsola pozostaje całkowicie pusta. Zapisaliśmy przepis w pamięci pod nazwą <code>uruchomAlarm</code>, ale nigdzie nie użyliśmy nawiasów <code>()</code>.</li>
+<li><span class="color-green">Wariant B</span>: w konsoli pojawia się <code>"ALARM!"</code>, ponieważ nawiasy <code>()</code> natychmiast uruchomiły funkcję. Funkcja nie zawiera instrukcji <code>return</code>, więc zwraca wartość <code>undefined</code>. W zmiennej <code>wynik</code> zapisane jest więc <span class="color-red">undefined</span>, a nie funkcja.</li>
+<li><span class="color-green">Wariant C</span>: konsola pozostaje pusta. Nie ma nawiasów <code>()</code>, więc kod wewnątrz funkcji nie wykonał się. Zmienna <code>kopiaPrzepisu</code> wskazuje teraz na tę samą <span class="color-green">funkcję w pamięci</span> co <code>uruchomAlarm</code>. Możesz ją później uruchomić, pisząc <code>kopiaPrzepisu()</code>.</li>
+</ul>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔁 Funkcja zwrotna (callback): przekazywanie przepisu dalej</h2>
+<p>Skoro funkcja jest zwykłą wartością, możesz przekazać ją jako argument do innej funkcji. Funkcję przekazaną jako argument, którą inna funkcja uruchomi w odpowiednim momencie, nazywamy <span class="color-gold">funkcją zwrotną</span> (callback).</p>
+<p>Zobacz to na prostym przykładzie bez żadnej magii:</p>
+<pre><code class="language-javascript">const wyswietlSukces = () =&gt; {
+  console.log("Operacja zakończona poprawnie.");
+};
+
+const wykonajZLogiem = (zadanie) =&gt; {
+  console.log("Start procedury...");
+  zadanie();
+  console.log("Koniec procedury.");
+};
+
+// Przekazujemy sam przepis (bez nawiasów!):
+wykonajZLogiem(wyswietlSukces);
+</code></pre>
+<p>Prześledź kolejność zdarzeń w pamięci:</p>
+<ol>
+<li>Wywołujemy <code>wykonajZLogiem</code>, przekazując referencję <code>wyswietlSukces</code> pod parametr <span class="color-blue">zadanie</span>.</li>
+<li>Wewnątrz <code>wykonajZLogiem</code> najpierw wypisuje się <code>"Start procedury..."</code>.</li>
+<li>Dopiero linia <code>zadanie()</code> dodaje nawiasy i uruchamia przekazaną funkcję.</li>
+<li>Na końcu wypisuje się <code>"Koniec procedury."</code>.</li>
+</ol>
+<p>A co by się stało, gdybyś zapisał <code>wykonajZLogiem(wyswietlSukces())</code> z nawiasami? Funkcja <code>wyswietlSukces</code> uruchomiłaby się za wcześnie, jeszcze przed napisem <code>"Start procedury..."</code>, a pod parametr <span class="color-blue">zadanie</span> trafiłaby wartość <code>undefined</code>. Wtedy linia <code>zadanie()</code> rzuciłaby błąd <span class="color-red">TypeError: zadanie is not a function</span>.</p>
+<p>Zamiast tworzyć osobną zmienną dla jednorazowego zadania, często przekazujemy anonimową funkcję strzałkową bezpośrednio w miejscu argumentu:</p>
+<pre><code class="language-javascript">wykonajZLogiem(() =&gt; {
+  console.log("Jednorazowe zadanie wykonane.");
+});
+</code></pre>
+<p>Dokładnie ten sam mechanizm zobaczysz w kolejnej lekcji przy obsłudze kliknięć przycisków oraz przy iterowaniu po listach elementów.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Warsztat prowadzony: funkcja strzałkowa dla paska alertów</h2>
+<p>W panelu aplikacji mamy pasek powiadomień <code>#pasek-alertu</code> oraz tekst <code>#tresc-alertu</code>. Zamiast ręcznie powtarzać operacje na DOM przy każdym komunikacie, dokończ funkcję strzałkową <code>ustawAlert</code>, która przyjmuje dwa parametry: <code>wiadomosc</code> i <code>typ</code>.</p>
+<p>Uzupełnij brakujące miejsca w edytorze:</p>
+<ul>
+<li>Zapisz <code>ustawAlert</code> jako funkcję strzałkową z parametrami <code>(wiadomosc, typ)</code>.</li>
+<li>Wewnątrz funkcji ustaw <code>trescEl.textContent</code> na wartość parametru <code>wiadomosc</code>.</li>
+<li>Usuń stare klasy <code>"info"</code> i <code>"blad"</code>, a następnie dodaj klasę z parametru <code>typ</code> na elemencie <code>pasekEl</code>.</li>
+<li>Na końcu skryptu wywołaj funkcję z argumentami <code>"Brak połączenia z bazą"</code> oraz <code>"blad"</code>.</li>
+</ul>
+<data-gate>
+  <data-code-runner language="javascript" sandbox="dom" title="Sterownik paska alertów" data-code="Y29uc3QgcGFzZWtFbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIiNwYXNlay1hbGVydHUiKTsKY29uc3QgdHJlc2NFbCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoIiN0cmVzYy1hbGVydHUiKTsKCi8vIFRPRE86IFByemVwaXN6IHBvbmnFvHN6xIUgZGVrbGFyYWNqxJkga2xhc3ljem7EhSBuYSBmdW5rY2rEmSBzdHJ6YcWCa293xIUgY29uc3QgdXN0YXdBbGVydCA9ICh3aWFkb21vc2MsIHR5cCkgPT4geyAuLi4gfQpmdW5jdGlvbiB1c3Rhd0FsZXJ0KHdpYWRvbW9zYywgdHlwKSB7CiAgLy8gMS4gVXN0YXcgdHJlc2NFbC50ZXh0Q29udGVudCBuYSB3aWFkb21vc2MKICAvLyAyLiBVc3XFhCBrbGFzeSAiaW5mbyIgb3JheiAiYmxhZCIgeiBwYXNla0VsLmNsYXNzTGlzdAogIC8vIDMuIERvZGFqIGtsYXPEmSBwcnpla2F6YW7EhSB3IHptaWVubmVqIHR5cCBkbyBwYXNla0VsLmNsYXNzTGlzdAp9CgovLyBUT0RPOiBXeXdvxYJhaiB1c3Rhd0FsZXJ0KCJCcmFrIHBvxYLEhWN6ZW5pYSB6IGJhesSFIiwgImJsYWQiKTs=" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJhcnJvdy1zeW50YXgiLAogICAgICAgICAgInRleHQiOiAiRGVmaW5pY2phIGZ1bmtjamkgc3RyemHFgmtvd2VqIGNvbnN0IHVzdGF3QWxlcnQgPSAod2lhZG9tb3NjLCB0eXApID0+IiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImNvbnN0XFxzK3VzdGF3QWxlcnRcXHMqPVxccypcXChcXHMqd2lhZG9tb3NjXFxzKixcXHMqdHlwXFxzKlxcKVxccyo9PiIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJzZXQtbWVzc2FnZSIsCiAgICAgICAgICAidGV4dCI6ICJVc3Rhd2llbmllIHRyZXNjRWwudGV4dENvbnRlbnQgPSB3aWFkb21vc2Mgd2V3bsSFdHJ6IGZ1bmtjamkiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAidHJlc2NFbFxcLnRleHRDb250ZW50XFxzKj1cXHMqd2lhZG9tb3NjIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogInJlbW92ZS1jbGFzc2VzIiwKICAgICAgICAgICJ0ZXh0IjogIlVzdW5pxJljaWUga2xhcyBpbmZvIGkgYmxhZCB6IHBhc2VrRWwuY2xhc3NMaXN0IiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogInBhc2VrRWxcXC5jbGFzc0xpc3RcXC5yZW1vdmVcXHMqXFwoIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImFkZC10eXAiLAogICAgICAgICAgInRleHQiOiAiRG9kYW5pZSBrbGFzeSB6IHBhcmFtZXRydSB0eXAgcHJ6ZXogcGFzZWtFbC5jbGFzc0xpc3QuYWRkKHR5cCkiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAicGFzZWtFbFxcLmNsYXNzTGlzdFxcLmFkZFxccypcXChcXHMqdHlwXFxzKlxcKSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJjYWxsLWFsZXJ0IiwKICAgICAgICAgICJ0ZXh0IjogIld5d2/FgmFuaWUgdXN0YXdBbGVydChcIkJyYWsgcG/FgsSFY3plbmlhIHogYmF6xIVcIiwgXCJibGFkXCIpIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogInVzdGF3QWxlcnRcXHMqXFwoXFxzKltcIiddQnJhayBwb8WCxIVjemVuaWEgeiBiYXrEhVtcIiddXFxzKixcXHMqW1wiJ11ibGFkW1wiJ11cXHMqXFwpIgogICAgICAgIH0KICAgICAgXQ==" data-html="PHN0eWxlPgogIC5hbGVydCB7IHBhZGRpbmc6IDE0cHggMThweDsgYm9yZGVyLXJhZGl1czogOHB4OyBmb250LWZhbWlseTogc2Fucy1zZXJpZjsgYm9yZGVyLWxlZnQ6IDVweCBzb2xpZCAjNjQ3NDhiOyBiYWNrZ3JvdW5kOiAjZjFmNWY5OyBtYXgtd2lkdGg6IDM4MHB4OyB9CiAgLmFsZXJ0LmluZm8geyBiYWNrZ3JvdW5kOiAjZWZmNmZmOyBib3JkZXItY29sb3I6ICMyNTYzZWI7IGNvbG9yOiAjMWUzYThhOyB9CiAgLmFsZXJ0LmJsYWQgeyBiYWNrZ3JvdW5kOiAjZmVmMmYyOyBib3JkZXItY29sb3I6ICNkYzI2MjY7IGNvbG9yOiAjN2YxZDFkOyB9Cjwvc3R5bGU+CjxkaXYgaWQ9InBhc2VrLWFsZXJ0dSIgY2xhc3M9ImFsZXJ0IGluZm8iPgogIDxwIGlkPSJ0cmVzYy1hbGVydHUiPlN5c3RlbSBnb3Rvd3kgZG8gcHJhY3kuPC9wPgo8L2Rpdj4="></data-code-runner>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🚀 Samodzielne zadanie: Sterownik karty profilu użytkownika</h2>
+<p>Zbuduj od podstaw mały sterownik karty profilu złożony z dwóch współpracujących funkcji strzałkowych.</p>
+<p>W szablonie HTML masz kartę <code>#profil</code>, nazwę <code>#nazwa-uzytkownika</code> oraz etykietę roli <code>#rola-uzytkownika</code>.</p>
+<p>Twoje wymagania:</p>
+<ol>
+<li>Pobierz wszystkie trzy elementy przez <code>document.querySelector</code> i zapisz je w zmiennych <code>const</code>.</li>
+<li>Napisz pierwszą funkcję strzałkową <code>const ustawDaneProfilu = (nazwa, rola) =&gt; { ... }</code>, która ustawia <code>textContent</code> dla <code>#nazwa-uzytkownika</code> na <code>nazwa</code> oraz dla <code>#rola-uzytkownika</code> na <code>rola</code>.</li>
+<li>Napisz drugą funkcję strzałkową <code>const oznaczJakoAdmina = () =&gt; { ... }</code>, która usuwa klasę <code>"gosc"</code> i dodaje klasę <code>"admin"</code> na elemencie <code>#profil</code>.</li>
+<li>Napisz funkcję pomocniczą <code>const zastosujAkcje = (akcja) =&gt; { akcja(); };</code>, która przyjmuje funkcję zwrotną (<span class="color-blue">callback</span>) i ją wywołuje.</li>
+<li>Wywołaj <code>ustawDaneProfilu("Marek Nowak", "Administrator")</code>, a następnie przekaż samą referencję <code>oznaczJakoAdmina</code> <span class="color-green">bez nawiasów</span> do <code>zastosujAkcje(oznaczJakoAdmina)</code>.</li>
+</ol>
+<data-gate>
+  <data-code-runner language="javascript" sandbox="dom" title="Sterownik karty profilu" data-code="Ly8gWmJ1ZHVqIHN0ZXJvd25payB6IGR3aWVtYSBmdW5rY2phbWkgc3RyemHFgmtvd3ltaSBpIHd5d2/FgmFqIGplIG5hIGtvxYRjdTo=" data-requirements="WwogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJuby1mdW5jdGlvbi1rZXl3b3JkIiwKICAgICAgICAgICJ0ZXh0IjogIlXFvHljaWUgc2vFgmFkbmkgc3RyemHFgmtvd2VqIHphbWlhc3Qga2xhc3ljem5lZ28gc8WCb3dhIGZ1bmN0aW9uIiwKICAgICAgICAgICJ0eXBlIjogIm5vdC1jb250YWlucyIsCiAgICAgICAgICAicGF0dGVybiI6ICJmdW5jdGlvbiAiCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAic2VsZWN0LXByb2ZpbCIsCiAgICAgICAgICAidGV4dCI6ICJQb2JyYW5pZSAjcHJvZmlsLCAjbmF6d2EtdXp5dGtvd25pa2Egb3JheiAjcm9sYS11enl0a293bmlrYSBwcnpleiBxdWVyeVNlbGVjdG9yIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImRvY3VtZW50XFwucXVlcnlTZWxlY3RvclxccypcXChcXHMqW1wiJ10jcHJvZmlsW1wiJ11cXHMqXFwpIgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImZuLWRhbmUiLAogICAgICAgICAgInRleHQiOiAiRnVua2NqYSBzdHJ6YcWCa293YSBjb25zdCB1c3Rhd0RhbmVQcm9maWx1ID0gKG5hendhLCByb2xhKSA9PiIsCiAgICAgICAgICAidHlwZSI6ICJyZWdleCIsCiAgICAgICAgICAicGF0dGVybiI6ICJjb25zdFxccyt1c3Rhd0RhbmVQcm9maWx1XFxzKj1cXHMqXFwoXFxzKm5hendhXFxzKixcXHMqcm9sYVxccypcXClcXHMqPT4iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAiZm4tYWRtaW4iLAogICAgICAgICAgInRleHQiOiAiRnVua2NqYSBzdHJ6YcWCa293YSBjb25zdCBvem5hY3pKYWtvQWRtaW5hID0gKCkgPT4iLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAiY29uc3RcXHMrb3puYWN6SmFrb0FkbWluYVxccyo9XFxzKlxcKFxccypcXClcXHMqPT4iCiAgICAgICAgfSwKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAiY2xhc3MtYWRtaW4iLAogICAgICAgICAgInRleHQiOiAiRG9kYW5pZSBrbGFzeSBhZG1pbiBuYSBrYXJjaWUgcHJvZmlsdSBwcnpleiBjbGFzc0xpc3QuYWRkIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogIlxcLmNsYXNzTGlzdFxcLmFkZFxccypcXChcXHMqW1wiJ11hZG1pbltcIiddXFxzKlxcKSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJjYWxsLWRhbmUiLAogICAgICAgICAgInRleHQiOiAiV3l3b8WCYW5pZSB1c3Rhd0RhbmVQcm9maWx1KFwiTWFyZWsgTm93YWtcIiwgXCJBZG1pbmlzdHJhdG9yXCIpIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogInVzdGF3RGFuZVByb2ZpbHVcXHMqXFwoXFxzKltcIiddTWFyZWsgTm93YWtbXCInXVxccyosXFxzKltcIiddQWRtaW5pc3RyYXRvcltcIiddXFxzKlxcKSIKICAgICAgICB9LAogICAgICAgIHsKICAgICAgICAgICJpZCI6ICJmbi1jYWxsYmFjay1ydW5uZXIiLAogICAgICAgICAgInRleHQiOiAiRnVua2NqYSBwb21vY25pY3phIGNvbnN0IHphc3Rvc3VqQWtjamUgPSAoYWtjamEpID0+IHd5d2/FgnVqxIVjYSBha2NqYSgpIiwKICAgICAgICAgICJ0eXBlIjogInJlZ2V4IiwKICAgICAgICAgICJwYXR0ZXJuIjogImNvbnN0XFxzK3phc3Rvc3VqQWtjamVcXHMqPVxccypcXChcXHMqYWtjamFcXHMqXFwpXFxzKj0+IgogICAgICAgIH0sCiAgICAgICAgewogICAgICAgICAgImlkIjogImNhbGwtY2FsbGJhY2stcmVmIiwKICAgICAgICAgICJ0ZXh0IjogIlByemVrYXphbmllIHJlZmVyZW5jamkgb3puYWN6SmFrb0FkbWluYSBiZXogbmF3aWFzw7N3IGRvIHphc3Rvc3VqQWtjamUob3puYWN6SmFrb0FkbWluYSkiLAogICAgICAgICAgInR5cGUiOiAicmVnZXgiLAogICAgICAgICAgInBhdHRlcm4iOiAiemFzdG9zdWpBa2NqZVxccypcXChcXHMqb3puYWN6SmFrb0FkbWluYVxccypcXCkiCiAgICAgICAgfQogICAgICBd" data-html="PHN0eWxlPgogIC5wcm9maWwgeyBwYWRkaW5nOiAxNnB4OyBib3JkZXItcmFkaXVzOiAxMHB4OyBib3JkZXI6IDJweCBzb2xpZCAjY2JkNWUxOyBmb250LWZhbWlseTogc2Fucy1zZXJpZjsgbWF4LXdpZHRoOiAzMjBweDsgfQogIC5wcm9maWwuZ29zYyB7IGJhY2tncm91bmQ6ICNmOGZhZmM7IGNvbG9yOiAjMzM0MTU1OyB9CiAgLnByb2ZpbC5hZG1pbiB7IGJhY2tncm91bmQ6ICNmZWZjZTg7IGJvcmRlci1jb2xvcjogI2NhOGEwNDsgY29sb3I6ICM3MTNmMTI7IH0KICAucm9sYSB7IGRpc3BsYXk6IGlubGluZS1ibG9jazsgbWFyZ2luLXRvcDogNnB4OyBwYWRkaW5nOiAzcHggOHB4OyBib3JkZXItcmFkaXVzOiA0cHg7IGJhY2tncm91bmQ6IHJnYmEoMCwwLDAsMC4wOCk7IGZvbnQtc2l6ZTogMC45cmVtOyB9Cjwvc3R5bGU+CjxzZWN0aW9uIGlkPSJwcm9maWwiIGNsYXNzPSJwcm9maWwgZ29zYyI+CiAgPGgzIGlkPSJuYXp3YS11enl0a293bmlrYSI+QW5vbmltb3d5IGdvxZvEhzwvaDM+CiAgPHNwYW4gaWQ9InJvbGEtdXp5dGtvd25pa2EiIGNsYXNzPSJyb2xhIj5Hb8WbxIc8L3NwYW4+Cjwvc2VjdGlvbj4="></data-code-runner>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+  <summary>Głębsze spojrzenie: hoisting, niejawny return i różnica w wiązaniu this</summary>
+
+  <h4>Hoisting: dlaczego kolejność zapisu ma znaczenie przy const</h4>
+  <p>Klasyczna deklaracja <code>function nazwa() {}</code> podlega w JavaScript zjawisku hoistingu: silnik rejestruje ją przed rozpoczęciem wykonywania linii kodu, więc można ją wywołać nawet nad jej definicją. Funkcja strzałkowa zapisana w <code>const</code> zachowuje się jak zwykła zmienna w strefie TDZ (Temporal Dead Zone). Próba jej wywołania przed linią deklaracji kończy się błędem <code>ReferenceError</code>. Wymusza to czytelny układ pliku od góry do dołu.</p>
+
+  <h4>Niejawny return dla jednoinstrukcyjnych funkcji strzałkowych</h4>
+  <p>Gdy funkcja strzałkowa ma wyłącznie jedno wyrażenie zwracające wartość, można pominąć nawiasy klamrowe i słowo <code>return</code>: zapis <code>const podwoj = (x) =&gt; x * 2;</code> działa identycznie jak <code>const podwoj = (x) =&gt; { return x * 2; };</code>. Gdy tylko w funkcji pojawiają się nawiasy klamrowe <code>{}</code>, słowo <code>return</code> staje się obowiązkowe, jeśli funkcja ma zwrócić wynik.</p>
+
+  <h4>Leksykalne wiązanie this w funkcjach strzałkowych</h4>
+  <p>Klasyczna funkcja tworzy własny kontekst <code>this</code> zależny od sposobu jej wywołania, co w starszym kodzie często prowadziło do trudnych błędów wewnątrz metod obiektów. Funkcja strzałkowa nie tworzy własnego <code>this</code>: dziedziczy je na stałe z otaczającego ją zakresu leksykalnego. W pracy z <code>addEventListener</code> oznacza to także, że w funkcji strzałkowej zamiast <code>this</code> korzystamy z obiektu zdarzenia (<code>event.currentTarget</code> lub <code>event.target</code>).</p>
+</details>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><span class="color-green">Funkcja jako wartość</span>: możesz ją zapisać w <code>const</code>, skopiować do innej zmiennej albo przekazać jako argument do kolejnej funkcji.</li>
+<li><span class="color-green">Składnia strzałkowa <code>() =&gt; {}</code></span>: zastępuje rozwlekłe <code>function() {}</code>; zapisuj parametry w nawiasach <code>(a, b) =&gt; { ... }</code>, a logikę w klamrach.</li>
+<li><span class="color-green">Referencja <code>fn</code> kontra wywołanie <code>fn()</code></span>: sama nazwa to przepis, a nawiasy uruchamiają kod od razu, więc przekazując funkcję na później, nie dopisuj <code>()</code>.</li>
+<li><span class="color-green">Funkcja zwrotna (callback)</span>: funkcja przekazana jako argument; to funkcja nadrzędna decyduje, kiedy dopisze nawiasy i ją uruchomi.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

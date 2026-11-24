@@ -99,32 +99,49 @@ WHERE stan > 100;
 
 ---
 
-## 💻 Wyzwanie kodowe - Kwerenda towarów powyżej średniej
+## 💻 Wyzwanie kodowe - Raport podzapytania i UNION
 
-Napisz zapytanie wybierające nazwę (`nazwa`) oraz cenę (`cena`) z tabeli `towary` dla artykułów, których cena jednostkowa przewyższa średnią cenę towarów w całej hurtowni, posortowane malejąco po cenie.
+Połącz za pomocą operatora `UNION` dwa zbiory z tabeli `towary` (zwracając kolumny `nazwa` oraz `cena`):
+1. Towary, których `cena` jest wyższa niż średnia cena wszystkich towarów w tabeli (użyj podzapytania skalarnego `(SELECT AVG(cena) FROM towary)`),
+2. Towary masowe, których stan magazynowy (`stan`) wynosi co najmniej `150` sztuk.
 
 <data-gate>
-<data-code-runner language="sql" title="Towary droższe od średniej ceny magazynowej">
+<data-code-runner language="sql" title="Podzapytanie skalarne + suma zbiorów UNION">
   <template data-type="code">
--- Wybierz: nazwa, cena z tabeli towary
--- dla towarów o cenie > średnia cena w hurtowni
--- posortuj malejąco po cenie
-SELECT 
+-- 1. Wybierz nazwa, cena dla towarów droższych od średniej ceny (podzapytanie z AVG)
+-- 2. Połącz przez UNION z towarami o stanie magazynowym >= 150
+SELECT nazwa, cena
+FROM towary
+WHERE 
   </template>
   <template data-type="requirements">
     [
       {
+        "id": "sql-subquery",
+        "text": "Zastosowano podzapytanie skalarne (SELECT AVG(cena) FROM towary)",
+        "type": "regex",
+        "pattern": "\\(\\s*SELECT\\s+AVG\\s*\\(\\s*cena\\s*\\)\\s+FROM\\s+towary\\s*\\)"
+      },
+      {
+        "id": "sql-union",
+        "text": "Połączono wyniki dwóch zapytań operatorem UNION",
+        "type": "regex",
+        "pattern": "\\bUNION\\b"
+      },
+      {
         "id": "sql-exec",
-        "text": "Zwrócono wyłącznie towary o cenie przewyższającej średnią magazynową, uszeregowane od najdroższego",
+        "text": "Zwrócono dokładnie 5 rekordów (3 towary powyżej średniej + 2 ze stanem >= 150)",
         "type": "sql-execute",
         "schema": "CREATE TABLE towary (id INT PRIMARY KEY, nazwa TEXT, kategoria TEXT, cena REAL, stan INT); INSERT INTO towary VALUES (1, 'Wiertarka udarowa', 'Narzędzia', 340.00, 15), (2, 'Zestaw kluczy', 'Narzędzia', 180.00, 40), (3, 'Drabina aluminiowa', 'Budownictwo', 290.00, 8), (4, 'Pędzel płaski', 'Malarstwo', 12.00, 150), (5, 'Młotowiertarka SDS', 'Elektronarzędzia', 520.00, 5), (6, 'Taśma malarska', 'Malarstwo', 8.50, 200), (7, 'Kielnia nierdzewna', 'Budownictwo', 35.00, 60);",
-        "expectedCount": 3,
+        "expectedCount": 5,
         "expectedColumns": ["nazwa", "cena"],
-        "exactOrder": true,
+        "exactOrder": false,
         "expectedRows": [
           { "nazwa": "Młotowiertarka SDS", "cena": 520.00 },
           { "nazwa": "Wiertarka udarowa", "cena": 340.00 },
-          { "nazwa": "Drabina aluminiowa", "cena": 290.00 }
+          { "nazwa": "Drabina aluminiowa", "cena": 290.00 },
+          { "nazwa": "Pędzel płaski", "cena": 12.00 },
+          { "nazwa": "Taśma malarska", "cena": 8.50 }
         ]
       }
     ]

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typy wartościowe a referencyjne w pamięci - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Typy wartościowe a referencyjne w pamięci</h1>
+<p>Piszesz symulator walki w grze i przed trudnym starciem chcesz zapisać zapasowy stan bohatera. Tworzysz zmienną <code>Postac kopia = bohater;</code>, a potem uruchamiasz symulację na <span class="color-blue">kopia</span>. W trakcie walki <span class="color-blue">kopia</span> traci <code>80</code> punktów życia i zużywa jedyną apteczkę z ekwipunku. Gdy po teście zaglądasz do oryginalnego obiektu <span class="color-blue">bohater</span>, okazuje się, że on także ma <code>20</code> HP i pusty plecak.</p>
+<p>Z liczbami <code>int</code> albo <code>double</code> ten sam zapis <code>int b = a;</code> tworzy dwie całkowicie niezależne wartości. Dlaczego dla klasy <code>Postac</code> identyczny znak <code>=</code> połączył obie zmienne niewidzialnym sznurkiem? Odpowiedź leży w sposobie, w jaki środowisko .NET rozdziela dane między <span class="color-green">Stos</span> (Stack) a <span class="color-green">Stertę</span> (Managed Heap).</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🧠 Stos kontra Sterta i zjawisko aliasingu</h2>
+<p>W C# instrukcja przypisania <code>b = a;</code> robi dwie zupełnie różne rzeczy zależnie od kategorii typu. Typy dzielimy na <span class="color-green">wartościowe</span> (<code>struct</code>, <code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>) oraz <span class="color-green">referencyjne</span> (<code>class</code>, <code>string</code>, <code>List&lt;T&gt;</code>, tablice <code>T[]</code>).</p>
+<p><data-csharp-heap-viz></data-csharp-heap-viz></p>
+<p>Zwróć uwagę na fundamentalną różnicę widoczną w pamięci RAM:</p>
+<ul>
+<li><span class="color-green">Typ wartościowy</span>: zmienna na stosie przechowuje <span class="color-green">bezpośrednio same bity wartości</span>. Instrukcja <code>b = a;</code> kopiuje wszystkie pola do nowego miejsca na stosie, więc zmiana <span class="color-blue">b</span> nigdy nie dotyka <span class="color-blue">a</span>.</li>
+<li><span class="color-green">Typ referencyjny</span>: zmienna na stosie trzyma wyłącznie <span class="color-green">8‑bajtowy adres</span> obiektu leżącego na stercie. Instrukcja <code>b = a;</code> kopiuje <span class="color-green">tylko ten adres</span>. Obie zmienne wskazują odtąd ten sam obszar pamięci, co nazywamy <span class="color-green">aliasingiem</span>.</li>
+</ul>
+<h3>🔹 Kiedy wybrać struct a kiedy class</h3>
+<table>
+<thead>
+<tr>
+<th>Cecha</th>
+<th><code>struct</code> (Typ wartościowy)</th>
+<th><code>class</code> (Typ referencyjny)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Miejsce w pamięci</td>
+<td>Stos (lub bezpośrednio wewnątrz innego obiektu albo tablicy)</td>
+<td>Sterta (Managed Heap), sprzątana przez Garbage Collector</td>
+</tr>
+<tr>
+<td>Przypisanie <code>b = a</code></td>
+<td>Kopiuje wszystkie pola (dwie niezależne wartości)</td>
+<td>Kopiuje tylko 8‑bajtowy adres (aliasing)</td>
+</tr>
+<tr>
+<td>Wartość <code>null</code></td>
+<td>Niedozwolona (chyba że użyjesz <code>Nullable&lt;T&gt;</code>, np. <code>int?</code>)</td>
+<td>Dozwolona (domyślna wartość pustej referencji)</td>
+</tr>
+<tr>
+<td>Dziedziczenie</td>
+<td>Nie może dziedziczyć po innej klasie ani strukturze</td>
+<td>Pełne dziedziczenie i polimorfizm</td>
+</tr>
+<tr>
+<td>Dobre zastosowanie</td>
+<td>Małe, niezmienne wartości do 16 B (<code>Punkt2D</code>, <code>KolorRgb</code>, <code>Wektor2</code>)</td>
+<td>Encje z tożsamością i zmiennym stanem (<code>Postac</code>, <code>ProcesInfo</code>)</td>
+</tr>
+</tbody></table>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Projektuj własne struktury <code>struct</code> jako <span class="color-green">niemutowalne</span> (z polami <code>readonly</code>). Mutowalna struktura bywa źródłem podstępnych błędów: gdy pobierzesz ją z listy lub właściwości, dostajesz ukrytą kopię, więc jej modyfikacja znika bez śladu zamiast zmienić oryginał.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧵 Pułapka typu string i przekazywanie argumentów do metod</h2>
+<p>Skoro <code>string</code> jest <span class="color-green">typem referencyjnym</span> leżącym na stercie, dlaczego poniższy kod nie psuje zmiennej <span class="color-blue">a</span>?</p>
+<pre><code class="language-csharp">string a = "ABC";
+string b = a;     // obie zmienne wskazują ten sam napis "ABC" na stercie
+b = "XYZ";        // NIE zmienia starego napisu! Tworzy nowy napis "XYZ" i przestawia adres w b
+Console.WriteLine(a); // wypisze "ABC"
+</code></pre>
+<p>Napisy <code>string</code> w C# są <span class="color-green">niemutowalne</span>: raz zapisanych znaków w pamięci nie da się nadpisać. Każda operacja przypisania lub łączenia napisów alokuje na stercie nowy obiekt <code>string</code> i zmienia wyłącznie adres przechowywany w zmiennej po lewej stronie. Dlatego <code>string</code> leży na stercie jak klasa, ale w codziennym użyciu zachowuje się bezpiecznie jak typ wartościowy.</p>
+<h3>🔹 Trzy przypadki przekazywania argumentów do metod</h3>
+<p>Domyślnie każdy argument w C# jest przekazywany <span class="color-green">przez wartość</span> (czyli metoda dostaje kopię zawartości zmiennej ze stosu). W przypadku klasy tą zawartością ze stosu jest 8‑bajtowy adres, co daje trzy różne scenariusze:</p>
+<pre><code class="language-csharp">static void ZmienStruct(Punkt2D p)
+{
+    // p to kopia struktury: zmiana lokalnej zmiennej nie wpływa na oryginał
+    p = new Punkt2D(99, 99);
+}
+
+static void MutujKlase(Konto k)
+{
+    // k to kopia adresu: wskazuje TEN SAM obiekt Konto na stercie
+    k.Wplac(50); // oryginał widzi zmianę salda!
+}
+
+static void PodmienReferencje(Konto k)
+{
+    // zmieniasz tylko lokalną kopię adresu k; zmienna wywołującego nadal wskazuje stary obiekt!
+    k = new Konto(999, 0);
+}
+
+static void PodmienPrzezRef(ref Konto k)
+{
+    // słowo ref przekazuje dostęp do samej zmiennej wywołującego
+    k = new Konto(999, 0); // oryginał zaczyna wskazywać nowy obiekt
+}
+</code></pre>
+<p>Zapamiętaj prostą regułę: metoda bez słowa kluczowego <span class="color-green"><code>ref</code></span> może <span class="color-green">zmienić wnętrze</span> przekazanego obiektu klasy, ale nie potrafi <span class="color-green">podmienić samej zmiennej</span> wywołującego na inny obiekt. Słowo <span class="color-green"><code>ref</code></span> (wpisane zarówno przy parametrze metody, jak i przy jej wywołaniu) daje metodzie bezpośredni dostęp do zmiennej na stosie wywołującego.</p>
+<h3>🔹 Równość referencyjna operatora ==</h3>
+<p>Utwórz dwa osobne obiekty klasy <code>Konto</code> z dokładnie tym samym numerem i saldem:</p>
+<pre><code class="language-csharp">Konto k1 = new Konto(1, 500);
+Konto k2 = new Konto(1, 500);
+Console.WriteLine(k1 == k2); // False!
+</code></pre>
+<p>Wynik to <code>False</code>, mimo że wszystkie pola są identyczne. Domyślny operator <span class="color-green"><code>==</code></span> dla klas nie zagląda do środka obiektów, lecz porównuje ich <span class="color-green">adresy w pamięci RAM</span>. Dwa wywołania <code>new</code> utworzyły dwa osobne miejsca na stercie, więc ich adresy są różne. Wyjątkiem jest klasa <code>string</code>, dla której twórcy C# specjalnie przeciążyli operator <code>==</code>, aby porównywał kolejne znaki.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Kopia płytka, kopia głęboka oraz bezpieczna praca z null</h2>
+<p>Gdy potrzebujesz niezależnego klonu obiektu klasy, samo przypisanie <code>var kopia = oryginal;</code> tworzy wyłącznie alias. Musisz wywołać <code>new</code> i skopiować pola ręcznie. Jeśli jednak klasa przechowuje wewnątrz inną referencję (na przykład <code>List&lt;string&gt;</code>), łatwo wpaść w pułapkę <span class="color-green">kopii płytkiej</span> (shallow copy):</p>
+<pre><code class="language-csharp">public class KoszykZakupow
+{
+    private List&lt;string&gt; _produkty;
+
+    public KoszykZakupow(List&lt;string&gt; produkty)
+    {
+        _produkty = produkty;
+    }
+
+    // BŁĄD (kopia płytka): nowy koszyk dostaje ten sam adres listy _produkty!
+    public KoszykZakupow KopiaPlytka()
+    {
+        return new KoszykZakupow(_produkty);
+    }
+
+    // POPRAWNIE (kopia głęboka): tworzy osobną listę na stercie z kopią elementów
+    public KoszykZakupow KopiaGleboka()
+    {
+        return new KoszykZakupow(new List&lt;string&gt;(_produkty));
+    }
+}
+</code></pre>
+<p>Po wywołaniu <code>KopiaPlytka()</code> istnieją dwa obiekty <code>KoszykZakupow</code>, ale oba wskazują tę samą listę <code>_produkty</code> na stercie. Dodanie elementu do kopii natychmiast zmienia oryginał. Dopiero <span class="color-green">kopia głęboka</span> (deep copy), która tworzy nową listę przez <code>new List&lt;string&gt;(_produkty)</code>, w pełni rozdziela oba obiekty.</p>
+<h3>🔹 NullReferenceException, operator ?? i typy Nullable</h3>
+<p>Próba odczytu właściwości albo wywołania metody na referencji równej <code>null</code> kończy się wyjątkiem <span class="color-red">NullReferenceException</span>. Procesor dostaje wtedy pusty adres <code>0x0000000000000000</code>, spod którego nie wolno czytać danych.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Przed użyciem referencji pochodzącej z zewnątrz zawsze sprawdź <code>obiekt != null</code>. Do podstawiania wartości domyślnej używaj operatora <span class="color-green"><code>??</code></span> (działa w każdym C#, w tym w C# 5.0):</p>
+
+</div>
+</div><pre><code class="language-csharp">string host = konfiguracja != null ? konfiguracja.AdresHosta : null;
+string docelowyHost = host ?? "127.0.0.1";
+</code></pre>
+<p>Zwykły typ wartościowy <code>int</code> nie może przyjąć wartości <code>null</code>, ponieważ na stosie zawsze musi leżeć jakaś liczba (domyślnie <code>0</code>). Czasem jednak potrzebujesz odróżnić „wynik wynosi 0 punktów” od „gracz jeszcze nie zagrał”. Wtedy używasz typu <span class="color-green"><code>int?</code></span> (skrót od <span class="color-gold">Nullable&lt;int&gt;</span>):</p>
+<pre><code class="language-csharp">int? najlepszyWynik = null;
+
+if (najlepszyWynik.HasValue)
+    Console.WriteLine(najlepszyWynik.Value);
+
+int bezpieczny = najlepszyWynik.GetValueOrDefault(); // zwraca 0, gdy brak wartości
+int domyslny = najlepszyWynik ?? -1;                 // zwraca -1, gdy brak wartości
+</code></pre>
+<p>Właściwość <code>HasValue</code> informuje, czy zmienna przechowuje liczbę, a metoda <code>GetValueOrDefault()</code> albo operator <code>??</code> pozwalają bezpiecznie odczytać wynik bez ryzyka wyjątku.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj operację w C# do jej skutku w pamięci RAM">
+    <item left="MutujKlase(postac) zmieniające Hp wewnątrz metody" right="Modyfikuje oryginalny obiekt na stercie przez skopiowany adres"></item>
+    <item left="PodmienReferencje(postac) z przypisaniem postac = new Postac(...)" right="Zmienia wyłącznie lokalną kopię adresu bez wpływu na zmienną wywołującego"></item>
+    <item left="new Postac(&quot;Neo&quot;, 100) == new Postac(&quot;Neo&quot;, 100)" right="Zwraca false, ponieważ porównuje dwa różne adresy obiektów na stercie"></item>
+    <item left="Kopia płytka klasy zawierającej List<string>" right="Tworzy drugi obiekt, ale oba współdzielą adres tej samej listy na stercie"></item>
+    <item left="Wywołanie metody na referencji o wartości null" right="Rzuca wyjątek NullReferenceException z powodu pustego adresu pamięci"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Boxing w CIL, Generational Garbage Collector i porównanie z C malloc/free</span>
+<span class="deep-dive-badge">CIL · GARBAGE COLLECTOR · C/C++</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Boxing i Unboxing w bajtkodzie CIL</h4>
+
+<p>Typy wartościowe (<code>int</code>, <code>struct</code>) nie mają w pamięci 16‑bajtowego nagłówka obiektu CLR. Kiedy jednak przekażesz <code>int</code> w miejsce oczekujące referencji <code>object</code> (na przykład do przestarzałej kolekcji <code>ArrayList</code> albo do <code>string.Format("{0}", liczba)</code>), środowisko wykonawcze musi wykonać <span class="color-green">Boxing</span>. Polega to na zaalokowaniu nowego 24‑bajtowego obiektu na stercie (8 B <code>Object Header</code>, 8 B <code>MethodTable*</code> typu <code>System.Int32</code>, 4 B wartości i 4 B paddingu) oraz skopiowaniu tam liczby.</p>
+<p>Spójrz na kod pośredni CIL generowany dla trzech linijek C# (<code>int x = 42; object o = x; int y = (int)o;</code>):</p>
+<pre><code class="language-cil">ldc.i4.s   42                        // wrzuc 42 na stos obliczeniowy
+stloc.0                              // zapisz do lokalnej zmiennej x (stos)
+ldloc.0                              // pobierz x
+box        [mscorlib]System.Int32    // ALOKACJA 24 B NA STERCIE + kopia bitow!
+stloc.1                              // zapisz 8-bajtowy adres do o
+ldloc.1                              // pobierz adres ze sterty
+unbox.any  [mscorlib]System.Int32    // sprawdz typ w MethodTable i skopiuj 4 B na stos
+stloc.2                              // zapisz do y
+</code></pre>
+<p>Jeśli w pętli gry działającej w 60 klatkach na sekundę wykonasz 5 000 nieświadomych operacji boxingu w każdej klatce, powstanie <span class="color-green">300 000 zbędnych obiektów na sekundę</span> (ponad 7,2 MB/s alokacji). Wywołuje to częste sprzątanie pamięci i widoczne przycięcia animacji (GC Stutter). Kolekcje generyczne <code>List&lt;int&gt;</code> generują specjalizowany kod maszynowy bez żadnego boxingu.</p>
+<h4>2. Generational Garbage Collector (Gen 0, Gen 1, Gen 2) i kompaktowanie sterty</h4>
+
+<p>Alokacja obiektu <code>new</code> na stercie CLR jest błyskawiczna, ponieważ sterta jest utrzymywana jako ciągły blok pamięci. Środowisko wykonawcze jedynie przesuwa wskaźnik wolnego miejsca (bump‑the-pointer) o rozmiar nowego obiektu.</p>
+<p>Jest to możliwe dzięki <span class="color-green">kompaktowaniu sterty</span> (Compacting GC). Podczas sprzątania Garbage Collector usuwa martwe obiekty, zsuwa żywe obiekty obok siebie (likwidując fragmentację RAM) i automatycznie aktualizuje wszystkie 8‑bajtowe referencje w rejestrach CPU oraz na stosach wątków.</p>
+<p>Aby nie skanować całych gigabajtów pamięci przy każdym sprzątaniu, CLR dzieli stertę na trzy pokolenia oparte na obserwacji, że większość obiektów żyje bardzo krótko:</p>
+<ul>
+<li><span class="color-green">Gen 0</span> (zwykle kilka MB): wszystkie nowo utworzone małe obiekty. Sprzątanie trwa ułamek milisekundy i usuwa ponad 90% obiektów.</li>
+<li><span class="color-green">Gen 1</span>: strefa buforowa dla obiektów, które przeżyły jedno sprzątanie Gen 0.</li>
+<li><span class="color-green">Gen 2</span>: obiekty długowieczne (cache, główne okna aplikacji, statyczne kolekcje). Pełne sprzątanie Gen 2 (Full GC) zatrzymuje wątki aplikacji (Stop‑The-World) na znacznie dłużej.</li>
+</ul>
+<h4>3. Porównanie z ręcznym zarządzaniem pamięcią w C i C++</h4>
+
+<p>W języku C programista sam rezerwuje pamięć funkcją <code>malloc()</code> i sam musi ją oddać funkcją <code>free()</code>. Zapomnienie <code>free()</code> powoduje <span class="color-red">wyciek pamięci</span> (Memory Leak), a odczyt spod adresu po jego zwolnieniu tworzy krytyczną podatność bezpieczeństwa <span class="color-red">Use‑After-Free (UAF)</span>:</p>
+<pre><code class="language-c">int* ptr = (int*)malloc(sizeof(int));
+*ptr = 100;
+free(ptr);       // pamiec wraca do alokatora, ale ptr nadal trzyma stary adres!
+*ptr = 999;      // USE-AFTER-FREE: nadpisujesz losowe dane innego obiektu lub crashujesz proces!
+</code></pre>
+<p>W C# referencja pozostaje ważna dopóki istnieje w zasięgu programu. Garbage Collector zwolni obiekt dopiero wtedy, gdy żaden korzeń (GC Root) na stosie ani w polach statycznych na niego nie wskazuje. Cała klasa błędów <span class="color-red">Use‑After-Free (UAF)</span> zostaje wyeliminowana kosztem narzutu Garbage Collectora.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne w 2 plikach dla Punkt2D i Postac</h2>
+<p>Przełącz zakładkę na <span class="color-green"><code>Modele.cs</code></span> i zaimplementuj dwa typy demonstrujące różnicę między niemutowalną strukturą wartościową a głębokim klonowaniem klasy:</p>
+<ol>
+<li><span class="color-green"><code>public struct Punkt2D</code></span> (niemutowalna struktura):<ul>
+<li>pola tylko do odczytu <code>public readonly int X;</code> oraz <code>public readonly int Y;</code>,</li>
+<li>konstruktor <code>Punkt2D(int x, int y)</code> ustawiający oba pola,</li>
+<li>metoda <code>Przesun(int dx, int dy)</code> zwracająca <span class="color-green">nowy</span> <code>Punkt2D(X + dx, Y + dy)</code> bez modyfikowania oryginalnej struktury,</li>
+<li>metoda <code>double OdlegloscOd(Punkt2D inny)</code> obliczająca odległość euklidesową między punktami (wykonaj różnice i kwadraty na typie <code>double</code>, aby uniknąć przepełnienia <code>int</code> dla współrzędnych rzędu <code>60000</code>).</li>
+</ul>
+</li>
+<li><span class="color-green"><code>public class Postac</code></span>:<ul>
+<li>właściwości <code>public string Imie { get; private set; }</code>, <code>public int Hp { get; private set; }</code> oraz wyliczana <code>public int LiczbaPrzedmiotow { get { return _ekwipunek.Count; } }</code>,</li>
+<li>prywatne pole referencyjne <code>private List&lt;string&gt; _ekwipunek;</code>,</li>
+<li>konstruktor <code>Postac(string imie, int hp)</code> z walidacją: dla <code>string.IsNullOrWhiteSpace(imie)</code> rzuć <span class="color-red">ArgumentException</span>, a dla <code>hp &lt; 0</code> rzuć <span class="color-red">ArgumentOutOfRangeException</span>; przypisz <code>Imie = imie.Trim()</code>, <code>Hp = hp</code> i utwórz pustą listę <code>_ekwipunek = new List&lt;string&gt;()</code>,</li>
+<li>metoda <code>DodajPrzedmiot(string nazwa)</code>: dla <code>string.IsNullOrWhiteSpace(nazwa)</code> rzuć <span class="color-red">ArgumentException</span>, w przeciwnym razie dodaj <code>nazwa.Trim()</code> do <code>_ekwipunek</code>,</li>
+<li>metoda <code>MaPrzedmiot(string nazwa)</code> zwracająca <code>_ekwipunek.Contains(nazwa)</code>,</li>
+<li>metoda <code>OtrzymajObrazenia(int ile)</code>: dla <code>ile &lt; 0</code> rzuć <span class="color-red">ArgumentOutOfRangeException</span>, inaczej zmniejsz <code>Hp</code>, ale nie poniżej <code>0</code>,</li>
+<li>metoda <span class="color-green"><code>public Postac Klonuj()</code></span>, zwracająca <span class="color-green">nowy, niezależny obiekt</span> <code>Postac</code> z <span class="color-green">głęboką kopią</span> ekwipunku (dodanie przedmiotu do klona nie może zmienić ekwipunku oryginału).</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: niemutowalny struct Punkt2D vs class Postac z głębokim Klonuj">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        var p1 = new Punkt2D(0, 0);
+        var p2 = p1.Przesun(3, 4);
+        Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+            "p1=({0},{1}), p2=({2},{3}), dystans={4:F2}",
+            p1.X, p1.Y, p2.X, p2.Y, p1.OdlegloscOd(p2)));
+
+        var hero = new Postac("Neo", 100);
+        hero.DodajPrzedmiot("Klucz");
+        var klon = hero.Klonuj();
+        klon.OtrzymajObrazenia(60);
+        klon.DodajPrzedmiot("Tarcza");
+
+        Console.WriteLine("hero: Hp=" + hero.Hp + ", przedmioty=" + hero.LiczbaPrzedmiotow);
+        Console.WriteLine("klon: Hp=" + klon.Hp + ", przedmioty=" + klon.LiczbaPrzedmiotow);
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="Modele.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public struct Punkt2D
+{
+    public readonly int X;
+    public readonly int Y;
+
+    public Punkt2D(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    public Punkt2D Przesun(int dx, int dy)
+    {
+        // Zwroc nowy Punkt2D przesuniety o (dx, dy) bez modyfikowania oryginalu
+        return new Punkt2D(0, 0);
+    }
+
+    public double OdlegloscOd(Punkt2D inny)
+    {
+        // Oblicz odleglosc euklidesowa na typie double (uwaga na przepelnienie int!)
+        return 0.0;
+    }
+}
+
+public class Postac
+{
+    private List&lt;string&gt; _ekwipunek;
+
+    public string Imie { get; private set; }
+    public int Hp { get; private set; }
+    public int LiczbaPrzedmiotow { get { return _ekwipunek.Count; } }
+
+    public Postac(string imie, int hp)
+    {
+        // Zwaliduj imie (ArgumentException) oraz hp &lt; 0 (ArgumentOutOfRangeException)
+        // Przypisz imie.Trim(), hp i zainicjalizuj _ekwipunek
+        Imie = imie;
+        Hp = hp;
+        _ekwipunek = new List&lt;string&gt;();
+    }
+
+    public void DodajPrzedmiot(string nazwa)
+    {
+        // Zwaliduj nazwe (ArgumentException) i dodaj nazwa.Trim() do _ekwipunek
+    }
+
+    public bool MaPrzedmiot(string nazwa)
+    {
+        return _ekwipunek.Contains(nazwa);
+    }
+
+    public void OtrzymajObrazenia(int ile)
+    {
+        // Zwaliduj ile &lt; 0 (ArgumentOutOfRangeException) i obniz Hp maksymalnie do 0
+    }
+
+    public Postac Klonuj()
+    {
+        // Zwroc niezalezna, GLEBOKA kopie obiektu Postac wraz z nowa lista ekwipunku!
+        return this;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("Niemutowalny struct Punkt2D zachowuje semantykę wartości i nie modyfikuje oryginału w Przesun", () =&gt; {
+    var a = new Punkt2D(5, 10);
+    var b = a;
+    LabAssert.Equal(5, b.X);
+    LabAssert.Equal(10, b.Y);
+
+    var c = a.Przesun(3, -4);
+    LabAssert.Equal(5, a.X);
+    LabAssert.Equal(10, a.Y);
+    LabAssert.Equal(8, c.X);
+    LabAssert.Equal(6, c.Y);
+});
+LabAssert.Test("Punkt2D.OdlegloscOd poprawnie wylicza dystans również dla dużych współrzędnych bez przepełnienia int", () =&gt; {
+    var p0 = new Punkt2D(0, 0);
+    var p1 = new Punkt2D(3, 4);
+    LabAssert.Equal(5.0, Math.Round(p0.OdlegloscOd(p1), 4));
+    LabAssert.Equal(0.0, p1.OdlegloscOd(p1));
+
+    var ujemny = new Punkt2D(-3, -4);
+    LabAssert.Equal(10.0, Math.Round(p1.OdlegloscOd(ujemny), 4));
+
+    var daleki = new Punkt2D(60000, 80000);
+    LabAssert.Equal(100000.0, Math.Round(p0.OdlegloscOd(daleki), 4));
+});
+LabAssert.Test("Postac.Klonuj tworzy głęboką kopię (niezależne Hp i niezależna lista Ekwipunek)", () =&gt; {
+    var orig = new Postac("  Trinity  ", 100);
+    orig.DodajPrzedmiot("Klucz");
+    orig.DodajPrzedmiot("Kompas");
+
+    var kopia = orig.Klonuj();
+    LabAssert.False(orig == kopia);
+    kopia.OtrzymajObrazenia(75);
+    kopia.DodajPrzedmiot("Tarcza");
+
+    LabAssert.Equal("Trinity", orig.Imie);
+    LabAssert.Equal("Trinity", kopia.Imie);
+    LabAssert.Equal(100, orig.Hp);
+    LabAssert.Equal(25, kopia.Hp);
+
+    LabAssert.Equal(2, orig.LiczbaPrzedmiotow);
+    LabAssert.Equal(3, kopia.LiczbaPrzedmiotow);
+    LabAssert.True(kopia.MaPrzedmiot("Klucz"));
+    LabAssert.True(kopia.MaPrzedmiot("Tarcza"));
+    LabAssert.False(orig.MaPrzedmiot("Tarcza"));
+
+    kopia.OtrzymajObrazenia(200);
+    LabAssert.Equal(0, kopia.Hp);
+});
+LabAssert.Test("Postac waliduje null, puste imię, ujemne Hp, ujemne obrażenia i pusty przedmiot", () =&gt; {
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; new Postac(null, 50));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; new Postac("  ", 50));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new Postac("Morpheus", -10));
+    var p = new Postac("Morpheus", 80);
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; p.OtrzymajObrazenia(-5));
+    LabAssert.Throws&lt;ArgumentException&gt;(() =&gt; p.DodajPrzedmiot("   "));
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy przypisanie b = a tworzy kopię, a kiedy alias?</strong> Dla <code>int</code> i <code>struct</code> kopiowane są same dane na stosie; dla <code>class</code>, <code>List&lt;T&gt;</code> i tablic kopiowany jest tylko 8‑bajtowy adres na stercie.</li>
+<li><strong>Dlaczego string zachowuje się bezpiecznie mimo bycia typem referencyjnym?</strong> Ponieważ napisy są niemutowalne: zmiana zmiennej tworzy nowy obiekt pod nowym adresem zamiast nadpisywać stary.</li>
+<li><strong>Kiedy metoda potrzebuje słowa kluczowego ref?</strong> Wtedy, gdy ma podmienić samą zmienną wywołującego na inny obiekt albo zmodyfikować przekazaną strukturę wartościową.</li>
+<li><strong>Jak bezpiecznie sklonować klasę zawierającą listę lub tablicę?</strong> Utwórz nowy obiekt i przekaż mu nową kolekcję z kopią elementów (kopia głęboka), aby oryginał i klon nie współdzieliły tej samej listy na stercie.</li>
+<li><strong>Jak chronić kod przed NullReferenceException i brakiem wartości w typach prostych?</strong> Sprawdzaj <code>!= null</code> przed dostępem do obiektu, stosuj operator <code>??</code> dla wartości domyślnych oraz <code>int?</code> z <code>HasValue</code> i <code>GetValueOrDefault()</code> dla opcjonalnych liczb.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

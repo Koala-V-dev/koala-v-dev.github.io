@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 360" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0b1120; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 800; fill: #ffffff; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .bit-scale { font-family: monospace; font-size: 9px; font-weight: 700; fill: #94a3b8; text-anchor: middle; }
+      .fld-title { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 800; text-anchor: middle; }
+      .fld-sub { font-family: monospace; font-size: 8.5px; font-weight: 700; text-anchor: middle; }
+      .callout-title { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 800; }
+      .desc-txt { font-family: system-ui, sans-serif; font-size: 9px; fill: #cbd5e1; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg"/>
+
+  <text x="30" y="30" class="title">Anatomia nagłówka pakietu IPv4 (Standard RFC 791)</text>
+  <text x="30" y="48" class="sub">Układ 32-bitowych słów (4 bajty w wierszu) – standardowy nagłówek bez opcji liczy dokładnie 20 bajtów</text>
+
+  <!-- ================= SKALA BITOWA (0 DO 31) ================= -->
+  <g transform="translate(30, 72)">
+    <text x="0" y="0" class="bit-scale" text-anchor="start">Bit 0</text>
+    <text x="85" y="0" class="bit-scale">Bit 4</text>
+    <text x="170" y="0" class="bit-scale">Bit 8</text>
+    <text x="340" y="0" class="bit-scale">Bit 16</text>
+    <text x="680" y="0" class="bit-scale" text-anchor="end">Bit 31</text>
+    <line x1="0" y1="5" x2="680" y2="5" stroke="#475569" stroke-width="1"/>
+  </g>
+
+  <!-- ================= SIATKA NIESZCZELNA 20 BAJTÓW NAGŁÓWKA ================= -->
+  <g transform="translate(30, 84)">
+    <!-- WIERSZ 1 (Bajty 0-3): Wersja, IHL, DSCP/ECN, Długość Całkowita -->
+    <g transform="translate(0, 0)">
+      <!-- Wersja (4b) -->
+      <rect x="0" y="0" width="85" height="34" fill="#0369a1" stroke="#38bdf8" rx="2"/>
+      <text x="42" y="16" class="fld-title" fill="#ffffff">Wersja (4b)</text>
+      <text x="42" y="27" class="fld-sub" fill="#bae6fd">0100 (IPv4)</text>
+
+      <!-- IHL (4b) -->
+      <rect x="87" y="0" width="85" height="34" fill="#0284c7" stroke="#38bdf8" rx="2"/>
+      <text x="129" y="16" class="fld-title" fill="#ffffff">IHL (4b)</text>
+      <text x="129" y="27" class="fld-sub" fill="#bae6fd">5 słów = 20B</text>
+
+      <!-- DSCP / ECN (8b) -->
+      <rect x="174" y="0" width="168" height="34" fill="#0f172a" stroke="#64748b" rx="2"/>
+      <text x="258" y="16" class="fld-title" fill="#cbd5e1">Typ usługi (TOS / DSCP - 8b)</text>
+      <text x="258" y="27" class="fld-sub" fill="#94a3b8">QoS / Priorytet ruchu</text>
+
+      <!-- Całkowita długość (16b) -->
+      <rect x="344" y="0" width="336" height="34" fill="#164e63" stroke="#22d3ee" rx="2"/>
+      <text x="512" y="16" class="fld-title" fill="#ffffff">Długość całkowita pakietu (Total Length - 16b)</text>
+      <text x="512" y="27" class="fld-sub" fill="#a5f3fc">Nagłówek + Dane (maksymalnie 65 535 bajtów)</text>
+    </g>
+
+    <!-- WIERSZ 2 (Bajty 4-7): Identyfikacja, Flagi, Offset fragmentacji -->
+    <g transform="translate(0, 36)">
+      <!-- Identyfikator (16b) -->
+      <rect x="0" y="0" width="340" height="34" fill="#0f172a" stroke="#64748b" rx="2"/>
+      <text x="170" y="16" class="fld-title" fill="#cbd5e1">Identyfikacja pakietu (Identification - 16b)</text>
+      <text x="170" y="27" class="fld-sub" fill="#94a3b8">Łączy pofragmentowane kawałki pakietu</text>
+
+      <!-- Flagi (3b) -->
+      <rect x="342" y="0" width="110" height="34" fill="#581c87" stroke="#c084fc" rx="2"/>
+      <text x="397" y="16" class="fld-title" fill="#ffffff">Flagi (3b)</text>
+      <text x="397" y="27" class="fld-sub" fill="#e9d5ff">DF (Don't) / MF (More)</text>
+
+      <!-- Przesunięcie fragmentu (13b) -->
+      <rect x="454" y="0" width="226" height="34" fill="#0f172a" stroke="#64748b" rx="2"/>
+      <text x="567" y="16" class="fld-title" fill="#cbd5e1">Fragment Offset (13b)</text>
+      <text x="567" y="27" class="fld-sub" fill="#94a3b8">Pozycja fragmentu w całym pakiecie</text>
+    </g>
+
+    <!-- WIERSZ 3 (Bajty 8-11): TTL, Protokół, Suma kontrolna nagłówka -->
+    <g transform="translate(0, 72)">
+      <!-- TTL (8b) - KLUCZOWE -->
+      <rect x="0" y="0" width="170" height="34" fill="#78350f" stroke="#f59e0b" stroke-width="1.5" rx="2"/>
+      <text x="85" y="16" class="fld-title" fill="#fde68a">TTL (Time to Live - 8b)</text>
+      <text x="85" y="27" class="fld-sub" fill="#ffffff">Czas życia (Licznik skoków)</text>
+
+      <!-- Protokół (8b) - KLUCZOWE -->
+      <rect x="172" y="0" width="170" height="34" fill="#064e3b" stroke="#10b981" stroke-width="1.5" rx="2"/>
+      <text x="257" y="16" class="fld-title" fill="#a7f3d0">Protokół (Protocol - 8b)</text>
+      <text x="257" y="27" class="fld-sub" fill="#ffffff">6=TCP | 17=UDP | 1=ICMP</text>
+
+      <!-- Suma kontrolna nagłówka (16b) -->
+      <rect x="344" y="0" width="336" height="34" fill="#0f172a" stroke="#64748b" rx="2"/>
+      <text x="512" y="16" class="fld-title" fill="#cbd5e1">Suma kontrolna nagłówka (Header Checksum - 16b)</text>
+      <text x="512" y="27" class="fld-sub" fill="#94a3b8">Weryfikuje wyłącznie 20 bajtów nagłówka IP</text>
+    </g>
+
+    <!-- WIERSZ 4 (Bajty 12-15): ADRES ŹRÓDŁOWY IP (32b) -->
+    <g transform="translate(0, 108)">
+      <rect x="0" y="0" width="680" height="34" fill="#047857" stroke="#34d399" stroke-width="1.5" rx="2"/>
+      <text x="340" y="16" class="fld-title" fill="#ffffff">Adres IP Źródła (Source IP Address - 32 bity / 4 bajty)</text>
+      <text x="340" y="27" class="fld-sub" fill="#a7f3d0">np. 192.168.1.15</text>
+    </g>
+
+    <!-- WIERSZ 5 (Bajty 16-19): ADRES DOCELOWY IP (32b) -->
+    <g transform="translate(0, 144)">
+      <rect x="0" y="0" width="680" height="34" fill="#0e7490" stroke="#22d3ee" stroke-width="1.5" rx="2"/>
+      <text x="340" y="16" class="fld-title" fill="#ffffff">Adres IP Celu (Destination IP Address - 32 bity / 4 bajty)</text>
+      <text x="340" y="27" class="fld-sub" fill="#a5f3fc">np. 93.184.216.34 (Adres serwera docelowego)</text>
+    </g>
+  </g>
+
+  <!-- ================= DOLNE WYJAŚNIENIE INŻYNIERSKIE ================= -->
+  <g transform="translate(30, 275)">
+    <rect width="680" height="70" fill="#1e293b" stroke="#38bdf8" rx="4"/>
+    <text x="15" y="22" class="callout-title" fill="#38bdf8">Kluczowe mechanizmy pola TTL w inżynierii sieci:</text>
+    <text x="15" y="40" class="desc-txt"><tspan font-weight="700" fill="#fde68a">1. Eliminacja pętli:</tspan> Każdy router dekrementuje TTL o 1. Gdy TTL osiągnie 0, router niszczy pakiet, chroniąc łącza przed zapętleniem.</text>
+    <text x="15" y="56" class="desc-txt"><tspan font-weight="700" fill="#22d3ee">2. Domyślne wartości TTL w systemach:</tspan> Linux / Android = <tspan font-weight="700" fill="#ffffff">64</tspan> | Windows = <tspan font-weight="700" fill="#ffffff">128</tspan> | Urządzenia Cisco = <tspan font-weight="700" fill="#ffffff">255</tspan> (Podstawa identyfikacji OS w nmap/ping).</text>
+  </g>
+</svg>

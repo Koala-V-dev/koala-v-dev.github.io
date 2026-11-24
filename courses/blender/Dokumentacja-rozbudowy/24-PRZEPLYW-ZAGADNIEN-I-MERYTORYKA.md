@@ -476,3 +476,19 @@ Sprawdzono istniejące ilustracje w oryginalnej rozdzielczości i w podglądzie 
 
 Autor odrzucił ostatnią redakcję. Porównanie zachowanych wersji ujawniło utratę wyjaśnień potrzebnych w dalszej nauce. Pochodzenie odtworzonych fragmentów, związki z sąsiednimi lekcjami i ograniczenia ocen zapisano w [25-KONTEKST-KURSU-I-ODTWORZENIE-UV.md](25-KONTEKST-KURSU-I-ODTWORZENIE-UV.md). To aktualny punkt wejścia do dalszej pracy nad tą lekcją. Nie zakładać akceptacji autora.
 
+
+
+### 2026-10-20 — akceptacja wprowadzenia i redakcja praktyki UV
+
+Autor zaakceptował lekcję wprowadzającą UV. Zachowano ją bez zmian. Zredagowano wyłącznie praktykę na młotku, zachowując dotychczasowe sekcje, porównania i ilustracje. Poprawiono m.in. nazwę operacji Boundary of Selected na podstawie lokalnego Blendera 5.2.2. Szczegóły zakresu, przepływu wiedzy, weryfikacji i dalszej pracy: [26-REDAKCJA-PRAKTYKI-UV-MLOTKA.md](26-REDAKCJA-PRAKTYKI-UV-MLOTKA.md).
+
+
+
+### 2026-10-20 — wybór metody i ustawień Unwrap
+
+Na prośbę autora rozszerzono tę samą lekcję praktyczną o metody menu UV Mapping, wszystkie pola operatora Unwrap oraz próbę porównania jednej zmiany w F9. Zachowano wcześniejszą treść i ilustracje. Zakres, źródła i ograniczenia kontroli: [27-METODY-I-USTAWIENIA-UNWRAP.md](27-METODY-I-USTAWIENIA-UNWRAP.md).
+
+
+### 2026-10-20 - wizualne porównania metod i F9
+
+Po uwadze autora o nadmiarze tekstu zastąpiono dwa bloki referencyjne porównaniami na złożonej obudowie i skanie głowy. Dodano 20 plansz, dwie grupy zakładek i plik Blender z wariantami. Pozostałe lekcje i wcześniejszy przebieg praktyki zachowano. Zakres, pochodzenie dowodów, przepływ umiejętności oraz ograniczenia: [28-WIZUALNE-POROWNANIA-MAPOWANIA-UV.md](28-WIZUALNE-POROWNANIA-MAPOWANIA-UV.md). Materiał pozostaje do oceny autora, przed pilotażem.

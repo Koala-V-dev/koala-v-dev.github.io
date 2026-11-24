@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 330" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .title { font-family: system-ui, -apple-system, sans-serif; font-size: 16px; font-weight: 700; fill: #f8fafc; }
+      .sub { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #94a3b8; }
+      .zone-hdr { font-family: system-ui, -apple-system, sans-serif; font-size: 12.5px; font-weight: 800; }
+      .box-txt { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 700; }
+      .code-txt { font-family: monospace; font-size: 10px; }
+      .desc-txt { font-family: system-ui, -apple-system, sans-serif; font-size: 10px; fill: #94a3b8; }
+    </style>
+  </defs>
+
+  <rect width="100%" height="100%" class="bg" rx="8"/>
+
+  <text x="35" y="32" class="title">Stos sieciowy w systemie operacyjnym: User Space vs Kernel Space</text>
+  <text x="35" y="50" class="sub">Gdzie w architekturze komputera fizycznie wykonywane są poszczególne warstwy</text>
+
+  <!-- 1. USER SPACE (Przestrzeń użytkownika) -->
+  <g transform="translate(35, 68)">
+    <rect width="750" height="62" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="6"/>
+    <text x="16" y="25" class="zone-hdr" fill="#38bdf8">USER SPACE (Aplikacje użytkownika)</text>
+    <text x="16" y="44" class="desc-txt">Procesy działające bez uprawnień jądra (ring 3)</text>
+
+    <!-- Klocki procesów -->
+    <rect x="310" y="14" width="95" height="34" rx="4" fill="#0f172a" stroke="#38bdf8"/>
+    <text x="357.5" y="35" class="box-txt" fill="#f8fafc" text-anchor="middle">Przeglądarka</text>
+
+    <rect x="415" y="14" width="100" height="34" rx="4" fill="#0f172a" stroke="#38bdf8"/>
+    <text x="465" y="35" class="box-txt" fill="#f8fafc" text-anchor="middle">Nginx / Apache</text>
+
+    <rect x="525" y="14" width="85" height="34" rx="4" fill="#0f172a" stroke="#38bdf8"/>
+    <text x="567.5" y="35" class="box-txt" fill="#f8fafc" text-anchor="middle">Klient SSH</text>
+
+    <!-- Socket API -->
+    <rect x="620" y="14" width="115" height="34" rx="4" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8"/>
+    <text x="677.5" y="29" font-family="monospace" font-size="10.5px" font-weight="700" fill="#7dd3fc" text-anchor="middle">Socket API</text>
+    <text x="677.5" y="41" font-family="system-ui, -apple-system, sans-serif" font-size="9px" fill="#cbd5e1" text-anchor="middle">send() / recv()</text>
+  </g>
+
+  <!-- Granica wywołań systemowych (Syscall boundary) -->
+  <line x1="45" y1="143" x2="775" y2="143" stroke="#64748b" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="285" y="135" width="250" height="16" rx="3" fill="#0f172a"/>
+  <text x="410" y="146" font-family="monospace" font-size="9.5px" fill="#94a3b8" text-anchor="middle">Granica wywołań systemowych (Syscall)</text>
+
+  <!-- 2. KERNEL SPACE (Jądro systemu operacyjnego) -->
+  <g transform="translate(35, 156)">
+    <rect width="750" height="74" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5" rx="6"/>
+    <text x="16" y="25" class="zone-hdr" fill="#a78bfa">KERNEL SPACE (Jądro systemu - ring 0)</text>
+    <text x="16" y="43" class="desc-txt">Stos sieciowy TCP/IP zaimplementowany w systemie:</text>
+    <text x="16" y="58" class="code-txt" fill="#cbd5e1">Linux: net/ipv4/ | Windows: tcpip.sys</text>
+
+    <!-- Moduł TCP / UDP -->
+    <rect x="310" y="16" width="120" height="42" rx="4" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+    <text x="370" y="34" class="box-txt" fill="#c084fc" text-anchor="middle">Warstwa 4</text>
+    <text x="370" y="49" class="code-txt" fill="#cbd5e1" text-anchor="middle">Stos TCP / UDP</text>
+
+    <!-- Strzałka wewnętrzna -->
+    <line x1="434" y1="37" x2="450" y2="37" stroke="#a78bfa" stroke-width="2"/>
+
+    <!-- Moduł IP + Routing -->
+    <rect x="454" y="16" width="140" height="42" rx="4" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="524" y="34" class="box-txt" fill="#fbbf24" text-anchor="middle">Warstwa 3</text>
+    <text x="524" y="49" class="code-txt" fill="#cbd5e1" text-anchor="middle">IP + Routing + Filtry</text>
+
+    <!-- Bufory pakietów -->
+    <rect x="606" y="16" width="129" height="42" rx="4" fill="#0f172a" stroke="#64748b"/>
+    <text x="670.5" y="34" class="box-txt" fill="#f8fafc" text-anchor="middle">Kolejka DMA</text>
+    <text x="670.5" y="49" class="code-txt" fill="#94a3b8" text-anchor="middle">sk_buff / Ring</text>
+  </g>
+
+  <!-- 3. HARDWARE & NIC (Karta sieciowa i medium fizyczne) -->
+  <g transform="translate(35, 242)">
+    <rect width="750" height="66" fill="#1e293b" stroke="#34d399" stroke-width="1.5" rx="6"/>
+    <text x="16" y="26" class="zone-hdr" fill="#34d399">HARDWARE &amp; DRIVER (Karta sieciowa NIC)</text>
+    <text x="16" y="45" class="desc-txt">Sterownik PCIe, kontroler ASIC i transceiver fizyczny</text>
+
+    <!-- Sterownik -->
+    <rect x="310" y="15" width="120" height="36" rx="4" fill="#0f172a" stroke="#34d399"/>
+    <text x="370" y="37" class="box-txt" fill="#34d399" text-anchor="middle">Sterownik karty</text>
+
+    <!-- Kontroler MAC L2 -->
+    <rect x="442" y="15" width="138" height="36" rx="4" fill="#0f172a" stroke="#34d399"/>
+    <text x="511" y="30" class="box-txt" fill="#86efac" text-anchor="middle">Układ MAC (L2)</text>
+    <text x="511" y="43" class="desc-txt" text-anchor="middle">Suma CRC-32 / Ramki</text>
+
+    <!-- PHY + Port -->
+    <rect x="592" y="15" width="143" height="36" rx="4" fill="#059669" fill-opacity="0.3" stroke="#34d399"/>
+    <text x="663.5" y="30" class="box-txt" fill="#86efac" text-anchor="middle">PHY (L1) &amp; Port</text>
+    <text x="663.5" y="43" font-family="system-ui, -apple-system, sans-serif" font-size="9px" fill="#cbd5e1" text-anchor="middle">RJ-45 / SFP / Wi-Fi</text>
+  </g>
+</svg>

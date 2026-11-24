@@ -63,24 +63,15 @@
 <p>Dysk, partycja, pendrive i konfiguracja systemu to pliki umieszczone w katalogach podpiętych pod jedno drzewo.<br>Ponieważ w Linuksie wszystko jest plikiem! </p>
 <section class="lesson-section" data-lesson-section="true"><h2>🧭 Katalog domowy</h2>
 <p>Po otwarciu aplikacji <span class="color-green">Files</span> trafiasz zwykle do katalogu domowego użytkownika.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/ubuntu-files-strona-główna-home.webp" alt="Ubuntu Files strona główna home" width="1023" height="766" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/ubuntu-files-strona-g%C5%82%C3%B3wna-home.png" alt="Ubuntu Files strona główna home"></p>
 <p>Dla użytkownika <code>egzamin</code> pełna ścieżka wygląda tak:</p>
 <pre><code class="language-text">/home/egzamin/
 </code></pre>
 <p>To jest twoja przestrzeń robocza. Tu trafiają dokumenty, pobrane pliki, pulpit, obrazy i większość konfiguracji użytkownika.</p>
 <p>Aby dostać się do korzenia systemu <code>/</code> z poziomu menedżera plików kliknij w pasek lokalizacji i zmień jego zawartość.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/ubuntu-files-jak-się-dostać-do-root.webp" alt="Ubuntu Files jak się dostać do Root" width="1023" height="282" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/ubuntu-files-jak-si%C4%99-dosta%C4%87-do-root.png" alt="Ubuntu Files jak się dostać do Root"></p>
 <p>Teraz możesz zobaczyć graficznie najważniejsze katalogi w Ubuntu i plik wymiany <code>swap.img</code>.</p>
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/files-katalog-root-ubuntu.webp" alt="Ubuntu Files katalog root" width="1023" height="766" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/files-katalog-root-ubuntu.png" alt="Ubuntu Files katalog root"></p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🗺️ Kilka katalogów, które trzeba kojarzyć</h2>
 <p>Nie ucz się całej struktury katalogów jak słowniczka. Na początku wystarczy kilka miejsc:</p>
 <table>
@@ -117,13 +108,54 @@
 </tbody></table>
 <p>To wystarczy, żeby nie błądzić po systemie jak po cudzym magazynie.</p>
 <hr>
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: VFS (Virtual Filesystem) i struktury inode oraz dentry w kodzie jądra</span><span class="deep-dive-badge">Linux Kernel VFS</span></summary>
+
+<p>Dlaczego Linux potrafi w jednym wspólnym drzewie katalogów montować jednocześnie partycję Ext4, pamięć flash FAT32, wirtualny system procesów <code>/proc</code> oraz zdalny udział sieciowy NFS? Odpowiada za to <span class="color-green">Wirtualny System Plików</span> (<span class="color-blue">VFS - Virtual Filesystem</span>).</p>
+<p>VFS to zorientowana obiektowo warstwa abstrakcji wewnątrz jądra Linuksa (napisana w czystym języku C z wykorzystaniem struktur i wskaźników na funkcje).</p>
+<h3>1. Cztery filary architektury VFS</h3>
+<p>Dla każdego zamontowanego systemu plików jądro operuje na 4 kluczowych strukturach danych:</p>
+<ol>
+<li><span class="color-green"><code>struct super_block</code></span>: Reprezentuje cały zamontowany system plików (metadane nośnika, rozmiar bloku alokacji, wskaźnik do korzenia).</li>
+<li><span class="color-green"><code>struct inode</code></span>: Reprezentuje konkretny fizyczny plik lub katalog na dysku. Zawiera uprawnienia, identyfikatory właściciela (UID/GID), rozmiar pliku w bajtach, znaczniki czasu oraz wskaźniki do bloków danych na dysku. Inode <span class="color-green">nie zawiera nazwy pliku</span>!</li>
+<li><span class="color-green"><code>struct dentry</code></span> (<span class="color-blue">Directory Entry</span>): Wiąże ludzką nazwę pliku (np. <code>komendy.txt</code>) z odpowiadającym jej numerem inodu. Pamięć podręczna dentry (<span class="color-blue">dcache</span>) tworzy w pamięci RAM całe drzewo ścieżek, dzięki czemu przeszukiwanie katalogów nie wymaga odpytywania wolnego nośnika dyskowego.</li>
+<li><span class="color-green"><code>struct file</code></span>: Reprezentuje plik otwarty przez działający proces w pamięci (przechowuje aktualny offset odczytu <code>f_pos</code>, flagi otwarcia <code>O_RDONLY</code> oraz wskaźnik na inod).</li>
+</ol>
+<pre><code>   Przestrzeń użytkownika:  open("/home/user/dane.txt", O_RDONLY)
+                                        │
+   ═════════════════════════════════════╪═══════════════════════════════
+   Jądro Linuksa (VFS):                 ▼
+                             Wyszukanie w dcache:
+                           "/" ──&gt; "home" ──&gt; "user" ──&gt; "dane.txt"
+                                                           │
+                                             Wskaźnik dentry-&gt;d_inode
+                                                           │
+                                                           ▼
+                                                struct inode (Ext4)
+                                                - UID: 1000, GID: 1000
+                                                - st_mode: 0644
+                                                - Tablica extentów bloków
+</code></pre>
+<h3>2. Polimorfizm w C: Tablice operacji `file_operations`</h3>
+<p>Każda struktura w VFS posiada pole wskazujące na tablicę wskaźników do funkcji implementujących konkretne zachowania dla danego nośnika:</p>
+<pre><code class="language-c">struct file_operations {
+    ssize_t (*read) (struct file *, char __user *, size_t, loff_t *);
+    ssize_t (*write) (struct file *, const char __user *, size_t, loff_t *);
+    int (*open) (struct inode *, struct file *);
+    int (*fsync) (struct file *, loff_t, loff_t, int datasync);
+};
+</code></pre>
+<p>Gdy użytkownik wywołuje <code>read(fd, buf, 1024)</code>, jądro nie sprawdza warunkami <code>if/else</code>, jaki to system plików. Po prostu wywołuje polimorficznie:<br><code>file-&gt;f_op-&gt;read(file, buf, 1024, &amp;file-&gt;f_pos);</code><br>Jeśli plik leży na Ext4, uruchamia się funkcja <code>ext4_file_read_iter()</code>. Jeśli w <code>/proc/cpuinfo</code>, wywoływana jest funkcja generująca tekst z pamięci RAM w locie.</p>
+</details>
+
+<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li>Ubuntu używa jednego drzewa katalogów zaczynającego się od <code>/</code>.</li>
 <li><code>/home/[użytkownik]</code> to twoje pliki i konfiguracja użytkownika.</li>
 <li><code>/etc</code> to konfiguracja systemowa.</li>
 <li><code>/var/log</code> to miejsce, gdzie szukasz śladów działania systemu.</li>
-<li>W następnej lekcji użyjesz terminala, żeby poruszać się po tej strukturze.</li>
+<li>Wszystkie zasoby i systemy plików są spójnie integrowane pod wspólnym korzeniem dzięki jądrowej warstwie VFS.</li>
 </ul>
 </section>
         </article>

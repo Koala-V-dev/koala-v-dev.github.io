@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .header-title { font-family: system-ui, -apple-system, sans-serif; font-size: 20px; font-weight: 700; fill: #f8fafc; }
+      .header-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+      .card { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 12; }
+      .title { font-family: system-ui, sans-serif; font-size: 16px; font-weight: 700; fill: #f8fafc; }
+      .subtitle { font-family: system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .connector-body { fill: #0f172a; stroke: #64748b; stroke-width: 1.5; rx: 6; }
+      .pin-num { font-family: monospace; font-size: 10px; font-weight: 700; fill: #94a3b8; text-anchor: middle; }
+      .pin-name { font-family: system-ui, sans-serif; font-size: 9.5px; font-weight: 600; fill: #e2e8f0; }
+      .badge-swap { fill: #7c2d12; stroke: #f97316; stroke-width: 1; rx: 4; }
+      .badge-swap-text { font-family: system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #fdba74; text-anchor: middle; }
+      .fiber-layer { rx: 4; }
+      .fiber-label { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 600; text-anchor: middle; }
+      .conn-chip { fill: #0f172a; stroke: #475569; stroke-width: 1; rx: 4; }
+      .conn-title { font-family: monospace; font-size: 12px; font-weight: 700; text-anchor: middle; }
+      .conn-sub { font-family: system-ui, sans-serif; font-size: 9px; fill: #94a3b8; text-anchor: middle; }
+    </style>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="440" class="bg"/>
+
+  <!-- Nagłówek -->
+  <g transform="translate(40, 32)">
+    <text x="0" y="0" class="header-title">Fizyczne media transmisyjne: Skrętka RJ-45 i Światłowód</text>
+    <text x="0" y="20" class="header-desc">Standardy układu par wtyku 8P8C oraz propagacja wiązki w rdzeniu SMF i MMF</text>
+  </g>
+
+  <!-- ================= LEWA STRONA: WTYK RJ-45 I KOLORY T568A / T568B ================= -->
+  <g transform="translate(40, 70)" filter="url(#shadow)">
+    <rect width="425" height="340" class="card"/>
+    <text x="20" y="30" class="title">Wtyk RJ-45 (8P8C): T568A vs T568B</text>
+    <text x="20" y="46" class="subtitle">Zamiana miejscami pary zielonej (piny 1-2) z pomarańczową (piny 3-6)</text>
+
+    <!-- T568A -->
+    <g transform="translate(20, 65)">
+      <text x="0" y="14" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#34d399">Standard T568A</text>
+      <!-- Wtyk z 8 pinami -->
+      <g transform="translate(0, 24)">
+        <rect width="180" height="150" class="connector-body"/>
+        <!-- Piny i kolory -->
+        <!-- 1 B-Z --> <rect x="10" y="10" width="160" height="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" rx="2"/>
+        <text x="18" y="20" font-family="monospace" font-size="9px" font-weight="700" fill="#047857">1. Biało-Zielony</text>
+
+        <!-- 2 Z   --> <rect x="10" y="26" width="160" height="13" fill="#10b981" rx="2"/>
+        <text x="18" y="36" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">2. Zielony</text>
+
+        <!-- 3 B-P --> <rect x="10" y="42" width="160" height="13" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5" rx="2"/>
+        <text x="18" y="52" font-family="monospace" font-size="9px" font-weight="700" fill="#b45309">3. Biało-Pomarańcz</text>
+
+        <!-- 4 N   --> <rect x="10" y="58" width="160" height="13" fill="#3b82f6" rx="2"/>
+        <text x="18" y="68" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">4. Niebieski</text>
+
+        <!-- 5 B-N --> <rect x="10" y="74" width="160" height="13" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" rx="2"/>
+        <text x="18" y="84" font-family="monospace" font-size="9px" font-weight="700" fill="#1d4ed8">5. Biało-Niebieski</text>
+
+        <!-- 6 P   --> <rect x="10" y="90" width="160" height="13" fill="#f59e0b" rx="2"/>
+        <text x="18" y="100" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">6. Pomarańczowy</text>
+
+        <!-- 7 B-B --> <rect x="10" y="106" width="160" height="13" fill="#fafaf9" stroke="#78350f" stroke-width="1.5" rx="2"/>
+        <text x="18" y="116" font-family="monospace" font-size="9px" font-weight="700" fill="#78350f">7. Biało-Brązowy</text>
+
+        <!-- 8 B   --> <rect x="10" y="122" width="160" height="13" fill="#78350f" rx="2"/>
+        <text x="18" y="132" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">8. Brązowy</text>
+      </g>
+    </g>
+
+    <!-- T568B -->
+    <g transform="translate(225, 65)">
+      <text x="0" y="14" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#fbbf24">Standard T568B (Domyślny)</text>
+      <!-- Wtyk z 8 pinami -->
+      <g transform="translate(0, 24)">
+        <rect width="180" height="150" class="connector-body"/>
+        <!-- 1 B-P --> <rect x="10" y="10" width="160" height="13" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5" rx="2"/>
+        <text x="18" y="20" font-family="monospace" font-size="9px" font-weight="700" fill="#b45309">1. Biało-Pomarańcz</text>
+
+        <!-- 2 P   --> <rect x="10" y="26" width="160" height="13" fill="#f59e0b" rx="2"/>
+        <text x="18" y="36" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">2. Pomarańczowy</text>
+
+        <!-- 3 B-Z --> <rect x="10" y="42" width="160" height="13" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" rx="2"/>
+        <text x="18" y="52" font-family="monospace" font-size="9px" font-weight="700" fill="#047857">3. Biało-Zielony</text>
+
+        <!-- 4 N   --> <rect x="10" y="58" width="160" height="13" fill="#3b82f6" rx="2"/>
+        <text x="18" y="68" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">4. Niebieski</text>
+
+        <!-- 5 B-N --> <rect x="10" y="74" width="160" height="13" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" rx="2"/>
+        <text x="18" y="84" font-family="monospace" font-size="9px" font-weight="700" fill="#1d4ed8">5. Biało-Niebieski</text>
+
+        <!-- 6 Z   --> <rect x="10" y="90" width="160" height="13" fill="#10b981" rx="2"/>
+        <text x="18" y="100" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">6. Zielony</text>
+
+        <!-- 7 B-B --> <rect x="10" y="106" width="160" height="13" fill="#fafaf9" stroke="#78350f" stroke-width="1.5" rx="2"/>
+        <text x="18" y="116" font-family="monospace" font-size="9px" font-weight="700" fill="#78350f">7. Biało-Brązowy</text>
+
+        <!-- 8 B   --> <rect x="10" y="122" width="160" height="13" fill="#78350f" rx="2"/>
+        <text x="18" y="132" font-family="monospace" font-size="9px" font-weight="700" fill="#ffffff">8. Brązowy</text>
+      </g>
+    </g>
+
+    <!-- Belka podsumowująca typ kabla -->
+    <g transform="translate(20, 255)">
+      <rect width="385" height="60" fill="#0f172a" stroke="#334155" stroke-width="1" rx="6"/>
+      <text x="16" y="24" font-family="system-ui, sans-serif" font-size="11.5px" fill="#cbd5e1"><tspan font-weight="700" fill="#38bdf8">Kabel prosty (Straight):</tspan> B - B (lub A - A) ── Urządzenia różne (PC ↔ Switch)</text>
+      <text x="16" y="46" font-family="system-ui, sans-serif" font-size="11.5px" fill="#cbd5e1"><tspan font-weight="700" fill="#f59e0b">Kabel krosowany (Crossover):</tspan> A - B ── Urządzenia równe (PC ↔ PC / Auto-MDIX)</text>
+    </g>
+  </g>
+
+  <!-- ================= PRAWA STRONA: ŚWIATŁOWODY SMF vs MMF ================= -->
+  <g transform="translate(495, 70)" filter="url(#shadow)">
+    <rect width="425" height="340" class="card"/>
+    <text x="20" y="30" class="title">Światłowód: SMF vs MMF i Złącza</text>
+    <text x="20" y="46" class="subtitle">Propagacja w rdzeniu szklanym oraz formaty wtyków</text>
+
+    <!-- SMF -->
+    <g transform="translate(20, 65)">
+      <text x="0" y="14" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#38bdf8">Jednomodowy (SMF): Laser, rdzeń 9 µm, do 40 km</text>
+      <g transform="translate(0, 24)">
+        <!-- Płaszcz (Cladding 125 um) -->
+        <rect width="385" height="30" fill="#0f172a" stroke="#0284c7" stroke-width="1" rx="4"/>
+        <!-- Rdzeń 9 um (wąski pasek w środku) -->
+        <rect x="0" y="13" width="385" height="4" fill="#0369a1"/>
+        <!-- Wiązka lasera w osi -->
+        <line x1="0" y1="15" x2="385" y2="15" stroke="#38bdf8" stroke-width="2"/>
+        <text x="375" y="19" font-family="monospace" font-size="9px" font-weight="700" fill="#38bdf8" text-anchor="end">1 promień (brak dyspersji)</text>
+      </g>
+    </g>
+
+    <!-- MMF -->
+    <g transform="translate(20, 145)">
+      <text x="0" y="14" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#c084fc">Wielomodowy (MMF): LED/VCSEL, rdzeń 50 µm, do 550 m</text>
+      <g transform="translate(0, 24)">
+        <!-- Płaszcz -->
+        <rect width="385" height="36" fill="#0f172a" stroke="#7c3aed" stroke-width="1" rx="4"/>
+        <!-- Rdzeń 50 um (grubszy pasek) -->
+        <rect x="0" y="6" width="385" height="24" fill="#4c1d95" fill-opacity="0.3"/>
+        <!-- Wiele promieni odbijających się zygzakiem -->
+        <path d="M 0 18 L 40 8 L 80 28 L 120 8 L 160 28 L 200 8 L 240 28 L 280 8 L 320 28 L 360 8 L 385 18" stroke="#c084fc" stroke-width="1.5" fill="none"/>
+        <path d="M 0 18 L 60 28 L 120 8 L 180 28 L 240 8 L 300 28 L 360 8 L 385 18" stroke="#e879f9" stroke-width="1.5" stroke-dasharray="4 2" fill="none"/>
+        <text x="375" y="32" font-family="monospace" font-size="9px" font-weight="700" fill="#c084fc" text-anchor="end">wiele modów (dyspersja)</text>
+      </g>
+    </g>
+
+    <!-- Typowe złącza światłowodowe (wizualne klocki) -->
+    <g transform="translate(20, 245)">
+      <text x="0" y="14" font-family="system-ui, sans-serif" font-size="12px" font-weight="700" fill="#f8fafc">Formaty złączy światłowodowych:</text>
+      
+      <!-- LC -->
+      <g transform="translate(0, 24)">
+        <rect width="118" height="42" class="conn-chip"/>
+        <text x="59" y="19" class="conn-title" fill="#38bdf8">LC</text>
+        <text x="59" y="33" class="conn-sub">Zatrzaskowe / SFP</text>
+      </g>
+
+      <!-- SC -->
+      <g transform="translate(133, 24)">
+        <rect width="118" height="42" class="conn-chip"/>
+        <text x="59" y="19" class="conn-title" fill="#34d399">SC</text>
+        <text x="59" y="33" class="conn-sub">Kwadratowe / Push-Pull</text>
+      </g>
+
+      <!-- ST -->
+      <g transform="translate(267, 24)">
+        <rect width="118" height="42" class="conn-chip"/>
+        <text x="59" y="19" class="conn-title" fill="#fbbf24">ST</text>
+        <text x="59" y="33" class="conn-sub">Okrągłe / Bagnet</text>
+      </g>
+    </g>
+  </g>
+</svg>

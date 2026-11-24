@@ -188,12 +188,7 @@ ID=ubuntu
 </tbody></table>
 </details>
 
-
-
-<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/ubuntu-podstawowe-informacje-o-systemie.webp" alt="Wynik w terminalu wstępnych informacji o systemie Linux" width="712" height="416" class="lazy-image" loading="lazy" decoding="async">
-
-
-
+<p><img src="/courses/ubuntu-26/Images/ubuntu-podstawowe-informacje-o-systemie.png" alt="Wynik w terminalu wstępnych informacji o systemie Linux"></p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🖥️ Plik <code>/etc/hostname</code> i polecenie <code>hostname</code></h2>
 <p>Nazwa sieciowa komputera (tzw. <span class="color-green">hostname</span>) służy do identyfikacji maszyny w sieci lokalnej oraz w strukturach sieciowych. System Linux przechowuje tę informację w pliku konfiguracyjnym <code>/etc/hostname</code>.</p>
 <p>Do odczytania nazwy zapisanej bezpośrednio w pliku służy polecenie <code>cat</code>:</p>
@@ -211,6 +206,38 @@ ID=ubuntu
 <data-gate>
 <data-terminal-mission src="/public/courses/ubuntu-26/Scenarios/terminal-missions/m1-01-pakiet-orientacyjny.md"></data-terminal-mission>
 </data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary><span class="deep-dive-title">🔬 Pod maską: Wirtualny system plików /proc i pobieranie metryk jądra przez sysinfo()</span><span class="deep-dive-badge">Kernel Telemetry &amp; /proc</span></summary>
+
+<p>Polecenia takie jak <code>uname</code>, <code>lscpu</code>, <code>free</code>, <code>uptime</code> czy <code>top</code> nie przeprowadzają żadnych fizycznych pomiarów sprzętowych. Wszystkie one czerpią dane z <span class="color-green">wirtualnego systemu plików <code>/proc</code></span> (<span class="color-blue">procfs</span>).</p>
+<h3>1. Pseudo-pliki generowane w pamięci RAM</h3>
+<p>Katalog <code>/proc</code> nie zajmuje ani jednego bajtu na Twoim dysku SSD. Jest to interfejs jądra Linuksa zamontowany jako system plików typu <code>proc</code>:</p>
+<ul>
+<li>Każdy plik w <code>/proc</code> (np. <code>/proc/cpuinfo</code>, <code>/proc/meminfo</code>, <code>/proc/uptime</code>) to funkcja w kodzie źródłowym jądra (implementacja <code>seq_file</code>).</li>
+<li>Gdy wykonujesz polecenie <code>cat /proc/uptime</code>, jądro w chwili odczytu przelicza liczbę tyknięć zegara systemowego (<span class="color-blue">jiffies</span>) na sekundy i zwraca gotowy ciąg znaków.</li>
+<li>Każdy katalog oznaczony liczbą (np. <code>/proc/1234/</code>) reprezentuje aktywny proces o numerze PID 1234. Znajdziesz tam jego mapę pamięci (<code>/proc/1234/maps</code>), otwarte deskryptory plików (<code>/proc/1234/fd/</code>) oraz stan rejestrów.</li>
+</ul>
+<h3>2. Wywołanie systemowe `sysinfo()` w C</h3>
+<p>Zamiast parsować tekst z plików w <code>/proc</code>, zaawansowane programy systemowe pobierają kompletny stan zasobów maszyny jednym wywołaniem systemowym:</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;sys/sysinfo.h&gt;
+
+int main() {
+    struct sysinfo s_info;
+    if (sysinfo(&amp;s_info) == 0) {
+        printf("Czas pracy systemu (uptime): %ld sekund\n", s_info.uptime);
+        printf("Całkowita pamięć RAM: %lu MB\n", s_info.totalram * s_info.mem_unit / (1024 * 1024));
+        printf("Wolna pamięć RAM:      %lu MB\n", s_info.freeram  * s_info.mem_unit / (1024 * 1024));
+        printf("Średnie obciążenie 1m: %f\n", s_info.loads[0] / 65536.0);
+        printf("Liczba procesów:       %d\n", s_info.procs);
+    }
+    return 0;
+}
+</code></pre>
+<p>Jądro Linuksa wypełnia strukturę bezpośrednio z globalnych zmiennych kernela w czasie rzędu setek nanosekund, bez narzutu parsowania tekstu czy tworzenia procesów potomnych.</p>
+</details>
 
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>

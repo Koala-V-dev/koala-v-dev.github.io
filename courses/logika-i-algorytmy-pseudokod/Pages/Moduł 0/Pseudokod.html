@@ -91,35 +91,28 @@ c = 15
 <p>Największa zmiana następuje przy rombach decyzyjnych. Na schemacie blokowym ścieżka rozwidla się na <span class="color-green">TAK</span> oraz <span class="color-red">NIE</span>. Kod tekstowy zapisujemy liniowo, więc nie mamy możliwości stworzenia dwóch oddzielnych kolumn poleceń.</p>
 <p>Aby to rozwiązać, stosujemy instrukcję <code>JEŻELI ... TO</code> (ang. <code>IF</code>). Używamy tu również wcięć (tabulacji), aby pogrupować instrukcje. Każda linia przesunięta o jedno wcięcie w prawo należy do danego bloku logicznego.</p>
 <p>Jeśli warunek jest oceniony jako <span class="color-green">Prawda</span>, program wchodzi do bloku i wykonuje wcięte instrukcje. Jeśli sygnał to <span class="color-red">Fałsz</span>, procesor przeskakuje ten wcięty blok i przechodzi od razu do sekcji <code>W PRZECIWNYM RAZIE</code> (ang. <code>ELSE</code>).</p>
-<p>Przeanalizujmy klasyczny algorytm wybierający większą z dwóch liczb. Zobacz, jak wskaźnik wykonawczy całkowicie omija ten blok kodu, który nie spełnia warunku.</p>
+<p>Przeanalizujmy klasyczny algorytm wybierający większą z dwóch liczb. Klikaj przycisk <kbd>⏭ Krok</kbd> i obserwuj, jak procesor rozstrzyga warunek.</p>
 <data-gate>
 <data-pseudocode-runner>
 <pre>liczbaA = 74
 liczbaB = 103
 
 <p>WYPISZ "Rozpoczynam analize maksimum..."</p>
-<p>JEŻELI liczbaA &gt; liczbaB TO</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaA</p>
-<p>W PRZECIWNYM RAZIE</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;maksimum = liczbaB</p>
-<p>KONIEC JEŻELI</p>
+<p>JEŻELI liczbaA &gt; liczbaB TO<br>    maksimum = liczbaA<br>W PRZECIWNYM RAZIE<br>    maksimum = liczbaB<br>KONIEC JEŻELI</p>
 <p>WYPISZ "Najwieksza liczba w zbiorze to: " + maksimum<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <p>Zapis <code>KONIEC JEŻELI</code> jest kluczowy. Jasno informuje komputer, gdzie kończy się rozwidlenie i w którym miejscu obie ścieżki zbiegają się we wspólny ciąg instrukcji.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Filar 3: Pętla DOPÓKI</h2>
 <p>Pętla iteracyjna (ang. <code>WHILE</code>) pozwala na wielokrotne powtarzanie tego samego kodu. Na schemacie blokowym była to strzałka, która wracała z powrotem do rombu decyzyjnego. </p>
 <p>W dokumencie tekstowym osiągamy ten efekt stosując strukturę <code>DOPÓKI ... WYKONUJ</code> wraz z domknięciem <code>KONIEC DOPÓKI</code>. Kiedy procesor dociera do linii zamknięcia, wraca do samego początku pętli. Tam ponownie sprawdza warunek i decyduje, czy rozpocząć kolejny cykl.</p>
-<p>Przetestuj algorytm odliczania w Krokerze. Wykonuj kolejne kroki i obserwuj moment, w którym aktualizacja zmiennej <span class="color-blue"><code>odliczanie</code></span> sprawia, że warunek staje się fałszywy, a pętla ulega zakończeniu.</p>
+<p>Przetestuj algorytm odliczania w Krokerze. Obserwuj moment, w którym aktualizacja zmiennej <span class="color-blue"><code>odliczanie</code></span> sprawia, że warunek staje się fałszywy, a pętla ulega zakończeniu.</p>
 <data-gate>
 <data-pseudocode-runner>
 <pre>odliczanie = 3
 czasOpoznienia = 1
 
 <p>WYPISZ "Inicjalizacja ładunku..."</p>
-<p>DOPÓKI odliczanie &gt; 0</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;WYPISZ "Czas do eksplozji: " + odliczanie</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;odliczanie = odliczanie - czasOpoznienia</p>
-<p>KONIEC DOPÓKI</p>
+<p>DOPÓKI odliczanie &gt; 0<br>    WYPISZ "Czas do eksplozji: " + odliczanie<br>    odliczanie = odliczanie - czasOpoznienia<br>KONIEC DOPÓKI</p>
 <p>WYPISZ "BOOM!"<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <p>Gdybyś pominął aktualizację zmiennej wewnątrz pętli, warunek zawsze pozostałby spełniony. Stworzyłoby to <span class="color-red">Nieskończoną pętlę</span>, która zawiesiłaby działanie programu.</p>
 <hr>
@@ -234,6 +227,18 @@ WYPISZ x
 </tr>
 </tbody></table>
 <p>Udało nam się bez zgadywania ustalić, że pętla wykona się dokładnie dwa razy, a na końcu program wyświetli liczbę $10$. Tabela śledzenia to proste i sprawdzone narzędzie ułatwiające analizę działania kodu przed jego właściwym uruchomieniem.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>Zadanie: Symulacja zużycia paliwa</h2>
+<p>Dla wartości początkowych <code>paliwo = 12</code>, <code>kosztSkoku = 4</code> oraz <code>skoki = 0</code> skonstruuj pętlę <code>DOPÓKI</code>, która wykonuje się tak długo, jak <code>paliwo &gt;= kosztSkoku</code>. W każdym obiegu zmniejsz <code>paliwo</code> o <code>kosztSkoku</code> oraz zwiększ <code>skoki</code> o <code>1</code>, a po pętli wypisz <code>skoki</code>.</p>
+<data-gate>
+<data-pseudocode-runner editable="true" expected-var="skoki:3;paliwo:0" expected-output="3">
+<pre>paliwo = 12
+kosztSkoku = 4
+skoki = 0
+
+
+
+<p>WYPISZ skoki<br></p></pre><br></data-pseudocode-runner><br></data-gate><p></p>
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>

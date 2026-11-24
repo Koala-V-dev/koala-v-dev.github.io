@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liczby Zmiennoprzecinkowe - Standard IEEE 754 - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <div id="course-slug" style="display:none;">binarne-fundamenty-it</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner">
+            <nav class="module-menu drawer-left"><ul><li class="course-welcome-item"><a class="lesson-link" href="/courses/binarne-fundamenty-it/">Wprowadzenie</a></li><li class="module">Moduł 0: Mechanika Cyfrowego Świata</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Podstawy Systemów liczbowych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Podstawy%20System%C3%B3w%20liczbowych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawy Systemów liczbowych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Potęga Dwójki i Zakresy Mocy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Pot%C4%99ga%20Dw%C3%B3jki%20i%20Zakresy%20Mocy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Potęga Dwójki i Zakresy Mocy</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Bity, Bajty i Realne Prędkości"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Bity%2C%20Bajty%20i%20Realne%20Pr%C4%99dko%C5%9Bci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bity, Bajty i Realne Prędkości</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 0/Systemy Ósemkowy i Szesnastkowy"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%200/Systemy%20%C3%93semkowy%20i%20Szesnastkowy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Systemy Ósemkowy i Szesnastkowy</a></li><li class="module">Moduł 1: Bramki Logiczne i Podstawy Arytmetyki</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Podstawowe Bramki Logiczne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Podstawowe%20Bramki%20Logiczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Podstawowe Bramki Logiczne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Bramki Złożone i Uniwersalne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Bramki%20Z%C5%82o%C5%BCone%20i%20Uniwersalne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Bramki Złożone i Uniwersalne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dodawanie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Dodawanie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dodawanie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Odejmowanie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Odejmowanie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Odejmowanie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Mnożenie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Mno%C5%BCenie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Mnożenie Binarne</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 1/Dzielenie Binarne"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%201/Dzielenie%20Binarne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dzielenie Binarne</a></li><li class="module">Moduł 2: Liczby Ze Znakiem i Arytmetyka Procesora</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Arytmetyka Ósemkowa i Szesnastkowa"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Arytmetyka%20%C3%93semkowa%20i%20Szesnastkowa.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka Ósemkowa i Szesnastkowa</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Liczby Ujemne i Kod U2"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Liczby%20Ujemne%20i%20Kod%20U2.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Ujemne i Kod U2</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Arytmetyka na Liczbach Ujemnych"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Arytmetyka%20na%20Liczbach%20Ujemnych.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Arytmetyka na Liczbach Ujemnych</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 2/Dzielenie z Resztą i Operacja Modulo"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%202/Dzielenie%20z%20Reszt%C4%85%20i%20Operacja%20Modulo.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dzielenie z Resztą i Operacja Modulo</a></li><li class="module">Moduł 3: Kodowanie Danych i Format Zmiennoprzecinkowy</li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Kodowanie Znaków - ASCII i Standardy Tekstowe"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%203/Kodowanie%20Znak%C3%B3w%20-%20ASCII%20i%20Standardy%20Tekstowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Kodowanie Znaków - ASCII i Standardy Tekstowe</a></li><li class="lesson-item lesson" tabindex="0" data-path="Moduł 3/Liczby Zmiennoprzecinkowe - Standard IEEE 754"><a class="lesson-link" href="/courses/binarne-fundamenty-it/Pages/Modu%C5%82%203/Liczby%20Zmiennoprzecinkowe%20-%20Standard%20IEEE%20754.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Liczby Zmiennoprzecinkowe - Standard IEEE 754</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Liczby Zmiennoprzecinkowe: Standard IEEE 754</h1>
+<p>Do tej pory poznawałeś liczby całkowite: $0, 1, 2, -5$. W codziennej pracy z komputerem potrzebujemy jednak ułamków (np. $3{,}14$ albo $0{,}001$) oraz liczb o ogromnych rozmiarach.</p>
+<ul>
+<li>$\mathbb{N}$ - <span class="color-blue">natürliche</span> <span class="color-green">Zahlen</span> (liczby naturalne): $\{ 0, 1, 2, 3, \ldots \}$</li>
+<li>$\mathbb{Z}$ - <span class="color-blue">ganze</span> <span class="color-green">Zahlen</span> (liczby całkowite): $\{ \ldots, -3, -2, -1, 0, 1, 2, 3, \ldots \}$</li>
+<li>$\mathbb{Q}$ - <span class="color-blue">rationale</span> <span class="color-green">Zahlen</span> (liczby wymierne): $\{ \frac{a}{b} \text{ takich, że } a, b \in \mathbb{Z} \text{ i } b \neq 0 \}$</li>
+</ul>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔬 Jak komputer dzieli bity w liczbie ułamkowej (32-bit float)</h2>
+<p>Ponieważ w krzemowej pamięci procesora nie ma fizycznego przecinka, inżynierowie stworzyli standard <span class="color-green">IEEE 754</span>, który pozwala zapisać liczbę ułamkową za pomocą standardowych bitów.</p>
+<p>W formacie 32‑bitowym (<span class="color-green"><code>float</code></span>) komputer dzieli pamięć na trzy niezależne strefy:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Strefa</th>
+<th align="center">Liczba bitów</th>
+<th align="left">Za co odpowiada?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">Znak ($S$)</span></td>
+<td align="center"><span class="color-green">1 bit</span></td>
+<td align="left">Określa znak: <span class="color-red">0</span> to liczba dodatnia ($+$), a <span class="color-green">1</span> to liczba ujemna ($-$)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Wykładnik ($E$)</span></td>
+<td align="center"><span class="color-green">8 bitów</span></td>
+<td align="left">Rząd wielkości: określa, gdzie ma znaleźć się przecinek (jak duża jest liczba)</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">Mantysa ($M$)</span></td>
+<td align="center"><span class="color-green">23 bity</span></td>
+<td align="left">Precyzja: przechowuje same cyfry liczby ułamkowej</td>
+</tr>
+</tbody></table>
+<p>Zamiast trzymać przecinek w sztywnym miejscu, komputer przesuwa go zależnie od wartości wykładnika. Stąd wzięła się nazwa: <span class="color-green">liczba zmiennoprzecinkowa</span> (<span class="color-blue">floating‑point</span>).</p>
+<h3>💡 Czym właściwie jest mantysa?</h3>
+<p>Pomyśl o znanej ze szkoły notacji naukowej. Gdy zapisujesz wielką liczbę $123\ 000$ w postaci:</p>
+<p>$$1{,}23 \cdot 10^5$$</p>
+<p>Rozbijasz ją na dwa niezależne elementy:</p>
+<ul>
+<li><span class="color-green">Mantysa ($1{,}23$)</span>: przechowuje same znaczące cyfry (precyzję liczby: jedynkę, dwójkę i trójkę).</li>
+<li><span class="color-green">Wykładnik ($10^5$)</span>: określa rząd wielkości, czyli o ile pozycji przesunąć przecinek.</li>
+</ul>
+<p>W komputerze zachodzi dokładnie ten sam proces, tylko z potęgami dwójki ($2^E$). Mantysa przechowuje same bity wartości, a wykładnik wskazuje procesorowi, w którym miejscu postawić przecinek.</p>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧮 Float czy Double: Dwa standardy precyzji</h2>
+<p>W programowaniu spotkasz dwa główne typy liczb zmiennoprzecinkowych:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Nazwa typu</th>
+<th align="center">Szerokość w pamięci</th>
+<th align="center">Dokładność dziesiętna</th>
+<th align="left">Zastosowanie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><span class="color-green">float</span> (pojedyncza precyzja)</td>
+<td align="center"><span class="color-green">32 bity</span> (4 bajty)</td>
+<td align="center">ok. <span class="color-green">7 cyfr</span></td>
+<td align="left">Grafika 3D, gry komputerowe, uczenie maszynowe</td>
+</tr>
+<tr>
+<td align="left"><span class="color-green">double</span> (podwójna precyzja)</td>
+<td align="center"><span class="color-green">64 bity</span> (8 bajtów)</td>
+<td align="center">ok. <span class="color-green">15‑17 cyfr</span></td>
+<td align="left">Domyślny typ w programowaniu, obliczenia naukowe</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Trzy wartości specjalne w pamięci procesora</h2>
+<p>Standard IEEE 754 rezerwuje specjalne kombinacje bitów na sytuacje awaryjne:</p>
+<ol>
+<li><span class="color-green">Znakowane zero ($+0$ oraz $-0$)</span>:<br>Wykładnik i mantysa są zerami. Znak informuje, z której strony zbliżaliśmy się do zera.</li>
+<li><span class="color-green">Nieskończoność ($+\infty$ oraz $-\infty$)</span>:<br>Pojawia się na przykład wtedy, gdy program spróbuje podzielić liczbę przez zero ($1{,}0 / 0{,}0$).</li>
+<li><span class="color-green">NaN (Not a Number - Nie jest liczbą)</span>:<br>Pojawia się w wyniku operacji niedozwolonych matematycznie, na przykład przy dzieleniu zera przez zero ($0{,}0 / 0{,}0$) lub pierwiastkowaniu liczby ujemnej.</li>
+</ol>
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Obciążenie wykładnika (bias 127) i ukryta jedynka w mantysie</span>
+<span class="deep-dive-badge">MATEMATYKA IEEE 754</span>
+</summary>
+<div class="deep-dive-content">
+
+<p>Dla inżyniera projektującego koprocesory arytmetyczne (FPU) kluczowe są dwa mechanizmy standardu IEEE 754:</p>
+<h4>1. Ukryta jedynka (Implicit bit)</h4>
+<p>Każda liczba znormalizowana ma postać $1{,}xxxx_2 \times 2^E$. Ponieważ pierwszą cyfrą przed przecinkiem jest zawsze jedynka, nie marnuje się na nią miejsca w pamięci RAM. W 23 bitach pola mantysy zapisuje się wyłącznie bity po przecinku, dzięki czemu efektywna precyzja wynosi 24 bity.</p>
+<h4>2. Obciążenie cechy (Bias = 127)</h4>
+<p>Wykładnik musi obsługiwać zarówno potęgi dodatnie (np. $2^{+10}$), jak i ujemne (np. $2^{-10}$). Zamiast komplikować układ dodatkowym kodem U2, standard dodaje do wykładnika stałą wartość 127:<br>$$\text{Zapisany wykładnik} = \text{Rzeczywista potęga} + 127$$<br>Dzięki temu wykładnik jest zawsze liczbą nieujemną, co pozwala procesorowi porównywać rzędy wielkości liczb zmiennoprzecinkowych za pomocą zwykłych, szybkich komparatorów liczb całkowitych.</p>
+<h4>3. Dlaczego 0.1 + 0.2 nie daje idealnego 0.3?</h4>
+<p>Ułamek dziesiętny $0{,}1$ w systemie binarnym ma postać nieskończoną ($0{,}0001100110011\dots_2$). Ponieważ mantysa ma skończoną liczbę bitów, komputer musi uciąć ogon ułamka, co wywołuje mikroskopijny błąd zaokrąglenia na 17. miejscu po przecinku.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔒 Weryfikacja: Standard IEEE 754</h2>
+<data-gate>
+  <data-connection-matcher title="Weryfikacja: Standard IEEE 754">
+    <item left="Pole znaku (1 bit)" right="Stan 0 oznacza plus, stan 1 oznacza minus"></item>
+    <item left="Format 32-bitowy (float)" right="Oferuje około 7 cyfr precyzji dziesiętnej"></item>
+    <item left="Format 64-bitowy (double)" right="Oferuje około 15-17 cyfr precyzji dziesiętnej"></item>
+    <item left="Wartość NaN (Not a Number)" right="Wynik operacji niedozwolonej (np. 0 podzielone przez 0)"></item>
+    <item left="Przechowywanie cen w bankowości" right="Liczby całkowite w groszach lub centach"></item>
+  </data-connection-matcher>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li>Standard IEEE 754 dzieli 32 bity liczby float na trzy części: 1 bit znaku, 8 bitów wykładnika oraz 23 bity mantysy.</li>
+<li>Typ <code>float</code> (32 bity) zapewnia precyzję około 7 cyfr, a typ <code>double</code> (64 bity) około 16 cyfr dziesiętnych.</li>
+<li>Stany specjalne to znakowane zero ($\pm 0$), nieskończoność ($\pm\infty$) oraz <span class="color-green">NaN</span> (wynik operacji niedozwolonej).</li>
+<li>Liczby zmiennoprzecinkowe są zapisem przybliżonym, dlatego w finansach zawsze stosuje się liczby całkowite.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>

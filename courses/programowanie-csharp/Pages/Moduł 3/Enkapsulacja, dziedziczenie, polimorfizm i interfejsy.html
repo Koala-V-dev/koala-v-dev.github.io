@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+    <script>
+      (function () {
+        try {
+          var c = document.cookie.split('; ').find(row => row.startsWith('theme='));
+          var t = c ? c.split('=')[1] : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', t);
+          if (t === 'dark') {
+            document.write('<style>html, body { background-color: #0b0f19; color: #e1e1e1; }</style>');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enkapsulacja, dziedziczenie, polimorfizm i interfejsy - Koala-V</title>
+    <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/course-style.css" />
+    <script type="module" src="/js/course-app.js"></script>
+</head>
+<body class="browser-firefox">
+    <a class="skip-link" href="#course-lesson-content">Przejdź do treści lekcji</a>
+    <div id="course-slug" style="display:none;">programowanie-csharp</div>
+    <header>
+        <p class="site-logo medievalsharp-regular">
+            <a href="/" aria-label="Koala-V — strona główna">
+                <img src="/main-logo.svg" alt="" height="80" width="80" class="lazy-image lazy-image--loaded">
+                <span class="logo-text">Koala-V</span>
+            </a>
+        </p>
+        <div class="header-actions" id="header-actions">
+           <!-- Zdublowany theme-switcher z html zostal usuniety. js zajmie sie dodaniem jednego! -->
+        </div>
+
+        <div class="course-mobile-header">
+            <div class="header-left">
+                <button class="btn btn-icon btn-drawer btn-modules" aria-label="Moduły" title="Moduły" aria-expanded="false" aria-controls="course-lesson-content-nav-inner">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-icon btn-drawer btn-toc" aria-label="Spis Treści" title="Spis Treści" aria-expanded="false" aria-controls="course-lesson-content-nav">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="drawer-backdrop"></div>
+
+    <main class="course-page fade-in" id="course-page-shell">
+        <aside class="course-sidebar" id="course-lesson-content-nav-inner" aria-label="Nawigacja po modułach i lekcjach">
+            <nav class="module-menu drawer-left"><ul><li class="module">Moduł 0: Fundamenty C# i Algorytmy Liczbowe</li><li class="lesson-item lesson" data-path="Moduł 0/Pierwszy program i wypisywanie w konsoli"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Pierwszy%20program%20i%20wypisywanie%20w%20konsoli.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pierwszy program i wypisywanie w konsoli</a></li><li class="lesson-item lesson" data-path="Moduł 0/Zmienne, typy danych i arytmetyka komputera"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Zmienne%2C%20typy%20danych%20i%20arytmetyka%20komputera.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zmienne, typy danych i arytmetyka komputera</a></li><li class="lesson-item lesson" data-path="Moduł 0/Decyzje w kodzie - instrukcje if, else i switch"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Decyzje%20w%20kodzie%20-%20instrukcje%20if%2C%20else%20i%20switch.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Decyzje w kodzie - instrukcje if, else i switch</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle for, while i sterowanie przepływem"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20for%2C%20while%20i%20sterowanie%20przep%C5%82ywem.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle for, while i sterowanie przepływem</a></li><li class="lesson-item lesson" data-path="Moduł 0/Pętle zagnieżdżone i algorytmy liczbowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/P%C4%99tle%20zagnie%C5%BCd%C5%BCone%20i%20algorytmy%20liczbowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Pętle zagnieżdżone i algorytmy liczbowe</a></li><li class="lesson-item lesson" data-path="Moduł 0/Praca z tekstem - string, char i StringBuilder"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%200/Praca%20z%20tekstem%20-%20string%2C%20char%20i%20StringBuilder.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Praca z tekstem - string, char i StringBuilder</a></li><li class="module">Moduł 1: Metody, Tablice 1D/2D i Gra Logiczna</li><li class="lesson-item lesson" data-path="Moduł 1/Własne metody, parametry i zwracanie wyników"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/W%C5%82asne%20metody%2C%20parametry%20i%20zwracanie%20wynik%C3%B3w.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Własne metody, parametry i zwracanie wyników</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice jednowymiarowe i algorytmy klasyczne"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20jednowymiarowe%20i%20algorytmy%20klasyczne.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice jednowymiarowe i algorytmy klasyczne</a></li><li class="lesson-item lesson" data-path="Moduł 1/Tablice dwuwymiarowe i reprezentacja planszy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Tablice%20dwuwymiarowe%20i%20reprezentacja%20planszy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Tablice dwuwymiarowe i reprezentacja planszy</a></li><li class="lesson-item lesson" data-path="Moduł 1/Projekt TicTacToe - Kółko i Krzyżyk z botem AI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%201/Projekt%20TicTacToe%20-%20K%C3%B3%C5%82ko%20i%20Krzy%C5%BCyk%20z%20botem%20AI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt TicTacToe - Kółko i Krzyżyk z botem AI</a></li><li class="module">Moduł 2: Kolekcje, Wyjątki i System Plików</li><li class="lesson-item lesson" data-path="Moduł 2/Listy generyczne List i pętla foreach"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Listy%20generyczne%20List%20i%20p%C4%99tla%20foreach.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Listy generyczne List i pętla foreach</a></li><li class="lesson-item lesson" data-path="Moduł 2/Słowniki Dictionary i tablice haszujące"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/S%C5%82owniki%20Dictionary%20i%20tablice%20haszuj%C4%85ce.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Słowniki Dictionary i tablice haszujące</a></li><li class="lesson-item lesson" data-path="Moduł 2/Obsługa błędów, Guard Clause i wyjątki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Obs%C5%82uga%20b%C5%82%C4%99d%C3%B3w%2C%20Guard%20Clause%20i%20wyj%C4%85tki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Obsługa błędów, Guard Clause i wyjątki</a></li><li class="lesson-item lesson" data-path="Moduł 2/Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%202/Projekt%20FolderTidy%20-%20Porz%C4%85dkowacz%20plik%C3%B3w%20i%20detektor%20duplikat%C3%B3w%20SHA-256.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt FolderTidy - Porządkowacz plików i detektor duplikatów SHA-256</a></li><li class="module">Moduł 3: Obiektowość, Pamięć i Win32 API</li><li class="lesson-item lesson" data-path="Moduł 3/Klasy, obiekty, konstruktory i słowo this"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Klasy%2C%20obiekty%2C%20konstruktory%20i%20s%C5%82owo%20this.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Klasy, obiekty, konstruktory i słowo this</a></li><li class="lesson-item lesson" data-path="Moduł 3/Typy wartościowe a referencyjne w pamięci"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Typy%20warto%C5%9Bciowe%20a%20referencyjne%20w%20pami%C4%99ci.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy wartościowe a referencyjne w pamięci</a></li><li class="lesson-item lesson" data-path="Moduł 3/Enkapsulacja, dziedziczenie, polimorfizm i interfejsy"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Enkapsulacja%2C%20dziedziczenie%2C%20polimorfizm%20i%20interfejsy.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</a></li><li class="lesson-item lesson" data-path="Moduł 3/Projekt MemReductCLI - Menedżer pamięci RAM Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%203/Projekt%20MemReductCLI%20-%20Mened%C5%BCer%20pami%C4%99ci%20RAM%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemReductCLI - Menedżer pamięci RAM Windows 11</a></li><li class="module">Moduł 4: Generyki, LINQ i Czysta Architektura</li><li class="lesson-item lesson" data-path="Moduł 4/Typy generyczne i własne kolekcje"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Typy%20generyczne%20i%20w%C5%82asne%20kolekcje.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Typy generyczne i własne kolekcje</a></li><li class="lesson-item lesson" data-path="Moduł 4/Wyrażenia lambda i potoki LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Wyra%C5%BCenia%20lambda%20i%20potoki%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Wyrażenia lambda i potoki LINQ</a></li><li class="lesson-item lesson" data-path="Moduł 4/Zasady czystej architektury SOLID i testy jednostkowe"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Zasady%20czystej%20architektury%20SOLID%20i%20testy%20jednostkowe.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasady czystej architektury SOLID i testy jednostkowe</a></li><li class="lesson-item lesson" data-path="Moduł 4/Projekt ProcScout - Skaner procesów i portów TCP z LINQ"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%204/Projekt%20ProcScout%20-%20Skaner%20proces%C3%B3w%20i%20port%C3%B3w%20TCP%20z%20LINQ.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt ProcScout - Skaner procesów i portów TCP z LINQ</a></li><li class="module">Moduł 5: Wejście w GUI (WinForms) i Sekcja Powtórkowa</li><li class="lesson-item lesson" data-path="Moduł 5/Jak działa okno w Windows - Message Loop, Form i kontrolki"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Jak%20dzia%C5%82a%20okno%20w%20Windows%20-%20Message%20Loop%2C%20Form%20i%20kontrolki.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Jak działa okno w Windows - Message Loop, Form i kontrolki</a></li><li class="lesson-item lesson" data-path="Moduł 5/Delegaty, zdarzenia event i Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Delegaty%2C%20zdarzenia%20event%20i%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Delegaty, zdarzenia event i Timer</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - TicTacToeGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20TicTacToeGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - TicTacToeGUI</a></li><li class="lesson-item lesson" data-path="Moduł 5/Powtórka w GUI - MemReductGUI"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%205/Powt%C3%B3rka%20w%20GUI%20-%20MemReductGUI.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Powtórka w GUI - MemReductGUI</a></li><li class="module">Moduł 6: Gry Okienkowe i Algorytmy w Akcji</li><li class="lesson-item lesson" data-path="Moduł 6/Algorytm tasowania Fisher-Yates i maszyna stanów gry"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Algorytm%20tasowania%20Fisher-Yates%20i%20maszyna%20stan%C3%B3w%20gry.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Algorytm tasowania Fisher-Yates i maszyna stanów gry</a></li><li class="lesson-item lesson" data-path="Moduł 6/Dynamiczne plansze WinForms i opóźnienie Timer"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Dynamiczne%20plansze%20WinForms%20i%20op%C3%B3%C5%BAnienie%20Timer.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Dynamiczne plansze WinForms i opóźnienie Timer</a></li><li class="lesson-item lesson" data-path="Moduł 6/Projekt MemoryCards - Gra Memory w oknie Windows 11"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%206/Projekt%20MemoryCards%20-%20Gra%20Memory%20w%20oknie%20Windows%2011.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt MemoryCards - Gra Memory w oknie Windows 11</a></li><li class="module">Moduł 7: Grafika 2D, System Tray i Aplikacje Windows</li><li class="lesson-item lesson" data-path="Moduł 7/Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Grafika%202D%20Graphics%2C%20DoubleBuffered%20i%20obs%C5%82uga%20klawiatury.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Grafika 2D Graphics, DoubleBuffered i obsługa klawiatury</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt NeonSnake - Płynna gra 2D na płótnie Graphics"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20NeonSnake%20-%20P%C5%82ynna%20gra%202D%20na%20p%C5%82%C3%B3tnie%20Graphics.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt NeonSnake - Płynna gra 2D na płótnie Graphics</a></li><li class="lesson-item lesson" data-path="Moduł 7/Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Zasobnik%20systemowy%20NotifyIcon%2C%20zrzut%20ekranu%20i%20tryb%20Awake.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Zasobnik systemowy NotifyIcon, zrzut ekranu i tryb Awake</a></li><li class="lesson-item lesson" data-path="Moduł 7/Projekt WinBoostTray - Kombajn Windows 11 w zasobniku"><a class="lesson-link" href="/courses/programowanie-csharp/Pages/Modu%C5%82%207/Projekt%20WinBoostTray%20-%20Kombajn%20Windows%2011%20w%20zasobniku.html" data-pjax style="text-decoration: none; color: inherit; display: block; width: 100%;">Projekt WinBoostTray - Kombajn Windows 11 w zasobniku</a></li></ul></nav>
+        </aside>
+        
+        <article id="course-lesson-content">
+            <h1>Enkapsulacja, dziedziczenie, polimorfizm i interfejsy</h1>
+<p>Wyobraź sobie system monitorowania zasobów albo silnik gry strategicznej. Na początku obsługujesz tylko dwa typy obiektów, więc piszesz prostą instrukcję warunkową:</p>
+<pre><code class="language-csharp">if (typ == "CPU")
+{
+    wynik = obciazenieCpu;
+}
+else if (typ == "RAM")
+{
+    wynik = (uzytyRam / calyRam) * 100.0;
+}
+</code></pre>
+<p>Gdy projekt rośnie do piętnastu typów czujników lub jednostek, taka drabinka pojawia się w dziesięciu różnych plikach. Dodanie jednego nowego typu wymusza edycję każdego pliku z osobna. Jedno pominięte <code>else if</code> zamienia się w ukryty błąd w działaniu programu.</p>
+<p>Architektura obiektowa rozwiązuje ten problem u źródła. Zamiast sprawdzać napis <span class="color-blue">typ</span>, trzymasz różne klasy w jednej kolekcji <code>List&lt;Jednostka&gt;</code> i uruchamiasz jedną, niezmienną pętlę:</p>
+<pre><code class="language-csharp">foreach (Jednostka j in oddzial)
+{
+    Console.WriteLine(j.OpisAtaku());
+}
+</code></pre>
+<p>Dodanie nowej klasy <code>Mag</code> lub <code>Katapulta</code> nie wymaga zmiany ani jednej linii tej pętli. Aby taka konstrukcja działała bezpiecznie, potrzebujesz czterech współpracujących mechanizmów: <span class="color-green">enkapsulacji</span>, <span class="color-green">dziedziczenia</span>, <span class="color-green">polimorfizmu</span> oraz <span class="color-green">interfejsów</span>.</p>
+<hr>
+<section class="lesson-section" data-lesson-section="true"><h2>🔒 Enkapsulacja w hierarchii i dziedziczenie klas</h2>
+<p><span class="color-green">Dziedziczenie</span> pozwala utworzyć klasę pochodną na bazie istniejącej klasy bazowej za pomocą dwukropka (<code>class Lucznik : Jednostka</code>). Klasa pochodna przejmuje wszystkie odziedziczone właściwości i metody, a dodatkowo wprowadza własne pola i logikę.</p>
+<p>Gdy kilka klas współdzieli stan, ale sam obiekt bazowy nie ma sensu w programie, oznacz klasę bazową słowem <span class="color-green"><code>abstract</code></span>. Nie utworzysz obiektu przez <code>new Jednostka(...)</code>, ponieważ <span class="color-green">klasa abstrakcyjna</span> służy wyłącznie jako wspólny fundament dla konkretnych typów.</p>
+<p>Spójrz na hierarchię jednostek w grze strategicznej:</p>
+<pre><code class="language-csharp">using System;
+
+public abstract class Jednostka
+{
+    public string Nazwa { get; private set; }
+    public int BazowyAtak { get; protected set; }
+
+    protected Jednostka(string nazwa, int bazowyAtak)
+    {
+        Nazwa = nazwa;
+        BazowyAtak = bazowyAtak;
+    }
+
+    // Kazda klasa pochodna MUSI dostarczyc wlasna implementacje
+    public abstract int ObliczObrazenia();
+
+    // Domyslne zachowanie, ktore klasa pochodna MOZE nadpisac
+    public virtual string OpisAtaku()
+    {
+        return string.Format("{0} zadaje {1} obrazen.", Nazwa, ObliczObrazenia());
+    }
+}
+
+public class Lucznik : Jednostka
+{
+    private int _premiaDystansu;
+
+    public Lucznik(int bazowyAtak, int premiaDystansu) : base("Lucznik", bazowyAtak)
+    {
+        _premiaDystansu = premiaDystansu;
+    }
+
+    public override int ObliczObrazenia()
+    {
+        return BazowyAtak + _premiaDystansu;
+    }
+}
+
+public class Rycerz : Jednostka
+{
+    private int _bonusSzazy;
+
+    public Rycerz(int bazowyAtak, int bonusSzarzy) : base("Rycerz", bazowyAtak)
+    {
+        _bonusSzazy = bonusSzarzy;
+    }
+
+    public override int ObliczObrazenia()
+    {
+        return BazowyAtak + _bonusSzazy;
+    }
+}
+</code></pre>
+<p>Zwróć uwagę na trzy modyfikatory dostępu użyte w klasie <code>Jednostka</code>. Każdy z nich wyznacza precyzyjną granicę <span class="color-green">enkapsulacji</span>:</p>
+<table>
+<thead>
+<tr>
+<th>Modyfikator</th>
+<th>Kto ma dostęp do zapisu lub wywołania?</th>
+<th>Zastosowanie w projekcie</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>public</code></td>
+<td>Dowolny kod w całym programie</td>
+<td>Kontrakt zewnętrzny: metody i odczyt właściwości</td>
+</tr>
+<tr>
+<td><code>protected</code></td>
+<td>Tylko ta klasa oraz klasy po niej dziedziczące</td>
+<td>Wspólne pola bazowe (<code>BazowyAtak</code>) i konstruktor klasy abstrakcyjnej</td>
+</tr>
+<tr>
+<td><code>private</code></td>
+<td>Wyłącznie wnętrze jednej klasy</td>
+<td>Szczegóły implementacji (<code>_premiaDystansu</code>, <code>Nazwa { get; private set; }</code>)</td>
+</tr>
+</tbody></table>
+<h3>🧱 Kolejność wywołań konstruktorów i słowo kluczowe base</h3>
+<p>Kiedy w kodzie wykonujesz instrukcję <code>new Lucznik(15, 8)</code>, środowisko wykonawcze musi zbudować obiekt od fundamentów w górę. Nie wolno uruchomić ciała konstruktora klasy pochodnej, dopóki część bazowa obiektu nie jest gotowa.</p>
+<p>Słowo kluczowe <span class="color-green"><code>: base(...)</code></span> przekazuje argumenty z konstruktora <code>Lucznik</code> do konstruktora <code>Jednostka</code>. Jeśli klasa bazowa nie posiada konstruktora bezparametrowego, pominięcie <code>: base(...)</code> kończy się <span class="color-red">błędem kompilacji</span>.</p>
+<div class="markdown-alert markdown-alert--important">
+<p class="markdown-alert-title">
+<span class="alert-icon">📌</span> Ważny punkt
+</p>
+<div class="markdown-alert-content">
+<p>Konstruktor klasy bazowej zawsze wykonuje się <span class="color-green">przed</span> ciałem konstruktora klasy pochodnej. Dzięki temu w ciele konstruktora <code>Lucznik</code> właściwości <code>Nazwa</code> i <code>BazowyAtak</code> mają już poprawne, zwalidowane wartości.</p>
+
+</div>
+</div><data-gate>
+<data-sortable-list title="Ułóż w prawidłowej kolejności 5 etapów wykonywanych przy wywołaniu new Lucznik(15, 8)">
+  <item data-correct="3">Wewnątrz konstruktora Jednostka ustawiane są właściwości Nazwa oraz BazowyAtak</item>
+  <item data-correct="1">Środowisko CLR rezerwuje na stercie pamięć dla całego obiektu Lucznik</item>
+  <item data-correct="5">Operator new zwraca referencję do w pełni zainicjalizowanego obiektu Lucznik</item>
+  <item data-correct="2">Zanim ruszy ciało Lucznik, klauzula : base("Lucznik", 15) wywołuje konstruktor Jednostka</item>
+  <item data-correct="4">Uruchamia się ciało konstruktora Lucznik i zapisuje wartość 8 w polu _premiaDystansu</item>
+</data-sortable-list>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🎭 Polimorfizm, rozszerzanie przez base i pułapka ukrywania metod</h2>
+<p><span class="color-green">Polimorfizm</span> oznacza, że jedna zmienna typu bazowego (<code>Jednostka</code>) może wskazywać na różne obiekty pochodne (<code>Lucznik</code>, <code>Rycerz</code>). Gdy wywołujesz metodę oznaczoną jako <code>virtual</code> lub <code>abstract</code>, środowisko CLR w trakcie działania programu sprawdza rzeczywisty typ obiektu na stercie i uruchamia właściwą wersję <span class="color-green"><code>override</code></span>.</p>
+<h3>🧩 Rozszerzanie zachowania przez base.Metoda()</h3>
+<p>Czasami klasa pochodna nie chce zastępować całej metody bazowej, lecz jedynie dopisać do niej własny fragment. Zamiast kopiować kod z klasy <code>Jednostka</code>, wywołujesz <span class="color-green"><code>base.OpisAtaku()</code></span> wewnątrz nadpisanej metody:</p>
+<pre><code class="language-csharp">public class LucznikElitarny : Lucznik
+{
+    public LucznikElitarny(int bazowyAtak, int premiaDystansu)
+        : base(bazowyAtak, premiaDystansu)
+    {
+    }
+
+    public override string OpisAtaku()
+    {
+        return "[ELITA] " + base.OpisAtaku();
+    }
+}
+</code></pre>
+<p>Takie wywołanie uruchamia oryginalną logikę z klasy bazowej i obudowuje jej wynik prefiksem <code>"[ELITA] "</code>. Gdy zmienisz format tekstu w <code>Jednostka</code>, wszystkie klasy pochodne automatycznie skorzystają z poprawki.</p>
+<h3>⚠️ Pułapka braku override i ukrywanie metod</h3>
+<p>Częstym błędem początkujących jest napisanie metody o tej samej nazwie w klasie pochodnej <span class="color-green">bez słowa <code>override</code></span> (lub gdy metoda bazowa nie jest <code>virtual</code>). Taki mechanizm nie jest polimorfizmem, lecz <span class="color-red">ukrywaniem metody</span> (kompilator zgłasza ostrzeżenie i sugeruje słowo <code>new</code>).</p>
+<p>Sprawdź, co wypisze ten kod:</p>
+<pre><code class="language-csharp">public class Bazowa
+{
+    public string PrzedstawSie() { return "Jestem Bazowa"; }
+}
+
+public class Pochodna : Bazowa
+{
+    public new string PrzedstawSie() { return "Jestem Pochodna"; }
+}
+
+Bazowa refBazowa = new Pochodna();
+Pochodna refPochodna = new Pochodna();
+
+Console.WriteLine(refBazowa.PrzedstawSie());   // Wypisze: Jestem Bazowa!
+Console.WriteLine(refPochodna.PrzedstawSie()); // Wypisze: Jestem Pochodna
+</code></pre>
+<p>Bez pary <code>virtual</code> i <code>override</code> o wyborze metody decyduje typ zmiennej po lewej stronie (<code>Bazowa</code>), a nie rzeczywisty obiekt w pamięci (<code>Pochodna</code>). Referencja bazowa całkowicie ignoruje wersję z klasy <code>Pochodna</code>.</p>
+<div class="markdown-alert markdown-alert--warning">
+<p class="markdown-alert-title">
+<span class="alert-icon">🚧</span> Uwaga
+</p>
+<div class="markdown-alert-content">
+<p>Jeśli chcesz, aby pętla <code>foreach (Jednostka j in oddzial)</code> wywoływała kod z klas pochodnych, metoda w klasie bazowej musi mieć <code>virtual</code> lub <code>abstract</code>, a w klasie pochodnej obowiązkowo słowo <code>override</code>.</p>
+
+</div>
+</div><hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔌 Interfejsy, wielokrotna implementacja oraz operatory is i as</h2>
+<p>Klasa w C# może dziedziczyć tylko po <span class="color-green">jednej</span> klasie bazowej. Co zrobić, gdy w grze pojawia się <code>WiezaObronna</code>? Wieża nie jest jednostką (nie porusza się po mapie), ale potrafi zadawać obrażenia i można ją naprawiać.</p>
+<p>Tutaj wchodzi <span class="color-green">interfejs (<code>interface</code>)</span>, czyli czysty <span class="color-green">kontrakt</span>. Interfejs nie przechowuje pól ani konstruktorów. Definiuje wyłącznie zestaw metod i właściwości, które klasa zobowiązuje się zaimplementować. Jedna klasa może implementować <span class="color-green">wiele interfejsów jednocześnie</span>:</p>
+<pre><code class="language-csharp">public interface IAtakujacy
+{
+    string Nazwa { get; }
+    int ObliczObrazenia();
+}
+
+public interface INaprawialny
+{
+    void Napraw(int punkty);
+}
+
+public class WiezaObronna : IAtakujacy, INaprawialny
+{
+    public string Nazwa { get; private set; }
+    public int Wytrzymalosc { get; private set; }
+
+    public WiezaObronna(string nazwa, int wytrzymalosc)
+    {
+        Nazwa = nazwa;
+        Wytrzymalosc = wytrzymalosc;
+    }
+
+    public int ObliczObrazenia()
+    {
+        return 25;
+    }
+
+    public void Napraw(int punkty)
+    {
+        if (punkty &gt; 0) Wytrzymalosc += punkty;
+    }
+}
+</code></pre>
+<h3>🔎 Sprawdzanie typu z operatorem is i bezpieczne rzutowanie as</h3>
+<p>Gdy trzymasz obiekty <code>Lucznik</code>, <code>Rycerz</code> i <code>WiezaObronna</code> na wspólnej liście <code>List&lt;IAtakujacy&gt;</code>, każda z nich obsługuje <code>ObliczObrazenia()</code>. Jednak tylko część z nich implementuje dodatkowo <code>INaprawialny</code>.</p>
+<p>Bezpośrednie rzutowanie <code>(INaprawialny)obiekt</code> dla obiektu <code>Lucznik</code> natychmiast przerwie program wyjątkiem <code>**_InvalidCastException_**</code>. Zamiast zgadywać, używaj dwóch bezpiecznych operatorów:</p>
+<ul>
+<li>Operator <span class="color-green"><code>is</code></span> sprawdza, czy obiekt jest zgodny z danym typem lub interfejsem, i zwraca <code>true</code> albo <code>false</code>.</li>
+<li>Operator <span class="color-green"><code>as</code></span> próbuje rzutować obiekt na wskazany typ referencyjny. Jeśli obiekt nie implementuje interfejsu, zwraca <span class="color-green"><code>null</code></span> zamiast rzucać wyjątek.</li>
+</ul>
+<pre><code class="language-csharp">foreach (IAtakujacy obiekt in lista)
+{
+    INaprawialny doNaprawy = obiekt as INaprawialny;
+    if (doNaprawy != null)
+    {
+        doNaprawy.Napraw(10);
+    }
+}
+</code></pre>
+<div class="markdown-alert markdown-alert--tip">
+<p class="markdown-alert-title">
+<span class="alert-icon">✨</span> Wskazówka
+</p>
+<div class="markdown-alert-content">
+<p>Gdy chcesz zarówno sprawdzić typ, jak i wywołać na nim metodę, użyj wzorca <code>as</code> połączonego ze sprawdzeniem <code>!= null</code>. Unikasz w ten sposób podwójnego sprawdzania typu, które zaszłoby przy parze <code>is</code> i rzutowaniu w nawiasach.</p>
+
+</div>
+</div><h3>⚖️ Kiedy klasa abstrakcyjna, a kiedy interfejs</h3>
+<table>
+<thead>
+<tr>
+<th>Cecha</th>
+<th><code>abstract class</code></th>
+<th><code>interface</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Pola i konstruktor</td>
+<td>Może posiadać pola, konstruktor i gotowe metody pomocnicze</td>
+<td>Brak pól instancyjnych i brak konstruktora: wyłącznie sygnatury</td>
+</tr>
+<tr>
+<td>Wielokrotność</td>
+<td>Klasa może dziedziczyć tylko po <span class="color-green">jednej</span> klasie bazowej</td>
+<td>Klasa może implementować <span class="color-green">wiele</span> interfejsów jednocześnie</td>
+</tr>
+<tr>
+<td>Relacja w projekcie</td>
+<td>„Jest rodzajem...” (<code>Lucznik</code> jest rodzajem <code>Jednostka</code>)</td>
+<td>„Potrafi robić...” (<code>Lucznik</code> i <code>WiezaObronna</code> potrafią <code>IAtakujacy</code>)</td>
+</tr>
+</tbody></table>
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🛡️ Modyfikatory sealed, static class oraz kompozycja ponad dziedziczenie</h2>
+<p>Dobry projekt obiektowy nie polega na budowaniu głębokich drzew dziedziczenia na dziesięć poziomów w głąb. Równie ważne jest wiedzieć, kiedy dziedziczenie zablokować albo zastąpić prostszym mechanizmem.</p>
+<h3>🔐 Klasy sealed i static class</h3>
+<ul>
+<li><span class="color-green"><code>sealed class</code></span> blokuje dalsze dziedziczenie po danej klasie (próba napisania <code>class Podklasa : KlasaSealed</code> daje <span class="color-red">błąd kompilacji</span>). Stosujesz ten modyfikator, gdy klasa realizuje kompletny, zamknięty niezmiennik (np. <code>string</code> w .NET jest klasą <code>sealed</code>) lub gdy chcesz pozwolić kompilatorowi JIT na szybsze wywołania metod.</li>
+<li><span class="color-green"><code>static class</code></span> to kontener na czyste funkcje narzędziowe, które nie potrzebują stanu instancji (np. <code>Math</code> lub nasz <code>MonitorSystemu</code>). Nie możesz utworzyć jej obiektu przez <code>new</code>, a wszystkie jej składowe muszą być <code>static</code>.</li>
+</ul>
+<h3>🧱 Zasada kompozycja ponad dziedziczenie</h3>
+<p>Początkujący programiści często nadużywają dziedziczenia, by „pożyczyć” kod z innej klasy. Klasycznym antywzorcem jest zapis <code>class Samochod : Silnik</code>.</p>
+<p>Dlaczego to błąd? Samochód nie „jest rodzajem” silnika. Samochód <span class="color-green">posiada</span> silnik. Dziedziczenie po <code>Silnik</code> przykleja klasę <code>Samochod</code> na stałe do jednej implementacji i wystawia na zewnątrz metody, które powinny zostać ukryte pod maską.</p>
+<p>Zamiast dziedziczyć, zastosuj <span class="color-gold">kompozycję ponad dziedziczenie</span>: umieść w klasie pole z interfejsem i przekaż zależność przez konstruktor:</p>
+<pre><code class="language-csharp">public interface ISilnik
+{
+    void Uruchom();
+}
+
+public sealed class Samochod
+{
+    private readonly ISilnik _silnik;
+
+    public Samochod(ISilnik silnik)
+    {
+        if (silnik == null) throw new ArgumentNullException("silnik");
+        _silnik = silnik;
+    }
+
+    public void Jedz()
+    {
+        _silnik.Uruchom();
+    }
+}
+</code></pre>
+<p>Dzięki kompozycji ten sam <code>Samochod</code> może współpracować z <code>SilnikSpalinowy</code>, <code>SilnikElektryczny</code> albo symulatorem testowym. Nie modyfikujesz ani jednej linii w klasie <code>Samochod</code>.</p>
+<data-gate>
+<data-connection-matcher title="Dopasuj mechanizm obiektowy C# do sytuacji projektowej">
+  <item left="abstract class" right="Wspólne pola, walidacja w konstruktorze i częściowo gotowa logika dla rodziny pokrewnych klas"></item>
+  <item left="interface" right="Kontrakt bez pól, który może zaimplementować jednocześnie wiele niepowiązanych ze sobą klas"></item>
+  <item left="virtual / override" right="Uruchamianie właściwej wersji metody z klasy pochodnej podczas iteracji po referencji bazowej"></item>
+  <item left="sealed class" right="Zablokowanie dalszego dziedziczenia w celu ochrony niezmiennika i optymalizacji JIT"></item>
+  <item left="Kompozycja (pole z interfejsem)" right="Relacja „posiada” (np. Samochod posiada ISilnik) zamiast sztywnego dziedziczenia"></item>
+</data-connection-matcher>
+</data-gate>
+
+<hr>
+<details class="deep-dive">
+<summary>
+<span class="deep-dive-title">🔬 Pod maską: Tablica vtable i CALLVIRT, Devirtualization w RyuJIT oraz Diamond Problem w C++</span>
+<span class="deep-dive-badge">VTABLE · RYUJIT · C++ VS C#</span>
+</summary>
+<div class="deep-dive-content">
+
+<h4>1. Jak procesor wie, którą wersję metody wirtualnej uruchomić (CALL vs CALLVIRT)?</h4>
+
+<p>Zwykła metoda niewirtualna jest znana w czasie kompilacji. Kompilator generuje w bajtkodzie CIL instrukcję <span class="color-green"><code>CALL</code></span>, którą JIT zamienia na bezpośredni skok maszynowy pod stały adres (np. <code>call 0x7FF812340080</code>). Koszt takiego wywołania na współczesnym CPU to około 1 cykl zegara, a kompilator często wkleja krótkie ciało metody wprost w miejsce wywołania (tzw. Inlining).</p>
+<p>Gdy metoda jest <code>virtual</code>, <code>abstract</code> lub należy do interfejsu, kompilator generuje instrukcję CIL <span class="color-green"><code>CALLVIRT</code></span>. Podczas wykonania procesor wykonuje <span class="color-green">skok pośredni</span> przez tablicę metod wirtualnych (<span class="color-green"><code>vtable</code></span>, w CLR będącą częścią <code>MethodTable</code>, a w C++ wskazywaną przez ukryte pole <code>vptr</code>):</p>
+<pre><code class="language-asm">; Wywolanie polimorficzne: j.ObliczObrazenia() (RCX = adres obiektu j)
+mov rax, qword ptr [rcx]      ; 1. Odczytaj MethodTable* (vptr) z offsetu +0 obiektu
+mov rax, qword ptr [rax+48h]  ; 2. Pobierz adres konkretnej metody ze stalego slotu vtable
+call rax                      ; 3. Skok posredni pod dynamicznie odczytany adres
+</code></pre>
+<p>Dodatkowy koszt pojedynczego wywołania to dwa odczyty pamięci (1 do 2 nanosekund przy trafieniu w cache L1). Jednak jeśli w ciasnej pętli obiekty różnych klas przeplatają się losowo, predyktor skoków pośrednich procesora może pudłować (<span class="color-red">Branch Misprediction</span>). Kosztuje to 15 do 20 cykli CPU na jedno wywołanie i blokuje wklejanie ciała metody.</p>
+<h4>2. Devirtualization w kompilatorze RyuJIT, Virtual Stub Dispatch i słowo sealed</h4>
+
+<p>W przypadku wywołań przez <span class="color-green">interfejs</span> (np. <code>ICzujnik.OdczytajProcent()</code>) dwa różne typy mogą umieścić metodę pod zupełnie innym indeksem w swojej tablicy metod. Środowisko CLR rozwiązuje to mechanizmem <span class="color-green">Virtual Stub Dispatch (VSD)</span>. Dla każdego miejsca wywołania tworzy mały blok kodu pośredniego, który zapamiętuje ostatnio widziany <code>MethodTable*</code>. Gdy w pętli pojawia się ten sam typ obiektu, porównanie wskaźnika trafia natychmiast.</p>
+<p>Jeśli klasa nie jest projektowana do dalszego dziedziczenia, oznacz ją modyfikatorem <span class="color-green"><code>sealed</code></span> (np. <code>public sealed class CzujnikCpu : CzujnikBazowy, IKalibrowalny</code>). Kompilator <span class="color-green">RyuJIT</span> w .NET wykrywa wtedy, że typ w tym miejscu nie ma żadnych klas pochodnych, i przeprowadza optymalizację zwaną <span class="color-green">Devirtualization</span>. Zamienia kosztowny skok pośredni <code>CALLVIRT</code> na zwykłe bezpośrednie <code>CALL</code>, a krótkie metody całkowicie wkleja w miejsce wywołania bez narzutu skoku.</p>
+<h4>3. Diamond Problem w C++ i dlaczego C# zrezygnował z wielodziedziczenia klas</h4>
+
+<p>W C++ klasa może dziedziczyć jednocześnie po dwóch klasach bazowych. Prowadzi to do słynnego <span class="color-red">problemu diamentu</span> (Diamond Problem):</p>
+<pre><code class="language-cpp">struct Urzadzenie { int id; };
+struct Skaner   : Urzadzenie { };
+struct Drukarka : Urzadzenie { };
+struct Kombajn  : Skaner, Drukarka { }; // W pamieci Kombajn sa DWIE kopie pola "id"!
+// Kombajn k; k.id = 5; -&gt; BLAD KOMPILACJI: niejednoznaczne (Skaner::id czy Drukarka::id?)
+</code></pre>
+<p>Rozwiązanie w C++ wymaga tzw. dziedziczenia wirtualnego (<code>struct Skaner : virtual Urzadzenie</code>). Dodaje ono ukryte tablice przesunięć (<code>vbtable</code>), komplikuje rzutowanie wskaźników i narzuca koszt pamięciowy na każdy obiekt. Twórcy C# i CLR rozwiązali problem u źródła: każda klasa ma dokładnie <span class="color-green">jedną</span> klasę bazową (układ pól w pamięci jest zawsze liniowy i jednoznaczny), a współdzielenie wielu ról realizują <span class="color-green">interfejsy</span>, które nie wprowadzają żadnego konfliktu pól w pamięci.</p>
+</div>
+</details>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>💻 Zadanie praktyczne w 2 plikach dla systemu czujników sprzętowych</h2>
+<p>Przełącz zakładkę na <span class="color-green"><code>Czujniki.cs</code></span> i zaimplementuj polimorficzny moduł monitorowania zasobów komputera:</p>
+<ol>
+<li><span class="color-green">Klasa <code>CzujnikCpu : CzujnikBazowy, IKalibrowalny</code></span>:<ul>
+<li>konstruktor <code>CzujnikCpu(double aktualneObciazenie, double progAlarmu)</code> przekazuje <code>("CPU", progAlarmu)</code> do <code>: base(...)</code>,</li>
+<li>dla <code>aktualneObciazenie &lt; 0 || aktualneObciazenie &gt; 100</code> rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>nadpisuje <code>override double OdczytajProcent()</code>, zwracając zapisane obciążenie,</li>
+<li>implementuje metodę <code>void Resetuj()</code> z interfejsu <code>IKalibrowalny</code>, która zeruje zapisane obciążenie (<code>0.0</code>).</li>
+</ul>
+</li>
+<li><span class="color-green">Klasa <code>CzujnikRam : CzujnikBazowy</code></span> (nie implementuje <code>IKalibrowalny</code>):<ul>
+<li>konstruktor <code>CzujnikRam(double uzyteGb, double calkowiteGb, double progAlarmu)</code> przekazuje <code>("RAM", progAlarmu)</code> do <code>: base(...)</code>,</li>
+<li>dla <code>calkowiteGb &lt;= 0 || uzyteGb &lt; 0 || uzyteGb &gt; calkowiteGb</code> rzuć <code>ArgumentOutOfRangeException</code>,</li>
+<li>nadpisuje <code>override double OdczytajProcent()</code>, zwracając <code>(uzyteGb / calkowiteGb) * 100.0</code>.</li>
+</ul>
+</li>
+<li><span class="color-green">Klasa statyczna <code>MonitorSystemu</code></span>:<ul>
+<li><code>PoliczAlarmy(List&lt;CzujnikBazowy&gt; czujniki)</code>: dla <code>czujniki == null</code> rzuć <code>ArgumentNullException</code>; przejdź jedną pętlą polimorficzną po liście i policz czujniki zgłaszające <code>CzyAlarm() == true</code> (pomijaj elementy <code>null</code>).</li>
+<li><code>ResetujKalibrowalne(List&lt;CzujnikBazowy&gt; czujniki)</code>: dla <code>czujniki == null</code> rzuć <code>ArgumentNullException</code>; przejdź po liście, dla każdego elementu implementującego <code>IKalibrowalny</code> (użyj operatora <code>as</code> lub <code>is</code>) wywołaj <code>Resetuj()</code> i zwróć liczbę zresetowanych czujników.</li>
+</ul>
+</li>
+</ol>
+<data-gate>
+<data-csharp-lab title="Zadanie: Polimorfizm, abstract class, dwa interfejsy, : base oraz is/as (2 pliki)">
+<cs-file name="Program.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+using System.Globalization;
+
+class Program
+{
+    static void Main()
+    {
+        var czujniki = new List&lt;CzujnikBazowy&gt;
+        {
+            new CzujnikCpu(72.5, 80.0),
+            new CzujnikRam(14.4, 16.0, 85.0)
+        };
+
+        foreach (CzujnikBazowy c in czujniki)
+        {
+            Console.WriteLine(string.Format(CultureInfo.InvariantCulture,
+                "{0}: {1:F1}% | Alarm: {2}", c.Nazwa, c.OdczytajProcent(), c.CzyAlarm()));
+        }
+
+        Console.WriteLine("Aktywne alarmy: " + MonitorSystemu.PoliczAlarmy(czujniki));
+        Console.WriteLine("Zresetowane czujniki: " + MonitorSystemu.ResetujKalibrowalne(czujniki));
+    }
+}
+</code></pre>
+</cs-file>
+<cs-file name="Czujniki.cs">
+
+<pre><code class="language-csharp">using System;
+using System.Collections.Generic;
+
+public interface ICzujnik
+{
+    string Nazwa { get; }
+    double OdczytajProcent();
+}
+
+public interface IKalibrowalny
+{
+    void Resetuj();
+}
+
+public abstract class CzujnikBazowy : ICzujnik
+{
+    public string Nazwa { get; private set; }
+    public double ProgAlarmu { get; protected set; }
+
+    protected CzujnikBazowy(string nazwa, double progAlarmu)
+    {
+        Nazwa = nazwa;
+        ProgAlarmu = progAlarmu;
+    }
+
+    public abstract double OdczytajProcent();
+
+    public virtual bool CzyAlarm()
+    {
+        return OdczytajProcent() &gt;= ProgAlarmu;
+    }
+}
+
+// 1. Dopisz tutaj cala klase: public class CzujnikCpu : CzujnikBazowy, IKalibrowalny
+// Pamietaj o : base("CPU", progAlarmu), walidacji [0..100], override OdczytajProcent() oraz Resetuj()
+
+// 2. Dopisz tutaj cala klase: public class CzujnikRam : CzujnikBazowy
+// Pamietaj o : base("RAM", progAlarmu), walidacji i override OdczytajProcent()
+
+public static class MonitorSystemu
+{
+    public static int PoliczAlarmy(List&lt;CzujnikBazowy&gt; czujniki)
+    {
+        // Zwaliduj null i policz wszystkie czujniki z aktywnym alarmem (pomin null na liscie)
+        return 0;
+    }
+
+    public static int ResetujKalibrowalne(List&lt;CzujnikBazowy&gt; czujniki)
+    {
+        // Zwaliduj null, znajdz obiekty IKalibrowalny przez as/is, wywolaj Resetuj() i zwroc ich liczbe
+        return 0;
+    }
+}
+</code></pre>
+</cs-file>
+<cs-tests>
+
+<pre><code class="language-csharp">LabAssert.Test("CzujnikCpu i CzujnikRam poprawnie obliczają procenty i wyzwalają alarm na granicy progu", () =&gt; {
+    CzujnikBazowy cpu = new CzujnikCpu(80.0, 80.0);
+    CzujnikBazowy ram = new CzujnikRam(14.4, 16.0, 85.0);
+    CzujnikBazowy spokojny = new CzujnikCpu(15.5, 80.0);
+
+    LabAssert.True(cpu is ICzujnik);
+    LabAssert.True(cpu is IKalibrowalny);
+    LabAssert.False(ram is IKalibrowalny);
+    LabAssert.Equal("CPU", cpu.Nazwa);
+    LabAssert.Equal(80.0, cpu.OdczytajProcent());
+    LabAssert.True(cpu.CzyAlarm());
+    LabAssert.False(spokojny.CzyAlarm());
+
+    LabAssert.Equal("RAM", ram.Nazwa);
+    LabAssert.Equal(90.0, Math.Round(ram.OdczytajProcent(), 1));
+    LabAssert.True(ram.CzyAlarm());
+});
+LabAssert.Test("Konstruktory CzujnikCpu i CzujnikRam odrzucają nieprawidłowe zakresy danych", () =&gt; {
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new CzujnikCpu(-1.0, 80.0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new CzujnikCpu(101.0, 80.0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new CzujnikRam(4.0, 0.0, 80.0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new CzujnikRam(-1.0, 16.0, 80.0));
+    LabAssert.Throws&lt;ArgumentOutOfRangeException&gt;(() =&gt; new CzujnikRam(18.0, 16.0, 80.0));
+});
+LabAssert.Test("MonitorSystemu.PoliczAlarmy działa polimorficznie dla różnych list czujników", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; MonitorSystemu.PoliczAlarmy(null));
+    LabAssert.Equal(0, MonitorSystemu.PoliczAlarmy(new List&lt;CzujnikBazowy&gt;()));
+
+    var lista = new List&lt;CzujnikBazowy&gt;
+    {
+        new CzujnikCpu(45.0, 80.0),
+        new CzujnikCpu(92.0, 80.0),
+        null,
+        new CzujnikRam(15.2, 16.0, 90.0),
+        new CzujnikRam(4.0, 16.0, 90.0)
+    };
+    LabAssert.Equal(2, MonitorSystemu.PoliczAlarmy(lista));
+});
+LabAssert.Test("MonitorSystemu.ResetujKalibrowalne używa interfejsu IKalibrowalny i zeruje tylko zgodne czujniki", () =&gt; {
+    LabAssert.Throws&lt;ArgumentNullException&gt;(() =&gt; MonitorSystemu.ResetujKalibrowalne(null));
+
+    var cpu1 = new CzujnikCpu(95.0, 80.0);
+    var cpu2 = new CzujnikCpu(50.0, 80.0);
+    var ram = new CzujnikRam(15.0, 16.0, 80.0);
+    var lista = new List&lt;CzujnikBazowy&gt; { cpu1, null, ram, cpu2 };
+
+    int zresetowane = MonitorSystemu.ResetujKalibrowalne(lista);
+    LabAssert.Equal(2, zresetowane);
+    LabAssert.Equal(0.0, cpu1.OdczytajProcent());
+    LabAssert.Equal(0.0, cpu2.OdczytajProcent());
+    LabAssert.False(cpu1.CzyAlarm());
+    LabAssert.True(ram.CzyAlarm());
+});
+</code></pre>
+</cs-tests>
+</data-csharp-lab>
+</data-gate>
+
+<hr>
+<h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
+<ul>
+<li><strong>Kiedy wybrać klasę abstrakcyjną zamiast interfejsu?</strong> Wybierz <code>abstract class</code>, gdy pokrewne typy współdzielą pola i walidację w konstruktorze (<code>: base(...)</code>); wybierz <code>interface</code>, gdy różne, niepowiązane klasy muszą spełniać wspólny kontrakt.</li>
+<li><strong>Jak zagwarantować polimorfizm w pętli?</strong> Oznacz metodę w klasie bazowej jako <code>virtual</code> lub <code>abstract</code>, a w pochodnej jako <code>override</code>; brak <code>override</code> ukrywa metodę i powoduje, że referencja bazowa wywoła starą wersję.</li>
+<li><strong>Jak bezpiecznie sprawdzić dodatkowy interfejs w kolekcji bazowej?</strong> Użyj <code>as</code> ze sprawdzeniem <code>!= null</code> albo operatora <code>is</code>, zamiast ryzykownego rzutowania w nawiasach, które rzuca <code>**_InvalidCastException_**</code>.</li>
+<li><strong>Kiedy stosować kompozycję zamiast dziedziczenia?</strong> Zawsze, gdy między obiektami zachodzi relacja „posiada” (np. samochód posiada silnik), a nie „jest rodzajem”; dodaj <code>sealed</code>, gdy klasa nie jest projektowana do dziedziczenia.</li>
+</ul>
+</section>
+        </article>
+
+        <!-- Puste miejsce na nawigację po nagłówkach -->
+        <section id="course-lesson-content-nav" class="drawer-right" aria-label="Spis treści lekcji"></section>
+    </main>
+
+    <footer>
+      <p>
+        <button class="important-font scroll-to-top-btn" aria-label="Wróć na górę" title="Wróć na górę">
+          <span style="font-size: 28px;position: absolute;top: 0;left: 16px;">⬆</span>
+        </button>
+        <span class="important-font">©</span> 2026 Koala-V
+      </p>
+      <p>kamil.zbrzezniak@teb.edu.pl</p>
+    </footer>
+
+</body>
+</html>
