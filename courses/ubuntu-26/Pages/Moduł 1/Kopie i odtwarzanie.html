@@ -138,45 +138,6 @@
 </data-gate>
 
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Format archiwów TAR i matematyka kompresji bezstratnej DEFLATE (LZ77 + Huffman)</span><span class="deep-dive-badge">Data Compression &amp; Formats</span></summary>
-
-<p>W świecie Linuksa tworzenie kopii zapasowych często opiera się na duecie: <span class="color-green">TAR</span> (archiwizacja) oraz <span class="color-green">GZIP</span> (kompresja). To dwa całkowicie różne algorytmicznie procesy połączone w jeden plik <code>.tar.gz</code>.</p>
-<h3>1. Format binarny TAR (Tape Archive)</h3>
-<p>Format TAR powstał do sekwencyjnego zapisu plików na taśmach magnetycznych. Nie wykonuje żadnej kompresji:</p>
-<ul>
-<li>Całe archiwum jest podzielone na sztywne rekordy o rozmiarze <span class="color-green">$512\ \text{bajtów}$</span>.</li>
-<li>Każdy plik w archiwum zaczyna się od 512‑bajtowego nagłówka <span class="color-green">UStar</span> (<span class="color-blue">Unix Standard TAR</span>):<ul>
-<li>Bajty 0‑99: Ścieżka pliku (zakończona zerem <code>\0</code>)</li>
-<li>Bajty 100‑107: Tryb uprawnień pliku (zapisany w systemie ósemkowym w ASCII)</li>
-<li>Bajty 108‑115: UID właściciela (w ósemkowym ASCII)</li>
-<li>Bajty 116‑123: GID grupy (w ósemkowym ASCII)</li>
-<li>Bajty 124‑135: Rozmiar pliku w bajtach (w ósemkowym ASCII)</li>
-<li>Bajty 148‑155: Suma kontrolna nagłówka</li>
-</ul>
-</li>
-<li>Po nagłówku następują surowe dane pliku wyrównane w górę do wielokrotności $512\ \text{bajtów}$ (resztę wypełniają zera <code>0x00</code>).</li>
-<li>Koniec archiwum sygnalizują dwa kolejne, puste bloki $512\ \text{bajtów}$ złożone z samych zer.</li>
-</ul>
-<h3>2. Matematyka kompresji DEFLATE (GZIP)</h3>
-<p>Algorytm DEFLATE (stosowany w plikach <code>.gz</code> oraz <code>.zip</code>) łączy dwa potężne mechanizmy matematyczne:</p>
-<ol>
-<li><span class="color-green">Algorytm słownikowy LZ77 (Lempel‑Ziv 1977)</span>:<ul>
-<li>Przeszukuje strumień wejściowy w przesuwnym oknie o rozmiarze $32\ \text{KiB}$.</li>
-<li>Jeśli znajdzie powtarzający się ciąg bajtów, zastępuje go parą: <code>(odległość_wstecz, długość_dopasowania)</code>.</li>
-<li>Złożoność czasowa wyszukiwania jest optymalizowana tablicami haszującymi trójek bajtów.</li>
-</ul>
-</li>
-<li><span class="color-green">Statyczne i dynamiczne kodowanie Huffmana</span>:<ul>
-<li>Analizuje częstość występowania poszczególnych symboli w skompresowanym strumieniu LZ77.</li>
-<li>Symbole pojawiające się najczęściej otrzymują najkrótsze kody binarne (np. 2 bity zamiast 8), a symbole rzadkie - kody dłuższe.</li>
-<li>Kody są prefiksowe: żaden kod nie jest prefiksem innego, co umożliwia natychmiastowe, jednoznaczne dekodowanie strumienia bit po bicie.</li>
-</ul>
-</li>
-</ol>
-</details>
-
-<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li>Narzędzie <code>cp</code> tworzy <span class="color-green">drugi egzemplarz</span> pliku w lokalizacji docelowej, podczas gdy <code>mv</code> trwale go przenosi lub zmienia nazwę.</li>

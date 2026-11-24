@@ -215,7 +215,6 @@
 </tr>
 </tbody></table>
 <p>W przypadku katalogów uprawnienie <code>x</code> ma <span class="color-green">kluczowe znaczenie</span>. Bez prawa wykonywania nie jest możliwe wejście do katalogu, nawet jeśli klasa użytkowników ma teoretycznie przypisane prawo odczytu <code>r</code>.</p>
-<p><data-posix-acl-matrix octal="0750" file-type="d"></data-posix-acl-matrix></p>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🧪 Sandbox: model uprawnień rwx</h2>
 <p>Poniższy model pozwala na bezpieczną, interaktywną wizualizację i testowanie zachowania uprawnień w bezpiecznym środowisku symulacyjnym.</p>
 <data-gate>
@@ -228,55 +227,6 @@
 <data-gate>
 <data-terminal-mission src="/public/courses/ubuntu-26/Scenarios/terminal-missions/m2-02-katalog-projektu.md"></data-terminal-mission>
 </data-gate>
-
-<hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Maska Umask w Algebrze Boole'a i algorytm weryfikacji DAC w jądrze Linuksa</span><span class="deep-dive-badge">Boolean Logic &amp; VFS DAC</span></summary>
-
-<p>Uprawnienia plików w Linuksie to bezpośrednie zastosowanie algebry Boole'a i operacji na maskach bitowych, które poznaliśmy w kursie Binarne Fundamenty IT.</p>
-<h3>1. Maska bitowa `st_mode` w strukturze `struct stat`</h3>
-<p>W strukturze <code>inode</code> uprawnienia są zapisane w 16‑bitowej liczbie całkowitej <code>mode_t st_mode</code>:</p>
-<ul>
-<li>Bity 15‑12: Typ pliku (zwykły plik <code>0100000_2</code>, katalog <code>0040000_2</code>, link symboliczny <code>0120000_2</code>)</li>
-<li>Bity 11‑9: Bity specjalne (SUID = <code>4000_8</code>, SGID = <code>2000_8</code>, Sticky = <code>1000_8</code>)</li>
-<li>Bity 8‑6: Uprawnienia właściciela (<code>rwx</code> = $4 + 2 + 1 = 7$)</li>
-<li>Bity 5‑3: Uprawnienia grupy (<code>r-x</code> = $4 + 0 + 1 = 5$)</li>
-<li>Bity 2‑0: Uprawnienia pozostałych (<code>---</code> = $0 + 0 + 0 = 0$)</li>
-</ul>
-<h3>2. Matematyka maski `umask`: Operacja `AND NOT`</h3>
-<p>Domyślnie program tworzący plik wnioskuje o uprawnienia bazowe $0666_8$ (odczyt i zapis dla każdego), a tworzący katalog o $0777_8$ (pełny dostęp).<br>Dlaczego nowo utworzony plik ma uprawnienia <code>-rw-r--r--</code> ($0644_8$)?</p>
-<p>Odpowiada za to maska procesu <code>umask</code> (domyślnie w Ubuntu <code>0022_8</code>). Jądro Linuksa wylicza finalny tryb operacją bitową:<br>$$\text{Tryb finalny} = \text{Tryb bazowy} \ \&amp; \ (\sim\text{umask})$$</p>
-<p>Rozpiszmy to binarnie dla pliku przy umask $0022_8$:</p>
-<ul>
-<li>Tryb bazowy: $0666_8 = 110\ 110\ 110_2$</li>
-<li>Maska umask: $0022_8 = 000\ 010\ 010_2$</li>
-<li>Negacja bitowa $\sim\text{umask}$: $111\ 101\ 101_2$</li>
-<li>Iloczyn bitowy <code>AND</code>:<br>$$\begin{array}{r@{\quad}l}<br>  110\ 110\ 110_2 &amp; (0666_8) \<br>&amp;\ 111\ 101\ 101_2 &amp; (\sim 0022_8) \<br>\hline<br>  110\ 100\ 100_2 &amp; (0644_8 = \text{rw‑r--r--})<br>\end{array}$$</li>
-</ul>
-<p>Maska <code>umask</code> nie „odejmuje” liczb jak w arytmetyce dziesiętnej. Jest to <span class="color-green">filtr maskujący</span>, który zeruje wskazane bity uprawnień.</p>
-<h3>3. Algorytm sprawdzania uprawnień w VFS (`generic_permission`)</h3>
-<p>Gdy proces o tożsamości <code>fsuid</code> i grupach <code>fsgid</code> próbuje otworzyć plik, jądro wykonuje algorytm dyskrecjonalnej kontroli dostępu (<span class="color-blue">DAC - Discretionary Access Control</span>):</p>
-<pre><code class="language-c">int generic_permission(struct user_namespace *mnt_userns, struct inode *inode, int mask) {
-    // KROK 1: Czy proces jest właścicielem pliku?
-    if (current_fsuid() == inode-&gt;i_uid) {
-        if ((inode-&gt;i_mode &amp; mask) == mask) return 0; // Dostęp przyznany
-        return -EACCES; // Odmowa dostępu! Sprawdzanie NATYCHMIAST się kończy.
-    }
-
-    // KROK 2: Czy proces należy do grupy pliku lub grup uzupełniających?
-    if (in_group_p(inode-&gt;i_gid)) {
-        if (((inode-&gt;i_mode &gt;&gt; 3) &amp; mask) == mask) return 0;
-        return -EACCES; // Odmowa dostępu!
-    }
-
-    // KROK 3: Sprawdzenie praw pozostałych (others)
-    if (((inode-&gt;i_mode &gt;&gt; 6) &amp; mask) == mask) return 0;
-    return -EACCES;
-}
-</code></pre>
-<p><span class="color-green">Kluczowy wniosek inżynierski</span>: Jeśli plik ma uprawnienia <code>077</code> (brak praw dla właściciela, pełne prawa dla grupy i others), a próbujesz go odczytać jako <span class="color-green">właściciel</span>, jądro wykona KROK 1 i <span class="color-green">zablokuje dostęp z błędem Permission Denied</span>. Jądro nigdy nie przejdzie do sprawdzania grupy ani others!</p>
-<p><data-posix-umask-dac umask="022" file-type="-"></data-posix-umask-dac></p>
-</details>
 
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>

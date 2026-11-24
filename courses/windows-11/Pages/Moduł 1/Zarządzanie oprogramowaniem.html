@@ -15,7 +15,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zarządzanie oprogramowaniem - Koala-V</title>
+    <title>Moduł 1\Zarządzanie oprogramowaniem - Koala-V</title>
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
   <link rel="stylesheet" href="/css/course-style.css" />
     <script type="module" src="/js/course-app.js"></script>
@@ -66,31 +66,26 @@
         <b>🌐 Instalatory (.exe / .msi)</b>
         <b>💻 Winget (CLI)</b>
     </tabs>
-    <div>
-
-<h3>Microsoft Store</h3>
+    <div><h3>Microsoft Store</h3>
 <p>Zintegrowany z systemem cyfrowy sklep z aplikacjami weryfikowanymi przez Microsoft.</p>
 <p><span class="color-green">Zalety:</span></p>
 <ul>
 <li><span class="color-green">Automatyczne aktualizacje</span> realizowane w tle bez udziału użytkownika.</li>
 <li>Każda aplikacja przechodzi analizę bezpieczeństwa przed publikacją.</li>
-<li><span class="color-green">Bezpieczne usuwanie</span> - aplikacje działają w odizolowanym środowisku (sandbox), nie śmiecąc w systemie plików i rejestrze.</li>
+<li><span class="color-green">Bezpieczne usuwanie</span> – aplikacje działają w odizolowanym środowisku (sandbox), nie śmiecąc w systemie plików i rejestrze.</li>
 </ul>
 <p><span class="color-green">Wady:</span></p>
 <ul>
 <li>Ograniczona dostępność specjalistycznego oprogramowania.</li>
 <li>Domyślnie sugeruje logowanie kontem Microsoft (choć darmowe aplikacje można pobierać bez niego).</li>
 </ul>
-<p><span class="color-blue">Szybkie wywołanie:</span> Wciśnij <kbd class="Win"></kbd> i wpisz <code>Store</code>.</p>
-</div>
-<div>
-
-<h3>Tradycyjne instalatory</h3>
+<p><span class="color-blue">Szybkie wywołanie:</span> Wciśnij <kbd class="Win"></kbd> i wpisz <code>Store</code>.</p></div>
+<div><h3>Tradycyjne instalatory</h3>
 <p>Klasyczna metoda pobierania dedykowanych plików wykonywalnych ze stron producentów.</p>
 <p><span class="color-green">Główne formaty paczek:</span></p>
 <ul>
-<li><span class="color-green"><code>.exe</code></span> (Executable) - plik wykonywalny zawierający autorski instalator stworzony przez programistów danej aplikacji (np. instalator Chrome czy VirtualBox).</li>
-<li><span class="color-green"><code>.msi</code></span> (Windows Installer Package) - ustrukturyzowany format instalacyjny Microsoftu, będący standardem w sieciach korporacyjnych. Umożliwia cichą instalację w tle i masową dystrybucję na stacje robocze za pomocą Zasad Grupy (GPO) w domenie Active Directory.</li>
+<li><span class="color-green"><code>.exe</code></span> (Executable) – plik wykonywalny zawierający autorski instalator stworzony przez programistów danej aplikacji (np. instalator Chrome czy VirtualBox).</li>
+<li><span class="color-green"><code>.msi</code></span> (Windows Installer Package) – ustrukturyzowany format instalacyjny Microsoftu, będący standardem w sieciach korporacyjnych. Umożliwia cichą instalację w tle i masową dystrybucję na stacje robocze za pomocą Zasad Grupy (GPO) w domenie Active Directory.</li>
 </ul>
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
@@ -101,9 +96,7 @@
 
 </div>
 </div></div>
-<div>
-
-<h3>Winget (Menedżer pakietów)</h3>
+<div><h3>Winget (Menedżer pakietów)</h3>
 <p>Wbudowane w Windows systemowe narzędzie CLI do zarządzania aplikacjami, działające analogicznie do menedżerów pakietów znanych z dystrybucji Linux (np. <code>apt</code>).</p>
 <p>Najważniejsze polecenia w konsoli:</p>
 <pre><code class="language-ps">winget search vlc            # Wyszukaj aplikację w repozytorium
@@ -124,8 +117,28 @@ winget uninstall VLC.VLC     # Odinstaluj program z systemu
 </data-tabs>
 
 <hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>🗑️ Deinstalacja Aplikacji - Usuwanie pozostałości</h2>
-<p>Standardowe usunięcie programu z poziomu wbudowanych narzędzi Windows często pozostawia w systemie sporo śmieci - plików tymczasowych oraz osieroconych wpisów w rejestrze.</p>
+<data-gate>
+  <data-quiz>
+    <question><p>Konfigurujesz salę szkoleniową i musisz zainstalować 15 podstawowych programów (Chrome, 7‑Zip, VLC itp.) na każdym z komputerów. Które podejście będzie najbardziej efektywne?</p>
+</question>
+    <options>
+      <item correct=""><p>Skrypt z komendami <code>winget install</code>, który automatycznie wdroży całe oprogramowanie w tle.</p>
+</item>
+      <item><p>Skopiowanie folderów zainstalowanych programów z <code>C:\Program Files</code> na pendrive'a i wklejenie ich na nowe stacje.</p>
+</item>
+      <item><p>Pobranie instalatora każdego programu z osobna przez przeglądarkę i ręczne przeklikanie kreatorów.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Ręczna instalacja na wielu komputerach to ogromna strata czasu. Z kolei samo skopiowanie plików z Program Files nie utworzy wymaganych wpisów w rejestrze systemowym ani powiązań plików, przez co programy nie będą działać. Użyj wbudowanego narzędzia CLI.</p>
+</div>
+    <div data-hint="success"><p>Doskonale! Winget pozwala na pełną automatyzację procesu wdrożenia oprogramowania, oszczędzając administratorowi godzin ręcznej pracy.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🗑️ Deinstalacja Aplikacji – Usuwanie pozostałości</h2>
+<p>Standardowe usunięcie programu z poziomu wbudowanych narzędzi Windows często pozostawia w systemie sporo śmieci – plików tymczasowych oraz osieroconych wpisów w rejestrze.</p>
 <p>Do podstawowych, systemowych metod usuwania oprogramowania należą:</p>
 <h3>1. Nowoczesne Ustawienia (GUI)</h3>
 <p><span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>I</kbd></span> → <span class="color-green">Aplikacje</span> → <span class="color-green">Zainstalowane aplikacje</span> → kliknij ikonę trzech kropek <span class="color-green">⋯</span> przy wybranej pozycji → <span class="color-green">Odinstaluj</span>.</p>
@@ -148,7 +161,27 @@ winget uninstall VLC.VLC     # Odinstaluj program z systemu
 </div>
 </div><p>Jeżeli wbudowane mechanizmy zawodzą lub aplikacja pozostawiła po sobie duży śmietnik, administratorzy wspomagają się narzędziami firm trzecich, takimi jak <span class="color-green">Revo Uninstaller</span> lub <span class="color-green">Geek Uninstaller</span>, które automatycznie skanują rejestr i strukturę plików w poszukiwaniu osieroconych obiektów.</p>
 <hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Windows Update - Aktualizacje Systemowe</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Użytkownik odinstalował uszkodzony program przez systemowe Ustawienia. Po ponownej instalacji aplikacja nadal pamięta stare, wadliwe ustawienia i wciąż nie działa. Co jest tego przyczyną?</p>
+</question>
+    <options>
+      <item correct=""><p>Standardowa deinstalacja usuwa tylko pliki programu. Pliki konfiguracyjne w folderze <code>%AppData%</code> oraz wpisy w rejestrze HKCU pozostały nienaruszone.</p>
+</item>
+      <item><p>Dysk SSD korzysta z buforowania sprzętowego i automatycznie przywraca skasowane konfiguracje oprogramowania.</p>
+</item>
+      <item><p>Ustawienia programów są trwale zapisywane w module TPM płyty głównej, co uniemożliwia ich usunięcie.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Standardowy deinstalator nie usuwa prywatnych plików użytkownika. Ustawienia profilu w AppData oraz rejestrze celowo przetrwały procedurę deinstalacji z myślą o ułatwieniu ponownej konfiguracji w przyszłości.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie tak. Aby naprawić aplikację, musisz ręcznie wyczyścić jej pozostałości z profilu użytkownika w folderze AppData lub skorzystać z dedykowanego narzędzia czyszczącego.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🔄 Windows Update – Aktualizacje Systemowe</h2>
 <p>Bezpieczeństwo i stabilność stacji roboczej zależą bezpośrednio od regularnego wdrażania aktualizacji systemowych.<br>Za ten proces w systemie odpowiada usługa Windows Update.</p>
 <p>Szybki dostęp do konfiguracji aktualizacji:<br><span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>I</kbd></span> → <span class="color-green">Windows Update</span></p>
 <p>Aktualizacje w systemie Windows dzielą się na kilka kluczowych kategorii o różnym przeznaczeniu:</p>
@@ -186,11 +219,11 @@ winget uninstall VLC.VLC     # Odinstaluj program z systemu
 <span class="alert-icon">📌</span> Ważny punkt
 </p>
 <div class="markdown-alert-content">
-<p><span class="color-green">Patch Tuesday</span> to kluczowe pojęcie w świecie systemów Windows. Oznacza drugi wtorek każdego miesiąca - dzień, w którym Microsoft rutynowo publikuje zbiorcze aktualizacje bezpieczeństwa (Quality Updates). Jest to stały punkt w kalendarzu każdego administratora IT przy planowaniu okien serwisowych i testowaniu stabilności maszyn w firmie.</p>
+<p><span class="color-green">Patch Tuesday</span> to kluczowe pojęcie w świecie systemów Windows. Oznacza drugi wtorek każdego miesiąca – dzień, w którym Microsoft rutynowo publikuje zbiorcze aktualizacje bezpieczeństwa (Quality Updates). Jest to stały punkt w kalendarzu każdego administratora IT przy planowaniu okien serwisowych i testowaniu stabilności maszyn w firmie.</p>
 
 </div>
 </div><hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>🏪 Autostart - Diagnoza wydajności rozruchu</h2>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🏪 Autostart – Diagnoza wydajności rozruchu</h2>
 <p>Nadmiar aplikacji uruchamiających się automatycznie po zalogowaniu drastycznie wydłuża czas rozruchu profilu i niepotrzebnie obciąża zasoby procesora oraz pamięci RAM zaraz po uruchomieniu komputera.</p>
 <p>Zarządzanie autostartem z poziomu nowoczesnych Ustawień:<br><span style="white-space: nowrap;"><kbd class="Win"></kbd> + <kbd>I</kbd></span> → <span class="color-green">Aplikacje</span> → <span class="color-green">Uruchamianie</span></p>
 <p>Alternatywna i bardziej szczegółowa metoda z poziomu Menedżera Zadań:</p>
@@ -199,6 +232,26 @@ winget uninstall VLC.VLC     # Odinstaluj program z systemu
 <li>Przejdź do sekcji <span class="color-green">Aplikacje startowe</span> (ikona prędkościomierza w panelu bocznym).</li>
 </ol>
 <p>W Menedżerze Zadań nie musisz działać po omacku. System operacyjny monitoruje zachowanie programów podczas rozruchu i prezentuje te dane w kolumnie <span class="color-green">Wpływ na uruchamianie</span> (wartości: <span class="color-blue">Wysoki</span>, <span class="color-blue">Średni</span>, <span class="color-blue">Niski</span>, <span class="color-blue">Brak</span>). Wyłączenie automatycznego uruchamiania dla aplikacji o statusie <span class="color-blue">Wysoki</span> daje natychmiastowo odczuwalne przyspieszenie działania systemu po zalogowaniu.</p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Komputer użytkownika uruchamia się bardzo wolno po zalogowaniu – ikony pulpitu doczytują się z dużym opóźnieniem. Od jakiej czynności w Menedżerze Zadań powinieneś zacząć diagnostykę?</p>
+</question>
+    <options>
+      <item correct=""><p>Sortuję listę aplikacji startowych po kolumnie „Wpływ na uruchamianie” i wyłączam te o statusie „Wysoki”, które nie są krytyczne do pracy.</p>
+</item>
+      <item><p>Wyłączam losowe usługi systemowe Microsoftu, licząc na to, że system zacznie działać szybciej.</p>
+</item>
+      <item><p>Wyłączam wszystkie procesy na liście bez wyjątku, włącznie ze sterownikami dźwięku i karty graficznej.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Wyłączanie losowych usług systemowych lub krytycznych sterowników sprzętowych może doprowadzić do niestabilności komputera. Skorzystaj z wbudowanych wskaźników wpływu aplikacji na czas rozruchu, które system przygotował do analizy.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie tak! Uporządkowanie listy pod kątem wskaźnika wpływu na rozruch i wyłączenie zbędnych procesów (np. komunikatorów czy updaterów) to najszybsza droga do uzdrowienia autostartu.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Finał: Narzędzia w praktyce administratora</h2>
 <p>Zweryfikuj swoją wiedzę o zarządzaniu oprogramowaniem i aktualizacjami w systemie. Dopasuj problem do optymalnego narzędzia lub rozwiązania:</p>
@@ -212,46 +265,10 @@ winget uninstall VLC.VLC     # Odinstaluj program z systemu
 </data-gate>
 
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Anatomia pliku wykonywalnego PE32+ (Portable Executable) i tablica importów IAT</span><span class="deep-dive-badge">Executable Formats &amp; Win32 Loader</span></summary>
-
-<p>Każdy plik wykonywalny <code>.exe</code>, biblioteka dynamiczna <code>.dll</code> oraz sterownik <code>.sys</code> w 64‑bitowym systemie Windows 11 posiada ściśle zdefiniowaną strukturę binarną zwaną <span class="color-green">PE32+</span> (<span class="color-blue">Portable Executable 64‑bit</span>).</p>
-<h3>1. Układ nagłówków binarnych w pamięci RAM</h3>
-<p>Gdy instalator lub powłoka uruchamia program, program ładujący jądra (<span class="color-blue">Windows PE Loader</span>) mapuje plik z dysku do wirtualnej przestrzeni adresowej procesu:</p>
-<pre><code>   Offset 0x00:  IMAGE_DOS_HEADER ("MZ" = 0x5A4D)
-                 - e_lfanew (Offset do nagłówka NT)
-                       │
-                       ▼
-   Offset 0x3C+: IMAGE_NT_HEADERS ("PE\0\0" = 0x00004550)
-                 - IMAGE_FILE_HEADER (Architektura x86_64: 0x8664)
-                 - IMAGE_OPTIONAL_HEADER64
-                   - AddressOfEntryPoint (Wskaźnik na funkcję main / WinMain)
-                   - ImageBase (Domyślny adres bazowy w pamięci)
-                   - DataDirectory[16] (Tablice eksportów, importów, zasobów)
-                       │
-                       ▼
-   Sekcje danych:
-   - .text  (Kod maszynowy procesora x86_64 - flaga IMAGE_SCN_MEM_EXECUTE)
-   - .rdata (Dane tylko do odczytu, stałe tekstowe, tablica importów IAT)
-   - .data  (Zmienne globalne inicjalizowane z prawami do zapisu)
-   - .reloc (Tablica relokacji adresów dla ochrony ASLR)
-</code></pre>
-<h3>2. Tablica adresów importów (Import Address Table - IAT)</h3>
-<p>Program skompilowany w C++ rzadko zawiera w sobie cały kod systemu. Zamiast tego odwołuje się do funkcji z bibliotek DLL (np. <code>MessageBoxW</code> z <code>user32.dll</code> lub <code>CreateFileW</code> z <code>kernel32.dll</code>):</p>
-<ol>
-<li>W pliku binarnym znajduje się tablica <span class="color-green">ILT</span> (<span class="color-blue">Import Lookup Table</span>) zawierająca nazwy wymaganych funkcji.</li>
-<li>Podczas ładowania procesu program ładujący ładuje do pamięci żądane biblioteki DLL za pomocą wywołania jądra <code>NtMapViewOfSection</code>.</li>
-<li>Loader odnajduje fizyczny adres funkcji w pamięci załadowanej DLL‑ki i <span class="color-green">wpisuje ten 64‑bitowy wskaźnik bezpośrednio do tablicy IAT</span> procesu.</li>
-<li>Gdy proces wykonuje instrukcję asemblera:<br><code>call qword ptr [rip + offset_do_IAT]</code><br>skacze bezpośrednio pod właściwy adres funkcji systemowej w pamięci RAM.</li>
-</ol>
-<p>Zrozumienie struktury PE i tablicy IAT jest kluczowe dla analizy złośliwego oprogramowania (<span class="color-blue">Malware Analysis</span>) oraz badania mechanizmów ochrony pamięci w Windows 11.</p>
-</details>
-
-<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li><span class="color-green">Automatyzacja wdrożeń:</span> menedżer pakietów <code>winget</code> to najlepsze narzędzie do masowej instalacji oprogramowania bez przeklikiwania kreatorów w GUI. 📦</li>
-<li><span class="color-green">Głębokie oczyszczanie:</span> wbudowane deinstalatory celowo zostawiają pliki konfiguracyjne w folderze <code>AppData</code> użytkownika - aby trwale pozbyć się aplikacji, konieczne jest ręczne czyszczenie lub użycie specjalistycznych narzędzi (np. Geek Uninstaller). 🧹</li>
+<li><span class="color-green">Głębokie oczyszczanie:</span> wbudowane deinstalatory celowo zostawiają pliki konfiguracyjne w folderze <code>AppData</code> użytkownika – aby trwale pozbyć się aplikacji, konieczne jest ręczne czyszczenie lub użycie specjalistycznych narzędzi (np. Geek Uninstaller). 🧹</li>
 <li><span class="color-green">Optymalizacja startu:</span> w Menedżerze Zadań analizuj wskaźnik „Wpływ na uruchamianie”, by szybko zidentyfikować i wyłączyć programy blokujące płynne logowanie użytkownika. 📟</li>
 </ul>
 <hr>

@@ -15,7 +15,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnoza awarii i usługi systemowe - Koala-V</title>
+    <title>Moduł 4\Diagnoza awarii i usługi systemowe - Koala-V</title>
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
   <link rel="stylesheet" href="/css/course-style.css" />
     <script type="module" src="/js/course-app.js"></script>
@@ -62,16 +62,16 @@
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>🩻 Anatomia awarii i interwencja jądra (Ring 0 vs Ring 3)</h2>
 <p>Czasem używasz wymagającego programu, jak VirtualBox czy edytor wideo, i nagle program znika. Nie ma żadnego komunikatu o błędzie. Co się stało? 🤔<br>Dla użytkownika wygląda to na złośliwość komputera. Dla inżyniera to znak, że zadziałały mechanizmy obronne.</p>
-<p>Aplikacje w Windowsie działają w tzw. warstwie użytkownika (Ring 3). Nie mają one bezpośredniego dostępu do sprzętu. System pilnuje ich procesów i danych w ściśle wydzielonych sektorach pamięci RAM.<br>Jeśli aplikacja popełni krytyczny błąd, na przykład spróbuje odczytać dane z pamięci, do której nie ma praw, do akcji wkracza jądro systemu (Kernel - Ring 0). Jądro reaguje w ułamku sekundy i <span class="color-blue">natychmiastowo wymusza zamknięcie niebezpiecznego procesu</span>.</p>
+<p>Aplikacje w Windowsie działają w tzw. warstwie użytkownika (Ring 3). Nie mają one bezpośredniego dostępu do sprzętu. System pilnuje ich procesów i danych w ściśle wydzielonych sektorach pamięci RAM.<br>Jeśli aplikacja popełni krytyczny błąd, na przykład spróbuje odczytać dane z pamięci, do której nie ma praw, do akcji wkracza jądro systemu (Kernel – Ring 0). Jądro reaguje w ułamku sekundy i <span class="color-blue">natychmiastowo wymusza zamknięcie niebezpiecznego procesu</span>.</p>
 <p>Windows robi to, aby chronić się przed uszkodzeniem kluczowych plików systemowych. Taki błąd mógłby zatrzymać cały komputer i wywołać Niebieski Ekran Śmierci (<span class="color-blue">BS</span><span class="color-red">OD</span>). Nagłe zamknięcie programu to obrona, a nie awaria.</p>
 <p>Kiedy system zamknie proces, zapisuje krótki raport w Dzienniku Zdarzeń.</p>
 <p>Oto najważniejsze numery błędów (Event ID) w Podglądzie Zdarzeń:</p>
 <ul>
-<li><span class="color-green"><code>1000</code></span> (<span class="color-blue">Application Error</span>) - Błąd aplikacji, która po prostu się zamknęła. 🤨</li>
-<li><span class="color-green"><code>1001</code></span> (<span class="color-blue">Windows Error Reporting</span>) - System poinformował, że utworzył raport o błędzie zrzutu pamięci. 🫡</li>
-<li><span class="color-green"><code>1002</code></span> (<span class="color-blue">Application Hang</span>) - Aplikacja przestała odpowiadać (zamroziła się) i Ty ją wymusiłeś. 😉</li>
-<li><span class="color-green"><code>7031</code>/<code>7034</code></span> (<span class="color-blue">Service Control Manager</span>) - Usługa systemowa niespodziewanie przestała działać w tle. 😯</li>
-<li><span class="color-green"><code>41</code></span> (<span class="color-blue">Kernel Power</span>) - Problem z zasilaniem lub nagły restart komputera prądem. 😨</li>
+<li><span class="color-green"><code>1000</code></span> (<span class="color-blue">Application Error</span>) – Błąd aplikacji, która po prostu się zamknęła. 🤨</li>
+<li><span class="color-green"><code>1001</code></span> (<span class="color-blue">Windows Error Reporting</span>) – System poinformował, że utworzył raport o błędzie zrzutu pamięci. 🫡</li>
+<li><span class="color-green"><code>1002</code></span> (<span class="color-blue">Application Hang</span>) – Aplikacja przestała odpowiadać (zamroziła się) i Ty ją wymusiłeś. 😉</li>
+<li><span class="color-green"><code>7031</code>/<code>7034</code></span> (<span class="color-blue">Service Control Manager</span>) – Usługa systemowa niespodziewanie przestała działać w tle. 😯</li>
+<li><span class="color-green"><code>41</code></span> (<span class="color-blue">Kernel Power</span>) – Problem z zasilaniem lub nagły restart komputera prądem. 😨</li>
 </ul>
 <data-tabs>
   <tabs>
@@ -79,9 +79,7 @@
     <item>Analiza błędu 0x80000003</item>
     <item>Analiza błędu 0xc0000005</item>
   </tabs>
-  <div>
-
-<h3>Lokalizowanie dowodów interwencji Jądra</h3>
+  <div><h3>Lokalizowanie dowodów interwencji Jądra</h3>
 <p>Aby odczytać dowody awarii, inżynier otwiera narzędzie Podgląd Zdarzeń:</p>
 <ol>
 <li>Wciśnij skrót <kbd class="Win"></kbd> + <kbd>R</kbd>, wpisz <code>eventvwr.msc</code> i naciśnij Enter.</li>
@@ -91,7 +89,10 @@
 <li>W polu identyfikatorów wpisz numer <code>1000</code>.</li>
 </ol>
 <p>Poniższy zrzut ekranu pokazuje wynik filtrowania. Widzisz tam masę błędów powiązanych z <code>mysqld.exe</code> (bazą danych XAMPP). Jest to dość typowe zachowanie tej aplikacji. 😅</p>
-<p><img src="/courses/windows-11/Images/eventvwr.msc-filtrowanie-zdarze%C5%84-aplikacji-1000.png" alt="Dziennik Zdarzeń Systemu Windows - filtrowanie aplikacji pod kątem zdarzeń o id 1000"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/eventvwr.msc-filtrowanie-zdarzeń-aplikacji-1000.webp" alt="Dziennik Zdarzeń Systemu Windows - filtrowanie aplikacji pod kątem zdarzeń o id 1000" width="1920" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <div class="markdown-alert markdown-alert--note">
 <p class="markdown-alert-title">
 <span class="alert-icon">💬</span> Notatka
@@ -100,29 +101,26 @@
 <p>Zdarzenie <span class="color-green">Event ID 1000</span> to „autopsja” zamkniętej aplikacji. Pozwala jednoznacznie ustalić, który dokładnie komponent lub plik programu wywołał awarię.</p>
 
 </div>
-</div>  </div>
-  <div>
-
-<h3>Wewnętrzny błąd zabezpieczający (Błąd logiki silnika)</h3>
+</div></div>
+  <div><h3>Wewnętrzny błąd zabezpieczający (Błąd logiki silnika)</h3>
 <pre><code class="language-yaml">Nazwa aplikacji powodującej błąd: mysqld.exe
 Nazwa modułu powodującego błąd: mysqld.exe
 Kod wyjątku: 0x80000003
 </code></pre>
 <p><span class="color-green">Analiza Inżynieryjna:</span><br>Tutaj problemem nie jest żaden dodatkowy plik. Zawiódł sam główny program, czyli silnik bazy danych (<code>mysqld.exe</code>).<br>Kod błędu <code>0x80000003</code> to tak zwany <span class="color-blue">Hardcoded Breakpoint</span>. Oznacza to, że program sam zdecydował się zatrzymać. Mógł na przykład trafić na błąd w strukturze danych, albo niespójność w plikach bazy.<br>Program celowo „poddał się” i poprosił system o zamknięcie, aby nie nadpisać i nie zniszczyć cennych informacji w tabelach bazy danych.</p>
-<p><img src="/courses/windows-11/Images/eventvwr.msc-kod-b%C5%82%C4%99du-0x80000003.png" alt="Podgląd Zdarzeń Systemu Windows - błąd 0x80000003"></p>
-  </div>
-    <div>
-
-<h3>Naruszenie ochrony pamięci (Błąd biblioteki zewnętrznej)</h3>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/eventvwr.msc-kod-błędu-0x80000003.webp" alt="Podgląd Zdarzeń Systemu Windows - błąd 0x80000003" width="632" height="653" class="lazy-image" loading="lazy" decoding="async"></div>
+    <div><h3>Naruszenie ochrony pamięci (Błąd biblioteki zewnętrznej)</h3>
 <p>Często główny program jest w porządku, ale psuje się jeden z jego plików pomocniczych (bibliotek rozszerzających).</p>
 <pre><code class="language-yaml">Nazwa aplikacji powodującej błąd: VirtualBox.exe, wersja: 7.2.4.20995
 Nazwa modułu powodującego błąd: Qt6CoreVBox.dll, wersja: 6.8.0.0
 Kod wyjątku: 0xc0000005
 </code></pre>
 <p><span class="color-green">Analiza Inżynieryjna:</span><br>Program (<code>VirtualBox.exe</code>) działał poprawnie. Spróbował jednak użyć biblioteki <code>Qt6CoreVBox.dll</code>. Ten plik odpowiada za rysowanie interfejsu w programie.<br>Biblioteka popełniła błąd i spróbowała zapisać dane w pamięci RAM pod nieprawidłowym adresem. To wywołało kod błędu <code>0xc0000005</code> (słynne <span class="color-blue">Access Violation</span> - naruszenie dostępu). System Windows natychmiast ubił proces, aby powstrzymać aplikację przed uszkodzeniem pamięci innych programów.</p>
-<p><img src="/courses/windows-11/Images/eventvwr.msc-kod-b%C5%82%C4%99du-0x0000005.png" alt="Podgląd Zdarzeń Systemu Windows - błąd 0x00000005"></p>
-<p><span class="color-green">Jakie jest rozwiązanie?</span><br>Dzięki temu raportowi wiesz, że winny jest konkretny plik <code>Qt6CoreVBox.dll</code>. Wystarczy teraz przeinstalować VirtualBox‑a. Najlepiej na nowszą lub inną stabilną wersję.</p>
-  </div>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/eventvwr.msc-kod-błędu-0x0000005.webp" alt="Podgląd Zdarzeń Systemu Windows - błąd 0x00000005" width="633" height="649" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<p><span class="color-green">Jakie jest rozwiązanie?</span><br>Dzięki temu raportowi wiesz, że winny jest konkretny plik <code>Qt6CoreVBox.dll</code>. Wystarczy teraz przeinstalować VirtualBox‑a. Najlepiej na nowszą lub inną stabilną wersję.</p></div>
 </data-tabs>
 
 <details>
@@ -173,15 +171,43 @@ Message     : Nazwa aplikacji powodującej błąd: VirtualBox.exe, wersja: 7.2.4
 </code></pre>
 </details>
 
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego „nagłe zniknięcie” programu to często mechanizm obronny systemu, a nie zwykły błąd aplikacji?</p>
+</question>
+    <options>
+      <item><p>Ponieważ złośliwe oprogramowanie lub antywirus automatycznie ubija niepodpisane pliki .dll w tle.</p>
+</item>
+      <item correct=""><p>Aplikacja z Ringu 3 narusza pamięć, więc Jądro natychmiast ją zabija, by zapobiec awarii BSOD.</p>
+</item>
+      <item><p>To naturalny efekt wycieku pamięci RAM, gdy zapętlona aplikacja nie może zapisać logów błędu.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Zastanów się nad hierarchią systemu. Czy programy same decydują o swojej awarii?</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! „Wyrzucenie do pulpitu” to obrona. Jądro wymusza zamknięcie programu, a dowód tego znajdziesz w Dzienniku Zdarzeń jako <code>Event ID 1000</code>.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>📈 Oś czasu i Monitor Niezawodności</h2>
 <p>Zamiast zgadywać numery <span class="color-blue">Event ID</span>, lepiej spojrzeć na błędy przez pryzmat graficznej osi czasu. W Windowsie ta funkcjonalność działa i rejestruje zdarzenia od momentu zainstalowania systemu. Narzędzie to grupuje awarie według dat i pomaga zidentyfikować problematyczne dni. </p>
 <p>W menu Start wpisz po prostu „niezawodności” i wybierz <span class="color-blue">„Wyświetl historię niezawodności”</span>.</p>
-<p><img src="/courses/windows-11/Images/monitor-niezawodno%C5%9Bci.png" alt="Wykres stabilności systemu z Monitora Niezawodności"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/monitor-niezawodności.webp" alt="Wykres stabilności systemu z Monitora Niezawodności" width="1920" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Jednak zamiast przełączać się na tryb <kbd class="link-os-windows">Tygodnie</kbd> pozostańmy w domyślnym trybie <kbd class="link-os-windows">Dni</kbd> i zobaczmy co się zepsuło.<br>Siódmego czerwca mój komputer miał krytyczny <b>błąd sprzętu</b>:</p>
-<p><img src="/courses/windows-11/Images/monitor-niezawodno%C5%9Bci-b%C5%82%C4%85d-sprz%C4%99tu.png" alt="Monitor niezawodności wykryty błąd sprzętu"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/monitor-niezawodności-błąd-sprzętu.webp" alt="Monitor niezawodności wykryty błąd sprzętu" width="848" height="836" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Kliknij w <kbd class="link-os-windows">Wyświetl szczegóły techniczne</kbd>. Otworzy się poniższy raport:</p>
-<p><img src="/courses/windows-11/Images/monitor-niezawodno%C5%9Bci-b%C5%82%C4%85d-sprz%C4%99tu-szczeg%C3%B3%C5%82y.png" alt="Szczegóły techniczne błędu sprzętu"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/monitor-niezawodności-błąd-sprzętu-szczegóły.webp" alt="Szczegóły techniczne błędu sprzętu" width="848" height="838" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <pre><code class="language-yaml">Opis
 Problem dotyczący sprzętu spowodował, że system Windows przestał działać poprawnie.
 
@@ -211,12 +237,12 @@ Ostrzeżenie: Jeśli problem został spowodowany przez wirusa lub inne zagrożen
 </code></pre>
 <p>Pliki wymienione w powyższym raporcie to standardowe artefakty diagnostyczne generowane przez Windows w momencie awarii:</p>
 <ul>
-<li><code>WATCHDOG-20260607-1801.dmp</code> - zrzut pamięci jądra (kernel‑mode), zawierający stan sterowników i struktur systemowych w chwili wystąpienia błędu.</li>
-<li><code>sysdata.xml</code> - szczegółowe dane o konfiguracji systemu i aktywnych komponentach w momencie awarii.</li>
-<li><code>WERInternalMetadata.xml</code> - metadane raportu WER, opisujące kontekst błędu i środowisko wykonawcze.</li>
-<li><code>memory.csv</code> - statystyki wykorzystania pamięci operacyjnej z chwili wystąpienia błędu.</li>
-<li><code>sysinfo.txt</code> - podstawowe informacje o systemie, sprzęcie i wersjach sterowników.</li>
-<li><code>WERInternalRequest.xml</code> - wewnętrzny opis żądania diagnostycznego wygenerowanego przez Windows Error Reporting.</li>
+<li><code>WATCHDOG-20260607-1801.dmp</code> — zrzut pamięci jądra (kernel‑mode), zawierający stan sterowników i struktur systemowych w chwili wystąpienia błędu.</li>
+<li><code>sysdata.xml</code> — szczegółowe dane o konfiguracji systemu i aktywnych komponentach w momencie awarii.</li>
+<li><code>WERInternalMetadata.xml</code> — metadane raportu WER, opisujące kontekst błędu i środowisko wykonawcze.</li>
+<li><code>memory.csv</code> — statystyki wykorzystania pamięci operacyjnej z chwili wystąpienia błędu.</li>
+<li><code>sysinfo.txt</code> — podstawowe informacje o systemie, sprzęcie i wersjach sterowników.</li>
+<li><code>WERInternalRequest.xml</code> — wewnętrzny opis żądania diagnostycznego wygenerowanego przez Windows Error Reporting.</li>
 </ul>
 <p>Na tej podstawie możemy przejść do analizy i ustalić, co było bezpośrednią przyczyną błędu.</p>
 <h3>Prawda o plikach XML (Zmyłka dla nowicjuszy)</h3>
@@ -237,7 +263,10 @@ Ostrzeżenie: Jeśli problem został spowodowany przez wirusa lub inne zagrożen
 </section><section class="lesson-section" data-lesson-section="true"><h2>🧿 WinDbg narzędzie do odczytu zrzutów awaryjnych</h2>
 <p>Zwykły Notatnik sobie nie poradzi z plikiem <code>.dmp</code>. Wyświetli tylko krzaczki i losowe znaczki. Dlatego że to plik binarny a nie tekstowy.</p>
 <p>Musisz pobrać ze sklepu Microsoft Store darmowy program inżynieryjny: <span class="color-green">WinDbg</span> (<span class="color-blue">Windows Debugger</span>). To oficjalne narzędzie od twórców z Microsoftu.</p>
-<p><img src="/courses/windows-11/Images/ms-store-WinDbg.png" alt="Zrzut ekranu z Microsoft Store pokazujący aplikację WinDbg (Windows Debugger)"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ms-store-WinDbg.webp" alt="Zrzut ekranu z Microsoft Store pokazujący aplikację WinDbg (Windows Debugger)" width="1219" height="877" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
 <span class="alert-icon">🚧</span> Uwaga
@@ -252,7 +281,10 @@ Ostrzeżenie: Jeśli problem został spowodowany przez wirusa lub inne zagrożen
 <li>Debugger połączy się z serwerem i ściągnie słownik (Symbole). Symbole tłumaczą krzaczki binarne na czytelny tekst.</li>
 <li>Na dole w pasku poleceń wpisz <code>!analyze -v</code> (Analizuj dokładnie) i wciśnij Enter.</li>
 </ol>
-<p><img src="/courses/windows-11/Images/WinDbg-analiza.png" alt="Zrzut ekranu z WinDbg pokazujący analizę pliku .dmp"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/WinDbg-analiza.webp" alt="Zrzut ekranu z WinDbg pokazujący analizę pliku .dmp" width="1281" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Jak czytać wynik w WinDbg</h2>
 <p>WinDbg wygeneruje ogromny raport po wpisaniu komendy.<br>Nie musisz znać wszystkich pojęć. Wystarczy spojrzeć na kilka konkretnych linijek. One powiedzą Ci dokładnie co zawiodło.</p>
 <h3>1. Nagłówek błędu (Bugcheck Analysis)</h3>
@@ -295,8 +327,8 @@ Ostrzeżenie: Jeśli problem został spowodowany przez wirusa lub inne zagrożen
 <p>Większość powyższych linijek to tzw. szum informacyjny. Są to wewnętrzne statystyki samego programu WinDbg (np. <code>Analysis.Elapsed.mSec</code> to po prostu czas, jaki program spędził na czytaniu pliku). </p>
 <p>Dla inżyniera z całej tej długiej listy liczą się tak naprawdę tylko dwa klucze:</p>
 <ol>
-<li><span class="color-green"><code>Bugcheck.Code</code> (0x193)</span> - Potwierdza numeryczny kod awarii.</li>
-<li><span class="color-green"><code>Failure.Bucket</code></span> - To dokładna „sygnatura zbrodni” (w naszym przypadku <code>LKD_0x193_dxgkrnl...</code>). To właśnie ten ciąg znaków kopiuje się i wkleja w wyszukiwarkę internetową, aby szybko znaleźć rozwiązanie problemu.</li>
+<li><span class="color-green"><code>Bugcheck.Code</code> (0x193)</span> – Potwierdza numeryczny kod awarii.</li>
+<li><span class="color-green"><code>Failure.Bucket</code></span> – To dokładna „sygnatura zbrodni” (w naszym przypadku <code>LKD_0x193_dxgkrnl...</code>). To właśnie ten ciąg znaków kopiuje się i wkleja w wyszukiwarkę internetową, aby szybko znaleźć rozwiązanie problemu.</li>
 </ol>
 <h3>2. Parametry błędu (Bugcheck Code i argumenty)</h3>
 <p>Niżej znajduje się kod wraz z detalami:</p>
@@ -310,7 +342,10 @@ BUGCHECK_P1: 80e
 PROCESS_NAME:     dwm.exe
 </code></pre>
 <p>Proces <code>dwm.exe</code> zajmuje się rysowaniem Twojego pulpitu i ikon. Pamiętaj, to nie on jest awarią.<br>On jako pierwszy zaczął protestować, bo układ karty graficznej nie chciał mu narysować interfejsu. Karta graficzna zignorowała proces, bo była zajęta inną grą, przeglądarką lub operacjami lokalnego LLM (AI). Wtedy obraz na sekundę zamarł.</p>
-<p><img src="/courses/windows-11/Images/WinDbg-analiza2.png" alt="Zrzut ekranu z WinDbg pokazujący analizę pliku .dmp"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/WinDbg-analiza2.webp" alt="Zrzut ekranu z WinDbg pokazujący analizę pliku .dmp" width="1267" height="1032" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <h3>4. Stos wywołań (Stack Trace)</h3>
 <p>To najważniejsza sekcja. Tabela pokazuje historię operacji, która doprowadziła do resetu sterownika:</p>
 <pre><code class="language-yaml">STACK_TEXT:  
@@ -335,8 +370,8 @@ nt!KiSystemServiceCopyEnd+0x25
 0x00007ffc`9e093f04
 </code></pre>
 <ul>
-<li><code>watchdog!</code> - systemowy pies stróżujący wyłapał, że obraz na karcie graficznej się nie odświeża.</li>
-<li><code>dxgkrnl!</code> - jądro próbowało wymusić na karcie odświeżenie pamięci. Bez skutku.</li>
+<li><code>watchdog!</code> — systemowy pies stróżujący wyłapał, że obraz na karcie graficznej się nie odświeża.</li>
+<li><code>dxgkrnl!</code> — jądro próbowało wymusić na karcie odświeżenie pamięci. Bez skutku.</li>
 <li><code>nt!KiSystemServiceCopyEnd</code> - w tym miejscu proces się zakończył.</li>
 </ul>
 <p>Ważne: na liście w ogóle nie widać plików gier ani aplikacji. To oznacza, że winny nie leży po stronie zainstalowanych u Ciebie programów. Problem pochodzi z głębokiej warstwy jądra samego sterownika graficznego.</p>
@@ -372,9 +407,12 @@ IMAGE_VERSION:  10.0.26100.8457
 <li>Używaj mniejszych modeli w Stable Diffusion lub LLM.</li>
 <li>Otwórz aplikację NVIDIA lub AMD, pobierz nowe sterowniki, ale podczas instalacji zaznacz opcję <span class="color-blue">„Zresetuj wszystkie ustawienia do domyślnych”</span>.</li>
 </ul>
-<p><img src="/courses/windows-11/Images/NvidiaAPP-aktualizacja-sterownik%C3%B3w.png" alt="Aktualizacja sterownika Nvidia APP"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/NvidiaAPP-aktualizacja-sterowników.webp" alt="Aktualizacja sterownika Nvidia APP" width="1919" height="1033" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <hr>
-<h3>🟦 Przykład 2: BSOD - Błąd Sterownika Sieciowego</h3>
+<h3>🟦 Przykład 2: BSOD – Błąd Sterownika Sieciowego</h3>
 <p>Poprzedni omówiony przypadek to awaria naprawiona w locie (system zrestartował sterownik i uratował sytuację 😎🤙🏻).</p>
 <p>Jednak gdy błąd wystąpi w najbardziej uprzywilejowanej warstwie Jądra systemu (<span class="color-green">Ring 0</span>), Windows nie ma już możliwości bezpiecznej naprawy. By chronić sprzęt i dane przed uszkodzeniem, Jądro wymusza natychmiastowe zatrzymanie pracy całego komputera, generuje zrzut awaryjny i wyświetla klasyczny Niebieski Ekran Śmierci (<span class="color-blue">BS</span><span class="color-red">OD</span>).</p>
 <p>Przyjrzyjmy się analizie na przykładzie autentycznego raportu usterki, tym razem wywołanej przez interfejs sieciowy:</p>
@@ -435,12 +473,20 @@ rtf64x64+0x51b5
 <p>Jest to maszyna wirtulalna z przydzielonymi $2\text{ GB}$ pamięci RAM. Zaznaczono w niej $9$ procesów <code>svchost.exe</code> konteneryzujących usługi i podkreślono najmniejszą grupę z <code>PID 1064</code>, która zawiera usługi:</p>
 <ul>
 <li><code>AppXSvc</code>: obsługa aplikacji z Microsoft Store</li>
-<li><code>ClipSVC</code>: obsługa funkcji dynamicznego udostępniania klipów wideo i zdjęć<br><img src="/courses/windows-11/Images/mechanizm-grupowania-us%C5%82ug-dll-w-kantenery-svchost.exe.png" alt="Schemat współdzielenia usług a izolacja usług"></li>
+<li><code>ClipSVC</code>: obsługa funkcji dynamicznego udostępniania klipów wideo i zdjęć</li>
 </ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/mechanizm-grupowania-usług-dll-w-kantenery-svchost.exe.webp" alt="Schemat współdzielenia usług a izolacja usług" width="1576" height="904" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
 <h3>Powszechna izolacja usług w procesach svchost.exe</h3>
 <p>Na mocniejszych sprzętach spełniających minimalne wymagania systemowe Windows 11, Microsoft zmienia taktykę. Windows separuje procesy.</p>
 <p>Poniżej widać ten sam test na komputerze z $32\text{ GB}$ RAM. Każda usługa ma tu własny <code>svchost.exe</code> np. pierwszy proces z prawej listy <code>camsvc</code> to unikalny PID 7068 (<span class="color-blue">Process ID</span> - Identyfikator procesu, który jest dynamicznie przydzielany przy jego starcie). Awaria usługi opakowanej w jeden kontener, nie ciągnie za sobą reszty. Im więcej RAM tym komputer lepiej sobie radzi z separacją procesów systemowych. Dlatego Windows zużywa zawsze duże ilości RAMu by pozostać stabilnym.</p>
-<p><img src="/courses/windows-11/Images/procesy-svchost.exe.png" alt="Widok wielu niezależnych procesów svchost.exe w Menedżerze Zadań"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/procesy-svchost.exe.webp" alt="Widok wielu niezależnych procesów svchost.exe w Menedżerze Zadań" width="1476" height="1021" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Mimo to, część z usług dalej jest grupowana i wynika to z ich obustronnych zależności. Gdy jedna usługa padnie to kolejne mocno związane zależnościami usługi w niekrótkim czasie mogły by próbować wykonać zadania i zapychać <span class="color-green">DPS</span> (<span class="color-blue">Diagnostic Policy Service</span> - Usługa zasad diagnostyki). DPS to usługa która ogarnia zgłąszanie i raportowanie różnych błędów oprogramowania zawrówno systemu jaki i innych aplikacji. Nim więcej błędów tym bardziej jest opciążona i możesz to odczuć w gorszum działaniu Windowsa.</p>
 <p>Kluczowe grupy usług w svchost.exe</p>
 <ol>
@@ -449,25 +495,50 @@ rtf64x64+0x51b5
 <li><code>OneSyncSvc_127fec05</code>, <code>PimIndexMaintenanceSvc_127fec05</code>, <code>UnistoreSvc_127fec05</code>, <code>UserDataSvc_127fec05</code>: Obsługa synchronized z kontem microsoft</li>
 </ol>
 <p>Tę strukturę widać też bezpośrednio w Menedżerze Zadań po wpisaniu <code>svchost</code> w wyszukiwarkę:</p>
-<p><img src="/courses/windows-11/Images/svchost-manager-zada%C5%84-filtr-i-rozwiniecie-localServiceNoNetworkFirewall.png" alt="svchost‑manager-zadań-filtr‑i-rozwiniecie‑localServiceNoNetworkFirewall"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/svchost-manager-zadań-filtr-i-rozwiniecie-localServiceNoNetworkFirewall.webp" alt="svchost-manager-zadań-filtr-i-rozwiniecie-localServiceNoNetworkFirewall" width="1184" height="489" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Procesy grupują w sobie zazwyczaj pojedyncze usługi:</p>
 <ul>
 <li><code>Usługa zasad diagnostyki</code> <span style="text-wrap:nowrap">($27,5\text{ MB}$ RAM)</span></li>
 <li><code>Kondycja systemu Windows i zoptymalizowane środowiska</code> <span style="text-wrap:nowrap">($22,4\text{ MB}$ RAM)</span></li>
 </ul>
 <p>Przykładem zgrupowania usług jest kontener <code>localServiceNoNetworkFirewall (2)</code> <span style="text-wrap:nowrap">($11,6\text{ MB}$ RAM)</span>, który trzyma w sobie dwie usługi zapory sieciowej.</p>
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego kliknięcie „Zakończ zadanie” na obciążającym procesie <code>svchost.exe</code> to błąd diagnostyczny?</p>
+</question>
+    <options>
+      <item><p>Wywoła to natychmiastowy twardy reset komputera w celu ochrony Jądra (Ring 0).</p>
+</item>
+      <item correct=""><p>Zabijasz tylko pojemnik. Tracisz unikalny numer PID, przez co nie namierzysz winnej usługi w tle.</p>
+</item>
+      <item><p>Spowoduje to nadpisanie dziennika zdarzeń i usunięcie błędów z Diagnostics‑Performance.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Czy po usunięciu pojemnika nadal będziesz wiedzieć, co było w środku?</p>
+</div>
+    <div data-hint="success"><p>Dokładnie! <code>svchost</code> to tylko <span class="color-gold">„nosiciel”</span>. Ubijając go w Menedżerze Zadań, zacierasz jedyny ślad (PID), który pozwoliłby zidentyfikować wadliwą usługę.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🕵️ Optymalizacja RAM: Zrzucanie zbędnych usług</h2>
-<p>RAM to zasób. Mniej usług w tle to mniej procesów <code>svchost.exe</code>, mniej wybudzeń CPU i więcej wolnej pamięci.<br>W Windowsie większość usług działa w tle niezauważalnie - ale wiele z nich można bezpiecznie uśpić lub wyłączyć.</p>
+<p>RAM to zasób. Mniej usług w tle to mniej procesów <code>svchost.exe</code>, mniej wybudzeń CPU i więcej wolnej pamięci.<br>W Windowsie większość usług działa w tle niezauważalnie — ale wiele z nich można bezpiecznie uśpić lub wyłączyć.</p>
 <p>Zarządzanie usługami odbywa się przez przystawkę <span class="color-green">Usługi</span>.<br>Wciśnij na klawiaturze skrót <kbd class="Win"></kbd> + <kbd>R</kbd>, po czym wpisz <code>services.msc</code> i zatwierdź. </p>
-<p><img src="/courses/windows-11/Images/services.msc-Oculus-VR-Runtime-Service-prze%C5%82%C4%85czenie-trybu-uruchamiania-na-r%C4%99czny.png" alt="services.msc Oculus VR Runtime Service zmiana trybu uruchamiania na ręczny"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/services.msc-Oculus-VR-Runtime-Service-przełączenie-trybu-uruchamiania-na-ręczny.webp" alt="services.msc Oculus VR Runtime Service zmiana trybu uruchamiania na ręczny" width="1238" height="678" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>W oknie właściwości każdej usługi możesz ustawić <span class="color-green">Typ uruchamiania</span>:</p>
 <ul>
-<li><kbd class="win-menu-btn">Automatyczne (opóźnione uruchamianie)</kbd> - startuje z systemem, ale chwilę później.  </li>
-<li><kbd class="win-menu-btn">Automatyczny</kbd> - startuje natychmiast przy uruchamianiu systemu.  </li>
-<li><kbd class="win-menu-btn">Ręczny</kbd> - usługa jest uśpiona; system może ją wybudzić tylko wtedy, gdy będzie potrzebna.  </li>
-<li><kbd class="win-menu-btn">Ręczny (wyzwalane uruchamianie)</kbd> - usługa startuje tylko w reakcji na konkretne zdarzenie (np. podłączenie urządzenia).  </li>
-<li><kbd class="win-menu-btn">Wyłączony</kbd> - usługa jest zablokowana. System nie może jej uruchomić nawet wtedy, gdy będzie jej potrzebował.</li>
+<li><kbd class="win-menu-btn">Automatyczne (opóźnione uruchamianie)</kbd> – startuje z systemem, ale chwilę później.  </li>
+<li><kbd class="win-menu-btn">Automatyczny</kbd> – startuje natychmiast przy uruchamianiu systemu.  </li>
+<li><kbd class="win-menu-btn">Ręczny</kbd> – usługa jest uśpiona; system może ją wybudzić tylko wtedy, gdy będzie potrzebna.  </li>
+<li><kbd class="win-menu-btn">Ręczny (wyzwalane uruchamianie)</kbd> – usługa startuje tylko w reakcji na konkretne zdarzenie (np. podłączenie urządzenia).  </li>
+<li><kbd class="win-menu-btn">Wyłączony</kbd> – usługa jest zablokowana. System nie może jej uruchomić nawet wtedy, gdy będzie jej potrzebował.</li>
 </ul>
 <div class="markdown-alert markdown-alert--caution">
 <p class="markdown-alert-title">
@@ -477,7 +548,7 @@ rtf64x64+0x51b5
 <p><b>Dlaczego najczęściej <span class="color-green">„Ręczny”</span>, a nie <span class="color-red">„Wyłączony”</span>?</b><br>Wyłączenie usługi „na sztywno” może spowodować błędy, jeśli inny komponent systemu będzie jej wymagał.<br>Tryb <span class="color-green">Ręczny</span> to bezpieczna izolacja: usługa nie startuje z systemem, ale Windows może ją uruchomić tylko wtedy, gdy naprawdę musi.</p>
 
 </div>
-</div><p>Poniżej znajdziesz <span class="color-green">wyselekcjonowane i zweryfikowane</span> usługi, które można bezpiecznie wyłączyć lub uśpić, aby odzyskać zasoby - bez destabilizacji systemu.</p>
+</div><p>Poniżej znajdziesz <span class="color-green">wyselekcjonowane i zweryfikowane</span> usługi, które można bezpiecznie wyłączyć lub uśpić, aby odzyskać zasoby — bez destabilizacji systemu.</p>
 <hr>
 <h3>🌐 Sieć i udostępnianie (Usługi Microsoft)</h3>
 <table>
@@ -490,7 +561,7 @@ rtf64x64+0x51b5
 </thead>
 <tbody><tr>
 <td align="left"><span class="color-green">EapHost</span></td>
-<td align="left">Uwierzytelnianie 802.1X - używane w sieciach korporacyjnych i uczelnianych.</td>
+<td align="left">Uwierzytelnianie 802.1X — używane w sieciach korporacyjnych i uczelnianych.</td>
 <td align="left">Disable</td>
 </tr>
 <tr>
@@ -505,12 +576,12 @@ rtf64x64+0x51b5
 </tr>
 <tr>
 <td align="left"><span class="color-green">wcncsvc</span> (WPS)</td>
-<td align="left">Konfiguracja urządzeń przez WPS - funkcja podatna na ataki brute‑force.</td>
+<td align="left">Konfiguracja urządzeń przez WPS — funkcja podatna na ataki brute‑force.</td>
 <td align="left">Disable</td>
 </tr>
 <tr>
 <td align="left"><span class="color-green">SSDPSRV / upnphost</span></td>
-<td align="left">UPnP (automatyczne wykrywanie urządzeń). Jeśli nie używasz DLNA / SmartTV / konsol - zbędne.</td>
+<td align="left">UPnP (automatyczne wykrywanie urządzeń). Jeśli nie używasz DLNA / SmartTV / konsol — zbędne.</td>
 <td align="left">Disable</td>
 </tr>
 <tr>
@@ -552,7 +623,7 @@ rtf64x64+0x51b5
 </tr>
 <tr>
 <td align="left"><span class="color-green">Gservice</span></td>
-<td align="left">Gigabyte Cloud - zbędne obciążenie CPU.</td>
+<td align="left">Gigabyte Cloud — zbędne obciążenie CPU.</td>
 <td align="left">Disable</td>
 </tr>
 <tr>
@@ -586,12 +657,12 @@ rtf64x64+0x51b5
 </thead>
 <tbody><tr>
 <td align="left"><span class="color-green">EFS</span></td>
-<td align="left">Szyfrowanie plików (nie BitLocker). Jeśli nie używasz - zbędne.</td>
+<td align="left">Szyfrowanie plików (nie BitLocker). Jeśli nie używasz — zbędne.</td>
 <td align="left">Manual / Disable</td>
 </tr>
 <tr>
 <td align="left"><span class="color-green">Spooler</span></td>
-<td align="left">Bufor wydruku - wyłącz, jeśli nie masz drukarki.</td>
+<td align="left">Bufor wydruku — wyłącz, jeśli nie masz drukarki.</td>
 <td align="left">Manual</td>
 </tr>
 <tr>
@@ -602,7 +673,7 @@ rtf64x64+0x51b5
 </tbody></table>
 <hr>
 <h3>📦 Wirtualizacja i Hyper‑V (Microsoft)</h3>
-<p><span class="color-green">Hyper‑V gryzie się z Oracle VirtualBox</span> - blokuje mu pełny dostęp do wirtualizacji sprzętowej procesora.<br>Jeśli pracujesz w VirtualBox, wyłącz Hyper‑V i jego komponenty.</p>
+<p><span class="color-green">Hyper‑V gryzie się z Oracle VirtualBox</span> — blokuje mu pełny dostęp do wirtualizacji sprzętowej procesora.<br>Jeśli pracujesz w VirtualBox, wyłącz Hyper‑V i jego komponenty.</p>
 <table>
 <thead>
 <tr>
@@ -613,7 +684,7 @@ rtf64x64+0x51b5
 </thead>
 <tbody><tr>
 <td align="left"><span class="color-green">HvHost</span></td>
-<td align="left">Główna usługa Hyper‑V - blokuje VT‑x dla VirtualBox.</td>
+<td align="left">Główna usługa Hyper‑V — blokuje VT‑x dla VirtualBox.</td>
 <td align="left">Disable</td>
 </tr>
 <tr>
@@ -642,7 +713,7 @@ rtf64x64+0x51b5
 <span class="alert-icon">💬</span> Notatka
 </p>
 <div class="markdown-alert-content">
-<p>Wyłączenie Hyper‑V wyłącza również <span class="color-green">WSL2</span> (Windows Subsystem for Linux 2).<br>Jeśli potrzebujesz WSL2 - nie wyłączaj Hyper‑V.</p>
+<p>Wyłączenie Hyper‑V wyłącza również <span class="color-green">WSL2</span> (Windows Subsystem for Linux 2).<br>Jeśli potrzebujesz WSL2 — nie wyłączaj Hyper‑V.</p>
 
 </div>
 </div><div class="markdown-alert markdown-alert--tip">
@@ -650,10 +721,14 @@ rtf64x64+0x51b5
 <span class="alert-icon">✨</span> Wskazówka
 </p>
 <div class="markdown-alert-content">
-<p>Po zmianie ustawień usług oraz wyłączeniu platform Hyper‑V w „Funkcjach systemu Windows”, wykonaj pełny restart.<br>System uruchomi się szybciej, a VirtualBox odzyska pełną wydajność.<br><img src="/courses/windows-11/Images/wy%C5%82%C4%85cz-funkcj%C4%990systemu-windows-hyper-v.png" alt="Usunięcie Hyper‑V w funkcjach systemu Windows"></p>
+<p>Po zmianie ustawień usług oraz wyłączeniu platform Hyper‑V w „Funkcjach systemu Windows”, wykonaj pełny restart.<br>System uruchomi się szybciej, a VirtualBox odzyska pełną wydajność.</p>
 
 </div>
-</div><data-gate>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/wyłącz-funkcję0systemu-windows-hyper-v.webp" alt="Usunięcie Hyper-V w funkcjach systemu Windows" width="848" height="626" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<data-gate>
   <data-connection-matcher title="Zarządzanie Usługami i RAM">
     <div class="cmw-item" data-left="VirtualBox zgłasza brak wsparcia dla wirtualizacji sprzętowej 64-bit." data-right="Wyłącz usługi HvHost i platformę Hyper-V."></div>
     <div class="cmw-item" data-left="Chcesz odciążyć sprzęt, ale boisz się uszkodzić system." data-right="Przełączaj zbędne usługi na tryb 'Ręczny', a nie 'Wyłączony'."></div>
@@ -672,8 +747,8 @@ rtf64x64+0x51b5
 <li>powodują lagi, przycięcia i niestabilność.</li>
 </ul>
 <hr>
-<h4>Rozwiązywanie problemów sprzętowych (Event ID 5 - BTHUSB)</h4>
-<p>Załóżmy, że Twoja bezprzewodowa myszka co chwilę przerywa połączenie.<br>Na ekranie - cisza. Zero błędów.</p>
+<h4>Rozwiązywanie problemów sprzętowych (Event ID 5 – BTHUSB)</h4>
+<p>Załóżmy, że Twoja bezprzewodowa myszka co chwilę przerywa połączenie.<br>Na ekranie — cisza. Zero błędów.</p>
 <p>Inżynier robi coś innego:</p>
 <ol>
 <li>Otwiera <span class="color-green">Podgląd zdarzeń</span> (wciska <kbd class="Win"></kbd> + <kbd>R</kbd> i wpisuje <code>eventvwr.msc</code>).</li>
@@ -700,7 +775,10 @@ rtf64x64+0x51b5
 <blockquote>
 <p>„Zezwalaj komputerowi na wyłączanie tego urządzenia w celu oszczędzania energii”.</p>
 </blockquote>
-<p><img src="/courses/windows-11/Images/mened%C5%BCer-urz%C4%85dze%C5%84-wy%C5%82%C4%85czenie-oszczedzania-energi-na-kontrolerze-bluetooth.png" alt="Wyłączenie zarządzania energią modułu Bluetooth na poziomie sprzętowym"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menedżer-urządzeń-wyłączenie-oszczedzania-energi-na-kontrolerze-bluetooth.webp" alt="Wyłączenie zarządzania energią modułu Bluetooth na poziomie sprzętowym" width="775" height="570" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Po tej zmianie:</p>
 <ul>
 <li>błędy Event ID 5 znikną,  </li>
@@ -714,8 +792,12 @@ rtf64x64+0x51b5
 <p>Do tego służy ukryty dziennik <span class="color-green">Diagnostyki wydajności</span> (<code>Diagnostics-Performance</code>).</p>
 <ul>
 <li>Wciśnij skrót <kbd class="Win"></kbd> + <kbd>R</kbd>, wpisz: <code>eventvwr.msc</code> i zatwierdź.</li>
-<li>Przejdź do: <code>Dziennik aplikacji i usług</code> → <code>Microsoft</code> → <code>Windows</code> → <code>Diagnostics-Performance</code> i kliknij w <span class="color-blue"><code>Działa</code></span>.<br><img src="/courses/windows-11/Images/eventvwr.msc-_c_Microsoft-Windows-Diagnostics-Performance_Operational.png" alt="Podgląd zdarzeń - dziennik diagnostyki wydajności"></li>
+<li>Przejdź do: <code>Dziennik aplikacji i usług</code> → <code>Microsoft</code> → <code>Windows</code> → <code>Diagnostics-Performance</code> i kliknij w <span class="color-blue"><code>Działa</code></span>.</li>
 </ul>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/eventvwr.msc-_c_Microsoft-Windows-Diagnostics-Performance_Operational.webp" alt="Podgląd zdarzeń - dziennik diagnostyki wydajności" width="1192" height="789" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Alternatywnie możesz w oknie <span class="color-green">Uruchom</span> wpisać ścieżkę bezpośrednią:</p>
 <pre><code class="language-cmd">eventvwr.msc /c:Microsoft-Windows-Diagnostics-Performance/Operational
 </code></pre>
@@ -760,9 +842,9 @@ rtf64x64+0x51b5
 <ul>
 <li><p><code>[xml]$_.ToXml()</code> - parsuje wpis zdarzenia do formatu XML.</p>
 </li>
-<li><p><code>$exeName = ($xml.Event.EventData.Data | Where-Object Name -eq 'Name').'#text'</code> - z tego XML‑a wyciągamy tekst schowany pod etykietą <code>Name</code>, aby dostać nazwę pliku (np. <code>msedge.exe</code>).</p>
+<li><p><code>$exeName = ($xml.Event.EventData.Data | Where-Object Name -eq 'Name').'#text'</code> — z tego XML‑a wyciągamy tekst schowany pod etykietą <code>Name</code>, aby dostać nazwę pliku (np. <code>msedge.exe</code>).</p>
 </li>
-<li><p><code>$totalTime = ($xml.Event.EventData.Data | Where-Object Name -eq 'TotalTime').'#text'</code> - analogicznie wyciągamy wartość parametru <code>TotalTime</code> (czas w milisekundach, który zaważył na powolnym starcie).</p>
+<li><p><code>$totalTime = ($xml.Event.EventData.Data | Where-Object Name -eq 'TotalTime').'#text'</code> — analogicznie wyciągamy wartość parametru <code>TotalTime</code> (czas w milisekundach, który zaważył na powolnym starcie).</p>
 </li>
 </ul>
 <hr>
@@ -771,7 +853,10 @@ rtf64x64+0x51b5
 </details>
 
 <p>Dzięki temu odczytasz przejrzysty ranking $10$ największych „spowalniaczy” systemu.</p>
-<p><img src="/courses/windows-11/Images/skrypt-do-badania-op%C3%B3%C5%BAnienia-za%C5%82adowania-systemu.png" alt="skrypt do badania opóźnienia załadowania systemu"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/skrypt-do-badania-opóźnienia-załadowania-systemu.webp" alt="skrypt do badania opóźnienia załadowania systemu" width="1087" height="940" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Na podstawie autentycznego zrzutu, podzielmy tego typu procesy na $5$ logicznych kategorii:</p>
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
@@ -783,15 +868,19 @@ rtf64x64+0x51b5
 <li>Po pierwsze, usługi ładują się <span class="color-green">równolegle</span> (w tym samym czasie).</li>
 <li>Po drugie, część tych opóźnień mogła wystąpić np. miesiąc temu.</li>
 </ul>
-<p>Warto też pamiętać, że podawany w Menedżerze Zadań parametr <span class="color-blue">„Czas uruchamiania z systemu BIOS”</span> dotyczy wyłącznie inicjalizacji samego sprzętu przez płytę główną, zanim Windows w ogóle zacznie się ładować (procedura POST).<br><img src="/courses/windows-11/Images/mened%C5%BCer-zada%C5%84-autostart.png" alt="Menedżer zadań - autostartem"></p>
+<p>Warto też pamiętać, że podawany w Menedżerze Zadań parametr <span class="color-blue">„Czas uruchamiania z systemu BIOS”</span> dotyczy wyłącznie inicjalizacji samego sprzętu przez płytę główną, zanim Windows w ogóle zacznie się ładować (procedura POST).</p>
 
 </div>
-</div><hr>
+</div><img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/menedżer-zadań-autostart.webp" alt="Menedżer zadań - autostartem" width="859" height="483" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<hr>
 <h3>🛡️ Grupa 1: Oprogramowanie antywirusowe i zabezpieczenia</h3>
 <pre><code class="language-yaml">Nazwa pliku: MsMpEng.exe (13561ms)
 Nazwa pliku: Malwarebytes.exe (5937ms)
 </code></pre>
-<p>Programy takie jak Windows Defender (<code>MsMpEng.exe</code>) wykonują głębokie skanowanie pamięci RAM zanim uruchomią się inne procesy. <span class="color-green">To one najczęściej generują kilkunastosekundowe opóźnienia</span>. Nie jest to błąd, to cena bezpieczeństwa - nie należy z tym walczyć!</p>
+<p>Programy takie jak Windows Defender (<code>MsMpEng.exe</code>) wykonują głębokie skanowanie pamięci RAM zanim uruchomią się inne procesy. <span class="color-green">To one najczęściej generują kilkunastosekundowe opóźnienia</span>. Nie jest to błąd, to cena bezpieczeństwa – nie należy z tym walczyć!</p>
 <hr>
 <h3>🌐 Grupa 2: Przeglądarki internetowe</h3>
 <pre><code class="language-yaml">Nazwa pliku: msedge.exe (6685ms)
@@ -803,7 +892,10 @@ Nazwa pliku: firefox.exe (7299ms)
 <li>Wejdź w <span class="color-green">Ustawienia → System i wydajność</span>.</li>
 <li>Wyłącz „Przyspieszenie uruchamiania” oraz „Kontynuuj uruchamianie rozszerzeń w tle”.</li>
 </ol>
-<p><img src="/courses/windows-11/Images/ms-edge-wy%C5%82%C4%85czenie-przyspieszenia-uruchamiania-i-kontynuowania-uruchamiania-rozszerze%C5%84-przegl%C4%85darki-w-tle.png" alt="Konfiguracja systemu Edge w sekcji przyspieszenia operacyjnego na starcie"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ms-edge-wyłączenie-przyspieszenia-uruchamiania-i-kontynuowania-uruchamiania-rozszerzeń-przeglądarki-w-tle.webp" alt="Konfiguracja systemu Edge w sekcji przyspieszenia operacyjnego na starcie" width="1920" height="859" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Po tej zmianie system włączy się szybciej o odczuwalne kilka sekund.</p>
 <hr>
 <h3>⚙️ Grupa 3: Wbudowane usługi w tle Windows 11</h3>
@@ -839,35 +931,6 @@ Nazwa pliku: wevtutil.exe (418ms)
 </data-gate>
 
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Analiza zrzutu pamięci BSOD w WinDbg: struktura KTRAP_FRAME i rejestry x86_64</span><span class="deep-dive-badge">Crash Dump Analysis &amp; Kernel Debugging</span></summary>
-
-<p>Słynny niebieski ekran śmierci (<span class="color-green">BSOD</span> - <span class="color-blue">Blue Screen of Death</span>) to mechanizm obronny jądra Windows NT. Gdy w przestrzeni Ring 0 dojdzie do nienaprawialnego błędu (np. próby odczytu nieistniejącego adresu pamięci RAM przy podwyższonym poziomie przerwań IRQL), jądro natychmiast wywołuje funkcję <code>KeBugCheckEx()</code>:</p>
-<ul>
-<li>Zatrzymuje wszystkie rdzenie procesora instrukcją maszynową <code>cli</code> i <code>hlt</code>.</li>
-<li>Zrzuca aktualną zawartość pamięci RAM do pliku zrzutu (<code>C:\Windows\Minidump\*.dmp</code>).</li>
-</ul>
-<h3>1. Struktura KTRAP_FRAME i rejestry procesora</h3>
-<p>Gdy występuje wyjątek sprzętowy procesora x86_64, jądro automatycznie odkłada stan wszystkich rejestrów na stosie w strukturze <span class="color-green"><code>KTRAP_FRAME</code></span>:</p>
-<ul>
-<li>Rejestr <code>%rip</code> (Instruction Pointer): Dokładny adres instrukcji asemblera, która spowodowała awarię.</li>
-<li>Rejestr <code>%rsp</code> (Stack Pointer): Wskaźnik wierzchołka stosu wątku.</li>
-<li>Rejestr <code>%cr2</code> (Page Fault Linear Address): Adres wirtualny, do którego sterownik próbował uzyskać nielegalny dostęp.</li>
-</ul>
-<h3>2. Analiza zrzutu za pomocą debugera WinDbg</h3>
-<p>W oficjalnym debugerze jądra Microsoft WinDbg analiza zrzutu minidump sprowadza się do kilku potężnych poleceń:</p>
-<pre><code class="language-text">kd&gt; !analyze -v
-</code></pre>
-<p>Polecenie to uruchamia wbudowany silnik heurystyczny analizy awarii:</p>
-<ol>
-<li><span class="color-green">BUGCHECK_CODE</span>: Identyfikator błędu (np. <code>0x0000000A: IRQL_NOT_LESS_OR_EQUAL</code>).</li>
-<li><span class="color-green">FAULTING_IP</span>: Adres i symbol uszkodzonej funkcji wewnątrz sterownika (np. <code>myfaulty_driver!ProcessPacket+0x42</code>).</li>
-<li><span class="color-green">STACK_TEXT</span> (Call Stack): Ścieżka wywołań funkcji prowadząca bezpośrednio do momentu katastrofy.</li>
-</ol>
-<p>Polecenie <code>.trap [adres]</code> pozwala debugerowi odtworzyć pełen kontekst rejestrów x86_64 w chwili wypadku, umożliwiając inżynierowi natychmiastowe zidentyfikowanie wadliwej linii kodu sterownika w asemblerze lub C++.</p>
-</details>
-
-<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li><span class="color-green">Awaria to obrona (Event ID 1000):</span> Wyrzucenie do pulpitu bez komunikatu błędu to najczęściej interwencja Jądra (Ring 0). Zamiast reinstalować program, szukaj winnej biblioteki <code>.dll</code> w Podglądzie Zdarzeń. 🔍</li>
@@ -877,7 +940,7 @@ Nazwa pliku: wevtutil.exe (418ms)
 <li><span class="color-green">Ukryte opóźnienia sprzętowe:</span> Do analizy powolnego startu systemu używaj logów <code>Diagnostics-Performance</code>. Pozwolą ci one wyłowić procesy w tle (jak Edge Startup Boost) oraz ciche awarie zasilania sprzętu (Event ID 5 dla Bluetooth). 🩺</li>
 </ul>
 <hr>
-<p>Zrozumiałeś, że awarie nie dzieją się bez powodu, a każde zacięcie zostawia twardy ślad. Wiesz, jak namierzyć winną usługę i odczytać zrzuty pamięci. Z tą wiedzą ruszamy dalej - przed nami bezpośrednie modyfikacje Rejestru Windows i zautomatyzowany Harmonogram Zadań. 🛡️</p>
+<p>Zrozumiałeś, że awarie nie dzieją się bez powodu, a każde zacięcie zostawia twardy ślad. Wiesz, jak namierzyć winną usługę i odczytać zrzuty pamięci. Z tą wiedzą ruszamy dalej – przed nami bezpośrednie modyfikacje Rejestru Windows i zautomatyzowany Harmonogram Zadań. 🛡️</p>
 </section>
         </article>
 

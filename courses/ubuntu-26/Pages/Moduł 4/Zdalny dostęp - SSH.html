@@ -85,7 +85,10 @@
 <p>Lub jeszcze inaczej. Możesz ustawić nazwę hosta i odrazu się zastopsuje.</p>
 <pre><code class="language-bash">hostnamectl hostname vm1
 </code></pre>
-<p><img src="/courses/ubuntu-26/Images/hostname-konfig-for-ssh.png" alt="Konfiguracja hostname i dodanie użytkowników na obu maszynach"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/hostname-konfig-for-ssh.webp" alt="Konfiguracja hostname i dodanie użytkowników na obu maszynach" width="1912" height="577" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <section class="lesson-section" data-lesson-section="true"><h2>📦 Instalacja serwera SSH na VM2</h2>
 <p>Każdy system desktopowy powinien mieć domyślnie zainstalowanego kilenta ssh.<br>Dlatego na VM2 musimy doinstalować pakiet <code>openssh-server</code>, który nie jest domyślnie zainstalowany.</p>
 <pre><code class="language-bash">sudo apt install openssh-server -y
@@ -97,7 +100,10 @@
 <pre><code class="language-bash">systemctl status ssh
 </code></pre>
 <p>Jeżeli wykonasz powyższą komendę na VM1, gdzie pakiet <code>openssh-server</code> nie powinien być zainstalowany, otrzymasz komunikat:<br><span class="color-red">Unit ssh.service could not be found.</span></p>
-<p><img src="/courses/ubuntu-26/Images/status-ssh-desktop.png" alt="Weryfikacja statusu usługi ssh server"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/status-ssh-desktop.webp" alt="Weryfikacja statusu usługi ssh server" width="991" height="156" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Natomiast na VM2, gdzie zainstalowałeś pakiet <code>openssh-server</code>, zobaczysz wynik działania usługi. Przykładowe pola:</p>
 <ul>
 <li><code>Active: inactive (dead)</code>: serwer SSH jest zainstalowany, ale aktualnie nie działa.</li>
@@ -111,7 +117,12 @@
 <li>Active: <span class="color-green">active (running)</span></li>
 <li>Loaded i preset: <span class="color-green">enabled</span></li>
 </ul>
-<p><img src="/courses/ubuntu-26/Images/status-us%C5%82ugi-ssh-server.png" alt="Status serwera SSH na VM2 po uruchomieniu"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/status-usługi-ssh-server.webp" alt="Status serwera SSH na VM2 po uruchomieniu" width="926" height="606" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+
+
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Pierwsze połączenie z VM1</h2>
 <p>Aby połączyć się z jakąś maszyną na której jest zainstalowny server ssh użyj polecenia:</p>
 <pre><code class="language-bash">ssh [UŻYTKOWNIK]@[IP_ADDRESS]
@@ -122,7 +133,10 @@
 <p>Podczas pierwszego połączenia klient nie zna jeszcze klucza hosta VM2. Wyświetli odcisk klucza i zapyta, czy ufasz tej maszynie.</p>
 <p>Wpisz <code>yes</code> i wciśnij klawisz <kbd>Enter</kbd>. Klient zapisze klucz hosta w <code>~/.ssh/known_hosts</code> na VM1.</p>
 <p>Następnie podaj hasło konta z VM2. Podczas wpisywania hasła terminal nie wyświetla znaków ani gwiazdek.</p>
-<p><img src="/courses/ubuntu-26/Images/po%C5%82%C4%85czenie-ssh-z-drug%C4%85-maszyn%C4%85.png" alt="Pierwsze połączenie z VM1 do VM2"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/połączenie-ssh-z-drugą-maszyną.webp" alt="Pierwsze połączenie z VM1 do VM2" width="1633" height="736" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Po zalogowaniu prompt może wyglądać prawie tak samo jak lokalny. Sprawdź więc <span class="color-green">gdzie jesteś</span>:</p>
 <pre><code class="language-bash">hostname
 whoami
@@ -132,43 +146,10 @@ ip -br address
 <pre><code class="language-bash">exit
 </code></pre>
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Matematyka kryptograficzna SSH: Krzywe Eliptyczne Ed25519 vs RSA i wymiana kluczy ECDH</span><span class="deep-dive-badge">Cryptography &amp; SSH Protocol</span></summary>
-
-<p>Protokół SSHv2 (<span class="color-blue">Secure Shell</span>) rozwiązuje fundamentalny problem kryptografii: jak dwa nieznające się komputery mogą przez podsłuchiwaną sieć ustanowić tajny, wspólny klucz szyfrowania symetrycznego AES bez przesyłania żadnego hasła przez kabel?</p>
-<h3>1. Wymiana kluczy Diffie-Hellman na Krzywych Eliptycznych (ECDH)</h3>
-<p>Nawiązanie połączenia SSH rozpoczyna się od protokołu <span class="color-green">ECDH</span> (<span class="color-blue">Elliptic Curve Diffie‑Hellman</span>):</p>
-<ol>
-<li>Serwer i klient uzgadniają parametry krzywej eliptycznej oraz punkt bazowy $G$.</li>
-<li>Klient generuje losowy klucz prywatny $a$ i wysyła serwerowi klucz publiczny $A = a \cdot G$.</li>
-<li>Serwer generuje losowy klucz prywatny $b$ i wysyła klientowi klucz publiczny $B = b \cdot G$.</li>
-<li>Klient oblicza wspólny sekret: $S = a \cdot B = a \cdot (b \cdot G)$.</li>
-<li>Serwer oblicza identyczny sekret: $S = b \cdot A = b \cdot (a \cdot G)$.</li>
-</ol>
-<p>Podsłuchujący w sieci widzi punkty $A$ i $B$, ale z powodu trudności problemu logarytmu dyskretnego na krzywych eliptycznych (ECDLP) nie jest w stanie odtworzyć wartości $a$, $b$ ani wspólnego sekretu $S$. Z sekretu $S$ obie strony wyprowadzają symetryczny klucz AES‑256-GCM, którym szyfrowana jest cała dalsza sesja terminala.</p>
-<h3>2. Dlaczego Ed25519 zamiast przestarzałego RSA-2048?</h3>
-<p>Tradycyjne klucze RSA opierają się na trudności faktoryzacji wielkich liczb pierwszych ($n = p \cdot q$):</p>
-<ul>
-<li>Aby zapewnić 128‑bitowy poziom bezpieczeństwa, klucz RSA musi mieć długość aż <span class="color-green">$3072\ \text{bity}$</span>.</li>
-<li>Generowanie podpisu RSA jest powolne i podatne na ataki czasowe (<span class="color-blue">Timing Attacks</span>).</li>
-</ul>
-<p>Nowoczesny standard <span class="color-green">Ed25519</span> (oparty na skręconej krzywej Edwardsa) oferuje ten sam poziom bezpieczeństwa przy kluczu o długości zaledwie <span class="color-green">$256\ \text{bitów}$</span> (32 bajty):<br>$$x^2 + y^2 = 1 + d \cdot x^2 y^2 \quad \text{nad ciałem skończonym } \mathbb{F}_{2^{255}-19}$$<br>gdzie $d = -\frac{121665}{121666}$.</p>
-<p>Zalety inżynierskie Ed25519:</p>
-<ul>
-<li>Stały czas wykonania instrukcji (<span class="color-blue">Constant Time</span>): całkowita odporność na ataki typu side‑channel badające czas odpowiedzi procesora.</li>
-<li>Ekstremalna szybkość: weryfikacja podpisu wymaga ułamka milisekundy na procesorze x86_64.</li>
-<li>Krótkie odciski palców klucza, łatwe do weryfikacji przez człowieka w pliku <code>known_hosts</code>.</li>
-</ul>
-</details>
-
-<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
-<li><span class="color-green">Architektura klient‑serwer:</span> Maszyna łącząca się jest klientem SSH (<code>ssh</code>), natomiast maszyna zdalna wymaga działającego demona <code>sshd</code> (pakiet <code>openssh-server</code>).</li>
-<li><span class="color-green">Weryfikacja tożsamości hosta:</span> Przy pierwszym połączeniu klient weryfikuje odcisk klucza publicznego serwera i zapisuje go w <code>~/.ssh/known_hosts</code>, co chroni przed atakami typu Man‑in-the‑Middle (MITM).</li>
-<li><span class="color-green">Zarządzanie usługą ssh:</span> Włączenie automatycznego startu i natychmiastowe uruchomienie realizuje polecenie <code>sudo systemctl enable --now ssh</code>.</li>
-<li><span class="color-green">Weryfikacja sesji:</span> Po zalogowaniu należy zawsze potwierdzić tożsamość i maszynę za pomocą poleceń <code>hostname</code>, <code>whoami</code> oraz <code>ip -br address</code>.</li>
-<li><span class="color-green">Kryptografia Ed25519:</span> Nowoczesne klucze oparte na krzywych eliptycznych oferują wyższe bezpieczeństwo i stały czas wykonania w porównaniu do klasycznego RSA.</li>
+<li>VM1 jest klientem SSH, a VM2 przyjmuje połączenia dzięki pakietowi <code>openssh-server</code>.</li>
+<li>Po zalogowaniu potwierdzasz maszynę i użytkownika poleceniami <code>hostname</code> oraz <code>whoami</code>.</li>
 </ul>
 </section>
         </article>

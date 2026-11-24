@@ -277,38 +277,6 @@
 </data-gate>
 
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Funkcje haszujące haseł w /etc/shadow (SHA-512 crypt vs Yescrypt) i eliminacja tablic tęczowych przez sól kryptograficzną</span><span class="deep-dive-badge">Cryptography &amp; PAM Security</span></summary>
-
-<p>Hasła użytkowników w Linuksie nigdy nie są zapisywane w postaci jawnego tekstu. Od lat standardem bezpieczeństwa jest przechowywanie ich w pliku <code>/etc/shadow</code>, do którego dostęp ma wyłącznie proces jądra lub procesy z uprawnieniami roota (<code>-rw-r----- 1 root shadow</code>).</p>
-<h3>1. Budowa wpisu w pliku `/etc/shadow`</h3>
-<p>Typowy wpis w <code>/etc/shadow</code> składa się z pól rozdzielonych dwukropkiem:</p>
-<pre><code class="language-text">technik:$y$j9T$vK7x...$zP9...:19800:0:99999:7:::
-</code></pre>
-<p>Drugie pole to zhashowane hasło w modularnym formacie <span class="color-blue">Crypt</span>:<br><code>$identyfikator_algorytmu$parametry_kosztu$sól$skrót_hasła</code></p>
-<p>Identyfikatory algorytmów w Linuksie:</p>
-<ul>
-<li><code>$1$</code> - Przestarzały algorytm MD5 (dziś łamany w ułamki sekund)</li>
-<li><code>$5$</code> - SHA‑256 crypt ($5000$ rund)</li>
-<li><code>$6$</code> - SHA‑512 crypt ($5000$ rund)</li>
-<li><code>$y$</code> - <span class="color-green">Yescrypt</span> (domyślny standard w Ubuntu 24.04 i nowszych)</li>
-</ul>
-<h3>2. Dlaczego Yescrypt wypiera SHA-512: Ochrona przed GPU i ASIC</h3>
-<p>Klasyczne funkcje haszujące (SHA‑256, SHA‑512) są zoptymalizowane pod kątem szybkiego liczenia prostych operacji bitowych. Nowoczesne karty graficzne (GPU) oraz dedykowane układy ASIC potrafią sprawdzać <span class="color-green">miliardy skrótów SHA na sekundę</span>.</p>
-<p><span class="color-green">Yescrypt</span> rozwiązuje ten problem, wprowadzając mechanizm <span class="color-green">funkcji pamięciożernej</span> (<span class="color-blue">Memory‑Hard Function</span>):</p>
-<ul>
-<li>Do wyliczenia hasza algorytm wymaga zarezerwowania określonego, sporego bloku pamięci RAM (np. 32 MiB na pojedyncze hasło) i wykonuje nieprzewidywalne, losowe odczyty wewnątrz tego bufora.</li>
-<li>Układy GPU i ASIC posiadają tysiące miniaturowych rdzeni obliczeniowych, ale bardzo małą pamięć podręczną na rdzeń. Przy braku pamięci RAM wielowątkowe łamanie Yescrypt na GPU zostaje natychmiast sparaliżowane przez opóźnienia magistrali pamięci.</li>
-</ul>
-<h3>3. Matematyka soli kryptograficznej (Salt)</h3>
-<p>Sól to losowy ciąg znaków generowany przez generator liczb losowych <code>/dev/urandom</code> w chwili ustawiania hasła.<br>Gdyby dwóch użytkowników miało identyczne hasło <code>Tajne123!</code>:</p>
-<ul>
-<li>Bez soli: ich skróty w <code>/etc/shadow</code> byłyby identyczne. Atakujący mógłby użyć gotowej <span class="color-green">tablicy tęczowej</span> (<span class="color-blue">Rainbow Table</span> - bazy miliardów prekomputowanych skrótów).</li>
-<li>Z solą: skrót jest funkcją $H(\text{hasło} \parallel \text{sól})$. Ponieważ każdy użytkownik ma inną losową sól, ich skróty są całkowicie różne. Atakujący musi łamać każde konto z osobna, co unieważnia jakąkolwiek przewagę tablic tęczowych.</li>
-</ul>
-</details>
-
-<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li>Narzędzia <code>whoami</code>, <code>id</code> oraz <code>groups</code> służą do weryfikacji <span class="color-green">tożsamości roboczej</span> użytkownika oraz przypisanych do niego uprawnień.</li>

@@ -61,7 +61,10 @@
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>💽 Przygotowanie środowiska: dodanie nowego dysku</h2>
 <p>Przed rozpoczęciem pracy w terminalu do maszyny wirtualnej Ubuntu w programie VirtualBox dodajemy dodatkowy wirtualny dysk twardy (np. plik w formacie VDI o rozmiarze $25\ \text{GB}$ podpięty pod kontroler SATA lub NVMe).</p>
-<p><img src="/courses/ubuntu-26/Images/dodanie-nowego-dysku-w-vb-dla-ubuntu-vm.png" alt="Dodanie nowego dysku w VirtualBox dla maszyny wirtualnej Ubuntu"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/dodanie-nowego-dysku-w-vb-dla-ubuntu-vm.webp" alt="Dodanie nowego dysku w VirtualBox dla maszyny wirtualnej Ubuntu" width="962" height="698" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Po uruchomieniu systemu nowo podłączony nośnik będzie widoczny dla jądra Linux jako czysty, nieprzydzielony zasób pamięci masowej.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔍 Identyfikacja dysków w systemie</h2>
@@ -74,17 +77,23 @@
 <p>Aby wyświetlić drzewiastą strukturę podłączonych dysków i ich partycji, użyj narzędzia <code>lsblk</code>:</p>
 <pre><code class="language-bash">lsblk
 </code></pre>
-<p><img src="/courses/ubuntu-26/Images/lsblk-2ssd-1-nvme.png" alt="Podgląd dysków za pomocą lsblk w tym dysków SATA sda sdb oraz NVMe nvme0n1"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/lsblk-2ssd-1-nvme.webp" alt="Podgląd dysków za pomocą lsblk w tym dysków SATA sda sdb oraz NVMe nvme0n1" width="652" height="533" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Na powyższym wyjściu wyraźnie widać:</p>
 <ul>
 <li>Dysk systemowy <code>/dev/sda</code> ($25\ \text{GB}$) z partycją główną <code>/dev/sda2</code> zamontowaną w korzeniu <code>/</code>.</li>
-<li>Drugi, nowy dysk SATA <code>/dev/sdb</code> ($25\ \text{GB}$) - obecnie czysty i bez partycji.</li>
-<li>Dodatkowy dysk NVMe <code>/dev/nvme0n1</code> ($5\ \text{GB}$) - również bez założonej tablicy partycji.</li>
+<li>Drugi, nowy dysk SATA <code>/dev/sdb</code> ($25\ \text{GB}$) – obecnie czysty i bez partycji.</li>
+<li>Dodatkowy dysk NVMe <code>/dev/nvme0n1</code> ($5\ \text{GB}$) – również bez założonej tablicy partycji.</li>
 </ul>
 <p>Aby wyświetlić szczegółowe informacje o tablicach partycji oraz wykryć dyski bez nagłówka, uruchom program <code>parted</code> z flagą <code>-l</code> (wymaga uprawnień administratora <code>sudo</code>):</p>
 <pre><code class="language-bash">sudo parted -l
 </code></pre>
-<p><img src="/courses/ubuntu-26/Images/parted-l.png" alt="Wynik wykonania polecenia sudo parted -l z informacją o braku etykiety dysku"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/parted-l.webp" alt="Wynik wykonania polecenia sudo parted -l z informacją o braku etykiety dysku" width="652" height="587" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Zauważ, że dla dysków <code>/dev/sdb</code> oraz <code>/dev/nvme0n1</code> program zgłasza komunikat:<br><code>Error: /dev/sdb: unrecognised disk label</code> oraz <code>Partition Table: unknown</code>. Informuje to administratora, że dysk nie posiada jeszcze utworzonej tablicy partycji (jest fabrycznie czysty).</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🛠️ Partycjonowanie dysku za pomocą parted</h2>
@@ -97,8 +106,8 @@
 <h3>2. Utworzenie tablicy partycji (GPT vs MBR)</h3>
 <p>Do utworzenia etykiety i tablicy partycji na dysku służy polecenie <code>mklabel</code>. Program <code>parted</code> obsługuje dwa główne standardy tablic partycji:</p>
 <ul>
-<li><span class="color-green"><code>mklabel gpt</code></span> - tworzy nowoczesną tablicę <span class="color-green">GPT</span> (<span class="color-blue">GUID Partition Table</span>). Jest to obowiązujący standard wspierający dyski o pojemności powyżej $2\ \text{TB}$ oraz pozwalający na utworzenie domyślnie do $128$ partycji podstawowych. Wymagany dla nowoczesnych systemów uruchamianych w trybie UEFI.</li>
-<li><span class="color-green"><code>mklabel msdos</code></span> - tworzy tradycyjną tablicę <span class="color-green">MBR</span> (<span class="color-blue">Master Boot Record</span>, określaną w <code>parted</code> jako <code>msdos</code>). Klasyczny standard stosowany na starszych komputerach z systemem BIOS. Posiada ograniczenie: obsługuje dyski maksymalnie do $2\ \text{TB}$ oraz pozwala na utworzenie najwyżej $4$ partycji podstawowych (lub $3$ podstawowych i $1$ rozszerzonej).</li>
+<li><span class="color-green"><code>mklabel gpt</code></span> – tworzy nowoczesną tablicę <span class="color-green">GPT</span> (<span class="color-blue">GUID Partition Table</span>). Jest to obowiązujący standard wspierający dyski o pojemności powyżej $2\ \text{TB}$ oraz pozwalający na utworzenie domyślnie do $128$ partycji podstawowych. Wymagany dla nowoczesnych systemów uruchamianych w trybie UEFI.</li>
+<li><span class="color-green"><code>mklabel msdos</code></span> – tworzy tradycyjną tablicę <span class="color-green">MBR</span> (<span class="color-blue">Master Boot Record</span>, określaną w <code>parted</code> jako <code>msdos</code>). Klasyczny standard stosowany na starszych komputerach z systemem BIOS. Posiada ograniczenie: obsługuje dyski maksymalnie do $2\ \text{TB}$ oraz pozwala na utworzenie najwyżej $4$ partycji podstawowych (lub $3$ podstawowych i $1$ rozszerzonej).</li>
 </ul>
 <p>W naszym przykładzie tworzymy nowoczesną tablicę partycji <span class="color-green">GPT</span>:</p>
 <pre><code class="language-text">(parted) mklabel gpt
@@ -125,7 +134,10 @@
 <p>Wychodzimy z programu klawiszem lub poleceniem <code>quit</code>:</p>
 <pre><code class="language-text">(parted) quit
 </code></pre>
-<p><img src="/courses/ubuntu-26/Images/parted-2-partition-on-disk-sdb.png" alt="Tworzenie dwóch partycji na dysku sdb w interaktywnym programie parted"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/parted-2-partition-on-disk-sdb.webp" alt="Tworzenie dwóch partycji na dysku sdb w interaktywnym programie parted" width="677" height="682" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Po wyjściu z <code>parted</code> system wyświetla informację: <code>Information: You may need to update /etc/fstab.</code> W tym momencie w plikach urządzeń pojawiły się dwie nowe partycje: <code>/dev/sdb1</code> oraz <code>/dev/sdb2</code>.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🎛️ Formatowanie partycji (System plików Ext4)</h2>
@@ -134,12 +146,18 @@
 <pre><code class="language-bash">sudo mkfs.ext4 /dev/sdb1
 sudo mkfs.ext4 /dev/sdb2
 </code></pre>
-<p><img src="/courses/ubuntu-26/Images/mkfs-i-podgl%C4%85d-partycji-na-dysku-w-programi-disks.png" alt="Formatowanie partycji sdb1 i sdb2 za pomocą mkfs.ext4 i podgląd w aplikacji Disks"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/mkfs-i-podgląd-partycji-na-dysku-w-programi-disks.webp" alt="Formatowanie partycji sdb1 i sdb2 za pomocą mkfs.ext4 i podgląd w aplikacji Disks" width="980" height="954" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>W dolnej części powyższego zrzutu widać graficzną aplikację <span class="color-green">Disks</span> (<span class="color-blue">Dyski</span>), która potwierdza, że dysk <code>/dev/sdb</code> posiada dwie partycje typu <code>Linux Filesystem</code> o rozmiarze 13 GB każda z utworzonym systemem plików Ext4.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔌 Montowanie tymczasowe (<code>mount</code>) oraz podgląd w GUI</h2>
 <p>W środowisku graficznym Ubuntu Desktop kliknięcie ikonki dysku w menedżerze plików lub w aplikacji <span class="color-blue">Disks</span> powoduje jego automatyczne zamontowanie przez usługę <code>udisks2</code> w katalogu użytkownika: <code>/run/media/użytkownik/UUID/</code>.</p>
-<p><img src="/courses/ubuntu-26/Images/sprawdzenie-katalogu-run-media-egzamin-gdzie-zamontowa%C5%82-si%C4%99-dysk-i-go-odmontowanie+pokazanie-%C5%BCe-graficznie-te%C5%BC-si%C4%99-odmontowa%C5%82.png" alt="Sprawdzenie automatycznego montowania w run media i odmontowanie w konsoli oraz GUI"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/sprawdzenie-katalogu-run-media-egzamin-gdzie-zamontował-się-dysk-i-go-odmontowanie+pokazanie-że-graficznie-też-się-odmontował.webp" alt="Sprawdzenie automatycznego montowania w run media i odmontowanie w konsoli oraz GUI" width="977" height="700" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Ręczne odmontowanie woluminu wykonuje się poleceniem <code>umount</code>:</p>
 <pre><code class="language-bash">umount /run/media/egzamin/8f73a89b-f317-45b9-a36c-e107d02b1af8
 </code></pre>
@@ -160,7 +178,10 @@ sudo mkfs.ext4 /dev/sdb2
 </code></pre>
 </li>
 </ol>
-<p><img src="/courses/ubuntu-26/Images/zamontowanie-partycji-sb1-w-mnt-dane-i-pokazanie-%C5%BCe-tylko-jedna-partycja-jest-zaqmontowana.png" alt="Zamontowanie partycji sdb1 w katalogu mnt dane i weryfikacja za pomocą df -h oraz Disks"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/zamontowanie-partycji-sb1-w-mnt-dane-i-pokazanie-że-tylko-jedna-partycja-jest-zaqmontowana.webp" alt="Zamontowanie partycji sdb1 w katalogu mnt dane i weryfikacja za pomocą df -h oraz Disks" width="976" height="806" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Od tej chwili pliki zapisywane w katalogu <code>/mnt/dane</code> fizycznie trafiają na pierwszą partycję drugiego dysku. Zauważ w aplikacji <span class="color-blue">Disks</span>, że tylko partycja 1 jest zamontowana w <code>/mnt/dane</code>, podczas gdy partycja 2 pozostaje niezamontowana.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>💾 Automatyczne montowanie przy starcie: <code>/etc/fstab</code></h2>
@@ -177,7 +198,10 @@ sudo mkfs.ext4 /dev/sdb2
 <li><span class="color-green">Problem uprawnień przy przekierowaniu <code>&gt;&gt;</code></span>:<br>Gdy wykonasz polecenie <code>sudo blkid /dev/sdb1 &gt;&gt; /etc/fstab</code>, z uprawnieniami administratora uruchomi się wyłącznie komenda <code>blkid</code>. Przekierowanie <code>&gt;&gt;</code> jest interpretowane przez Twoją bieżącą powłokę użytkownika, co zakończy się błędem odmowy dostępu: <code>bash: /etc/fstab: Permission denied</code>.</li>
 <li><span class="color-green">Rozwiązanie z <code>sudo tee -a</code></span>:<br>Zastosowanie operatora potoku <code>|</code> i przekazanie wyjścia do <code>sudo tee -a /etc/fstab</code> sprawia, że samo zapisywanie do pliku wykonuje się z pełnymi uprawnieniami <code>sudo</code>. Wyjście z <code>blkid</code> zostanie z łatwością dopisane na samym końcu chronionego pliku <code>/etc/fstab</code>!</li>
 </ul>
-<p><img src="/courses/ubuntu-26/Images/sprytne-dopisanie-uuid-do-etc-fstab.png" alt="Przechwycenie identyfikatora UUID za pomocą blkid i tee -a do pliku fstab"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/sprytne-dopisanie-uuid-do-etc-fstab.webp" alt="Przechwycenie identyfikatora UUID za pomocą blkid i tee -a do pliku fstab" width="1238" height="733" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <h3>2. Edycja i struktura pliku <code>/etc/fstab</code></h3>
 <p>Otwórz plik <code>/etc/fstab</code> w edytorze <code>nano</code>:</p>
 <pre><code class="language-bash">sudo nano /etc/fstab
@@ -223,15 +247,18 @@ sudo mkfs.ext4 /dev/sdb2
 <tr>
 <td align="left"><span class="color-green">5</span></td>
 <td align="left"><span class="color-green">Dump (Kopia)</span></td>
-<td align="left">Flaga kopii zapasowej starym narzędziem <code>dump</code>: <br>• <code>0</code> - wyłączone (zalecane dla wszystkich współczesnych dysków). <br>• <code>1</code> - włączone.</td>
+<td align="left">Flaga kopii zapasowej starym narzędziem <code>dump</code>: <br>• <code>0</code> – wyłączone (zalecane dla wszystkich współczesnych dysków). <br>• <code>1</code> – włączone.</td>
 </tr>
 <tr>
 <td align="left"><span class="color-green">6</span></td>
 <td align="left"><span class="color-green">Pass (Sprawdzanie fsck)</span></td>
-<td align="left">Kolejność sprawdzania spójności plików przy starcie systemu przez program <code>fsck</code>: <br>• <code>0</code> - brak sprawdzania (dla wolumenów sieciowych, swap i partycji pomocniczych). <br>• <code>1</code> - najwyższy priorytet (zarejestrowany <span class="color-green">wyłącznie dla głównego systemu plików <code>/</code></span>). <br>• <code>2</code> - niższy priorytet (dla wszystkich pozostałych partycji dyskowych).</td>
+<td align="left">Kolejność sprawdzania spójności plików przy starcie systemu przez program <code>fsck</code>: <br>• <code>0</code> – brak sprawdzania (dla wolumenów sieciowych, swap i partycji pomocniczych). <br>• <code>1</code> – najwyższy priorytet (zarejestrowany <span class="color-green">wyłącznie dla głównego systemu plików <code>/</code></span>). <br>• <code>2</code> – niższy priorytet (dla wszystkich pozostałych partycji dyskowych).</td>
 </tr>
 </tbody></table>
-<p><img src="/courses/ubuntu-26/Images/modyfikacja-UUID-w-fstab-i-prze%C5%82adowanie-us%C5%82ugi.png" alt="Modyfikacja pliku fstab przeładowanie usług systemd i weryfikacja ikony gwiazdki w aplikacji Disks"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/ubuntu-26/Images/modyfikacja-UUID-w-fstab-i-przeładowanie-usługi.webp" alt="Modyfikacja pliku fstab przeładowanie usług systemd i weryfikacja ikony gwiazdki w aplikacji Disks" width="1247" height="827" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Po zapisaniu pliku <code>/etc/fstab</code> w aplikacji <span class="color-blue">Disks</span> przy zamontowanej partycji pojawi się ikonka <span class="color-green">gwiazdki ★</span>, która jednoznacznie potwierdza, że wolumin jest skonfigurowany do automatycznego montowania przy starcie systemu.</p>
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>⚠️ Krytyczna procedura bezpieczeństwa (<code>mount -a</code> oraz <code>daemon-reload</code>)</h2>
@@ -258,77 +285,27 @@ sudo mkfs.ext4 /dev/sdb2
 </code></pre>
 <p>Jeśli komenda <code>sudo mount -a</code> wykona się <span class="color-green">całkowicie bez komunikatów o błędach</span>, Twój wpis w pliku <code>/etc/fstab</code> jest w $100\%$ poprawny i bez obaw możesz zrestartować komputer!</p>
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Bezpośredni odczyt sektorów GPT w C przez open(O_DIRECT) i wywołanie ioctl(BLKGETSIZE64)</span><span class="deep-dive-badge">Block I/O &amp; GPT Internals</span></summary>
-
-<p>Dla zwykłego administratora partycjonowanie to komenda <code>mkpart primary ext4</code>. Dla inżyniera systemowego jest to zapis ściśle określonych struktur binarnych w pierwszych sektorach LBA nośnika blokowego.</p>
-<h3>1. Dysk jako urządzenie blokowe w `/dev/`</h3>
-<p>W Linuksie plik <code>/dev/sdb</code> nie jest zwykłym plikiem. Jest to plik specjalny urządzenia blokowego (<span class="color-blue">Block Device Special File</span> oznaczony literą <code>b</code> w <code>ls -l</code>), reprezentowany przez parę liczb: <span class="color-blue">Major Number</span> (identyfikator sterownika jądra) i <span class="color-blue">Minor Number</span> (identyfikator konkretnego nośnika lub partycji).</p>
-<h3>2. Bezpośredni odczyt sektora LBA 1 (Nagłówek GPT) w języku C</h3>
-<p>Normalne wywołanie <code>read()</code> czyta dane przez bufor podręczny jądra (<span class="color-blue">Page Cache</span>). Aby odczytać rzeczywiste, surowe sektory z dysku z pominięciem buforowania, używamy flagi <span class="color-green"><code>O_DIRECT</code></span>:</p>
-<pre><code class="language-c">#define _GNU_SOURCE
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;unistd.h&gt;
-#include &lt;sys/ioctl.h&gt;
-#include &lt;linux/fs.h&gt;
-#include &lt;stdint.h&gt;
-
-// Uproszczona struktura nagłówka GPT (sektor LBA 1, 92 bajty)
-struct __attribute__((__packed__)) gpt_header {
-    char     signature[8];    // "EFI PART" (0x5452415020494645)
-    uint32_t revision;
-    uint32_t header_size;     // Zwykle 92 bajty (0x5C)
-    uint32_t header_crc32;    // Suma kontrolna CRC-32 nagłówka
-    uint32_t reserved;
-    uint64_t current_lba;     // Zwykle 1
-    uint64_t backup_lba;      // Ostatni sektor dysku (LBA -1)
-    uint64_t first_usable_lba;// Zwykle 34
-    uint64_t last_usable_lba;
-    uint8_t  disk_guid[16];   // Unikalny identyfikator GUID dysku
-    uint64_t partition_entries_lba; // Zwykle LBA 2
-    uint32_t num_partition_entries; // Domyślnie 128
-    uint32_t sizeof_partition_entry;// Domyślnie 128 bajtów
-    uint32_t partition_array_crc32; // Suma kontrolna tablicy partycji
-};
-
-int main() {
-    int fd = open("/dev/sdb", O_RDONLY | O_DIRECT);
-    if (fd &lt; 0) { perror("open /dev/sdb"); return 1; }
-
-    // Pobranie rozmiaru dysku w bajtach bezpośrednio z kontrolera
-    uint64_t bytes = 0;
-    ioctl(fd, BLKGETSIZE64, &amp;bytes);
-    printf("Pojemność dysku: %lu GB\n", bytes / (1024 * 1024 * 1024));
-
-    // Flaga O_DIRECT wymaga bufora wyrównanego do rozmiaru sektora (4096B)
-    void *buffer = NULL;
-    posix_memalign(&amp;buffer, 4096, 4096);
-
-    // Przewiń do LBA 1 (sektor 512B) i odczytaj nagłówek
-    lseek(fd, 512, SEEK_SET);
-    read(fd, buffer, 4096);
-
-    struct gpt_header *gpt = (struct gpt_header *)buffer;
-    printf("Sygnatura GPT: %.8s\n", gpt-&gt;signature);
-    printf("Current LBA:   %lu\n", gpt-&gt;current_lba);
-    printf("Backup LBA:    %lu\n", gpt-&gt;backup_lba);
-    printf("Liczba partycji: %u (po %u bajtów)\n", 
-           gpt-&gt;num_partition_entries, gpt-&gt;sizeof_partition_entry);
-
-    free(buffer);
-    close(fd);
-    return 0;
-}
-</code></pre>
-<h3>3. Weryfikacja integralności: Podwójne sumy kontrolne CRC-32</h3>
-<p>W przeciwieństwie do archaicznego MBR, standard GPT chroni integralność dysku dwoma wielomianami CRC‑32:</p>
-<ol>
-<li><span class="color-green"><code>header_crc32</code></span>: Podczas obliczania sumy pole <code>header_crc32</code> jest tymczasowo zerowane. Jeśli choć jeden bit nagłówka w LBA 1 zostanie przekłamany (np. przez błąd pamięci RAM lub awarię zasilania), jądro natychmiast wykrywa niezgodność i automatycznie odtwarza nagłówek z kopii zapasowej zapisanej w sektorze wskazanym przez <code>backup_lba</code> (na samym końcu dysku).</li>
-<li><span class="color-green"><code>partition_array_crc32</code></span>: Osobna suma kontrolna chroniąca tablicę 128 wpisów partycji (sektory LBA 2‑33).</li>
-</ol>
-</details>
+</section><section class="lesson-section" data-lesson-section="true"><h2>🧠 Punkt kontrolny: Montowanie dysków</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Jaki jest najbezpieczniejszy i zalecany sposób identyfikacji partycji w pliku <code>/etc/fstab</code>?</p>
+</question>
+    <options>
+      <item correct=""><p>Użycie unikalnego identyfikatora UUID partycji odczytanego za pomocą blkid.</p>
+</item>
+      <item><p>Użycie nazwy logicznej urządzenia, np. /dev/sdb1, ponieważ nigdy się ona nie zmienia.</p>
+</item>
+      <item><p>Użycie etykiety montowania wirtualnego dysku VDI z VirtualBox.</p>
+</item>
+      <item><p>Użycie nazwy montowania w katalogu /media.</p>
+</item>
+    </options>
+    <div data-hint="error"><p>Pomyśl, co się stanie, gdy podłączysz dysk do innego portu SATA lub kontrolera. Czy nazwa /dev/sdb1 pozostanie niezmienna? Co gwarantuje absolutną unikalność?</p>
+</div>
+    <div data-hint="success"><p>Wspaniale! UUID jest unikalny dla konkretnego systemu plików na partycji i chroni przed błędami montowania przy zmianie fizycznej konfiguracji sprzętu.</p>
+</div>
+  </data-quiz>
+</data-gate>
 
 <hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>

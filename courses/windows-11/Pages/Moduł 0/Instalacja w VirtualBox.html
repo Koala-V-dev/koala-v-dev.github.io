@@ -15,7 +15,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instalacja w VirtualBox - Koala-V</title>
+    <title>Moduł 0\Instalacja w VirtualBox - Koala-V</title>
     <link rel="shortcut icon" href="/logo.svg" type="image/x-icon" />
   <link rel="stylesheet" href="/css/course-style.css" />
     <script type="module" src="/js/course-app.js"></script>
@@ -64,22 +64,22 @@
 <div class="markdown-alert-content">
 <p>Technologie wirtualizacji opierają się na warstwie abstrakcji sprzętowej zwanej <span class="color-blue">hypervisorem</span>. Dzielimy je na dwa typy architektoniczne:</p>
 <ul>
-<li><span class="color-green">Type 1 (Bare‑metal)</span> - rezyduje bezpośrednio na fizycznym sprzęcie, eliminując system‑gospodarza. Stanowi rdzeń nowoczesnych centrów danych i chmury (np. <span class="color-green">VMware ESXi</span>, <span class="color-green">Microsoft Hyper‑V</span>, <span class="color-green">KVM</span>).</li>
-<li><span class="color-green">Type 2 (Hosted)</span> - działa jako standardowa usługa w przestrzeni systemu operacyjnego gospodarza. Zapewnia doskonałą elastyczność w laboratoriach kosztem niewielkiego spadku wydajności (np. <span class="color-green">Oracle VM VirtualBox</span>, <span class="color-green">VMware Workstation</span>).</li>
+<li><span class="color-green">Type 1 (Bare‑metal)</span> – rezyduje bezpośrednio na fizycznym sprzęcie, eliminując system‑gospodarza. Stanowi rdzeń nowoczesnych centrów danych i chmury (np. <span class="color-green">VMware ESXi</span>, <span class="color-green">Microsoft Hyper‑V</span>, <span class="color-green">KVM</span>).</li>
+<li><span class="color-green">Type 2 (Hosted)</span> – działa jako standardowa usługa w przestrzeni systemu operacyjnego gospodarza. Zapewnia doskonałą elastyczność w laboratoriach kosztem niewielkiego spadku wydajności (np. <span class="color-green">Oracle VM VirtualBox</span>, <span class="color-green">VMware Workstation</span>).</li>
 </ul>
 
 </div>
 </div><figure>
-<img src="/courses/windows-11/Images/hypervisors-schemat.webp" alt="Schemat hypervisorów Type 1 vs Type 2" aria-describedby="diagram-schemat-hypervisorow-type" class="lazy-image" loading="lazy" decoding="async">
+<img aria-describedby="diagram-schemat-hypervisorow-type" src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/hypervisors-schemat.webp" alt="Schemat hypervisorów Type 1 vs Type 2" width="624" height="635" class="lazy-image" loading="lazy" decoding="async">
 <figcaption id="diagram-schemat-hypervisorow-type">
 <details class="diagram-meta">
 <summary>Opis obrazka</summary>
 <p>Schemat porównuje architekturę hypervisorów Typu 1 i Typu 2. Po lewej stronie (Typ 1) warstwa wirtualizacji (Hypervisor) działa bezpośrednio na sprzęcie fizycznym (RAM, SSD, CPU) i zarządza maszynami wirtualnymi (VM1, VM2, VM3). Po prawej stronie (Typ 2) hypervisor działa jako aplikacja wewnątrz systemu operacyjnego gospodarza (Host OS), który pośredniczy w dostępie do sprzętu.</p>
 <section aria-label="Opis strukturalny diagramu">
 <ol>
-<li><span class="color-green">Hypervisor Typu 1 (Bare‑metal)</span> - bezpośredni przepływ kontroli: Sprzęt fizyczny (RAM, SSD, CPU) → warstwa Hypervisora (oznaczona fioletowym laptopem) → trzy niezależne maszyny wirtualne (VM1, VM2, VM3).  </li>
-<li><span class="color-green">Hypervisor Typu 2 (Hosted)</span> - warstwowy przepływ kontroli: Sprzęt fizyczny (RAM, SSD, CPU) → System Operacyjny Gospodarza (Host OS oznaczony niebieskim monitorem) → warstwa Hypervisora (fioletowy laptop) → maszyny wirtualne (VM1, VM2, VM3).  </li>
-<li><span class="color-green">Komponenty maszyn wirtualnych</span> - w obu typach każda maszyna wirtualna (VM) jest reprezentowana przez niebieski monitor z ikoną wirtualnego kontenera (sześcianu).</li>
+<li><span class="color-green">Hypervisor Typu 1 (Bare‑metal)</span> – bezpośredni przepływ kontroli: Sprzęt fizyczny (RAM, SSD, CPU) → warstwa Hypervisora (oznaczona fioletowym laptopem) → trzy niezależne maszyny wirtualne (VM1, VM2, VM3).  </li>
+<li><span class="color-green">Hypervisor Typu 2 (Hosted)</span> – warstwowy przepływ kontroli: Sprzęt fizyczny (RAM, SSD, CPU) → System Operacyjny Gospodarza (Host OS oznaczony niebieskim monitorem) → warstwa Hypervisora (fioletowy laptop) → maszyny wirtualne (VM1, VM2, VM3).  </li>
+<li><span class="color-green">Komponenty maszyn wirtualnych</span> – w obu typach każda maszyna wirtualna (VM) jest reprezentowana przez niebieski monitor z ikoną wirtualnego kontenera (sześcianu).</li>
 </ol>
 </section>
 <script type="application/ld+json">
@@ -99,15 +99,21 @@
 <hr>
 <section class="lesson-section" data-lesson-section="true"><h2>⚙️ Inicjacja środowiska hypervisora</h2>
 <p>Przed utworzeniem maszyny wirtualnej zoptymalizuj parametry globalne silnika VirtualBox. Kluczową modyfikacją jest relokacja (przeniesienie w inne miejsce) <span class="color-blue">domyślnego folderu maszyn wirtualnych</span>. Domyślnie instancje (Twoje wirtualne komputery) są zapisywane na dysku systemowym <code>C:\</code>.<br>Ponieważ ich wirtualne dyski twarde w formacie <span class="color-gold">VDI</span> (<span class="color-blue">Virtual Disk Image</span>) potrafią zajmować dziesiątki gigabajtów, doprowadzi to błyskawicznie do wysycenia całej dostępnej przestrzeni blokowej nośnika.</p>
-<p><img src="/courses/windows-11/Images/ustawienia-globalne-vb.webp" alt="Ustawienia globalne VirtualBox"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ustawienia-globalne-vb.webp" alt="Ustawienia globalne VirtualBox" width="857" height="569" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Kreator maszyny pozwala na natychmiastowe zmapowanie pliku $\text{ISO}$ jako wirtualnego napędu optycznego dla środowiska instalatora:</p>
-<p><img src="/courses/windows-11/Images/nowa-maszyna-wirtualna-vb.webp" alt="Nowa maszyna wirtualna w VirtualBox"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/nowa-maszyna-wirtualna-vb.webp" alt="Nowa maszyna wirtualna w VirtualBox" width="844" height="780" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <div class="markdown-alert markdown-alert--warning">
 <p class="markdown-alert-title">
 <span class="alert-icon">🚧</span> Uwaga
 </p>
 <div class="markdown-alert-content">
-<p>Jeżeli testujesz środowisko rozruchowe uruchamiane bezpośrednio z bootowalnego pendrive'a z narzędziem <span class="color-green">Ventoy</span>, nie mapuj obrazu $\text{ISO}$ w kreatorze maszyny. Zamiast tego przetestujemy mechanizm <span class="color-green">USB Passthrough</span> - to technika wirtualizacji, która przekierowuje fizyczny port USB stacji‑matki bezpośrednio do odizolowanego środowiska maszyny‑gościa. Dzięki temu maszyna myśli, że port jest fizycznie połączony z jej własną wirtualną płytą główną.</p>
+<p>Jeżeli testujesz środowisko rozruchowe uruchamiane bezpośrednio z bootowalnego pendrive'a z narzędziem <span class="color-green">Ventoy</span>, nie mapuj obrazu $\text{ISO}$ w kreatorze maszyny. Zamiast tego przetestujemy mechanizm <span class="color-green">USB Passthrough</span> — to technika wirtualizacji, która przekierowuje fizyczny port USB stacji‑matki bezpośrednio do odizolowanego środowiska maszyny‑gościa. Dzięki temu maszyna myśli, że port jest fizycznie połączony z jej własną wirtualną płytą główną.</p>
 
 </div>
 </div><data-tabs>
@@ -115,24 +121,27 @@
         <b>🚀 Uruchomienie Ventoy (USB Passthrough)</b>
         <b>🔴 Obsługa błędu: Security Violation (0x1A)</b>
     </tabs>
-    <div>
+    <div><p>Po zasileniu maszyny zamknij okno wyboru $\text{ISO}$ i z poziomu górnego paska kontrolnego hypervisora zainicjuj przechwycenie interfejsu USB ze stacji‑matki: <kbd class="win-menu-btn">Urządzenia</kbd> → <kbd class="win-menu-btn">USB</kbd> i wskaż fizyczny pendrive.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/uruchomienie-ventoy-z-pendrive.webp" alt="Uruchomienie Ventoy z pendrive" width="1025" height="853" class="lazy-image" loading="lazy" decoding="async">
 
-<p>Po zasileniu maszyny zamknij okno wyboru $\text{ISO}$ i z poziomu górnego paska kontrolnego hypervisora zainicjuj przechwycenie interfejsu USB ze stacji‑matki: <kbd class="win-menu-btn">Urządzenia</kbd> → <kbd class="win-menu-btn">USB</kbd> i wskaż fizyczny pendrive.</p>
-<p><img src="/courses/windows-11/Images/uruchomienie-ventoy-z-pendrive.webp" alt="Uruchomienie Ventoy z pendrive"></p>
-<p>W prawym dolnym rogu okna podglądu znajdziesz wskaźnik <span class="color-green">klawisza hosta</span> (domyślnie <kbd>Prawy Ctrl</kbd>). Służy on do wyswobadzania obsługi urządzeń wskazujących ze środowiska wirtualnego. Po ludzku jak ci maszyna odbierze kursor myszki to klikając <kbd>Prawy Ctrl</kbd> go odzyskasz.<br>Zainicjuj reset sprzętowy maszyny za pomocą polecenia <kbd>Prawy Ctrl</kbd> + <kbd>R</kbd>, aby ją zbootować z podpiętego właśnie USB.</p>
-</div>
-<div>
 
-<p>Jeżeli pojawia się niebieski ekran <span class="color-green">Security Violation (0x1A)</span> to znaczy, że Ventoy nie jest podpisany cyfrowo lub UEFI go nie akceptuje.</p>
-<p><img src="/courses/windows-11/Images/Verification-failed-(0x1A)-Security-Violation.png" alt="Verification failed (0x1A) Security Violation"></p>
+
+<p>W prawym dolnym rogu okna podglądu znajdziesz wskaźnik <span class="color-green">klawisza hosta</span> (domyślnie <kbd>Prawy Ctrl</kbd>). Służy on do wyswobadzania obsługi urządzeń wskazujących ze środowiska wirtualnego. Po ludzku jak ci maszyna odbierze kursor myszki to klikając <kbd>Prawy Ctrl</kbd> go odzyskasz.<br>Zainicjuj reset sprzętowy maszyny za pomocą polecenia <kbd>Prawy Ctrl</kbd> + <kbd>R</kbd>, aby ją zbootować z podpiętego właśnie USB.</p></div>
+<div><p>Jeżeli pojawia się niebieski ekran <span class="color-green">Security Violation (0x1A)</span> to znaczy, że Ventoy nie jest podpisany cyfrowo lub UEFI go nie akceptuje.</p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/Verification-failed-(0x1A)-Security-Violation.webp" alt="Verification failed (0x1A) Security Violation" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p><span class="color-green">Rozwiązanie:</span> W ustawieniach maszyny wirtualnej wyłącz <code>Secure Boot</code>.</p>
-<p><img src="/courses/windows-11/Images/disable-secure-boot-vm.webp" alt="Wyłączenie Secure Boot"></p>
-</div>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/disable-secure-boot-vm.webp" alt="Wyłączenie Secure Boot" width="940" height="526" class="lazy-image" loading="lazy" decoding="async"></div>
 </data-tabs>
 
 <hr>
 <p>Jeżeli maszyna wirtualna po restarcie poprawnie odczyta Twój fizyczny pendrive (dzięki <span class="color-blue">USB Passthrough</span>), na ekranie powita Cię menu <span class="color-blue">Ventoy</span>.</p>
-<p><img src="/courses/windows-11/Images/ventoy-w-maszynie-wirtualnej.webp" alt="Ventoy w maszynie wirtualnej"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/ventoy-w-maszynie-wirtualnej.webp" alt="Ventoy w maszynie wirtualnej" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Teraz wybierz z listy wrzucony wcześniej plik $\text{ISO}$ (w naszym wypadku instalator Windows 11). <span class="color-blue">Ventoy</span> zapyta Cię, w jakim trybie ma emulować ten plik:</p>
 <table>
 <thead>
@@ -159,11 +168,37 @@
 </tr>
 </tbody></table>
 <hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Uruchamiasz maszynę wirtualną z wpiętym pendrivem Ventoy, ale instalator nie chce ruszyć, a Ty widzisz wielki niebieski ekran <span class="color-green">Security Violation (0x1A)</span>. Jaka jest tego przyczyna i jak to rozwiązać?</p>
+</question>
+    <options>
+      <option correct=""><p>UEFI nie rozpoznaje podpisu Ventoy. Trzeba wyłączyć maszynę i odznaczyć 'Secure Boot' w jej ustawieniach</p>
+</option>
+      <option><p>Oznacza to, że Twój obraz $\text{ISO}$ z Windowsem jest uszkodzony i musisz wykonać 'File checksum'.</p>
+</option>
+      <option><p>Wirtualizacja blokuje porty USB, więc musisz sformatować pendrive Rufusem w standardzie MBR.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Błąd 0x1A pojawia się, zanim w ogóle dotkniesz pliku ISO czy formatowania Rufusem. To mechanizm samej maszyny (na poziomie UEFI) blokujący środowiska bez oficjalnego certyfikatu.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie tak. Opcja Secure Boot wymaga, by wszystko, co odpala się przed Windowsem, było podpisane kluczem znanym przez Microsoft. Ventoy tego nie ma, więc musimy wyłączyć tę restrykcję na wirtualnej płycie głównej.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>💽 Środowisko Wdrożeniowe (WinPE)</h2>
 <p>Po załadowaniu do pamięci środowiska <code>WinPE</code> (<span class="color-blue">Windows Preinstallation Environment</span>) zobaczysz okno instalatora. To miejsce, w którym definiujesz swój region i układ klawiatury.</p>
-<p><img src="/courses/windows-11/Images/instalacja-win-11-krok1.webp" alt="Krok 1 instalatora - język i klawiatura"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/instalacja-win-11-krok1.webp" alt="Krok 1 instalatora – język i klawiatura" width="2048" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <p>Na kolejnych ekranach akceptujesz regulamin i wyrażasz zgodę na ewentualne usunięcie danych z dysku, po czym dochodzisz do weryfikacji licencji. Jeśli masz <span class="color-green">Klucz produktu</span>, wpisz go tutaj. Jeśli chcesz zainstalować system w darmowym trybie testowym, po prostu kliknij <span class="color-blue">"Nie mam klucza produktu"</span>.</p>
-<p><img src="/courses/windows-11/Images/instalacja-win-11-krok2.webp" alt="Krok 2 instalatora - klucz produktu i opcja instalacji/naprawy"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/instalacja-win-11-krok2.webp" alt="Krok 2 instalatora – klucz produktu i opcja instalacji/naprawy" width="2053" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🏷️ Wybór edycji Windows</h2>
 <p>To etap, na którym decydujesz, za które funkcje systemu płacisz. W komputerach domowych i biurowych spotkasz się zazwyczaj z edycjami <code>Home</code> i <code>Pro</code>.</p>
@@ -199,7 +234,7 @@
 </tr>
 <tr>
 <td><span class="color-green">Pro Education</span></td>
-<td>Edycja <code>Pro</code> skrojona pod szkoły - z centralnym zarządzaniem ustawieniami dla uczniów.</td>
+<td>Edycja <code>Pro</code> skrojona pod szkoły – z centralnym zarządzaniem ustawieniami dla uczniów.</td>
 </tr>
 <tr>
 <td><span class="color-green">Pro for Workstations</span></td>
@@ -220,7 +255,31 @@
 </tbody></table>
 </details>
 
-<p><img src="/courses/windows-11/Images/instalacja-win-11-krok3.webp" alt="Krok 3 - Wybór edycji Windows 11"></p>
+
+
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/instalacja-win-11-krok3.webp" alt="Krok 3 – Wybór edycji Windows 11" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
+<data-gate>
+  <data-quiz>
+    <question><p>Jesteś odpowiedzialny za flotę komputerów w korporacji. Twoim zadaniem jest zapewnienie sprzętowego szyfrowania dysków (BitLocker) oraz weryfikacji tożsamości poprzez firmowy serwer (Active Directory). Jakiej licencji użyjesz?</p>
+</question>
+    <options>
+      <option><p>Home</p>
+</option>
+      <option correct=""><p>Pro</p>
+</option>
+      <option><p>Home Single Language</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Żadna z edycji domowych (Home) ani specjalistycznych terminali (IoT) nie posiada wbudowanych modułów do szyfrowania BitLocker oraz wejścia do domeny. Te funkcje startują od wyższego pułapu.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie. Wersja <code>Pro</code> to minimalny wymóg, by móc podłączyć komputer do środowiska korporacyjnego <span class="color-blue">Active Directory</span> i włączyć funkcję szyfrowania <span class="color-green">BitLocker</span>.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🗄️ Zarządzanie dyskiem i partycjami</h2>
 <p>To ten moment, w którym decydujesz o fizycznym i logicznym podziale dysku. Pomyłka w tym miejscu oznacza nadpisanie niewłaściwych sektorów i całkowitą utratę danych (np. prywatnych zdjęć użytkownika komputera).</p>
@@ -228,7 +287,10 @@
 <blockquote>
 <p>UEFI jest rygorystyczne i bez ukrytych partycji pomocniczych po prostu nie włączy systemu.</p>
 </blockquote>
-<p><img src="/courses/windows-11/Images/instalacja-win-11-krok4.webp" alt="Krok 4 - Tworzenie partycji"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/instalacja-win-11-krok4.webp" alt="Krok 4 – Tworzenie partycji" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <table>
 <thead>
 <tr>
@@ -258,7 +320,7 @@
 <span class="alert-icon">📌</span> Ważny punkt
 </p>
 <div class="markdown-alert-content">
-<p>Instalujesz system na starym, używanym dysku? Samo sformatowanie partycji <code>C:\</code> to błąd - w ten sposób zostawisz stary bootloader na ukrytej partycji EFI. </p>
+<p>Instalujesz system na starym, używanym dysku? Samo sformatowanie partycji <code>C:\</code> to błąd – w ten sposób zostawisz stary bootloader na ukrytej partycji EFI. </p>
 <p><span class="color-green">Zrób to poprawnie:</span></p>
 <ol>
 <li>Zgraj wszystkie ważne pliki na zewnętrzny dysk/pendrive.</li>
@@ -269,7 +331,29 @@
 
 </div>
 </div><hr>
-</section><section class="lesson-section" data-lesson-section="true"><h2>⌨️ DiskPart - partycjonowanie z konsoli</h2>
+<data-gate>
+  <data-quiz>
+    <question><p>Czym dokładnie jest partycja MSR o pojemności zaledwie $16 \text{ MB}$ tworzona na czystym dysku podczas instalacji Windows 11?</p>
+</question>
+    <options>
+      <option><p>Miejsce na bootloader i konfigurację uruchamiania, czytane przez UEFI od razu po starcie zasilania.</p>
+</option>
+      <option correct=""><p>Pusty, ukryty kontener, z którego Microsoft korzysta podczas operacji dynamicznego zmieniania wielkości innych partycji.</p>
+</option>
+      <option><p>Nowoczesny zamiennik dawnego sektora MBR (Master Boot Record) dla starszych płyt głównych.</p>
+</option>
+      <option><p>Instalator umieszcza na niej pliki kopii zapasowej przed formatowaniem.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Zwróć uwagę na samo rozwinięcie skrótu (Microsoft Reserved). To nie jest miejsce na stare bootloadery, instrukcje startowe ani backupy instalatora.</p>
+</div>
+    <div data-hint="success"><p>Poprawnie. Microsoft rezerwuje na tablicach partycji GPT trochę darmowego miejsca (bufor), które może w każdej chwili posłużyć do bezkolizyjnego re‑aranżowania dysku w przyszłości.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
+</section><section class="lesson-section" data-lesson-section="true"><h2>⌨️ DiskPart – partycjonowanie z konsoli</h2>
 <p>Zazwyczaj po prostu klikasz <kbd class="win-menu-btn">Dalej</kbd> i instalator sam dzieli dysk. Warto jednak wiedzieć, jak zbudować układ partycji całkowicie ręcznie, nie polegając na tym co zrobi za nas instalator.</p>
 <p>Zróbmy to z poziomu konsoli:</p>
 <ol>
@@ -277,7 +361,10 @@
 <li>W czarnym oknie wpisz komendę <code>diskpart</code> i naciśnij <kbd>Enter</kbd> by ją wykonać.</li>
 </ol>
 <p>Jesteś teraz w trybie tekstowym i możesz dzielić dysk za pomocą komend.</p>
-<p><img src="/courses/windows-11/Images/konsola-cmd-w-instalatorze-win-z-diskpart.webp" alt="CMD z DiskPart podczas instalacji"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/konsola-cmd-w-instalatorze-win-z-diskpart.webp" alt="CMD z DiskPart podczas instalacji" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <h3>Zrozumienie Systemów Plików</h3>
 <p>Zanim cokolwiek sformatujesz, musisz zrozumieć jak systemy organizują pojedyncze pliki na nośniku.</p>
 <table>
@@ -293,7 +380,7 @@
 </tr>
 <tr>
 <td align="left"><span class="color-green">FAT32</span></td>
-<td align="left">Stary format z lat $90'$, na którym nie zapiszesz pliku większego niż $4\text{ GB}$. Mimo to ma potężną zaletę - każda płyta główna (UEFI) potrafi go bez problemu przeczytać zaraz po włączeniu prądu. Dlatego właśnie instalatory z pendrive'ów i partycje rozruchowe muszą na nim stać.</td>
+<td align="left">Stary format z lat $90'$, na którym nie zapiszesz pliku większego niż $4\text{ GB}$. Mimo to ma potężną zaletę – każda płyta główna (UEFI) potrafi go bez problemu przeczytać zaraz po włączeniu prądu. Dlatego właśnie instalatory z pendrive'ów i partycje rozruchowe muszą na nim stać.</td>
 </tr>
 <tr>
 <td align="left"><span class="color-green">exFAT</span></td>
@@ -301,8 +388,33 @@
 </tr>
 </tbody></table>
 <hr>
+<data-gate>
+  <data-quiz>
+    <question><p>W jakim systemie plików należy zawsze sformatować ukrytą, ważącą ok. $100\text{ MB}$ Partycję Systemową (EFI) przechowującą pliki rozruchowe Windowsa?</p>
+</question>
+    <options>
+      <option><p>NTFS</p>
+</option>
+      <option><p>exFAT</p>
+</option>
+      <option correct=""><p>FAT32</p>
+</option>
+      <option><p>ReFS</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Pamiętaj, że płyta główna z UEFI zaraz po starcie zasilania to środowisko bardzo proste i rygorystyczne. Nie ma w nim sterowników na odczytywanie skomplikowanej budowy i uprawnień plików NTFS czy ReFS.</p>
+</div>
+    <div data-hint="success"><p>Dokładnie. Płyta główna komputera jest na tyle uproszczona, że z marszu umie wczytać strukturę plików tylko z prehistorycznego i najprostszego pod słońcem FAT32.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
 <p>Oto sekwencja komend, która w DiskPart wykonuje dokładnie tę samą pracę, co kliknięcie <kbd class="win-menu-btn">Nowa</kbd> na nieprzydzielonym miejscu w instalatorze:</p>
-<p><img src="/courses/windows-11/Images/DiskPart-instalator-Windows.webp" alt="Komendy DiskPart - tabela"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/DiskPart-instalator-Windows.webp" alt="Komendy DiskPart – tabela" width="993" height="1083" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <details>
 <summary>📋 Pełna ściągawka komend DiskPart</summary>
 
@@ -373,6 +485,28 @@
 </details>
 
 <hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Pracujesz w konsoli DiskPart z fabrycznie nowym dyskiem. Chcesz utworzyć na nim partycję EFI do rozruchu UEFI. W jakiej kolejności powinieneś wywołać pierwsze komendy przed poleceniem „create partition”?</p>
+</question>
+    <options>
+      <option correct=""><p><code>select disk X</code> → <code>clean</code> → <code>convert gpt</code></p>
+</option>
+      <option><p><code>convert gpt</code> → <code>clean</code> → <code>select disk X</code></p>
+</option>
+      <option><p><code>clean</code> → <code>select disk X</code> → <code>convert gpt</code></p>
+</option>
+      <option><p><code>create partition ...</code> → <code>clean</code> → <code>convert gpt</code></p>
+</option>
+    </options>
+    <div data-hint="error"><p>Zła kolejność. Narzędzie powłoki musi najpierw wiedzieć „na jaki dysk patrzy”.</p>
+</div>
+    <div data-hint="success"><p>Tak jest. Wybierasz cel (<code>select disk X</code>), całkowicie oczyszczasz dysk (<code>clean</code>), a potem, stawiając go na nowo mówisz: "od teraz jesteś dyskiem typu GPT" (<code>convert gpt</code>).</p>
+</div>
+  </data-quiz>
+</data-gate>
+
+<hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🕹️ Symulator konsoli (DiskPart)</h2>
 <p>Spróbuj przeprowadzić weryfikację swojej wiedzy, wykorzystując symulator narzędzia DiskPart poniżej. Wykonanie czystego rozstawienia dysku otworzy Ci drogę do ostatniego etapu lekcji.</p>
 <div class="markdown-alert markdown-alert--note">
@@ -397,12 +531,18 @@
 <li><span class="color-green">Lokalizacja:</span> strefa czasowa, waluta i rodzaj klawiatury.</li>
 <li><span class="color-green">Nazwa urządzenia (Hostname):</span> identyfikator PC w sieci. To po nim Twój komputer będzie widoczny dla innych oraz dla administratorów w domenie Active Directory (w wersjach <code>Pro</code> i wyższych).</li>
 </ol>
-<p><img src="/courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok1.webp" alt="Konfiguracja po instalacji - język, klawiatura, nazwa urządzenia"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok1.webp" alt="Konfiguracja po instalacji – język, klawiatura, nazwa urządzenia" width="3079" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <ol start="3">
 <li><span class="color-green">Przeznaczenie (Dom/Praca):</span> ekran dostępny tylko w edycjach <code>Pro</code> i wyższych. Jeżeli wskażesz opcję „Praca” i poprawnie uwierzytelnisz się kontem służbowym, system zostanie automatycznie zablokowany i podporządkowany pod polityki bezpieczeństwa (GPO) narzucone przez serwery Twojej firmy.</li>
 <li><span class="color-green">Logowanie z serwera Microsoft:</span> system Windows 11 oficjalnie blokuje założenie konta lokalnego (<span class="color-blue">offline</span>) i wymusza podłączenie profilu z chmury.</li>
 </ol>
-<p><img src="/courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok2.webp" alt="Konfiguracja po instalacji - login i preset"></p>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok2.webp" alt="Konfiguracja po instalacji – login i preset" width="2054" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔐 Obejście wymogu sieci: BYPASSNRO</h2>
 <p>Samo odpięcie kabla internetowego nie pozwala pominąć logowania online w Windowsie 11. System po prostu zablokuje kreator komunikatem o braku sieci i nie pozwoli kliknąć <kbd class="win-menu-btn">Dalej</kbd>. Microsoft nazywa tę blokadę <span class="color-green">NRO</span> (<span class="color-blue">Network Registration Obligation</span>).</p>
@@ -412,7 +552,12 @@
 <p>W serwisie IT to duży problem. Bardzo często stawia się czyste maszyny offline, przeznaczone wyłącznie do logowania domenowego, bez przypisywania konta prywatnego z chmury.</p>
 <p>Blokadę NRO da się obejść:</p>
 <ol>
-<li>Upewnij się, że maszyna <span class="color-green">nie ma dostępu do internetu</span> (odłącz kabelek sieciowy w VirtualBox).<br><img src="/courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok3.webp" alt="Konfiguracja - brak internetu"></li>
+<li>Upewnij się, że maszyna <span class="color-green">nie ma dostępu do internetu</span> (odłącz kabelek sieciowy w VirtualBox).</li>
+</ol>
+<img src="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok3.webp" alt="Konfiguracja – brak internetu" width="1026" height="854" class="lazy-image" loading="lazy" decoding="async">
+
+
+<ol start="2">
 <li>Użyj kombinacji klawiszy <kbd>Shift</kbd> + <kbd>F10</kbd> aby otworzyć konsolę <span class="color-green">CMD</span>.</li>
 <li>W konsoli CMD wpisz poniższą komendę i naciśnij <kbd>Enter</kbd>:</li>
 </ol>
@@ -420,7 +565,27 @@
 </code></pre>
 <p>Komputer uruchomi się ponownie. Po załadowaniu OOBE, obok przycisku <kbd class="win-menu-btn">Dalej</kbd> pojawi się ukryta wcześniej opcja:<br><span class="color-blue">"Nie mam internetu"</span>. </p>
 <p>Jej kliknięcie ostatecznie omija proces chmurowy i pozwala założyć typowe konto lokalne (<span class="color-blue">offline</span>), trzymane wyłącznie na Twoim dysku.</p>
-<p><img src="/courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok4.webp" alt="Konfiguracja - opcja " nie="" mam="" internetu""=""></p>
+<p>&lt;img src="<a href="https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok4.webp">https://raw.githubusercontent.com/Edu-Koala-V/Courses/main/Courses/windows-11/Images/konfiguracja-poinstalacyjna-win11-krok4.webp</a>" alt="Konfiguracja – opcja "Nie mam internetu"" width="1026" height="854" class="lazy‑image" loading="lazy" decoding="async"&gt;</p>
+<hr>
+<data-gate>
+  <data-quiz>
+    <question><p>Dlaczego komenda <code>oobe\bypassnro</code> wymusza na maszynie twardy restart komputera, zamiast w locie udostępnić przycisk "Nie mam internetu"?</p>
+</question>
+    <options>
+      <option correct=""><p>To skrypt, który wstrzykuje flagę wyłączającą uciążliwy proces do rejestru Windowsa. Kreator OOBE sprawdza wytyczne z tego rejestru tylko podczas swojego starcia z jądrem – dlatego restart jest konieczny.</p>
+</option>
+      <option><p>Komenda pobiera z sieci i w locie dekompiluje fałszywy klucz weryfikacyjny od Microsoftu, a do tej akcji UEFI wymaga zresetowania RAMu.</p>
+</option>
+      <option><p>Wykonując komendę wyłączasz w systemie wirtualne zasilanie karty sieciowej, za co instalator obraża się wywalając system przed jego odpaleniem graficznym.</p>
+</option>
+    </options>
+    <div data-hint="error"><p>Złe założenie. Komenda wstrzykuje wytyczne wyłączające do rejestru. Karta sieciowa i klucze licencyjne nie mają tu znaczenia – Windows musi po prostu uruchomić się ponownie, żeby instalator odczytał te modyfikacje w rejestrze i ukrył blokadę konta lokalnego.</p>
+</div>
+    <div data-hint="success"><p>W punkt. Komenda wpisuje odpowiedni dopisek do bazy rejestru. Restart zmusza OOBE do załadowania tych danych ponownie – tym razem odczytując zignorowanie przymusowych połączeń do konta Microsoft.</p>
+</div>
+  </data-quiz>
+</data-gate>
+
 <hr>
 </section><section class="lesson-section" data-lesson-section="true"><h2>🔗 Połącz Koncepcje Instalacji Systemowych</h2>
 <p>Poniższy test kompetencyjny wymusza zestawienie pojęć inżynieryjnych ze spotykanymi w procesie instalacyjnym procedurami i skrótami.</p>
@@ -435,51 +600,6 @@
 </data-gate>
 
 <hr>
-<details class="deep-dive">
-<summary><span class="deep-dive-title">🔬 Pod maską: Architektura UEFI Long Mode, EFI Boot Services i sekwencja ładowania winload.efi</span><span class="deep-dive-badge">UEFI Firmware &amp; NT Boot Sequence</span></summary>
-
-<p>Proces rozruchu nowoczesnego systemu operacyjnego na płycie głównej UEFI diametralnie różni się od archaicznego sektora MBR z czasów BIOS‑u. W architekturze UEFI procesor od pierwszej chwili po przejęciu kontroli działa w 64‑bitowym trybie <span class="color-green">Long Mode</span>, a nie w 16‑bitowym trybie rzeczywistym (<span class="color-blue">Real Mode</span>).</p>
-<h3>1. Dwie fazy działania oprogramowania układowego (Firmware)</h3>
-<p>Standard UEFI definiuje dwa zestawy funkcji interfejsu API udostępnianych systemowi operacyjnemu:</p>
-<ol>
-<li><span class="color-green">EFI Boot Services</span>: Funkcje obsługi wejścia/wyjścia, alokacji pamięci, protokołów blokowych i grafiki GOP (<span class="color-blue">Graphics Output Protocol</span>). Usługi te działają wyłącznie podczas rozruchu.</li>
-<li><span class="color-green">EFI Runtime Services</span>: Minimalistyczny zestaw funkcji działających przez cały czas pracy systemu (np. odczyt zegara czasu rzeczywistego RTC, modyfikacja nieulotnych zmiennych NVRAM).</li>
-</ol>
-<h3>2. Sekwencja startowa Windows Boot Manager (`bootmgfw.efi`)</h3>
-<p>Gdy płyta główna inicjuje rozruch:</p>
-<ol>
-<li>Zmienna NVRAM <code>BootOrder</code> wskazuje ścieżkę do pliku <code>\EFI\Microsoft\Boot\bootmgfw.efi</code> na partycji systemowej EFI (FAT32).</li>
-<li><code>bootmgfw.efi</code> czyta konfigurację z bazy <span class="color-green">BCD</span> (<span class="color-blue">Boot Configuration Data</span>, plik <code>\EFI\Microsoft\Boot\BCD</code>), która zastąpiła stary plik <code>boot.ini</code>.</li>
-<li>Boot manager weryfikuje podpisy cyfrowe jądra i ładuje do pamięci właściwy program ładujący jądro: <span class="color-green"><code>winload.efi</code></span>.</li>
-</ol>
-<pre><code>   Płyta główna UEFI (Inicjalizacja 64-bit Long Mode)
-                    │
-                    ▼
-   Partycja EFI (FAT32): \EFI\Microsoft\Boot\bootmgfw.efi
-                    │
-                    ▼  (Weryfikacja bazy BCD)
-   \Windows\System32\boot\winload.efi
-                    │
-                    ├─ Inicjalizacja tablic stron pamięci PML4
-                    ├─ Załadowanie ntoskrnl.exe i hal.dll
-                    ├─ Załadowanie sterowników rozruchowych (Boot-Start Drivers)
-                    │
-                    ▼  Wywołanie: ExitBootServices()
-   ══════════════════════════════════════════════════════════════════
-   Przejęcie pełnej kontroli: ntoskrnl.exe (Windows NT Kernel)
-</code></pre>
-<h3>3. Moment przełomowy: `ExitBootServices()`</h3>
-<p>Do momentu zakończenia pracy przez <code>winload.efi</code> pamięcią RAM i przerwaniami zarządza oprogramowanie płyty głównej UEFI.<br>Gdy <code>winload.efi</code> załaduje do pamięci jądro <code>ntoskrnl.exe</code>, bibliotekę <code>hal.dll</code> oraz sterowniki dyskowe o typie startu <code>BOOT_START</code> (np. <code>stornvme.sys</code>), wykonuje kluczowe wywołanie systemowe UEFI:</p>
-<pre><code class="language-c">gBS-&gt;ExitBootServices(ImageHandle, MapKey);
-</code></pre>
-<p>W tym ułamku milisekundy:</p>
-<ul>
-<li>Płyta główna bezpowrotnie zwalnia całą pamięć zajmowaną przez sterowniki UEFI Boot Services.</li>
-<li><code>ntoskrnl.exe</code> konfiguruje własne, dedykowane tablice stron w rejestrze kontrolnym <code>CR3</code>, instaluje tablicę wektorów przerwań IDT (<span class="color-blue">Interrupt Descriptor Table</span>) i przejmuje wyłączną kontrolę nad procesorem fizycznym komputera.</li>
-</ul>
-</details>
-
-<hr>
 <h3><span class="header-koala"><span>🦾</span><span>🐨</span><span>🦾</span></span> Co masz wynieść z tej lekcji:</h3>
 <ul>
 <li>W dowolnym momencie instalatora Windows można wywołać konsolę CMD kombinacją <kbd>Shift</kbd> + <kbd>F10</kbd>. Daje to bezpośredni dostęp do narzędzi takich jak <code>diskpart</code> czy skryptu <code>oobe\bypassnro</code>. 🥷</li>
@@ -488,6 +608,9 @@
 <li>Windows 11 wymaga do działania partycji o pojemności co najmniej $64\text{ GB}$.</li>
 <li>Instalator automatycznie dzieli dysk według układu partycji GPT (<span class="color-blue">GUID Partition Table</span>), pod warunkiem, że sam nośnik nie narzuca starszej struktury MBR.</li>
 </ul>
+<hr>
+<p>Czy teraz u siebie zastosujesz <span class="color-blue">tabula rasa</span>? 😅</p>
+<p>W następnej lekcji poznasz przydatne skróty klawiszowe i różnicę między GUI, a CLI.</p>
 </section>
         </article>
 
